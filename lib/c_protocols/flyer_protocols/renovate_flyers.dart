@@ -3,6 +3,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
@@ -24,7 +25,13 @@ class RenovateFlyerProtocols {
     @required BzModel bzModel,
     @required bool sendFlyerUpdateNoteToItsBz,
     @required bool updateFlyerLocally,
+    @required bool resetActiveBz,
   }) async {
+
+    assert(
+    (resetActiveBz == true && updateFlyerLocally == true) || (resetActiveBz == false)
+    , 'RenovateFlyerProtocols renovate : CAN NOT resetActiveBz IF updateFlyerLocally is false');
+
     /// NOTES : UPDATE FIRE OPS + SEND NOTE TO BZ
     blog('RenovateFlyerProtocols.renovate : START');
 
@@ -49,7 +56,8 @@ class RenovateFlyerProtocols {
       await updateLocally(
         context: context,
         flyerModel: _uploadedFlyer,
-        notify: true,
+        notifyFlyerPro: true,
+        resetActiveBz: resetActiveBz,
       );
     }
 
@@ -60,7 +68,8 @@ class RenovateFlyerProtocols {
   static Future<void> updateLocally({
     @required BuildContext context,
     @required FlyerModel flyerModel,
-    @required bool notify,
+    @required bool notifyFlyerPro,
+    @required bool resetActiveBz,
   }) async {
     blog('RenovateFlyerProtocols.updateLocally : START');
 
@@ -71,8 +80,12 @@ class RenovateFlyerProtocols {
       final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
       _flyersProvider.updateFlyerInAllProFlyers(
           flyerModel: flyerModel,
-          notify: notify
+          notify: notifyFlyerPro
       );
+
+      if (resetActiveBz == true){
+        BzzProvider.resetActiveBz(context);
+      }
 
     }
 
