@@ -833,6 +833,7 @@ class NoteModel {
     return _output;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesFromNotesByNoteType({
     @required List<NoteModel> notes,
     @required NoteType noteType,
@@ -852,7 +853,6 @@ class NoteModel {
     }
 
     return _output;
-
   }
   // -----------------------------------------------------------------------------
 

@@ -29,7 +29,6 @@ class ComposeFlyerProtocol {
     @required FlyerModel flyerToPublish,
     @required BzModel bzModel,
   }) async {
-
     blog('ComposeFlyerProtocol.compose : START');
 
     /// FIRE BASE --------------------------------------

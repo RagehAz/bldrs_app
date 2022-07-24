@@ -18,6 +18,7 @@ class WaitDialog extends StatelessWidget {
   final bool canManuallyGoBack;
   final String loadingPhrase;
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> showWaitDialog({
     @required BuildContext context,
     bool canManuallyGoBack,
@@ -35,6 +36,7 @@ class WaitDialog extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void closeWaitDialog(BuildContext context) {
     Nav.goBack(context);
   }
