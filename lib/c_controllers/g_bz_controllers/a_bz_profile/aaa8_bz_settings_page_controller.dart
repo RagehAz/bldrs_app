@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------

@@ -18,7 +18,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -73,46 +73,62 @@ Future<void> onAuthorOptionsTap({
     ability: AuthorAbility.canRemoveOtherAuthor,
   );
 
+  final String _authorName = authorModel?.name ?? '...';
+
   final List<Widget> _buttons = <Widget>[
 
     /// CHANGE ROLE
     BottomDialog.wideButton(
       context: context,
-      verse: 'Change team role for ${authorModel.name}',
+      verse: 'Change team role for $_authorName',
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
         context: context,
         authorModel: authorModel,
       ),
-      onTap: () => _onChangeAuthorRole(
-        context: context,
-        bzModel: bzModel,
-        authorModel: authorModel,
-      ),
+      onTap: () async {
+
+        /// TO CLOSE BOTTOM DIALOG
+        Nav.goBack(context);
+
+        await _onChangeAuthorRole(
+          context: context,
+          bzModel: bzModel,
+          authorModel: authorModel,
+        );
+
+      },
     ),
 
     /// EDIT AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: 'Edit ${authorModel.name} Author details',
+      verse: 'Edit $_authorName Author details',
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
         context: context,
         authorModel: authorModel,
       ),
-      onTap: () => _onEditAuthor(
-        context: context,
-        bzModel: bzModel,
-        authorModel: authorModel,
-      ),
+      onTap: () async {
+
+        /// TO CLOSE BOTTOM DIALOG
+        Nav.goBack(context);
+
+        await _onEditAuthor(
+          context: context,
+          bzModel: bzModel,
+          authorModel: authorModel,
+        );
+
+      },
     ),
 
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: 'Remove ${authorModel.name} from the team',
+      verse: 'Remove $_authorName from the team',
       icon: Iconz.xSmall,
       isDeactivated: !_canRemoveAuthor,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(

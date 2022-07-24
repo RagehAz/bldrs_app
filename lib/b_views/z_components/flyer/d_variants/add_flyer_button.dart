@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/d_variants/abstract_header.dart
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

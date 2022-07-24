@@ -16,7 +16,7 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

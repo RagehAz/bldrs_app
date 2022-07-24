@@ -8,7 +8,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------

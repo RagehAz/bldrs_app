@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

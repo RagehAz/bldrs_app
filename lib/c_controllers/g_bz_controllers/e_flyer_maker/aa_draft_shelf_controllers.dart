@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';

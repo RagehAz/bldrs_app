@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 // import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 
 /// OLD LOGO SCREEN
 class OldLogoScreen extends StatefulWidget {

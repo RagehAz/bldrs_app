@@ -17,7 +17,7 @@ import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -130,7 +130,6 @@ Future<void> onSignOut(BuildContext context) async {
   _bzzProvider.clearFollowedBzz(notify: false,);
   _bzzProvider.clearSponsors(notify: false,);
   _bzzProvider.clearMyActiveBz(notify: false);
-  _bzzProvider.clearActiveBzFlyers(notify: true);
 
   /// CLEAR USER
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);

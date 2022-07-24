@@ -6,7 +6,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_viewer_screen.dart';

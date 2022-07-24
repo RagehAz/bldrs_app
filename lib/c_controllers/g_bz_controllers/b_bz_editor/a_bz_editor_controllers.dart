@@ -7,11 +7,12 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -23,7 +24,7 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -315,63 +316,68 @@ Future<void> _firstTimerCreateNewBzOps({
     userModel: userModel,
   );
 
+  blog('_firstTimerCreateNewBzOps : bosss bosss');
+
   /// ON SUCCESS
   if (_uploadedBzModel != null){
+
+    blog('_firstTimerCreateNewBzOps : _uploadedBzModel != null : ahooooooooooo');
+    // await BzProtocol.addMyNewCreatedBzLocally( );
 
     /// LDB CREATE BZ OPS
     await BzLDBOps.insertBz(
       bzModel: _uploadedBzModel,
     );
     /// LDB UPDATE USER MODEL
-    await UserLDBOps.addBzIDToMyBzzIDs(
+    await UserLDBOps.addBzIDToMyBzzIDs( /// TASK : should update user local protocol
       userModel: userModel,
       bzIDToAdd: _uploadedBzModel.id,
     );
 
+    blog('_firstTimerCreateNewBzOps : 1');
+
     /// SET BZ MODEL LOCALLY
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
+    blog('_firstTimerCreateNewBzOps : 2');
     final BzModel _bzModelWithCompleteZoneModel = await completeBzZoneModel(
         context: context,
         bzModel: _uploadedBzModel
     );
-
+    blog('_firstTimerCreateNewBzOps : 3');
     _bzzProvider.addBzToMyBzz(
-      bzModel: _bzModelWithCompleteZoneModel,
-      notify: false,
-    );
-
-    _bzzProvider.setActiveBz(
       bzModel: _bzModelWithCompleteZoneModel,
       notify: true,
     );
-
+    blog('_firstTimerCreateNewBzOps : 4');
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _usersProvider.addBzIDToMyBzzIDs(
         bzIDToAdd: _bzModelWithCompleteZoneModel.id,
         notify: true,
     );
-
+    blog('_firstTimerCreateNewBzOps : 5');
     /// CLOSE WAIT DIALOG
     WaitDialog.closeWaitDialog(context);
 
-    /// NAVIGATE
-    Nav.goBackToHomeScreen(context);
-    unawaited(Nav.goToNewScreen(
-          context: context,
-          transitionType: PageTransitionType.fade,
-          screen: const MyBzScreen(),
-        )
-    );
+    blog('_firstTimerCreateNewBzOps : 6');
 
     /// SHOW SUCCESS DIALOG
     await TopDialog.showTopDialog(
       context: context,
       firstLine: 'Great !',
-      secondLine: 'Successfully created your Business Account',
+      secondLine: 'Successfully created your Business Account\n system will reboot now',
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
+
+    blog('_firstTimerCreateNewBzOps : 6');
+
+    /// NAVIGATE
+    await Nav.goRebootToInitNewBzScreen(
+      context: context,
+      bzID: _bzModelWithCompleteZoneModel.id,
+    );
+
+    blog('_firstTimerCreateNewBzOps : 7');
 
   }
 

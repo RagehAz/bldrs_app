@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/cc_specs_pickers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 class SpecsPickersScreen extends StatefulWidget {

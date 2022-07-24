@@ -13,7 +13,7 @@ import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 
 // -----------------------------------------------------------------------------
 

@@ -238,16 +238,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               onTap: () => bzzProvider.myActiveBz?.zone?.cityModel?.blogCity(),
             ),
 
-            /// ACTIVE BZ FLYERS
-            ProviderTestButton(
-              title: 'bzzProvider.myActiveBzFlyers',
-              value: bzzProvider.myActiveBzFlyers,
-              onTap: () => FlyerModel.blogFlyers(
-                  flyers: bzzProvider.myActiveBzFlyers,
-                  methodName: 'ProviderTestButton',
-              ),
-            ),
-
             /// ZONE -------------------------------------------------------------
 
             const SeparatorLine(),
