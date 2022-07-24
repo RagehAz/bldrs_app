@@ -2,6 +2,8 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -45,6 +47,8 @@ class ObeliskPyramids extends StatelessWidget {
 
       child: GestureDetector(
         onTap: (){
+
+          blog('the userID : ${AuthFireOps.superUserID()}');
 
           /// TO OPEN PYRAMIDS
           if (isExpanded.value == null || isExpanded.value == false){

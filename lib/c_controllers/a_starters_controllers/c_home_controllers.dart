@@ -34,7 +34,7 @@ import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -781,7 +781,7 @@ void initializeMyBzzNotes(BuildContext context){
 
     for (final BzModel bzModel in _myBzz){
 
-      _onBzNotesStreamDataChanged(
+      initializeBzNotesStream(
         context: context,
         bzID: bzModel.id,
       );
@@ -839,7 +839,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
   return _oldMaps;
 }
 // -------------------------------
-void _onBzNotesStreamDataChanged({
+void initializeBzNotesStream({
   @required BuildContext context,
   @required String bzID,
 }){

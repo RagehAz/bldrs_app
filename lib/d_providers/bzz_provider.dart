@@ -1,8 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart' as LDBDoc;
@@ -137,7 +135,7 @@ class BzzProvider extends ChangeNotifier {
 
     // / NO NEED TO CLEAR LAST INSTANCE IN ACTIVE BZ AS WE WILL NAVIGATE BACK
     // / TO HOME SCREEN, THEN RESET MY ACTIVE BZ ON NEXT BZ SCREEN OPENING
-    if (bzID == _myActiveBz?.id){
+    if (bzID != _myActiveBz?.id){
       clearMyActiveBz(
         notify: notify,
       );
@@ -448,37 +446,14 @@ class BzzProvider extends ChangeNotifier {
 
 // -------------------------------------
   BzModel _myActiveBz;
-  List<FlyerModel> _myActiveBzFlyers = <FlyerModel>[];
-// -----------------------------------------------------------------------------
-  BzModel get myActiveBz {
-    return _myActiveBz;
-  }
-  List<FlyerModel> get myActiveBzFlyers{
-
-    blog('GETTING _myActiveBzFlyers : ${_myActiveBzFlyers.length} flyers');
-
-    return _myActiveBzFlyers;
-  }
-// -----------------------------------------------------------------------------
-  Future<void> fetchSetActiveBzFlyers({
+  BzModel get myActiveBz => _myActiveBz;
+// -------------------------------------
+  static BzModel proGetActiveBzModel({
     @required BuildContext context,
-    @required String bzID,
-    @required bool notify,
-  }) async {
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-    final List<FlyerModel> _flyers = await _flyersProvider.fetchAllBzFlyersByBzID(
-        context: context,
-        bzID: bzID,
-    );
-
-    blog('getsetActiveBzFlyers : got ${_flyers?.length} flyers');
-
-    setActiveBzFlyers(
-      flyers: _flyers,
-      notify: notify,
-    );
-
+    @required bool listen,
+  }) {
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    return _bzzProvider.myActiveBz;
   }
 // -------------------------------------
   void setActiveBz({
@@ -494,95 +469,6 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
 
-  }
-// -------------------------------------
-  void setActiveBzFlyers({
-    @required List<FlyerModel> flyers,
-    @required bool notify,
-  }){
-
-    blog('_setActiveBzFlyers : ${flyers.length} flyers');
-    _myActiveBzFlyers = <FlyerModel>[...flyers];
-
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void updateFlyerInActiveBzFlyers({
-    @required FlyerModel flyer,
-    @required bool insertIfAbsent,
-    @required bool notify,
-  }){
-
-    if (flyer != null){
-
-      _myActiveBzFlyers = FlyerModel.replaceFlyerInFlyers(
-        flyers: _myActiveBzFlyers,
-        flyerToReplace: flyer,
-        insertIfAbsent: insertIfAbsent,
-      );
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-// -------------------------------------
-  void removeFlyerFromActiveBzFlyers({
-    @required String flyerID,
-    @required bool notify,
-  }){
-
-    if (flyerID != null){
-
-      _myActiveBzFlyers = FlyerModel.removeFlyerFromFlyersByID(
-        flyers: _myActiveBzFlyers,
-        flyerIDToRemove: flyerID,
-      );
-
-      if (notify == true){
-        notifyListeners();
-      }
-
-    }
-
-  }
-// -------------------------------------
-  void removeFlyersFromActiveBzFlyers({
-    @required List<String> flyersIDs,
-    @required bool notify,
-  }){
-
-    if (Mapper.checkCanLoopList(flyersIDs) == true){
-
-      for (int i = 0; i < flyersIDs.length; i++){
-
-        bool _notify = false;
-        if (i + 1 == flyersIDs.length){
-          _notify = notify;
-        }
-
-        removeFlyerFromActiveBzFlyers(
-          flyerID: flyersIDs[i],
-          notify: _notify,
-        );
-
-      }
-
-    }
-
-  }
-// -------------------------------------
-  void clearActiveBzFlyers({
-  @required bool notify,
-}){
-    setActiveBzFlyers(
-      flyers: <FlyerModel>[],
-      notify: notify,
-    );
   }
 // -----------------------------------------------------------------------------
   void clearMyActiveBz({
@@ -644,22 +530,7 @@ class BzzProvider extends ChangeNotifier {
   /// PRO GETTERS
 
 // --------------------------------
-  static BzModel proGetActiveBzModel({
-    @required BuildContext context,
-    @required bool listen,
-}) {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
-    return _bzzProvider.myActiveBz;
-  }
-// --------------------------------
-  static List<FlyerModel> proGetActiveBzFlyers({
-    @required BuildContext context,
-    @required bool listen,
-}){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
-    return _bzzProvider.myActiveBzFlyers;
 
-}
 // -----------------------------------------------------------------------------
 
   /// WIPE OUT
@@ -685,9 +556,6 @@ class BzzProvider extends ChangeNotifier {
 
     /// _myActiveBz
     _bzzProvider.clearMyActiveBz(notify: false);
-
-    /// _myActiveBzFlyers
-    _bzzProvider.clearActiveBzFlyers(notify: false);
 
     /// _pendingAuthorshipInvitationsUsersIDs
     _bzzProvider.setPendingAuthorshipInvitations(
