@@ -112,6 +112,7 @@ class FlyerProtocol {
   }
    */
 // ----------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<void> localFlyerUpdateProtocol({
     @required BuildContext context,
@@ -137,6 +138,7 @@ class FlyerProtocol {
     blog('FlyerProtocol.localFlyerUpdateProtocol : END');
 
   }
+   */
 // -----------------------------------------------------------------------------
 
 /// DELETE
