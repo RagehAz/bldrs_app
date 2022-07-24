@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,6 @@ class BzCardScreen extends StatefulWidget {
 
 class _BzCardScreenState extends State<BzCardScreen> {
   // ZoneProvider _zoneProvider;
-  BzzProvider _bzzProvider;
 
   // BzModel _bzModel;
   // CountryModel _bzCountry;
@@ -68,7 +67,7 @@ class _BzCardScreenState extends State<BzCardScreen> {
     if (_isInit) {
       _triggerLoading().then((_) async {
 
-        final BzModel _bz = await _bzzProvider.fetchBzByID(
+        final BzModel _bz = await BzProtocols.fetchBz(
             context: context,
             bzID: widget.bzID,
         );

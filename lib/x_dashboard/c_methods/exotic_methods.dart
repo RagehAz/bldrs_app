@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
@@ -340,14 +340,13 @@ class ExoticMethods {
   /// Auth => can only be done in firebase
   /// security level => can only be done in firebase
 
-  final BzzProvider _bzProvider = Provider.of<BzzProvider>(context, listen: false);
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _oldUserModel = await _usersProvider.fetchUserByID(context: context, userID: oldUserID);
 
   final List<String> _oldUserFlyersIDs = <String>[];
 
   for (final String bzID in _oldUserModel.myBzzIDs){
-    final BzModel _bz = await _bzProvider.fetchBzByID(context: context, bzID: bzID);
+    final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: bzID);
     _oldUserFlyersIDs.addAll(_bz.flyersIDs);
     await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
   }

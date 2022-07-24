@@ -7,9 +7,9 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/record_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -27,8 +27,7 @@ Future<BzModel> getFlyerBzModel({
   @required FlyerModel flyerModel,
 }) async {
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  final BzModel _bzModel = await _bzzProvider.fetchBzByID(
+  final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: flyerModel?.bzID
   );

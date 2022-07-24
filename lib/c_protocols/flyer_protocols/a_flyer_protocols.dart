@@ -1,4 +1,3 @@
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/compose_flyers.dart';
@@ -45,7 +44,7 @@ class FlyerProtocols {
   static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
     @required List<String> flyersIDs,
-  }) => FetchFlyerProtocol.fetchFlyersByIDs(
+  }) => FetchFlyerProtocol.fetchFlyers(
       context: context,
       flyersIDs: flyersIDs
   );
