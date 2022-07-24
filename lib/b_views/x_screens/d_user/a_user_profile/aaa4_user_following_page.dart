@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
@@ -40,7 +40,7 @@ class UserFollowingPage extends StatelessWidget {
           final String _bzID = _followedBzzIds[index];
 
           return FutureBuilder(
-            future: BzzProvider.proFetchBzModel(context: context, bzID: _bzID),
+            future: BzProtocols.fetchBz(context: context, bzID: _bzID),
             builder: (_, AsyncSnapshot<BzModel> bzModel){
               return BzLongButton(
                 bzModel: bzModel?.data,

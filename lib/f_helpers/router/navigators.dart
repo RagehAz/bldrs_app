@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -231,7 +232,7 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
-    final BzModel _bzModel = await _bzzProvider.fetchBzByID(
+    final BzModel _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: bzID,
     );
