@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -16,10 +17,10 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class RenovateBzProtocol {
+class RenovateBzProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateBzProtocol();
+  RenovateBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<BzModel> renovateBz({
@@ -166,7 +167,7 @@ class RenovateBzProtocol {
     if (bzModel != null){
 
       /// COMPLETED ZONE MODEL
-      final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
+      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: bzModel.zone,
       );

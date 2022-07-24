@@ -11,10 +11,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class WipeBzProtocol {
+class WipeBzProtocols {
 // -----------------------------------------------------------------------------
 
-  WipeBzProtocol();
+  WipeBzProtocols();
 
 // -----------------------------------------------------------------------------
 

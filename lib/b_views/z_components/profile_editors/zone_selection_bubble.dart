@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/x_screens/h_zoning/c_new_select_district_screen.da
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -98,7 +99,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 // -----------------------------------------------------------------------------
   Future<void> _initializeBubbleZone() async {
 
-    _selectedZone.value = await ZoneProvider.proFetchCompleteZoneModel(
+    _selectedZone.value = await ZoneProtocols.completeZoneModel(
       context: context,
       incompleteZoneModel: _selectedZone.value,
     );
@@ -137,7 +138,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     else {
 
       _zone.blogZone(methodName: 'received zone');
-      _selectedZone.value =  await ZoneProvider.proFetchCompleteZoneModel(
+      _selectedZone.value =  await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: _zone,
       );
@@ -205,7 +206,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       /// WHEN SELECTED A CITY
       else {
-        _selectedZone.value = await ZoneProvider.proFetchCompleteZoneModel(
+        _selectedZone.value = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _zone,
         );
@@ -278,7 +279,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
         blog('got back with district : ${_zone.districtID}');
 
-        _selectedZone.value = await ZoneProvider.proFetchCompleteZoneModel(
+        _selectedZone.value = await ZoneProtocols.completeZoneModel(
           context: context,
           incompleteZoneModel: _zone,
         );
