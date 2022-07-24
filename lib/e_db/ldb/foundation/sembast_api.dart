@@ -127,7 +127,7 @@ class Sembast  {
       docName: docName,
     );
 
-    final String _primaryKey = getPrimaryKey(docName);
+    final String _primaryKey = LDBOps.getPrimaryKey(docName);
     final String _objectID = map[_primaryKey];
 
     final Finder _finder = Finder(
@@ -210,7 +210,7 @@ class Sembast  {
             docName: docName,
         );
 
-        final String _primaryKey = getPrimaryKey(docName);
+        final String _primaryKey = LDBOps.getPrimaryKey(docName);
 
         final List<Map<String, dynamic>> _cleanedMaps = Mapper.cleanMapsOfDuplicateIDs(
           /// do not change this order of maps to overwrite the new values
@@ -454,7 +454,7 @@ class Sembast  {
         docName: docName
     );
     final Database _db = await _getDB();
-    final String _primaryKey = getPrimaryKey(docName);
+    final String _primaryKey = LDBOps.getPrimaryKey(docName);
 
     final Finder _finder = Finder(
       filter: Filter.equals(_primaryKey, objectID),
@@ -512,7 +512,7 @@ class Sembast  {
 
     if (Mapper.checkCanLoopList(_allMaps) == true){
 
-      final String _primaryKey = getPrimaryKey(docName);
+      final String _primaryKey = LDBOps.getPrimaryKey(docName);
 
       for (final Map<String, Object> map in _allMaps) {
 
@@ -561,7 +561,7 @@ class Sembast  {
       await tryAndCatch(
         functions: () async {
 
-          final String _primaryKey = getPrimaryKey(docName);
+          final String _primaryKey = LDBOps.getPrimaryKey(docName);
           final String _objectID = map[_primaryKey];
 
           _map = await findFirst(

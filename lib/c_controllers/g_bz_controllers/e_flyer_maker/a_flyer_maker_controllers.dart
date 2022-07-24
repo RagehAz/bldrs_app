@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -558,9 +558,15 @@ Future<void> _publishFlyerOps({
     publishState: PublishState.published,
   );
 
-  await FlyerProtocol.createFlyerByActiveBzProtocol(
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
-      flyerToPublish: _flyerToPublish,
+      listen: false,
+  );
+
+  await FlyerProtocols.composeFlyer(
+    context: context,
+    flyerModel: _flyerToPublish,
+    bzModel: _bzModel,
   );
 
   WaitDialog.closeWaitDialog(context);
@@ -591,10 +597,18 @@ Future<void> _updateFlyerOps({
 
     final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();
 
-    await FlyerProtocol.updateFlyerByActiveBzProtocol(
-      context: context,
-      flyerToPublish: _flyerToUpdate,
-      oldFlyer: oldFlyer,
+    final BzModel _bzModel = await BzzProvider.proFetchBzModel(
+        context: context,
+        bzID: oldFlyer.bzID,
+    );
+
+    await FlyerProtocols.renovateFlyer(
+        context: context,
+        newFlyer: _flyerToUpdate,
+        oldFlyer: oldFlyer,
+        bzModel: _bzModel,
+        sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
+        updateFlyerLocally: _bzModel.authors.length == 1,
     );
 
     WaitDialog.closeWaitDialog(context);

@@ -13,8 +13,8 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
@@ -276,7 +276,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     }
 
     /// DELETE ALL AUTHOR FLYERS EVERY WHERE THEN UPDATE BZ EVERYWHERE
-    final List<FlyerModel> _flyers = await FlyersProvider.proFetchFlyers(
+    final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
       context: context,
       flyersIDs: authorModel.flyersIDs,
     );
