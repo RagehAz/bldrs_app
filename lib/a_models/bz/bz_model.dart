@@ -419,6 +419,7 @@ class BzModel{
   /// MODIFIERS
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static BzModel removeFlyerIDFromBzAndAuthor({
     @required BzModel bzModel,
     @required FlyerModel flyer,

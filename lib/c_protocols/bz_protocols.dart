@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
-import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols.dart';
@@ -346,7 +345,7 @@ class BzProtocol {
         flyersIDs: bzModel.flyersIDs
     );
 
-    await FlyerProtocol.deleteMultipleBzFlyersProtocol(
+    await FlyerProtocols.wipeFlyers(
         context: context,
         bzModel: bzModel,
         flyers: _flyers,

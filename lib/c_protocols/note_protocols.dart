@@ -290,7 +290,7 @@ class NoteProtocol {
 
   }
 // ----------------------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
     @required BzModel bzModel,
