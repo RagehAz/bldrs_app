@@ -92,6 +92,7 @@ class FlyersProvider extends ChangeNotifier {
   /// MODIFY / DELETE FLYER FROM FLYERS PROVIDER
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void removeFlyerFromProFlyers({
     @required String flyerID,
     @required bool notify,

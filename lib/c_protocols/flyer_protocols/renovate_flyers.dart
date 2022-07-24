@@ -56,6 +56,7 @@ class RenovateFlyerProtocols {
     blog('RenovateFlyerProtocols.renovate : END');
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -77,4 +78,5 @@ class RenovateFlyerProtocols {
 
     blog('RenovateFlyerProtocols.updateLocally : END');
   }
+// ----------------------------------
 }
