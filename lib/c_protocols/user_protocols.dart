@@ -6,7 +6,8 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/record_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -358,7 +359,7 @@ class UserProtocol {
     if (Mapper.checkCanLoopList(_bzzIDs) == true){
 
       for (final String bzID in _bzzIDs){
-        await BzProtocol.deleteMyAuthorPicProtocol(
+        await AuthorProtocols.deleteMyAuthorPicProtocol(
           context: context,
           bzID: bzID,
         );
@@ -391,13 +392,13 @@ class UserProtocol {
 
       for (final BzModel bzModel in _myBzzICreated){
 
-        await BzProtocol.deleteBzProtocol(
+        await BzProtocols.wipeBz(
           context: context,
           bzModel: bzModel,
           showWaitDialog: true,
         );
 
-        await BzProtocol.localBzDeletionProtocol(
+        await BzProtocols.deleteLocally(
             context: context,
             bzID: bzModel.id,
         );

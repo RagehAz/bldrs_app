@@ -1,35 +1,21 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -210,7 +196,7 @@ Future<void> onBzEditsConfirmTap({
     if (_canContinue == true){
 
       if (firstTimer == true){
-        await _firstTimerCreateNewBzOps(
+        await BzProtocols.composeBz(
           context: context,
           newBzModel: _newBzModel,
           userModel: userModel,
@@ -218,35 +204,14 @@ Future<void> onBzEditsConfirmTap({
       }
 
       else {
-        await _updateBzOps(
+        await BzProtocols.renovateBz(
           context: context,
           newBzModel: _newBzModel,
           oldBzModel: initialBzModel,
+          showWaitDialog: true,
+          navigateToBzInfoPageOnEnd: true,
         );
       }
-
-
-
-      // /// ON SUCCESS
-      // if (_uploadedBzModel != null){
-      //
-      //
-      // }
-      //
-      // /// ON FAILURE
-      // else {
-      //
-      //   /// CLOSE WAIT DIALOG
-      //   WaitDialog.closeWaitDialog(context);
-      //
-      //   /// FAILURE DIALOG
-      //   await CenterDialog.showCenterDialog(
-      //     context: context,
-      //     title: 'Ops !',
-      //     body: 'Something went wrong, Please try again',
-      //   );
-      //
-      // }
 
     }
 
@@ -296,178 +261,6 @@ Future<bool> _validateInputs({
   }
 
   return _inputsAreValid;
-}
-// ----------------------------------
-Future<void> _firstTimerCreateNewBzOps({
-  @required BuildContext context,
-  @required BzModel newBzModel,
-  @required UserModel userModel,
-}) async {
-
-  unawaited(WaitDialog.showWaitDialog(
-    context: context,
-    loadingPhrase: 'Creating a new Business Account',
-  ));
-
-  /// FIREBASE CREATE BZ OPS
-  final BzModel _uploadedBzModel = await BzFireOps.createBz(
-    context: context,
-    draftBz: newBzModel,
-    userModel: userModel,
-  );
-
-  blog('_firstTimerCreateNewBzOps : bosss bosss');
-
-  /// ON SUCCESS
-  if (_uploadedBzModel != null){
-
-    blog('_firstTimerCreateNewBzOps : _uploadedBzModel != null : ahooooooooooo');
-    // await BzProtocol.addMyNewCreatedBzLocally( );
-
-    /// LDB CREATE BZ OPS
-    await BzLDBOps.insertBz(
-      bzModel: _uploadedBzModel,
-    );
-    /// LDB UPDATE USER MODEL
-    await UserLDBOps.addBzIDToMyBzzIDs( /// TASK : should update user local protocol
-      userModel: userModel,
-      bzIDToAdd: _uploadedBzModel.id,
-    );
-
-    blog('_firstTimerCreateNewBzOps : 1');
-
-    /// SET BZ MODEL LOCALLY
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    blog('_firstTimerCreateNewBzOps : 2');
-    final BzModel _bzModelWithCompleteZoneModel = await completeBzZoneModel(
-        context: context,
-        bzModel: _uploadedBzModel
-    );
-    blog('_firstTimerCreateNewBzOps : 3');
-    _bzzProvider.addBzToMyBzz(
-      bzModel: _bzModelWithCompleteZoneModel,
-      notify: true,
-    );
-    blog('_firstTimerCreateNewBzOps : 4');
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider.addBzIDToMyBzzIDs(
-        bzIDToAdd: _bzModelWithCompleteZoneModel.id,
-        notify: true,
-    );
-    blog('_firstTimerCreateNewBzOps : 5');
-    /// CLOSE WAIT DIALOG
-    WaitDialog.closeWaitDialog(context);
-
-    blog('_firstTimerCreateNewBzOps : 6');
-
-    /// SHOW SUCCESS DIALOG
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Great !',
-      secondLine: 'Successfully created your Business Account\n system will reboot now',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    );
-
-    blog('_firstTimerCreateNewBzOps : 6');
-
-    /// NAVIGATE
-    await Nav.goRebootToInitNewBzScreen(
-      context: context,
-      bzID: _bzModelWithCompleteZoneModel.id,
-    );
-
-    blog('_firstTimerCreateNewBzOps : 7');
-
-  }
-
-  /// ON FAILURE
-  else {
-
-    /// CLOSE WAIT DIALOG
-    WaitDialog.closeWaitDialog(context);
-
-    await _failureDialog(context);
-
-  }
-
-
-}
-// ----------------------------------
-Future<void> _updateBzOps({
-  @required BuildContext context,
-  @required BzModel newBzModel,
-  @required BzModel oldBzModel,
-}) async {
-
-  unawaited(WaitDialog.showWaitDialog(
-    context: context,
-    loadingPhrase: 'Updating Business account',
-  ));
-
-  /// FIREBASE UPDATE BZ OPS
-  final BzModel _uploadedBzModel = await BzFireOps.updateBz(
-    context: context,
-    newBzModel: newBzModel,
-    oldBzModel: oldBzModel,
-    authorPicFile: null,
-  );
-
-  /// ON SUCCESS
-  if (_uploadedBzModel != null){
-
-    await BzProtocol.myActiveBzLocalUpdateProtocol(
-        context: context,
-        newBzModel: _uploadedBzModel,
-        oldBzModel: oldBzModel
-    );
-
-    /// CLOSE WAIT DIALOG
-    WaitDialog.closeWaitDialog(context);
-
-    /// NAVIGATE
-    Nav.goBackToHomeScreen(context);
-    unawaited(
-        Nav.goToNewScreen(
-          context: context,
-          transitionType: PageTransitionType.fade,
-          screen: const MyBzScreen(
-            initialTab: BzTab.about,
-          ),
-        )
-    );
-
-    /// SHOW SUCCESS DIALOG
-    unawaited(TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Great !',
-      secondLine: 'Successfully updated your Business Account',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    ));
-
-    // /// GO BACK
-    // Nav.goBack(context);
-    // await Nav.replaceScreen(
-    //     context: context,
-    //     transitionType: PageTransitionType.fade,
-    //     screen: const MyBzScreen(
-    //       initialTab: BzTab.about,
-    //     ),
-    // );
-
-  }
-
-  /// OF FAILURE
-  else {
-
-  /// CLOSE WAIT DIALOG
-  WaitDialog.closeWaitDialog(context);
-
-  await _failureDialog(context);
-
-  }
-
 }
 // ----------------------------------
 /*
@@ -527,16 +320,5 @@ BzModel createBzModelFromLocalVariables({
   );
 
   return _bzModel;
-}
-// ----------------------------------
-Future<void> _failureDialog(BuildContext context) async {
-
-    /// FAILURE DIALOG
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Ops !',
-      body: 'Something went wrong, Please try again',
-    );
-
 }
 // ----------------------------------

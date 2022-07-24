@@ -2,13 +2,11 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -26,7 +24,7 @@ Future<void> initializeMyBzScreen({
   @required BzModel bzModel,
 }) async {
 
-  final BzModel _completedZoneBzModel = await completeBzZoneModel(
+  final BzModel _completedZoneBzModel = await BzProtocols.completeBzZoneModel(
     context: context,
     bzModel: bzModel,
   );
@@ -36,35 +34,6 @@ Future<void> initializeMyBzScreen({
     completedZoneBzModel: _completedZoneBzModel,
   );
 
-}
-// -------------------------------
-Future<BzModel> completeBzZoneModel({
-  @required BuildContext context,
-  @required BzModel bzModel,
-}) async {
-
-  blog('completeBzZoneModel : START');
-
-  BzModel _output = bzModel;
-
-  if (bzModel != null){
-
-    /// COMPLETED ZONE MODEL
-    final ZoneModel _completeZoneModel = await ZoneProvider.proFetchCompleteZoneModel(
-      context: context,
-      incompleteZoneModel: bzModel.zone,
-    );
-
-    /// COMPLETED BZ MODEL
-    _output = bzModel.copyWith(
-      zone: _completeZoneModel,
-    );
-
-  }
-
-  blog('completeBzZoneModel : END');
-
-  return _output;
 }
 // -------------------------------
 Future<void> _setBzModel({
@@ -137,7 +106,7 @@ Future<void> onMyActiveBzStreamChanged({
           fromJSON: false,
         );
 
-        await BzProtocol.myActiveBzLocalUpdateProtocol(
+        await BzProtocols.updateBzLocally(
           context: context,
           newBzModel: _newBzFromStream,
           oldBzModel: _oldBzModel,
