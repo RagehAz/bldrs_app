@@ -350,6 +350,7 @@ class BzFireOps {
     return _output;
   }
 // --------------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -396,7 +397,7 @@ class BzFireOps {
     return _updatedBzModel;
   }
 // --------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> updateAuthorPicIfChangedAndReturnNewBzModel({
     @required BuildContext context,
     @required BzModel bzModel,

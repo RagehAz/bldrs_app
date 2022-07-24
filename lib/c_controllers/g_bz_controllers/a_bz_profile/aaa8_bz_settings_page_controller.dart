@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/c_protocols/bz_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +44,7 @@ Future<void> onDeleteBzButtonTap({
 
   if (_canContinue == true){
 
-    await BzProtocol.deleteBzProtocol(
+    await BzProtocols.wipeBz(
       context: context,
       bzModel: bzModel,
       showWaitDialog: true,

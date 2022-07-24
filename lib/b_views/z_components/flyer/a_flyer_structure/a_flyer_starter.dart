@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -10,9 +9,9 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/a_my_bz_screen_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/footer_controller.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -100,7 +99,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // ------------------------------------------
         /// BZ ZONE FIX
         if (mounted == true){
-          _bzModel = await completeBzZoneModel(
+          _bzModel = await BzProtocols.completeBzZoneModel(
             context: context,
             bzModel: _bzModel,
           );
