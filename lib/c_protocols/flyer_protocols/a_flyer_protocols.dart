@@ -70,6 +70,7 @@ class FlyerProtocols {
     updateFlyerLocally: updateFlyerLocally,
   );
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerLocally({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -79,7 +80,6 @@ class FlyerProtocols {
       flyerModel: flyerModel,
       notify: notify
   );
-
 // -----------------------------------------------------------------------------
 
 /// WIPE
