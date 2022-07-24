@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -11,17 +10,15 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
-import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -289,14 +286,18 @@ Future<void> _acceptAuthorshipInvitation({
     await CenterDialog.showCenterDialog(
       context: context,
       title: 'You have become an Author in ${bzModel.name}',
-      body: 'You can control the business account, publish flyers, reply to costumers on behalf of the business and more.',
+      body: 'You can control the business account, publish flyers,'
+          ' reply to costumers on behalf of the business and more.\n'
+          'a system reboot is required',
       confirmButtonText: 'Great',
     );
 
-    await goToMyBzScreen(
+    /// NOTE : a system reboot is required at that point
+    /// to allow home screen re-init my bzz notes stream to include this bz
+    /// and listen to its live notes
+    await Nav.goRebootToInitNewBzScreen(
       context: context,
       bzID: bzModel.id,
-      replaceCurrentScreen: true,
     );
 
   }
@@ -355,41 +356,3 @@ Future<void> _modifyNoteResponse({
 }
  */
 // ------------------------------------------
-
-/// NAVIGATION
-
-// -------------------
-Future<void> goToMyBzScreen({
-  @required BuildContext context,
-  @required String bzID,
-  @required bool replaceCurrentScreen,
-}) async {
-
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
-  final BzModel _bzModel = await _bzzProvider.fetchBzByID(
-    context: context,
-    bzID: bzID,
-  );
-
-  _bzzProvider.setActiveBz(
-    bzModel: _bzModel,
-    notify: true,
-  );
-
-  if (replaceCurrentScreen == true){
-    await Nav.replaceScreen(
-        context: context,
-        screen: const MyBzScreen()
-    );
-  }
-
-  else {
-    await Nav.goToNewScreen(
-        context: context,
-        screen: const MyBzScreen()
-    );
-  }
-
-
-}

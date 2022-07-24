@@ -136,7 +136,7 @@ class AuthorCard extends StatelessWidget {
 
                         /// NAME
                         SuperVerse(
-                          verse: author.name,
+                          verse: author.name ?? '...',
                           size: 3,
                           centered: false,
                         ),

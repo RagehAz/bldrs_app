@@ -50,12 +50,7 @@ class FlyerProtocol {
     /// LDB --------------------------------------
     await FlyerLDBOps.insertFlyer(_uploadedFlyer);
 
-    /// PRO --------------------------------------
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.setActiveBzFlyers(
-      flyers: <FlyerModel>[..._bzzProvider.myActiveBzFlyers, _uploadedFlyer],
-      notify: false,
-    );
+    /// NOTE : no proFlyerOps needed, bzModel will update and stream will rebuild active bz flyers
 
     await RecordRealOps.incrementBzCounter(
         context: context,
@@ -132,16 +127,6 @@ class FlyerProtocol {
           flyerModel: flyerModel,
           notify: notify
       );
-
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-      final BzModel _activeBz = _bzzProvider.myActiveBz;
-      if (_activeBz?.id == flyerModel.bzID){
-        _bzzProvider.updateFlyerInActiveBzFlyers(
-          flyer: flyerModel,
-          notify: notify,
-          insertIfAbsent: insertInActiveBzFlyersIfAbsent,
-        );
-      }
 
     }
 
@@ -282,10 +267,6 @@ class FlyerProtocol {
               &&
               _bzzProvider.myActiveBz.id == _bzModel.id;
 
-      _bzzProvider.removeFlyersFromActiveBzFlyers(
-        flyersIDs: _flyersIDs,
-        notify: !_shouldUpdateMyActiveBz,
-      );
 
       /// BZ PRO UPDATE
       if (_shouldUpdateMyActiveBz == true){

@@ -1,6 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 /// GO BACK ON HORIZONTAL MAX BOUNCE
