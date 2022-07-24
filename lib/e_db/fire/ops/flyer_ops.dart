@@ -600,6 +600,7 @@ class FlyerFireOps {
   /// DELETE
 
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> deleteFlyerOps({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -655,6 +656,7 @@ class FlyerFireOps {
     return _uploadedBz;
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
     @required BuildContext context,
     @required FlyerModel flyer,
@@ -762,6 +764,7 @@ class FlyerFireOps {
 
   }
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> deleteMultipleBzFlyers({
     @required BuildContext context,
     @required List<FlyerModel> flyersToDelete,

@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -281,7 +280,7 @@ Future<void> _removeAuthorWhoHasFlyers({
       flyersIDs: authorModel.flyersIDs,
     );
 
-    final BzModel _updatedBzModel = await FlyerProtocol.deleteMultipleBzFlyersProtocol(
+    final BzModel _updatedBzModel = await FlyerProtocols.wipeFlyers(
       context: context,
       bzModel: bzModel,
       showWaitDialog: false,

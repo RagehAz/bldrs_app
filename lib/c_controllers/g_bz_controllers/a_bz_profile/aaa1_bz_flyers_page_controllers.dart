@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/c_protocols/flyer_protocols.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -138,9 +138,15 @@ Future<void> _onDeleteFlyerButtonTap({
 
   if (_result == true){
 
-    await FlyerProtocol.deleteSingleFlyerByActiveBzProtocol(
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
-      flyer: flyer,
+      listen: false,
+    );
+
+    await FlyerProtocols.wipeFlyer(
+      context: context,
+      flyerModel: flyer,
+      bzModel: _bzModel,
       showWaitDialog: true,
     );
 

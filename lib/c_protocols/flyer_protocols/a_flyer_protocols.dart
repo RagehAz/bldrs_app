@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/compose_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fetch_flyers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/renovate_flyers.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/wipe_flyers.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlyerProtocols {
@@ -44,7 +45,7 @@ class FlyerProtocols {
   static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
     @required List<String> flyersIDs,
-}) => FetchFlyerProtocol.fetchFlyersByIDs(
+  }) => FetchFlyerProtocol.fetchFlyersByIDs(
       context: context,
       flyersIDs: flyersIDs
   );
@@ -75,7 +76,7 @@ class FlyerProtocols {
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required bool notify,
-}) => RenovateFlyerProtocols.updateLocally(
+  }) => RenovateFlyerProtocols.updateLocally(
       context: context,
       flyerModel: flyerModel,
       notify: notify
@@ -84,5 +85,32 @@ class FlyerProtocols {
 
 /// WIPE
 
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeFlyer({
+    @required BuildContext context,
+    @required FlyerModel flyerModel,
+    @required BzModel bzModel,
+    @required bool showWaitDialog,
+}) => WipeFlyerProtocols.wipeFlyer(
+    context: context,
+    flyerModel: flyerModel,
+    bzModel: bzModel,
+    showWaitDialog: showWaitDialog,
+  );
+// ----------------------------------
+  static Future<BzModel> wipeFlyers({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required List<FlyerModel> flyers,
+    @required bool showWaitDialog,
+    @required bool updateBzEveryWhere,
+}) => WipeFlyerProtocols.wipeMultipleFlyers(
+    context: context,
+    bzModel: bzModel,
+    flyers: flyers,
+    showWaitDialog: showWaitDialog,
+    updateBzEveryWhere: updateBzEveryWhere,
+  );
 // ----------------------------------
 }

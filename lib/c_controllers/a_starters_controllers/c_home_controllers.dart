@@ -896,6 +896,7 @@ void initializeBzNotesStream({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   @required BuildContext context,
   @required List<NoteModel> newBzNotes,

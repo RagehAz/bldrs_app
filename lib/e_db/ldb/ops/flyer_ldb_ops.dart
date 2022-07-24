@@ -94,7 +94,7 @@ class FlyerLDBOps {
 /// DELETE
 
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyers (List<String> flyersIDs) async {
 
     await LDBOps.deleteMaps(
