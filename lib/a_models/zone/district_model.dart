@@ -142,6 +142,7 @@ class DistrictModel{
     return MapModel.sortValuesAlphabetically(_districtsMapModels);
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static DistrictModel getDistrictFromDistricts({
     @required List<DistrictModel> districts,
     @required String districtID
@@ -162,6 +163,7 @@ class DistrictModel{
   /// PHRASES
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getTranslatedDistrictNameFromCity({
     @required BuildContext context,
     @required CityModel city,

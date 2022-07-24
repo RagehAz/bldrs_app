@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/aa_user_editor_scre
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -121,7 +121,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
       if (widget.userModel?.zone == null){
-        final ZoneModel _superZone = await ZoneOps.superGetZoneByIP(context);
+        final ZoneModel _superZone = await ZoneFireOps.superGetZoneByIP(context);
         _zone.value = _superZone;
       }
 // -----------------------------------------------------------------

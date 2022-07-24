@@ -12,9 +12,10 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/zone_ops.dart' as ZoneOps;
+import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -98,7 +99,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         functions: () async {
           blog('getting location aho');
 
-          final Position _position = await ZoneOps.getGeoLocatorCurrentPosition();
+          final Position _position = await ZoneFireOps.getGeoLocatorCurrentPosition();
 
           blog('got position = $_position');
 
@@ -158,12 +159,12 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     if (_zoneModel != null) {
 
-      final CountryModel _country = await _zoneProvider.fetchCountryByID(
+      final CountryModel _country = await ZoneProtocols.fetchCountry(
           context: context,
           countryID: _zoneModel.countryID
       );
 
-      final CityModel _city = await _zoneProvider.fetchCityByID(
+      final CityModel _city = await ZoneProtocols.fetchCity(
           context: context,
           cityID: _zoneModel.cityID
       );
@@ -204,9 +205,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {
 
-                      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-                      final CityModel _result = await _zoneProvider.fetchCityByName(
+                      final CityModel _result = await ZoneProtocols.fetchCityByName(
                           context: context,
                           cityName: val,
                           langCode: 'en'
@@ -214,7 +213,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
                       if (_result != null) {
 
-                        final CountryModel _country = await _zoneProvider.fetchCountryByID(
+                        final CountryModel _country = await ZoneProtocols.fetchCountry(
                             context: context,
                             countryID: _result.countryID
                         );
