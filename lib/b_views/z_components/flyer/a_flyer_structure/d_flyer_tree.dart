@@ -16,7 +16,7 @@ import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/header_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

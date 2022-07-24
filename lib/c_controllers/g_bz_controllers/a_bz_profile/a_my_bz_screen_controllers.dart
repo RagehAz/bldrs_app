@@ -11,7 +11,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,7 @@ Future<void> initializeMyBzScreen({
     bzModel: bzModel,
   );
 
-  await _setBzModelAndFetchSetBzFlyers(
+  await _setBzModel(
     context: context,
     completedZoneBzModel: _completedZoneBzModel,
   );
@@ -42,6 +42,8 @@ Future<BzModel> completeBzZoneModel({
   @required BuildContext context,
   @required BzModel bzModel,
 }) async {
+
+  blog('completeBzZoneModel : START');
 
   BzModel _output = bzModel;
 
@@ -60,10 +62,12 @@ Future<BzModel> completeBzZoneModel({
 
   }
 
+  blog('completeBzZoneModel : END');
+
   return _output;
 }
 // -------------------------------
-Future<void> _setBzModelAndFetchSetBzFlyers({
+Future<void> _setBzModel({
   @required BuildContext context,
   @required BzModel completedZoneBzModel,
 }) async {
@@ -73,16 +77,8 @@ Future<void> _setBzModelAndFetchSetBzFlyers({
   /// SET ACTIVE BZ
   _bzzProvider.setActiveBz(
     bzModel: completedZoneBzModel,
-    notify: false,
-  );
-
-  /// SET ACTIVE BZ FLYERS
-  await _bzzProvider.fetchSetActiveBzFlyers(
-    context: context,
-    bzID: completedZoneBzModel.id,
     notify: true,
   );
-
 
 }
 // -----------------------------------------------------------------------------
@@ -213,7 +209,6 @@ void onCloseMyBzScreen({
   blog('onCloseMyBzScreen : CLOSING');
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  _bzzProvider.clearActiveBzFlyers(notify: false);
   _bzzProvider.clearMyActiveBz(notify: true);
   // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   // _notesProvider.clearPendingSentAuthorshipNotes(notify: true);

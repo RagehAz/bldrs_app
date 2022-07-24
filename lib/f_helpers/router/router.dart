@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
 import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart' as Nav;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:flutter/material.dart';
