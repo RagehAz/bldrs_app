@@ -6,7 +6,6 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -45,74 +44,130 @@ class Imagers {
 
 // ---------------------------------------
   static Future<List<File>> pickMultipleImages({
-  @required BuildContext context,
-}) async {
+    @required BuildContext context,
+    @required int maxAssets,
+    List<AssetEntity> selectedAssets,
+  }) async {
 
     final List<AssetEntity> pickedAssets = await AssetPicker.pickAssets(
       context,
-      // pickerConfig: AssetPickerConfig(
-      //   filterOptions: FilterOptionGroup(
-      //     audioOption: const FilterOption(
-      //       durationConstraint: DurationConstraint(
-      //         allowNullable: false,
-      //         max: const Duration(days: 1),
-      //         min: Duration.zero,
-      //       ),
-      //       needTitle: true,
-      //       sizeConstraint: SizeConstraint(
-      //         maxHeight: 100000,
-      //         minHeight: 0,
-      //         ignoreSize: true,
-      //         maxWidth: 100000,
-      //         minWidth: 0,
-      //       ),
-      //     ),
-      //     containsEmptyAlbum: true,
-      //     containsLivePhotos: true,
-      //     containsPathModified: true,
-      //     createTimeCond: DateTimeCond(
-      //       ignore: true,
-      //       min: 0,
-      //       max: ,
-      //     ),
-      //     imageOption: FilterOption(
-      //       sizeConstraint: SizeConstraint(
-      //         maxHeight: 100000,
-      //         minHeight: 0,
-      //         ignoreSize: true,
-      //         maxWidth: 100000,
-      //         minWidth: 0,
-      //       ),
-      //       needTitle: true,
-      //       durationConstraint: DurationConstraint(
-      //         allowNullable: false,
-      //         max: const Duration(days: 1),
-      //         min: Duration.zero,
-      //       ),
-      //     ),
-      //     onlyLivePhotos: false,
-      //     orders: <OrderOption>[
-      //       OrderOption(
-      //         asc: false,
-      //         type: OrderOptionType.createDate,
-      //       ),
-      //     ],
-      //       updateTimeCond: DateTimeCond(
-      //       ignore: true,
-      //       min: 0,
-      //       max: ,
-      //     ),
-      //     videoOption: FilterOption(
-      //       sizeConstraint: SizeConstraint(
-      //         maxHeight: 100000,
-      //         minHeight: 0,
-      //         ignoreSize: true,
-      //         maxWidth: 100000,
-      //         minWidth: 0,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      pickerConfig: AssetPickerConfig(
+
+        /// ASSETS SELECTION
+        maxAssets: maxAssets,
+        selectedAssets: selectedAssets,
+
+        /// ASSETS TYPE
+        requestType: RequestType.image,
+
+        // /// GRID AND SIZING
+        // gridCount: 4,
+        // gridThumbnailSize: defaultAssetGridPreviewSize,
+        // pageSize: defaultAssetsPerPage,
+        // pathThumbnailSize: defaultPathThumbnailSize,
+        // previewThumbnailSize: ThumbnailSize.square(50),
+        // shouldRevertGrid: false,
+        //
+        // /// THEME
+        // pickerTheme: ThemeData.dark(),
+        // textDelegate: const AssetPickerTextDelegate(),
+        // themeColor: Colorz.bloodTest,
+        //
+        // /// SCROLLING
+        // keepScrollOffset: false,
+        // specialItemPosition: SpecialItemPosition.none,
+        //
+        // /// PERMISSION
+        // limitedPermissionOverlayPredicate: (PermissionState permissionState){
+        //   blog('pickMultipleImages : permissionState : $permissionState');
+        //   return true;
+        // },
+        //
+        // /// LOADING
+        // loadingIndicatorBuilder: (BuildContext context, bool loading){
+        //   return Loading(loading: loading);
+        // },
+        //
+        // /// ASSET NAME
+        // pathNameBuilder: (AssetPathEntity assetPathEntity){
+        //   blog('assetPathEntity : $assetPathEntity');
+        //   return 'Fuck you';
+        // },
+        // sortPathDelegate: SortPathDelegate.common,
+        //
+        // /// WHO THE FUCK ARE YOU
+        // selectPredicate: (BuildContext xxx, AssetEntity assetEntity, bool wtf) async {
+        //   blog('pickMultipleImages : ${assetEntity.id} : wtf : $wtf');
+        //   return wtf;
+        // },
+        // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
+        //   return Container();
+        // },
+        // specialPickerType: SpecialPickerType.wechatMoment,
+        //
+        // filterOptions: FilterOptionGroup(
+        //   audioOption: const FilterOption(
+        //     durationConstraint: DurationConstraint(
+        //       allowNullable: false,
+        //       max: const Duration(days: 1),
+        //       min: Duration.zero,
+        //     ),
+        //     needTitle: true,
+        //     sizeConstraint: SizeConstraint(
+        //       maxHeight: 100000,
+        //       minHeight: 0,
+        //       ignoreSize: true,
+        //       maxWidth: 100000,
+        //       minWidth: 0,
+        //     ),
+        //   ),
+        //   containsEmptyAlbum: true,
+        //   containsLivePhotos: true,
+        //   containsPathModified: true,
+        //   createTimeCond: DateTimeCond(
+        //     ignore: true,
+        //     min: DateTime.now(),
+        //     max: DateTime.now(),
+        //   ),
+        //   imageOption: FilterOption(
+        //     sizeConstraint: SizeConstraint(
+        //       maxHeight: 100000,
+        //       minHeight: 0,
+        //       ignoreSize: true,
+        //       maxWidth: 100000,
+        //       minWidth: 0,
+        //     ),
+        //     needTitle: true,
+        //     durationConstraint: DurationConstraint(
+        //       allowNullable: false,
+        //       max: const Duration(days: 1),
+        //       min: Duration.zero,
+        //     ),
+        //   ),
+        //   onlyLivePhotos: false,
+        //   orders: <OrderOption>[
+        //     OrderOption(
+        //       asc: false,
+        //       type: OrderOptionType.createDate,
+        //     ),
+        //   ],
+        //     updateTimeCond: DateTimeCond(
+        //     ignore: true,
+        //     min: 0,
+        //     max: ,
+        //   ),
+        //   videoOption: FilterOption(
+        //     sizeConstraint: SizeConstraint(
+        //       maxHeight: 100000,
+        //       minHeight: 0,
+        //       ignoreSize: true,
+        //       maxWidth: 100000,
+        //       minWidth: 0,
+        //     ),
+        //   ),
+        // ),
+
+      ),
     );
 
     final List<File> _output = <File>[];
@@ -135,7 +190,7 @@ class Imagers {
 
     final AssetEntity entity = await CameraPicker.pickFromCamera(
       context,
-      pickerConfig: CameraPickerConfig(
+      pickerConfig: const CameraPickerConfig(
 
         // cameraQuarterTurns: 0,
         // enableAudio: true,
@@ -157,33 +212,33 @@ class Imagers {
         // textDelegate: CameraPickerTextDelegate(),
         // theme: ThemeData.dark(),
 
-        onError: (Object object, StackTrace trace){
-          blog('onError : $object : trace : $trace');
-        },
-
-        foregroundBuilder: (BuildContext ctx, CameraController cameraController){
-          blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
-          return Container();
-        },
-
-        onEntitySaving: (BuildContext xxx, CameraPickerViewType cameraPickerViewType, File file) async {
-          blog('onEntitySaving : cameraPickerViewType : ${cameraPickerViewType.name} : file : ${file.path}');
-        },
-
-        onXFileCaptured: (XFile xFile, CameraPickerViewType cameraPickerViewType){
-          blog('onXFileCaptured : cameraPickerViewType : ${cameraPickerViewType.name} : xFile : ${xFile.path}');
-          return true;
-        },
-
-        previewTransformBuilder: (BuildContext xyz, CameraController cameraController, Widget widget){
-          blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
-          return Container();
-        },
+        // onError: (Object object, StackTrace trace){
+        //   blog('onError : $object : trace : $trace');
+        // },
+        //
+        // foregroundBuilder: (BuildContext ctx, CameraController cameraController){
+        //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController?.cameraId}');
+        //   return Container();
+        // },
+        //
+        // onEntitySaving: (BuildContext xxx, CameraPickerViewType cameraPickerViewType, File file) async {
+        //   blog('onEntitySaving : cameraPickerViewType : ${cameraPickerViewType.name} : file : ${file.path}');
+        // },
+        //
+        // onXFileCaptured: (XFile xFile, CameraPickerViewType cameraPickerViewType){
+        //   blog('onXFileCaptured : cameraPickerViewType : ${cameraPickerViewType.name} : xFile : ${xFile.path}');
+        //   return true;
+        // },
+        //
+        // previewTransformBuilder: (BuildContext xyz, CameraController cameraController, Widget widget){
+        //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
+        //   return Container();
+        // },
 
       ),
     );
 
-    final File _file = await entity.file;
+    final File _file = await entity?.file;
 
     return _file;
   }

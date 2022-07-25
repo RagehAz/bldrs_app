@@ -192,6 +192,7 @@ Future<void> _addImagesForNewFlyer({
 
     final List<File> _pickedAssets = await Imagers.pickMultipleImages(
       context: context,
+      maxAssets: 10,
       // images: _existingFiles,
       // mounted: mounted,
       // accountType: bzModel.accountType,
