@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -94,7 +94,7 @@ Future<void> readBzCounters({
   @required ValueNotifier<BzCounterModel> bzCounters,
 }) async {
 
-  final BzCounterModel _bzCounters = await RecordProtocols.readBzCounters(
+  final BzCounterModel _bzCounters = await BzRecordOps.readBzCounters(
     context: context,
     bzID: bzID,
   );
@@ -300,7 +300,7 @@ Future<void> onCallTap({
 
           /// CALL RECORD PROTOCOL
           if (_success == true){
-            await RecordProtocols.callBz(
+            await BzRecordOps.callBz(
               context: context,
               bzID: bzModel.id,
               contact: contact,

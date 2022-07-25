@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
-import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:flutter/material.dart';
-
 
 // -----------------------------------------------------------------------------
 
@@ -63,7 +62,7 @@ Future<void> onShareFlyer({
       ),
     ),
 
-    RecordProtocols.shareFlyer(
+    FlyerRecordOps.shareFlyer(
       context: context,
       flyerID: flyerModel.id,
       bzID: flyerModel.bzID,
