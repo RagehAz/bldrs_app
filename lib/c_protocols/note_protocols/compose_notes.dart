@@ -161,8 +161,8 @@ class ComposeNoteProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel deletedAuthor,
+    @required bool sendToUserAuthorExitNote,
   }) async {
-
     blog('ComposeNoteProtocols.sendAuthorDeletionNotes : START');
 
     /// NOTE TO BZ
@@ -194,42 +194,45 @@ class ComposeNoteProtocols {
       noteModel: _noteToBz,
     );
 
-    final UserModel _userModel = await UserProtocols.fetchUser(
-      context: context,
-      userID: deletedAuthor.userID,
-    );
-
     /// NOTE TO DELETED AUTHOR
-    final NoteModel _noteToUser = NoteModel(
-      id: 'x',
-      senderID: bzModel.id,
-      senderImageURL: bzModel.logo,
-      noteSenderType: NoteSenderType.bz,
-      receiverID: deletedAuthor.userID,
-      receiverType: NoteReceiverType.user,
-      title: 'You have exited from ${bzModel.name} account',
-      body: 'You are no longer part of ${bzModel.name} team',
-      metaData: NoteModel.defaultMetaData,
-      sentTime: DateTime.now(),
-      attachment: null,
-      attachmentType: NoteAttachmentType.non,
-      seen: false,
-      seenTime: null,
-      sendFCM: true,
-      noteType: NoteType.announcement,
-      response: null,
-      responseTime: null,
-      buttons: null,
-      token: _userModel?.fcmToken?.token,
-    );
+    if (sendToUserAuthorExitNote == true){
 
-    await NoteFireOps.createNote(
-      context: context,
-      noteModel: _noteToUser,
-    );
+      final UserModel _userModel = await UserProtocols.fetchUser(
+        context: context,
+        userID: deletedAuthor.userID,
+      );
+
+      final NoteModel _noteToUser = NoteModel(
+        id: 'x',
+        senderID: bzModel.id,
+        senderImageURL: bzModel.logo,
+        noteSenderType: NoteSenderType.bz,
+        receiverID: deletedAuthor.userID,
+        receiverType: NoteReceiverType.user,
+        title: 'You have exited from ${bzModel.name} account',
+        body: 'You are no longer part of ${bzModel.name} team',
+        metaData: NoteModel.defaultMetaData,
+        sentTime: DateTime.now(),
+        attachment: null,
+        attachmentType: NoteAttachmentType.non,
+        seen: false,
+        seenTime: null,
+        sendFCM: true,
+        noteType: NoteType.announcement,
+        response: null,
+        responseTime: null,
+        buttons: null,
+        token: _userModel?.fcmToken?.token,
+      );
+
+      await NoteFireOps.createNote(
+        context: context,
+        noteModel: _noteToUser,
+      );
+
+    }
 
     blog('ComposeNoteProtocols.sendAuthorDeletionNotes : END');
-
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT

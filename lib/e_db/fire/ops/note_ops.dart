@@ -405,15 +405,43 @@ class NoteFireOps {
   /// DELETE
 
 // -----------------------------------
-  static Future<void> deleteAllSentNotes({
+  static Future<void> deleteAllSentAuthorshipNotes({
     @required BuildContext context,
     @required String senderID,
   }) async {
 
     if (senderID != null){
 
-      ///
-      blog('SHOULD DELETE ALL SENT NOTES BY $senderID');
+      final List<NoteModel> _notesToDelete = <NoteModel>[];
+
+      /// READ ALL NOTES
+      for (int i = 0; i <= 500; i++){
+        final List<NoteModel> _notes = await paginatePendingSentAuthorshipNotes(
+          context: context,
+          limit: 10,
+          senderID: senderID,
+          startAfter: _notesToDelete.isNotEmpty == true ? _notesToDelete?.last?.docSnapshot : null,
+        );
+
+        if (Mapper.checkCanLoopList(_notes) == true){
+          _notesToDelete.addAll(_notes);
+        }
+
+        else {
+          break;
+        }
+
+      }
+
+      /// DELETE ALL NOTES
+      if (Mapper.checkCanLoopList(_notesToDelete) == true){
+
+        await deleteNotes(
+          context: context,
+          notes: _notesToDelete,
+        );
+
+      }
 
     }
 

@@ -83,6 +83,18 @@ class WipeNoteProtocols {
 
   }
 // ----------------------------------
+  static Future<void> wipeBzSentAuthorshipNotes({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    await NoteFireOps.deleteAllSentAuthorshipNotes(
+        context: context,
+        senderID: bzID,
+    );
+
+  }
+// ----------------------------------
   /// VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
   static Future<void> wipeUserReceivedNotes({
     @required BuildContext context,

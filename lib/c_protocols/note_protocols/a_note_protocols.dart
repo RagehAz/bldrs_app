@@ -53,10 +53,12 @@ class NoteProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel deletedAuthor,
+    @required bool sendToUserAuthorExitNote,
 }) => ComposeNoteProtocols.sendAuthorDeletionNotes(
     context: context,
     bzModel: bzModel,
     deletedAuthor: deletedAuthor,
+    sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -140,6 +142,15 @@ class NoteProtocols {
   }) => WipeNoteProtocols.deleteAllBzReceivedNotes(
     context: context,
     bzID: bzID,
+  );
+// ----------------------------------
+
+  static Future<void> wipeBzSentAuthorshipNotes({
+    @required BuildContext context,
+    @required String bzID,
+  }) => WipeNoteProtocols.wipeBzSentAuthorshipNotes(
+      context: context,
+      bzID: bzID
   );
 // ----------------------------------
   /// TESTED : WORKS PERFECT

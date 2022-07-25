@@ -107,6 +107,10 @@ class UserLDBOps {
 
   }
 // ---------------------------------
+  /*
+
+  DEPRECATED
+
   static Future<void> addBzIDToMyBzzIDs({
     @required String bzIDToAdd,
     @required UserModel userModel,
@@ -122,6 +126,7 @@ class UserLDBOps {
     );
 
   }
+   */
 // ---------------------------------
   static Future<void> removeBzIDFromMyBzIDs({
     @required String bzIDToRemove,
