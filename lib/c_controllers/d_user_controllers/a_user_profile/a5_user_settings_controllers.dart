@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dial
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/i_app_settings_controllers/app_settings_controllers.dart';
-import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -72,7 +72,7 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
 
   if (_continue == true){
 
-    await UserProtocol.deleteUserProtocol(
+    await UserProtocols.wipeUser(
       context: context,
       showWaitDialog: true,
     );
