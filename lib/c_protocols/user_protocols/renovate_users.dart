@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/c_protocols/record_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
@@ -13,6 +15,10 @@ class RenovateUserProtocols {
   RenovateUserProtocols();
 
 // -----------------------------------------------------------------------------
+
+  /// USER MODEL EDITS
+
+// ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateMyUserModel({
     @required BuildContext context,
@@ -96,5 +102,121 @@ class RenovateUserProtocols {
     blog('UserProtocol.updateLocally : END');
 
   }
+// -----------------------------------------------------------------------------
+
+  /// SAVING AND FOLLOWING
+
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> followingProtocol({
+    @required BuildContext context,
+    @required bool followIsOn,
+    @required String bzID,
+  }) async {
+
+    blog('RenovateUserProtocols.followingProtocol : START');
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    if (followIsOn == true){
+
+      await RecordProtocols.followBz(context: context, bzID: bzID);
+
+      final UserModel _updatedModel = UserModel.addBzIDToUserFollows(
+        userModel: _userModel,
+        bzIDToFollow: bzID,
+      );
+
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    else {
+
+      await RecordProtocols.unfollowBz(context: context, bzID: bzID);
+
+      final UserModel _updatedModel = UserModel.removeBzIDFromMyFollows(
+        userModel: _userModel,
+        bzIDToUnFollow: bzID,
+      );
+
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    blog('RenovateUserProtocols.followingProtocol : END');
+
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> savingFlyerProtocol({
+    @required BuildContext context,
+    @required bool flyerIsSaved,
+    @required String flyerID,
+    @required String bzID,
+    @required int slideIndex,
+  }) async {
+
+    blog('UserProtocol.savingFlyerProtocol : START');
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    if (flyerIsSaved == true){
+
+      await RecordProtocols.saveFlyer(
+          context: context,
+          flyerID: flyerID,
+          bzID: bzID,
+          slideIndex: slideIndex
+      );
+
+      final UserModel _updatedModel = UserModel.addFlyerIDToSavedFlyersIDs(
+        userModel: _userModel,
+        flyerIDToAdd: flyerID,
+      );
+
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    else {
+
+      await RecordProtocols.unSaveFlyer(
+        context: context,
+        flyerID: flyerID,
+        bzID: bzID,
+        slideIndex: slideIndex,
+      );
+
+      final UserModel _updatedModel = UserModel.removeFlyerIDFromSavedFlyersIDs(
+        userModel: _userModel,
+        flyerIDToRemove: flyerID,
+      );
+
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updatedModel,
+      );
+
+    }
+
+    blog('UserProtocol.savingFlyerProtocol : END');
+
+  }
+// -----------------------------------------------------------------------------
 }
