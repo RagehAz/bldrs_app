@@ -24,6 +24,7 @@ Future<void> takeAuthorImage({
 
   final List<File> _imageFiles = await Imagers.pickMultipleImages(
     context: context,
+    maxAssets: 1
     // picType: Imagers.PicType.authorPic
   );
 

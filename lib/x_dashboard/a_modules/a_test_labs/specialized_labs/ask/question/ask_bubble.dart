@@ -15,6 +15,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -116,13 +117,14 @@ class _QuestionBubbleState extends State<QuestionBubble> {
     final List<File> _imageFiles = await Imagers.pickMultipleImages(
         // picType: Imagers.PicType.askPic
       context: context,
+      maxAssets: 10,
     );
 
-    final File _file = _imageFiles?.first;
-
-    setState(() {
-      _questionPics.add(File(_file.path));
-    });
+    if (Mapper.checkCanLoopList(_imageFiles) == true){
+      setState(() {
+        _questionPics.addAll(_imageFiles);
+      });
+    }
 
   }
   // ----------------------------------------------------------------------
