@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/real/real.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
@@ -56,7 +56,7 @@ class RecordRealOps {
 
 // ---------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<RecordModel> createRecord({
+  static Future<RecordModel> createARecord({ /// TASK : CORRECT NAME REMOVE a
     @required BuildContext context,
     @required RecordModel record,
   }) async {

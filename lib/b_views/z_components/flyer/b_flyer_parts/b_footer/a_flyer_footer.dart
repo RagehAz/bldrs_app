@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -100,7 +100,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     /// LOAD FLYER COUNTERS
     if (_infoButtonExpanded.value == true && widget.tinyMode == false){
 
-      _flyerCounter.value ??= await RecordProtocols.readFlyerCounters(
+      _flyerCounter.value ??= await FlyerRecordOps.readFlyerCounters(
             context: context,
             flyerID: widget.flyerModel.id,
         );
