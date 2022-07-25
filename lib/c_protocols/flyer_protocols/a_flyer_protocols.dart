@@ -90,7 +90,7 @@ class FlyerProtocols {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeFlyer({
+  static Future<BzModel> wipeTheFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
@@ -108,12 +108,14 @@ class FlyerProtocols {
     @required List<FlyerModel> flyers,
     @required bool showWaitDialog,
     @required bool updateBzEveryWhere,
+    @required bool isDeletingBz,
 }) => WipeFlyerProtocols.wipeMultipleFlyers(
     context: context,
     bzModel: bzModel,
     flyers: flyers,
     showWaitDialog: showWaitDialog,
     updateBzEveryWhere: updateBzEveryWhere,
+    isDeletingBz: isDeletingBz,
   );
 // ----------------------------------
 }

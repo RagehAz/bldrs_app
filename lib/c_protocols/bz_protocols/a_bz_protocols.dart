@@ -92,10 +92,12 @@ class BzProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required bool showWaitDialog,
+    @required bool includeMyselfInBzDeletionNote,
   }) => WipeBzProtocols.wipeBz(
     context: context,
     bzModel: bzModel,
     showWaitDialog: showWaitDialog,
+    includeMyselfInBzDeletionNote: includeMyselfInBzDeletionNote,
   );
 // ----------------------------------
   static Future<void> deleteLocally({
