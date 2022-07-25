@@ -96,6 +96,7 @@ Future<void> takeBzLogo({
 
   final List<File> _imageFiles = await Imagers.pickMultipleImages(
     context: context,
+    maxAssets: 1
     // picType: Imagers.PicType.bzLogo
   );
 

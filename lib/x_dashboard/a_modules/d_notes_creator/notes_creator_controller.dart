@@ -677,7 +677,8 @@ Future<void> _onSelectImageURLAsAttachment({
 }) async {
 
   final List<File> _pics = await Imagers.pickMultipleImages(
-    context: context
+    context: context,
+    maxAssets: 1,
     // picType: Imagers.PicType.slideHighRes,
   );
 
