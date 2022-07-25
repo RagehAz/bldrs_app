@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -22,7 +23,7 @@ import 'package:http/http.dart' as http;
 // import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
-
+import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 enum PicType {
   userPic,
   authorPic,
@@ -126,6 +127,65 @@ class Imagers {
     }
 
     return _output;
+  }
+
+  static Future<File> takeCameraImage({
+  @required BuildContext context,
+}) async {
+
+    final AssetEntity entity = await CameraPicker.pickFromCamera(
+      context,
+      pickerConfig: CameraPickerConfig(
+
+        // cameraQuarterTurns: 0,
+        // enableAudio: true,
+        // enableExposureControlOnPoint: true,
+        // enablePinchToZoom: true,
+        // enablePullToZoomInRecord: true,
+        // enableScaledPreview: true,
+        // enableSetExposure: true,
+        // enableRecording: false,
+        // enableTapRecording: false,
+        // shouldAutoPreviewVideo: false,
+        // onlyEnableRecording: false,
+        // shouldDeletePreviewFile: false,
+        // imageFormatGroup: ImageFormatGroup.unknown,
+        // lockCaptureOrientation: DeviceOrientation.portraitUp,
+        // maximumRecordingDuration: const Duration(seconds: 15),
+        // preferredLensDirection: CameraLensDirection.back,
+        // resolutionPreset: ResolutionPreset.max,
+        // textDelegate: CameraPickerTextDelegate(),
+        // theme: ThemeData.dark(),
+
+        onError: (Object object, StackTrace trace){
+          blog('onError : $object : trace : $trace');
+        },
+
+        foregroundBuilder: (BuildContext ctx, CameraController cameraController){
+          blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
+          return Container();
+        },
+
+        onEntitySaving: (BuildContext xxx, CameraPickerViewType cameraPickerViewType, File file) async {
+          blog('onEntitySaving : cameraPickerViewType : ${cameraPickerViewType.name} : file : ${file.path}');
+        },
+
+        onXFileCaptured: (XFile xFile, CameraPickerViewType cameraPickerViewType){
+          blog('onXFileCaptured : cameraPickerViewType : ${cameraPickerViewType.name} : xFile : ${xFile.path}');
+          return true;
+        },
+
+        previewTransformBuilder: (BuildContext xyz, CameraController cameraController, Widget widget){
+          blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
+          return Container();
+        },
+
+      ),
+    );
+
+    final File _file = await entity.file;
+
+    return _file;
   }
 // -----------------------------------------------------------------
 
