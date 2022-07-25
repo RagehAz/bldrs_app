@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -8,7 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
-import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
@@ -264,7 +263,7 @@ Future<void> _acceptAuthorshipInvitation({
       loadingPhrase: "Adding you to '${bzModel.name}' business account",
     ));
 
-    await AuthorProtocol.addMeAsNewAuthorToABzProtocol(
+    await AuthorProtocols.addMeAsNewAuthorToABzProtocol(
       context: context,
       oldBzModel: bzModel,
     );
