@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
@@ -18,6 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserFireOps {
+// -----------------------------------------------------------------------------
 
   UserFireOps();
 
@@ -646,7 +647,7 @@ static Future<dynamic> deleteUserOps({
 
           /// SHOULD BE DELETED BEFORE DELETING USER DOC
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user received notes');
-          await NoteProtocol.deleteAllUserReceivedNotes(
+          await NoteProtocols.wipeUserReceivedNotes(
             context: context,
             userID: userModel.id,
           );
