@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
-import 'package:bldrs/c_protocols/record_protocols.dart';
+import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

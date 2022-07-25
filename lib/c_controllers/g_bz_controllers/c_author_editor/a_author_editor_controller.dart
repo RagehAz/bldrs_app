@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -95,7 +94,7 @@ Future<void> onConfirmAuthorUpdates({
 
     author.value = _author;
 
-    await AuthorProtocol.updateAuthorProtocol(
+    await AuthorProtocols.updateAuthorProtocol(
       context: context,
       oldBzModel: _bzModel,
       newAuthorModel: _author,
@@ -156,7 +155,7 @@ Future<void> onChangeAuthorRoleOps({
 
       await Future.wait(<Future>[
 
-        AuthorProtocol.updateAuthorProtocol(
+        AuthorProtocols.updateAuthorProtocol(
           context: context,
           oldBzModel: _bzModel,
           newAuthorModel: _author,
