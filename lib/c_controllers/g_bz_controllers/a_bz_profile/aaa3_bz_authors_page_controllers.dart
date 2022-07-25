@@ -69,7 +69,7 @@ Future<void> onAuthorOptionsTap({
   final bool _canRemoveAuthor = AuthorModel.checkAuthorAbility(
     theDoer: _myAuthorModel,
     theDoneWith: authorModel,
-    ability: AuthorAbility.canRemoveOtherAuthor,
+    ability: _itIsMine ? AuthorAbility.canRemoveSelf : AuthorAbility.canRemoveOtherAuthor,
   );
 
   final String _authorName = authorModel?.name ?? '...';
@@ -129,7 +129,7 @@ Future<void> onAuthorOptionsTap({
       context: context,
       verse: 'Remove $_authorName from the team',
       icon: Iconz.xSmall,
-      isDeactivated: !_canRemoveAuthor,
+      isDeactivated: _canRemoveAuthor == false,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
         context: context,
         authorModel: authorModel,

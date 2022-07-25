@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -114,15 +115,11 @@ Future<void> onSendAuthorshipInvitation({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
+  final bool _result = await Dialogz.userDialog(
     context: context,
     title: 'Send Invitation ?',
     body: 'confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
-    boolDialog: true,
-    height: 500,
-    child: UserBanner(
-      userModel: selectedUser,
-    ),
+    userModel: selectedUser,
   );
 
   if (_result == true){
