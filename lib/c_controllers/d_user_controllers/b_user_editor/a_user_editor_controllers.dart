@@ -31,6 +31,7 @@ Future<void> takeUserPicture({
 
     final List<File> _imageFiles = await Imagers.pickMultipleImages(
       context: context,
+      maxAssets: 1
       // picType: Imagers.PicType.userPic,
     );
 
