@@ -28,7 +28,7 @@ class QuestionRecordOps {
       questionID: questionID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -48,7 +48,7 @@ class QuestionRecordOps {
       questionID: questionID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -68,7 +68,7 @@ class QuestionRecordOps {
       questionID: questionID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -90,7 +90,7 @@ class QuestionRecordOps {
       answerID: answerID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -112,7 +112,7 @@ class QuestionRecordOps {
       answerID: answerID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -135,7 +135,7 @@ class QuestionRecordOps {
       answerID: answerID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );

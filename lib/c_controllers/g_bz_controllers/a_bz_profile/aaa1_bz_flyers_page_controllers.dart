@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -143,11 +144,18 @@ Future<void> _onDeleteFlyerButtonTap({
       listen: false,
     );
 
-    await FlyerProtocols.wipeFlyer(
+    final BzModel _updatedBzModel = await FlyerProtocols.wipeTheFlyer(
       context: context,
       flyerModel: flyer,
       bzModel: _bzModel,
       showWaitDialog: true,
+    );
+
+    /// NOTE : might not really need this as bz stream would do the job
+    await BzProtocols.updateBzLocally(
+        context: context,
+        newBzModel: _updatedBzModel,
+        oldBzModel: _bzModel
     );
 
     Nav.goBack(context);
