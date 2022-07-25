@@ -47,8 +47,14 @@ class WipeBzProtocols {
       updateBz: false,
     );
 
-    /// DELETE BZ NOTES
+    /// DELETE BZ NOTES (RECEIVED)
     await NoteProtocols.wipeBzReceivedNotes(
+      context: context,
+      bzID: bzModel.id,
+    );
+
+    /// DELETE BZ SENT AUTHORSHIPS
+    await NoteProtocols.wipeBzSentAuthorshipNotes(
       context: context,
       bzID: bzModel.id,
     );

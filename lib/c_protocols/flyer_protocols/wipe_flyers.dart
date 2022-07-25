@@ -145,7 +145,7 @@ class WipeFlyerProtocols {
 
       /// BZ PRO UPDATE
       final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-      final bool _thisBzIsTheActiveBz = _bzzProvider.myActiveBz.id == _bzModel.id;
+      final bool _thisBzIsTheActiveBz = _bzzProvider.myActiveBz?.id == _bzModel.id;
       final bool _shouldUpdateMyActiveBz = updateBzEveryWhere == true && _thisBzIsTheActiveBz == true;
 
 

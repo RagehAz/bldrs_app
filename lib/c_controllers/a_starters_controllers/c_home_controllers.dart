@@ -121,7 +121,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
   );
 
   /// USER ZONE IS DEFINED
-  if (_myUserModel?.zone != null){
+  if (_myUserModel?.zone != null && AuthModel.userIsSignedIn() == true){
 
     await zoneProvider.fetchSetCurrentCompleteZone(
         context: context,
@@ -235,22 +235,26 @@ Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.fetchSetMyBzz(
-    context: context,
-    notify: notify,
-  );
+  if (AuthModel.userIsSignedIn() == true){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    await _bzzProvider.fetchSetMyBzz(
+      context: context,
+      notify: notify,
+    );
+  }
 }
 // -------------------------------
 Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-  await _bzzProvider.fetchSetFollowedBzz(
-    context: context,
-    notify: notify,
-  );
+  if (AuthModel.userIsSignedIn() == true){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    await _bzzProvider.fetchSetFollowedBzz(
+      context: context,
+      notify: notify,
+    );
+  }
 }
 // -------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
