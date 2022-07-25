@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
@@ -65,7 +65,7 @@ Future<void> onShowNoteOptions({
           height: 50,
           onTap: () async {
 
-            await NoteProtocol.deleteNoteEverywhereProtocol(
+            await NoteProtocols.wipeNote(
               context: context,
               noteModel: noteModel,
             );
