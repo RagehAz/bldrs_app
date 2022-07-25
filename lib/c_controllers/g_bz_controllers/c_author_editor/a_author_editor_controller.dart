@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -162,7 +162,7 @@ Future<void> onChangeAuthorRoleOps({
           newAuthorModel: _author,
         ),
 
-        NoteProtocol.sendAuthorRoleChangeNote(
+        NoteProtocols.sendAuthorRoleChangeNote(
           context: context,
           bzID: _bzModel.id,
           author: _author,
