@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/author_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
@@ -128,7 +128,7 @@ Future<void> onSendAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocol.sendAuthorshipInvitationNote(
+    await NoteProtocols.sendAuthorshipInvitationNote(
       context: context,
       bzModel: bzModel,
       userModelToSendTo: selectedUser,
@@ -177,7 +177,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     if (_result == true){
 
-      await NoteProtocol.cancelSentAuthorshipInvitation(
+      await NoteProtocols.cancelSentAuthorshipInvitation(
           context: context,
           note: note,
       );
@@ -270,13 +270,13 @@ Future<void> _acceptAuthorshipInvitation({
     );
 
     /// MODIFY NOTE RESPONSE
-    await NoteProtocol.modifyNoteResponse(
+    await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.accepted,
     );
 
-    await NoteProtocol.sendAuthorshipAcceptanceNote(
+    await NoteProtocols.sendAuthorshipAcceptanceNote(
       context: context,
       bzID: noteModel.senderID,
     );
@@ -325,7 +325,7 @@ Future<void> _declineAuthorshipInvitation({
 
   if (_result == true){
 
-    await NoteProtocol.modifyNoteResponse(
+    await NoteProtocols.modifyNoteResponse(
       context: context,
       noteModel: noteModel,
       response: NoteResponse.declined,

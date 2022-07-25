@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols.dart';
+import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -46,7 +47,7 @@ class WipeBzProtocols {
     );
 
     /// DELETE BZ NOTES
-    await NoteProtocol.deleteAllBzReceivedNotes(
+    await NoteProtocols.wipeBzReceivedNotes(
       context: context,
       bzID: bzModel.id,
     );
@@ -58,7 +59,7 @@ class WipeBzProtocols {
     );
 
     /// SEND DELETION NOTES TO AUTHORS
-    await NoteProtocol.sendBzDeletionNoteToAllAuthors(
+    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
       context: context,
       bzModel: bzModel,
     );
