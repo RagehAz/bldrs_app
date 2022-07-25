@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/note_protocols.dart';
 import 'package:bldrs/c_protocols/record_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -231,7 +231,7 @@ Future<void> onFollowTap({
 
   followIsOn.value = !followIsOn.value;
 
-  await UserProtocol.followingProtocol(
+  await UserProtocols.followingProtocol(
     context: context,
     bzID: bzModel.id,
     followIsOn: followIsOn.value,

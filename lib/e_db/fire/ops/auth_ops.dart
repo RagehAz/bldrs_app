@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -169,8 +170,6 @@ static String superUserID() {
   @required String email,
   @required String password,
 }) async {
-  // -----------------------------
-  AuthModel _authModel = const AuthModel();
   UserCredential _userCredential;
   String _authError;
   // -----------------------------
@@ -194,36 +193,13 @@ static String superUserID() {
 
       );
   // -----------------------------
-  _authModel = AuthModel.create(
+  final AuthModel _authModel = await UserProtocols.composeUser(
+    context: context,
     authSucceeds: _authSucceeds,
-    authError: _authError,
     userCredential: _userCredential,
+    authError: _authError,
+    authType: AuthType.emailRegister,
   );
-  // -----------------------------
-  /// CREATE USER MODEL IS AUTH SUCCEEDS
-  if (_authModel.authSucceeds == true) {
-
-    final UserModel _initialUserModel = await UserModel.createInitialUserModelFromUser(
-      context: context,
-      user: _userCredential.user,
-      zone: currentZone,
-      authBy: AuthType.emailSignIn,
-    );
-
-    /// create a new firestore document for the user with the userID
-    final UserModel _uploadedUserModel = await UserFireOps.createUser(
-      context: context,
-      userModel: _initialUserModel,
-      authBy: AuthType.emailSignIn,
-    );
-
-    _authModel = _authModel.copyWith(
-      userModel: _uploadedUserModel,
-    );
-
-  }
-  // -----------------------------
-  _authModel.blogAuthModel(methodName: 'registerByEmailAndPassword');
   // -----------------------------
   return _authModel;
 }
