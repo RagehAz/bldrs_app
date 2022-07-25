@@ -63,9 +63,11 @@ class NoteProtocols {
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
+    @required bool includeMyself,
 }) => ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors(
     context: context,
     bzModel: bzModel,
+    includeMyself: includeMyself,
   );
 // ----------------------------------
   /// TESTED : WORKS PERFECT

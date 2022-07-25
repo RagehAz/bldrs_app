@@ -627,12 +627,6 @@ class FlyerFireOps {
 
       }
 
-      /// DELETE FLYER RECORDS
-      await _deleteFlyerRecords(
-        context: context,
-        flyerModel: flyerModel,
-      );
-
       /// DELETE FLYER STORAGE IMAGES
       await _deleteFlyerStorageImages(
         context: context,
@@ -686,29 +680,6 @@ class FlyerFireOps {
     blog('_deleteFlyerIDFromBzFlyersIDs : END');
 
     return _uploadedBzModel;
-  }
-// -----------------------------------
-  static Future<void> _deleteFlyerRecords({
-    @required BuildContext context,
-    @required FlyerModel flyerModel,
-  }) async {
-
-    blog('_deleteFlyerRecords : START');
-
-    if (flyerModel != null){
-
-      /// DELETE VIEWS
-
-      /// DELETE SHARES
-
-      /// DELETE SAVES
-
-      /// DELETE COUNTERS
-
-    }
-
-    blog('_deleteFlyerRecords : END');
-
   }
 // -----------------------------------
   static Future<void> _deleteFlyerStorageImages({
@@ -794,12 +765,6 @@ class FlyerFireOps {
         blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id} : can delete : $_canDelete');
 
         if (_canDelete == true){
-
-          /// DELETE FLYER RECORDS
-          await _deleteFlyerRecords(
-            context: context,
-            flyerModel: flyerModel,
-          );
 
           /// DELETE FLYER STORAGE IMAGES
           await _deleteFlyerStorageImages(

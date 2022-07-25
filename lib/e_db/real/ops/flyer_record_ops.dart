@@ -3,9 +3,13 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
 import 'package:bldrs/e_db/real/ops/record_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart' as fireDB;
 
 class FlyerRecordOps {
 // -----------------------------------------------------------------------------
@@ -34,19 +38,19 @@ class FlyerRecordOps {
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createARecord(
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
       ),
 
-      RecordRealOps.incrementFlyerCounter(
+      incrementFlyerCounter(
         context: context,
         flyerID: flyerID,
         field: 'shares',
         increaseOne: true,
       ),
 
-      RecordRealOps.incrementBzCounter(
+      BzRecordOps.incrementBzCounter(
         context: context,
         bzID: bzID,
         field: 'allShares',
@@ -120,19 +124,19 @@ class FlyerRecordOps {
 
       await Future.wait(<Future>[
 
-        RecordRealOps.createARecord(
+        RecordRealOps.createRecord(
           context: context,
           record: _record,
         ),
 
-        RecordRealOps.incrementFlyerCounter(
+        incrementFlyerCounter(
           context: context,
           flyerID: flyerModel.id,
           field: 'views',
           increaseOne: true,
         ),
 
-        RecordRealOps.incrementBzCounter(
+        BzRecordOps.incrementBzCounter(
           context: context,
           bzID: flyerModel.bzID,
           field: 'allViews',
@@ -165,19 +169,19 @@ class FlyerRecordOps {
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createARecord(
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
       ),
 
-      RecordRealOps.incrementFlyerCounter(
+      incrementFlyerCounter(
         context: context,
         flyerID: flyerID,
         field: 'saves',
         increaseOne: true,
       ),
 
-      RecordRealOps.incrementBzCounter(
+      BzRecordOps.incrementBzCounter(
         context: context,
         bzID: bzID,
         field: 'allSaves',
@@ -205,19 +209,19 @@ class FlyerRecordOps {
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createARecord(
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
       ),
 
-      RecordRealOps.incrementFlyerCounter(
+      incrementFlyerCounter(
         context: context,
         flyerID: flyerID,
         field: 'saves',
         increaseOne: false,
       ),
 
-      RecordRealOps.incrementBzCounter(
+      BzRecordOps.incrementBzCounter(
         context: context,
         bzID: bzID,
         field: 'allSaves',
@@ -248,19 +252,19 @@ class FlyerRecordOps {
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createARecord(
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
       ),
 
-      RecordRealOps.incrementFlyerCounter(
+      incrementFlyerCounter(
         context: context,
         flyerID: flyerID,
         field: 'reviews',
         increaseOne: true,
       ),
 
-      RecordRealOps.incrementBzCounter(
+      BzRecordOps.incrementBzCounter(
         context: context,
         bzID: bzID,
         field: 'allReviews',
@@ -286,7 +290,7 @@ class FlyerRecordOps {
       flyerID: flyerID,
     );
 
-    await RecordRealOps.createARecord(
+    await RecordRealOps.createRecord(
       context: context,
       record: _record,
     );
@@ -309,19 +313,19 @@ class FlyerRecordOps {
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createARecord(
+      RecordRealOps.createRecord(
         context: context,
         record: _record,
       ),
 
-      RecordRealOps.incrementFlyerCounter(
+      incrementFlyerCounter(
         context: context,
         flyerID: flyerID,
         field: 'reviews',
         increaseOne: false,
       ),
 
-      RecordRealOps.incrementBzCounter(
+      BzRecordOps.incrementBzCounter(
         context: context,
         bzID: bzID,
         field: 'allReviews',
@@ -334,9 +338,48 @@ class FlyerRecordOps {
   }
 // -----------------------------------------------------------------------------
 
-/// READ COUNTERS
+/// FLYER COUNTERS
 
 // ----------------------------------
+  /// COUNTER CREATION - UPDATING
+// -------------------
+  /// TESTED : WORKS PERFECT
+  static Future<FlyerCounterModel> incrementFlyerCounter({
+    @required BuildContext context,
+    @required bool increaseOne, // or decrease one
+    @required String flyerID,
+    @required String field,
+  }) async {
+    blog('FlyerRecordOps.incrementFlyerCounter : START');
+
+    await Real.updateDocField(
+      context: context,
+      collName: RealColl.flyersCounters,
+      docName: flyerID,
+      fieldName: field,
+      value: fireDB.ServerValue.increment(increaseOne ? 1 : -1),
+    );
+
+    Map<String, dynamic> _map = await Real.readDocOnce(
+      context: context,
+      collName: RealColl.flyersCounters,
+      docName: flyerID,
+    );
+
+    _map = Mapper.insertPairInMap(
+      map: _map,
+      key: 'flyerID',
+      value: flyerID,
+    );
+
+    final FlyerCounterModel _model = FlyerCounterModel.decipherCounterMap(_map);
+
+    blog('FlyerRecordOps.incrementFlyerCounter : END');
+    return _model;
+  }
+// ----------------------------------
+  /// COUNTER READING
+// -------------------
   static Future<FlyerCounterModel> readFlyerCounters({
     @required BuildContext context,
     @required String flyerID,
@@ -344,13 +387,81 @@ class FlyerRecordOps {
 
     final Map<String, dynamic> _map = await Real.readDocOnce(
       context: context,
-      collName: 'flyersCounters',
+      collName: RealColl.flyersCounters,
       docName: flyerID,
     );
 
     final FlyerCounterModel _flyerCounters = FlyerCounterModel.decipherCounterMap(_map);
 
     return _flyerCounters;
+  }
+// ----------------------------------
+/// COUNTER DELETION
+// -------------------
+  static Future<void> deleteAllFlyerCountersAndRecords({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+
+    await Future.wait(<Future>[
+
+    /// SHARES
+    Real.deleteDoc(
+    context: context,
+    collName: RealColl.shares,
+    docName: flyerID,
+    ),
+
+    /// VIEWS
+    Real.deleteDoc(
+      context: context,
+      collName: RealColl.views,
+      docName: flyerID,
+    ),
+
+    /// SAVES
+    Real.deleteDoc(
+      context: context,
+      collName: RealColl.saves,
+      docName: flyerID,
+    ),
+
+    /// REVIEWS
+    Real.deleteDoc(
+      context: context,
+      collName: RealColl.reviews,
+      docName: flyerID,
+    ),
+
+    /// FLYERS COUNTER
+    Real.deleteDoc(
+      context: context,
+      collName: RealColl.flyersCounters,
+      docName: flyerID,
+    ),
+
+    ]);
+
+  }
+// -------------------
+  static Future<void> deleteMultipleFlyersCountersAndRecords({
+    @required BuildContext context,
+    @required List<String> flyersIDs,
+  }) async {
+
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(flyersIDs.length, (index) => deleteAllFlyerCountersAndRecords(
+          context: context,
+          flyerID: flyersIDs[index],
+        )),
+
+      ]);
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 }
