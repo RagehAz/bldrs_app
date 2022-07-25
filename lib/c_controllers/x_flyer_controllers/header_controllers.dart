@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/record_protocols.dart';
+import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';

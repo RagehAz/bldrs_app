@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/c_protocols/record_protocols.dart';
+import 'package:bldrs/c_protocols/record_protocols/a_record_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';

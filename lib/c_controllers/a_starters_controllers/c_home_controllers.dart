@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dar
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
-import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -752,7 +752,7 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
       for (final NoteModel note in _bzDeletionNotes){
 
-        await AuthorProtocol.authorBzExitAfterBzDeletionProtocol(
+        await AuthorProtocols.authorBzExitAfterBzDeletionProtocol(
             context: context,
             bzID: note.attachment, // in the case of bzDeletion NoteType : attachment is bzID
         );

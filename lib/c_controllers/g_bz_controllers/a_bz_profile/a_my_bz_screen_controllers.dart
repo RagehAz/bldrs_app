@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/c_protocols/author_protocols.dart';
+import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -147,7 +146,7 @@ Future<void> _myBzResignationProtocol({
       body: 'Your account does not have access to this business account',
     );
 
-    await AuthorProtocol.removeMeFromBzProtocol(
+    await AuthorProtocols.removeMeFromBzProtocol(
         context: context,
         streamedBzModelWithoutMyID: newBzFromStream
     );
