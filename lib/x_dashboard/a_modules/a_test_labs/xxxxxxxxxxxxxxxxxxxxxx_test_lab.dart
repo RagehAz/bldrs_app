@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -33,6 +35,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_i
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+
 
 class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -277,6 +280,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
+  Future<void> _fastTest(BuildContext context) async {
+    final File _file = await Imagers.takeCameraImage(context: context);
+    _thePic.value = _file;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -299,7 +307,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         withCounter: true,
     );
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
-
 
     return MainLayout(
       key: const ValueKey('test_lab'),
@@ -342,7 +349,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
         /// DO SOMETHING
         AppBarButton(
-            verse: ' date time ',
+            verse: 'datetime',
             onTap: () async {
 
               blog('start');
@@ -403,10 +410,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: ' C ( w ) ',
-            onTap: () async {
-
-            }
+            verse: 'fastTest',
+            onTap: () async {await _fastTest(context);},
         ),
 
       ],
