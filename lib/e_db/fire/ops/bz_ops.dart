@@ -491,17 +491,6 @@ class BzFireOps {
 
     blog('deleteBzOps : START');
 
-    /// NOTE : FLYERS ALREADY DELETED
-    // await _deleteBzFlyers(
-    //   context: context,
-    //   bzModel: bzModel,
-    // );
-
-    await _deleteBzRecords(
-      context: context,
-      bzModel: bzModel,
-    );
-
     /// TASK : PIC SHOULD HAVE MULTIPLE OWNERS FROM MASTER OWNERS
     /// TASK : SHOULD NOT PROCEED IF THE LOGO IS THE USER PIC OF ANY MASTER AUTHOR
     await _deleteBzStorageLogo(
@@ -582,28 +571,6 @@ class BzFireOps {
 
   }
    */
-// --------------------------
-  static Future<void> _deleteBzRecords({
-    @required BuildContext context,
-    @required BzModel bzModel,
-  }) async {
-
-    blog('_deleteBzRecords : START');
-
-    if (bzModel != null){
-
-      /// DELETE CALLS
-      ///
-      /// DELETE FOLLOWS
-      ///
-      /// DELETE COUNTERS
-      ///
-
-    }
-
-    blog('_deleteBzRecords : END');
-
-  }
 // --------------------------
   static Future<void> _deleteBzStorageLogo({
     @required BuildContext context,

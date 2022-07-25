@@ -1,18 +1,14 @@
-
-
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -44,68 +40,41 @@ class ComposeBzProtocols {
       userModel: userModel,
     );
 
-    blog('ComposeBzProtocol.compose : bosss bosss');
-
     /// ON SUCCESS
     if (_uploadedBzModel != null){
 
-      blog('ComposeBzProtocol.compose : _uploadedBzModel != null : ahooooooooooo');
-      // await BzProtocol.addMyNewCreatedBzLocally( );
+      await Future.wait(<Future>[
 
-      /// LDB CREATE BZ OPS
-      await BzLDBOps.insertBz(
-        bzModel: _uploadedBzModel,
-      );
-      /// LDB UPDATE USER MODEL
-      await UserLDBOps.addBzIDToMyBzzIDs( /// TASK : should update user local protocol
-        userModel: userModel,
-        bzIDToAdd: _uploadedBzModel.id,
-      );
-
-      blog('ComposeBzProtocol.compose : 1');
-
-      /// SET BZ MODEL LOCALLY
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-      blog('ComposeBzProtocol.compose : 2');
-      final BzModel _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
+        /// ADD NEW BZ LOCALLY
+        _addMyNewCreatedBzLocally(
           context: context,
-          bzModel: _uploadedBzModel
-      );
-      blog('ComposeBzProtocol.compose : 3');
-      _bzzProvider.addBzToMyBzz(
-        bzModel: _bzModelWithCompleteZoneModel,
-        notify: true,
-      );
-      blog('ComposeBzProtocol.compose : 4');
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-      _usersProvider.addBzIDToMyBzzIDs(
-        bzIDToAdd: _bzModelWithCompleteZoneModel.id,
-        notify: true,
-      );
-      blog('ComposeBzProtocol.compose : 5');
+          bzModel: _uploadedBzModel,
+        ),
+
+        /// UPDATE MY USER MODEL
+        _addBzIdToMyUserModelAndRenovate(
+          context: context,
+          bzID: _uploadedBzModel.id,
+        ),
+
+      ]);
+
       /// CLOSE WAIT DIALOG
       WaitDialog.closeWaitDialog(context);
 
-      blog('ComposeBzProtocol.compose : 6');
-
       /// SHOW SUCCESS DIALOG
-      await TopDialog.showTopDialog(
+      await CenterDialog.showCenterDialog(
         context: context,
-        firstLine: 'Great !',
-        secondLine: 'Successfully created your Business Account\n system will reboot now',
+        title: 'Great !',
+        body: 'Successfully created your Business Account\n system will reboot now',
         color: Colorz.green255,
-        textColor: Colorz.white255,
       );
-
-      blog('ComposeBzProtocol.compose : 6');
 
       /// NAVIGATE
       await Nav.goRebootToInitNewBzScreen(
         context: context,
-        bzID: _bzModelWithCompleteZoneModel.id,
+        bzID: _uploadedBzModel.id,
       );
-
-      blog('ComposeBzProtocol.compose : 7');
 
     }
 
@@ -122,6 +91,52 @@ class ComposeBzProtocols {
     blog('ComposeBzProtocol.compose : END');
   }
 // -----------------------------------------------------------------------------
+  static Future<void> _addMyNewCreatedBzLocally({
+    @required BuildContext context,
+    @required BzModel bzModel,
+  }) async {
+
+    final BzModel _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
+        context: context,
+        bzModel: bzModel
+    );
+
+    /// LDB INSERT
+    await BzLDBOps.insertBz(
+      bzModel: _bzModelWithCompleteZoneModel,
+    );
+
+    /// PRO INSERT IN MY BZZ
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.addBzToMyBzz(
+      bzModel: _bzModelWithCompleteZoneModel,
+      notify: true,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  static Future<void> _addBzIdToMyUserModelAndRenovate({
+    @required BuildContext context,
+    @required String bzID,
+}) async {
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    final UserModel _updated = UserModel.addBzIDToUserBzz(
+        userModel: _myUserModel,
+        bzIDToAdd: bzID,
+    );
+
+    await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updated,
+    );
+
+  }
+// -----------------------------------------------------------------------------
   static Future<void> _failureDialog(BuildContext context) async {
 
     /// FAILURE DIALOG
@@ -132,5 +147,5 @@ class ComposeBzProtocols {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

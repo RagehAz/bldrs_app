@@ -231,6 +231,7 @@ class WipeUserProtocols {
           authorModel: _authorModel,
           showWaitingDialog: false,
           showConfirmationDialog: false,
+          sendToUserAuthorExitNote: false,
         );
 
       }

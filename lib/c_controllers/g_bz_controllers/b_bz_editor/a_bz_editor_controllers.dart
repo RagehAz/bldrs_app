@@ -100,9 +100,10 @@ Future<void> takeBzLogo({
     // picType: Imagers.PicType.bzLogo
   );
 
-  final File _file = _imageFiles?.first;
-
-  bzLogo.value = _file;
+  if (Mapper.checkCanLoopList(_imageFiles) == true){
+    final File _file = _imageFiles?.first;
+    bzLogo.value = _file;
+  }
 
 }
 // ----------------------------------

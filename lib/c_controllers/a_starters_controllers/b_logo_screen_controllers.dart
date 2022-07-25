@@ -132,98 +132,102 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 // ---------------------------------
 Future<void> _initializeAppState(BuildContext context) async {
 
-  final AppState _globalState = await AppStateOps.readGlobalAppState(context);
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-  final AppState _userState = _usersProvider?.myUserModel?.appState;
+  if (AuthModel.userIsSignedIn() == true){
 
-  if (_userState != null){
+    final AppState _globalState = await AppStateOps.readGlobalAppState(context);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final AppState _userState = _usersProvider?.myUserModel?.appState;
 
-    final String _detectedAppVersion = await AppStateOps.getAppVersion();
-    final bool _userAppNeedUpdate = AppStateOps.appVersionNeedUpdate(
-        globalVersion: _globalState.appVersion,
-        userVersion: _detectedAppVersion
-    );
+    if (_userState != null){
 
-    /// A - WHEN NEED TO UPDATE ENTIRE APP VIA APP STORE
-    if (_userAppNeedUpdate == true){
-      await _showUpdateAppDialog(context);
-    }
-
-    /// B - WHEN APP IS UPDATED
-    else {
-
-      AppState _userAppState = _userState;
-
-      /// APP VERSION
-      if (_userState.appVersion != _detectedAppVersion){
-        _userAppState = _userAppState.copyWith(
-            appVersion: _detectedAppVersion,
-        );
-      }
-
-      /// KEYWORDS CHAIN
-      if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
-        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain,);
-        _userAppState = _userAppState.copyWith(
-            keywordsChainVersion: _globalState.keywordsChainVersion,
-        );
-      }
-
-      /// LDB VERSION
-      if (_globalState.ldbVersion > _userState.ldbVersion){
-        await LDBOps.wipeOutEntireLDB();
-        _userAppState = _userAppState.copyWith(
-            ldbVersion: _globalState.ldbVersion,
-        );
-      }
-
-      /// PHRASES
-      if (_globalState.phrasesVersion > _userState.phrasesVersion){
-        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases,);
-        _userAppState = _userAppState.copyWith(
-            phrasesVersion: _globalState.phrasesVersion,
-        );
-      }
-
-      /// SPEC PICKERS
-      if (_globalState.specPickersVersion > _userState.specPickersVersion){
-        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specPickers,);
-        _userAppState = _userAppState.copyWith(
-            specPickersVersion: _globalState.specPickersVersion,
-        );
-      }
-
-      /// SPEC CHAIN VERSION
-      if (_globalState.specsChainVersion > _userState.specsChainVersion){
-        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain,);
-        _userAppState = _userAppState.copyWith(
-            specsChainVersion: _globalState.specsChainVersion,
-        );
-      }
-
-      /// APP CONTROLS VERSION
-      if (_globalState.appControlsVersion > _userState.appControlsVersion){
-        await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.appControls);
-        _userAppState = _userAppState.copyWith(
-          appControlsVersion: _globalState.appControlsVersion,
-        );
-      }
-
-      /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
-      final bool _appStateNeedUpdate = !AppState.appStatesAreIdentical(
-          stateA: _userState,
-          stateB: _userAppState,
+      final String _detectedAppVersion = await AppStateOps.getAppVersion();
+      final bool _userAppNeedUpdate = AppStateOps.appVersionNeedUpdate(
+          globalVersion: _globalState.appVersion,
+          userVersion: _detectedAppVersion
       );
 
-      if (_appStateNeedUpdate == true){
-        await AppStateOps.updateUserAppState(
+      /// A - WHEN NEED TO UPDATE ENTIRE APP VIA APP STORE
+      if (_userAppNeedUpdate == true){
+        await _showUpdateAppDialog(context);
+      }
+
+      /// B - WHEN APP IS UPDATED
+      else {
+
+        AppState _userAppState = _userState;
+
+        /// APP VERSION
+        if (_userState.appVersion != _detectedAppVersion){
+          _userAppState = _userAppState.copyWith(
+            appVersion: _detectedAppVersion,
+          );
+        }
+
+        /// KEYWORDS CHAIN
+        if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain,);
+          _userAppState = _userAppState.copyWith(
+            keywordsChainVersion: _globalState.keywordsChainVersion,
+          );
+        }
+
+        /// LDB VERSION
+        if (_globalState.ldbVersion > _userState.ldbVersion){
+          await LDBOps.wipeOutEntireLDB();
+          _userAppState = _userAppState.copyWith(
+            ldbVersion: _globalState.ldbVersion,
+          );
+        }
+
+        /// PHRASES
+        if (_globalState.phrasesVersion > _userState.phrasesVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases,);
+          _userAppState = _userAppState.copyWith(
+            phrasesVersion: _globalState.phrasesVersion,
+          );
+        }
+
+        /// SPEC PICKERS
+        if (_globalState.specPickersVersion > _userState.specPickersVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specPickers,);
+          _userAppState = _userAppState.copyWith(
+            specPickersVersion: _globalState.specPickersVersion,
+          );
+        }
+
+        /// SPEC CHAIN VERSION
+        if (_globalState.specsChainVersion > _userState.specsChainVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain,);
+          _userAppState = _userAppState.copyWith(
+            specsChainVersion: _globalState.specsChainVersion,
+          );
+        }
+
+        /// APP CONTROLS VERSION
+        if (_globalState.appControlsVersion > _userState.appControlsVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.appControls);
+          _userAppState = _userAppState.copyWith(
+            appControlsVersion: _globalState.appControlsVersion,
+          );
+        }
+
+        /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
+        final bool _appStateNeedUpdate = !AppState.appStatesAreIdentical(
+          stateA: _userState,
+          stateB: _userAppState,
+        );
+
+        if (_appStateNeedUpdate == true){
+          await AppStateOps.updateUserAppState(
             context: context,
             userID: _usersProvider.myUserModel.id,
             newAppState: _userAppState,
-        );
+          );
+        }
+
+
+
       }
-
-
 
     }
 
