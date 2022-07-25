@@ -236,55 +236,68 @@ class ComposeNoteProtocols {
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
+    @required bool includeMyself, // send bz deletion note to myself
   }) async {
-
     blog('ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors : START');
 
     if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
 
       final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(bzModel);
 
-      for (final AuthorModel author in bzModel.authors){
-
-        final UserModel _userModel = await UserProtocols.fetchUser(
-          context: context,
-          userID: author.userID,
+      /// ADJUST AUTHORS LIST IF DOES NOT INCLUDE MYSELF
+      List<AuthorModel> _authors = <AuthorModel>[...bzModel.authors];
+      if (includeMyself == false){
+        _authors = AuthorModel.removeAuthorFromAuthors(
+            authors: _authors,
+            authorIDToRemove: AuthFireOps.superUserID(),
         );
+      }
 
-        final NoteModel _note = NoteModel(
-          id: 'x',
-          senderID: NoteModel.bldrsSenderID,
-          senderImageURL: NoteModel.bldrsLogoURL,
-          noteSenderType: NoteSenderType.bldrs,
-          receiverID: author.userID,
-          receiverType: NoteReceiverType.user,
-          title: '${_creator.name} has deleted "${bzModel.name}" business account',
-          body: 'All related data to "${bzModel.name}" business account have been permanently deleted',
-          metaData: NoteModel.defaultMetaData,
-          sentTime: DateTime.now(),
-          attachment: bzModel.id,
-          attachmentType: NoteAttachmentType.bzID,
-          seen: false,
-          seenTime: null,
-          sendFCM: true,
-          noteType: NoteType.bzDeletion,
-          response: null,
-          responseTime: null,
-          buttons: null,
-          token: _userModel?.fcmToken?.token,
-        );
+      /// SEND NOTE TO AUTHORS
+      if (Mapper.checkCanLoopList(_authors) == true){
 
-        await NoteFireOps.createNote(
-          context: context,
-          noteModel: _note,
-        );
+        for (final AuthorModel author in _authors){
+
+          final UserModel _userModel = await UserProtocols.fetchUser(
+            context: context,
+            userID: author.userID,
+          );
+
+          final NoteModel _note = NoteModel(
+            id: 'x',
+            senderID: NoteModel.bldrsSenderID,
+            senderImageURL: NoteModel.bldrsLogoURL,
+            noteSenderType: NoteSenderType.bldrs,
+            receiverID: author.userID,
+            receiverType: NoteReceiverType.user,
+            title: '${_creator.name} has deleted "${bzModel.name}" business account',
+            body: 'All related data to "${bzModel.name}" business account have been permanently deleted',
+            metaData: NoteModel.defaultMetaData,
+            sentTime: DateTime.now(),
+            attachment: bzModel.id,
+            attachmentType: NoteAttachmentType.bzID,
+            seen: false,
+            seenTime: null,
+            sendFCM: true,
+            noteType: NoteType.bzDeletion,
+            response: null,
+            responseTime: null,
+            buttons: null,
+            token: _userModel?.fcmToken?.token,
+          );
+
+          await NoteFireOps.createNote(
+            context: context,
+            noteModel: _note,
+          );
+
+        }
 
       }
 
     }
 
     blog('ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors : END');
-
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT

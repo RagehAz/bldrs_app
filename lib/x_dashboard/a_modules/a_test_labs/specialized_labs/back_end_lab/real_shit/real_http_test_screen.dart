@@ -44,7 +44,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             await RealHttp.createDoc(
               context: context,
-              collName: RealColl.records,
+              collName: 'testRecords',
               input: _recordModel.toMap(toJSON: true),
             );
 

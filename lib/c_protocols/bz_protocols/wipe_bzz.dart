@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -8,6 +7,7 @@ import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +26,7 @@ class WipeBzProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
     @required bool showWaitDialog,
+    @required bool includeMyselfInBzDeletionNote,
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
@@ -52,6 +53,12 @@ class WipeBzProtocols {
       bzID: bzModel.id,
     );
 
+    /// DELETE BZ RECORDS - COUNTERS
+    await BzRecordOps.deleteAllBzCountersAndRecords(
+      context: context,
+      bzID: bzModel.id,
+    );
+
     /// DELETE BZ ON FIREBASE
     await BzFireOps.deleteBzOps(
       context: context,
@@ -62,6 +69,7 @@ class WipeBzProtocols {
     await NoteProtocols.sendBzDeletionNoteToAllAuthors(
       context: context,
       bzModel: bzModel,
+      includeMyself: includeMyselfInBzDeletionNote,
     );
 
     /// NO NEED TO DELETE BZ IN LDB AND PRO OR REMOVE BZ FROM USER ID OR UPDATE USER NOW
@@ -104,8 +112,7 @@ class WipeBzProtocols {
     @required bool updateBz,
     @required bool showWaitDialog,
   }) async {
-
-    blog('BzProtocol._deleteAllBzFlyersOps : START');
+    blog('WipeBzProtocols._deleteAllBzFlyersOps : START');
 
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
@@ -122,18 +129,19 @@ class WipeBzProtocols {
     );
 
     await FlyerProtocols.wipeFlyers(
-        context: context,
-        bzModel: bzModel,
-        flyers: _flyers,
-        showWaitDialog: false,
-        updateBzEveryWhere: updateBz
+      context: context,
+      bzModel: bzModel,
+      flyers: _flyers,
+      showWaitDialog: false,
+      updateBzEveryWhere: updateBz,
+      isDeletingBz: true,
     );
 
     if (showWaitDialog == true){
       WaitDialog.closeWaitDialog(context);
     }
 
-    blog('BzProtocol._deleteAllBzFlyersOps : END');
+    blog('WipeBzProtocols._deleteAllBzFlyersOps : END');
 
   }
 // -----------------------------------------------------------------------------

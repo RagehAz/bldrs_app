@@ -183,6 +183,7 @@ class WipeUserProtocols {
           context: context,
           bzModel: bzModel,
           showWaitDialog: true,
+          includeMyselfInBzDeletionNote: false
         );
 
         await BzProtocols.deleteLocally(

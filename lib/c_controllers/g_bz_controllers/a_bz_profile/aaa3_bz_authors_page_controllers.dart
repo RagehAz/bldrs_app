@@ -286,6 +286,7 @@ Future<void> _removeAuthorWhoHasFlyers({
       showWaitDialog: false,
       updateBzEveryWhere: false,
       flyers: _flyers,
+      isDeletingBz: false,
     );
 
     /// REMOVE AUTHOR MODEL FROM BZ MODEL
