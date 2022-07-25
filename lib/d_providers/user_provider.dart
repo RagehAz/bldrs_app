@@ -105,6 +105,9 @@ class UsersProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  /*
+  /// DEPRECATED
+
   void addBzIDToMyBzzIDs({
     @required String bzIDToAdd,
     @required bool notify,
@@ -125,6 +128,8 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
+
+   */
   // -------------------------------------
   void removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,

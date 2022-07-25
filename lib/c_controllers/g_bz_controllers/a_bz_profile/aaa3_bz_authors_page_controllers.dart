@@ -145,6 +145,7 @@ Future<void> onAuthorOptionsTap({
           authorModel: authorModel,
           showConfirmationDialog: true,
           showWaitingDialog: true,
+          sendToUserAuthorExitNote: true,
         );
 
       },
@@ -175,6 +176,7 @@ Future<void> onDeleteAuthorFromBz({
   @required BzModel bzModel,
   @required bool showConfirmationDialog,
   @required bool showWaitingDialog,
+  @required bool sendToUserAuthorExitNote,
 }) async {
 
   bool _result;
@@ -206,6 +208,7 @@ Future<void> onDeleteAuthorFromBz({
         bzModel: bzModel,
         showWaitDialog: showWaitingDialog,
         showConfirmationDialog: showConfirmationDialog,
+        sendToUserAuthorExitNote: sendToUserAuthorExitNote,
       );
 
     }
@@ -219,6 +222,7 @@ Future<void> onDeleteAuthorFromBz({
         bzModel: bzModel,
         showWaitDialog: showWaitingDialog,
         showConfirmationDialog: showConfirmationDialog,
+        sendToUserAuthorExitNote: sendToUserAuthorExitNote,
       );
 
     }
@@ -251,6 +255,7 @@ Future<void> _removeAuthorWhoHasFlyers({
   @required BzModel bzModel,
   @required bool showWaitDialog,
   @required bool showConfirmationDialog,
+  @required bool sendToUserAuthorExitNote,
 }) async {
 
   bool _result;
@@ -303,11 +308,13 @@ Future<void> _removeAuthorWhoHasFlyers({
         authorPicFile: null
     );
 
+
     /// SEND AUTHOR DELETION NOTES
     await NoteProtocols.sendAuthorDeletionNotes(
       context: context,
       bzModel: bzModel,
       deletedAuthor: authorModel,
+      sendToUserAuthorExitNote: sendToUserAuthorExitNote,
     );
 
     if (showWaitDialog == true){
@@ -368,6 +375,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
   @required BzModel bzModel,
   @required bool showConfirmationDialog,
   @required bool showWaitDialog,
+  @required bool sendToUserAuthorExitNote,
 }) async {
 
   /// REMOVE AUTHOR MODEL FROM BZ MODEL
@@ -382,6 +390,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
     context: context,
     bzModel: bzModel,
     deletedAuthor: authorModel,
+    sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
 
   /// SHOW CONFIRMATION DIALOG

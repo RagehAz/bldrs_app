@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -92,6 +93,8 @@ class UserBanner extends StatelessWidget {
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);
 
+    final bool _itIsMe = userModel.id == AuthFireOps.superUserID();
+
     return Bubble(
       centered: true,
       onBubbleTap: _onTap,
@@ -110,7 +113,7 @@ class UserBanner extends StatelessWidget {
             userStatus: userModel?.status,
             userModel: userModel,
             loading: false,
-            showEditButton: _thereAreMissingFields,
+            showEditButton: _thereAreMissingFields && _itIsMe,
             onTap: _onTap,
           ),
         ),
