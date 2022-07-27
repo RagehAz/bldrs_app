@@ -22,17 +22,17 @@ Future<void> takeAuthorImage({
   @required ValueNotifier<AuthorModel> author,
 }) async {
 
-  final List<File> _imageFiles = await Imagers.pickMultipleImages(
+  final File _file = await Imagers.pickAndCropSingleImage(
     context: context,
-    maxAssets: 1
-    // picType: Imagers.PicType.authorPic
+    cropAfterPick: true,
+    isFlyerRatio: false,
   );
 
-  final File _file = _imageFiles?.first;
-
-  author.value = author.value.copyWith(
-    pic: _file,
-  );
+  if (_file != null){
+    author.value = author.value.copyWith(
+      pic: _file,
+    );
+  }
 
 }
 // ----------------------------------

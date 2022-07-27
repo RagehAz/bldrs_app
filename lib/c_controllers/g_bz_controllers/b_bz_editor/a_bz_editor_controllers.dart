@@ -94,14 +94,13 @@ Future<void> takeBzLogo({
   @required ValueNotifier<dynamic> bzLogo,
 }) async {
 
-  final List<File> _imageFiles = await Imagers.pickMultipleImages(
+  final File _file = await Imagers.pickAndCropSingleImage(
     context: context,
-    maxAssets: 1
-    // picType: Imagers.PicType.bzLogo
+    isFlyerRatio: false,
+    cropAfterPick: true,
   );
 
-  if (Mapper.checkCanLoopList(_imageFiles) == true){
-    final File _file = _imageFiles?.first;
+  if (_file != null){
     bzLogo.value = _file;
   }
 
