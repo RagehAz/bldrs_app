@@ -19,7 +19,7 @@ Future<void> onSearchUsers({
   @required ValueNotifier<List<UserModel>> foundUsers,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<bool> loading,
-  @required bool excludeMyself,
+  @required List<String> userIDsToExclude,
 }) async {
 
   blog('starting onSearchUsers : text : $text');
@@ -39,7 +39,7 @@ Future<void> onSearchUsers({
       context: context,
       name: _fixedText,
       // startAfter: Mapper.checkCanLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
-      excludeMyself: excludeMyself,
+      userIDsToExclude: userIDsToExclude,
     );
 
     foundUsers.value = _users;

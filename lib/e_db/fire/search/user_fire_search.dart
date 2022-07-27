@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,7 @@ class UserFireSearch{
   static Future<List<UserModel>> usersByUserName({
     @required BuildContext context,
     @required String name,
-    @required bool excludeMyself,
+    @required List<String> userIDsToExclude,
     QueryDocumentSnapshot<Object> startAfter,
     int limit = 10,
   }) async {
@@ -49,8 +48,10 @@ class UserFireSearch{
       );
     }
 
-    if (excludeMyself == true){
-      _usersModels.removeWhere((user) => user.id == AuthFireOps.superUserID());
+    if (Mapper.checkCanLoopList(userIDsToExclude) == true){
+      for (final String userID in userIDsToExclude){
+        _usersModels.removeWhere((user) => user.id == userID);
+      }
     }
 
     return _usersModels;
