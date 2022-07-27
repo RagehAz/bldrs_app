@@ -210,8 +210,8 @@ class DraftFlyerModel{
   @required DraftFlyerModel draft,
 }){
 
-    disposeControllerIfPossible(draft.headlineController);
-    disposeControllerIfPossible(draft.descriptionController);
+    TextChecker.disposeControllerIfPossible(draft.headlineController);
+    TextChecker.disposeControllerIfPossible(draft.descriptionController);
     MutableSlide.disposeMutableSlidesTextControllers(
         mutableSlides: draft.mutableSlides,
     );

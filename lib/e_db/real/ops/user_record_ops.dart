@@ -28,7 +28,7 @@ class UserRecordOps {
     final String _userID = AuthFireOps.superUserID();
     RecordModel _uploadedRecord;
 
-    if (stringIsNotEmpty(searchText) == true && _userID != null){
+    if (TextChecker.stringIsNotEmpty(searchText) == true && _userID != null){
 
       final RecordModel _record = RecordModel.createSearchRecord(
         userID: _userID,

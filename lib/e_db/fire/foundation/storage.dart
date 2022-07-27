@@ -7,7 +7,7 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -305,7 +305,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }) async {
     String _url;
 
-    final File _result = await Imagers.getFileFromLocalRasterAsset(
+    final File _result = await Filers.getFileFromLocalRasterAsset(
       context: context,
       localAsset: asset,
     );
@@ -374,7 +374,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
         final Uint8List _uInts = await _ref.getData();
 
-        _file = await Imagers.getFileFromUint8List(
+        _file = await Filers.getFileFromUint8List(
           uInt8List: _uInts,
           fileName: _ref.name,
         );
@@ -414,7 +414,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (_ref != null) {
       final Uint8List _uInts = await _ref.getData();
 
-      _file = await Imagers.getFileFromUint8List(
+      _file = await Filers.getFileFromUint8List(
           uInt8List: _uInts,
           fileName: _ref.name
       );
