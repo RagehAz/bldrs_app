@@ -279,11 +279,15 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<List<File>> _theFiles = ValueNotifier(<File>[]);
+
   Future<void> _fastTest(BuildContext context) async {
 
     final List<File> _files = await Imagers.takeImagesThenCropAll(context: context);
 
-    _thePic.value = _files.first;
+    _theFiles.value = _files;
+
+    blog('file are ${_files?.length}');
 
   }
 // -----------------------------------------------------------------------------
@@ -611,6 +615,46 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 //   },
                 // ),
 
+                /// IMAGE
+                ValueListenableBuilder(
+                    valueListenable: _theFiles,
+                    builder: (_, List<File> files, Widget child){
+
+                      if (Mapper.checkCanLoopList(files) == false){
+                        return const SizedBox();
+                      }
+
+                      else {
+                        return Container(
+                          width: _screenWidth,
+                          height: 100,
+                          color: Colorz.grey80,
+                          child: ListView.builder(
+                            itemCount: files.length,
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (_, int index){
+
+                              return SuperImage(
+                                width: 100,
+                                height: 100,
+                                // scale: 1,
+                                // boxFit: BoxFit.cover,
+                                pic: files[index],
+                                iconColor: Colorz.blue255,
+                                // loading: false,
+                                // backgroundColor: Colorz.black255,
+                                corners: 10,
+                                // greyscale: false,
+                              );
+
+                            },
+                          ),
+                        );
+                      }
+
+                    }
+                ),
 
 
               ],
