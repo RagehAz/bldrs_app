@@ -676,13 +676,12 @@ Future<void> _onSelectImageURLAsAttachment({
   @required NoteAttachmentType attachmentType,
 }) async {
 
-  final List<File> _pics = await Imagers.pickMultipleImages(
+  final File _file = await Imagers.pickAndCropSingleImage(
     context: context,
-    maxAssets: 1,
-    // picType: Imagers.PicType.slideHighRes,
+    cropAfterPick: true,
+    isFlyerRatio: false,
   );
 
-  final File _file = _pics?.first;
 
   // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
   // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(

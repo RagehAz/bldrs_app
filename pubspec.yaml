@@ -51,9 +51,7 @@ dependencies:
   http: ^0.13.4
   image: ^3.0.8
   image_editor: ^1.0.2 # required for SuperFilteredImage
-  image_editor_plus: ^0.1.3
   image_cropping: ^0.0.12
-#  image_cropper: ^2.0.3
   intl: ^0.17.0
   just_audio: ^0.9.24
   location: ^4.4.0

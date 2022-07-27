@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bldrs/b_views/z_components/cropper/cropper_footer.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -28,7 +27,7 @@ class CroppingScreen extends StatefulWidget {
   /// -----------------------------------------------------------------------------
   final List<File> files;
   final String filesName;
-  final double aspectRatio; // 1 / Ratioz.xxflyerZoneHeight
+  final double aspectRatio;
   /// -----------------------------------------------------------------------------
   @override
   _CroppingScreenState createState() => _CroppingScreenState();
@@ -137,6 +136,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   }
 // -----------------------------------------------------------------------------
   void _initializeControllers(){
+
     for (int i = 0; i < widget.files.length; i++){
       final CropController _controller = CropController();
       _controllers.add(_controller);
@@ -144,6 +144,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     final List<CropStatus> _statusesList =  List.filled(widget.files.length, CropStatus.nothing);
     _statuses = ValueNotifier(_statusesList);
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _cropImages() async {
@@ -162,7 +163,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitle: 'Cropp',
+      pageTitle: 'Crop Images',
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
       appBarType: AppBarType.basic,
