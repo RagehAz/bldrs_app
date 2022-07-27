@@ -1,7 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:io';
 import 'dart:ui' as ui;
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -116,7 +117,8 @@ bool checkColorsAreIdentical(Color color1, Color color2) {
 // -------------------------------------
 /// TESTED : WORKS PERFECT
 Future<Color> getAverageColor(dynamic pic) async {
-  final File _imageFile = await Imagers.getFileFromDynamic(pic);
+
+  final File _imageFile = await Filers.getFileFromDynamic(pic);
 
   final Image.Image bitmap = Image.decodeImage(_imageFile.readAsBytesSync());
 

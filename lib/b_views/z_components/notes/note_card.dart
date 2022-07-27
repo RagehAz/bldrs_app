@@ -117,7 +117,7 @@ class NoteCard extends StatelessWidget {
 
                     /// TITLE
                     SuperVerse(
-                      verse: stringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
+                      verse: TextChecker.stringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
                       maxLines: 5,
                       centered: false,
                     ),
@@ -138,7 +138,7 @@ class NoteCard extends StatelessWidget {
 
                     /// BODY
                     SuperVerse(
-                      verse: stringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
+                      verse: TextChecker.stringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
                       weight: VerseWeight.thin,
                       maxLines: 20,
                       centered: false,

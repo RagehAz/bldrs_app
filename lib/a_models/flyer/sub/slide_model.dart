@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
@@ -523,7 +524,7 @@ class SlideModel {
 
     if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
-        final File _file = await Imagers.getFileFromURL(slide.pic);
+        final File _file = await Filers.getFileFromURL(slide.pic);
 
         _files.add(_file);
       }

@@ -23,7 +23,7 @@ class Launcher {
     bool _success = false;
 
     /// LINK SHOULD CONTAIN 'http://' to work
-    final bool _containsHttp = stringContainsSubString(
+    final bool _containsHttp = TextChecker.stringContainsSubString(
       string: link,
       subString: 'http://',
     );
