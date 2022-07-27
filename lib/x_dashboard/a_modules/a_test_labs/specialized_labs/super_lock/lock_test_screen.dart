@@ -140,7 +140,7 @@ class _LockTestScreenState extends State<LockTestScreen> {
             EditorConfirmButton(
               firstLine: 'Open Sesame',
               onTap: _onOpenSesame,
-              positionedAlignment: null,
+              // positionedAlignment: null,
             ),
 
           ],
