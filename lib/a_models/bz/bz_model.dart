@@ -1864,7 +1864,7 @@ class BzModel{
       );
     }
 
-    if (stringIsEmpty(bzModel?.name) == true){
+    if (TextChecker.stringIsEmpty(bzModel?.name) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzName',
@@ -1894,7 +1894,7 @@ class BzModel{
       );
     }
 
-    if (stringIsEmpty(bzModel?.zone?.countryID) == true){
+    if (TextChecker.stringIsEmpty(bzModel?.zone?.countryID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCountry',
@@ -1904,7 +1904,7 @@ class BzModel{
       );
     }
 
-    if (stringIsEmpty(bzModel?.zone?.cityID) == true){
+    if (TextChecker.stringIsEmpty(bzModel?.zone?.cityID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCity',
@@ -1914,7 +1914,7 @@ class BzModel{
       );
     }
 
-    if (stringIsEmpty(bzModel?.about) == true){
+    if (TextChecker.stringIsEmpty(bzModel?.about) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzAbout',

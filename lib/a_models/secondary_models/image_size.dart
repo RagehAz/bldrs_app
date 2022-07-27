@@ -2,7 +2,8 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -93,10 +94,10 @@ class ImageSize {
       Uint8List _uInt8List;
       // -----------------------------------------------------------o
       if (_isURL == true) {
-        final File _file = await Imagers.getFileFromURL(image);
+        final File _file = await Filers.getFileFromURL(image);
         _uInt8List = _file.readAsBytesSync();
         // await null;
-        _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
+        _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
       }
       // --------------------------o
       /*
@@ -113,12 +114,12 @@ class ImageSize {
         // blog('_isFile staring aho : $_isFile');
         _uInt8List = await image.readAsBytesSync();
         // blog('_uInt8List : $_uInt8List');
-        _decodedImage = await Imagers.getUiImageFromUint8List(_uInt8List);
+        _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
         // blog('_decodedImage : $_decodedImage');
       }
       // --------------------------o
       else if (_isUints == true) {
-        _decodedImage = await Imagers.getUiImageFromUint8List(image);
+        _decodedImage = await Floaters.getUiImageFromUint8List(image);
       }
       // -----------------------------------------------------------o
       if (_decodedImage != null) {

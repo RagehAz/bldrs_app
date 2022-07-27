@@ -56,9 +56,9 @@ class UserBanner extends StatelessWidget {
     bool _can = false;
 
     if (
-    stringIsNotEmpty(userModel?.title) == true
+    TextChecker.stringIsNotEmpty(userModel?.title) == true
         ||
-        stringIsNotEmpty(userModel?.company) == true
+        TextChecker.stringIsNotEmpty(userModel?.company) == true
     ){
       _can = true;
     }

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -140,7 +140,7 @@ class QuestionModel {
         &&
         updateQuestion != null
         &&
-        Imagers.picturesURLsAreIdentical(
+        TextChecker.picturesURLsAreIdentical(
             urls1: originalQuestion.pics,
             urls2: updateQuestion.pics
         ) == true
