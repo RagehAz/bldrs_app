@@ -196,14 +196,12 @@ class CenterDialog extends StatelessWidget {
                           width: _dialogWidth,
                           height: _dialogHeight,
                           decoration: BoxDecoration(
-                              color: color,
-                              boxShadow: Shadowz.appBarShadow,
-                              borderRadius: _dialogBorders,
+                            color: color,
+                            boxShadow: Shadowz.appBarShadow,
+                            borderRadius: _dialogBorders,
                           ),
-                          child: Column(
-                            // mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
                             children: <Widget>[
 
                               /// TITLE - BODY - CHILD

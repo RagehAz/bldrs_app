@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/d_author_search/aa_search_for_author_screen_view.dart';
@@ -42,13 +43,22 @@ class _SearchForAuthorScreenState extends State<SearchForAuthorScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+    );
+
+    final List<String> _bzAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
+        authors: _bzModel.authors,
+    );
+
     await onSearchUsers(
       context: context,
       text: text,
       loading: _loading,
       foundUsers: _foundUsers,
       isSearching: _isSearching,
-      excludeMyself: true,
+      userIDsToExclude: _bzAuthorsIDs,
     );
 
   }

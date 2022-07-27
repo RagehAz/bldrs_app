@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SearchUsersScreen({
-    @required this.excludeMyself,
+    @required this.userIDsToExcludeInSearch,
     this.multipleSelection = false,
     this.selectedUsers,
     this.onUserTap,
@@ -23,7 +23,7 @@ class SearchUsersScreen extends StatefulWidget {
   final bool multipleSelection;
   final List<UserModel> selectedUsers;
   final ValueChanged<UserModel> onUserTap;
-  final bool excludeMyself;
+  final List<String> userIDsToExcludeInSearch;
   /// --------------------------------------------------------------------------
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
@@ -94,7 +94,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       loading: _loading,
       foundUsers: _foundUsers,
       isSearching: _isSearching,
-      excludeMyself: widget.excludeMyself,
+      userIDsToExclude: widget.userIDsToExcludeInSearch,
     );
 
     final List<UserModel> _history = UserModel.addUniqueUsersToUsers(
