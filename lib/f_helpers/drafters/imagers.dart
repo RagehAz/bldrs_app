@@ -351,22 +351,24 @@ class Imagers {
     return _output;
   }
 // ---------------------------------------
-  static Future<File> takeImageThenCropC({
+  static Future<List<File>> takeImagesThenCropAll({
     @required BuildContext context,
   }) async {
 
-    final File _file = await pickSingleImage(
+    final List<File> _files = await pickMultipleImages(
       context: context,
+      maxAssets: 5,
     );
 
-    File _output;
+    List<File> _output;
 
-    if (_file != null){
+    if (Mapper.checkCanLoopList(_files) == true){
 
       _output = await Nav.goToNewScreen(
           context: context,
           screen: CroppingScreen(
-            imageData: await Floaters.getUint8ListFromFile(_file),
+            files: _files,
+            filesName: 'bob',
           ),
       );
 
