@@ -261,7 +261,7 @@ class UserEditorScreenView extends StatelessWidget {
                   /// --- CONFIRM BUTTON
                   EditorConfirmButton(
                     firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
-                    positionedAlignment: null,
+                    // positionedAlignment: null,
                     onTap: () => confirmEdits(
                         context: context,
                         formKey: formKey,
@@ -276,7 +276,7 @@ class UserEditorScreenView extends StatelessWidget {
                   if (canGoBack == false)
                   EditorConfirmButton(
                     firstLine: 'Skip',
-                    positionedAlignment: null,
+                    // positionedAlignment: null,
                     onTap: (){
 
                       blog('skip');

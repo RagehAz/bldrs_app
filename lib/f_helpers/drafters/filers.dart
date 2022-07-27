@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -145,6 +146,7 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> getFileFromUint8List({
     @required Uint8List uInt8List,
     @required String fileName,
@@ -160,6 +162,30 @@ class Filers {
     );
 
     return _result;
+  }
+// ---------------------------------------
+  static Future<List<File>> getFilesFromUint8Lists({
+    @required List<Uint8List> uInt8Lists,
+    @required String fileName,
+  }) async {
+    final List<File> _output = <File>[];
+
+    if (Mapper.checkCanLoopList(uInt8Lists) == true){
+
+      for (int i = 0; i < uInt8Lists.length; i++){
+
+        final File _file = await getFileFromUint8List(
+            uInt8List: uInt8Lists[i],
+            fileName: '${fileName}_$i',
+        );
+
+        _output.add(_file);
+
+      }
+
+    }
+
+    return _output;
   }
 // ---------------------------------------
   static Future<File> getFileFromURL(String imageUrl) async {

@@ -9,7 +9,7 @@ class EditorConfirmButton extends StatelessWidget {
   const EditorConfirmButton({
     @required this.onTap,
     @required this.firstLine,
-    @required this.positionedAlignment,
+    this.positionedAlignment,
     this.secondLine,
     this.isDeactivated = false,
     Key key
