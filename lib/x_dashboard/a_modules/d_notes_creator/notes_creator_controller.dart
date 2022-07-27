@@ -220,7 +220,7 @@ Future<String> _onSelectUserAsNoteReceiver({
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
     context: context,
     screen: const SearchUsersScreen(
-      excludeMyself: false,
+      userIDsToExcludeInSearch: <String>[],
     ),
   );
 
@@ -417,7 +417,7 @@ Future<void> _onSelectUserAsNoteSender({
   final List<UserModel> _selectedUsers = await Nav.goToNewScreen(
     context: context,
     screen: const SearchUsersScreen(
-      excludeMyself: false,
+      userIDsToExcludeInSearch: [],
     ),
   );
 
