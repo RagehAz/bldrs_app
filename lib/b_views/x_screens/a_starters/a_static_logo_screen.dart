@@ -2,26 +2,28 @@ import 'dart:async';
 
 import 'package:bldrs/b_views/x_screens/a_starters/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 // import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
 /// OLD LOGO SCREEN
-class OldLogoScreen extends StatefulWidget {
+class StaticLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const OldLogoScreen({
+  const StaticLogoScreen({
     // @required this.error,
     // @required this.loading,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<OldLogoScreen> createState() => _OldLogoScreenState();
+  State<StaticLogoScreen> createState() => _StaticLogoScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _OldLogoScreenState extends State<OldLogoScreen> with TickerProviderStateMixin {
+class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   // final String error;
   // final bool loading;
@@ -69,10 +71,15 @@ class _OldLogoScreenState extends State<OldLogoScreen> with TickerProviderStateM
 
       _triggerLoading().then((_) async {
 
-        // await initializeLogoScreen(
-        //   context: context,
-        //   mounted: mounted,
-        // );
+        await initializeLogoScreen(
+          context: context,
+          mounted: mounted,
+        );
+
+        await Nav.pushNamedAndRemoveAllBelow(
+          context: context,
+          goToRoute: Routez.home,
+        );
 
         await _triggerLoading();
       });

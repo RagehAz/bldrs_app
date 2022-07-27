@@ -14,7 +14,6 @@ import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -292,9 +291,9 @@ Future<void> showMissingFieldsDialog({
 */
 // ------------------------------------------------------
 Future<void> _goToLogoScreen(BuildContext context) async {
-  await Nav.pushNamedAndRemoveAllBelow(
+  await Nav.goBackToLogoScreen(
       context: context,
-      goToRoute: Routez.logoScreen,
+      animatedLogoScreen: true,
   );
 }
 // -----------------------------------------------------------------------------

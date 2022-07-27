@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
@@ -13,8 +14,13 @@ Route<dynamic> allRoutes(RouteSettings settings) {
   switch (settings.name) {
 
   // --------------------------
-  /// LOGO SCREEN
-    case Routez.logoScreen:
+  /// STATIC LOGO SCREEN
+    case Routez.staticLogoScreen:
+      return Nav.fadeToScreen(const StaticLogoScreen(), settings);
+      break;
+  // --------------------------
+  /// ANIMATED LOGO SCREEN
+    case Routez.animatedLogoScreen:
       return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
       break;
   // --------------------------

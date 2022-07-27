@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
@@ -215,11 +216,11 @@ class _BldrsAppState extends State<BldrsApp> {
 
               /// ROUTES
               onGenerateRoute: Routerer.allRoutes,
-              initialRoute: Routez.logoScreen,
+              initialRoute: Routez.staticLogoScreen,
               routes: <String, Widget Function(BuildContext)>{
 
                 /// STARTERS
-                Routez.logoScreen: (BuildContext ctx) => const AnimatedLogoScreen(key: ValueKey<String>('LogoScreen'),),
+                Routez.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(key: ValueKey<String>('LogoScreen'),),
                 Routez.home: (BuildContext ctx) => const HomeScreen(),
 
                 Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
