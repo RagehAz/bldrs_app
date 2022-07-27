@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/cropping_screen.dart';
+import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:flutter/material.dart';
 
 class CropperFooter extends StatelessWidget {
@@ -71,6 +71,7 @@ class CropperFooter extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: files.length,
+                  padding: Scale.superInsets(context: context, enRight: _screenWidth * 0.5),
                   itemBuilder: (_, int index){
 
                     final bool _isSelected = imageIndex == index;

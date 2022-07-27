@@ -190,12 +190,11 @@ Future<void> _addImagesForNewFlyer({
     //   mutableSlides: draftFlyer.value.mutableSlides,
     // );
 
-    final List<File> _pickedAssets = await Imagers.pickMultipleImages(
+    final List<File> _pickedAssets = await Imagers.pickAndCropMultipleImages(
       context: context,
-      maxAssets: 10,
-      // images: _existingFiles,
-      // mounted: mounted,
-      // accountType: bzModel.accountType,
+      // maxAssets: 10,
+      isFlyerRatio: true,
+      cropAfterPick: true,
     );
 
     /// B - if didn't pick more images

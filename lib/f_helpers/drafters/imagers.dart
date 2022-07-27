@@ -1,19 +1,14 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
+
+import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/cropping_screen.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropping/image_cropping.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
-import 'package:image_editor/image_editor.dart';
 
 
 enum PicType {
@@ -37,8 +32,10 @@ class Imagers {
   /// PICK IMAGE FROM GALLERY
 
 // ---------------------------------------
-  static Future<File> pickSingleImage({
+  static Future<File> pickAndCropSingleImage({
     @required BuildContext context,
+    @required bool cropAfterPick,
+    @required bool isFlyerRatio,
     AssetEntity selectAsset,
   }) async {
 
@@ -49,10 +46,12 @@ class Imagers {
         :
     <AssetEntity>[selectAsset];
 
-    final List<File> _files = await pickMultipleImages(
+    final List<File> _files = await pickAndCropMultipleImages(
       context: context,
       maxAssets: 1,
       selectedAssets: _assets,
+      cropAfterPick: cropAfterPick,
+      isFlyerRatio: isFlyerRatio,
     );
 
     if (Mapper.checkCanLoopList(_files) == true){
@@ -62,9 +61,36 @@ class Imagers {
     return _file;
   }
 // ---------------------------------------
-  static Future<List<File>> pickMultipleImages({
+  static Future<List<File>> pickAndCropMultipleImages({
+    @required BuildContext context,
+    @required bool isFlyerRatio,
+    @required bool cropAfterPick,
+    int maxAssets = 10,
+    List<AssetEntity> selectedAssets,
+  }) async {
+
+    List<File> _files = await _pickMultipleImages(
+      context: context,
+      maxAssets: maxAssets,
+      cropAfterPick: cropAfterPick,
+      selectedAssets: selectedAssets,
+    );
+
+    if (cropAfterPick == true){
+      _files = await cropImages(
+        context: context,
+        pickedFiles: _files,
+        isFlyerRatio: isFlyerRatio,
+      );
+    }
+
+    return _files;
+  }
+// ---------------------------------------
+  static Future<List<File>> _pickMultipleImages({
     @required BuildContext context,
     @required int maxAssets,
+    @required bool cropAfterPick,
     List<AssetEntity> selectedAssets,
   }) async {
 
@@ -271,229 +297,29 @@ class Imagers {
   /// CROP IMAGE
 
 // ---------------------------------------
-  static Future<File> takeImageThenCropA({
+  static Future<List<File>> cropImages({
     @required BuildContext context,
-}) async {
+    @required List<File> pickedFiles,
+    @required bool isFlyerRatio,
+  }) async {
 
-    final File _file = await pickSingleImage(
-      context: context,
-    );
+    List<File> _files = <File>[];
 
-    File _output;
+    if (Mapper.checkCanLoopList(pickedFiles) == true){
 
-    if (_file != null){
-
-      ImageCropping.cropImage(
+      _files = await Nav.goToNewScreen(
         context: context,
-        imageBytes: await _file.readAsBytes(),
-        onImageDoneListener: (dynamic data) async {
-          blog('data is : ${data.runtimeType} : $data');
-          _output = await Filers.getFileFromUint8List(uInt8List: data, fileName: _file.fileNameWithExtension);
-        },
-        customAspectRatios: <CropAspectRatio>[],
-        imageEdgeInsets: EdgeInsets.zero,
-        isConstrain: false,
-        makeDarkerOutside: false,
-        onImageEndLoading: (){
-          blog('ImageEndLoading');
-        },
-        onImageStartLoading: (){
-          blog('ImageStartLoading');
-        },
-        rootNavigator: true,
-        squareCircleSize: 0,
-        selectedImageRatio: CropAspectRatio.free(),
-        visibleOtherAspectRatios: true,
-        squareBorderWidth: 2,
-        squareCircleColor: Colorz.black255,
-        defaultTextColor: Colorz.white255,
-        selectedTextColor: Colorz.yellow255,
-        colorForWhiteSpace: Colorz.black255,
+        screen: CroppingScreen(
+          files: pickedFiles,
+          filesName: 'bob',
+          aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+        ),
       );
 
     }
 
-    return _output;
-}
-// ---------------------------------------
-  static Future<File> takeImageThenCropB({
-    @required BuildContext context,
-  }) async {
-
-    final File _file = await pickSingleImage(
-      context: context,
-    );
-
-    File _output;
-
-    if (_file != null){
-
-      final editorOption = ImageEditorOption();
-      editorOption.addOption(const FlipOption());
-      // editorOption.addOption(ClipOption(width: null, height: null));
-      editorOption.addOption(const RotateOption(0));
-      // editorOption.addOption(); // and other option.
-
-      editorOption.outputFormat = const OutputFormat.png(88);
-
-      final Uint8List _uInt8List = await ImageEditor.editImage(
-        image: await Floaters.getUint8ListFromFile(_file),
-        imageEditorOption: editorOption,
-      );
-
-      _output = await Filers.getFileFromUint8List(
-          uInt8List: _uInt8List,
-          fileName: _file.fileNameWithExtension,
-      );
-
-
-    }
-
-    return _output;
+    return _files;
   }
-// ---------------------------------------
-  static Future<List<File>> takeImagesThenCropAll({
-    @required BuildContext context,
-  }) async {
-
-    final List<File> _files = await pickMultipleImages(
-      context: context,
-      maxAssets: 5,
-    );
-
-    List<File> _output;
-
-    if (Mapper.checkCanLoopList(_files) == true){
-
-      _output = await Nav.goToNewScreen(
-          context: context,
-          screen: CroppingScreen(
-            files: _files,
-            filesName: 'bob',
-          ),
-      );
-
-    }
-
-    return _output;
-  }
-// ---------------------------------------
-/*
-Future<File> cropImageByImageCropper({
-  @required BuildContext context,
-  @required File file,
-}) async {
-
-  /// flyer ratio is : (1 x 1.74)
-  const double _flyerHeightRatio = Ratioz.xxflyerZoneHeight; // 1.74
-  const double _maxWidth = 1000;
-
-  final CroppedFile _croppedFile = await ImageCropper().cropImage(
-    sourcePath: file.path,
-    aspectRatio: const CropAspectRatio(
-        ratioX: 1,
-        ratioY: Ratioz.xxflyerZoneHeight,
-    ),
-    aspectRatioPresets: Platform.isAndroid ?
-    getAndroidCropAspectRatioPresets()
-        :
-    getIOSCropAspectRatioPresets(),
-    maxWidth: _maxWidth.toInt(),
-    compressFormat: ImageCompressFormat.jpg,
-
-    /// TASK : need to test png vs jpg storage sizes on firebase
-    compressQuality: 100, // max
-    cropStyle: CropStyle.rectangle,
-    maxHeight: (_maxWidth * _flyerHeightRatio).toInt(),
-    uiSettings: <PlatformUiSettings>[
-
-      AndroidUiSettings(
-        initAspectRatio: CropAspectRatioPreset.square,
-        lockAspectRatio: false,
-
-        statusBarColor: Colorz.black255,
-        backgroundColor: Colorz.black230,
-        dimmedLayerColor: Colorz.black200,
-
-        toolbarTitle: 'Crop Image', //'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
-        toolbarColor: Colorz.black255,
-        toolbarWidgetColor: Colorz.white255, // color of : cancel, title, confirm widgets
-
-        activeControlsWidgetColor: Colorz.yellow255,
-        hideBottomControls: false,
-
-        cropFrameColor: Colorz.grey80,
-        cropFrameStrokeWidth: 5,
-
-        showCropGrid: true,
-        cropGridColumnCount: 3,
-        cropGridRowCount: 6,
-        cropGridColor: Colorz.grey80,
-        cropGridStrokeWidth: 2,
-      ),
-
-    ],
-
-    /// TASK : check cropper in ios
-    // iosUiSettings: IOSUiSettings(
-    //   title: 'Crop flyer Aspect Ratio 1 : ${Ratioz.xxflyerZoneHeight}',
-    //   doneButtonTitle: 'Done babe',
-    //   aspectRatioLockDimensionSwapEnabled: ,
-    //   aspectRatioLockEnabled: ,
-    //   aspectRatioPickerButtonHidden: ,
-    //   cancelButtonTitle: ,
-    //   hidesNavigationBar: ,
-    //   minimumAspectRatio: ,
-    //   rectHeight: ,
-    //   rectWidth: ,
-    //   rectX: ,
-    //   rectY: ,
-    //   resetAspectRatioEnabled: ,
-    //   resetButtonHidden: ,
-    //   rotateButtonsHidden: ,
-    //   rotateClockwiseButtonHidden: ,
-    //   showActivitySheetOnDone: ,
-    //   showCancelConfirmationDialog: ,
-    // ),
-  );
-
-  if (_croppedFile == null) {
-    return null;
-  } else {
-    return File(_croppedFile.path);
-  }
-}
- */
-// -----------------------------------------------------------------
-
-  /// CropAspectRatioPreset
-
-// ---------------------------------------
-/*
-List<CropAspectRatioPreset> getAndroidCropAspectRatioPresets() {
-  const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
-    CropAspectRatioPreset.square,
-    CropAspectRatioPreset.ratio3x2,
-    CropAspectRatioPreset.original,
-    CropAspectRatioPreset.ratio4x3,
-  ];
-  return _androidRatios;
-}
-// ---------------------------------------
-List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
-  const List<CropAspectRatioPreset> _androidRatios = <CropAspectRatioPreset>[
-    CropAspectRatioPreset.original,
-    CropAspectRatioPreset.square,
-    CropAspectRatioPreset.ratio3x2,
-    CropAspectRatioPreset.ratio4x3,
-    CropAspectRatioPreset.ratio5x3,
-    CropAspectRatioPreset.ratio5x4,
-    CropAspectRatioPreset.ratio7x5,
-    CropAspectRatioPreset.ratio16x9,
-  ];
-  return _androidRatios;
-}
- */
 // -----------------------------------------------------------------
 
   /// CHECKERS
@@ -543,6 +369,7 @@ List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
   /// IMAGE QUALITY
 
 // ---------------------------------------
+  /*
   static int concludeImageQuality(PicType picType) {
     switch (picType) {
       case PicType.userPic:return 100;break;
@@ -569,5 +396,6 @@ List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
       default:return 200;
     }
   }
+   */
 // -----------------------------------------------------------------
 }

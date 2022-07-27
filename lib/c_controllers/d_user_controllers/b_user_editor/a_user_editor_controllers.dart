@@ -10,7 +10,6 @@ import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.da
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -29,16 +28,11 @@ Future<void> takeUserPicture({
 
     canPickImage.value = false;
 
-    final List<File> _imageFiles = await Imagers.pickMultipleImages(
+    final File _imageFile = await Imagers.pickAndCropSingleImage(
       context: context,
-      maxAssets: 1
-      // picType: Imagers.PicType.userPic,
+      cropAfterPick: true,
+      isFlyerRatio: false,
     );
-
-    File _imageFile;
-    if (Mapper.checkCanLoopList(_imageFiles) == true){
-      _imageFile = _imageFiles?.last;
-    }
 
     /// IF DID NOT PIC ANY IMAGE
     if (_imageFile == null) {
