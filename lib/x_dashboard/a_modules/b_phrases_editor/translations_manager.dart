@@ -20,7 +20,7 @@ import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 
 class TranslationsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -24,7 +24,7 @@ class CurrencyManagerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = superScreenHeightWithoutSafeArea(context) - 10;
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context) - 10;
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
@@ -74,7 +74,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                         color: Colorz.bloodTest,
                         borderRadius: Borderers.superBorderAll(context, 50 * 0.15)
                     ),
-                    margin: superInsets(context: context, bottom: 5),
+                    margin: Scale.superInsets(context: context, bottom: 5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -95,7 +95,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               physics: const BouncingScrollPhysics(),
                               itemCount: _currency.countriesIDs.length,
-                              padding: superMargins(margins: 10),
+                              padding: Scale.superMargins(margins: 10),
                               itemBuilder: (_, index){
 
                                 final String _countryID = _currency.countriesIDs[index];

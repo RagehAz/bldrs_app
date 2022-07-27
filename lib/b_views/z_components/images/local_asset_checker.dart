@@ -1,5 +1,6 @@
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LocalAssetChecker extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -14,6 +15,33 @@ class LocalAssetChecker extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<LocalAssetChecker> createState() => _LocalAssetCheckerState();
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> localAssetExists(dynamic asset) async {
+    bool _isFound = false;
+
+    if (asset is String){
+      if (TextChecker.stringIsNotEmpty(asset) == true){
+
+        final ByteData _bytes = await rootBundle.load(asset).catchError((Object error){
+
+          // blog('LocalAssetChecker : _checkAsset : error : ${error.toString()}');
+
+          if (error == null){
+            _isFound = true;
+          }{
+            _isFound = false;
+          }
+
+        },);
+
+        _isFound = _bytes != null;
+
+      }
+    }
+
+    return _isFound;
+  }
 /// --------------------------------------------------------------------------
 }
 
@@ -48,7 +76,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 
       _triggerLoading().then((_) async {
 
-        final bool _assetExists = await Imagers.localAssetExists(widget.asset);
+        final bool _assetExists = await LocalAssetChecker.localAssetExists(widget.asset);
 
         if (mounted){
           _exists.value = _assetExists;
