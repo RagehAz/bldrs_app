@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/x_dashboard/a_modules/g_users_manager/selected_user_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_controller.dart';
 import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_page.dart';

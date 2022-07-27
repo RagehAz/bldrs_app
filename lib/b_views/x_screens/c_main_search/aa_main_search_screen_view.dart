@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/x_screens/c_main_search/aaa_main_search_result_vie
 import 'package:bldrs/b_views/x_screens/c_main_search/aaa_main_search_records_view.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

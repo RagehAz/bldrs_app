@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/b_chain_drawe
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/c_chains_drawer_expanders_part.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/d_chains_drawer_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

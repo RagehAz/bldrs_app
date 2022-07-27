@@ -202,7 +202,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         /// NOTIFICATION DATA
         // if (_noteIsOn == true)
         Container(
-          width: superScreenWidth(context),
+          width: Scale.superScreenWidth(context),
           color: Colorz.bloodTest,
           child: SuperVerse(
             verse: '_note.notification.title : ${_note?.title}\n'

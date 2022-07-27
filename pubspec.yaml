@@ -25,6 +25,7 @@ dependencies:
   cloud_functions: ^3.3.2
   connectivity_plus: ^2.3.0
 #  contacts_service: ^0.6.3
+  crop_your_image: ^0.7.2
   dismissible_page: ^0.7.3
   #  dio: ^4.0.1
   email_validator: ^2.0.1
@@ -49,9 +50,9 @@ dependencies:
   google_sign_in: ^5.2.0
   http: ^0.13.4
   image: ^3.0.8
-  image_editor: ^1.0.2
+  image_editor: ^1.0.2 # required for SuperFilteredImage
   image_editor_plus: ^0.1.3
-#  image_picker: ^0.8.4+3
+  image_cropping: ^0.0.12
 #  image_cropper: ^2.0.3
   intl: ^0.17.0
   just_audio: ^0.9.24
@@ -61,8 +62,6 @@ dependencies:
   matrix4_transform: ^2.0.1
   modal_bottom_sheet: ^2.0.0
   #  modal_progress_hud: ^0.1.3
-#  multi_image_picker2: ^5.0.2
-#  image_pickers: ^2.0.0+2
   package_info_plus: ^1.3.0
   page_transition: ^2.0.4
   path: ^1.8.0
