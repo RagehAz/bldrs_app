@@ -280,10 +280,14 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
-    final File _file = await Imagers.takeCameraImage(context: context);
-    _thePic.value = _file;
-  }
 
+    final File _file = await Imagers.takeCameraImage(context: context);
+
+    _thePic.value = _file;
+
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -482,7 +486,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               // textSizeFactor: _sizeFactor,
                               textInputAction: TextInputAction.newline,
                               validator: (){
-                                if (stringContainsSubString(string: _textController.text, subString: 'a77a ') == true){
+
+                                final bool _containsSubString = TextChecker.stringContainsSubString(
+                                    string: _textController.text,
+                                    subString: 'a77a ',
+                                );
+
+                                if (_containsSubString == true){
                                   return 'you can not say a77a';
                                 }
                                 else {

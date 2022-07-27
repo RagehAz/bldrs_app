@@ -600,7 +600,7 @@ class UserModel {
     ---------------------------------->
     */
 
-    if (stringIsEmpty(userModel?.name) == true) {
+    if (TextChecker.stringIsEmpty(userModel?.name) == true) {
       _missingFields.add('Name');
     }
 
@@ -608,11 +608,11 @@ class UserModel {
       _missingFields.add('Picture');
     }
 
-    if (stringIsEmpty(userModel?.title) == true) {
+    if (TextChecker.stringIsEmpty(userModel?.title) == true) {
       _missingFields.add('Job Title');
     }
 
-    if (stringIsEmpty(userModel?.company) == true) {
+    if (TextChecker.stringIsEmpty(userModel?.company) == true) {
       _missingFields.add('Company');
     }
 
@@ -620,11 +620,11 @@ class UserModel {
       _missingFields.add('Gender');
     }
 
-    if (stringIsEmpty(userModel?.zone?.countryID) == true) {
+    if (TextChecker.stringIsEmpty(userModel?.zone?.countryID) == true) {
       _missingFields.add('Country');
     }
 
-    if (stringIsEmpty(userModel?.zone?.cityID) == true) {
+    if (TextChecker.stringIsEmpty(userModel?.zone?.cityID) == true) {
       _missingFields.add('City');
     }
 

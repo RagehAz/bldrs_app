@@ -88,7 +88,7 @@ class ContactModel {
         value: _controller.text,
       );
 
-      if (textControllerIsEmpty(_controller) == false){
+      if (TextChecker.textControllerIsEmpty(_controller) == false){
         _models.add(_model);
       }
 
@@ -599,7 +599,7 @@ class ContactModel {
 
       if (contact.contactType != null){
 
-        if (stringIsEmpty(contact.value) == false){
+        if (TextChecker.stringIsEmpty(contact.value) == false){
           _isEmpty = false;
         }
 

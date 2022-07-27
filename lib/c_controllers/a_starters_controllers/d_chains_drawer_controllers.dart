@@ -119,7 +119,7 @@ Future<void> onSearchChanged({
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
 
-  triggerIsSearchingNotifier(
+  TextChecker.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
     onResume: () => onSearchKeywords(

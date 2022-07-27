@@ -180,7 +180,7 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearchCity(String inputText) async {
 
-    triggerIsSearchingNotifier(
+    TextChecker.triggerIsSearchingNotifier(
         text: inputText,
         isSearching: _isSearching
     );

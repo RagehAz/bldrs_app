@@ -10,7 +10,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -70,7 +70,7 @@ class UserFireOps {
     else if (ObjectChecker.objectIsURL(userModel.pic) == true) {
       /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthType.facebook || authBy == AuthType.google) {
-        final File _picFile = await Imagers.getFileFromURL(userModel.pic);
+        final File _picFile = await Filers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _picFile,

@@ -40,7 +40,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearchChanged(String text) async {
 
-    triggerIsSearchingNotifier(
+    TextChecker.triggerIsSearchingNotifier(
         text: text,
         isSearching: _isSearching
     );
@@ -50,7 +50,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
       final List<String> _foundIcons = <String>[];
 
       for (final String icon in _icons){
-        final bool _contains = stringContainsSubString(
+        final bool _contains = TextChecker.stringContainsSubString(
           subString: text,
           string: icon,
         );

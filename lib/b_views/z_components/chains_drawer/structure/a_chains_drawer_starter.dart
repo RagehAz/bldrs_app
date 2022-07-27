@@ -36,7 +36,7 @@ class _ChainsDrawerStarterState extends State<ChainsDrawerStarter> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    disposeControllerIfNotEmpty(_searchController);
+    TextChecker.disposeControllerIfNotEmpty(_searchController);
     _isSearching.dispose();
     _foundPhids.dispose();
     _foundChains.dispose();

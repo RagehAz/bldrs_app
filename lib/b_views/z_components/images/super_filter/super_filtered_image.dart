@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class SuperFilteredImage extends StatefulWidget {
 
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
-      Uint8List _uint8List = await Imagers.getUint8ListFromFile(input);
+      Uint8List _uint8List = await Floaters.getUint8ListFromFile(input);
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
@@ -60,9 +62,9 @@ class SuperFilteredImage extends StatefulWidget {
 
       blog('processImage : uint7list is : $_uint8List');
 
-      final File _output = await Imagers.getFileFromUint8List(
+      final File _output = await Filers.getFileFromUint8List(
         uInt8List: _uint8List,
-        fileName: Imagers.getFileNameFromFile(input),
+        fileName: Filers.getFileNameFromFile(input),
       );
 
 

@@ -1,15 +1,14 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart' as TextChecker;
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 @immutable
@@ -134,7 +133,7 @@ class MutableSlide {
     @required SlideModel slide,
   }) async {
 
-    final File _file = await Imagers.getFileFromURL(slide.pic);
+    final File _file = await Filers.getFileFromURL(slide.pic);
 
     return MutableSlide(
       slideIndex: slide.slideIndex,

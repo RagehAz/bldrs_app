@@ -118,7 +118,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     final List<SpecModel> _output = <SpecModel>[];
 
     /// when there is value
-    if (stringIsNotEmpty(controller.text) == true){
+    if (TextChecker.stringIsNotEmpty(controller.text) == true){
       final SpecModel _valueSpec = SpecModel(
         pickerChainID: widget.specPicker.chainID,
         value: _specValue.value,

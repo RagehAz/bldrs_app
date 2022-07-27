@@ -703,11 +703,11 @@ class NoteModel {
         _missingFields.add('receiverID');
       }
 
-      if (stringIsEmpty(note.title) == true){
+      if (TextChecker.stringIsEmpty(note.title) == true){
         _missingFields.add('title');
       }
 
-      if (stringIsEmpty(note.body) == true){
+      if (TextChecker.stringIsEmpty(note.body) == true){
         _missingFields.add('body');
       }
 

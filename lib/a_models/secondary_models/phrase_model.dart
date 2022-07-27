@@ -437,7 +437,7 @@ class Phrase {
 }){
     Phrase _phrase;
 
-    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -466,7 +466,7 @@ class Phrase {
   }){
     Phrase _phrase;
 
-    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -546,7 +546,7 @@ class Phrase {
         final List<Phrase> _byID = phrases.where((ph){
 
           return
-            stringContainsSubStringRegExp(
+            TextChecker.stringContainsSubStringRegExp(
               string: ph.id,
               subString: text,
             ) == true;
@@ -561,7 +561,7 @@ class Phrase {
         final List<Phrase> _byValue = phrases.where((ph){
 
           return
-            stringContainsSubStringRegExp(
+            TextChecker.stringContainsSubStringRegExp(
               string: ph.value,
               subString: text,
             ) == true;
@@ -711,7 +711,7 @@ class Phrase {
 }){
     bool _include = false;
 
-    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -733,7 +733,7 @@ class Phrase {
   }){
     bool _include = false;
 
-    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -893,7 +893,7 @@ class Phrase {
     int _existingPhraseIndex;
     Phrase _phraseToInsert = phrase;
 
-    if (stringIsNotEmpty(addLanguageCode)){
+    if (TextChecker.stringIsNotEmpty(addLanguageCode)){
       _phraseToInsert = Phrase(
         id: phrase.id,
         value: phrase.value,
@@ -986,7 +986,7 @@ class Phrase {
 
       List<Phrase> _phrasesToInsert = phrasesToInsert;
 
-      if (stringIsNotEmpty(addLanguageCodeToInsertedPhrases) == true){
+      if (TextChecker.stringIsNotEmpty(addLanguageCodeToInsertedPhrases) == true){
         _phrasesToInsert = _addLangCodeToPhrases(
           phrases: phrasesToInsert,
           langCode: addLanguageCodeToInsertedPhrases,
@@ -1123,7 +1123,7 @@ class Phrase {
 
     final List<Phrase> _output = <Phrase>[...phrases];
 
-    if (Mapper.checkCanLoopList(phrases) == true && stringIsNotEmpty(phraseID) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(phraseID) == true){
 
       _output.removeWhere((ph) => ph.id == phraseID);
 

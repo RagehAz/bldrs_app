@@ -91,7 +91,7 @@ Future<void> onSearchChains({
 
   searchValue.value = text;
 
-  triggerIsSearchingNotifier(
+  TextChecker.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
 
@@ -141,7 +141,7 @@ Future<void> onUpdateNode({
 
   Keyboarders.closeKeyboard(context);
 
-  if (stringIsEmpty(newPhid) == true){
+  if (TextChecker.stringIsEmpty(newPhid) == true){
     blog('new phid value is empty man');
   }
 
