@@ -100,23 +100,28 @@ BorderRadius superBorderAll(BuildContext context, double corners) {
 
 
 // -----------------------------------------------------------------------------
-BorderRadius superLogoShape(
-    {BuildContext context, bool zeroCornerEnIsRight, double corner}) {
-  final BorderRadius _superLogoShape = zeroCornerEnIsRight
-      ? superBorderOnly(
-          context: context,
-          enBottomLeft: corner,
-          enBottomRight: 0,
-          enTopLeft: corner,
-          enTopRight: corner,
-        )
-      : superBorderOnly(
-          context: context,
-          enBottomLeft: 0,
-          enBottomRight: corner,
-          enTopLeft: corner,
-          enTopRight: corner,
-        );
+BorderRadius superLogoShape({
+  @required BuildContext context,
+  bool zeroCornerEnIsRight,
+  double corner,
+}) {
+
+  final BorderRadius _superLogoShape = zeroCornerEnIsRight ?
+  superBorderOnly(
+    context: context,
+    enBottomLeft: corner,
+    enBottomRight: 0,
+    enTopLeft: corner,
+    enTopRight: corner,
+  )
+      :
+  superBorderOnly(
+    context: context,
+    enBottomLeft: 0,
+    enBottomRight: corner,
+    enTopLeft: corner,
+    enTopRight: corner,
+  );
 
   return _superLogoShape;
 }
