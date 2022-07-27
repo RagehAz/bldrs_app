@@ -363,18 +363,24 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     // blog('-2 - _animatedController => $isSaved');
 
     /// 3 - START FADE OUT AND WAIT FOR IT
+    if (mounted){
     _graphicOpacity.value = 0;
+    }
     // blog('-3 - _graphicOpacity => ${_graphicOpacity.value}');
 
     /// 4 - WAIT FOR FADE THEN SWITCH OFF GRAPHIC
     await Future.delayed(const Duration(milliseconds: 220), (){
-      _graphicIsOn.value = false;
+      if (mounted){
+        _graphicIsOn.value = false;
+      }
       // blog('-4 - _graphicIsOn => ${_graphicIsOn.value}');
     });
 
     /// 5 - READY THE FADE FOR THE NEXT ANIMATION
     await Future.delayed(const Duration(milliseconds: 200), (){
-      _graphicOpacity.value = 1;
+      if (mounted){
+        _graphicOpacity.value = 1;
+      }
     });
     // blog('-5 - _canStartFadeOut => ${_graphicOpacity.value}');
 
