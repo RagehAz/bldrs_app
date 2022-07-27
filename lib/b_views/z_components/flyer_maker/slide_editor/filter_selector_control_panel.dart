@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/preset_filters.da
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

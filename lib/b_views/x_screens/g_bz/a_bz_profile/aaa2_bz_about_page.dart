@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
 class BzAboutPage extends StatelessWidget {

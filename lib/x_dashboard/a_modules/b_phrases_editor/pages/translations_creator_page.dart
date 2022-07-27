@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';

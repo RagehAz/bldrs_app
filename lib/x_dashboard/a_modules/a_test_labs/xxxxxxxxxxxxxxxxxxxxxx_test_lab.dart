@@ -23,7 +23,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
@@ -281,7 +281,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
 
-    final File _file = await Imagers.takeCameraImage(context: context);
+    final File _file = await Imagers.takeImageThenCropC(context: context);
 
     _thePic.value = _file;
 

@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa1_bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
 class BzFlyersPage extends StatelessWidget {

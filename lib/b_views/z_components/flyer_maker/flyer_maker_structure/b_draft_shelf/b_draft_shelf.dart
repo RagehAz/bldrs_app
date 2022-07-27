@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_d
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/aa_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
 import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

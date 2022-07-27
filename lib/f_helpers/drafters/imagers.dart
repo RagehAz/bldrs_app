@@ -1,14 +1,20 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:bldrs/a_models/secondary_models/image_size.dart';
+import 'dart:typed_data';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/cropping_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:image_cropping/image_cropping.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+import 'package:image_editor/image_editor.dart';
+
 
 enum PicType {
   userPic,
@@ -28,7 +34,7 @@ class Imagers {
 
 // -----------------------------------------------------------------
 
-  /// PHONE GALLERY
+  /// PICK IMAGE FROM GALLERY
 
 // ---------------------------------------
   static Future<File> pickSingleImage({
@@ -196,6 +202,10 @@ class Imagers {
 
     return _output;
   }
+// -----------------------------------------------------------------
+
+  /// TAKE IMAGE FROM CAMERA
+
 // ---------------------------------------
   static Future<File> takeCameraImage({
     @required BuildContext context,
@@ -258,11 +268,115 @@ class Imagers {
 
 // -----------------------------------------------------------------
 
-  /// IMAGE MODIFIERS
+  /// CROP IMAGE
 
 // ---------------------------------------
+  static Future<File> takeImageThenCropA({
+    @required BuildContext context,
+}) async {
+
+    final File _file = await pickSingleImage(
+      context: context,
+    );
+
+    File _output;
+
+    if (_file != null){
+
+      ImageCropping.cropImage(
+        context: context,
+        imageBytes: await _file.readAsBytes(),
+        onImageDoneListener: (dynamic data) async {
+          blog('data is : ${data.runtimeType} : $data');
+          _output = await Filers.getFileFromUint8List(uInt8List: data, fileName: _file.fileNameWithExtension);
+        },
+        customAspectRatios: <CropAspectRatio>[],
+        imageEdgeInsets: EdgeInsets.zero,
+        isConstrain: false,
+        makeDarkerOutside: false,
+        onImageEndLoading: (){
+          blog('ImageEndLoading');
+        },
+        onImageStartLoading: (){
+          blog('ImageStartLoading');
+        },
+        rootNavigator: true,
+        squareCircleSize: 0,
+        selectedImageRatio: CropAspectRatio.free(),
+        visibleOtherAspectRatios: true,
+        squareBorderWidth: 2,
+        squareCircleColor: Colorz.black255,
+        defaultTextColor: Colorz.white255,
+        selectedTextColor: Colorz.yellow255,
+        colorForWhiteSpace: Colorz.black255,
+      );
+
+    }
+
+    return _output;
+}
+// ---------------------------------------
+  static Future<File> takeImageThenCropB({
+    @required BuildContext context,
+  }) async {
+
+    final File _file = await pickSingleImage(
+      context: context,
+    );
+
+    File _output;
+
+    if (_file != null){
+
+      final editorOption = ImageEditorOption();
+      editorOption.addOption(const FlipOption());
+      // editorOption.addOption(ClipOption(width: null, height: null));
+      editorOption.addOption(const RotateOption(0));
+      // editorOption.addOption(); // and other option.
+
+      editorOption.outputFormat = const OutputFormat.png(88);
+
+      final Uint8List _uInt8List = await ImageEditor.editImage(
+        image: await Floaters.getUint8ListFromFile(_file),
+        imageEditorOption: editorOption,
+      );
+
+      _output = await Filers.getFileFromUint8List(
+          uInt8List: _uInt8List,
+          fileName: _file.fileNameWithExtension,
+      );
+
+    }
+
+    return _output;
+  }
+// ---------------------------------------
+  static Future<File> takeImageThenCropC({
+    @required BuildContext context,
+  }) async {
+
+    final File _file = await pickSingleImage(
+      context: context,
+    );
+
+    File _output;
+
+    if (_file != null){
+
+      _output = await Nav.goToNewScreen(
+          context: context,
+          screen: CroppingScreen(
+            imageData: await Floaters.getUint8ListFromFile(_file),
+          ),
+      );
+
+    }
+
+    return _output;
+  }
+// ---------------------------------------
 /*
-Future<File> cropImage({
+Future<File> cropImageByImageCropper({
   @required BuildContext context,
   @required File file,
 }) async {
@@ -298,11 +412,9 @@ Future<File> cropImage({
         backgroundColor: Colorz.black230,
         dimmedLayerColor: Colorz.black200,
 
-        toolbarTitle:
-        'Crop Image', //'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
+        toolbarTitle: 'Crop Image', //'Crop flyer Aspect Ratio 1:${Ratioz.xxflyerZoneHeight}',
         toolbarColor: Colorz.black255,
-        toolbarWidgetColor:
-        Colorz.white255, // color of : cancel, title, confirm widgets
+        toolbarWidgetColor: Colorz.white255, // color of : cancel, title, confirm widgets
 
         activeControlsWidgetColor: Colorz.yellow255,
         hideBottomControls: false,
@@ -351,18 +463,6 @@ Future<File> cropImage({
  */
 // -----------------------------------------------------------------
 
-  /// FILE CREATORS
-
-// ---------------------------------------
-
-// -----------------------------------------------------------------
-
-  /// FILE WRITING
-
-
-  /// ASSET
-
-
   /// CropAspectRatioPreset
 
 // ---------------------------------------
@@ -395,117 +495,6 @@ List<CropAspectRatioPreset> getIOSCropAspectRatioPresets() {
 
   /// CHECKERS
 
-// ---------------------------------------
-  static bool slideBlurIsOn({
-    @required dynamic pic,
-    @required ImageSize imageSize,
-    @required BoxFit boxFit,
-    @required double flyerBoxWidth,
-  }) {
-    /// blur layer shall only be active if the height of image supplied is smaller
-    /// than flyer height when image width = flyerWidth
-    /// hangebha ezzay dih
-    // picture == null ? false :
-    // ObjectChecker.objectIsJPGorPNG(picture) ? false :
-    // boxFit == BoxFit.cover ? true :
-    // boxFit == BoxFit.fitWidth || boxFit == BoxFit.contain || boxFit == BoxFit.scaleDown ? true :
-    //     false;
-
-    bool _blurIsOn = false;
-
-    bool _imageSizeIsValid;
-
-    if (imageSize == null ||
-        imageSize.width == null ||
-        imageSize.height == null ||
-        imageSize.width <= 0 ||
-        imageSize.height <= 0) {
-      _imageSizeIsValid = false;
-    } else {
-      _imageSizeIsValid = true;
-    }
-
-    if (_imageSizeIsValid == true) {
-      /// note : if ratio < 1 image is portrait, if ratio > 1 image is landscape
-      final int _originalImageWidth = imageSize.width.toInt();
-      final int _originalImageHeight = imageSize.height.toInt();
-      final double _originalImageRatio =
-          _originalImageWidth / _originalImageHeight;
-
-      /// slide aspect ratio : 1 / 1.74 ~= 0.575
-      final double _flyerZoneHeight = flyerBoxWidth * Ratioz.xxflyerZoneHeight;
-      const double _slideRatio = 1 / Ratioz.xxflyerZoneHeight;
-
-      double _fittedImageWidth;
-      double _fittedImageHeight;
-
-      /// if fit width
-      if (boxFit == BoxFit.fitWidth) {
-        _fittedImageWidth = flyerBoxWidth;
-        _fittedImageHeight = flyerBoxWidth / _originalImageRatio;
-      }
-
-      /// if fit height
-      else {
-        _fittedImageWidth = _flyerZoneHeight * _originalImageRatio;
-        _fittedImageHeight = _flyerZoneHeight;
-      }
-
-      final double _fittedImageRatio = _fittedImageWidth / _fittedImageHeight;
-
-      /// so
-      /// if _originalImageRatio < 0.575 image is narrower than slide,
-      /// if ratio > 0.575 image is wider than slide
-      const double _errorPercentage = Ratioz
-          .slideFitWidthLimit; // ~= max limit from flyer width => flyerBoxWidth * 90%
-      const double _maxRatioForBlur = _slideRatio / (_errorPercentage / 100);
-      const double _minRatioForBlur = _slideRatio * (_errorPercentage / 100);
-
-      /// so if narrower more than 10% or wider more than 10%, blur should be active and boxFit shouldn't be cover
-      if (_minRatioForBlur > _fittedImageRatio ||
-          _fittedImageRatio > _maxRatioForBlur) {
-        _blurIsOn = true;
-      } else {
-        _blurIsOn = false;
-      }
-
-      // File _file = pic;
-      // blog('A - pic : ${_file?.fileNameWithExtension?.toString()}');
-      // blog('B - ratio : $_fittedImageRatio = W:$_fittedImageWidth / H:$_fittedImageHeight');
-      // blog('C - Fit : $boxFit');
-      // blog('C - blur : $_blurIsOn');
-
-    }
-
-    return _blurIsOn;
-  }
-// ---------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> localAssetExists(dynamic asset) async {
-    bool _isFound = false;
-
-    if (asset is String){
-      if (TextChecker.stringIsNotEmpty(asset) == true){
-
-        final ByteData _bytes = await rootBundle.load(asset).catchError((Object error){
-
-          // blog('LocalAssetChecker : _checkAsset : error : ${error.toString()}');
-
-          if (error == null){
-            _isFound = true;
-          }{
-            _isFound = false;
-          }
-
-        },);
-
-        _isFound = _bytes != null;
-
-      }
-    }
-
-    return _isFound;
-  }
 // ---------------------------------------
   /// not tested
   static bool checkPicsAreIdentical({

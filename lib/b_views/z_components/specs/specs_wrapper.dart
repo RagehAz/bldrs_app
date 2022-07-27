@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/specs/spec_label.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 

@@ -210,8 +210,8 @@ class _RealTestScreenState extends State<RealTestScreen> {
         children: <Widget>[
 
           SizedBox(
-            width: superScreenWidth(context) * 0.5,
-            height: superScreenHeight(context),
+            width: Scale.superScreenWidth(context) * 0.5,
+            height: Scale.superScreenHeight(context),
             child: RealCollPaginator(
               nodePath: 'colors/',
                 scrollController: _scrollController,
@@ -254,8 +254,8 @@ class _RealTestScreenState extends State<RealTestScreen> {
           ),
 
           SizedBox(
-            width: superScreenWidth(context) * 0.5,
-            height: superScreenHeight(context),
+            width: Scale.superScreenWidth(context) * 0.5,
+            height: Scale.superScreenHeight(context),
             child: RealCollStreamer(
                 collName: 'colors',
                 builder: (_, List<Map<String, dynamic>> maps){
