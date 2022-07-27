@@ -169,20 +169,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.16.0"
-  collision:
-    dependency: transitive
-    description:
-      name: collision
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.3"
-  colorfilter_generator:
-    dependency: transitive
-    description:
-      name: colorfilter_generator
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.8"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -232,13 +218,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
-  crop:
-    dependency: transitive
-    description:
-      name: crop
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.2"
   crop_your_image:
     dependency: "direct main"
     description:
@@ -468,13 +447,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_colorpicker:
-    dependency: transitive
-    description:
-      name: flutter_colorpicker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.3"
   flutter_facebook_auth:
     dependency: "direct main"
     description:
@@ -588,20 +560,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  fluttertoast:
-    dependency: transitive
-    description:
-      name: fluttertoast
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "8.0.9"
-  font_awesome_flutter:
-    dependency: transitive
-    description:
-      name: font_awesome_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "10.1.0"
   geocoding:
     dependency: "direct main"
     description:
@@ -707,13 +665,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.10.2"
-  hand_signature:
-    dependency: transitive
-    description:
-      name: hand_signature
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.3.0+1"
   html:
     dependency: transitive
     description:
@@ -763,48 +714,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
-  image_editor_plus:
-    dependency: "direct main"
-    description:
-      name: image_editor_plus
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.5"
-  image_picker:
-    dependency: transitive
-    description:
-      name: image_picker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.8.5+3"
-  image_picker_android:
-    dependency: transitive
-    description:
-      name: image_picker_android
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.8.5+1"
-  image_picker_for_web:
-    dependency: transitive
-    description:
-      name: image_picker_for_web
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.8"
-  image_picker_ios:
-    dependency: transitive
-    description:
-      name: image_picker_ios
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.8.5+6"
-  image_picker_platform_interface:
-    dependency: transitive
-    description:
-      name: image_picker_platform_interface
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.5.0"
   intl:
     dependency: "direct main"
     description:
@@ -938,13 +847,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
-  nb_utils:
-    dependency: transitive
-    description:
-      name: nb_utils
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.6.16"
   nested:
     dependency: transitive
     description:
@@ -1169,13 +1071,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.27.5"
-  screenshot:
-    dependency: transitive
-    description:
-      name: screenshot
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.2.3"
   sembast:
     dependency: "direct main"
     description:
@@ -1531,13 +1426,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.0"
-  zoom_widget:
-    dependency: transitive
-    description:
-      name: zoom_widget
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.1"
 sdks:
   dart: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"

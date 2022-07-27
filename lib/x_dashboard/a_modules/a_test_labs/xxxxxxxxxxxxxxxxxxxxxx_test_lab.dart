@@ -283,7 +283,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final List<File> _files = await Imagers.takeImagesThenCropAll(context: context);
+    final List<File> _files = await Imagers.pickAndCropMultipleImages(
+      context: context,
+      isFlyerRatio: true,
+      cropAfterPick: true,
+      maxAssets: 20,
+    );
 
     _theFiles.value = _files;
 
@@ -639,7 +644,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                                 width: 100,
                                 height: 100,
                                 // scale: 1,
-                                // boxFit: BoxFit.cover,
+                                boxFit: BoxFit.fitHeight,
                                 pic: files[index],
                                 iconColor: Colorz.blue255,
                                 // loading: false,

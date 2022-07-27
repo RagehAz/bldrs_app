@@ -114,10 +114,12 @@ class _QuestionBubbleState extends State<QuestionBubble> {
   }
   // ----------------------------------------------------------------------
   Future<void> _addPic() async {
-    final List<File> _imageFiles = await Imagers.pickMultipleImages(
-        // picType: Imagers.PicType.askPic
+
+    final List<File> _imageFiles = await Imagers.pickAndCropMultipleImages(
       context: context,
-      maxAssets: 10,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+      maxAssets: 5,
     );
 
     if (Mapper.checkCanLoopList(_imageFiles) == true){
