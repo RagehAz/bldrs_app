@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_drawer_starter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
@@ -7,7 +8,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -99,6 +100,19 @@ class MainLayout extends StatelessWidget {
   static double clearHeight(BuildContext context) {
     return Scale.superScreenHeight(context) - Ratioz.stratosphere - (2 * Ratioz.appBarMargin);
   }
+// -----------------------------------------------------------------------------
+  static double clearLayoutHeight({
+    @required BuildContext context,
+    AppBarType appBarType = AppBarType.basic,
+  }){
+
+    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
+
+    return _screenHeight - _appBarHeight;
+
+  }
+
 // -----------------------------------------------------------------------------
   static Color _mainLayoutBackGroundColor(SkyType skyType){
 

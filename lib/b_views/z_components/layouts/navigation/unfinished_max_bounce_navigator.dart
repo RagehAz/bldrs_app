@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';

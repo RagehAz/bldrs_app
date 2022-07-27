@@ -274,7 +274,7 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
                       verse: '${cities.length} / ${widget.country.citiesIDs.length}',
                       weight: VerseWeight.thin,
                       size: 1,
-                      margin: superInsets(context: context, bottom: 20, enRight: 10),
+                      margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),
                       labelColor: Colorz.white20,
                       color: Colorz.yellow255,
                     );

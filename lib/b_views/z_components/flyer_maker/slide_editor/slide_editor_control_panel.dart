@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 

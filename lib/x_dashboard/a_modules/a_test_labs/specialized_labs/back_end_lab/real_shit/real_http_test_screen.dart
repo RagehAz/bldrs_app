@@ -152,8 +152,8 @@ class RealHttpTestScreen extends StatelessWidget {
         ),
 
         Container(
-          width: superScreenWidth(context),
-          height: superScreenHeight(context),
+          width: Scale.superScreenWidth(context),
+          height: Scale.superScreenHeight(context),
           color: Colorz.bloodTest,
           child: FireCollStreamer(
             queryParameters: FireQueryModel(

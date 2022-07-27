@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart' as Scale;
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

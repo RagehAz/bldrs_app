@@ -199,7 +199,7 @@ class KeyboardFloatingField extends StatelessWidget {
                           AnimatedContainer(
                             duration: const Duration(milliseconds: 150),
                             curve: Curves.easeIn,
-                            width: superScreenWidth(context),
+                            width: Scale.superScreenWidth(context),
                             constraints: BoxConstraints(
                               maxHeight: _keyboardHeight + 10,
                             ),
