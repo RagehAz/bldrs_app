@@ -691,7 +691,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           return EditorConfirmButton(
                             firstLine: 'Send',
                             secondLine: 'to $_receiverName',
-                            positionedAlignment: null,
+                            // positionedAlignment: null,
                             isDeactivated: !NoteModel.checkCanSendNote(note),
                             onTap: () => onSendNote(
                               context: context,

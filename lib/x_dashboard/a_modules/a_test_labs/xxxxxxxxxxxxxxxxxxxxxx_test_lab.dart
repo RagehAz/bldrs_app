@@ -281,10 +281,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
 
-    final File _file = await Imagers.takeImageThenCropC(context: context);
+    final List<File> _files = await Imagers.takeImagesThenCropAll(context: context);
 
-    _thePic.value = _file;
-
+    _thePic.value = _files.first;
 
   }
 // -----------------------------------------------------------------------------
