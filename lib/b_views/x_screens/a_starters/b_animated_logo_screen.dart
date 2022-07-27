@@ -121,12 +121,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
           ]);
 
-            // await Nav.replaceScreen(
-            //   context: context,
-            //   screen: const HomeScreen(),
-            //   transitionType: PageTransitionType.fade,
-            // );
-
             await Nav.pushNamedAndRemoveAllBelow(
               context: context,
               goToRoute: Routez.home,
@@ -349,9 +343,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           Container(
             width: _screenWidth,
             height: _screenHeight,
-            alignment: Alignment.topLeft,
-            margin: Scale.superInsets(context: context, top: 80),
+            alignment: Alignment.centerLeft,
+            margin: Scale.superInsets(context: context, top: _screenWidth * 0.07),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
                 ...List.generate(_linesControllers.length, (index){
