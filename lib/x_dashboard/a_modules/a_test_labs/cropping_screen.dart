@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/layouts/keep_alive_page.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -39,6 +41,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   final ValueNotifier<List<Uint8List>> _imagesData = ValueNotifier(null);
   final ValueNotifier<int> _currentImageIndex = ValueNotifier(0);
   final List<CropController> _controllers = <CropController>[];
+  final PageController _pageController = PageController();
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -84,6 +87,8 @@ class _CroppingScreenState extends State<CroppingScreen> {
   void dispose() {
     _imagesData.dispose();
     _loading.dispose();
+    _pageController.dispose();
+    _currentImageIndex.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -127,75 +132,92 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
           else {
 
+            const double _aspectRatio = 1 / Ratioz.xxflyerZoneHeight;
+            const double _miniImageHeight = Ratioz.horizon - 10;
+            const double _miniImageWidth = _miniImageHeight * _aspectRatio;
+
             return Column(
               children: <Widget>[
 
                 const Stratosphere(),
 
-                ValueListenableBuilder(
-                    valueListenable: _currentImageIndex,
-                    builder: (_, int index, Widget child){
+                SizedBox(
+                  width: _screenWidth,
+                  height: _imageSpaceHeight,
+                  child: PageView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                      controller: _pageController,
+                      itemCount: widget.files.length,
+                      onPageChanged: (int index){
+                        _currentImageIndex.value = index;
+                      },
+                      restorationId: 'fuck',
+                      itemBuilder: (_, int index){
 
-                      final Uint8List _imageData = imagesData[index];
-                      final CropController _controller = _controllers[index];
 
-                      return Container(
-                        width: _screenWidth,
-                        height: _imageSpaceHeight,
-                        color: Colorz.black255,
-                        child: Crop(
-                          image: _imageData,
-                          controller: _controller,
-                          onCropped: (Uint8List image) async {
+                        return KeepAlivePage(
+                          child: Container(
+                            key: PageStorageKey<String>('image_$index'),
+                            width: _screenWidth,
+                            height: _imageSpaceHeight,
+                            color: Colorz.black255,
+                            child: Crop(
+                              image: imagesData[index],
+                              controller: _controllers[index],
+                              onCropped: (Uint8List image) async {
 
-                            final File _file = await Filers.getFileFromUint8List(
-                              uInt8List: image,
-                              fileName: createUniqueID().toString(),
-                            );
+                                final File _file = await Filers.getFileFromUint8List(
+                                  uInt8List: image,
+                                  fileName: createUniqueID().toString(),
+                                );
 
-                            Nav.goBack(context, passedData: _file);
+                                Nav.goBack(context, passedData: _file);
 
-                          },
-                          aspectRatio: 1,
-                          // fixArea: false,
-                          // withCircleUi: false,
-                          // initialSize: 0.5,
-                          // initialArea: Rect.fromLTWH(240, 212, 800, 600),
-                          // initialAreaBuilder: (rect) => Rect.fromLTRB(
-                          //     rect.left + 24, rect.top + 32, rect.right - 24, rect.bottom - 32
-                          // ),
-                          baseColor: Colorz.black255,
-                          maskColor: Colorz.black125,
-                          // radius: 0,
-                          onMoved: (newRect) {
-                            // do something with current cropping area.
-                          },
-                          onStatusChanged: (status) {
-                            // do something with current CropStatus
-                          },
-                          cornerDotBuilder: (double size, EdgeAlignment edgeAlignment){
-                            return Container(
-                              width: 32,
-                              height: 32,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colorz.black20,
-                                borderRadius: superBorderAll(context, 16),
-                              ),
-                              child: const SuperImage(
-                                width: 10,
-                                height: 10,
-                                pic: Iconz.plus,
-                              ),
-                            );
-                          },
-                          // interactive: false,
-                          // fixArea: true,
+                              },
+                              aspectRatio: 1,
+                              // fixArea: false,
+                              // withCircleUi: false,
+                              // initialSize: 0.5,
+                              // initialArea: Rect.fromLTWH(240, 212, 800, 600),
+                              // initialAreaBuilder: (rect) => Rect.fromLTRB(
+                              //     rect.left + 24, rect.top + 32, rect.right - 24, rect.bottom - 32
+                              // ),
+                              baseColor: Colorz.black255,
+                              maskColor: Colorz.black125,
+                              // radius: 0,
+                              onMoved: (Rect newRect) {
 
-                        ),
-                      );
+                                // do something with current cropping area.
+                              },
+                              onStatusChanged: (CropStatus status) {
+                                blog('crop status : ${status.name}');
+                                // do something with current CropStatus
+                              },
+                              cornerDotBuilder: (double size, EdgeAlignment edgeAlignment){
+                                return Container(
+                                  width: 32,
+                                  height: 32,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colorz.black20,
+                                    borderRadius: superBorderAll(context, 16),
+                                  ),
+                                  child: const SuperImage(
+                                    width: 10,
+                                    height: 10,
+                                    pic: Iconz.plus,
+                                  ),
+                                );
+                              },
+                              // interactive: false,
+                              // fixArea: true,
 
-                    }
+                            ),
+                          ),
+                        );
+
+                      }
+                  ),
                 ),
 
                 Container(
@@ -217,14 +239,27 @@ class _CroppingScreenState extends State<CroppingScreen> {
                       ),
 
                       if (widget.files.length > 1)
-                        ...List.generate(5, (index){
+                        ...List.generate(widget.files.length, (index){
 
-                          return Center(
-                            child: Container(
-                              width: Ratioz.horizon - 10,
-                              height: Ratioz.horizon - 10,
-                              margin: Scale.superInsets(context: context, enRight: 5),
-                              color: Colorz.bloodTest,
+                          return GestureDetector(
+                            onTap: () async {
+
+                              _currentImageIndex.value = index;
+                              await _pageController.animateToPage(index, duration: Ratioz.duration750ms, curve: Curves.easeInOut);
+
+                            },
+                            child: Center(
+                              child: Container(
+                                width: _miniImageWidth,
+                                height: _miniImageHeight,
+                                margin: Scale.superInsets(context: context, enRight: 5),
+                                color: Colorz.bloodTest,
+                                child: SuperImage(
+                                  width: _miniImageWidth,
+                                  height: _miniImageWidth,
+                                  pic: widget.files[index],
+                                ),
+                              ),
                             ),
                           );
 
