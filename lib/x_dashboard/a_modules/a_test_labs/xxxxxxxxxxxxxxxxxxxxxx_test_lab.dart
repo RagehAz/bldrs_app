@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
@@ -21,12 +20,12 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/a_specialized_labs.dart';
@@ -283,16 +282,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final List<File> _files = await Imagers.pickAndCropMultipleImages(
+    await Nav.goBackToLogoScreen(
       context: context,
-      isFlyerRatio: true,
-      cropAfterPick: true,
-      maxAssets: 20,
+      animatedLogoScreen: true,
     );
-
-    _theFiles.value = _files;
-
-    blog('file are ${_files?.length}');
 
   }
 // -----------------------------------------------------------------------------

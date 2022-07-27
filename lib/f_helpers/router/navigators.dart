@@ -184,12 +184,29 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
   await SystemNavigator.pop();
 }
 // -------------------------------------
-  static void goBackToLogoScreen(BuildContext context) {
-  // var _navResult = Navigator.popUntil(context,
-  //     ModalRoute.withName(Routez.UserChecker)
-  // );
+  static Future<void> goBackToLogoScreen({
+    @required BuildContext context,
+    @required bool animatedLogoScreen,
+  }) async {
 
-  Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
+
+    if (animatedLogoScreen){
+      await pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routez.animatedLogoScreen,
+      );
+    }
+    else {
+
+      /// we already remove this layer in
+      // Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
+
+      await pushNamedAndRemoveAllBelow(
+        context: context,
+        goToRoute: Routez.staticLogoScreen,
+      );
+    }
+
 }
 // -------------------------------------
   static void goBackUntil(BuildContext context, String routeName) {
@@ -264,9 +281,9 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
     @required String bzID,
   }) async {
 
-    await Nav.pushNamedAndRemoveAllBelow(
+    await Nav.goBackToLogoScreen(
       context: context,
-      goToRoute: Routez.logoScreen, // Routez.home
+      animatedLogoScreen: true,
     );
 
     await Nav.goToMyBzScreen( /// TASK : THIS BITCH IS NOT ROUTING TO BZ SCREEN

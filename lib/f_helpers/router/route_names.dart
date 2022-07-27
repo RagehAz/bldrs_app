@@ -3,7 +3,8 @@ abstract class Routez {
   /// a_starters
 // ---------------------------------------------
   /// a_0
-  static const String logoScreen = '/';
+  static const String staticLogoScreen = '/';
+  static const String animatedLogoScreen = '/animatedLogoScreen';
 // ---------------------------------------------
   /// a_1
   static const String home = '/HomeScreen';

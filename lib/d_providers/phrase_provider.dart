@@ -12,7 +12,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,9 +61,9 @@ class PhraseProvider extends ChangeNotifier {
 
     WaitDialog.closeWaitDialog(context);
 
-    await Nav.pushNamedAndRemoveAllBelow(
-        context: context,
-        goToRoute: Routez.logoScreen,
+    await Nav.goBackToLogoScreen(
+      context: context,
+      animatedLogoScreen: true,
     );
 
   }
