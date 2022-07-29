@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/e_expanded_info_page_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

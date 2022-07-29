@@ -19,7 +19,7 @@ class CropperCorner extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colorz.black20,
-        borderRadius: superBorderAll(context, 16),
+        borderRadius: Borderers.superBorderAll(context, 16),
       ),
       child: const SuperImage(
         width: 10,

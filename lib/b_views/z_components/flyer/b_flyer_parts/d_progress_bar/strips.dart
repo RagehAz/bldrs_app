@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

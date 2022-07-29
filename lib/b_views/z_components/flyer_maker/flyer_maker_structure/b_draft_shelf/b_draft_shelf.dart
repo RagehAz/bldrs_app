@@ -8,7 +8,8 @@ import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_d
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/aa_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +120,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
           }
 
           else {
-
             return ShelfSlidesPart(
               loading: _loading,
               slideZoneHeight: _slideZoneHeight,
@@ -131,7 +131,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 slide: slide,
                 draftFlyer: widget.draft,
               ),
-              onAddNewSlides: () => onAddNewSlides(
+              onAddSlides: (ImagePickerType imagePickerType) => onAddNewSlides(
                 context: context,
                 isLoading: _loading,
                 draftFlyer: widget.draft,
@@ -141,9 +141,9 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 headlineController: widget.headlineController,
                 flyerWidth: ShelfSlide.flyerBoxWidth,
                 isEditingFlyer: widget.isEditingFlyer,
+                imagePickerType: imagePickerType,
               ),
             );
-
           }
 
         },

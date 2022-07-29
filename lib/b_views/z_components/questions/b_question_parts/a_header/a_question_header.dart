@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_b
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/questions/b_question_parts/a_header/b_convertible_question_header_strip_part.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';

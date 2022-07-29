@@ -145,7 +145,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                             }
                         ),
 
-
                         const DotSeparator(),
 
                         /// FLYER TYPE SELECTOR
@@ -391,7 +390,6 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                   },
                 ),
-
 
               ],
             );
