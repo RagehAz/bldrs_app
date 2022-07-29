@@ -44,7 +44,9 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
 
               final Uri _uri = await DynamicLinks.createDynamicLink();
 
-              DynamicLinks.blogURI(_uri);
+              DynamicLinks.blogURI(
+                uri: _uri,
+              );
 
             },
           ),

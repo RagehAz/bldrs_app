@@ -204,7 +204,6 @@ class DynamicLinks {
   /// TESTED : WORKS PERFECT
   static void blogPendingDynamicLinkData(PendingDynamicLinkData data){
     blog('blogPendingDynamicLinkData : START');
-    blogURI(data?.link);
     blog('PendingDynamicLinkData : android : ${data?.android}');
     blog('PendingDynamicLinkData : android.clickTimestamp : ${data?.android?.clickTimestamp}');
     blog('PendingDynamicLinkData : android.minimumVersion : ${data?.android?.minimumVersion}');
@@ -213,35 +212,42 @@ class DynamicLinks {
     blog('PendingDynamicLinkData : ios.minimumVersion : ${data?.ios?.minimumVersion}');
     blog('PendingDynamicLinkData : utmParameters : ${data?.utmParameters}');
     blog('blogPendingDynamicLinkData : END');
+    blogURI(
+      uri: data?.link,
+      methodName: 'PendingDynamicLinkData',
+    );
   }
 // ----------------------------
   /// TESTED : WORKS PERFECT
-  static void blogURI(Uri uri){
+  static void blogURI({
+    @required Uri uri,
+    String methodName = ':',
+  }){
 
-    blog('blogURI : link : $uri');
-    blog('blogURI : link.path : ${uri?.path}');
-    blog('blogURI : link.hashCode : ${uri?.hashCode}');
-    blog('blogURI : link.data : ${uri?.data}');
-    blog('blogURI : link.queryParameters : ${uri?.queryParameters}');
-    blog('blogURI : link.authority : ${uri?.authority}');
-    blog('blogURI : link.fragment : ${uri?.fragment}');
-    blog('blogURI : link.hasAbsolutePath : ${uri?.hasAbsolutePath}');
-    blog('blogURI : link.hasAuthority : ${uri?.hasAuthority}');
-    blog('blogURI : link.hasEmptyPath : ${uri?.hasEmptyPath}');
-    blog('blogURI : link.hasFragment : ${uri?.hasFragment}');
-    blog('blogURI : link.hasPort : ${uri?.hasPort}');
-    blog('blogURI : link.hasQuery : ${uri?.hasQuery}');
-    blog('blogURI : link.hasScheme : ${uri?.hasScheme}');
-    blog('blogURI : link.query : ${uri?.query}');
-    blog('blogURI : link.host : ${uri?.host}');
-    blog('blogURI : link.isAbsolute : ${uri?.isAbsolute}');
-    blog('blogURI : link.origin : ${uri?.origin}');
-    blog('blogURI : link.pathSegments : ${uri?.pathSegments}');
-    blog('blogURI : link.port : ${uri?.port}');
-    blog('blogURI : link.scheme : ${uri?.scheme}');
-    blog('blogURI : link.userInfo : ${uri?.userInfo}');
-    blog('blogURI : link.queryParametersAll : ${uri?.queryParametersAll}');
+    blog('blogURI $methodName : link : $uri');
+    blog('blogURI $methodName : link.path : ${uri?.path}');
+    blog('blogURI $methodName : link.hashCode : ${uri?.hashCode}');
+    blog('blogURI $methodName : link.data : ${uri?.data}');
+    blog('blogURI $methodName : link.queryParameters : ${uri?.queryParameters}');
+    blog('blogURI $methodName : link.authority : ${uri?.authority}');
+    blog('blogURI $methodName : link.fragment : ${uri?.fragment}');
+    blog('blogURI $methodName : link.hasAbsolutePath : ${uri?.hasAbsolutePath}');
+    blog('blogURI $methodName : link.hasAuthority : ${uri?.hasAuthority}');
+    blog('blogURI $methodName : link.hasEmptyPath : ${uri?.hasEmptyPath}');
+    blog('blogURI $methodName : link.hasFragment : ${uri?.hasFragment}');
+    blog('blogURI $methodName : link.hasPort : ${uri?.hasPort}');
+    blog('blogURI $methodName : link.hasQuery : ${uri?.hasQuery}');
+    blog('blogURI $methodName : link.hasScheme : ${uri?.hasScheme}');
+    blog('blogURI $methodName : link.query : ${uri?.query}');
+    blog('blogURI $methodName : link.host : ${uri?.host}');
+    blog('blogURI $methodName : link.isAbsolute : ${uri?.isAbsolute}');
+    blog('blogURI $methodName : link.pathSegments : ${uri?.pathSegments}');
+    blog('blogURI $methodName : link.port : ${uri?.port}');
+    blog('blogURI $methodName : link.scheme : ${uri?.scheme}');
+    blog('blogURI $methodName : link.userInfo : ${uri?.userInfo}');
+    blog('blogURI $methodName : link.queryParametersAll : ${uri?.queryParametersAll}');
 
+    // blog('blogURI $methodName : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
   }
 // -----------------------------------------------------------------------------
 

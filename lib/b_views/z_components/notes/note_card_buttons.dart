@@ -6,7 +6,7 @@ import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a3_user_no
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 
 class NoteCardButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
