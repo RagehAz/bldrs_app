@@ -144,7 +144,7 @@ class InfoPageContents extends StatelessWidget {
                         ),
 
                       Align(
-                        alignment: superCenterAlignment(context),
+                        alignment: Aligners.superCenterAlignment(context),
                         child: ReportButton(
                           modelType: ModelType.flyer,
                           onTap: () => FlyerFireOps.onReportFlyer(

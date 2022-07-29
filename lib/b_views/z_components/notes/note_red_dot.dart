@@ -139,7 +139,7 @@ class NoteRedDotWrapper extends StatelessWidget {
         if (shrinkChild == true)
           Transform.scale(
             scale: _scale,
-            alignment: superBottomAlignment(context),
+            alignment: Aligners.superBottomAlignment(context),
             child: child,
           ),
 

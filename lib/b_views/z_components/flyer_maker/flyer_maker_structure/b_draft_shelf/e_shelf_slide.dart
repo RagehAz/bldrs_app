@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_im
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -24,7 +24,6 @@ class ShelfSlide extends StatefulWidget {
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
-    @required this.isEditingFlyer,
     this.publishTime,
     Key key
   }) : super(key: key);
@@ -32,7 +31,6 @@ class ShelfSlide extends StatefulWidget {
   final MutableSlide mutableSlide;
   final int number;
   final Function onTap;
-  final bool isEditingFlyer;
   final DateTime publishTime;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
@@ -63,6 +61,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
     _animateSlide.dispose();
     super.dispose(); /// tamam
   }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -239,5 +238,6 @@ class _ShelfSlideState extends State<ShelfSlide> {
         ],
       ),
     );
+
   }
 }
