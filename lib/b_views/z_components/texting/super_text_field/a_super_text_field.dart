@@ -656,7 +656,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
           // ),
           decoration: BoxDecoration(
             color: widget.fieldColor,
-            borderRadius: superBorderAll(context, widget.corners)
+            borderRadius: Borderers.superBorderAll(context, widget.corners)
           ),
           margin: widget.margins,
           child: ValueListenableBuilder(

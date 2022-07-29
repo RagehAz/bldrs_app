@@ -59,7 +59,7 @@ class FlyerRecordsBox extends StatelessWidget {
                 height: 100,
                 decoration: BoxDecoration(
                   color: Colorz.white20,
-                  borderRadius: superBorderAll(context, 10),
+                  borderRadius: Borderers.superBorderAll(context, 10),
                 ),
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
