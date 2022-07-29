@@ -27,7 +27,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // ------------------------------------
-  ValueNotifier<MutableSlide> _slide; /// tamam disposed
+  ValueNotifier<MutableSlide> _tempSlide; /// tamam disposed
   ValueNotifier<Matrix4> _matrix; /// tamam disposed
   ValueNotifier<ImageFilterModel> _filterModel; /// tamam disposed
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false); /// tamam disposed
@@ -35,14 +35,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   @override
   void initState() {
 
-    _slide = ValueNotifier<MutableSlide>(widget.slide.copyWith());
+    _tempSlide = ValueNotifier<MutableSlide>(widget.slide);
 
-    blog('slide filter is ${_slide.value.filter.id} and initial filter is : ${_allFilters[0].id}');
+    blog('slide filter is ${_tempSlide.value.filter.id} and initial filter is : ${_allFilters[0].id}');
 
-    _filterModel = ValueNotifier(_slide.value.filter ?? _allFilters[0]);
+    _filterModel = ValueNotifier(_tempSlide.value?.filter ?? _allFilters[0]);
 
     _matrix = initializeMatrix(
-        slide: _slide.value
+        slide: _tempSlide.value
     );
 
     _isTransforming.addListener(() async {
@@ -62,7 +62,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _slide.dispose();
+    _tempSlide.dispose();
     _matrix.dispose();
     _filterModel.dispose();
     _isTransforming.dispose();
@@ -88,7 +88,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
           /// SLIDE
           SlideEditorSlidePart(
             height: _slideZoneHeight,
-            slide: _slide,
+            tempSlide: _tempSlide,
             matrix: _matrix,
             filterModel: _filterModel,
             isTransforming: _isTransforming,
@@ -100,18 +100,27 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
           /// CONTROL PANEL
           SlideEditorControlPanel(
             height: _controlPanelHeight,
-            onReset: () => onReset(
-                filter: _filterModel,
-                matrix: _matrix
-            ),
-            onConfirm: () => onConfirmSlideEdits(
-                context: context,
-                originalSlide: widget.slide,
-                filter: _filterModel,
-                matrix: _matrix,
-            ),
             onCancel: () => onCancelSlideEdits(
               context: context,
+            ),
+            onReset: () => onReset(
+              filter: _filterModel,
+              matrix: _matrix,
+              originalSlide: widget.slide,
+              tempSlide: _tempSlide
+            ),
+            onCrop: () => onCropSlide(
+              context: context,
+              tempSlide: _tempSlide,
+              filter: _filterModel,
+              matrix: _matrix,
+            ),
+            onConfirm: () => onConfirmSlideEdits(
+              context: context,
+              originalSlide: widget.slide,
+              filter: _filterModel,
+              matrix: _matrix,
+              tempSlide: _tempSlide,
             ),
           ),
 

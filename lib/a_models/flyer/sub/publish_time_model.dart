@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
-import 'package:bldrs/f_helpers/drafters/timerz.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -125,7 +124,7 @@ class PublishTime {
     else if (time1 != null && time2 != null){
 
       if (
-      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.second, time1: time1.time, time2: time2.time) &&
+      Timers.timesAreIdentical(accuracy: TimeAccuracy.second, time1: time1.time, time2: time2.time) &&
       time1.state == time2.state
       ){
         _identical = true;

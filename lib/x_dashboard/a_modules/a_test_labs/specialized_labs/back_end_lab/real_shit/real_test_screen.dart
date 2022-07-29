@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +67,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             final Map<String, dynamic> _map = {
               'index' : createRandomIndex(listLength: 10),
               'color' : cipherColor(_color),
-              'time' : cipherTime(time: DateTime.now(), toJSON: true),
+              'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             final Map<String, dynamic> _maw = await Real.createDoc(
@@ -92,7 +92,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             final Map<String, dynamic> _map = {
               'id' : createUniqueID().toString(),
               'color' : cipherColor(_color),
-              'time' : cipherTime(time: DateTime.now(), toJSON: true),
+              'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             await Real.createNamedDoc(
@@ -147,7 +147,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             final Map<String, dynamic> _map = {
               'color' : cipherColor(_color),
               'name' : 'Ahmed',
-              'time' : cipherTime(time: DateTime.now(), toJSON: true),
+              'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
 
             await Real.updateDoc(

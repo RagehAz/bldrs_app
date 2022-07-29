@@ -153,6 +153,14 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   }
 // -----------------------------------------------------------------------------
   @override
+  void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
+    if (widget.imageFile.path != oldWidget.imageFile.path) {
+      setState(() {});
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+// -----------------------------------------------------------------------------
+  @override
   Widget build(BuildContext context) {
 
     if (widget.filterModel == null){

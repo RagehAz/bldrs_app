@@ -1,7 +1,12 @@
+import 'dart:io';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 // -----------------------------------------------------------------------------
 ValueNotifier<Matrix4> initializeMatrix({
   @required MutableSlide slide,
@@ -20,11 +25,12 @@ ValueNotifier<Matrix4> initializeMatrix({
 Future<void> onReset({
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
+  @required MutableSlide originalSlide,
+  @required ValueNotifier<MutableSlide> tempSlide,
 }) async {
-
   filter.value = ImageFilterModel.noFilter();
   matrix.value = Matrix4.identity();
-
+  tempSlide.value = originalSlide.copyWith();
 }
 // -----------------------------------------------------------------------------
 Future<void> onConfirmSlideEdits({
@@ -32,14 +38,52 @@ Future<void> onConfirmSlideEdits({
   @required MutableSlide originalSlide,
   @required ValueNotifier<ImageFilterModel> filter,
   @required ValueNotifier<Matrix4> matrix,
+  @required ValueNotifier<MutableSlide> tempSlide,
 }) async {
 
-  final MutableSlide _slide = originalSlide.copyWith(
+  final MutableSlide _slide = tempSlide.value.copyWith(
     matrix: matrix.value,
     filter: filter.value,
   );
 
   Nav.goBack(context, passedData: _slide);
+
+}
+// -----------------------------------------------------------------------------
+Future<void> onCropSlide({
+  @required BuildContext context,
+  @required ValueNotifier<MutableSlide> tempSlide,
+  @required ValueNotifier<ImageFilterModel> filter,
+  @required ValueNotifier<Matrix4> matrix,
+}) async {
+
+  final File _file = await Imagers.cropImage(
+      context: context,
+      pickedFile: tempSlide.value.picFile,
+      isFlyerRatio: true,
+
+  );
+
+  blog('slide file : ${tempSlide.value.picFile.path}');
+  blog('new file : ${_file?.path}');
+
+  if (_file != null){
+
+    final ImageSize _imageSize = await ImageSize.superImageSize(_file);
+    final Color _midColor = await Colorizers.getAverageColor(_file);
+
+    final MutableSlide _updatedSlide = tempSlide.value.copyWith(
+      picFile: _file,
+      imageSize: _imageSize,
+      midColor: _midColor,
+      matrix: matrix.value,
+      filter: filter.value,
+    );
+
+    tempSlide.value = _updatedSlide;
+    filter.value = tempSlide.value.filter;
+
+  }
 
 }
 // -----------------------------------------------------------------------------
