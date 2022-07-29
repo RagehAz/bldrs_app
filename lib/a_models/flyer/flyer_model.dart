@@ -544,6 +544,7 @@ class FlyerModel {
   /// FLYER COUNTERS
 
 // ------------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static int getTotalSaves(FlyerModel flyer){
     int _totalSaves = 0;
@@ -557,7 +558,9 @@ class FlyerModel {
     }
     return _totalSaves;
   }
+   */
 // ------------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static int getTotalShares(FlyerModel flyer){
     int _totalShares = 0;
@@ -571,7 +574,9 @@ class FlyerModel {
     }
     return _totalShares;
   }
+   */
 // ------------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static int getTotalViews(FlyerModel flyer){
     int _totalViews = 0;
@@ -585,6 +590,7 @@ class FlyerModel {
     }
     return _totalViews;
   }
+   */
 // ------------------------------------------
   /// TASK : why ?
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){

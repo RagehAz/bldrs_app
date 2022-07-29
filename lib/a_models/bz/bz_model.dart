@@ -104,15 +104,7 @@ class BzModel{
     @required this.isVerified,
     @required this.bzState,
     // -------------------------
-    @required this.totalFollowers,
-    @required this.totalSaves,
-    @required this.totalShares,
-    @required this.totalSlides,
-    @required this.totalViews,
-    @required this.totalCalls,
-    // -------------------------
     @required this.flyersIDs,
-    @required this.totalFlyers,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -138,15 +130,6 @@ class BzModel{
   final bool isVerified;
 
   final BzState bzState;
-  // -------------------------
-  final int totalFollowers;
-  final int totalSaves;
-  final int totalShares;
-  final int totalSlides;
-  final int totalViews;
-  final int totalCalls;
-  final int totalFlyers;
-  // -------------------------
   final List<String> flyersIDs;
   final DocumentSnapshot<Object> docSnapshot;
 // -----------------------------------------------------------------------------
@@ -172,13 +155,6 @@ class BzModel{
     bool showsTeam,
     bool isVerified,
     BzState bzState,
-    int totalFollowers,
-    int totalSaves,
-    int totalShares,
-    int totalSlides,
-    int totalViews,
-    int totalCalls,
-    int totalFlyers,
     List<String> flyersIDs,
     DocumentSnapshot<Object> docSnapshot,
   }){
@@ -200,14 +176,7 @@ class BzModel{
       showsTeam : showsTeam ?? this.showsTeam,
       isVerified : isVerified ?? this.isVerified,
       bzState : bzState ?? this.bzState,
-      totalFollowers : totalFollowers ?? this.totalFollowers,
-      totalSaves : totalSaves ?? this.totalSaves,
-      totalShares : totalShares ?? this.totalShares,
-      totalSlides : totalSlides ?? this.totalSlides,
-      totalViews : totalViews ?? this.totalViews,
-      totalCalls : totalCalls ?? this.totalCalls,
       flyersIDs : flyersIDs ?? this.flyersIDs,
-      totalFlyers : totalFlyers ?? this.totalFlyers,
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
 }
@@ -241,14 +210,6 @@ class BzModel{
       // -------------------------
       'isVerified': isVerified,
       'bzState': cipherBzState(bzState),
-      // -------------------------
-      'totalFollowers': totalFollowers,
-      'totalSaves': totalSaves,
-      'totalShares': totalShares,
-      'totalSlides': totalSlides,
-      'totalViews': totalViews,
-      'totalCalls': totalCalls,
-      'totalFlyers': totalFlyers,
       // -------------------------
       'flyersIDs': flyersIDs,
     };
@@ -306,15 +267,7 @@ class BzModel{
         isVerified: map['isVerified'],
         bzState: decipherBzState(map['bzState']),
         // -------------------------
-        totalFollowers: map['totalFollowers'],
-        totalSaves: map['totalSaves'],
-        totalShares: map['totalShares'],
-        totalSlides: map['totalSlides'],
-        totalViews: map['totalViews'],
-        totalCalls: map['totalCalls'],
-        // -------------------------
         flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
-        totalFlyers: map['totalFlyers'],
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -376,15 +329,7 @@ class BzModel{
       isVerified: false,
       bzState: BzState.offline,
       // -------------------------
-      totalFollowers: 0,
-      totalSaves: 0,
-      totalShares: 0,
-      totalSlides: 0,
-      totalViews: 0,
-      totalCalls: 0,
-      // -------------------------
       flyersIDs: const <String>[],
-      totalFlyers: 0,
       createdAt: DateTime.now(),
       accountType: BzAccountType.normal,
       about: '',
@@ -1343,8 +1288,6 @@ class BzModel{
       trigram: TextGen.createTrigram(input: 'Business Name'),
       bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.craftsman],
       zone: ZoneModel.dummyZone(),
-      totalFollowers: 1000,
-      totalFlyers: 10,
       bzState: BzState.online,
       position: Atlas.dummyLocation(),
       flyersIDs: const <String>[],
@@ -1359,11 +1302,6 @@ class BzModel{
       isVerified: true,
       scope: const <String>['phid_k_designType_architecture'],
       showsTeam: true,
-      totalCalls: 1,
-      totalSaves: 2,
-      totalShares: 3,
-      totalSlides: 4,
-      totalViews: 5,
     );
   }
 // ------------------------------------------
@@ -1402,14 +1340,7 @@ class BzModel{
     blog('showsTeam : $showsTeam');
     blog('isVerified : $isVerified');
     blog('bzState : $bzState');
-    blog('totalFollowers : $totalFollowers');
-    blog('totalSaves : $totalSaves');
-    blog('totalShares : $totalShares');
-    blog('totalSlides : $totalSlides');
-    blog('totalViews : $totalViews');
-    blog('totalCalls : $totalCalls');
     blog('flyersIDs : $flyersIDs');
-    blog('totalFlyers : $totalFlyers');
     AuthorModel.blogAuthors(authors: authors, methodName: 'BZ MODEL ($id)');
 
     blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
@@ -1591,24 +1522,19 @@ class BzModel{
           bz1.showsTeam == bz2.showsTeam &&
           bz1.isVerified == bz2.isVerified &&
           bz1.bzState == bz2.bzState &&
-          bz1.totalFollowers == bz2.totalFollowers &&
-          bz1.totalSaves == bz2.totalSaves &&
-          bz1.totalShares == bz2.totalShares &&
-          bz1.totalSlides == bz2.totalSlides &&
-          bz1.totalViews == bz2.totalViews &&
-          bz1.totalCalls == bz2.totalCalls &&
-          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) &&
-          bz1.totalFlyers == bz2.totalFlyers
+          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs)
       ){
         _areIdentical = true;
       }
 
     }
 
-    blogBzzDifferences(
-      bz1: bz1,
-      bz2: bz2,
-    );
+    if (_areIdentical == false){
+      blogBzzDifferences(
+        bz1: bz1,
+        bz2: bz2,
+      );
+    }
 
     return _areIdentical;
   }
@@ -1631,79 +1557,58 @@ class BzModel{
     if (bz1 != null && bz2 != null){
 
       if (bz1.id != bz2.id){
-        blog('id is not identical');
+        blog('ids are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == false){
-        blog('bzTypes is not identical');
+        blog('bzTypes are not identical');
       }
       if (bz1.bzForm != bz2.bzForm){
-        blog('bzForm is not identical');
+        blog('bzForms are not identical');
       }
       if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
-        blog('createdAt is not identical');
+        blog('createdAts are not identical');
       }
       if (bz1.accountType != bz2.accountType){
-        blog('accountType is not identical');
+        blog('accountTypes are not identical');
       }
       if (bz1.name != bz2.name){
-        blog('name is not identical');
+        blog('names are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == false){
-        blog('trigram is not identical');
+        blog('trigrams are not identical');
       }
       if (bz1.logo != bz2.logo){
-        blog('logo is not identical');
+        blog('logos are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
-        blog('scope is not identical');
+        blog('scopes are not identical');
       }
       if (ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
-        blog('zone is not identical');
+        blog('zones are not identical');
       }
       if (bz1.about != bz2.about){
-        blog('about is not identical');
+        blog('abouts are not identical');
       }
       if (bz1.position != bz2.position){
-        blog('position is not identical');
+        blog('positions are not identical');
       }
       if (ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == false){
-        blog('contacts is not identical');
+        blog('contacts are not identical');
       }
       if (AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == false){
-        blog('authors is not identical');
+        blog('authors are not identical');
       }
       if (bz1.showsTeam != bz2.showsTeam){
-        blog('showsTeam is not identical');
+        blog('showsTeams are not identical');
       }
       if (bz1.isVerified != bz2.isVerified){
-        blog('isVerified is not identical');
+        blog('isVerifieds are not identical');
       }
       if (bz1.bzState != bz2.bzState){
-        blog('bzState is not identical');
-      }
-      if (bz1.totalFollowers != bz2.totalFollowers){
-        blog('totalFollowers is not identical');
-      }
-      if (bz1.totalSaves != bz2.totalSaves){
-        blog('totalSaves is not identical');
-      }
-      if (bz1.totalShares != bz2.totalShares){
-        blog('totalShares is not identical');
-      }
-      if (bz1.totalSlides != bz2.totalSlides){
-        blog('totalSlides is not identical');
-      }
-      if (bz1.totalViews != bz2.totalViews){
-        blog('totalViews is not identical');
-      }
-      if (bz1.totalCalls != bz2.totalCalls){
-        blog('totalCalls is not identical');
+        blog('bzStates are not identical');
       }
       if (Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == false){
-        blog('flyersIDs is not identical');
-      }
-      if (bz1.totalFlyers != bz2.totalFlyers){
-        blog('totalFlyers is not identical');
+        blog('flyersIDs are not identical');
       }
 
     }

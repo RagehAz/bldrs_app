@@ -642,15 +642,18 @@ class ContactModel {
     @required List<ContactModel> contacts1,
     @required List<ContactModel> contacts2,
   }){
-    bool _output = false;
+    bool _identical = false;
 
-    if (
-    Mapper.checkCanLoopList(contacts1) == true
-        &&
-    Mapper.checkCanLoopList(contacts2) == true
-    ){
-
+    if (contacts1 == null && contacts2 == null){
+      _identical = true;
+    }
+    else if (contacts1?.isEmpty == true && contacts2?.isEmpty == true){
+      _identical = true;
+    }
+    else if (contacts1 != null && contacts2 != null){
       if (contacts1.length == contacts2.length){
+
+        bool _allContactsAreIdentical = false;
 
         for (int i = 0; i < contacts1.length; i++){
 
@@ -660,19 +663,23 @@ class ContactModel {
           );
 
           if (_areIdentical == false){
-            _output = false;
+            _allContactsAreIdentical = false;
             break;
+          }
+          else {
+            _allContactsAreIdentical = true;
           }
 
         }
 
-        _output ??= true;
+        if (_allContactsAreIdentical == true){
+          _identical = true;
+        }
 
       }
-
     }
 
-    return _output;
+    return _identical;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
