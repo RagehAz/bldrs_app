@@ -98,8 +98,8 @@ class AuthorLabel extends StatelessWidget {
     );
 // -----------------------------------------------------------------------------
     /// --- FOLLOWERS COUNTER
-    final int _followersCount = bzModel?.totalFollowers;
-    final int _bzGalleryCount = bzModel?.totalFlyers;
+    const int _followersCount = 0;
+    final int _bzGalleryCount = bzModel?.flyersIDs?.length;
 
     final String _galleryCountCalibrated = Numeric.formatNumToCounterCaliber(context, _bzGalleryCount);
     final String _followersCounter =

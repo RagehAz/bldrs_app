@@ -29,9 +29,6 @@ class SlideModel {
     this.slideIndex,
     this.pic,
     this.headline,
-    this.sharesCount,
-    this.viewsCount,
-    this.savesCount,
     this.flyerID,
   });
   /// --------------------------------------------------------------------------
@@ -40,9 +37,6 @@ class SlideModel {
   final String headline;
   final String description;
   final Matrix4 matrix;
-  final int sharesCount;
-  final int viewsCount;
-  final int savesCount;
   final BoxFit picFit;
   final ImageSize imageSize;
   final Color midColor;
@@ -59,9 +53,6 @@ class SlideModel {
       'picture': pic is String == true ? pic : null,
       'headline': headline,
       'description': description,
-      'sharesCount': sharesCount,
-      'viewsCount': viewsCount,
-      'savesCount': savesCount,
       'boxFit': ImageSize.cipherBoxFit(picFit),
       'imageSize': imageSize.toMap(),
       'midColor': Colorizer.cipherColor(midColor),
@@ -80,10 +71,6 @@ class SlideModel {
       pic: map['picture'],
       headline: map['headline'],
       description: map['description'],
-      // -------------------------
-      sharesCount: map['sharesCount'],
-      viewsCount: map['viewsCount'],
-      savesCount: map['savesCount'],
       picFit: ImageSize.decipherBoxFit(map['boxFit']),
       imageSize: ImageSize.decipherImageSize(map['imageSize']),
       midColor: Colorizer.decipherColor(map['midColor']),
@@ -123,6 +110,7 @@ class SlideModel {
     return _slides;
   }
 // -------------------------------------
+  /*
   static Future<Map<String, dynamic>> cipherSlidesCounters(List<SlideModel> slides) async {
     final Map<String, dynamic> _combinedMap = <String, dynamic>{};
 
@@ -136,6 +124,7 @@ class SlideModel {
 
     return _combinedMap;
   }
+   */
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -147,9 +136,6 @@ class SlideModel {
     String headline,
     String description,
     Matrix4 matrix,
-    int sharesCount,
-    int viewsCount,
-    int savesCount,
     BoxFit picFit,
     ImageSize imageSize,
     Color midColor,
@@ -161,9 +147,6 @@ class SlideModel {
       pic: pic ?? this.pic,
       headline: headline ?? this.headline,
       description: description ?? this.description,
-      sharesCount: sharesCount ?? this.sharesCount,
-      viewsCount: viewsCount ?? this.viewsCount,
-      savesCount: savesCount ?? this.savesCount,
       imageSize: imageSize ?? this.imageSize,
       picFit: picFit ?? this.picFit,
       midColor: midColor ?? this.midColor,
@@ -184,9 +167,6 @@ class SlideModel {
     blog('pic : $pic');
     blog('headline : $headline');
     blog('description : $description');
-    blog('sharesCount : $sharesCount');
-    blog('viewsCount : $viewsCount');
-    blog('savesCount : $savesCount');
     blog('picFit : $picFit');
     imageSize.blogSize();
     blog('midColor : $midColor');
@@ -243,15 +223,6 @@ class SlideModel {
     }
     if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
       blog('slide1.matrix != slide2.matrix');
-    }
-    if (slide1.sharesCount != slide2.sharesCount){
-      blog('slide1.sharesCount != slide2.sharesCount');
-    }
-    if (slide1.viewsCount != slide2.viewsCount){
-      blog('slide1.viewsCount != slide2.viewsCount');
-    }
-    if (slide1.savesCount != slide2.savesCount){
-      blog('slide1.savesCount != slide2.savesCount');
     }
     if (slide1.picFit != slide2.picFit){
       blog('slide1.picFit != slide2.picFit');
@@ -365,9 +336,6 @@ class SlideModel {
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
-          slide1.sharesCount == slide2.sharesCount &&
-          slide1.viewsCount == slide2.viewsCount &&
-          slide1.savesCount == slide2.savesCount &&
           slide1.picFit == slide2.picFit &&
           ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
@@ -606,9 +574,6 @@ class SlideModel {
         pic: mSlide.picURL ?? mSlide.picFile,
         headline: mSlide.headline.text,
         description: mSlide.description.text,
-        sharesCount: mSlide.sharesCount,
-        viewsCount: mSlide.viewsCount,
-        savesCount: mSlide.savesCount,
         picFit: mSlide.picFit,
         imageSize: mSlide.imageSize,
         midColor: mSlide.midColor,
@@ -658,9 +623,6 @@ class SlideModel {
       pic: Iconz.dumSlide1,
       headline: 'Headliner',
       description: 'Descriptor',
-      sharesCount: 2540256,
-      viewsCount: 5442574,
-      savesCount: 5402540,
       picFit: BoxFit.cover,
       imageSize: const ImageSize(height: 900, width: 600),
       midColor: Colorz.black255,

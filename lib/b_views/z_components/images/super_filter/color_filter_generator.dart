@@ -233,6 +233,7 @@ class ImageFilterModel {
   static bool checkFiltersAreIdentical({
     @required ImageFilterModel filter1,
     @required ImageFilterModel filter2,
+    bool blogDifferences = false,
   }){
     // blog('checkFiltersAreIdentical : START');
     bool _identical = false;
@@ -251,7 +252,7 @@ class ImageFilterModel {
       }
     }
 
-    if (_identical == false){
+    if (_identical == false && blogDifferences == true){
       blogFiltersDifferences(
         filter1: filter1,
         filter2: filter2,
@@ -279,25 +280,23 @@ class ImageFilterModel {
     @required ImageFilterModel filter1,
     @required ImageFilterModel filter2,
   }){
-    blog('blogFiltersDifferences : START');
 
     if (filter1 == null){
-      blog('filter1 is null');
+      blog('blogFiltersDifferences: filter1 is null');
     }
     if (filter2 == null){
-      blog('filter2 is null');
+      blog('blogFiltersDifferences : filter2 is null');
     }
     if (filter1.id != filter2.id){
-      blog('filters ids are not identical');
+      blog('blogFiltersDifferences : filters ids are not identical');
     }
     if (checkColorMatrixesAreIdentical(matrix1: filter1.matrixes, matrix2: filter2.matrixes) == false){
-      blog('ColorMatrixes are not identical');
+      blog('blogFiltersDifferences : ColorMatrixes are not identical');
     }
     if (filter1.opacity != filter2.opacity){
-      blog('Opacities are not identical');
+      blog('blogFiltersDifferences : Opacities are not identical');
     }
 
-    blog('blogFiltersDifferences : END');
   }
 // -----------------------------------------------------------------------------
 }

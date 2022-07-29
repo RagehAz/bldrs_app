@@ -61,7 +61,6 @@ Future<void> onCropSlide({
       context: context,
       pickedFile: tempSlide.value.picFile,
       isFlyerRatio: true,
-
   );
 
   blog('slide file : ${tempSlide.value.picFile.path}');
@@ -71,7 +70,6 @@ Future<void> onCropSlide({
 
     final ImageSize _imageSize = await ImageSize.superImageSize(_file);
     final Color _midColor = await Colorizers.getAverageColor(_file);
-
     final MutableSlide _updatedSlide = tempSlide.value.copyWith(
       picFile: _file,
       imageSize: _imageSize,

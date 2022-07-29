@@ -23,9 +23,6 @@ class MutableSlide {
     @required this.slideIndex,
     @required this.picURL,
     @required this.description,
-    @required this.sharesCount,
-    @required this.viewsCount,
-    @required this.savesCount,
     @required this.picFit,
     @required this.imageSize,
     @required this.matrix,
@@ -39,9 +36,6 @@ class MutableSlide {
   final ImageSize imageSize;
   final TextEditingController headline;
   final TextEditingController description;
-  final int sharesCount;
-  final int viewsCount;
-  final int savesCount;
   final Color midColor;
   final double opacity;
   final Matrix4 matrix;
@@ -55,9 +49,6 @@ class MutableSlide {
       BoxFit picFit,
       TextEditingController headline,
       TextEditingController description,
-      int sharesCount,
-      int viewsCount,
-      int savesCount,
       ImageSize imageSize,
       Color midColor,
       double opacity,
@@ -73,9 +64,6 @@ class MutableSlide {
       slideIndex: slideIndex ?? this.slideIndex,
       picURL: picURL ?? this.picURL,
       description: description ?? this.description,
-      sharesCount: sharesCount ?? this.sharesCount,
-      viewsCount: viewsCount ?? this.viewsCount,
-      savesCount: savesCount ?? this.savesCount,
       picFit: picFit ?? this.picFit,
       matrix: matrix ?? this.matrix,
       filter: filter ?? this.filter,
@@ -94,9 +82,6 @@ class MutableSlide {
       picFile: null,
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
-      sharesCount: slide.sharesCount,
-      viewsCount: slide.viewsCount,
-      savesCount: slide.savesCount,
       imageSize: slide.imageSize,
       picFit: slide.picFit,
       midColor: slide.midColor,
@@ -143,9 +128,6 @@ class MutableSlide {
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
       // -------------------------
-      sharesCount: slide.sharesCount,
-      viewsCount: slide.viewsCount,
-      savesCount: slide.savesCount,
       imageSize: slide.imageSize,
       picFit: slide.picFit,
       midColor: slide.midColor,
@@ -263,9 +245,6 @@ class MutableSlide {
         slideIndex: index,
         picURL: null,
         description: TextEditingController(),
-        sharesCount: 0,
-        viewsCount: 0,
-        savesCount: 0,
         picFit: _fit,
         matrix: Matrix4.identity(),
         filter: ImageFilterModel.noFilter(),
@@ -389,9 +368,6 @@ class MutableSlide {
     blog('slideIndex : $slideIndex');
     blog('picURL : $picURL');
     blog('description : ${description.text}');
-    blog('sharesCount : $sharesCount');
-    blog('viewsCount : $viewsCount');
-    blog('savesCount : $savesCount');
     blog('picFit : $picFit');
     blog('matrix : $matrix');
     blog('filter : ${filter?.id}');
@@ -417,50 +393,46 @@ class MutableSlide {
     @required MutableSlide slide2,
   }){
 
-    blog('blogMutableSlidesDifferences : START');
-
     if (slide1 == null){
-      blog('slide1 is null');
+      blog('MutableSlidesDifferences : slide1 is null');
     }
     if (slide2 == null){
-      blog('slide2 is null');
+      blog('MutableSlidesDifferences : slide2 is null');
     }
 
     if (slide1.slideIndex != slide2.slideIndex){
-      blog('slideIndexes are not Identical');
+      blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
     if (slide1.picURL != slide2.picURL){
-      blog('picURLs are not Identical');
+      blog('MutableSlidesDifferences : picURLs are not Identical');
     }
     if (Filers.checkFilesAreIdentical(file1: slide1.picFile, file2: slide2.picFile) == false){
-      blog('picFiles are not Identical');
+      blog('MutableSlidesDifferences : picFiles are not Identical');
     }
     if (slide1.picFit != slide2.picFit){
-      blog('picFits are not Identical');
+      blog('MutableSlidesDifferences : picFits are not Identical');
     }
     if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
-      blog('imageSizes are not Identical');
+      blog('MutableSlidesDifferences : imageSizes are not Identical');
     }
     if (slide1.headline.text != slide2.headline.text){
-      blog('headlines are not Identical');
+      blog('MutableSlidesDifferences : headlines are not Identical');
     }
     if (slide1.description.text != slide2.description.text){
-      blog('descriptions are not Identical');
+      blog('MutableSlidesDifferences : descriptions are not Identical');
     }
     if (Colorizers.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
-      blog('midColors are not Identical');
+      blog('MutableSlidesDifferences : midColors are not Identical');
     }
     if (slide1.opacity != slide2.opacity){
-      blog('opacities are not Identical');
+      blog('MutableSlidesDifferences : opacities are not Identical');
     }
     if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
-      blog('matrixes are not Identical');
+      blog('MutableSlidesDifferences : matrixes are not Identical');
     }
     if (ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == false){
-      blog('filters are not Identical');
+      blog('MutableSlidesDifferences : filters are not Identical');
     }
-
-    blog('blogMutableSlidesDifferences : END');
 
   }
 // -----------------------------------------------------------------------------
