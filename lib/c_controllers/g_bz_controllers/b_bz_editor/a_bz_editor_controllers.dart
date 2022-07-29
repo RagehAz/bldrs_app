@@ -310,14 +310,7 @@ BzModel createBzModelFromLocalVariables({
     showsTeam: initialBzModel.showsTeam, /// NEVER CHANGED
     isVerified: initialBzModel.isVerified, /// NEVER CHANGED
     bzState: initialBzModel.bzState, /// NEVER CHANGED
-    totalFollowers: initialBzModel.totalFollowers, /// NEVER CHANGED
-    totalSaves: initialBzModel.totalSaves, /// NEVER CHANGED
-    totalShares: initialBzModel.totalShares, /// NEVER CHANGED
-    totalSlides: initialBzModel.totalSlides, /// NEVER CHANGED
-    totalViews: initialBzModel.totalViews, /// NEVER CHANGED
-    totalCalls: initialBzModel.totalCalls, /// NEVER CHANGED
     flyersIDs: initialBzModel.flyersIDs, /// NEVER CHANGED
-    totalFlyers: initialBzModel.totalFlyers, /// NEVER CHANGED
   );
 
   return _bzModel;

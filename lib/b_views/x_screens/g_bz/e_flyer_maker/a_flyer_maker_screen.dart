@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/aa_flyer_maker_screen_view.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -136,11 +135,9 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
             // SpecModel.blogSpecs(_draftFlyer.value.specs);
 
             final MutableSlide _slide1 = _draftFlyer.value.mutableSlides[0].copyWith(
-              filter: ImageFilterModel.bldrsImageFilters[1],
+
             );
-            final MutableSlide _slide2 = _draftFlyer.value.mutableSlides[0].copyWith(
-              filter: ImageFilterModel.bldrsImageFilters[1],
-            );
+            final MutableSlide _slide2 = _draftFlyer.value.mutableSlides[0].copyWith();
 
             if (_slide1 == _slide2){
               blog('are identical');
@@ -148,6 +145,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
             else {
               blog('fuck are not identical');
             }
+
+            blog('hashCode : ${_slide2.hashCode} : ${_slide1.hashCode}',);
 
           },
         ),

@@ -33,8 +33,7 @@ class MyBzScreen extends StatelessWidget {
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
     final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: false);
     final String bzID = _bzzPro.myActiveBz?.id;
-
-    blog('my bz screen reloaded');
+    blog('MyBzScreen : bzID : $bzID');
 
     return FireDocStreamer(
       collName: FireColl.bzz,
@@ -68,7 +67,6 @@ class MyBzScreen extends StatelessWidget {
             );
 
             blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
-            // _bzModel?.blogBz(methodName: 'My Bz Screen : pro bz');
 
             final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
               authors: _bzModel?.authors,
