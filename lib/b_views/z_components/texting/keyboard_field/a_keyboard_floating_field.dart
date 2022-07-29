@@ -106,11 +106,9 @@ class KeyboardFloatingField extends StatelessWidget {
                 );
               }
 
-
             },);
 
         }
-
 
       },
     );

@@ -76,7 +76,7 @@ class Imagers {
       selectedAssets: selectedAssets,
     );
 
-    if (cropAfterPick == true){
+    if (cropAfterPick == true && Mapper.checkCanLoopList(_files) == true){
       _files = await cropImages(
         context: context,
         pickedFiles: _files,
@@ -233,9 +233,36 @@ class Imagers {
   /// TAKE IMAGE FROM CAMERA
 
 // ---------------------------------------
-  static Future<File> takeCameraImage({
+  static Future<File> shootAndCropCameraImage({
     @required BuildContext context,
+    @required bool cropAfterPick,
+    @required bool isFlyerRatio,
   }) async {
+
+    File _file = await _shootCameraImage(
+      context: context,
+    );
+
+    if (cropAfterPick == true && _file != null){
+
+      final List<File> _files = await cropImages(
+        context: context,
+        pickedFiles: <File>[_file],
+        isFlyerRatio: isFlyerRatio,
+      );
+
+      if (Mapper.checkCanLoopList(_files) == true){
+        _file = _files.first;
+      }
+
+    }
+
+    return _file;
+  }
+// -----------------------------------------------------------------
+  static Future<File> _shootCameraImage({
+    @required BuildContext context,
+}) async {
 
     final AssetEntity entity = await CameraPicker.pickFromCamera(
       context,
@@ -290,8 +317,7 @@ class Imagers {
     final File _file = await entity?.file;
 
     return _file;
-  }
-
+}
 // -----------------------------------------------------------------
 
   /// CROP IMAGE
