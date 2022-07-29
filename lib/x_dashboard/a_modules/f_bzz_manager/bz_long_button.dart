@@ -170,34 +170,34 @@ class BzLongButton extends StatelessWidget {
                 dataValue: bzModel.bzState,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalFollowers',
-                dataValue: bzModel.totalFollowers,
+                dataValue: 0,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalSaves',
-                dataValue: bzModel.totalSaves,
+                dataValue: 0,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalShares',
-                dataValue: bzModel.totalShares,
+                dataValue: 0,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalSlides',
-                dataValue: bzModel.totalSlides,
+                dataValue: 0,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalViews',
-                dataValue: bzModel.totalViews,
+                dataValue: 0,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalCalls',
-                dataValue: bzModel.totalCalls,
+                dataValue: 0,
               ),
 
               DataStripWithHeadline(
@@ -205,9 +205,9 @@ class BzLongButton extends StatelessWidget {
                 dataValue: bzModel.flyersIDs,
               ),
 
-              DataStripWithHeadline(
+              const DataStripWithHeadline(
                 dataKey: 'bzTotalFlyers',
-                dataValue: bzModel.totalFlyers,
+                dataValue: 0,
               ),
 
               // Container(

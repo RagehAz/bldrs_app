@@ -26,7 +26,7 @@ class Filers {
 /// CREATORS - WRITING
 
 // ---------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<File> createNewEmptyFile({
     @required String fileName,
     bool useTemporaryDirectory = false,
@@ -42,6 +42,7 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> writeUint8ListOnFile({
     @required File file,
     @required Uint8List uint8list,
@@ -75,7 +76,7 @@ class Filers {
   /// FILE PATH
 
 // ---------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> _createNewFilePath({
     @required String fileName,
     bool useTemporaryDirectory = false,
@@ -167,6 +168,7 @@ class Filers {
     return _result;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<File>> getFilesFromUint8Lists({
     @required List<Uint8List> uInt8Lists,
     @required String fileName,
@@ -254,17 +256,13 @@ class Filers {
   /// CHECKERS
 
 // ---------------------------------------
-  /// NOT TESTED PROPERLY
+  /// TESTED : WORKS PERFECT
   static bool checkFilesAreIdentical({
     @required File file1,
     @required File file2,
+    String methodName = 'checkFilesAreIdentical',
   }) {
     bool _identical = false;
-
-    blogFile(
-      file: file1,
-      methodName: 'CHECK THIS SHIT',
-    );
 
     if (file1 == null && file2 == null){
       _identical = true;
@@ -281,7 +279,7 @@ class Filers {
             );
 
             if (_lastModifiedAreIdentical == true){
-            _identical = true;
+              _identical = true;
             }
 
           }
@@ -289,8 +287,12 @@ class Filers {
       }
     }
 
-
-
+    if (_identical == false){
+      blogFilesDifferences(
+        file1: file1,
+        file2: file2,
+      );
+    }
 
     return _identical;
   }
@@ -299,6 +301,7 @@ class Filers {
 /// BLOG
 
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogFile({
     @required File file,
     String methodName = 'BLOG FILE',
@@ -322,7 +325,6 @@ class Filers {
       blog('blogFile : $methodName : file.lastModifiedSync() : ${file.lastModifiedSync()}');
       blog('blogFile : $methodName : file.openSync() : ${file.openSync()}');
       blog('blogFile : $methodName : file.openWrite() : ${file.openWrite()}');
-      blog('blogFile : $methodName : file.readAsLinesSync() : ${file.readAsLinesSync()}');
       blog('blogFile : $methodName : file.statSync() : ${file.statSync()}');
       blog('blogFile : $methodName : file.existsSync() : ${file.existsSync()}');
       blog('blogFile : $methodName : file.hashCode : ${file.hashCode}');
@@ -331,9 +333,42 @@ class Filers {
         methodName: methodName,
       );
 
+      // blog('blogFile : $methodName : file.readAsLinesSync() : ${file.readAsLinesSync()}'); /// Unhandled Exception: FileSystemException: Failed to decode data using encoding 'utf-8',
       // blog('blogFile : $methodName : file.readAsStringSync() : ${file.readAsStringSync()}'); /// ERROR WITH IMAGE FILES
       // blog('blogFile : $methodName : file.readAsBytesSync() : ${file.readAsBytesSync()}'); /// TOO LONG
 
+    }
+
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogFilesDifferences({
+    @required File file1,
+    @required File file2,
+  }){
+
+    if (file1 == null){
+      blog('file1 is null');
+    }
+    if (file2 == null){
+      blog('file2 is null');
+    }
+    if (file1.path != file2.path){
+      blog('files paths are not Identical');
+    }
+    if (file1.lengthSync() != file2.lengthSync()){
+      blog('files lengthSync()s are not Identical');
+    }
+    if (file1.resolveSymbolicLinksSync() != file2.resolveSymbolicLinksSync()){
+      blog('files resolveSymbolicLinksSync()s are not Identical');
+    }
+    final bool _lastModifiedAreIdentical = Timers.timesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: file1.lastModifiedSync(),
+        time2: file2.lastModifiedSync()
+    );
+    if (_lastModifiedAreIdentical == true){
+      blog('files lastModifiedSync()s are not Identical');
     }
 
   }
