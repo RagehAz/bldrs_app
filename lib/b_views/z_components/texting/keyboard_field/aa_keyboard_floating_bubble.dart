@@ -15,11 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class KeyboardFloatingBubble extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const KeyboardFloatingBubble({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -48,7 +48,7 @@ class KeyboardFloatingBubble extends StatelessWidget {
                 width: BldrsAppBar.width(context),
                 height: KeyboardFloatingField.titleHeight,
                 // margin: const EdgeInsets.only(top: 10),
-                alignment: superCenterAlignment(context),
+                alignment: Aligners.superCenterAlignment(context),
                 padding: const EdgeInsets.all(5),
                 // color: Colorz.blackSemi255,
                 child: Row(

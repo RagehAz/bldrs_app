@@ -1,10 +1,9 @@
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -72,7 +71,6 @@ class ShelfSlidesPart extends StatelessWidget {
                   return ShelfSlide(
                     mutableSlide: _mutableSlide,
                     number: index + 1,
-                    isEditingFlyer: isEditingFlyer,
                     onTap: () => onSlideTap(_mutableSlide),
                   );
 
@@ -80,16 +78,7 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 /// ADD SLIDE BUTTON
                 if (isLoading == false && isEditingFlyer == false)
-                  ShelfSlide(
-                    mutableSlide: null,
-                    number: null,
-                    onTap: onAddNewSlides,
-                    isEditingFlyer: isEditingFlyer,
-                    publishTime: PublishTime.getPublishTimeFromTimes(
-                      state: PublishState.published,
-                      times: draft.times,
-                    )?.time,
-                  ),
+                  const AddSlidesButton(),
 
                 /// LOADING WIDGET
                 if (isLoading == true)
