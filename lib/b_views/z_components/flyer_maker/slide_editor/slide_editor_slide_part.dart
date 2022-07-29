@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transf
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -20,7 +21,7 @@ import 'package:flutter/material.dart';
 class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorSlidePart({
-    @required this.slide,
+    @required this.tempSlide,
     @required this.height,
     @required this.matrix,
     @required this.filterModel,
@@ -29,7 +30,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<MutableSlide> slide;
+  final ValueNotifier<MutableSlide> tempSlide;
   final double height;
   final ValueNotifier<Matrix4> matrix;
   final ValueNotifier<ImageFilterModel> filterModel;
@@ -63,9 +64,11 @@ class SlideEditorSlidePart extends StatelessWidget {
         height: _slideZoneHeight,
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
-          valueListenable: slide,
+          valueListenable: tempSlide,
           child: Container(),
           builder: (_, MutableSlide _slide, Widget child){
+
+            blog('BUILDING SLIDE AHOOOO : ${_slide.picFile.path} : color : ${_slide.midColor}');
 
             return FlyerBox(
               key: const ValueKey<String>('flyer_box_slide_editor'),

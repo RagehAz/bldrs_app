@@ -107,7 +107,7 @@ class Trinity {
   /// CHECKERS
 
 // -------------------------------------
-  static bool matrixesAreIdentical({
+  static bool checkMatrixesAreIdentical({
     @required Matrix4 matrix1,
     @required Matrix4 matrixReloaded,
   }){

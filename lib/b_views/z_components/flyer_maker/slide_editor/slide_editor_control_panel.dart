@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
+
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -10,6 +11,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   const SlideEditorControlPanel({
     @required this.onCancel,
     @required this.onReset,
+    @required this.onCrop,
     @required this.onConfirm,
     @required this.height,
     Key key
@@ -17,6 +19,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onCancel;
   final Function onReset;
+  final Function onCrop;
   final Function onConfirm;
   final double height;
   /// --------------------------------------------------------------------------
@@ -62,6 +65,14 @@ class SlideEditorControlPanel extends StatelessWidget {
             icon: Iconz.fingerTap,
             verse: 'Reset',
             onTap: onReset,
+          ),
+
+          /// CROP
+          SlideEditorButton(
+            size: _buttonSize,
+            icon: Iconz.reload,
+            verse: 'Crop',
+            onTap: onCrop,
           ),
 
           /// BOX FIT

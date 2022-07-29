@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 @immutable
@@ -30,7 +31,7 @@ class MutableSlide {
     @required this.matrix,
     @required this.filter,
   });
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   final int slideIndex;
   final String picURL;
   final File picFile;
@@ -409,6 +410,59 @@ class MutableSlide {
 
     blog('BLOGGING SLIDES -------- END');
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogMutableSlidesDifferences({
+    @required MutableSlide slide1,
+    @required MutableSlide slide2,
+  }){
+
+    blog('blogMutableSlidesDifferences : START');
+
+    if (slide1 == null){
+      blog('slide1 is null');
+    }
+    if (slide2 == null){
+      blog('slide2 is null');
+    }
+
+    if (slide1.slideIndex != slide2.slideIndex){
+      blog('slideIndexes are not Identical');
+    }
+    if (slide1.picURL != slide2.picURL){
+      blog('picURLs are not Identical');
+    }
+    if (Filers.checkFilesAreIdentical(file1: slide1.picFile, file2: slide2.picFile) == false){
+      blog('picFiles are not Identical');
+    }
+    if (slide1.picFit != slide2.picFit){
+      blog('picFits are not Identical');
+    }
+    if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
+      blog('imageSizes are not Identical');
+    }
+    if (slide1.headline.text != slide2.headline.text){
+      blog('headlines are not Identical');
+    }
+    if (slide1.description.text != slide2.description.text){
+      blog('descriptions are not Identical');
+    }
+    if (Colorizers.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
+      blog('midColors are not Identical');
+    }
+    if (slide1.opacity != slide2.opacity){
+      blog('opacities are not Identical');
+    }
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
+      blog('matrixes are not Identical');
+    }
+    if (ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == false){
+      blog('filters are not Identical');
+    }
+
+    blog('blogMutableSlidesDifferences : END');
+
+  }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -425,6 +479,95 @@ class MutableSlide {
     // slides[1].blogSlide();
     return slides;
   }
+// -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// -------------------------------------
+  static bool checkSlidesAreIdentical({
+    @required MutableSlide slide1,
+    @required MutableSlide slide2,
+  }){
+    bool _identical = false;
+    if (slide1 != null && slide2 != null){
+
+      if (
+          slide1.slideIndex == slide2.slideIndex &&
+          slide1.picURL == slide2.picURL &&
+          Filers.checkFilesAreIdentical(file1: slide1.picFile, file2: slide2.picFile) &&
+          slide1.picFit == slide2.picFit &&
+          ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
+          slide1.headline.text == slide2.headline.text &&
+          slide1.description.text == slide2.description.text &&
+          Colorizers.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
+          slide1.opacity == slide2.opacity &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
+          ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter)
+      ){
+        _identical = true;
+      }
+
+      if (_identical == false){
+        blogMutableSlidesDifferences(
+          slide1: slide1,
+          slide2: slide2,
+        );
+      }
+
+    }
+    return _identical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is MutableSlide){
+      _areIdentical = checkSlidesAreIdentical(
+        slide1: this,
+        slide2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      picFile.hashCode
+      ^
+      headline.hashCode
+      ^
+      midColor.hashCode
+      ^
+      opacity.hashCode
+      ^
+      slideIndex.hashCode
+      ^
+      picURL.hashCode
+      ^
+      description.hashCode
+      ^
+      picFit.hashCode
+      ^
+      imageSize.hashCode
+      ^
+      matrix.hashCode
+      ^
+      filter.hashCode;
 // -----------------------------------------------------------------------------
 }
 

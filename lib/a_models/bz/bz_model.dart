@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -1577,7 +1577,7 @@ class BzModel{
           bz1.id == bz2.id &&
           Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
           bz1.bzForm == bz2.bzForm &&
-          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
+          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
           Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) &&
@@ -1639,7 +1639,7 @@ class BzModel{
       if (bz1.bzForm != bz2.bzForm){
         blog('bzForm is not identical');
       }
-      if (Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
+      if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
         blog('createdAt is not identical');
       }
       if (bz1.accountType != bz2.accountType){

@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -505,7 +505,7 @@ class UserModel {
       if (
       user1.id == user2.id &&
       user1.authBy == user2.authBy &&
-      Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
+      Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
       user1.status == user2.status &&
       user1.name == user2.name &&
       Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
@@ -908,7 +908,7 @@ class UserModel {
             blog('blogUserDifferences : [authBy] are not identical');
           }
 
-          if (Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
+          if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
             blog('blogUserDifferences : [createdAt] are not identical');
           }
 

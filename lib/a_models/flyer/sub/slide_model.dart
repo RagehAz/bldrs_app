@@ -241,7 +241,7 @@ class SlideModel {
     if (slide1.description != slide2.description){
       blog('slide1.description != slide2.description');
     }
-    if (Trinity.matrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
       blog('slide1.matrix != slide2.matrix');
     }
     if (slide1.sharesCount != slide2.sharesCount){
@@ -364,7 +364,7 @@ class SlideModel {
           Imagers.checkPicsAreIdentical(pic1: slide1.pic, pic2: slide2.pic) &&
           slide1.headline == slide2.headline &&
           slide1.description == slide2.description &&
-          Trinity.matrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
+          Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
           slide1.sharesCount == slide2.sharesCount &&
           slide1.viewsCount == slide2.viewsCount &&
           slide1.savesCount == slide2.savesCount &&
