@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/app_bar_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
-import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
