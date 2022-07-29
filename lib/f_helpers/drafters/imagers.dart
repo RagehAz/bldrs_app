@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
+enum ImagePickerType {
+  cameraImage,
+  galleryImage,
+}
 
 enum PicType {
   userPic,

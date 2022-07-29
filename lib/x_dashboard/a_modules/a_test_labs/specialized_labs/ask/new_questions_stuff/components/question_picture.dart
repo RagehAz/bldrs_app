@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart' as Borderers;
+import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:flutter/material.dart';
 
 class QuestionPictureThumbnail extends StatelessWidget {

@@ -109,7 +109,7 @@ class MyBzScreen extends StatelessWidget {
                     width: 40,
                     image: _bzModel.logo,
                     margins: const EdgeInsets.symmetric(horizontal: 5),
-                    corners: superBorderAll(context, Ratioz.appBarCorner - 5),
+                    corners: Borderers.superBorderAll(context, Ratioz.appBarCorner - 5),
                   ),
 
                 ],

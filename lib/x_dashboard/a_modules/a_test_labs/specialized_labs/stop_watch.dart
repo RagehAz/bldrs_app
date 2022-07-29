@@ -111,7 +111,7 @@ class _StopWatchBarState extends State<StopWatchBar> {
       width: _boxWidth,
       height: _boxHeight,
       decoration: BoxDecoration(
-        borderRadius: superBorderAll(context, Ratioz.appBarCorner),
+        borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
         color: Colorz.white20
       ),
       child: Row(
