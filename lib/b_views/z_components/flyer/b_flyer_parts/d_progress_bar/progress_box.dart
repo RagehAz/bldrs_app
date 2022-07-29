@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/strips.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart' as Aligners;
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBox extends StatelessWidget {

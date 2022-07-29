@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -11,7 +12,6 @@ import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +67,7 @@ class ComposeBzProtocols {
         context: context,
         title: 'Great !',
         body: 'Successfully created your Business Account\n system will reboot now',
-        color: Colorz.green255,
+        // color: Colorz.green255,
       );
 
       /// NAVIGATE

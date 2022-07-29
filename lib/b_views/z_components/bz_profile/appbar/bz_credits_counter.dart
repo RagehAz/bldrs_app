@@ -78,7 +78,7 @@ class CreditsRow extends StatelessWidget {
         Container(
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
-          alignment: superInverseCenterAlignment(context),
+          alignment: Aligners.superInverseCenterAlignment(context),
           child: SuperVerse(
             verse: value,
             size: 1,
