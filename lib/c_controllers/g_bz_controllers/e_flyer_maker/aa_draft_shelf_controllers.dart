@@ -164,6 +164,7 @@ Future<void> onAddNewSlides({
         scrollController: scrollController,
         draftFlyer: draftFlyer,
         flyerWidth: flyerWidth,
+        imagePickerType: imagePickerType,
       );
     }
 
@@ -182,40 +183,50 @@ Future<void> _addImagesForNewFlyer({
   @required ScrollController scrollController,
   @required TextEditingController headlineController,
   @required double flyerWidth,
+  @required ImagePickerType imagePickerType,
 }) async {
+
+  List<File> _pickedFiles = <File>[];
 
   if(mounted){
 
-    /// GET ONLY ASSETS AND IGNORE FILES
-    // final List<File> _existingFiles = MutableSlide.getFilesFromMutableSlides(
-    //   mutableSlides: draftFlyer.value.mutableSlides,
-    // );
+    if (imagePickerType == ImagePickerType.galleryImage){
+      _pickedFiles = await Imagers.pickAndCropMultipleImages(
+        context: context,
+        // maxAssets: 10,
+        isFlyerRatio: true,
+        cropAfterPick: false,
+      );
+    }
+    else if (imagePickerType == ImagePickerType.cameraImage){
+      final File _file = await Imagers.shootAndCropCameraImage(
+        context: context,
+        // maxAssets: 10,
+        isFlyerRatio: true,
+        cropAfterPick: false,
+      );
+      _pickedFiles = <File>[_file];
+    }
 
-    final List<File> _pickedAssets = await Imagers.pickAndCropMultipleImages(
-      context: context,
-      // maxAssets: 10,
-      isFlyerRatio: true,
-      cropAfterPick: true,
-    );
 
     /// B - if didn't pick more images
-    if(_pickedAssets.isEmpty){
+    if(_pickedFiles.isEmpty){
       // will do nothing
     }
 
     /// B - if made new picks
     else {
 
-      blog('the thing is : $_pickedAssets');
+      blog('the thing is : $_pickedFiles');
 
       final List<MutableSlide> _newMutableSlides = await MutableSlide.createMutableSlidesByFiles(
         context: context,
-        files: _pickedAssets,
+        files: _pickedFiles,
         existingSlides: draftFlyer.value.mutableSlides,
         headlineController: headlineController,
       );
 
-      final List<MutableSlide> _combinedSlides = <MutableSlide>[... _newMutableSlides];
+      final List<MutableSlide> _combinedSlides = <MutableSlide>[...draftFlyer.value.mutableSlides, ... _newMutableSlides];
 
       final DraftFlyerModel _newDraft = draftFlyer.value.copyWith(
         mutableSlides: _combinedSlides,
@@ -231,7 +242,7 @@ Future<void> _addImagesForNewFlyer({
       });
 
 
-      // for (int i = 0; i < _pickedAssets.length; i++){
+      // for (int i = 0; i < _pickedFiles.length; i++){
       //   /// for first headline
       //   if(i == 0){
       //     /// keep controller as is

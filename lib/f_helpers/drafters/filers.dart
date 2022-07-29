@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -248,4 +251,91 @@ class Filers {
   }
 // -----------------------------------------------------------------
 
+  /// CHECKERS
+
+// ---------------------------------------
+  /// NOT TESTED PROPERLY
+  static bool checkFilesAreIdentical({
+    @required File file1,
+    @required File file2,
+  }) {
+    bool _identical = false;
+
+    blogFile(
+      file: file1,
+      methodName: 'CHECK THIS SHIT',
+    );
+
+    if (file1 == null && file2 == null){
+      _identical = true;
+    }
+    else if (file1 != null && file2 != null){
+      if (file1.path == file2.path){
+        if (file1.lengthSync() == file2.lengthSync()){
+          if (file1.resolveSymbolicLinksSync() == file2.resolveSymbolicLinksSync()){
+
+            final bool _lastModifiedAreIdentical = Timers.timesAreIdentical(
+                accuracy: TimeAccuracy.microSecond,
+                time1: file1.lastModifiedSync(),
+                time2: file2.lastModifiedSync()
+            );
+
+            if (_lastModifiedAreIdentical == true){
+            _identical = true;
+            }
+
+          }
+        }
+      }
+    }
+
+
+
+
+    return _identical;
+  }
+// -----------------------------------------------------------------
+
+/// BLOG
+
+// ---------------------------------------
+  static void blogFile({
+    @required File file,
+    String methodName = 'BLOG FILE',
+  }){
+
+    if (file == null){
+      blog('blogFile : file is null');
+    }
+    else {
+
+      blog('blogFile : $methodName : file.path : ${file.path}');
+      blog('blogFile : $methodName : file.absolute : ${file.absolute}');
+      blog('blogFile : $methodName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
+      blog('blogFile : $methodName : file.runtimeType : ${file.runtimeType}');
+      blog('blogFile : $methodName : file.isAbsolute : ${file.isAbsolute}');
+      blog('blogFile : $methodName : file.parent : ${file.parent}');
+      blog('blogFile : $methodName : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
+      blog('blogFile : $methodName : file.lengthSync() : ${file.lengthSync()}');
+      blog('blogFile : $methodName : file.toString() : ${file.toString()}');
+      blog('blogFile : $methodName : file.lastAccessedSync() : ${file.lastAccessedSync()}');
+      blog('blogFile : $methodName : file.lastModifiedSync() : ${file.lastModifiedSync()}');
+      blog('blogFile : $methodName : file.openSync() : ${file.openSync()}');
+      blog('blogFile : $methodName : file.openWrite() : ${file.openWrite()}');
+      blog('blogFile : $methodName : file.readAsLinesSync() : ${file.readAsLinesSync()}');
+      blog('blogFile : $methodName : file.statSync() : ${file.statSync()}');
+      blog('blogFile : $methodName : file.existsSync() : ${file.existsSync()}');
+      blog('blogFile : $methodName : file.hashCode : ${file.hashCode}');
+      DynamicLinks.blogURI(
+        uri: file.uri,
+        methodName: methodName,
+      );
+
+      // blog('blogFile : $methodName : file.readAsStringSync() : ${file.readAsStringSync()}'); /// ERROR WITH IMAGE FILES
+      // blog('blogFile : $methodName : file.readAsBytesSync() : ${file.readAsBytesSync()}'); /// TOO LONG
+
+    }
+
+  }
+// -----------------------------------------------------------------
 }

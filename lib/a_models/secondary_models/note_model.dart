@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/timerz.dart' as Timers;
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -933,15 +933,15 @@ class NoteModel {
           note1.title == note2.title &&
           note1.body == note2.body &&
           Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
-          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
+          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
           note1.attachment == note2.attachment &&
           note1.attachmentType == note2.attachmentType &&
           note1.seen == note2.seen &&
-          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
+          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
           note1.sendFCM == note2.sendFCM &&
           note1.noteType == note2.noteType &&
           note1.response == note2.response &&
-          Timers.timesAreIdentical(accuracy: Timers.TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
+          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
           Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons)
       ){
         _areIdentical = true;

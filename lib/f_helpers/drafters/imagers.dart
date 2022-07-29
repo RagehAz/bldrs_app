@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -326,6 +325,27 @@ class Imagers {
 
   /// CROP IMAGE
 
+// ---------------------------------------
+  static Future<File> cropImage({
+    @required BuildContext context,
+    @required File pickedFile,
+    @required bool isFlyerRatio,
+}) async {
+
+    File _file;
+
+    final List<File> _files = await cropImages(
+        context: context,
+        pickedFiles: <File>[pickedFile],
+        isFlyerRatio: isFlyerRatio
+    );
+
+    if (Mapper.checkCanLoopList(_files) == true){
+      _file = _files.first;
+    }
+
+    return _file;
+}
 // ---------------------------------------
   static Future<List<File>> cropImages({
     @required BuildContext context,
