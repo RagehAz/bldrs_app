@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/b_views/z_components/artworks/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';

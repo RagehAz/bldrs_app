@@ -23,12 +23,16 @@ class BackAndSearchButton extends StatelessWidget {
     @required this.backAndSearchAction,
     this.onTap,
     this.color = Colorz.white10,
+    this.icon,
+    this.iconSizeFactor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
   final Color color;
   final BackAndSearchAction backAndSearchAction;
+  final String icon;
+  final double iconSizeFactor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -55,9 +59,9 @@ class BackAndSearchButton extends StatelessWidget {
         width: Ratioz.appBarButtonSize,
         corners: Ratioz.appBarButtonCorner,
         // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-        icon: _icon,
+        icon: icon ?? _icon,
         iconRounded: false,
-        iconSizeFactor: _iconSizeFactor,
+        iconSizeFactor: iconSizeFactor ?? _iconSizeFactor,
         bubble: false,
         color: color,
         // textDirection: superInverseTextDirection(context),
