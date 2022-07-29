@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -16,7 +17,7 @@ class ShelfSlidesPart extends StatelessWidget {
     @required this.scrollController,
     @required this.draft,
     @required this.onSlideTap,
-    @required this.onAddNewSlides,
+    @required this.onAddSlides,
     @required this.loading,
     @required this.isEditingFlyer,
     Key key
@@ -26,7 +27,7 @@ class ShelfSlidesPart extends StatelessWidget {
   final ScrollController scrollController;
   final DraftFlyerModel draft;
   final ValueChanged<MutableSlide> onSlideTap;
-  final Function onAddNewSlides;
+  final ValueChanged<ImagePickerType> onAddSlides;
   final ValueNotifier<bool> loading; /// p
   final bool isEditingFlyer;
   /// --------------------------------------------------------------------------
@@ -78,7 +79,9 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 /// ADD SLIDE BUTTON
                 if (isLoading == false && isEditingFlyer == false)
-                  const AddSlidesButton(),
+                  AddSlidesButton(
+                    onTap: onAddSlides,
+                  ),
 
                 /// LOADING WIDGET
                 if (isLoading == true)

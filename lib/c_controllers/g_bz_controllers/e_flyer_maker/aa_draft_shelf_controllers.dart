@@ -117,6 +117,7 @@ void onDeleteSlide({
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   @required BuildContext context,
+  @required ImagePickerType imagePickerType,
   @required ValueNotifier<bool> isLoading,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required BzModel bzModel,

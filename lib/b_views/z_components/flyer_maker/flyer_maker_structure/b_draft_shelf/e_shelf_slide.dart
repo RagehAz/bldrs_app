@@ -24,25 +24,24 @@ class ShelfSlide extends StatefulWidget {
     @required this.mutableSlide,
     @required this.number,
     @required this.onTap,
-    this.publishTime,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final MutableSlide mutableSlide;
   final int number;
   final Function onTap;
-  final DateTime publishTime;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
-// ----------------------------------------------
+// -----------------------------------------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
     final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
-// ----------------------------------------------
+// -----------------------------------------------------------------------------
   @override
   State<ShelfSlide> createState() => _ShelfSlideState();
+// -----------------------------------------------------------------------------
 }
 
 class _ShelfSlideState extends State<ShelfSlide> {
