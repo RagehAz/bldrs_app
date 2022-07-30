@@ -1035,7 +1035,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   static Future<bool> checkDeviceTimeIsCorrect({
     @required BuildContext context,
     @required bool showIncorrectTimeDialog,
-    @required Function onRestart,
+    Function onRestart,
   }) async {
 
     final DateTime _dateTime = await getInternetUTCTime();
