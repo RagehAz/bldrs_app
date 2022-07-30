@@ -15,8 +15,8 @@ class SpecPicker {
     @required this.groupID,
     @required this.canPickMany,
     @required this.isRequired,
-    @required this.range,
-    @required this.unitChainID,
+    this.unitChainID,
+    this.range,
     this.deactivators,
   });
   /// --------------------------------------------------------------------------
@@ -64,7 +64,7 @@ class SpecPicker {
           for (final SpecDeactivator deactivator in _deactivators) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
                 specs: selectedSpecs,
-                value: deactivator.specValue
+                value: deactivator.specValueThatDeactivatesSpecsLists
             );
 
             if (_isSelected == true) {

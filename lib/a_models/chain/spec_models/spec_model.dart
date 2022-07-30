@@ -388,6 +388,27 @@ class SpecModel {
 
     return _containsNewSale;
   }
+// --------------------------------
+  static List<String> keywordsChainsIDs = <String>[
+    'phid_k_flyer_type_property',
+    'phid_k_flyer_type_design',
+    'phid_k_flyer_type_design',
+    'phid_k_flyer_type_crafts',
+    'phid_k_flyer_type_product',
+    'phid_k_flyer_type_equipment',
+  ];
+// --------------------------------
+  static bool checkSpecIsFromKeywords({
+    @required SpecModel spec,
+  }){
+    bool _isFromKeywords = false;
+
+    if (spec != null){
+      _isFromKeywords =  keywordsChainsIDs.contains(spec.pickerChainID);
+    }
+
+    return _isFromKeywords;
+  }
 // -----------------------------------------------------------------------------
 
   /// DUMMIES
