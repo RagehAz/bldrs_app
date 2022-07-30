@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 class AnimateWidgetToMatrix extends StatefulWidget {
@@ -52,7 +51,7 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
   @override
   Widget build(BuildContext context) {
 
-    blog('REBUILDING ANIMATED WIDGET TO MATRIX');
+    // blog('REBUILDING ANIMATED WIDGET TO MATRIX');
 
     if (widget.matrix == null){
       return widget.child;
