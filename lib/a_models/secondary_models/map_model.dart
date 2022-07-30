@@ -55,6 +55,7 @@ class MapModel{
   /// CYPHERS
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return
       <String, dynamic>{
@@ -63,6 +64,7 @@ class MapModel{
         };
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMapModels(List<MapModel> maps){
     Map<String, dynamic> _bigMap = {};
 
@@ -83,6 +85,7 @@ class MapModel{
     return _bigMap;
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static MapModel decipherMapModel(Map<String, dynamic> map){
     MapModel model;
     if(map != null){
@@ -92,6 +95,7 @@ class MapModel{
     return model;
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<MapModel> decipherMapModels(Map<String, dynamic> bigMap, {
     bool loopingAlgorithm = true
   }){
@@ -215,6 +219,7 @@ class MapModel{
     return _values;
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static MapModel getModelByKey({
     @required List<MapModel> models,
     @required String key,
@@ -259,6 +264,7 @@ class MapModel{
 /// MODIFIERS
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<MapModel> replaceMapModel({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
@@ -358,6 +364,28 @@ class MapModel{
     }
 
     return _exists;
+  }
+// ----------------------------------------
+  static bool checkMapsIncludeThisKey({
+    @required List<MapModel> mapModels,
+    @required String key,
+  }){
+    bool _include = false;
+
+    if (Mapper.checkCanLoopList(mapModels) == true){
+
+      final MapModel _map = mapModels.firstWhere(
+              (element) => element.key == key,
+          orElse: () => null
+      );
+
+      if (_map != null){
+        _include = true;
+      }
+
+    }
+
+    return _include;
   }
 // ----------------------------------------
 }

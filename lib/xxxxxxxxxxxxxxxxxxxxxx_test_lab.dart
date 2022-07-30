@@ -20,6 +20,7 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -281,15 +282,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final File _file = await Imagers.shootAndCropCameraImage(
-        context: context,
-        cropAfterPick: true,
-        isFlyerRatio: false,
+    await CityChainOps.incrementFlyerCityChainUsage(
+      context: context,
+      flyerModel: FlyerModel.dummyFlyer(),
+      isIncrementing: true,
     );
-
-    if (_file != null){
-      _theFiles.value = <File>[_file];
-    }
 
   }
 // -----------------------------------------------------------------------------
@@ -368,7 +365,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: 'fastTest',
+            verse: 'fastTests',
             onTap: () async {await _fastTest(context);},
         ),
 
