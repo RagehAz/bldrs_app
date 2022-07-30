@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -18,7 +17,7 @@ class FooterShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
+    // final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
 
     final double _footerHeight = FooterBox.collapsedHeight(
       context: context,

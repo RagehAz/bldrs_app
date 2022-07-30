@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -96,18 +97,16 @@ class UserEditorScreenView extends StatelessWidget {
                 const Stratosphere(),
 
                 /// PICTURE
-                AddGalleryPicBubble(
+                AddImagePicBubble(
                   title: 'Picture',
                   redDot: true,
                   picture: picture,
                   bubbleType: BubbleType.userPic,
-                  onDeletePicture: () => deleteUserPicture(
+                  onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
+                    context: context,
+                    canPickImage: canPickImage,
                     picture: picture,
-                  ),
-                  onAddPicture: () => takeUserPicture(
-                      context: context,
-                      canPickImage: canPickImage,
-                      picture: picture
+                    imagePickerType: imagePickerType,
                   ),
                 ),
 
