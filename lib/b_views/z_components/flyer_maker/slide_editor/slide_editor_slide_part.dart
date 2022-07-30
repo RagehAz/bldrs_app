@@ -23,19 +23,19 @@ class SlideEditorSlidePart extends StatelessWidget {
   const SlideEditorSlidePart({
     @required this.tempSlide,
     @required this.height,
-    @required this.matrix,
-    @required this.filterModel,
     @required this.onSlideTap,
     @required this.isTransforming,
+    @required this.matrix,
+    @required this.filterModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<MutableSlide> tempSlide;
   final double height;
-  final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<ImageFilterModel> filterModel;
   final Function onSlideTap;
   final ValueNotifier<bool> isTransforming;
+  final ValueNotifier<Matrix4> matrix;
+  final ValueNotifier<ImageFilterModel> filterModel;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
@@ -118,6 +118,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   ),
                 ),
 
+                /// TASK : GROUP THIS IN STATELESS WIDGET
                 /// HEADLINE TEXT FIELD
                 ValueListenableBuilder(
                     valueListenable: isTransforming,
@@ -199,5 +200,6 @@ class SlideEditorSlidePart extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

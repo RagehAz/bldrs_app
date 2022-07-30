@@ -66,6 +66,8 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
     final double _flyerBoxHeight = FlyerBox.height(context, ShelfSlide.flyerBoxWidth);
 
+    blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFile?.path}');
+
     return Container(
       width: ShelfSlide.flyerBoxWidth,
       height: ShelfSlide.shelfSlideZoneHeight(context),
@@ -189,7 +191,6 @@ class _ShelfSlideState extends State<ShelfSlide> {
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
                     verse: widget.mutableSlide.headline.text,
                   ),
-
 
                 /// ADD SLIDE PLUS ICON
                 if (widget.mutableSlide == null)

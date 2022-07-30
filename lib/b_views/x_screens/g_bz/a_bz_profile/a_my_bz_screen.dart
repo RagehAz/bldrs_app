@@ -58,16 +58,6 @@ class MyBzScreen extends StatelessWidget {
           child: Container(),
           builder: (_, BzModel _bzModel, Widget child){
 
-            final bool _areIdentical = BzModel.checkBzzAreIdentical(
-                bz1: _bzModel,
-                bz2: BzModel.decipherBz(
-                    map: map,
-                    fromJSON: false,
-                ),
-            );
-
-            blog('MyBzScreen : streamBz == proMyActiveBz ? : $_areIdentical');
-
             final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
               authors: _bzModel?.authors,
               userID: AuthFireOps.superUserID(),
