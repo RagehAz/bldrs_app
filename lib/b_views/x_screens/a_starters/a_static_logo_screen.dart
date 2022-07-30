@@ -1,13 +1,10 @@
 import 'dart:async';
-
+// import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
-// import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:flutter/material.dart';
 
 /// OLD LOGO SCREEN
 class StaticLogoScreen extends StatefulWidget {
@@ -28,7 +25,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
   // final String error;
   // final bool loading;
   AnimationController _scaleController; /// tamam disposed
-  static const int _fadeCycleDuration = 750;
+  static const int _fadeCycleDuration = 800;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -71,15 +68,15 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
       _triggerLoading().then((_) async {
 
-        await initializeLogoScreen(
-          context: context,
-          mounted: mounted,
-        );
-
-        await Nav.pushNamedAndRemoveAllBelow(
-          context: context,
-          goToRoute: Routez.home,
-        );
+        // await initializeLogoScreen(
+        //   context: context,
+        //   mounted: mounted,
+        // );
+        //
+        // await Nav.pushNamedAndRemoveAllBelow(
+        //   context: context,
+        //   goToRoute: Routez.home,
+        // );
 
         await _triggerLoading();
       });

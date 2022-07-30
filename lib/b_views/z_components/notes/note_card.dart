@@ -124,7 +124,7 @@ class NoteCard extends StatelessWidget {
 
                     /// TIME STAMP
                     SuperVerse(
-                      verse: Timers.getSuperTimeDifferenceString(
+                      verse: Timers.calculateSuperTimeDifferenceString(
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
                       ),
