@@ -93,9 +93,10 @@ class SuperFilteredImage extends StatefulWidget {
 
     return tree;
   }
-
+// -----------------------------------------------------------------------------
   @override
   State<SuperFilteredImage> createState() => _SuperFilteredImageState();
+// -----------------------------------------------------------------------------
 }
 
 class _SuperFilteredImageState extends State<SuperFilteredImage> {
@@ -117,6 +118,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    _file = widget.imageFile;
     super.initState();
   }
 // -----------------------------------------------------------------------------
@@ -154,8 +156,16 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 // -----------------------------------------------------------------------------
   @override
   void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
-    if (widget.imageFile.path != oldWidget.imageFile.path) {
-      setState(() {});
+
+    final bool _filesAreIdentical = Filers.checkFilesAreIdentical(
+        file1: widget.imageFile,
+        file2: oldWidget.imageFile,
+    );
+
+    if (_filesAreIdentical == false) {
+      setState(() {
+        _file = widget.imageFile;
+      });
     }
     super.didUpdateWidget(oldWidget);
   }

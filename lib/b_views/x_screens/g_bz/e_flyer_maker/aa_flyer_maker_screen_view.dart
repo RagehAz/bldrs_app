@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/a_flyer_maker_controllers.dart';
@@ -152,7 +151,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             valueListenable: draft,
                             builder: (_, DraftFlyerModel _draft, Widget child){
 
-                              blog('building draft flyer type bubble with ${_draft.flyerType}');
+                              // blog('building draft flyer type bubble with ${_draft.flyerType}');
 
                               final List<String> _bzTypeTranslation = BzModel.translateBzTypes(
                                   context: context,
