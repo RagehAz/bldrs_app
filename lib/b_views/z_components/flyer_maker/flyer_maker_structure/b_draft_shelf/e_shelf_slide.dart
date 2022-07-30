@@ -192,42 +192,6 @@ class _ShelfSlideState extends State<ShelfSlide> {
                     verse: widget.mutableSlide.headline.text,
                   ),
 
-                /// ADD SLIDE PLUS ICON
-                if (widget.mutableSlide == null)
-                  SizedBox(
-                    width: ShelfSlide.flyerBoxWidth,
-                    height: _flyerBoxHeight,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-
-                        /// PLUS ICON
-                        const DreamBox(
-                          height: ShelfSlide.flyerBoxWidth * 0.5,
-                          width: ShelfSlide.flyerBoxWidth * 0.5,
-                          icon: Iconz.plus,
-                          iconColor: Colorz.white20,
-                          bubble: false,
-                        ),
-
-                        const SizedBox(
-                          height: ShelfSlide.flyerBoxWidth * 0.05,
-                        ),
-
-                        SizedBox(
-                          width: ShelfSlide.flyerBoxWidth * 0.95,
-                          child: SuperVerse(
-                            verse: superPhrase(context, 'phid_add_images'),
-                            color: Colorz.white20,
-                            maxLines: 2,
-                          ),
-                        ),
-
-
-                      ],
-                    ),
-                  ),
-
               ],
             ),
           ),
