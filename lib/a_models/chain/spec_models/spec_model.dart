@@ -402,8 +402,8 @@ class SpecModel {
       const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_energyEfficient'),
       const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_elevator'),
       const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_intercom'),
-
       const SpecModel(pickerChainID: 'propertyForm', value: 'pf_halfFloor'),
+
     ];
   }
 // -----------------------------------------------------------------------------
