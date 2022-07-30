@@ -29,6 +29,8 @@ class SlideTransformer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    blog('SlideTransformer : BUILDING : slide : ${slide.picFile.path}');
+
     return MatrixGestureDetector(
       key: const ValueKey<String>('SlideTransformer'),
       onMatrixUpdate: (Matrix4 m, Matrix4 tm, Matrix4 sm, Matrix4 rm){
@@ -62,7 +64,7 @@ class SlideTransformer extends StatelessWidget {
         valueListenable: matrix,
         builder: (_, Matrix4 _matrix, Widget childA){
 
-          blog('rebuilding transforming image');
+          // blog('rebuilding transforming image');
 
           return Transform(
             transform: Trinity.renderSlideMatrix(
@@ -83,7 +85,7 @@ class SlideTransformer extends StatelessWidget {
           valueListenable: filterModel,
           builder: (_, ImageFilterModel _filterModel, Widget child){
 
-            blog('changing filterModel to ${_filterModel.id}');
+            // blog('changing filterModel to ${_filterModel.id}');
 
             return SuperFilteredImage(
               width: flyerBoxWidth,

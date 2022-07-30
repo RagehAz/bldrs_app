@@ -4,11 +4,9 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/b_slide_editor_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
-
 class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorScreen({
@@ -35,15 +33,32 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   @override
   void initState() {
 
-    _tempSlide = ValueNotifier<MutableSlide>(widget.slide);
+    initializeTempSlide();
 
-    blog('slide filter is ${_tempSlide.value.filter.id} and initial filter is : ${_allFilters[0].id}');
+    super.initState();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _tempSlide.dispose();
+    _isTransforming.dispose();
+    _matrix.dispose();
+    _filterModel.dispose();
+    super.dispose(); /// tamam
+  }
+// -----------------------------------------------------------------------------
+  void initializeTempSlide(){
 
-    _filterModel = ValueNotifier(_tempSlide.value?.filter ?? _allFilters[0]);
-
-    _matrix = initializeMatrix(
-        slide: _tempSlide.value
+    /// INITIALIZE TEMP SLIDE
+    final MutableSlide _initialSlide = widget.slide.copyWith(
+      filter: widget.slide?.filter ?? _allFilters[0],
+      matrix: initializeMatrix(
+          slide: widget.slide,
+      ),
     );
+    _tempSlide = ValueNotifier<MutableSlide>(_initialSlide);
+    _matrix = ValueNotifier(_initialSlide.matrix);
+    _filterModel = ValueNotifier(_initialSlide.filter ?? _allFilters[0]);
 
     _isTransforming.addListener(() async {
       if (_isTransforming.value == true){
@@ -53,20 +68,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       }
     });
 
-    // _filterIndex = initializeFilterIndex(
-    //   slide: _slide.value,
-    // );
-
-    super.initState();
-  }
-// -----------------------------------------------------------------------------
-  @override
-  void dispose() {
-    _tempSlide.dispose();
-    _matrix.dispose();
-    _filterModel.dispose();
-    _isTransforming.dispose();
-    super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   @override
@@ -93,7 +94,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             filterModel: _filterModel,
             isTransforming: _isTransforming,
             onSlideTap: () => onToggleFilter(
-                currentFilter: _filterModel,
+              tempSlide: _tempSlide,
+              currentFilter: _filterModel,
             ),
           ),
 
@@ -104,10 +106,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               context: context,
             ),
             onReset: () => onReset(
+              originalSlide: widget.slide,
+              tempSlide: _tempSlide,
               filter: _filterModel,
               matrix: _matrix,
-              originalSlide: widget.slide,
-              tempSlide: _tempSlide
             ),
             onCrop: () => onCropSlide(
               context: context,
@@ -118,9 +120,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onConfirm: () => onConfirmSlideEdits(
               context: context,
               originalSlide: widget.slide,
+              tempSlide: _tempSlide,
               filter: _filterModel,
               matrix: _matrix,
-              tempSlide: _tempSlide,
             ),
           ),
 

@@ -2,13 +2,16 @@ import 'dart:io';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
 // -----------------------------------------------------------------------------
-ValueNotifier<Matrix4> initializeMatrix({
+
+/// INITIALIZATION
+
+// ---------------------------------
+Matrix4 initializeMatrix({
   @required MutableSlide slide,
 }){
   Matrix4 _output;
@@ -19,37 +22,27 @@ ValueNotifier<Matrix4> initializeMatrix({
   else {
     _output = slide.matrix;
   }
-  return ValueNotifier(_output);
+  return _output;
 }
 // -----------------------------------------------------------------------------
+
+/// SLIDE MODIFIERS
+
+// ---------------------------------
 Future<void> onReset({
-  @required ValueNotifier<ImageFilterModel> filter,
-  @required ValueNotifier<Matrix4> matrix,
   @required MutableSlide originalSlide,
   @required ValueNotifier<MutableSlide> tempSlide,
+  @required ValueNotifier<ImageFilterModel> filter,
+  @required ValueNotifier<Matrix4> matrix,
 }) async {
+  tempSlide.value = originalSlide.copyWith(
+    matrix: Matrix4.identity(),
+    filter: ImageFilterModel.noFilter(),
+  );
   filter.value = ImageFilterModel.noFilter();
   matrix.value = Matrix4.identity();
-  tempSlide.value = originalSlide.copyWith();
 }
-// -----------------------------------------------------------------------------
-Future<void> onConfirmSlideEdits({
-  @required BuildContext context,
-  @required MutableSlide originalSlide,
-  @required ValueNotifier<ImageFilterModel> filter,
-  @required ValueNotifier<Matrix4> matrix,
-  @required ValueNotifier<MutableSlide> tempSlide,
-}) async {
-
-  final MutableSlide _slide = tempSlide.value.copyWith(
-    matrix: matrix.value,
-    filter: filter.value,
-  );
-
-  Nav.goBack(context, passedData: _slide);
-
-}
-// -----------------------------------------------------------------------------
+// ---------------------------------
 Future<void> onCropSlide({
   @required BuildContext context,
   @required ValueNotifier<MutableSlide> tempSlide,
@@ -58,13 +51,10 @@ Future<void> onCropSlide({
 }) async {
 
   final File _file = await Imagers.cropImage(
-      context: context,
-      pickedFile: tempSlide.value.picFile,
-      isFlyerRatio: true,
+    context: context,
+    pickedFile: tempSlide.value.picFile,
+    isFlyerRatio: true,
   );
-
-  blog('slide file : ${tempSlide.value.picFile.path}');
-  blog('new file : ${_file?.path}');
 
   if (_file != null){
 
@@ -79,21 +69,13 @@ Future<void> onCropSlide({
     );
 
     tempSlide.value = _updatedSlide;
-    filter.value = tempSlide.value.filter;
 
   }
 
 }
-// -----------------------------------------------------------------------------
-void onCancelSlideEdits({
-  @required BuildContext context,
-}){
-
-  Nav.goBack(context);
-
-}
-// -----------------------------------------------------------------------------
+// ---------------------------------
 void onToggleFilter({
+  @required ValueNotifier<MutableSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> currentFilter,
 }){
 
@@ -118,15 +100,48 @@ void onToggleFilter({
   // _filterModel.value = _fii;
   /// --------------------------------------------- FOR TESTING END
 
+  final ImageFilterModel _currentFilter = currentFilter.value;
+
   final List<ImageFilterModel> _bldrsFilters = ImageFilterModel.bldrsImageFilters;
-  int _filterIndex = _bldrsFilters.indexWhere((fil) => fil.id == currentFilter.value.id);
+  int _filterIndex = _bldrsFilters.indexWhere((fil) => fil.id == _currentFilter.id);
 
   _filterIndex++;
   if (_filterIndex >= _bldrsFilters.length){
     _filterIndex = 0;
   }
 
+  tempSlide.value = tempSlide.value.copyWith(
+    filter: _bldrsFilters[_filterIndex],
+  );
   currentFilter.value = _bldrsFilters[_filterIndex];
+}
+// -----------------------------------------------------------------------------
+
+/// CONFIRMATION - CANCELLING
+
+// ---------------------------------
+void onCancelSlideEdits({
+  @required BuildContext context,
+}){
+
+  Nav.goBack(context);
+
+}
+// ---------------------------------
+Future<void> onConfirmSlideEdits({
+  @required BuildContext context,
+  @required MutableSlide originalSlide,
+  @required ValueNotifier<MutableSlide> tempSlide,
+  @required ValueNotifier<ImageFilterModel> filter,
+  @required ValueNotifier<Matrix4> matrix,
+}) async {
+
+  final MutableSlide _slide = tempSlide.value.copyWith(
+    matrix: matrix.value,
+    filter: filter.value,
+  );
+
+  Nav.goBack(context, passedData: _slide);
 
 }
 // -----------------------------------------------------------------------------
