@@ -1,13 +1,18 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:convert';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
+
 // -----------------------------------------------------------------------------
 
 /// FORMATTING
@@ -365,7 +370,7 @@ class Timers {
 
     String _output = '';
 
-    final bool _timeIsEmpty = timeIsEmpty(
+    final bool _timeIsEmpty = checkTimeIsEmpty(
       time: time,
     );
 
@@ -564,7 +569,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInSeconds({
+  static int calculateTimeDifferenceInSeconds({
     @required DateTime from,
     @required DateTime to,
   }){
@@ -579,7 +584,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInMinutes({
+  static int calculateTimeDifferenceInMinutes({
     @required DateTime from,
     @required DateTime to,
   }){
@@ -593,7 +598,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInHours({
+  static int calculateTimeDifferenceInHours({
     @required DateTime from,
     @required DateTime to,
   }){
@@ -607,7 +612,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInDays({
+  static int calculateTimeDifferenceInDays({
     @required DateTime from,
     @required DateTime to,
   }){
@@ -621,41 +626,41 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInWeeks({
+  static int calculateTimeDifferenceInWeeks({
     @required DateTime from,
     @required DateTime to,
   }){
-    final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 7).floor();
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInMonths({
+  static int calculateTimeDifferenceInMonths({
     @required DateTime from,
     @required DateTime to,
   }){
-    final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 30).floor();
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static int getTimeDifferenceInYears({
+  static int calculateTimeDifferenceInYears({
     @required DateTime from,
     @required DateTime to,
   }){
-    final int _differenceInDays = getTimeDifferenceInDays(from: from, to: to);
+    final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 365).floor();
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static String getSuperTimeDifferenceString({
+  static String calculateSuperTimeDifferenceString({
     @required DateTime from,
     @required DateTime to,
   }) {
     String _string = '...';
 
     if (from != null){
-      final int _seconds = getTimeDifferenceInSeconds(from: from, to: to);
+      final int _seconds = calculateTimeDifferenceInSeconds(from: from, to: to);
 
       if (_seconds < 60){
         _string = '$_seconds seconds ago';
@@ -663,40 +668,60 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       /// MINUTE = 60 s
       else if (_seconds >= 60 && _seconds < 3600){
-        final int _minutes = getTimeDifferenceInMinutes(from: from, to: to);
+        final int _minutes = calculateTimeDifferenceInMinutes(from: from, to: to);
         _string = '$_minutes minutes ago';
       }
 
       /// HOUR = 3'600 s
       else if (_seconds >= 3600 && _seconds < 86400){
-        final int _hours = getTimeDifferenceInHours(from: from, to: to);
+        final int _hours = calculateTimeDifferenceInHours(from: from, to: to);
         _string = '$_hours hours ago';
       }
 
       /// DAY = 86'400 s
       else if (_seconds >= 86400 && _seconds < 604800){
-        final int _days = getTimeDifferenceInDays(from: from, to: to);
+        final int _days = calculateTimeDifferenceInDays(from: from, to: to);
         _string = '$_days days ago';
       }
 
       /// WEEK = 604'800 s
       else if (_seconds >= 604800 && _seconds < 2592000){
-        final int _weeks = getTimeDifferenceInWeeks(from: from, to: to);
+        final int _weeks = calculateTimeDifferenceInWeeks(from: from, to: to);
         _string = '$_weeks weeks ago';
       }
 
       /// MONTH = 2'592'000 s
       else if (_seconds >= 2592000 && _seconds < 31536000){
-        final int _months = getTimeDifferenceInMonths(from: from, to: to);
+        final int _months = calculateTimeDifferenceInMonths(from: from, to: to);
         _string = '$_months months ago';
       }
 
       /// YEAR = 31'536'000 s
       else {
-        final int _years = getTimeDifferenceInYears(from: from, to: to);
+        final int _years = calculateTimeDifferenceInYears(from: from, to: to);
         _string = '$_years years ago';
       }
 
+    }
+
+    return _string;
+  }
+// -----------------------------------------------------------------------------
+  static String calculateRemainingHoursAndMinutes({
+    @required int secondsUntilNow,
+  }){
+
+    String _string = '';
+
+    if (secondsUntilNow != null){
+
+      final int _totalMinutes = (secondsUntilNow / 60).floor();
+      final int _hours = (_totalMinutes / 60).floor();
+      final int _minutesRemaining = _totalMinutes - (_hours*60);
+
+      final String _hourString = Numeric.formatNumberWithinDigits(num: _hours, digits: 2);
+      final String _minutesString = Numeric.formatNumberWithinDigits(num: _minutesRemaining, digits: 2);
+      _string = '$_hourString:$_minutesString';
     }
 
     return _string;
@@ -711,7 +736,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
 // -----------------------------------------------------------------------------
 
-  /// LIST MODIFIERS
+  /// MODIFIERS
 
 // -------------------------------------
   static List<DateTime> putTimeInTimes({
@@ -720,7 +745,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }){
     final List<DateTime> _result = times;
 
-    final bool _timesContainIt = timesContainTime(
+    final bool _timesContainIt = checkTimesContainTime(
       times: times,
       time: time,
       // accuracy: 'minute',
@@ -732,6 +757,48 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _result;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static DateTime offsetTime({
+    @required DateTime time,
+    @required String offset, // should look like this +00:00
+  }){
+
+    DateTime _output;
+
+    if (time != null && offset != null && offset.length == 6){
+
+      final List<String> _splitOffset = offset.split('');
+      // blog('_splitOffset : $_splitOffset');
+
+      final bool _isPlus = _splitOffset[0] == '+';
+      // blog('_isPlus : $_isPlus');
+
+      final _hoursString = '${_splitOffset[1]}${_splitOffset[2]}';
+      // blog('_hoursString : $_hoursString');
+      final int _hours = transformStringToInt(_hoursString);
+      // blog('_hours : $_hours');
+
+      final _minutesString = '${_splitOffset[4]}${_splitOffset[5]}';
+      // blog('_minutesString : $_minutesString');
+      final int _minutes = transformStringToInt(_minutesString);
+      // blog('_minutes : $_minutes');
+
+      _output = _isPlus == true ?
+      time.add(Duration(hours: _hours, minutes: _minutes))
+          :
+      time.subtract(Duration(hours: _hours, minutes: _minutes))
+      ;
+
+    }
+
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
 // -------------------------------------
   static List<DateTime> getHoursAndMinutesFromDateTimes({
     @required List<DateTime> times,
@@ -765,7 +832,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
 // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool timesAreIdentical({
+  static bool checkTimesAreIdentical({
     @required TimeAccuracy accuracy,
     @required DateTime time1,
     @required DateTime time2,
@@ -903,7 +970,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     return _areIdentical;
   }
 // -------------------------------------
-  static bool timesContainTime({
+  static bool checkTimesContainTime({
     @required List<DateTime> times,
     @required DateTime time,
     TimeAccuracy accuracy = TimeAccuracy.minute,
@@ -914,7 +981,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       for (int i =0; i < times.length; i++){
 
-        final bool _timesAreIdentical = timesAreIdentical(
+        final bool _timesAreIdentical = checkTimesAreIdentical(
           accuracy: accuracy,
           time1: times[i],
           time2: time,
@@ -932,7 +999,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     return _contains;
   }
 // -------------------------------------
-  static bool timeIsAfter({
+  static bool checkTimeIsAfter({
     @required DateTime existing,
     @required DateTime timeAfter,
   }){
@@ -947,7 +1014,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     return _isAfter;
   }
 // -------------------------------------
-  static bool timeIsEmpty({
+  static bool checkTimeIsEmpty({
     @required DateTime time,
     // @required TimeAccuracy accuracy,
   }){
@@ -960,62 +1027,82 @@ String generateStringsList_index_hh_i_mm_i_ss({
     return _isEmpty;
   }
 // -----------------------------------------------------------------------------
+
+  /// DEVICE TIME
+
+// -----------------------------------
   /// TESTED : WORKS PERFECT
-  static DateTime offsetTime({
-    @required DateTime time,
-    @required String offset, // should look like this +00:00
-  }){
+  static Future<bool> checkDeviceTimeIsCorrect({
+    @required BuildContext context,
+    @required bool showIncorrectTimeDialog,
+    @required Function onRestart,
+  }) async {
 
-    DateTime _output;
+    final DateTime _dateTime = await getInternetUTCTime();
 
-    if (time != null && offset != null && offset.length == 6){
+    // Timers.blogDateTime(_dateTime);
 
-      final List<String> _splitOffset = offset.split('');
-      // blog('_splitOffset : $_splitOffset');
+    final DateTime _now = DateTime.now();
 
-      final bool _isPlus = _splitOffset[0] == '+';
-      // blog('_isPlus : $_isPlus');
+    final bool _isCorrect = Timers.checkTimesAreIdentical(
+      accuracy: TimeAccuracy.minute,
+      time1: _now,
+      time2: _dateTime,
+    );
 
-      final _hoursString = '${_splitOffset[1]}${_splitOffset[2]}';
-      // blog('_hoursString : $_hoursString');
-      final int _hours = transformStringToInt(_hoursString);
-      // blog('_hours : $_hours');
+    if (showIncorrectTimeDialog == true && _isCorrect == false){
 
-      final _minutesString = '${_splitOffset[4]}${_splitOffset[5]}';
-      // blog('_minutesString : $_minutesString');
-      final int _minutes = transformStringToInt(_minutesString);
-      // blog('_minutes : $_minutes');
+      final String _dd_month_yyy_actual = Timers.generateString_dd_month_yyyy(context: context, time: _dateTime);
+      final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
+      final String _secondLine = 'Actual clock : $_dd_month_yyy_actual . $_hh_i_mm_ampm_actual';
 
-      _output = _isPlus == true ?
-      time.add(Duration(hours: _hours, minutes: _minutes))
-          :
-      time.subtract(Duration(hours: _hours, minutes: _minutes))
-      ;
+      final String _dd_month_yyy_device = Timers.generateString_dd_month_yyyy(context: context, time: _now);
+      final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
+      final String _thirdLine ='Your clock : $_dd_month_yyy_device . $_hh_i_mm_ampm_device';
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Device clock is incorrect !',
+        body: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+        confirmButtonText: 'Restart App',
+        onOk: onRestart,
+      );
 
     }
 
-
-    return _output;
+    return _isCorrect;
   }
-// -----------------------------------------------------------------------------
-  static String calculateRemainingHoursAndMinutes({
-    @required int secondsUntilNow,
-  }){
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<DateTime> getInternetUTCTime() async {
 
-    String _string = '';
+    const String url = 'http://worldtimeapi.org/api/ip';
 
-    if (secondsUntilNow != null){
+    final Uri _uri = Uri.parse(url);
 
-      final int _totalMinutes = (secondsUntilNow / 60).floor();
-      final int _hours = (_totalMinutes / 60).floor();
-      final int _minutesRemaining = _totalMinutes - (_hours*60);
+    final http.Response _response = await http.get(
+      _uri,
+    );
 
-      final String _hourString = Numeric.formatNumberWithinDigits(num: _hours, digits: 2);
-      final String _minutesString = Numeric.formatNumberWithinDigits(num: _minutesRemaining, digits: 2);
-      _string = '$_hourString:$_minutesString';
-    }
+    final String _json = _response.body;
 
-    return _string;
+    final Map<String, dynamic> _map = json.decode(_json);
+
+    // Mapper.blogMap(_map);
+
+    final String _utcDateTimeString = _map['utc_datetime'];
+
+    final DateTime _utcTime = Timers.decipherTime(
+      time: _utcDateTimeString,
+      fromJSON: true,
+    );
+
+    final DateTime _dateTime = Timers.offsetTime(
+      time: _utcTime,
+      offset: _map['utc_offset'],
+    );
+
+    return _dateTime;
   }
 // -----------------------------------------------------------------------------
 }

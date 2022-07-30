@@ -124,7 +124,7 @@ class PublishTime {
     else if (time1 != null && time2 != null){
 
       if (
-      Timers.timesAreIdentical(accuracy: TimeAccuracy.second, time1: time1.time, time2: time2.time) &&
+      Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.second, time1: time1.time, time2: time2.time) &&
       time1.state == time2.state
       ){
         _identical = true;
@@ -252,7 +252,7 @@ class PublishTime {
     if (time1.state != time2.state){
       blog('time1.state != time2.state');
     }
-    if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) == false){
+    if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) == false){
       blog('time1.time != time2.time');
     }
 
@@ -289,7 +289,7 @@ class PublishTime {
 
       for (final PublishTime publishTime in publishTimes){
 
-        if (Timers.timeIsAfter(
+        if (Timers.checkTimeIsAfter(
           existing: _publishTime.time,
           timeAfter: publishTime.time,
         ) == true){

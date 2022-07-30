@@ -15,7 +15,9 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/notifications/notifications.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,25 +27,48 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
-  await Future.wait(
-    <Future<void>>[
-
-      /// APP CONTROLS
-      _initializeAppControls(context),
-      /// LOCAL ASSETS PATHS
-      _initializeLocalAssetsPaths(context),
-      /// APP LANGUAGE
-      _initializeAppLanguage(context),
-      /// USER MODEL
-      _initializeUserModel(context),
-      /// APP STATE
-      _initializeAppState(context),
-
-  ]
+  /// CHECK DEVICE CLOCK
+  final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
+    context: context,
+    showIncorrectTimeDialog: true,
+    onRestart: _onRestartAppInTimeCorrectionDialog,
   );
 
-      /// USER APP - FCM - TOKEN
-      await _initializeMyDeviceFCMToken(context);
+  if (_deviceTimeIsCorrect == true){
+
+    await Future.wait(
+        <Future<void>>[
+
+          /// APP CONTROLS
+          _initializeAppControls(context),
+          /// LOCAL ASSETS PATHS
+          _initializeLocalAssetsPaths(context),
+          /// APP LANGUAGE
+          _initializeAppLanguage(context),
+          /// USER MODEL
+          _initializeUserModel(context),
+          /// APP STATE
+          _initializeAppState(context),
+
+        ]
+    );
+
+    /// USER APP - FCM - TOKEN
+    await _initializeMyDeviceFCMToken(context);
+
+  }
+
+
+}
+// -----------------------------------------------------------------------------
+Future<void> _onRestartAppInTimeCorrectionDialog({
+  @required BuildContext context,
+}) async {
+
+  await Nav.goBackToLogoScreen(
+      context: context,
+      animatedLogoScreen: false,
+  );
 
 }
 // -----------------------------------------------------------------------------

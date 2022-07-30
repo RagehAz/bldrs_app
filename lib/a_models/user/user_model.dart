@@ -505,7 +505,7 @@ class UserModel {
       if (
       user1.id == user2.id &&
       user1.authBy == user2.authBy &&
-      Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
+      Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
       user1.status == user2.status &&
       user1.name == user2.name &&
       Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
@@ -908,7 +908,7 @@ class UserModel {
             blog('blogUserDifferences : [authBy] are not identical');
           }
 
-          if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
+          if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
             blog('blogUserDifferences : [createdAt] are not identical');
           }
 
