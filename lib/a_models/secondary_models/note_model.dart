@@ -933,15 +933,15 @@ class NoteModel {
           note1.title == note2.title &&
           note1.body == note2.body &&
           Mapper.checkMapsAreIdentical(map1: note1.metaData, map2: note2.metaData) == true &&
-          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.sentTime, time2: note2.sentTime) &&
           note1.attachment == note2.attachment &&
           note1.attachmentType == note2.attachmentType &&
           note1.seen == note2.seen &&
-          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.seenTime, time2: note2.seenTime) &&
           note1.sendFCM == note2.sendFCM &&
           note1.noteType == note2.noteType &&
           note1.response == note2.response &&
-          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: note1.responseTime, time2: note2.responseTime) &&
           Mapper.checkListsAreIdentical(list1: note1.buttons, list2: note2.buttons)
       ){
         _areIdentical = true;

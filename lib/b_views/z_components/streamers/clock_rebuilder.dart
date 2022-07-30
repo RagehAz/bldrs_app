@@ -46,7 +46,7 @@ class _ClockRebuilderState extends State<ClockRebuilder> {
       await Future.delayed(_duration, () async {
 
         if (mounted){
-          timeDifference.value = Timers.getTimeDifferenceInSeconds(
+          timeDifference.value = Timers.calculateTimeDifferenceInSeconds(
               from: widget.startTime,
               to: DateTime.now(),
           );
