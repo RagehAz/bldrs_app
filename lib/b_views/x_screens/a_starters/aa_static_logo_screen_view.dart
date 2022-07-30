@@ -34,14 +34,14 @@ class LogoScreenView extends StatelessWidget {
             ),
           ),
 
-
           const SizedBox(
             width: 300,
             height: 100,
             child: WidgetFader(
               fadeType: FadeType.repeatAndReverse,
               duration: Ratioz.durationSliding400,
-              min: 0.5,
+              min: 0.2,
+              max: 0.8,
               child: SuperVerse(
                 verse: 'LOADING',
                 size: 5,

@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -27,43 +28,45 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
+  await Future.wait(
+      <Future<void>>[
+
+        /// APP CONTROLS
+        _initializeAppControls(context),
+        /// LOCAL ASSETS PATHS
+        _initializeLocalAssetsPaths(context),
+        /// APP LANGUAGE
+        _initializeAppLanguage(context),
+        /// USER MODEL
+        _initializeUserModel(context),
+        /// APP STATE
+        _initializeAppState(context),
+
+      ]
+  );
+
+  /// USER APP - FCM - TOKEN
+  await _initializeMyDeviceFCMToken(context);
+
   /// CHECK DEVICE CLOCK
   final bool _deviceTimeIsCorrect = await Timers.checkDeviceTimeIsCorrect(
     context: context,
     showIncorrectTimeDialog: true,
-    onRestart: _onRestartAppInTimeCorrectionDialog,
   );
 
-  if (_deviceTimeIsCorrect == true){
-
-    await Future.wait(
-        <Future<void>>[
-
-          /// APP CONTROLS
-          _initializeAppControls(context),
-          /// LOCAL ASSETS PATHS
-          _initializeLocalAssetsPaths(context),
-          /// APP LANGUAGE
-          _initializeAppLanguage(context),
-          /// USER MODEL
-          _initializeUserModel(context),
-          /// APP STATE
-          _initializeAppState(context),
-
-        ]
+  if (_deviceTimeIsCorrect == false){
+    await _onRestartAppInTimeCorrectionDialog(
+      context: context,
     );
-
-    /// USER APP - FCM - TOKEN
-    await _initializeMyDeviceFCMToken(context);
-
   }
-
 
 }
 // -----------------------------------------------------------------------------
 Future<void> _onRestartAppInTimeCorrectionDialog({
   @required BuildContext context,
 }) async {
+
+  // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
   await Nav.goBackToLogoScreen(
       context: context,
