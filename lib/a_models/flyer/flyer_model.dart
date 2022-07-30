@@ -520,7 +520,7 @@ class FlyerModel {
       slides : <SlideModel>[
         SlideModel.dummySlide(),
       ],
-      specs : const <SpecModel>[],
+      specs : SpecModel.dummySpecs(),
       times : <PublishTime>[
         PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],

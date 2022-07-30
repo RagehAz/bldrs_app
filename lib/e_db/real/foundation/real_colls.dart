@@ -28,4 +28,8 @@ class RealColl {
   static const String questions = 'questions';
   static const String answers = 'answers';
 // -----------------------------------------------------------------------------
+  /// CHAINS
+// -------------------
+  static const String chainsUsage = 'chainsUsage';
+// -----------------------------------------------------------------------------
 }

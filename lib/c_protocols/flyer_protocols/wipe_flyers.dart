@@ -8,6 +8,7 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -58,6 +59,12 @@ class WipeFlyerProtocols {
         bzID: bzModel.id,
         field: 'allSlides',
         incrementThis: - flyerModel.slides.length,
+      );
+
+      await CityChainOps.incrementFlyerCityChainUsage(
+          context: context,
+          flyerModel: flyerModel,
+          isIncrementing: false,
       );
 
       /// DELETE FLYER ON LDB
@@ -115,6 +122,12 @@ class WipeFlyerProtocols {
       await FlyerRecordOps.deleteMultipleFlyersCountersAndRecords(
           context: context,
           flyersIDs: _flyersIDs,
+      );
+
+      await CityChainOps.incrementFlyersCityChainUsage(
+        context: context,
+        flyersModels: flyers,
+        isIncrementing: false,
       );
 
       if (isDeletingBz == false){
