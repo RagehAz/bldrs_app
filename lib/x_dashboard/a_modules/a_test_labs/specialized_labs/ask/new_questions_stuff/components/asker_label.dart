@@ -26,7 +26,7 @@ class AskerLabel extends StatelessWidget {
     const double _userLabelBoxHeight = 55;
     final double _userNameBoxWidth = _bubbleClearWidth - _userLabelBoxHeight;
 
-    final String _superTimeDifferenceString = Timers.getSuperTimeDifferenceString(from: questionModel.time, to: DateTime.now());
+    final String _superTimeDifferenceString = Timers.calculateSuperTimeDifferenceString(from: questionModel.time, to: DateTime.now());
 
     final String _bzTypeString = BzModel.translateBzType(
         context: context,

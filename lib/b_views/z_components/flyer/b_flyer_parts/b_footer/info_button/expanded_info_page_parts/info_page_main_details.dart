@@ -35,7 +35,7 @@ class InfoPageMainDetails extends StatelessWidget {
         state: PublishState.published
     )?.time;
 
-    final String _timeDifferance = Timers.getSuperTimeDifferenceString(
+    final String _timeDifferance = Timers.calculateSuperTimeDifferenceString(
         from: _from,
         to: DateTime.now(),
     );

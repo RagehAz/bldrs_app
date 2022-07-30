@@ -52,7 +52,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
           ),
 
           SuperVerse(
-            verse: Timers.getSuperTimeDifferenceString(
+            verse: Timers.calculateSuperTimeDifferenceString(
               from: reviewTimeStamp,
               to: DateTime.now(),
             ),

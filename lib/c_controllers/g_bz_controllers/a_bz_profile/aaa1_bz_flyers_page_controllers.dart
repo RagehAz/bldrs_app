@@ -33,7 +33,7 @@ Future<void> onFlyerBzOptionsTap({
   blog('SHOULD DELETE THIS FLYER');
   blog('if flyer is only 48 hours old');
 
-  final String _age = Timers.getSuperTimeDifferenceString(
+  final String _age = Timers.calculateSuperTimeDifferenceString(
     from: PublishTime.getPublishTimeFromTimes(
       times: flyer.times,
       state: PublishState.published,

@@ -86,7 +86,7 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.black255,
         dataKey: 'Since',
-        dataValue: Timers.getSuperTimeDifferenceString(
+        dataValue: Timers.calculateSuperTimeDifferenceString(
           from: userModel.createdAt,
           to: DateTime.now(),
         ),

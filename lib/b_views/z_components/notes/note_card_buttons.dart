@@ -21,7 +21,7 @@ class NoteCardButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   String _getResponseTimeString(BuildContext context, NoteModel noteModel){
 
-    final String _string = Timers.getSuperTimeDifferenceString(
+    final String _string = Timers.calculateSuperTimeDifferenceString(
       from: noteModel.responseTime,
       to: DateTime.now(),
     );

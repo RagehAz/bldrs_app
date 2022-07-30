@@ -272,7 +272,7 @@ class Filers {
         if (file1.lengthSync() == file2.lengthSync()){
           if (file1.resolveSymbolicLinksSync() == file2.resolveSymbolicLinksSync()){
 
-            final bool _lastModifiedAreIdentical = Timers.timesAreIdentical(
+            final bool _lastModifiedAreIdentical = Timers.checkTimesAreIdentical(
                 accuracy: TimeAccuracy.microSecond,
                 time1: file1.lastModifiedSync(),
                 time2: file2.lastModifiedSync()
@@ -362,7 +362,7 @@ class Filers {
     if (file1.resolveSymbolicLinksSync() != file2.resolveSymbolicLinksSync()){
       blog('files resolveSymbolicLinksSync()s are not Identical');
     }
-    final bool _lastModifiedAreIdentical = Timers.timesAreIdentical(
+    final bool _lastModifiedAreIdentical = Timers.checkTimesAreIdentical(
         accuracy: TimeAccuracy.microSecond,
         time1: file1.lastModifiedSync(),
         time2: file2.lastModifiedSync()

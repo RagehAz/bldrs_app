@@ -1508,7 +1508,7 @@ class BzModel{
           bz1.id == bz2.id &&
           Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
           bz1.bzForm == bz2.bzForm &&
-          Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
           Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) &&
@@ -1565,7 +1565,7 @@ class BzModel{
       if (bz1.bzForm != bz2.bzForm){
         blog('bzForms are not identical');
       }
-      if (Timers.timesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
+      if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == false){
         blog('createdAts are not identical');
       }
       if (bz1.accountType != bz2.accountType){
