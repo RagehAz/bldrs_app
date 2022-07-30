@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -56,34 +57,42 @@ class CityChain {
 
       for (final SpecModel spec in specs){
 
-        final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
-            models: _maps,
-            key: spec.value,
+        final bool _specIsKeywordID = SpecModel.checkSpecIsFromKeywords(
+          spec: spec,
         );
 
-        /// THIS KEY IS NEW : ADD NEW MAP MODEL TO THE LIST
-        if (_existingMapWithThisKey == null){
+        if (_specIsKeywordID == true){
 
-          final MapModel _mapModel = MapModel(
+          final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
+            models: _maps,
             key: spec.value,
-            value: 1,
           );
 
-          _maps.add(_mapModel);
+          /// THIS KEY IS NEW : ADD NEW MAP MODEL TO THE LIST
+          if (_existingMapWithThisKey == null){
 
-        }
+            final MapModel _mapModel = MapModel(
+              key: spec.value,
+              value: 1,
+            );
 
-        /// KEY EXISTS ALREADY : INCREMENT VALUE
-        else {
+            _maps.add(_mapModel);
 
-          final MapModel _updatedMap = _existingMapWithThisKey.copyWith(
-            value: _existingMapWithThisKey.value + 1,
-          );
+          }
 
-          _maps = MapModel.replaceMapModel(
+          /// KEY EXISTS ALREADY : INCREMENT VALUE
+          else {
+
+            final MapModel _updatedMap = _existingMapWithThisKey.copyWith(
+              value: _existingMapWithThisKey.value + 1,
+            );
+
+            _maps = MapModel.replaceMapModel(
               mapModels: _maps,
               mapModel: _updatedMap,
-          );
+            );
+
+          }
 
         }
 

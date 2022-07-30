@@ -21,7 +21,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
-import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';

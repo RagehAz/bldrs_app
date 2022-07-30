@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 class SpecDeactivator {
   /// --------------------------------------------------------------------------
   const SpecDeactivator({
-    @required this.specValue,
+    @required this.specValueThatDeactivatesSpecsLists,
     @required this.specsListsIDsToDeactivate,
   });
 
   /// --------------------------------------------------------------------------
-  final String specValue;
+  final dynamic specValueThatDeactivatesSpecsLists;
 
   /// when this specValue is selected
   final List<String> specsListsIDsToDeactivate;
