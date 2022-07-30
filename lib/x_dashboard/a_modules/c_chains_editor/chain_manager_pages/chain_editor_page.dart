@@ -94,6 +94,17 @@ class ChainEditorPage extends StatelessWidget {
                       onTap: onUpdateNode,
                     ),
 
+                    DreamBox(
+                      height: 40,
+                      verse: 'Copy ID',
+                      verseScaleFactor: 0.7,
+                      verseColor: Colorz.black255,
+                      // verseWeight: VerseWeight.thin,
+                      color: Colorz.yellow255,
+                      margins: 0,
+                      onTap: () => Keyboarders.copyToClipboard(context: context, copy: textController.text),
+                    ),
+
 
                   ],
                 ),
