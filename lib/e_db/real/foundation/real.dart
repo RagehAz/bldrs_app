@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_database/firebase_database.dart' as fireDB;
 
 enum RealOrderBy{
   child,
@@ -90,6 +91,38 @@ class Real {
     return _database;
   }
    */
+// --------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> _createPathValueMapFromFieldsAndNumbers({
+    @required Map<String, dynamic> fieldsAndNumbers,
+    @required bool isIncrementing,
+}){
+
+    Map<String, dynamic> _output = {};
+
+    final List<String> _keys = fieldsAndNumbers.keys.toList();
+
+    if (Mapper.checkCanLoopList(_keys) == true){
+
+      for (final String key in _keys){
+
+        int _incrementationValue = fieldsAndNumbers[key];
+        if (isIncrementing == false){
+          _incrementationValue = -_incrementationValue;
+        }
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: key,
+            value: fireDB.ServerValue.increment(_incrementationValue)
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// CREATE
@@ -587,6 +620,29 @@ class Real {
     return FirebaseDatabase.instance.ref().update(updates);
   }
    */
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> incrementDocFields({
+    @required BuildContext context,
+    @required String collName,
+    @required String docName,
+    @required Map<String, dynamic> mapOfFieldsAndNumbers,
+    @required bool isIncrementing,
+}) async {
+
+    final DatabaseReference _ref = _createPathAndGetRef(
+      collName: collName,
+      docName: docName,
+    );
+
+    final Map<String, dynamic> _updatesMap = _createPathValueMapFromFieldsAndNumbers(
+      fieldsAndNumbers: mapOfFieldsAndNumbers,
+      isIncrementing: isIncrementing,
+    );
+
+    await _ref.update(_updatesMap);
+
+  }
 // -----------------------------------------------------------------------------
 
   /// DELETE

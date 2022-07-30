@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,12 @@ class ComposeFlyerProtocols {
       bzID: _uploadedFlyer.bzID,
       field: 'allSlides',
       incrementThis: _uploadedFlyer.slides.length,
+    );
+
+    await CityChainOps.incrementFlyerCityChainUsage(
+        context: context,
+        flyerModel: _uploadedFlyer,
+        isIncrementing: true
     );
 
     blog('ComposeFlyerProtocol.compose : END');
