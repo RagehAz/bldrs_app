@@ -20,17 +20,29 @@ import 'package:flutter/material.dart';
 Future<void> takeAuthorImage({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,
+  @required ImagePickerType imagePickerType,
 }) async {
 
-  final File _file = await Imagers.pickAndCropSingleImage(
-    context: context,
-    cropAfterPick: true,
-    isFlyerRatio: false,
-  );
+  File _imageFile;
 
-  if (_file != null){
+  if(imagePickerType == ImagePickerType.galleryImage){
+    _imageFile = await Imagers.pickAndCropSingleImage(
+      context: context,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+    );
+  }
+  else if (imagePickerType == ImagePickerType.cameraImage){
+    _imageFile = await Imagers.shootAndCropCameraImage(
+      context: context,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+    );
+  }
+
+  if (_imageFile != null){
     author.value = author.value.copyWith(
-      pic: _file,
+      pic: _imageFile,
     );
   }
 
