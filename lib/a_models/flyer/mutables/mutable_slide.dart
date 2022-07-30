@@ -175,38 +175,40 @@ class MutableSlide {
 
         final File _file = files[i];
 
-        final int _slideIndexThatIncludesThisFile = MutableSlide.getMutableSlideIndexThatContainsThisFile(
-          mSlides: existingSlides,
-          fileToSearchFor: _file,
-        );
+        // final int _slideIndexThatIncludesThisFile = MutableSlide.getMutableSlideIndexThatContainsThisFile(
+        //   mSlides: existingSlides,
+        //   fileToSearchFor: _file,
+        // );
 
-        /// A - IF FOUND EXITING SLIDE CONTAINING THIS ASSET => ALREADY PICKED ASSET
-        if (_slideIndexThatIncludesThisFile != -1){
+        // /// A - IF FOUND EXITING SLIDE CONTAINING THIS ASSET => ALREADY PICKED ASSET
+        // if (_slideIndexThatIncludesThisFile != -1){
+        //
+        //   /// A1 - ADJUST SLIDE INDEX AND HEADLINE OF EXISTING SLIDE
+        //   final MutableSlide _adjustedSlide = existingSlides[_slideIndexThatIncludesThisFile].copyWith(
+        //     slideIndex: i,
+        //     headline: i == 0 ? headlineController : null,
+        //   );
+        //
+        //   /// A2 - ADD THIS SLIDE
+        //   _output.add(_adjustedSlide);
+        // }
+        //
+        // /// B - IF DID NOT FIND SLIDE WITH THIS ASSET => NEWLY PICKED ASSET
+        // else {
 
-          /// A1 - ADJUST SLIDE INDEX AND HEADLINE OF EXISTING SLIDE
-          final MutableSlide _adjustedSlide = existingSlides[_slideIndexThatIncludesThisFile].copyWith(
-            slideIndex: i,
-            headline: i == 0 ? headlineController : null,
-          );
-
-          /// A2 - ADD THIS SLIDE
-          _output.add(_adjustedSlide);
-        }
-
-        /// B - IF DID NOT FIND SLIDE WITH THIS ASSET => NEWLY PICKED ASSET
-        else {
+        final int _newSlideIndex = i + existingSlides.length;
 
           /// B1 - CREATE NEW SLIDE
           final MutableSlide _newSlide = await createNewMutableSlideByFile(
             context: context,
             file: _file,
-            index: i,
-            headline: i == 0 ? headlineController : null,
+            index: _newSlideIndex,
+            headline: _newSlideIndex  == 0 ? headlineController : null,
           );
 
           /// B2 - ADD THIS NEW SLIDE
           _output.add(_newSlide);
-        }
+        // }
 
       }
 
@@ -328,7 +330,7 @@ class MutableSlide {
     if (mSlides != null && mSlides.isNotEmpty && fileToSearchFor != null) {
       _assetIndexInAssets = mSlides.indexWhere(
             (MutableSlide mSlide) =>
-        mSlide?.picFile?.path == fileToSearchFor.path,
+        Filers.checkFilesAreIdentical(file1: mSlide?.picFile, file2: fileToSearchFor) == true,
       );
     }
 
@@ -345,8 +347,8 @@ class MutableSlide {
 
     if (Mapper.checkCanLoopList(mutableSlides)) {
       for (final MutableSlide mSlide in mutableSlides) {
-        TextChecker.disposeControllerIfPossible(mSlide.headline);
-        TextChecker.disposeControllerIfPossible(mSlide.description);
+        TextChecker.disposeControllerIfPossible(mSlide?.headline);
+        TextChecker.disposeControllerIfPossible(mSlide?.description);
       }
     }
 

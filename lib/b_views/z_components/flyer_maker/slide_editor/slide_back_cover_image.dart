@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:flutter/material.dart';
 
 class SlideBackCoverImage extends StatelessWidget {
@@ -25,8 +26,12 @@ class SlideBackCoverImage extends StatelessWidget {
         valueListenable: filterModel,
         builder: (_, ImageFilterModel _filterModel, Widget child){
 
-          return ;
-
+          return SuperFilteredImage(
+            width: flyerBoxWidth,
+            height: flyerBoxHeight,
+            imageFile: slide.picFile,
+            filterModel: _filterModel,
+          );
         }
         );
 
