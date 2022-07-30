@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/b_bz_editor/a_bz_editor_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -224,18 +225,16 @@ class BzEditorScreenView extends StatelessWidget {
                   const DotSeparator(),
 
                   /// --- ADD LOGO
-                  AddGalleryPicBubble(
+                  AddImagePicBubble(
                     key: const ValueKey<String>('add_logo_bubble'),
                     picture: bzLogo,
                     title: superPhrase(context, 'phid_businessLogo'),
                     redDot: true,
                     bubbleType: BubbleType.bzLogo,
-                    onAddPicture: () => takeBzLogo(
+                    onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
                       context: context,
                       bzLogo: bzLogo,
-                    ),
-                    onDeletePicture: () => onDeleteLogo(
-                      bzLogo: bzLogo,
+                      imagePickerType: imagePickerType,
                     ),
                   ),
 

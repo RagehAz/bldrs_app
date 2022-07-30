@@ -92,24 +92,30 @@ void onSelectBzForm({
 Future<void> takeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<dynamic> bzLogo,
+  @required ImagePickerType imagePickerType,
 }) async {
 
-  final File _file = await Imagers.pickAndCropSingleImage(
-    context: context,
-    isFlyerRatio: false,
-    cropAfterPick: true,
-  );
+  File _imageFile;
 
-  if (_file != null){
-    bzLogo.value = _file;
+  if(imagePickerType == ImagePickerType.galleryImage){
+    _imageFile = await Imagers.pickAndCropSingleImage(
+      context: context,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+    );
+  }
+  else if (imagePickerType == ImagePickerType.cameraImage){
+    _imageFile = await Imagers.shootAndCropCameraImage(
+      context: context,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+    );
   }
 
-}
-// ----------------------------------
-void onDeleteLogo({
-  @required ValueNotifier<dynamic> bzLogo,
-}){
-  bzLogo.value = null;
+  if (_imageFile != null){
+    bzLogo.value = _imageFile;
+  }
+
 }
 // ----------------------------------
 void onBzZoneChanged({

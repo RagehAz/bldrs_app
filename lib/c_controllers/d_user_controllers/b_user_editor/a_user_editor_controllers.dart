@@ -22,22 +22,34 @@ Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
   @required ValueNotifier<dynamic> picture,
+  @required ImagePickerType imagePickerType,
 }) async {
 
   if (canPickImage.value == true) {
 
     canPickImage.value = false;
 
-    final File _imageFile = await Imagers.pickAndCropSingleImage(
-      context: context,
-      cropAfterPick: true,
-      isFlyerRatio: false,
-    );
+    File _imageFile;
+
+    if(imagePickerType == ImagePickerType.galleryImage){
+      _imageFile = await Imagers.pickAndCropSingleImage(
+        context: context,
+        cropAfterPick: true,
+        isFlyerRatio: false,
+      );
+    }
+    else if (imagePickerType == ImagePickerType.cameraImage){
+      _imageFile = await Imagers.shootAndCropCameraImage(
+        context: context,
+        cropAfterPick: true,
+        isFlyerRatio: false,
+      );
+    }
 
     /// IF DID NOT PIC ANY IMAGE
     if (_imageFile == null) {
       blog('takeUserPicture : did not take user picture');
-      picture.value = null;
+      // picture.value = null;
       canPickImage.value = true;
     }
 
@@ -51,12 +63,7 @@ Future<void> takeUserPicture({
   }
 
 }
-// ----------------------------------------
-void deleteUserPicture({
-  @required ValueNotifier<dynamic> picture,
-}) {
-  picture.value = null;
-}
+
 // ----------------------------------------
 void onChangeGender({
   @required Gender selectedGender,

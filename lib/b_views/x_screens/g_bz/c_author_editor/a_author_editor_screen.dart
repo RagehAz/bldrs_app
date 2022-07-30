@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
@@ -130,17 +131,15 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   valueListenable: _author,
                   builder: (_, AuthorModel author, Widget child){
 
-                    return AddGalleryPicBubble(
+                    return AddImagePicBubble(
                       picture: ValueNotifier(author.pic),
                       title: 'Author picture',
                       redDot: true,
                       bubbleType: BubbleType.authorPic,
-                      onAddPicture: () => takeAuthorImage(
+                      onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
                         context: context,
                         author: _author,
-                      ),
-                      onDeletePicture: () => onDeleteAuthorImage(
-                        author: _author,
+                        imagePickerType: imagePickerType,
                       ),
                     );
 

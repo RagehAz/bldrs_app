@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,11 @@ enum BubbleType {
   none,
 }
 
-class AddGalleryPicBubble extends StatelessWidget {
+class AddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const AddGalleryPicBubble({
+  const AddImagePicBubble({
     @required this.picture,
     @required this.onAddPicture,
-    @required this.onDeletePicture,
     @required this.title,
     @required this.redDot,
     this.bubbleType = BubbleType.none,
@@ -30,7 +30,6 @@ class AddGalleryPicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
   final ValueNotifier<dynamic> picture; /// p
-  final Function onDeletePicture;
   final String title;
   final BubbleType bubbleType;
   final bool redDot;
@@ -117,16 +116,16 @@ class AddGalleryPicBubble extends StatelessWidget {
                           height: btWidth,
                           icon: Iconz.phoneGallery,
                           iconSizeFactor: 0.6,
-                          onTap: onAddPicture,
+                          onTap: () => onAddPicture(ImagePickerType.galleryImage),
                         ),
 
                         /// DELETE pic
                         DreamBox(
                           width: btWidth,
                           height: btWidth,
-                          icon: Iconz.xLarge,
+                          icon: Iconz.camera,
                           iconSizeFactor: 0.5,
-                          onTap: onDeletePicture,
+                          onTap: () => onAddPicture(ImagePickerType.cameraImage),
                         ),
 
                       ],
@@ -141,7 +140,7 @@ class AddGalleryPicBubble extends StatelessWidget {
                   builder: (_, dynamic pic, Widget child){
 
                     return GestureDetector(
-                      onTap: pic == null ? () {} : onAddPicture,
+                      onTap: pic == null ? null : () => onAddPicture(ImagePickerType.galleryImage),
                       child: bubbleType == BubbleType.bzLogo
                           ||
                           bubbleType == BubbleType.authorPic ?
