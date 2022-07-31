@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -122,5 +121,17 @@ class CityChain {
 
     return _cityChain;
   }
-// -----------------------------
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// --------------------------------
+  /// TESTED : WORKS PERFECT
+  void blogCityChain(){
+    MapModel.blogMapModels(
+        mapModels: keywordsIDsUsage,
+        methodName: 'blogCityChain ($cityID)',
+    );
+  }
+// -----------------------------------------------------------------------------
 }

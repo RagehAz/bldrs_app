@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
@@ -109,6 +110,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
           final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
           zoneProvider.setCurrentZone(
             zone: _zoneWithCity ?? _zone,
+            notify: true,
+          );
+
+          await ChainsProvider.fetchSetCurrentCityChain(
+            context: context,
             notify: true,
           );
 
