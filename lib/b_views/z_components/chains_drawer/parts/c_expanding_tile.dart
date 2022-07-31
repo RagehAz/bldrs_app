@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/b_collapsed_tile.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -174,8 +175,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     _borderRadius = BorderRadiusTween();
 
-    _isExpanded =
-        PageStorage.of(context)?.readState(context) ??
+    _isExpanded = PageStorage.of(context)?.readState(context) ??
       ValueNotifier(widget.initiallyExpanded);
 
     if (_isExpanded.value == true) {
@@ -184,11 +184,13 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
   }
 // -----------------------------------------------------------------------------
+
   @override
   void dispose() {
-    _controller.dispose();
-    _isExpanded.dispose();
-    _easeInAnimation.dispose();
+    blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
+    // _controller.dispose();
+    // _isExpanded.dispose();
+    // _easeInAnimation.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -218,7 +220,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 // -----------------------------------------------------------------------------
   void _setExpanded(bool isExpanded) {
 
-    if (_isExpanded.value != isExpanded) {
+    if (mounted == true){
+      if (_isExpanded.value != isExpanded) {
 
         _isExpanded.value = isExpanded;
 
@@ -236,8 +239,9 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
         PageStorage.of(context)?.writeState(context, _isExpanded);
 
-      if (widget.onTap != null) {
-        widget.onTap(_isExpanded.value);
+        if (widget.onTap != null) {
+          widget.onTap(_isExpanded.value);
+        }
       }
     }
 

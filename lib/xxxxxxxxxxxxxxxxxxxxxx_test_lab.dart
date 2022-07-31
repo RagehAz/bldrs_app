@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -21,7 +19,6 @@ import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -282,12 +279,27 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final CityChain _cityChain = await CityChainOps.readCityChain(
-        context: context,
-        cityID: 'egy_cairo',
-    );
+    // final CityChain _cityChain = await CityChainOps.readCityChain(
+    //     context: context,
+    //     cityID: 'egy_cairo',
+    // );
 
-    _cityChain.blogCityChain();
+
+        // final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: false);
+    // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    // _keywordsChain.blogChain();
+    // _currentZone.blogZone();
+    //
+    // final Chain _specChain = _chainsProvider.specsChain;
+    //
+    // _specChain.blogChain();
+
+    // final Chain _chain = await _chainsProvider.fetchKeywordsChain(context);
+    //
+    // final Chain _refined = _chainsProvider.removeUnusedKeywordsFromChainForThisCity(
+    //   chain: _chain,
+    // );
 
   }
 // -----------------------------------------------------------------------------

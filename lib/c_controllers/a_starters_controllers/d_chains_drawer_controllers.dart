@@ -179,7 +179,7 @@ Future<List<String>> _searchKeywordsPhrases({
 
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _chainsProvider.keywordsChainPhrases,
+      sourcePhrases: _chainsProvider.cityKeywordsChainPhrases,
       inputText: text,
   );
 
@@ -193,7 +193,10 @@ Future<List<String>> _searchKeywordsPhrases({
 
     _phidKs = Chain.removeAllChainIDsFromKeywordsIDs(
       phidKs: _phidKs,
-      allChains: getAllChains(context),
+      allChains: getAllChains(
+        context: context,
+        getOnlyCityKeywordsChain: false,
+      ),
     );
 
     blog('AFTER REMOVE THEY ARE : $_phidKs');
@@ -214,9 +217,9 @@ List<Chain> _getChainsFromPhids({
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    _chains = Chain.getOnlyChainsFromPhids(
+    _chains = Chain.getChainsFromChainsByIDs(
       phids: phids,
-      allChains: _chainsProvider.keywordsChain.sons,
+      allChains: _chainsProvider.cityKeywordsChain.sons,
     );
 
   }

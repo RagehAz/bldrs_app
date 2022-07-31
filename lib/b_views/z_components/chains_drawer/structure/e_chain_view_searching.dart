@@ -26,7 +26,7 @@ class ChainViewSearching extends StatelessWidget {
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final List<Chain> _allChains = _chainsProvider.keywordsChain.sons;
+    final List<Chain> _allCityChains = _chainsProvider.cityKeywordsChain.sons;
 // -----------------------------------------------------------------------------
     return ValueListenableBuilder(
         valueListenable: foundPhids,
@@ -57,7 +57,7 @@ class ChainViewSearching extends StatelessWidget {
 
                             final Chain _chain = Chain.getChainFromChainsByID(
                               chainID: _phidk,
-                              chains: _allChains,
+                              chains: _allCityChains,
                             );
 
                             // final bool _phidIncludedInFoundChains = Chain.chainsIncludeThisPhid(

@@ -27,7 +27,7 @@ class CityChainOps {
       final Map<String, dynamic> _map = await Real.readDoc(
         context: context,
         collName: RealColl.chainsUsage,
-        docName: 'egy_cairo',
+        docName: cityID,
       );
 
       if (_map != null){

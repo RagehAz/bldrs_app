@@ -18,12 +18,14 @@ class ChainPathConverter {
 // --------------------------------------------
   static const canBlog = false;
   // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void _dBlog(String text){
     if (canBlog == true){
       blog(text);
     }
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogPaths(List<String> paths){
 
     if (Mapper.checkCanLoopList(paths) == true){
@@ -335,6 +337,7 @@ class ChainPathConverter {
     return _pathNodes.first;
   }
 // -------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getLastPathNode(String path){
     /// LAST PATH NODE IS the FURTHEST FROM ROOT ID, in this example it's [phid_c] => 'phid_a/phid_b/phid_c'
 
@@ -500,7 +503,38 @@ class ChainPathConverter {
     return _foundPaths;
   }
 // --------------------------------------------
-  static List<Chain> findRelatedChains({
+  /// TESTED : WORKS PERFECT
+  static List<String> findPathsContainingPhids({
+    @required List<String> paths,
+    @required List<String> phids,
+}){
+    List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(paths) == true && Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids){
+
+        final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
+          paths: paths,
+          phid: phid,
+        );
+
+        if (Mapper.checkCanLoopList(_foundPaths) == true){
+          _output = TextMod.addStringsToStringsIfDoNotContainThem(
+              listToTake: _output,
+              listToAdd: _foundPaths,
+          );
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> findPhidRelatedChains({
     @required List<Chain> allChains,
     @required String phid,
 }){
@@ -514,6 +548,29 @@ class ChainPathConverter {
     final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
         paths: _allChainsPaths,
         phid: phid,
+    );
+
+    final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
+      paths: _foundPaths,
+    );
+
+    return _foundPathsChains;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> findPhidsRelatedChains({
+    @required List<Chain> allChains,
+    @required List<String> phids,
+}){
+
+    final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: allChains,
+    );
+
+    final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhids(
+      paths: _allChainsPaths,
+      phids: phids,
     );
 
     final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(

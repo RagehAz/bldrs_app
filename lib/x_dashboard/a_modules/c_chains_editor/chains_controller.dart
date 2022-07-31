@@ -114,7 +114,7 @@ void _searchChainsOps({
   @required ValueNotifier<List<Chain>> foundChains,
 }){
 
-  final List<Chain> _foundPathsChains = ChainPathConverter.findRelatedChains(
+  final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
     allChains: chains,
     phid: text,
   );
@@ -329,7 +329,7 @@ Future<void> _updateKeywordsChainOps({
 
   /// 3 - UPDATE PROVIDER
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.refineAndSetKeywordsChainAndGenerateTheirPhrasesssss(
+  await _chainsProvider.refineAndSetKeywordsChainAndGenerateTheirPhrases(
     context: context,
     keywordsChain: chain,
     notify: true,
