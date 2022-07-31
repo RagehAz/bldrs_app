@@ -93,7 +93,7 @@ class SpecPickerScreenView extends StatelessWidget {
           valueListenable: selectedSpecs,
           builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
 
-            final bool _isDataCreator = Chain.sonsAreDataCreator(_specChain.sons);
+            final bool _isDataCreator = Chain.checkSonsAreDataCreator(_specChain.sons);
 
             /// SPECS PICKER SELECTOR
             if (_isDataCreator == false){
