@@ -106,7 +106,7 @@ class MapModel{
 
       /// looping key algorithm
       if (loopingAlgorithm == true){
-        final List<String> _bigMapKeys = bigMap.keys;
+        final List<String> _bigMapKeys = bigMap.keys.toList();
         if (Mapper.checkCanLoopList(_bigMapKeys) == true){
 
           for (final String key in _bigMapKeys){
