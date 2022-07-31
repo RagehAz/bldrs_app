@@ -116,8 +116,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     // final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
     final List<FlyerModel> _promotedFlyers = flyersProvider?.promotedFlyers;
 
-    final Chain _keywordsChain = _chainsProvider.keywordsChain;
-    final List<Phrase> _keywordsChainPhrases = _chainsProvider.keywordsChainPhrases;
+    final Chain _keywordsChain = _chainsProvider.allKeywordsChain;
+    final List<Phrase> _keywordsChainPhrases = _chainsProvider.allKeywordsChainPhrases;
     final Chain _specsChain = _chainsProvider.specsChain;
 
     final BzzProvider bzzProvider = Provider.of<BzzProvider>(context, listen: false);

@@ -54,7 +54,9 @@ class StringsDataCreator extends StatelessWidget {
               chain: Chain.filterSpecListChainRange(
                 specList: specPicker,
                 context: context,
+                onlyConsiderCityKeywords: false,
               ),
+
               onKeywordTap: (String keywordID) => onSpecTap(keywordID),
               selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
               initiallyExpanded: true,

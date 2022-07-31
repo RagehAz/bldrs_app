@@ -60,12 +60,13 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 
   await _initializeUserZone(context);
 
+  /// D - ZONES
+  await _initializeCurrentZone(context);
+
   await Future.wait(
       <Future<void>>[
         /// A - SHOW AD FLYER
         //
-        /// D - ZONES
-        _initializeCurrentZone(context),
         /// E - PROMOTED FLYERS
         _initializePromotedFlyers(context),
         /// F - SPONSORS : USES BZZ PROVIDER
@@ -86,9 +87,9 @@ Future<void> initializeHomeScreen(BuildContext context) async {
             notify: true
         ),
         /// I - KEYWORDS
-        _initializeSpecsAndKeywords(context)
-
+        _initializeSpecsAndKeywords(context),
   ]);
+
 
 }
 // -------------------------------

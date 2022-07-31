@@ -1,14 +1,17 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class KeywordsPickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -310,9 +313,15 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
                   itemBuilder: (_, int index){
 
                     final FlyerType _flyerType = widget.flyerTypes[index];
-
-                    return ChainExpanderByFlyerType(
+                    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+                    final Chain _chain = _chainsProvider.getKeywordsChainByFlyerType(
                       flyerType: _flyerType,
+                      getRefinedCityChain: false,
+                    );
+
+                    return ChainExpanderForFlyerType(
+                      flyerType: _flyerType,
+                      chain: _chain,
                       bubbleWidth: _screenWidth,
                       deactivated: false,
                       onKeywordTap: (String id) => _onSelectKeyword(id),

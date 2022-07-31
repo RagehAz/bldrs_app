@@ -61,7 +61,7 @@ class ChainEditorPage extends StatelessWidget {
           final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
           final String _phraseName = superPhrase(context, _phid, providerOverride: _phraseProvider);
 
-          final List<Chain> _relatedChains = ChainPathConverter.findRelatedChains(
+          final List<Chain> _relatedChains = ChainPathConverter.findPhidRelatedChains(
               allChains: allChains,
               phid: _phid,
           );

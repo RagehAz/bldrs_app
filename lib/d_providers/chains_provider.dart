@@ -30,7 +30,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    await _fetchSetKeywordsChain(context: context, notify: false);
+    await fetchSetRefinedKeywordsChain(context: context, notify: false);
     await _fetchSetSpecsChain(context: context, notify: notify);
 
   }
@@ -41,7 +41,8 @@ class ChainsProvider extends ChangeNotifier {
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain);
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain);
 
-    _keywordsChain = null;
+    _allKeywordsChain = null;
+    _cityKeywordsChain = null;
     _specsChain = null;
 
     /// get set all chains
@@ -56,7 +57,12 @@ class ChainsProvider extends ChangeNotifier {
   /// SEARCHERS
 
 // -------------------------------------
-  Chain searchAllChainsByID(String chainID){
+  Chain searchAllChainsByID({
+  @required String chainID,
+    @required bool searchRefinedCityChain,
+}){
+
+    final Chain _keywordsChain = searchRefinedCityChain == true ? _cityKeywordsChain : _allKeywordsChain;
 
     final List<Chain> _allChains = <Chain>[_keywordsChain, _specsChain];
 
@@ -159,12 +165,16 @@ class ChainsProvider extends ChangeNotifier {
         listen: false,
     );
 
+    _currentZone.blogZone(methodName: 'fetchSetCurrentCityChain');
+
     if (_currentZone != null){
 
       final CityChain _cityChain = await CityChainOps.readCityChain(
           context: context,
           cityID: _currentZone.cityID,
       );
+
+      _cityChain?.blogCityChain(methodName: 'fetchSetCurrentCityChain');
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       _chainsProvider._setCurrentCityChain(
@@ -192,22 +202,44 @@ class ChainsProvider extends ChangeNotifier {
   /// KEYWORDS CHAIN
 
 // -------------------------------------
-  Chain _keywordsChain;
+  Chain _cityKeywordsChain;
+  Chain get cityKeywordsChain => _cityKeywordsChain;
   /// must include trigrams and both languages (en, ar) for search engines
-  List<Phrase> _keywordsChainPhrases;
+  List<Phrase> _cityKeywordsChainPhrases;
+  List<Phrase> get cityKeywordsChainPhrases => _cityKeywordsChainPhrases;
+
+  Chain _allKeywordsChain;
+  Chain get allKeywordsChain => _allKeywordsChain;
+
+  List<Phrase> _allKeywordsChainPhrases;
+  List<Phrase> get allKeywordsChainPhrases => _allKeywordsChainPhrases;
 // -------------------------------------
-  Chain get keywordsChain => _keywordsChain;
-  List<Phrase> get keywordsChainPhrases => _keywordsChainPhrases;
+  static Chain proGetKeywordsChain({
+    @required BuildContext context,
+    @required bool getRefinedCityChain,
+    @required bool listen,
+  }){
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
+
+    if (getRefinedCityChain == true){
+      return _chainsProvider.cityKeywordsChain;
+    }
+    else {
+      return _chainsProvider.allKeywordsChain;
+    }
+
+  }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _fetchSetKeywordsChain({
+  Future<void> fetchSetRefinedKeywordsChain({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
     final Chain _keywordsChain = await fetchKeywordsChain(context);
 
-    await refineAndSetKeywordsChainAndGenerateTheirPhrasesssss(
+    await refineAndSetKeywordsChainAndGenerateTheirPhrases(
       context: context,
       keywordsChain: _keywordsChain,
       notify: notify,
@@ -216,24 +248,30 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> refineAndSetKeywordsChainAndGenerateTheirPhrasesssss({
+  Future<void> refineAndSetKeywordsChainAndGenerateTheirPhrases({
     @required BuildContext context,
     @required Chain keywordsChain,
     @required bool notify,
   }) async {
 
-    final Chain _refined = await removeUnusedKeywordsFromChainForThisCity(
-      context: context,
+    final Chain _refined = removeUnusedKeywordsFromChainForThisCity(
       chain: keywordsChain,
     );
 
-    final List<Phrase> _keywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+    final List<Phrase> _cityKeywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
       context: context,
       keywordsChain: _refined,
     );
+    final List<Phrase> _allKeywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+      context: context,
+      keywordsChain: keywordsChain,
+    );
 
-    _keywordsChain = _refined;
-    _keywordsChainPhrases = _keywordsPhrases;
+    _cityKeywordsChain = _refined;
+    _cityKeywordsChainPhrases = _cityKeywordsPhrases;
+    _allKeywordsChain = keywordsChain;
+    _allKeywordsChainPhrases = _allKeywordsPhrases;
+
     if (notify == true){
       notifyListeners();
     }
@@ -243,8 +281,11 @@ class ChainsProvider extends ChangeNotifier {
     void clearKeywordsChainAndTheirPhrases({
     @required bool notify,
   }){
-    _keywordsChain = null;
-    _keywordsChainPhrases = <Phrase>[];
+      _cityKeywordsChain = null;
+      _allKeywordsChain = null;
+      _cityKeywordsChainPhrases = <Phrase>[];
+      _allKeywordsChainPhrases = <Phrase>[];
+
     if (notify == true){
       notifyListeners();
     }
@@ -275,24 +316,36 @@ class ChainsProvider extends ChangeNotifier {
     return _keywordsPhrases;
   }
 // -------------------------------------
-  Future<Chain> removeUnusedKeywordsFromChainForThisCity({
+  /// TESTED : WORKS PERFECT
+  Chain removeUnusedKeywordsFromChainForThisCity({
     @required Chain chain,
-    @required BuildContext context,
-  }) async {
+  }) {
+
+    // blog('removeUnusedKeywordsFromChainForThisCity : input chain');
+    // chain.blogChain();
 
     final List<String> _usedKeywordsIDs = CityChain.getKeywordsIDsFromCityChain(
       cityChain: _currentCityChain,
     );
+
+    // blog('_usedKeywordsIDs for cityID ( ${_currentCityChain.cityID} ) : $_usedKeywordsIDs');
 
     final Chain _refined = Chain.removeAllKeywordsNotUsedInThisList(
       chain: chain,
       usedKeywordsIDs: _usedKeywordsIDs,
     );
 
+    // blog('removeUnusedKeywordsFromChainForThisCity : output chain');
+    // _refined.blogChain();
+
     return _refined;
   }
 // -------------------------------------
-  Chain getKeywordsChainByFlyerType(FlyerType flyerType){
+  /// TESTED : WORKS PERFECT
+  Chain getKeywordsChainByFlyerType({
+    @required FlyerType flyerType,
+    @required bool getRefinedCityChain,
+  }){
 
     String _chainID = 'phid_sections';
 
@@ -308,8 +361,11 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     final Chain _chain = Chain.getChainFromChainsByID(
-        chainID: _chainID,
-        chains: <Chain>[_keywordsChain]
+      chainID: _chainID,
+      chains: getRefinedCityChain == true ?
+      <Chain>[_cityKeywordsChain]
+          :
+      <Chain>[_allKeywordsChain],
     );
 
     return _chain;
@@ -503,21 +559,37 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  static Chain superGetChain({
+    @required BuildContext context,
+    @required String chainID,
+    bool searchOnlyCityKeywordsChainsAndSpecs,
+  }){
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final Chain _chain = _chainsProvider.searchAllChainsByID(
+      chainID: chainID,
+      searchRefinedCityChain: searchOnlyCityKeywordsChainsAndSpecs,
+    );
+
+    // blog('superGetChain : chain is :-');
+    // _chain?.blogChain();
+
+    return _chain;
+  }
 }
 
-Chain superGetChain(BuildContext context, String chainID){
+
+
+List<Chain> getAllChains({
+  @required BuildContext context,
+  @required bool getOnlyCityKeywordsChain,
+}){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  final Chain _chain = _chainsProvider.searchAllChainsByID(chainID);
-
-  blog('superGetChain : chain is :-');
-  _chain?.blogChain();
-
-  return _chain;
-}
-
-List<Chain> getAllChains(BuildContext context){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  final Chain _keywordsChain = _chainsProvider.keywordsChain;
+  final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
+      context: context,
+      getRefinedCityChain: getOnlyCityKeywordsChain,
+      listen: false,
+  );
   final Chain _specsChain = _chainsProvider.specsChain;
   return <Chain>[_keywordsChain, _specsChain];
 }

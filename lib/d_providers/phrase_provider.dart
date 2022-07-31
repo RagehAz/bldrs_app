@@ -394,7 +394,8 @@ class PhraseProvider extends ChangeNotifier {
 
     return _translation;
   }
-// -------------------------------------
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<List<Phrase>> generateMixedLangPhrasesFromPhids({
     @required BuildContext context,
     @required List<String> phids,
