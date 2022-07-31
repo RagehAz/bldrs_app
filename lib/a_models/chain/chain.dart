@@ -56,6 +56,7 @@ class Chain {
   /// CYPHERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return
         {
@@ -64,11 +65,12 @@ class Chain {
         };
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static dynamic _cipherSons(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
-    final bool _sonsAreChains = sonsAreChains(sons);
-    final bool _sonsAreString = sonsAreStrings(sons);
-    final bool _sonsAreDataCreator = sonsAreDataCreator(sons);
+    final bool _sonsAreChains = checkSonsAreChains(sons);
+    final bool _sonsAreString = checkSonsAreStrings(sons);
+    final bool _sonsAreDataCreator = checkSonsAreDataCreator(sons);
 
     if (_sonsAreChains == true){
       return cipherChains(sons); // List<Map<String, dynamic>>
@@ -85,6 +87,7 @@ class Chain {
 
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherDataCreator(dynamic sons){
     switch (sons){
 
@@ -103,6 +106,7 @@ class Chain {
     }
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static DataCreator decipherDataCreator(String string){
     switch (string){
       case 'DataCreator_doubleKeyboard':        return DataCreator.doubleKeyboard;      break;
@@ -119,6 +123,7 @@ class Chain {
     }
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherChains(List<Chain> chains){
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -135,6 +140,7 @@ class Chain {
     return _maps;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain decipherChain(Map<String, dynamic> map){
     Chain _chain;
 
@@ -148,6 +154,7 @@ class Chain {
     return _chain;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static dynamic _decipherSons(dynamic sons){
     dynamic _output;
 
@@ -183,6 +190,7 @@ class Chain {
     return  _output;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Chain> decipherChains(List<dynamic> maps){
     final List<Chain> _chains = <Chain>[];
 
@@ -247,7 +255,7 @@ class Chain {
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreChains(dynamic sons){
+  static bool checkSonsAreChains(dynamic sons){
     bool _areChains = false;
 
     if (sons.runtimeType.toString() == 'List<Chain>'){
@@ -258,7 +266,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreDataCreator(dynamic sons){
+  static bool checkSonsAreDataCreator(dynamic sons){
 
     bool _isDataCreator = false;
 
@@ -270,13 +278,13 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool sonsAreStrings(dynamic sons){
+  static bool checkSonsAreStrings(dynamic sons){
     final bool _areString = sons.runtimeType.toString() == 'List<String>';
     return _areString;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsAreIdentical({
+  static bool checkChainsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
 }){
@@ -286,7 +294,7 @@ class Chain {
 
       if (chain1.id == chain2.id){
 
-        if (chainsSonsAreIdentical(chain1, chain2) == true){
+        if (checkChainsSonsAreIdentical(chain1, chain2) == true){
           _areIdentical = true;
         }
 
@@ -297,17 +305,17 @@ class Chain {
     return _areIdentical;
   }
 // --------------------------------------------
-  static bool chainsSonsAreIdentical(Chain chain1, Chain chain2){
+  static bool checkChainsSonsAreIdentical(Chain chain1, Chain chain2){
 
     bool _sonsAreIdentical = false;
 
-    final bool sonsAisChains = sonsAreChains(chain1.sons);
-    final bool sonsAisDataCreator = sonsAreDataCreator(chain1.sons);
-    final bool sonsAIsStrings = sonsAreStrings(chain1.sons);
+    final bool sonsAisChains = checkSonsAreChains(chain1.sons);
+    final bool sonsAisDataCreator = checkSonsAreDataCreator(chain1.sons);
+    final bool sonsAIsStrings = checkSonsAreStrings(chain1.sons);
 
-    final bool sonsBisChains = sonsAreChains(chain2.sons);
-    final bool sonsBisDataCreator = sonsAreDataCreator(chain2.sons);
-    final bool sonsBIsStrings = sonsAreStrings(chain2.sons);
+    final bool sonsBisChains = checkSonsAreChains(chain2.sons);
+    final bool sonsBisDataCreator = checkSonsAreDataCreator(chain2.sons);
+    final bool sonsBIsStrings = checkSonsAreStrings(chain2.sons);
 
     if (
     sonsAisChains == sonsBisChains
@@ -319,7 +327,7 @@ class Chain {
 
       /// IF SONS ARE CHAINS
       if (sonsAisChains == true){
-        _sonsAreIdentical = chainsListsAreIdenticalOLDMETHOD(
+        _sonsAreIdentical = checkChainsListsAreIdenticalOLDMETHOD(
           chains1: chain1.sons,
           chains2: chain2.sons,
         );
@@ -343,7 +351,7 @@ class Chain {
     return _sonsAreIdentical;
   }
 // --------------------------------------------
-  static bool chainsListsAreIdenticalOLDMETHOD({
+  static bool checkChainsListsAreIdenticalOLDMETHOD({
     @required List<Chain> chains1,
     @required List<Chain> chains2
   }){
@@ -360,7 +368,7 @@ class Chain {
 
         for (int i = 0; i < chains1.length; i++){
 
-          final bool _twoChainsAreIdentical = chainsAreIdentical(
+          final bool _twoChainsAreIdentical = checkChainsAreIdentical(
               chain1: chains1[i],
               chain2: chains2[i],
           );
@@ -386,7 +394,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsListPathsAreIdentical({
+  static bool checkChainsListPathsAreIdentical({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
 }){
@@ -448,18 +456,18 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsPathsAreIdentical({
+  static bool checkChainsPathsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
 }){
-      return chainsListPathsAreIdentical(
+      return checkChainsListPathsAreIdentical(
           chains1: [chain1],
           chains2: [chain2],
       );
 }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainIncludeThisPhid({
+  static bool checkChainIncludeThisPhid({
     @required Chain chain,
     @required String phid,
 }){
@@ -474,7 +482,7 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
-      else if (sonsAreStrings(chain.sons) == true){
+      else if (checkSonsAreStrings(chain.sons) == true){
         _includes = Mapper.checkStringsContainString(
             strings: chain.sons,
             string: phid,
@@ -483,8 +491,8 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH CHAINS SONS
-      else if (sonsAreChains(chain.sons) == true){
-        _includes = chainsIncludeThisPhid(
+      else if (checkSonsAreChains(chain.sons) == true){
+        _includes = checkChainsIncludeThisPhid(
           chains: chain.sons,
           phid: phid,
         );
@@ -501,7 +509,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool chainsIncludeThisPhid({
+  static bool checkChainsIncludeThisPhid({
     @required List<Chain> chains,
     @required String phid,
 }){
@@ -511,7 +519,7 @@ class Chain {
 
       for (final Chain chain in chains){
 
-        final bool _chainIncludes = chainIncludeThisPhid(
+        final bool _chainIncludes = checkChainIncludeThisPhid(
             chain: chain,
             phid: phid
         );
@@ -559,17 +567,17 @@ class Chain {
       // blog('sons run type is ${sons.runtimeType}');
 
     if (id != null){
-      if (sonsAreDataCreator(sons)){
+      if (checkSonsAreDataCreator(sons)){
         blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (sonsAreStrings(sons)){
+      else if (checkSonsAreStrings(sons)){
         blog('$_space $level : $id : <String>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (sonsAreChains(sons)){
+      else if (checkSonsAreChains(sons)){
         blog('$_space $level : $id :-');
         blogChains(sons, parentLevel: level);
       }
@@ -633,7 +641,7 @@ class Chain {
           break;
         }
 
-        else if (sonsAreChains(chain?.sons) == true){
+        else if (checkSonsAreChains(chain?.sons) == true){
 
           final Chain _son = getChainFromChainsByID(
               chainID: chainID,
@@ -722,12 +730,12 @@ class Chain {
 
       if (chain != null){
 
-        if (sonsAreStrings(chain.sons) == true){
+        if (checkSonsAreStrings(chain.sons) == true){
 
           _stringsIDs.addAll(chain.sons);
 
         }
-        else if (sonsAreChains(chain.sons) == true){
+        else if (checkSonsAreChains(chain.sons) == true){
 
           final List<String> _allNestedStrings = getOnlyStringsSonsIDsFromChains(
             chains: chain.sons,
@@ -781,7 +789,7 @@ class Chain {
     &&
     chainToTake != null
     &&
-    sonsAreChains(chainToTake.sons) == true
+    checkSonsAreChains(chainToTake.sons) == true
     ){
 
       final List<Chain> _newSons = <Chain>[
@@ -941,5 +949,31 @@ class Chain {
 
       return _output;
 }
-// -----------------------------------------------------------------------------
+// --------------------------------------------
+  static Chain removeAllKeywordsNotUsedInThisList({
+    @required Chain chain,
+    @required List<String> usedKeywordsIDs,
+  }){
+      Chain _output = Chain(
+        id: chain.id,
+        sons: const <dynamic>[],
+      );
+
+      if (Mapper.checkCanLoopList(usedKeywordsIDs) == true){
+
+        final List<Chain> _sons = getOnlyChainsFromPhids(
+          allChains: chain.sons,
+          phids: usedKeywordsIDs,
+        );
+
+        _output = Chain(
+          id: chain.id,
+          sons: _sons,
+        );
+
+      }
+
+      return _output;
+  }
+// --------------------------------------------
 }

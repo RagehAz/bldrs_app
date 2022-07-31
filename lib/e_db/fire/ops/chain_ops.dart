@@ -171,7 +171,7 @@ Future<void> addChainsToSpecsChainSons({
     chainToTake: _specsChain,
   );
 
-  final bool _chainsAreTheSame = Chain.chainsAreIdentical(
+  final bool _chainsAreTheSame = Chain.checkChainsAreIdentical(
     chain1: _specsChain,
     chain2: _updatedChain,
   );
