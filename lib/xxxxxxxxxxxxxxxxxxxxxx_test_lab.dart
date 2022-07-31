@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -281,11 +282,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    await CityChainOps.incrementFlyerCityChainUsage(
-      context: context,
-      flyerModel: FlyerModel.dummyFlyer(),
-      isIncrementing: true,
+    final CityChain _cityChain = await CityChainOps.readCityChain(
+        context: context,
+        cityID: 'egy_cairo',
     );
+
+    _cityChain.blogCityChain();
 
   }
 // -----------------------------------------------------------------------------
@@ -364,7 +366,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         ),
 
         AppBarButton(
-            verse: 'fastTests',
+            verse: 'fastTestss',
             onTap: () async {await _fastTest(context);},
         ),
 
