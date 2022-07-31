@@ -207,40 +207,47 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _keywordsChain = await fetchKeywordsChain(context);
 
-    final List<Phrase> _keywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+    await refineAndSetKeywordsChainAndGenerateTheirPhrasesssss(
       context: context,
       keywordsChain: _keywordsChain,
-    );
-
-    setKeywordsChainAndTheirPhrases(
-      keywordsChain: _keywordsChain,
-      keywordsChainPhrases: _keywordsPhrases,
       notify: notify,
     );
 
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  void setKeywordsChainAndTheirPhrases({
+  Future<void> refineAndSetKeywordsChainAndGenerateTheirPhrasesssss({
+    @required BuildContext context,
     @required Chain keywordsChain,
-    @required List<Phrase> keywordsChainPhrases,
     @required bool notify,
-  }){
-    _keywordsChain = keywordsChain;
-    _keywordsChainPhrases = keywordsChainPhrases;
+  }) async {
+
+    final Chain _refined = await removeUnusedKeywordsFromChainForThisCity(
+      context: context,
+      chain: keywordsChain,
+    );
+
+    final List<Phrase> _keywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+      context: context,
+      keywordsChain: _refined,
+    );
+
+    _keywordsChain = _refined;
+    _keywordsChainPhrases = _keywordsPhrases;
     if (notify == true){
       notifyListeners();
     }
+
   }
 // -------------------------------------
-  void clearKeywordsChainAndTheirPhrases({
-  @required bool notify,
-}){
-    setKeywordsChainAndTheirPhrases(
-      keywordsChain: null,
-      keywordsChainPhrases: <Phrase>[],
-      notify: notify,
-    );
+    void clearKeywordsChainAndTheirPhrases({
+    @required bool notify,
+  }){
+    _keywordsChain = null;
+    _keywordsChainPhrases = <Phrase>[];
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -266,6 +273,23 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     return _keywordsPhrases;
+  }
+// -------------------------------------
+  Future<Chain> removeUnusedKeywordsFromChainForThisCity({
+    @required Chain chain,
+    @required BuildContext context,
+  }) async {
+
+    final List<String> _usedKeywordsIDs = CityChain.getKeywordsIDsFromCityChain(
+      cityChain: _currentCityChain,
+    );
+
+    final Chain _refined = Chain.removeAllKeywordsNotUsedInThisList(
+      chain: chain,
+      usedKeywordsIDs: _usedKeywordsIDs,
+    );
+
+    return _refined;
   }
 // -------------------------------------
   Chain getKeywordsChainByFlyerType(FlyerType flyerType){

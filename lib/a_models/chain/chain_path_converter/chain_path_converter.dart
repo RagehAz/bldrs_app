@@ -217,7 +217,7 @@ class ChainPathConverter {
       _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
 
       /// B - IF SONS ARE DEFINED STRINGS
-      if (Chain.sonsAreStrings(parentChain.sons) == true){
+      if (Chain.checkSonsAreStrings(parentChain.sons) == true){
 
         /// C - IF STRING IS ALREADY ADDED
         if (_parentChainHasThisSon == true){
@@ -236,7 +236,7 @@ class ChainPathConverter {
       }
 
       /// B - IF SONS ARE DEFINED CHAINS
-      if (Chain.sonsAreChains(parentChain.sons) == true){
+      if (Chain.checkSonsAreChains(parentChain.sons) == true){
 
         /// C - IF CHAIN HAS THIS SON ADDED
         if (_parentChainHasThisSon == true){
@@ -369,7 +369,7 @@ class ChainPathConverter {
       // _allPaths.add(_chainPath);
 
       /// STRINGS SONS PATHS
-      if (Chain.sonsAreStrings(chain.sons) == true){
+      if (Chain.checkSonsAreStrings(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
 
@@ -383,7 +383,7 @@ class ChainPathConverter {
       }
 
       /// CHAINS SONS PATHS
-      if (Chain.sonsAreChains(chain.sons) == true){
+      if (Chain.checkSonsAreChains(chain.sons) == true){
 
         final List<Chain> _sons = chain.sons;
 
@@ -398,7 +398,7 @@ class ChainPathConverter {
       }
 
       /// DATA CREATOR SONS PATHS
-      if (Chain.sonsAreDataCreator(chain.sons) == true){
+      if (Chain.checkSonsAreDataCreator(chain.sons) == true){
 
         final DataCreator _sons = chain.sons;
 
@@ -592,17 +592,17 @@ class ChainPathConverter {
 
     if (Chain != null && sonID != null){
 
-      if (Chain.sonsAreChains(chain.sons) == true){
+      if (Chain.checkSonsAreChains(chain.sons) == true){
         final List<Chain> _sonsChains = chain.sons;
         final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
         _include = _index != -1;
       }
-      else if (Chain.sonsAreStrings(chain.sons) == true){
+      else if (Chain.checkSonsAreStrings(chain.sons) == true){
         final List<String> _sonsStrings = chain.sons;
         final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
         _include = _index != -1;
       }
-      else if (Chain.sonsAreDataCreator(chain.sons) == true){
+      else if (Chain.checkSonsAreDataCreator(chain.sons) == true){
         _include = chain.sons == sonID;
       }
 

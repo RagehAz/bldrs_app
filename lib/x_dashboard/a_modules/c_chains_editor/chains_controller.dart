@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
+import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -15,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 
 // -----------------------------------------------------------------------------
 Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
@@ -205,7 +204,7 @@ Future<void> onSync({
   @required List<Chain> updatedChains,
 }) async {
 
-  final bool _chainsListsAreTheSame = Chain.chainsListPathsAreIdentical(
+  final bool _chainsListsAreTheSame = Chain.checkChainsListPathsAreIdentical(
     chains1: originalChains,
     chains2: updatedChains,
   );
@@ -237,7 +236,7 @@ Future<void> onSync({
 
         final Chain _updatedChain = updatedChains[i];
         final Chain _originalChain = originalChains[i];
-        final bool _chainsAreTheSame = Chain.chainsPathsAreIdentical(
+        final bool _chainsAreTheSame = Chain.checkChainsPathsAreIdentical(
             chain1: _updatedChain,
             chain2: _originalChain
         );
@@ -330,14 +329,10 @@ Future<void> _updateKeywordsChainOps({
 
   /// 3 - UPDATE PROVIDER
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  final List<Phrase> _keywordsPhrases = await _chainsProvider.generateKeywordsPhrasesFromKeywordsChain(
+  await _chainsProvider.refineAndSetKeywordsChainAndGenerateTheirPhrasesssss(
     context: context,
     keywordsChain: chain,
-  );
-  _chainsProvider.setKeywordsChainAndTheirPhrases(
-      keywordsChain: chain,
-      keywordsChainPhrases: _keywordsPhrases,
-      notify: true,
+    notify: true,
   );
 
   /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
