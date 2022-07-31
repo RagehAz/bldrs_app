@@ -1,12 +1,16 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +25,13 @@ class ChainsProvider extends ChangeNotifier {
 
 // -------------------------------------
   /// All chains are [ Keywords chain - specs chain ]
-  Future<void> fetchSetAllChains(BuildContext context) async {
+  Future<void> fetchSetAllChains({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
 
     await _fetchSetKeywordsChain(context: context, notify: false);
-    await _fetchSetSpecsChain(context: context, notify: true);
+    await _fetchSetSpecsChain(context: context, notify: notify);
 
   }
 // -------------------------------------
@@ -38,7 +45,10 @@ class ChainsProvider extends ChangeNotifier {
     _specsChain = null;
 
     /// get set all chains
-    await fetchSetAllChains(context);
+    await fetchSetAllChains(
+      context: context,
+      notify: true,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -130,6 +140,52 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     return _specsChain;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CITY CHAIN
+
+// -------------------------------------
+  CityChain _currentCityChain;
+  CityChain get currentCityChain => _currentCityChain;
+// -------------------------------------
+  static Future<void> fetchSetCurrentCityChain({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+    );
+
+    if (_currentZone != null){
+
+      final CityChain _cityChain = await CityChainOps.readCityChain(
+          context: context,
+          cityID: _currentZone.cityID,
+      );
+
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      _chainsProvider._setCurrentCityChain(
+        cityChain: _cityChain,
+        notify: notify,
+      );
+
+    }
+
+  }
+// -------------------------------------
+  void _setCurrentCityChain({
+    @required CityChain cityChain,
+    @required bool notify,
+  }){
+
+    _currentCityChain = cityChain;
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------
 

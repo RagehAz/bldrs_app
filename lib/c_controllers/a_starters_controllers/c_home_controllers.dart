@@ -87,6 +87,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
         ),
         /// I - KEYWORDS
         _initializeSpecsAndKeywords(context)
+
   ]);
 
 }
@@ -227,8 +228,18 @@ Future<void> _initializeSponsors({
 }
 // -------------------------------
 Future<void> _initializeSpecsAndKeywords(BuildContext context) async {
+
+  await ChainsProvider.fetchSetCurrentCityChain(
+    context: context,
+    notify: false,
+  );
+
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.fetchSetAllChains(context);
+  await _chainsProvider.fetchSetAllChains(
+    context: context,
+    notify: true,
+  );
+
 }
 // -------------------------------
 Future<void> _initializeUserBzz({

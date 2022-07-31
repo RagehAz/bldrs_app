@@ -12,6 +12,37 @@ class CityChainOps {
 
 // -----------------------------------------------------------------------------
 
+  /// READ
+
+// --------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<CityChain> readCityChain({
+    @required BuildContext context,
+    @required String cityID,
+}) async {
+    CityChain _cityChain;
+
+    if (cityID != null){
+
+      final Map<String, dynamic> _map = await Real.readDoc(
+        context: context,
+        collName: RealColl.chainsUsage,
+        docName: 'egy_cairo',
+      );
+
+      if (_map != null){
+        _cityChain = CityChain.decipherCityChain(
+          map: _map,
+          cityID: _map['id'],
+        );
+      }
+
+    }
+
+    return _cityChain;
+  }
+// -----------------------------------------------------------------------------
+
 /// EDITOR
 
 // --------------------------------
