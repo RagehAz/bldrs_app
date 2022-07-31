@@ -577,7 +577,7 @@ void main() {
 
     final List<Chain> _regeneratedChains = ChainPathConverter.createChainsFromPaths(paths: _generatedPaths);
 
-    final bool _result = Chain.chainsListsAreIdenticalOLDMETHOD(chains1: _chains, chains2: _regeneratedChains);
+    final bool _result = Chain.checkChainsListsAreIdenticalOLDMETHOD(chains1: _chains, chains2: _regeneratedChains);
 
     expect(_result, true);
   });

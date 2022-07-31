@@ -134,4 +134,20 @@ class CityChain {
     );
   }
 // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// --------------------------------
+  static List<String> getKeywordsIDsFromCityChain({
+  @required CityChain cityChain,
+}){
+    List<String> _output = <String>[];
+
+    if (cityChain != null){
+      _output = MapModel.getValuesFromMapModels(cityChain.keywordsIDsUsage);
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
 }
