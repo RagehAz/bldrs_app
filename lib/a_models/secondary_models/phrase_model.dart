@@ -26,6 +26,7 @@ class Phrase {
   /// CLONING
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Phrase copyWith({
     String id,
     String langCode,
@@ -44,6 +45,7 @@ class Phrase {
   /// CYPHERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool includeID,
     bool includeTrigram = false,
@@ -160,6 +162,7 @@ class Phrase {
     return _maps;
 }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Phrase decipherPhrase({
     @required String id,
     @required Map<String, dynamic> map,
@@ -1156,7 +1159,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static List<String> _getTrigramIfIncluded({
     @required bool includeTrigram,
     @required List<String> existingTrigram,

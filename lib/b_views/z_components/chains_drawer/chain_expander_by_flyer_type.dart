@@ -1,19 +1,17 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/d_chains_drawer_controllers.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ChainExpanderByFlyerType extends StatelessWidget {
+class ChainExpanderForFlyerType extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainExpanderByFlyerType({
+  const ChainExpanderForFlyerType({
     @required this.bubbleWidth,
+    @required this.chain,
     @required this.flyerType,
     @required this.deactivated,
     this.selectedKeywordsIDs,
@@ -23,6 +21,7 @@ class ChainExpanderByFlyerType extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
+  final Chain chain;
   final FlyerType flyerType;
   final bool deactivated;
   final bool initiallyExpanded;
@@ -66,18 +65,14 @@ class ChainExpanderByFlyerType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    blog('flyer type is : $flyerType');
-    final Chain _chainByFlyerType = _chainsProvider.getKeywordsChainByFlyerType(flyerType);
-
-    if (_chainByFlyerType == null){
+    if (chain == null){
       return const SizedBox();
     }
 
     else {
       return ChainExpanderStarter(
-      key: PageStorageKey<String>(flyerType.toString()),
-      chain: _chainByFlyerType,
+      key: PageStorageKey<String>(chain.id),
+      chain: chain,
       boxWidth: bubbleWidth - (2 * Ratioz.appBarMargin),
       alignment: Alignment.center,
       icon: _sectionIcon(section: flyerType, inActiveMode: deactivated),

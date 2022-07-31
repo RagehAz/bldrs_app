@@ -33,6 +33,34 @@ List<String> addStringToListIfDoesNotContainIt({
 }
 // ----------------------------
 /// TESTED : WORKS PERFECT
+List<String> addStringsToStringsIfDoNotContainThem({
+  @required List<String> listToTake,
+  @required List<String> listToAdd,
+}){
+
+  List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(listToTake) == true){
+    _output = listToTake;
+  }
+
+  if (Mapper.checkCanLoopList(listToAdd) == true){
+
+    for (final String string in listToAdd){
+
+      _output = addStringToListIfDoesNotContainIt(
+          strings: _output,
+          stringToAdd: string
+      );
+
+    }
+
+  }
+
+  return _output;
+}
+// ----------------------------
+/// TESTED : WORKS PERFECT
 List<String> addOrRemoveStringToStrings({
   @required List<String> strings,
   @required String string,
@@ -249,6 +277,7 @@ String replaceVarTag({
 /// CUTTERS
 
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String cutFirstCharacterAfterRemovingSpacesFromAString(String string) {
   final String _stringTrimmed = string.trim();
 
@@ -268,6 +297,7 @@ String cutFirstCharacterAfterRemovingSpacesFromAString(String string) {
   return _output;
 }
 // ----------------------------
+/// TESTED : WORKS PERFECT
 String cutFirstCharacterOfAString(String string) {
   final String _output = string == null || string.isEmpty || string == '' || string == ' ' ?
   null

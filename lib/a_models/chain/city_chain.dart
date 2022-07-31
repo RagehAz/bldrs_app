@@ -127,10 +127,12 @@ class CityChain {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  void blogCityChain(){
+  void blogCityChain({
+    String methodName = '',
+  }){
     MapModel.blogMapModels(
-        mapModels: keywordsIDsUsage,
-        methodName: 'blogCityChain ($cityID)',
+      mapModels: keywordsIDsUsage,
+      methodName: 'blogCityChain : $methodName : ($cityID)',
     );
   }
 // -----------------------------------------------------------------------------
@@ -138,13 +140,16 @@ class CityChain {
   /// GETTERS
 
 // --------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromCityChain({
   @required CityChain cityChain,
 }){
     List<String> _output = <String>[];
 
     if (cityChain != null){
-      _output = MapModel.getValuesFromMapModels(cityChain.keywordsIDsUsage);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(cityChain.keywordsIDsUsage);
+      _output = Mapper.getStringsFromDynamics(dynamics: _values);
+      _output.removeWhere((element) => element == 'id');
     }
 
     return _output;

@@ -213,10 +213,15 @@ class Chain {
   static Chain filterSpecListChainRange({
     @required BuildContext context,
     @required SpecPicker specList,
+    @required bool onlyConsiderCityKeywords,
 }) {
 
     final List<String> _filteredIDs = <String>[];
-    Chain _filteredChain = superGetChain(context, specList.chainID);
+    Chain _filteredChain = ChainsProvider.superGetChain(
+      context: context,
+      chainID: specList.chainID,
+      searchOnlyCityKeywordsChainsAndSpecs: onlyConsiderCityKeywords,
+    );
 
     if (
         Mapper.checkCanLoopList(_filteredChain.sons)
@@ -629,7 +634,7 @@ class Chain {
 
     Chain _chain;
 
-      blog('getChainFromChainsByID : chains : ${chains?.length}');
+      // blog('getChainFromChainsByID : chains : ${chains?.length}');
 
     if (Mapper.checkCanLoopList(chains) == true){
 
@@ -692,7 +697,7 @@ class Chain {
     return _chainsIDs;
   }
 // --------------------------------------------
-  static List<Chain> getOnlyChainsFromPhids({
+  static List<Chain> getChainsFromChainsByIDs({
     List<String> phids,
     List<Chain> allChains,
   }){
@@ -950,6 +955,7 @@ class Chain {
       return _output;
 }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain removeAllKeywordsNotUsedInThisList({
     @required Chain chain,
     @required List<String> usedKeywordsIDs,
@@ -961,14 +967,14 @@ class Chain {
 
       if (Mapper.checkCanLoopList(usedKeywordsIDs) == true){
 
-        final List<Chain> _sons = getOnlyChainsFromPhids(
+        final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
           allChains: chain.sons,
           phids: usedKeywordsIDs,
         );
 
         _output = Chain(
           id: chain.id,
-          sons: _sons,
+          sons: _foundPathsChains,
         );
 
       }
