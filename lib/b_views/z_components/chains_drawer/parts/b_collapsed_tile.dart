@@ -165,7 +165,8 @@ class CollapsedTile extends StatelessWidget {
                     turns: arrowTurns,
                     child: arrow(
                         collapsedHeight: collapsedHeight,
-                        arrowColor: arrowColor),
+                        arrowColor: arrowColor,
+                    ),
                   ),
 
                 ],

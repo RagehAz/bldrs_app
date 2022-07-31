@@ -45,7 +45,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     super.initState();
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final Chain _keywordsChain = _chainsProvider.keywordsChain;
+    final Chain _keywordsChain = _chainsProvider.allKeywordsChain;
     final Chain _specsChain = _chainsProvider.specsChain;
 
     _textController = TextEditingController(); /// tamam disposed
