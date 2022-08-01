@@ -88,6 +88,11 @@ Future<void> authByEmailSignIn({
 
   if (_allFieldsAreValid == true) {
 
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Signing in',
+    ));
+
     /// C - FIRE SIGN IN OPS
     _authModel = await AuthFireOps.signInByEmailAndPassword(
       context: context,
@@ -99,6 +104,8 @@ Future<void> authByEmailSignIn({
       context: context,
       authModel: _authModel,
     );
+
+    WaitDialog.closeWaitDialog(context);
 
   }
 

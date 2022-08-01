@@ -21,7 +21,7 @@ class WaitDialog extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<void> showWaitDialog({
     @required BuildContext context,
-    bool canManuallyGoBack,
+    bool canManuallyGoBack = false,
     String loadingPhrase,
   }) async {
 
@@ -49,8 +49,7 @@ class WaitDialog extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async {
-        /// TASK : ACTIVE canManuallyGoBack
-        return true; //canManuallyGoBack;
+        return canManuallyGoBack;
       },
       child: Scaffold(
         backgroundColor: Colorz.black125,
