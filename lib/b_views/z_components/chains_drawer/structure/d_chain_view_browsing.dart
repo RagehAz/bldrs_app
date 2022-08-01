@@ -137,7 +137,7 @@ class ChainViewBrowsing extends StatelessWidget {
 
                 ChainExpanderForFlyerType(
                   bubbleWidth: bubbleWidth,
-                  deactivated: true,
+                  deactivated: false,
                   flyerType: FlyerType.property,
                   chain: _propertyChain,
                 ),

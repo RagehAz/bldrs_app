@@ -26,7 +26,7 @@ class BzStatsBubble extends StatefulWidget {
 class _BzStatsBubbleState extends State<BzStatsBubble> {
 
   ValueNotifier<BzCounterModel> _bzCounter;
-  BzModel _myActiveBzModel;
+  BzModel _bzModel;
 
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -47,7 +47,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
   @override
   void initState() {
 
-    _myActiveBzModel = widget.bzModel ?? BzzProvider.proGetActiveBzModel(
+    _bzModel = widget.bzModel ?? BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
@@ -65,7 +65,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
         final BzCounterModel _counters = await BzRecordOps.readBzCounters(
           context: context,
-          bzID: _myActiveBzModel.id,
+          bzID: _bzModel.id,
         );
 
         if (mounted == true){
@@ -98,7 +98,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
         valueListenable: _bzCounter,
         builder: (_, BzCounterModel bzCounter, Widget child){
 
-          final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_myActiveBzModel.id);
+          final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel.id);
 
           return Bubble(
               title: 'Stats',
@@ -121,7 +121,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                   verse: '${_counter.allSlides} '
                       '${superPhrase(context, 'phid_slidesPublished')} '
                       '${superPhrase(context, 'phid_inn')} '
-                      '${_myActiveBzModel.flyersIDs.length} '
+                      '${_bzModel.flyersIDs.length} '
                       '${superPhrase(context, 'phid_flyers')}',
                   icon: Iconz.gallery,
                 ),
@@ -146,7 +146,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
                 /// BIRTH
                 StatsLine(
-                  verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _myActiveBzModel.createdAt),
+                  verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel.createdAt),
                   icon: Iconz.calendar,
                 ),
 

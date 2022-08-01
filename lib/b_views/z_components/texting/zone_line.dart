@@ -10,12 +10,14 @@ class ZoneLine extends StatelessWidget {
     @required this.zoneModel,
     this.showCity = true,
     this.showDistrict = true,
+    this.centered = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ZoneModel zoneModel;
   final bool showCity;
   final bool showDistrict;
+  final bool centered;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class ZoneLine extends StatelessWidget {
       height: 35,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: <Widget>[
 
           FlagBox(
