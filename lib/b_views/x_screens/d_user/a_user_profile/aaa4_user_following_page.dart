@@ -30,8 +30,6 @@ class UserFollowingPage extends StatelessWidget {
 
     final List<String> _followedBzzIds = userModel.followedBzzIDs;
 
-    blog('fuck you: bitchh');
-
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
       return const SuperVerse(verse: 'Fuck you');
     }
@@ -62,9 +60,6 @@ class UserFollowingPage extends StatelessWidget {
                 if (snapshot.data == null){
 
                   /// NOTE : WHEN BZ MODEL IS NULL (DELETED) ITS ID IS STILL IN [_followedBzzIds]
-                  /// BUT LETS SHOW NOTHING FOR NOW
-                  /// TASK : SHOULD AUTO-DELETE THIS BZID FROM [_followedBzzIds]
-
                   unawaited(autoDeleteThisBzIDFromMyFollowedBzzIDs(
                     context: context,
                     bzID: _bzID,
