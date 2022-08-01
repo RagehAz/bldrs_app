@@ -307,16 +307,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             /// FLYERS -------------------------------------------------------------
 
-            const SuperVerse(verse: 'Flyers',),
-
-            /// SAVED FLYERS
-            ProviderTestButton(
-              title: 'flyersProvider.savedFlyers ${flyersProvider.savedFlyers?.length} flyers',
-              value: flyersProvider.savedFlyers,
-              onTap: () => FlyerModel.blogFlyers(
-                  flyers: flyersProvider.savedFlyers,
-              ),
-            ),
 
             /// PROMOTED FLYERS
             ProviderTestButton(

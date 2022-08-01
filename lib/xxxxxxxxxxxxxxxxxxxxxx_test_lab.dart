@@ -1,6 +1,6 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
@@ -15,7 +15,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -40,6 +39,7 @@ class TestLab extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _TestLabState createState() => _TestLabState();
+  /// --------------------------------------------------------------------------
 }
 /// --------------------------------------------------------------------------
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
@@ -52,7 +52,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   ChainsProvider  _chainsProvider;
   String _fuckingText;
   BzzProvider _bzzProvider;
-  FlyersProvider _flyersProvider;
+  // FlyersProvider _flyersProvider;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -68,7 +68,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    // _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
     _scrollController = ScrollController();
 
@@ -246,8 +246,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     blogLoading(loading: _isLoading, callerName: 'TestScreen');
     final List<Phrase> _phrases = _phraseProvider.basicPhrases;
     Phrase.blogPhrases(_phrases);
-    final List<FlyerModel> _savedFlyers = _flyersProvider.savedFlyers;
-    FlyerModel.blogFlyers(flyers: _savedFlyers);
     final BzModel _myActiveBz = _bzzProvider.myActiveBz;
     _myActiveBz.blogBz();
     final String _wallPhid = _chainsProvider.wallPhid;
