@@ -1,70 +1,16 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-int getInitialSavedFlyersTabIndex(BuildContext context){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  final FlyerType _currentTab = _uiProvider.currentSavedFlyerTypeTab;
-  final int _index = FlyerTyper.getFlyerTypeIndexFromSectionsTabs(_currentTab);
-  return _index;
-}
-// -----------------------------------------------------------------------------
-void onChangeSavedFlyersTabIndexWhileAnimation({
-  @required BuildContext context,
-  @required TabController tabController,
-}){
 
-  if (tabController.indexIsChanging == false) {
+/// FLYER SELECTION
 
-    final int _indexFromAnimation = (tabController.animation.value).round();
-    onChangeSavedFlyersTabIndex(
-      context: context,
-      index: _indexFromAnimation,
-      tabController: tabController,
-    );
-
-  }
-
-}
-// -----------------------------------------------------------------------------
-void onChangeSavedFlyersTabIndex({
-  @required BuildContext context,
-  @required int index,
-  @required TabController tabController,
-}) {
-
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-  final FlyerType _newFlyerType = FlyerTyper.savedFlyersTabs[index];
-  final FlyerType _previousTab = _uiProvider.currentSavedFlyerTypeTab;
-
-  /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
-  if (_newFlyerType != _previousTab){
-
-    // blog('index is $index');
-
-    _uiProvider.setCurrentFlyerTypeTab(
-      flyerType: _newFlyerType,
-      notify: true,
-    );
-
-    tabController.animateTo(index,
-        curve: Curves.easeIn,
-        duration: Ratioz.duration150ms
-    );
-
-  }
-
-}
-// -----------------------------------------------------------------------------
+// ---------------------------------
 void onSelectFlyerFromSavedFlyers({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -93,6 +39,10 @@ void onSelectFlyerFromSavedFlyers({
 
 }
 // -----------------------------------------------------------------------------
+
+/// AUTO UPDATE MY SAVED FLYERS IDS
+
+// ---------------------------------
 Future<void> autoRemoveSavedFlyerThatIsNotFound({
   @required BuildContext context,
   @required String flyerID,
@@ -124,3 +74,4 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
   blog('autoRemoveSavedFlyerThatIsNotFound : END');
 
 }
+// -----------------------------------------------------------------------------
