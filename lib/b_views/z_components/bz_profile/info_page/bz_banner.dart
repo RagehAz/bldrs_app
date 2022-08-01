@@ -11,9 +11,9 @@ class BzBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzBanner({
     @required this.boxWidth,
-    @required this.boxHeight,
     @required this.bigName,
     @required this.bzModel,
+    this.boxHeight,
     this.corners,
     Key key
   }) : super(key: key);
@@ -86,6 +86,7 @@ class BzBanner extends StatelessWidget {
               if (bzModel?.zone != null)
               ZoneLine(
                 zoneModel: bzModel?.zone,
+
               ),
 
 

@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a4_user_follows_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bz_long_button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +19,7 @@ class UserFollowingPage extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -23,6 +29,8 @@ class UserFollowingPage extends StatelessWidget {
     );
 
     final List<String> _followedBzzIds = userModel.followedBzzIDs;
+
+    blog('fuck you: bitchh');
 
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
       return const SuperVerse(verse: 'Fuck you');
@@ -41,10 +49,38 @@ class UserFollowingPage extends StatelessWidget {
 
           return FutureBuilder(
             future: BzProtocols.fetchBz(context: context, bzID: _bzID),
-            builder: (_, AsyncSnapshot<BzModel> bzModel){
-              return BzLongButton(
-                bzModel: bzModel?.data,
-              );
+            builder: (_, AsyncSnapshot<BzModel> snapshot){
+
+              blog('snapshot connectionState is : ${snapshot.connectionState}');
+
+              if (connectionIsLoading(snapshot) == true){
+                return const SizedBox();
+              }
+
+              else {
+
+                if (snapshot.data == null){
+
+                  /// NOTE : WHEN BZ MODEL IS NULL (DELETED) ITS ID IS STILL IN [_followedBzzIds]
+                  /// BUT LETS SHOW NOTHING FOR NOW
+                  /// TASK : SHOULD AUTO-DELETE THIS BZID FROM [_followedBzzIds]
+
+                  unawaited(autoDeleteThisBzIDFromMyFollowedBzzIDs(
+                    context: context,
+                    bzID: _bzID,
+                  ));
+
+                  return const SizedBox();
+                }
+
+                else {
+                  return BzLongButton(
+                    bzModel: snapshot?.data,
+                  );
+                }
+
+              }
+
             },
           );
 

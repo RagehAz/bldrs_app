@@ -142,14 +142,49 @@ class CityChain {
 // --------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromCityChain({
-  @required CityChain cityChain,
-}){
+    @required CityChain cityChain,
+  }){
     List<String> _output = <String>[];
 
     if (cityChain != null){
-      final List<dynamic> _values = MapModel.getKeysFromMapModels(cityChain.keywordsIDsUsage);
+      final CityChain _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.keywordsIDsUsage);
       _output = Mapper.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// --------------------------------
+  /// TESTED : WORKS PERFECT
+  static CityChain _cleanZeroValuesKeywords(CityChain cityChain){
+
+    CityChain _output;
+
+    if (cityChain != null){
+
+      final List<MapModel> _cleanedKeywords = <MapModel>[];
+
+      for (final MapModel mapModel in cityChain.keywordsIDsUsage){
+
+        if (mapModel.value is int){
+          /// ONLY GET USAGE VALUES BIGGER THAN 0
+          if (mapModel.value > 0){
+            _cleanedKeywords.add(mapModel);
+          }
+        }
+
+      }
+
+      _output = CityChain(
+        cityID: cityChain.cityID,
+        keywordsIDsUsage: _cleanedKeywords,
+      );
+
     }
 
     return _output;

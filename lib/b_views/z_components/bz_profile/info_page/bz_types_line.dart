@@ -8,11 +8,15 @@ class BzTypesLine extends StatelessWidget {
   const BzTypesLine({
     @required this.bzModel,
     @required this.width,
+    this.centered = true,
+    this.oneLine = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double width;
+  final bool centered;
+  final bool oneLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,7 @@ class BzTypesLine extends StatelessWidget {
       context: context,
       bzTypes: bzModel?.bzTypes,
       bzForm: bzModel?.bzForm,
+      oneLine: oneLine,
     );
 
     return SizedBox(
@@ -31,6 +36,7 @@ class BzTypesLine extends StatelessWidget {
         weight: VerseWeight.thin,
         italic: true,
         color: Colorz.grey255,
+        centered: centered,
       ),
     );
 
