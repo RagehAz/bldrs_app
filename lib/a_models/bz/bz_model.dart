@@ -754,6 +754,7 @@ class BzModel{
     @required BuildContext context,
     @required List<BzType> bzTypes,
     @required BzForm bzForm,
+    bool oneLine = false,
   }){
 
     final List<String> _bzTypesStrings = BzModel.translateBzTypes(
@@ -773,8 +774,28 @@ class BzModel{
 
     String _output = '$_bzTypesOneString\n$_bzFormString';
 
+    /// ENGLISH
     if (appIsLeftToRight(context) == false){
-      _output = '$_bzFormString\n$_bzTypesOneString';
+
+      if (oneLine == true){
+        _output = '$_bzFormString, $_bzTypesOneString';
+      }
+      else {
+        _output = '$_bzFormString\n$_bzTypesOneString';
+      }
+
+    }
+
+    /// ARABIC
+    else {
+
+      if (oneLine == true){
+        _output = '$_bzTypesOneString, $_bzFormString';
+      }
+      else {
+        _output = '$_bzTypesOneString\n$_bzFormString';
+      }
+
     }
 
     return _output;

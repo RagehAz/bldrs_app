@@ -561,7 +561,7 @@ class UserModel {
   }){
 
     return Mapper.checkStringsContainString(
-        strings: userModel.savedFlyersIDs,
+        strings: userModel?.savedFlyersIDs,
         string: flyerID
     );
 
