@@ -37,7 +37,6 @@ class ChainsDialogExpandersPart extends StatelessWidget {
               shrinkWrap: true,
               children: <Widget>[
 
-
                 /// SEARCHING MODE
                 if (_isSearching == true)
                   ChainViewSearching(

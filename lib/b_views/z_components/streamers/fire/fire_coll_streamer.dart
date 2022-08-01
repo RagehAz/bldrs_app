@@ -41,7 +41,7 @@ class FireCollStreamer extends StatefulWidget {
       if (_mapsAreTheSame == false){
         oldMaps.value = _newMaps;
         if (_newMaps != null){
-          onChange(_newMaps);
+            onChange(_newMaps);
         }
       }
 
@@ -89,7 +89,13 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
       onChange: widget.queryParameters.onDataChanged == null ?
       null
           :
-          (List<Map<String, dynamic>> newMaps) => widget.queryParameters.onDataChanged(newMaps),
+          (List<Map<String, dynamic>> newMaps){
+
+        if (mounted == true){
+          widget.queryParameters.onDataChanged(newMaps);
+        }
+
+          },
     );
 
   }
