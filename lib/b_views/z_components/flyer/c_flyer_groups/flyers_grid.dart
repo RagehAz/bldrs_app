@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/z_components/flyer/d_variants/add_flyer_button.dart';
+import 'package:bldrs/c_controllers/e_saves_controllers/saves_screen_controllers.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
@@ -25,6 +28,7 @@ class FlyersGrid extends StatelessWidget {
     this.onSelectFlyer,
     this.scrollDirection = Axis.vertical,
     this.isLoadingGrid = false,
+    this.removeFlyerIDFromMySavedFlyersIDIfNoFound = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -44,6 +48,7 @@ class FlyersGrid extends StatelessWidget {
   final ValueChanged<FlyerModel> onSelectFlyer;
   final Axis scrollDirection;
   final bool isLoadingGrid;
+  final bool removeFlyerIDFromMySavedFlyersIDIfNoFound;
   /// --------------------------------------------------------------------------
   static double getGridWidth({
     @required BuildContext context,
@@ -330,14 +335,29 @@ class FlyersGrid extends StatelessWidget {
 
                         else {
 
-                          return FlyerSelectionStack(
-                            flyerModel: _flyerModel,
-                            flyerBoxWidth: _flyerBoxWidth,
-                            heroTag: heroTag,
-                            onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
-                            onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
-                            isSelected: _isSelected,
-                          );
+                          if (_flyerModel == null){
+
+                            if (removeFlyerIDFromMySavedFlyersIDIfNoFound == true){
+                              unawaited(autoRemoveSavedFlyerThatIsNotFound(
+                                context: context,
+                                flyerID: _flyerID,
+                              ));
+                            }
+
+                            return const SizedBox();
+                          }
+
+                          {
+                            return FlyerSelectionStack(
+                              flyerModel: _flyerModel,
+                              flyerBoxWidth: _flyerBoxWidth,
+                              heroTag: heroTag,
+                              onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(_flyerModel),
+                              onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(_flyerModel),
+                              isSelected: _isSelected,
+                            );
+                          }
+
                         }
 
                       }

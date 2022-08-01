@@ -1,18 +1,13 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -98,10 +93,6 @@ class FlyersProvider extends ChangeNotifier {
     @required bool notify,
   }) {
 
-    _savedFlyers = FlyerModel.removeFlyerFromFlyersByID(
-        flyers: _savedFlyers,
-        flyerIDToRemove: flyerID,
-    );
     _promotedFlyers = FlyerModel.removeFlyerFromFlyersByID(
       flyers: _promotedFlyers,
       flyerIDToRemove: flyerID,
@@ -153,12 +144,6 @@ class FlyersProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    _savedFlyers = FlyerModel.replaceFlyerInFlyers(
-      flyers: _savedFlyers,
-      flyerToReplace: flyerModel,
-      insertIfAbsent: false,
-    );
-
     _promotedFlyers = FlyerModel.replaceFlyerInFlyers(
       flyers: _promotedFlyers,
       flyerToReplace: flyerModel,
@@ -183,7 +168,7 @@ class FlyersProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
-
+/*
   /// SAVED FLYERS
 
 // -------------------------------------
@@ -299,6 +284,7 @@ class FlyersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+ */
 // -----------------------------------------------------------------------------
 
   /// PROMOTED FLYERS
@@ -569,9 +555,6 @@ static Future<FlyerModel> proFetchFlyer({
   }){
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-    /// _savedFlyers
-    _flyersProvider.clearSavedFlyers(notify: false);
 
     /// _promotedFlyers
     _flyersProvider.clearPromotedFlyers(notify: false);
