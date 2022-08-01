@@ -35,7 +35,6 @@ class WipeBzProtocols {
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingPhrase: 'Deleting ${bzModel.name}',
-        canManuallyGoBack: false,
       ));
     }
 
@@ -124,7 +123,6 @@ class WipeBzProtocols {
       unawaited(WaitDialog.showWaitDialog(
         context: context,
         loadingPhrase: 'Deleting ${bzModel.flyersIDs.length} Flyers',
-        canManuallyGoBack: false,
       ));
     }
 

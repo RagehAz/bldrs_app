@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -168,6 +169,7 @@ class QuestionReplyButtons extends StatelessWidget {
               /// REVIEW BUBBLE
               ReviewBubble(
                 userModel: _myUserModel,
+                reviewModel: ReviewModel.dummyReview(flyerID: 'c', authorID: 'a'),
                 flyerBoxWidth: BottomDialog.clearWidth(context),
                 pageWidth: BottomDialog.clearWidth(context),
                 reviewText: '"This question should be directed to the $_bzTypeString instead"',

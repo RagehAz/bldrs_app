@@ -14,7 +14,7 @@ class ReviewModel {
     @required this.replyAuthorID,
     @required this.reply,
     @required this.replyTime,
-    @required this.likes,
+    @required this.likesUsersIDs,
   });
   /// --------------------------------------------------------------------------
   final String reviewID;
@@ -25,7 +25,7 @@ class ReviewModel {
   final String replyAuthorID;
   final String reply;
   final DateTime replyTime;
-  final int likes;
+  final List<String> likesUsersIDs;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -41,7 +41,7 @@ class ReviewModel {
     String replyAuthorID,
     String reply,
     DateTime replyTime,
-    int likes,
+    int likesUsersIDs,
   }){
     return ReviewModel(
         reviewID: reviewID ?? this.reviewID,
@@ -52,7 +52,7 @@ class ReviewModel {
         replyAuthorID: replyAuthorID ?? this.replyAuthorID,
         reply: reply ?? this.reply,
         replyTime: replyTime ?? this.replyTime,
-        likes: likes ?? this.likes,
+      likesUsersIDs: likesUsersIDs ?? this.likesUsersIDs,
     );
   }
 // -----------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class ReviewModel {
       'replyAuthorID': replyAuthorID,
       'reply': reply,
       'replyTime': Timers.cipherTime(time: replyTime, toJSON: toJSON),
-      'likes': likes,
+      'likesUsersIDs': likesUsersIDs,
     };
   }
 // ------------------------------------------
@@ -92,7 +92,7 @@ class ReviewModel {
         replyAuthorID: map['replyAuthorID'],
         reply: map['reply'],
         replyTime:Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,),
-        likes: map['likes'],
+        likesUsersIDs: Mapper.getStringsFromDynamics(dynamics: map['likesUsersIDs']),
       );
     }
 
@@ -133,7 +133,9 @@ class ReviewModel {
       replyAuthorID: authorID,
       reply: 'Very cool review, thank you',
       replyTime: DateTime.now(),
-      likes: 135,
+      likesUsersIDs: <String>[
+        AuthFireOps.superUserID(),
+      ],
     );
   }
 // -----------------------------------------------------------------------------
