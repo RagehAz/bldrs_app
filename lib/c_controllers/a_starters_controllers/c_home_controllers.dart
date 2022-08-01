@@ -74,8 +74,6 @@ Future<void> initializeHomeScreen(BuildContext context) async {
           context: context,
           notify: true,
         ),
-        /// J - SAVED FLYERS
-        _initializeSavedFlyers(context),
         /// G - USER BZZ : USES BZZ PROVIDER
         _initializeUserBzz(
           context: context,
@@ -293,29 +291,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   // }
 
 }
-// -------------------------------
-Future<void> _initializeSavedFlyers(BuildContext context) async {
 
-  if (AuthModel.userIsSignedIn() == true ){
-
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
-
-    final List<String> _savedFlyersIDs = _myUserModel?.savedFlyersIDs;
-
-    if (Mapper.checkCanLoopList(_savedFlyersIDs)){
-
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-      await _flyersProvider.fetchSetSavedFlyers(
-        context: context,
-        notify: true,
-      );
-    }
-
-  }
-}
 // -----------------------------------------------------------------------------
 
 /// USER MISSING FIELDS

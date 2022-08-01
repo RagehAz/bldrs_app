@@ -1,7 +1,11 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -89,3 +93,34 @@ void onSelectFlyerFromSavedFlyers({
 
 }
 // -----------------------------------------------------------------------------
+Future<void> autoRemoveSavedFlyerThatIsNotFound({
+  @required BuildContext context,
+  @required String flyerID,
+}) async {
+
+  blog('autoRemoveSavedFlyerThatIsNotFound : START');
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
+
+  final UserModel _myUpdatedModel = UserModel.removeFlyerIDFromSavedFlyersIDs(
+    userModel: _userModel,
+    flyerIDToRemove: flyerID,
+  );
+
+  await UserProtocols.renovateMyUserModel(
+    context: context,
+    newUserModel: _myUpdatedModel,
+  );
+
+  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  _flyersProvider.removeFlyerFromProFlyers(
+      flyerID: flyerID,
+      notify: true,
+  );
+
+  blog('autoRemoveSavedFlyerThatIsNotFound : END');
+
+}
