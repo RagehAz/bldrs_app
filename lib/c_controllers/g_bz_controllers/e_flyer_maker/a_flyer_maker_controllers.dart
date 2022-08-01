@@ -551,7 +551,6 @@ Future<void> _publishFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
         context: context,
-        canManuallyGoBack: false,
         loadingPhrase: 'Uploading flyer',
       ));
 
@@ -592,7 +591,6 @@ Future<void> _updateFlyerOps({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      canManuallyGoBack: false,
       loadingPhrase: 'Uploading flyer',
     ));
 
