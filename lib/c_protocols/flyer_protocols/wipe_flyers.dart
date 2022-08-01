@@ -38,7 +38,6 @@ class WipeFlyerProtocols {
         unawaited(WaitDialog.showWaitDialog(
           context: context,
           loadingPhrase: 'Deleting flyer',
-          canManuallyGoBack: false,
         ));
       }
 
@@ -107,7 +106,6 @@ class WipeFlyerProtocols {
         unawaited(WaitDialog.showWaitDialog(
           context: context,
           loadingPhrase: 'Deleting flyers',
-          canManuallyGoBack: false,
         ));
       }
 

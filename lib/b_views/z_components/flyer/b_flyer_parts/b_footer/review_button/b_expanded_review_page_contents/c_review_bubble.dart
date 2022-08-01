@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
@@ -12,6 +13,7 @@ class ReviewBubble extends StatelessWidget {
   const ReviewBubble({
     @required this.pageWidth,
     @required this.flyerBoxWidth,
+    @required this.reviewModel,
     @required this.userModel,
     @required this.reviewText,
     @required this.reviewTimeStamp,
@@ -21,6 +23,7 @@ class ReviewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double flyerBoxWidth;
+  final ReviewModel reviewModel;
   final UserModel userModel;
   final String reviewText;
   final DateTime reviewTimeStamp;
