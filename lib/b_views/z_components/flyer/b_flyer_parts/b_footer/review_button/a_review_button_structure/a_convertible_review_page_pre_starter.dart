@@ -19,6 +19,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
+    @required this.flyerID,
     this.centeredInFooter = false,
     Key key
   }) : super(key: key);
@@ -37,6 +38,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final bool centeredInFooter;
+  final String flyerID;
   /// --------------------------------------------------------------------------
   /*
   static double _offsetFixToCenter({
@@ -132,6 +134,7 @@ class ConvertibleReviewPagePreStarter extends StatelessWidget {
         onSubmitReview: onSubmitReview,
         reviewTextController: reviewTextController,
         onShowReviewOptions: (ReviewModel reviewModel) => onShowReviewOptions(reviewModel),
+        flyerID: flyerID,
       ),
     );
   }

@@ -22,6 +22,7 @@ class ReviewPageStarter extends StatelessWidget {
     @required this.onSubmitReview,
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
+    @required this.flyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +37,7 @@ class ReviewPageStarter extends StatelessWidget {
   final Function onSubmitReview;
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
+  final String flyerID;
 // -----------------------------------------------------------------------------
 
   /// WIDTH
@@ -497,6 +499,7 @@ class ReviewPageStarter extends StatelessWidget {
           onSubmitReview: onSubmitReview,
           reviewTextController: reviewTextController,
           onShowReviewOptions: onShowReviewOptions,
+          flyerID: flyerID,
         ),
 
       ),

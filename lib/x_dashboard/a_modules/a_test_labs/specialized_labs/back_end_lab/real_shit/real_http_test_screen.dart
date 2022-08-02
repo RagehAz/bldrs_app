@@ -65,7 +65,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             await RealHttp.createNamedDoc(
               context: context,
-              collName: RealColl.bzzCounters,
+              collName: RealColl.countingBzz,
               docName: _flyerStats.flyerID,
               input: _flyerStats.copyWith(saves: 15402).toMap(),
             );
@@ -87,7 +87,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             await RealHttp.updateDoc(
               context: context,
-              collName: RealColl.flyersCounters,
+              collName: RealColl.countingFlyers,
               docName: 'flyerID',
               input: _flyerStats.copyWith(saves: 65464564054054).toMap(),
             );
@@ -105,7 +105,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             final Map<String, dynamic> _map = await RealHttp.readDoc(
                 context: context,
-                collName: RealColl.flyersCounters,
+                collName: RealColl.countingFlyers,
                 docName: 'flyerID',
             );
 
@@ -122,7 +122,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             final Map<String, dynamic> _map = await RealHttp.readDoc(
               context: context,
-              collName: RealColl.flyersCounters,
+              collName: RealColl.countingFlyers,
               docName: 'flyerID',
             );
 
@@ -141,7 +141,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
             final Map<String, dynamic> _map = await RealHttp.readDoc(
               context: context,
-              collName: RealColl.flyersCounters,
+              collName: RealColl.countingFlyers,
               docName: 'flyerID',
             );
 

@@ -24,23 +24,23 @@ class RecordRealOps {
   }){
 
     final Map<String, dynamic> _map = {
-      RecordModel.cipherRecordType(RecordType.follow):         '${RealColl.follows}/$modelID/',     // modelID = bzID
-      RecordModel.cipherRecordType(RecordType.unfollow):       '${RealColl.follows}/$modelID/',     // modelID = bzID
-      RecordModel.cipherRecordType(RecordType.call):           '${RealColl.calls}/$modelID/',       // modelID = bzID
-      RecordModel.cipherRecordType(RecordType.share):          '${RealColl.shares}/$modelID/',      // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.view):           '${RealColl.views}/$modelID/',       // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.save):           '${RealColl.saves}/$modelID/',       // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.unSave):         '${RealColl.saves}/$modelID/',       // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.createReview):   '${RealColl.reviews}/$modelID/',     // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.editReview):     '${RealColl.reviews}/$modelID/',     // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.deleteReview):   '${RealColl.reviews}/$modelID/',      // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.createQuestion): '${RealColl.questions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.editQuestion):   '${RealColl.questions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.deleteQuestion): '${RealColl.questions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.createAnswer):   '${RealColl.answers}/$modelID/',     // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.editAnswer):     '${RealColl.answers}/$modelID/',     // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.deleteAnswer):   '${RealColl.answers}/$modelID/',     // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.search):         '${RealColl.searches}/$modelID/',    // modelID = userID
+      RecordModel.cipherRecordType(RecordType.follow):         '${RealColl.recordingFollows}/$modelID/',     // modelID = bzID
+      RecordModel.cipherRecordType(RecordType.unfollow):       '${RealColl.recordingFollows}/$modelID/',     // modelID = bzID
+      RecordModel.cipherRecordType(RecordType.call):           '${RealColl.recordingCalls}/$modelID/',       // modelID = bzID
+      RecordModel.cipherRecordType(RecordType.share):          '${RealColl.recordingShares}/$modelID/',      // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.view):           '${RealColl.recordingViews}/$modelID/',       // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.save):           '${RealColl.recordingSaves}/$modelID/',       // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.unSave):         '${RealColl.recordingSaves}/$modelID/',       // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.createReview):   '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.editReview):     '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.deleteReview):   '${RealColl.recordingReviews}/$modelID/',      // modelID = flyerID
+      RecordModel.cipherRecordType(RecordType.createQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.editQuestion):   '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.deleteQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.createAnswer):   '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.editAnswer):     '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.deleteAnswer):   '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
+      RecordModel.cipherRecordType(RecordType.search):         '${RealColl.recordingSearches}/$modelID/',    // modelID = userID
     };
 
     final String _path = _map[RecordModel.cipherRecordType(recordType)];
