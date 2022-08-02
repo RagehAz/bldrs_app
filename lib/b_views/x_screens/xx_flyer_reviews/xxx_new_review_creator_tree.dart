@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_review_creator_text_balloon_part.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_review_user_image_balloon_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_review_creator_text_balloon_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_review_user_image_balloon_part.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -71,16 +70,16 @@ class NewReviewCreatorTree extends StatelessWidget {
       key: const ValueKey<String>('review_bubble_key'),
       width: pageWidth,
       margin: EdgeInsets.only(bottom: _bubbleMarginValue),
-      padding: EdgeInsets.symmetric(vertical: _bubbleMarginValue,),
-      decoration: BoxDecoration(
+      // padding: EdgeInsets.symmetric(vertical: _bubbleMarginValue,),
         color: Colorz.blackSemi255,
-        borderRadius: ReviewPageStarter.getBorders(
-            context: context,
-            flyerBoxWidth: flyerBoxWidth,
-          isExpanded: true,
-          tinyMode: false,
-        ),
-      ),
+      // decoration: BoxDecoration(
+        // borderRadius: ReviewPageStarter.getBorders(
+        //     context: context,
+        //     flyerBoxWidth: flyerBoxWidth,
+        //   isExpanded: true,
+        //   tinyMode: false,
+        // ),
+      // ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

@@ -1,6 +1,7 @@
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
 class ReviewModel {
@@ -64,7 +65,7 @@ class ReviewModel {
     bool toJSON = false
   }) {
     return <String, dynamic>{
-      'reviewID': reviewID,
+      // 'id': reviewID,
       'text': text,
       'userID': userID,
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
@@ -84,10 +85,10 @@ class ReviewModel {
 
     if (map != null) {
       _review = ReviewModel(
-        reviewID: map['reviewID'],
+        reviewID: map['id'],
         text: map['text'],
         userID: map['userID'],
-        time: Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,),
+        time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON,),
         flyerID: map['flyerID'],
         replyAuthorID: map['replyAuthorID'],
         reply: map['reply'],
@@ -139,6 +140,26 @@ class ReviewModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// SORTING
+
+// ------------------------------------------
+  static List<ReviewModel> sortReviews({
+  @required List<ReviewModel> reviews,
+}){
+
+    List<ReviewModel> _output = <ReviewModel>[];
+
+    if (Mapper.checkCanLoopList(reviews) == true){
+
+      _output = <ReviewModel>[... reviews];
+      _output.sort((ReviewModel a, ReviewModel b) => b.time.compareTo(a.time));
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
   /// DUMMIES
 
 // ------------------------------------------
@@ -162,4 +183,40 @@ class ReviewModel {
   }
 // -----------------------------------------------------------------------------
 
+/// BLOGGING
+
+// ------------------------------------------
+  void blogReview({
+  String methodName = '',
+}){
+    blog('blogReview : $methodName ------ START');
+    blog('reviewID : $reviewID');
+    blog('text : $text');
+    blog('userID : $userID');
+    blog('time : $time');
+    blog('flyerID : $flyerID');
+    blog('replyAuthorID : $replyAuthorID');
+    blog('reply : $reply');
+    blog('replyTime : $replyTime');
+    blog('likesUsersIDs : $likesUsersIDs');
+    blog('blogReview : $methodName  ------ END');
+  }
+// -----------------------------------------------------------------------------
+  static void blogReviews({
+    @required List<ReviewModel> reviews,
+    String methodName,
+  }){
+    blog('blogReviews : $methodName -------------------------------------- START');
+    if (Mapper.checkCanLoopList(reviews) == true){
+      for (final ReviewModel review in reviews){
+        review.blogReview(methodName: methodName);
+      }
+    }
+    else {
+      blog('no reviews to blog');
+    }
+
+    blog('blogReviews : $methodName -------------------------------------- END');
+  }
+// -----------------------------------------------------------------------------
 }

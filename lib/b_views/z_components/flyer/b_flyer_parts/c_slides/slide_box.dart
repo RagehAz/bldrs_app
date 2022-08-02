@@ -32,30 +32,34 @@ class SlideBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return AbsorbPointer(
       absorbing: !_canTapSlide(),
-      child: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
+      child: SizedBox(
+        width: flyerBoxWidth,
+        height: flyerBoxHeight,
+        child: ListView(
+          physics: const NeverScrollableScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
 
-          Container(
-            width: flyerBoxWidth,
-            height: flyerBoxHeight,
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              borderRadius: FlyerBox.corners(context, flyerBoxWidth),
-              color: slideMidColor,
-              // image: slideModel.pic,
-            ),
-            child: ClipRRect(
-              borderRadius: FlyerBox.corners(context, flyerBoxWidth),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: stackChildren,
+            Container(
+              width: flyerBoxWidth,
+              height: flyerBoxHeight,
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                color: slideMidColor,
+                // image: slideModel.pic,
+              ),
+              child: ClipRRect(
+                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  children: stackChildren,
+                ),
               ),
             ),
-          ),
 
-        ],
+          ],
+        ),
       ),
 
     );

@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_review_user_image_balloon_part.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_submitted_review_text_balloon_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_review_user_image_balloon_part.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_submitted_review_text_balloon_part.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
@@ -34,14 +33,14 @@ class ReviewBubble extends StatelessWidget {
     @required double flyerBoxWidth,
   }){
 
-    final double _expandedPageCornerValue = ReviewPageStarter.expandedCornerValue(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    );
-
-    final double _reviewPageMargin = bubbleMarginValue();
-    final double _reviewBubbleCornerValue = _expandedPageCornerValue - _reviewPageMargin;
-    return _reviewBubbleCornerValue;
+    // final double _expandedPageCornerValue = ReviewPageStarter.expandedCornerValue(
+    //     context: context,
+    //     flyerBoxWidth: flyerBoxWidth
+    // );
+    //
+    // final double _reviewPageMargin = bubbleMarginValue();
+    // final double _reviewBubbleCornerValue = _expandedPageCornerValue - _reviewPageMargin;
+    return 0; //_reviewBubbleCornerValue;
   }
 // -----------------------------------------------------------------------------
   static BorderRadius reviewBubbleBorders({

@@ -1,17 +1,12 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +66,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _infoButtonExpanded.dispose();
     _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
-    _isEditingReview.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -113,30 +107,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
   final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false); /// tamam disposed
   final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true); /// tamam disposed
 // ----------------------------------------
-  void onReviewButtonTap(){
-    _reviewButtonExpanded.value = !_reviewButtonExpanded.value;
-  }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isEditingReview = ValueNotifier(false); /// tamam disposed
-  void _onEditReview(){
-    blog('onEditReview');
-    _isEditingReview.value = !_isEditingReview.value;
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onSubmitReview() async {
-    blog('_onSubmitReview fuck you : ${_reviewTextController.text}');
-
-    await ReviewProtocols.composeReview(
-        context: context,
-        text: _reviewTextController.text,
-        flyerID: widget.flyerModel.id,
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  void _onShowReviewOptions(ReviewModel reviewModel){
-    blog('_onShowReviewOptions : $reviewModel');
-  }
 // -----------------------------------------------------------------------------
   bool _canShowInfoButtonChecker({
   @required InfoButtonType infoButtonType,
@@ -202,7 +172,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   flyerBoxWidth: widget.flyerBoxWidth,
                   tinyMode: widget.tinyMode,
                   onSaveFlyer: widget.onSaveFlyer,
-                  onReviewFlyer: onReviewButtonTap,
                   inFlight: widget.inFlight,
                   infoButtonType: _infoButtonType,
                   flyerIsSaved: widget.flyerIsSaved,
@@ -223,24 +192,24 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   flyerCounter: _flyerCounter,
                 ),
 
-              /// CONVERTIBLE REVIEW BUTTON
-              if (widget.tinyMode == false && widget.inFlight == false)
-              ConvertibleReviewPagePreStarter(
-                infoButtonExpanded: _infoButtonExpanded,
-                canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
-                flyerBoxWidth: widget.flyerBoxWidth,
-                tinyMode: widget.tinyMode,
-                onReviewButtonTap: onReviewButtonTap,
-                reviewButtonExpanded: _reviewButtonExpanded,
-                reviewPageVerticalController: _reviewPageVerticalController,
-                inFlight: widget.inFlight,
-                onEditReview: _onEditReview,
-                isEditingReview: _isEditingReview,
-                onSubmitReview: _onSubmitReview,
-                reviewTextController: _reviewTextController,
-                onShowReviewOptions: _onShowReviewOptions,
-                flyerID: widget.flyerModel.id,
-              ),
+              // /// CONVERTIBLE REVIEW BUTTON
+              // if (widget.tinyMode == false && widget.inFlight == false)
+              // ConvertibleReviewPagePreStarter(
+              //   infoButtonExpanded: _infoButtonExpanded,
+              //   canShowConvertibleReviewButton: _canShowConvertibleReviewButton,
+              //   flyerBoxWidth: widget.flyerBoxWidth,
+              //   tinyMode: widget.tinyMode,
+              //   onReviewButtonTap: onReviewButtonTap,
+              //   reviewButtonExpanded: _reviewButtonExpanded,
+              //   reviewPageVerticalController: _reviewPageVerticalController,
+              //   inFlight: widget.inFlight,
+              //   onEditReview: _onEditReview,
+              //   isEditingReview: _isEditingReview,
+              //   onSubmitReview: _onSubmitReview,
+              //   reviewTextController: _reviewTextController,
+              //   onShowReviewOptions: _onShowReviewOptions,
+              //   flyerID: widget.flyerModel.id,
+              // ),
 
             ],
           ),
