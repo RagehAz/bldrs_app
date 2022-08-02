@@ -13,6 +13,7 @@ class ExpandedReviewPageTree extends StatelessWidget {
     @required this.onEditReview,
     @required this.reviewTextController,
     @required this.onSubmitReview,
+    @required this.flyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class ExpandedReviewPageTree extends StatelessWidget {
   final Function onEditReview;
   final TextEditingController reviewTextController;
   final Function onSubmitReview;
+  final String flyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class ExpandedReviewPageTree extends StatelessWidget {
         isEditingReview: isEditingReview,
         reviewTextController: reviewTextController,
         onSubmitReview: onSubmitReview,
+        flyerID: flyerID,
      ),
 
     );

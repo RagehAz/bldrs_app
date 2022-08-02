@@ -83,13 +83,14 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
         ),
         padding: EdgeInsets.all(bubbleMarginValue),
         alignment: Aligners.superTopAlignment(context),
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
             SuperVerse(
               verse: userModel?.name,
               centered: false,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
             ),
 
             if (isEditingReview == false)
@@ -105,8 +106,9 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
                 title: 'Edit Review',
                 width: reviewBalloonWidth,
                 textController: reviewTextController,
-                maxLines: 4,
+                maxLines: 8,
                 textInputType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
                 maxLength: 1000,
                 minLines: 4,
                 textSize: 3,
@@ -118,22 +120,24 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
 
             if (isEditingReview == true)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
 
-                  DreamBox(
-                    height: 40,
-                    verse: 'CANCEL',
-                    verseScaleFactor: 0.8,
-                    onTap: onEditReview,
-                  ),
+                  // DreamBox(
+                  //   height: 40,
+                  //   verse: 'CANCEL',
+                  //   verseScaleFactor: 0.8,
+                  //   onTap: onEditReview,
+                  // ),
 
                   DreamBox(
                     verse: 'SUBMIT',
                     height: 40,
                     color: Colorz.yellow255,
                     verseColor: Colorz.black255,
-                    verseScaleFactor: 0.8,
+                    verseScaleFactor: 0.6,
+                    verseWeight: VerseWeight.black,
+                    verseItalic: true,
                     onTap: onSubmitReview,
                   ),
 

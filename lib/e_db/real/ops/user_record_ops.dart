@@ -60,7 +60,7 @@ class UserRecordOps {
     /// SHARES
     await Real.deleteDoc(
       context: context,
-      collName: RealColl.searches,
+      collName: RealColl.recordingSearches,
       docName: userID,
     );
 

@@ -188,7 +188,7 @@ class BzRecordOps {
 
     final Map<String, dynamic> _map = await Real.readDocOnce(
       context: context,
-      collName: RealColl.bzzCounters,
+      collName: RealColl.countingBzz,
       docName: bzID,
     );
 
@@ -207,21 +207,21 @@ class BzRecordOps {
     /// FOLLOWS
     await Real.deleteDoc(
         context: context,
-        collName: RealColl.follows,
+        collName: RealColl.recordingFollows,
         docName: bzID,
     );
 
     /// CALLS
     await Real.deleteDoc(
       context: context,
-      collName: RealColl.calls,
+      collName: RealColl.recordingCalls,
       docName: bzID,
     );
 
     /// BZ COUNTERS
     await Real.deleteDoc(
       context: context,
-      collName: RealColl.bzzCounters,
+      collName: RealColl.countingBzz,
       docName: bzID,
     );
 

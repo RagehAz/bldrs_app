@@ -559,7 +559,7 @@ class RecordModel {
   static RecordModel createCreateReviewRecord({
     @required String userID,
     @required String flyerID,
-    @required String review,
+    @required String text,
   }){
 
     return RecordModel(
@@ -570,7 +570,7 @@ class RecordModel {
       modelType: getModelTypeByRecordType(RecordType.createReview),
       modelID: flyerID,
       recordDetailsType: RecordDetailsType.text,
-      recordDetails: review,
+      recordDetails: text,
     );
 
   }
