@@ -20,6 +20,7 @@ class ReviewPageTree extends StatelessWidget {
     @required this.reviewTextController,
     @required this.onShowReviewOptions,
     @required this.onReviewButtonTap,
+    @required this.flyerID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,7 +35,7 @@ class ReviewPageTree extends StatelessWidget {
   final TextEditingController reviewTextController;
   final ValueChanged<ReviewModel> onShowReviewOptions;
   final Function onReviewButtonTap;
-
+  final String flyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -90,6 +91,7 @@ class ReviewPageTree extends StatelessWidget {
                 onEditReview: onEditReview,
                 reviewTextController: reviewTextController,
                 onSubmitReview: onSubmitReview,
+                flyerID: flyerID,
               ),
 
             /// COLLAPSED REVIEW BUTTON TREE

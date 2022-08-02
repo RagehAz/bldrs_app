@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/a_convertible_review_page_pre_starter.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -122,8 +123,15 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _isEditingReview.value = !_isEditingReview.value;
   }
 // -----------------------------------------------------------------------------
-  void _onSubmitReview(){
-    blog('_onSubmitReview : ${_reviewTextController.text}');
+  Future<void> _onSubmitReview() async {
+    blog('_onSubmitReview fuck you : ${_reviewTextController.text}');
+
+    await ReviewProtocols.composeReview(
+        context: context,
+        text: _reviewTextController.text,
+        flyerID: widget.flyerModel.id,
+    );
+
   }
 // -----------------------------------------------------------------------------
   void _onShowReviewOptions(ReviewModel reviewModel){
@@ -231,6 +239,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 onSubmitReview: _onSubmitReview,
                 reviewTextController: _reviewTextController,
                 onShowReviewOptions: _onShowReviewOptions,
+                flyerID: widget.flyerModel.id,
               ),
 
             ],
