@@ -62,8 +62,7 @@ class SlidesShelf extends StatelessWidget {
               width: _screenWidth,
               height: _titleZoneHeight,
               alignment: Aligners.superCenterAlignment(context),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               child: SuperVerse(
                 verse: title.toUpperCase(),
                 size: 4,

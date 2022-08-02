@@ -23,7 +23,6 @@ import 'package:bldrs/f_helpers/notifications/local_note.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
 import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/questions_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -186,9 +185,9 @@ class _BldrsAppState extends State<BldrsApp> {
           ChangeNotifierProvider<SearchProvider>(
             create: (BuildContext ctx) => SearchProvider(),
           ),
-          ChangeNotifierProvider<QuestionsProvider>(
-            create: (BuildContext ctx) => QuestionsProvider(),
-          ),
+          // ChangeNotifierProvider<QuestionsProvider>(
+          //   create: (BuildContext ctx) => QuestionsProvider(),
+          // ),
         ],
         child: ValueListenableBuilder<Locale>(
           valueListenable: _locale,
