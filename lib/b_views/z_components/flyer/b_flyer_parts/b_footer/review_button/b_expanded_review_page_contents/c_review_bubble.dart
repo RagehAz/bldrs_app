@@ -4,7 +4,9 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/a_review_button_structure/b_review_page_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_review_user_image_balloon_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/x_submitted_review_text_balloon_part.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +16,6 @@ class ReviewBubble extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerBoxWidth,
     @required this.reviewModel,
-    @required this.userModel,
-    @required this.reviewText,
-    @required this.reviewTimeStamp,
     this.specialReview = false,
     Key key,
   }) : super(key: key);
@@ -24,9 +23,6 @@ class ReviewBubble extends StatelessWidget {
   final double pageWidth;
   final double flyerBoxWidth;
   final ReviewModel reviewModel;
-  final UserModel userModel;
-  final String reviewText;
-  final DateTime reviewTimeStamp;
   final bool specialReview;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
@@ -67,9 +63,7 @@ class ReviewBubble extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         tinyMode: false
     );
-
     final double _reviewBoxWidth = pageWidth - _imageBoxWidth;
-
     final double _bubbleMargin = bubbleMarginValue();
 
     return Container(
@@ -77,29 +71,45 @@ class ReviewBubble extends StatelessWidget {
       width: pageWidth,
       margin: EdgeInsets.only(bottom: _bubbleMargin),
       // height: 80,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+      child: FutureBuilder(
+        future: UserProtocols.fetchUser(context: context, userID: reviewModel.userID),
+        builder: (_, AsyncSnapshot<UserModel> snap){
 
-          /// USER IMAGE BALLOON PART
-          ReviewUserImageBalloonPart(
-            imageBoxWidth: _imageBoxWidth,
-            bubbleMargin: _bubbleMargin,
-            userModel: userModel,
-          ),
+          final UserModel _userModel = snap.data;
 
-          /// REVIEW BALLOON PART
-          SubmittedReviewTextBalloonPart(
-            userModel: userModel,
-            bubbleMargin: _bubbleMargin,
-            flyerBoxWidth: flyerBoxWidth,
-            reviewBoxWidth: _reviewBoxWidth,
-            reviewText: reviewText,
-            reviewTimeStamp: reviewTimeStamp,
-            specialReview: specialReview,
-          ),
+          if (connectionIsLoading(snap) == true){
+            return const SizedBox();
+          }
 
-        ],
+          else {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+
+                /// USER IMAGE BALLOON PART
+                ReviewUserImageBalloonPart(
+                  imageBoxWidth: _imageBoxWidth,
+                  bubbleMargin: _bubbleMargin,
+                  userModel: _userModel,
+                ),
+
+                /// REVIEW BALLOON PART
+                SubmittedReviewTextBalloonPart(
+                  userModel: _userModel,
+                  bubbleMargin: _bubbleMargin,
+                  flyerBoxWidth: flyerBoxWidth,
+                  reviewBoxWidth: _reviewBoxWidth,
+                  reviewText: reviewModel.text,
+                  reviewTimeStamp: reviewModel.time,
+                  specialReview: specialReview,
+                ),
+
+              ],
+            );
+          }
+
+
+        },
       ),
     );
   }

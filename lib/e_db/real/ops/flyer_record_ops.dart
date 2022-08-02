@@ -246,7 +246,7 @@ class FlyerRecordOps {
 
     final RecordModel _record = RecordModel.createCreateReviewRecord(
       userID: AuthFireOps.superUserID(),
-      review: review,
+      text: review,
       flyerID: flyerID,
     );
 
@@ -354,7 +354,7 @@ class FlyerRecordOps {
 
     await Real.updateDocField(
       context: context,
-      collName: RealColl.flyersCounters,
+      collName: RealColl.countingFlyers,
       docName: flyerID,
       fieldName: field,
       value: fireDB.ServerValue.increment(increaseOne ? 1 : -1),
@@ -362,7 +362,7 @@ class FlyerRecordOps {
 
     Map<String, dynamic> _map = await Real.readDocOnce(
       context: context,
-      collName: RealColl.flyersCounters,
+      collName: RealColl.countingFlyers,
       docName: flyerID,
     );
 
@@ -387,7 +387,7 @@ class FlyerRecordOps {
 
     final Map<String, dynamic> _map = await Real.readDocOnce(
       context: context,
-      collName: RealColl.flyersCounters,
+      collName: RealColl.countingFlyers,
       docName: flyerID,
     );
 
@@ -408,35 +408,35 @@ class FlyerRecordOps {
     /// SHARES
     Real.deleteDoc(
     context: context,
-    collName: RealColl.shares,
+    collName: RealColl.recordingShares,
     docName: flyerID,
     ),
 
     /// VIEWS
     Real.deleteDoc(
       context: context,
-      collName: RealColl.views,
+      collName: RealColl.recordingViews,
       docName: flyerID,
     ),
 
     /// SAVES
     Real.deleteDoc(
       context: context,
-      collName: RealColl.saves,
+      collName: RealColl.recordingSaves,
       docName: flyerID,
     ),
 
     /// REVIEWS
     Real.deleteDoc(
       context: context,
-      collName: RealColl.reviews,
+      collName: RealColl.recordingReviews,
       docName: flyerID,
     ),
 
     /// FLYERS COUNTER
     Real.deleteDoc(
       context: context,
-      collName: RealColl.flyersCounters,
+      collName: RealColl.countingFlyers,
       docName: flyerID,
     ),
 

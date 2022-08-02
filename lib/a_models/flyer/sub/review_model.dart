@@ -7,7 +7,7 @@ class ReviewModel {
   /// --------------------------------------------------------------------------
   const ReviewModel({
     @required this.reviewID, // will be random
-    @required this.body,
+    @required this.text,
     @required this.userID,
     @required this.time, // will order reviews by time
     @required this.flyerID, // will be docName
@@ -18,7 +18,7 @@ class ReviewModel {
   });
   /// --------------------------------------------------------------------------
   final String reviewID;
-  final String body;
+  final String text;
   final String userID;
   final DateTime time;
   final String flyerID;
@@ -34,7 +34,7 @@ class ReviewModel {
   /// TESTED : WORKS PERFECT
   ReviewModel copyWith({
     String reviewID,
-    String body,
+    String text,
     String userID,
     DateTime time,
     String flyerID,
@@ -45,7 +45,7 @@ class ReviewModel {
   }){
     return ReviewModel(
         reviewID: reviewID ?? this.reviewID,
-        body: body ?? this.body,
+        text: text ?? this.text,
         userID: userID ?? this.userID,
         time: time ?? this.time,
         flyerID: flyerID ?? this.flyerID,
@@ -65,7 +65,7 @@ class ReviewModel {
   }) {
     return <String, dynamic>{
       'reviewID': reviewID,
-      'body': body,
+      'text': text,
       'userID': userID,
       'time': Timers.cipherTime(time: time, toJSON: toJSON),
       'flyerID': flyerID,
@@ -85,7 +85,7 @@ class ReviewModel {
     if (map != null) {
       _review = ReviewModel(
         reviewID: map['reviewID'],
-        body: map['body'],
+        text: map['text'],
         userID: map['userID'],
         time: Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,),
         flyerID: map['flyerID'],
@@ -120,13 +120,35 @@ class ReviewModel {
   /// DUMMIES
 
 // ------------------------------------------
+  static ReviewModel createNewReview({
+    @required String text,
+    @required String flyerID,
+  }){
+    return ReviewModel(
+        reviewID: 'x',
+        text: text,
+        userID: AuthFireOps.superUserID(),
+        time: DateTime.now(),
+        flyerID: flyerID,
+        replyAuthorID: null,
+        reply: null,
+        replyTime: null,
+        likesUsersIDs: <String>[],
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// ------------------------------------------
   static ReviewModel dummyReview({
     @required String flyerID,
     @required String authorID,
   }) {
     return ReviewModel(
       reviewID: 'x',
-      body: 'This is a dummy review that extends for several lines you know,, lorum ipsum plenty of gypsum',
+      text: 'This is a dummy review\nthat extends for several lines you know,,\nlorum ipsum\nplenty of gypsum',
       userID: AuthFireOps.superUserID(),
       time: Timers.createDate(year: 1987, month: 06, day: 10),
       flyerID: flyerID,

@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -16,7 +15,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_questions_stuff/components/question_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/question/question_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class QuestionReplyButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -125,16 +123,14 @@ class QuestionReplyButtons extends StatelessWidget {
 
     blog('bzType : $bzType has been chosen');
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final UserModel _myUserModel = _usersProvider.myUserModel;
 
     /// CLOSE PREVIOUS DIALOG
     Nav.goBack(context);
 
-    final String _bzTypeString = BzModel.translateBzType(
-        context: context,
-        bzType: bzType,
-    );
+    // final String _bzTypeString = BzModel.translateBzType(
+    //     context: context,
+    //     bzType: bzType,
+    // );
 
     final double _dialogClearWidth = BottomDialog.clearWidth(context);
     final double _overridingHeight = _dialogClearWidth * 0.7;
@@ -168,12 +164,9 @@ class QuestionReplyButtons extends StatelessWidget {
 
               /// REVIEW BUBBLE
               ReviewBubble(
-                userModel: _myUserModel,
                 reviewModel: ReviewModel.dummyReview(flyerID: 'c', authorID: 'a'),
                 flyerBoxWidth: BottomDialog.clearWidth(context),
                 pageWidth: BottomDialog.clearWidth(context),
-                reviewText: '"This question should be directed to the $_bzTypeString instead"',
-                reviewTimeStamp: DateTime.now(),
                 specialReview: true,
               ),
 
