@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/xxx_new_review_creator_tree.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/c_review_bubble.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/xxx_new_review_creator_tree.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/real/real_coll_paginator.dart';
@@ -38,7 +38,7 @@ class SubmittedReviews extends StatelessWidget {
       height: pageHeight,
       child: RealCollPaginator(
         scrollController: reviewPageVerticalController,
-        // realOrderBy: RealOrderBy.value,
+        // realOrderBy: RealOrderBy.child,
         nodePath: ReviewRealOps.createRealPath(flyerID),
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 
@@ -52,9 +52,13 @@ class SubmittedReviews extends StatelessWidget {
           /// FINISHED LOADING
           else {
 
-            final List<ReviewModel> _reviews = ReviewModel.decipherReviews(
+            List<ReviewModel> _reviews = ReviewModel.decipherReviews(
               maps: maps,
               fromJSON: true,
+            );
+
+            _reviews = ReviewModel.sortReviews(
+              reviews: _reviews,
             );
 
             // /// NO REVIEWS YET
@@ -71,7 +75,7 @@ class SubmittedReviews extends StatelessWidget {
             // else {
 
               return ListView.builder(
-                controller: reviewPageVerticalController,
+                // controller: reviewPageVerticalController,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(
                   bottom: Ratioz.horizon,
@@ -86,11 +90,13 @@ class SubmittedReviews extends StatelessWidget {
                         pageHeight: pageHeight,
                         onEditReview: (){blog('SHOULD EDIT REVIEW');},
                         onSubmitReview: onSubmit,
-                        reviewTextController: TextEditingController()
+                        reviewTextController: reviewTextController,
                     );
                   }
 
                   else {
+
+                    blog('revieeew : $index : ${_reviews[index - 1].time}');
 
                     return ReviewBubble(
                       pageWidth : pageWidth,

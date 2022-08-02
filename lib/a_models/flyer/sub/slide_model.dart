@@ -237,8 +237,8 @@ class SlideModel {
       blog('slide1.flyerID != slide2.flyerID');
     }
     if (slide1.filterID != slide2.filterID){
-          blog('slide1.filterID != slide2.filterID');
-        }
+      blog('slide1.filterID != slide2.filterID');
+    }
 
 
     blog('blogSlidesDifferences : END');
@@ -499,6 +499,21 @@ class SlideModel {
     }
 
     return _files;
+  }
+// -------------------------------------
+  ///
+  static List<String> getSlidePics(List<SlideModel> slides){
+    final List<String> _urls = <String>[];
+
+    if (Mapper.checkCanLoopList(slides) == true){
+
+      for (final SlideModel slide in slides){
+        _urls.add(slide.pic);
+      }
+
+    }
+
+    return _urls;
   }
 // -------------------------------------
   /*

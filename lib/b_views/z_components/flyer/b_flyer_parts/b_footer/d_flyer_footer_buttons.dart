@@ -15,7 +15,6 @@ class FlyerFooterButtons extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.tinyMode,
     @required this.onSaveFlyer,
-    @required this.onReviewFlyer,
     @required this.inFlight,
     @required this.infoButtonType,
     @required this.flyerIsSaved,
@@ -26,7 +25,6 @@ class FlyerFooterButtons extends StatelessWidget {
   final FlyerModel flyerModel;
   final bool tinyMode;
   final Function onSaveFlyer;
-  final Function onReviewFlyer;
   final bool inFlight;
   final InfoButtonType infoButtonType;
   final ValueNotifier<bool> flyerIsSaved;
@@ -83,10 +81,13 @@ class FlyerFooterButtons extends StatelessWidget {
             FooterButton(
             flyerBoxWidth: flyerBoxWidth,
             icon: Iconz.utPlanning,
-            verse: superPhrase(context, 'phid_comment'),
+            verse: 'Review',//superPhrase(context, 'phid_review'),
             isOn: false,
             canTap: !tinyMode,
-            onTap: onReviewFlyer,
+            onTap: () => onReviewButtonTap(
+              context: context,
+              flyerModel: flyerModel,
+            ),
           ),
 
           if (_canShow == true)
