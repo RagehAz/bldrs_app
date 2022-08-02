@@ -1,0 +1,26 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
+import 'package:flutter/material.dart';
+
+// void _onShowReviewOptions(ReviewModel reviewModel){
+//   blog('_onShowReviewOptions : $reviewModel');
+// }
+// -----------------------------------------------------------------------------
+
+/// REVIEW
+
+// ----------------------------------
+Future<void> onReviewFlyer({
+  @required BuildContext context,
+  @required FlyerModel flyerModel,
+  @required String text,
+}) async {
+
+  await ReviewProtocols.composeReview(
+    context: context,
+    text: text,
+    flyerID: flyerModel.id,
+  );
+
+}
+// -----------------------------------------------------------------------------

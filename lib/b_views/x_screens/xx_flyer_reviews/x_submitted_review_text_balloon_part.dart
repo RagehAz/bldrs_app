@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/c_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/review_button/b_expanded_review_page_contents/c_review_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -52,10 +52,10 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
           ),
 
           SuperVerse(
-            verse: Timers.calculateSuperTimeDifferenceString(
+            verse: '${Timers.calculateTimeDifferenceInMinutes(
               from: reviewTimeStamp,
               to: DateTime.now(),
-            ),
+            )} minutes ago',
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.white200,

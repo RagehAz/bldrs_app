@@ -6,7 +6,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/super_rage7.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/ask/new_asks.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/pagination_and_streaming/streaming_test.dart';
@@ -127,13 +126,6 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'SEMBAST',
         icon: Iconz.terms,
         screen: const SembastReaderTestScreen(),
-      ),
-
-      /// ASKS
-      DashButtonModel(
-        verse: 'New ASKs',
-        icon: Iconz.utPlanning,
-        screen: const NewAsks(),
       ),
 
       /// VIDEO EDITOR
