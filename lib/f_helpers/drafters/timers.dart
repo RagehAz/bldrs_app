@@ -838,8 +838,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }){
     bool _areIdentical = false;
 
+    if (time1 == null && time2 == null){
+      _areIdentical = true;
+    }
     /// XXX - check if both are not nulls
-    if (time1 != null && time2 != null){
+    else if (time1 != null && time2 != null){
 
       /// A - YEAR
       if (time1.year == time2.year){

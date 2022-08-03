@@ -240,8 +240,6 @@ class Numeric {
     int maxDigitsCount = 16, // 8'640'000'000'000'000'000
   }) {
 
-    blog('a77a');
-
     assert(maxDigitsCount > 0 && maxDigitsCount <= 16, 'Take care : 0 < maxDigitsCount <= 16',);
 
     final String _string = DateTime.now().microsecondsSinceEpoch.toString();
@@ -252,7 +250,7 @@ class Numeric {
     );
     final int _output = transformStringToInt(_trimmed);
 
-    blog('createUniqueID : _string : $_string : _trimmed : $_trimmed');
+    // blog('createUniqueID : _string : $_string : _trimmed : $_trimmed');
 
     return _output;
   }

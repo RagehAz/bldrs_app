@@ -46,7 +46,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
 
           /// USER NAME
           SuperVerse(
-            verse: userModel.name,
+            verse: userModel?.name,
           ),
 
           /// REVIEW TIME
