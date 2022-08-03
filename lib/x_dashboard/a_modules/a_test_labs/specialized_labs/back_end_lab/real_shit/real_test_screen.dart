@@ -65,7 +65,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             final Color _color = createRandomColor();
 
             final Map<String, dynamic> _map = {
-              'index' : createRandomIndex(listLength: 10),
+              'index' : Numeric.createRandomIndex(listLength: 10),
               'color' : cipherColor(_color),
               'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
@@ -90,7 +90,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
             final Color _color = createRandomColor();
 
             final Map<String, dynamic> _map = {
-              'id' : createUniqueID().toString(),
+              'id' : Numeric.createUniqueID().toString(),
               'color' : cipherColor(_color),
               'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };

@@ -81,7 +81,7 @@ class FlyerSelectionStack extends StatelessWidget {
                     Transform.scale(
                       scale: 2,
                       child: Transform.rotate(
-                        angle: degreeToRadian(-45),
+                        angle: Numeric.degreeToRadian(-45),
                         child: Center(
                           child: WidgetFader(
                             fadeType: FadeType.repeatAndReverse,
