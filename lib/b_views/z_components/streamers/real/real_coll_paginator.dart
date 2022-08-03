@@ -57,10 +57,10 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     _maps = <Map<String, dynamic>>[];
     _controller = widget.scrollController ?? ScrollController();
 
-    widget.scrollController.addListener(() async {
+    _controller.addListener(() async {
 
-      final double _maxScroll = widget.scrollController.position.maxScrollExtent;
-      final double _currentScroll = widget.scrollController.position.pixels;
+      final double _maxScroll = _controller.position.maxScrollExtent;
+      final double _currentScroll = _controller.position.pixels;
       const double _paginationHeightLight = Ratioz.horizon * 3;
 
       blog('inn : scroll is at : $_currentScroll');

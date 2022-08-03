@@ -30,16 +30,13 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _reviewBubbleBorders = ReviewBubble.reviewBubbleBorders(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    );
-
     return Container(
       width: reviewBoxWidth - bubbleMargin,
       decoration: BoxDecoration(
         color: Colorz.white20,
-        borderRadius: _reviewBubbleBorders,
+        borderRadius: ReviewBubble.reviewBubbleBorders(
+          context: context,
+        ),
       ),
       padding: EdgeInsets.all(bubbleMargin),
       alignment: Aligners.superTopAlignment(context),
@@ -47,10 +44,12 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
 
+          /// USER NAME
           SuperVerse(
             verse: userModel.name,
           ),
 
+          /// REVIEW TIME
           SuperVerse(
             verse: '${Timers.calculateTimeDifferenceInMinutes(
               from: reviewTimeStamp,
@@ -62,6 +61,7 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
             scaleFactor: 0.9,
           ),
 
+          /// REVIEW TEXT
           SuperVerse(
             verse: reviewText,
             maxLines: 100,

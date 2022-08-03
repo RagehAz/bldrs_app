@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart' as Numeric;
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -776,12 +775,12 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       final _hoursString = '${_splitOffset[1]}${_splitOffset[2]}';
       // blog('_hoursString : $_hoursString');
-      final int _hours = transformStringToInt(_hoursString);
+      final int _hours = Numeric.transformStringToInt(_hoursString);
       // blog('_hours : $_hours');
 
       final _minutesString = '${_splitOffset[4]}${_splitOffset[5]}';
       // blog('_minutesString : $_minutesString');
-      final int _minutes = transformStringToInt(_minutesString);
+      final int _minutes = Numeric.transformStringToInt(_minutesString);
       // blog('_minutes : $_minutes');
 
       _output = _isPlus == true ?
