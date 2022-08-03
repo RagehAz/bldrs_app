@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/c_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -32,43 +32,12 @@ class ReviewCreatorTextBalloonPart extends StatelessWidget {
   final Function onSubmitReview;
   final double flyerBoxWidth;
   final TextEditingController reviewTextController;
-  /// --------------------------------------------------------------------------
-  static double reviewBubbleCornerValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required double bubbleMarginValue,
-  }){
-
-    // final double _expandedPageCornerValue = ReviewPageStarter.expandedCornerValue(
-    //     context: context,
-    //     flyerBoxWidth: flyerBoxWidth
-    // );
-    //
-    // final double _reviewBubbleCornerValue = _expandedPageCornerValue - bubbleMarginValue;
-    // return _reviewBubbleCornerValue;
-    return 0;
-  }
-// -----------------------------------------------------------------------------
-  static BorderRadius reviewBubbleBorders({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required double bubbleMarginValue,
-  }){
-    final double _reviewBubbleCornerValue = reviewBubbleCornerValue(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      bubbleMarginValue: bubbleMarginValue,
-    );
-    return Borderers.superBorderAll(context, _reviewBubbleCornerValue);
-  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _reviewBalloonBorders = reviewBubbleBorders(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      bubbleMarginValue: bubbleMarginValue,
+    final BorderRadius _reviewBalloonBorders = ReviewBubble.reviewBubbleBorders(
+        context: context,
     );
 
     return GestureDetector(

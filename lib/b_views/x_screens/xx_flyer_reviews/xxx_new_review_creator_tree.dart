@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_review_creator_text_b
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_review_user_image_balloon_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,9 +68,9 @@ class NewReviewCreatorTree extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('review_bubble_key'),
       width: pageWidth,
-      margin: EdgeInsets.only(bottom: _bubbleMarginValue),
+      margin: EdgeInsets.only(bottom: _bubbleMarginValue, top: _bubbleMarginValue),
       // padding: EdgeInsets.symmetric(vertical: _bubbleMarginValue,),
-        color: Colorz.blackSemi255,
+      //   color: Colorz.blackSemi255,
       // decoration: BoxDecoration(
         // borderRadius: ReviewPageStarter.getBorders(
         //     context: context,

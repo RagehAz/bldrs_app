@@ -28,30 +28,10 @@ class ReviewBubble extends StatelessWidget {
     return Ratioz.appBarMargin;
   }
 // -----------------------------------------------------------------------------
-  static double reviewBubbleCornerValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-  }){
-
-    // final double _expandedPageCornerValue = ReviewPageStarter.expandedCornerValue(
-    //     context: context,
-    //     flyerBoxWidth: flyerBoxWidth
-    // );
-    //
-    // final double _reviewPageMargin = bubbleMarginValue();
-    // final double _reviewBubbleCornerValue = _expandedPageCornerValue - _reviewPageMargin;
-    return 0; //_reviewBubbleCornerValue;
-  }
-// -----------------------------------------------------------------------------
   static BorderRadius reviewBubbleBorders({
     @required BuildContext context,
-    @required double flyerBoxWidth,
 }){
-    final double _reviewBubbleCornerValue = reviewBubbleCornerValue(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    return Borderers.superBorderAll(context, _reviewBubbleCornerValue);
+    return Borderers.superBorderAll(context, Ratioz.appBarCorner);
   }
 // -----------------------------------------------------------------------------
   @override
