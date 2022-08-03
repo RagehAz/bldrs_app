@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/ops/record_ops.dart';
@@ -10,13 +11,13 @@ class ReviewProtocols {
   ReviewProtocols();
 
 // -----------------------------------------------------------------------------
-  static Future<void> composeReview({
+  static Future<ReviewModel> composeReview({
     @required BuildContext context,
     @required String text,
     @required String flyerID,
 }) async {
 
-    await ReviewRealOps.createReview(
+    final ReviewModel _uploadedReview = await ReviewRealOps.createReview(
         context: context,
         text: text,
         flyerID: flyerID,
@@ -31,6 +32,7 @@ class ReviewProtocols {
         ),
     );
 
+    return _uploadedReview;
   }
 // -----------------------------------------------------------------------------
 }

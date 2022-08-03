@@ -411,7 +411,7 @@ class FlyerModel {
     blog('score : $score');
     SlideModel.blogSlides(slides);
 
-    blog('FLYER-PRINT --------------------------------------------------END');
+    blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
   }
 // ------------------------------------------
   /// TESTED : WORKS PERFECT

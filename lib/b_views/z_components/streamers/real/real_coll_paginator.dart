@@ -11,7 +11,7 @@ class RealCollPaginator extends StatefulWidget {
     @required this.nodePath,
     this.scrollController,
     this.limit = 5,
-    this.realOrderBy = RealOrderBy.key,
+    this.realOrderBy,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,11 +19,20 @@ class RealCollPaginator extends StatefulWidget {
   final ScrollController scrollController;
   final String nodePath;
   final int limit;
-  final RealOrderBy realOrderBy;
+  final RealPaginator realOrderBy;
   /// --------------------------------------------------------------------------
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
 /// --------------------------------------------------------------------------
+  static bool shouldPaginate({
+    @required double max,
+    @required double current,
+    @required double paginationHeight,
+    @required bool canPaginate
+  }){
+    return (max - current <= paginationHeight) && (canPaginate == true);
+  }
+// -----------------------------------------------------------------------------
 }
 
 class _RealCollPaginatorState extends State<RealCollPaginator> {

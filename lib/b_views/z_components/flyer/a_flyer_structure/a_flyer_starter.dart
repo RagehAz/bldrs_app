@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -13,7 +14,6 @@ import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/footer_controller.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -47,10 +47,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
     if (mounted == true){
       _loading.value = setTo;
     }
-    blogLoading(
-      loading: _loading.value,
-      callerName: 'FlyerStarter',
-    );
+    // blogLoading(
+    //   loading: _loading.value,
+    //   callerName: 'FlyerStarter',
+    // );
   }
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
@@ -84,7 +84,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
   void didChangeDependencies() {
     if (_isInit && mounted && _flyerModel != null && _flyerModel?.id != null) {
 
-      _flyerModel.blogFlyer(methodName: 'Flyer Starter : didChangeDependencies');
+      // _flyerModel.blogFlyer(methodName: 'Flyer Starter : didChangeDependencies');
 
       _triggerLoading(setTo: true).then((_) async {
         BzModel _bzModel;
