@@ -11,10 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 
-enum RealOrderBy{
-  child,
-  key,
-  value,
+class RealPaginator{
+
+  const RealPaginator({
+    this.orderByField,
+    this.keyField,
+});
+
+  final String orderByField;
+  final String keyField;
+  // final value,
 }
 /// --------------------------------------------------------------------------
 class Real {
@@ -28,7 +34,7 @@ class Real {
 
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
-  static DatabaseReference  _getRef(){
+  static DatabaseReference  getRef(){
     return FirebaseDatabase.instance.ref();
   }
 // ----------------------------------------
@@ -234,7 +240,7 @@ class Real {
 
   }
 // ----------------------------------------
-  /// TESTED : ...
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required BuildContext context,
     @required String pathWithoutDocName,
@@ -243,7 +249,9 @@ class Real {
     String docName,
   }) async {
 
-    Map<String, dynamic> _output;
+    // blog('X - createDocInPath ================================ START');
+
+    Map<String, dynamic> _map = map;
     String _docID;
 
     await tryAndCatch(
@@ -259,18 +267,13 @@ class Real {
         );
 
         /// ADD EVENT LISTENER
-        final StreamSubscription _sub = _ref.onValue.listen((DatabaseEvent event){
+        final StreamSubscription _sub = _ref.onChildAdded.listen((DatabaseEvent event){
 
           _docID = event.previousChildKey;
 
-          _output = Mapper.getMapFromDataSnapshot(
-            snapshot: event.snapshot,
-            onNull: () => blog('Real.createNamedDoc : failed to create doc '),
-          );
-
           if (addDocIDToOutput == true){
-            _output = Mapper.insertPairInMap(
-              map: _output,
+            _map = Mapper.insertPairInMap(
+              map: _map,
               key: 'id',
               value: _docID,
             );
@@ -283,7 +286,8 @@ class Real {
         }
 
         /// CREATE
-        await _ref.set(map);
+        await _ref.set(_map);
+
 
         /// CANCEL EVENT LISTENER
         await _sub.cancel();
@@ -292,13 +296,16 @@ class Real {
     );
 
 
-    if (_output != null){
-      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : $map');
+    if (_map != null){
+      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : $_map');
     }
 
-    return _output;
-  }
+    // blog('X - createDocInPath ================================ END');
 
+    return _map;
+  }
+// ----------------------------------------
+  /*
   // static Future<Map<String, dynamic>> createNamedDocInPath({
   //   @required BuildContext context,
   //   @required String path,
@@ -325,14 +332,15 @@ class Real {
   //
   //
   // }
+   */
 // -----------------------------------------------------------------------------
 
   /// READ
 
 // ----------------------------------------
-  static Query _createQuery({
+  static Query createQuery({
     @required DatabaseReference ref,
-    @required RealOrderBy realOrderBy,
+    @required RealPaginator realPaginator,
     int limit,
     bool limitToFirst = false,
     Map<String, dynamic> startAfter,
@@ -340,35 +348,53 @@ class Real {
 
     Query _query = ref;
 
-    if (realOrderBy != null){
+    /// ORDER BY
+    if (realPaginator != null){
 
-      if (realOrderBy == RealOrderBy.key){
-        _query = _query.orderByKey();
+      if (realPaginator.orderByField != null){
+        _query = _query.orderByChild(realPaginator.orderByField);
       }
-      else if (realOrderBy == RealOrderBy.child){
-        _query = _query.orderByChild(ref.path);
-      }
-      else if (realOrderBy == RealOrderBy.value){
-        _query = _query.orderByValue();
-      }
+      // else if (realOrderBy == RealOrderBy.child){
+      //   _query = _query.orderByChild(ref.path);
+      // }
+      // else if (realOrderBy == RealOrderBy.value){
+      //   _query = _query.orderByValue();
+      // }
 
     }
 
+    /// LIMIT
     if (limit != null){
 
       if (limitToFirst == true){
-        _query = _query.limitToLast(limit);
+        _query = _query.limitToFirst(limit);
       }
       else {
-        _query = _query.limitToFirst(limit);
+        _query = _query.limitToLast(limit);
       }
 
     }
 
+    /// START AFTER
     if (startAfter != null){
-      _query = _query.startAfter(startAfter['id'],
-          // key: startAfter['id']
-      );
+
+      if (realPaginator?.orderByField != null){
+
+        _query = _query.startAfter(
+          startAfter[realPaginator.orderByField],
+        );
+
+        if (realPaginator?.keyField != null){
+
+          _query = _query.startAfter(
+            startAfter[realPaginator.orderByField],
+            // key: startAfter[realPaginator.keyField],
+          );
+
+        }
+
+      }
+
     }
 
     return _query;
@@ -377,7 +403,7 @@ class Real {
   static Future<List<Map<String, dynamic>>> readColl({
     @required BuildContext context,
     @required String nodePath,
-    RealOrderBy realOrderBy,
+    RealPaginator realOrderBy,
     Map<String, dynamic> startAfter,
     int limit,
     bool limitToFirst,
@@ -392,9 +418,9 @@ class Real {
 
           final DatabaseReference _ref = _getRefByPath(path: nodePath);
 
-          final Query _query = _createQuery(
+          final Query _query = createQuery(
             ref: _ref,
-            realOrderBy: realOrderBy,
+            realPaginator: realOrderBy,
             limit: limit,
             limitToFirst: limitToFirst,
             startAfter: startAfter,
@@ -453,7 +479,7 @@ class Real {
 
     Map<String, dynamic> _output;
 
-    final DatabaseReference ref = _getRef();
+    final DatabaseReference ref = getRef();
 
     final String _path = _createPath(
       collName: collName,
@@ -840,6 +866,32 @@ class Real {
   }
 // -----------------------------------------------------------------------------
 
+  /// BLOG
+
+// ----------------------------------------
+  static void blogDatabaseEvent({
+  @required DatabaseEvent event,
+  String methodName = 'blogDatabaseEvent',
+}){
+    blog('blogDatabaseEvent : $methodName ----------------------- START');
+
+    blog('event.snapshot : ${event.snapshot}');
+    blog('event.snapshot.value : ${event.snapshot.value}');
+    blog('event.snapshot.key : ${event.snapshot.key}');
+    blog('event.snapshot.children : ${event.snapshot.children}');
+    blog('event.snapshot.ref : ${event.snapshot.ref}');
+    blog('event.snapshot.exists : ${event.snapshot.exists}');
+    blog('event.snapshot.priority : ${event.snapshot.priority}');
+    blog('event.snapshot.child("id") : ${event.snapshot.child('id')}');
+    blog('event.snapshot.hasChild("id") : ${event.snapshot.hasChild('id')}');
+    blog('event.type : ${event.type}');
+    blog('event.type.name : ${event.type.name}');
+    blog('event.type.index : ${event.type.index}');
+    blog('event.previousChildKey : ${event.previousChildKey}');
+
+    blog('blogDatabaseEvent : $methodName ----------------------- END');
+}
+// -----------------------------------------------------------------------------
 }
 
 bool canPaginateThisScroll({

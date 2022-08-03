@@ -301,7 +301,15 @@ class Mapper {
 
       blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
-      _output = Map<String, dynamic>.from(snapshot.value);
+      if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
+        _output = getMapFromInternalHashLinkedMapObjectObject(
+          internalHashLinkedMapObjectObject: snapshot.value,
+        );
+      }
+      else {
+        _output = Map<String, dynamic>.from(snapshot.value);
+      }
+
 
       if (addDocID == true){
         _output = insertPairInMap(
@@ -476,6 +484,43 @@ class Mapper {
     // assert(_output != null, 'DO NOT CONTINUE BITCH');
 
     return _output;
+  }
+// -------------------------------------
+
+  static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
+    @required Object internalHashLinkedMapObjectObject,
+  }){
+    final Map<String, dynamic> _map = Map.from(internalHashLinkedMapObjectObject);
+    return _map;
+  }
+// -------------------------------------
+  static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
+    @required Object internalHashLinkedMapObjectObject,
+  }){
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (internalHashLinkedMapObjectObject != null){
+
+      final Map<String, dynamic> _bigMap = Map.from(internalHashLinkedMapObjectObject);
+      final List<String> _ids = _bigMap.keys.toList();
+
+      for (final String id in _ids){
+
+        Map<String, dynamic> _map = Map.from(_bigMap[id]);
+
+        _map = insertPairInMap(
+            map: _map,
+            key: 'id',
+            value: id,
+        );
+
+        _maps.add(_map);
+
+      }
+
+    }
+
+    return _maps;
   }
 // -----------------------------------------------------------------------------
 
