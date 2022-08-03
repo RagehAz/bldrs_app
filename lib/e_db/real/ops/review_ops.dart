@@ -9,11 +9,12 @@ class ReviewRealOps {
   const ReviewRealOps();
 
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String createRealPath(String flyerID){
     return '/${RealColl.reviews}/$flyerID';
   }
 // -----------------------------------------------------------------------------
-  static Future<void> createReview({
+  static Future<ReviewModel> createReview({
     @required BuildContext context,
     @required String text,
     @required String flyerID,
@@ -24,13 +25,18 @@ class ReviewRealOps {
       flyerID: flyerID,
     );
 
-    await Real.createDocInPath(
+    final Map<String, dynamic> _uploadedMap = await Real.createDocInPath(
         context: context,
         pathWithoutDocName: createRealPath(flyerID),
         addDocIDToOutput: true,
-        map: _review.toMap(toJSON: true),
+        // addDocIDToInput: true,
+        map: _review.toMap(
+            toJSON: true,
+            // includeID: false,
+        ),
     );
 
+    return ReviewModel.decipherReview(map: _uploadedMap, fromJSON: true);
   }
 // -----------------------------------------------------------------------------
 }

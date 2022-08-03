@@ -160,7 +160,7 @@ class RenovateBzProtocols {
     @required BuildContext context,
     @required BzModel bzModel,
   }) async {
-    blog('RenovateBzProtocol.completeBzZoneModel : START');
+    // blog('RenovateBzProtocol.completeBzZoneModel : START');
 
     BzModel _output = bzModel;
 
@@ -179,7 +179,7 @@ class RenovateBzProtocols {
 
     }
 
-    blog('RenovateBzProtocol.completeBzZoneModel : END');
+    // blog('RenovateBzProtocol.completeBzZoneModel : END');
     return _output;
   }
 // ----------------------------------

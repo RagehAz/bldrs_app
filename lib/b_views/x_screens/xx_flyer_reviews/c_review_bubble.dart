@@ -16,6 +16,7 @@ class ReviewBubble extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.reviewModel,
     this.specialReview = false,
+    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class ReviewBubble extends StatelessWidget {
   final double flyerBoxWidth;
   final ReviewModel reviewModel;
   final bool specialReview;
+  final Color color;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
     return Ratioz.appBarMargin;
@@ -48,10 +50,11 @@ class ReviewBubble extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('review_bubble_key'),
       width: pageWidth,
+      color: color,
       margin: EdgeInsets.only(bottom: _bubbleMargin),
       // height: 80,
       child: FutureBuilder(
-        future: UserProtocols.fetchUser(context: context, userID: reviewModel.userID),
+        future: UserProtocols.fetchUser(context: context, userID: reviewModel?.userID),
         builder: (_, AsyncSnapshot<UserModel> snap){
 
           final UserModel _userModel = snap.data;
@@ -78,8 +81,8 @@ class ReviewBubble extends StatelessWidget {
                   bubbleMargin: _bubbleMargin,
                   flyerBoxWidth: flyerBoxWidth,
                   reviewBoxWidth: _reviewBoxWidth,
-                  reviewText: reviewModel.text,
-                  reviewTimeStamp: reviewModel.time,
+                  reviewText: reviewModel?.text,
+                  reviewTimeStamp: reviewModel?.time,
                   specialReview: specialReview,
                 ),
 
