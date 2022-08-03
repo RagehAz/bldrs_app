@@ -34,7 +34,7 @@ class RealHttpTestScreen extends StatelessWidget {
           icon: Iconz.addFlyer,
           onTap: () async {
 
-            final String _randomID = createUniqueID().toString();
+            final String _randomID = Numeric.createUniqueID().toString();
 
             final RecordModel _recordModel = RecordModel.createSaveRecord(
               userID: AuthFireOps.superUserID(),
@@ -81,7 +81,7 @@ class RealHttpTestScreen extends StatelessWidget {
           icon: Iconz.addFlyer,
           onTap: () async {
 
-            final String _randomID = createUniqueID().toString();
+            final String _randomID = Numeric.createUniqueID().toString();
 
             final FlyerCounterModel _flyerStats = FlyerCounterModel.createInitialModel(_randomID);
 

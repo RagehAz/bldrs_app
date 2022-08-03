@@ -95,7 +95,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
         /// GENERATE CROPPED FILES
         final List<File> _files = await Filers.getFilesFromUint8Lists(
           uInt8Lists: _croppedImages.value,
-          fileName: createUniqueID().toString(),//widget.filesName,
+          fileName: Numeric.createUniqueID().toString(),//widget.filesName,
         );
 
         await _triggerLoading(setTo: false);

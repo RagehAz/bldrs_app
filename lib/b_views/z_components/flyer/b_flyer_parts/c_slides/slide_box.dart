@@ -30,6 +30,7 @@ class SlideBox extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return AbsorbPointer(
       absorbing: !_canTapSlide(),
       child: SizedBox(
@@ -63,5 +64,6 @@ class SlideBox extends StatelessWidget {
       ),
 
     );
+    
   }
 }

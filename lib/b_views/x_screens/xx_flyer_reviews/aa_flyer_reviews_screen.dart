@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_s
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -27,8 +26,6 @@ class FlyerReviewsScreen extends StatefulWidget {
 
 class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
 
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -65,11 +62,13 @@ class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
+      hasKeyboard: false,
       layoutWidget: Column(
         children: <Widget>[
 
           const Stratosphere(),
 
+          /// SLIDES
           SizedBox(
             width: _screenWidth,
             height: _slidesShelfHeight,
@@ -105,22 +104,16 @@ class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
             color: Colorz.bloodTest,
           ),
 
+          /// REVIEWS
           Container(
             width: _screenWidth,
             height: _reviewsBozHeight,
             color: Colorz.grey80,
             child: SubmittedReviews(
-              flyerID: widget.flyerModel.id,
+              flyerModel: widget.flyerModel,
               flyerBoxWidth: _screenWidth,
               pageWidth: _screenWidth - 10,
               pageHeight: _reviewsBozHeight - 10,
-              reviewPageVerticalController: _scrollController,
-              reviewTextController: _textController,
-              onSubmit: () => onReviewFlyer(
-                context: context,
-                flyerModel: widget.flyerModel,
-                text: _textController.text,
-              ),
             ),
           ),
 

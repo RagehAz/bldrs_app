@@ -227,8 +227,8 @@ class RandomStar extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return Positioned(
-      left: (createRandomIndex(listLength: 100) / 100) * _screenWidth,
-      bottom: (createRandomIndex(listLength: 100) / 100) * _screenHeight,
+      left: (Numeric.createRandomIndex(listLength: 100) / 100) * _screenWidth,
+      bottom: (Numeric.createRandomIndex(listLength: 100) / 100) * _screenHeight,
       child: SuperImage(
         width: size,
         height: size,
