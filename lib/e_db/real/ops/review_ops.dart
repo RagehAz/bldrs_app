@@ -46,7 +46,7 @@ class ReviewFireOps {
         input: _review.toMap(),
     );
 
-    return _review.copyWith(id: _ref.id);
+    return _review.copyWith(id: _ref?.id);
   }
 // -----------------------------------------------------------------------------
 }
