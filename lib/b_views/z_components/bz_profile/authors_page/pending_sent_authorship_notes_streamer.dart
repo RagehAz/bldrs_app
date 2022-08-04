@@ -79,7 +79,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
     return FireCollStreamer(
-      queryParameters: bzSentPendingAuthorshipNotesStreamQueryModel(
+      queryModel: bzSentPendingAuthorshipNotesStreamQueryModel(
         bzID: _bzModel.id,
         onDataChanged: _onStreamDataChanged,
       ),

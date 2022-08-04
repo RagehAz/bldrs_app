@@ -384,14 +384,14 @@ class Real {
           startAfter[realPaginator.orderByField],
         );
 
-        if (realPaginator?.keyField != null){
-
-          _query = _query.startAfter(
-            startAfter[realPaginator.orderByField],
-            // key: startAfter[realPaginator.keyField],
-          );
-
-        }
+        // if (realPaginator?.keyField != null){
+        //
+        //   _query = _query.startAfter(
+        //     startAfter[realPaginator.orderByField],
+        //     // key: startAfter[realPaginator.keyField],
+        //   );
+        //
+        // }
 
       }
 
@@ -875,22 +875,49 @@ class Real {
 }){
     blog('blogDatabaseEvent : $methodName ----------------------- START');
 
-    blog('event.snapshot : ${event.snapshot}');
-    blog('event.snapshot.value : ${event.snapshot.value}');
-    blog('event.snapshot.key : ${event.snapshot.key}');
-    blog('event.snapshot.children : ${event.snapshot.children}');
-    blog('event.snapshot.ref : ${event.snapshot.ref}');
-    blog('event.snapshot.exists : ${event.snapshot.exists}');
-    blog('event.snapshot.priority : ${event.snapshot.priority}');
-    blog('event.snapshot.child("id") : ${event.snapshot.child('id')}');
-    blog('event.snapshot.hasChild("id") : ${event.snapshot.hasChild('id')}');
-    blog('event.type : ${event.type}');
-    blog('event.type.name : ${event.type.name}');
-    blog('event.type.index : ${event.type.index}');
-    blog('event.previousChildKey : ${event.previousChildKey}');
+    if (event != null){
+      blog('event.snapshot : ${event.snapshot}');
+      blog('event.snapshot.value : ${event.snapshot.value}');
+      blog('event.snapshot.key : ${event.snapshot.key}');
+      blog('event.snapshot.children : ${event.snapshot.children}');
+      blog('event.snapshot.ref : ${event.snapshot.ref}');
+      blog('event.snapshot.exists : ${event.snapshot.exists}');
+      blog('event.snapshot.priority : ${event.snapshot.priority}');
+      blog('event.snapshot.child("id") : ${event.snapshot.child('id')}');
+      blog('event.snapshot.hasChild("id") : ${event.snapshot.hasChild('id')}');
+      blog('event.type : ${event.type}');
+      blog('event.type.name : ${event.type.name}');
+      blog('event.type.index : ${event.type.index}');
+      blog('event.previousChildKey : ${event.previousChildKey}');
+    }
+    else {
+      blog('event is null');
+    }
+
 
     blog('blogDatabaseEvent : $methodName ----------------------- END');
 }
+// ----------------------------------------
+  static void blogDataSnapshot ({
+    @required DataSnapshot snapshot,
+    String methodName = 'blogDataSnapshot',
+  }){
+    blog('blogDataSnapshot : $methodName ----------------------- START');
+    if (snapshot != null){
+      blog('snapshot.value : ${snapshot.value}');
+      blog('snapshot.value.runtimeType : ${snapshot.value.runtimeType}');
+      blog('snapshot.children : ${snapshot.children}');
+      blog('snapshot.priority : ${snapshot.priority}');
+      blog('snapshot.exists : ${snapshot.exists}');
+      blog('snapshot.ref : ${snapshot.ref}');
+      blog('snapshot.hasChild("id") : ${snapshot.hasChild('id')}');
+      blog('snapshot.child("id") : ${snapshot.child('id')}');
+    }
+    else {
+      blog('snapshot is null');
+    }
+    blog('blogDataSnapshot : $methodName ----------------------- END');
+  }
 // -----------------------------------------------------------------------------
 }
 

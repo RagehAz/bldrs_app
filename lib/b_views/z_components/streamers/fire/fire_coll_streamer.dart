@@ -9,13 +9,13 @@ import 'package:flutter/material.dart';
 class FireCollStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FireCollStreamer({
-    @required this.queryParameters,
+    @required this.queryModel,
     @required this.builder,
     this.loadingWidget,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FireQueryModel queryParameters;
+  final FireQueryModel queryModel;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
@@ -77,22 +77,19 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     super.initState();
 
     _stream = Fire.streamCollection(
-      collName: widget.queryParameters.collName,
-      limit: widget.queryParameters.limit ?? 100,
-      orderBy: widget.queryParameters.orderBy,
-      finders: widget.queryParameters.finders,
+      queryModel: widget.queryModel,
     );
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
-      onChange: widget.queryParameters.onDataChanged == null ?
+      onChange: widget.queryModel.onDataChanged == null ?
       null
           :
           (List<Map<String, dynamic>> newMaps){
 
         if (mounted == true){
-          widget.queryParameters.onDataChanged(newMaps);
+          widget.queryModel.onDataChanged(newMaps);
         }
 
           },
@@ -120,7 +117,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
     return StreamBuilder(
       stream: _stream,
-      initialData: widget.queryParameters.initialMaps ?? <Map<String, dynamic>>[],
+      initialData: widget.queryModel.initialMaps ?? <Map<String, dynamic>>[],
       builder: (BuildContext ctx, AsyncSnapshot<dynamic> snapshot) {
 
         if (snapshot.connectionState == ConnectionState.waiting) {

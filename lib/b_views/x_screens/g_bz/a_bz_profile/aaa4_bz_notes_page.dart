@@ -216,7 +216,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
           return FireCollPaginator(
               scrollController: _scrollController,
-              queryParameters: bzReceivedNotesPaginationQueryParameters(
+              queryModel: bzReceivedNotesPaginationQueryParameters(
                   bzID: _bzModel.id,
                   onDataChanged: _onPaginatorDataChanged,
               ),
