@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/scrollers.dart' as Scrollers;
+import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -84,7 +84,7 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
         key: widget.notificationListenerKey,
         onNotification: (ScrollUpdateNotification details) {
 
-          final bool _canSlide = Scrollers.canSlide(
+          final bool _canSlide = Scrollers.checkCanSlide(
             details: details,
             boxDistance: _boxDistance,
             numberOfBoxes: widget.numberOfScreens,

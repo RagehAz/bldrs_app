@@ -83,7 +83,6 @@ String pathOfSubDoc({
     @required String aCollName,
     String bDocName,
     String cSubCollName,
-    String dSubDocName,
   }) {
 
     assert(
@@ -96,9 +95,10 @@ String pathOfSubDoc({
     CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
 
     if (bDocName != null && cSubCollName != null){
-
-      _ref = _ref.doc(bDocName).collection(dSubDocName);
-
+      _ref = _fireInstance
+          .collection(aCollName)
+          .doc(bDocName)
+          .collection(cSubCollName);
     }
 
     return _ref;
