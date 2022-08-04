@@ -24,14 +24,6 @@ class RealCollPaginator extends StatefulWidget {
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
 /// --------------------------------------------------------------------------
-  static bool shouldPaginate({
-    @required double max,
-    @required double current,
-    @required double paginationHeight,
-    @required bool canPaginate
-  }){
-    return (max - current <= paginationHeight) && (canPaginate == true);
-  }
 // -----------------------------------------------------------------------------
 }
 
