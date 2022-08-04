@@ -52,7 +52,7 @@ class _StreamingTestState extends State<StreamingTest> {
     super.initState();
 
     _queryParameters = FireQueryModel(
-      collName: 'testing',
+      collRef: Fire.createSuperCollRef(aCollName: 'testing'),
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
       onDataChanged: onDataChanged,
@@ -169,7 +169,7 @@ class _StreamingTestState extends State<StreamingTest> {
               SizedBox(
                 width: Scale.superScreenWidth(context) * 0.5,
                 child: FireCollStreamer(
-                  queryParameters: _queryParameters,
+                  queryModel: _queryParameters,
                   builder: (_, List<Map<String, dynamic>> _maps){
 
                     return Column(

@@ -31,7 +31,7 @@ class FetchZoneProtocols {
     CountryModel _countryModel = await ZoneLDBOps.readCountry(countryID);
 
     if (_countryModel != null){
-      blog('fetchCountry : ($countryID) CountryModel FOUND in LDB');
+      // blog('fetchCountry : ($countryID) CountryModel FOUND in LDB');
     }
 
     else {
@@ -42,7 +42,7 @@ class FetchZoneProtocols {
       );
 
       if (_countryModel != null){
-        blog('fetchCountry : ($countryID) CountryModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchCountry : ($countryID) CountryModel FOUND in FIRESTORE and inserted in LDB');
 
         await ZoneLDBOps.insertCountry(_countryModel);
 
@@ -50,9 +50,9 @@ class FetchZoneProtocols {
 
     }
 
-    if (_countryModel == null){
-      blog('fetchCountry : ($countryID) CountryModel NOT FOUND');
-    }
+    // if (_countryModel == null){
+    //   blog('fetchCountry : ($countryID) CountryModel NOT FOUND');
+    // }
 
     return _countryModel;
   }
@@ -96,7 +96,7 @@ class FetchZoneProtocols {
     CityModel _cityModel = await ZoneLDBOps.readCity(cityID);
 
     if (_cityModel != null){
-      blog('fetchCity : ($cityID) CityModel FOUND in LDB');
+      // blog('fetchCity : ($cityID) CityModel FOUND in LDB');
     }
 
     else {
@@ -107,7 +107,7 @@ class FetchZoneProtocols {
       );
 
       if (_cityModel != null){
-        blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchCity : ($cityID) CityModel FOUND in FIRESTORE and inserted in LDB');
 
         await ZoneLDBOps.insertCity(_cityModel);
 
@@ -116,7 +116,7 @@ class FetchZoneProtocols {
     }
 
     if (_cityModel == null){
-      blog('fetchCity : ($cityID) CityModel NOT FOUND');
+      // blog('fetchCity : ($cityID) CityModel NOT FOUND');
     }
 
     return _cityModel;

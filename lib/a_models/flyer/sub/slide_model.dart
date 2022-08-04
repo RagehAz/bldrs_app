@@ -63,9 +63,6 @@ class SlideModel {
 // -------------------------------------
   static SlideModel decipherSlide(dynamic map) {
 
-    blog(map['matrix'].runtimeType);
-    blog(map['matrix']);
-
     return SlideModel(
       slideIndex: map['slideIndex'],
       pic: map['picture'],

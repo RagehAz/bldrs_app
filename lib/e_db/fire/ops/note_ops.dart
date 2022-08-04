@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -305,11 +306,16 @@ class NoteFireOps {
         functions: () {
 
           final Stream<QuerySnapshot<Object>> _querySnapshots = Fire.streamCollection(
-            collName: FireColl.notes,
-            startAfter: startAfter,
-            limit: limit,
-            orderBy: orderBy,
-            finders: finders,
+            queryModel: FireQueryModel(
+                collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+                startAfter: startAfter,
+                limit: limit,
+                orderBy: orderBy,
+                finders: finders,
+                onDataChanged: (List<Map<String, dynamic>> maps){
+                  blog('getNoteModelsStream : onDataChanged : ${maps.length} maps');
+                }
+            ),
           );
 
           blog('x getNotiModelsStream : _querySnapshots : $_querySnapshots : id : ${_querySnapshots.first}');

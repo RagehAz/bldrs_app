@@ -8,8 +8,8 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -25,7 +25,7 @@ FireQueryModel userReceivedNotesPaginationQueryParameters({
 }){
 
   return FireQueryModel(
-    collName: FireColl.notes,
+    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     finders: <FireFinder>[

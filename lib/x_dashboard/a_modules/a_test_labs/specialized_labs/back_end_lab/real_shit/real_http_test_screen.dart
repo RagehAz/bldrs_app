@@ -2,9 +2,11 @@ import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
@@ -156,11 +158,11 @@ class RealHttpTestScreen extends StatelessWidget {
           height: Scale.superScreenHeight(context),
           color: Colorz.bloodTest,
           child: FireCollStreamer(
-            queryParameters: FireQueryModel(
-              collName: FireColl.records,
+            queryModel: FireQueryModel(
+              collRef: Fire.createSuperCollRef(aCollName: FireColl.records),
               limit: 100,
               onDataChanged: (List<Map<String, dynamic>> newMaps){
-
+                blog('realHTTPTestScreen : FireCollStreamer : onDataChanged : $newMaps');
               }
             ),
             builder: (_, List<Map<String, dynamic>> maps){

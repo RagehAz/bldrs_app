@@ -51,10 +51,10 @@ class SubmittedReviewTextBalloonPart extends StatelessWidget {
 
           /// REVIEW TIME
           SuperVerse(
-            verse: '${Timers.calculateTimeDifferenceInMinutes(
+            verse: Timers.calculateSuperTimeDifferenceString(
               from: reviewTimeStamp,
               to: DateTime.now(),
-            )} minutes ago',
+            ),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.white200,

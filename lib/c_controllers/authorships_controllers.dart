@@ -12,8 +12,8 @@ import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
-import 'package:bldrs/e_db/fire/fire_models/query_models/query_order_by.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/note_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -32,7 +32,7 @@ FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
 }){
 
   return FireQueryModel(
-    collName: FireColl.notes,
+    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
     limit: 50,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     onDataChanged: onDataChanged,
@@ -68,7 +68,7 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 }){
 
   return FireQueryModel(
-    collName: FireColl.notes,
+    collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
     limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
     onDataChanged: onDataChanged,

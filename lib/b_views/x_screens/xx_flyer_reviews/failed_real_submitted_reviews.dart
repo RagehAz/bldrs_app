@@ -1,7 +1,10 @@
+/*
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/c_review_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/xxx_new_review_creator_tree.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
@@ -12,9 +15,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 
-class SubmittedReviews extends StatefulWidget {
+class FailedRealSubmittedReviewsAttempt extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const SubmittedReviews({
+  const FailedRealSubmittedReviewsAttempt({
     @required this.pageWidth,
     @required this.pageHeight,
     @required this.flyerBoxWidth,
@@ -28,11 +31,11 @@ class SubmittedReviews extends StatefulWidget {
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
-  State<SubmittedReviews> createState() => _SubmittedReviewsState();
+  State<FailedRealSubmittedReviewsAttempt> createState() => _FailedRealSubmittedReviewsAttemptState();
 /// --------------------------------------------------------------------------
 }
 
-class _SubmittedReviewsState extends State<SubmittedReviews> {
+class _FailedRealSubmittedReviewsAttemptState extends State<FailedRealSubmittedReviewsAttempt> {
 // -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<List<ReviewModel>> _reviews = ValueNotifier(<ReviewModel>[]);
@@ -190,84 +193,147 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   @override
   Widget build(BuildContext context) {
 
-    return FirebaseAnimatedList(
-      query: Real.createQuery(
-        ref: Real.getRef().child('reviews'),
-        realPaginator: const RealPaginator(orderByField: 'time'),
-        startAfter: _startAfter,
-        limit: 3,
-        // limitToFirst: false,
-      ),
+    blog('e55ee');
 
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (_, DataSnapshot snapshot, Animation<double> animation, int i){
+    return SizedBox(
+      width: widget.pageWidth,
+      height: widget.pageHeight,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: <Widget>[
 
-        final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
-            internalHashLinkedMapObjectObject: snapshot.value,
-        );
-
-        final List<ReviewModel> _reviews = ReviewModel.decipherReviews(
-          maps: _maps,
-          fromJSON: true,
-        );
-
-        ReviewModel.blogReviews(reviews: _reviews);
-
-        return SizedBox(
-          key: const ValueKey<String>('SubmittedReviews'),
-          width: widget.pageWidth,
-          height: widget.pageHeight,
-          child: ListView.builder(
-            controller: _controller,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(
-              bottom: Ratioz.horizon,
+            NewReviewCreatorTree(
+              pageWidth: widget.pageWidth,
+              flyerBoxWidth: widget.flyerBoxWidth,
+              pageHeight: widget.pageHeight,
+              reviewTextController: _textController,
+              onEditReview: (){blog('SHOULD EDIT REVIEW');},
+              onSubmitReview: () => onReviewFlyer(
+                context: context,
+                flyerModel: widget.flyerModel,
+                text: _textController.text,
+                // reviews: null,
+              ),
             ),
-            itemCount: _reviews.length + 1,
-            itemBuilder: (_, int index){
 
-              if (index == 0 || snapshot.value == null){
-                return NewReviewCreatorTree(
-                  pageWidth: widget.pageWidth,
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  pageHeight: widget.pageHeight,
-                  reviewTextController: _textController,
-                  onEditReview: (){blog('SHOULD EDIT REVIEW');},
-                  onSubmitReview: () => onReviewFlyer(
-                    context: context,
-                    flyerModel: widget.flyerModel,
-                    text: _textController.text,
-                    // reviews: null,
-                  ),
+            FirebaseAnimatedList(
+              query: Real.getRef().child('reviews').child(widget.flyerModel.id).orderByChild('number').limitToLast(50),
+              // query: Real.createQuery(
+              //   ref: Real.getRef().child('reviews'),
+              //   realPaginator: const RealPaginator(orderByField: 'number'),
+              //   startAfter: _startAfter,
+              //   limit: 2,
+              //   limitToFirst: false,
+              // ),
+              duration: const Duration(milliseconds: 500),
+              defaultChild: const Loading(loading: true),
+              reverse: true,
+              shrinkWrap: true,
+              sort: (DataSnapshot a, DataSnapshot b){
+                final ReviewModel _reviewA = ReviewModel.decipherFromDataSnapshot(a);
+                final ReviewModel _reviewB = ReviewModel.decipherFromDataSnapshot(b);
+                final int _comparison = _reviewA.number.compareTo(_reviewB.number);
+                return _comparison;
+              },
+              controller: _controller,
+              physics: const BouncingScrollPhysics(),
+              primary: false,
+              itemBuilder: (_, DataSnapshot snapshot, Animation<double> animation, int i){
+
+                Real.blogDataSnapshot(
+                  snapshot: snapshot,
+                  methodName: '( $i ) : A777aa Submitted Reviews',
                 );
-              }
 
-              else {
-
-                final ReviewModel _review = _reviews[index - 1];
-
-                final bool _isLastReview = ReviewModel.checkReviewsAreIdentical(
-                  review1: _review,
-                  review2: ReviewModel.decipherReview(map: _startAfter,fromJSON: true),
+                final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+                    internalHashLinkedMapObjectObject: snapshot.value,
                 );
+
+                final ReviewModel _review = ReviewModel.decipherReview(map: _map, fromJSON: true);
 
                 return ReviewBubble(
                   pageWidth : widget.pageWidth,
-                  color: _isLastReview == true ? Colorz.bloodTest : Colorz.blue80,
+                  // color: _isLastReview == true ? Colorz.bloodTest : Colorz.blue80,
                   flyerBoxWidth: widget.flyerBoxWidth,
-                  reviewModel: _reviews[index - 1],
+                  reviewModel: _review,
                   // specialReview: true,
                 );
 
-              }
+
+                final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(
+                  internalHashLinkedMapObjectObject: snapshot.value,
+                );
+
+                final List<ReviewModel> _reviews = ReviewModel.decipherReviews(
+                  maps: _maps,
+                  fromJSON: true,
+                );
+
+                _startAfter = _maps.last;
+
+                ReviewModel.blogReviews(reviews: _reviews);
+
+                return SizedBox(
+                  key: const ValueKey<String>('SubmittedReviews'),
+                  width: widget.pageWidth,
+                  height: widget.pageHeight,
+                  child: ListView.builder(
+                    controller: _controller,
+                    physics: const BouncingScrollPhysics(),
+                    padding: const EdgeInsets.only(
+                      bottom: Ratioz.horizon,
+                    ),
+                    itemCount: _reviews.length,
+                    itemBuilder: (_, int index){
+
+                      // if (index == 0 || snapshot.value == null){
+                      //   return NewReviewCreatorTree(
+                      //     pageWidth: widget.pageWidth,
+                      //     flyerBoxWidth: widget.flyerBoxWidth,
+                      //     pageHeight: widget.pageHeight,
+                      //     reviewTextController: _textController,
+                      //     onEditReview: (){blog('SHOULD EDIT REVIEW');},
+                      //     onSubmitReview: () => onReviewFlyer(
+                      //       context: context,
+                      //       flyerModel: widget.flyerModel,
+                      //       text: _textController.text,
+                      //       // reviews: null,
+                      //     ),
+                      //   );
+                      // }
+                      //
+                      // else {
+
+                        final ReviewModel _review = _reviews[index];
+
+                        final bool _isLastReview = ReviewModel.checkReviewsAreIdentical(
+                          review1: _review,
+                          review2: ReviewModel.decipherReview(map: _startAfter,fromJSON: true),
+                        );
+
+                        return ReviewBubble(
+                          pageWidth : widget.pageWidth,
+                          color: _isLastReview == true ? Colorz.bloodTest : Colorz.blue80,
+                          flyerBoxWidth: widget.flyerBoxWidth,
+                          reviewModel: _reviews[index],
+                          // specialReview: true,
+                        );
+
+                      }
 
 
-            },
-          ),
-        );
+                    // },
+                  ),
+                );
 
 
-      },
+              },
+            ),
+
+          ],
+        ),
+      ),
     );
 
     return SizedBox(
@@ -333,3 +399,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
   }
 }
+
+
+ */

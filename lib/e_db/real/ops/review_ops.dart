@@ -1,12 +1,14 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class ReviewRealOps {
+class ReviewFireOps {
 // -----------------------------------------------------------------------------
 
-  const ReviewRealOps();
+  const ReviewFireOps();
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -25,18 +27,26 @@ class ReviewRealOps {
       flyerID: flyerID,
     );
 
-    final Map<String, dynamic> _uploadedMap = await Real.createDocInPath(
+    // final Map<String, dynamic> _uploadedMap = await Real.createDocInPath(
+    //     context: context,
+    //     pathWithoutDocName: createRealPath(flyerID),
+    //     addDocIDToOutput: true,
+    //     // addDocIDToInput: true,
+    //     map: _review.toMap(
+    //         toJSON: true,
+    //         // includeID: false,
+    //     ),
+    // );
+
+    final DocumentReference<Object> _ref = await Fire.createSubDoc(
         context: context,
-        pathWithoutDocName: createRealPath(flyerID),
-        addDocIDToOutput: true,
-        // addDocIDToInput: true,
-        map: _review.toMap(
-            toJSON: true,
-            // includeID: false,
-        ),
+        collName: FireColl.flyers,
+        docName: flyerID,
+        subCollName: 'reviews',
+        input: _review.toMap(),
     );
 
-    return ReviewModel.decipherReview(map: _uploadedMap, fromJSON: true);
+    return _review.copyWith(id: _ref.id);
   }
 // -----------------------------------------------------------------------------
 }
