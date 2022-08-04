@@ -173,8 +173,8 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
       loading: _loading,
       layoutWidget: FireCollPaginator(
         scrollController: _scrollController,
-        queryParameters: FireQueryModel(
-          collName: FireColl.notes,
+        queryModel: FireQueryModel(
+          collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
           orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
           limit: 5,
           onDataChanged: (List<Map<String, dynamic>> maps){

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/b_submitted_reviews.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/submitted_reviews.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/single_slide.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
