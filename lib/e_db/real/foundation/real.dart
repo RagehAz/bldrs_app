@@ -5,11 +5,10 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/e_db/real/foundation/real_http.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_database/firebase_database.dart' as fireDB;
 
 class RealPaginator{
 
@@ -919,24 +918,4 @@ class Real {
     blog('blogDataSnapshot : $methodName ----------------------- END');
   }
 // -----------------------------------------------------------------------------
-}
-
-bool canPaginateThisScroll({
-  @required ScrollController controller,
-  @required bool canPaginate,
-}){
-
-  bool _can = false;
-
-  final double _maxScroll = controller.position.maxScrollExtent;
-  final double _currentScroll = controller.position.pixels;
-  const double _paginationHeightLight = Ratioz.horizon * 3;
-
-
-  if (_maxScroll - _currentScroll <= _paginationHeightLight && canPaginate == true) {
-    blog('inn : scroll is at : $_currentScroll');
-    _can = true;
-  }
-
-  return _can;
 }

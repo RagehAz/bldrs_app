@@ -15,7 +15,7 @@ Future<void> onReviewFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
   @required String text,
-  // @required ValueNotifier<List<ReviewModel>> reviews,
+  @required ValueNotifier<List<Map<String, dynamic>>> extraMaps,
 }) async {
 
   final ReviewModel _uploadedReview = await ReviewProtocols.composeReview(
@@ -24,7 +24,7 @@ Future<void> onReviewFlyer({
     flyerID: flyerModel.id,
   );
 
-  // reviews.value = <ReviewModel>[_uploadedReview, ...reviews.value,];
+  extraMaps.value = <Map<String, dynamic>>[...extraMaps.value, _uploadedReview.toMap()];
 
 }
 // -----------------------------------------------------------------------------

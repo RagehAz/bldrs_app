@@ -8,7 +8,6 @@ import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart'
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -38,7 +37,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 // -----------------------------------------------------------------------------
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<List<ReviewModel>> _reviews = ValueNotifier(<ReviewModel>[]);
-  // List<Map<String, dynamic>> _maps;
+  final ValueNotifier<List<Map<String, dynamic>>> _extraMapsAdded = ValueNotifier([]);
   ScrollController _controller;
   QueryDocumentSnapshot<Object> _startAfter;
   // bool _canPaginate = true;
@@ -66,7 +65,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.initState();
 
     // _maps = <Map<String, dynamic>>[];
-    // _controller = ScrollController();
+    _controller = ScrollController();
     //
     // _controller.addListener(() async {
     //
@@ -92,24 +91,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
   }
 // -----------------------------------------------------------------------------
-  void blogScrolling({
-    @required double max,
-    @required double current,
-  }) {
-
-    // final double _max = Numeric.roundFractions(max, 1);
-    // final double _current = Numeric.roundFractions(current, 1);
-    //
-    // final bool _shouldPaginate = RealCollPaginator.shouldPaginate(
-    //   max: max,
-    //   current: current,
-    //   paginationHeight: _paginationHeightLight,
-    //   canPaginate: _canPaginate,
-    // );
-    //
-    // blog('SHOULD LOAD : (_max $_max - _current $_current) = ${max-current} : _shouldPaginate $_shouldPaginate');
-
-  }
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
@@ -207,12 +188,8 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             fieldName: 'time',
             descending: true,
           ),
-          startAfter: _startAfter,
-          onDataChanged: (List<Map<String, dynamic>> maps){
-            Mapper.blogMaps(maps, methodName: 'the on data changed AHOOOOO');
-          },
         ),
-        // loadingWidget:,
+        extraMaps: _extraMapsAdded,
         scrollController: _controller,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
 
@@ -241,7 +218,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                     context: context,
                     flyerModel: widget.flyerModel,
                     text: _textController.text,
-                    // reviews: null,
+                    extraMaps: _extraMapsAdded,
                   ),
                 );
               }
