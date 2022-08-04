@@ -28,6 +28,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
@@ -695,24 +696,29 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   return Fire.streamCollection(
-    collName: FireColl.notes,
-    limit: 100,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    finders: <FireFinder>[
+    queryModel: FireQueryModel(
+        collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+        limit: 100,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
 
-      FireFinder(
-        field: 'receiverID',
-        comparison: FireComparison.equalTo,
-        value: _userModel.id,
-      ),
+          FireFinder(
+            field: 'receiverID',
+            comparison: FireComparison.equalTo,
+            value: _userModel.id,
+          ),
 
-      FireFinder(
-        field: 'seen',
-        comparison: FireComparison.equalTo,
-        value: false,
-      ),
+          FireFinder(
+            field: 'seen',
+            comparison: FireComparison.equalTo,
+            value: false,
+          ),
 
-    ],
+        ],
+        onDataChanged: (List<Map<String, dynamic>> maps){
+          blog('_userUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
+        }
+    ),
   );
 
 }
@@ -791,24 +797,29 @@ Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
 }){
 
   final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
-    collName: FireColl.notes,
-    limit: 100,
-    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-    finders: <FireFinder>[
+    queryModel: FireQueryModel(
+        collRef: Fire.createSuperCollRef(aCollName: FireColl.notes),
+        limit: 100,
+        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
+        finders: <FireFinder>[
 
-      FireFinder(
-        field: 'receiverID',
-        comparison: FireComparison.equalTo,
-        value: bzID,
-      ),
+          FireFinder(
+            field: 'receiverID',
+            comparison: FireComparison.equalTo,
+            value: bzID,
+          ),
 
-      FireFinder(
-        field: 'seen',
-        comparison: FireComparison.equalTo,
-        value: false,
-      ),
+          FireFinder(
+            field: 'seen',
+            comparison: FireComparison.equalTo,
+            value: false,
+          ),
 
-    ],
+        ],
+        onDataChanged: (List<Map<String, dynamic>> maps){
+          blog('_bzUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
+        }
+        ),
   );
 
   return _stream;

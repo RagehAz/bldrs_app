@@ -3,6 +3,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
 class ReviewModel {
@@ -133,6 +134,30 @@ class ReviewModel {
       }
     }
     return _reviews;
+  }
+// -----------------------------------------------------------------------------
+
+  /// DECIPHERS OF INTERNAL HASH LINKED MAP OBJECT OBJECT
+
+// --------------------------------------
+  static ReviewModel decipherFromDataSnapshot(DataSnapshot snapshot){
+
+    ReviewModel _review;
+
+    if (snapshot != null && snapshot.value != null){
+
+      final Map<String, dynamic> _map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+        internalHashLinkedMapObjectObject: snapshot.value,
+      );
+
+      _review = ReviewModel.decipherReview(
+        map: _map,
+        fromJSON: true,
+      );
+
+    }
+
+    return _review;
   }
 // -----------------------------------------------------------------------------
 

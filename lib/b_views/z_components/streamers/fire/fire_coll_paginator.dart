@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 class FireCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FireCollPaginator({
-    @required this.queryParameters,
+    @required this.queryModel,
     @required this.builder,
     @required this.scrollController,
     this.loadingWidget,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FireQueryModel queryParameters;
+  final FireQueryModel queryModel;
   final Widget Function(BuildContext, List<Map<String, dynamic>>, bool) builder;
   final Widget loadingWidget;
   final ScrollController scrollController;
@@ -101,21 +101,19 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     _loading.value = true;
 
-    final List<Map<String, dynamic>> _nextMaps = await Fire.readCollectionDocs(
+    final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
       context: context,
-      collName: widget.queryParameters.collName,
-      orderBy: widget.queryParameters.orderBy,
-      startAfter: _startAfter,
-      limit: widget.queryParameters.limit,
+      queryModel: widget.queryModel.copyWith(
+        startAfter: _startAfter,
+      ),
       addDocsIDs: true,
       addDocSnapshotToEachMap: true,
-      finders: widget.queryParameters.finders,
     );
 
     if (Mapper.checkCanLoopList(_nextMaps) == true){
       _maps = [..._maps, ..._nextMaps];
       _startAfter = _maps.last['docSnapshot'];
-      widget.queryParameters.onDataChanged(_maps);
+      widget.queryModel.onDataChanged(_maps);
     }
 
     _loading.value = false;

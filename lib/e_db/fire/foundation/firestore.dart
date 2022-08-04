@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -77,6 +78,31 @@ String pathOfSubDoc({
 
   /// REFERENCES
 
+// ----------------------------
+  static CollectionReference<Object> createSuperCollRef({
+    @required String aCollName,
+    String bDocName,
+    String cSubCollName,
+    String dSubDocName,
+  }) {
+
+    assert(
+    (bDocName == null && cSubCollName == null) || (bDocName != null && cSubCollName != null),
+    'bDocName & cSubCollName should both be null or both have values'
+    );
+
+    final FirebaseFirestore _fireInstance = FirebaseFirestore.instance;
+
+    CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
+
+    if (bDocName != null && cSubCollName != null){
+
+      _ref = _ref.doc(bDocName).collection(dSubDocName);
+
+    }
+
+    return _ref;
+  }
 // ----------------------------
   /// TESTED : WORKS PERFECT
   static CollectionReference<Object> getCollectionRef(String collName) {
@@ -359,6 +385,42 @@ String pathOfSubDoc({
   /// READ
 
 // ----------------------------
+  static Future<List<Map<String, dynamic>>> superCollPaginator({
+    @required BuildContext context,
+    @required FireQueryModel queryModel,
+    bool addDocSnapshotToEachMap = false,
+    bool addDocsIDs = false,
+  }) async {
+
+    List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
+
+    await tryAndCatch(
+        context: context,
+        functions: () async {
+
+
+          final QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+            collRef: queryModel.collRef,
+            orderBy: queryModel.orderBy,
+            limit: queryModel.limit,
+            startAfter: queryModel.startAfter,
+            finders: queryModel.finders,
+          );
+
+          final List<QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+
+          _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
+              queryDocumentSnapshots: _queryDocumentSnapshots,
+              addDocsIDs: addDocsIDs,
+              addDocSnapshotToEachMap: addDocSnapshotToEachMap
+          );
+
+        }
+    );
+
+    return _maps;
+  }
+// ----------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readCollectionDocs({
     @required BuildContext context,
@@ -552,21 +614,15 @@ String pathOfSubDoc({
 // ----------------------------
   /// TESTED : WORKS PERFECT
   static Stream<QuerySnapshot<Object>> streamCollection({
-    @required String collName,
-    QueryOrderBy orderBy,
-    int limit,
-    QueryDocumentSnapshot<Object> startAfter,
-    List<FireFinder> finders,
+    @required FireQueryModel queryModel,
   }) {
 
-    final CollectionReference<Object> _collRef = getCollectionRef(collName);
-
     final Query<Map<String, dynamic>> _query = _superQuery(
-      collRef: _collRef,
-      orderBy: orderBy,
-      startAfter: startAfter,
-      limit: limit,
-      finders: finders,
+      collRef: queryModel.collRef,
+      orderBy: queryModel.orderBy,
+      startAfter: queryModel.startAfter,
+      limit: queryModel.limit,
+      finders: queryModel.finders,
     );
 
     final Stream<QuerySnapshot<Object>> _snapshots = _query.snapshots();

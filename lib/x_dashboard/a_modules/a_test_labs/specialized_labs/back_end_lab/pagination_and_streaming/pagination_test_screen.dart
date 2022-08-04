@@ -43,7 +43,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
     super.initState();
 
     _queryParameters = FireQueryModel(
-      collName: 'testing',
+      collRef: Fire.createSuperCollRef(aCollName: 'testing'),
       limit: 5,
       orderBy: const QueryOrderBy(fieldName: 'time', descending: true),
       onDataChanged: onDataChanged,
@@ -125,7 +125,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
           SizedBox(
             // width: superScreenWidth(context),
             child: FireCollPaginator(
-              queryParameters: _queryParameters,
+              queryModel: _queryParameters,
               scrollController: _scrollController,
               builder: (_, List<Map<String, dynamic>> _maps, bool isLoading){
 

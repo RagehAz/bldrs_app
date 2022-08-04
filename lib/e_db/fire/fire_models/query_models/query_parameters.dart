@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({
-    @required this.collName,
+    @required this.collRef,
     @required this.onDataChanged,
     this.limit,
     this.orderBy,
@@ -15,7 +15,7 @@ class FireQueryModel {
     this.initialMaps,
   });
   /// --------------------------------------------------------------------------
-  final String collName;
+  final CollectionReference<Object> collRef;
   final int limit;
   final QueryOrderBy orderBy;
   final List<FireFinder> finders;
@@ -28,7 +28,7 @@ class FireQueryModel {
 
 // -----------------------------------
   FireQueryModel copyWith({
-    String collName,
+    CollectionReference<Object> collRef,
     int limit,
     QueryOrderBy orderBy,
     List<FireFinder> finders,
@@ -37,7 +37,7 @@ class FireQueryModel {
     List<Map<String, dynamic>> initialMaps,
 }){
     return FireQueryModel(
-      collName: collName ?? this.collName,
+      collRef: collRef ?? this.collRef,
       limit: limit ?? this.limit,
       orderBy: orderBy ?? this.orderBy,
       finders: finders ?? this.finders,

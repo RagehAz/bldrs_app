@@ -20,7 +20,7 @@ class FetchFlyerProtocols {
     FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
 
     if (_flyer != null){
-      blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');
+      // blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');
     }
 
     else {
@@ -31,15 +31,15 @@ class FetchFlyerProtocols {
       );
 
       if (_flyer != null){
-        blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in FIRESTORE and inserted in LDB');
         await FlyerLDBOps.insertFlyer(_flyer);
       }
 
     }
 
-    if (_flyer == null){
-      blog('fetchFlyerByID : ($flyerID) FlyerModel NOT FOUND');
-    }
+    // if (_flyer == null){
+      // blog('fetchFlyerByID : ($flyerID) FlyerModel NOT FOUND');
+    // }
 
     return _flyer;
   }

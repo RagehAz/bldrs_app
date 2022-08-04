@@ -17,7 +17,7 @@ class ReviewProtocols {
     @required String flyerID,
 }) async {
 
-    final ReviewModel _uploadedReview = await ReviewRealOps.createReview(
+    final ReviewModel _uploadedReview = await ReviewFireOps.createReview(
         context: context,
         text: text,
         flyerID: flyerID,

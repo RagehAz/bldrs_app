@@ -662,43 +662,43 @@ String generateStringsList_index_hh_i_mm_i_ss({
       final int _seconds = calculateTimeDifferenceInSeconds(from: from, to: to);
 
       if (_seconds < 60){
-        _string = '$_seconds seconds ago';
+        _string = '${_seconds}s'; //seconds ago';
       }
 
       /// MINUTE = 60 s
       else if (_seconds >= 60 && _seconds < 3600){
         final int _minutes = calculateTimeDifferenceInMinutes(from: from, to: to);
-        _string = '$_minutes minutes ago';
+        _string = '${_minutes}m'; //inutes ago';
       }
 
       /// HOUR = 3'600 s
       else if (_seconds >= 3600 && _seconds < 86400){
         final int _hours = calculateTimeDifferenceInHours(from: from, to: to);
-        _string = '$_hours hours ago';
+        _string = '${_hours}h'; //ours ago';
       }
 
       /// DAY = 86'400 s
       else if (_seconds >= 86400 && _seconds < 604800){
         final int _days = calculateTimeDifferenceInDays(from: from, to: to);
-        _string = '$_days days ago';
+        _string = '${_days}d'; //ays ago';
       }
 
       /// WEEK = 604'800 s
       else if (_seconds >= 604800 && _seconds < 2592000){
         final int _weeks = calculateTimeDifferenceInWeeks(from: from, to: to);
-        _string = '$_weeks weeks ago';
+        _string = '${_weeks}w'; //eeks ago';
       }
 
       /// MONTH = 2'592'000 s
       else if (_seconds >= 2592000 && _seconds < 31536000){
         final int _months = calculateTimeDifferenceInMonths(from: from, to: to);
-        _string = '$_months months ago';
+        _string = '${_months}Months';// ago';
       }
 
       /// YEAR = 31'536'000 s
       else {
         final int _years = calculateTimeDifferenceInYears(from: from, to: to);
-        _string = '$_years years ago';
+        _string = '${_years}Years'; // ago';
       }
 
     }
