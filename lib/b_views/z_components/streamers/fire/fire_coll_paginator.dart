@@ -1,9 +1,9 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FireCollPaginator extends StatefulWidget {
@@ -12,11 +12,10 @@ class FireCollPaginator extends StatefulWidget {
     @required this.queryModel,
     @required this.builder,
     @required this.scrollController,
-    this.addMap,
-    this.replaceMap,
     this.loadingWidget,
     this.addExtraMapsAtEnd = true,
     this.child,
+    this.paginatorNotifiers,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,10 +23,9 @@ class FireCollPaginator extends StatefulWidget {
   final Widget Function(BuildContext, List<Map<String, dynamic>>, bool, Widget) builder;
   final Widget loadingWidget;
   final ScrollController scrollController;
-  final ValueNotifier<Map<String, dynamic>> addMap;
   final bool addExtraMapsAtEnd;
-  final ValueNotifier<Map<String, dynamic>> replaceMap;
   final Widget child;
+  final PaginatorNotifiers paginatorNotifiers;
   /// --------------------------------------------------------------------------
   @override
   _FireCollPaginatorState createState() => _FireCollPaginatorState();
@@ -36,8 +34,6 @@ class FireCollPaginator extends StatefulWidget {
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<List<Map<String, dynamic>>> _maps = ValueNotifier(<Map<String, dynamic>>[]);
-  QueryDocumentSnapshot  _startAfter;
   bool _isPaginating = false;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -62,14 +58,12 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// LISTEN TO SCROLL
     listenToScroll();
 
-    /// LISTEN TO LOCAL MAPS CHANGES
-    listenToLocalMapsChanges();
-
-    /// ADD MAPS FROM OUTSIDE
-    listenToAddMapsChanges();
-
-    /// MODIFY EXISTING MAP
-    listenToMapOverrideChanges();
+    /// LISTEN TO (AddMap - replaceMap - deleteMap - onDataChanged)
+    widget.paginatorNotifiers.activateListeners(
+      mounted: mounted,
+      addAtEnd: widget.addExtraMapsAtEnd,
+      onDataChanged: widget.queryModel.onDataChanged,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -92,7 +86,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose(); /// tamam
-    _maps.dispose(); /// tamam
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -131,41 +124,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     });
   }
-// -----------------------------------
-  void listenToLocalMapsChanges(){
-    if (widget.queryModel.onDataChanged != null){
-      _maps.addListener(() {
-        widget.queryModel.onDataChanged(_maps.value);
-      });
-    }
-  }
-// -----------------------------------
-  void listenToAddMapsChanges(){
-    if (widget.addMap != null){
-      widget.addMap.addListener(() {
-
-        _addMapsToLocalMaps(
-          mapsToAdd: <Map<String, dynamic>>[widget.addMap.value],
-          addAtEnd: widget.addExtraMapsAtEnd,
-        );
-
-      });
-    }
-  }
-// -----------------------------------
-  void listenToMapOverrideChanges(){
-    if (widget.replaceMap != null){
-      widget.replaceMap.addListener(() {
-
-        // blog('mapOverride : is : ${widget.replaceMap.value}');
-
-        _replaceExistingMap(
-          mapToReplace: widget.replaceMap.value,
-        );
-
-      });
-    }
-  }
 // -----------------------------------------------------------------------------
 
   /// READING
@@ -186,7 +144,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
         context: context,
         queryModel: widget.queryModel.copyWith(
-          startAfter: _startAfter,
+          startAfter: widget.paginatorNotifiers.startAfter.value,
         ),
         addDocsIDs: true,
         addDocSnapshotToEachMap: true,
@@ -194,9 +152,12 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       if (Mapper.checkCanLoopList(_nextMaps) == true){
 
-        _addMapsToLocalMaps(
+        PaginatorNotifiers.addMapsToLocalMaps(
           mapsToAdd: _nextMaps,
           addAtEnd: true,
+          mounted: mounted,
+          startAfter: widget.paginatorNotifiers.startAfter,
+          paginatorMaps: widget.paginatorNotifiers.paginatorMaps,
         );
 
       }
@@ -220,65 +181,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
   }
 // -----------------------------------------------------------------------------
-
-  /// WRITING
-
-// -----------------------------------
-  void _addMapsToLocalMaps({
-    @required List<Map<String, dynamic>> mapsToAdd,
-    @required bool addAtEnd,
-  }){
-
-    List<Map<String, dynamic>> _combinedMaps = [..._maps.value];
-
-    if (mapsToAdd!= null){
-
-      if (addAtEnd == true){
-        _combinedMaps = [..._maps.value, ...mapsToAdd];
-      }
-      else {
-        _combinedMaps = [ ...mapsToAdd, ..._maps.value,];
-      }
-
-        setNotifier(
-            notifier: _maps,
-            mounted: mounted,
-            value: _combinedMaps
-        );
-        _startAfter = _combinedMaps.last['docSnapshot'];
-
-    }
-
-  }
-// -----------------------------------
-  void _replaceExistingMap({
-    @required Map<String, dynamic> mapToReplace,
-  }){
-
-    if (mapToReplace != null){
-
-      final List<Map<String, dynamic>> _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
-        baseMaps: _maps.value,
-        mapToReplace: mapToReplace,
-      );
-
-        setNotifier(
-          notifier: _maps,
-          mounted: mounted,
-          value: _updatedMaps,
-        );
-
-      _startAfter = _maps.value.last['docSnapshot'];
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _maps,
+        valueListenable: widget.paginatorNotifiers.paginatorMaps,
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 

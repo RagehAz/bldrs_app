@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/aa_submitted_reviews_builder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -29,8 +30,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 // -----------------------------------------------------------------------------
   final TextEditingController _reviewTextController = TextEditingController();
   final TextEditingController _replyTextController = TextEditingController();
-  final ValueNotifier<Map<String, dynamic>> _extraMapsAdded = ValueNotifier(null);
-  final ValueNotifier<Map<String, dynamic>> _mapOverride = ValueNotifier(null);
+  PaginatorNotifiers _paginatorNotifiers;
   ScrollController _controller;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -54,6 +54,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void initState() {
     super.initState();
 
+    _paginatorNotifiers = PaginatorNotifiers.initialize();
     _controller = ScrollController();
 
   }
@@ -72,10 +73,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void dispose() {
     _loading.dispose();
     _reviewTextController.dispose();
-    _extraMapsAdded.dispose();
-    _controller.dispose();
-    _mapOverride.dispose();
     _replyTextController.dispose();
+    _paginatorNotifiers.dispose();
+    _controller.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -104,9 +104,8 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       child: FireCollPaginator(
         scrollController: _controller,
         queryModel: _createQueryModel(),
-        addMap: _extraMapsAdded,
+        paginatorNotifiers: _paginatorNotifiers,
         addExtraMapsAtEnd: false,
-        replaceMap: _mapOverride,
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(
@@ -115,10 +114,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             pageWidth: widget.pageWidth,
             flyerModel: widget.flyerModel,
             reviewTextController: _reviewTextController,
-            addMap: _extraMapsAdded,
             reviewsMaps: maps,
-            replaceMap: _mapOverride,
             replyTextController: _replyTextController,
+            paginatorNotifiers: _paginatorNotifiers,
           );
 
         },

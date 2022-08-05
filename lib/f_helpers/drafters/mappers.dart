@@ -681,14 +681,15 @@ class Mapper {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> replaceMapInMapsWithSameIDField({
-    @required Map<String, dynamic> mapToReplace,
     @required List<Map<String, dynamic>> baseMaps,
+    @required Map<String, dynamic> mapToReplace,
   }){
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
 
-    if (checkCanLoopList(baseMaps) == true && baseMaps != null){
+    /// Note : if baseMaps is empty, there will be nothing to replace ya zaki
+    if (checkCanLoopList(baseMaps) == true && mapToReplace != null){
 
       _output = <Map<String,dynamic>>[...baseMaps];
 
@@ -707,6 +708,39 @@ class Mapper {
       //   blog('replaceMapInMapsWithSameIDField : did not find this map');
       // }
 
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+
+  static List<Map<String, dynamic>> removeMapFromMapsByIdField({
+    @required List<Map<String, dynamic>> baseMaps,
+    @required Map<String, dynamic> mapToRemove,
+  }){
+    List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+    // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
+
+    /// NOTE : if maps is empty, nothing to remove ya zaki bardo
+    if (checkCanLoopList(baseMaps) == true && mapToRemove != null){
+
+      _output = <Map<String,dynamic>>[...baseMaps];
+
+      final int _index = _output.indexWhere((map){
+        final bool _condition = map['id'] == mapToRemove['id'];
+        return _condition;
+      });
+
+      /// IF FOUND
+      if (_index != -1){
+        // blog('removeMapFromMapsByIdField : found map to remove at index $_index');
+        _output.removeAt(_index);
+      }
+      // else {
+      //   blog('removeMapFromMapsByIdField : did not find this map and nothing is removed');
+      // }
 
     }
 
