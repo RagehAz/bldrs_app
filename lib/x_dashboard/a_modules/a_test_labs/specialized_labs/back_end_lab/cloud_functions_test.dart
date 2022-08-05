@@ -143,9 +143,9 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                 for (int i = 0; i < _numberOfTimes; i++){
                   futures.add(Real.incrementDocFieldNourMethod(
                     context: context,
-                    docID: 'flyerID',
-                    fieldName: 'shares',
-                    collName: 'bzzCounters',
+                    docID: 'xx',
+                    fieldName: 'xx',
+                    collName: 'xx',
                     increment: true,
                   ));
                 }
