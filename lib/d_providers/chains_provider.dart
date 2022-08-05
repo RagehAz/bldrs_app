@@ -239,11 +239,13 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _keywordsChain = await fetchKeywordsChain(context);
 
-    await refineAndSetKeywordsChainAndGenerateTheirPhrases(
-      context: context,
-      keywordsChain: _keywordsChain,
-      notify: notify,
-    );
+    if (_keywordsChain != null){
+      await refineAndSetKeywordsChainAndGenerateTheirPhrases(
+        context: context,
+        keywordsChain: _keywordsChain,
+        notify: notify,
+      );
+    }
 
   }
 // -------------------------------------

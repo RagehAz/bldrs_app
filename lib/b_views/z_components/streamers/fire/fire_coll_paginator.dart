@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -152,9 +153,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   bool _canKeepReading = true;
   Future<void> _readMore() async {
 
-    if (mounted == true){
-      _loading.value = true;
-    }
+    setNotifier(
+        notifier: _loading,
+        mounted: mounted,
+        value: true
+    );
 
     /// CAN KEEP READING
     if (_canKeepReading == true){
@@ -188,9 +191,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       // blog('FireCollPaginator : _readMore : _canKeepReading : $_canKeepReading : NO MORE MAPS AFTER THIS ${_startAfter.toString()}');
     }
 
-    if (mounted == true){
-      _loading.value = false;
-    }
+    setNotifier(
+        notifier: _loading,
+        mounted: mounted,
+        value: false
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -214,10 +219,12 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         _combinedMaps = [ ...mapsToAdd, ..._maps.value,];
       }
 
-      if (mounted == true){
-        _maps.value = _combinedMaps;
+        setNotifier(
+            notifier: _maps,
+            mounted: mounted,
+            value: _combinedMaps
+        );
         _startAfter = _combinedMaps.last['docSnapshot'];
-      }
 
     }
 
