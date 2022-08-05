@@ -152,7 +152,9 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   bool _canKeepReading = true;
   Future<void> _readMore() async {
 
-    _loading.value = true;
+    if (mounted == true){
+      _loading.value = true;
+    }
 
     /// CAN KEEP READING
     if (_canKeepReading == true){
@@ -186,7 +188,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       // blog('FireCollPaginator : _readMore : _canKeepReading : $_canKeepReading : NO MORE MAPS AFTER THIS ${_startAfter.toString()}');
     }
 
-    _loading.value = false;
+    if (mounted == true){
+      _loading.value = false;
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -209,8 +214,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         _combinedMaps = [ ...mapsToAdd, ..._maps.value,];
       }
 
-      _maps.value = _combinedMaps;
-      _startAfter = _combinedMaps.last['docSnapshot'];
+      if (mounted == true){
+        _maps.value = _combinedMaps;
+        _startAfter = _combinedMaps.last['docSnapshot'];
+      }
 
     }
 

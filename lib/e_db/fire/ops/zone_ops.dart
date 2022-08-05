@@ -192,7 +192,7 @@ class ZoneFireOps {
                         cityEnName: _cityName
                     );
 
-                    _city.blogCity();
+                    _city?.blogCity();
 
                   }
                 }
