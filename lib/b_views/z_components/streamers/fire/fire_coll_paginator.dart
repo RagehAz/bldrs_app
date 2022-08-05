@@ -12,18 +12,22 @@ class FireCollPaginator extends StatefulWidget {
     @required this.queryModel,
     @required this.builder,
     @required this.scrollController,
-    this.extraMaps,
+    this.addMap,
+    this.replaceMap,
     this.loadingWidget,
     this.addExtraMapsAtEnd = true,
+    this.child,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FireQueryModel queryModel;
-  final Widget Function(BuildContext, List<Map<String, dynamic>>, bool) builder;
+  final Widget Function(BuildContext, List<Map<String, dynamic>>, bool, Widget) builder;
   final Widget loadingWidget;
   final ScrollController scrollController;
-  final ValueNotifier<List<Map<String, dynamic>>> extraMaps;
+  final ValueNotifier<Map<String, dynamic>> addMap;
   final bool addExtraMapsAtEnd;
+  final ValueNotifier<Map<String, dynamic>> replaceMap;
+  final Widget child;
   /// --------------------------------------------------------------------------
   @override
   _FireCollPaginatorState createState() => _FireCollPaginatorState();
@@ -62,7 +66,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     listenToLocalMapsChanges();
 
     /// ADD MAPS FROM OUTSIDE
-    listenToExtraMapsChanges();
+    listenToAddMapsChanges();
+
+    /// MODIFY EXISTING MAP
+    listenToMapOverrideChanges();
 
   }
 // -----------------------------------------------------------------------------
@@ -133,13 +140,27 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
   }
 // -----------------------------------
-  void listenToExtraMapsChanges(){
-    if (widget.extraMaps != null){
-      widget.extraMaps.addListener(() {
+  void listenToAddMapsChanges(){
+    if (widget.addMap != null){
+      widget.addMap.addListener(() {
 
         _addMapsToLocalMaps(
-          mapsToAdd: widget.extraMaps.value,
+          mapsToAdd: <Map<String, dynamic>>[widget.addMap.value],
           addAtEnd: widget.addExtraMapsAtEnd,
+        );
+
+      });
+    }
+  }
+// -----------------------------------
+  void listenToMapOverrideChanges(){
+    if (widget.replaceMap != null){
+      widget.replaceMap.addListener(() {
+
+        // blog('mapOverride : is : ${widget.replaceMap.value}');
+
+        _replaceExistingMap(
+          mapToReplace: widget.replaceMap.value,
         );
 
       });
@@ -229,18 +250,45 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
 
   }
+// -----------------------------------
+  void _replaceExistingMap({
+    @required Map<String, dynamic> mapToReplace,
+  }){
+
+    if (mapToReplace != null){
+
+      final List<Map<String, dynamic>> _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
+        baseMaps: _maps.value,
+        mapToReplace: mapToReplace,
+      );
+
+        setNotifier(
+          notifier: _maps,
+          mounted: mounted,
+          value: _updatedMaps,
+        );
+
+      _startAfter = _maps.value.last['docSnapshot'];
+
+    }
+
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
         valueListenable: _maps,
+        child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 
-          return widget.builder(context, maps, _loading.value);
+          // Mapper.blogMaps(maps, methodName: 'FireCollPaginator : builder');
+
+          return widget.builder(context, maps, _loading.value, child);
 
         }
     );
 
   }
+// -----------------------------------------------------------------------------
 }

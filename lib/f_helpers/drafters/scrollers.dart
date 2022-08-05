@@ -161,7 +161,8 @@ class Scrollers {
 
   /// BLOGGING
 
-// -----------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogScrolling({
     @required ScrollController scrollController,
     @required double paginationHeight,
@@ -187,7 +188,8 @@ class Scrollers {
 
   /// PAGINATION
 
-// -----------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool canPaginate({
     @required ScrollController scrollController,
     @required double paginationHeight,

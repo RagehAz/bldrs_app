@@ -678,6 +678,40 @@ class Mapper {
 
     return _output;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> replaceMapInMapsWithSameIDField({
+    @required Map<String, dynamic> mapToReplace,
+    @required List<Map<String, dynamic>> baseMaps,
+  }){
+    List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+    // Mapper.blogMap(mapToReplace, methodName: 'replaceMapInMapsWithSameIDField');
+
+    if (checkCanLoopList(baseMaps) == true && baseMaps != null){
+
+      _output = <Map<String,dynamic>>[...baseMaps];
+
+      final int _index = _output.indexWhere((map){
+        final bool _condition = map['id'] == mapToReplace['id'];
+        return _condition;
+      });
+
+      /// IF FOUND
+      if (_index != -1){
+        // blog('replaceMapInMapsWithSameIDField : found map to replace at index $_index');
+        _output.removeAt(_index);
+        _output.insert(_index, mapToReplace);
+      }
+      // else {
+      //   blog('replaceMapInMapsWithSameIDField : did not find this map');
+      // }
+
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -706,7 +740,7 @@ class Mapper {
     return _hasNull;
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
   static bool checkMapsAreIdentical({
     Map<String, dynamic> map1,
     Map<String, dynamic> map2,
@@ -753,7 +787,7 @@ class Mapper {
     return _mapsAreIdentical;
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
   static bool checkMapsListsAreIdentical({
     @required List<Map<String, dynamic>> maps1,
     @required List<Map<String, dynamic>> maps2,
@@ -800,6 +834,13 @@ class Mapper {
 
     }
 
+    if (_listsAreIdentical == false){
+      blogMapsListsDifferences(
+        maps1: maps1,
+        maps2: maps2,
+        methodName: 'checkMapsListsAreIdentical',
+      );
+    }
     return _listsAreIdentical;
 
   }
@@ -988,6 +1029,53 @@ class Mapper {
         blogMap(map, methodName: methodName);
       }
     }
+  }
+
+  static void blogMapsListsDifferences({
+    @required List<Map<String, dynamic>> maps1,
+    @required List<Map<String, dynamic>> maps2,
+    @required String methodName,
+  }){
+
+    blog('blogMapsListsDifferences : START');
+
+    if (maps1 == null && maps2 == null){
+      blog('both maps lists are null');
+    }
+
+    if (maps1 == [] && maps2 == []){
+      blog('both maps lists are empty');
+    }
+
+    if (checkCanLoopList(maps1) == true && checkCanLoopList(maps2) == true){
+
+      if (maps1.length != maps2.length) {
+        blog('maps1.length != maps2.length');
+      }
+
+      else {
+        for (int i = 0; i < maps1.length; i++) {
+
+          final bool _mapsAreIdentical = checkMapsAreIdentical(
+            map1: maps1[i],
+            map2: maps2[i],
+          );
+
+          if (_mapsAreIdentical == false) {
+            blog('items at index ( $i ) do not match : ( ${maps1[i]} ) <=> ( ${maps2[i]} )');
+            break;
+          }
+
+          else {
+            blog('all maps are identical');
+          }
+
+        }
+      }
+
+    }
+
+    blog('blogMapsListsDifferences : END');
   }
 // -----------------------------------------------------------------------------
 

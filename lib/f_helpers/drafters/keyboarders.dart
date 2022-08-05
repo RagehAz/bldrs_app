@@ -52,6 +52,7 @@ StreamSubscription<bool> initializeKeyboardListener({
   /// CONTROLLING KEYBOARD
 
 // -------------------------------------
+/// TESTED : WORKS PERFECT
 void closeKeyboard(BuildContext context) {
   /// SOLUTION 1
   // FocusScope.of(context).requestFocus(FocusNode());

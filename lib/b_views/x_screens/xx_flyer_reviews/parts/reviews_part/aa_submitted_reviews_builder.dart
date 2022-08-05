@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
-import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +11,11 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.reviewsMaps,
     @required this.pageWidth,
     @required this.pageHeight,
-    @required this.textController,
+    @required this.reviewTextController,
     @required this.flyerModel,
-    @required this.extraMapsAdded,
+    @required this.replyTextController,
+    @required this.addMap,
+    @required this.replaceMap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,9 +23,11 @@ class ReviewsBuilder extends StatelessWidget {
   final double pageHeight;
   final ScrollController scrollController;
   final List<Map<String, dynamic>> reviewsMaps;
-  final TextEditingController textController;
+  final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final ValueNotifier<List<Map<String, dynamic>>> extraMapsAdded;
+  final TextEditingController replyTextController;
+  final ValueNotifier<Map<String, dynamic>> addMap;
+  final ValueNotifier<Map<String, dynamic>> replaceMap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,13 +53,9 @@ class ReviewsBuilder extends StatelessWidget {
           return ReviewBubble(
             flyerModel: flyerModel,
             pageWidth: pageWidth,
-            textController: textController,
-            onSubmitReview: () => onReviewFlyer(
-              context: context,
-              flyerModel: flyerModel,
-              textController: textController,
-              extraMaps: extraMapsAdded,
-            ),
+            reviewTextController: reviewTextController,
+            isCreatorMode: true,
+            addMap: addMap, // extra maps to add to paginator
           );
         }
 
@@ -67,8 +66,12 @@ class ReviewsBuilder extends StatelessWidget {
             flyerModel: flyerModel,
             pageWidth : pageWidth,
             reviewModel: reviews[index - 1],
+            replyTextController: replyTextController,
+            replaceMap: replaceMap, // a map in paginator to override
+            isCreatorMode: false,
             // specialReview: true,
           );
+
         }
 
       },
