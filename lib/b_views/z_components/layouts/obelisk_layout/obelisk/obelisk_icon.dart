@@ -100,7 +100,7 @@ class ObeliskIcon extends StatelessWidget {
             return AbsorbPointer(
               child: Container(
                 width: Obelisk.circleWidth,
-                height: SeparatorLine.thickness + 10,
+                height: SeparatorLine.standardThickness + 10,
                 // color: Colorz.bloodTest,
                 padding: EdgeInsets.only(right: rightShrinkage),
                 alignment: Alignment.center,

@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -41,6 +43,28 @@ class FetchBzProtocols {
     // }
 
     return _bz;
+  }
+// -----------------------------------------------------------------------------
+  static Future<BzModel> fetchBzByFlyerID({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+    BzModel _bzModel;
+
+    if (flyerID != null){
+
+      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+          context: context,
+          flyerID: flyerID,
+      );
+
+      if (_flyerModel != null){
+        _bzModel = await fetchBz(context: context, bzID: _flyerModel.bzID);
+      }
+
+    }
+
+    return _bzModel;
   }
 // -----------------------------------------------------------------------------
   static Future<List<BzModel>> fetchBzz({

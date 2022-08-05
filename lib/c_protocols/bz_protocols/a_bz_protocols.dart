@@ -40,6 +40,14 @@ class BzProtocols {
     bzID: bzID,
   );
 // ----------------------------------
+  static Future<BzModel> fetchBzByFlyerID({
+    @required BuildContext context,
+    @required String flyerID,
+  })=> FetchBzProtocols.fetchBzByFlyerID(
+    context: context,
+    flyerID: flyerID,
+  );
+// ----------------------------------
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
