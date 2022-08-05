@@ -142,8 +142,6 @@ class BzRecordOps {
 
     blog('BzRecordOps.incrementBzCounter : START');
 
-    const String collName = 'bzzCounters';
-
     int _value;
     if (incrementThis == null){
       _value = increaseOne == true ? 1 : -1;
@@ -154,7 +152,7 @@ class BzRecordOps {
 
     await Real.updateDocField(
       context: context,
-      collName: collName,
+      collName: RealColl.countingBzz,
       docName: bzID,
       fieldName: field,
       value: fireDB.ServerValue.increment(_value),
@@ -162,7 +160,7 @@ class BzRecordOps {
 
     Map<String, dynamic> _map = await Real.readDocOnce(
       context: context,
-      collName: collName,
+      collName: RealColl.countingBzz,
       docName: bzID,
     );
 

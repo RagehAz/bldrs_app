@@ -345,9 +345,12 @@ class CityModel {
     @required String countryID,
     @required String cityEnName,
   }) {
+    String _cityID;
 
-    final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
-    final String _cityID = '${countryID}_$_fixedCityEnName';
+    if (countryID != null && cityEnName != null){
+      final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
+      _cityID = '${countryID}_$_fixedCityEnName';
+    }
 
     return _cityID;
   }
