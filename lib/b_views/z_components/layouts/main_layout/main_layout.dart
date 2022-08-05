@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/chains_drawer/structure/a_chains_draw
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -15,7 +14,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 
 // -----------------------------------------------------------------------------
@@ -142,7 +140,7 @@ class MainLayout extends StatelessWidget {
     final bool _drawerIsOn = _uiProvider.keywordsDrawerIsOn;
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
 
-    blog('wtf : _keyboardIsOn : $_keyboardIsOn');
+    // blog('wtf : _keyboardIsOn : $_keyboardIsOn');
 
     if (_keyboardIsOn == true){
       Keyboarders.closeKeyboard(context);

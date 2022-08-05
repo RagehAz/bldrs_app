@@ -2,7 +2,6 @@ import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +46,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'FireCollPaginator',);
+      // blogLoading(loading: _loading.value, callerName: 'FireCollPaginator',);
     }
   }
 // -----------------------------------------------------------------------------
@@ -55,46 +54,14 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void initState() {
     super.initState();
 
-    widget.scrollController.addListener(() async {
+    /// LISTEN TO SCROLL
+    listenToScroll();
 
-      final bool _canPaginate = Scrollers.canPaginate(
-        scrollController: widget.scrollController,
-        isPaginating: _isPaginating,
-        paginationHeight: 0,
-      );
+    /// LISTEN TO LOCAL MAPS CHANGES
+    listenToLocalMapsChanges();
 
-        Scrollers.blogScrolling(
-          scrollController: widget.scrollController,
-          isPaginating: _isPaginating,
-          paginationHeight: 0,
-        );
-
-      if (_canPaginate == true){
-
-        _isPaginating = true;
-
-        await _readMore();
-
-        _isPaginating = false;
-
-      }
-
-    });
-
-    if (widget.extraMaps != null){
-      widget.extraMaps.addListener(() {
-
-        // blog('extra maps changed agoooooooooo');
-        // Mapper.blogMaps(widget.extraMaps.value, methodName: 'a7oooooo');
-
-        final List<Map<String, dynamic>> _combinedMaps = _addMapsToLocalMaps(
-          mapsToAdd: widget.extraMaps.value,
-          addAtEnd: true,
-        );
-        _maps.value = _combinedMaps;
-
-      });
-    }
+    /// ADD MAPS FROM OUTSIDE
+    listenToExtraMapsChanges();
 
   }
 // -----------------------------------------------------------------------------
@@ -116,44 +83,117 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _loading.dispose();
-    super.dispose(); /// tamam
+    _loading.dispose(); /// tamam
+    _maps.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+// -----------------------------------
+  ScrollController _controller;
+  void listenToScroll(){
+
+    _controller = widget.scrollController;
+
+    _controller.addListener(() async {
+
+      final bool _canPaginate = Scrollers.canPaginate(
+        scrollController: widget.scrollController,
+        isPaginating: _isPaginating,
+        paginationHeight: 100,
+      );
+
+      // Scrollers.blogScrolling(
+      //   scrollController: widget.scrollController,
+      //   isPaginating: _isPaginating,
+      //   paginationHeight: 0,
+      // );
+
+      if (_canPaginate == true){
+
+        _isPaginating = true;
+
+        await _readMore();
+
+        _isPaginating = false;
+
+      }
+
+    });
+  }
+// -----------------------------------
+  void listenToLocalMapsChanges(){
+    if (widget.queryModel.onDataChanged != null){
+      _maps.addListener(() {
+        widget.queryModel.onDataChanged(_maps.value);
+      });
+    }
+  }
+// -----------------------------------
+  void listenToExtraMapsChanges(){
+    if (widget.extraMaps != null){
+      widget.extraMaps.addListener(() {
+
+        _addMapsToLocalMaps(
+          mapsToAdd: widget.extraMaps.value,
+          addAtEnd: widget.addExtraMapsAtEnd,
+        );
+
+      });
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// READING
+
+// -----------------------------------
+  bool _canKeepReading = true;
   Future<void> _readMore() async {
 
     _loading.value = true;
 
-    final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
-      context: context,
-      queryModel: widget.queryModel.copyWith(
-        startAfter: _startAfter,
-      ),
-      addDocsIDs: true,
-      addDocSnapshotToEachMap: true,
-    );
+    /// CAN KEEP READING
+    if (_canKeepReading == true){
 
-    if (Mapper.checkCanLoopList(_nextMaps) == true){
-
-      final List<Map<String, dynamic>> _combinedMaps = _addMapsToLocalMaps(
-        mapsToAdd: _nextMaps,
-        addAtEnd: true,
+      final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
+        context: context,
+        queryModel: widget.queryModel.copyWith(
+          startAfter: _startAfter,
+        ),
+        addDocsIDs: true,
+        addDocSnapshotToEachMap: true,
       );
 
-      _maps.value = _combinedMaps;
-      _startAfter = _combinedMaps.last['docSnapshot'];
+      if (Mapper.checkCanLoopList(_nextMaps) == true){
 
-      if (widget.queryModel.onDataChanged != null){
-        widget.queryModel.onDataChanged(_combinedMaps);
+        _addMapsToLocalMaps(
+          mapsToAdd: _nextMaps,
+          addAtEnd: true,
+        );
+
+      }
+
+      else {
+        _canKeepReading = false;
       }
 
     }
 
-    _loading.value = false;
+    /// NO MORE MAPS TO READ
+    else {
+      // blog('FireCollPaginator : _readMore : _canKeepReading : $_canKeepReading : NO MORE MAPS AFTER THIS ${_startAfter.toString()}');
+    }
 
+    _loading.value = false;
   }
 // -----------------------------------------------------------------------------
-  List<Map<String, dynamic>> _addMapsToLocalMaps({
+
+  /// WRITING
+
+// -----------------------------------
+  void _addMapsToLocalMaps({
     @required List<Map<String, dynamic>> mapsToAdd,
     @required bool addAtEnd,
   }){
@@ -161,32 +201,29 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     List<Map<String, dynamic>> _combinedMaps = [..._maps.value];
 
     if (mapsToAdd!= null){
+
       if (addAtEnd == true){
         _combinedMaps = [..._maps.value, ...mapsToAdd];
       }
       else {
         _combinedMaps = [ ...mapsToAdd, ..._maps.value,];
       }
+
+      _maps.value = _combinedMaps;
+      _startAfter = _combinedMaps.last['docSnapshot'];
+
     }
 
-    return _combinedMaps;
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _loading,
-        builder: (_, bool isLoading, Widget child){
+        valueListenable: _maps,
+        builder: (_, List<Map<String, dynamic>> maps, Widget child){
 
-          return ValueListenableBuilder(
-              valueListenable: _maps,
-              builder: (_, List<Map<String, dynamic>> maps, Widget child){
-
-                return widget.builder(context, maps, isLoading);
-
-          }
-          );
+          return widget.builder(context, maps, _loading.value);
 
         }
     );
