@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/ba_review_user_image_balloon.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bb_review_text_balloon.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -15,11 +16,10 @@ class ReviewBubble extends StatelessWidget {
     @required this.isCreatorMode,
     @required this.pageWidth,
     @required this.flyerModel,
+    @required this.paginatorNotifiers,
     this.reviewModel,
     this.reviewTextController,
-    this.addMap,
     this.replyTextController,
-    this.replaceMap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,9 +29,8 @@ class ReviewBubble extends StatelessWidget {
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
   final TextEditingController replyTextController;
-  final ValueNotifier<Map<String, dynamic>> replaceMap;
-  final ValueNotifier<Map<String, dynamic>> addMap;
-// ---------------------------------------------------
+  final PaginatorNotifiers paginatorNotifiers;
+  // --------------------------------------------------------------------------
 
   /// USER BALLOON
 
@@ -94,14 +93,13 @@ class ReviewBubble extends StatelessWidget {
                 /// REVIEW BALLOON PART
                 ReviewTextBalloon(
                   isCreatorMode: isCreatorMode,
-                  addMap: addMap,
                   userModel: _userModel,
                   reviewModel: reviewModel,
                   pageWidth: pageWidth,
                   reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
                   replyTextController: replyTextController,
-                  replaceMap: replaceMap,
+                  paginatorNotifiers: paginatorNotifiers,
                 ),
 
                 /// RIGHT SPACING
