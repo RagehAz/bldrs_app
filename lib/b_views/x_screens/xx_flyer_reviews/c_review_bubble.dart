@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/x_submitted_review_text
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,6 @@ class ReviewBubble extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.reviewModel,
     this.specialReview = false,
-    this.color,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,7 +22,6 @@ class ReviewBubble extends StatelessWidget {
   final double flyerBoxWidth;
   final ReviewModel reviewModel;
   final bool specialReview;
-  final Color color;
   /// --------------------------------------------------------------------------
   static double bubbleMarginValue(){
     return Ratioz.appBarMargin;
@@ -50,20 +47,16 @@ class ReviewBubble extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('review_bubble_key'),
       width: pageWidth,
-      color: color,
       margin: EdgeInsets.only(bottom: _bubbleMargin),
-      // height: 80,
       child: FutureBuilder(
-        future: UserProtocols.fetchUser(context: context, userID: reviewModel?.userID),
+        future: UserProtocols.fetchUser(
+            context: context,
+            userID: reviewModel?.userID,
+        ),
         builder: (_, AsyncSnapshot<UserModel> snap){
 
           final UserModel _userModel = snap.data;
 
-          if (connectionIsLoading(snap) == true){
-            return const SizedBox();
-          }
-
-          else {
             return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -88,8 +81,6 @@ class ReviewBubble extends StatelessWidget {
 
               ],
             );
-          }
-
 
         },
       ),

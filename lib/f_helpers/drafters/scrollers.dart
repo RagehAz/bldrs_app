@@ -171,7 +171,7 @@ class Scrollers {
     final double max = scrollController.position.maxScrollExtent;
     final double current = scrollController.position.pixels;
 
-    final bool _shouldPaginate = canPaginate(
+    final bool _canPaginate = canPaginate(
       scrollController: scrollController,
       paginationHeight: paginationHeight,
       isPaginating: isPaginating,
@@ -179,7 +179,8 @@ class Scrollers {
 
     final double _max = Numeric.roundFractions(max, 1);
     final double _current = Numeric.roundFractions(current, 1);
-    blog('SHOULD LOAD : (_max $_max - _current $_current) = ${max-current} : _shouldPaginate $_shouldPaginate');
+    final double _diff = Numeric.roundFractions(max-current, 1);
+    blog('SHOULD LOAD : (max $_max - current $_current) = $_diff : canPaginate $_canPaginate');
 
   }
 // -----------------------------------------------------------------------------

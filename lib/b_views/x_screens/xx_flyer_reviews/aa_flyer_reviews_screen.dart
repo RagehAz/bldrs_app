@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerReviewsScreen extends StatefulWidget {
+class FlyerReviewsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerReviewsScreen({
     @required this.flyerModel,
@@ -19,32 +19,6 @@ class FlyerReviewsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
-  @override
-  _FlyerReviewsScreenState createState() => _FlyerReviewsScreenState();
-/// --------------------------------------------------------------------------
-}
-
-class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
 
@@ -73,27 +47,27 @@ class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
             width: _screenWidth,
             height: _slidesShelfHeight,
             child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.flyerModel.slides.length,
+                itemCount: flyerModel.slides.length,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 itemBuilder: (_, index){
 
-                return Container(
-                  margin: Scale.superInsets(context: context, enRight: 5),
-                  alignment: Alignment.center,
-                  child: SingleSlide(
+                  return Container(
+                    margin: Scale.superInsets(context: context, enRight: 5),
+                    alignment: Alignment.center,
+                    child: SingleSlide(
                       flyerBoxWidth: _flyerBoxWidth,
                       flyerBoxHeight: _flyerBoxHeight,
-                      slideModel: widget.flyerModel.slides[index],
+                      slideModel: flyerModel.slides[index],
                       tinyMode: false,
                       onSlideNextTap: null,
                       onSlideBackTap: null,
                       onDoubleTap: null,
-                  ),
-                );
+                    ),
+                  );
 
-              }
+                }
             ),
           ),
 
@@ -105,16 +79,11 @@ class _FlyerReviewsScreenState extends State<FlyerReviewsScreen> {
           ),
 
           /// REVIEWS
-          Container(
-            width: _screenWidth,
-            height: _reviewsBozHeight,
-            color: Colorz.grey80,
-            child: SubmittedReviews(
-              flyerModel: widget.flyerModel,
-              flyerBoxWidth: _screenWidth,
-              pageWidth: _screenWidth - 10,
-              pageHeight: _reviewsBozHeight - 10,
-            ),
+          SubmittedReviews(
+            flyerModel: flyerModel,
+            flyerBoxWidth: _screenWidth,
+            pageWidth: _screenWidth - 10,
+            pageHeight: _reviewsBozHeight - 10,
           ),
 
         ],
