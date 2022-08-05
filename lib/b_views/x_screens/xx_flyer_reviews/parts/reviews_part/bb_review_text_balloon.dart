@@ -1,0 +1,113 @@
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bbb_reply_bubble.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bba_review_bubble_balloon.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/c_review_text_column.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:flutter/material.dart';
+
+class ReviewTextBalloon extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const ReviewTextBalloon({
+    @required this.userModel,
+    @required this.reviewModel,
+    @required this.pageWidth,
+    this.textController,
+    this.onSubmitReview,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final UserModel userModel;
+  final ReviewModel reviewModel;
+  final double pageWidth;
+  final TextEditingController textController;
+  final Function onSubmitReview;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final bool _isCreatorMode = onSubmitReview != null;
+    final double _textBubbleWidth = ReviewBubble.getTextBubbleWidth(pageWidth: pageWidth);
+
+    return Column(
+      children: <Widget>[
+
+        /// REVIEW TEXT
+        ReviewBubbleBalloon(
+          width: _textBubbleWidth,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+
+              ReviewTextsColumn(
+                name: userModel?.name,
+                timeStamp: reviewModel?.time,
+                text: reviewModel?.text,
+                isCreatorMode: _isCreatorMode,
+              ),
+
+              /// TEXT FIELD
+              if (_isCreatorMode == true)
+                  SuperTextField(
+                    title: 'Edit Review',
+                    width: _textBubbleWidth,
+                    textController: textController,
+                    maxLines: 8,
+                    textInputType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    maxLength: 1000,
+                    minLines: 4,
+                    textSize: 3,
+                    margins: const EdgeInsets.all(5),
+                    // onTap: onEditReview,
+                    // autofocus: false,
+                    onChanged: (String x){blog(x);},
+                  ),
+
+              /// SUBMIT BUTTON
+              if (_isCreatorMode == true)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+
+                    DreamBox(
+                      verse: 'SUBMIT',
+                      height: 40,
+                      color: Colorz.yellow255,
+                      verseColor: Colorz.black255,
+                      verseScaleFactor: 0.6,
+                      verseWeight: VerseWeight.black,
+                      verseItalic: true,
+                      onTap: onSubmitReview,
+                    ),
+
+                  ],
+                ),
+
+            ],
+          ),
+        ),
+
+        /// SPACER
+        const SizedBox(
+          width: ReviewBubble.spacer,
+          height: ReviewBubble.spacer * 0.5,
+        ),
+
+        /// BZ REPLY BUBBLE
+        if (_isCreatorMode == false && TextChecker.stringIsNotEmpty(reviewModel?.reply) == true)
+        BzReplyBubble(
+          boxWidth: _textBubbleWidth,
+          reviewModel: reviewModel,
+        ),
+
+      ],
+    );
+  }
+}
