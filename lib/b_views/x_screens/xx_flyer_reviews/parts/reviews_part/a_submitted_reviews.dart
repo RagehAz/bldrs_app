@@ -29,7 +29,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
 // -----------------------------------------------------------------------------
   final TextEditingController _reviewTextController = TextEditingController();
-  final TextEditingController _replyTextController = TextEditingController();
   PaginatorNotifiers _paginatorNotifiers;
   ScrollController _controller;
 // -----------------------------------------------------------------------------
@@ -73,7 +72,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   void dispose() {
     _loading.dispose();
     _reviewTextController.dispose();
-    _replyTextController.dispose();
     _paginatorNotifiers.dispose();
     _controller.dispose();
     super.dispose();
@@ -115,7 +113,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             flyerModel: widget.flyerModel,
             reviewTextController: _reviewTextController,
             reviewsMaps: maps,
-            replyTextController: _replyTextController,
             paginatorNotifiers: _paginatorNotifiers,
           );
 

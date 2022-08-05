@@ -944,6 +944,7 @@ String pathOfSubDoc({
     @required String collName,
     @required String docName,
     @required String subCollName,
+    @required Function onDeleteSubDoc,
     bool showAlertDialog = false,
   }) async {
 
@@ -995,6 +996,7 @@ String pathOfSubDoc({
             docName: docName,
             subCollName: subCollName,
             subDocsIDs: _docIDs,
+            onDeleteSubDoc: onDeleteSubDoc,
           );
 
         }
@@ -1013,19 +1015,28 @@ String pathOfSubDoc({
     @required docName,
     @required subCollName,
     @required List<String> subDocsIDs,
+    @required Function onDeleteSubDoc,
   }) async {
 
     if (Mapper.checkCanLoopList(subDocsIDs) == true){
 
       for (final String subDocID in subDocsIDs){
 
-        await deleteSubDoc(
-          context: context,
-          collName: collName,
-          docName: docName,
-          subCollName: subCollName,
-          subDocName: subDocID,
-        );
+        await Future.wait(<Future>[
+
+          deleteSubDoc(
+            context: context,
+            collName: collName,
+            docName: docName,
+            subCollName: subCollName,
+            subDocName: subDocID,
+          ),
+
+
+          if (onDeleteSubDoc != null)
+          onDeleteSubDoc(subDocID),
+
+        ]);
 
       }
 

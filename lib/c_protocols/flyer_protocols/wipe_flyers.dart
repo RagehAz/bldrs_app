@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
@@ -41,29 +42,38 @@ class WipeFlyerProtocols {
         ));
       }
 
+      await Future.wait(<Future>[
+
+        ReviewProtocols.wipeAllFlyerReviews(
+            context: context,
+            flyerID: flyerModel.id,
+        ),
+
+        FlyerRecordOps.deleteAllFlyerCountersAndRecords(
+          context: context,
+          flyerID: flyerModel.id,
+        ),
+
+        BzRecordOps.incrementBzCounter(
+          context: context,
+          bzID: bzModel.id,
+          field: 'allSlides',
+          incrementThis: - flyerModel.slides.length,
+        ),
+
+        CityChainOps.incrementFlyerCityChainUsage(
+          context: context,
+          flyerModel: flyerModel,
+          isIncrementing: false,
+        ),
+
+    ]);
+
       _updatedBzModel = await FlyerFireOps.deleteFlyerOps(
         context: context,
         flyerModel: flyerModel,
         bzModel: bzModel,
         bzFireUpdateOps: true,
-      );
-
-      await FlyerRecordOps.deleteAllFlyerCountersAndRecords(
-        context: context,
-        flyerID: flyerModel.id,
-      );
-
-      await BzRecordOps.incrementBzCounter(
-        context: context,
-        bzID: bzModel.id,
-        field: 'allSlides',
-        incrementThis: - flyerModel.slides.length,
-      );
-
-      await CityChainOps.incrementFlyerCityChainUsage(
-          context: context,
-          flyerModel: flyerModel,
-          isIncrementing: false,
       );
 
       /// DELETE FLYER ON LDB
@@ -86,6 +96,7 @@ class WipeFlyerProtocols {
     return _updatedBzModel;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<BzModel> wipeMultipleFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -109,23 +120,32 @@ class WipeFlyerProtocols {
         ));
       }
 
+      await Future.wait(<Future>[
+
+        ReviewProtocols.wipeMultipleFlyersReviews(
+          context: context,
+          flyersIDs: _flyersIDs,
+        ),
+
+        FlyerRecordOps.deleteMultipleFlyersCountersAndRecords(
+          context: context,
+          flyersIDs: _flyersIDs,
+        ),
+
+        CityChainOps.incrementFlyersCityChainUsage(
+          context: context,
+          flyersModels: flyers,
+          isIncrementing: false,
+        ),
+
+      ]);
+
       /// FIRE DELETION
       _bzModel = await FlyerFireOps.deleteMultipleBzFlyers(
         context: context,
         flyersToDelete: flyers,
         bzModel: bzModel,
         updateBzFireOps: updateBzEveryWhere,
-      );
-
-      await FlyerRecordOps.deleteMultipleFlyersCountersAndRecords(
-          context: context,
-          flyersIDs: _flyersIDs,
-      );
-
-      await CityChainOps.incrementFlyersCityChainUsage(
-        context: context,
-        flyersModels: flyers,
-        isIncrementing: false,
       );
 
       if (isDeletingBz == false){
