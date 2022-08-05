@@ -14,7 +14,6 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.pageHeight,
     @required this.reviewTextController,
     @required this.flyerModel,
-    @required this.replyTextController,
     @required this.paginatorNotifiers,
     Key key
   }) : super(key: key);
@@ -25,7 +24,6 @@ class ReviewsBuilder extends StatelessWidget {
   final List<Map<String, dynamic>> reviewsMaps;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final TextEditingController replyTextController;
   final PaginatorNotifiers paginatorNotifiers;
   /// --------------------------------------------------------------------------
   @override
@@ -65,7 +63,6 @@ class ReviewsBuilder extends StatelessWidget {
             flyerModel: flyerModel,
             pageWidth : pageWidth,
             reviewModel: reviews[index - 1],
-            replyTextController: replyTextController,
             paginatorNotifiers: paginatorNotifiers,
             isCreatorMode: false,
             // specialReview: true,

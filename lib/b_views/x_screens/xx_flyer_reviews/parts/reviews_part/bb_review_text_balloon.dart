@@ -30,7 +30,6 @@ class ReviewTextBalloon extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerModel,
     @required this.reviewTextController,
-    @required this.replyTextController,
     @required this.paginatorNotifiers,
     Key key
   }) : super(key: key);
@@ -41,7 +40,6 @@ class ReviewTextBalloon extends StatelessWidget {
   final double pageWidth;
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
-  final TextEditingController replyTextController;
   final PaginatorNotifiers paginatorNotifiers;
   /// --------------------------------------------------------------------------
   @override
@@ -166,8 +164,7 @@ class ReviewTextBalloon extends StatelessWidget {
                         onTap: () => onBzReply(
                           context: context,
                           reviewModel: reviewModel,
-                          textController: replyTextController,
-                          replaceMap: paginatorNotifiers.replaceMap,
+                          replaceMapNotifier: paginatorNotifiers.replaceMap,
                         ),
                       ),
 
@@ -189,7 +186,7 @@ class ReviewTextBalloon extends StatelessWidget {
                               icon: Iconz.sexyStar,
                               count: reviewModel.agrees,
                               isOn: _isAlreadyAgreed,
-                              verse: 'Agree',
+                              verse: _isAlreadyAgreed == true ? 'Agreed' : 'Agree',
                               onTap: () => onReviewAgree(
                                 isAlreadyAgreed: _isAlreadyAgreed,
                                 context: context,
@@ -220,6 +217,8 @@ class ReviewTextBalloon extends StatelessWidget {
         BzReplyBubble(
           boxWidth: _textBubbleWidth,
           reviewModel: reviewModel,
+          paginatorNotifiers: paginatorNotifiers,
+          flyerModel: flyerModel,
         ),
 
       ],

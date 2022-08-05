@@ -58,8 +58,8 @@ class ReviewBubbleButton extends StatelessWidget {
       iconColor: isOn == true ? null : Colorz.white255,
       iconSizeFactor: 0.6,
       bubble: false,
-      color: isOn == true ? Colorz.yellow255 : Colorz.white20,
-      verseColor: isOn == true ? Colorz.black255 : Colorz.white255,
+      color: isOn == true ? Colorz.black150 : Colorz.white20,
+      verseColor: isOn == true ? Colorz.white255 : Colorz.white255,
       onTap: onTap,
     );
 

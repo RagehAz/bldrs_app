@@ -39,4 +39,62 @@ class KeyboardModel {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
 
+  KeyboardModel copyWith({
+    String title,
+    String hintText,
+    TextEditingController controller,
+    int minLines,
+    int maxLines,
+    int maxLength,
+    TextInputAction textInputAction,
+    TextInputType textInputType,
+    FocusNode focusNode,
+    bool canObscure,
+    bool counterIsOn,
+    bool isFormField,
+    ValueChanged<String> onChanged,
+    ValueChanged<String> onSubmitted,
+    ValueChanged<String> onSavedForForm,
+    Function onEditingComplete,
+}){
+    return KeyboardModel(
+      title: title ?? this.title,
+      hintText: hintText ?? this.hintText,
+      controller: controller ?? this.controller,
+      minLines: minLines ?? this.minLines,
+      maxLines: maxLines ?? this.maxLines,
+      maxLength: maxLength ?? this.maxLength,
+      textInputAction: textInputAction ?? this.textInputAction,
+      textInputType: textInputType ?? this.textInputType,
+      focusNode: focusNode ?? this.focusNode,
+      canObscure: canObscure ?? this.canObscure,
+      counterIsOn: counterIsOn ?? this.counterIsOn,
+      isFormField: isFormField ?? this.isFormField,
+      onChanged: onChanged ?? this.onChanged,
+      onSubmitted: onSubmitted ?? this.onSubmitted,
+      onSavedForForm: onSavedForForm ?? this.onSavedForForm,
+      onEditingComplete: onEditingComplete ?? this.onEditingComplete,
+    );
+  }
+
+  static KeyboardModel standardModel(){
+    return KeyboardModel(
+        title: null,
+        hintText: '...',
+        controller: TextEditingController(),
+        minLines: 1,
+        maxLines: 1,
+        maxLength: null,
+        textInputAction: TextInputAction.done,
+        textInputType: TextInputType.text,
+        focusNode: FocusNode(),
+        canObscure: false,
+        counterIsOn: false,
+        isFormField: false,
+        onChanged: null,
+        onSubmitted: null,
+        onSavedForForm: null,
+        onEditingComplete: null
+    );
+  }
 }

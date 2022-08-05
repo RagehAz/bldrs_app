@@ -7,6 +7,7 @@ import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/record_ops.dart';
 import 'package:bldrs/e_db/real/ops/review_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewProtocols {
@@ -130,6 +131,10 @@ class ReviewProtocols {
   }
 // -----------------------------------------------------------------------------
 
+  /// WIPE
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeSingleReview({
     @required BuildContext context,
     @required ReviewModel reviewModel,
@@ -154,6 +159,53 @@ class ReviewProtocols {
           collName: RealColl.agreesOnReviews,
           docName: reviewModel.id,
         ),
+
+      ]);
+
+    }
+
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
+  static Future<void> wipeAllFlyerReviews({
+    @required BuildContext context,
+    @required String flyerID,
+  }) async {
+
+    await Fire.deleteSubCollection(
+      context: context,
+      collName: FireColl.flyers,
+      docName: flyerID,
+      subCollName: FireSubColl.flyers_flyer_reviews,
+      onDeleteSubDoc: (String subDocID) async {
+
+        /// DELETE REVIEW AGREES
+        await Real.deleteDoc(
+          context: context,
+          collName: RealColl.agreesOnReviews,
+          docName: subDocID,
+        );
+
+
+      }
+    );
+
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
+  static Future<void> wipeMultipleFlyersReviews({
+    @required BuildContext context,
+    @required List<String> flyersIDs,
+}) async {
+
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(flyersIDs.length, (index) => wipeAllFlyerReviews(
+          context: context,
+          flyerID: flyersIDs[index],
+        )),
 
       ]);
 

@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -9,16 +9,16 @@ import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 // void _onShowReviewOptions(ReviewModel reviewModel){
 //   blog('_onShowReviewOptions : $reviewModel');
 // }
+///
 // -----------------------------------------------------------------------------
 
-/// REVIEW
+/// CREATE NEW REVIEW
 
 // ----------------------------------
 /// TESTED : WORKS PERFECT
@@ -42,6 +42,10 @@ Future<void> onSubmitReview({
 
 }
 // -----------------------------------------------------------------------------
+
+/// AGREE
+
+// ----------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
   @required BuildContext context,
@@ -67,18 +71,11 @@ Future<void> onReviewAgree({
 
 }
 // -----------------------------------------------------------------------------
-Future<void> onBzReply({
-  @required BuildContext context,
-  @required ReviewModel reviewModel,
-  @required TextEditingController textController,
-  @required ValueNotifier<Map<String, dynamic>> replaceMap,
-}) async {
 
-  blog('should reply to this flyer review');
+/// REVIEW OPTIONS
 
-
-}
-// -----------------------------------------------------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onReviewOptions({
   @required BuildContext context,
   @required ReviewModel reviewModel,
@@ -104,9 +101,10 @@ Future<void> onReviewOptions({
 
                 Nav.goBack(context);
 
-                await onEditReview(
+                await _onEditReview(
                   context: context,
                   reviewModel: reviewModel,
+                  replaceMapNotifier: replaceMapNotifier,
                 );
 
               }
@@ -122,7 +120,7 @@ Future<void> onReviewOptions({
 
                 Nav.goBack(context);
 
-                await onDeleteReview(
+                await _onDeleteReview(
                   context: context,
                   reviewModel: reviewModel,
                   deleteMap: deleteMapNotifier,
@@ -137,17 +135,70 @@ Future<void> onReviewOptions({
   );
 
 }
-// -----------------------------------------------------------------------------
-Future<void> onEditReview({
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onEditReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
+  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
 }) async {
 
-  blog('should edit this fucking review naaaw');
+  bool _isConfirmed = false;
+
+  final String _shit = await BottomDialog.keyboardDialog(
+    context: context,
+    keyboardModel: KeyboardModel(
+      title: 'Edit Your Review',
+      hintText: 'What do you think of this flyer ?',
+      controller: TextEditingController(text: reviewModel.text),
+      minLines: 1,
+      maxLines: 5,
+      maxLength: null,
+      textInputAction: TextInputAction.newline,
+      textInputType: TextInputType.text,
+      focusNode: FocusNode(),
+      canObscure: false,
+      counterIsOn: false,
+      isFormField: false,
+      onChanged: null,
+      onSavedForForm: null,
+      onEditingComplete: null,
+      onSubmitted: (String text){
+
+        _isConfirmed = true;
+
+        },
+    ),
+
+  );
+
+  if (_shit != reviewModel.text && _isConfirmed == true){
+
+    final ReviewModel _updated = reviewModel.copyWith(
+      text: _shit,
+    );
+
+    await ReviewProtocols.renovateReview(
+      context: context,
+      reviewModel: _updated,
+    );
+
+    replaceMapNotifier.value = _updated.toMap(
+      includeID: true,
+      includeDocSnapshot: true,
+    );
+
+    unawaited(TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Review has been updated',
+    ));
+
+  }
 
 }
-// -----------------------------------------------------------------------------
-Future<void> onDeleteReview({
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onDeleteReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required ValueNotifier<Map<String, dynamic>> deleteMap,
@@ -179,6 +230,242 @@ Future<void> onDeleteReview({
 
   }
 
-
 }
 // -----------------------------------------------------------------------------
+
+/// BZ REPLY
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onBzReply({
+  @required BuildContext context,
+  @required ReviewModel reviewModel,
+  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+}) async {
+
+  bool _isConfirmed = false;
+
+  final String _shit = await BottomDialog.keyboardDialog(
+    context: context,
+    keyboardModel: KeyboardModel(
+      title: 'Reply to this review',
+      hintText: 'Reply ...',
+      controller: TextEditingController(text: reviewModel.reply),
+      minLines: 1,
+      maxLines: 5,
+      maxLength: null,
+      textInputAction: TextInputAction.newline,
+      textInputType: TextInputType.text,
+      focusNode: FocusNode(),
+      canObscure: false,
+      counterIsOn: false,
+      isFormField: false,
+      onChanged: null,
+      onSavedForForm: null,
+      onEditingComplete: null,
+      onSubmitted: (String text){
+
+        _isConfirmed = true;
+
+      },
+    ),
+
+  );
+
+  if (_shit != reviewModel.text && _isConfirmed == true){
+
+    final ReviewModel _updated = reviewModel.copyWith(
+      reply: _shit,
+      replyAuthorID: AuthFireOps.superUserID(),
+      replyTime: DateTime.now(),
+    );
+
+    await ReviewProtocols.renovateReview(
+      context: context,
+      reviewModel: _updated,
+    );
+
+    replaceMapNotifier.value = _updated.toMap(
+      includeID: true,
+      includeDocSnapshot: true,
+    );
+
+    unawaited(TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Your reply has been posted',
+    ));
+
+  }
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onReplyOptions({
+  @required BuildContext context,
+  @required ReviewModel reviewModel,
+  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+}) async {
+
+  await BottomDialog.showButtonsBottomDialog(
+      context: context,
+      draggable: true,
+      numberOfWidgets: 2,
+      builder: (_, PhraseProvider pro){
+
+        return <Widget>[
+
+          /// EDIT REPLY
+          BottomDialog.wideButton(
+              context: context,
+              verse: 'Edit',
+              verseCentered: true,
+              onTap: () async {
+
+                Nav.goBack(context);
+
+                await _onEditReply(
+                  context: context,
+                  reviewModel: reviewModel,
+                  replaceMapNotifier: replaceMapNotifier,
+                );
+
+              }
+          ),
+
+          /// DELETE REPLY
+          BottomDialog.wideButton(
+              context: context,
+              verse: 'Delete',
+              verseCentered: true,
+              onTap: () async {
+
+                Nav.goBack(context);
+
+                await _onDeleteReply(
+                  context: context,
+                  reviewModel: reviewModel,
+                  replaceMapNotifier: replaceMapNotifier,
+                );
+
+              }
+          ),
+
+        ];
+
+      }
+  );
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onEditReply({
+  @required BuildContext context,
+  @required ReviewModel reviewModel,
+  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+}) async {
+
+  bool _isConfirmed = false;
+
+  final String _shit = await BottomDialog.keyboardDialog(
+    context: context,
+    keyboardModel: KeyboardModel(
+      title: 'Edit Your Reply',
+      hintText: 'Reply',
+      controller: TextEditingController(text: reviewModel.reply),
+      minLines: 1,
+      maxLines: 5,
+      maxLength: null,
+      textInputAction: TextInputAction.newline,
+      textInputType: TextInputType.text,
+      focusNode: FocusNode(),
+      canObscure: false,
+      counterIsOn: false,
+      isFormField: false,
+      onChanged: null,
+      onSavedForForm: null,
+      onEditingComplete: null,
+      onSubmitted: (String text){
+
+        _isConfirmed = true;
+
+      },
+    ),
+
+  );
+
+  if (_shit != reviewModel.text && _isConfirmed == true){
+
+    final ReviewModel _updated = reviewModel.copyWith(
+      reply: _shit,
+      replyAuthorID: AuthFireOps.superUserID(),
+    );
+
+    await ReviewProtocols.renovateReview(
+      context: context,
+      reviewModel: _updated,
+    );
+
+    replaceMapNotifier.value = _updated.toMap(
+      includeID: true,
+      includeDocSnapshot: true,
+    );
+
+    unawaited(TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Reply has been updated',
+    ));
+
+  }
+
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onDeleteReply({
+  @required BuildContext context,
+  @required ReviewModel reviewModel,
+  @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
+}) async {
+
+  final bool _canContinue = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Delete Reply ?',
+    body: 'Your reply on this review will be permanently deleted',
+    boolDialog: true,
+  );
+
+  if (_canContinue == true){
+
+    final ReviewModel _updated = ReviewModel(
+      id: reviewModel.id,
+      text: reviewModel.text,
+      userID: reviewModel.userID,
+      time: reviewModel.time,
+      flyerID: reviewModel.flyerID,
+      replyAuthorID: null,
+      reply: null,
+      replyTime: null,
+      agrees: reviewModel.agrees,
+      docSnapshot: reviewModel.docSnapshot,
+    );
+
+    await ReviewProtocols.renovateReview(
+      context: context,
+      reviewModel: _updated,
+    );
+
+    replaceMapNotifier.value = _updated.toMap(
+      includeID: true,
+      includeDocSnapshot: true,
+    );
+
+    unawaited(TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'Reply has been deleted',
+    ));
+
+  }
+
+
+}
+// ----------------------------------
