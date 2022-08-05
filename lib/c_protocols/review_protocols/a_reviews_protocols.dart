@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
@@ -88,7 +90,7 @@ class ReviewProtocols {
     if (isAlreadyAgreed == true){
       await Real.deleteField(
           context: context,
-          collName: RealColl.reviewsAgrees,
+          collName: RealColl.agreesOnReviews,
           docName: reviewModel.id,
           fieldName: AuthFireOps.superUserID(),
       );
@@ -97,7 +99,7 @@ class ReviewProtocols {
     else {
       await Real.updateDocField(
           context: context,
-          collName: RealColl.reviewsAgrees,
+          collName: RealColl.agreesOnReviews,
           docName: reviewModel.id,
           fieldName: AuthFireOps.superUserID(),
           value: true,
@@ -117,7 +119,7 @@ class ReviewProtocols {
 
     final dynamic _result = await Real.readPath(
       context: context,
-      path: '${RealColl.reviewsAgrees}/$reviewID/${AuthFireOps.superUserID()}',
+      path: '${RealColl.agreesOnReviews}/$reviewID/${AuthFireOps.superUserID()}',
     );
 
     if (_result == true){
@@ -125,6 +127,38 @@ class ReviewProtocols {
     }
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  static Future<void> wipeSingleReview({
+    @required BuildContext context,
+    @required ReviewModel reviewModel,
+  }) async {
+
+    if (reviewModel != null){
+
+      await Future.wait(<Future>[
+
+        /// DELETE REVIEW SUB DOC
+        Fire.deleteSubDoc(
+          context: context,
+          collName: FireColl.flyers,
+          docName: reviewModel.flyerID,
+          subCollName: FireSubColl.flyers_flyer_reviews,
+          subDocName: reviewModel.id,
+        ),
+
+        /// DELETE REVIEW AGREES
+        Real.deleteDoc(
+          context: context,
+          collName: RealColl.agreesOnReviews,
+          docName: reviewModel.id,
+        ),
+
+      ]);
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 }
