@@ -186,7 +186,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
               queryModel: userReceivedNotesPaginationQueryParameters(
                 onDataChanged: _onPaginatorDataChanged
               ),
-              builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+              builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
                 blog('FireCollPaginator : rebuilding with ${maps.length} map');
 

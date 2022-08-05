@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -17,6 +18,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -277,27 +279,21 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    // final CityChain _cityChain = await CityChainOps.readCityChain(
-    //     context: context,
-    //     cityID: 'egy_cairo',
-    // );
+    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
+    final UserModel _user2 = _user.copyWith();
 
-        // final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: false);
-    // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
-    // _keywordsChain.blogChain();
-    // _currentZone.blogZone();
-    //
-    // final Chain _specChain = _chainsProvider.specsChain;
-    //
-    // _specChain.blogChain();
+    final Map<String, dynamic> _map1 = _user.toMap(toJSON: false);
+    final Map<String, dynamic> _map2 = _user2.toMap(toJSON: false);
 
-    // final Chain _chain = await _chainsProvider.fetchKeywordsChain(context);
-    //
-    // final Chain _refined = _chainsProvider.removeUnusedKeywordsFromChainForThisCity(
-    //   chain: _chain,
-    // );
+    final bool _identical = Mapper.checkMapsAreIdentical(map2: _map2, map1: _map1);
+
+    if (_identical == true){
+      blog('are identical x ');
+    }
+    else{
+      blog('its not working shit x' );
+    }
 
   }
 // -----------------------------------------------------------------------------

@@ -59,13 +59,11 @@ abstract class FireSubColl {
   static const String questions_question_chats = 'chats';
   static const String questions_question_counters = 'counters';
 
-  // static const String bzz_bz_counters = 'counters';
   static const String bzz_bz_chats = 'chats';
   static const String bzz_bz_notifications = 'notifications';
   static const String bzz_bz_credits = 'credits';
 
-  // static const String flyers_flyer_counters = 'counters';
-  // static const String flyers_flyer_reviews = 'reviews';
+  static const String flyers_flyer_reviews = 'reviews';
 
   static const String zones_cities_cities = 'cities';
   static const String zones_countries_countries = 'countries';

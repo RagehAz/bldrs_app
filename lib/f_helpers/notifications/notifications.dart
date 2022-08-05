@@ -286,6 +286,8 @@ class Notifications {
 
     String _fcmToken;
 
+    /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+
     final bool _continue = await tryCatchAndReturnBool(
       context: context,
       methodName: 'updateMyUserFCMToken',

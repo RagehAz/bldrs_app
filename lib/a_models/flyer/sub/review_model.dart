@@ -1,8 +1,8 @@
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,8 +17,8 @@ class ReviewModel {
     @required this.replyAuthorID,
     @required this.reply,
     @required this.replyTime,
-    @required this.likesUsersIDs,
-    @required this.number,
+    @required this.agrees,
+    this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -29,8 +29,8 @@ class ReviewModel {
   final String replyAuthorID;
   final String reply;
   final DateTime replyTime;
-  final List<String> likesUsersIDs;
-  final int number; // used to order reviews
+  final int agrees;
+  final DocumentSnapshot<Object> docSnapshot;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -46,8 +46,8 @@ class ReviewModel {
     String replyAuthorID,
     String reply,
     DateTime replyTime,
-    int likesUsersIDs,
-    int number,
+    int agrees,
+    DocumentSnapshot<Object> docSnapshot,
   }){
     return ReviewModel(
       id: id ?? this.id,
@@ -58,18 +58,20 @@ class ReviewModel {
       replyAuthorID: replyAuthorID ?? this.replyAuthorID,
       reply: reply ?? this.reply,
       replyTime: replyTime ?? this.replyTime,
-      likesUsersIDs: likesUsersIDs ?? this.likesUsersIDs,
-      number: number ?? this.number,
+      agrees: agrees ?? this.agrees ?? 0,
+      docSnapshot: docSnapshot ?? this.docSnapshot,
     );
   }
 // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     bool toJSON = false,
     bool includeID = false,
+    bool includeDocSnapshot = false,
   }) {
 
     Map<String, dynamic> _map = <String, dynamic>{
@@ -80,8 +82,7 @@ class ReviewModel {
       'replyAuthorID': replyAuthorID,
       'reply': reply,
       'replyTime': Timers.cipherTime(time: replyTime, toJSON: toJSON),
-      'likesUsersIDs': likesUsersIDs,
-      'number': number,
+      'agrees': agrees ?? 0,
     };
 
     if (includeID == true){
@@ -92,18 +93,28 @@ class ReviewModel {
       );
     }
 
+    if (includeDocSnapshot == true){
+      _map = Mapper.insertPairInMap(
+        map: _map,
+        key: 'docSnapshot',
+        value: docSnapshot,
+      );
+    }
+
     return _map;
   }
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static ReviewModel decipherReview({
     @required dynamic map,
+    @required String reviewID,
     bool fromJSON
   }) {
     ReviewModel _review;
 
     if (map != null) {
       _review = ReviewModel(
-        id: map['id'],
+        id: reviewID,
         text: map['text'],
         userID: map['userID'],
         time: Timers.decipherTime(time: map['time'], fromJSON: fromJSON,),
@@ -111,14 +122,15 @@ class ReviewModel {
         replyAuthorID: map['replyAuthorID'],
         reply: map['reply'],
         replyTime:Timers.decipherTime(time: map['replyTime'], fromJSON: fromJSON,),
-        likesUsersIDs: Mapper.getStringsFromDynamics(dynamics: map['likesUsersIDs']),
-        number: map['number'],
+        agrees: map['agrees'],
+        docSnapshot: map['docSnapshot'],
       );
     }
 
     return _review;
   }
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ReviewModel> decipherReviews({
     @required List<Map<String, dynamic>> maps,
     bool fromJSON
@@ -129,6 +141,7 @@ class ReviewModel {
       for (final Map<String, dynamic> map in maps) {
         _reviews.add(decipherReview(
           map: map,
+          reviewID: map['id'],
           fromJSON: fromJSON,
         ));
       }
@@ -139,7 +152,8 @@ class ReviewModel {
 
   /// DECIPHERS OF INTERNAL HASH LINKED MAP OBJECT OBJECT
 
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static ReviewModel decipherFromDataSnapshot(DataSnapshot snapshot){
 
     ReviewModel _review;
@@ -152,6 +166,7 @@ class ReviewModel {
 
       _review = ReviewModel.decipherReview(
         map: _map,
+        reviewID: snapshot.key,
         fromJSON: true,
       );
 
@@ -161,7 +176,7 @@ class ReviewModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// DUMMIES
+  /// CREATOR
 
 // --------------------------------------
   static ReviewModel createNewReview({
@@ -177,10 +192,29 @@ class ReviewModel {
       replyAuthorID: null,
       reply: null,
       replyTime: null,
-      likesUsersIDs: <String>[],
-      number: Numeric.createUniqueID(),
+      agrees: 0,
     );
 
+  }
+// -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static ReviewModel incrementAgrees({
+    @required ReviewModel reviewModel,
+    @required bool isIncrementing,
+  }){
+
+    int _value = reviewModel?.agrees ?? 0;
+    _value = isIncrementing == true ? _value + 1 : _value - 1;
+
+    final ReviewModel _output = reviewModel.copyWith(
+      agrees: _value,
+    );
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 
@@ -206,7 +240,8 @@ class ReviewModel {
 
   /// DUMMIES
 
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static ReviewModel dummyReview({
     @required String flyerID,
     @required String authorID,
@@ -220,17 +255,15 @@ class ReviewModel {
       replyAuthorID: authorID,
       reply: 'Very cool review, thank you',
       replyTime: DateTime.now(),
-      number: Numeric.createUniqueID(),
-      likesUsersIDs: <String>[
-        AuthFireOps.superUserID(),
-      ],
+      agrees: 454545,
     );
   }
 // -----------------------------------------------------------------------------
 
 /// BLOGGING
 
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogReview({
   String methodName = '',
 }){
@@ -243,10 +276,11 @@ class ReviewModel {
     blog('replyAuthorID : $replyAuthorID');
     blog('reply : $reply');
     blog('replyTime : $replyTime');
-    blog('likesUsersIDs : $likesUsersIDs');
+    blog('agrees : $agrees');
     blog('blogReview : $methodName  ------ END');
   }
-// --------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogReviews({
     @required List<ReviewModel> reviews,
     String methodName,
@@ -286,8 +320,7 @@ class ReviewModel {
           review1.replyAuthorID == review2.replyAuthorID &&
           review1.reply == review2.reply &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.second, time1: review1.replyTime, time2: review2.replyTime) == true &&
-          Mapper.checkListsAreIdentical(list1: review1.likesUsersIDs, list2: review2.likesUsersIDs) &&
-          review1.number == review2.number
+          review1.agrees == review2.agrees
       ){
         _areIdentical = true;
       }

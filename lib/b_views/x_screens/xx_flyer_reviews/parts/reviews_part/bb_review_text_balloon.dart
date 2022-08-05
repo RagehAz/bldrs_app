@@ -11,6 +11,8 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
+import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -20,21 +22,27 @@ import 'package:flutter/material.dart';
 class ReviewTextBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewTextBalloon({
+    @required this.isCreatorMode,
     @required this.userModel,
     @required this.reviewModel,
     @required this.pageWidth,
     @required this.flyerModel,
-    this.textController,
-    this.onSubmitReview,
+    @required this.reviewTextController,
+    @required this.replyTextController,
+    @required this.replaceMap,
+    @required this.addMap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final bool isCreatorMode;
   final UserModel userModel;
   final ReviewModel reviewModel;
   final double pageWidth;
-  final TextEditingController textController;
-  final Function onSubmitReview;
+  final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
+  final TextEditingController replyTextController;
+  final ValueNotifier<Map<String, dynamic>> replaceMap;
+  final ValueNotifier<Map<String, dynamic>> addMap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,10 +51,14 @@ class ReviewTextBalloon extends StatelessWidget {
       context: context,
       flyerModel: flyerModel,
     );
-    final bool _isCreatorMode = onSubmitReview != null;
-    final double _textBubbleWidth = ReviewBubble.getTextBubbleWidth(pageWidth: pageWidth);
 
-    final double _clearWidth = ReviewBubbleBox.clearWidth(balloonWidth: _textBubbleWidth);
+    final double _textBubbleWidth = ReviewBubble.getTextBubbleWidth(
+        pageWidth: pageWidth,
+    );
+
+    final double _clearWidth = ReviewBubbleBox.clearWidth(
+        balloonWidth: _textBubbleWidth,
+    );
 
     return Column(
       children: <Widget>[
@@ -62,15 +74,15 @@ class ReviewTextBalloon extends StatelessWidget {
                 name: userModel?.name,
                 timeStamp: reviewModel?.time,
                 text: reviewModel?.text,
-                isCreatorMode: _isCreatorMode,
+                isCreatorMode: isCreatorMode,
               ),
 
               /// TEXT FIELD
-              if (_isCreatorMode == true)
+              if (isCreatorMode == true)
                   SuperTextField(
                     title: 'Edit Review',
                     width: _textBubbleWidth,
-                    textController: textController,
+                    textController: reviewTextController,
                     maxLines: 8,
                     textInputType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
@@ -84,7 +96,7 @@ class ReviewTextBalloon extends StatelessWidget {
                   ),
 
               /// SUBMIT BUTTON
-              if (_isCreatorMode == true)
+              if (isCreatorMode == true)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
@@ -97,21 +109,26 @@ class ReviewTextBalloon extends StatelessWidget {
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
-                      onTap: onSubmitReview,
+                      onTap: () => onSubmitReview(
+                        context: context,
+                        textController: reviewTextController,
+                        flyerModel: flyerModel,
+                        addMap: addMap,
+                      ),
                     ),
 
                   ],
                 ),
 
               /// SEPARATOR LINE
-              if (_isCreatorMode == false)
+              if (isCreatorMode == false)
                 SeparatorLine(
                   width: _clearWidth,
                   color: Colorz.white50,
                 ),
 
               /// ( REPLY - AGREE ) BUTTONS
-              if (_isCreatorMode == false)
+              if (isCreatorMode == false)
                 SizedBox(
                   width: _clearWidth,
                   child: Row(
@@ -123,9 +140,14 @@ class ReviewTextBalloon extends StatelessWidget {
                         ReviewBubbleButton(
                         icon: Iconz.utPlanning,
                         verse: 'Reply',
-                        onTap: (){
-                          blog('should reply to this flyer review');
-                        },
+                        count: null,
+                        isOn: false,
+                        onTap: () => onReviewReply(
+                          context: context,
+                          reviewModel: reviewModel,
+                          textController: replyTextController,
+                          mapOverride: replaceMap,
+                        ),
                       ),
 
                       /// SPACER
@@ -133,13 +155,30 @@ class ReviewTextBalloon extends StatelessWidget {
                         const SizedBox(width: ReviewBubble.spacer,),
 
                       /// LIKE
-                      ReviewBubbleButton(
-                        icon: Iconz.sexyStar,
-                        verse: '${reviewModel.likesUsersIDs.length} Agrees',
-                        onTap: (){
-                          blog('should like this flyer review');
-                        },
-                      ),
+                      FutureBuilder<bool>(
+                          future: ReviewProtocols.fetchIsAlreadyAgreed(
+                            context: context,
+                            reviewID: reviewModel.id,
+                          ),
+                          builder: (_, AsyncSnapshot<Object> snapshot){
+
+                            final bool _isAlreadyAgreed = snapshot.data;
+
+                            return ReviewBubbleButton(
+                              icon: Iconz.sexyStar,
+                              count: reviewModel.agrees + 3500,
+                              isOn: _isAlreadyAgreed,
+                              verse: 'Agree',
+                              onTap: () => onReviewAgree(
+                                isAlreadyAgreed: _isAlreadyAgreed,
+                                context: context,
+                                reviewModel: reviewModel,
+                                mapOverride: replaceMap,
+                              ),
+                            );
+
+                          }
+                          ),
 
                     ],
                   ),
@@ -156,7 +195,7 @@ class ReviewTextBalloon extends StatelessWidget {
         ),
 
         /// BZ REPLY BUBBLE
-        if (_isCreatorMode == false && TextChecker.stringIsNotEmpty(reviewModel?.reply) == true)
+        if (isCreatorMode == false && TextChecker.stringIsNotEmpty(reviewModel?.reply) == true)
         BzReplyBubble(
           boxWidth: _textBubbleWidth,
           reviewModel: reviewModel,

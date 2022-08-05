@@ -525,7 +525,7 @@ class Real {
         context: context,
         functions: () async {
 
-          final event = await ref.once(DatabaseEventType.value);
+          final DatabaseEvent event = await ref.once(DatabaseEventType.value);
 
           _map = Mapper.getMapFromDataSnapshot(
               snapshot: event.snapshot,
@@ -558,6 +558,30 @@ class Real {
     });
 
     return _sub;
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<dynamic> readPath({
+    @required BuildContext context,
+    @required String path,
+  }) async {
+
+    dynamic _output;
+
+    final DatabaseReference _ref = _getRefByPath(path: path);
+
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final DatabaseEvent event = await _ref.once(DatabaseEventType.value);
+
+        _output = event.snapshot.value;
+
+      },
+    );
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

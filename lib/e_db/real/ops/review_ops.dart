@@ -39,14 +39,30 @@ class ReviewFireOps {
     // );
 
     final DocumentReference<Object> _ref = await Fire.createSubDoc(
-        context: context,
-        collName: FireColl.flyers,
-        docName: flyerID,
-        subCollName: 'reviews',
-        input: _review.toMap(),
+      context: context,
+      collName: FireColl.flyers,
+      docName: flyerID,
+      subCollName: FireSubColl.flyers_flyer_reviews,
+      input: _review.toMap(),
     );
 
     return _review.copyWith(id: _ref?.id);
   }
 // -----------------------------------------------------------------------------
+  static Future<void> updateReview({
+    @required BuildContext context,
+    @required ReviewModel reviewModel,
+  }) async {
+
+    await Fire.updateSubDoc(
+        context: context,
+        collName: FireColl.flyers,
+        docName: reviewModel.flyerID,
+        subCollName: FireSubColl.flyers_flyer_reviews,
+        subDocName: reviewModel.id,
+        input: reviewModel.toMap(),
+    );
+
+  }
+
 }
