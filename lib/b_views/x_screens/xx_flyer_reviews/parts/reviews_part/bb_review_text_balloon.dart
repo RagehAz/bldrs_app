@@ -1,15 +1,20 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bbb_reply_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bba_review_bubble_balloon.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/c_review_text_column.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/d_review_bubble_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class ReviewTextBalloon extends StatelessWidget {
@@ -18,6 +23,7 @@ class ReviewTextBalloon extends StatelessWidget {
     @required this.userModel,
     @required this.reviewModel,
     @required this.pageWidth,
+    @required this.flyerModel,
     this.textController,
     this.onSubmitReview,
     Key key
@@ -28,18 +34,25 @@ class ReviewTextBalloon extends StatelessWidget {
   final double pageWidth;
   final TextEditingController textController;
   final Function onSubmitReview;
+  final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
+      context: context,
+      flyerModel: flyerModel,
+    );
     final bool _isCreatorMode = onSubmitReview != null;
     final double _textBubbleWidth = ReviewBubble.getTextBubbleWidth(pageWidth: pageWidth);
+
+    final double _clearWidth = ReviewBubbleBox.clearWidth(balloonWidth: _textBubbleWidth);
 
     return Column(
       children: <Widget>[
 
         /// REVIEW TEXT
-        ReviewBubbleBalloon(
+        ReviewBubbleBox(
           width: _textBubbleWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,6 +101,48 @@ class ReviewTextBalloon extends StatelessWidget {
                     ),
 
                   ],
+                ),
+
+              /// SEPARATOR LINE
+              if (_isCreatorMode == false)
+                SeparatorLine(
+                  width: _clearWidth,
+                  color: Colorz.white50,
+                ),
+
+              /// ( REPLY - AGREE ) BUTTONS
+              if (_isCreatorMode == false)
+                SizedBox(
+                  width: _clearWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+
+                      /// REPLY
+                      if (_imAuthorInFlyerBz == true)
+                        ReviewBubbleButton(
+                        icon: Iconz.utPlanning,
+                        verse: 'Reply',
+                        onTap: (){
+                          blog('should reply to this flyer review');
+                        },
+                      ),
+
+                      /// SPACER
+                      if (_imAuthorInFlyerBz == true)
+                        const SizedBox(width: ReviewBubble.spacer,),
+
+                      /// LIKE
+                      ReviewBubbleButton(
+                        icon: Iconz.sexyStar,
+                        verse: '${reviewModel.likesUsersIDs.length} Agrees',
+                        onTap: (){
+                          blog('should like this flyer review');
+                        },
+                      ),
+
+                    ],
+                  ),
                 ),
 
             ],
