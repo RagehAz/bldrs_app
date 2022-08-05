@@ -2,19 +2,21 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bbb_reply_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bba_review_bubble_balloon.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bbb_reply_bubble.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/c_review_text_column.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/d_review_bubble_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +31,7 @@ class ReviewTextBalloon extends StatelessWidget {
     @required this.flyerModel,
     @required this.reviewTextController,
     @required this.replyTextController,
-    @required this.replaceMap,
-    @required this.addMap,
+    @required this.paginatorNotifiers,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,11 +42,12 @@ class ReviewTextBalloon extends StatelessWidget {
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
   final TextEditingController replyTextController;
-  final ValueNotifier<Map<String, dynamic>> replaceMap;
-  final ValueNotifier<Map<String, dynamic>> addMap;
+  final PaginatorNotifiers paginatorNotifiers;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final bool _imReviewCreator = reviewModel?.userID == AuthFireOps.superUserID();
 
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
       context: context,
@@ -113,7 +115,7 @@ class ReviewTextBalloon extends StatelessWidget {
                         context: context,
                         textController: reviewTextController,
                         flyerModel: flyerModel,
-                        addMap: addMap,
+                        addMap: paginatorNotifiers.addMap,
                       ),
                     ),
 
@@ -135,6 +137,25 @@ class ReviewTextBalloon extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
 
+                      /// MORE BUTTON
+                      if (_imReviewCreator == true)
+                      ReviewBubbleButton(
+                        count: null,
+                        isOn: false,
+                        verse: null,
+                        icon: Iconz.more,
+                        onTap: () => onReviewOptions(
+                          context: context,
+                          reviewModel: reviewModel,
+                          deleteMapNotifier: paginatorNotifiers.deleteMap,
+                          replaceMapNotifier: paginatorNotifiers.replaceMap,
+                        ),
+                      ),
+
+                      /// EXPANDER
+                      if (_imReviewCreator == true)
+                      const Expander(),
+
                       /// REPLY
                       if (_imAuthorInFlyerBz == true)
                         ReviewBubbleButton(
@@ -142,11 +163,11 @@ class ReviewTextBalloon extends StatelessWidget {
                         verse: 'Reply',
                         count: null,
                         isOn: false,
-                        onTap: () => onReviewReply(
+                        onTap: () => onBzReply(
                           context: context,
                           reviewModel: reviewModel,
                           textController: replyTextController,
-                          mapOverride: replaceMap,
+                          replaceMap: paginatorNotifiers.replaceMap,
                         ),
                       ),
 
@@ -166,14 +187,14 @@ class ReviewTextBalloon extends StatelessWidget {
 
                             return ReviewBubbleButton(
                               icon: Iconz.sexyStar,
-                              count: reviewModel.agrees + 3500,
+                              count: reviewModel.agrees,
                               isOn: _isAlreadyAgreed,
                               verse: 'Agree',
                               onTap: () => onReviewAgree(
                                 isAlreadyAgreed: _isAlreadyAgreed,
                                 context: context,
                                 reviewModel: reviewModel,
-                                mapOverride: replaceMap,
+                                replaceMap: paginatorNotifiers.replaceMap,
                               ),
                             );
 
