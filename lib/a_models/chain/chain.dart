@@ -960,22 +960,28 @@ class Chain {
     @required Chain chain,
     @required List<String> usedKeywordsIDs,
   }){
-      Chain _output = Chain(
-        id: chain.id,
-        sons: const <dynamic>[],
-      );
+      Chain _output;
 
-      if (Mapper.checkCanLoopList(usedKeywordsIDs) == true){
-
-        final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
-          allChains: chain.sons,
-          phids: usedKeywordsIDs,
-        );
+      if (chain != null){
 
         _output = Chain(
-          id: chain.id,
-          sons: _foundPathsChains,
+          id: chain?.id,
+          sons: const <dynamic>[],
         );
+
+        if (Mapper.checkCanLoopList(usedKeywordsIDs) == true){
+
+          final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
+            allChains: chain.sons,
+            phids: usedKeywordsIDs,
+          );
+
+          _output = Chain(
+            id: chain.id,
+            sons: _foundPathsChains,
+          );
+
+        }
 
       }
 
