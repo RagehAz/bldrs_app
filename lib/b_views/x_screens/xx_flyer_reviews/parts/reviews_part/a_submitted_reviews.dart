@@ -27,8 +27,10 @@ class SubmittedReviews extends StatefulWidget {
 class _SubmittedReviewsState extends State<SubmittedReviews> {
 
 // -----------------------------------------------------------------------------
-  final TextEditingController _textController = TextEditingController();
-  final ValueNotifier<List<Map<String, dynamic>>> _extraMapsAdded = ValueNotifier([]);
+  final TextEditingController _reviewTextController = TextEditingController();
+  final TextEditingController _replyTextController = TextEditingController();
+  final ValueNotifier<Map<String, dynamic>> _extraMapsAdded = ValueNotifier(null);
+  final ValueNotifier<Map<String, dynamic>> _mapOverride = ValueNotifier(null);
   ScrollController _controller;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -69,9 +71,11 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   @override
   void dispose() {
     _loading.dispose();
-    _textController.dispose();
+    _reviewTextController.dispose();
     _extraMapsAdded.dispose();
     _controller.dispose();
+    _mapOverride.dispose();
+    _replyTextController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -100,18 +104,21 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       child: FireCollPaginator(
         scrollController: _controller,
         queryModel: _createQueryModel(),
-        extraMaps: _extraMapsAdded,
+        addMap: _extraMapsAdded,
         addExtraMapsAtEnd: false,
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+        replaceMap: _mapOverride,
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           return ReviewsBuilder(
             scrollController: _controller,
             pageHeight: widget.pageHeight,
             pageWidth: widget.pageWidth,
             flyerModel: widget.flyerModel,
-            textController: _textController,
-            extraMapsAdded: _extraMapsAdded,
+            reviewTextController: _reviewTextController,
+            addMap: _extraMapsAdded,
             reviewsMaps: maps,
+            replaceMap: _mapOverride,
+            replyTextController: _replyTextController,
           );
 
         },

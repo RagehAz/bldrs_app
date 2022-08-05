@@ -89,7 +89,8 @@ import 'package:flutter/foundation.dart';
     }
 
   }
-// -----------------------------------------------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 void setNotifier({
   @required ValueNotifier<dynamic> notifier,
   @required bool mounted,
@@ -97,6 +98,7 @@ void setNotifier({
 }){
 
   if (mounted == true){
+    // blog('setNotifier : setting to ${value.toString()}');
     notifier.value = value;
   }
 

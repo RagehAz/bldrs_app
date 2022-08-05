@@ -220,7 +220,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
                   bzID: _bzModel.id,
                   onDataChanged: _onPaginatorDataChanged,
               ),
-              builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+              builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
                 /// COMBINE NOTES FROM PAGINATOR + NOTES FROM PROVIDER
                 final List<NoteModel> _combined = _combinePaginatorMapsWithProviderNotes(
