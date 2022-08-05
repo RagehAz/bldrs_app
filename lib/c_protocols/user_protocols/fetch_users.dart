@@ -23,7 +23,7 @@ class FetchUserProtocols {
     );
 
     if (_userModel != null){
-      blog('FetchUserProtocols.fetchUser : ($userID) UserModel FOUND in LDB');
+      // blog('FetchUserProtocols.fetchUser : ($userID) UserModel FOUND in LDB');
     }
 
     else {
@@ -36,14 +36,14 @@ class FetchUserProtocols {
 
       /// 2.2 if found on firebase, store in ldb sessionUsers
       if (_userModel != null) {
-        blog('FetchUserProtocols.fetchUser : ($userID) UserModel FOUND in FIRESTORE and inserted in LDB');
+        // blog('FetchUserProtocols.fetchUser : ($userID) UserModel FOUND in FIRESTORE and inserted in LDB');
         await UserLDBOps.insertUserModel(_userModel);
       }
 
     }
 
     if (_userModel == null){
-      blog('FetchUserProtocols.fetchUser : ($userID) UserModel NOT FOUND');
+      // blog('FetchUserProtocols.fetchUser : ($userID) UserModel NOT FOUND');
     }
 
     return _userModel;
