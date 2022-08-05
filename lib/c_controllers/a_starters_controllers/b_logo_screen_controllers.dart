@@ -4,12 +4,15 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
@@ -27,6 +30,9 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
+  /// USER MODEL
+  await _initializeUserModel(context);
+
   await Future.wait(
       <Future<void>>[
 
@@ -36,8 +42,7 @@ Future<void> initializeLogoScreen({
         _initializeLocalAssetsPaths(context),
         /// APP LANGUAGE
         _initializeAppLanguage(context),
-        /// USER MODEL
-        _initializeUserModel(context),
+
         /// APP STATE
         _initializeAppState(context),
 
@@ -80,6 +85,8 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
 // ---------------------------------
 Future<void> _initializeUserModel(BuildContext context) async {
 
+  blog('_initializeUserModel : START');
+
   /// IF USER IS SIGNED IN
   if (AuthModel.userIsSignedIn() == true) {
 
@@ -98,12 +105,16 @@ Future<void> _initializeUserModel(BuildContext context) async {
   /// WILL CONTINUE NORMALLY AS ANONYMOUS
   // }
 
+  blog('_initializeUserModel : END');
+
 }
 // ---------------------------------
 Future<UserModel> completeUserZoneModel({
   @required BuildContext context,
   @required UserModel userModel,
 }) async {
+
+  blog('completeUserZoneModel : START');
 
   UserModel _output = userModel;
 
@@ -122,8 +133,9 @@ Future<UserModel> completeUserZoneModel({
 
   }
 
-  return _output;
+  blog('completeUserZoneModel : END');
 
+  return _output;
 }
 // ---------------------------------
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
@@ -132,12 +144,24 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required bool notify,
 }) async {
 
+  blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
+
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
 
-  final UserModel _userModel = await completeUserZoneModel(
+  UserModel _userModel;
+
+  if (authModel == null || authModel.userModel == null){
+    _userModel = await UserProtocols.fetchUser(
+        context: context,
+        userID: AuthFireOps.superUserID(),
+    );
+  }
+  else {
+    _userModel = await completeUserZoneModel(
       context: context,
       userModel: authModel.userModel,
-  );
+    );
+  }
 
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
@@ -151,6 +175,8 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   await AuthLDBOps.updateAuthModel(authModel);
   await UserLDBOps.updateUserModel(authModel.userModel);
 
+  blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
+
 }
 // -----------------------------------------------------------------------------
 
@@ -158,6 +184,8 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
 // ---------------------------------
 Future<void> _initializeAppState(BuildContext context) async {
+
+  blog('_initializeAppState : START');
 
   if (AuthModel.userIsSignedIn() == true){
 
@@ -260,6 +288,8 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   }
 
+  blog('_initializeAppState : END');
+
 }
 // ---------------------------------
 Future<void> _showUpdateAppDialog(BuildContext context) async {
@@ -280,11 +310,15 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 // ---------------------------------
 Future<void> _initializeAppControls(BuildContext context) async {
+  blog('_initializeAppControls : START');
+
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   await _generalProvider.fetchSetAppControls(
       context: context,
       notify: true,
   );
+
+  blog('_initializeAppControls : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -292,8 +326,10 @@ Future<void> _initializeAppControls(BuildContext context) async {
 
 // ---------------------------------
 Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
+  blog('_initializeLocalAssetsPaths : START');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   await _uiProvider.getSetLocalAssetsPaths(notify: true);
+  blog('_initializeLocalAssetsPaths : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -301,12 +337,14 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 
 // ---------------------------------
 Future<void> _initializeAppLanguage(BuildContext context) async {
+  blog('_initializeAppLanguage : START');
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
   await _phraseProvider.fetchSetCurrentLangAndPhrases(
     context: context,
   );
 
+  blog('_initializeAppLanguage : END');
 }
 // -----------------------------------------------------------------------------
 

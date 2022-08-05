@@ -30,6 +30,7 @@ import 'package:provider/provider.dart';
 /// ERRORS DIALOGS
 
 // ---------------------------------
+/// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
 Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -74,6 +75,12 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     <String, dynamic>{
       'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
       'reply': superPhrase(context, 'phid_emailWrong', providerOverride: _phraseProvider),
+    },
+
+    /// NETWORK ERRORS
+    <String, dynamic>{
+      'error': '[cloud_firestore/unavailable]', // The service is currently unavailable. This is a most likely a transient condition and may be corrected by retrying with a backoff.
+      'reply': 'Network is unresponsive, please try again',
     },
 
     /// SHARED ERRORS

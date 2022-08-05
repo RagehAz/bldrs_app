@@ -34,8 +34,6 @@ static String superUserID() {
 /// DELETE FIREBASE USER
 
 // ---------------------------------------
-/// TASK : fix this error
-/// deleteFirebaseUser : tryAndCatch ERROR : [firebase_auth/requires-recent-login] This operation is sensitive and requires recent authentication. Log in again before retrying this request.
   static Future<bool> deleteFirebaseUser({
   @required BuildContext context,
   @required String userID,

@@ -90,3 +90,15 @@ import 'package:flutter/foundation.dart';
 
   }
 // -----------------------------------------------------------------------------
+void setNotifier({
+  @required ValueNotifier<dynamic> notifier,
+  @required bool mounted,
+  @required dynamic value,
+}){
+
+  if (mounted == true){
+    notifier.value = value;
+  }
+
+}
+// -----------------------------------------------------------------------------
