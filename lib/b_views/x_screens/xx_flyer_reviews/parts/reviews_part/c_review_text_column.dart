@@ -58,7 +58,6 @@ class ReviewTextsColumn extends StatelessWidget {
             color: _isSpecialReview ? Colorz.yellow255 : Colorz.white255,
           ),
 
-
       ],
     );
   }

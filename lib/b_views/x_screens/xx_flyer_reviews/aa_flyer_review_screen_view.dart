@@ -12,19 +12,20 @@ class FlyerReviewsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerReviewsScreenView({
     @required this.flyerModel,
+    @required this.screenHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
+  final double screenHeight;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     const double _slidesShelfHeight = 120;
     const double _separatorHeight = 5;
-    final double _reviewsBoxHeight = _screenHeight - Ratioz.stratosphere - _separatorHeight - _slidesShelfHeight;
+    final double _reviewsBoxHeight = screenHeight - Ratioz.stratosphere - _separatorHeight - _slidesShelfHeight;
 
     return Column(
       children: <Widget>[

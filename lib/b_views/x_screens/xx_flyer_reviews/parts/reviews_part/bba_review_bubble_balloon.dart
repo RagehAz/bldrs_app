@@ -3,9 +3,9 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class ReviewBubbleBalloon extends StatelessWidget {
+class ReviewBubbleBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ReviewBubbleBalloon({
+  const ReviewBubbleBox({
     @required this.width,
     this.child,
     Key key
@@ -14,6 +14,12 @@ class ReviewBubbleBalloon extends StatelessWidget {
   final double width;
   final Widget child;
   /// --------------------------------------------------------------------------
+  static double clearWidth({
+  @required double balloonWidth,
+}){
+    return balloonWidth - (ReviewBubble.spacer * 2);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

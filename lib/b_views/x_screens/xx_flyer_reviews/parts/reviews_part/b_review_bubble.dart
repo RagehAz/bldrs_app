@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/ba_review_user_image_balloon.dart';
@@ -15,6 +16,7 @@ class ReviewBubble extends StatelessWidget {
     this.reviewModel,
     this.textController,
     this.onSubmitReview,
+    this.flyerModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +24,7 @@ class ReviewBubble extends StatelessWidget {
   final ReviewModel reviewModel;
   final TextEditingController textController;
   final Function onSubmitReview;
+  final FlyerModel flyerModel;
 // ---------------------------------------------------
 
   /// USER BALLOON
@@ -50,7 +53,6 @@ class ReviewBubble extends StatelessWidget {
   }){
     return Borderers.superBorderAll(context, Ratioz.appBarCorner);
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -90,6 +92,7 @@ class ReviewBubble extends StatelessWidget {
                   pageWidth: pageWidth,
                   textController: textController,
                   onSubmitReview: onSubmitReview,
+                  flyerModel: flyerModel,
                 ),
 
                 /// RIGHT SPACING
