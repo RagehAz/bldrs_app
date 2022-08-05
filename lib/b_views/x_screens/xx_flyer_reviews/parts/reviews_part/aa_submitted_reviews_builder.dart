@@ -48,6 +48,7 @@ class ReviewsBuilder extends StatelessWidget {
         /// REVIEW CREATOR
         if (index == 0){
           return ReviewBubble(
+            flyerModel: flyerModel,
             pageWidth: pageWidth,
             textController: textController,
             onSubmitReview: () => onReviewFlyer(
@@ -61,7 +62,9 @@ class ReviewsBuilder extends StatelessWidget {
 
         /// SUBMITTED REVIEWS
         else {
+
           return ReviewBubble(
+            flyerModel: flyerModel,
             pageWidth : pageWidth,
             reviewModel: reviews[index - 1],
             // specialReview: true,

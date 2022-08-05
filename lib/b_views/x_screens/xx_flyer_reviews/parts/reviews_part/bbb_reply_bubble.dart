@@ -46,7 +46,7 @@ class BzReplyBubble extends StatelessWidget {
               const SizedBox(width: ReviewBubble.spacer * 0.5),
 
               /// REPLY TEXT BOX
-              ReviewBubbleBalloon(
+              ReviewBubbleBox(
                 width: boxWidth - _logoWidth - ReviewBubble.spacer * 0.5,
                 child: ReviewTextsColumn(
                   name: _bzModel?.name ?? '',

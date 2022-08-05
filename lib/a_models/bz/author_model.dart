@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -798,6 +799,22 @@ class AuthorModel {
     }
 
     return _imCreator;
+  }
+// ----------------------------------
+  static bool checkImAuthorInBzOfThisFlyer({
+    @required BuildContext context,
+    @required FlyerModel flyerModel,
+  }){
+
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    return Mapper.checkStringsContainString(
+        strings: _myUserModel.myBzzIDs,
+        string: flyerModel.bzID,
+    );
   }
 // ----------------------------------
   static Future<bool> checkUserImageIsAuthorImage({
