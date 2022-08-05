@@ -472,6 +472,9 @@ String pathOfSubDoc({
   }) async {
     dynamic _map;
 
+    // await FirebaseFirestore.instance.disableNetwork();
+    // await FirebaseFirestore.instance.enableNetwork();
+
     final DocumentSnapshot<Object> snapshot = await docRef.get();
 
     if (snapshot.exists == true) {
