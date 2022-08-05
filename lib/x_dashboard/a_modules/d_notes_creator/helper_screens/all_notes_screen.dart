@@ -185,7 +185,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
           },
         ),
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading){
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<NoteModel> notesModels = NoteModel.decipherNotes(
               maps: maps,

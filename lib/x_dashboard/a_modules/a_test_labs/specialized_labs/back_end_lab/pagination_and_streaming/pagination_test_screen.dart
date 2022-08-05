@@ -127,7 +127,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
             child: FireCollPaginator(
               queryModel: _queryParameters,
               scrollController: _scrollController,
-              builder: (_, List<Map<String, dynamic>> _maps, bool isLoading){
+              builder: (_, List<Map<String, dynamic>> _maps, bool isLoading, Widget child){
 
                 return Column(
                   children: <Widget>[

@@ -12,19 +12,25 @@ import 'package:flutter/material.dart';
 class ReviewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewBubble({
+    @required this.isCreatorMode,
     @required this.pageWidth,
+    @required this.flyerModel,
     this.reviewModel,
-    this.textController,
-    this.onSubmitReview,
-    this.flyerModel,
+    this.reviewTextController,
+    this.addMap,
+    this.replyTextController,
+    this.replaceMap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final bool isCreatorMode;
   final double pageWidth;
   final ReviewModel reviewModel;
-  final TextEditingController textController;
-  final Function onSubmitReview;
+  final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
+  final TextEditingController replyTextController;
+  final ValueNotifier<Map<String, dynamic>> replaceMap;
+  final ValueNotifier<Map<String, dynamic>> addMap;
 // ---------------------------------------------------
 
   /// USER BALLOON
@@ -87,12 +93,15 @@ class ReviewBubble extends StatelessWidget {
 
                 /// REVIEW BALLOON PART
                 ReviewTextBalloon(
+                  isCreatorMode: isCreatorMode,
+                  addMap: addMap,
                   userModel: _userModel,
                   reviewModel: reviewModel,
                   pageWidth: pageWidth,
-                  textController: textController,
-                  onSubmitReview: onSubmitReview,
+                  reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
+                  replyTextController: replyTextController,
+                  replaceMap: replaceMap,
                 ),
 
                 /// RIGHT SPACING
