@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
@@ -136,8 +137,10 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     final String _newID = await BottomDialog.keyboardDialog(
       context: context,
-      hintText: 'Wtf is this',
-      title: 'Add new ID instead of Old ( ${map['id']} )',
+      keyboardModel: KeyboardModel.standardModel().copyWith(
+        hintText: 'Wtf is this',
+        title: 'Add new ID instead of Old ( ${map['id']} )',
+      ),
     );
 
     final Color _newColor = createRandomColor();

@@ -1,11 +1,13 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -48,9 +50,14 @@ class BottomDialog extends StatelessWidget {
     return _draggerMarginValue;
   }
 // -----------------------------------------------------------------------------
-  static EdgeInsets draggerMargins({@required bool draggable}) {
+  static EdgeInsets draggerMargins({
+    @required bool draggable
+  }) {
     final EdgeInsets _draggerMargins = EdgeInsets.symmetric(
-        vertical: draggerMarginValue(draggable: draggable));
+        vertical: draggerMarginValue(
+            draggable: draggable
+        )
+    );
     return _draggerMargins;
   }
 // -----------------------------------------------------------------------------
@@ -383,11 +390,11 @@ class BottomDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static Future<String> keyboardDialog({
     @required BuildContext context,
-    @required String title,
-    String hintText,
+    KeyboardModel keyboardModel,
+    bool confirmButtonIsOn = true,
   }) async {
 
-    final TextEditingController _textController = TextEditingController(); /// tamam
+    final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
 
     const double _ratioOfScreenHeight = 0.75;
     final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
@@ -407,15 +414,44 @@ class BottomDialog extends StatelessWidget {
         width: _clearWidth,
         height: _clearHeight,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
 
             TextFieldBubble(
-              title: title,
-              textController: _textController,
+              title: _keyboardModel.title,
+              textController: _keyboardModel.controller,
+              maxLines: _keyboardModel.maxLines,
+              maxLength: _keyboardModel.maxLength,
+              minLines: _keyboardModel.maxLines,
               bubbleWidth: _clearWidth,
-              maxLines: 3,
-              onSubmitted: (String val) {Nav.goBack(context);},
-              hintText: hintText ?? 'text here ...',
+              hintText: _keyboardModel.hintText,
+              counterIsOn: _keyboardModel.counterIsOn,
+              canObscure: _keyboardModel.canObscure,
+              keyboardTextInputType: _keyboardModel.textInputType,
+              keyboardTextInputAction: _keyboardModel.textInputAction,
+              autoFocus: true,
+              onSubmitted: _keyboardModel.onSubmitted ?? (String val) {Nav.goBack(context);},
+
+            ),
+
+            if (confirmButtonIsOn == true)
+            DreamBox(
+              height: 40,
+              verseScaleFactor: 0.6,
+              margins: const EdgeInsets.symmetric(horizontal: 10),
+              verse:'Confirm',
+
+              onTap: (){
+
+                if (_keyboardModel.onSubmitted != null){
+
+                  closeKeyboard(context);
+                  Nav.goBack(context);
+                  _keyboardModel.onSubmitted(_keyboardModel.controller.text);
+
+                }
+
+              },
             ),
 
           ],
@@ -423,7 +459,7 @@ class BottomDialog extends StatelessWidget {
       ),
     );
 
-    return _textController.text;
+    return _keyboardModel.controller.text;
   }
 // -----------------------------------------------------------------------------
   bool _titleIsOnCheck() {
