@@ -10,15 +10,17 @@ class SeparatorLine extends StatelessWidget {
     this.lineIsON = true,
     this.width,
     this.margins,
+    this.thickness = standardThickness,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool lineIsON;
   final double width;
   final dynamic margins;
+  final double thickness;
   /// --------------------------------------------------------------------------
-  static double thickness = 0.25;
-
+  static const double standardThickness = 0.25;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

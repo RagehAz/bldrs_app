@@ -1,33 +1,29 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
-class ReviewUserImageBalloonPart extends StatelessWidget {
+class ReviewUserImageBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ReviewUserImageBalloonPart({
-    @required this.imageBoxWidth,
+  const ReviewUserImageBalloon({
     @required this.userModel,
-    @required this.bubbleMargin,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double imageBoxWidth;
   final UserModel userModel;
-  final double bubbleMargin;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _balloonWidth = imageBoxWidth - (bubbleMargin * 2);
+    const double _balloonSize = ReviewBubble.userBalloonSize;
 
-    return Container(
+    return SizedBox(
       key: const ValueKey('ReviewImageBalloonPart'),
-      width: imageBoxWidth,
-      alignment: Alignment.topCenter,
+      width: _balloonSize,
       child: UserBalloon(
         userModel: userModel,
-        size: _balloonWidth,
+        size: _balloonSize,
         loading: false,
         onTap: (){blog('tapping user balloon in reviews');},
         // balloonColor: ,

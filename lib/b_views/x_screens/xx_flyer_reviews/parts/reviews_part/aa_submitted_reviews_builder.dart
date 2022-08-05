@@ -1,8 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/c_review_bubble.dart';
-import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/xxx_new_review_creator_tree.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/b_review_bubble.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.reviewsMaps,
     @required this.pageWidth,
     @required this.pageHeight,
-    @required this.flyerBoxWidth,
     @required this.textController,
     @required this.flyerModel,
     @required this.extraMapsAdded,
@@ -23,7 +20,6 @@ class ReviewsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double pageHeight;
-  final double flyerBoxWidth;
   final ScrollController scrollController;
   final List<Map<String, dynamic>> reviewsMaps;
   final TextEditingController textController;
@@ -43,19 +39,17 @@ class ReviewsBuilder extends StatelessWidget {
       controller: scrollController,
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(
+        top: ReviewBubble.spacer,
         bottom: Ratioz.horizon,
       ),
       itemCount: reviews.length + 1,
       itemBuilder: (_, int index){
 
+        /// REVIEW CREATOR
         if (index == 0){
-          return NewReviewCreatorTree(
-            // key: const PageStorageKey<String>('NewReviewCreatorTree'),
+          return ReviewBubble(
             pageWidth: pageWidth,
-            pageHeight: pageHeight,
-            flyerBoxWidth: flyerBoxWidth,
-            reviewTextController: textController,
-            onEditReview: (){blog('SHOULD EDIT REVIEW');},
+            textController: textController,
             onSubmitReview: () => onReviewFlyer(
               context: context,
               flyerModel: flyerModel,
@@ -65,10 +59,10 @@ class ReviewsBuilder extends StatelessWidget {
           );
         }
 
+        /// SUBMITTED REVIEWS
         else {
           return ReviewBubble(
             pageWidth : pageWidth,
-            flyerBoxWidth: flyerBoxWidth,
             reviewModel: reviews[index - 1],
             // specialReview: true,
           );

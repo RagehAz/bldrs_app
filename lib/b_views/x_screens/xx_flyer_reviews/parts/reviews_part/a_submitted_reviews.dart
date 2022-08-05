@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/submitted_reviews_builder.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/aa_submitted_reviews_builder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -11,14 +11,12 @@ class SubmittedReviews extends StatefulWidget {
   const SubmittedReviews({
     @required this.pageWidth,
     @required this.pageHeight,
-    @required this.flyerBoxWidth,
     @required this.flyerModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double pageHeight;
-  final double flyerBoxWidth;
   final FlyerModel flyerModel;
   /// --------------------------------------------------------------------------
   @override
@@ -110,7 +108,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             scrollController: _controller,
             pageHeight: widget.pageHeight,
             pageWidth: widget.pageWidth,
-            flyerBoxWidth: widget.flyerBoxWidth,
             flyerModel: widget.flyerModel,
             textController: _textController,
             extraMapsAdded: _extraMapsAdded,

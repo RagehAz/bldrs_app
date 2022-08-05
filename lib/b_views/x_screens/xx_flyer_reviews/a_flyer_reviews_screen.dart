@@ -1,0 +1,32 @@
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/aa_flyer_review_screen_view.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:flutter/material.dart';
+
+class FlyerReviewsScreen extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const FlyerReviewsScreen({
+    @required this.flyerModel,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final FlyerModel flyerModel;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return MainLayout(
+      pageTitle: 'Flyer Reviews',
+      zoneButtonIsOn: false,
+      sectionButtonIsOn: false,
+      appBarType: AppBarType.basic,
+      skyType: SkyType.black,
+      hasKeyboard: false,
+      layoutWidget: FlyerReviewsScreenView(
+        flyerModel: flyerModel,
+      ),
+    );
+
+  }
+}
