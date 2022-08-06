@@ -51,6 +51,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
   }
 // -----------------------------------------------------------------------------
+  PaginatorNotifiers _paginatorNotifiers;
   @override
   void initState() {
     super.initState();
@@ -58,8 +59,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// LISTEN TO SCROLL
     listenToScroll();
 
+    _paginatorNotifiers = widget.paginatorNotifiers ?? PaginatorNotifiers.initialize();
+
     /// LISTEN TO (AddMap - replaceMap - deleteMap - onDataChanged)
-    widget.paginatorNotifiers.activateListeners(
+    _paginatorNotifiers?.activateListeners(
       mounted: mounted,
       addAtEnd: widget.addExtraMapsAtEnd,
       onDataChanged: widget.queryModel.onDataChanged,
@@ -86,6 +89,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   @override
   void dispose() {
     _loading.dispose(); /// tamam
+
+    if (widget.paginatorNotifiers == null){
+      _paginatorNotifiers.dispose();
+    }
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -144,7 +152,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       final List<Map<String, dynamic>> _nextMaps = await Fire.superCollPaginator(
         context: context,
         queryModel: widget.queryModel.copyWith(
-          startAfter: widget.paginatorNotifiers.startAfter.value,
+          startAfter: _paginatorNotifiers.startAfter.value,
         ),
         addDocsIDs: true,
         addDocSnapshotToEachMap: true,
@@ -156,8 +164,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
           mapsToAdd: _nextMaps,
           addAtEnd: true,
           mounted: mounted,
-          startAfter: widget.paginatorNotifiers.startAfter,
-          paginatorMaps: widget.paginatorNotifiers.paginatorMaps,
+          startAfter: _paginatorNotifiers.startAfter,
+          paginatorMaps: _paginatorNotifiers.paginatorMaps,
         );
 
       }
@@ -185,7 +193,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: widget.paginatorNotifiers.paginatorMaps,
+        valueListenable: _paginatorNotifiers.paginatorMaps,
         child: widget.child,
         builder: (_, List<Map<String, dynamic>> maps, Widget child){
 

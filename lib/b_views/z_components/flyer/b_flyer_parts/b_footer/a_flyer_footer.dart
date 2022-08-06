@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_flyer_
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +67,49 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _infoButtonExpanded.dispose();
     _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
+    _loading.dispose();
     super.dispose(); /// tamam
+  }
+// -----------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+
+      _triggerLoading(setTo: true).then((_) async {
+// -----------------------------------------------------------------
+        final FlyerCounterModel _counter = await FlyerRecordOps.readFlyerCounters(
+          context: context,
+          flyerID: widget.flyerModel.id,
+        );
+
+        setNotifier(
+            notifier: _flyerCounter,
+            mounted: mounted,
+            value: _counter,
+        );
+// -----------------------------------------------------------------
+        await _triggerLoading(setTo: false);
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'FlyerFooter',);
+    }
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false); /// tamam disposed
@@ -92,16 +135,17 @@ class _FlyerFooterState extends State<FlyerFooter> {
       _canShowConvertibleReviewButton.value = false;
     }
 
-    /// LOAD FLYER COUNTERS
-    if (_infoButtonExpanded.value == true && widget.tinyMode == false){
+    // /// LOAD FLYER COUNTERS
+    // if (_infoButtonExpanded.value == true && widget.tinyMode == false){
+    //
+    //   _flyerCounter.value ??= await FlyerRecordOps.readFlyerCounters(
+    //         context: context,
+    //         flyerID: widget.flyerModel.id,
+    //     );
+    //
+    //
+    // }
 
-      _flyerCounter.value ??= await FlyerRecordOps.readFlyerCounters(
-            context: context,
-            flyerID: widget.flyerModel.id,
-        );
-
-
-    }
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false); /// tamam disposed
