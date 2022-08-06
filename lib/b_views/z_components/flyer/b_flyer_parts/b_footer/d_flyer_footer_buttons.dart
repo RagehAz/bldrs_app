@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
@@ -18,6 +19,7 @@ class FlyerFooterButtons extends StatelessWidget {
     @required this.inFlight,
     @required this.infoButtonType,
     @required this.flyerIsSaved,
+    @required this.flyerCounter,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +30,7 @@ class FlyerFooterButtons extends StatelessWidget {
   final bool inFlight;
   final InfoButtonType infoButtonType;
   final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<FlyerCounterModel> flyerCounter;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){
     bool _canShow = true;
@@ -42,77 +45,86 @@ class FlyerFooterButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Widget _spacer = FooterButtonSpacer(
-        flyerBoxWidth: flyerBoxWidth,
-        tinyMode: tinyMode
-    );
-
     final bool _canShow = _canShowElement();
 
     return Positioned(
       right: Aligners.rightPositionInRightAlignmentEn(context, 0),
       left: Aligners.leftPositionInRightAlignmentEn(context, 0),
       bottom: 0,
-      child: Row(
-        children: <Widget>[
-
-          if (_canShow == true)
-          _spacer,
-
-          /// SHARE
-          if (_canShow == true)
-            FooterButton(
+      child: ValueListenableBuilder(
+        valueListenable: flyerCounter,
+        child: FooterButtonSpacer(
             flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.share,
-            verse: superPhrase(context, 'phid_send'),
-            isOn: false,
-              canTap: !tinyMode,
-            onTap: () => onShareFlyer(
-              context: context,
-              flyerModel: flyerModel,
-            ),
-          ),
+            tinyMode: tinyMode
+        ),
+        builder: (_, FlyerCounterModel counter, Widget spacer){
 
-          if (_canShow == true)
-            _spacer,
+          return Row(
+            children: <Widget>[
 
-          /// COMMENT
-          if (_canShow == true)
-            FooterButton(
-            flyerBoxWidth: flyerBoxWidth,
-            icon: Iconz.utPlanning,
-            verse: 'Review',//superPhrase(context, 'phid_review'),
-            isOn: false,
-            canTap: !tinyMode,
-            onTap: () => onReviewButtonTap(
-              context: context,
-              flyerModel: flyerModel,
-            ),
-          ),
+              if (_canShow == true)
+                spacer,
 
-          if (_canShow == true)
-            _spacer,
-
-          /// SAVE BUTTON
-          ValueListenableBuilder(
-              valueListenable: flyerIsSaved,
-              builder: (_, bool isSaved, Widget child){
-
-                return FooterButton(
+              /// SHARE
+              if (_canShow == true)
+                FooterButton(
+                  count: counter?.shares,
                   flyerBoxWidth: flyerBoxWidth,
-                  icon: Iconz.save,
-                  verse: isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
-                  isOn: isSaved,
-                  canTap: true,
-                  onTap: onSaveFlyer,
-                );
+                  icon: Iconz.share,
+                  verse: superPhrase(context, 'phid_send'),
+                  isOn: false,
+                  canTap: !tinyMode,
+                  onTap: () => onShareFlyer(
+                    context: context,
+                    flyerModel: flyerModel,
+                  ),
+                ),
 
-              },
-          ),
+              if (_canShow == true)
+                spacer,
 
-          _spacer,
+              /// REVIEWS
+              if (_canShow == true)
+                FooterButton(
+                  count: counter?.reviews,
+                  flyerBoxWidth: flyerBoxWidth,
+                  icon: Iconz.utPlanning,
+                  verse: 'Review',//superPhrase(context, 'phid_review'),
+                  isOn: false,
+                  canTap: !tinyMode,
+                  onTap: () => onReviewButtonTap(
+                    context: context,
+                    flyerModel: flyerModel,
+                  ),
+                ),
 
-        ],
+              if (_canShow == true)
+                spacer,
+
+              /// SAVE BUTTON
+              ValueListenableBuilder(
+                valueListenable: flyerIsSaved,
+                builder: (_, bool isSaved, Widget child){
+
+                  return FooterButton(
+                    count: counter?.saves,
+                    flyerBoxWidth: flyerBoxWidth,
+                    icon: Iconz.save,
+                    verse: isSaved == true ? superPhrase(context, 'phid_saved') : superPhrase(context, 'phid_save'),
+                    isOn: isSaved,
+                    canTap: true,
+                    onTap: onSaveFlyer,
+                  );
+
+                },
+              ),
+
+              spacer,
+
+            ],
+          );
+
+        },
       ),
     );
   }

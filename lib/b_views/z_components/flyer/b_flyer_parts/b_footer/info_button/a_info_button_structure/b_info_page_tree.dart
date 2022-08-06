@@ -86,8 +86,8 @@ class InfoPageTree extends StatelessWidget {
                         isExpanded: _buttonIsExpanded,
                         infoButtonType: infoButtonType
                     ),
-                    height:
-                    tinyMode ? InfoButtonStarter.tinyHeight(
+                    height: tinyMode ?
+                    InfoButtonStarter.tinyHeight(
                         context: context,
                         flyerBoxWidth: flyerBoxWidth
                     )

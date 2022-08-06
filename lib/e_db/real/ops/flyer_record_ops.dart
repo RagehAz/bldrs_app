@@ -236,7 +236,7 @@ class FlyerRecordOps {
   /// REVIEWS CREATION
 // -------------------
   /// TESTED : ...
-  static Future<void> createCreateReview({
+  static Future<void> reviewCreation({
     @required BuildContext context,
     @required String review,
     @required String flyerID,
@@ -244,18 +244,18 @@ class FlyerRecordOps {
   }) async {
     blog('FlyerRecordOps.createCreateReview : START');
 
-    final RecordModel _record = RecordModel.createCreateReviewRecord(
-      userID: AuthFireOps.superUserID(),
-      text: review,
-      flyerID: flyerID,
-    );
+    // final RecordModel _record = RecordModel.createCreateReviewRecord(
+    //   userID: AuthFireOps.superUserID(),
+    //   text: review,
+    //   flyerID: flyerID,
+    // );
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createRecord(
-        context: context,
-        record: _record,
-      ),
+      // RecordRealOps.createRecord(
+      //   context: context,
+      //   record: _record,
+      // ),
 
       incrementFlyerCounter(
         context: context,
@@ -276,6 +276,8 @@ class FlyerRecordOps {
     blog('FlyerRecordOps.createCreateReview : END');
   }
 // ----------------------------------
+  /// NO NEED
+  /*
   /// TESTED : ...
   static Future<void> createEditReview({
     @required BuildContext context,
@@ -297,26 +299,27 @@ class FlyerRecordOps {
 
     blog('FlyerRecordOps.createEditReview : END');
   }
+   */
 // ----------------------------------
   /// TESTED : ...
-  static Future<void> createDeleteReview({
+  static Future<void> reviewDeletion({
     @required BuildContext context,
     @required String flyerID,
     @required String bzID,
   }) async {
-    blog('FlyerRecordOps.createDeleteReview : START');
+    blog('FlyerRecordOps.reviewDeletion : START');
 
-    final RecordModel _record = RecordModel.createDeleteReviewRecord(
-      userID: AuthFireOps.superUserID(),
-      flyerID: flyerID,
-    );
+    // final RecordModel _record = RecordModel.createDeleteReviewRecord(
+    //   userID: AuthFireOps.superUserID(),
+    //   flyerID: flyerID,
+    // );
 
     await Future.wait(<Future>[
 
-      RecordRealOps.createRecord(
-        context: context,
-        record: _record,
-      ),
+      // RecordRealOps.createRecord(
+      //   context: context,
+      //   record: _record,
+      // ),
 
       incrementFlyerCounter(
         context: context,
@@ -334,7 +337,7 @@ class FlyerRecordOps {
 
     ]);
 
-    blog('FlyerRecordOps.createDeleteReview : END');
+    blog('FlyerRecordOps.reviewDeletion : END');
   }
 // -----------------------------------------------------------------------------
 
@@ -346,18 +349,32 @@ class FlyerRecordOps {
   /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel> incrementFlyerCounter({
     @required BuildContext context,
-    @required bool increaseOne, // or decrease one
     @required String flyerID,
     @required String field,
+    bool increaseOne, // or decrease one
+    int incrementThis,
   }) async {
     blog('FlyerRecordOps.incrementFlyerCounter : START');
+
+    assert (
+    increaseOne != null || incrementThis != null,
+    'incrementFlyerCounter :YOU FORGOT TO ASSIGN INCREMENTATION VALUE MAN',
+    );
+
+    int _value;
+    if (incrementThis == null){
+      _value = increaseOne == true ? 1 : -1;
+    }
+    else {
+      _value = incrementThis;
+    }
 
     await Real.updateDocField(
       context: context,
       collName: RealColl.countingFlyers,
       docName: flyerID,
       fieldName: field,
-      value: fireDB.ServerValue.increment(increaseOne ? 1 : -1),
+      value: fireDB.ServerValue.increment(_value),
     );
 
     Map<String, dynamic> _map = await Real.readDocOnce(
@@ -398,6 +415,7 @@ class FlyerRecordOps {
 // ----------------------------------
 /// COUNTER DELETION
 // -------------------
+  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteAllFlyerCountersAndRecords({
     @required BuildContext context,
     @required String flyerID,
@@ -426,12 +444,12 @@ class FlyerRecordOps {
       docName: flyerID,
     ),
 
-    /// REVIEWS
-    Real.deleteDoc(
-      context: context,
-      collName: RealColl.recordingReviews,
-      docName: flyerID,
-    ),
+    // /// REVIEWS
+    // Real.deleteDoc(
+    //   context: context,
+    //   collName: RealColl.recordingReviews,
+    //   docName: flyerID,
+    // ),
 
     /// FLYERS COUNTER
     Real.deleteDoc(
@@ -444,6 +462,7 @@ class FlyerRecordOps {
 
   }
 // -------------------
+  /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteMultipleFlyersCountersAndRecords({
     @required BuildContext context,
     @required List<String> flyersIDs,

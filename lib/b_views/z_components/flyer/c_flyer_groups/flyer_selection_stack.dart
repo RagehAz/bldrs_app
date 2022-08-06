@@ -177,6 +177,7 @@ class FlyerSelectionStack extends StatelessWidget {
                 onTap: onFlyerOptionsTap,
                 isOn: false,
                 canTap: true,
+                count: null,
               ),
               // child: DreamBox(
               //   width: FooterButton.,

@@ -31,9 +31,9 @@ class RecordRealOps {
       RecordModel.cipherRecordType(RecordType.view):           '${RealColl.recordingViews}/$modelID/',       // modelID = flyerID
       RecordModel.cipherRecordType(RecordType.save):           '${RealColl.recordingSaves}/$modelID/',       // modelID = flyerID
       RecordModel.cipherRecordType(RecordType.unSave):         '${RealColl.recordingSaves}/$modelID/',       // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.createReview):   '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.editReview):     '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.deleteReview):   '${RealColl.recordingReviews}/$modelID/',      // modelID = flyerID
+      // RecordModel.cipherRecordType(RecordType.createReview):   '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
+      // RecordModel.cipherRecordType(RecordType.editReview):     '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
+      // RecordModel.cipherRecordType(RecordType.deleteReview):   '${RealColl.recordingReviews}/$modelID/',      // modelID = flyerID
       RecordModel.cipherRecordType(RecordType.createQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
       RecordModel.cipherRecordType(RecordType.editQuestion):   '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
       RecordModel.cipherRecordType(RecordType.deleteQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID

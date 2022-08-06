@@ -17,7 +17,7 @@ class RealColl {
   static const String recordingShares = 'recordingShares';
   static const String recordingViews = 'recordingViews';
   static const String recordingSaves = 'recordingSaves';
-  static const String recordingReviews = 'recordingReviews';
+  // static const String recordingReviews = 'recordingReviews';
   static const String reviews = 'reviews';
   static const String agreesOnReviews = 'agreesOnReviews';
 // ----------------------------------
