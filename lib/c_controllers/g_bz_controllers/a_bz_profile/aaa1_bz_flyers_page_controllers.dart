@@ -149,6 +149,7 @@ Future<void> _onDeleteFlyerButtonTap({
       flyerModel: flyer,
       bzModel: _bzModel,
       showWaitDialog: true,
+      isDeletingBz: false,
     );
 
     /// NOTE : might not really need this as bz stream would do the job

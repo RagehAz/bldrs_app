@@ -95,11 +95,13 @@ class FlyerProtocols {
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
     @required bool showWaitDialog,
+    @required bool isDeletingBz,
 }) => WipeFlyerProtocols.wipeFlyer(
     context: context,
     flyerModel: flyerModel,
     bzModel: bzModel,
     showWaitDialog: showWaitDialog,
+    isDeletingBz: isDeletingBz,
   );
 // ----------------------------------
   static Future<BzModel> wipeFlyers({

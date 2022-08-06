@@ -86,6 +86,7 @@ class StaticFooter extends StatelessWidget {
                 isOn: false,
                 canTap: true,
                 onTap: (){},
+                count: null,
               ),
 
               _spacer,
@@ -98,6 +99,7 @@ class StaticFooter extends StatelessWidget {
                 isOn: false,
                 canTap: false,
                 onTap: (){},
+                count: null,
               ),
 
               _spacer,
@@ -110,6 +112,7 @@ class StaticFooter extends StatelessWidget {
                 isOn: false,
                 canTap: false,
                 onTap: (){},
+                count: null,
               ),
 
               _spacer,
