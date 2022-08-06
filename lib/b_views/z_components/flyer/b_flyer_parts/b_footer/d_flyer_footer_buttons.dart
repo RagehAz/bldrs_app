@@ -59,6 +59,8 @@ class FlyerFooterButtons extends StatelessWidget {
         ),
         builder: (_, FlyerCounterModel counter, Widget spacer){
 
+          counter?.blogCounter();
+
           return Row(
             children: <Widget>[
 

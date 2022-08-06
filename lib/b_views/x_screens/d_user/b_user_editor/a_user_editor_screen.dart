@@ -215,14 +215,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitle: superPhrase(context, 'phid_updateProfile'),
-      // onBack: () => confirmEdits(
-      //     context: context,
-      //     formKey: _formKey,
-      //     newUserModel: _createUserModelFromLocalVariables(),
-      //     oldUserModel: widget.userModel,
-      //     onFinish: widget.onFinish,
-      //     loading: _loading
-      // ),
+      loading: _loading,
       layoutWidget: UserEditorScreenView(
         loading: _loading,
         formKey: _formKey,
