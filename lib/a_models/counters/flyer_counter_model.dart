@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/foundation.dart';
 
 /// ON FLYER CREATION => CLOUD FUNCTION = > CREATE FLYER COUNTER OBJECT ON DB
@@ -85,5 +86,17 @@ class FlyerCounterModel {
     return _model;
   }
 // ----------------------------------------
+
+  void blogCounter(){
+
+    blog(
+    'FlyerCounterModel : flyerID: $flyerID - '
+    'saves: $saves - '
+    'shares: $shares - '
+    'views: $views - '
+    'reviews: $reviews -'
+    );
+
+  }
 
 }

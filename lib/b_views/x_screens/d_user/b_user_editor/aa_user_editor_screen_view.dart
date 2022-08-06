@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
@@ -69,210 +68,196 @@ class UserEditorScreenView extends StatelessWidget {
 
     final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
 
-    return ValueListenableBuilder(
-      valueListenable: loading,
-      builder: (_, bool _isLoading, Widget child){
+    return Form(
+      key: formKey,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: <Widget>[
 
-        if (_isLoading == true){
-          return const LoadingFullScreenLayer();
-        }
+          ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            children: <Widget>[
 
-        else {
-          return child;
-        }
+              const Stratosphere(),
 
-      },
+              /// PICTURE
+              AddImagePicBubble(
+                title: 'Picture',
+                redDot: true,
+                picture: picture,
+                bubbleType: BubbleType.userPic,
+                onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
+                  context: context,
+                  canPickImage: canPickImage,
+                  picture: picture,
+                  imagePickerType: imagePickerType,
+                ),
+              ),
 
-      child: Form(
-        key: formKey,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
+              /// NAME
+              TextFieldBubble(
+                isFormField: true,
+                textController: nameController,
+                key: const Key('name'),
+                title: superPhrase(context, 'phid_name'),
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => nameController.text.isEmpty ?
+                superPhrase(context, 'phid_enterName')
+                    :
+                null,
+              ),
 
-            ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.zero,
+              /// GENDER
+              GenderBubble(
+                selectedGender: genderNotifier,
+                onTap: (Gender gender) => onChangeGender(
+                  selectedGender: gender,
+                  genderNotifier: genderNotifier,
+                ),
+              ),
+
+              /// JOB TITLE
+              TextFieldBubble(
+                isFormField: true,
+                key: const Key('title'),
+                textController: titleController,
+                title: superPhrase(context, 'phid_jobTitle'),
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => titleController.text.isEmpty ?
+                superPhrase(context, 'phid_enterJobTitle')
+                    :
+                null,
+              ),
+
+              /// COMPANY NAME
+              TextFieldBubble(
+                isFormField: true,
+                textController: companyController,
+                key: const Key('company'),
+                title: superPhrase(context, 'phid_companyName'),
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => companyController.text.isEmpty ?
+                superPhrase(context, 'phid_enterCompanyName')
+                    :
+                null,
+              ),
+
+              /// ZONE
+              ValueListenableBuilder(
+                  valueListenable: zone,
+                  builder: (_, ZoneModel _zoneModel, Widget child){
+
+                    return ZoneSelectionBubble(
+                      currentZone: _zoneModel,
+                      onZoneChanged: (ZoneModel zoneModel) => onZoneChanged(
+                        selectedZone: zoneModel,
+                        zoneNotifier: zone,
+                      ),
+                    );
+
+                  }
+              ),
+
+              const DotSeparator(),
+
+              /// EMAIL
+              ContactFieldBubble(
+                isFormField: true,
+                textController: emailController,
+                title: superPhrase(context, 'phid_emailAddress'),
+                leadingIcon: Iconz.comEmail,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                keyboardTextInputType: TextInputType.emailAddress,
+              ),
+
+              /// PHONE
+              ContactFieldBubble(
+                isFormField: true,
+                textController: phoneController,
+                title: superPhrase(context, 'phid_phone'),
+                leadingIcon: Iconz.comPhone,
+                keyboardTextInputAction: TextInputAction.next,
+                keyboardTextInputType: TextInputType.phone,
+              ),
+
+              const DotSeparator(),
+
+              /// --- EDIT FACEBOOK
+              ContactFieldBubble(
+                isFormField: true,
+                textController: facebookController,
+                title: superPhrase(context, 'phid_facebookLink'),
+                leadingIcon: Iconz.comFacebook,
+                keyboardTextInputAction: TextInputAction.next,
+              ),
+
+              /// --- EDIT INSTAGRAM
+              ContactFieldBubble(
+                isFormField: true,
+                textController: instagramController,
+                title: superPhrase(context, 'phid_instagramLink'),
+                leadingIcon: Iconz.comInstagram,
+                keyboardTextInputAction: TextInputAction.next,
+              ),
+
+              /// --- EDIT LINKEDIN
+              ContactFieldBubble(
+                isFormField: true,
+                textController: linkedInController,
+                title: superPhrase(context, 'phid_linkedinLink'),
+                leadingIcon: Iconz.comLinkedin,
+                keyboardTextInputAction: TextInputAction.next,
+              ),
+
+              /// --- EDIT TWITTER
+              ContactFieldBubble(
+                isFormField: true,
+                textController: twitterController,
+                title: superPhrase(context, 'phid_twitterLink'),
+                leadingIcon: Iconz.comTwitter,
+                keyboardTextInputAction: TextInputAction.done,
+              ),
+
+              const Horizon(),
+
+              if (_keyboardIsOn == true)
+                const SizedBox(
+                  width: 20,
+                  height: 150,
+                ),
+
+            ],
+          ),
+
+          SuperPositioned(
+            enAlignment: Alignment.bottomLeft,
+            child: Row(
               children: <Widget>[
 
-                const Stratosphere(),
-
-                /// PICTURE
-                AddImagePicBubble(
-                  title: 'Picture',
-                  redDot: true,
-                  picture: picture,
-                  bubbleType: BubbleType.userPic,
-                  onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
-                    context: context,
-                    canPickImage: canPickImage,
-                    picture: picture,
-                    imagePickerType: imagePickerType,
+                /// --- CONFIRM BUTTON
+                EditorConfirmButton(
+                  firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
+                  // positionedAlignment: null,
+                  onTap: () => confirmEdits(
+                      context: context,
+                      formKey: formKey,
+                      newUserModel: createNewUserModel(),
+                      oldUserModel: oldUserModel,
+                      onFinish: onFinish,
+                      loading: loading
                   ),
                 ),
 
-                /// NAME
-                TextFieldBubble(
-                  isFormField: true,
-                  textController: nameController,
-                  key: const Key('name'),
-                  title: superPhrase(context, 'phid_name'),
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  validator: () => nameController.text.isEmpty ?
-                  superPhrase(context, 'phid_enterName')
-                      :
-                  null,
-                ),
-
-                /// GENDER
-                GenderBubble(
-                  selectedGender: genderNotifier,
-                  onTap: (Gender gender) => onChangeGender(
-                    selectedGender: gender,
-                    genderNotifier: genderNotifier,
-                  ),
-                ),
-
-                /// JOB TITLE
-                TextFieldBubble(
-                  isFormField: true,
-                  key: const Key('title'),
-                  textController: titleController,
-                  title: superPhrase(context, 'phid_jobTitle'),
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  validator: () => titleController.text.isEmpty ?
-                  superPhrase(context, 'phid_enterJobTitle')
-                      :
-                  null,
-                ),
-
-                /// COMPANY NAME
-                TextFieldBubble(
-                  isFormField: true,
-                  textController: companyController,
-                  key: const Key('company'),
-                  title: superPhrase(context, 'phid_companyName'),
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  validator: () => companyController.text.isEmpty ?
-                  superPhrase(context, 'phid_enterCompanyName')
-                      :
-                  null,
-                ),
-
-                /// ZONE
-                ValueListenableBuilder(
-                    valueListenable: zone,
-                    builder: (_, ZoneModel _zoneModel, Widget child){
-
-                      return ZoneSelectionBubble(
-                        currentZone: _zoneModel,
-                        onZoneChanged: (ZoneModel zoneModel) => onZoneChanged(
-                          selectedZone: zoneModel,
-                          zoneNotifier: zone,
-                        ),
-                      );
-
-                    }
-                ),
-
-                const DotSeparator(),
-
-                /// EMAIL
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: emailController,
-                  title: superPhrase(context, 'phid_emailAddress'),
-                  leadingIcon: Iconz.comEmail,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  keyboardTextInputType: TextInputType.emailAddress,
-                ),
-
-                /// PHONE
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: phoneController,
-                  title: superPhrase(context, 'phid_phone'),
-                  leadingIcon: Iconz.comPhone,
-                  keyboardTextInputAction: TextInputAction.next,
-                  keyboardTextInputType: TextInputType.phone,
-                ),
-
-                const DotSeparator(),
-
-                /// --- EDIT FACEBOOK
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: facebookController,
-                  title: superPhrase(context, 'phid_facebookLink'),
-                  leadingIcon: Iconz.comFacebook,
-                  keyboardTextInputAction: TextInputAction.next,
-                ),
-
-                /// --- EDIT INSTAGRAM
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: instagramController,
-                  title: superPhrase(context, 'phid_instagramLink'),
-                  leadingIcon: Iconz.comInstagram,
-                  keyboardTextInputAction: TextInputAction.next,
-                ),
-
-                /// --- EDIT LINKEDIN
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: linkedInController,
-                  title: superPhrase(context, 'phid_linkedinLink'),
-                  leadingIcon: Iconz.comLinkedin,
-                  keyboardTextInputAction: TextInputAction.next,
-                ),
-
-                /// --- EDIT TWITTER
-                ContactFieldBubble(
-                  isFormField: true,
-                  textController: twitterController,
-                  title: superPhrase(context, 'phid_twitterLink'),
-                  leadingIcon: Iconz.comTwitter,
-                  keyboardTextInputAction: TextInputAction.done,
-                ),
-
-                const Horizon(),
-
-                if (_keyboardIsOn == true)
-                  const SizedBox(
-                    width: 20,
-                    height: 150,
-                  ),
-
-              ],
-            ),
-
-            SuperPositioned(
-              enAlignment: Alignment.bottomLeft,
-              child: Row(
-                children: <Widget>[
-
-                  /// --- CONFIRM BUTTON
-                  EditorConfirmButton(
-                    firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
-                    // positionedAlignment: null,
-                    onTap: () => confirmEdits(
-                        context: context,
-                        formKey: formKey,
-                        newUserModel: createNewUserModel(),
-                        oldUserModel: oldUserModel,
-                        onFinish: onFinish,
-                        loading: loading
-                    ),
-                  ),
-
-                  /// --- SKIP
-                  if (canGoBack == false)
+                /// --- SKIP
+                if (canGoBack == false)
                   EditorConfirmButton(
                     firstLine: 'Skip',
                     // positionedAlignment: null,
@@ -284,13 +269,12 @@ class UserEditorScreenView extends StatelessWidget {
                   ),
 
 
-                ],
-              ),
+              ],
             ),
+          ),
 
 
-          ],
-        ),
+        ],
       ),
     );
   }
