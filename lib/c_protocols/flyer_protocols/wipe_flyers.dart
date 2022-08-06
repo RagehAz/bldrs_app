@@ -28,6 +28,7 @@ class WipeFlyerProtocols {
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
     @required bool showWaitDialog,
+    @required bool isDeletingBz,
   }) async {
     blog('WipeFlyerProtocols.wipeFlyer : START');
 
@@ -45,8 +46,11 @@ class WipeFlyerProtocols {
       await Future.wait(<Future>[
 
         ReviewProtocols.wipeAllFlyerReviews(
-            context: context,
-            flyerID: flyerModel.id,
+          context: context,
+          flyerID: flyerModel.id,
+          isDeletingFlyer: true,
+          bzID: bzModel.id,
+          isDeletingBz: isDeletingBz,
         ),
 
         FlyerRecordOps.deleteAllFlyerCountersAndRecords(
@@ -125,6 +129,9 @@ class WipeFlyerProtocols {
         ReviewProtocols.wipeMultipleFlyersReviews(
           context: context,
           flyersIDs: _flyersIDs,
+          isDeletingFlyer: true,
+          isDeletingBz: isDeletingBz,
+          bzID: bzModel.id,
         ),
 
         FlyerRecordOps.deleteMultipleFlyersCountersAndRecords(

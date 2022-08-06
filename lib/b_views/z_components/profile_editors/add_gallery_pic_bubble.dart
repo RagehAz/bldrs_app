@@ -139,34 +139,38 @@ class AddImagePicBubble extends StatelessWidget {
                   valueListenable: picture,
                   builder: (_, dynamic pic, Widget child){
 
-                    return GestureDetector(
-                      onTap: pic == null ? null : () => onAddPicture(ImagePickerType.galleryImage),
-                      child: bubbleType == BubbleType.bzLogo
-                          ||
-                          bubbleType == BubbleType.authorPic ?
-                      BzLogo(
+                    if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
+                      return BzLogo(
                         width: picWidth,
                         image: pic,
                         margins: const EdgeInsets.all(10),
                         corners: _picBorders,
-                      )
-                          :
-                      bubbleType == BubbleType.userPic ?
-                      Balloona(
+                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                      );
+                    }
+
+                    else if (bubbleType == BubbleType.userPic){
+
+                      return Balloona(
                         balloonWidth: picWidth,
                         loading: false,
                         pic: pic,
                         balloonType: concludeBalloonByUserStatus(UserStatus.searching),
-                      )
-                          :
-                      DreamBox(
+                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                      );
+                    }
+
+                    else {
+
+                      return DreamBox(
                         width: picWidth,
                         height: picWidth,
                         icon: pic,
                         bubble: false,
-                      ),
+                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                      );
+                    }
 
-                    );
 
                   }
               ),
@@ -195,7 +199,7 @@ class AddImagePicBubble extends StatelessWidget {
                   bubble: false,
                   opacity: 0.9,
                   iconColor: Colorz.white255,
-                  onTap: onAddPicture,
+                  onTap: () => onAddPicture(ImagePickerType.galleryImage),
                 ),
 
               )

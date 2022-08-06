@@ -33,6 +33,7 @@ Future<void> onSubmitReview({
     context: context,
     text: textController.text,
     flyerID: flyerModel.id,
+    bzID: flyerModel.bzID,
   );
 
   textController.text = '';
@@ -81,6 +82,7 @@ Future<void> onReviewOptions({
   @required ReviewModel reviewModel,
   @required ValueNotifier<Map<String, dynamic>> replaceMapNotifier,
   @required ValueNotifier<Map<String, dynamic>> deleteMapNotifier,
+  @required String bzID,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -124,6 +126,7 @@ Future<void> onReviewOptions({
                   context: context,
                   reviewModel: reviewModel,
                   deleteMap: deleteMapNotifier,
+                  bzID: bzID,
                 );
 
               }
@@ -202,6 +205,7 @@ Future<void> _onDeleteReview({
   @required BuildContext context,
   @required ReviewModel reviewModel,
   @required ValueNotifier<Map<String, dynamic>> deleteMap,
+  @required String bzID,
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
@@ -216,6 +220,7 @@ Future<void> _onDeleteReview({
     await ReviewProtocols.wipeSingleReview(
       context: context,
       reviewModel: reviewModel,
+      bzID: bzID,
     );
 
     deleteMap.value = reviewModel.toMap(

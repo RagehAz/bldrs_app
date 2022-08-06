@@ -175,6 +175,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   inFlight: widget.inFlight,
                   infoButtonType: _infoButtonType,
                   flyerIsSaved: widget.flyerIsSaved,
+                  flyerCounter: _flyerCounter,
                 ),
 
               /// INFO BUTTON

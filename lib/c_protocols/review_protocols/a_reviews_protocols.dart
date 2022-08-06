@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
-import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
-import 'package:bldrs/e_db/real/ops/record_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/e_db/real/ops/review_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,12 @@ class ReviewProtocols {
     @required BuildContext context,
     @required String text,
     @required String flyerID,
-}) async {
+    @required String bzID,
+  }) async {
+
+    /// 1. create sub doc (fire/flyers/flyerID/reviews/reviewID)
+    /// 2. increment flyer counter field (real/countingFlyers/flyerID/reviews)
+    /// 3. increment bzz counter field (real/countingBzz/bzID/allReviews)
 
     final ReviewModel _uploadedReview = await ReviewFireOps.createReview(
         context: context,
@@ -33,13 +38,11 @@ class ReviewProtocols {
         flyerID: flyerID,
     );
 
-    await RecordRealOps.createRecord(
-        context: context,
-        record: RecordModel.createCreateReviewRecord(
-            userID: AuthFireOps.superUserID(),
-            flyerID: flyerID,
-            text: text,
-        ),
+    await FlyerRecordOps.reviewCreation(
+      context: context,
+      review: text,
+      flyerID: flyerID,
+      bzID: bzID,
     );
 
     return _uploadedReview;
@@ -111,7 +114,7 @@ class ReviewProtocols {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> fetchIsAlreadyAgreed({
+  static Future<bool> fetchIsAgreed({
     @required BuildContext context,
     @required String reviewID,
   }) async {
@@ -138,7 +141,13 @@ class ReviewProtocols {
   static Future<void> wipeSingleReview({
     @required BuildContext context,
     @required ReviewModel reviewModel,
+    @required String bzID,
   }) async {
+
+    /// 1. delete sub doc (fire/flyers/flyerID/reviews/reviewID)
+    /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
+    /// 3. decrement flyer counter field (real/countingFlyers/flyerID/reviews)
+    /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews)
 
     if (reviewModel != null){
 
@@ -160,6 +169,12 @@ class ReviewProtocols {
           docName: reviewModel.id,
         ),
 
+        FlyerRecordOps.reviewDeletion(
+            context: context,
+            flyerID: reviewModel.flyerID,
+            bzID: bzID,
+        ),
+
       ]);
 
     }
@@ -170,22 +185,66 @@ class ReviewProtocols {
   static Future<void> wipeAllFlyerReviews({
     @required BuildContext context,
     @required String flyerID,
+    @required String bzID,
+    @required bool isDeletingFlyer,
+    @required bool isDeletingBz,
   }) async {
 
+    /// 1. delete sub collection (fire/flyers/flyerID/reviews)
+    /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
+    /// 3. decrement flyer counter field (real/countingFlyers/flyerID/reviews) if not deleting flyer
+    /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews) if not deleting bz
+
+    int _numberOfReviews = 0;
+
+    /// 1. DELETE SUB COLL
     await Fire.deleteSubCollection(
       context: context,
       collName: FireColl.flyers,
       docName: flyerID,
       subCollName: FireSubColl.flyers_flyer_reviews,
-      onDeleteSubDoc: (String subDocID) async {
+      onDeleteSubDoc: (String reviewID) async {
 
-        /// DELETE REVIEW AGREES
-        await Real.deleteDoc(
-          context: context,
-          collName: RealColl.agreesOnReviews,
-          docName: subDocID,
-        );
+        _numberOfReviews++;
 
+        await Future.wait(<Future>[
+
+          /// 2. DELETE REVIEW AGREES
+          Real.deleteDoc(
+            context: context,
+            collName: RealColl.agreesOnReviews,
+            docName: reviewID,
+          ),
+
+          /// 3. DELETE OR DECREMENT FLYER COUNTER
+          // if (isDeletingFlyer == true) // => flyer counter will be deleted in wipeFlyerOps
+
+          /// 4. DELETE OR DECREMENT BZ COUNTER
+          // if (isDeletingBz == true) // => bz counter will be deleted in wipeBzOps
+
+        ]);
+
+
+        /// 3 - 4 : DECREMENTING FLYER & BZ COUNTERS IF NOT WIPING THEM OUT
+        await Future.wait(<Future>[
+
+          if (isDeletingFlyer == false)
+            FlyerRecordOps.incrementFlyerCounter(
+              context: context,
+              flyerID: flyerID,
+              field: 'reviews',
+              incrementThis: -_numberOfReviews,
+            ),
+
+          if (isDeletingBz == false)
+            BzRecordOps.incrementBzCounter(
+              context: context,
+              bzID: bzID,
+              field: 'allReviews',
+              incrementThis: -_numberOfReviews,
+            ),
+
+        ]);
 
       }
     );
@@ -196,7 +255,10 @@ class ReviewProtocols {
   static Future<void> wipeMultipleFlyersReviews({
     @required BuildContext context,
     @required List<String> flyersIDs,
-}) async {
+    @required String bzID,
+    @required bool isDeletingFlyer,
+    @required bool isDeletingBz,
+  }) async {
 
     if (Mapper.checkCanLoopList(flyersIDs) == true){
 
@@ -205,6 +267,9 @@ class ReviewProtocols {
         ...List.generate(flyersIDs.length, (index) => wipeAllFlyerReviews(
           context: context,
           flyerID: flyersIDs[index],
+          bzID: bzID,
+          isDeletingBz: isDeletingBz,
+          isDeletingFlyer: isDeletingFlyer,
         )),
 
       ]);
