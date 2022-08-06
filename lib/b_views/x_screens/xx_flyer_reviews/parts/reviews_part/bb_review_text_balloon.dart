@@ -147,6 +147,7 @@ class ReviewTextBalloon extends StatelessWidget {
                           reviewModel: reviewModel,
                           deleteMapNotifier: paginatorNotifiers.deleteMap,
                           replaceMapNotifier: paginatorNotifiers.replaceMap,
+                          bzID: flyerModel.bzID,
                         ),
                       ),
 
@@ -174,7 +175,7 @@ class ReviewTextBalloon extends StatelessWidget {
 
                       /// LIKE
                       FutureBuilder<bool>(
-                          future: ReviewProtocols.fetchIsAlreadyAgreed(
+                          future: ReviewProtocols.fetchIsAgreed(
                             context: context,
                             reviewID: reviewModel.id,
                           ),

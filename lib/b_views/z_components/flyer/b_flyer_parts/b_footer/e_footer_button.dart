@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class FooterButton extends StatelessWidget {
     @required this.verse,
     @required this.isOn,
     @required this.canTap,
+    @required this.count,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +26,7 @@ class FooterButton extends StatelessWidget {
   final String verse;
   final bool isOn;
   final bool canTap;
+  final int count;
   /// --------------------------------------------------------------------------
   static double buttonMargin({
     @required BuildContext context,
@@ -75,6 +78,27 @@ class FooterButton extends StatelessWidget {
     final Color _color = buttonIsOn ? _onColor : _offColor;
 
     return _color;
+  }
+// -----------------------------------------------------------------------------
+  static String generateButtonText({
+    @required BuildContext context,
+    @required String verse,
+    @required int count,
+    @required bool isOn,
+  }){
+
+    String _output = verse;
+
+    final int _count = count ?? 0;
+    if (_count >= 1000){
+      _output = Numeric.formatNumToCounterCaliber(context, _count);
+    }
+
+    if (isOn == true){
+      _output = _output.toUpperCase();
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -132,7 +156,12 @@ class FooterButton extends StatelessWidget {
             Positioned(
               bottom: flyerBoxWidth * 0.01,
               child: SuperVerse(
-                verse: isOn == true ? verse.toUpperCase() : verse,
+                verse: generateButtonText(
+                  context: context,
+                  verse: verse,
+                  count: count,
+                  isOn: isOn,
+                ),
                 size: 1,
                 scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
                 color: _iconAndVerseColor,
