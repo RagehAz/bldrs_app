@@ -76,6 +76,8 @@ Future<void> _goToSpecPickerScreen({
     screen: SpecPickerScreen(
       specPicker: specPicker,
       selectedSpecs: selectedSpecs,
+      showInstructions: true,
+      inSelectionMode: true,
     ),
     transitionType: Nav.superHorizontalTransition(context),
   );

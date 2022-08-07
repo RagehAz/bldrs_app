@@ -90,7 +90,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     final Map<String, dynamic> _map = {
       'id' : 'x${Numeric.createRandomIndex(listLength: 10)}',
-      'color' : cipherColor(createRandomColor()),
+      'color' : Colorizer.cipherColor(Colorizer.createRandomColor()),
     };
 
     await LDBOps.insertMap(
@@ -107,7 +107,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     for (int i = 0; i < 6; i++){
       final Map<String, dynamic> _map = {
         'id' :'x$i',
-        'color' : cipherColor(Colorz.red255),
+        'color' : Colorizer.cipherColor(Colorz.red255),
       };
       _maps.add(_map);
     }
@@ -143,11 +143,11 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
       ),
     );
 
-    final Color _newColor = createRandomColor();
+    final Color _newColor = Colorizer.createRandomColor();
 
     final Map<String, dynamic> _newMap = {
       'id' : _newID,
-      'color': cipherColor(_newColor),
+      'color': Colorizer.cipherColor(_newColor),
     };
 
     await LDBOps.insertMap(

@@ -51,7 +51,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
             return AppBarButton(
               verse: 'STREAM',
-              buttonColor: map == null ? Colorz.white255 : decipherColor(map['color']),
+              buttonColor: map == null ? Colorz.white255 : Colorizer.decipherColor(map['color']),
             );
 
           },
@@ -62,11 +62,11 @@ class _RealTestScreenState extends State<RealTestScreen> {
           verse: 'CREATE',
           onTap: () async {
 
-            final Color _color = createRandomColor();
+            final Color _color = Colorizer.createRandomColor();
 
             final Map<String, dynamic> _map = {
               'index' : Numeric.createRandomIndex(listLength: 10),
-              'color' : cipherColor(_color),
+              'color' : Colorizer.cipherColor(_color),
               'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
 
@@ -87,11 +87,11 @@ class _RealTestScreenState extends State<RealTestScreen> {
           verse: 'CREATE NAMED',
           onTap: () async {
 
-            final Color _color = createRandomColor();
+            final Color _color = Colorizer.createRandomColor();
 
             final Map<String, dynamic> _map = {
               'id' : Numeric.createUniqueID().toString(),
-              'color' : cipherColor(_color),
+              'color' : Colorizer.cipherColor(_color),
               'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };
 
@@ -142,10 +142,10 @@ class _RealTestScreenState extends State<RealTestScreen> {
           verse: 'UPDATE',
           onTap: () async {
 
-            final Color _color = createRandomColor();
+            final Color _color = Colorizer.createRandomColor();
 
             final Map<String, dynamic> _map = {
-              'color' : cipherColor(_color),
+              'color' : Colorizer.cipherColor(_color),
               'name' : 'Ahmed',
               'time' : Timers.cipherTime(time: DateTime.now(), toJSON: true),
             };

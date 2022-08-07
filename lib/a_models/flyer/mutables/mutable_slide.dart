@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
@@ -236,7 +236,7 @@ class MutableSlide {
           viewWidth: FlyerBox.width(context, 1),
           viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
       );
-      final Color _midColor = await Colorizers.getAverageColor(_file);
+      final Color _midColor = await Colorizer.getAverageColor(_file);
 
       _slide = MutableSlide(
         picFile: _file,
@@ -423,7 +423,7 @@ class MutableSlide {
     if (slide1.description.text != slide2.description.text){
       blog('MutableSlidesDifferences : descriptions are not Identical');
     }
-    if (Colorizers.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
+    if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
       blog('MutableSlidesDifferences : midColors are not Identical');
     }
     if (slide1.opacity != slide2.opacity){
@@ -473,7 +473,7 @@ class MutableSlide {
           ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
           slide1.headline.text == slide2.headline.text &&
           slide1.description.text == slide2.description.text &&
-          Colorizers.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
+          Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
           ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter)

@@ -47,7 +47,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse: 'Fancy tree test',
         icon: Iconz.keyword,
-        screen: const ChainTest(),
+        screen: const KeywordSelectionScreen(),
       ),
 
       /// DYNAMIC LINKS TEST

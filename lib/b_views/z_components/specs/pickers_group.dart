@@ -29,17 +29,16 @@ class SpecsPickersGroup extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
-    return SizedBox(
-      key: const ValueKey<String>('SpecsPickersGroup'),
-      width: _screenHeight,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
       child: Column(
+        key: const ValueKey<String>('SpecsPickersGroup'),
         children: <Widget>[
 
           /// GROUP TITLE
           Container(
             width: _screenHeight,
             height: 50,
-            margin: const EdgeInsets.only(top: Ratioz.appBarMargin),
             padding: const EdgeInsets.symmetric(horizontal: 20),
             // color: Colorz.bloodTest,
             child: SuperVerse(

@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -28,44 +27,37 @@ class StringsDataCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    // final double _screenWidth = Scale.superScreenWidth(context);
+    final BorderRadius _corners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
 
     blog('selected specs are : ${selectedSpecs.toString()}');
 
+    final double _boxHeight = height - ( Ratioz.appBarMargin);
+
     return Container(
-      width: _screenWidth,
-      height: height,
-      alignment: Alignment.center,
-      // color: Colorz.red230,
-      child: Container(
-        width: BldrsAppBar.width(context),
-        height: height - (2 * Ratioz.appBarMargin),
-        decoration: BoxDecoration(
-            color: Colorz.white10,
-            borderRadius: Borderers.superBorderAll(context, Ratioz.appBarCorner),
-        ),
-        alignment: Alignment.topCenter,
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
-
-            ChainSonsBuilder(
-              boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
-              chain: Chain.filterSpecListChainRange(
-                specList: specPicker,
-                context: context,
-                onlyConsiderCityKeywords: false,
-              ),
-
-              onKeywordTap: (String keywordID) => onSpecTap(keywordID),
-              selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
-              initiallyExpanded: true,
-            ),
-
-          ],
-        ),
-
+      width: BldrsAppBar.width(context),
+      height: _boxHeight,
+      decoration: BoxDecoration(
+          color: Colorz.white10,
+          borderRadius: _corners,
       ),
+      alignment: Alignment.topCenter,
+      child: ClipRRect(
+        borderRadius: _corners,
+        child: ChainSonsBuilder(
+          boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
+          boxHeight: _boxHeight,
+          chain: Chain.filterSpecListChainRange(
+            specList: specPicker,
+            context: context,
+            onlyConsiderCityKeywords: false,
+          ),
+          onKeywordTap: (String keywordID) => onSpecTap(keywordID),
+          selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
+          initiallyExpanded: false,
+        ),
+      ),
+
     );
   }
 }
