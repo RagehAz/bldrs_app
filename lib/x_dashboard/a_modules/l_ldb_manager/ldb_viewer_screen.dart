@@ -85,7 +85,7 @@ class LDBViewerScreen extends StatefulWidget {
               return ValueBox(
                 dataKey: _key,
                 value: _value,
-                color: userColorField == true ? decipherColor(_map['color']) ?? Colorz.bloodTest : Colorz.green125,
+                color: userColorField == true ? Colorizer.decipherColor(_map['color']) ?? Colorz.bloodTest : Colorz.green125,
               );
             }),
 

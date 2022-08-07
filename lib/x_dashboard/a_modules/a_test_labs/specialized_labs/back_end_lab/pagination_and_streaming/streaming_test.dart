@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dar
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizers;
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -139,7 +139,7 @@ class _StreamingTestState extends State<StreamingTest> {
 
                 return WideButton(
                   verse: 'Add Data',
-                  color: Colorizers.decipherColor(map['color']),
+                  color: Colorizer.decipherColor(map['color']),
                   onTap: () async {
 
                     await Fire.createDoc(
@@ -148,7 +148,7 @@ class _StreamingTestState extends State<StreamingTest> {
                       input: {
                         'time' : Timers.cipherTime(time: DateTime.now(), toJSON: false),
                         'id' : Numeric.createUniqueID(),
-                        'color' : Colorizers.cipherColor(Colorizers.createRandomColor()),
+                        'color' : Colorizer.cipherColor(Colorizer.createRandomColor()),
                       },
                     );
 
@@ -255,20 +255,20 @@ class ColorButton extends StatelessWidget {
           verseShadow: false,
           iconSizeFactor: 0.5,
           secondLine: '( $_mmss )',
-          color: Colorizers.decipherColor(map['color']),
+          color: Colorizer.decipherColor(map['color']),
           verseCentered: false,
           onTap: () async {
 
             blog(map['id']);
 
-            final Color _newColor = Colorizers.createRandomColor();
+            final Color _newColor = Colorizer.createRandomColor();
 
             await Fire.updateDocField(
               context: context,
               collName: 'testing',
               docName: map['id'],
               field: 'color',
-              input: Colorizers.cipherColor(_newColor),
+              input: Colorizer.cipherColor(_newColor),
             );
 
           },

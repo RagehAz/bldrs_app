@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/b_chain_box.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/d_chain_son_starter.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ class ChainSonsBuilder extends StatelessWidget {
   const ChainSonsBuilder({
     @required this.initiallyExpanded,
     @required this.boxWidth,
+    @required this.boxHeight,
     this.chain,
     this.onKeywordTap,
     this.selectedKeywordsIDs,
@@ -18,6 +21,7 @@ class ChainSonsBuilder extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double boxWidth;
+  final double boxHeight;
   final Chain chain;
   final ValueChanged<String> onKeywordTap;
   final List<String> selectedKeywordsIDs;
@@ -39,16 +43,18 @@ class ChainSonsBuilder extends StatelessWidget {
     else {
       return SizedBox(
         width: boxWidth,
+        height: boxHeight,
         child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
             itemCount: chain.sons.length,
             itemBuilder: (_, index) {
 
               final dynamic _son = chain.sons[index];
 
-              return Padding(
-                padding: const EdgeInsets.all(Ratioz.appBarPadding),
+              return Container(
+                color: Colorizer.createRandomColor(),
+                alignment: Aligners.superInverseCenterAlignment(context),
+                margin: const EdgeInsets.all(Ratioz.appBarPadding),
                 child: ChainSonStarter(
                   son: _son,
                   sonWidth: _sonWidth,

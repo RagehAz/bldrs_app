@@ -1,163 +1,119 @@
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/d_spec_picker_screen.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/specs/pickers_group.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainTest extends StatefulWidget {
+class KeywordSelectionScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainTest({
+  const KeywordSelectionScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  @override
-  _ChainTestState createState() => _ChainTestState();
-/// --------------------------------------------------------------------------
-}
+  Future<void> goToKeywordsScreen({
+    @required BuildContext context,
+    @required SpecPicker specPicker,
+  }) async {
 
-class _ChainTestState extends State<ChainTest> {
-// -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
-  Future<void> _triggerLoading({bool setTo}) async {
-    if (mounted == true){
-      if (setTo == null){
-        _loading.value = !_loading.value;
-      }
-      else {
-        _loading.value = setTo;
-      }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
-    }
-  }
-
-
-// -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-
-    _scrollController = ScrollController();
-  }
-// -----------------------------------------------------------------------------
-  bool _isInit = true;
-  @override
-  void didChangeDependencies() {
-    if (_isInit && mounted) {
-
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
-
-      _isInit = false;
-    }
-    super.didChangeDependencies();
-  }
-// -----------------------------------------------------------------------------
-  @override
-  void dispose() {
-    _loading.dispose();
-    _scrollController.dispose();
-    super.dispose(); /// tamam
-  }
-// -----------------------------------------------------------------------------
-  ScrollController _scrollController;
-
-  @override
-  Widget build(BuildContext context) {
-
-    // final TreeNodeScope treeNodeScope = TreeNodeScope.of(context);
-
-    blog('a77a ?');
-
-    return Scaffold(
-      backgroundColor: Colorz.black255,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: ChainExpanderStarter(
-            chain: ChainsProvider.proGetKeywordsChain(context: context, getRefinedCityChain: false, listen: false),
-            boxWidth: Scale.superScreenWidth(context),
-            icon: Iconz.keyword,
-            firstHeadline: 'FUck',
-            initiallyExpanded: false,
-            secondHeadline: 'you',
-            selectedKeywordsIDs: const <String>[],
-          ),
-        ),
+    final String _phid = await Nav.goToNewScreen(
+      context: context,
+      transitionType: Nav.superHorizontalTransition(context),
+      screen: SpecPickerScreen(
+        specPicker: specPicker,
+        showInstructions: false,
+        inSelectionMode: false,
       ),
     );
 
+    blog('selected this phid : $_phid');
 
-    // return DashBoardLayout(
-    //   loading: _loading,
-    //   listWidgets: <Widget>[
-    //
-    //     // WideButton(
-    //     //   verse: 'Fuck this',
-    //     //   onTap: () async {
-    //     //
-    //     //     blog('fuck this');
-    //     //
-    //     //
-    //     //
-    //     //   },
-    //     // ),
-    //
-    //     Container(
-    //       width: Scale.superScreenWidth(context),
-    //       height: Scale.superScreenHeight(context),
-    //       color: Colorz.white20,
-    //       child: ,
-    //
-    //       // child: TreeView(
-    //       //   startExpanded: false,
-    //       //   children: [
-    //       //
-    //       //     TreeViewChild(
-    //       //         parent: ChainSonButton(
-    //       //           phid: 'phid_design',
-    //       //           sonWidth: 200,
-    //       //           parentLevel: 0,
-    //       //           color: Colorz.bloodTest,
-    //       //           // isDisabled: false,
-    //       //           onTap: () => blog('fuck'),
-    //       //         ),
-    //       //         children: [
-    //       //
-    //       //           ChainSonButton(
-    //       //             phid: 'phid_design',
-    //       //             sonWidth: 200,
-    //       //             parentLevel: 0,
-    //       //             color: Colorz.bloodTest,
-    //       //             // isDisabled: false,
-    //       //             onTap: () => blog('fuck'),
-    //       //           ),
-    //       //
-    //       //           ChainSonButton(
-    //       //             phid: 'phid_design',
-    //       //             sonWidth: 200,
-    //       //             parentLevel: 0,
-    //       //             color: Colorz.bloodTest,
-    //       //             // isDisabled: false,
-    //       //             onTap: () => blog('fuck'),
-    //       //           )
-    //       //
-    //       //         ],
-    //       //     ),
-    //       //
-    //       //   ],
-    //       // ),
-    //     ),
-    //
-    //   ],
-    // );
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
+        context: context,
+        getRefinedCityChain: false,
+        listen: true,
+    );
+
+    final List<SpecPicker> _specsPickers = SpecPicker.getMajorKeywords();
+    final List<String> _theGroupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+      specsPickers: _specsPickers,
+    );
+
+    return MainLayout(
+      hasKeyboard: false,
+      skyType: SkyType.black,
+      appBarType: AppBarType.search,
+      sectionButtonIsOn: false,
+      pageTitle: 'Select Keyword',
+      zoneButtonIsOn: false,
+      pyramidsAreOn: true,
+      pyramidType: PyramidType.crystalYellow,
+      onSearchChanged: (String value) => blog('typing : $value'),
+      onSearchSubmit: (String value) => blog('searching : $value'),
+      searchController: TextEditingController(),
+      searchHint: 'Search keywords',
+      layoutWidget: _keywordsChain == null ?
+
+      /// WHILE LOADING CHAIN
+      const Center(
+        child: WidgetFader(
+          fadeType: FadeType.repeatAndReverse,
+          child: SuperVerse(
+            verse: 'Loading\n Please Wait',
+            weight: VerseWeight.black,
+            maxLines: 2,
+          ),
+        ),
+      )
+          :
+      /// AFTER CHAIN IS LOADED
+      ListView.builder(
+          itemCount: _theGroupsIDs.length,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.only(
+            top: Stratosphere.bigAppBarStratosphere,
+            bottom: Ratioz.horizon,
+          ),
+          itemBuilder: (BuildContext ctx, int index) {
+
+            final String _groupID = _theGroupsIDs[index];
+
+            final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
+              specsPickers: _specsPickers,
+              groupID: _groupID,
+            );
+
+            return SpecsPickersGroup(
+              title: _groupID.toUpperCase(),
+              allSelectedSpecs: ValueNotifier(null),
+              groupPickers: _pickersOfThisGroup,
+              onPickerTap: (SpecPicker picker) => goToKeywordsScreen(
+                context: context,
+                specPicker: picker,
+              ),
+              onDeleteSpec: (List<SpecModel> specs){
+                SpecModel.blogSpecs(specs);
+              },
+            );
+
+          }
+      ),
+    );
 
   }
 
