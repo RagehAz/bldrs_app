@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -131,14 +132,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 // -----------------------------------------------------------------------------
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     final ByteData data = await rootBundle.load(path);
-    final ui.Codec codec = await ui
-        .instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    final ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     final ui.FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> missingFunction() async {
     blog('missing function starts');
@@ -147,12 +146,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     customMarker = BitmapDescriptor.fromBytes(markerIcon);
     blog('missing function ends ${customMarker.toString()}');
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final Set<Marker> theMarkers = _pickedLocation == null
-        ? null
+
+    final Set<Marker> theMarkers = _pickedLocation == null ? null
         : <Marker>{
             Marker(
               markerId: const MarkerId('m1'),
