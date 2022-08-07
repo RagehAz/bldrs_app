@@ -1,11 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -22,7 +21,6 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,13 +37,14 @@ class ProvidersTestScreen extends StatefulWidget {
 
 class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
-  UsersProvider usersProvider;
-  ZoneProvider zoneProvider;
-  FlyersProvider flyersProvider;
+  UsersProvider _usersProvider;
+  ZoneProvider _zoneProvider;
+  FlyersProvider _flyersProvider;
   ChainsProvider _chainsProvider;
   AnimationController _animationController;
   UiProvider _uiProvider;
   PhraseProvider _phraseProvider;
+  BzzProvider _bzzProvider;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -66,15 +65,13 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   void initState() {
     _scrollController = ScrollController();
 
-    usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
     _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    // final Chain _keywordsChain = _chainsProvider.keywordsChain;
-    // final Chain _specsChain = _chainsProvider.specsChain;
-
+    _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     _animationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -108,20 +105,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-//     double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
-// -----------------------------------------------------------------------------
-
-    // final Stream<UserModel> _myUserModelStream = _usersProvider?.myUserModelStream;
-    final List<FlyerModel> _promotedFlyers = flyersProvider?.promotedFlyers;
-
-    final Chain _keywordsChain = _chainsProvider.allKeywordsChain;
-    final List<Phrase> _keywordsChainPhrases = _chainsProvider.allKeywordsChainPhrases;
-    final Chain _specsChain = _chainsProvider.specsChain;
-
-    final BzzProvider bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    // final List<BzModel> _myBzz = bzzProvider.myBzz;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -136,8 +119,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 
             const Stratosphere(),
 
-            /// AUTH -------------------------------------------------------------
+            const SeparatorLine(),
 
+            /// AUTH -------------------------------------------------------------
             const SuperVerse(verse: 'Auth',),
 
             /// SUPER USER ID
@@ -155,264 +139,278 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// AUTH MODEL
             ProviderTestButton(
               title: 'usersProvider?.myAuthModel',
-              value: usersProvider?.myAuthModel,
-              onTap: () => usersProvider?.myAuthModel?.blogAuthModel(),
+              value: _usersProvider?.myAuthModel,
+              onTap: () => _usersProvider?.myAuthModel?.blogAuthModel(),
             ),
 
-            /// USER -------------------------------------------------------------
+            const SeparatorLine(),
 
+            /// USER -------------------------------------------------------------
             const SuperVerse(verse: 'User',),
 
             /// MY USER MODEL
             ProviderTestButton(
               title: 'usersProvider?.myUserModel',
-              value: usersProvider?.myUserModel,
-              onTap: () => usersProvider?.myUserModel?.blogUserModel(),
+              value: _usersProvider?.myUserModel,
+              onTap: () => _usersProvider?.myUserModel?.blogUserModel(),
             ),
 
             /// MY USER COUNTRY
             ProviderTestButton(
               title: 'usersProvider?.myUserModel?.zone?.countryModel',
-              value: usersProvider?.myUserModel?.zone?.countryModel,
-              onTap: () => usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
+              value: _usersProvider?.myUserModel?.zone?.countryModel,
+              onTap: () => _usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
             ),
 
             /// MY USER CITY
             ProviderTestButton(
               title: 'usersProvider?.myUserModel?.zone?.cityModel',
-              value: usersProvider?.myUserModel?.zone?.cityModel,
-              onTap: () => usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
+              value: _usersProvider?.myUserModel?.zone?.cityModel,
+              onTap: () => _usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
             ),
 
-            /// BZZ -------------------------------------------------------------
+            const SeparatorLine(),
 
+            /// BZZ -------------------------------------------------------------
             const SuperVerse(verse: 'Bzz',),
 
             /// MY BZZ
             ProviderTestButton(
-              title: 'bzzProvider.myBzz = ${bzzProvider.myBzz.length} bzz',
-              value: bzzProvider.myBzz,
+              title: 'bzzProvider.myBzz = ${_bzzProvider?.myBzz?.length} bzz',
+              value: _bzzProvider.myBzz,
               onTap: () => BzModel.blogBzz(
-                  bzz: bzzProvider.myBzz,
+                bzz: _bzzProvider.myBzz,
               ),
             ),
 
             /// FOLLOWED BZZ
             ProviderTestButton(
-              title: 'bzzProvider.followedBzz = ${bzzProvider.followedBzz.length} bzz',
-              value: bzzProvider.followedBzz,
+              title: 'bzzProvider.followedBzz = ${_bzzProvider.followedBzz.length} bzz',
+              value: _bzzProvider.followedBzz,
               onTap: () => BzModel.blogBzz(
-                  bzz: bzzProvider.followedBzz,
+                bzz: _bzzProvider.followedBzz,
               ),
             ),
 
             /// SPONSORS BZZ
             ProviderTestButton(
-              title: 'bzzProvider.sponsors = ${bzzProvider.sponsors.length} bzz',
-              value: bzzProvider.sponsors,
+              title: 'bzzProvider.sponsors = ${_bzzProvider.sponsors.length} bzz',
+              value: _bzzProvider.sponsors,
               onTap: () => BzModel.blogBzz(
-                  bzz: bzzProvider.sponsors,
+                bzz: _bzzProvider.sponsors,
               ),
             ),
-
-            const DotSeparator(),
 
             /// ACTIVE BZ
             ProviderTestButton(
               title: 'bzzProvider.myActiveBz',
-              value: bzzProvider.myActiveBz,
-              onTap: () => bzzProvider.myActiveBz?.blogBz(),
+              value: _bzzProvider.myActiveBz,
+              onTap: () => _bzzProvider.myActiveBz?.blogBz(),
             ),
 
             /// ACTIVE BZ COUNTRY
             ProviderTestButton(
               title: 'bzzProvider.myActiveBz?.zone?.countryModel',
-              value: bzzProvider.myActiveBz?.zone?.countryModel,
-              onTap: () => bzzProvider.myActiveBz?.zone?.countryModel?.blogCountry(),
+              value: _bzzProvider.myActiveBz?.zone?.countryModel,
+              onTap: () => _bzzProvider.myActiveBz?.zone?.countryModel?.blogCountry(),
             ),
 
             /// ACTIVE BZ CITY
             ProviderTestButton(
               title: 'bzzProvider.myActiveBz?.zone?.cityModel',
-              value: bzzProvider.myActiveBz?.zone?.cityModel,
-              onTap: () => bzzProvider.myActiveBz?.zone?.cityModel?.blogCity(),
+              value: _bzzProvider.myActiveBz?.zone?.cityModel,
+              onTap: () => _bzzProvider.myActiveBz?.zone?.cityModel?.blogCity(),
             ),
 
-            /// ZONE -------------------------------------------------------------
             const SeparatorLine(),
 
+            /// ZONE -------------------------------------------------------------
             const SuperVerse(verse: 'Zone',),
 
             /// CURRENT ZONE
             ProviderTestButton(
               title: 'zoneProvider.currentZone',
-              value: zoneProvider.currentZone,
-              onTap: () => zoneProvider.currentZone?.blogZone(),
+              value: _zoneProvider.currentZone,
+              onTap: () => _zoneProvider.currentZone?.blogZone(),
             ),
 
             /// CURRENT CONTINENT
             ProviderTestButton(
               title: 'zoneProvider.currentContinent',
-              value: zoneProvider.currentContinent,
-              onTap: () => zoneProvider.currentContinent?.blogContinent(),
+              value: _zoneProvider.currentContinent,
+              onTap: () => _zoneProvider.currentContinent?.blogContinent(),
             ),
 
             /// CURRENT COUNTRY
             ProviderTestButton(
               title: 'zoneProvider.currentZone.countryModel',
-              value: zoneProvider.currentZone?.countryModel,
-              onTap: () => zoneProvider.currentZone?.countryModel?.blogCountry(),
+              value: _zoneProvider.currentZone?.countryModel,
+              onTap: () => _zoneProvider.currentZone?.countryModel?.blogCountry(),
             ),
 
             /// CURRENT CITY
             ProviderTestButton(
               title: 'zoneProvider.currentZone?.cityModel',
-              value: zoneProvider.currentZone?.cityModel,
-              onTap: () => zoneProvider.currentZone?.cityModel?.blogCity(),
+              value: _zoneProvider.currentZone?.cityModel,
+              onTap: () => _zoneProvider.currentZone?.cityModel?.blogCity(),
             ),
 
             /// CURRENT CURRENCY
             ProviderTestButton(
               title: 'zoneProvider.currentCurrency',
-              value: zoneProvider.currentCurrency,
-              onTap: () => zoneProvider.currentCurrency?.blogCurrency(),
+              value: _zoneProvider.currentCurrency,
+              onTap: () => _zoneProvider.currentCurrency?.blogCurrency(),
             ),
-
-            const DotSeparator(),
 
             /// USER COUNTRY
             ProviderTestButton(
               title: 'usersProvider.myUserModel.zone.countryModel',
-              value: usersProvider?.myUserModel?.zone?.countryModel,
-              onTap: () => usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
+              value: _usersProvider?.myUserModel?.zone?.countryModel,
+              onTap: () => _usersProvider?.myUserModel?.zone?.countryModel?.blogCountry(),
             ),
 
             /// USER COUNTRY
             ProviderTestButton(
               title: 'usersProvider?.myUserModel?.zone?.cityModel',
-              value: usersProvider?.myUserModel?.zone?.cityModel,
-              onTap: () => usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
+              value: _usersProvider?.myUserModel?.zone?.cityModel,
+              onTap: () => _usersProvider?.myUserModel?.zone?.cityModel?.blogCity(),
             ),
-
-            const DotSeparator(),
 
             /// ALL CURRENCIES
             ProviderTestButton(
               title: 'zoneProvider.allCurrencies',
-              value: zoneProvider.allCurrencies,
-              onTap: () => CurrencyModel.blogCurrencies(zoneProvider.allCurrencies),
+              value: _zoneProvider.allCurrencies,
+              onTap: () => CurrencyModel.blogCurrencies(_zoneProvider.allCurrencies),
             ),
-
-            const DotSeparator(),
-
-            /// FLYERS -------------------------------------------------------------
-
 
             /// PROMOTED FLYERS
             ProviderTestButton(
-              title: 'flyersProvider.promotedFlyers ${flyersProvider.promotedFlyers.length} flyers',
-              value: flyersProvider.promotedFlyers,
+              title: 'flyersProvider.promotedFlyers ${_flyersProvider.promotedFlyers.length} flyers',
+              value: _flyersProvider.promotedFlyers,
               onTap: () => FlyerModel.blogFlyers(
-                flyers: flyersProvider.promotedFlyers,
+                flyers: _flyersProvider.promotedFlyers,
               ),
             ),
 
+            const SeparatorLine(),
 
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print _promotedFlyers',
-                icon: Iconizer.valueIsNotNull(_promotedFlyers),
-                onTap: () async {
-                  unawaited(_triggerLoading());
-
-                  FlyerModel.blogFlyers(
-                    flyers: _promotedFlyers,
-                    methodName: 'provider test : [_promotedFlyers button]'
-                  );
-
-                  unawaited(_triggerLoading());
-                }),
-
+            /// CHAINS -------------------------------------------------------------
             const SuperVerse(verse: 'Chains',),
 
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print _keywordsChain',
-                icon: Iconizer.valueIsNotNull(_keywordsChain),
-                onTap: () async {
-                  unawaited(_triggerLoading());
+            /// ALL KEYWORDS CHAIN
+            ProviderTestButton(
+              title: 'chainsProvider.allKeywordsChain ',
+              value: _chainsProvider?.allKeywordsChain,
+              onTap: (){
+                _chainsProvider.allKeywordsChain.blogChain();
+              },
+            ),
 
-                  _keywordsChain.blogChain();
+            /// CITY KEYWORDS CHAIN
+            ProviderTestButton(
+              title: 'chainsProvider.cityKeywordsChain ',
+              value: _chainsProvider?.cityKeywordsChain,
+              onTap: (){
+                _chainsProvider.cityKeywordsChain.blogChain();
+              },
+            ),
 
-                  unawaited(_triggerLoading());
-                }),
+            /// ALL KEYWORDS CHAIN PHRASES
+            ProviderTestButton(
+              title: 'chainsProvider.allKeywordsChainPhrases : ${_chainsProvider?.allKeywordsChainPhrases?.length} phrases ',
+              value: _chainsProvider?.allKeywordsChainPhrases,
+              onTap: (){
+                Phrase.blogPhrases(_chainsProvider?.allKeywordsChainPhrases);
+              },
+            ),
 
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print _keywordsChainPhrases',
-                icon: Iconizer.valueIsNotNull(_keywordsChainPhrases),
-                onTap: () async {
-                  unawaited(_triggerLoading());
+            /// CITY KEYWORDS CHAIN PHRASES
+            ProviderTestButton(
+              title: 'chainsProvider.cityKeywordsChainPhrases : ${_chainsProvider?.cityKeywordsChainPhrases?.length} phrases ',
+              value: _chainsProvider?.cityKeywordsChainPhrases,
+              onTap: (){
+                Phrase.blogPhrases(_chainsProvider?.cityKeywordsChainPhrases);
+              },
+            ),
 
-                  Phrase.blogPhrases(_keywordsChainPhrases);
+            /// CURRENT CITY CHAIN
+            ProviderTestButton(
+              title: 'chainsProvider.currentCityChain',
+              value: _chainsProvider?.currentCityChain,
+              onTap: (){
+                _chainsProvider?.currentCityChain?.blogCityChain();
+              },
+            ),
 
-                  unawaited(_triggerLoading());
-                }),
+            /// SPECS CHAIN
+            ProviderTestButton(
+              title: 'chainsProvider.specsChain',
+              value: _chainsProvider?.specsChain,
+              onTap: (){
+                _chainsProvider?.specsChain?.blogChain();
+              },
+            ),
 
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print _specsChain',
-                icon: Iconizer.valueIsNotNull(_specsChain),
-                onTap: () async {
-                  unawaited(_triggerLoading());
+            /// HOME WALL FLYER TYPE
+            ProviderTestButton(
+              title: 'chainsProvider.homeWallFlyerType',
+              value: _chainsProvider?.homeWallFlyerType,
+              onTap: (){
+                blog(_chainsProvider?.homeWallFlyerType);
+              },
+            ),
 
-                  _specsChain.blogChain();
+            /// WALL PHID
+            ProviderTestButton(
+              title: 'chainsProvider.wallPhid',
+              value: _chainsProvider?.wallPhid,
+              onTap: (){
+                blog(_chainsProvider?.wallPhid);
+              },
+            ),
 
-                  unawaited(_triggerLoading());
-                }),
+            const SeparatorLine(),
 
-            const DotSeparator(),
+            /// PHRASES -------------------------------------------------------------
+            const SuperVerse(verse: 'Phrases',),
+
+            /// CURRENT LANG CODE
+            ProviderTestButton(
+              title: 'phraseProvider.currentLangCode',
+              value: _phraseProvider.currentLangCode,
+              onTap: (){
+                blog(_phraseProvider?.currentLangCode);
+              },
+            ),
+
+            /// BASIC PHRASES
+            ProviderTestButton(
+              title: 'phraseProvider.basicPhrases',
+              value: _phraseProvider.basicPhrases,
+              onTap: (){
+                Phrase.blogPhrases(_phraseProvider.basicPhrases);
+              },
+            ),
+
+            const SeparatorLine(),
+
+            /// UI -------------------------------------------------------------
+            const SuperVerse(verse: 'UI',),
+
+            /// BASIC PHRASES
+            ProviderTestButton(
+              title: 'uiProvider.localAssetsPaths',
+              value: _uiProvider.localAssetsPaths,
+              onTap: (){
+                blogStrings(_uiProvider.localAssetsPaths);
+              },
+            ),
 
 
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print currentLangCode',
-                icon: Iconizer.valueIsNotNull(_phraseProvider.currentLangCode),
-                onTap: () async {
-                  unawaited(_triggerLoading());
+            const SeparatorLine(),
 
-                  blog(_phraseProvider.currentLangCode);
-
-                  unawaited(_triggerLoading());
-                }),
-
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print phrases',
-                icon: Iconizer.valueIsNotNull(_phraseProvider.basicPhrases),
-                onTap: () async {
-                  unawaited(_triggerLoading());
-
-                  Phrase.blogPhrases(_phraseProvider.basicPhrases);
-
-                  unawaited(_triggerLoading());
-                }),
-
-            const DotSeparator(),
-
-            WideButton(
-                color: Colorz.black255,
-                verse: 'print local Assets paths',
-                icon: Iconizer.valueIsNotNull(_uiProvider.localAssetsPaths),
-                onTap: () async {
-                  unawaited(_triggerLoading());
-
-                  blogStrings(_uiProvider.localAssetsPaths);
-
-                  unawaited(_triggerLoading());
-                }),
-
-            const DotSeparator(),
+            /// CHAINS -------------------------------------------------------------
+            const SuperVerse(verse: 'TO AVOID SET STATE TECHNIQUES',),
 
             /// AVOID SET STATE : WAY # 2
             Consumer<UiProvider>(
@@ -471,14 +469,16 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   );
                 }),
 
-            const DotSeparator(),
+            const SeparatorLine(),
 
+            /// END -------------------------------------------------------------
             const Stratosphere(),
 
           ],
         ),
       ),
     );
+
   }
 }
 
