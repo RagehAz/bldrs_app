@@ -72,7 +72,9 @@ class FooterButton extends StatelessWidget {
     return _footerBTRadius * 2;
   }
 // -----------------------------------------------------------------------------
-  static Color buttonColor({@required bool buttonIsOn}) {
+  static Color buttonColor({
+    @required bool buttonIsOn,
+  }) {
     const Color _onColor = Colorz.yellow255;
     const Color _offColor = Colorz.black255;
 

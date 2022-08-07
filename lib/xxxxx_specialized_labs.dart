@@ -12,6 +12,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/chain_expander_test/fancy_tree_view.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
@@ -41,6 +42,13 @@ class SpecializedLabs extends StatelessWidget {
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// DYNAMIC LINKS TEST
+      DashButtonModel(
+        verse: 'Fancy tree test',
+        icon: Iconz.keyword,
+        screen: const FancyTreeTest(),
+      ),
 
       /// DYNAMIC LINKS TEST
       DashButtonModel(
