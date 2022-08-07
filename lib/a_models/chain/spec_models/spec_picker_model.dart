@@ -158,6 +158,7 @@ class SpecPicker {
     return _groups;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecPicker> getPickersByFlyerType(FlyerType flyerType) {
     final List<SpecPicker> _specPicker =
     flyerType == FlyerType.property ? propertySpecsPickers
@@ -175,6 +176,55 @@ class SpecPicker {
     <SpecPicker>[];
 
     return _specPicker;
+  }
+// -------------------------------------
+  static List<SpecPicker> getMajorKeywords() {
+    const List<SpecPicker> _specPicker = <SpecPicker>[
+
+      /// PROPERTIES
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_property',
+        groupID: 'RealEstate',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// DESIGN
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_design',
+        groupID: 'Construction',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// CRAFTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_crafts',
+        groupID: 'Construction',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// PRODUCTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_product',
+        groupID: 'Supplies',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// PRODUCTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_equipment',
+        groupID: 'Supplies',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+    ];
+
+    return _specPicker;
+
   }
 // -----------------------------------------------------------------------------
 
@@ -209,6 +259,7 @@ class SpecPicker {
   /// BLOGGERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void blogSpecPicker() {
     blog('SPEC-PICKER-PRINT --------------------------------------------------START');
 
@@ -223,6 +274,7 @@ class SpecPicker {
     blog('SPEC-PICKER-PRINT --------------------------------------------------END');
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogSpecsPickers(List<SpecPicker> specsPickers) {
     if (Mapper.checkCanLoopList(specsPickers)) {
       for (final SpecPicker _picker in specsPickers) {

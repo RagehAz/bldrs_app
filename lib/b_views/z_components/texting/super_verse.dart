@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/colorizers.dart' as Colorizer;
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
