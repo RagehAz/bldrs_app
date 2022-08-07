@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_chain_son_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -100,8 +100,8 @@ class ChainViewSearching extends StatelessWidget {
                                     vertical: Ratioz.appBarPadding,
                                     horizontal: Ratioz.appBarMargin,
                                 ),
-                                child: ChainSonButton(
-                                  sonWidth: bubbleWidth,
+                                child: PhidButton(
+                                  width: bubbleWidth,
                                   phid: _phidk,
                                   // isDisabled: false,
                                   parentLevel: 2,
