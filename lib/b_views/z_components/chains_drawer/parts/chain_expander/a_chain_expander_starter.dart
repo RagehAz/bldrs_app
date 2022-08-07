@@ -67,6 +67,7 @@ class ChainExpanderStarter extends StatelessWidget {
         initiallyExpanded: initiallyExpanded,
         child: ChainSonsBuilder(
           boxWidth: _sonWidth,
+          boxHeight: 500,
           chain: chain,
           initiallyExpanded: initiallyExpanded,
           onKeywordTap: (String keywordID) => onKeywordTap(keywordID),

@@ -21,31 +21,26 @@ class SpecPickerScreenView extends StatelessWidget {
     @required this.specPicker,
     @required this.selectedSpecs,
     @required this.screenHeight,
+    @required this.showInstructions,
+    @required this.inSelectionMode,
+    @required this.onSelectSpec,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final SpecPicker specPicker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final double screenHeight;
+  final bool showInstructions;
+  final bool inSelectionMode;
+  final ValueChanged<String> onSelectSpec;
   /// --------------------------------------------------------------------------
-  String _getInstructions({
-    @required Chain specChain,
-    @required SpecPicker picker,
-}) {
-    String _instructions;
+  double _getListZoneHeight(){
 
-    if (specChain.sons.runtimeType == DataCreator) {
-      _instructions = 'Specify this';
-    }
+    final double _instructionsBoxHeight = showInstructions == true ? SpecPickerScreen.instructionBoxHeight : 0;
 
-    else {
-      _instructions = picker.canPickMany == true ?
-      'You may pick multiple specifications from this list'
-          :
-      'You can pick only one specification from this list';
-    }
+    final double _listZoneHeight = screenHeight - Ratioz.stratosphere - _instructionsBoxHeight;
 
-    return _instructions;
+    return _listZoneHeight;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -56,51 +51,36 @@ class SpecPickerScreenView extends StatelessWidget {
       chainID: specPicker.chainID,
       searchOnlyCityKeywordsChainsAndSpecs: false,
     );
+    final bool _isNumberDataCreator = Chain.checkSonsAreDataCreator(_specChain.sons);
 
-    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _listZoneHeight = _getListZoneHeight();
 
-    final double _listZoneHeight =
-        screenHeight
-            - Ratioz.stratosphere
-            - SpecPickerScreen.instructionBoxHeight;
-
-    final String _instructions = _getInstructions(
-      picker: specPicker,
-      specChain: _specChain,
-    );
 
     blog('SpecPickerScreen : ${_specChain.id} : sons ${_specChain.sons} : sons type ${_specChain.sons.runtimeType}');
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        const Stratosphere(),
-
-        /// INSTRUCTIONS BOX HEIGHT
         Container(
-          width: _screenWidth,
-          height: SpecPickerScreen.instructionBoxHeight,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-          child: SuperVerse(
-            verse: _instructions,
-            maxLines: 3,
-            weight: VerseWeight.thin,
-            italic: true,
-            color: Colorz.white125,
-          ),
-          // color: Colorz.white10,
-        ),
+            color: Colorz.bloodTest,
+            child: const Stratosphere()),
 
+        /// INSTRUCTIONS BOX
+        if (showInstructions == true)
+          SpecPickerInstructions(
+            chain: _specChain,
+            picker: specPicker,
+          ),
+
+        /// SPECS PICKER FOR SELECTING MULTIPLE SPECS
+        if (inSelectionMode == true)
         ValueListenableBuilder(
           valueListenable: selectedSpecs,
           builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
 
-            final bool _isDataCreator = Chain.checkSonsAreDataCreator(_specChain.sons);
 
             /// SPECS PICKER SELECTOR
-            if (_isDataCreator == false){
+            if (_isNumberDataCreator == false){
               return StringsDataCreator(
                 height: _listZoneHeight,
                 specPicker: specPicker,
@@ -108,12 +88,7 @@ class SpecPickerScreenView extends StatelessWidget {
                   specs: specs,
                   pickerChainID: specPicker.chainID,
                 ),
-                onSpecTap: (String phid) => onSelectSpec(
-                  context: context,
-                  phid: phid,
-                  picker: specPicker,
-                  selectedSpecs: selectedSpecs,
-                ),
+                onSpecTap: onSelectSpec,
               );
             }
 
@@ -185,23 +160,6 @@ class SpecPickerScreenView extends StatelessWidget {
               );
             }
 
-            // /// DOUBLE DATA CREATOR
-            // else if (_specChain.sons == DataCreator.doubleCreator){
-            //   return DoubleDataCreator(
-            //     initialValue: null,
-            //     specPicker: specPicker,
-            //     onDoubleChanged: (double num) => onAddDouble(
-            //       num: num,
-            //       selectedSpecs: selectedSpecs,
-            //       picker: specPicker,
-            //     ),
-            //     onSubmitted: () => onGoBackToSpecsPickersScreen(
-            //       context: context,
-            //       selectedSpecs: selectedSpecs,
-            //     ),
-            //   );
-            // }
-
             else {
               return const SizedBox();
             }
@@ -209,9 +167,75 @@ class SpecPickerScreenView extends StatelessWidget {
           },
         ),
 
-
+        /// SPEC PICKER FOR KEYWORD SELECTION
+        if (inSelectionMode == false && _isNumberDataCreator == false)
+          StringsDataCreator(
+            height: _listZoneHeight,
+            specPicker: specPicker,
+            selectedSpecs: null,
+            onSpecTap: onSelectSpec,
+          ),
 
       ],
+    );
+
+  }
+}
+
+class SpecPickerInstructions extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const SpecPickerInstructions({
+    @required this.chain,
+    @required this.picker,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final SpecPicker picker;
+  final Chain chain;
+  /// --------------------------------------------------------------------------
+  String _getInstructions({
+    @required Chain specChain,
+    @required SpecPicker picker,
+  }) {
+    String _instructions;
+
+    if (specChain.sons.runtimeType == DataCreator) {
+      _instructions = 'Specify this';
+    }
+
+    else {
+      _instructions = picker.canPickMany == true ?
+      'You may pick multiple specifications from this list'
+          :
+      'You can pick only one specification from this list';
+    }
+
+    return _instructions;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final double _screenWidth = Scale.superScreenWidth(context);
+
+    final String _instructions = _getInstructions(
+      picker: picker,
+      specChain: chain,
+    );
+
+    return Container(
+      width: _screenWidth,
+      height: SpecPickerScreen.instructionBoxHeight,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
+      child: SuperVerse(
+        verse: _instructions,
+        maxLines: 3,
+        weight: VerseWeight.thin,
+        italic: true,
+        color: Colorz.white125,
+      ),
+      // color: Colorz.white10,
     );
 
   }
