@@ -468,13 +468,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.2.0"
-  flutter_fancy_tree_view:
-    dependency: "direct main"
-    description:
-      name: flutter_fancy_tree_view
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.2"
   flutter_keyboard_visibility:
     dependency: "direct main"
     description:
@@ -1244,6 +1237,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.7"
+  tree_view:
+    dependency: "direct main"
+    description:
+      name: tree_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.6"
   typed_data:
     dependency: transitive
     description:

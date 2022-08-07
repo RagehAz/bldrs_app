@@ -1,24 +1,23 @@
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
-import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fancy_tree_view/flutter_fancy_tree_view.dart';
 
-class FancyTreeTest extends StatefulWidget {
+class ChainTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FancyTreeTest({
+  const ChainTest({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _FancyTreeTestState createState() => _FancyTreeTestState();
+  _ChainTestState createState() => _ChainTestState();
 /// --------------------------------------------------------------------------
 }
 
-class _FancyTreeTestState extends State<FancyTreeTest> {
+class _ChainTestState extends State<ChainTest> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -35,35 +34,13 @@ class _FancyTreeTestState extends State<FancyTreeTest> {
     }
   }
 
-  TreeNode _initialNode;
 
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    _initialNode = TreeNode(
-
-      id: 'Root',
-      label: 'Label',
-      data: {
-        'Root' : ['thing', 'is'],
-        'thing' : ['fuck'],
-        'is' : ['you'],
-      },
-    );
-
     _scrollController = ScrollController();
-    _treeViewController = TreeViewController(
-      rootNode: _initialNode,
-      // useBinarySearch: false,
-      onAboutToExpand: (TreeNode treeNode){
-
-        blog('onAboutToExpand : ${treeNode.id}');
-        blog('onAboutToExpand : ${treeNode.data}');
-
-      }
-    );
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -87,11 +64,9 @@ class _FancyTreeTestState extends State<FancyTreeTest> {
   void dispose() {
     _loading.dispose();
     _scrollController.dispose();
-    _treeViewController.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  TreeViewController _treeViewController;
   ScrollController _scrollController;
 
   @override
@@ -101,63 +76,88 @@ class _FancyTreeTestState extends State<FancyTreeTest> {
 
     blog('a77a ?');
 
-    return DashBoardLayout(
-      loading: _loading,
-      listWidgets: <Widget>[
-
-        WideButton(
-          verse: 'Fuck this',
-          onTap: () async {
-
-            blog('fuck this');
-
-            _initialNode.addChild(TreeNode(
-              id: 'a77a',
-              label: 'fook',
-              data: {'what' : 'is this'},
-            ));
-
-          },
-        ),
-
-        Container(
-          width: Scale.superScreenWidth(context),
-          height: Scale.superScreenWidth(context),
-          color: Colorz.white20,
-          child: TreeView(
-            shrinkWrap: true,
-            controller: _treeViewController,
-            scrollController: _scrollController,
-            // nodeHeight: 40,
-            theme: const TreeViewTheme(
-              indent: 10,
-              lineColor: Colorz.yellow255,
-              // lineStyle: LineStyle.connected,
-              lineThickness: 1,
-              roundLineCorners: true,
-            ),
-            // padding: ,
-            nodeBuilder: (_, TreeNode node){
-
-              blog('node is : ${node.id}');
-
-              return Center(
-                child: Container(
-                  width: 100,
-                  height: 50,
-                  color: Colorz.bloodTest,
-                  child: SuperVerse(
-                    verse: '${node.id} : ${node.label}',
-                  ),
-                ),
-              );
-
-            },
+    return Scaffold(
+      backgroundColor: Colorz.black255,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: ChainExpanderStarter(
+            chain: ChainsProvider.proGetKeywordsChain(context: context, getRefinedCityChain: false, listen: false),
+            boxWidth: Scale.superScreenWidth(context),
+            icon: Iconz.keyword,
+            firstHeadline: 'FUck',
+            initiallyExpanded: false,
+            secondHeadline: 'you',
+            selectedKeywordsIDs: const <String>[],
           ),
         ),
-
-      ],
+      ),
     );
+
+
+    // return DashBoardLayout(
+    //   loading: _loading,
+    //   listWidgets: <Widget>[
+    //
+    //     // WideButton(
+    //     //   verse: 'Fuck this',
+    //     //   onTap: () async {
+    //     //
+    //     //     blog('fuck this');
+    //     //
+    //     //
+    //     //
+    //     //   },
+    //     // ),
+    //
+    //     Container(
+    //       width: Scale.superScreenWidth(context),
+    //       height: Scale.superScreenHeight(context),
+    //       color: Colorz.white20,
+    //       child: ,
+    //
+    //       // child: TreeView(
+    //       //   startExpanded: false,
+    //       //   children: [
+    //       //
+    //       //     TreeViewChild(
+    //       //         parent: ChainSonButton(
+    //       //           phid: 'phid_design',
+    //       //           sonWidth: 200,
+    //       //           parentLevel: 0,
+    //       //           color: Colorz.bloodTest,
+    //       //           // isDisabled: false,
+    //       //           onTap: () => blog('fuck'),
+    //       //         ),
+    //       //         children: [
+    //       //
+    //       //           ChainSonButton(
+    //       //             phid: 'phid_design',
+    //       //             sonWidth: 200,
+    //       //             parentLevel: 0,
+    //       //             color: Colorz.bloodTest,
+    //       //             // isDisabled: false,
+    //       //             onTap: () => blog('fuck'),
+    //       //           ),
+    //       //
+    //       //           ChainSonButton(
+    //       //             phid: 'phid_design',
+    //       //             sonWidth: 200,
+    //       //             parentLevel: 0,
+    //       //             color: Colorz.bloodTest,
+    //       //             // isDisabled: false,
+    //       //             onTap: () => blog('fuck'),
+    //       //           )
+    //       //
+    //       //         ],
+    //       //     ),
+    //       //
+    //       //   ],
+    //       // ),
+    //     ),
+    //
+    //   ],
+    // );
 
   }
 
