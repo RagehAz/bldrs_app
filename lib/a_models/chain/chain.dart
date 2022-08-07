@@ -210,17 +210,18 @@ class Chain {
   /// FILTERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain filterSpecListChainRange({
     @required BuildContext context,
     @required SpecPicker specList,
-    @required bool onlyConsiderCityKeywords,
+    @required bool onlyConsiderCityPhids,
 }) {
 
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.superGetChain(
       context: context,
       chainID: specList.chainID,
-      searchOnlyCityKeywordsChainsAndSpecs: onlyConsiderCityKeywords,
+      searchOnlyCityKeywordsChainsAndSpecs: onlyConsiderCityPhids,
     );
 
     if (
@@ -601,8 +602,6 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
-
-
 
     if (Mapper.checkCanLoopList(chains) == true){
 

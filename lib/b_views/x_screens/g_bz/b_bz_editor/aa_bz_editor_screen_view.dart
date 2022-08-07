@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
-import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
@@ -312,7 +312,7 @@ class BzEditorScreenView extends StatelessWidget {
                                   ),
 
                                   DreamBox(
-                                    height: KeywordBarButton.height,
+                                    height: PhidButton.getHeight(),
                                     // width: Bubble.clearWidth(context),
                                     verse: Mapper.checkCanLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
                                     bubble: false,

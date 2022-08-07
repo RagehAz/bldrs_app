@@ -30,13 +30,14 @@ class SpecsPickersGroup extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
 // -----------------------------------------------------------------------------
     return Padding(
+      key: const ValueKey<String>('SpecsPickersGroup'),
       padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
       child: Column(
-        key: const ValueKey<String>('SpecsPickersGroup'),
         children: <Widget>[
 
           /// GROUP TITLE
           Container(
+            key: const ValueKey<String>('SpecsPickersGroup_groupTitle'),
             width: _screenHeight,
             height: 50,
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -55,9 +56,8 @@ class SpecsPickersGroup extends StatelessWidget {
 
           /// GROUP SPECS PICKERS
           SizedBox(
+            key: const ValueKey<String>('SpecsPickersGroup_groupSpecsPickers'),
             width: _screenHeight,
-            // height: (_listsOfThisGroup.length * (SpecListTile.height() + 5)),
-
             child: ValueListenableBuilder(
               valueListenable: allSelectedSpecs,
               builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
@@ -84,6 +84,7 @@ class SpecsPickersGroup extends StatelessWidget {
                         }
 
                     ),
+
                   ],
                 );
 

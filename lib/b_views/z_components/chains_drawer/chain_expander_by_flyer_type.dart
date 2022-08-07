@@ -84,7 +84,7 @@ class ChainExpanderForFlyerType extends StatelessWidget {
       isDisabled: deactivated,
       initiallyExpanded: initiallyExpanded,
       onKeywordTap: (String keywordID) => _onKeywordTap(context, keywordID),
-      selectedKeywordsIDs: selectedKeywordsIDs,
+      selectedPhids: selectedKeywordsIDs,
       initialColor: Colorz.white10,
     );
     }

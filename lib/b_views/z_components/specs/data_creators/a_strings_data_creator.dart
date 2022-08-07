@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -27,11 +26,7 @@ class StringsDataCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _screenWidth = Scale.superScreenWidth(context);
     final BorderRadius _corners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
-
-    blog('selected specs are : ${selectedSpecs.toString()}');
-
     final double _boxHeight = height - ( Ratioz.appBarMargin);
 
     return Container(
@@ -45,15 +40,14 @@ class StringsDataCreator extends StatelessWidget {
       child: ClipRRect(
         borderRadius: _corners,
         child: ChainSonsBuilder(
-          boxWidth: BldrsAppBar.width(context) - Ratioz.appBarMargin * 2,
-          boxHeight: _boxHeight,
+          boxWidth: BldrsAppBar.width(context),
           chain: Chain.filterSpecListChainRange(
             specList: specPicker,
             context: context,
-            onlyConsiderCityKeywords: false,
+            onlyConsiderCityPhids: false,
           ),
-          onKeywordTap: (String keywordID) => onSpecTap(keywordID),
-          selectedKeywordsIDs: SpecModel.getSpecsIDs(selectedSpecs),
+          onSpecTap: (String phid) => onSpecTap(phid),
+          selectedSpecs: SpecModel.getSpecsIDs(selectedSpecs),
           initiallyExpanded: false,
         ),
       ),
