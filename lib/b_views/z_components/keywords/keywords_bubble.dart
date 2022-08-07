@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
+import 'package:bldrs/b_views/z_components/keywords/add_keywords_button.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -9,7 +10,7 @@ class KeywordsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const KeywordsBubble({
     @required this.title,
-    @required this.keywordsIDs,
+    @required this.phids,
     @required this.selectedWords,
     @required this.addButtonIsOn,
     @required this.onKeywordTap,
@@ -24,7 +25,7 @@ class KeywordsBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
-  final List<String> keywordsIDs;
+  final List<String> phids;
   final int verseSize;
   final Function onTap;
   final ValueChanged<String> onKeywordTap;
@@ -55,21 +56,20 @@ class KeywordsBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// STRINGS
-        if (Mapper.checkCanLoopList(keywordsIDs))
+        if (Mapper.checkCanLoopList(phids))
           Wrap(
             children: <Widget>[
 
-              ...List<Widget>.generate(keywordsIDs?.length, (int index) {
+              ...List<Widget>.generate(phids?.length, (int index) {
 
-                final String _keyword = keywordsIDs[index];
+                final String _phid = phids[index];
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-                  child: KeywordBarButton(
-                    keywordID: _keyword,
-                    xIsOn: false,
+                  child: PhidButton(
+                    phid: _phid,
                     onTap: passKeywordOnTap == true ?
-                        () => onKeywordTap(_keyword)
+                        () => onKeywordTap(_phid)
                         :
                     null,
                   ),
@@ -79,7 +79,7 @@ class KeywordsBubble extends StatelessWidget {
             ],
           ),
 
-        if (keywordsIDs != null && keywordsIDs.isEmpty && addButtonIsOn == true)
+        if (phids != null && phids.isEmpty && addButtonIsOn == true)
           AddKeywordsButton(
             onTap: passKeywordOnTap == true ? null : onTap,
           ),

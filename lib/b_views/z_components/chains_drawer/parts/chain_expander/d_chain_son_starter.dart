@@ -1,13 +1,11 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_chain_son_button.dart';
-import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +16,16 @@ class ChainSonStarter extends StatelessWidget {
     @required this.initiallyExpanded,
     this.parentLevel = 0,
     this.sonWidth,
-    this.onKeywordTap,
-    this.selectedKeywordsIDs,
+    this.onPhidTap,
+    this.selectedPhids,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic son;
   final int parentLevel;
   final double sonWidth;
-  final ValueChanged<String> onKeywordTap;
-  final List<String> selectedKeywordsIDs;
+  final ValueChanged<String> onPhidTap;
+  final List<String> selectedPhids;
   static const double buttonHeight = 60;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
@@ -37,22 +35,22 @@ class ChainSonStarter extends StatelessWidget {
     /// IF SON IS A KEYWORD
     if (son is String) {
 
-      final String _keywordID = son;
+      final String _phid = son;
 
       final bool _isSelected = Mapper.checkStringsContainString(
-          strings: selectedKeywordsIDs,
-          string: _keywordID,
+          strings: selectedPhids,
+          string: _phid,
       );
 
-      final Color _color = _isSelected == true ? KeywordBarButton.buttonColor : Colorz.white20;
+      final Color _color = _isSelected == true ? Colorz.blue125 : Colorz.white20;
 
-      return ChainSonButton(
-        phid: _keywordID,
-        sonWidth: sonWidth,
+      return PhidButton(
+        phid: _phid,
+        width: sonWidth,
         parentLevel: parentLevel,
         color: _color,
         // isDisabled: false,
-        onTap: () => onKeywordTap(_keywordID),
+        onTap: () => onPhidTap(_phid),
       );
 
     }
@@ -71,11 +69,11 @@ class ChainSonStarter extends StatelessWidget {
         firstHeadline: superPhrase(context, _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
-        margin: const EdgeInsets.all(Ratioz.appBarPadding) ,
-        onKeywordTap: onKeywordTap,
+        // margin: const EdgeInsets.all(Ratioz.appBarPadding) ,
+        onKeywordTap: onPhidTap,
         // isDisabled: false,
         parentLevel: parentLevel,
-        selectedKeywordsIDs: selectedKeywordsIDs,
+        selectedPhids: selectedPhids,
       );
 
     }
