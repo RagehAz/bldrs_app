@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/xxxxxxxxxxxxxxxxxxxxxx_test_lab.dart';
+import 'package:bldrs/xxxxx_test_lab.dart';
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bzz_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/i_flyers_manager/all_flyers_screen.dart';
