@@ -1,0 +1,109 @@
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/b_chain_box.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+/// TASK : NEED TO MERGE THIS WIDGET WITH THIS [@KeywordBarButton]
+class PhidButton extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const PhidButton({
+    @required this.phid,
+    this.width,
+    this.onTap,
+    this.color = Colorz.white20,
+    this.parentLevel = 1,
+    this.isDisabled = false,
+    this.xIsOn = false,
+    this.margins,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double width;
+  final Color color;
+  final String phid; // phrase id
+  final Function onTap;
+  final int parentLevel;
+  final bool isDisabled;
+  final bool xIsOn;
+  final dynamic margins;
+
+  // const EdgeInsets.symmetric(horizontal: 2.5) migh be
+  /// --------------------------------------------------------------------------
+  static double getHeight(){
+    return ChainBox.sonHeight();
+  }
+// -----------------------------------------------------------------------------
+  String _getIcon(BuildContext context){
+
+    String _icon;
+
+    if (xIsOn == true){
+      _icon = Iconz.xLarge;
+    }
+    else {
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      _icon = _chainsProvider.getKeywordIcon(
+        context: context,
+        son: phid,
+      );
+    }
+
+    return _icon;
+  }
+// -----------------------------------------------------------------------------
+  double _getVerseScaleFactor(){
+    double _scaleFactor;
+
+    if (xIsOn == true){
+      _scaleFactor = 1.7;
+    }
+    else {
+      _scaleFactor = 0.7;
+    }
+
+    return _scaleFactor;
+  }
+// -----------------------------------------------------------------------------
+  double _getIconScaleFactor(){
+    double _scaleFactor;
+
+    if (xIsOn == true){
+      _scaleFactor = 0.4;
+    }
+    else {
+      _scaleFactor = 1;
+    }
+
+    return _scaleFactor;
+  }
+// -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return ChainBox(
+      boxWidth: width,
+      child: DreamBox(
+        height: getHeight(),
+        width: width,
+        color: color,
+        verse: superPhrase(context, phid),
+        margins: margins,
+        // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
+        icon: _getIcon(context),
+        iconSizeFactor: _getIconScaleFactor(),
+        verseScaleFactor: _getVerseScaleFactor(),
+        verseCentered: false,
+        verseMaxLines: 2,
+        bubble: false,
+        verseShadow: false,
+        verseItalic: true,
+        onTap: onTap,
+      ),
+    );
+
+  }
+}

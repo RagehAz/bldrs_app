@@ -259,7 +259,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final double _selectedKeywordsBubbleHeight = SelectedKeywordsBar.getBubbleHeight(
+    final double _selectedKeywordsBubbleHeight = SelectedPhidsBar.getBubbleHeight(
       context: context,
       includeMargins: true,
     );
@@ -291,12 +291,12 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
               const Stratosphere(bigAppBar: true),
 
               /// selected keywords zone
-              SelectedKeywordsBar(
-                selectedKeywordsIDs: selectedIDs,
+              SelectedPhidsBar(
+                selectedPhids: selectedIDs,
                 // scrollController: _scrollController,
                 // itemPositionListener: _itemPositionListener,
-                highlightedKeywordID: _highlightedKeywordID,
-                removeKeyword: (String keywordID) => _onSelectKeyword(keywordID)
+                highlightedPhid: _highlightedKeywordID,
+                removePhid: (String keywordID) => _onSelectKeyword(keywordID)
               ),
 
               /// keywords zone

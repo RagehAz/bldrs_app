@@ -1,28 +1,28 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class SelectedKeywordsBar extends StatelessWidget {
+class SelectedPhidsBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SelectedKeywordsBar({
-    @required this.selectedKeywordsIDs,
+  const SelectedPhidsBar({
+    @required this.selectedPhids,
     // @required this.scrollController,
     // @required this.itemPositionListener,
-    @required this.highlightedKeywordID,
-    @required this.removeKeyword,
+    @required this.highlightedPhid,
+    @required this.removePhid,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<String> selectedKeywordsIDs;
+  final List<String> selectedPhids;
   // final ItemScrollController scrollController;
   // final ItemPositionsListener itemPositionListener;
-  final String highlightedKeywordID;
-  final ValueChanged<String> removeKeyword;
+  final String highlightedPhid;
+  final ValueChanged<String> removePhid;
   /// --------------------------------------------------------------------------
   static double getChildrenHeight(BuildContext context){
-    return KeywordBarButton.height + (Ratioz.appBarMargin * 2);
+    return PhidButton.getHeight() + (Ratioz.appBarMargin * 2);
   }
 // -----------------------------------------------------------------------------
   static double getBubbleHeight({
@@ -40,13 +40,13 @@ class SelectedKeywordsBar extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
-    final String _screenTitle = selectedKeywordsIDs.isEmpty ?
+    final String _screenTitle = selectedPhids.isEmpty ?
     'Select keywords'
         :
-    selectedKeywordsIDs.length == 1 ?
+    selectedPhids.length == 1 ?
     '1 Selected keyword'
         :
-    '${selectedKeywordsIDs.length} Selected keywords';
+    '${selectedPhids.length} Selected keywords';
 
     return Bubble(
       width: _screenWidth,
@@ -56,7 +56,7 @@ class SelectedKeywordsBar extends StatelessWidget {
         SizedBox(
           width: _screenWidth,
           height: getChildrenHeight(context),
-          child: selectedKeywordsIDs.isEmpty ?
+          child: selectedPhids.isEmpty ?
           const SizedBox()
               :
               const SizedBox()

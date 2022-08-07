@@ -57,6 +57,7 @@ class ChainsProvider extends ChangeNotifier {
   /// SEARCHERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Chain searchAllChainsByID({
   @required String chainID,
     @required bool searchRefinedCityChain,
@@ -561,6 +562,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain superGetChain({
     @required BuildContext context,
     @required String chainID,

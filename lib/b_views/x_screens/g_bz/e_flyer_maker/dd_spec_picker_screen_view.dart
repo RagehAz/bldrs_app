@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -55,15 +54,10 @@ class SpecPickerScreenView extends StatelessWidget {
 
     final double _listZoneHeight = _getListZoneHeight();
 
-
-    blog('SpecPickerScreen : ${_specChain.id} : sons ${_specChain.sons} : sons type ${_specChain.sons.runtimeType}');
-
     return Column(
       children: <Widget>[
 
-        Container(
-            color: Colorz.bloodTest,
-            child: const Stratosphere()),
+        const Stratosphere(),
 
         /// INSTRUCTIONS BOX
         if (showInstructions == true)

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/keywords/keyword_button.dart';
+import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +37,8 @@ class InfoPageKeywords extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-            child: KeywordBarButton(
-              keywordID: _keywordID,
-              xIsOn: false,
+            child: PhidButton(
+              phid: _keywordID,
               color: Colorz.white50,
             ),
           );
