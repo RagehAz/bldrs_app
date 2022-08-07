@@ -1,11 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/b_views/z_components/cropper/cropper_corner.dart';
 import 'package:bldrs/b_views/z_components/layouts/keep_alive_page.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:crop_your_image/crop_your_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class CropperPages extends StatelessWidget {
