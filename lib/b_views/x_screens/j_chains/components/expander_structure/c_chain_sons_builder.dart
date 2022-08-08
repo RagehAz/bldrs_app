@@ -1,12 +1,12 @@
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/d_chain_son_starter.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainsBuilder extends StatelessWidget {
+class ChainSonsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainsBuilder({
-    @required this.chains,
+  const ChainSonsBuilder({
+    @required this.sons,
     @required this.width,
     @required this.parentLevel,
     @required this.onPhidTap,
@@ -15,7 +15,7 @@ class ChainsBuilder extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final dynamic chains;
+  final dynamic sons;
   final double width;
   final int parentLevel;
   final ValueChanged<String> onPhidTap;
@@ -42,9 +42,9 @@ class ChainsBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
 
-            ...List.generate(chains.length, (index){
+            ...List.generate(sons?.length ?? 0, (index){
 
-              final dynamic _chain = chains[index];
+              final dynamic _chain = sons[index];
 
               return Container(
                 width: _sonWidth,
@@ -53,8 +53,8 @@ class ChainsBuilder extends StatelessWidget {
                   left: Ratioz.appBarPadding,
                   right: Ratioz.appBarPadding,
                 ),
-                child: ChainSonStarter(
-                  son: _chain,
+                child: ChainSplitter(
+                  chainOrChainsOrSonOrSons: _chain,
                   width: _sonWidth,
                   onPhidTap: onPhidTap,
                   selectedPhids: selectedPhids,

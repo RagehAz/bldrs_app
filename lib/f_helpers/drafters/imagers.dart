@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

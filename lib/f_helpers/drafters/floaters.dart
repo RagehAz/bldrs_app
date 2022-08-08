@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

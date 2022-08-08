@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/timers.dart';
