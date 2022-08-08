@@ -4,8 +4,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
-
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 // -----------------------------------------------------------------------------
 enum ContactType {
   phone,

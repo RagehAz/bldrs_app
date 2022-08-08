@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/d_chain_son_starter.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +31,8 @@ class ChainsScreenSearchView extends StatelessWidget {
           return PageBubble(
             screenHeightWithoutSafeArea: screenHeight,
             appBarType: AppBarType.search,
-            child: ChainSonStarter(
-              son: chains,
+            child: ChainSplitter(
+              chainOrChainsOrSonOrSons: chains,
               width: BldrsAppBar.width(context) - 10,
               onPhidTap: (String phid) => onSelectPhid(
                 phid: phid,

@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_bo
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_image_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart' as ObjectChecker;
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 

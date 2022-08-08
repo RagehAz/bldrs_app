@@ -7,7 +7,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// TASK : NEED TO MERGE THIS WIDGET WITH THIS [@KeywordBarButton]
 class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidButton({
@@ -30,8 +29,6 @@ class PhidButton extends StatelessWidget {
   final bool isDisabled;
   final bool xIsOn;
   final dynamic margins;
-
-  // const EdgeInsets.symmetric(horizontal: 2.5) migh be
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -85,6 +82,7 @@ class PhidButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ChainButtonBox(
+      key: const ValueKey<String>('PhidButton'),
       boxWidth: width,
       child: DreamBox(
         height: getHeight(),

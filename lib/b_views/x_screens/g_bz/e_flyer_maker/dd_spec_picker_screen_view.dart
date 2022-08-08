@@ -85,7 +85,7 @@ class SpecPickerScreenView extends StatelessWidget {
                   specs: specs,
                   pickerChainID: specPicker.chainID,
                 ),
-                onSpecTap: onSelectSpec,
+                onPhidTap: onSelectSpec,
               );
             }
 
@@ -170,7 +170,7 @@ class SpecPickerScreenView extends StatelessWidget {
             height: _listZoneHeight,
             specPicker: specPicker,
             selectedSpecs: null,
-            onSpecTap: onSelectSpec,
+            onPhidTap: onSelectSpec,
           ),
 
       ],
