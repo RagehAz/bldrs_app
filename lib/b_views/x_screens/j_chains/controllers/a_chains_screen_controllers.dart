@@ -1,9 +1,16 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/d_spec_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/// SEARCHING
+
+// --------------------------------
 Future<void> onChainsSearchChanged({
   @required String text,
   @required ValueNotifier<bool> isSearching,
@@ -50,8 +57,11 @@ void _searchChainsOps({
   foundChains.value = _foundPathsChains;
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 
+/// SELECTION
+
+// --------------------------------
 void onSelectPhid({
   @required String phid,
 }){
@@ -59,3 +69,27 @@ void onSelectPhid({
   blog('selected phid is : $phid');
 
 }
+// -----------------------------------------------------------------------------
+
+/// NAVIGATION
+
+// --------------------------------
+Future<void> goToKeywordsScreen({
+  @required BuildContext context,
+  @required SpecPicker specPicker,
+}) async {
+
+  final String _phid = await Nav.goToNewScreen(
+    context: context,
+    transitionType: Nav.superHorizontalTransition(context),
+    screen: SpecPickerScreen(
+      specPicker: specPicker,
+      showInstructions: false,
+      inSelectionMode: false,
+    ),
+  );
+
+  blog('selected this phid : $_phid');
+
+}
+// -----------------------------------------------------------------------------

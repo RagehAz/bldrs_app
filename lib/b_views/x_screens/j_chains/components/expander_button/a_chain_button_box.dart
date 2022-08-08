@@ -2,9 +2,9 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainBox extends StatelessWidget {
+class ChainButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainBox({
+  const ChainButtonBox({
     @required this.boxWidth,
     @required this.child,
     this.isDisabled = false,

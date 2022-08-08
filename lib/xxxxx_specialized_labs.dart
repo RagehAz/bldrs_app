@@ -13,7 +13,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/a_phids_selection_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
@@ -48,7 +48,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse: 'Phid Selection screen',
         icon: Iconz.keyword,
-        screen: PhidsSelectionScreen(
+        screen: ChainsScreen(
           specsPickers: SpecPicker.getMajorKeywords(),
           onlyUseCityChains: false,
         ),

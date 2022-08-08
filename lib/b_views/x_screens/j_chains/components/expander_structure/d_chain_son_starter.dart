@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/xxxxxxxxx_chains_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/xxxxxxxxx_chains_builder.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_expander_starter.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -16,7 +16,7 @@ class ChainSonStarter extends StatelessWidget {
     @required this.son,
     @required this.initiallyExpanded,
     this.parentLevel = 0,
-    this.sonWidth,
+    this.width,
     this.onPhidTap,
     this.selectedPhids,
     Key key,
@@ -24,7 +24,7 @@ class ChainSonStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final dynamic son;
   final int parentLevel;
-  final double sonWidth;
+  final double width;
   final ValueChanged<String> onPhidTap;
   final List<String> selectedPhids;
   static const double buttonHeight = 60;
@@ -47,7 +47,7 @@ class ChainSonStarter extends StatelessWidget {
 
       return PhidButton(
         phid: _phid,
-        width: sonWidth,
+        width: width,
         parentLevel: parentLevel,
         color: _color,
         // isDisabled: false,
@@ -65,7 +65,7 @@ class ChainSonStarter extends StatelessWidget {
       return ChainExpanderStarter(
         key: PageStorageKey<String>(_chain.id),
         chain: _chain,
-        boxWidth: sonWidth,
+        boxWidth: width,
         icon: _chainsProvider.getKeywordIcon(son: son, context: context),
         firstHeadline: superPhrase(context, _chain.id),
         secondHeadline: null,
@@ -82,7 +82,7 @@ class ChainSonStarter extends StatelessWidget {
     else if (Chain.checkSonsAreChains(son) == true){
       return ChainsBuilder(
           chains: son,
-          boxWidth: sonWidth,
+          width: width,
           parentLevel: parentLevel,
           onPhidTap: onPhidTap,
           selectedPhids: selectedPhids,
