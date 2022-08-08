@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';

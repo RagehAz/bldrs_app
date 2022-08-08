@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/c_expanding_tile.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/b_chain_box.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chains_sons_builder.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
 
 class ChainExpanderStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -42,12 +41,12 @@ class ChainExpanderStarter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _sonWidth = ChainBox.getSonWidth(
+    final double _sonWidth = ChainButtonBox.getSonWidth(
       parentLevel: parentLevel,
       parentWidth: boxWidth,
     );
 
-    return ChainBox(
+    return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
       alignment: alignment,

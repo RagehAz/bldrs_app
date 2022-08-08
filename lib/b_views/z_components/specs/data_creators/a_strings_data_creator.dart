@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/c_chains_sons_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chains_sons_builder.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
