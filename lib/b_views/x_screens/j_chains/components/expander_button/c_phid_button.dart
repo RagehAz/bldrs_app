@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/b_chain_box.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -34,7 +34,7 @@ class PhidButton extends StatelessWidget {
   // const EdgeInsets.symmetric(horizontal: 2.5) migh be
   /// --------------------------------------------------------------------------
   static double getHeight(){
-    return ChainBox.sonHeight();
+    return ChainButtonBox.sonHeight();
   }
 // -----------------------------------------------------------------------------
   String _getIcon(BuildContext context){
@@ -84,7 +84,7 @@ class PhidButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ChainBox(
+    return ChainButtonBox(
       boxWidth: width,
       child: DreamBox(
         height: getHeight(),

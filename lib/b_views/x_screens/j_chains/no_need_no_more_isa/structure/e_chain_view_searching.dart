@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';

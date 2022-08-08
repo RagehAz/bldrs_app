@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/chain_expander_by_flyer_type.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/chain_expander_by_flyer_type.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';

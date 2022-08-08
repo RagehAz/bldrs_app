@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/xxxxxxxxx_chains_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/xxxxxxxxx_chains_builder.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class ChainSonsBuilder extends StatelessWidget {
         chains: chain.sons,
         initiallyExpanded: initiallyExpanded,
         parentLevel: parentLevel,
-        boxWidth: boxWidth,
+        width: boxWidth,
         onPhidTap: onSpecTap,
         selectedPhids: selectedPhids,
       );
