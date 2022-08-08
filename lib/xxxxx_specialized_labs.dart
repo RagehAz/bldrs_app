@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -12,7 +13,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/chain_expander_test/fancy_tree_view.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_phids_selection_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
@@ -45,9 +46,22 @@ class SpecializedLabs extends StatelessWidget {
 
       /// DYNAMIC LINKS TEST
       DashButtonModel(
-        verse: 'Fancy tree test',
+        verse: 'Phid Selection screen',
         icon: Iconz.keyword,
-        screen: const KeywordSelectionScreen(),
+        screen: PhidsSelectionScreen(
+          specsPickers: SpecPicker.getMajorKeywords(),
+          onlyUseCityChains: false,
+        ),
+      ),
+
+      /// SPECS SELECTOR
+      DashButtonModel(
+        verse: 'Specs Selector',
+        icon: Iconz.keyword,
+        screen: const SpecsPickersScreen(
+          flyerType: FlyerType.design,
+          selectedSpecs: <SpecModel>[],
+        ),
       ),
 
       /// DYNAMIC LINKS TEST
@@ -155,16 +169,6 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Super Rage7',
         icon: Iconz.dvRageh2,
         screen: const SuperRage7Screen(),
-      ),
-
-      /// SPECS SELECTOR
-      DashButtonModel(
-        verse: 'Specs Selector',
-        icon: Iconz.keyword,
-        screen: const SpecsPickersScreen(
-          flyerType: FlyerType.design,
-          selectedSpecs: <SpecModel>[],
-        ),
       ),
 
       /// CLOUD FUNCTIONS

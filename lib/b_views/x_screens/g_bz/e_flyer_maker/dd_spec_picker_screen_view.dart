@@ -35,7 +35,10 @@ class SpecPickerScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   double _getListZoneHeight(){
 
-    final double _instructionsBoxHeight = showInstructions == true ? SpecPickerScreen.instructionBoxHeight : 0;
+    final double _instructionsBoxHeight = showInstructions == true ?
+    SpecPickerScreen.instructionBoxHeight
+        :
+    0;
 
     final double _listZoneHeight = screenHeight - Ratioz.stratosphere - _instructionsBoxHeight;
 

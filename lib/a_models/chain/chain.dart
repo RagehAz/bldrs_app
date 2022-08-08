@@ -211,27 +211,27 @@ class Chain {
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain filterSpecListChainRange({
+  static Chain filterSpecPickerChainRange({
     @required BuildContext context,
-    @required SpecPicker specList,
+    @required SpecPicker specPicker,
     @required bool onlyConsiderCityPhids,
 }) {
 
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.superGetChain(
       context: context,
-      chainID: specList.chainID,
+      chainID: specPicker.chainID,
       searchOnlyCityKeywordsChainsAndSpecs: onlyConsiderCityPhids,
     );
 
     if (
         Mapper.checkCanLoopList(_filteredChain.sons)
         &&
-        Mapper.checkCanLoopList(specList.range)
+        Mapper.checkCanLoopList(specPicker.range)
     ) {
 
       final List<String> _rangeIDs = Mapper.getStringsFromDynamics(
-        dynamics: specList.range,
+        dynamics: specPicker.range,
       );
 
       for (final String son in _filteredChain.sons) {
