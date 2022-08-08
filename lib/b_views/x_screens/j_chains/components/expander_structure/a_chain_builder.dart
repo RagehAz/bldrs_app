@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chains_sons_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class ChainExpanderStarter extends StatelessWidget {
+class ChainBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainExpanderStarter({
+  const ChainBuilder({
     @required this.chain,
     @required this.boxWidth,
     @required this.icon,
@@ -60,11 +60,11 @@ class ChainExpanderStarter extends StatelessWidget {
         initialColor: initialColor,
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
-        child: ChainSonsBuilder(
-          boxWidth: _sonWidth,
-          chain: chain,
+        child: ChainSplitter(
+          width: _sonWidth,
+          chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
-          onSpecTap: (String phid) => onPhidTap(phid),
+          onPhidTap: (String phid) => onPhidTap(phid),
           parentLevel: parentLevel,
           selectedPhids: selectedPhids,
         ),

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/xxxxxxxxx_chains_builder.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chain_sons_builder.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_expander_starter.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -10,10 +10,11 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChainSonStarter extends StatelessWidget {
+/// SPLITS CHAIN OR CHAINS OR SON OR SONS INTO DESIGNATED WIDGET
+class ChainSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainSonStarter({
-    @required this.son,
+  const ChainSplitter({
+    @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
     this.parentLevel = 0,
     this.width,
@@ -22,21 +23,20 @@ class ChainSonStarter extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final dynamic son;
+  final dynamic chainOrChainsOrSonOrSons;
   final int parentLevel;
   final double width;
   final ValueChanged<String> onPhidTap;
   final List<String> selectedPhids;
-  static const double buttonHeight = 60;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     /// IF SON IS A PHID
-    if (son is String) {
+    if (chainOrChainsOrSonOrSons is String) {
 
-      final String _phid = son;
+      final String _phid = chainOrChainsOrSonOrSons;
 
       final bool _isSelected = Mapper.checkStringsContainString(
           strings: selectedPhids,
@@ -56,21 +56,32 @@ class ChainSonStarter extends StatelessWidget {
 
     }
 
+    /// IF SONS IS List<String>
+    else if (chainOrChainsOrSonOrSons is List<String>){
+      return ChainSonsBuilder(
+          sons: chainOrChainsOrSonOrSons,
+          width: width,
+          parentLevel: parentLevel,
+          onPhidTap: onPhidTap,
+          selectedPhids: selectedPhids,
+          initiallyExpanded: initiallyExpanded
+      );
+    }
+
     /// IF SON IS CHAIN
-    else if (son.runtimeType == Chain) {
+    else if (chainOrChainsOrSonOrSons.runtimeType == Chain) {
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      final Chain _chain = son;
+      final Chain _chain = chainOrChainsOrSonOrSons;
 
-      return ChainExpanderStarter(
+      return ChainBuilder(
         key: PageStorageKey<String>(_chain.id),
         chain: _chain,
         boxWidth: width,
-        icon: _chainsProvider.getKeywordIcon(son: son, context: context),
+        icon: _chainsProvider.getKeywordIcon(son: chainOrChainsOrSonOrSons, context: context),
         firstHeadline: superPhrase(context, _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
-        // margin: const EdgeInsets.all(Ratioz.appBarPadding) ,
         onPhidTap: onPhidTap,
         // isDisabled: false,
         parentLevel: parentLevel,
@@ -79,9 +90,10 @@ class ChainSonStarter extends StatelessWidget {
 
     }
 
-    else if (Chain.checkSonsAreChains(son) == true){
-      return ChainsBuilder(
-          chains: son,
+    /// IF SONS IS List<Chain>
+    else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
+      return ChainSonsBuilder(
+          sons: chainOrChainsOrSonOrSons,
           width: width,
           parentLevel: parentLevel,
           onPhidTap: onPhidTap,
