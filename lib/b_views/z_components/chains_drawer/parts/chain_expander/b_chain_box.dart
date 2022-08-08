@@ -22,7 +22,7 @@ class ChainBox extends StatelessWidget {
     @required int parentLevel,
   }){
     const double _padding = 2 * Ratioz.appBarPadding;
-    final double _levelOffset = parentLevel * parentWidth * 0.03;
+    final double _levelOffset = parentLevel * parentWidth * 0.01;
     final double _sonWidth = parentWidth - _padding - _levelOffset;
 
     return _sonWidth;

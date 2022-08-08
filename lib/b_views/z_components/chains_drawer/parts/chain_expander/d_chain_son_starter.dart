@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/xxxxxxxxx_chains_builder.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
 import 'package:bldrs/b_views/z_components/chains_drawer/parts/d_phid_button.dart';
@@ -32,7 +33,7 @@ class ChainSonStarter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// IF SON IS A KEYWORD
+    /// IF SON IS A PHID
     if (son is String) {
 
       final String _phid = son;
@@ -55,7 +56,7 @@ class ChainSonStarter extends StatelessWidget {
 
     }
 
-    /// IF SON IS CHAIN OF KEYWORDS
+    /// IF SON IS CHAIN
     else if (son.runtimeType == Chain) {
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
@@ -70,12 +71,23 @@ class ChainSonStarter extends StatelessWidget {
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
         // margin: const EdgeInsets.all(Ratioz.appBarPadding) ,
-        onKeywordTap: onPhidTap,
+        onPhidTap: onPhidTap,
         // isDisabled: false,
         parentLevel: parentLevel,
         selectedPhids: selectedPhids,
       );
 
+    }
+
+    else if (Chain.checkSonsAreChains(son) == true){
+      return ChainsBuilder(
+          chains: son,
+          boxWidth: sonWidth,
+          parentLevel: parentLevel,
+          onPhidTap: onPhidTap,
+          selectedPhids: selectedPhids,
+          initiallyExpanded: initiallyExpanded
+      );
     }
 
     /// OTHERWISE

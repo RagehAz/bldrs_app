@@ -11,7 +11,6 @@ class ChainExpanderStarter extends StatelessWidget {
   const ChainExpanderStarter({
     @required this.chain,
     @required this.boxWidth,
-    // @required this.onTap,
     @required this.icon,
     @required this.firstHeadline,
     @required this.secondHeadline,
@@ -21,7 +20,7 @@ class ChainExpanderStarter extends StatelessWidget {
     this.isDisabled = false,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
-    this.onKeywordTap,
+    this.onPhidTap,
     this.parentLevel = 0,
     Key key
   }) : super(key: key);
@@ -30,13 +29,12 @@ class ChainExpanderStarter extends StatelessWidget {
   final bool isDisabled;
   final double boxWidth;
   final Alignment alignment;
-  // final ValueChanged<bool> onTap;
   final String icon;
   final String firstHeadline;
   final String secondHeadline;
   final Color initialColor;
   final Color expansionColor;
-  final ValueChanged<String> onKeywordTap;
+  final ValueChanged<String> onPhidTap;
   final bool initiallyExpanded;
   final int parentLevel;
   final List<String> selectedPhids;
@@ -67,9 +65,9 @@ class ChainExpanderStarter extends StatelessWidget {
           boxWidth: _sonWidth,
           chain: chain,
           initiallyExpanded: initiallyExpanded,
-          onSpecTap: (String keywordID) => onKeywordTap(keywordID),
+          onSpecTap: (String phid) => onPhidTap(phid),
           parentLevel: parentLevel,
-          selectedSpecs: selectedPhids,
+          selectedPhids: selectedPhids,
         ),
       ),
     );
