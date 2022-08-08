@@ -83,7 +83,7 @@ class ChainExpanderForFlyerType extends StatelessWidget {
       secondHeadline: TextGen.flyerTypeDescriptionStringer(context, flyerType),
       isDisabled: deactivated,
       initiallyExpanded: initiallyExpanded,
-      onKeywordTap: (String keywordID) => _onKeywordTap(context, keywordID),
+      onPhidTap: (String keywordID) => _onKeywordTap(context, keywordID),
       selectedPhids: selectedKeywordsIDs,
       initialColor: Colorz.white10,
     );
