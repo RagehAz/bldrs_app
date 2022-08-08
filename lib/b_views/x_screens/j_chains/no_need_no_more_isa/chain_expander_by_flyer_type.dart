@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/chains_drawer/parts/chain_expander/a_chain_expander_starter.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_expander_starter.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/d_chains_drawer_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
