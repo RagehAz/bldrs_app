@@ -14,7 +14,8 @@ class SpecPickerScreen extends StatelessWidget {
   const SpecPickerScreen({
     @required this.specPicker,
     @required this.showInstructions,
-    @required this.inSelectionMode,
+    @required this.isMultipleSelectionMode,
+    @required this.onlyUseCityChains,
     this.selectedSpecs,
     Key key,
   }) : super(key: key);
@@ -22,7 +23,8 @@ class SpecPickerScreen extends StatelessWidget {
   final SpecPicker specPicker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final bool showInstructions;
-  final bool inSelectionMode;
+  final bool isMultipleSelectionMode;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 50;
   /// --------------------------------------------------------------------------
@@ -31,7 +33,7 @@ class SpecPickerScreen extends StatelessWidget {
     String phid,
 }) {
 
-    if (inSelectionMode == true){
+    if (isMultipleSelectionMode == true){
      onGoBackToSpecsPickersScreen(
           context: context,
           selectedSpecs: selectedSpecs
@@ -49,7 +51,7 @@ class SpecPickerScreen extends StatelessWidget {
     @required String phid,
   }) async {
 
-    if (inSelectionMode == true){
+    if (isMultipleSelectionMode == true){
       await onSelectSpec(
         context: context,
         phid: phid,
@@ -87,7 +89,8 @@ class SpecPickerScreen extends StatelessWidget {
         selectedSpecs: selectedSpecs,
         screenHeight: _screenHeight,
         showInstructions: showInstructions,
-        inSelectionMode: inSelectionMode,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        onlyUseCityChains: onlyUseCityChains,
         onSelectSpec: (String phid) => _onSelectSpec(
           context: context,
           phid: phid,

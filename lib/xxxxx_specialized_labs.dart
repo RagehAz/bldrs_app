@@ -49,8 +49,9 @@ class SpecializedLabs extends StatelessWidget {
         verse: 'Phid Selection screen',
         icon: Iconz.keyword,
         screen: ChainsScreen(
-          specsPickers: SpecPicker.getMajorKeywords(),
+          specsPickers: SpecPicker.getPickersByFlyerType(FlyerType.design),
           onlyUseCityChains: false,
+          isMultipleSelectionMode: false,
         ),
       ),
 

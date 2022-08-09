@@ -62,7 +62,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     _unitChain = ChainsProvider.superGetChain(
       context: context,
       chainID: widget.specPicker.unitChainID,
-      searchOnlyCityKeywordsChainsAndSpecs: false,
+      onlyUseCityChains: false,
     );
     final String _initialUnit = _unitChain == null ? null : widget.initialUnit ?? _unitChain.sons[0];
     _selectedUnit = ValueNotifier<String>(_initialUnit);

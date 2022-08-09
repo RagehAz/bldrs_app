@@ -1,120 +1,24 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
 
-/// SELECTING KEYWORD
+/// SEARCHING OLD METHOD
 
 // --------------------------------------------
-Future<void> onChangeHomeSection({
-  @required BuildContext context,
-  @required String phid,
-  @required bool inActiveMode,
-  @required FlyerType flyerType,
-}) async {
-
-  /// A - if section is not active * if user is author or not
-  if (inActiveMode == true) {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final String _currentCityID = _zoneProvider.currentZone.cityID;
-
-    final String _flyerTypeString = FlyerTyper.translateFlyerType(
-        context: context,
-        flyerType: flyerType
-    );
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
-      body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
-      height: 400,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-
-          DialogButton(
-            verse: 'Inform a friend',
-            width: 133,
-            onTap: () => Launcher.shareLink(
-              context : context,
-              link: LinkModel.bldrsWebSiteLink,
-            ),
-          ),
-
-          DialogButton(
-            verse: 'Go back',
-            color: Colorz.yellow255,
-            verseColor: Colorz.black230,
-            onTap: () => Nav.goBack(context),
-          ),
-
-        ],
-      ),
-    );
-  }
-
-  /// A - if section is active
-  else {
-
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
-    await _keywordsProvider.changeHomeWallFlyerType(
-      context: context,
-      flyerType: flyerType,
-      phid: phid,
-      notify: true,
-    );
-
-    /// B - close dialog
-    Nav.goBack(context);
-  }
-}
-// -----------------------------------------------------------------------------
-
-/// ICONS
-
-// --------------------------------------------
-String getSectionIcon({
-  @required FlyerType section,
-  @required bool inActiveMode
-}){
-
-  String _icon;
-
-  if (inActiveMode == true) {
-    _icon = FlyerTyper.flyerTypeIconOff(section);
-  } else {
-    _icon = FlyerTyper.flyerTypeIconOn(section);
-  }
-
-  return _icon;
-}
-// -----------------------------------------------------------------------------
-
-/// SEARCHING
-
-// --------------------------------------------
-Future<void> onSearchChanged({
+Future<void> onChainsSearchChangedOLD({
   @required BuildContext context,
   @required String text,
-  @required ValueNotifier<bool> isSearching, /// p
-  @required ValueNotifier<List<String>> foundPhids, /// p
-  @required ValueNotifier<List<Chain>> foundChains, /// p
+  @required ValueNotifier<bool> isSearching,
+  @required ValueNotifier<List<String>> foundPhids,
+  @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -122,7 +26,7 @@ Future<void> onSearchChanged({
   TextChecker.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
-    onResume: () => onSearchKeywords(
+    onResume: () => onChainsSearchSubmittedOLD(
       context: context,
       foundPhids: foundPhids,
       foundChains: foundChains,
@@ -137,12 +41,12 @@ Future<void> onSearchChanged({
 
 }
 // --------------------------------------------
-Future<void> onSearchKeywords({
+Future<void> onChainsSearchSubmittedOLD({
   @required BuildContext context,
   @required String text,
-  @required ValueNotifier<bool> isSearching, /// p
-  @required ValueNotifier<List<String>> foundPhids, /// p
-  @required ValueNotifier<List<Chain>> foundChains, /// p
+  @required ValueNotifier<bool> isSearching,
+  @required ValueNotifier<List<String>> foundPhids,
+  @required ValueNotifier<List<Chain>> foundChains,
 }) async {
 
   final List<String> _phids = await _searchKeywordsPhrases(
@@ -179,8 +83,8 @@ Future<List<String>> _searchKeywordsPhrases({
 
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
-      sourcePhrases: _chainsProvider.cityKeywordsChainPhrases,
-      inputText: text,
+    sourcePhrases: _chainsProvider.cityKeywordsChainPhrases,
+    inputText: text,
   );
 
   blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
@@ -260,6 +164,73 @@ void _clearSearchResult({
 
   foundPhids.value = <String>[];
   foundChains.value = <Chain>[];
+
+}
+// -----------------------------------------------------------------------------
+
+/// SEARCHING TEMP METHOD
+
+// --------------------------------
+Future<void> onChainsSearchChanged({
+  @required String text,
+  @required ValueNotifier<bool> isSearching,
+  @required ValueNotifier<List<Chain>> foundChains,
+  @required ValueNotifier<List<String>> foundPhids,
+  @required List<Chain> chains,
+}) async {
+
+  TextChecker.triggerIsSearchingNotifier(
+    text: text,
+    isSearching: isSearching,
+    onResume: () => _searchChainsOps(
+      chains: chains,
+      text: text,
+      foundChains: foundChains,
+    ),
+    onSwitchOff: () => _clearSearchResult(
+        foundChains: foundChains,
+        foundPhids: foundPhids
+    ),
+  );
+
+  if (isSearching.value == true){
+    _searchChainsOps(
+      chains: chains,
+      text: text,
+      foundChains: foundChains,
+    );
+  }
+
+}
+// ------------------------------------------------
+Future<void> onChainsSearchSubmitted({
+  @required String text,
+  @required ValueNotifier<bool> isSearching,
+  @required ValueNotifier<List<Chain>> foundChains,
+  @required List<Chain> chains,
+}) async {
+
+  _searchChainsOps(
+    chains: chains,
+    text: text,
+    foundChains: foundChains,
+  );
+
+}
+// ------------------------------------------------
+void _searchChainsOps({
+  @required List<Chain> chains,
+  @required String text,
+  @required ValueNotifier<List<Chain>> foundChains,
+}){
+
+  final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
+    allChains: chains,
+    phid: text,
+  );
+
+  /// SET FOUND CHAINS AS SEARCH RESULT
+  foundChains.value = _foundPathsChains;
 
 }
 // -----------------------------------------------------------------------------

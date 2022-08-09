@@ -181,6 +181,7 @@ class Mapper {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> cleanDuplicateStrings({
     @required List<String> strings,
   }){
@@ -1064,7 +1065,7 @@ class Mapper {
       }
     }
   }
-
+// -------------------------------------
   static void blogMapsListsDifferences({
     @required List<Map<String, dynamic>> maps1,
     @required List<Map<String, dynamic>> maps2,
