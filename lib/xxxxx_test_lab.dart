@@ -1,8 +1,12 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
@@ -17,9 +21,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -30,6 +32,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connecte
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
@@ -278,40 +281,24 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    blog('1 - loading');
+    final dynamic result = await Nav.goToNewScreen(
+        context: context,
+        screen: ChainsScreen(
+          pageTitle: 'Fast test Chains screen',
+          specsPickers: SpecPicker.getPickersByFlyerType(FlyerType.design),
 
-    final List<String> _list = <String>[];
+          // specsPickers: SpecPicker.createPickersForChainK(
+          //   context: context,
+          //   chainK: ChainsProvider.proGetKeywordsChain(context: context, onlyUseCityChains: false, listen: false),
+          // ),
 
-    for (int i = 0; i < 10000; i++){
-      _list.add(Numeric.createUniqueID().toString());
-    }
-
-    blog('2 - loading');
-
-    final Map<String, dynamic> _map = {
-      'list' : _list,
-    };
-
-    await Real.createNamedDoc(
-      context: context,
-      collName: 'test',
-      docName: 'testDoc',
-      map: _map,
-
+          onlyUseCityChains: false,
+          isMultipleSelectionMode: true,
+        ),
+      transitionType: PageTransitionType.leftToRight,
     );
-    blog('3 - finish');
 
-    // final dynamic result = await Nav.goToNewScreen(
-    //     context: context,
-    //     screen: ChainsScreen(
-    //       specsPickers: SpecPicker.getMajorKeywords(),
-    //       onlyUseCityChains: false,
-    //       inSelectionMode: true,
-    //     ),
-    //   transitionType: PageTransitionType.leftToRight,
-    // );
-
-
+    blog('_fastTest RECEIVED THIS : $result');
 
 
     /// MAPS ARE IDENTICAL TEST
