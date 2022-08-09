@@ -59,7 +59,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   @override
   void initState() {
     // ------------------------------
-    _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs);
+    _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
     // ------------------------------
     final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
       sourceSpecsPickers: widget.specsPickers,
