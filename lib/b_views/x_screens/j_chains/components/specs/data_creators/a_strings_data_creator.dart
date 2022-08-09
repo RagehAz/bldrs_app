@@ -46,7 +46,7 @@ class StringsDataCreator extends StatelessWidget {
           chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
             specPicker: specPicker,
             context: context,
-            onlyConsiderCityPhids: onlyUseCityChains,
+            onlyUseCityChains: onlyUseCityChains,
           )?.sons,
           onSelectPhid: (String phid) => onPhidTap(phid),
           selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),

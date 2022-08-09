@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/e_keywords_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_no_need_no_more_isa/e_keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -349,11 +350,22 @@ Future<void> onAddSpecsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
+  final String _flyerTypeString = FlyerTyper.translateFlyerType(
+    context: context,
+    flyerType: draft.value.flyerType,
+    pluralTranslation: false,
+  );
+
+  final List<SpecPicker> _pickers = SpecPicker.getPickersByFlyerType(draft.value.flyerType);
+
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
-      screen: SpecsPickersScreen(
-        flyerType: draft.value.flyerType,
+      screen: ChainsScreen(
+        pageTitle: '$_flyerTypeString Specifications',
         selectedSpecs: draft.value.specs,
+        isMultipleSelectionMode: true,
+        onlyUseCityChains: false,
+        specsPickers: _pickers,
       )
   );
 

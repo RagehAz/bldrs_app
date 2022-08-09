@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/d_spec_picker_screen.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -16,6 +15,7 @@ import 'package:flutter/material.dart';
 /// SPECS PICKERS SCREEN
 
 // -----------------------------------
+/*
 Future<void> onSpecPickerTap({
   @required BuildContext context,
   @required SpecPicker specPicker,
@@ -85,7 +85,7 @@ Future<void> _goToSpecPickerScreen({
 
   SpecModel.blogSpecs(_result);
 
-  _updateSpecsPickersAndGroups(
+  updateSpecsPickersAndGroups(
     context: context,
     specPicker: specPicker,
     specPickerResult: _result,
@@ -95,8 +95,9 @@ Future<void> _goToSpecPickerScreen({
   );
 
 }
+ */
 // -----------------------------------
-void _updateSpecsPickersAndGroups({
+void updateSpecsPickersAndGroups({
   @required BuildContext context,
   @required dynamic specPickerResult,
   @required SpecPicker specPicker,
