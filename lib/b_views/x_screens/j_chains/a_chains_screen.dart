@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/d_spec_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aaX_chain_view_searching.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aa_chains_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/ab_chains_screen_browse_view.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -22,12 +24,16 @@ class ChainsScreen extends StatefulWidget {
     @required this.specsPickers,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
+    @required this.pageTitle,
+    this.selectedSpecs,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<SpecPicker> specsPickers;
+  final List<SpecModel> selectedSpecs;
   final bool onlyUseCityChains;
   final bool isMultipleSelectionMode;
+  final String pageTitle;
   /// --------------------------------------------------------------------------
   @override
   State<ChainsScreen> createState() => _ChainsScreenState();
@@ -36,25 +42,52 @@ class ChainsScreen extends StatefulWidget {
 
 class _ChainsScreenState extends State<ChainsScreen> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  /// DATA
   // final List<Chain> _chains = <Chain>[];
+  ValueNotifier<List<SpecPicker>> _refinedSpecsPickers; /// tamam disposed
+  ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
+  /// SEARCHING
+  final TextEditingController _searchTextController = TextEditingController();
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  /// FOUND RESULTS
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]); /// tamam disposed
   final ValueNotifier<List<String>> _foundPhids = ValueNotifier(<String>[]); /// tamam disposed
+  /// SELECTION
   final List<String> _selectedPhids = <String>[];
-  final TextEditingController _searchTextController = TextEditingController();
+  ValueNotifier<List<SpecModel>> _selectedSpecs;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
+    // ------------------------------
+    _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs);
+    // ------------------------------
+    final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
+      sourceSpecsPickers: widget.specsPickers,
+      selectedSpecs: widget.selectedSpecs,
+    );
+    _refinedSpecsPickers = ValueNotifier<List<SpecPicker>>(_theRefinedPickers);
+    // ------------------------------
+    final List<String> _theGroupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+      specsPickers: widget.specsPickers,
+    );
+    _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
+    // ------------------------------
     super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+    /// DATA
+    _refinedSpecsPickers.dispose();
+    _groupsIDs.dispose();
+    /// SEARCHING
+    _searchTextController.dispose();
     _isSearching.dispose();
+    /// FOUND RESULTS
     _foundChains.dispose();
     _foundPhids.dispose();
-    _searchTextController.dispose();
+    /// SELECTION
+    _selectedSpecs.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -65,7 +98,8 @@ class _ChainsScreenState extends State<ChainsScreen> {
       transitionType: Nav.superHorizontalTransition(context),
       screen: SpecPickerScreen(
         specPicker: picker,
-        onlyUseCityChains: true,//widget.onlyUseCityChains,
+        selectedSpecs: _selectedSpecs,
+        onlyUseCityChains: widget.onlyUseCityChains,
         showInstructions: widget.isMultipleSelectionMode,
         isMultipleSelectionMode:  widget.isMultipleSelectionMode,
       ),
@@ -76,7 +110,14 @@ class _ChainsScreenState extends State<ChainsScreen> {
       /// WHILE SELECTING MULTIPLE PHIDS
       if (widget.isMultipleSelectionMode == true){
 
-        final List<String> _phids = _result;
+        updateSpecsPickersAndGroups(
+          context: context,
+          specPicker: picker,
+          selectedSpecs: _selectedSpecs,
+          refinedPickers: _refinedSpecsPickers,
+          sourceSpecPickers: widget.specsPickers,
+          specPickerResult: _result,
+        );
 
       }
 
@@ -99,7 +140,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
     /// JUST TO CHECK IF CHAINS ARE LOADED OR NOT YET
     final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
         context: context,
-        getRefinedCityChain: widget.onlyUseCityChains,
+        onlyUseCityChains: widget.onlyUseCityChains,
         listen: true,
     );
 
@@ -110,16 +151,19 @@ class _ChainsScreenState extends State<ChainsScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
-      pageTitle: 'Select Keyword',
+      pageTitle: widget.pageTitle,
       zoneButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
+      onBack: (){
+        Nav.goBack(context, passedData: _selectedSpecs.value);
+      },
       onSearchChanged: (String text) => onChainsSearchChanged(
         text: text,
         isSearching: _isSearching,
         chains: <Chain>[_keywordsChain],
         foundChains: _foundChains,
-        foundPhids: ValueNotifier([]),
+        foundPhids: _foundPhids,
       ),
       onSearchSubmit: (String text) => onChainsSearchSubmitted(
         text: text,
@@ -145,6 +189,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
           :
       /// AFTER CHAIN IS LOADED
       ValueListenableBuilder<bool>(
+        key: const ValueKey<String>('ChainsScreen_view'),
         valueListenable: _isSearching,
         child: Container(),
         builder: (_, bool isSearching, Widget child){
@@ -178,8 +223,14 @@ class _ChainsScreenState extends State<ChainsScreen> {
             // return ChainViewBrowsing(bubbleWidth: Scale.superScreenWidth(context));
 
             return ChainsScreenBrowseView(
-              specsPickers: _specPickers,
+              refinedSpecsPickers: _refinedSpecsPickers,
+              specsPickers: widget.specsPickers,
               onPickerTap: _onPickerTap,
+              selectedSpecs: _selectedSpecs,
+              onDeleteSpec: (List<SpecModel> specs) => onRemoveSpecs(
+                specs: specs,
+                selectedSpecs: _selectedSpecs,
+              ),
             );
 
           }

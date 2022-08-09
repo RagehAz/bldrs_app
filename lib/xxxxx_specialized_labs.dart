@@ -1,7 +1,6 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/c_specs_pickers_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -13,7 +12,6 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
@@ -46,22 +44,13 @@ class SpecializedLabs extends StatelessWidget {
 
       /// DYNAMIC LINKS TEST
       DashButtonModel(
-        verse: 'Phid Selection screen',
+        verse: 'Phid Selection screen x',
         icon: Iconz.keyword,
         screen: ChainsScreen(
           specsPickers: SpecPicker.getPickersByFlyerType(FlyerType.design),
           onlyUseCityChains: false,
           isMultipleSelectionMode: false,
-        ),
-      ),
-
-      /// SPECS SELECTOR
-      DashButtonModel(
-        verse: 'Specs Selector',
-        icon: Iconz.keyword,
-        screen: const SpecsPickersScreen(
-          flyerType: FlyerType.design,
-          selectedSpecs: <SpecModel>[],
+          pageTitle: 'Testing Chains Screen',
         ),
       ),
 
