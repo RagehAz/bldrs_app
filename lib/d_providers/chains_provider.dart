@@ -217,13 +217,13 @@ class ChainsProvider extends ChangeNotifier {
 // -------------------------------------
   static Chain proGetKeywordsChain({
     @required BuildContext context,
-    @required bool getRefinedCityChain,
+    @required bool onlyUseCityChains,
     @required bool listen,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
 
-    if (getRefinedCityChain == true){
+    if (onlyUseCityChains == true){
       return _chainsProvider.cityKeywordsChain;
     }
     else {
@@ -605,7 +605,7 @@ List<Chain> getAllChains({
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
       context: context,
-      getRefinedCityChain: getOnlyCityKeywordsChain,
+      onlyUseCityChains: getOnlyCityKeywordsChain,
       listen: false,
   );
   final Chain _specsChain = _chainsProvider.specsChain;

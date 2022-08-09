@@ -214,20 +214,20 @@ class Chain {
   static Chain filterSpecPickerChainRange({
     @required BuildContext context,
     @required SpecPicker specPicker,
-    @required bool onlyConsiderCityPhids,
+    @required bool onlyUseCityChains,
 }) {
 
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.superGetChain(
       context: context,
       chainID: specPicker.chainID,
-      onlyUseCityChains: onlyConsiderCityPhids,
+      onlyUseCityChains: onlyUseCityChains,
     );
 
     if (
-        Mapper.checkCanLoopList(_filteredChain.sons)
+        Mapper.checkCanLoopList(_filteredChain?.sons)
         &&
-        Mapper.checkCanLoopList(specPicker.range)
+        Mapper.checkCanLoopList(specPicker?.range)
     ) {
 
       final List<String> _rangeIDs = Mapper.getStringsFromDynamics(

@@ -85,6 +85,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       specsPickers: SpecPicker.createPickersFromAllChainKs(),
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
+      pageTitle: 'Select Flyer keyword',
     ),
   );
 
@@ -109,7 +110,7 @@ Future<void> _setActivePhidK({
 
   final List<Chain> allChains = ChainsProvider.proGetKeywordsChain(
       context: context,
-      getRefinedCityChain: false,
+      onlyUseCityChains: false,
       listen: false
   )?.sons;
 
