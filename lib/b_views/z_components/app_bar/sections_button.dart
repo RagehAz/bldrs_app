@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -62,26 +63,12 @@ class SectionsButton extends StatelessWidget {
     return _body;
 }
 // -----------------------------------------------------------------------------
-  void _changeSection(BuildContext context) {
-    // final double _dialogHeight = Scale.superScreenHeight(context) * 0.95;
-
-    Scaffold.of(context).openDrawer();
-    // await SectionDialog.slideDialog(
-    //   context: context,
-    //   dialogHeight: _dialogHeight,
-    // );
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // double _btThirdsOfScreenWidth = (_screenWidth - (6*_abPadding))/3;
-    // double _buttonWidth = _sectionsAreExpanded == true ? _btThirdsOfScreenWidth : null;
-
     return Builder(
       builder: (BuildContext context) => GestureDetector(
-        onTap: onTap ?? () => _changeSection(context),
+        onTap: onTap ?? () => onSectionButtonTap(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -90,26 +77,24 @@ class SectionsButton extends StatelessWidget {
             IntrinsicWidth(
               child: Container(
                 height: 40,
-                // width: buttonWidth,
-                // margin: const EdgeInsets.symmetric(horizontal: Ratioz.ddAppBarMargin*0.5),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                 ),
                 child: Consumer<ChainsProvider>(
-                  builder: (_, ChainsProvider keywordsProvider, Widget child){
+                  builder: (_, ChainsProvider chainsPro, Widget child){
 
                     final String _titleVerse = getTitle(
                         context: context,
-                        currentKeywordID: keywordsProvider.wallPhid,
-                        currentSection: keywordsProvider.homeWallFlyerType,
+                        currentKeywordID: chainsPro.wallPhid,
+                        currentSection: chainsPro.homeWallFlyerType,
                     );
 
                     final String _sectionVerse = getBody(
                         context: context,
-                        currentKeywordID: keywordsProvider.wallPhid,
-                        currentSection: keywordsProvider.homeWallFlyerType
+                        currentKeywordID: chainsPro.wallPhid,
+                        currentSection: chainsPro.homeWallFlyerType
                     );
 
                     return Column(
@@ -155,6 +140,7 @@ class SectionsButton extends StatelessWidget {
                 ),
               ),
             ),
+
           ],
         ),
       ),

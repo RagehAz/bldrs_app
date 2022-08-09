@@ -12,6 +12,7 @@ class StringsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StringsDataCreator({
     @required this.specPicker,
+    @required this.onlyUseCityChains,
     @required this.selectedSpecs,
     @required this.onPhidTap,
     @required this.height,
@@ -19,6 +20,7 @@ class StringsDataCreator extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final SpecPicker specPicker;
+  final bool onlyUseCityChains;
   final List<SpecModel> selectedSpecs;
   final ValueChanged<String> onPhidTap;
   final double height;
@@ -44,9 +46,9 @@ class StringsDataCreator extends StatelessWidget {
           chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
             specPicker: specPicker,
             context: context,
-            onlyConsiderCityPhids: false,
+            onlyConsiderCityPhids: onlyUseCityChains,
           )?.sons,
-          onPhidTap: (String phid) => onPhidTap(phid),
+          onSelectPhid: (String phid) => onPhidTap(phid),
           selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
           initiallyExpanded: false,
         ),

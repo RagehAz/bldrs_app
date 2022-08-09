@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/structure/a_chains_drawer_starter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
@@ -14,6 +13,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 
 // -----------------------------------------------------------------------------
@@ -126,34 +126,16 @@ class MainLayout extends StatelessWidget {
     return _backgroundColor;
   }
 // -----------------------------------------------------------------------------
-  void _onDrawerChanged(context, bool drawerIsOn){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    _uiProvider.setKeywordsDrawerIsOn(
-      setTo: drawerIsOn,
-      notify: true,
-    );
-  }
 // -----------------------------------------------------------------------------
   void _onBack(BuildContext context){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    final bool _drawerIsOn = _uiProvider.keywordsDrawerIsOn;
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
 
     // blog('wtf : _keyboardIsOn : $_keyboardIsOn');
 
     if (_keyboardIsOn == true){
       Keyboarders.closeKeyboard(context);
-    }
-
-    else if (_drawerIsOn == true){
-      Keyboarders.closeKeyboard(context);
-      Nav.goBack(context);
-
-      _uiProvider.setKeywordsDrawerIsOn(
-        setTo: false,
-        notify: true,
-      );
     }
 
     else if (onBack != null){
@@ -207,12 +189,6 @@ class MainLayout extends StatelessWidget {
 
                   /// BACK GROUND COLOR
                   backgroundColor: _backgroundColor,
-
-                  /// DRAWER
-                  drawer: sectionButtonIsOn == true ? const ChainsDrawerStarter() : null,
-                  drawerEdgeDragWidth: ChainsDrawerStarter.drawerEdgeDragWidth,
-                  drawerScrimColor: ChainsDrawerStarter.drawerScrimColor,
-                  onDrawerChanged: (bool drawerIsOn) => _onDrawerChanged(context, drawerIsOn),
 
                   /// KEYBOARD
                   bottomSheet: hasKeyboard == true ? const KeyboardFloatingField() : null,

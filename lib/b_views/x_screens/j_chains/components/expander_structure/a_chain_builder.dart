@@ -16,7 +16,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.initiallyExpanded,
     @required this.selectedPhids,
     this.alignment,
-    this.isDisabled = false,
+    this.deactivated = false,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
     this.onPhidTap,
@@ -25,7 +25,7 @@ class ChainBuilder extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Chain chain;
-  final bool isDisabled;
+  final bool deactivated;
   final double boxWidth;
   final Alignment alignment;
   final String icon;
@@ -53,7 +53,7 @@ class ChainBuilder extends StatelessWidget {
       child: ExpandingTile(
         key: PageStorageKey<String>(chain.id),
         width: boxWidth,
-        isDisabled: isDisabled,
+        isDisabled: deactivated,
         icon: icon,
         firstHeadline: firstHeadline,
         secondHeadline: secondHeadline,
@@ -64,7 +64,7 @@ class ChainBuilder extends StatelessWidget {
           width: _sonWidth,
           chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
-          onPhidTap: (String phid) => onPhidTap(phid),
+          onSelectPhid: (String phid) => onPhidTap(phid),
           parentLevel: parentLevel,
           selectedPhids: selectedPhids,
         ),

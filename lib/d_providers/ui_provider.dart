@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -207,33 +206,7 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
 
-  /// --- KEYWORDS DRAWER
-
-// -------------------------------------
-  bool _keywordsDrawerIsOn = false;
-// -------------------------------------
-  bool get keywordsDrawerIsOn => _keywordsDrawerIsOn;
-// -------------------------------------
-  void setKeywordsDrawerIsOn({
-    @required bool setTo,
-    @required bool notify,
-  }){
-
-    _keywordsDrawerIsOn = setTo;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-// -------------------------------------
-  void closeDrawerIfOpen(BuildContext context){
-    if (_keywordsDrawerIsOn == true){
-      Nav.goBack(context);
-    }
-  }
 // -----------------------------------------------------------------------------
 
   /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
@@ -364,15 +337,13 @@ class UiProvider extends ChangeNotifier {
     /// _localAssetsPaths
     _uiProvider._setLocalAssetPaths(paths: <String>[], notify: false);
     /// _loading
-    _uiProvider.triggerLoading(callerName: 'Wipeout', notify: false, setLoadingTo: false);
+    _uiProvider.triggerLoading(callerName: 'WipeOut', notify: false, setLoadingTo: false);
     /// _keyboardModel
     _uiProvider.setKeyboard(model: null, notify: false);
     /// _keyboardIsOn
     _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
     /// _textFieldsObscured
-    _uiProvider.triggerTextFieldsObscured(setObscuredTo: false, notify: false);
-    /// _keywordsDrawerIsOn
-    _uiProvider.setKeywordsDrawerIsOn(setTo: false, notify: false);
+    _uiProvider.triggerTextFieldsObscured(setObscuredTo: true, notify: false);
     /// _currentSavedFlyerTypeTab
     _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.all, notify: false);
     /// _currentBzTab

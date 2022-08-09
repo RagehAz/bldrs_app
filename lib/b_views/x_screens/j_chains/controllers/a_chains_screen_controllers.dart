@@ -1,60 +1,181 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/d_spec_picker_screen.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
-/// SEARCHING
+/// BUILDING THE CHAINS
 
 // --------------------------------
-Future<void> onChainsSearchChanged({
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required List<Chain> chains,
-}) async {
+/// TESTED : WORKS PERFECT
+bool allChainsCanNotBeBuilt({
+  @required BuildContext context,
+}){
 
-  TextChecker.triggerIsSearchingNotifier(
-    text: text,
-    isSearching: isSearching,
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+
+  final Chain _propertyChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.property,
+    onlyUseCityChains: true,
+  );
+  final Chain _designChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.design,
+    onlyUseCityChains: true,
+  );
+  final Chain _craftChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.craft,
+    onlyUseCityChains: true,
+  );
+  final Chain _productChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.product,
+    onlyUseCityChains: true,
+  );
+  final Chain _equipmentChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.equipment,
+    onlyUseCityChains: true,
   );
 
-  if (isSearching.value == true){
-    _searchChainsOps(
-      chains: chains,
-      text: text,
-      foundChains: foundChains,
+  bool _allCanNotBeBuilt = false;
+
+  if (
+  canBuildChain(_propertyChain) == false &&
+      canBuildChain(_designChain) == false &&
+      canBuildChain(_craftChain) == false &&
+      canBuildChain(_productChain) == false &&
+      canBuildChain(_equipmentChain) == false
+
+  ){
+    _allCanNotBeBuilt = true;
+  }
+
+  return _allCanNotBeBuilt;
+
+
+}
+// --------------------------------
+/// TESTED : WORKS PERFECT
+bool canBuildChain(Chain chain){
+  return Mapper.checkCanLoopList(chain?.sons) == true;
+}
+// -----------------------------------------------------------------------------
+
+/// SETTING ACTIVE PHIDK
+
+// --------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSectionButtonTap(BuildContext context) async {
+
+  final dynamic result = await Nav.goToNewScreen(
+    context: context,
+    transitionType: PageTransitionType.leftToRight,
+    screen: ChainsScreen(
+      specsPickers: SpecPicker.createPickersFromAllChainKs(),
+      onlyUseCityChains: true,
+      isMultipleSelectionMode: false,
+    ),
+  );
+
+  if (result != null && result is String){
+
+    await _setActivePhidK(
+      context: context,
+      phidK: result,
     );
+
   }
 
 }
-// ------------------------------------------------
-Future<void> onChainsSearchSubmitted({
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
+// --------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _setActivePhidK({
+  @required BuildContext context,
+  @required String phidK,
 }) async {
 
+  const bool deactivated = false;
 
+  final List<Chain> allChains = ChainsProvider.proGetKeywordsChain(
+      context: context,
+      getRefinedCityChain: false,
+      listen: false
+  )?.sons;
 
-}
-// ------------------------------------------------
-void _searchChainsOps({
-  @required List<Chain> chains,
-  @required String text,
-  @required ValueNotifier<List<Chain>> foundChains,
-}){
-
-  final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
-    allChains: chains,
-    phid: text,
+  final String _chainID = Chain.getRootChainIDOfPhid(
+    allChains: allChains,
+    phid: phidK,
   );
 
-  /// SET FOUND CHAINS AS SEARCH RESULT
-  foundChains.value = _foundPathsChains;
+  final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
+    chainID: _chainID,
+  );
+
+  /// A - if section is not active * if user is author or not
+  if (deactivated == true) {
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final String _currentCityID = _zoneProvider.currentZone.cityID;
+
+    final String _flyerTypeString = FlyerTyper.translateFlyerType(
+        context: context,
+        flyerType: _flyerType
+    );
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
+      body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+      height: 400,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+
+          DialogButton(
+            verse: 'Inform a friend',
+            width: 133,
+            onTap: () => Launcher.shareLink(
+              context : context,
+              link: LinkModel.bldrsWebSiteLink,
+            ),
+          ),
+
+          DialogButton(
+            verse: 'Go back',
+            color: Colorz.yellow255,
+            verseColor: Colorz.black230,
+            onTap: () => Nav.goBack(context),
+          ),
+
+        ],
+      ),
+    );
+  }
+
+  /// A - if section is active
+  else {
+
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    await _keywordsProvider.changeHomeWallFlyerType(
+      context: context,
+      flyerType: _flyerType,
+      phid: phidK,
+      notify: true,
+    );
+
+  }
+
 
 }
 // -----------------------------------------------------------------------------
@@ -62,11 +183,14 @@ void _searchChainsOps({
 /// SELECTION
 
 // --------------------------------
-void onSelectPhid({
+Future<void> onSelectPhid({
+  @required BuildContext context,
   @required String phid,
-}){
+  @required bool inSelectionMode,
+}) async {
 
-  blog('selected phid is : $phid');
+  blog('selected phid is : $phid : inSelectionMode : $inSelectionMode');
+
 
 }
 // -----------------------------------------------------------------------------
@@ -74,22 +198,29 @@ void onSelectPhid({
 /// NAVIGATION
 
 // --------------------------------
+/*
 Future<void> goToKeywordsScreen({
   @required BuildContext context,
   @required SpecPicker specPicker,
+  @required bool isSelectingActivePhidK,
 }) async {
-
   final String _phid = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: SpecPickerScreen(
       specPicker: specPicker,
       showInstructions: false,
-      inSelectionMode: false,
+      isMultipleSelectionMode: false,
     ),
   );
 
-  blog('selected this phid : $_phid');
-
+  if (_phid != null) {
+    if (isSelectingActivePhidK == true) {
+      await setActivePhidK(
+        context: context,
+        phidK: _phid,
+      );
+    }
+  }
 }
-// -----------------------------------------------------------------------------
+ */

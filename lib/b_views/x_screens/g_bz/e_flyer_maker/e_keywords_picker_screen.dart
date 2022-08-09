@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/chain_expander_by_flyer_type.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/z_components/keywords/selected_keywords_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -314,18 +314,21 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
                     final FlyerType _flyerType = widget.flyerTypes[index];
                     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-                    final Chain _chain = _chainsProvider.getKeywordsChainByFlyerType(
+                    final Chain _chain = _chainsProvider.getChainKByFlyerType(
                       flyerType: _flyerType,
-                      getRefinedCityChain: false,
+                      onlyUseCityChains: false,
                     );
 
-                    return ChainExpanderForFlyerType(
-                      flyerType: _flyerType,
+                    return ChainBuilder(
                       chain: _chain,
-                      bubbleWidth: _screenWidth,
+                      boxWidth: _screenWidth,
                       deactivated: false,
-                      onKeywordTap: (String id) => _onSelectKeyword(id),
-                      selectedKeywordsIDs: selectedIDs,
+                      firstHeadline: FlyerTyper.translateFlyerType(context: context, flyerType: _flyerType),
+                      onPhidTap: (String phid) => _onSelectKeyword(phid),
+                      selectedPhids: selectedIDs,
+                      initiallyExpanded: false,
+                      secondHeadline: 'WTF is this',
+                      icon: FlyerTyper.flyerTypeIconOn(_flyerType),
                     );
 
                   }
