@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/app_bar/app_bar_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -228,13 +227,13 @@ class BldrsAppBar extends StatelessWidget {
         alignment: Aligners.superCenterAlignment(context),
         children: <Widget>[
 
-          /// BLUR
-          BlurLayer(
-            width: _abWidth,
-            height: _abHeight,
-            borders: const BorderRadius.all(
-                Radius.circular(Ratioz.appBarCorner)),
-          ),
+          // // BLUR
+          // BlurLayer(
+          //   width: _abWidth,
+          //   height: _abHeight,
+          //   borders: const BorderRadius.all(
+          //       Radius.circular(Ratioz.appBarCorner)),
+          // ),
 
           /// CONTENTS
           SizedBox(
@@ -268,6 +267,23 @@ class BldrsAppBar extends StatelessWidget {
                             BackAndSearchAction.goToSearchScreen,
                       ),
 
+
+                    /// MIDDLE SPACER
+                    const SizedBox(
+                      width: Ratioz.appBarPadding,
+                    ),
+
+                    /// SECTION BUTTON
+                    if (_sectionButtonIsOn == true)
+                      const SectionsButton(),
+
+                    /// PAGE TITLE
+                    if (pageTitle != null)
+                      AppBarTitle(
+                        pageTitle: pageTitle,
+                        backButtonIsOn: _backButtonIsOn,
+                      ),
+
                     /// CUSTOM APP BAR WIDGETS
                     if (_scrollable == true)
                       ClipRRect(
@@ -285,22 +301,6 @@ class BldrsAppBar extends StatelessWidget {
                             children: appBarRowWidgets,
                           ),
                         ),
-                      ),
-
-                    /// MIDDLE SPACER
-                    const SizedBox(
-                      width: Ratioz.appBarPadding,
-                    ),
-
-                    /// SECTION BUTTON
-                    if (_sectionButtonIsOn == true)
-                      const SectionsButton(),
-
-                    /// PAGE TITLE
-                    if (pageTitle != null)
-                      AppBarTitle(
-                        pageTitle: pageTitle,
-                        backButtonIsOn: _backButtonIsOn,
                       ),
 
                     /// CUSTOM APP BAR WIDGETS

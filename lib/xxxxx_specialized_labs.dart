@@ -1,6 +1,3 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -25,6 +22,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_viewer_test_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:flutter/material.dart';
@@ -44,14 +42,9 @@ class SpecializedLabs extends StatelessWidget {
 
       /// DYNAMIC LINKS TEST
       DashButtonModel(
-        verse: 'Phid Selection screen x',
+        verse: 'Chains View Test Screen',
         icon: Iconz.keyword,
-        screen: ChainsScreen(
-          specsPickers: SpecPicker.getPickersByFlyerType(FlyerType.design),
-          onlyUseCityChains: false,
-          isMultipleSelectionMode: false,
-          pageTitle: 'Testing Chains Screen',
-        ),
+        screen: const ChainsViewTestScreen(),
       ),
 
       /// DYNAMIC LINKS TEST
