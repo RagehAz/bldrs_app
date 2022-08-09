@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -18,18 +16,19 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
+import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -279,6 +278,45 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
+    blog('1 - loading');
+
+    final List<String> _list = <String>[];
+
+    for (int i = 0; i < 10000; i++){
+      _list.add(Numeric.createUniqueID().toString());
+    }
+
+    blog('2 - loading');
+
+    final Map<String, dynamic> _map = {
+      'list' : _list,
+    };
+
+    await Real.createNamedDoc(
+      context: context,
+      collName: 'test',
+      docName: 'testDoc',
+      map: _map,
+
+    );
+    blog('3 - finish');
+
+    // final dynamic result = await Nav.goToNewScreen(
+    //     context: context,
+    //     screen: ChainsScreen(
+    //       specsPickers: SpecPicker.getMajorKeywords(),
+    //       onlyUseCityChains: false,
+    //       inSelectionMode: true,
+    //     ),
+    //   transitionType: PageTransitionType.leftToRight,
+    // );
+
+
+
+
+    /// MAPS ARE IDENTICAL TEST
+    /*
+
     final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
     final UserModel _user2 = _user.copyWith();
@@ -294,6 +332,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     else{
       blog('its not working shit x' );
     }
+     */
 
   }
 // -----------------------------------------------------------------------------

@@ -18,7 +18,7 @@ class ChainSplitter extends StatelessWidget {
     @required this.initiallyExpanded,
     this.parentLevel = 0,
     this.width,
-    this.onPhidTap,
+    this.onSelectPhid,
     this.selectedPhids,
     Key key,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class ChainSplitter extends StatelessWidget {
   final dynamic chainOrChainsOrSonOrSons;
   final int parentLevel;
   final double width;
-  final ValueChanged<String> onPhidTap;
+  final ValueChanged<String> onSelectPhid;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class ChainSplitter extends StatelessWidget {
         parentLevel: parentLevel,
         color: _color,
         // isDisabled: false,
-        onTap: () => onPhidTap(_phid),
+        onTap: () => onSelectPhid(_phid),
       );
 
     }
@@ -62,7 +62,7 @@ class ChainSplitter extends StatelessWidget {
           sons: chainOrChainsOrSonOrSons,
           width: width,
           parentLevel: parentLevel,
-          onPhidTap: onPhidTap,
+          onPhidTap: onSelectPhid,
           selectedPhids: selectedPhids,
           initiallyExpanded: initiallyExpanded
       );
@@ -82,7 +82,7 @@ class ChainSplitter extends StatelessWidget {
         firstHeadline: superPhrase(context, _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
-        onPhidTap: onPhidTap,
+        onPhidTap: onSelectPhid,
         // isDisabled: false,
         parentLevel: parentLevel,
         selectedPhids: selectedPhids,
@@ -96,7 +96,7 @@ class ChainSplitter extends StatelessWidget {
           sons: chainOrChainsOrSonOrSons,
           width: width,
           parentLevel: parentLevel,
-          onPhidTap: onPhidTap,
+          onPhidTap: onSelectPhid,
           selectedPhids: selectedPhids,
           initiallyExpanded: initiallyExpanded
       );

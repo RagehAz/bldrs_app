@@ -23,9 +23,9 @@ class FlyerTyper{
   // -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
     FlyerType.property,
-    FlyerType.design,
-    FlyerType.product,
+    FlyerType.design, /// TASK : SHOULD COMBINE DESIGN WITH PROJECT
     FlyerType.project,
+    FlyerType.product,
     FlyerType.craft,
     FlyerType.equipment,
   ];
@@ -145,6 +145,24 @@ class FlyerTyper{
 
     return _icon;
   }
+// -------------------------------------
+  /*
+String getSectionIcon({
+  @required FlyerType section,
+  @required bool inActiveMode
+}){
+
+  String _icon;
+
+  if (inActiveMode == true) {
+    _icon = FlyerTyper.flyerTypeIconOff(section);
+  } else {
+    _icon = FlyerTyper.flyerTypeIconOn(section);
+  }
+
+  return _icon;
+}
+ */
 // -----------------------------------------------------------------------------
 
   /// FIXERS
@@ -244,6 +262,41 @@ class FlyerTyper{
     }
 
     return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerType concludeFlyerTypeByChainID({
+    @required String chainID,
+  }){
+    switch (chainID) {
+      /// REAL ESTATE
+      case 'phid_k_flyer_type_property':  return FlyerType.property; break;
+      /// CONSTRUCTION
+      case 'phid_k_flyer_type_design':    return FlyerType.design; break;
+      case 'phid_k_flyer_type_crafts':    return FlyerType.craft; break;
+      /// SUPPLIES
+      case 'phid_k_flyer_type_product':   return FlyerType.product; break;
+      case 'phid_k_flyer_type_equipment': return FlyerType.equipment; break;
+      default: return null;
+    }
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String getGroupIDByFlyerTypeChainID({
+    @required BuildContext context,
+    @required String chainID,
+  }){
+    switch (chainID) {
+    /// REAL ESTATE
+      case 'phid_k_flyer_type_property':  return 'RealEstate'; break;
+    /// CONSTRUCTION
+      case 'phid_k_flyer_type_design':    return 'Construction'; break;
+      case 'phid_k_flyer_type_crafts':    return 'Construction'; break;
+    /// SUPPLIES
+      case 'phid_k_flyer_type_product':   return 'Supplies'; break;
+      case 'phid_k_flyer_type_equipment': return 'Supplies'; break;
+      default: return null;
+    }
   }
 // -----------------------------------------------------------------------------
 

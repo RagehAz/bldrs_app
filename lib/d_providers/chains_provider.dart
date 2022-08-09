@@ -60,10 +60,10 @@ class ChainsProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Chain searchAllChainsByID({
   @required String chainID,
-    @required bool searchRefinedCityChain,
+    @required bool onlyUseCityChains,
 }){
 
-    final Chain _keywordsChain = searchRefinedCityChain == true ? _cityKeywordsChain : _allKeywordsChain;
+    final Chain _keywordsChain = onlyUseCityChains == true ? _cityKeywordsChain : _allKeywordsChain;
 
     final List<Chain> _allChains = <Chain>[_keywordsChain, _specsChain];
 
@@ -345,9 +345,9 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Chain getKeywordsChainByFlyerType({
+  Chain getChainKByFlyerType({
     @required FlyerType flyerType,
-    @required bool getRefinedCityChain,
+    @required bool onlyUseCityChains,
   }){
 
     String _chainID = 'phid_sections';
@@ -363,9 +363,23 @@ class ChainsProvider extends ChangeNotifier {
       case FlyerType.non        : _chainID = 'phid_sections'; break;
     }
 
-    final Chain _chain = Chain.getChainFromChainsByID(
+    final Chain _chain = findChainK(
       chainID: _chainID,
-      chains: getRefinedCityChain == true ?
+      onlyUseCityChains: onlyUseCityChains,
+    );
+
+    return _chain;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Chain findChainK({
+    @required String chainID,
+    @required bool onlyUseCityChains,
+  }){
+
+    final Chain _chain = Chain.getChainFromChainsByID(
+      chainID: chainID,
+      chains: onlyUseCityChains == true ?
       <Chain>[_cityKeywordsChain]
           :
       <Chain>[_allKeywordsChain],
@@ -566,13 +580,13 @@ class ChainsProvider extends ChangeNotifier {
   static Chain superGetChain({
     @required BuildContext context,
     @required String chainID,
-    bool searchOnlyCityKeywordsChainsAndSpecs,
+    bool onlyUseCityChains,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     final Chain _chain = _chainsProvider.searchAllChainsByID(
       chainID: chainID,
-      searchRefinedCityChain: searchOnlyCityKeywordsChainsAndSpecs,
+      onlyUseCityChains: onlyUseCityChains,
     );
 
     // blog('superGetChain : chain is :-');

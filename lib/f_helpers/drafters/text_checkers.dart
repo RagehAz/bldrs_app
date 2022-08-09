@@ -73,6 +73,7 @@ class TextChecker {
     return _startInArabic;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool textStartsInEnglish(String val) {
     const String _reg = r'[a-zA-Z]';
     final RegExp _exp = RegExp(_reg, multiLine: true);
