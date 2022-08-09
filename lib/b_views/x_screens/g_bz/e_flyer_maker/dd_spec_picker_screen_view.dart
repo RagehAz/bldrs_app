@@ -21,8 +21,9 @@ class SpecPickerScreenView extends StatelessWidget {
     @required this.selectedSpecs,
     @required this.screenHeight,
     @required this.showInstructions,
-    @required this.inSelectionMode,
+    @required this.isMultipleSelectionMode,
     @required this.onSelectSpec,
+    @required this.onlyUseCityChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,8 +31,9 @@ class SpecPickerScreenView extends StatelessWidget {
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final double screenHeight;
   final bool showInstructions;
-  final bool inSelectionMode;
+  final bool isMultipleSelectionMode;
   final ValueChanged<String> onSelectSpec;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   double _getListZoneHeight(){
 
@@ -48,12 +50,13 @@ class SpecPickerScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Chain _specChain = ChainsProvider.superGetChain(
+    final Chain _chain = ChainsProvider.superGetChain(
       context: context,
       chainID: specPicker.chainID,
-      searchOnlyCityKeywordsChainsAndSpecs: false,
+      onlyUseCityChains: onlyUseCityChains,
     );
-    final bool _isNumberDataCreator = Chain.checkSonsAreDataCreator(_specChain.sons);
+
+    final bool _isNumberDataCreator = Chain.checkSonsAreDataCreator(_chain.sons);
 
     final double _listZoneHeight = _getListZoneHeight();
 
@@ -65,12 +68,12 @@ class SpecPickerScreenView extends StatelessWidget {
         /// INSTRUCTIONS BOX
         if (showInstructions == true)
           SpecPickerInstructions(
-            chain: _specChain,
+            chain: _chain,
             picker: specPicker,
           ),
 
         /// SPECS PICKER FOR SELECTING MULTIPLE SPECS
-        if (inSelectionMode == true)
+        if (isMultipleSelectionMode == true)
         ValueListenableBuilder(
           valueListenable: selectedSpecs,
           builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
@@ -85,6 +88,7 @@ class SpecPickerScreenView extends StatelessWidget {
                   specs: specs,
                   pickerChainID: specPicker.chainID,
                 ),
+                onlyUseCityChains: onlyUseCityChains,
                 onPhidTap: onSelectSpec,
               );
             }
@@ -123,9 +127,9 @@ class SpecPickerScreenView extends StatelessWidget {
 
             /// INTEGER INCREMENTER SPECS CREATOR
             else if (
-            _specChain.sons == DataCreator.integerKeyboard
+            _chain.sons == DataCreator.integerKeyboard
             ||
-            _specChain.sons == DataCreator.doubleKeyboard
+            _chain.sons == DataCreator.doubleKeyboard
             ){
 
               final SpecModel _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
@@ -140,7 +144,7 @@ class SpecPickerScreenView extends StatelessWidget {
 
 
               return IntegerAndDoubleDataCreator(
-                dataCreatorType: _specChain.sons,
+                dataCreatorType: _chain.sons,
                 initialValue: _valueSpec?.value,
                 initialUnit: _unitSpec?.value,
                 onExportSpecs: (List<SpecModel> specs) => onAddSpecs(
@@ -165,12 +169,13 @@ class SpecPickerScreenView extends StatelessWidget {
         ),
 
         /// SPEC PICKER FOR KEYWORD SELECTION
-        if (inSelectionMode == false && _isNumberDataCreator == false)
+        if (isMultipleSelectionMode == false && _isNumberDataCreator == false)
           StringsDataCreator(
             height: _listZoneHeight,
             specPicker: specPicker,
             selectedSpecs: null,
             onPhidTap: onSelectSpec,
+            onlyUseCityChains: onlyUseCityChains,
           ),
 
       ],

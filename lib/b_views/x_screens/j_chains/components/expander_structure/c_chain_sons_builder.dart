@@ -56,7 +56,7 @@ class ChainSonsBuilder extends StatelessWidget {
                 child: ChainSplitter(
                   chainOrChainsOrSonOrSons: _chain,
                   width: _sonWidth,
-                  onPhidTap: onPhidTap,
+                  onSelectPhid: onPhidTap,
                   selectedPhids: selectedPhids,
                   initiallyExpanded: initiallyExpanded,
                   parentLevel: parentLevel+1,

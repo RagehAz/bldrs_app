@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
@@ -5,7 +6,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 @immutable
 class SpecPicker {
@@ -143,6 +144,7 @@ class SpecPicker {
     return _specsPicker;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getGroupsFromSpecsPickers({
     @required List<SpecPicker> specsPickers,
   }) {
@@ -176,55 +178,6 @@ class SpecPicker {
     <SpecPicker>[];
 
     return _specPicker;
-  }
-// -------------------------------------
-  static List<SpecPicker> getMajorKeywords() {
-    const List<SpecPicker> _specPicker = <SpecPicker>[
-
-      /// PROPERTIES
-      SpecPicker(
-        chainID: 'phid_k_flyer_type_property',
-        groupID: 'RealEstate',
-        canPickMany: false,
-        isRequired: false,
-      ),
-
-      /// DESIGN
-      SpecPicker(
-        chainID: 'phid_k_flyer_type_design',
-        groupID: 'Construction',
-        canPickMany: false,
-        isRequired: false,
-      ),
-
-      /// CRAFTS
-      SpecPicker(
-        chainID: 'phid_k_flyer_type_crafts',
-        groupID: 'Construction',
-        canPickMany: false,
-        isRequired: false,
-      ),
-
-      /// PRODUCTS
-      SpecPicker(
-        chainID: 'phid_k_flyer_type_product',
-        groupID: 'Supplies',
-        canPickMany: false,
-        isRequired: false,
-      ),
-
-      /// PRODUCTS
-      SpecPicker(
-        chainID: 'phid_k_flyer_type_equipment',
-        groupID: 'Supplies',
-        canPickMany: false,
-        isRequired: false,
-      ),
-
-    ];
-
-    return _specPicker;
-
   }
 // -----------------------------------------------------------------------------
 
@@ -281,6 +234,93 @@ class SpecPicker {
         _picker.blogSpecPicker();
       }
     }
+  }
+// -----------------------------------------------------------------------------
+
+  /// CREATORS
+
+// -------------------------------------
+  static List<SpecPicker> createPickersForChainK({
+    @required BuildContext context,
+    @required Chain chainK,
+  }){
+    final List<SpecPicker> _pickers = <SpecPicker>[];
+
+    if (chainK != null && Mapper.checkCanLoopList(chainK.sons) == true){
+
+      final List<String> chainKSonsIDs = Chain.getOnlyChainSonsIDs(
+        chain: chainK,
+      );
+
+      for (final String subChainID in chainKSonsIDs){
+
+        final SpecPicker _picker = SpecPicker(
+          chainID: subChainID,
+          groupID: FlyerTyper.getGroupIDByFlyerTypeChainID(
+            context: context,
+            chainID: subChainID,
+          ),
+          canPickMany: false,
+          isRequired: false,
+        );
+
+        _pickers.add(_picker);
+
+      }
+
+
+    }
+
+    return _pickers;
+  }
+
+  static List<SpecPicker> createPickersFromAllChainKs() {
+    const List<SpecPicker> _specPicker = <SpecPicker>[
+
+      /// PROPERTIES
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_property',
+        groupID: 'RealEstate',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// DESIGN
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_design',
+        groupID: 'Construction',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// CRAFTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_crafts',
+        groupID: 'Construction',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// PRODUCTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_product',
+        groupID: 'Supplies',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+      /// PRODUCTS
+      SpecPicker(
+        chainID: 'phid_k_flyer_type_equipment',
+        groupID: 'Supplies',
+        canPickMany: false,
+        isRequired: false,
+      ),
+
+    ];
+
+    return _specPicker;
+
   }
 // -----------------------------------------------------------------------------
 }

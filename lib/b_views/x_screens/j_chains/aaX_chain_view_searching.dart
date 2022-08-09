@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -12,13 +13,11 @@ import 'package:provider/provider.dart';
 class ChainViewSearching extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainViewSearching({
-    @required this.bubbleWidth,
     @required this.foundPhids,
     @required this.foundChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
   final ValueNotifier<List<String>> foundPhids; /// p
   final ValueNotifier<List<Chain>> foundChains; /// p
   /// --------------------------------------------------------------------------
@@ -101,7 +100,7 @@ class ChainViewSearching extends StatelessWidget {
                                     horizontal: Ratioz.appBarMargin,
                                 ),
                                 child: PhidButton(
-                                  width: bubbleWidth,
+                                  width: BldrsAppBar.width(context),
                                   phid: _phidk,
                                   // isDisabled: false,
                                   parentLevel: 2,

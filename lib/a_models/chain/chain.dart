@@ -221,7 +221,7 @@ class Chain {
     Chain _filteredChain = ChainsProvider.superGetChain(
       context: context,
       chainID: specPicker.chainID,
-      searchOnlyCityKeywordsChainsAndSpecs: onlyConsiderCityPhids,
+      onlyUseCityChains: onlyConsiderCityPhids,
     );
 
     if (
@@ -624,6 +624,30 @@ class Chain {
   /// GETTERS
 
 // --------------------------------------------
+
+  static List<String> getOnlyChainSonsIDs({
+    @required Chain chain,
+  }){
+
+      /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
+    final List<String> _chainSonsIDs = <String>[];
+
+    if (chain != null && Mapper.checkCanLoopList(chain.sons) == true){
+
+      for (final dynamic son in chain.sons){
+
+        if (son is Chain){
+          final Chain _chain = son;
+          _chainSonsIDs.add(_chain.id);
+        }
+
+      }
+
+    }
+
+    return _chainSonsIDs;
+  }
+// --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Chain getChainFromChainsByID({
     @required String chainID,
@@ -632,8 +656,6 @@ class Chain {
       /// gets first matching "either parent or nested chain" in the input chains trees,
 
     Chain _chain;
-
-      // blog('getChainFromChainsByID : chains : ${chains?.length}');
 
     if (Mapper.checkCanLoopList(chains) == true){
 
@@ -666,6 +688,33 @@ class Chain {
     return _chain;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT FOR [ FlyerTyper.concludeFlyerTypeByChainID() ]
+  static String getRootChainIDOfPhid({
+    @required List<Chain> allChains,
+    @required String phid,
+  }){
+
+      String _chainID;
+
+      if (Mapper.checkCanLoopList(allChains) == true && phid != null){
+
+        final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
+            allChains: allChains,
+            phid: phid
+        );
+
+        if (Mapper.checkCanLoopList(_chains) == true){
+
+          final Chain _chain = _chains.first;
+          _chainID = _chain.id;
+
+        }
+
+      }
+
+      return _chainID;
+  }
+// --------------------------------------------
   static List<String> getOnlyChainsIDsFromPhids({
     @required List<Chain> allChains,
     @required List<String> phids,
@@ -680,13 +729,13 @@ class Chain {
 
       for (final String phid in phids){
 
-        final Chain _chain = getChainFromChainsByID(
-            chainID: phid,
-            chains: allChains,
+        final String _chainID = getRootChainIDOfPhid(
+            allChains: allChains,
+            phid: phid
         );
 
-        if (_chain != null){
-          _chainsIDs.add(_chain.id);
+        if (_chainID != null){
+          _chainsIDs.add(_chainID);
         }
 
       }

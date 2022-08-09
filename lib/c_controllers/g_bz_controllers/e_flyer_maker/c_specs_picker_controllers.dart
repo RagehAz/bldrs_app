@@ -77,7 +77,8 @@ Future<void> _goToSpecPickerScreen({
       specPicker: specPicker,
       selectedSpecs: selectedSpecs,
       showInstructions: true,
-      inSelectionMode: true,
+      isMultipleSelectionMode: true,
+      onlyUseCityChains: false,
     ),
     transitionType: Nav.superHorizontalTransition(context),
   );
@@ -107,7 +108,7 @@ void _updateSpecsPickersAndGroups({
   final Chain _specChain = ChainsProvider.superGetChain(
     context: context,
     chainID: specPicker.chainID,
-    searchOnlyCityKeywordsChainsAndSpecs: false,
+    onlyUseCityChains: false,
   );
 
   // -------------------------------------------------------------
