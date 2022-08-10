@@ -39,6 +39,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.secondLineColor,
     @required this.centered,
     @required this.backgroundColor,
+    @required this.highlight,
+    @required this.highlightColor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -71,6 +73,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final Color secondLineColor;
   final bool centered;
   final Color backgroundColor;
+  final ValueNotifier<String> highlight;
+  final Color highlightColor;
   /// ----------------------------------------------------------------------------
   static CrossAxisAlignment versesCrossAlignment({
     String icon,
@@ -327,6 +331,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     scaleFactor: iconSizeFactor * verseScaleFactor,
                     italic: verseItalic,
                     redDot: redDot,
+                    highlight: highlight,
+                    highlightColor: highlightColor,
                   ),
                 ),
 

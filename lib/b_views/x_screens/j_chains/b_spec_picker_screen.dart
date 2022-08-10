@@ -5,9 +5,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:flutter/material.dart';
 
 class SpecPickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -28,46 +27,7 @@ class SpecPickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 50;
   /// --------------------------------------------------------------------------
-  void onGoBack({
-    @required BuildContext context,
-    String phid,
-}) {
 
-    if (isMultipleSelectionMode == true){
-     onGoBackToSpecsPickersScreen(
-          context: context,
-          selectedSpecs: selectedSpecs
-      );
-    }
-
-    else {
-      Nav.goBack(context, passedData: phid);
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _onSelectSpec({
-    @required BuildContext context,
-    @required String phid,
-  }) async {
-
-    if (isMultipleSelectionMode == true){
-      await onSelectSpec(
-        context: context,
-        phid: phid,
-        picker: specPicker,
-        selectedSpecs: selectedSpecs,
-      );
-    }
-
-    else {
-      onGoBack(
-        context: context,
-        phid: phid,
-      );
-    }
-
-  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -83,7 +43,12 @@ class SpecPickerScreen extends StatelessWidget {
       zoneButtonIsOn: false,
       pageTitle: superPhrase(context, specPicker.chainID),
       pyramidsAreOn: true,
-      onBack: () => onGoBack(context: context),
+      onBack: () => onGoBackFromSpecPickerScreen(
+        context: context,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        selectedSpecs: selectedSpecs,
+        phid: null,
+      ),
       layoutWidget: SpecPickerScreenView(
         specPicker: specPicker,
         selectedSpecs: selectedSpecs,
@@ -91,9 +56,12 @@ class SpecPickerScreen extends StatelessWidget {
         showInstructions: showInstructions,
         isMultipleSelectionMode: isMultipleSelectionMode,
         onlyUseCityChains: onlyUseCityChains,
-        onSelectSpec: (String phid) => _onSelectSpec(
+        onSelectPhid: (String phid) => onSelectPhid(
           context: context,
           phid: phid,
+          selectedSpecs: selectedSpecs,
+          isMultipleSelectionMode: isMultipleSelectionMode,
+          specPicker: specPicker,
         ),
       ),
 
