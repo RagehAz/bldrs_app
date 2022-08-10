@@ -9,123 +9,145 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+class Iconizer {
 // -----------------------------------------------------------------------------
-String superArrowENRight(BuildContext context) {
 
-  if (Wordz.textDirection(context) == 'ltr') {
-    return Iconz.arrowRight;
-  }
+  const Iconizer();
 
-  else {
-    return Iconz.arrowLeft;
-  }
-
-}
 // -----------------------------------------------------------------------------
-String superArrowENLeft(BuildContext context) {
 
-  if (Wordz.textDirection(context) == 'ltr') {
-    return Iconz.arrowLeft;
-  }
+  /// ARROW
 
-  else {
-    return Iconz.arrowRight;
-  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String superArrowENRight(BuildContext context) {
 
-}
-// -----------------------------------------------------------------------------
-String imageDir({
-  @required String prefix,
-  @required String fileName,
-  @required double pixelRatio,
-  @required bool isIOS,
-}) {
-
-  /// MediaQueryData data = MediaQuery.of(context);
-  /// double ratio = data.devicePixelRatio;
-  ///
-  /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-  ///
-  /// If the platform is not iOS, you would implement the buckets in your code. Combining the logic into one method:
-  ///
-  /// double markerScale;
-  /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-  /// if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
-
-  String directory = '/';
-
-  if (!isIOS) {
-    if (pixelRatio >= 1.5) {
-      directory = '/2.0x/';
+    if (Wordz.textDirection(context) == 'ltr') {
+      return Iconz.arrowRight;
     }
 
-    else if (pixelRatio >= 2.5) {
-      directory = '/3.0x/';
-    }
-
-    else if (pixelRatio >= 3.5) {
-      directory = '/4.0x/';
+    else {
+      return Iconz.arrowLeft;
     }
 
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String superArrowENLeft(BuildContext context) {
 
-  return '$prefix$directory$fileName';
-}
-// -----------------------------------------------------------------------------
-String superBackIcon(BuildContext context) {
-  return appIsLeftToRight(context) ? Iconz.back : Iconz.backArabic;
-}
-// -----------------------------------------------------------------------------
-String superInverseBackIcon(BuildContext context) {
-  return appIsLeftToRight(context) ? Iconz.backArabic : Iconz.back;
-}
-// -----------------------------------------------------------------------------
-String valueIsNotNull(dynamic value) {
-  final String _icon = value == null ? Iconz.xSmall : Iconz.check;
-  return _icon;
-}
-// -----------------------------------------------------------------------------
-String shareAppIcon(){
+    if (Wordz.textDirection(context) == 'ltr') {
+      return Iconz.arrowLeft;
+    }
 
-  String _shareIcon = Iconz.share;
+    else {
+      return Iconz.arrowRight;
+    }
 
-  if (DeviceChecker.deviceIsIOS() == true){
-    _shareIcon = Iconz.comApple;
   }
+// -----------------------------------------------------------------------------
 
-  if (DeviceChecker.deviceIsAndroid() == true){
-    _shareIcon = Iconz.comGooglePlay;
+  /// BACK ICON
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String superBackIcon(BuildContext context) {
+    return appIsLeftToRight(context) ? Iconz.back : Iconz.backArabic;
   }
-
-  return _shareIcon;
-}
-// -----------------------------------------------------------------------------
-Future<List<String>> getLocalAssetsPaths() async {
-
-  final String assets = await rootBundle.loadString('AssetManifest.json');
-  final Map<String, dynamic> _json = json.decode(assets);
-  final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
-
-  final List<String> _allAssetsPaths = <String>[];
-  for (final String key in _keys){
-    _allAssetsPaths.add(_json[key].first);
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String superInverseBackIcon(BuildContext context) {
+    return appIsLeftToRight(context) ? Iconz.backArabic : Iconz.back;
   }
-
-  return _allAssetsPaths;
-}
 // -----------------------------------------------------------------------------
-String getLocalAssetPathFromLocalPaths({
-  @required List<String> allAssetsPaths,
-  @required String assetName,
-}){
 
-  final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
-    paths: allAssetsPaths,
-    phid: assetName,
-  );
+  /// SHARE ICON
 
-  final String _path = _assetPath.isNotEmpty ? _assetPath?.first : null;
+// -------------------------------------
+  static String shareAppIcon(){
 
-  return _path;
-}
+    String _shareIcon = Iconz.share;
+
+    if (DeviceChecker.deviceIsIOS() == true){
+      _shareIcon = Iconz.comApple;
+    }
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      _shareIcon = Iconz.comGooglePlay;
+    }
+
+    return _shareIcon;
+  }
 // -----------------------------------------------------------------------------
+
+  /// DIRECTORY - LOCAL ASSET PATH
+
+// -------------------------------------
+  static String imageDir({
+    @required String prefix,
+    @required String fileName,
+    @required double pixelRatio,
+    @required bool isIOS,
+  }) {
+
+    /// MediaQueryData data = MediaQuery.of(context);
+    /// double ratio = data.devicePixelRatio;
+    ///
+    /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    ///
+    /// If the platform is not iOS, you would implement the buckets in your code. Combining the logic into one method:
+    ///
+    /// double markerScale;
+    /// bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+    /// if (isIOS){markerScale = 0.7;}else{markerScale = 1;}
+
+    String directory = '/';
+
+    if (!isIOS) {
+      if (pixelRatio >= 1.5) {
+        directory = '/2.0x/';
+      }
+
+      else if (pixelRatio >= 2.5) {
+        directory = '/3.0x/';
+      }
+
+      else if (pixelRatio >= 3.5) {
+        directory = '/4.0x/';
+      }
+
+    }
+
+    return '$prefix$directory$fileName';
+  }
+// -------------------------------------
+  static Future<List<String>> getLocalAssetsPaths() async {
+
+    final String assets = await rootBundle.loadString('AssetManifest.json');
+    final Map<String, dynamic> _json = json.decode(assets);
+    final List<String> _keys = _json.keys.where((element) => element.startsWith('assets/')).toList();
+
+    final List<String> _allAssetsPaths = <String>[];
+    for (final String key in _keys){
+      _allAssetsPaths.add(_json[key].first);
+    }
+
+    return _allAssetsPaths;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String getLocalAssetPathFromLocalPaths({
+    @required List<String> allAssetsPaths,
+    @required String assetName,
+  }){
+
+    final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
+      paths: allAssetsPaths,
+      phid: assetName,
+    );
+
+    final String _path = _assetPath.isNotEmpty ? _assetPath?.first : null;
+
+    return _path;
+  }
+// -----------------------------------------------------------------------------
+}

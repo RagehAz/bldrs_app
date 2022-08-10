@@ -251,7 +251,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                             verse: 'Download and set last Backup',
                             onTap: () async {
 
-                              final List<Chain> _backups = await readKeywordsAndSpecsBackups(context);
+                              final List<Chain> _backups = await ChainFireOps.readKeywordsAndSpecsBackups(context);
 
                               Nav.goBack(context);
 
@@ -264,7 +264,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                             context: context,
                             verse: 'Reload chains',
                             onTap: () async {
-                              final List<Chain> _chains = await reloadKeywordsAndSpecsChains(context);
+                              final List<Chain> _chains = await ChainFireOps.reloadKeywordsAndSpecsChains(context);
                               Nav.goBack(context);
                               _chainsNotifier.value = _chains;
                             },
