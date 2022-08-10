@@ -1,7 +1,7 @@
 // import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 // import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 // import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-// import 'package:bldrs/b_views/x_screens/j_chains/a_no_need_no_more_isa/delete_when_done/cc_specs_pickers_screen_view.dart';
+// import 'package:bldrs/b_views/x_screens/j_chains/a_no_need_no_more_isa/delete_when_done/specs_pickers_screen_view.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 // import 'package:bldrs/f_helpers/router/navigators.dart';

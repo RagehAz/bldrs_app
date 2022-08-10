@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
@@ -356,8 +355,6 @@ Future<void> onAddSpecsTap({
     pluralTranslation: false,
   );
 
-  final List<SpecPicker> _pickers = SpecPicker.getPickersByFlyerType(draft.value.flyerType);
-
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: ChainsScreen(
@@ -365,7 +362,7 @@ Future<void> onAddSpecsTap({
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
-        specsPickers: _pickers,
+        flyerTypeChainFilter: draft.value.flyerType,
       )
   );
 

@@ -18,6 +18,7 @@ class PhidButton extends StatelessWidget {
     this.isDisabled = false,
     this.xIsOn = false,
     this.margins,
+    this.searchText,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class PhidButton extends StatelessWidget {
   final bool isDisabled;
   final bool xIsOn;
   final dynamic margins;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -84,6 +86,7 @@ class PhidButton extends StatelessWidget {
     return ChainButtonBox(
       key: const ValueKey<String>('PhidButton'),
       boxWidth: width,
+
       child: DreamBox(
         height: getHeight(),
         width: width,
@@ -100,6 +103,8 @@ class PhidButton extends StatelessWidget {
         verseShadow: false,
         verseItalic: true,
         onTap: onTap,
+        verseHighlight: searchText,
+        verseHighlightColor: Colorz.bloodTest,
       ),
     );
 

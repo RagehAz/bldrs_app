@@ -1,11 +1,13 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -15,6 +17,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+
 // -----------------------------------------------------------------------------
 
 /// BUILDING THE CHAINS
@@ -81,8 +84,8 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   final dynamic result = await Nav.goToNewScreen(
     context: context,
     transitionType: PageTransitionType.leftToRight,
-    screen: ChainsScreen(
-      specsPickers: SpecPicker.createPickersFromAllChainKs(),
+    screen: const ChainsScreen(
+      flyerTypeChainFilter: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
       pageTitle: 'Select Flyer keyword',
@@ -184,44 +187,50 @@ Future<void> _setActivePhidK({
 /// SELECTION
 
 // --------------------------------
-Future<void> onSelectPhid({
+Future<void> onSpecPickerTap({
   @required BuildContext context,
-  @required String phid,
-  @required bool inSelectionMode,
+  @required SpecPicker picker,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required bool onlyUseCityChains,
+  @required bool isMultipleSelectionMode,
+  @required ValueNotifier<List<SpecPicker>> refinedSpecsPickers,
+  @required List<SpecPicker> allSpecPickers,
 }) async {
 
-  blog('selected phid is : $phid : inSelectionMode : $inSelectionMode');
-
-
-}
-// -----------------------------------------------------------------------------
-
-/// NAVIGATION
-
-// --------------------------------
-/*
-Future<void> goToKeywordsScreen({
-  @required BuildContext context,
-  @required SpecPicker specPicker,
-  @required bool isSelectingActivePhidK,
-}) async {
-  final String _phid = await Nav.goToNewScreen(
+  final dynamic _result = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: SpecPickerScreen(
-      specPicker: specPicker,
-      showInstructions: false,
-      isMultipleSelectionMode: false,
+      specPicker: picker,
+      selectedSpecs: selectedSpecs,
+      onlyUseCityChains: onlyUseCityChains,
+      showInstructions: isMultipleSelectionMode,
+      isMultipleSelectionMode:  isMultipleSelectionMode,
     ),
   );
 
-  if (_phid != null) {
-    if (isSelectingActivePhidK == true) {
-      await setActivePhidK(
+  if (_result != null){
+
+    /// WHILE SELECTING MULTIPLE PHIDS
+    if (isMultipleSelectionMode == true){
+
+      updateSpecsPickersAndGroups(
         context: context,
-        phidK: _phid,
+        specPicker: picker,
+        selectedSpecs: selectedSpecs,
+        refinedPickers: refinedSpecsPickers,
+        sourceSpecPickers: allSpecPickers,
+        specPickerResult: _result,
       );
+
     }
+
+    /// WHILE SELECTING ONLY ONE PHID
+    else {
+      Nav.goBack(context, passedData: _result);
+    }
+
   }
+
 }
- */
+// -----------------------------------------------------------------------------

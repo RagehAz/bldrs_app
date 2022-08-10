@@ -322,7 +322,6 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
                     return ChainBuilder(
                       chain: _chain,
                       boxWidth: _screenWidth,
-                      deactivated: false,
                       firstHeadline: FlyerTyper.translateFlyerType(context: context, flyerType: _flyerType),
                       onPhidTap: (String phid) => _onSelectKeyword(phid),
                       selectedPhids: selectedIDs,

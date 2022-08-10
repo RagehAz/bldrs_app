@@ -12,9 +12,28 @@ import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 
-/// SPECS PICKERS SCREEN
+/// NAVIGATION
 
 // -----------------------------------
+void onGoBackFromSpecPickerScreen({
+  @required BuildContext context,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required String phid,
+  @required bool isMultipleSelectionMode,
+}) {
+
+  if (isMultipleSelectionMode == true){
+    Nav.goBack(context, passedData: selectedSpecs.value);
+  }
+
+  else {
+    Nav.goBack(context, passedData: phid);
+  }
+
+}
+
+
+
 /*
 Future<void> onSpecPickerTap({
   @required BuildContext context,
@@ -161,7 +180,36 @@ void onRemoveSpecs({
 /// SPEC PICKER SCREEN
 
 // -----------------------------------
-Future<void> onSelectSpec({
+Future<void> onSelectPhid({
+  @required BuildContext context,
+  @required String phid,
+  @required bool isMultipleSelectionMode,
+  @required SpecPicker specPicker,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) async {
+
+  if (isMultipleSelectionMode == true){
+    await updateSelectedSpecsAtPhidSelection(
+      context: context,
+      phid: phid,
+      picker: specPicker,
+      selectedSpecs: selectedSpecs,
+    );
+  }
+
+  else {
+    onGoBackFromSpecPickerScreen(
+      context: context,
+      phid: phid,
+      isMultipleSelectionMode: isMultipleSelectionMode,
+      selectedSpecs: selectedSpecs,
+    );
+  }
+
+}
+
+
+Future<void> updateSelectedSpecsAtPhidSelection({
   @required BuildContext context,
   @required String phid,
   @required SpecPicker picker,
@@ -326,13 +374,6 @@ void onAddDouble({
   );
 
   selectedSpecs.value = _updatedList;
-}
-// -----------------------------------
-void onGoBackToSpecsPickersScreen({
-  @required BuildContext context,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) {
-  Nav.goBack(context, passedData: selectedSpecs.value);
 }
 // -----------------------------------------------------------------------------
 

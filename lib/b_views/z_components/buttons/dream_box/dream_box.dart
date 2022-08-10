@@ -57,6 +57,8 @@ class DreamBox extends StatelessWidget {
     this.loading = false,
     this.iconBackgroundColor,
     this.onDeactivatedTap,
+    this.verseHighlight,
+    this.verseHighlightColor,
     Key key,
   }) : super(key: key);
 
@@ -104,6 +106,8 @@ class DreamBox extends StatelessWidget {
   final bool loading;
   final Color iconBackgroundColor;
   final Function onDeactivatedTap;
+  final ValueNotifier<String> verseHighlight;
+  final Color verseHighlightColor;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
     bool blackAndWhite = false,
@@ -316,6 +320,8 @@ class DreamBox extends StatelessWidget {
             secondLineColor: secondLineColor,
             centered: verseCentered,
             backgroundColor: iconBackgroundColor,
+            highlight: verseHighlight,
+            highlightColor: verseHighlightColor,
           ),
 
           /// --- BOX HIGHLIGHT
