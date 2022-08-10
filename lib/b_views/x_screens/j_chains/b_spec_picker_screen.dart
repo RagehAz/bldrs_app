@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/x_screens/j_chains/bb_spec_picker_screen_view.dart
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +41,7 @@ class SpecPickerScreen extends StatelessWidget {
       skyType: SkyType.black,
       sectionButtonIsOn: false,
       zoneButtonIsOn: false,
-      pageTitle: superPhrase(context, specPicker.chainID),
+      pageTitle: xPhrase(context, specPicker.chainID),
       pyramidsAreOn: true,
       onBack: () => onGoBackFromSpecPickerScreen(
         context: context,

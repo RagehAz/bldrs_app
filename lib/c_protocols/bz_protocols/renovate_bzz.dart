@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 class RenovateBzProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateBzProtocols();
+  const RenovateBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<BzModel> renovateBz({

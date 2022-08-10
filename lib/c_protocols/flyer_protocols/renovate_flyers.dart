@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class RenovateFlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateFlyerProtocols();
+  const RenovateFlyerProtocols();
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT

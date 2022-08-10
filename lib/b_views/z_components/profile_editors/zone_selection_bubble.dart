@@ -8,8 +8,8 @@ import 'package:bldrs/b_views/x_screens/h_zoning/c_new_select_district_screen.da
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -336,7 +336,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(
-                      title: superPhrase(context, 'phid_country'),
+                      title: xPhrase(context, 'phid_country'),
                       icon: _countryFlag,
                       verse: zone.countryName,
                       onTap: () => _onCountryButtonTap(context: context),

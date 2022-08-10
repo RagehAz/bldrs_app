@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -198,7 +199,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                     (index){
 
                       final String _unitID = _units[index];
-                      final String _unitName = superPhrase(context, _unitID, providerOverride: pro);
+                      final String _unitName = xPhrase(context, _unitID, phrasePro: pro);
 
                       return BottomDialog.wideButton(
                         context: context,
@@ -260,7 +261,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
         withCounter: false,
     );
 
-    final String _hintText = superPhrase(context, widget.specPicker.chainID);
+    final String _hintText = xPhrase(context, widget.specPicker.chainID);
 
     return Bubble(
       title: 'Add ...',
@@ -306,7 +307,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                     width: _buttonWidth,
                     height: _buttonHeight,
                     // color: Colorz.bloodTest,
-                    verse: superPhrase(context, selectedUnitID),
+                    verse: xPhrase(context, selectedUnitID),
                     verseScaleFactor: 0.7,
                     verseMaxLines: 2,
                     onTap: _onUnitSelectorTap,

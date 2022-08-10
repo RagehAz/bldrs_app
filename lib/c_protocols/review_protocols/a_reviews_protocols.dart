@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class ReviewProtocols {
 // -----------------------------------------------------------------------------
 
-  ReviewProtocols();
+  const ReviewProtocols();
 
 // -----------------------------------------------------------------------------
 

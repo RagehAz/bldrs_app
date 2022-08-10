@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class RenovateZoneProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateZoneProtocols();
+  const RenovateZoneProtocols();
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT

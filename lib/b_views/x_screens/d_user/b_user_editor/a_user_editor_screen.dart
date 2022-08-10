@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/aa_user_editor_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -214,7 +214,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitle: superPhrase(context, 'phid_updateProfile'),
+      pageTitle: xPhrase(context, 'phid_updateProfile'),
       loading: _loading,
       layoutWidget: UserEditorScreenView(
         loading: _loading,

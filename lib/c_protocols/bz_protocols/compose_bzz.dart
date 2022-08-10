@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 class ComposeBzProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeBzProtocols();
+  const ComposeBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<void> compose({

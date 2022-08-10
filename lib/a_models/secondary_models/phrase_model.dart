@@ -271,7 +271,7 @@ class Phrase {
     return _phrases;
   }
 // -------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMixedLangPhrases({
     @required List<Phrase> phrases,
     bool includeTrigrams = true,
@@ -420,6 +420,7 @@ class Phrase {
     return _phrase;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> getPhrasesByLangFromPhrases({
     @required List<Phrase> phrases,
     @required String langCode,
@@ -649,6 +650,7 @@ class Phrase {
   /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool phrasesIncludeIdenticalPhrase({
     @required List<Phrase> phrases,
     @required Phrase firstPhrase,
@@ -877,6 +879,7 @@ class Phrase {
   /// MODIFIERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
     @required Phrase phrase,
@@ -943,6 +946,7 @@ class Phrase {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrases({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -973,6 +977,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1005,6 +1010,7 @@ class Phrase {
     return cleanIdenticalPhrases(_output);
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _addLangCodeToPhrases({
     @required String langCode,
     @required List<Phrase> phrases,
@@ -1030,7 +1036,8 @@ class Phrase {
 
     return _output;
   }
-
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
     @required List<Phrase> insertIn,
     @required List<Phrase> phrasesToInsert,
@@ -1067,6 +1074,7 @@ class Phrase {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> cleanIdenticalPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
 

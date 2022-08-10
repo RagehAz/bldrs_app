@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 enum FlyerType {
@@ -332,27 +332,27 @@ String getSectionIcon({
     /// PLURAL
     if (pluralTranslation == true){
       return
-        flyerType == FlyerType.all         ? superPhrase(context, 'phid_all_flyer_types') :
-        flyerType == FlyerType.property    ? superPhrase(context, 'phid_properties')    :
-        flyerType == FlyerType.design      ? superPhrase(context, 'phid_designs')    :
-        flyerType == FlyerType.product     ? superPhrase(context, 'phid_products')    :
-        flyerType == FlyerType.project     ? superPhrase(context, 'phid_projects')    :
-        flyerType == FlyerType.equipment   ? superPhrase(context, 'phid_equipments')    :
-        flyerType == FlyerType.craft       ? superPhrase(context, 'phid_crafts')    :
-        superPhrase(context, 'phid_general');
+        flyerType == FlyerType.all         ? xPhrase(context, 'phid_all_flyer_types') :
+        flyerType == FlyerType.property    ? xPhrase(context, 'phid_properties')    :
+        flyerType == FlyerType.design      ? xPhrase(context, 'phid_designs')    :
+        flyerType == FlyerType.product     ? xPhrase(context, 'phid_products')    :
+        flyerType == FlyerType.project     ? xPhrase(context, 'phid_projects')    :
+        flyerType == FlyerType.equipment   ? xPhrase(context, 'phid_equipments')    :
+        flyerType == FlyerType.craft       ? xPhrase(context, 'phid_crafts')    :
+        xPhrase(context, 'phid_general');
     }
 
     /// SINGLE
     else {
       return
-        flyerType == FlyerType.all              ? superPhrase(context, 'phid_all_flyer_types') :
-        flyerType == FlyerType.property         ? superPhrase(context, 'phid_propertyFlyer')    :
-        flyerType == FlyerType.design           ? superPhrase(context, 'phid_designFlyer')    :
-        flyerType == FlyerType.product          ? superPhrase(context, 'phid_productFlyer')    :
-        flyerType == FlyerType.project          ? superPhrase(context, 'phid_projectFlyer')    :
-        flyerType == FlyerType.equipment        ? superPhrase(context, 'phid_equipmentFlyer')    :
-        flyerType == FlyerType.craft            ? superPhrase(context, 'phid_craftFlyer')    :
-        superPhrase(context, 'phid_general');
+        flyerType == FlyerType.all              ? xPhrase(context, 'phid_all_flyer_types') :
+        flyerType == FlyerType.property         ? xPhrase(context, 'phid_propertyFlyer')    :
+        flyerType == FlyerType.design           ? xPhrase(context, 'phid_designFlyer')    :
+        flyerType == FlyerType.product          ? xPhrase(context, 'phid_productFlyer')    :
+        flyerType == FlyerType.project          ? xPhrase(context, 'phid_projectFlyer')    :
+        flyerType == FlyerType.equipment        ? xPhrase(context, 'phid_equipmentFlyer')    :
+        flyerType == FlyerType.craft            ? xPhrase(context, 'phid_craftFlyer')    :
+        xPhrase(context, 'phid_general');
     }
 
   }

@@ -26,6 +26,7 @@ class ExpandingTile extends StatefulWidget {
     this.corners,
     this.isDisabled = false,
     this.margin,
+    this.searchText,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,6 +46,7 @@ class ExpandingTile extends StatefulWidget {
   final Widget child;
   final bool isDisabled;
   final EdgeInsets margin;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;
@@ -184,13 +186,12 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
   }
 // -----------------------------------------------------------------------------
-
   @override
   void dispose() {
     blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
-    // _controller.dispose();
-    // _isExpanded.dispose();
-    // _easeInAnimation.dispose();
+    _controller.dispose();
+    _easeInAnimation.dispose();
+    _isExpanded.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -247,7 +248,6 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     //--------------------------------o
@@ -300,6 +300,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
             toggleExpansion: toggle,
             expandableHeightFactorAnimationValue: _easeInAnimation.value,
             iconCorners: ExpandingTile.cornersValue,
+            searchText: widget.searchText,
             child: child,
           );
         },

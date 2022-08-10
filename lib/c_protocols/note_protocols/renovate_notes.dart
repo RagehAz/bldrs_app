@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class RenovateNoteProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateNoteProtocols();
+  const RenovateNoteProtocols();
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT

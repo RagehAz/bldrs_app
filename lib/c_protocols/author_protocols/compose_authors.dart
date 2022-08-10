@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 class ComposeAuthorProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeAuthorProtocols();
+  const ComposeAuthorProtocols();
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

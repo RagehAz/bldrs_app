@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
@@ -41,7 +41,7 @@ class UserBanner extends StatelessWidget {
       _string = _title;
     }
     else if (_title != null && _company != null){
-      _string = '$_title ${superPhrase(context, 'phid_at')} $_company';
+      _string = '$_title ${xPhrase(context, 'phid_at')} $_company';
     }
     else {
       _string = null;
@@ -88,7 +88,7 @@ class UserBanner extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final bool _thereAreMissingFields = UserModel.checkMissingFields(userModel);
-    final String _userName = userModel?.name ?? superPhrase(context, 'phid_unknown_bldr');
+    final String _userName = userModel?.name ?? xPhrase(context, 'phid_unknown_bldr');
 
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);

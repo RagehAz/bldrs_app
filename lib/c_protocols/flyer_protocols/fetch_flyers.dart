@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class FetchFlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  FetchFlyerProtocols();
+  const FetchFlyerProtocols();
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
