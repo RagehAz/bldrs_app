@@ -12,7 +12,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:email_validator/email_validator.dart';
@@ -322,7 +322,7 @@ bool _prepareForEmailAuthOps({
   );
 
   /// B - MINIMIZE KEYBOARD
-  Keyboarders.closeKeyboard(context);
+  Keyboard.closeKeyboard(context);
 
   /// C - CHECK VALIDITY
   final bool _allFieldsAreValid = formKey.currentState.validate();

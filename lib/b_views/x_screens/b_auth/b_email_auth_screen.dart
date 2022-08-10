@@ -74,7 +74,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 //   bool _canSignIn = true;
   Future<void> _onSignin() async {
 
-    closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     if (
     mounted == true
@@ -96,7 +96,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 //   bool _canSignUp = true;
   Future<void> _onSignup() async {
 
-    closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     if (
     mounted == true

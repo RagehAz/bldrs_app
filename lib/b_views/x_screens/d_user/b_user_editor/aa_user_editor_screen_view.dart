@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +66,7 @@ class UserEditorScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+    final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
 
     return Form(
       key: formKey,

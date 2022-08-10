@@ -205,7 +205,7 @@ class _StopWatchBarState extends State<StopWatchBar> {
                         final StopWatchRecord record = records[index];
 
                         final String _verse = '${index + 1} : ${record.displayTime}';
-                        final String _highlighted = removeTextBeforeLastSpecialCharacter(_verse, ': ');
+                        final String _highlighted = TextMod.removeTextBeforeLastSpecialCharacter(_verse, ': ');
 
                         return SuperVerse(
                           verse: _verse,

@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class BzLogo extends StatelessWidget {
               boxShadow: shadowIsOn == false ? null
                   :
               <BoxShadow>[
-                Shadowz.CustomBoxShadow(
+                CustomBoxShadow(
                     color: Colorz.black200,
                     blurRadius: width * 0.15,
                     style: BlurStyle.outer

@@ -3,7 +3,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -51,7 +51,7 @@ class FollowBT extends StatelessWidget {
             width: followBTWidth,
             decoration: BoxDecoration(
               color: followBTColor,
-              boxShadow: Shadowz.superFollowBtShadow(followBTHeight),
+              boxShadow: Shadower.superFollowBtShadow(followBTHeight),
               borderRadius: Borderers.superFollowOrCallCorners(
                   context: context,
                   flyerBoxWidth: flyerBoxWidth,

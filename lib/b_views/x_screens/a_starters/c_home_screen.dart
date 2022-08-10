@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     blog('Keyboard visibility direct query: ${keyboardVisibilityController.isVisible}');
 
     /// Subscribe
-    _keyboardSubscription = initializeKeyboardListener(
+    _keyboardSubscription = Keyboard.initializeKeyboardListener(
       context: context,
       controller: keyboardVisibilityController,
     );

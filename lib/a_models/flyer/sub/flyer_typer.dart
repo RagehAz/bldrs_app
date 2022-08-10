@@ -3,6 +3,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 
 // -----------------------------------------------------------------------------
 enum FlyerType {
@@ -424,5 +425,24 @@ String getSectionIcon({
 
     return _translation;
   }
+// -------------------------------------
+  static String translateFlyerTypeDescription({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+  }){
+
+    final String _description =
+    flyerType == FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
+    flyerType == FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
+    flyerType == FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
+    flyerType == FlyerType.craft ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+    flyerType == FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
+    flyerType == FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
+
+    Wordz.bldrsShortName(context);
+
+    return _description;
+  }
+
 // -----------------------------------------------------------------------------
 }

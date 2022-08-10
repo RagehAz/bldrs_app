@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -103,7 +103,7 @@ class ChainEditorPage extends StatelessWidget {
                       // verseWeight: VerseWeight.thin,
                       color: Colorz.yellow255,
                       margins: 0,
-                      onTap: () => Keyboarders.copyToClipboard(context: context, copy: textController.text),
+                      onTap: () => Keyboard.copyToClipboard(context: context, copy: textController.text),
                     ),
 
 
@@ -121,7 +121,7 @@ class ChainEditorPage extends StatelessWidget {
                   width: _clearWidth,
                   withHeadline: true,
                   color: Colorz.black255,
-                  onTap: () => Keyboarders.copyToClipboard(
+                  onTap: () => Keyboard.copyToClipboard(
                     context: context,
                     copy: _phraseName,
                   ),
@@ -136,7 +136,7 @@ class ChainEditorPage extends StatelessWidget {
                 withHeadline: true,
                 color: Colorz.black255,
                 highlightText: ValueNotifier<String>(_phid),
-                onTap: () => Keyboarders.copyToClipboard(
+                onTap: () => Keyboard.copyToClipboard(
                   context: context,
                   copy: _path,
                 ),

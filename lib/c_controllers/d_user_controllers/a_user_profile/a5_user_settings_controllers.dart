@@ -202,7 +202,7 @@ Future<bool> _userPasswordCheckups(BuildContext context) async {
         userModel: _userModel,
       );
 
-      closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
 
       /// NO PASSWORD PROVIDED
       if (_passwordIsCorrect == null){

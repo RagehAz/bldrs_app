@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class ValueBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Keyboarders.copyToClipboard(
+      onTap: () => Keyboard.copyToClipboard(
         context: context,
         copy: value,
       ),

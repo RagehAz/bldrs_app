@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -87,7 +87,7 @@ class TranslationsCreatorPage extends StatelessWidget {
             textDirection: TextDirection.ltr,
           ),
 
-          if (Keyboarders.keyboardIsOn(context) == true)
+          if (Keyboard.keyboardIsOn(context) == true)
             const Horizon(
               heightFactor: 3,
             ),

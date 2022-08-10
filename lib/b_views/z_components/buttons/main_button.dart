@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +66,7 @@ class MainButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(_buttonCorner),
             boxShadow: <BoxShadow>[
-              Shadowz.CustomBoxShadow(
+              CustomBoxShadow(
                   color: Colorz.black230,
                   blurRadius: _buttonZoneHeight * 0.09,
                   style: BlurStyle.outer),
@@ -120,11 +120,12 @@ class MainButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(_buttonCorner -
                         (_buttonHeight - (_buttonHeight * 0.22))),
                     boxShadow: <BoxShadow>[
-                      Shadowz.CustomBoxShadow(
+                      CustomBoxShadow(
                           color: Colorz.white50,
                           offset: Offset(0, _buttonHeight * -0.23),
                           blurRadius: _buttonHeight * 0.18),
-                    ]),
+                    ]
+                ),
               ),
 
               /// BUTTON GRADIENT

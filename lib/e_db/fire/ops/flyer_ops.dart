@@ -21,7 +21,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -185,7 +185,7 @@ class FlyerFireOps {
 
     blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
-    final List<String> _updatedBzFlyersIDs = addStringToListIfDoesNotContainIt(
+    final List<String> _updatedBzFlyersIDs = TextMod.addStringToListIfDoesNotContainIt(
       strings: bzModel.flyersIDs,
       stringToAdd: newFlyerToAdd.id,
     );

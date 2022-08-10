@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_icon.dart
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -173,7 +173,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // ---------------------------------------------------------
-    final TextDirection _textDirection = textDirection ?? textDirectionAsPerAppDirection(context);
+    final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
 // ---------------------------------------------------------
 //     final double _svgGraphicWidth = height * iconSizeFactor;
     final double _jpgGraphicWidth = height * iconSizeFactor;

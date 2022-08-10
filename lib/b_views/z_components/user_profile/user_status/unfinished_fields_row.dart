@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -61,10 +61,11 @@ class FieldsRow extends StatelessWidget {
                   color: Colorz.white10,
                   borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                   boxShadow: const <BoxShadow>[
-                    Shadowz.CustomBoxShadow(
+                    CustomBoxShadow(
                         color: Colorz.black200,
                         blurRadius: _boxHeight * 0.15,
-                        style: BlurStyle.outer),
+                        style: BlurStyle.outer,
+                    ),
                   ]),
               child: Padding(
                 padding: const EdgeInsets.all(_buttonSpacing),
