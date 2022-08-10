@@ -134,7 +134,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     _selectedPath.value = path;
     _textController.text = ChainPathConverter.getLastPathNode(path);
 
-    await slideToNext(
+    await Sliders.slideToNext(
         pageController: _pageController,
         numberOfSlides: 2,
         currentSlide: 0

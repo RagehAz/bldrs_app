@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -301,7 +301,7 @@ Future<void> onSlideTap({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }) async {
 
-  Keyboarders.closeKeyboard(context);
+  Keyboard.closeKeyboard(context);
 
   final MutableSlide _result = await Nav.goToNewScreen(
       context: context,

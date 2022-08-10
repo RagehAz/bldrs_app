@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class StaticProgressBar extends StatelessWidget {
   final double flyerBoxWidth;
   // final DraftFlyerModel draft;
   final bool loading;
-  final Sliders.SwipeDirection swipeDirection;
+  final SwipeDirection swipeDirection;
   final EdgeInsets margins;
   final double shrinkThickness;
   /// --------------------------------------------------------------------------

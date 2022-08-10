@@ -13,7 +13,6 @@ class CustomBoxShadow extends BoxShadow {
 
   /// --------------------------------------------------------------------------
   final BlurStyle style;
-
   /// --------------------------------------------------------------------------
   @override
   Paint toPaint() {
@@ -32,52 +31,72 @@ class CustomBoxShadow extends BoxShadow {
   }
 }
 // -----------------------------------------------------------------------------
-List<BoxShadow> superFollowBtShadow(double btHeight) {
-  // List<BoxShadow> _btShadow = <BoxShadow>[
-  //   CustomBoxShadow(
-  //       color: Colorz.Black125,
-  //       offset: new Offset(0, 0),
-  //       blurRadius: btHeight * 0.1,
-  //       blurStyle: BlurStyle.outer),
-  //   CustomBoxShadow(
-  //       color: Colorz.White80,
-  //       offset: new Offset(0, 0),
-  //       blurRadius: btHeight * 0.1,
-  //       blurStyle: BlurStyle.outer),
-  // ];
-  // return _btShadow;
-  /// TASK : optimize shadows
-  return null;
-}
+class Shadower {
 // -----------------------------------------------------------------------------
-const BoxShadow basicOuterShadow = CustomBoxShadow(
-    color: Colorz.black200,
-    blurRadius: 10,
-    style: BlurStyle.outer
-);
-// -----------------------------------------------------------------------------
-const List<BoxShadow> appBarShadow = <BoxShadow>[
-  basicOuterShadow,
-];
-// -----------------------------------------------------------------------------
-List<BoxShadow> flyerZoneShadow(double flyerBoxWidth) {
-  final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
-    CustomBoxShadow(
-        color: Colorz.black230,
-        blurRadius: flyerBoxWidth * 0.055,
-        style: BlurStyle.outer),
-  ];
 
-  return _flyerZoneShadow;
-}
+  const Shadower();
+
 // -----------------------------------------------------------------------------
-List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
-  final List<BoxShadow> _shadows = <BoxShadow>[
-    CustomBoxShadow(
-        color: Colorz.black200,
-        blurRadius: flyerBoxWidth * 0.1,
-        style: BlurStyle.outer),
+
+  /// CONSTANTS
+
+// -------------------------------------
+  static const BoxShadow basicOuterShadow = CustomBoxShadow(
+      color: Colorz.black200,
+      blurRadius: 10,
+      style: BlurStyle.outer
+  );
+// -------------------------------------
+  static const List<BoxShadow> appBarShadow = <BoxShadow>[
+    basicOuterShadow,
   ];
-  return _shadows;
+// -----------------------------------------------------------------------------
+
+  /// FLYER SHADOWS
+
+// -------------------------------------
+  static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth) {
+    final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
+      CustomBoxShadow(
+          color: Colorz.black230,
+          blurRadius: flyerBoxWidth * 0.055,
+          style: BlurStyle.outer),
+    ];
+
+    return _flyerZoneShadow;
+  }
+// -------------------------------------
+  static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
+    final List<BoxShadow> _shadows = <BoxShadow>[
+      CustomBoxShadow(
+          color: Colorz.black200,
+          blurRadius: flyerBoxWidth * 0.1,
+          style: BlurStyle.outer),
+    ];
+    return _shadows;
+  }
+// -----------------------------------------------------------------------------
+
+/// FOLLOW BUTTON SHADOW
+
+// -------------------------------------
+  static List<BoxShadow> superFollowBtShadow(double btHeight) {
+    // List<BoxShadow> _btShadow = <BoxShadow>[
+    //   CustomBoxShadow(
+    //       color: Colorz.Black125,
+    //       offset: new Offset(0, 0),
+    //       blurRadius: btHeight * 0.1,
+    //       blurStyle: BlurStyle.outer),
+    //   CustomBoxShadow(
+    //       color: Colorz.White80,
+    //       offset: new Offset(0, 0),
+    //       blurRadius: btHeight * 0.1,
+    //       blurStyle: BlurStyle.outer),
+    // ];
+    // return _btShadow;
+    /// TASK : optimize shadows
+    return null;
+  }
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

@@ -37,7 +37,7 @@ Future<void> onSubmitReview({
   );
 
   textController.text = '';
-  closeKeyboard(context);
+  Keyboard.closeKeyboard(context);
 
   addMap.value = _uploadedReview.toMap(includeID: true, includeDocSnapshot: true);
 

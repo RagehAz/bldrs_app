@@ -185,7 +185,7 @@ Future<String> showPasswordDialog(BuildContext context) async {
     onOk: () async {
 
       CenterDialog.closeCenterDialog(context);
-      closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
 
     },
     child: PasswordBubbles(

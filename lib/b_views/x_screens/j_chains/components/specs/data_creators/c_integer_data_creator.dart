@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -181,7 +181,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // -----------------------------------------------------------------------------
   Future<void> _onUnitSelectorTap() async {
 
-    Keyboarders.closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     if (Chain.checkSonsAreStrings(_unitChain.sons) == true){
 
@@ -232,7 +232,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // -----------------------------------------------------------------------------
   Future<void> _onKeyboardSubmitted(String val) async {
     _onTextChanged(val);
-    Keyboarders.closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
     // await null;
 
     await Future<void>.delayed(Ratioz.durationSliding400,

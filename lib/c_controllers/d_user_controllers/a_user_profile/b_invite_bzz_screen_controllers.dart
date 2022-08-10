@@ -4,7 +4,7 @@ import 'dart:async';
 // import 'package:bldrs/d_providers/ui_provider.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';
 // import 'package:bldrs/f_helpers/contacts_service/contacts_service.dart';
-// import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+// import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';

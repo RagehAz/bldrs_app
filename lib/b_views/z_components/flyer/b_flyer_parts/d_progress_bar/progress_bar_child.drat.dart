@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/loading_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/strips.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBarChild extends StatelessWidget {
@@ -17,7 +17,7 @@ class ProgressBarChild extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final int numberOfSlides;
-  final ValueNotifier<Sliders.SwipeDirection> swipeDirection; /// p
+  final ValueNotifier<SwipeDirection> swipeDirection; /// p
   final ValueNotifier<int> currentSlideIndex; /// p
   final bool tinyMode;
   final bool loading;

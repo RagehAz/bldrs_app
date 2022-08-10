@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart' as PhraseOps;
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -111,7 +111,7 @@ Future<void> onPasteText(TextEditingController controller) async {
 }
 // -----------------------------
 Future<void> onCopyText(BuildContext context, String value) async {
-  await Keyboarders.copyToClipboard(
+  await Keyboard.copyToClipboard(
     context: context,
     copy: value,
   );
@@ -445,7 +445,7 @@ Future<void> onEditPhrase({
   arTextController.text = _arPhrase.value;
   idTextController.text = _enPhrase.id;
 
-  await slideToNext(
+  await Sliders.slideToNext(
       pageController: pageController,
       numberOfSlides: 2,
       currentSlide: 0,

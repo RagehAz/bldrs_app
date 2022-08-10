@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +98,7 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
   Future<void> _onDistrictTap(String districtID) async {
 
     if (mounted == true){
-      closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
     }
 
     final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(

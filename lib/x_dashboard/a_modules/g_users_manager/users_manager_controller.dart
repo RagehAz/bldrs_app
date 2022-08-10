@@ -85,7 +85,7 @@ Future<void> onSelectUser({
     userModel: userModel,
   );
 
-  await slideToNext(
+  await Sliders.slideToNext(
     pageController: pageController,
     numberOfSlides: 2,
     currentSlide: 0,
@@ -226,7 +226,7 @@ Future<void> onDeleteUser({
           /// CLOSE WAITING
           WaitDialog.closeWaitDialog(context);
 
-          await slideToBackFrom(
+          await Sliders.slideToBackFrom(
             pageController: pageController,
             currentSlide: 1,
           );

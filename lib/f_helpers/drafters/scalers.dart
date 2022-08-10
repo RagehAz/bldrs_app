@@ -1,11 +1,11 @@
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class Scale {
 // -----------------------------------------------------------------------------
 
-  Scale();
+  const Scale();
 
 // -----------------------------------------------------------------
 
@@ -55,7 +55,7 @@ class Scale {
     double top = 0,
   }) {
 
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     EdgeInsets.only(
         bottom: bottom,
         left: enLeft,
@@ -79,7 +79,7 @@ class Scale {
     double top = 0,
     double bottom = 0,
   }) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     EdgeInsets.only(
         left: enLeft,
         right: enRight,

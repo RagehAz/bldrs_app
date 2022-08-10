@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/header_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/slides_controllers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -213,7 +213,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   /// HEADER PAGE OPACITY
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0); /// tamam disposed
   /// SWIPE DIRECTION
-  final ValueNotifier<Sliders.SwipeDirection> _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next); /// tamam disposed
+  final ValueNotifier<SwipeDirection> _swipeDirection = ValueNotifier(SwipeDirection.next); /// tamam disposed
 // -----------------------------------------------------------------------------
   ValueNotifier<BzCounterModel> _bzCounters;
 // -----------------------------------------------------------------------------

@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -221,7 +221,7 @@ class BldrsAppBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colorz.black230,
         borderRadius: BorderRadius.all(Radius.circular(Ratioz.appBarCorner)),
-        boxShadow: Shadowz.appBarShadow,
+        boxShadow: Shadower.appBarShadow,
       ),
       child: Stack(
         alignment: Aligners.superCenterAlignment(context),

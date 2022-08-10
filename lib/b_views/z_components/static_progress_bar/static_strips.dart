@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class StaticStrips extends StatelessWidget {
   final int numberOfStrips;
   final int slideIndex;
   final EdgeInsets margins;
-  final Sliders.SwipeDirection swipeDirection;
+  final SwipeDirection swipeDirection;
   /// --------------------------------------------------------------------------
   static double boxWidth(double flyerBoxWidth) {
     return flyerBoxWidth;
@@ -113,24 +113,24 @@ class StaticStrips extends StatelessWidget {
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
     int _numberOfStrips;
-    final Sliders.SwipeDirection _swipeDirection = swipeDirection;
+    final SwipeDirection _swipeDirection = swipeDirection;
     // -----------------------------------------o
     /// A - at first slide
     if (slideIndex == 0) {
       /// B - FREEZING
-      if (_swipeDirection == Sliders.SwipeDirection.freeze) {
+      if (_swipeDirection == SwipeDirection.freeze) {
         // print('1 at first slide frozen');
         _numberOfStrips = 1;
       }
 
       /// B - GOING NEXT
-      else if (_swipeDirection == Sliders.SwipeDirection.next) {
+      else if (_swipeDirection == SwipeDirection.next) {
         // print('1 at first slide going next');
         _numberOfStrips = 1;
       }
 
       /// B - GOING PREVIOUS
-      else if (_swipeDirection == Sliders.SwipeDirection.back) {
+      else if (_swipeDirection == SwipeDirection.back) {
         // print('2 at first slide going previous');
         _numberOfStrips = 2;
       }
@@ -139,13 +139,13 @@ class StaticStrips extends StatelessWidget {
     /// A - at last slide
     else if (slideIndex + 1 == numberOfStrips) {
       /// B - FREEZING
-      if (_swipeDirection == Sliders.SwipeDirection.freeze) {
+      if (_swipeDirection == SwipeDirection.freeze) {
         // print('3- at last slide frozen');
         _numberOfStrips = numberOfStrips;
       }
 
       /// B - GOING NEXT
-      else if (_swipeDirection == Sliders.SwipeDirection.next) {
+      else if (_swipeDirection == SwipeDirection.next) {
         // print('3 at last slide going next');
         _numberOfStrips = numberOfStrips;
       }
@@ -161,13 +161,13 @@ class StaticStrips extends StatelessWidget {
     // -----------------------------------------o
     else {
       /// B - FREEZING
-      if (_swipeDirection == Sliders.SwipeDirection.freeze) {
+      if (_swipeDirection == SwipeDirection.freeze) {
         // print('5 at middle slide frozen');
         _numberOfStrips = slideIndex + 1;
       }
 
       /// B - GOING NEXT
-      else if (_swipeDirection == Sliders.SwipeDirection.next) {
+      else if (_swipeDirection == SwipeDirection.next) {
         // print('5 at middle slide going next');
         _numberOfStrips = slideIndex + 1;
       }
@@ -212,12 +212,12 @@ class StaticStrips extends StatelessWidget {
       Tween<double> _tween;
 
       /// NO TWEEN
-      if (swipeDirection == Sliders.SwipeDirection.freeze) {
+      if (swipeDirection == SwipeDirection.freeze) {
         _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
       }
 
       /// GOING NEXT
-      else if (swipeDirection == Sliders.SwipeDirection.next) {
+      else if (swipeDirection == SwipeDirection.next) {
         _tween = Tween<double>(begin: 0, end: _aStripLength);
       }
 
@@ -279,7 +279,7 @@ class StaticStrips extends StatelessWidget {
             key: ValueKey<int>(slideIndex),
             builder: (BuildContext context, double tweenVal, Widget child) {
 
-              final double _tweenVal = swipeDirection == Sliders.SwipeDirection.freeze ? _aStripLength : tweenVal;
+              final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
 
               // blog('_numberOfStrips : $_numberOfStrips');
 

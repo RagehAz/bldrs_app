@@ -29,16 +29,29 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    await fetchSetRefinedKeywordsChain(context: context, notify: false);
-    await _fetchSetSpecsChain(context: context, notify: notify);
+    await Future.wait(<Future>[
+
+      fetchSetRefinedKeywordsChain(
+        context: context,
+        notify: notify,
+      ),
+
+      _fetchSetSpecsChain(
+        context: context,
+        notify: notify,
+      ),
+
+    ]);
 
   }
 // -------------------------------------
   Future<void> reFetchSetAllChains(BuildContext context) async {
 
-    /// delete LDB chains
-    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain);
-    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain);
+    /// DELETE LDB CHAINS
+    await Future.wait(<Future>[
+      LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain),
+      LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain),
+    ]);
 
     _allKeywordsChain = null;
     _cityKeywordsChain = null;
@@ -66,8 +79,8 @@ class ChainsProvider extends ChangeNotifier {
   }) async {
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-        context: context,
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     _currentZone.blogZone(methodName: 'fetchSetCurrentCityChain');
@@ -75,8 +88,8 @@ class ChainsProvider extends ChangeNotifier {
     if (_currentZone != null){
 
       final CityChain _cityChain = await CityChainOps.readCityChain(
-          context: context,
-          cityID: _currentZone.cityID,
+        context: context,
+        cityID: _currentZone.cityID,
       );
 
       _cityChain?.blogCityChain(methodName: 'fetchSetCurrentCityChain');
@@ -188,20 +201,18 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-    void clearKeywordsChainAndTheirPhrases({
+  void clearKeywordsChainAndTheirPhrases({
     @required bool notify,
   }){
-      _cityKeywordsChain = null;
-      _allKeywordsChain = null;
-      _cityKeywordsChainPhrases = <Phrase>[];
-      _allKeywordsChainPhrases = <Phrase>[];
+    _cityKeywordsChain = null;
+    _allKeywordsChain = null;
+    _cityKeywordsChainPhrases = <Phrase>[];
+    _allKeywordsChainPhrases = <Phrase>[];
 
     if (notify == true){
       notifyListeners();
     }
   }
-
-
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   Chain getChainKByFlyerType({
@@ -301,8 +312,8 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     return getLocalAssetPath(
-        context: context,
-        assetName: _phid,
+      context: context,
+      assetName: _phid,
     );
 
   }
@@ -382,8 +393,8 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   void clearWallPhid({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setWallPhid(
       keywordID: null,
       notify: notify,
@@ -446,28 +457,19 @@ class ChainsProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
 }
 
-
-
 List<Chain> getAllChains({
   @required BuildContext context,
   @required bool getOnlyCityKeywordsChain,
 }){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
-      context: context,
-      onlyUseCityChains: getOnlyCityKeywordsChain,
-      listen: false,
+    context: context,
+    onlyUseCityChains: getOnlyCityKeywordsChain,
+    listen: false,
   );
   final Chain _specsChain = _chainsProvider.specsChain;
   return <Chain>[_keywordsChain, _specsChain];
 }
 
-String superIcon(BuildContext context, dynamic icon){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-  return _chainsProvider.getKeywordIcon(
-    context: context,
-    son: icon,
-  );
 // -----------------------------------------------------------------------------
-}

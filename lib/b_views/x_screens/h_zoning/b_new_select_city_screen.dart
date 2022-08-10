@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +136,7 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
   Future<void> _onCityTap(String cityID) async {
 
     if (mounted == true){
-      closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
     }
 
     final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
