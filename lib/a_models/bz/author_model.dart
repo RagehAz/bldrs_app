@@ -223,7 +223,7 @@ class AuthorModel {
 
       _ownersIDs.add(_creatorAuthor.userID);
 
-      _ownersIDs = addStringToListIfDoesNotContainIt(
+      _ownersIDs = TextMod.addStringToListIfDoesNotContainIt(
           strings: _ownersIDs,
           stringToAdd: authorModel.userID,
       );

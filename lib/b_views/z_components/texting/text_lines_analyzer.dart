@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
 
 class TextLinesAnalyzer extends StatelessWidget {
@@ -32,7 +32,7 @@ class TextLinesAnalyzer extends StatelessWidget {
         final TextPainter _textPainter = TextPainter(
           text: _span,
           maxLines: maxLines,
-          textDirection: superTextDirectionSwitcher(
+          textDirection: TextDir.superTextDirectionSwitcher(
             val: text,
             context: context,
           ),

@@ -5,11 +5,11 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
+import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -775,7 +775,7 @@ class BzModel{
     String _output = '$_bzTypesOneString\n$_bzFormString';
 
     /// ENGLISH
-    if (appIsLeftToRight(context) == false){
+    if (TextDir.appIsLeftToRight(context) == false){
 
       if (oneLine == true){
         _output = '$_bzFormString, $_bzTypesOneString';

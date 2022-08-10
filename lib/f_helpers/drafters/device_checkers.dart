@@ -3,8 +3,19 @@ import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
+class DeviceChecker {
 // -----------------------------------------------------------------------------
-  bool deviceIsIOS(){
+
+  const DeviceChecker();
+
+// -----------------------------------------------------------------------------
+
+  /// DEVICE OS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool deviceIsIOS(){
     bool _isIOS;
 
     if (Platform.isIOS == true){
@@ -17,8 +28,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 
     return _isIOS;
   }
-// -----------------------------------------------------------------------------
-  bool deviceIsAndroid(){
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool deviceIsAndroid(){
     bool _inAndroid;
 
     if (Platform.isAndroid == true){
@@ -32,7 +44,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
     return _inAndroid;
   }
 // -----------------------------------------------------------------------------
-  bool deviceIsLandscape(BuildContext context){
+
+  /// SCREEN DIRECTION
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool deviceIsLandscape(BuildContext context){
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
 
     bool _isLandscape;
@@ -48,10 +65,15 @@ import 'package:connectivity_plus/connectivity_plus.dart';
     return _isLandscape;
   }
 // -----------------------------------------------------------------------------
-  Future<bool> checkConnectivity({
+
+  /// CONNECTIVITY
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkConnectivity({
     @required BuildContext context,
     ConnectivityResult streamResult,
-}) async {
+  }) async {
 
     bool _connected = false;
     ConnectivityResult _result;
@@ -99,3 +121,4 @@ import 'package:connectivity_plus/connectivity_plus.dart';
     return _connected;
   }
 // -----------------------------------------------------------------------------
+}

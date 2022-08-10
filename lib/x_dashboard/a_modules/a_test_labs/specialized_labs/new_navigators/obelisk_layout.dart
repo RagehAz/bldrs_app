@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
@@ -66,7 +66,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   ValueNotifier<int> _tabIndex;
 // -------------------------------------
   /// SWIPE DIRECTION
-  ValueNotifier<Sliders.SwipeDirection> _swipeDirection; /// tamam disposed
+  ValueNotifier<SwipeDirection> _swipeDirection; /// tamam disposed
 // -------------------------------------
   void _initializeTabs(){
 
@@ -74,7 +74,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
       _isExpanded = ValueNotifier(widget.initiallyExpanded);
       _tabIndex = ValueNotifier(widget.initialIndex);
-      _swipeDirection = ValueNotifier(Sliders.SwipeDirection.next);
+      _swipeDirection = ValueNotifier(SwipeDirection.next);
 
       _tabController = TabController(
         vsync: this,

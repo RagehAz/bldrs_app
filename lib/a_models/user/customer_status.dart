@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
+import 'package:bldrs/f_helpers/drafters/atlas.dart';
 
 enum BldrPhase {
   searchingProperties,

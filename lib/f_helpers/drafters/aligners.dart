@@ -1,47 +1,49 @@
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
 
 class Aligners {
 // -----------------------------------------------------------------------------
 
-  Aligners();
-
+  const Aligners();
 
 // -----------------------------------------------------------------------------
   static Alignment superTopAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ? Alignment.topLeft : Alignment.topRight;
+    return TextDir.appIsLeftToRight(context) ?
+    Alignment.topLeft
+        :
+    Alignment.topRight;
   }
 // -----------------------------------------------------------------------------
   static Alignment superBottomAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     Alignment.bottomLeft
         :
     Alignment.bottomRight;
   }
 // -----------------------------------------------------------------------------
   static Alignment superCenterAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     Alignment.centerLeft
         :
     Alignment.centerRight;
   }
 // -----------------------------------------------------------------------------
   static Alignment superInverseCenterAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     Alignment.centerRight
         :
     Alignment.centerLeft;
   }
 // -----------------------------------------------------------------------------
   static Alignment superInverseTopAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     Alignment.topRight
         :
     Alignment.topLeft;
   }
 // -----------------------------------------------------------------------------
   static Alignment superInverseBottomAlignment(BuildContext context) {
-    return appIsLeftToRight(context) ?
+    return TextDir.appIsLeftToRight(context) ?
     Alignment.bottomRight
         :
     Alignment.bottomLeft;
@@ -52,7 +54,7 @@ class Aligners {
     double _rightOffset;
 
     /// when in English
-    if (appIsLeftToRight(context) == true) {
+    if (TextDir.appIsLeftToRight(context) == true) {
       /// right offset position should be programmatic
       _rightOffset = null;
     }
@@ -71,7 +73,7 @@ class Aligners {
     double _leftOffset;
 
     /// when in English
-    if (appIsLeftToRight(context) == true) {
+    if (TextDir.appIsLeftToRight(context) == true) {
       /// left offset position should have the offset value
       _leftOffset = offsetFromLeft;
     }

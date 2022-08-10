@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -135,7 +135,7 @@ class MainLayout extends StatelessWidget {
     // blog('wtf : _keyboardIsOn : $_keyboardIsOn');
 
     if (_keyboardIsOn == true){
-      Keyboarders.closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
     }
 
     else if (onBack != null){
@@ -164,7 +164,7 @@ class MainLayout extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
-          Keyboarders.closeKeyboard(context);
+          Keyboard.closeKeyboard(context);
 
         },
         child: SafeArea(

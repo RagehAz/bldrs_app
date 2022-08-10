@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -69,7 +69,7 @@ class EmailAuthScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _keyboardIsOn = Keyboarders.keyboardIsOn(context);
+    final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
     const double _buttonHeight = 50;
     const double _verseScaleFactor = 0.7;
 

@@ -1,153 +1,161 @@
 import 'dart:math' show cos, sqrt, asin, sin, pow;
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+class Atlas {
 // -----------------------------------------------------------------------------
 
-/// CYPHERS
+  const Atlas();
+
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
 
 // ----------------------------------------
-dynamic cipherGeoPoint({
-  @required GeoPoint point,
-  @required bool toJSON,
-}) {
+  static dynamic cipherGeoPoint({
+    @required GeoPoint point,
+    @required bool toJSON,
+  }) {
 
-  dynamic _output;
+    dynamic _output;
 
-  if (point != null) {
+    if (point != null) {
 
-    if (toJSON == true) {
-      final String lat = '${point.latitude}';
-      final String lng = '${point.longitude}';
-      _output = '${lat}_$lng';
+      if (toJSON == true) {
+        final String lat = '${point.latitude}';
+        final String lng = '${point.longitude}';
+        _output = '${lat}_$lng';
+      }
+
+      else {
+        _output = point;
+      }
+
     }
 
-    else {
-      _output = point;
-    }
-
+    return _output;
   }
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
-GeoPoint decipherGeoPoint({
-  @required dynamic point,
-  @required bool fromJSON,
-}) {
-  GeoPoint _output;
+  static GeoPoint decipherGeoPoint({
+    @required dynamic point,
+    @required bool fromJSON,
+  }) {
+    GeoPoint _output;
 
-  if (point != null) {
-    if (fromJSON == true) {
+    if (point != null) {
+      if (fromJSON == true) {
 
-      final String _latString = TextMod.removeTextAfterLastSpecialCharacter(point, '_');
-      final double _lat = Numeric.transformStringToDouble(_latString);
-      final String _lngString = TextMod.removeTextBeforeFirstSpecialCharacter(point, '_');
-      final double _lng = Numeric.transformStringToDouble(_lngString);
+        final String _latString = TextMod.removeTextAfterLastSpecialCharacter(point, '_');
+        final double _lat = Numeric.transformStringToDouble(_latString);
+        final String _lngString = TextMod.removeTextBeforeFirstSpecialCharacter(point, '_');
+        final double _lng = Numeric.transformStringToDouble(_lngString);
 
-      _output = GeoPoint(_lat, _lng);
+        _output = GeoPoint(_lat, _lng);
+      }
+
+      else {
+        _output = point;
+      }
+
     }
 
-    else {
-      _output = point;
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+// ----------------------------------------
+  static GeoPoint dummyLocation() {
+    return const GeoPoint(29.979174, 31.134264);
+  }
+// -----------------------------------------------------------------------------
+
+  /// HAVERSINE
+
+// ----------------------------------------
+  static double haversineGeoPoints({
+    @required GeoPoint pointA,
+    @required GeoPoint pointB,
+  }){
+
+    double _distance = 0;
+
+    if (pointA != null && pointB != null){
+
+      final double _latA = pointA.latitude;
+      final double _latB = pointB.latitude;
+
+      final double _lngA = pointA.longitude;
+      final double _lngB = pointB.longitude;
+
+      final double _dRadLat = Numeric.degreeToRadian(_latB - _latA);
+      final double _dRadLng = Numeric.degreeToRadian(_lngB - _lngA);
+
+      final double _radLatA = Numeric.degreeToRadian(_latA);
+      final double _radLatB = Numeric.degreeToRadian(_latB);
+
+      final double _a =
+          pow(sin(_dRadLat / 2), 2)
+              +
+              pow(sin(_dRadLng / 2), 2) * cos(_radLatA) * cos(_radLatB);
+
+      final double _c = 2 * asin(sqrt(_a));
+
+      /// EARTH RADIUS IN KM
+      const double _r = 6372.8; // In kilometers
+
+      _distance = _r * _c;
     }
 
+    return _distance;
   }
-
-  return _output;
-}
 // -----------------------------------------------------------------------------
 
-/// DUMMIES
+  /// BLOGGING
 
 // ----------------------------------------
-GeoPoint dummyLocation() {
-  return const GeoPoint(29.979174, 31.134264);
-}
-// -----------------------------------------------------------------------------
-
-/// HAVERSINE
-
-// ----------------------------------------
-double haversineGeoPoints({
-  @required GeoPoint pointA,
-  @required GeoPoint pointB,
-}){
-
-  double _distance = 0;
-
-  if (pointA != null && pointB != null){
-
-    final double _latA = pointA.latitude;
-    final double _latB = pointB.latitude;
-
-    final double _lngA = pointA.longitude;
-    final double _lngB = pointB.longitude;
-
-    final double _dRadLat = Numeric.degreeToRadian(_latB - _latA);
-    final double _dRadLng = Numeric.degreeToRadian(_lngB - _lngA);
-
-    final double _radLatA = Numeric.degreeToRadian(_latA);
-    final double _radLatB = Numeric.degreeToRadian(_latB);
-
-    final double _a =
-        pow(sin(_dRadLat / 2), 2)
-        +
-        pow(sin(_dRadLng / 2), 2) * cos(_radLatA) * cos(_radLatB);
-
-    final double _c = 2 * asin(sqrt(_a));
-
-    /// EARTH RADIUS IN KM
-    const double _r = 6372.8; // In kilometers
-
-    _distance = _r * _c;
+  static void blogGeoPoint({
+    @required GeoPoint point,
+    String methodName = 'GeoPoint',
+  }){
+    blog('$methodName : lat : ${point.latitude} : lng : ${point.longitude}');
   }
-
-  return _distance;
-}
 // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// CHECKERS
 
 // ----------------------------------------
-void blogGeoPoint({
-  @required GeoPoint point,
-  String methodName = 'GeoPoint',
-}){
-  blog('$methodName : lat : ${point.latitude} : lng : ${point.longitude}');
-}
-// -----------------------------------------------------------------------------
+  static bool checkPointsAreIdentical({
+    @required GeoPoint point1,
+    @required GeoPoint point2,
+  }){
+    bool _identical = false;
 
-/// CHECKERS
+    if (point1 != null && point2 != null){
 
-// ----------------------------------------
-bool checkPointsAreIdentical({
-  @required GeoPoint point1,
-  @required GeoPoint point2,
-}){
-  bool _identical = false;
+      if (
+      point1.latitude == point2.latitude &&
+          point1.longitude == point2.longitude
+      ){
+        _identical = true;
+      }
 
-  if (point1 != null && point2 != null){
+    }
 
-    if (
-    point1.latitude == point2.latitude &&
-    point1.longitude == point2.longitude
-    ){
+    else if (point1 == null && point2 == null){
       _identical = true;
     }
 
+    return _identical;
+
   }
-
-  else if (point1 == null && point2 == null){
-    _identical = true;
-  }
-
-  return _identical;
-
-}
 // -----------------------------------------------------------------------------
+}
+
 /*
 // ----------------------------------------------------------------------
 const String GOOGLE_API_KEY = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';

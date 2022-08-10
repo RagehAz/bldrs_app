@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -10,8 +10,9 @@ import 'package:sembast/utils/value_utils.dart';
    */
 // -----------------------------------------------------------------------------
 class Mapper {
+// -----------------------------------------------------------------------------
 
-  Mapper();
+  const Mapper();
 
 // -----------------------------------------------------------------------------
 

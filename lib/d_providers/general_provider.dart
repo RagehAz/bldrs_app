@@ -14,7 +14,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
