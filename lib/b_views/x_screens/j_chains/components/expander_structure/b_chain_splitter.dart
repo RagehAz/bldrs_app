@@ -1,10 +1,10 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chain_sons_builder.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +20,7 @@ class ChainSplitter extends StatelessWidget {
     this.width,
     this.onSelectPhid,
     this.selectedPhids,
+    this.searchText,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class ChainSplitter extends StatelessWidget {
   final ValueChanged<String> onSelectPhid;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class ChainSplitter extends StatelessWidget {
         phid: _phid,
         width: width,
         parentLevel: parentLevel,
+        searchText: searchText,
         color: _color,
         // isDisabled: false,
         onTap: () => onSelectPhid(_phid),
@@ -59,12 +62,13 @@ class ChainSplitter extends StatelessWidget {
     /// IF SONS IS List<String>
     else if (chainOrChainsOrSonOrSons is List<String>){
       return ChainSonsBuilder(
-          sons: chainOrChainsOrSonOrSons,
-          width: width,
-          parentLevel: parentLevel,
-          onPhidTap: onSelectPhid,
-          selectedPhids: selectedPhids,
-          initiallyExpanded: initiallyExpanded
+        sons: chainOrChainsOrSonOrSons,
+        width: width,
+        parentLevel: parentLevel,
+        onPhidTap: onSelectPhid,
+        selectedPhids: selectedPhids,
+        initiallyExpanded: initiallyExpanded,
+        searchText: searchText,
       );
     }
 
@@ -79,13 +83,14 @@ class ChainSplitter extends StatelessWidget {
         chain: _chain,
         boxWidth: width,
         icon: _chainsProvider.getKeywordIcon(son: chainOrChainsOrSonOrSons, context: context),
-        firstHeadline: superPhrase(context, _chain.id),
+        firstHeadline: xPhrase(context, _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
         // isDisabled: false,
         parentLevel: parentLevel,
         selectedPhids: selectedPhids,
+        searchText: searchText,
       );
 
     }
@@ -93,12 +98,13 @@ class ChainSplitter extends StatelessWidget {
     /// IF SONS IS List<Chain>
     else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
       return ChainSonsBuilder(
-          sons: chainOrChainsOrSonOrSons,
-          width: width,
-          parentLevel: parentLevel,
-          onPhidTap: onSelectPhid,
-          selectedPhids: selectedPhids,
-          initiallyExpanded: initiallyExpanded
+        sons: chainOrChainsOrSonOrSons,
+        width: width,
+        parentLevel: parentLevel,
+        onPhidTap: onSelectPhid,
+        selectedPhids: selectedPhids,
+        initiallyExpanded: initiallyExpanded,
+        searchText: searchText,
       );
     }
 

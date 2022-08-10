@@ -2,7 +2,7 @@
 
 class ComposeZoneProtocols {
 
-  ComposeZoneProtocols();
+  const ComposeZoneProtocols();
 
   static Future<void> compose() async {
 

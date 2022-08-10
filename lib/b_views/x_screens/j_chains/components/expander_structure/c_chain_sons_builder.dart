@@ -12,6 +12,7 @@ class ChainSonsBuilder extends StatelessWidget {
     @required this.onPhidTap,
     @required this.selectedPhids,
     @required this.initiallyExpanded,
+    this.searchText,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,6 +22,7 @@ class ChainSonsBuilder extends StatelessWidget {
   final ValueChanged<String> onPhidTap;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class ChainSonsBuilder extends StatelessWidget {
                   selectedPhids: selectedPhids,
                   initiallyExpanded: initiallyExpanded,
                   parentLevel: parentLevel+1,
+                  searchText: searchText,
                 ),
               );
 

@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -59,7 +60,7 @@ class ChainEditorPage extends StatelessWidget {
           final String _phid = ChainPathConverter.getLastPathNode(_path);
 
           final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
-          final String _phraseName = superPhrase(context, _phid, providerOverride: _phraseProvider);
+          final String _phraseName = xPhrase(context, _phid, phrasePro: _phraseProvider);
 
           final List<Chain> _relatedChains = ChainPathConverter.findPhidRelatedChains(
               allChains: allChains,

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class AuthorProtocols {
 
-  AuthorProtocols();
+  const AuthorProtocols();
 // -----------------------------------------------------------------------------
 
 /// COMPOSE

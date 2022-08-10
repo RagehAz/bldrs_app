@@ -14,6 +14,7 @@ class LDBOps {
   /// REFERENCES
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getPrimaryKey(String docName) {
     switch (docName) {
       case LDBDoc.follows: return 'recordID';
@@ -82,7 +83,7 @@ class LDBOps {
   /// READ
 
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readMaps({
     @required List<String> ids,
     @required String docName,

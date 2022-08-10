@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -39,42 +40,42 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     /// SIGN IN ERROR
     <String, dynamic>{
       'error': '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
-      'reply': superPhrase(context, 'phid_emailNotFound', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_emailNotFound', phrasePro: _phraseProvider),
     },
     <String, dynamic>{
       'error': '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
-      'reply': superPhrase(context, 'phid_no_internet_connection', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_no_internet_connection', phrasePro: _phraseProvider),
     },
     <String, dynamic>{
       'error':
       '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': superPhrase(context, 'phid_emailWrong', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
     },
     <String, dynamic>{
       'error': '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
-      'reply': superPhrase(context, 'phid_wrongPassword', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_wrongPassword', phrasePro: _phraseProvider),
 
       /// TASK : should link accounts authentication
     },
     <String, dynamic>{
       'error': '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
-      'reply': superPhrase(context, 'phid_too_many_fails_error', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_too_many_fails_error', phrasePro: _phraseProvider),
 
       /// TASK : should link accounts authentication and delete this dialog
     },
     <String, dynamic>{
       'error': 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
-      'reply': superPhrase(context, 'phid_could_not_sign_by_google', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_could_not_sign_by_google', phrasePro: _phraseProvider),
     },
 
     /// REGISTER ERRORS
     <String, dynamic>{
       'error': '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
-      'reply': superPhrase(context, 'phid_emailAlreadyRegistered', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_emailAlreadyRegistered', phrasePro: _phraseProvider),
     },
     <String, dynamic>{
       'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': superPhrase(context, 'phid_emailWrong', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
     },
 
     /// NETWORK ERRORS
@@ -86,7 +87,7 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
     /// SHARED ERRORS
     <String, dynamic>{
       'error': null,
-      'reply': superPhrase(context, 'phid_somethingIsWrong', providerOverride: _phraseProvider),
+      'reply': xPhrase(context, 'phid_somethingIsWrong', phrasePro: _phraseProvider),
     },
   ];
 
@@ -104,7 +105,7 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
       _errorReply = map['reply'];
       break;
     } else {
-      _errorReply = superPhrase(context, 'phid_something_went_wrong_error', providerOverride: _phraseProvider);
+      _errorReply = xPhrase(context, 'phid_something_went_wrong_error', phrasePro: _phraseProvider);
     }
   }
 
@@ -115,7 +116,7 @@ Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: superPhrase(context, 'phid_a_could_not_continue_title', providerOverride: _phraseProvider),
+    title: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
     body: _errorReply,
   );
 }
@@ -146,7 +147,7 @@ Future<CityModel> confirmCityDialog({
         ...List<Widget>.generate(cities.length, (int index) {
 
           final CityModel _foundCity = cities[index];
-          final String _foundCityName = superPhrase(context, _foundCity.cityID);
+          final String _foundCityName = xPhrase(context, _foundCity.cityID);
 
           return BottomDialog.wideButton(
               context: context,

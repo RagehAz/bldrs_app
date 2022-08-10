@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 
@@ -106,7 +106,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                         width: widget.width,
                         level: widget.initialLevel + 1,
                         phraseID: keywordID,
-                        phraseValue: '${index + 1} - ${superPhrase(context, keywordID)}',
+                        phraseValue: '${index + 1} - ${xPhrase(context, keywordID)}',
                         onTriggerExpansion: (){},
                         onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
                         searchValue: widget.searchValue,
@@ -141,7 +141,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 width: widget.width,
                 level: widget.initialLevel,
                 phraseID: widget.chain?.id,
-                phraseValue: '${widget.index + 1} - ${superPhrase(context, widget.chain?.id)}',
+                phraseValue: '${widget.index + 1} - ${xPhrase(context, widget.chain?.id)}',
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('$sonID/'),

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class FetchBzProtocols {
 // -----------------------------------------------------------------------------
 
-  FetchBzProtocols();
+  const FetchBzProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<BzModel> fetchBz({

@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -333,10 +333,10 @@ class FlyerModel {
     @required PublishState state,
   }){
     switch (state){
-      case PublishState.published     :     return  superPhrase(context, 'phid_published')          ;  break;
-      case PublishState.draft         :     return  superPhrase(context, 'phid_draft_flyer')        ;  break;
-      case PublishState.deleted       :     return  superPhrase(context, 'phid_deleted_flyer')      ;  break;
-      case PublishState.unpublished   :     return  superPhrase(context, 'phid_unpublished_flyer')  ;  break;
+      case PublishState.published     :     return  xPhrase(context, 'phid_published')          ;  break;
+      case PublishState.draft         :     return  xPhrase(context, 'phid_draft_flyer')        ;  break;
+      case PublishState.deleted       :     return  xPhrase(context, 'phid_deleted_flyer')      ;  break;
+      case PublishState.unpublished   :     return  xPhrase(context, 'phid_unpublished_flyer')  ;  break;
       default : return null;
     }
   }
@@ -371,8 +371,8 @@ class FlyerModel {
     @required AuditState state,
   }){
     switch (state){
-      case AuditState.verified      :     return  superPhrase(context, 'phid_verified_flyer')     ;  break;
-      case AuditState.suspended     :     return  superPhrase(context, 'phid_suspended_flyer')    ;  break;
+      case AuditState.verified      :     return  xPhrase(context, 'phid_verified_flyer')     ;  break;
+      case AuditState.suspended     :     return  xPhrase(context, 'phid_suspended_flyer')    ;  break;
       default : return null;
     }
   }

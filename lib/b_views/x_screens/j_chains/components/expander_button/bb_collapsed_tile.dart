@@ -25,6 +25,7 @@ class CollapsedTile extends StatelessWidget {
     this.iconCorners,
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
+    this.searchText,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class CollapsedTile extends StatelessWidget {
   final double iconCorners;
   final bool marginIsOn;
   final double iconSizeFactor;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
@@ -143,6 +145,7 @@ class CollapsedTile extends StatelessWidget {
                           verse: firstHeadline,
                           centered: false,
                           maxLines: 2,
+                          highlight: searchText,
                         ),
 
                         /// SECOND HEADLINE

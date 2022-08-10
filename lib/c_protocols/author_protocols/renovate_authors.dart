@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 class RenovateAuthorProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateAuthorProtocols();
+  const RenovateAuthorProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<BzModel> updateAuthorProtocol({

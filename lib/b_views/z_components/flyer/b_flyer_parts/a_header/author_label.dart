@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -111,12 +111,12 @@ class AuthorLabel extends StatelessWidget {
         :
     showLabel == true ?
     '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
-        '${superPhrase(context, 'phid_flyers')}'
+        '${xPhrase(context, 'phid_flyers')}'
         :
     '${Numeric.formatNumToCounterCaliber(context, _followersCount)} '
-        '${superPhrase(context, 'phid_followers')} . '
+        '${xPhrase(context, 'phid_followers')} . '
         '$_galleryCountCalibrated '
-        '${superPhrase(context, 'phid_flyers')}';
+        '${xPhrase(context, 'phid_flyers')}';
 // -----------------------------------------------------------------------------
 //     final double _authorImageCorners = getAuthorImageCorners(
 //       flyerBoxWidth: flyerBoxWidth,

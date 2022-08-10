@@ -1,8 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -230,17 +231,17 @@ class Timers {
   /// TESTED : WORKS PERFECT
   static String generateMonthNameByInt(BuildContext context, int month){
     switch (month){
-      case 1    :    return  superPhrase(context, 'phid_january'); break;
-      case 2    :    return  superPhrase(context, 'phid_february'); break;
-      case 3    :    return  superPhrase(context, 'phid_march'); break;
-      case 4    :    return  superPhrase(context, 'phid_april'); break;
-      case 5    :    return  superPhrase(context, 'phid_may'); break;
-      case 6    :    return  superPhrase(context, 'phid_june'); break;
-      case 7    :    return  superPhrase(context, 'phid_july'); break;
-      case 8    :    return  superPhrase(context, 'phid_august'); break;
-      case 9    :    return  superPhrase(context, 'phid_september'); break;
-      case 11   :    return  superPhrase(context, 'phid_november'); break;
-      case 12   :    return  superPhrase(context, 'phid_december'); break;
+      case 1    :    return  xPhrase(context, 'phid_january'); break;
+      case 2    :    return  xPhrase(context, 'phid_february'); break;
+      case 3    :    return  xPhrase(context, 'phid_march'); break;
+      case 4    :    return  xPhrase(context, 'phid_april'); break;
+      case 5    :    return  xPhrase(context, 'phid_may'); break;
+      case 6    :    return  xPhrase(context, 'phid_june'); break;
+      case 7    :    return  xPhrase(context, 'phid_july'); break;
+      case 8    :    return  xPhrase(context, 'phid_august'); break;
+      case 9    :    return  xPhrase(context, 'phid_september'); break;
+      case 11   :    return  xPhrase(context, 'phid_november'); break;
+      case 12   :    return  xPhrase(context, 'phid_december'); break;
       default : return null;
     }
   }
@@ -306,9 +307,9 @@ class Timers {
 
     if (time != null && time.year != null && time.month != null){
       _output =
-      '${superPhrase(context, 'phid_inn')} '
+      '${xPhrase(context, 'phid_inn')} '
           '${Wordz.bldrsShortName(context)} '
-          '${superPhrase(context, 'phid_since')} : '
+          '${xPhrase(context, 'phid_since')} : '
           '${generateMonthNameByInt(context, time.month)} '
           '${time.year}';
     }
@@ -330,9 +331,9 @@ class Timers {
         time.day != null
     ){
       _output =
-      '${superPhrase(context, 'phid_inn')} '
-          '${superPhrase(context, 'phid_phid_bldrsShortName')} '
-          '${superPhrase(context, 'phid_since')} : '
+      '${xPhrase(context, 'phid_inn')} '
+          '${xPhrase(context, 'phid_phid_bldrsShortName')} '
+          '${xPhrase(context, 'phid_since')} : '
           '${time.day} '
           '${generateMonthNameByInt(context, time.month)} '
           '${time.year}';
