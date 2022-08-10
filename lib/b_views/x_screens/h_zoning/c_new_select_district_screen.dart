@@ -8,8 +8,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
@@ -162,10 +162,10 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       zoneButtonIsOn: false,
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
-      pageTitle: superPhrase(context, 'phid_select_a_district'),
+      pageTitle: xPhrase(context, 'phid_select_a_district'),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHint: '${superPhrase(context, 'phid_search_districts_of')} $_cityName',
+      searchHint: '${xPhrase(context, 'phid_search_districts_of')} $_cityName',
       loading: _loading,
       layoutWidget: Scroller(
         child: ValueListenableBuilder(

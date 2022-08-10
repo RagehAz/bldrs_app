@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -32,20 +32,21 @@ String functionStringer(Function function) {
 // -----------------------------------------------------------------------------
 String askHinter (BuildContext context, BzType bzType){
   final String _askHint =
-  bzType == BzType.developer ? superPhrase(context, 'phid_askHint_developer') :
-  bzType == BzType.broker ? superPhrase(context, 'phid_askHint_broker') :
-  bzType == BzType.manufacturer ? superPhrase(context, 'phid_askHint_manufacturer') :
-  bzType == BzType.supplier ? superPhrase(context, 'phid_askHint_supplier') :
-  bzType == BzType.designer ? superPhrase(context, 'phid_askHint_designer') :
-  bzType == BzType.contractor ? superPhrase(context, 'phid_askHint_contractor') :
-  bzType == BzType.craftsman ? superPhrase(context, 'phid_askHint_craftsman') :
-  superPhrase(context, 'phid_askHint');
+  bzType == BzType.developer ? xPhrase(context, 'phid_askHint_developer') :
+  bzType == BzType.broker ? xPhrase(context, 'phid_askHint_broker') :
+  bzType == BzType.manufacturer ? xPhrase(context, 'phid_askHint_manufacturer') :
+  bzType == BzType.supplier ? xPhrase(context, 'phid_askHint_supplier') :
+  bzType == BzType.designer ? xPhrase(context, 'phid_askHint_designer') :
+  bzType == BzType.contractor ? xPhrase(context, 'phid_askHint_contractor') :
+  bzType == BzType.craftsman ? xPhrase(context, 'phid_askHint_craftsman') :
+  xPhrase(context, 'phid_askHint');
   return _askHint;
 }
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 List<String> createTrigram({
   @required String input,
+  bool removeSpaces = false,
 }){
   List<String> _trigram = <String>[];
 
@@ -61,7 +62,13 @@ List<String> createTrigram({
     _trigram.addAll(_splitWords);
 
     /// 2 - start trigramming after clearing spaces
-    final String _withoutSpaces = TextMod.removeSpacesFromAString(_lowerCased);
+    String _withoutSpaces = TextMod.removeSpacesFromAString(_lowerCased);
+    if (removeSpaces == true){
+      _withoutSpaces = TextMod.removeSpacesFromAString(_lowerCased);
+    }
+    else {
+      _withoutSpaces = _lowerCased;
+    }
 
     /// 3 - split characters into a list
     final List<String> _characters = _withoutSpaces.split('');

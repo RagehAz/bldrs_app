@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class FetchUserProtocols {
 // -----------------------------------------------------------------------------
 
-  FetchUserProtocols();
+  const FetchUserProtocols();
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

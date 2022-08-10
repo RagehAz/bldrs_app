@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 class FlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  FlyerProtocols();
+  const FlyerProtocols();
 
 // -----------------------------------------------------------------------------
 

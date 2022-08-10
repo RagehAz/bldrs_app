@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 class WipeUserProtocols {
 // -----------------------------------------------------------------------------
 
-  WipeUserProtocols();
+  const WipeUserProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<void> wipeMyUserModel({

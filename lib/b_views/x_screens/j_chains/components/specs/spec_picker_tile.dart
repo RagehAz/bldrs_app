@@ -1,11 +1,11 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -87,7 +87,7 @@ class SpecPickerTile extends StatelessWidget {
                             SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
-                                verse: superPhrase(context, specPicker.chainID),
+                                verse: xPhrase(context, specPicker.chainID),
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,

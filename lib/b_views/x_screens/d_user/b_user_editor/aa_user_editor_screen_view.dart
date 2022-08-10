@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -100,12 +100,12 @@ class UserEditorScreenView extends StatelessWidget {
                 isFormField: true,
                 textController: nameController,
                 key: const Key('name'),
-                title: superPhrase(context, 'phid_name'),
+                title: xPhrase(context, 'phid_name'),
                 keyboardTextInputType: TextInputType.name,
                 keyboardTextInputAction: TextInputAction.next,
                 fieldIsRequired: true,
                 validator: () => nameController.text.isEmpty ?
-                superPhrase(context, 'phid_enterName')
+                xPhrase(context, 'phid_enterName')
                     :
                 null,
               ),
@@ -124,12 +124,12 @@ class UserEditorScreenView extends StatelessWidget {
                 isFormField: true,
                 key: const Key('title'),
                 textController: titleController,
-                title: superPhrase(context, 'phid_jobTitle'),
+                title: xPhrase(context, 'phid_jobTitle'),
                 keyboardTextInputType: TextInputType.name,
                 keyboardTextInputAction: TextInputAction.next,
                 fieldIsRequired: true,
                 validator: () => titleController.text.isEmpty ?
-                superPhrase(context, 'phid_enterJobTitle')
+                xPhrase(context, 'phid_enterJobTitle')
                     :
                 null,
               ),
@@ -139,12 +139,12 @@ class UserEditorScreenView extends StatelessWidget {
                 isFormField: true,
                 textController: companyController,
                 key: const Key('company'),
-                title: superPhrase(context, 'phid_companyName'),
+                title: xPhrase(context, 'phid_companyName'),
                 keyboardTextInputType: TextInputType.name,
                 keyboardTextInputAction: TextInputAction.next,
                 fieldIsRequired: true,
                 validator: () => companyController.text.isEmpty ?
-                superPhrase(context, 'phid_enterCompanyName')
+                xPhrase(context, 'phid_enterCompanyName')
                     :
                 null,
               ),
@@ -171,7 +171,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: emailController,
-                title: superPhrase(context, 'phid_emailAddress'),
+                title: xPhrase(context, 'phid_emailAddress'),
                 leadingIcon: Iconz.comEmail,
                 keyboardTextInputAction: TextInputAction.next,
                 fieldIsRequired: true,
@@ -182,7 +182,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: phoneController,
-                title: superPhrase(context, 'phid_phone'),
+                title: xPhrase(context, 'phid_phone'),
                 leadingIcon: Iconz.comPhone,
                 keyboardTextInputAction: TextInputAction.next,
                 keyboardTextInputType: TextInputType.phone,
@@ -194,7 +194,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: facebookController,
-                title: superPhrase(context, 'phid_facebookLink'),
+                title: xPhrase(context, 'phid_facebookLink'),
                 leadingIcon: Iconz.comFacebook,
                 keyboardTextInputAction: TextInputAction.next,
               ),
@@ -203,7 +203,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: instagramController,
-                title: superPhrase(context, 'phid_instagramLink'),
+                title: xPhrase(context, 'phid_instagramLink'),
                 leadingIcon: Iconz.comInstagram,
                 keyboardTextInputAction: TextInputAction.next,
               ),
@@ -212,7 +212,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: linkedInController,
-                title: superPhrase(context, 'phid_linkedinLink'),
+                title: xPhrase(context, 'phid_linkedinLink'),
                 leadingIcon: Iconz.comLinkedin,
                 keyboardTextInputAction: TextInputAction.next,
               ),
@@ -221,7 +221,7 @@ class UserEditorScreenView extends StatelessWidget {
               ContactFieldBubble(
                 isFormField: true,
                 textController: twitterController,
-                title: superPhrase(context, 'phid_twitterLink'),
+                title: xPhrase(context, 'phid_twitterLink'),
                 leadingIcon: Iconz.comTwitter,
                 keyboardTextInputAction: TextInputAction.done,
               ),
@@ -244,7 +244,7 @@ class UserEditorScreenView extends StatelessWidget {
 
                 /// --- CONFIRM BUTTON
                 EditorConfirmButton(
-                  firstLine: superPhrase(context, 'phid_updateProfile').toUpperCase(),
+                  firstLine: xPhrase(context, 'phid_updateProfile').toUpperCase(),
                   // positionedAlignment: null,
                   onTap: () => confirmEdits(
                       context: context,

@@ -3,13 +3,13 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
@@ -19,7 +19,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/b_bz_editor/a_bz_editor_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -110,7 +110,7 @@ class BzEditorScreenView extends StatelessWidget {
                         );
 
                         return MultipleChoiceBubble(
-                          title: superPhrase(context, 'phid_sections'),
+                          title: xPhrase(context, 'phid_sections'),
                           buttonsList: _allSections,
                           selectedButtons: <String>[_selectedButton],
                           isInError: false,
@@ -204,7 +204,7 @@ class BzEditorScreenView extends StatelessWidget {
                             );
 
                             return MultipleChoiceBubble(
-                              title: superPhrase(context, 'phid_businessForm'),
+                              title: xPhrase(context, 'phid_businessForm'),
                               // description: superPhrase(context, 'phid_businessForm_description'),
                               buttonsList: _buttonsList,
                               selectedButtons: <String>[_selectedButton],
@@ -228,7 +228,7 @@ class BzEditorScreenView extends StatelessWidget {
                   AddImagePicBubble(
                     key: const ValueKey<String>('add_logo_bubble'),
                     picture: bzLogo,
-                    title: superPhrase(context, 'phid_businessLogo'),
+                    title: xPhrase(context, 'phid_businessLogo'),
                     redDot: true,
                     bubbleType: BubbleType.bzLogo,
                     onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
@@ -246,9 +246,9 @@ class BzEditorScreenView extends StatelessWidget {
 
                       final String _title =
                       selectedBzForm == BzForm.individual ?
-                      superPhrase(context, 'phid_business_entity_name')
+                      xPhrase(context, 'phid_business_entity_name')
                           :
-                      superPhrase(context, 'phid_companyName');
+                      xPhrase(context, 'phid_companyName');
 
                       return TextFieldBubble(
                         isFormField: true,
@@ -342,7 +342,7 @@ class BzEditorScreenView extends StatelessWidget {
                   TextFieldBubble(
                     key: const ValueKey<String>('bz_about_bubble'),
                     textController: bzAboutTextController,
-                    title: superPhrase(context, 'phid_about'),
+                    title: xPhrase(context, 'phid_about'),
                     counterIsOn: true,
                     maxLength: 1000,
                     maxLines: 20,

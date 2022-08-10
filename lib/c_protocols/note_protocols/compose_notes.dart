@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class ComposeNoteProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeNoteProtocols();
+  const ComposeNoteProtocols();
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT

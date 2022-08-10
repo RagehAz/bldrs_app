@@ -365,7 +365,7 @@ class Sembast  {
     return _maps;
   }
 // -----------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> search({
     @required String fieldToSortBy,
     @required String searchField,

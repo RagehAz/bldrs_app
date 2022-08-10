@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/i_app_settings_controllers/app_settings_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -28,7 +28,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// CHANGE LANGUAGE
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_changeLanguage'),
+            verse: xPhrase(context, 'phid_changeLanguage'),
             onTap: () => onChangeAppLanguageTap(context),
             icon: Iconz.language,
           ),
@@ -37,14 +37,14 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ABOUT
           SettingsWideButton(
-            verse: '${superPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
+            verse: '${xPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
             onTap: () => onAboutBldrsTap(context),
             icon: Iconz.language,
           ),
 
           /// FEEDBACK
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_feedback'),
+            verse: xPhrase(context, 'phid_feedback'),
             icon: Iconz.utSearching,
             isOn : _userIsOnline,
             onTap: () => onFeedbackTap(context),
@@ -52,14 +52,14 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// TERMS AND REGULATIONS
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_termsRegulations'),
+            verse: xPhrase(context, 'phid_termsRegulations'),
             icon: Iconz.terms,
             onTap: () => onTermsAndRegulationsTap(context),
           ),
 
           /// INVITE FRIENDS
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_inviteFriends'),
+            verse: xPhrase(context, 'phid_inviteFriends'),
             icon: Iconizer.shareAppIcon(),
             onTap: () => onInviteFriendsTap(context),
           ),
@@ -68,7 +68,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ADD NEW BZ
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_createBzAccount'),
+            verse: xPhrase(context, 'phid_createBzAccount'),
             icon: Iconz.bz,
             isOn : _userIsOnline,
             onTap: () => onCreateNewBzTap(context),
@@ -78,7 +78,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// SIGN OUT
           SettingsWideButton(
-            verse: superPhrase(context, 'phid_signOut'),
+            verse: xPhrase(context, 'phid_signOut'),
             icon: Iconz.exit,
             isOn: _userIsOnline,
             onTap: () => onSignOut(context),

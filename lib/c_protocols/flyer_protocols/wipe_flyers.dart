@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 class WipeFlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  WipeFlyerProtocols();
+  const WipeFlyerProtocols();
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT

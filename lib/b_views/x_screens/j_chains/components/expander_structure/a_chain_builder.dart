@@ -21,6 +21,7 @@ class ChainBuilder extends StatelessWidget {
     this.expansionColor = Colorz.white20,
     this.onPhidTap,
     this.parentLevel = 0,
+    this.searchText,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class ChainBuilder extends StatelessWidget {
   final bool initiallyExpanded;
   final int parentLevel;
   final List<String> selectedPhids;
+  final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class ChainBuilder extends StatelessWidget {
         initialColor: initialColor,
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
+        searchText: searchText,
         child: ChainSplitter(
           width: _sonWidth,
           chainOrChainsOrSonOrSons: chain.sons,
@@ -67,6 +70,7 @@ class ChainBuilder extends StatelessWidget {
           onSelectPhid: (String phid) => onPhidTap(phid),
           parentLevel: parentLevel,
           selectedPhids: selectedPhids,
+          searchText: searchText,
         ),
       ),
     );

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class ComposeUserProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeUserProtocols();
+  const ComposeUserProtocols();
 
 // -----------------------------------------------------------------------------
   static Future<AuthModel> compose({
