@@ -179,23 +179,3 @@ String generateStringFromStrings({
   return _output;
 }
 // -----------------------------------------------------------------------------
-/*
-
-String sectionStringer (BuildContext context, SectionClass.Section section){
-  return
-    section == SectionClass.Section.properties ? 'properties' : //Wordz.realEstate(context) :
-
-    section == SectionClass.Section.designs ? 'Designs' : //Wordz.construction(context) :
-    section == SectionClass.Section.projects ? 'Projects' : //Wordz.construction(context) :
-    section == SectionClass.Section.crafts ? 'Crafts & Trades' : //Wordz.construction(context) :
-
-    section == SectionClass.Section.products ? 'Products & Materials' : //Wordz.supplies(context) :
-    section == SectionClass.Section.equipment ? 'Tools & Equipment' : //Wordz.supplies(context) :
-
-    section == SectionClass.Section.all ? 'All flyers' : //Wordz.supplies(context) :
-
-    Wordz.bldrsShortName(context);
-}
-
-
- */

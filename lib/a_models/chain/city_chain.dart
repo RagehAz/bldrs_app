@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
@@ -188,6 +189,24 @@ class CityChain {
     }
 
     return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain removeUnusedKeywordsFromChainForThisCity({
+    @required Chain chain,
+    @required CityChain currentCityChain,
+  }) {
+
+    final List<String> _usedKeywordsIDs = CityChain.getKeywordsIDsFromCityChain(
+      cityChain: currentCityChain,
+    );
+
+    final Chain _refined = Chain.removeAllKeywordsNotUsedInThisList(
+      chain: chain,
+      usedKeywordsIDs: _usedKeywordsIDs,
+    );
+
+    return _refined;
   }
 // -----------------------------------------------------------------------------
 }

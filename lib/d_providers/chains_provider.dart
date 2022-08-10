@@ -3,15 +3,14 @@ import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  Future<void> reFetchAllChains(BuildContext context) async {
+  Future<void> reFetchSetAllChains(BuildContext context) async {
 
     /// delete LDB chains
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain);
@@ -54,111 +53,13 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------
 
-  /// SEARCHERS
-
-// -------------------------------------
-/*
-  /// TESTED : WORKS PERFECT
-  Chain searchAllChainsByID({
-  @required String chainID,
-    @required bool onlyUseCityChains,
-}){
-
-    final Chain _keywordsChain = onlyUseCityChains == true ? _cityKeywordsChain : _allKeywordsChain;
-
-    final List<Chain> _allChains = <Chain>[_keywordsChain, _specsChain];
-
-    final Chain _chain = Chain.getChainFromChainsByID(
-      chainID: chainID,
-      chains: _allChains,
-    );
-
-    return _chain;
-  }
-
- */
-// -----------------------------------------------------------------------------
-
-  /// FETCHING CHAINS
-
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<Chain> fetchKeywordsChain(BuildContext context) async {
-
-    Chain _keywordsChain;
-
-    /// 1 - search LDB
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.keywordsChain,
-    );
-
-    /// 2 - all keywords chain found in LDB
-    if (Mapper.checkCanLoopList(_maps)) {
-      // blog('keywords chain found in LDB');
-      _keywordsChain = Chain.decipherChain(_maps[0]);
-    }
-
-    /// 3 - all keywords chain is not found in LDB
-    else {
-      // blog('keywords chain is NOT found in LDB');
-      _keywordsChain = await ChainOps.readKeywordsChain(context);
-
-      /// 3 - insert in LDB when found on firebase
-      if (_keywordsChain != null){
-        // blog('keywords chain is found in FIREBASE and inserted');
-        await LDBOps.insertMap(
-            input: _keywordsChain.toMap(),
-            docName: LDBDoc.keywordsChain,
-        );
-
-      }
-
-    }
-
-    return _keywordsChain;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<Chain> fetchSpecsChain(BuildContext context) async {
-
-    Chain _specsChain;
-
-    /// 1 - search LDB
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.specsChain,
-    );
-
-    /// 2 - all keywords chain found in LDB
-    if (Mapper.checkCanLoopList(_maps)) {
-      _specsChain = Chain.decipherChain(_maps[0]);
-    }
-
-    /// 3 - all keywords chain is not found in LDB
-    else {
-      _specsChain = await ChainOps.readSpecsChain(context);
-
-      /// 3 - insert in LDB when found on firebase
-      if (_specsChain != null){
-
-        await LDBOps.insertMap(
-          input: _specsChain.toMap(),
-          docName: LDBDoc.specsChain,
-        );
-
-      }
-
-    }
-
-    return _specsChain;
-  }
-// -----------------------------------------------------------------------------
-
   /// CITY CHAIN
 
 // -------------------------------------
   CityChain _currentCityChain;
   CityChain get currentCityChain => _currentCityChain;
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> fetchSetCurrentCityChain({
     @required BuildContext context,
     @required bool notify,
@@ -190,6 +91,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void _setCurrentCityChain({
     @required CityChain cityChain,
     @required bool notify,
@@ -218,6 +120,7 @@ class ChainsProvider extends ChangeNotifier {
   List<Phrase> _allKeywordsChainPhrases;
   List<Phrase> get allKeywordsChainPhrases => _allKeywordsChainPhrases;
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain proGetKeywordsChain({
     @required BuildContext context,
     @required bool onlyUseCityChains,
@@ -241,7 +144,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final Chain _keywordsChain = await fetchKeywordsChain(context);
+    final Chain _keywordsChain = await ChainProtocols.fetchKeywordsChain(context);
 
     if (_keywordsChain != null){
       await refineAndSetKeywordsChainAndGenerateTheirPhrases(
@@ -260,17 +163,18 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final Chain _refined = removeUnusedKeywordsFromChainForThisCity(
+    final Chain _refined = CityChain.removeUnusedKeywordsFromChainForThisCity(
       chain: keywordsChain,
+      currentCityChain: _currentCityChain,
     );
 
-    final List<Phrase> _cityKeywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+    final List<Phrase> _cityKeywordsPhrases = await PhraseProtocols.generatePhrasesFromChain(
       context: context,
-      keywordsChain: _refined,
+      chain: _refined,
     );
-    final List<Phrase> _allKeywordsPhrases = await generateKeywordsPhrasesFromKeywordsChain(
+    final List<Phrase> _allKeywordsPhrases = await PhraseProtocols.generatePhrasesFromChain(
       context: context,
-      keywordsChain: keywordsChain,
+      chain: keywordsChain,
     );
 
     _cityKeywordsChain = _refined;
@@ -296,55 +200,8 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Future<List<Phrase>> generateKeywordsPhrasesFromKeywordsChain({
-    @required Chain keywordsChain,
-    @required BuildContext context,
-  }) async {
-    /// should include en - ar phrases for all IDs
-    List<Phrase> _keywordsPhrases = <Phrase>[];
 
-    if (keywordsChain != null){
 
-      final List<String> _keywordsIDs = Chain.getOnlyStringsSonsIDsFromChain(
-        chain: keywordsChain,
-      );
-
-      _keywordsPhrases = await PhraseProtocols.composeMixedLangPhrasesFromPhids(
-        context: context,
-        phids: _keywordsIDs,
-      );
-
-    }
-
-    return _keywordsPhrases;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  Chain removeUnusedKeywordsFromChainForThisCity({
-    @required Chain chain,
-  }) {
-
-    // blog('removeUnusedKeywordsFromChainForThisCity : input chain');
-    // chain.blogChain();
-
-    final List<String> _usedKeywordsIDs = CityChain.getKeywordsIDsFromCityChain(
-      cityChain: _currentCityChain,
-    );
-
-    // blog('_usedKeywordsIDs for cityID ( ${_currentCityChain.cityID} ) : $_usedKeywordsIDs');
-
-    final Chain _refined = Chain.removeAllKeywordsNotUsedInThisList(
-      chain: chain,
-      usedKeywordsIDs: _usedKeywordsIDs,
-    );
-
-    // blog('removeUnusedKeywordsFromChainForThisCity : output chain');
-    // _refined.blogChain();
-
-    return _refined;
-  }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   Chain getChainKByFlyerType({
@@ -352,18 +209,9 @@ class ChainsProvider extends ChangeNotifier {
     @required bool onlyUseCityChains,
   }){
 
-    String _chainID = 'phid_sections';
-
-    switch(flyerType){
-      case FlyerType.property   : _chainID = 'phid_k_flyer_type_property'; break;
-      case FlyerType.design     : _chainID = 'phid_k_flyer_type_design'; break;
-      case FlyerType.project    : _chainID = 'phid_k_flyer_type_design'; break;
-      case FlyerType.craft      : _chainID = 'phid_k_flyer_type_crafts'; break;
-      case FlyerType.product    : _chainID = 'phid_k_flyer_type_product'; break;
-      case FlyerType.equipment  : _chainID = 'phid_k_flyer_type_equipment'; break;
-      case FlyerType.all        : _chainID = 'phid_sections'; break;
-      case FlyerType.non        : _chainID = 'phid_sections'; break;
-    }
+    final String _chainID = FlyerTyper.concludeChainIDByFlyerType(
+      flyerType: flyerType,
+    );
 
     final Chain _chain = findChainK(
       chainID: _chainID,
@@ -403,7 +251,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final Chain _specsChain = await fetchSpecsChain(context);
+    final Chain _specsChain = await ChainProtocols.fetchSpecsChain(context);
 
     setSpecsChain(
       specsChain: _specsChain,
@@ -479,16 +327,10 @@ class ChainsProvider extends ChangeNotifier {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-    await _flyersProvider.paginateWallFlyers(
-      // context: context,
-      // section: section,
-      // kw: kw,
-        context
-    );
+    await _flyersProvider.paginateWallFlyers(context);
 
     _homeWallFlyerType = flyerType;
     _wallPhid = phid;
-    // setSectionGroups();
 
     if (notify == true){
       notifyListeners();
