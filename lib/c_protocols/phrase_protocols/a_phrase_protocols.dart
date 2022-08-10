@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -10,7 +11,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:provider/provider.dart';
-/// --------------------------------------------
+
+
+/// ----------------------------------------------------------------------------------------
 //-------------------------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //---------------------
@@ -23,7 +26,9 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
 //---------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //-------------------------------------
-/// --------------------------------------------
+/// ----------------------------------------------------------------------------------------
+
+
 class PhraseProtocols {
 // -----------------------------------------------------------------------------
 
@@ -161,7 +166,31 @@ class PhraseProtocols {
 
     return _countriesMixedLangPhrases;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> generatePhrasesFromChain({
+    @required Chain chain,
+    @required BuildContext context,
+  }) async {
+
+    /// should include en - ar phrases for all IDs
+    List<Phrase> _phrases = <Phrase>[];
+
+    if (chain != null){
+
+      final List<String> _phids = Chain.getOnlyStringsSonsIDsFromChain(
+        chain: chain,
+      );
+
+      _phrases = await PhraseProtocols.composeMixedLangPhrasesFromPhids(
+        context: context,
+        phids: _phids,
+      );
+
+    }
+
+    return _phrases;
+  }// -----------------------------------------------------------------------------
 
   /// FETCHING PHRASES
 

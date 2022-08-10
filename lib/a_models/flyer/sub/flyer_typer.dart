@@ -17,6 +17,7 @@ enum FlyerType {
 }
 
 class FlyerTyper{
+  // -----------------------------------------------------------------------------
 
   const FlyerTyper();
 
@@ -106,6 +107,7 @@ class FlyerTyper{
     return _index;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String flyerTypeIconOn(FlyerType flyerType) {
 
     final String icon =
@@ -126,6 +128,7 @@ class FlyerTyper{
     return icon;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String flyerTypeIconOff(FlyerType flyerType) {
 
     final String _icon =
@@ -282,6 +285,27 @@ String getSectionIcon({
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
+  static String concludeChainIDByFlyerType({
+    @required FlyerType flyerType,
+  }){
+
+    String _chainID = 'phid_sections';
+
+    switch(flyerType){
+      case FlyerType.property   : _chainID = 'phid_k_flyer_type_property'; break;
+      case FlyerType.design     : _chainID = 'phid_k_flyer_type_design'; break;
+      case FlyerType.project    : _chainID = 'phid_k_flyer_type_design'; break;
+      case FlyerType.craft      : _chainID = 'phid_k_flyer_type_crafts'; break;
+      case FlyerType.product    : _chainID = 'phid_k_flyer_type_product'; break;
+      case FlyerType.equipment  : _chainID = 'phid_k_flyer_type_equipment'; break;
+      case FlyerType.all        : _chainID = 'phid_sections'; break;
+      case FlyerType.non        : _chainID = 'phid_sections'; break;
+    }
+
+    return _chainID;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getGroupIDByFlyerTypeChainID({
     @required BuildContext context,
     @required String chainID,
@@ -401,32 +425,4 @@ String getSectionIcon({
     return _translation;
   }
 // -----------------------------------------------------------------------------
-
 }
-
-/*
-
-ZEBALA
-
-// -----------------------------------------------------------------------------
-FlyerType getFlyerTypeBySection({@required SectionClass.Section section}) {
-  final FlyerType _flyersTypes =
-  section == SectionClass.Section.properties ? FlyerType.property
-      :
-  section == SectionClass.Section.designs ? FlyerType.design
-      :
-  section == SectionClass.Section.projects ? FlyerType.project
-      :
-  section == SectionClass.Section.crafts ? FlyerType.craft
-      :
-  section == SectionClass.Section.products ? FlyerType.product
-      :
-  section == SectionClass.Section.equipment ? FlyerType.equipment
-      :
-  null;
-
-  return _flyersTypes;
-}
-// -----------------------------------------------------------------------------
-
- */

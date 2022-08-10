@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
