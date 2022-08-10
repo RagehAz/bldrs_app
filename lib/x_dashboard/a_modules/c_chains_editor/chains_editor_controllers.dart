@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
-import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
+import 'package:bldrs/e_db/fire/ops/chain_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
@@ -26,12 +26,12 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    await ChainOps.addChainsToSpecsChainSons(
+    await ChainFireOps.addChainsToSpecsChainSons(
       context: context,
       chainsToAdd: chainsToAdd,
     );
 
-    await _chainsProvider.reFetchAllChains(context);
+    await _chainsProvider.reFetchSetAllChains(context);
 
   }
 
@@ -48,7 +48,7 @@ Future<void> onBackupAllChains(BuildContext context) async {
   );
 
   if (_result == true){
-    await ChainOps.backupChainsOps(context);
+    await ChainFireOps.backupChainsOps(context);
   }
 
 }
@@ -316,7 +316,7 @@ Future<void> _updateKeywordsChainOps({
   if (chainIsKeywordsChain(chain) == true){
 
   /// 1 - UPDATE ON FIREBASE
-  await ChainOps.updateKeywordsChain(
+  await ChainFireOps.updateKeywordsChain(
       context: context,
       newKeywordsChain: chain,
   );
@@ -347,7 +347,7 @@ Future<void> _updateSpecsChainOps({
 }) async {
 
   /// 1 - UPDATE ON FIREBASE
-  await ChainOps.updateSpecsChain(
+  await ChainFireOps.updateSpecsChain(
     context: context,
     newSpecsChain: chain,
   );

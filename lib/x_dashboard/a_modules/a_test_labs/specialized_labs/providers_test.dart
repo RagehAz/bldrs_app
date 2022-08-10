@@ -18,9 +18,9 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -495,6 +495,11 @@ class ProviderTestButton extends StatelessWidget {
   final dynamic value;
   final Function onTap;
   /// --------------------------------------------------------------------------
+  String valueIsNotNull(dynamic value) {
+    final String _icon = value == null ? Iconz.xSmall : Iconz.check;
+    return _icon;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -508,7 +513,7 @@ class ProviderTestButton extends StatelessWidget {
       iconSizeFactor: 0.6,
       verseCentered: false,
       verseShadow: false,
-      icon: Iconizer.valueIsNotNull(value),
+      icon: valueIsNotNull(value),
       iconColor: Colorz.white255,
       verseColor: value == null ? Colorz.white255 : Colorz.black255,
       onTap: (){

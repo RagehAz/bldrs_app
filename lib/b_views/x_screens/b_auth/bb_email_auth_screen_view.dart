@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart' as Iconizer;
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -40,7 +40,6 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function onSignup;
   final ValueNotifier<bool> isSigningIn; /// p
   /// --------------------------------------------------------------------------
-
   void _onSubmitted({
     @required bool signingIn,
     @required bool isOnConfirmPassword,
@@ -66,7 +65,7 @@ class EmailAuthScreenView extends StatelessWidget {
     }
 
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -206,4 +205,5 @@ class EmailAuthScreenView extends StatelessWidget {
       ),
     );
   }
+
 }

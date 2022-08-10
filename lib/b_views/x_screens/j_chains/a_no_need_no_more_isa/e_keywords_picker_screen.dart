@@ -290,7 +290,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
               const Stratosphere(bigAppBar: true),
 
-              /// selected keywords zone
+              /// SELECTED KEYWORDS ZONE
               SelectedPhidsBar(
                 selectedPhids: selectedIDs,
                 // scrollController: _scrollController,
@@ -299,7 +299,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
                 removePhid: (String keywordID) => _onSelectKeyword(keywordID)
               ),
 
-              /// keywords zone
+              /// KEYWORDS ZONE
               SizedBox(
                 width: _screenWidth,
                 height: _keywordsZoneHeight,
@@ -334,6 +334,7 @@ class _KeywordsPickerScreenState extends State<KeywordsPickerScreen> {
 
                 ),
               ),
+
             ],
           );
 
