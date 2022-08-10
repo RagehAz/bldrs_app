@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -283,9 +282,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     final dynamic result = await Nav.goToNewScreen(
         context: context,
-        screen: ChainsScreen(
+        screen: const ChainsScreen(
           pageTitle: 'Fast test Chains screen',
-          specsPickers: SpecPicker.getPickersByFlyerType(FlyerType.design),
+          flyerTypeChainFilter: FlyerType.design,
 
           // specsPickers: SpecPicker.createPickersForChainK(
           //   context: context,

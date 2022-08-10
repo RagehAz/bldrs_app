@@ -2,7 +2,7 @@
 // import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_controllers.dart';
 // import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/delete_when_done/chain_expander_by_flyer_type.dart';
-// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/delete_when_done/a_chain_bubble.dart';
+// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/delete_when_done/chain_bubble.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/d_providers/chains_provider.dart';

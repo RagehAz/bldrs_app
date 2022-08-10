@@ -715,6 +715,7 @@ class Chain {
       return _chainID;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainsIDsFromPhids({
     @required List<Chain> allChains,
     @required List<String> phids,
@@ -860,6 +861,7 @@ class Chain {
     return _output;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> removeAllChainIDsFromKeywordsIDs({
     @required List<Chain> allChains,
     @required List<String> phidKs,

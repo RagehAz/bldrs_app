@@ -1,6 +1,6 @@
 // import 'package:bldrs/a_models/chain/chain.dart';
-// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/structure/d_chain_view_browsing.dart';
-// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/structure/aaX_chain_view_searching.dart';
+// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/structure/chain_view_browsing.dart';
+// import 'package:bldrs/b_views/x_screens/j_chains/no_need_no_more_isa/structure/chain_view_searching.dart';
 // import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 // import 'package:flutter/material.dart';
 //
