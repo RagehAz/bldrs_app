@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -250,10 +250,10 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       zoneButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitle: superPhrase(context, 'phid_selectCity'),
+      pageTitle: xPhrase(context, 'phid_selectCity'),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHint: '${superPhrase(context, 'phid_search_cities_of')} $_countryName',
+      searchHint: '${xPhrase(context, 'phid_search_cities_of')} $_countryName',
       loading: _loading,
       appBarRowWidgets: <Widget>[
 

@@ -21,7 +21,7 @@ protocol level ops
 class ComposeFlyerProtocols {
 // -----------------------------------------------------------------------------
 
-  ComposeFlyerProtocols();
+  const ComposeFlyerProtocols();
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

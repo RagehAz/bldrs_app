@@ -1,7 +1,7 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class KeywordsButtonsList extends StatelessWidget {
 
           final String _keywordID = keywordsIDs[keyIndex];
           final String _icon = _keywordsProvider.getKeywordIcon(context: context, son: _keywordID);
-          final String _keywordName = superPhrase(context, _keywordID);
+          final String _keywordName = xPhrase(context, _keywordID);
           const String _keywordNameArabic = 'keyword name but in arabic';//Phrase.getPhraseByLangFromPhrases(phrases: _keywordID.names, langCode: 'ar')?.value;
 
           return DreamBox(

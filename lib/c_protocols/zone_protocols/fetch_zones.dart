@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 class FetchZoneProtocols {
 // -----------------------------------------------------------------------------
 
-  FetchZoneProtocols();
+  const FetchZoneProtocols();
 
 // -----------------------------------------------------------------------------
 

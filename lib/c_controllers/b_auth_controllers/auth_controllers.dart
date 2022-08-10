@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -340,13 +341,13 @@ String emailValidation({
   String _output;
 
   if (val.isEmpty) {
-    _output = superPhrase(context, 'phid_enterEmail', providerOverride: _phraseProvider);
+    _output = xPhrase(context, 'phid_enterEmail', phrasePro: _phraseProvider);
   }
 
   else {
 
     if (EmailValidator.validate(val) == false){
-      _output = superPhrase(context, 'phid_emailInvalid', providerOverride: _phraseProvider);
+      _output = xPhrase(context, 'phid_emailInvalid', phrasePro: _phraseProvider);
     }
 
   }
@@ -363,11 +364,11 @@ String passwordValidation({
   String _output;
 
   if (password.isEmpty){
-    _output = superPhrase(context, 'phid_enterPassword', providerOverride: _phraseProvider);
+    _output = xPhrase(context, 'phid_enterPassword', phrasePro: _phraseProvider);
   }
 
   else if (password.length < 6){
-    _output = superPhrase(context, 'phid_min6CharError', providerOverride: _phraseProvider);
+    _output = xPhrase(context, 'phid_min6CharError', phrasePro: _phraseProvider);
   }
 
   return _output;
@@ -382,15 +383,15 @@ String passwordConfirmationValidation({
   String _output;
 
   if (passwordConfirmation.isEmpty || password.isEmpty){
-    _output = superPhrase(context, 'phid_confirmPassword');
+    _output = xPhrase(context, 'phid_confirmPassword');
   }
 
   else if (passwordConfirmation != password){
-    _output = superPhrase(context, 'phid_passwordMismatch');
+    _output = xPhrase(context, 'phid_passwordMismatch');
   }
 
   else if (password.length < 6){
-    _output = superPhrase(context, 'phid_min6CharError');
+    _output = xPhrase(context, 'phid_min6CharError');
   }
 
   return _output;

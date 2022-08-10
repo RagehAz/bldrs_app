@@ -18,7 +18,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// TASK : SHOULD MERGE THIS WITH SPECS SELECTION SCREEN
 class ChainsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ChainsScreen({

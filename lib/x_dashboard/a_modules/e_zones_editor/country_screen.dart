@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -212,7 +212,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
               DataStrip(
                 width: _appBarWidth,
                 dataKey: 'Currency',
-                dataValue: '${_currencyModel.symbol} : ${superPhrase(context, _currencyModel.id)}',
+                dataValue: '${_currencyModel.symbol} : ${xPhrase(context, _currencyModel.id)}',
                 color: Colorz.black255,
               ),
 

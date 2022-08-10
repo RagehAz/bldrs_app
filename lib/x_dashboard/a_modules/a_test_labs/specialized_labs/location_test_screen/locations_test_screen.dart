@@ -12,8 +12,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -278,12 +278,12 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (EN)',
-                dataValue: superPhrase(context, _countryModel?.id),
+                dataValue: xPhrase(context, _countryModel?.id),
               ),
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (AR)',
-                dataValue: superPhrase(context, _countryModel?.id),
+                dataValue: xPhrase(context, _countryModel?.id),
               ),
 
               DataStripWithHeadline(
@@ -293,7 +293,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'City Name (EN)',
-                dataValue: superPhrase(context, _cityModel?.cityID),
+                dataValue: xPhrase(context, _cityModel?.cityID),
               ),
 
             ],

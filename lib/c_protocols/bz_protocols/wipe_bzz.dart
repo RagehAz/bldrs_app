@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class WipeBzProtocols {
 // -----------------------------------------------------------------------------
 
-  WipeBzProtocols();
+  const WipeBzProtocols();
 
 // -----------------------------------------------------------------------------
 

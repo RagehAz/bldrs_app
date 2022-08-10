@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart' as Atlas;
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -680,13 +680,13 @@ class BzModel{
     /// NOUN
     if (nounTranslation == true){
       return
-        bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopment') :
-        bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokerage') :
-        bzType == BzType.designer ? superPhrase(context, 'phid_design') :
-        bzType == BzType.contractor ? superPhrase(context, 'phid_contracting') :
-        bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmanship') :
-        bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturing') :
-        bzType == BzType.supplier ? superPhrase(context, 'phid_supplying') :
+        bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDevelopment') :
+        bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokerage') :
+        bzType == BzType.designer ? xPhrase(context, 'phid_design') :
+        bzType == BzType.contractor ? xPhrase(context, 'phid_contracting') :
+        bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsmanship') :
+        bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturing') :
+        bzType == BzType.supplier ? xPhrase(context, 'phid_supplying') :
         'Builders';
     }
 
@@ -696,26 +696,26 @@ class BzModel{
       /// PLURAL
       if (pluralTranslation == true){
         return
-          bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDevelopers') :
-          bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBrokers') :
-          bzType == BzType.designer ? superPhrase(context, 'phid_designers') :
-          bzType == BzType.contractor ? superPhrase(context, 'phid_contractors') :
-          bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsmen') :
-          bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturers') :
-          bzType == BzType.supplier ? superPhrase(context, 'phid_supplier') :
+          bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDevelopers') :
+          bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokers') :
+          bzType == BzType.designer ? xPhrase(context, 'phid_designers') :
+          bzType == BzType.contractor ? xPhrase(context, 'phid_contractors') :
+          bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsmen') :
+          bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturers') :
+          bzType == BzType.supplier ? xPhrase(context, 'phid_supplier') :
           'Builders';
       }
 
       /// SINGLE
       else {
         return
-          bzType == BzType.developer ? superPhrase(context, 'phid_realEstateDeveloper') :
-          bzType == BzType.broker ? superPhrase(context, 'phid_realEstateBroker') :
-          bzType == BzType.designer ? superPhrase(context, 'phid_designer') :
-          bzType == BzType.contractor ? superPhrase(context, 'phid_contractor') :
-          bzType == BzType.craftsman ? superPhrase(context, 'phid_craftsman') :
-          bzType == BzType.manufacturer ? superPhrase(context, 'phid_manufacturer') :
-          bzType == BzType.supplier ? superPhrase(context, 'phid_suppliers') :
+          bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDeveloper') :
+          bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBroker') :
+          bzType == BzType.designer ? xPhrase(context, 'phid_designer') :
+          bzType == BzType.contractor ? xPhrase(context, 'phid_contractor') :
+          bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsman') :
+          bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturer') :
+          bzType == BzType.supplier ? xPhrase(context, 'phid_suppliers') :
           'Builder';
       }
 
@@ -1045,11 +1045,11 @@ class BzModel{
   }){
 
     if (bzForm == BzForm.company){
-      return superPhrase(context, 'phid_company');
+      return xPhrase(context, 'phid_company');
     }
 
     else if (bzForm == BzForm.individual){
-      return superPhrase(context, 'phid_professional');
+      return xPhrase(context, 'phid_professional');
     }
 
     else {

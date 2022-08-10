@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class SectionsButton extends StatelessWidget {
     String _title;
 
     if (currentKeywordID == null){
-      _title = superPhrase(context, 'phid_section');
+      _title = xPhrase(context, 'phid_section');
     }
 
     else {
@@ -49,7 +49,7 @@ class SectionsButton extends StatelessWidget {
     String _body;
 
     if (currentKeywordID != null){
-      _body = superPhrase(context, currentKeywordID);
+      _body = xPhrase(context, currentKeywordID);
     }
     else {
       final String _sectionName = FlyerTyper.translateFlyerType(

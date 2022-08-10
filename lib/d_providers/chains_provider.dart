@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart' as ChainOps;
@@ -57,6 +57,7 @@ class ChainsProvider extends ChangeNotifier {
   /// SEARCHERS
 
 // -------------------------------------
+/*
   /// TESTED : WORKS PERFECT
   Chain searchAllChainsByID({
   @required String chainID,
@@ -74,6 +75,8 @@ class ChainsProvider extends ChangeNotifier {
 
     return _chain;
   }
+
+ */
 // -----------------------------------------------------------------------------
 
   /// FETCHING CHAINS
@@ -308,8 +311,7 @@ class ChainsProvider extends ChangeNotifier {
         chain: keywordsChain,
       );
 
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-      _keywordsPhrases = await _phraseProvider.generateMixedLangPhrasesFromPhids(
+      _keywordsPhrases = await PhraseProtocols.composeMixedLangPhrasesFromPhids(
         context: context,
         phids: _keywordsIDs,
       );
@@ -580,20 +582,26 @@ class ChainsProvider extends ChangeNotifier {
   static Chain superGetChain({
     @required BuildContext context,
     @required String chainID,
-    bool onlyUseCityChains,
+    @required bool onlyUseCityChains,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final Chain _chain = _chainsProvider.searchAllChainsByID(
-      chainID: chainID,
-      onlyUseCityChains: onlyUseCityChains,
-    );
 
-    // blog('superGetChain : chain is :-');
-    // _chain?.blogChain();
+    final Chain _keywordsChain = onlyUseCityChains == true ?
+    _chainsProvider.cityKeywordsChain
+        :
+    _chainsProvider.allKeywordsChain;
+
+    final List<Chain> _allChains = <Chain>[_keywordsChain, _chainsProvider.specsChain];
+
+    final Chain _chain = Chain.getChainFromChainsByID(
+      chainID: chainID,
+      chains: _allChains,
+    );
 
     return _chain;
   }
+// -----------------------------------------------------------------------------
 }
 
 

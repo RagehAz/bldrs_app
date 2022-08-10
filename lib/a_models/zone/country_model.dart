@@ -416,6 +416,7 @@ class CountryModel {
   /// COUNTRY PHRASE CREATION
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> _createCountriesPhrasesByLangCode({
     @required String langCode,
     @required List<String> countriesIDs,
@@ -443,6 +444,7 @@ class CountryModel {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> createMixedCountriesPhrases({
     @required List<String> langCodes,
     @required List<String> countriesIDs,

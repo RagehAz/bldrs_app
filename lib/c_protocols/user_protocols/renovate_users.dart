@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 class RenovateUserProtocols {
 // -----------------------------------------------------------------------------
 
-  RenovateUserProtocols();
+  const RenovateUserProtocols();
 
 // -----------------------------------------------------------------------------
 

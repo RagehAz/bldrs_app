@@ -125,7 +125,7 @@ class Localizer {
   /// READING  LOCAL JSON
 
 // -------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, String>> getJSONLangMap({
     @required String langCode
   }) async {

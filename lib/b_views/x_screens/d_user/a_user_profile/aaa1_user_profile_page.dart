@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class UserProfilePage extends StatelessWidget {
       _string = _title;
     }
     else if (_title != null && _company != null){
-      _string = '$_title ${superPhrase(context, 'phid_at')} $_company';
+      _string = '$_title ${xPhrase(context, 'phid_at')} $_company';
     }
     else {
       _string = null;

@@ -13,8 +13,8 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -57,8 +57,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,
         cityID: _zone.cityID,
-        countryName: superPhrase(context, _country.id),
-        cityName: superPhrase(context, _city.cityID),
+        countryName: xPhrase(context, _country.id),
+        cityName: xPhrase(context, _city.cityID),
       );
 
     }

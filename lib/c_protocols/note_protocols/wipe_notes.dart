@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class WipeNoteProtocols {
 // -----------------------------------------------------------------------------
 
-  WipeNoteProtocols();
+  const WipeNoteProtocols();
 
 // -----------------------------------------------------------------------------
 

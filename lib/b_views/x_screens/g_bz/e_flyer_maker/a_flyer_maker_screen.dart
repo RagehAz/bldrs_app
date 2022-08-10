@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/a_flyer_maker_controllers.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/aa_draft_shelf_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreen extends StatefulWidget {
@@ -118,7 +118,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitle: superPhrase(context, 'phid_createFlyer'),
+      pageTitle: xPhrase(context, 'phid_createFlyer'),
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,

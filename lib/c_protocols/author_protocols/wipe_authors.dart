@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 
 class WipeAuthorProtocols {
 
-  WipeAuthorProtocols();
+  const WipeAuthorProtocols();
 
 // -----------------------------------------------------------------------------
   /*
