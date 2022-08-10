@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -233,7 +233,7 @@ class DreamBox extends StatelessWidget {
       colorOverride: iconColor,
     );
 // -----------------------------------------------------------------------------
-    final TextDirection _textDirection = textDirection ?? textDirectionAsPerAppDirection(context);
+    final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
 // -----------------------------------------------------------------------------
     final EdgeInsets _boxMargins = Scale.superMargins(margins: margins);
 // -----------------------------------------------------------------------------

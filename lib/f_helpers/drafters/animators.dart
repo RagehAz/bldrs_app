@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/sliders.dart' as Sliders;
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -9,22 +9,22 @@ import 'package:flutter/material.dart';
 //
 //   }
 // -----------------------------------------------------------------------------
-Sliders.SwipeDirection getSwipeDirection({
+SwipeDirection getSwipeDirection({
   @required int oldIndex,
   @required int newIndex
 }) {
-  Sliders.SwipeDirection _swipeDirection;
+  SwipeDirection _swipeDirection;
 
   if (newIndex > oldIndex) {
-    _swipeDirection = Sliders.SwipeDirection.next;
+    _swipeDirection = SwipeDirection.next;
   }
 
   else if (newIndex < oldIndex) {
-    _swipeDirection = Sliders.SwipeDirection.back;
+    _swipeDirection = SwipeDirection.back;
   }
 
   else {
-    _swipeDirection = Sliders.SwipeDirection.freeze;
+    _swipeDirection = SwipeDirection.freeze;
   }
 
   // print('getSwipeDirection concluded going from [ old index ($oldIndex) ] to [ new index ($newIndex) ] is [$_swipeDirection]');

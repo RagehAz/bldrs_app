@@ -10,9 +10,9 @@ import 'package:bldrs/b_views/x_screens/j_chains/a_no_need_no_more_isa/e_keyword
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +131,7 @@ Future<void> onAddScopesTap({
   @required ValueNotifier<List<String>> selectedScopes,
 }) async {
 
-  Keyboarders.closeKeyboard(context);
+  Keyboard.closeKeyboard(context);
 
   final List<String> _result = await Nav.goToNewScreen(
       context: context,
@@ -233,7 +233,7 @@ Future<bool> _validateInputs({
   @required ValueNotifier<List<AlertModel>> missingFields,
 }) async {
 
-  Keyboarders.closeKeyboard(context);
+  Keyboard.closeKeyboard(context);
 
   final bool _inputsAreValid = formKey.currentState.validate();
   final List<AlertModel> _missingFieldsFound = BzModel.requiredFields(bzModel);

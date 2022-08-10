@@ -59,7 +59,7 @@ class KeyboardFloatingBubble extends StatelessWidget {
                       icon: Iconz.arrowDown,
                       iconSizeFactor: 0.5,
                       onTap: (){
-                        closeKeyboard(context);
+                        Keyboard.closeKeyboard(context);
                       },
                     ),
 

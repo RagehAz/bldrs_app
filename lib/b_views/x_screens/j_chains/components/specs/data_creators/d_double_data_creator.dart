@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -174,7 +174,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
                   onChanged: (String val) => _onTextChanged(val),
                   onSubmitted: (String val) async {
                     _onTextChanged(val);
-                    Keyboarders.closeKeyboard(context);
+                    Keyboard.closeKeyboard(context);
                     // await null;
 
                     await Future<void>.delayed(Ratioz.durationSliding400,

@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,7 @@ class FlyerLoading extends StatelessWidget {
           stackWidgets: <Widget>[
 
             RotatedBox(
-              quarterTurns: appIsLeftToRight(context) ? 2 : 0,
+              quarterTurns: TextDir.appIsLeftToRight(context) ? 2 : 0,
               child: LinearProgressIndicator(
                 color: loadingColor,
                 backgroundColor: Colorz.nothing,

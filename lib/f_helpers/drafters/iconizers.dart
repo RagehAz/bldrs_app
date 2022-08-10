@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:core';
-
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart' as DeviceChecker;
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
@@ -51,12 +50,18 @@ class Iconizer {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static String superBackIcon(BuildContext context) {
-    return appIsLeftToRight(context) ? Iconz.back : Iconz.backArabic;
+    return TextDir.appIsLeftToRight(context) ?
+    Iconz.back
+        :
+    Iconz.backArabic;
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static String superInverseBackIcon(BuildContext context) {
-    return appIsLeftToRight(context) ? Iconz.backArabic : Iconz.back;
+    return TextDir.appIsLeftToRight(context) ?
+    Iconz.backArabic
+        :
+    Iconz.back;
   }
 // -----------------------------------------------------------------------------
 

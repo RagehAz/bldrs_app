@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +72,7 @@ class BottomDialogButtons extends StatelessWidget {
               margins: const EdgeInsets.all(Ratioz.appBarPadding),
               verseScaleFactor: 0.8,
               color: Colorz.white10,
-              textDirection: textDirectionAsPerAppDirection(context),
+              textDirection: TextDir.textDirectionAsPerAppDirection(context),
               // bottomDialogType == BottomDialogType.bottomSheet ?
               // textDirectionAsPerAppDirection(context)
               //     :

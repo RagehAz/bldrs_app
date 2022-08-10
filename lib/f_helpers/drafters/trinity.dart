@@ -4,8 +4,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 class Trinity {
+// -----------------------------------------------------------------------------
 
-  Trinity();
+  const Trinity();
 
 // -----------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 // import 'package:bldrs/a_models/chain/chain.dart';
 // import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 // import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
-// import 'package:bldrs/f_helpers/drafters/text_generators.dart' as TextGen;
+// import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 // import 'package:bldrs/f_helpers/theme/colorz.dart';
 // import 'package:bldrs/f_helpers/theme/ratioz.dart';
 // import 'package:flutter/material.dart';

@@ -78,7 +78,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
   Future<void> _onCountryTap(String countryID) async {
 
     if (mounted == true){
-      closeKeyboard(context);
+      Keyboard.closeKeyboard(context);
     }
 
     final ZoneModel _zone = await ZoneProtocols.completeZoneModel(

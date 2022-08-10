@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart' as Keyboarders;
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -125,7 +125,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboarders.closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
@@ -188,7 +188,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboarders.closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     if (_selectedZone.value.countryModel != null){
 
@@ -257,7 +257,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context,
   }) async {
 
-    Keyboarders.closeKeyboard(context);
+    Keyboard.closeKeyboard(context);
 
     if (_selectedZone.value.countryModel != null && _selectedZone.value.cityModel != null){
 

@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_fields_row.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -158,11 +158,12 @@ class PropertySearchCriteria extends StatelessWidget {
           color: Colorz.white10,
           borderRadius: BorderRadius.circular(corners),
           boxShadow: const <BoxShadow>[
-            Shadowz.CustomBoxShadow(
+            CustomBoxShadow(
                 color: _bubble == true ? Colorz.black200 : Colorz.nothing,
                 blurRadius: _boxHeight * 0.15,
                 style: BlurStyle.outer),
-          ]),
+          ],
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(corners),
         child: Stack(
@@ -179,11 +180,12 @@ class PropertySearchCriteria extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(corners - (_boxHeight * 0.8)),
                     boxShadow: <BoxShadow>[
-                      Shadowz.CustomBoxShadow(
+                      CustomBoxShadow(
                           color: Colorz.white50,
                           offset: Offset(0, _boxWidth * -0.01),
                           blurRadius: _boxHeight * 0.2),
-                    ]),
+                    ],
+                ),
               ),
             ),
 

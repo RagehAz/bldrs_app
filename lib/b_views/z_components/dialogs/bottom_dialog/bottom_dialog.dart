@@ -9,8 +9,8 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
-import 'package:bldrs/f_helpers/drafters/text_mod.dart' as TextMod;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -445,7 +445,7 @@ class BottomDialog extends StatelessWidget {
 
                 if (_keyboardModel.onSubmitted != null){
 
-                  closeKeyboard(context);
+                  Keyboard.closeKeyboard(context);
                   Nav.goBack(context);
                   _keyboardModel.onSubmitted(_keyboardModel.controller.text);
 
@@ -518,7 +518,7 @@ class BottomDialog extends StatelessWidget {
             height: _dialogHeight,
             decoration: BoxDecoration(
               borderRadius: _dialogCorners,
-              boxShadow: Shadowz.appBarShadow,
+              boxShadow: Shadower.appBarShadow,
             ),
           ),
 

@@ -1,5 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart' as Shadowz;
+import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +28,12 @@ class DreamBoxHighlight extends StatelessWidget {
           borderRadius: BorderRadius.circular(
               Borderers.getCornersAsDouble(corners) - (height * 0.8)),
           boxShadow: <BoxShadow>[
-            Shadowz.CustomBoxShadow(
+            CustomBoxShadow(
                 color: Colorz.white50,
                 offset: Offset(0, height * -0.33),
                 blurRadius: height * 0.2),
-          ]),
+          ],
+      ),
     );
   }
 }

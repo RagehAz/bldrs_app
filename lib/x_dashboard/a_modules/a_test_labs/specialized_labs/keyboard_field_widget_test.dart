@@ -117,7 +117,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 fieldColor: Colorz.bloodTest,
                 textController: _controller,
                 // textInputAction: TextInputAction.done,
-                textInputType: textInputTypes[_index],
+                textInputType: Keyboard.textInputTypes[_index],
                 onTap: () async {
 
                   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -130,7 +130,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                     maxLines: 5,
                     maxLength: 100,
                     textInputAction: TextInputAction.done,
-                    textInputType: textInputTypes[_index],
+                    textInputType: Keyboard.textInputTypes[_index],
                     focusNode: FocusNode(),
                     canObscure: false,
                     counterIsOn: false,
@@ -152,7 +152,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
               ),
 
               SuperVerse(
-                verse: '$_index : keyboardHeight is : $_keyboardHeight\ntype : ${cipherTextInputType(textInputTypes[_index])}',
+                verse: '$_index : keyboardHeight is : $_keyboardHeight\ntype : ${Keyboard.cipherTextInputType(Keyboard.textInputTypes[_index])}',
                 labelColor: Colorz.black255,
                 size: 3,
                 maxLines: 3,

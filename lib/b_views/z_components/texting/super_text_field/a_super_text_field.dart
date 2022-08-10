@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/text_directionerz.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -326,7 +326,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // _textLength = ValueNotifier(_controller.text.length);
     // _errors = ValueNotifier<List<String>>(_initializeErrors());
 
-    final TextDirection _initialTextDirection = superTextDirectionSwitcher(
+    final TextDirection _initialTextDirection = TextDir.superTextDirectionSwitcher(
       val: widget.textController?.text,
       context: context,
     );
@@ -488,7 +488,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   void _changeTextDirection(String val) {
     /// USE LIKE THIS :-
     /// onChanged: (val){_changeTextDirection();},
-    _textDirection.value = superTextDirectionSwitcher(
+    _textDirection.value = TextDir.superTextDirectionSwitcher(
       val: val,
       context: context,
     );
@@ -511,7 +511,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     if (widget.isTheSuperKeyboardField == false){
 
-      final bool _keyboardIs = keyboardIsOn(context);
+      final bool _keyboardIs = Keyboard.keyboardIsOn(context);
       blog('keyboard : $_keyboardIs : _controller : ${_controller.hashCode}');
 
       final KeyboardModel model = KeyboardModel(
@@ -576,7 +576,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
             valueListenable: _textDirection,
             builder: (_, TextDirection textDirection, Widget child){
 
-              final TextDirection _concludedTextDirection = concludeTextDirection(
+              final TextDirection _concludedTextDirection = TextDir.concludeTextDirection(
                 context: context,
                 definedDirection: widget.textDirection,
                 detectedDirection: textDirection,
@@ -672,7 +672,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                     builder: (_, bool obscured, Widget child){
 
                       final String _text = obscured == true ?
-                      obscureText(
+                      TextMod.obscureText(
                         text: _value,
                       )
                           :
