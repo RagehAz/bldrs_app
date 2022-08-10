@@ -13,12 +13,12 @@ import 'package:provider/provider.dart';
 /// SEARCHING OLD METHOD
 
 // --------------------------------------------
-Future<void> onChainsSearchChangedOLD({
+Future<void> onChainsSearchChanged({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<String>> foundPhids,
   @required ValueNotifier<List<Chain>> foundChains,
+  @required ValueNotifier<String> searchText,
 }) async {
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -26,28 +26,29 @@ Future<void> onChainsSearchChangedOLD({
   TextChecker.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
-    onResume: () => onChainsSearchSubmittedOLD(
+    onResume: () => onChainsSearchSubmitted(
       context: context,
-      foundPhids: foundPhids,
       foundChains: foundChains,
       isSearching: isSearching,
+      searchText: searchText,
       text: text,
     ),
     onSwitchOff: () => _clearSearchResult(
         foundChains: foundChains,
-        foundPhids: foundPhids
     ),
   );
 
 }
 // --------------------------------------------
-Future<void> onChainsSearchSubmittedOLD({
+Future<void> onChainsSearchSubmitted({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<String>> foundPhids,
   @required ValueNotifier<List<Chain>> foundChains,
+  @required ValueNotifier<String> searchText,
 }) async {
+
+  searchText.value = text;
 
   final List<String> _phids = await _searchKeywordsPhrases(
     text: text,
@@ -59,21 +60,20 @@ Future<void> onChainsSearchSubmittedOLD({
     phids: _phids,
   );
 
-  blog('search result is : -');
-  blog('phids : $_phids');
-  Chain.blogChains(_chains);
-  blog('the end of search ------------------------------------------------------------------------');
+  // blog('search result is : -');
+  // blog('phids : $_phids');
+  // Chain.blogChains(_chains);
+  // blog('the end of search ------------------------------------------------------------------------');
 
   await _setFoundResults(
     context: context,
-    searchedPhids: _phids,
-    chainsFromPhids: _chains,
-    foundChains: foundChains,
-    foundPhids: foundPhids,
+    foundChainsResult: _chains,
+    foundChainsNotifier: foundChains,
   );
 
 }
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<List<String>> _searchKeywordsPhrases({
   @required String text,
   @required BuildContext context,
@@ -82,8 +82,9 @@ Future<List<String>> _searchKeywordsPhrases({
   List<String> _phidKs = <String>[];
 
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
-    sourcePhrases: _chainsProvider.cityKeywordsChainPhrases,
+    sourcePhrases: _chainsProvider.allKeywordsChainPhrases,
     inputText: text,
   );
 
@@ -110,6 +111,7 @@ Future<List<String>> _searchKeywordsPhrases({
   return _phidKs;
 }
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 List<Chain> _getChainsFromPhids({
   @required BuildContext context,
   @required List<String> phids,
@@ -121,9 +123,9 @@ List<Chain> _getChainsFromPhids({
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-    _chains = Chain.getChainsFromChainsByIDs(
+    _chains = ChainPathConverter.findPhidsRelatedChains(
+      allChains: _chainsProvider.allKeywordsChain.sons,
       phids: phids,
-      allChains: _chainsProvider.cityKeywordsChain.sons,
     );
 
   }
@@ -133,25 +135,21 @@ List<Chain> _getChainsFromPhids({
 // --------------------------------------------
 Future<void> _setFoundResults({
   @required BuildContext context,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required ValueNotifier<List<String>> foundPhids,
-  @required List<String> searchedPhids,
-  @required List<Chain> chainsFromPhids,
+  @required ValueNotifier<List<Chain>> foundChainsNotifier,
+  @required List<Chain> foundChainsResult,
 }) async {
 
   /// found results
-  if (Mapper.checkCanLoopList(searchedPhids) == true) {
+  if (Mapper.checkCanLoopList(foundChainsResult) == true) {
 
-    foundPhids.value = searchedPhids;
-    foundChains.value = chainsFromPhids;
+    foundChainsNotifier.value = foundChainsResult;
 
   }
 
   /// did not find results
   else {
 
-    foundPhids.value = <String>[];
-    foundChains.value = <Chain>[];
+    foundChainsNotifier.value = <Chain>[];
 
   }
 
@@ -159,10 +157,8 @@ Future<void> _setFoundResults({
 // --------------------------------------------
 void _clearSearchResult({
   @required ValueNotifier<List<Chain>> foundChains,
-  @required ValueNotifier<List<String>> foundPhids,
 }){
 
-  foundPhids.value = <String>[];
   foundChains.value = <Chain>[];
 
 }
@@ -171,6 +167,7 @@ void _clearSearchResult({
 /// SEARCHING TEMP METHOD
 
 // --------------------------------
+/*
 Future<void> onChainsSearchChanged({
   @required String text,
   @required ValueNotifier<bool> isSearching,
@@ -233,4 +230,6 @@ void _searchChainsOps({
   foundChains.value = _foundPathsChains;
 
 }
+
+ */
 // -----------------------------------------------------------------------------

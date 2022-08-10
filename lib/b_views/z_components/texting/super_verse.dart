@@ -697,19 +697,19 @@ class Verse extends StatelessWidget {
     @required TextStyle defaultStyle,
     @required Color highlightColor,
   }){
-    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.toLowerCase())) {
+    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.trim().toLowerCase())) {
       return [ TextSpan(text: verse) ];
     }
 
     else {
 
-      final matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
+      final Iterable<Match> matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
       int lastMatchEnd = 0;
 
       final List<TextSpan> children = <TextSpan>[];
 
       for (var i = 0; i < matches.length; i++) {
-        final match = matches.elementAt(i);
+        final Match match = matches.elementAt(i);
 
         if (match.start != lastMatchEnd) {
 

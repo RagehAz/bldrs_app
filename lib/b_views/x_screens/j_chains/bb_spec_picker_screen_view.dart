@@ -20,7 +20,7 @@ class SpecPickerScreenView extends StatelessWidget {
     @required this.screenHeight,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
-    @required this.onSelectSpec,
+    @required this.onSelectPhid,
     @required this.onlyUseCityChains,
     Key key
   }) : super(key: key);
@@ -30,7 +30,7 @@ class SpecPickerScreenView extends StatelessWidget {
   final double screenHeight;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
-  final ValueChanged<String> onSelectSpec;
+  final ValueChanged<String> onSelectPhid;
   final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   double _getListZoneHeight(){
@@ -87,7 +87,7 @@ class SpecPickerScreenView extends StatelessWidget {
                   pickerChainID: specPicker.chainID,
                 ),
                 onlyUseCityChains: onlyUseCityChains,
-                onPhidTap: onSelectSpec,
+                onPhidTap: onSelectPhid,
               );
             }
 
@@ -152,9 +152,11 @@ class SpecPickerScreenView extends StatelessWidget {
                 ),
                 specPicker: specPicker,
 
-                onKeyboardSubmitted: () => onGoBackToSpecsPickersScreen(
+                onKeyboardSubmitted: () => onGoBackFromSpecPickerScreen(
                   context: context,
                   selectedSpecs: selectedSpecs,
+                  isMultipleSelectionMode: isMultipleSelectionMode,
+                  phid: null,
                 ),
               );
             }
@@ -172,7 +174,7 @@ class SpecPickerScreenView extends StatelessWidget {
             height: _listZoneHeight,
             specPicker: specPicker,
             selectedSpecs: null,
-            onPhidTap: onSelectSpec,
+            onPhidTap: onSelectPhid,
             onlyUseCityChains: onlyUseCityChains,
           ),
 
