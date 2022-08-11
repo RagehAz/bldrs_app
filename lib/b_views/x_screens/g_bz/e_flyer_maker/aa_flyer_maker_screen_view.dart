@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -203,57 +202,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                               );
 
                             }
-                        ),
-
-                        /// KEYWORDS SELECTOR
-                        ValueListenableBuilder(
-                          valueListenable: draft,
-                          builder: (_, DraftFlyerModel _draft, Widget child){
-
-                            return WidgetFader(
-                              fadeType: _draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
-                              min: 0.35,
-                              absorbPointer: _draft.flyerType == null,
-                              child: Bubble(
-                                width: Bubble.bubbleWidth(
-                                  context: context,
-                                  stretchy: false,
-                                ),
-                                title: 'Flyer Keywords',
-                                columnChildren: <Widget>[
-
-                                  const BubbleBulletPoints(
-                                    bulletPoints: <String>[
-                                      'Select at least 1 flyer keyword to help search engines show your flyer in its dedicated place',
-                                    ],
-                                  ),
-
-                                  InfoPageKeywords(
-                                    pageWidth: Bubble.clearWidth(context),
-                                    keywordsIDs: _draft.keywordsIDs,
-                                  ),
-
-                                  DreamBox(
-                                    height: PhidButton.getHeight(),
-                                    // width: Bubble.clearWidth(context),
-                                    verse: Mapper.checkCanLoopList(_draft.keywordsIDs) ? 'Edit Keywords' : 'Add Keywords',
-                                    bubble: false,
-                                    color: Colorz.white20,
-                                    verseScaleFactor: 1.5,
-                                    verseWeight: VerseWeight.thin,
-                                    icon: Iconz.plus,
-                                    iconSizeFactor: 0.4,
-                                    iconColor: Colorz.white20,
-                                    onTap: () => onAddKeywordsTap(
-                                      context: context,
-                                      draft: draft,
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            );
-                          },
                         ),
 
                         /// SPECS SELECTOR
