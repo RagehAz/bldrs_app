@@ -84,7 +84,7 @@ Future<List<String>> _searchKeywordsPhrases({
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
-    sourcePhrases: _chainsProvider.allKeywordsChainPhrases,
+    sourcePhrases: _chainsProvider.bigChainKPhrases,
     inputText: text,
   );
 
@@ -98,7 +98,7 @@ Future<List<String>> _searchKeywordsPhrases({
 
     _phidKs = Chain.removeAllChainIDsFromKeywordsIDs(
       phidKs: _phidKs,
-      allChains: getAllChains(
+      allChains: _chainsProvider.getChainKAndChainS(
         context: context,
         getOnlyCityKeywordsChain: false,
       ),
@@ -124,7 +124,7 @@ List<Chain> _getChainsFromPhids({
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     _chains = ChainPathConverter.findPhidsRelatedChains(
-      allChains: _chainsProvider.allKeywordsChain.sons,
+      allChains: _chainsProvider.bigChainK.sons,
       phids: phids,
     );
 

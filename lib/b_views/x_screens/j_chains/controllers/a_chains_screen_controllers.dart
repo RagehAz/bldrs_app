@@ -111,7 +111,7 @@ Future<void> _setActivePhidK({
 
   const bool deactivated = false;
 
-  final List<Chain> allChains = ChainsProvider.proGetKeywordsChain(
+  final List<Chain> allChains = ChainsProvider.proGetBigChainK(
       context: context,
       onlyUseCityChains: false,
       listen: false

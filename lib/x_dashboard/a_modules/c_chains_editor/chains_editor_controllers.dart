@@ -31,7 +31,7 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
       chainsToAdd: chainsToAdd,
     );
 
-    await _chainsProvider.reFetchSetAllChains(context);
+    await _chainsProvider.reInitializeAllChains(context);
 
   }
 
@@ -329,9 +329,9 @@ Future<void> _updateKeywordsChainOps({
 
   /// 3 - UPDATE PROVIDER
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.refineAndSetKeywordsChainAndGenerateTheirPhrases(
+  await _chainsProvider.updateBigChainKOps(
     context: context,
-    keywordsChain: chain,
+    bigChainK: chain,
     notify: true,
   );
 
@@ -360,7 +360,7 @@ Future<void> _updateSpecsChainOps({
 
   /// 3 - UPDATE PROVIDER
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  _chainsProvider.setSpecsChain(
+  _chainsProvider.setBigChainS(
       specsChain: chain,
       notify: true
   );
