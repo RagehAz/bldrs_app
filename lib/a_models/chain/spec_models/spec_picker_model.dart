@@ -100,6 +100,9 @@ class SpecPicker {
     @required String pickerChainID,
   }) {
 
+    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $pickerChainID');
+    // SpecPicker.blogSpecsPickers(specsPickers);
+
   /// gets the picker where chain ID is the main chain or unit chain ID
 
     SpecPicker _specPicker;

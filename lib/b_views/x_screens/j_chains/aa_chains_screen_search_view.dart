@@ -40,9 +40,12 @@ class ChainsScreenSearchView extends StatelessWidget {
             return PageBubble(
               screenHeightWithoutSafeArea: screenHeight,
               appBarType: AppBarType.search,
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 50),
                 child: SuperVerse(
                   verse: xPhrase(context, 'phid_nothing_found'),
+                  margin: 50,
+                  maxLines: 4,
                 ),
               ),
             );
@@ -54,13 +57,20 @@ class ChainsScreenSearchView extends StatelessWidget {
               screenHeightWithoutSafeArea: screenHeight,
               appBarType: AppBarType.search,
               color: Colorz.white20,
-              child: ChainSplitter(
-                chainOrChainsOrSonOrSons: _foundChains,
-                width: PageBubble.clearWidth(context) + 20,
-                selectedPhids: SpecModel.getSpecsIDs(selectedSpecs.value),
-                initiallyExpanded: true,
-                onSelectPhid: onSelectPhid,
-                searchText: searchText
+              child: ValueListenableBuilder(
+                valueListenable: selectedSpecs,
+                builder: (_, List<SpecModel> _selectedSpecs, Widget child){
+
+                  return ChainSplitter(
+                      chainOrChainsOrSonOrSons: _foundChains,
+                      width: PageBubble.clearWidth(context) + 20,
+                      selectedPhids: SpecModel.getSpecsIDs(_selectedSpecs),
+                      initiallyExpanded: true,
+                      onSelectPhid: onSelectPhid,
+                      searchText: searchText
+                  );
+
+                },
               ),
             );
           }

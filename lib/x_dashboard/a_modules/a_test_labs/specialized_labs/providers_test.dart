@@ -297,63 +297,72 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// CHAINS -------------------------------------------------------------
             const SuperVerse(verse: 'Chains',),
 
-            /// ALL KEYWORDS CHAIN
+            /// BIG CHAIN K
             ProviderTestButton(
-              title: 'chainsProvider.allKeywordsChain ',
+              title: 'chainsProvider.bigChainK ',
               value: _chainsProvider?.bigChainK,
               onTap: (){
                 _chainsProvider.bigChainK.blogChain();
               },
             ),
 
-            /// CITY KEYWORDS CHAIN
+            /// BIG CHAIN S
             ProviderTestButton(
-              title: 'chainsProvider.cityKeywordsChain ',
+              title: 'chainsProvider.bigChainS ',
+              value: _chainsProvider?.bigChainS,
+              onTap: (){
+                _chainsProvider.bigChainS.blogChain();
+              },
+            ),
+
+            /// CITY CHAIN K
+            ProviderTestButton(
+              title: 'chainsProvider.cityChainK ',
               value: _chainsProvider?.cityChainK,
               onTap: (){
                 _chainsProvider.cityChainK.blogChain();
               },
             ),
 
-            /// ALL KEYWORDS CHAIN PHRASES
+            /// BIG CHAIN K PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.allKeywordsChainPhrases : ${_chainsProvider?.bigChainKPhrases?.length} phrases ',
+              title: 'chainsProvider.bigChainKPhrases : ${_chainsProvider?.bigChainKPhrases?.length} phrases ',
               value: _chainsProvider?.bigChainKPhrases,
               onTap: (){
                 Phrase.blogPhrases(_chainsProvider?.bigChainKPhrases);
               },
             ),
 
-            /// CITY KEYWORDS CHAIN PHRASES
+            /// BIG CHAIN S PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.cityKeywordsChainPhrases : ${_chainsProvider?.cityChainKPhrases?.length} phrases ',
+              title: 'chainsProvider.bigChainSPhrases : ${_chainsProvider?.bigChainSPhrases?.length} phrases ',
+              value: _chainsProvider?.bigChainSPhrases,
+              onTap: (){
+                Phrase.blogPhrases(_chainsProvider?.bigChainSPhrases);
+              },
+            ),
+
+            /// CITY CHAIN K PHRASES
+            ProviderTestButton(
+              title: 'chainsProvider.cityChainKPhrases : ${_chainsProvider?.cityChainKPhrases?.length} phrases ',
               value: _chainsProvider?.cityChainKPhrases,
               onTap: (){
                 Phrase.blogPhrases(_chainsProvider?.cityChainKPhrases);
               },
             ),
 
-            /// CURRENT CITY CHAIN
+            /// CITY PHID COUNTERS
             ProviderTestButton(
-              title: 'chainsProvider.currentCityChain',
+              title: 'chainsProvider.cityPhidCounters',
               value: _chainsProvider?.cityPhidCounters,
               onTap: (){
                 _chainsProvider?.cityPhidCounters?.blogCityChain();
               },
             ),
 
-            /// SPECS CHAIN
-            ProviderTestButton(
-              title: 'chainsProvider.specsChain',
-              value: _chainsProvider?.bigChainS,
-              onTap: (){
-                _chainsProvider?.bigChainS?.blogChain();
-              },
-            ),
-
             /// HOME WALL FLYER TYPE
             ProviderTestButton(
-              title: 'chainsProvider.homeWallFlyerType',
+              title: 'chainsProvider.wallFlyerType',
               value: _chainsProvider?.wallFlyerType,
               onTap: (){
                 blog(_chainsProvider?.wallFlyerType);

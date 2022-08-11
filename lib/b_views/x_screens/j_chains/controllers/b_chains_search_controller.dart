@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +14,14 @@ import 'package:provider/provider.dart';
 /// SEARCHING OLD METHOD
 
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onChainsSearchChanged({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<List<Chain>> foundChains,
   @required ValueNotifier<String> searchText,
+  @required List<String> phidsOfAllPickers,
 }) async {
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -32,6 +35,7 @@ Future<void> onChainsSearchChanged({
       isSearching: isSearching,
       searchText: searchText,
       text: text,
+      phidsOfAllPickers: phidsOfAllPickers,
     ),
     onSwitchOff: () => _clearSearchResult(
         foundChains: foundChains,
@@ -40,12 +44,14 @@ Future<void> onChainsSearchChanged({
 
 }
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onChainsSearchSubmitted({
   @required BuildContext context,
   @required String text,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<List<Chain>> foundChains,
   @required ValueNotifier<String> searchText,
+  @required List<String> phidsOfAllPickers,
 }) async {
 
   searchText.value = text;
@@ -53,7 +59,9 @@ Future<void> onChainsSearchSubmitted({
   final List<String> _phids = await _searchKeywordsPhrases(
     text: text,
     context: context,
+    phidsOfAllPickers: phidsOfAllPickers,
   );
+
 
   final List<Chain> _chains = _getChainsFromPhids(
     context: context,
@@ -63,7 +71,7 @@ Future<void> onChainsSearchSubmitted({
   // blog('search result is : -');
   // blog('phids : $_phids');
   // Chain.blogChains(_chains);
-  // blog('the end of search ------------------------------------------------------------------------');
+  // blog('the end of search --------------------');
 
   await _setFoundResults(
     context: context,
@@ -77,14 +85,15 @@ Future<void> onChainsSearchSubmitted({
 Future<List<String>> _searchKeywordsPhrases({
   @required String text,
   @required BuildContext context,
+  @required List<String> phidsOfAllPickers,
 }) async {
 
-  List<String> _phidKs = <String>[];
+  List<String> _phids = <String>[];
 
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
-    sourcePhrases: _chainsProvider.bigChainKPhrases,
+    sourcePhrases: <Phrase>[..._chainsProvider.bigChainKPhrases, ..._chainsProvider.bigChainSPhrases],
     inputText: text,
   );
 
@@ -92,23 +101,88 @@ Future<List<String>> _searchKeywordsPhrases({
 
   if (Mapper.checkCanLoopList(_searched) == true) {
 
-    _phidKs = Phrase.getKeywordsIDsFromPhrases(allPhrases: _searched);
+    _phids = Phrase.getPhrasesIDs(_searched);
 
-    blog('BEFORE REMOVE THEY WERE : $_phidKs');
+    blog('BEFORE REMOVE THEY WERE : $_phids');
 
-    _phidKs = Chain.removeAllChainIDsFromKeywordsIDs(
-      phidKs: _phidKs,
+    _phids = Chain.removeAllChainIDsFromKeywordsIDs(
+      phids: _phids,
       allChains: _chainsProvider.getChainKAndChainS(
         context: context,
         getOnlyCityKeywordsChain: false,
       ),
     );
 
-    blog('AFTER REMOVE THEY ARE : $_phidKs');
+    _phids = _removeCurrenciesFromPhids(
+      phids: _phids,
+    );
+
+    _phids = _removePhidsOutOfScope(
+      scope: phidsOfAllPickers,
+      phids: _phids,
+    );
+
+    blog('AFTER REMOVE THEY ARE : $_phids');
 
   }
 
-  return _phidKs;
+  return _phids;
+}
+// --------------------------------------------
+/// TESTED : WORKS PERFECT
+List<String> _removeCurrenciesFromPhids({
+  @required List<String> phids,
+}){
+  final List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(phids) == true){
+
+    for (final String phid in phids){
+
+      /// CURRENCY PHID COME LIKES THIS : 'currency_xxx'
+      final String _currencyText = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+
+      if (_currencyText != 'currency'){
+        _output.add(phid);
+      }
+
+    }
+
+  }
+
+  return _output;
+}
+// --------------------------------------------
+/// TESTED : WORKS PERFECT
+List<String> _removePhidsOutOfScope({
+  @required List<String> phids,
+  @required List<String> scope,
+}){
+  List<String> _output = <String>[];
+
+  if (Mapper.checkCanLoopList(phids) == true){
+    _output = <String>[...phids];
+
+    if (Mapper.checkCanLoopList(scope) == true){
+
+      for (final String phid in phids){
+
+        final bool _withinScope = Mapper.checkStringsContainString(
+            strings: scope,
+            string: phid,
+        );
+
+        if (_withinScope == false){
+          _output.remove(phid);
+        }
+
+      }
+
+    }
+
+  }
+
+  return _output;
 }
 // --------------------------------------------
 /// TESTED : WORKS PERFECT
@@ -124,8 +198,11 @@ List<Chain> _getChainsFromPhids({
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     _chains = ChainPathConverter.findPhidsRelatedChains(
-      allChains: _chainsProvider.bigChainK.sons,
       phids: phids,
+      allChains: _chainsProvider.getChainKAndChainS(
+        context: context,
+        getOnlyCityKeywordsChain: false,
+      ),
     );
 
   }
@@ -133,6 +210,7 @@ List<Chain> _getChainsFromPhids({
   return _chains;
 }
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _setFoundResults({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> foundChainsNotifier,
@@ -155,6 +233,7 @@ Future<void> _setFoundResults({
 
 }
 // --------------------------------------------
+/// TESTED : WORKS PERFECT
 void _clearSearchResult({
   @required ValueNotifier<List<Chain>> foundChains,
 }){
@@ -162,74 +241,4 @@ void _clearSearchResult({
   foundChains.value = <Chain>[];
 
 }
-// -----------------------------------------------------------------------------
-
-/// SEARCHING TEMP METHOD
-
-// --------------------------------
-/*
-Future<void> onChainsSearchChanged({
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required ValueNotifier<List<String>> foundPhids,
-  @required List<Chain> chains,
-}) async {
-
-  TextChecker.triggerIsSearchingNotifier(
-    text: text,
-    isSearching: isSearching,
-    onResume: () => _searchChainsOps(
-      chains: chains,
-      text: text,
-      foundChains: foundChains,
-    ),
-    onSwitchOff: () => _clearSearchResult(
-        foundChains: foundChains,
-        foundPhids: foundPhids
-    ),
-  );
-
-  if (isSearching.value == true){
-    _searchChainsOps(
-      chains: chains,
-      text: text,
-      foundChains: foundChains,
-    );
-  }
-
-}
-// ------------------------------------------------
-Future<void> onChainsSearchSubmitted({
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required List<Chain> chains,
-}) async {
-
-  _searchChainsOps(
-    chains: chains,
-    text: text,
-    foundChains: foundChains,
-  );
-
-}
-// ------------------------------------------------
-void _searchChainsOps({
-  @required List<Chain> chains,
-  @required String text,
-  @required ValueNotifier<List<Chain>> foundChains,
-}){
-
-  final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
-    allChains: chains,
-    phid: text,
-  );
-
-  /// SET FOUND CHAINS AS SEARCH RESULT
-  foundChains.value = _foundPathsChains;
-
-}
-
- */
 // -----------------------------------------------------------------------------
