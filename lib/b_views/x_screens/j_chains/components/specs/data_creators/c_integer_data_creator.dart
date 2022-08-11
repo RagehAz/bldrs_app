@@ -60,7 +60,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     controller.text = widget.initialValue?.toString();
     _specValue = ValueNotifier(widget.initialValue);
 // ---------------------------------
-    _unitChain = ChainsProvider.superFindChainByID(
+    _unitChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: widget.specPicker.unitChainID,
     );

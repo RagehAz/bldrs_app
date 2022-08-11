@@ -13,6 +13,8 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -91,32 +93,68 @@ class _ChainsScreenState extends State<ChainsScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  bool _isInitialized = false;
   void _initializeScreen(Chain _initialChain){
-    // ------------------------------
-    if (widget.flyerTypeChainFilter == null){
+    if (_isInitialized == false){
+      // ------------------------------
+      if (widget.flyerTypeChainFilter == null){
 
-      _allSpecPickers = SpecPicker.createPickersForChainK(
-        context: context,
-        chainK: _initialChain,
+        _allSpecPickers = SpecPicker.createPickersForChainK(
+          context: context,
+          chainK: _initialChain,
+        );
+      }
+      else {
+        _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypeChainFilter);
+      }
+      // ------------------------------
+      _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
+      // ------------------------------
+      final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
+        sourceSpecsPickers: _allSpecPickers,
+        selectedSpecs: widget.selectedSpecs,
       );
+      _refinedSpecsPickers = ValueNotifier<List<SpecPicker>>(_theRefinedPickers);
+      // ------------------------------
+      final List<String> _theGroupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+        specsPickers: _theRefinedPickers,
+      );
+      _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
+      // ------------------------------
+      _generatePhidsFromAllSpecPickers();
+      // ------------------------------
+      _isInitialized = true;
     }
-    else {
-      _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypeChainFilter);
+  }
+// -----------------------------------------------------------------------------
+  List<String> _phidsOfAllPickers = <String>[];
+  void _generatePhidsFromAllSpecPickers(){
+
+    if (Mapper.checkCanLoopList(_allSpecPickers) == true){
+
+      final List<Chain> _sons = <Chain>[];
+
+      for (final SpecPicker _picker in _allSpecPickers){
+        final Chain _chain = ChainsProvider.proFindChainByID(
+          context: context,
+          chainID: _picker.chainID,
+          onlyUseCityChains: widget.onlyUseCityChains,
+        );
+        if (_chain != null){
+          _sons.add(_chain);
+        }
+      }
+
+      if (Mapper.checkCanLoopList(_sons) == true){
+
+        _phidsOfAllPickers = Chain.getOnlyStringsSonsIDsFromChains(
+            chains: _sons
+        );
+
+      }
+
     }
-    // ------------------------------
-    _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
-    // ------------------------------
-    final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
-      sourceSpecsPickers: _allSpecPickers,
-      selectedSpecs: widget.selectedSpecs,
-    );
-    _refinedSpecsPickers = ValueNotifier<List<SpecPicker>>(_theRefinedPickers);
-    // ------------------------------
-    final List<String> _theGroupsIDs = SpecPicker.getGroupsFromSpecsPickers(
-      specsPickers: _theRefinedPickers,
-    );
-    _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
-    // ------------------------------
+
   }
 // -----------------------------------------------------------------------------
   Chain _getProChain (BuildContext ctx, ChainsProvider chainsPro){
@@ -127,6 +165,20 @@ class _ChainsScreenState extends State<ChainsScreen> {
       return chainsPro.bigChainK;
     }
 }
+// -----------------------------------------------------------------------------
+  String _getSpecPickerChainIDOfPhid(String phid){
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final Chain _bigChainK = _chainsProvider.bigChainK;
+    final Chain _bigChainS = _chainsProvider.bigChainS;
+
+    final String _rooChainID = Chain.getRootChainIDOfPhid(
+        allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
+        phid: phid,
+    );
+
+    return _rooChainID;
+  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -151,6 +203,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
         context: context,
         foundChains: _foundChains,
         searchText: _searchText,
+        phidsOfAllPickers: _phidsOfAllPickers,
       ),
       onSearchSubmit: (String text) => onChainsSearchSubmitted(
         text: text,
@@ -158,7 +211,13 @@ class _ChainsScreenState extends State<ChainsScreen> {
         foundChains: _foundChains,
         context: context,
         searchText: _searchText,
+        phidsOfAllPickers: _phidsOfAllPickers,
       ),
+      onSearchCancelled: (){
+        _searchTextController.text = '';
+        Keyboard.closeKeyboard(context);
+        _isSearching.value = false;
+      },
       searchController: _searchTextController,
       searchHint: 'Search keywords',
       layoutWidget: Selector<ChainsProvider, Chain>(
@@ -212,14 +271,11 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     context: context,
                     phid: phid,
                     isMultipleSelectionMode: widget.isMultipleSelectionMode,
+                    selectedSpecs: _selectedSpecs,
                     specPicker: SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
                       specsPickers: _allSpecPickers,
-                      pickerChainID: Chain.getRootChainIDOfPhid(
-                          allChains: _foundChains.value,
-                          phid: phid
-                      ),
+                      pickerChainID: _getSpecPickerChainIDOfPhid(phid),
                     ),
-                    selectedSpecs: _selectedSpecs
                 ),
               );
 

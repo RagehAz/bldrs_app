@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
@@ -17,6 +18,7 @@ class SearchBar extends StatefulWidget {
     this.boxWidth,
     this.hintText,
     this.height,
+    this.onSearchCancelled,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,6 +29,7 @@ class SearchBar extends StatefulWidget {
   final double boxWidth;
   final String hintText;
   final double height;
+  final Function onSearchCancelled;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -40,7 +43,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {
     super.initState();
-    _searchTextController = widget.searchController ?? TextEditingController(text: '');
+    _searchTextController = widget.searchController ?? TextEditingController();
   }
 // -----------------------------------------------------------------------------
   @override
@@ -71,7 +74,7 @@ class _SearchBarState extends State<SearchBar> {
       // color: Colorz.bloodTest,
       alignment: Alignment.center, //Aligners.superTopAlignment(context),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
           /// STARTING SPACER
@@ -82,15 +85,23 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH HISTORY BUTTON
           if (widget.historyButtonIsOn)
-            DreamBox(
-              width: _historyButtonWidth,
-              height: _historyButtonHeight,
-              // color: Colorz.linkedIn,
-              icon: Iconz.search,
-              iconSizeFactor: 0.5,
-              bubble: false,
-              // onTap: (){blog('tapping on search button');},
-            ),
+          ValueListenableBuilder(
+              valueListenable: _searchTextController,
+              builder: (_, TextEditingValue value, Widget child){
+
+                final bool _isX = value.text.length >= Standards.minSearchChar;
+
+                return DreamBox(
+                  width: _historyButtonWidth,
+                  height: _historyButtonHeight,
+                  icon: _isX == true ? Iconz.xSmall : Iconz.search,
+                  iconSizeFactor: 0.5,
+                  bubble: false,
+                  onTap: _isX == true ? widget.onSearchCancelled : null,
+                );
+              }
+          ),
+
 
           /// MIDDLE SPACER
           if (widget.historyButtonIsOn)
@@ -106,15 +117,14 @@ class _SearchBarState extends State<SearchBar> {
             // onSavedForForm: (String val) {
             //   blog('on saved');
             // },
-            // height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
-            // height: Ratioz.appBarButtonSize * 0.5 * 2,
             // labelColor: Colorz.yellow255,
-            width: _textFieldWidth - 5,
+            width: _textFieldWidth,
+
             textController: _searchTextController,
             textItalic: true,
             textInputAction: TextInputAction.search,
             corners: Ratioz.appBarButtonCorner,
-            onTap: () {},
+            // onTap: () {},
             onChanged: (String val) {
               if (widget.onSearchChanged != null) {
                 if (val != null) {
@@ -125,6 +135,7 @@ class _SearchBarState extends State<SearchBar> {
             hintText: widget.hintText ?? 'Search ...',
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
+            textSizeFactor: 1.15,
             onSubmitted: (String val) {
               widget.onSearchSubmit(val);
             },

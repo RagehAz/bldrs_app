@@ -9,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
@@ -32,7 +33,7 @@ void onSearchPhrases({
   isSearching.value = TextChecker.triggerIsSearching(
     text: searchController.text,
     isSearching: isSearching.value,
-    minCharLimit: forceSearch ? 1 : 3,
+    minCharLimit: forceSearch ? 1 : Standards.minSearchChar,
   );
 
   blog('onSearchPhrases : isSearching.value : ${isSearching.value}');
