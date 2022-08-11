@@ -125,10 +125,9 @@ void updateSpecsPickersAndGroups({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
-  final Chain _specChain = ChainsProvider.superGetChain(
+  final Chain _specChain = ChainsProvider.superFindChainByID(
     context: context,
     chainID: specPicker.chainID,
-    onlyUseCityChains: false,
   );
 
   // -------------------------------------------------------------

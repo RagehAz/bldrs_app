@@ -45,7 +45,7 @@ class PhidButton extends StatelessWidget {
     }
     else {
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      _icon = _chainsProvider.getKeywordIcon(
+      _icon = _chainsProvider.getPhidIcon(
         context: context,
         son: phid,
       );

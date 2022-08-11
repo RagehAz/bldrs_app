@@ -27,7 +27,7 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
 String superIcon(BuildContext context, dynamic icon){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
-  return _chainsProvider.getKeywordIcon(
+  return _chainsProvider.getPhidIcon(
     context: context,
     son: icon,
   );
