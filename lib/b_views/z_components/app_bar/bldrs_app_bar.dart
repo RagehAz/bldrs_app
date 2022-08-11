@@ -34,6 +34,7 @@ class BldrsAppBar extends StatelessWidget {
     this.zoneButtonIsOn,
     this.searchHint,
     this.canGoBack,
+    this.onSearchCancelled,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -54,6 +55,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool zoneButtonIsOn;
   final String searchHint;
   final bool canGoBack;
+  final Function onSearchCancelled;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}) {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
@@ -330,6 +332,7 @@ class BldrsAppBar extends StatelessWidget {
                     historyButtonIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     hintText: searchHint,
+                    onSearchCancelled: onSearchCancelled,
                   ),
 
               ],

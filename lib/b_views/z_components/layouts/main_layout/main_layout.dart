@@ -55,6 +55,7 @@ class MainLayout extends StatelessWidget {
     this.pyramidType,
     this.onPyramidTap,
     this.hasKeyboard = true,
+    this.onSearchCancelled,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -84,6 +85,7 @@ class MainLayout extends StatelessWidget {
   final PyramidType pyramidType;
   final Function onPyramidTap;
   final bool hasKeyboard;
+  final Function onSearchCancelled;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -125,7 +127,6 @@ class MainLayout extends StatelessWidget {
 
     return _backgroundColor;
   }
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
   void _onBack(BuildContext context){
 
@@ -215,10 +216,11 @@ class MainLayout extends StatelessWidget {
                     onSearchChanged: onSearchChanged,
                     pyramidsAreOn: pyramidsAreOn,
                     searchHint: searchHint,
-                    layoutWidget: layoutWidget,
                     pyramidType: pyramidType,
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,
+                    onSearchCancelled: onSearchCancelled,
+                    layoutWidget: layoutWidget,
                   ),
 
                 ),

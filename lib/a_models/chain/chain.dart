@@ -218,7 +218,7 @@ class Chain {
 }) {
 
     final List<String> _filteredIDs = <String>[];
-    Chain _filteredChain = ChainsProvider.superFindChainByID(
+    Chain _filteredChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: specPicker.chainID,
       onlyUseCityChains: onlyUseCityChains,
@@ -864,25 +864,25 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static List<String> removeAllChainIDsFromKeywordsIDs({
     @required List<Chain> allChains,
-    @required List<String> phidKs,
+    @required List<String> phids,
 }){
 
     /// GET ALL CHAINS IDS
     final List<String> _chainsIDs = getOnlyChainsIDsFromPhids(
         allChains: allChains,
-        phids: phidKs,
+        phids: phids,
     );
 
     blog('chains IDs are : $_chainsIDs');
 
     /// REMOVE CHAINS IDS FROM PHIDKS
     final List<String> _cleaned = Mapper.removeStringsFromStrings(
-      removeFrom: phidKs,
+      removeFrom: phids,
       removeThis: _chainsIDs,
     );
 
     blog('after removing ${_chainsIDs.length} chainsIDs from '
-        '${phidKs.length} input phrases : _cleaned IDs are : $_cleaned');
+        '${phids.length} input phrases : _cleaned IDs are : $_cleaned');
 
     return _cleaned;
 }

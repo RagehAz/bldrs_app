@@ -191,7 +191,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
     _controller.dispose();
     _easeInAnimation.dispose();
-    _isExpanded.dispose();
+    // _isExpanded.dispose(); /// TASK : BUG HERE
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
