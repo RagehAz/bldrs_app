@@ -64,5 +64,11 @@ class Standards {
   static const int maxTrigramLength = 7;
   static const int maxLocationFetchSeconds = 10;
   static const String ipRegistryAPIKey = '89i23ivki8p5tsqj';
+// -----------------------------------------------------------------------------
 
+  /// SEARCH
+
+// ----------------------------------
+  static const int minSearchChar = 3;
+// -----------------------------------------------------------------------------
 }

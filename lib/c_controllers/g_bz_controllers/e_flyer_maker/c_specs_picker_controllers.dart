@@ -125,13 +125,13 @@ void updateSpecsPickersAndGroups({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
-  final Chain _specChain = ChainsProvider.superFindChainByID(
+  final Chain _specChain = ChainsProvider.proFindChainByID(
     context: context,
     chainID: specPicker.chainID,
   );
 
   // -------------------------------------------------------------
-  if (specPickerResult != null) {
+  if (specPickerResult != null && _specChain != null) {
     // ------------------------------------
     /// A - SONS ARE FROM DATA CREATOR
     if (_specChain.sons.runtimeType == DataCreator) {}
@@ -206,95 +206,99 @@ Future<void> onSelectPhid({
   }
 
 }
-
-
+// -----------------------------------
 Future<void> updateSelectedSpecsAtPhidSelection({
   @required BuildContext context,
   @required String phid,
   @required SpecPicker picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
+
   blog('received kw id : $phid');
+  picker?.blogSpecPicker();
 
-  // spec.printSpec();
-  final SpecModel _spec = SpecModel(
-    pickerChainID: picker.chainID,
-    value: phid,
-  );
+  if (picker != null && picker.chainID != null){
 
-  final bool _alreadySelected = SpecModel.checkSpecsContainThisSpec(
-      specs: selectedSpecs.value,
-      spec: _spec
-  );
+    final SpecModel _spec = SpecModel(
+      pickerChainID: picker?.chainID,
+      value: phid,
+    );
 
-  final int _specIndex = selectedSpecs.value.indexWhere(
-          (SpecModel sp) => sp.value == _spec.value
-  );
+    final bool _alreadySelected = SpecModel.checkSpecsContainThisSpec(
+        specs: selectedSpecs.value,
+        spec: _spec
+    );
 
-  // ----------------------------------------------------------
-  /// A - ALREADY SELECTED SPEC
-  if (_alreadySelected == true) {
-    /// A1 - CAN PICK MANY
-    if (picker.canPickMany == true) {
-      final List<SpecModel> _specs = [...selectedSpecs.value];
-      _specs.removeAt(_specIndex);
-      selectedSpecs.value = _specs;
+    final int _specIndex = selectedSpecs.value.indexWhere(
+            (SpecModel sp) => sp.value == _spec.value
+    );
 
-      // _selectedSpecs.value.removeAt(_specIndex);
-    }
-
-    /// A2 - CAN NOT PICK MANY
-    else {
-      final List<SpecModel> _specs = [...selectedSpecs.value];
-      _specs.removeAt(_specIndex);
-      selectedSpecs.value = _specs;
-
-      // _selectedSpecs.value.removeAt(_specIndex);
-
-    }
-  }
-  // ----------------------------------------------------------
-  /// B - NEW SELECTED SPEC
-  else {
-    /// B1 - WHEN CAN PICK MANY
-    if (picker.canPickMany == true) {
-      final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
-      selectedSpecs.value = _specs;
-
-      // _selectedSpecs.value .add(_spec);
-
-    }
-
-    /// B2 - WHEN CAN NOT PICK MANY
-    else {
-      final int _specIndex = selectedSpecs.value
-          .indexWhere((SpecModel spec) => spec.pickerChainID == picker.chainID);
-
-      /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
-      if (_specIndex == -1) {
-        final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
-        selectedSpecs.value = _specs;
-
-        // _selectedSpecs.value.add(_spec);
-
-      }
-
-      /// C2 - WHEN A SPEC OF THIS KIND ALREADY EXISTS TO BE REPLACED
-      else {
+    // ----------------------------------------------------------
+    /// A - ALREADY SELECTED SPEC
+    if (_alreadySelected == true) {
+      /// A1 - CAN PICK MANY
+      if (picker.canPickMany == true) {
         final List<SpecModel> _specs = [...selectedSpecs.value];
         _specs.removeAt(_specIndex);
-        _specs.add(_spec);
         selectedSpecs.value = _specs;
 
         // _selectedSpecs.value.removeAt(_specIndex);
-        // _selectedSpecs.value.add(_spec);
+      }
+
+      /// A2 - CAN NOT PICK MANY
+      else {
+        final List<SpecModel> _specs = [...selectedSpecs.value];
+        _specs.removeAt(_specIndex);
+        selectedSpecs.value = _specs;
+
+        // _selectedSpecs.value.removeAt(_specIndex);
 
       }
     }
-  }
-  // ----------------------------------------------------------
+    // ----------------------------------------------------------
+    /// B - NEW SELECTED SPEC
+    else {
+      /// B1 - WHEN CAN PICK MANY
+      if (picker.canPickMany == true) {
+        final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
+        selectedSpecs.value = _specs;
 
-  // _selectedSpecs.notifyListeners();
+        // _selectedSpecs.value .add(_spec);
+
+      }
+
+      /// B2 - WHEN CAN NOT PICK MANY
+      else {
+        final int _specIndex = selectedSpecs.value
+            .indexWhere((SpecModel spec) => spec.pickerChainID == picker.chainID);
+
+        /// C1 - WHEN NO SPEC OF THIS KIND IS SELECTED
+        if (_specIndex == -1) {
+          final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
+          selectedSpecs.value = _specs;
+
+          // _selectedSpecs.value.add(_spec);
+
+        }
+
+        /// C2 - WHEN A SPEC OF THIS KIND ALREADY EXISTS TO BE REPLACED
+        else {
+          final List<SpecModel> _specs = [...selectedSpecs.value];
+          _specs.removeAt(_specIndex);
+          _specs.add(_spec);
+          selectedSpecs.value = _specs;
+
+          // _selectedSpecs.value.removeAt(_specIndex);
+          // _selectedSpecs.value.add(_spec);
+
+        }
+      }
+    }
+    // ----------------------------------------------------------
+
+  }
+
+
 }
 // -----------------------------------
 void onCurrencyChanged({

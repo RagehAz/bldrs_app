@@ -48,7 +48,7 @@ class SpecPickerScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Chain _chain = ChainsProvider.superFindChainByID(
+    final Chain _chain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: specPicker.chainID,
       onlyUseCityChains: onlyUseCityChains,

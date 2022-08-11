@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
@@ -348,7 +349,7 @@ class TextChecker {
   static bool triggerIsSearching({
     @required String text,
     @required bool isSearching,
-    int minCharLimit = 3,
+    int minCharLimit = Standards.minSearchChar,
   }){
 
     bool _output;
@@ -369,7 +370,7 @@ class TextChecker {
   static void triggerIsSearchingNotifier({
     @required String text,
     @required ValueNotifier<bool> isSearching,
-    int minCharLimit = 3,
+    int minCharLimit = Standards.minSearchChar,
     Function onSwitchOff,
     Function onResume,
   }){

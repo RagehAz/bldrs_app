@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/city_chain.dart';
+import 'package:bldrs/a_models/chain/city_phid_counters.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
@@ -602,7 +602,7 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain superFindChainByID({
+  static Chain proFindChainByID({
     @required BuildContext context,
     @required String chainID,
     bool onlyUseCityChains = false,
