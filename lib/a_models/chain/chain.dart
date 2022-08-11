@@ -218,7 +218,7 @@ class Chain {
 }) {
 
     final List<String> _filteredIDs = <String>[];
-    Chain _filteredChain = ChainsProvider.superGetChain(
+    Chain _filteredChain = ChainsProvider.superFindChainByID(
       context: context,
       chainID: specPicker.chainID,
       onlyUseCityChains: onlyUseCityChains,

@@ -300,63 +300,63 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// ALL KEYWORDS CHAIN
             ProviderTestButton(
               title: 'chainsProvider.allKeywordsChain ',
-              value: _chainsProvider?.allKeywordsChain,
+              value: _chainsProvider?.bigChainK,
               onTap: (){
-                _chainsProvider.allKeywordsChain.blogChain();
+                _chainsProvider.bigChainK.blogChain();
               },
             ),
 
             /// CITY KEYWORDS CHAIN
             ProviderTestButton(
               title: 'chainsProvider.cityKeywordsChain ',
-              value: _chainsProvider?.cityKeywordsChain,
+              value: _chainsProvider?.cityChainK,
               onTap: (){
-                _chainsProvider.cityKeywordsChain.blogChain();
+                _chainsProvider.cityChainK.blogChain();
               },
             ),
 
             /// ALL KEYWORDS CHAIN PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.allKeywordsChainPhrases : ${_chainsProvider?.allKeywordsChainPhrases?.length} phrases ',
-              value: _chainsProvider?.allKeywordsChainPhrases,
+              title: 'chainsProvider.allKeywordsChainPhrases : ${_chainsProvider?.bigChainKPhrases?.length} phrases ',
+              value: _chainsProvider?.bigChainKPhrases,
               onTap: (){
-                Phrase.blogPhrases(_chainsProvider?.allKeywordsChainPhrases);
+                Phrase.blogPhrases(_chainsProvider?.bigChainKPhrases);
               },
             ),
 
             /// CITY KEYWORDS CHAIN PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.cityKeywordsChainPhrases : ${_chainsProvider?.cityKeywordsChainPhrases?.length} phrases ',
-              value: _chainsProvider?.cityKeywordsChainPhrases,
+              title: 'chainsProvider.cityKeywordsChainPhrases : ${_chainsProvider?.cityChainKPhrases?.length} phrases ',
+              value: _chainsProvider?.cityChainKPhrases,
               onTap: (){
-                Phrase.blogPhrases(_chainsProvider?.cityKeywordsChainPhrases);
+                Phrase.blogPhrases(_chainsProvider?.cityChainKPhrases);
               },
             ),
 
             /// CURRENT CITY CHAIN
             ProviderTestButton(
               title: 'chainsProvider.currentCityChain',
-              value: _chainsProvider?.currentCityChain,
+              value: _chainsProvider?.cityPhidCounters,
               onTap: (){
-                _chainsProvider?.currentCityChain?.blogCityChain();
+                _chainsProvider?.cityPhidCounters?.blogCityChain();
               },
             ),
 
             /// SPECS CHAIN
             ProviderTestButton(
               title: 'chainsProvider.specsChain',
-              value: _chainsProvider?.specsChain,
+              value: _chainsProvider?.bigChainS,
               onTap: (){
-                _chainsProvider?.specsChain?.blogChain();
+                _chainsProvider?.bigChainS?.blogChain();
               },
             ),
 
             /// HOME WALL FLYER TYPE
             ProviderTestButton(
               title: 'chainsProvider.homeWallFlyerType',
-              value: _chainsProvider?.homeWallFlyerType,
+              value: _chainsProvider?.wallFlyerType,
               onTap: (){
-                blog(_chainsProvider?.homeWallFlyerType);
+                blog(_chainsProvider?.wallFlyerType);
               },
             ),
 

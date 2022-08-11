@@ -5,15 +5,15 @@ import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
-class CityChain {
+class CityPhidCounters {
 /// --------------------------------------------------------------------------
-  CityChain({
+  CityPhidCounters({
     @required this.cityID,
-    @required this.keywordsIDsUsage,
+    @required this.phidsCounters,
 });
   /// --------------------------------------------------------------------------
   final String cityID;
-  final List<MapModel> keywordsIDsUsage;
+  final List<MapModel> phidsCounters;
 // -----------------------------------------------------------------------------
 
 /// CYPHERS
@@ -21,22 +21,22 @@ class CityChain {
 // --------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
-    final Map<String, dynamic> _map = MapModel.cipherMapModels(keywordsIDsUsage);
+    final Map<String, dynamic> _map = MapModel.cipherMapModels(phidsCounters);
     return _map;
   }
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityChain decipherCityChain({
+  static CityPhidCounters decipherCityChain({
     @required Map<String, dynamic> map,
     @required String cityID,
   }){
 
-    CityChain _cityChain;
+    CityPhidCounters _cityChain;
 
     if (Map != null && cityID != null){
-      _cityChain = CityChain(
+      _cityChain = CityPhidCounters(
         cityID: cityID,
-        keywordsIDsUsage: MapModel.decipherMapModels(map),
+        phidsCounters: MapModel.decipherMapModels(map),
       );
     }
 
@@ -104,16 +104,16 @@ class CityChain {
   }
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityChain createCityChainFromFlyer({
+  static CityPhidCounters createCityChainFromFlyer({
     @required FlyerModel flyerModel,
   }){
-    CityChain _cityChain;
+    CityPhidCounters _cityChain;
 
     if (flyerModel != null){
 
-      _cityChain = CityChain(
+      _cityChain = CityPhidCounters(
           cityID: flyerModel.zone.cityID,
-          keywordsIDsUsage: createKeywordsIDsUsageMapsFromSpecs(
+          phidsCounters: createKeywordsIDsUsageMapsFromSpecs(
             specs: flyerModel.specs,
           ),
       );
@@ -132,7 +132,7 @@ class CityChain {
     String methodName = '',
   }){
     MapModel.blogMapModels(
-      mapModels: keywordsIDsUsage,
+      mapModels: phidsCounters,
       methodName: 'blogCityChain : $methodName : ($cityID)',
     );
   }
@@ -143,13 +143,13 @@ class CityChain {
 // --------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromCityChain({
-    @required CityChain cityChain,
+    @required CityPhidCounters cityChain,
   }){
     List<String> _output = <String>[];
 
     if (cityChain != null){
-      final CityChain _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
-      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.keywordsIDsUsage);
+      final CityPhidCounters _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsCounters);
       _output = Mapper.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
@@ -162,15 +162,15 @@ class CityChain {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityChain _cleanZeroValuesKeywords(CityChain cityChain){
+  static CityPhidCounters _cleanZeroValuesKeywords(CityPhidCounters cityChain){
 
-    CityChain _output;
+    CityPhidCounters _output;
 
     if (cityChain != null){
 
       final List<MapModel> _cleanedKeywords = <MapModel>[];
 
-      for (final MapModel mapModel in cityChain.keywordsIDsUsage){
+      for (final MapModel mapModel in cityChain.phidsCounters){
 
         if (mapModel.value is int){
           /// ONLY GET USAGE VALUES BIGGER THAN 0
@@ -181,9 +181,9 @@ class CityChain {
 
       }
 
-      _output = CityChain(
+      _output = CityPhidCounters(
         cityID: cityChain.cityID,
-        keywordsIDsUsage: _cleanedKeywords,
+        phidsCounters: _cleanedKeywords,
       );
 
     }
@@ -194,10 +194,10 @@ class CityChain {
   /// TESTED : WORKS PERFECT
   static Chain removeUnusedKeywordsFromChainForThisCity({
     @required Chain chain,
-    @required CityChain currentCityChain,
+    @required CityPhidCounters currentCityChain,
   }) {
 
-    final List<String> _usedKeywordsIDs = CityChain.getKeywordsIDsFromCityChain(
+    final List<String> _usedKeywordsIDs = CityPhidCounters.getKeywordsIDsFromCityChain(
       cityChain: currentCityChain,
     );
 

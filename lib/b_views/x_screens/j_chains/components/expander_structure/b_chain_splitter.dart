@@ -82,7 +82,7 @@ class ChainSplitter extends StatelessWidget {
         key: PageStorageKey<String>(_chain.id),
         chain: _chain,
         boxWidth: width,
-        icon: _chainsProvider.getKeywordIcon(son: chainOrChainsOrSonOrSons, context: context),
+        icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
         firstHeadline: xPhrase(context, _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,

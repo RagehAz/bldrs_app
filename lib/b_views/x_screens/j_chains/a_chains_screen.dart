@@ -60,7 +60,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   @override
   void initState() {
     // ------------------------------
-    _initialChain = ChainsProvider.proGetKeywordsChain(
+    _initialChain = ChainsProvider.proGetBigChainK(
       context: context,
       onlyUseCityChains: widget.onlyUseCityChains,
       listen: false,
@@ -121,10 +121,10 @@ class _ChainsScreenState extends State<ChainsScreen> {
 // -----------------------------------------------------------------------------
   Chain _getProChain (BuildContext ctx, ChainsProvider chainsPro){
     if (widget.onlyUseCityChains == true){
-      return chainsPro.cityKeywordsChain;
+      return chainsPro.cityChainK;
     }
     else {
-      return chainsPro.allKeywordsChain;
+      return chainsPro.bigChainK;
     }
 }
 // -----------------------------------------------------------------------------

@@ -16,11 +16,11 @@ class CityChainOps {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityChain> readCityChain({
+  static Future<CityPhidCounters> readCityChain({
     @required BuildContext context,
     @required String cityID,
 }) async {
-    CityChain _cityChain;
+    CityPhidCounters _cityChain;
 
     if (cityID != null){
 
@@ -31,7 +31,7 @@ class CityChainOps {
       );
 
       if (_map != null){
-        _cityChain = CityChain.decipherCityChain(
+        _cityChain = CityPhidCounters.decipherCityChain(
           map: _map,
           cityID: _map['id'],
         );
@@ -55,7 +55,7 @@ class CityChainOps {
 
     if (flyerModel != null){
 
-      final CityChain _cityChainToAdd = CityChain.createCityChainFromFlyer(
+      final CityPhidCounters _cityChainToAdd = CityPhidCounters.createCityChainFromFlyer(
         flyerModel: flyerModel,
       );
 

@@ -1,6 +1,10 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/city_chain.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/fire/ops/chain_ops.dart';
@@ -20,7 +24,7 @@ class ChainProtocols {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<Chain> fetchKeywordsChain(BuildContext context) async {
+  static Future<Chain> fetchBigChainK(BuildContext context) async {
 
     Chain _keywordsChain;
 
@@ -56,7 +60,7 @@ class ChainProtocols {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<Chain> fetchSpecsChain(BuildContext context) async {
+  static Future<Chain> fetchBigChainS(BuildContext context) async {
 
     Chain _specsChain;
 
@@ -87,6 +91,29 @@ class ChainProtocols {
     }
 
     return _specsChain;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<CityPhidCounters> readCityPhidCountersOfCurrentZone({
+    @required BuildContext context,
+  }) async {
+    CityPhidCounters _cityPhidCounters;
+
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: false,
+    );
+
+    if (_currentZone != null){
+
+      _cityPhidCounters = await CityChainOps.readCityChain(
+        context: context,
+        cityID: _currentZone.cityID,
+      );
+
+    }
+
+    return _cityPhidCounters;
   }
 // -----------------------------------------------------------------------------
 
