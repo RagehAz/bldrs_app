@@ -321,6 +321,8 @@ class FlyerFireOps {
     List<String> specs,
   }) async {
 
+    final String _chainID = FlyerTyper.concludeChainIDByFlyerType(flyerType: flyerType);
+
     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
       context: context,
       collName: FireColl.flyers,
@@ -330,11 +332,11 @@ class FlyerFireOps {
       addDocSnapshotToEachMap: true,
       finders: <FireFinder>[
 
-        FireFinder(
-          field: 'score',
-          comparison: FireComparison.greaterOrEqualThan,
-          value: 0,
-        ),
+        // FireFinder(
+        //   field: 'score',
+        //   comparison: FireComparison.greaterOrEqualThan,
+        //   value: 0,
+        // ),
 
         if (flyerType != null)
           FireFinder(
@@ -401,7 +403,7 @@ class FlyerFireOps {
 
         if (Mapper.checkCanLoopList(specs) == true && Mapper.checkListHasNullValue(specs) == false)
           FireFinder(
-            field: 'specs',
+            field: 'specs.$_chainID',
             comparison: FireComparison.arrayContainsAny,
             value: specs,
           ),
