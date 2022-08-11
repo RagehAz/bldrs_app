@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/a_no_need_no_more_isa/e_keywords_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -315,32 +314,6 @@ void onSelectFlyerType({
   draft.value = draft.value.copyWith(
     flyerType: _selectedFlyerType,
   );
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onAddKeywordsTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  final List<String> _result = await Nav.goToNewScreen(
-      context: context,
-      screen: KeywordsPickerScreen(
-        flyerTypes: <FlyerType>[draft.value.flyerType],
-        selectedKeywordsIDs: draft.value.keywordsIDs,
-      )
-  );
-
-  blog('onAddKeywordsTap : _result : $_result');
-
-  if (_result != null){
-
-    draft.value = draft.value.copyWith(
-      keywordsIDs: _result,
-    );
-
-  }
-
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
