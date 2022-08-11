@@ -2,15 +2,12 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/city_chain.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,118 +20,245 @@ class ChainsProvider extends ChangeNotifier {
   /// INITIALIZATION
 
 // -------------------------------------
-  /// All chains are [ Keywords chain - specs chain ]
-  Future<void> fetchSetAllChains({
+  /// TESTED : WORKS PERFECT
+  Future<void> initializeAllChains({
     @required BuildContext context,
     @required bool notify,
   }) async {
-
+    // --------------------
+    /// NOTE : initialization for fetching setting :-
+    /// BIG CHAIN K
+    /// BIG CHAIN S
+    /// CITY PHID COUNTERS
+    /// CITY CHAIN K
+    /// BIG CHAIN K PHRASES
+    /// BIG CHAIN S PHRASES
+    /// CITY CHAIN K PHRASES
+    // --------------------
+    /// 1. START WITH : BIG CHAIN K - BIG CHAIN S - CITY PHID COUNTERS
     await Future.wait(<Future>[
-
-      fetchSetRefinedKeywordsChain(
-        context: context,
-        notify: notify,
+      /// BIG CHAIN K
+      _fetchSetBigChainK(
+          context: context,
+          notify: false,
       ),
-
-      _fetchSetSpecsChain(
-        context: context,
-        notify: notify,
+      /// BIG CHAIN S
+      _fetchSetBigChainS(
+          context: context,
+          notify: false,
       ),
-
+      /// CITY PHID COUNTERS
+      _readSetCityPhidCounters(
+        context: context,
+        notify: false,
+      ),
     ]);
-
+    // --------------------
+    /// 2. BIG CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
+    await Future.wait(<Future>[
+      /// CITY CHAIN K
+      _refineSetCityChainK(
+          bigChainK: _bigChainK,
+          notify: false,
+      ),
+      /// BIG CHAIN K PHRASES
+      _generateSetBigChainKPhrases(
+          context: context,
+          bigChainK: _bigChainK,
+          notify: false,
+      ),
+      /// BIG CHAIN S PHRASES
+      _generateSetBigChainSPhrases(
+          context: context,
+          bigChainS: _bigChainS,
+          notify: false,
+      ),
+    ]);
+    // --------------------
+      /// 3. CITY CHAIN K PHRASES
+      await _generateSetCityChainKPhrases(
+          context: context,
+          cityChainK: _cityChainK,
+          notify: false,
+      );
+    // --------------------
+    /// NOTIFY LISTENERS
+    if (notify == true){
+      notifyListeners();
+    }
+    // --------------------
   }
 // -------------------------------------
-  Future<void> reFetchSetAllChains(BuildContext context) async {
-
+  Future<void> reInitializeAllChains(BuildContext context) async {
+    // --------------------
     /// DELETE LDB CHAINS
     await Future.wait(<Future>[
       LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain),
       LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain),
     ]);
-
-    _allKeywordsChain = null;
-    _cityKeywordsChain = null;
-    _specsChain = null;
-
-    /// get set all chains
-    await fetchSetAllChains(
+    // --------------------
+    /// BIG CHAIN K
+    _bigChainK = null;
+    /// BIG CHAIN S
+    _bigChainS = null;
+    /// CITY PHID COUNTERS
+    _cityPhidCounters = null;
+    /// CITY CHAIN K
+    _cityChainK = null;
+    /// BIG CHAIN K PHRASES
+    _bigChainKPhrases = <Phrase>[];
+    /// BIG CHAIN S PHRASES
+    _bigChainSPhrases = <Phrase>[];
+    /// CITY CHAIN K PHRASES
+    _cityChainKPhrases = <Phrase>[];
+    // --------------------
+    /// INITIALIZE
+    await initializeAllChains(
       context: context,
       notify: true,
     );
-
+    // --------------------
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> reInitializeCityChains(BuildContext context) async {
+    // --------------------
+    /// KEEP : BIG CHAIN K
+    /// KEEP : BIG CHAIN S
+    /// KEEP : BIG CHAIN K PHRASES
+    /// KEEP : BIG CHAIN S PHRASES
+    // --------------------
+    /// GET : CITY PHID COUNTERS
+    /// GET : CITY CHAIN K
+    /// GET CITY CHAIN K PHRASES
+    // --------------------
+    /// 1. CITY PHID COUNTERS
+    await _readSetCityPhidCounters(
+      context: context,
+      notify: false,
+    );
+    // --------------------
+    /// 2. CITY CHAIN K
+    await _refineSetCityChainK(
+      bigChainK: _bigChainK,
+      notify: false,
+    );
+    // --------------------
+    /// 3. CITY CHAIN K PHRASES
+    await _generateSetCityChainKPhrases(
+      context: context,
+      cityChainK: _cityChainK,
+      notify: true,
+    );
+    // --------------------
   }
 // -----------------------------------------------------------------------------
 
-  /// CITY CHAIN
+  /// UPDATES
 
 // -------------------------------------
-  CityChain _currentCityChain;
-  CityChain get currentCityChain => _currentCityChain;
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> fetchSetCurrentCityChain({
+  Future<void> updateBigChainKOps({
     @required BuildContext context,
+    @required Chain bigChainK,
     @required bool notify,
   }) async {
-
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
-      listen: false,
+    // --------------------
+    /// UPDATE : BIG CHAIN K
+    /// KEEP : BIG CHAIN S
+    /// KEEP : CITY PHID COUNTERS
+    /// UPDATE : CITY CHAIN K
+    /// UPDATE : BIG CHAIN K PHRASES
+    /// KEEP : BIG CHAIN S PHRASES
+    /// UPDATE : CITY CHAIN K PHRASES
+    // --------------------
+    /// 1. BIG CHAIN K
+    _setBigChainK(
+      chain: bigChainK,
+      notify: false,
     );
-
-    _currentZone.blogZone(methodName: 'fetchSetCurrentCityChain');
-
-    if (_currentZone != null){
-
-      final CityChain _cityChain = await CityChainOps.readCityChain(
+    // --------------------
+    /// 2. BIG CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
+    await Future.wait(<Future>[
+      /// CITY CHAIN K
+      _refineSetCityChainK(
+        bigChainK: _bigChainK,
+        notify: false,
+      ),
+      /// BIG CHAIN K PHRASES
+      _generateSetBigChainKPhrases(
         context: context,
-        cityID: _currentZone.cityID,
-      );
-
-      _cityChain?.blogCityChain(methodName: 'fetchSetCurrentCityChain');
-
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      _chainsProvider._setCurrentCityChain(
-        cityChain: _cityChain,
-        notify: notify,
-      );
-
-    }
-
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  void _setCurrentCityChain({
-    @required CityChain cityChain,
-    @required bool notify,
-  }){
-
-    _currentCityChain = cityChain;
+        bigChainK: _bigChainK,
+        notify: false,
+      ),
+    ]);
+    // --------------------
+    /// 3. CITY CHAIN K PHRASES
+    await _generateSetCityChainKPhrases(
+      context: context,
+      cityChainK: _cityChainK,
+      notify: false,
+    );
+    // --------------------
+    /// NOTIFY LISTENERS
     if (notify == true){
       notifyListeners();
     }
-
+    // --------------------
   }
 // -----------------------------------------------------------------------------
 
-  /// KEYWORDS CHAIN
+  /// WIPE OUT
 
-// -------------------------------------
-  Chain _cityKeywordsChain;
-  Chain get cityKeywordsChain => _cityKeywordsChain;
-  /// must include trigrams and both languages (en, ar) for search engines
-  List<Phrase> _cityKeywordsChainPhrases;
-  List<Phrase> get cityKeywordsChainPhrases => _cityKeywordsChainPhrases;
-
-  Chain _allKeywordsChain;
-  Chain get allKeywordsChain => _allKeywordsChain;
-
-  List<Phrase> _allKeywordsChainPhrases;
-  List<Phrase> get allKeywordsChainPhrases => _allKeywordsChainPhrases;
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain proGetKeywordsChain({
+  void wipeOutChainsPro({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    /// BIG CHAIN K
+    _bigChainK = null;
+    /// BIG CHAIN S
+    _bigChainS = null;
+    /// CITY PHID COUNTERS
+    _cityPhidCounters = null;
+    /// CITY CHAIN K
+    _cityChainK = null;
+    /// BIG CHAIN K PHRASES
+    _bigChainKPhrases = <Phrase>[];
+    /// BIG CHAIN S PHRASES
+    _bigChainSPhrases = <Phrase>[];
+    /// CITY CHAIN K PHRASES
+    _cityChainKPhrases = <Phrase>[];
+
+    /// WALL FLYER TYPE AND PHID
+    clearWallFlyerTypeAndPhid(
+        notify: notify
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+}){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    _chainsProvider.wipeOutChainsPro(
+      context: context,
+      notify: notify,
+    );
+  }
+// -----------------------------------------------------------------------------
+
+  /// BIG CHAIN-K (main keywords chain)
+
+// -------------------------------------
+  Chain _bigChainK;
+  Chain get bigChainK => _bigChainK;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain proGetBigChainK({
     @required BuildContext context,
     @required bool onlyUseCityChains,
     @required bool listen,
@@ -143,75 +267,369 @@ class ChainsProvider extends ChangeNotifier {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
 
     if (onlyUseCityChains == true){
-      return _chainsProvider.cityKeywordsChain;
+      return _chainsProvider.cityChainK;
     }
     else {
-      return _chainsProvider.allKeywordsChain;
+      return _chainsProvider.bigChainK;
     }
 
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> fetchSetRefinedKeywordsChain({
+  Future<void> _fetchSetBigChainK({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final Chain _keywordsChain = await ChainProtocols.fetchKeywordsChain(context);
+    final Chain _bigChainK = await ChainProtocols.fetchBigChainK(context);
 
-    if (_keywordsChain != null){
-      await refineAndSetKeywordsChainAndGenerateTheirPhrases(
-        context: context,
-        keywordsChain: _keywordsChain,
-        notify: notify,
-      );
-    }
+    _setBigChainK(
+      chain: _bigChainK,
+      notify: notify,
+    );
 
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> refineAndSetKeywordsChainAndGenerateTheirPhrases({
-    @required BuildContext context,
-    @required Chain keywordsChain,
-    @required bool notify,
-  }) async {
-
-    final Chain _refined = CityChain.removeUnusedKeywordsFromChainForThisCity(
-      chain: keywordsChain,
-      currentCityChain: _currentCityChain,
-    );
-
-    final List<Phrase> _cityKeywordsPhrases = await PhraseProtocols.generatePhrasesFromChain(
-      context: context,
-      chain: _refined,
-    );
-    final List<Phrase> _allKeywordsPhrases = await PhraseProtocols.generatePhrasesFromChain(
-      context: context,
-      chain: keywordsChain,
-    );
-
-    _cityKeywordsChain = _refined;
-    _cityKeywordsChainPhrases = _cityKeywordsPhrases;
-    _allKeywordsChain = keywordsChain;
-    _allKeywordsChainPhrases = _allKeywordsPhrases;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-// -------------------------------------
-  void clearKeywordsChainAndTheirPhrases({
+  void _setBigChainK({
+    @required Chain chain,
     @required bool notify,
   }){
-    _cityKeywordsChain = null;
-    _allKeywordsChain = null;
-    _cityKeywordsChainPhrases = <Phrase>[];
-    _allKeywordsChainPhrases = <Phrase>[];
-
+    _bigChainK = chain;
     if (notify == true){
       notifyListeners();
     }
+  }
+// -----------------------------------------------------------------------------
+
+  /// BIG CHAIN S - (main specs chain)
+
+// -------------------------------------
+  Chain _bigChainS;
+// -------------------------------------
+  Chain get bigChainS => _bigChainS;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _fetchSetBigChainS({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final Chain _specsChain = await ChainProtocols.fetchBigChainS(context);
+
+    setBigChainS(
+      specsChain: _specsChain,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void setBigChainS({
+    @required Chain specsChain,
+    @required bool notify,
+  }){
+    _bigChainS = specsChain;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// CITY PHID COUNTERS
+
+// -------------------------------------
+  CityPhidCounters _cityPhidCounters;
+  CityPhidCounters get cityPhidCounters => _cityPhidCounters;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _readSetCityPhidCounters({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final CityPhidCounters _cityPhidCounters = await ChainProtocols.readCityPhidCountersOfCurrentZone(
+      context: context,
+    );
+
+    _setCityPhidCounters(
+      cityPhidCounter: _cityPhidCounters,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setCityPhidCounters({
+    @required CityPhidCounters cityPhidCounter,
+    @required bool notify,
+  }){
+
+    _cityPhidCounters = cityPhidCounter;
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+
+// -----------------------------------------------------------------------------
+
+  /// CITY CHAIN K ( city's keywords chain according to City Phid Counters )
+
+// -------------------------------------
+  Chain _cityChainK;
+  Chain get cityChainK => _cityChainK;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _refineSetCityChainK({
+    @required bool notify,
+    @required Chain bigChainK,
+  }) async {
+
+    final Chain _cityChainK = CityPhidCounters.removeUnusedKeywordsFromChainForThisCity(
+      chain: bigChainK,
+      currentCityChain: _cityPhidCounters,
+    );
+
+    _setCityChainK(
+      notify: notify,
+      chain: _cityChainK,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setCityChainK({
+    @required bool notify,
+    @required Chain chain,
+  }){
+    _cityChainK = chain;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// BIG CHAIN K PHRASES
+
+// -------------------------------------
+  List<Phrase> _bigChainKPhrases = <Phrase>[];
+  List<Phrase> get bigChainKPhrases => _bigChainKPhrases;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _generateSetBigChainKPhrases({
+    @required BuildContext context,
+    @required Chain bigChainK,
+    @required bool notify,
+  }) async {
+
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+      context: context,
+      chain: bigChainK,
+    );
+
+    _setBigChainKPhrases(
+      phrases: _phrases,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setBigChainKPhrases({
+    @required List<Phrase> phrases,
+    @required bool notify,
+  }){
+    _bigChainKPhrases = phrases;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// BIG CHAIN S PHRASES
+
+// -------------------------------------
+  List<Phrase> _bigChainSPhrases = <Phrase>[];
+  List<Phrase> get bigChainSPhrases => _bigChainSPhrases;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _generateSetBigChainSPhrases({
+    @required BuildContext context,
+    @required Chain bigChainS,
+    @required bool notify,
+  }) async {
+
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+      context: context,
+      chain: bigChainS,
+    );
+
+    _setBigChainSPhrases(
+      phrases: _phrases,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setBigChainSPhrases({
+    @required List<Phrase> phrases,
+    @required bool notify,
+  }){
+    _bigChainSPhrases = phrases;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// City Chain K Phrases
+
+// -------------------------------------
+  /// must include trigrams and both languages (en, ar) for search engines
+  List<Phrase> _cityChainKPhrases = <Phrase>[];
+  List<Phrase> get cityChainKPhrases => _cityChainKPhrases;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _generateSetCityChainKPhrases({
+    @required BuildContext context,
+    @required Chain cityChainK,
+    @required bool notify,
+  }) async {
+
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+      context: context,
+      chain: cityChainK,
+    );
+
+    _setCityChainKPhrases(
+      phrases: _phrases,
+      notify: notify,
+    );
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setCityChainKPhrases({
+    @required List<Phrase> phrases,
+    @required bool notify,
+  }){
+    _cityChainKPhrases = phrases;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// HOME WALL FLYER TYPE AND PHID
+
+// -------------------------------------
+  FlyerType _wallFlyerType;
+  String _wallPhid;
+// -------------------------------------
+  FlyerType get wallFlyerType => _wallFlyerType ?? FlyerType.design;
+  String get wallPhid => _wallPhid;
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerType proGetHomeWallFlyerType(BuildContext context){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    return _chainsProvider.wallFlyerType;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String proGetHomeWallPhid(BuildContext context){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    return _chainsProvider.wallPhid;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void _setWallFlyerAndPhid({
+    @required FlyerType flyerType,
+    @required String phid,
+    @required bool notify,
+  }){
+    _wallFlyerType = flyerType;
+    _wallPhid = phid;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  void clearWallFlyerTypeAndPhid({
+    @required bool notify,
+  }){
+    _setWallFlyerAndPhid(
+      phid: null,
+      flyerType: null,
+      notify: notify,
+    );
+  }
+// -----------------------------------------------------------------------------o
+
+
+  /// ~~~~~~~ FINDERS ~~~~~~~
+
+
+// -----------------------------------------------------------------------------o
+  /// TESTED : WORKS PERFECT
+  Chain findChainByID({
+    @required String chainID,
+    bool onlyUseCityChains = false,
+    bool includeChainSInSearch = true,
+  }){
+    // ---------------------------
+    final Chain _keywordsChain = onlyUseCityChains == true ?
+    _cityChainK
+        :
+    _bigChainK;
+    // ---------------------------
+    List<Chain> _allChains;
+    if (includeChainSInSearch == true){
+      _allChains = <Chain>[_keywordsChain, _bigChainS];
+    }
+    else {
+      _allChains = <Chain>[_keywordsChain];
+    }
+    // ---------------------------
+    final Chain _chain = Chain.getChainFromChainsByID(
+      chainID: chainID,
+      chains: _allChains,
+    );
+    // ---------------------------
+    return _chain;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain superFindChainByID({
+    @required BuildContext context,
+    @required String chainID,
+    bool onlyUseCityChains = false,
+    bool includeChainSInSearch = true,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  // ---------------------------
+    final Chain _chain = _chainsProvider.findChainByID(
+      chainID: chainID,
+      includeChainSInSearch: includeChainSInSearch,
+      onlyUseCityChains: onlyUseCityChains,
+    );
+
+    return _chain;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  List<Chain> getChainKAndChainS({
+    @required BuildContext context,
+    @required bool getOnlyCityKeywordsChain,
+  }){
+    final Chain _keywordsChain = ChainsProvider.proGetBigChainK(
+      context: context,
+      onlyUseCityChains: getOnlyCityKeywordsChain,
+      listen: false,
+    );
+    return <Chain>[_keywordsChain, _bigChainS];
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -224,77 +642,17 @@ class ChainsProvider extends ChangeNotifier {
       flyerType: flyerType,
     );
 
-    final Chain _chain = findChainK(
+    final Chain _chain = findChainByID(
       chainID: _chainID,
       onlyUseCityChains: onlyUseCityChains,
+      includeChainSInSearch: false,
     );
 
     return _chain;
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Chain findChainK({
-    @required String chainID,
-    @required bool onlyUseCityChains,
-  }){
-
-    final Chain _chain = Chain.getChainFromChainsByID(
-      chainID: chainID,
-      chains: onlyUseCityChains == true ?
-      <Chain>[_cityKeywordsChain]
-          :
-      <Chain>[_allKeywordsChain],
-    );
-
-    return _chain;
-  }
-// -----------------------------------------------------------------------------
-
-  /// SPECS CHAIN
-
-// -------------------------------------
-  Chain _specsChain;
-// -------------------------------------
-  Chain get specsChain => _specsChain;
-// -------------------------------------
-  Future<void> _fetchSetSpecsChain({
-    @required BuildContext context,
-    @required bool notify,
-  }) async {
-
-    final Chain _specsChain = await ChainProtocols.fetchSpecsChain(context);
-
-    setSpecsChain(
-      specsChain: _specsChain,
-      notify: notify,
-    );
-
-  }
-// -------------------------------------
-  void setSpecsChain({
-    @required Chain specsChain,
-    @required bool notify,
-  }){
-    _specsChain = specsChain;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearSpecsChain({@required bool notify}){
-
-    setSpecsChain(
-        specsChain: null,
-        notify: notify
-    );
-
-  }
-// -----------------------------------------------------------------------------
-
-  /// KEYWORDS ICONS
-
-// -------------------------------------
-  String getKeywordIcon({
+  String getPhidIcon({
     @required BuildContext context,
     @required dynamic son,
   }) {
@@ -317,17 +675,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -----------------------------------------------------------------------------
-
-  /// SELECTED HOME WALL FLYER TYPE
-
-// -------------------------------------
-  FlyerType _homeWallFlyerType;
-// -------------------------------------
-  FlyerType get homeWallFlyerType {
-    return _homeWallFlyerType ?? FlyerType.design;
-  }
-  // -------------------------------------
+// -----------------------------------------------------------------------------o
   Future<void> changeHomeWallFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -340,136 +688,12 @@ class ChainsProvider extends ChangeNotifier {
 
     await _flyersProvider.paginateWallFlyers(context);
 
-    _homeWallFlyerType = flyerType;
+    _wallFlyerType = flyerType;
     _wallPhid = phid;
 
     if (notify == true){
       notifyListeners();
     }
   }
-  // -------------------------------------
-  void _setHomeWallFlyerType({
-    @required FlyerType flyerType,
-    @required bool notify,
-  }){
-    _homeWallFlyerType = flyerType;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // -------------------------------------
-  void clearHomeWallFlyerType({
-    @required bool notify,
-  }){
-    _setHomeWallFlyerType(
-      flyerType: null,
-      notify: notify,
-    );
-  }
-  // -------------------------------------
-  static FlyerType proGetHomeWallFlyerType(BuildContext context){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    return _chainsProvider.homeWallFlyerType;
-  }
-// -----------------------------------------------------------------------------
-
-  /// SELECTED HOME WALL PHRASE ID (PHID)
-
-// -------------------------------------
-  String _wallPhid;
-// -------------------------------------
-  String get wallPhid {
-    return _wallPhid;
-  }
-// -----------------------------------------------------------------------------
-  void _setWallPhid({
-    @required String keywordID,
-    @required bool notify,
-  }){
-    _wallPhid = keywordID;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-// -------------------------------------
-  void clearWallPhid({
-    @required bool notify,
-  }){
-    _setWallPhid(
-      keywordID: null,
-      notify: notify,
-    );
-  }
-// -------------------------------------
-  static String proGetHomeWallPhid(BuildContext context){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    return _chainsProvider.wallPhid;
-  }
-// -----------------------------------------------------------------------------
-
-  /// WIPE OUT
-
-// -------------------------------------
-  static void wipeOut({
-    @required BuildContext context,
-    @required bool notify,
-  }){
-
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
-    /// _keywordsChain - _keywordsChainPhrases
-    _chainsProvider.clearKeywordsChainAndTheirPhrases(notify: false);
-
-    /// _specsChain
-    _chainsProvider.clearSpecsChain(notify: false);
-
-    /// _homeWallFlyerType
-    _chainsProvider.clearHomeWallFlyerType(notify: false);
-
-    /// _wallPhid
-    _chainsProvider.clearWallPhid(notify: true);
-
-  }
-// -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Chain superGetChain({
-    @required BuildContext context,
-    @required String chainID,
-    @required bool onlyUseCityChains,
-  }){
-
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
-    final Chain _keywordsChain = onlyUseCityChains == true ?
-    _chainsProvider.cityKeywordsChain
-        :
-    _chainsProvider.allKeywordsChain;
-
-    final List<Chain> _allChains = <Chain>[_keywordsChain, _chainsProvider.specsChain];
-
-    final Chain _chain = Chain.getChainFromChainsByID(
-      chainID: chainID,
-      chains: _allChains,
-    );
-
-    return _chain;
-  }
-// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------o
 }
-
-List<Chain> getAllChains({
-  @required BuildContext context,
-  @required bool getOnlyCityKeywordsChain,
-}){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  final Chain _keywordsChain = ChainsProvider.proGetKeywordsChain(
-    context: context,
-    onlyUseCityChains: getOnlyCityKeywordsChain,
-    listen: false,
-  );
-  final Chain _specsChain = _chainsProvider.specsChain;
-  return <Chain>[_keywordsChain, _specsChain];
-}
-
-
-// -----------------------------------------------------------------------------

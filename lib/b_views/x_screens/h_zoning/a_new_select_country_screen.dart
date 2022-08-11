@@ -121,16 +121,8 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
             notify: true,
           );
 
-          await ChainsProvider.fetchSetCurrentCityChain(
-            context: context,
-            notify: false,
-          );
-
           final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-          await _chainsProvider.fetchSetRefinedKeywordsChain(
-            context: context,
-            notify: true,
-          );
+          await _chainsProvider.reInitializeCityChains(context);
 
           WaitDialog.closeWaitDialog(context);
 

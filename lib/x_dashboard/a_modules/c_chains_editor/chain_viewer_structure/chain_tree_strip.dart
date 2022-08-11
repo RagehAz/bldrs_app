@@ -96,7 +96,7 @@ class ChainTreeStrip extends StatelessWidget {
                     width: stripHeight,
                     iconSizeFactor: Phrase.isKeywordPhid(phraseID) ? 1 : 0.7,
                     bubble: false,
-                    icon: _chainsProvider.getKeywordIcon(
+                    icon: _chainsProvider.getPhidIcon(
                       son: phraseID,
                       context: context,
                     ),

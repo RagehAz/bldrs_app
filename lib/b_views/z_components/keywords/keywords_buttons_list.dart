@@ -37,7 +37,7 @@ class KeywordsButtonsList extends StatelessWidget {
         itemBuilder: (BuildContext ctx, int keyIndex) {
 
           final String _keywordID = keywordsIDs[keyIndex];
-          final String _icon = _keywordsProvider.getKeywordIcon(context: context, son: _keywordID);
+          final String _icon = _keywordsProvider.getPhidIcon(context: context, son: _keywordID);
           final String _keywordName = xPhrase(context, _keywordID);
           const String _keywordNameArabic = 'keyword name but in arabic';//Phrase.getPhraseByLangFromPhrases(phrases: _keywordID.names, langCode: 'ar')?.value;
 
