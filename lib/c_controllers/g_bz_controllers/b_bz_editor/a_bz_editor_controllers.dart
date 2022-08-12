@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/c_keywords_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -16,7 +18,6 @@ import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 
   /// BZ MODEL EDITORS
@@ -51,7 +52,7 @@ void onSelectBzType({
   @required ValueNotifier<BzSection> selectedBzSection,
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
   @required ValueNotifier<BzForm> selectedBzForm,
-  @required ValueNotifier<List<String>> selectedScopes,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
 }){
 
   final BzType _selectedBzType = BzModel.bzTypesList[index];
@@ -76,7 +77,7 @@ void onSelectBzType({
   selectedBzForm.value = null;
 
   /// BZ SCOPE
-  selectedScopes.value = <String>[];
+  selectedScopes.value = <SpecModel>[];
 
 }
 // ----------------------------------
@@ -128,17 +129,22 @@ void onBzZoneChanged({
 Future<void> onAddScopesTap({
   @required BuildContext context,
   @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<String>> selectedScopes,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
 }) async {
 
   Keyboard.closeKeyboard(context);
 
-  final List<String> _result = await Nav.goToNewScreen(
-      context: context,
-      screen: KeywordsPickerScreen(
-        flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
-        selectedKeywordsIDs: selectedScopes.value,
-      )
+  final List<SpecModel> _result = await Nav.goToNewScreen(
+    context: context,
+    transitionType: Nav.superHorizontalTransition(context),
+    screen: ChainsScreen(
+      flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
+      onlyUseCityChains: false,
+      isMultipleSelectionMode: true,
+      pageTitle: 'Select keywords',
+      selectedSpecs: selectedScopes.value,
+      onlyChainKSelection: true,
+    ),
   );
 
   if (_result != null){
@@ -156,7 +162,7 @@ Future<void> onBzEditsConfirmTap({
   @required GlobalKey<FormState> formKey,
   @required ValueNotifier<List<AlertModel>> missingFields,
   @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<String>> selectedScopes,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required ValueNotifier<BzForm> selectedBzForm,
   @required TextEditingController bzNameTextController,
   @required ValueNotifier<dynamic> bzLogo,
@@ -287,7 +293,7 @@ bool _errorIsOn({
 // ----------------------------------
 BzModel createBzModelFromLocalVariables({
   @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<String>> selectedScopes,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required ValueNotifier<BzForm> selectedBzForm,
   @required BzModel initialBzModel,
   @required TextEditingController bzNameTextController,
@@ -307,7 +313,7 @@ BzModel createBzModelFromLocalVariables({
     name: bzNameTextController.text,
     trigram: TextGen.createTrigram(input: bzNameTextController.text),
     logo: bzLogo.value, /// WILL CHECK DATA TYPE
-    scope: selectedScopes.value,
+    scope: SpecModel.getSpecsIDs(selectedScopes.value),
     zone: bzZone.value,
     about: bzAboutTextController.text,
     position: bzPosition.value,

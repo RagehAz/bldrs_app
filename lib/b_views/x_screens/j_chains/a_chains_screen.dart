@@ -23,20 +23,22 @@ import 'package:provider/provider.dart';
 class ChainsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ChainsScreen({
-    @required this.flyerTypeChainFilter,
+    @required this.flyerTypesChainFilters,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.pageTitle,
     this.selectedSpecs,
+    this.onlyChainKSelection = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<SpecModel> selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
-  final FlyerType flyerTypeChainFilter;
+  final List<FlyerType> flyerTypesChainFilters;
   final bool onlyUseCityChains;
   final bool isMultipleSelectionMode;
   final String pageTitle;
+  final bool onlyChainKSelection;
   /// --------------------------------------------------------------------------
   @override
   State<ChainsScreen> createState() => _ChainsScreenState();
@@ -46,7 +48,7 @@ class ChainsScreen extends StatefulWidget {
 class _ChainsScreenState extends State<ChainsScreen> {
 // -----------------------------------------------------------------------------
   /// DATA
-  Chain _initialChain;
+  Chain _bigChainK;
   List<SpecPicker> _allSpecPickers = <SpecPicker>[];
   ValueNotifier<List<SpecPicker>> _refinedSpecsPickers; /// tamam disposed
   ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
@@ -62,15 +64,15 @@ class _ChainsScreenState extends State<ChainsScreen> {
   @override
   void initState() {
     // ------------------------------
-    _initialChain = ChainsProvider.proGetBigChainK(
+    _bigChainK = ChainsProvider.proGetBigChainK(
       context: context,
       onlyUseCityChains: widget.onlyUseCityChains,
       listen: false,
     );
     // ------------------------------
     /// WHEN CHAINS ARE LOADED IN CHAINS PRO
-    if (_initialChain != null){
-      _initializeScreen(_initialChain);
+    if (_bigChainK != null){
+      _initializeScreen(_bigChainK);
     }
 
     // ------------------------------
@@ -94,19 +96,38 @@ class _ChainsScreenState extends State<ChainsScreen> {
   }
 // -----------------------------------------------------------------------------
   bool _isInitialized = false;
-  void _initializeScreen(Chain _initialChain){
+  void _initializeScreen(Chain _bigChainK){
     if (_isInitialized == false){
       // ------------------------------
-      if (widget.flyerTypeChainFilter == null){
 
-        _allSpecPickers = SpecPicker.createPickersForChainK(
-          context: context,
-          chainK: _initialChain,
+      /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
+      if (widget.onlyChainKSelection == true){
+        _allSpecPickers = SpecPicker.createPickersFromAllChainKs(
+          onlyUseTheseFlyerTypes: widget.flyerTypesChainFilters,
+          canPickManyOfAPicker: true,
         );
       }
+
+      /// WHEN USING BOTH CHAIN K AND CHAIN S
       else {
-        _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypeChainFilter);
+
+        /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
+        if (widget.flyerTypesChainFilters == null){
+
+          _allSpecPickers = SpecPicker.createPickersForChainK(
+            context: context,
+            chainK: _bigChainK,
+            canPickManyOfAPicker: false,
+          );
+        }
+
+        /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
+        else if (widget.flyerTypesChainFilters.length == 1){
+          _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypesChainFilters[0]);
+        }
+
       }
+
       // ------------------------------
       _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
       // ------------------------------
@@ -166,19 +187,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
     }
 }
 // -----------------------------------------------------------------------------
-  String _getSpecPickerChainIDOfPhid(String phid){
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final Chain _bigChainK = _chainsProvider.bigChainK;
-    final Chain _bigChainS = _chainsProvider.bigChainS;
-
-    final String _rooChainID = Chain.getRootChainIDOfPhid(
-        allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
-        phid: phid,
-    );
-
-    return _rooChainID;
-  }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -274,7 +283,10 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     selectedSpecs: _selectedSpecs,
                     specPicker: SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
                       specsPickers: _allSpecPickers,
-                      pickerChainID: _getSpecPickerChainIDOfPhid(phid),
+                      pickerChainID: getSpecPickerChainIDOfPhid(
+                        context: context,
+                        phid: phid,
+                      ),
                     ),
                 ),
               );

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -92,8 +93,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   TextEditingController _bzNameTextController;
   ValueNotifier<dynamic> _bzLogo; /// tamam disposed
   ValueNotifier<ZoneModel> _selectedBzZone; /// tamam disposed
-  ValueNotifier<List<String>> _selectedScopes;
-  TextEditingController _bzAboutTextController;
+  ValueNotifier<List<SpecModel>> _selectedScopes;
+  TextEditingController _bzAboutTextController; /// tamam disposed
   ValueNotifier<GeoPoint> _bzPosition; /// tamam disposed
   ValueNotifier<List<ContactModel>> _bzContacts; /// tamam disposed
   /// List<AuthorModel> _bzAuthors; // NOT REQUIRED HERE
@@ -105,19 +106,23 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// FLYERS IDS / TOTAL FLYERS : NOT REQUIRED HERE
   // -------------------------
   void _initializeBzModelVariables(){
-
-
     // -------------------------
     _initialBzModel = widget.firstTimer == true ?
     BzModel.convertFireUserDataIntoInitialBzModel(_userModel)
         :
     widget.bzModel;
     // -------------------------
+    final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(
+      context: context,
+      phids: _initialBzModel.scope,
+    );
+
+    // -------------------------
     _selectedBzTypes = ValueNotifier(_initialBzModel.bzTypes);
     _selectedBzForm = ValueNotifier(_initialBzModel.bzForm);
     _bzNameTextController = TextEditingController(text: _initialBzModel.name);
     _bzLogo = ValueNotifier(_initialBzModel.logo);
-    _selectedScopes = ValueNotifier(_initialBzModel.scope);
+    _selectedScopes = ValueNotifier(_specs);
     _selectedBzZone = ValueNotifier(_initialBzModel.zone);
     _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
     _bzPosition = ValueNotifier(_initialBzModel.position);

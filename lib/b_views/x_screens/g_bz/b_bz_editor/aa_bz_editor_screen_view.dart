@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -60,7 +61,7 @@ class BzEditorScreenView extends StatelessWidget {
   final ValueNotifier<List<BzType>> inactiveBzTypes;
   final ValueNotifier<List<BzForm>> inactiveBzForms;
   final ValueNotifier<BzForm> selectedBzForm;
-  final ValueNotifier<List<String>> selectedScopes;
+  final ValueNotifier<List<SpecModel>> selectedScopes;
   final ValueNotifier<dynamic> bzLogo;
   final TextEditingController bzNameTextController;
   final TextEditingController bzAboutTextController;
@@ -285,7 +286,9 @@ class BzEditorScreenView extends StatelessWidget {
 
                         return ValueListenableBuilder(
                           valueListenable: selectedScopes,
-                          builder: (_, List<String> _keywords, Widget child){
+                          builder: (_, List<SpecModel> selectedSpecs, Widget child){
+
+                            final List<String> _keywords = SpecModel.getSpecsIDs(selectedSpecs);
 
                             return WidgetFader(
                               fadeType: Mapper.checkCanLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,

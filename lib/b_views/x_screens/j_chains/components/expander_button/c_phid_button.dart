@@ -19,6 +19,7 @@ class PhidButton extends StatelessWidget {
     this.xIsOn = false,
     this.margins,
     this.searchText,
+    this.inverseAlignment,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class PhidButton extends StatelessWidget {
   final bool xIsOn;
   final dynamic margins;
   final ValueNotifier<String> searchText;
+  final bool inverseAlignment;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -86,7 +88,7 @@ class PhidButton extends StatelessWidget {
     return ChainButtonBox(
       key: const ValueKey<String>('PhidButton'),
       boxWidth: width,
-
+      inverseAlignment: inverseAlignment,
       child: DreamBox(
         height: getHeight(),
         width: width,

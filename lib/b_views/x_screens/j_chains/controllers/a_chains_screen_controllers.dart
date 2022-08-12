@@ -85,7 +85,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
     context: context,
     transitionType: PageTransitionType.leftToRight,
     screen: const ChainsScreen(
-      flyerTypeChainFilter: null,
+      flyerTypesChainFilters: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
       pageTitle: 'Select Flyer keyword',

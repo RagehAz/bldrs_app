@@ -686,6 +686,41 @@ class SpecModel {
     return _output;
 }
 // -----------------------------------------------------------------------------
+
+  static List<SpecModel> generateSpecsByPhids({
+    @required BuildContext context,
+    @required List<String> phids,
+  }){
+    final List<SpecModel> _specs = <SpecModel>[];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      for (final String phid in phids){
+
+        final String _pickerChainID = getSpecPickerChainIDOfPhid(
+          context: context,
+          phid: phid,
+        );
+
+        if (_pickerChainID != null){
+
+
+        final SpecModel _spec = SpecModel(
+            pickerChainID: _pickerChainID,
+            value: phid
+        );
+
+        _specs.add(_spec);
+
+        }
+      }
+
+    }
+
+    return _specs;
+  }
+
+
 }
 
 /*
