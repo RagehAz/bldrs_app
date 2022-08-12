@@ -1,11 +1,9 @@
-import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_progress_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
-import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
@@ -31,7 +29,6 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchSubmit,
     this.onSearchChanged,
     this.historyButtonIsOn,
-    this.zoneButtonIsOn,
     this.searchHint,
     this.canGoBack,
     this.onSearchCancelled,
@@ -52,7 +49,6 @@ class BldrsAppBar extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
-  final bool zoneButtonIsOn;
   final String searchHint;
   final bool canGoBack;
   final Function onSearchCancelled;
@@ -155,37 +151,6 @@ class BldrsAppBar extends StatelessWidget {
     return _isOn;
   }
 // -----------------------------------------------------------------------------
-  bool _zoneButtonIsOnCheck() {
-    bool _isOn;
-
-    if (zoneButtonIsOn != null){
-      _isOn = zoneButtonIsOn;
-    }
-    else if (appBarType == AppBarType.basic) {
-      _isOn = false;
-    }
-    else if (appBarType == AppBarType.scrollable) {
-      _isOn = false;
-    }
-    else if (appBarType == AppBarType.main) {
-      _isOn = true;
-    }
-    else if (appBarType == AppBarType.intro) {
-      _isOn = true;
-    }
-    else if (appBarType == AppBarType.search) {
-      _isOn = true;
-    }
-    else if (appBarType == AppBarType.non) {
-      _isOn = false;
-    }
-    else {
-      _isOn = false;
-    }
-
-    return _isOn;
-  }
-// -----------------------------------------------------------------------------
   bool _scrollableCheck() {
     bool _scrollable;
 
@@ -208,8 +173,6 @@ class BldrsAppBar extends StatelessWidget {
     final bool _backButtonIsOn = _backButtonIsOnCheck();
     final bool _searchButtonIsOn = _searchButtonIsOnCheck();
     final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
-// -----------------------------------------------------------------------------
-    final bool _zoneButtonIsOn = _zoneButtonIsOnCheck();
 // -----------------------------------------------------------------------------
     final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 // -----------------------------------------------------------------------------
@@ -308,18 +271,6 @@ class BldrsAppBar extends StatelessWidget {
                     /// CUSTOM APP BAR WIDGETS
                     if (appBarRowWidgets != null && _scrollable == false)
                       ...appBarRowWidgets,
-
-                    /// EXPANDER
-                    if (_zoneButtonIsOn == true)
-                      const Expander(),
-
-                    /// --- LOADING INDICATOR
-                    // if (loading != null)
-                    //   Loading(loading: true),
-
-                    /// ZONE BUTTON
-                    if (_zoneButtonIsOn == true)
-                      const ZoneButton(),
 
                   ],
                 ),

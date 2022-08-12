@@ -202,7 +202,6 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pageTitle: 'Search Businesses',
       searchHint: 'Search Business accounts by name',
       pyramidsAreOn: true,

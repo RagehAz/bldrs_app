@@ -94,7 +94,6 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       pageTitle: 'Users Manager',
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
-      zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
 

@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_all_countries_view.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_search_view.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/b_new_select_city_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -238,7 +238,6 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
       appBarType: AppBarType.search,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
       pageTitle: xPhrase(context, 'phid_select_a_country'),

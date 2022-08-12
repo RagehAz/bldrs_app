@@ -277,7 +277,6 @@ class _TranslationsManagerState extends State<TranslationsManager> {
                   skyType: SkyType.black,
                   pyramidsAreOn: true,
                   sectionButtonIsOn: false,
-                  zoneButtonIsOn: false,
                   appBarType: AppBarType.search,
                   searchHint: 'Search ${_enPhrases.length} phrases by ID only',
                   searchController: _searchController,

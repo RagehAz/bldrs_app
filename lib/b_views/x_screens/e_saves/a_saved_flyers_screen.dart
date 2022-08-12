@@ -64,7 +64,6 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
       pyramidsAreOn: true,
       pageTitle: xPhrase(context, 'phid_savedFlyers'),
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
       layoutWidget:
 

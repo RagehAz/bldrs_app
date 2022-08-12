@@ -74,7 +74,6 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pageTitle: 'UI Manager',
       appBarType: AppBarType.search,
       onSearchChanged: _onSearchChanged,

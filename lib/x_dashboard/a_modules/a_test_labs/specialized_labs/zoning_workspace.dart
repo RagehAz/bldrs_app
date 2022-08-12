@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_new_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -26,7 +26,6 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       pageTitle: 'Zoning work space',
       pyramidType: PyramidType.crystalYellow,

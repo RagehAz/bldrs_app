@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -112,22 +113,22 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     final double _noteSenderTypeButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteSenderTypesList.length,
-      boxWidth: TileBubble.childWidth(context),
+      boxWidth: TileBubble.childWidth(context: context),
     );
     final double _noteTypeButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteTypesList.length,
-      boxWidth: TileBubble.childWidth(context),
+      boxWidth: TileBubble.childWidth(context: context),
     );
     final double _noteButtonButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteButtonsList.length,
-      boxWidth: TileBubble.childWidth(context),
+      boxWidth: TileBubble.childWidth(context: context),
     );
     final double _noteAttachmentTypeButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteAttachmentTypesList.length,
-      boxWidth: TileBubble.childWidth(context),
+      boxWidth: TileBubble.childWidth(context: context),
     );
 
     return MainLayout(
@@ -135,7 +136,6 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       pageTitle: 'Note Creator',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
-      zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       appBarRowWidgets: <Widget>[
@@ -266,11 +266,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// NOTE TYPE
                 TileBubble(
-                  verse: 'Note Type',
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headline: 'Note Type',
+                    leadingIcon: Iconz.star,
+                    leadingIconSizeFactor: 0.5,
+                    leadingIconBoxColor: Colorz.grey50,
+
+                  ),
                   secondLine: 'Select Note Type',
-                  icon: Iconz.star,
-                  iconSizeFactor: 0.5,
-                  iconBoxColor: Colorz.grey50,
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -281,7 +284,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           builder: (_, NoteModel noteModel, Widget child){
 
                             return SizedBox(
-                              width: TileBubble.childWidth(context),
+                              width: TileBubble.childWidth(context: context),
                               height: 50,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -326,11 +329,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// SENDER
                 TileBubble(
-                  verse: 'Sender',
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headline: 'Sender',
+                    leadingIcon: Iconz.normalUser,
+                    leadingIconSizeFactor: 0.5,
+                    leadingIconBoxColor: Colorz.grey50,
+                  ),
                   secondLine: 'Select Note Sender',
-                  icon: Iconz.normalUser,
-                  iconSizeFactor: 0.5,
-                  iconBoxColor: Colorz.grey50,
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -342,7 +347,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             builder: (_, NoteSenderType selectedSenderType, Widget child){
 
                               return SizedBox(
-                                width: TileBubble.childWidth(context),
+                                width: TileBubble.childWidth(context: context),
                                 height: 50,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -392,7 +397,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                               else {
                                 return NoteSenderDynamicButton(
                                   model : model,
-                                  width: TileBubble.childWidth(context),
+                                  width: TileBubble.childWidth(context: context),
                                 );
                               }
 
@@ -406,11 +411,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// RECEIVER
                 TileBubble(
-                  verse: 'Receiver',
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headline: 'Receiver',
+                    leadingIcon: Iconz.news,
+                    leadingIconSizeFactor: 0.5,
+                    leadingIconBoxColor: Colorz.grey50,
+                  ),
                   secondLine: 'Select who will receive this Note',
-                  icon: Iconz.news,
-                  iconSizeFactor: 0.5,
-                  iconBoxColor: Colorz.grey50,
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -421,7 +428,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           children: <Widget>[
 
                             SizedBox(
-                              width: TileBubble.childWidth(context),
+                              width: TileBubble.childWidth(context: context),
                               height: 50,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -469,7 +476,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                                     return NoteSenderDynamicButton(
                                       model : snap.data,
-                                      width: TileBubble.childWidth(context),
+                                      width: TileBubble.childWidth(context: context),
                                     );
 
                                   }
@@ -488,17 +495,20 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     builder: (_, NoteModel noteModel, Widget child){
 
                       return TileBubble(
-                        verse: 'Send FCM',
+                        bubbleHeaderVM: BubbleHeaderVM(
+                          headline: 'Send FCM',
+                          leadingIcon: Iconz.news,
+                          leadingIconSizeFactor: 0.5,
+                          leadingIconBoxColor: Colorz.grey50,
+                          switchIsOn: noteModel.sendFCM,
+                          onSwitchTap: (bool val) => onSwitchSendFCM(
+                            note: _note,
+                            value: val,
+                          ),
+
+                        ),
                         secondLine: 'This sends firebase cloud message to the receiver or '
                             'to a group of receivers through a channel',
-                        icon: Iconz.news,
-                        iconSizeFactor: 0.5,
-                        iconBoxColor: Colorz.grey50,
-                        switchIsOn: noteModel.sendFCM,
-                        switching: (bool val) => onSwitchSendFCM(
-                          note: _note,
-                          value: val,
-                        ),
                       );
 
                     },
@@ -506,11 +516,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// BUTTONS
                 TileBubble(
-                  verse: 'Buttons',
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headline: 'Buttons',
+                    leadingIcon: Iconz.pause,
+                    leadingIconSizeFactor: 0.5,
+                    leadingIconBoxColor: Colorz.grey50,
+                  ),
                   secondLine: 'Add buttons to the Note',
-                  icon: Iconz.pause,
-                  iconSizeFactor: 0.5,
-                  iconBoxColor: Colorz.grey50,
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -521,7 +533,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           builder: (_, NoteModel noteModel, Widget child){
 
                             return SizedBox(
-                              width: TileBubble.childWidth(context),
+                              width: TileBubble.childWidth(context: context),
                               height: 50,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -565,11 +577,14 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// ATTACHMENTS
                 TileBubble(
-                  verse: 'Attachments',
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headline: 'Attachments',
+                    leadingIcon: Iconz.flyer,
+                    leadingIconSizeFactor: 0.5,
+                    leadingIconBoxColor: Colorz.grey50,
+
+                  ),
                   secondLine: 'Add attachments',
-                  icon: Iconz.flyer,
-                  iconSizeFactor: 0.5,
-                  iconBoxColor: Colorz.grey50,
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -581,7 +596,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                             /// ATTACHMENT TYPES
                             SizedBox(
-                              width: TileBubble.childWidth(context),
+                              width: TileBubble.childWidth(context: context),
                               height: 50,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,

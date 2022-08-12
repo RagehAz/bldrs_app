@@ -167,7 +167,6 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
       pageTitle: 'Note Creator',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
-      zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       loading: _loading,

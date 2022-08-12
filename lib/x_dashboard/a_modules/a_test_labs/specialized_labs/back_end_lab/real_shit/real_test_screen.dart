@@ -37,7 +37,6 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pyramidType: PyramidType.crystalYellow,
       skyType: SkyType.non,
       pyramidsAreOn: true,
