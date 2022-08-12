@@ -17,35 +17,35 @@ class InfoPageKeywords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    /// TASK : SHOULD UN COMMENT THESE AND MANAGE EMPTY VALUES
-    // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: false);
-    // final List<KW> _allKeywords = _keywordsProvider.allKeywords;
-    // final List<KW> _keywords = KW.getKeywordsFromKeywordsByIDs(
-    //     sourceKWs: _allKeywords,
-    //     keywordsIDs: flyerModel.keywordsIDs,
-    // );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
+      child: Wrap(
+        key: const ValueKey<String>('InfoPageKeywords'),
+        runSpacing: Ratioz.appBarPadding,
+        spacing: Ratioz.appBarPadding,
+        // direction: Axis.vertical,
+        // verticalDirection: VerticalDirection.down,
+        // alignment: WrapAlignment.center,
+        // crossAxisAlignment: WrapCrossAlignment.center,
+        // runAlignment: WrapAlignment.center,
+        // alignment: WrapAlignment.spaceAround,
+        children: <Widget>[
 
+          if (keywordsIDs?.isNotEmpty)
+          ...List<Widget>.generate(keywordsIDs?.length, (int index) {
 
-    return Wrap(
-      key: const ValueKey<String>('InfoPageKeywords'),
-      children: <Widget>[
+            final String _keywordID = keywordsIDs[index];
 
-        if (keywordsIDs?.isNotEmpty)
-        ...List<Widget>.generate(keywordsIDs?.length, (int index) {
-
-          final String _keywordID = keywordsIDs[index];
-
-          return Padding(
-            padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
-            child: PhidButton(
+            return PhidButton(
               phid: _keywordID,
               color: Colorz.white50,
-            ),
-          );
-        }
-        ),
+              inverseAlignment: false,
+            );
+          }
+          ),
 
-      ],
+        ],
+      ),
     );
   }
 }

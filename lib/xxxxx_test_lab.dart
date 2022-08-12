@@ -284,7 +284,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         context: context,
         screen: const ChainsScreen(
           pageTitle: 'Fast test Chains screen',
-          flyerTypeChainFilter: FlyerType.design,
+          flyerTypesChainFilters: [FlyerType.design],
 
           // specsPickers: SpecPicker.createPickersForChainK(
           //   context: context,

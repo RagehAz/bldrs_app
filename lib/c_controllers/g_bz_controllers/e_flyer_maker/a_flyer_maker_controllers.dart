@@ -302,18 +302,40 @@ String flyerHeadlineValidator({
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
-void onSelectFlyerType({
+Future<void> onSelectFlyerType({
+  @required BuildContext context,
   @required int index,
   @required ValueNotifier<DraftFlyerModel> draft,
-}){
-
-  blog('tapped on index : $index');
+}) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
 
-  draft.value = draft.value.copyWith(
-    flyerType: _selectedFlyerType,
-  );
+  if (draft.value.flyerType != _selectedFlyerType){
+
+  bool _canUpdate = true;
+
+    /// SOME SPECS ARE SELECTED
+    if (Mapper.checkCanLoopList(draft.value.specs) == true){
+
+      _canUpdate = await CenterDialog.showCenterDialog(
+        context: context,
+        title: 'Delete selected Specifications ?',
+        body: 'All selected specifications will be deleted\nDo you wish to continue ?',
+        boolDialog: true,
+      );
+
+    }
+
+    if (_canUpdate == true){
+      draft.value = draft.value.copyWith(
+        flyerType: _selectedFlyerType,
+        specs: <SpecModel>[],
+      );
+
+    }
+
+  }
+
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
@@ -335,7 +357,7 @@ Future<void> onAddSpecsTap({
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
-        flyerTypeChainFilter: draft.value.flyerType,
+        flyerTypesChainFilters: [draft.value.flyerType],
       )
   );
 

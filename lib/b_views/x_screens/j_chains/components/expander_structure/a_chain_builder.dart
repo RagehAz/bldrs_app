@@ -15,7 +15,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.secondHeadline,
     @required this.initiallyExpanded,
     @required this.selectedPhids,
-    this.alignment,
+    this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
@@ -28,7 +28,7 @@ class ChainBuilder extends StatelessWidget {
   final Chain chain;
   final bool deactivated;
   final double boxWidth;
-  final Alignment alignment;
+  final bool inverseAlignment;
   final String icon;
   final String firstHeadline;
   final String secondHeadline;
@@ -51,7 +51,7 @@ class ChainBuilder extends StatelessWidget {
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
-      alignment: alignment,
+      inverseAlignment: inverseAlignment,
       child: ExpandingTile(
         key: PageStorageKey<String>(chain.id),
         width: boxWidth,
