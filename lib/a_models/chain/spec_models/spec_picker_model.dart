@@ -3,10 +3,12 @@ import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 @immutable
 class SpecPicker {
@@ -201,7 +203,7 @@ class SpecPicker {
         // blog('pickersContainPicker : (${pickers.length}) pickers and the index is ( $i ) for picker :-');
         // _picker.blogSpecPicker();
 
-        if (_picker.chainID == picker.chainID) {
+        if (_picker?.chainID == picker.chainID) {
           _contains = true;
           break;
         }
@@ -246,6 +248,7 @@ class SpecPicker {
   static List<SpecPicker> createPickersForChainK({
     @required BuildContext context,
     @required Chain chainK,
+    @required bool canPickManyOfAPicker,
   }){
     final List<SpecPicker> _pickers = <SpecPicker>[];
 
@@ -263,7 +266,7 @@ class SpecPicker {
             context: context,
             chainID: subChainID,
           ),
-          canPickMany: false,
+          canPickMany: canPickManyOfAPicker,
           isRequired: false,
         );
 
@@ -276,15 +279,57 @@ class SpecPicker {
 
     return _pickers;
   }
+// -------------------------------------
+  static List<SpecPicker> createPickersFromAllChainKs({
+    @required bool canPickManyOfAPicker,
+    List<FlyerType> onlyUseTheseFlyerTypes,
+  }) {
 
-  static List<SpecPicker> createPickersFromAllChainKs() {
-    const List<SpecPicker> _specPicker = <SpecPicker>[
+    final List<SpecPicker> allChainKPickers = createAllChainKPickers(
+      canPickMany: canPickManyOfAPicker,
+    );
+
+    final List<SpecPicker> _specPickers = <SpecPicker>[];
+
+    /// IF SPECIFIC TYPES ARE GIVEN, ADD WHATS ENLISTED
+    if (Mapper.checkCanLoopList(onlyUseTheseFlyerTypes) == true){
+
+      for (final SpecPicker picker in allChainKPickers){
+
+        final FlyerType _flyerType = FlyerTyper.concludeFlyerTypeByChainID(
+          chainID: picker.chainID,
+        );
+
+        final bool _useThisType = onlyUseTheseFlyerTypes.contains(_flyerType);
+
+        if (_useThisType == true){
+          _specPickers.add(picker);
+        }
+
+      }
+
+    }
+
+    /// IF NO SPECIFIC TYPE GIVEN, ADD ALL
+    else {
+      _specPickers.addAll(allChainKPickers);
+    }
+
+    return _specPickers;
+  }
+
+// -------------------------------------
+  static List<SpecPicker> createAllChainKPickers({
+  @required bool canPickMany,
+}){
+
+    return  <SpecPicker>[
 
       /// PROPERTIES
       SpecPicker(
         chainID: 'phid_k_flyer_type_property',
         groupID: 'RealEstate',
-        canPickMany: false,
+        canPickMany: canPickMany,
         isRequired: false,
       ),
 
@@ -292,7 +337,7 @@ class SpecPicker {
       SpecPicker(
         chainID: 'phid_k_flyer_type_design',
         groupID: 'Construction',
-        canPickMany: false,
+        canPickMany: canPickMany,
         isRequired: false,
       ),
 
@@ -300,7 +345,7 @@ class SpecPicker {
       SpecPicker(
         chainID: 'phid_k_flyer_type_crafts',
         groupID: 'Construction',
-        canPickMany: false,
+        canPickMany: canPickMany,
         isRequired: false,
       ),
 
@@ -308,7 +353,7 @@ class SpecPicker {
       SpecPicker(
         chainID: 'phid_k_flyer_type_product',
         groupID: 'Supplies',
-        canPickMany: false,
+        canPickMany: canPickMany,
         isRequired: false,
       ),
 
@@ -316,14 +361,75 @@ class SpecPicker {
       SpecPicker(
         chainID: 'phid_k_flyer_type_equipment',
         groupID: 'Supplies',
-        canPickMany: false,
+        canPickMany: canPickMany,
         isRequired: false,
       ),
 
     ];
 
-    return _specPicker;
-
   }
 // -----------------------------------------------------------------------------
+}
+
+String getSpecPickerChainIDOfPhid({
+  @required String phid,
+  @required BuildContext context,
+}){
+
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final Chain _bigChainK = _chainsProvider.bigChainK;
+  final Chain _bigChainS = _chainsProvider.bigChainS;
+
+  final String _rooChainID = Chain.getRootChainIDOfPhid(
+    allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
+    phid: phid,
+  );
+
+  return _rooChainID;
+}
+
+SpecPicker findSpecPickerByPhid({
+  @required BuildContext context,
+  @required String phid,
+  @required List<SpecPicker> allSpecPickers,
+}){
+
+  final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
+    specsPickers: allSpecPickers,
+    pickerChainID: getSpecPickerChainIDOfPhid(
+      context: context,
+      phid: phid,
+    ),
+  );
+
+  return _picker;
+}
+
+List<SpecPicker> findSpecPickersByPhids({
+  @required BuildContext context,
+  @required List<String> phids,
+  @required List<SpecPicker> allSpecPickers,
+}){
+
+  final List<SpecPicker> _pickers = <SpecPicker>[];
+
+  if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allSpecPickers) == true){
+
+    for (final String phid in phids){
+
+      final SpecPicker _picker = findSpecPickerByPhid(
+        context: context,
+        phid: phid,
+        allSpecPickers: allSpecPickers,
+      );
+
+      if (_picker != null){
+        _pickers.add(_picker);
+      }
+
+    }
+
+  }
+
+  return _pickers;
 }

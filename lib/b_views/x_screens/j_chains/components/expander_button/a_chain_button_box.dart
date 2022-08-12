@@ -8,14 +8,14 @@ class ChainButtonBox extends StatelessWidget {
     @required this.boxWidth,
     @required this.child,
     this.isDisabled = false,
-    this.alignment,
+    this.inverseAlignment = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool isDisabled;
   final double boxWidth;
   final Widget child;
-  final Alignment alignment;
+  final bool inverseAlignment;
   /// --------------------------------------------------------------------------
   static double getSonWidth({
     @required double parentWidth,
@@ -29,7 +29,7 @@ class ChainButtonBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double sonHeight(){
-    return 50;
+    return 40;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -39,7 +39,7 @@ class ChainButtonBox extends StatelessWidget {
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
         width: boxWidth,
-        alignment: alignment ?? Aligners.superInverseCenterAlignment(context),
+        alignment: inverseAlignment == true ? Aligners.superInverseCenterAlignment(context) : null,
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,
       ),
