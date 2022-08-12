@@ -181,7 +181,6 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
             appBarType: AppBarType.search,
             pyramidsAreOn: true,
             sectionButtonIsOn: false,
-            zoneButtonIsOn: false,
             skyType: SkyType.black,
             onBack: () async {
               final bool _result = await CenterDialog.showCenterDialog(

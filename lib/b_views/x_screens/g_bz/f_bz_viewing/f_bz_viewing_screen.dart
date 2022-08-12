@@ -22,7 +22,6 @@ class BzViewingScreen extends StatelessWidget {
       pyramidsAreOn: true,
       pageTitle: bzModel.name,
       appBarType: AppBarType.basic,
-      zoneButtonIsOn: false,
       layoutWidget: BzAboutPage(
         bzModel: bzModel,
         showGallery: true,

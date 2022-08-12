@@ -111,7 +111,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitle: 'Edit Author Details', // createBzAccount

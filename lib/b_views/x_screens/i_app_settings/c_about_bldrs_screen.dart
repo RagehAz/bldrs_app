@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
@@ -24,7 +25,6 @@ class AboutBldrsScreen extends StatelessWidget {
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
       skyType: SkyType.non,
@@ -66,9 +66,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Developers',
-              icon: Iconz.bxPropertiesOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Developers',
+                leadingIcon: Iconz.bxPropertiesOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine:
                   'Real-Estate developers, they control the construction '
@@ -80,9 +81,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Brokers',
-              icon: Iconz.bxPropertiesOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Brokers',
+                leadingIcon: Iconz.bxPropertiesOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine:
                   'Real-Estate Brokerage individuals or companies, they '
@@ -94,9 +96,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Designers',
-              icon: Iconz.bxDesignsOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Designers',
+                leadingIcon: Iconz.bxDesignsOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine: 'Architects, Decorators, Landscapers, Engineers, '
                   'Planners and Designers of any urban construct you see in buildings'
@@ -107,9 +110,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Contractors',
-              icon: Iconz.bxProjectsOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Contractors',
+                leadingIcon: Iconz.bxProjectsOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine: 'The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
@@ -120,9 +124,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Crafts-men',
-              icon: Iconz.bxCraftsOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Crafts-men',
+                leadingIcon: Iconz.bxCraftsOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '
                   'Artists, Artisans, Painters, Plasterers ... etc\n'
@@ -131,9 +136,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Manufacturers',
-              icon: Iconz.bxProductsOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Manufacturers',
+                leadingIcon: Iconz.bxProductsOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine:
                   'Factories and Workshops that fabricates & manufactures '
@@ -145,9 +151,10 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
             TileBubble(
-              verse: 'Suppliers',
-              icon: Iconz.bxProductsOn,
-              iconSizeFactor: 1,
+              bubbleHeaderVM: BubbleHeaderVM(
+                headline: 'Suppliers',
+                leadingIcon: Iconz.bxProductsOn,
+              ),
               bubbleColor: Colorz.white20,
               secondLine:
                   'Those companies that import, supply, transport, sell '

@@ -116,7 +116,6 @@ class _FeedBackState extends State<FeedBack> {
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitle: 'About Bldrs.net',
       skyType: SkyType.non,

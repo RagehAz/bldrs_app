@@ -165,7 +165,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
     return MainLayout(
       pageTitle: 'Crop Images',
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       appBarType: AppBarType.basic,
       // pyramidsAreOn: false,
       skyType: SkyType.black,

@@ -2,13 +2,11 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
@@ -17,28 +15,30 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class CountryEditorScreen extends StatefulWidget {
+class CountryEditorPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const CountryEditorScreen({
+  const CountryEditorPage({
     @required this.country,
+    @required this.screenHeight,
     Key key,
   }) : super(key: key);
 
   /// --------------------------------------------------------------------------
   final CountryModel country;
+  final double screenHeight;
   /// --------------------------------------------------------------------------
   @override
-  _CountryEditorScreenState createState() => _CountryEditorScreenState();
+  _CountryEditorPageState createState() => _CountryEditorPageState();
 
   /// --------------------------------------------------------------------------
 }
 
-class _CountryEditorScreenState extends State<CountryEditorScreen> {
+class _CountryEditorPageState extends State<CountryEditorPage> {
 // -----------------------------------------------------------------------------
+  /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------
-  /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -130,54 +130,18 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
     //   country: widget.country,
     // );
 
-    final String _countryName = CountryModel.getTranslatedCountryName(
-      context: context,
-      countryID: widget.country.id,
-    );
+    // final String _countryName = CountryModel.getTranslatedCountryName(
+    //   context: context,
+    //   countryID: widget.country.id,
+    // );
     final String _countryFlag = Flag.getFlagIconByCountryID(widget.country.id);
+    final double _clearWidth = PageBubble.clearWidth(context);
 
-    final double _appBarWidth = BldrsAppBar.width(context);
-
-    return MainLayout(
-      skyType: SkyType.black,
-      pyramidsAreOn: true,
-      // pageTitle: _countryName,
-      loading: _loading,
+    return PageBubble(
+      screenHeightWithoutSafeArea: widget.screenHeight,
       appBarType: AppBarType.basic,
-      sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
-      appBarRowWidgets: [
 
-        AppBarButton(
-          verse: _countryName,
-          icon: _countryFlag,
-          bubble: false,
-          buttonColor: Colorz.nothing,
-        ),
-
-        const Expander(),
-
-        ValueListenableBuilder(
-            valueListenable: _countryModel,
-            builder: (_, CountryModel country, Widget child){
-
-              final bool _areTheSame = CountryModel.countriesModelsAreTheSame(country, widget.country);
-
-              return AppBarButton(
-                verse: 'Update',
-                buttonColor: _areTheSame == true ? Colorz.nothing : Colorz.yellow255,
-                bubble: !_areTheSame,
-                isDeactivated: _areTheSame,
-                onTap: (){
-                  blog('should update country');
-                },
-              );
-
-            }
-        ),
-
-      ],
-      layoutWidget: ValueListenableBuilder(
+      child: ValueListenableBuilder(
         valueListenable: _countryModel,
         builder: (_, CountryModel country, Widget child){
 
@@ -190,44 +154,39 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             physics: const BouncingScrollPhysics(),
             children: <Widget>[
 
-              const Stratosphere(),
-
               /// ID
               DataStrip(
-                width: _appBarWidth,
+                width: _clearWidth,
                 dataKey: 'ID',
                 dataValue: country.id,
-                color: Colorz.black255,
               ),
 
               /// REGION - CONTINENT
               DataStrip(
-                width: _appBarWidth,
+                width: _clearWidth,
                 dataKey: 'Region\nCont.',
                 dataValue: '${country.region} - ${country.continent}',
-                color: Colorz.black255,
               ),
 
               /// CURRENCY
               DataStrip(
-                width: _appBarWidth,
+                width: _clearWidth,
                 dataKey: 'Currency',
                 dataValue: '${_currencyModel.symbol} : ${xPhrase(context, _currencyModel.id)}',
-                color: Colorz.black255,
               ),
 
               /// LANGUAGE
               DataStrip(
-                width: _appBarWidth,
+                width: _clearWidth,
                 dataKey: 'Lang',
                 dataValue: country.language,
-                color: Colorz.black255,
               ),
 
               const DotSeparator(),
 
               /// ENGLISH NAME
               TextFieldBubble(
+                bubbleWidth: _clearWidth,
                 title: 'English Name',
                 textController: _enNameController,
                 textOnChanged: (String text){
@@ -239,11 +198,12 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                     ),
                   );
 
-                },
+                  },
               ),
 
               /// ARABIC NAME
               TextFieldBubble(
+                bubbleWidth: _clearWidth,
                 title: 'Arabic Name',
                 textController: _arNameController,
                 textOnChanged: (String text){
@@ -255,41 +215,47 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                     ),
                   );
 
-                },
+                  },
               ),
 
               const DotSeparator(),
 
               /// --- IS ACTIVATED
               TileBubble(
-                verse: 'Country is Activated',
+                bubbleHeaderVM: BubbleHeaderVM(
+                  leadingIcon: _countryFlag,
+                  leadingIconIsBubble: true,
+                  leadingIconBoxColor: Colorz.grey50,
+                  headline: 'Country is Activated',
+                  hasSwitch: true,
+                  onSwitchTap: (bool val) {
+                    _countryModel.value = _countryModel.value.copyWith(
+                      isActivated: val,
+                    );
+                  },
+                  switchIsOn: country.isActivated,
+
+                ),
+                bubbleWidth: _clearWidth,
                 secondLine: 'When Country is Deactivated, '
                     'only business authors may see it while creating business profile',
-                icon: _countryFlag,
-                iconBoxColor: Colorz.grey50,
-                iconSizeFactor: 1,
-                switchIsOn: country.isActivated,
-                switching: (bool val) {
-                  _countryModel.value = _countryModel.value.copyWith(
-                    isActivated: val,
-                  );
-                },
               ),
 
               /// --- IS GLOBAL
               TileBubble(
-                verse: 'Country is Global ?',
-                secondLine:
-                'When Country is not Global, only users of this country will see its businesses and flyers',
-                icon: _countryFlag,
-                iconBoxColor: Colorz.grey50,
-                iconSizeFactor: 1,
-                switchIsOn: country.isGlobal,
-                switching: (bool val) {
-                  _countryModel.value = _countryModel.value.copyWith(
-                    isGlobal: val,
-                  );
+                bubbleHeaderVM: BubbleHeaderVM(
+                  headline: 'Country is Global ?',
+                  leadingIcon: _countryFlag,
+                  leadingIconBoxColor: Colorz.grey50,
+                  onSwitchTap: (bool val) {
+                    _countryModel.value = _countryModel.value.copyWith(
+                      isGlobal: val,
+                    );
                   },
+                  switchIsOn: country.isGlobal,
+                ),
+                bubbleWidth: _clearWidth,
+                secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',
               ),
 
               const DotSeparator(),
@@ -311,8 +277,10 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
             ],
           );
 
-        },
+          },
       ),
     );
+
   }
+
 }

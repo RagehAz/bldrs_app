@@ -351,7 +351,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       skyType: SkyType.black,
       // navBarIsOn: false,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
 
         const IsSignedInButton(),

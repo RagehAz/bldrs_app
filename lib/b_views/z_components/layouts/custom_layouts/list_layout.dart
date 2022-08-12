@@ -57,7 +57,6 @@ class ListLayout extends StatelessWidget {
       appBarType: AppBarType.basic,
       pageTitle: pageTitle,
       pyramidsAreOn: true,
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       // appBarBackButton: true,
       layoutWidget: Column(

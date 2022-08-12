@@ -159,7 +159,6 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       appBarType: AppBarType.search,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
       pageTitle: xPhrase(context, 'phid_select_a_district'),
