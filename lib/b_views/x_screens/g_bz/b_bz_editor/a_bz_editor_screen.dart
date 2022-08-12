@@ -186,7 +186,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitle: widget.firstTimer == true ?

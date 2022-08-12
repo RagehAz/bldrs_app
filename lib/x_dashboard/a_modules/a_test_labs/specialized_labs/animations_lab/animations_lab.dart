@@ -116,7 +116,6 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
 
         DreamBox(

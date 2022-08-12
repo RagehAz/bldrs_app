@@ -124,21 +124,37 @@ class ZoneModel {
   }) {
     bool _zonesAreIdentical = true;
 
-    if (zone1.countryID != zone2.countryID) {
-      _zonesAreIdentical = false;
-    }
-
-    else if (zone1.cityID != zone2.cityID) {
-      _zonesAreIdentical = false;
-    }
-
-    else if (zone1.districtID != zone2.districtID) {
-      _zonesAreIdentical = false;
+    if (zone1 == null && zone2 == null){
+      _zonesAreIdentical = true;
     }
 
     else {
-      _zonesAreIdentical = true;
+
+      if (zone1 != null && zone2 != null){
+
+        if (zone1.countryID != zone2.countryID) {
+          _zonesAreIdentical = false;
+        }
+
+        else if (zone1.cityID != zone2.cityID) {
+          _zonesAreIdentical = false;
+        }
+
+        else if (zone1.districtID != zone2.districtID) {
+          _zonesAreIdentical = false;
+        }
+
+        else {
+          _zonesAreIdentical = true;
+        }
+
+      }
+      else {
+        _zonesAreIdentical = false;
+      }
+
     }
+
 
     return _zonesAreIdentical;
   }

@@ -17,7 +17,6 @@ class TermsAndRegulationsScreen extends StatelessWidget {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       historyButtonIsOn: false,
       pageTitle: 'Terms & Conditions',
       appBarType: AppBarType.basic,

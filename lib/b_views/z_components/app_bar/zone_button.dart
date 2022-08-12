@@ -1,13 +1,9 @@
-import 'package:bldrs/a_models/zone/city_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_new_select_country_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -19,24 +15,12 @@ class ZoneButton extends StatelessWidget {
     this.onTap,
     this.isOn = false,
     this.zoneOverride,
-    this.countryOverride,
-    this.cityOverride,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
   final bool isOn;
   final ZoneModel zoneOverride;
-  final CountryModel countryOverride;
-  final CityModel cityOverride;
-  /// --------------------------------------------------------------------------
-  Future<void> _zoneButtonOnTap(BuildContext context) async {
-    await Nav.goToNewScreen(
-      context: context,
-      screen: const SelectCountryScreen(),
-
-    );
-  }
 // -----------------------------------------------------------------------------
   ZoneModel _buttonZone(BuildContext context){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
@@ -44,48 +28,9 @@ class ZoneButton extends StatelessWidget {
     return zoneOverride ?? _currentZone;
   }
 // -----------------------------------------------------------------------------
-  /*
-  CountryModel _buttonCountry(BuildContext context){
-
-    CountryModel _output;
-
-    if (zoneOverride == null){
-      _output = ZoneProvider.proGetCurrentZone(
-          context: context,
-          listen: true,
-      )?.countryModel;
-    }
-
-    else {
-      _output = countryOverride;
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-  CityModel _buttonCity(BuildContext context){
-
-    CityModel _output;
-
-    if (zoneOverride == null){
-      _output = ZoneProvider.proGetCurrentZone(
-        context: context,
-        listen: true,
-      )?.cityModel;
-    }
-
-    else {
-      _output = cityOverride;
-    }
-
-    return _output;
-  }
-   */
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // ------------------------------
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final ZoneModel _currentZone = _buttonZone(context);
 // ------------------------------
     final String _countryName = _currentZone.countryName;
@@ -113,7 +58,7 @@ class ZoneButton extends StatelessWidget {
     const double _flagHorizontalMargins = 2;
 // ------------------------------
     return GestureDetector(
-      onTap: () => _zoneButtonOnTap(context),
+      onTap: onTap,
       child: Container(
         // width: 40,
         height: 40,
@@ -122,68 +67,67 @@ class ZoneButton extends StatelessWidget {
         margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
-                Radius.circular(Ratioz.appBarButtonCorner)),
+                Radius.circular(Ratioz.appBarButtonCorner),
+            ),
             color: isOn ? Colorz.yellow255 : Colorz.white10),
-        child: ChangeNotifierProvider<ZoneProvider>.value(
-          value: _zoneProvider,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
 
-              /// --- COUNTRY & DISTRICTS NAMES
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                child: FittedBox(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      SuperVerse(
-                        verse: _firstRow ?? '',
-                        size: 1,
-                        color: isOn ? Colorz.black230 : Colorz.white255,
-                      ),
-                      SuperVerse(
-                        verse: _secondRow ?? '',
-                        size: 1,
-                        scaleFactor: 0.8,
-                        color: isOn ? Colorz.black230 : Colorz.white255,
-                      ),
-                    ],
-                  ),
+            /// --- COUNTRY & DISTRICTS NAMES
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.5),
+              child: FittedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    SuperVerse(
+                      verse: _firstRow ?? '',
+                      size: 1,
+                      color: isOn ? Colorz.black230 : Colorz.white255,
+                    ),
+                    SuperVerse(
+                      verse: _secondRow ?? '',
+                      size: 1,
+                      scaleFactor: 0.8,
+                      color: isOn ? Colorz.black230 : Colorz.white255,
+                    ),
+                  ],
                 ),
               ),
+            ),
 
-              /// --- FLAG
-              Stack(
-                alignment: Alignment.center,
-                children: <Widget>[
+            /// --- FLAG
+            Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
 
-                  /// --- FAKE FOOTPRINT to occupy space for flag while loading
-                  Container(
+                /// --- FAKE FOOTPRINT to occupy space for flag while loading
+                Container(
+                  width: 30,
+                  height: 30,
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: _flagHorizontalMargins
+                  ),
+                ),
+
+                Center(
+                  child: DreamBox(
                     width: 30,
                     height: 30,
-                    margin: const EdgeInsets.symmetric(
+                    icon: _countryFlag,
+                    corners: Ratioz.boxCorner8,
+                    margins: const EdgeInsets.symmetric(
                         horizontal: _flagHorizontalMargins
                     ),
+                    onTap: onTap,
                   ),
+                ),
 
-                  Center(
-                    child: DreamBox(
-                      width: 30,
-                      height: 30,
-                      icon: _countryFlag,
-                      corners: Ratioz.boxCorner8,
-                      margins: const EdgeInsets.symmetric(
-                          horizontal: _flagHorizontalMargins
-                      ),
-                      onTap: onTap,
-                    ),
-                  ),
+              ],
+            ),
 
-                ],
-              ),
-            ],
-          ),
+          ],
         ),
       ),
     );

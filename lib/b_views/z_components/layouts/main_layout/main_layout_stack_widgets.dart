@@ -29,7 +29,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onSearchChanged,
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
-    @required this.zoneButtonIsOn,
     @required this.pyramidsAreOn,
     @required this.searchHint,
     @required this.pyramidType,
@@ -54,7 +53,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool pyramidsAreOn;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
-  final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
   final ValueNotifier<SwipeDirection> swipeDirection;
@@ -137,7 +135,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchSubmit: onSearchSubmit,
             onSearchChanged: onSearchChanged,
             historyButtonIsOn: historyButtonIsOn,
-            zoneButtonIsOn: zoneButtonIsOn,
             searchHint: searchHint,
             canGoBack: canGoBack,
             onSearchCancelled: onSearchCancelled,

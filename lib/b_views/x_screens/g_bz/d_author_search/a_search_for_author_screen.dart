@@ -74,7 +74,6 @@ class _SearchForAuthorScreenState extends State<SearchForAuthorScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pageTitle: 'Add new Author',
       searchHint: 'Search Users by name',
       pyramidsAreOn: true,

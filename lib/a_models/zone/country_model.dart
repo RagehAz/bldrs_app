@@ -243,7 +243,7 @@ class CountryModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool countriesModelsAreTheSame(CountryModel countryA, CountryModel countryB) {
+  static bool countriesAreIdentical(CountryModel countryA, CountryModel countryB) {
     bool _areTheSame = false;
 
     if (countryA != null && countryB != null) {

@@ -111,7 +111,6 @@ class _PaginatorTestState extends State<PaginatorTest> {
       loading: _loading,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
-      zoneButtonIsOn: false,
       skyType: SkyType.black,
       pyramidsAreOn: true,
       pyramidType: PyramidType.glass,
