@@ -186,6 +186,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                                   ),
                                 ],
                                 onButtonTap: (int index) => onSelectFlyerType(
+                                  context: context,
                                   index: index,
                                   draft: draft,
                                 ),

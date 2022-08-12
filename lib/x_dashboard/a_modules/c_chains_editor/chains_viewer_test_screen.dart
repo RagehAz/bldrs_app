@@ -118,7 +118,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final List<SpecModel> _specs =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypeChainFilter: _flyerType,
+                  flyerTypesChainFilters: [_flyerType],
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: true,
                   pageTitle: 'CITY CHAINS + MULTIPLE SELECTION',
@@ -141,7 +141,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final List<SpecModel> _specs =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypeChainFilter: _flyerType,
+                  flyerTypesChainFilters: [_flyerType],
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: true,
                   pageTitle: 'ALL CHAINS + MULTIPLE SELECTION',
@@ -164,7 +164,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final String string =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypeChainFilter: _flyerType,
+                  flyerTypesChainFilters: [_flyerType],
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: false,
                   pageTitle: 'CITY CHAINS + SINGLE SELECTION',
@@ -185,7 +185,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final String string =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypeChainFilter: _flyerType,
+                  flyerTypesChainFilters: [_flyerType],
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: false,
                   pageTitle: 'ALL CHAINS + SINGLE SELECTION',
