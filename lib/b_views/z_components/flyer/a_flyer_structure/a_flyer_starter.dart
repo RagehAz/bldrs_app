@@ -172,6 +172,8 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
 
+    _flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
+
     unawaited(recordFlyerView(
       context: context,
       index: 0,
