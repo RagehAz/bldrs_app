@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
@@ -31,7 +29,6 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connecte
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class TestLab extends StatefulWidget {
@@ -280,25 +277,18 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final dynamic result = await Nav.goToNewScreen(
-        context: context,
-        screen: const ChainsScreen(
-          pageTitle: 'Fast test Chains screen',
-          flyerTypesChainFilters: [FlyerType.design],
-
-          // specsPickers: SpecPicker.createPickersForChainK(
-          //   context: context,
-          //   chainK: ChainsProvider.proGetKeywordsChain(context: context, onlyUseCityChains: false, listen: false),
-          // ),
-
-          onlyUseCityChains: false,
-          isMultipleSelectionMode: true,
-        ),
-      transitionType: PageTransitionType.leftToRight,
-    );
-
-    blog('_fastTest RECEIVED THIS : $result');
-
+      // final String  _url = await Storage.uploadPDFAndGetUrl(
+      //   context: context,
+      //   docName: StorageDoc.flyersDataSheets,
+      //   ownersIDs: [AuthFireOps.superUserID()],
+      //   fileNameOverride: 'boboooooo',
+      //   metaDataAddOn: {
+      //     'a77a' : 'sexy',
+      //   },
+      // );
+      //
+      // blog(_url);
+      // blog('ok');
 
     /// MAPS ARE IDENTICAL TEST
     /*

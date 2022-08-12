@@ -140,7 +140,6 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     return PageBubble(
       screenHeightWithoutSafeArea: widget.screenHeight,
       appBarType: AppBarType.basic,
-
       child: ValueListenableBuilder(
         valueListenable: _countryModel,
         builder: (_, CountryModel country, Widget child){
@@ -222,12 +221,14 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// --- IS ACTIVATED
               TileBubble(
+                bubbleWidth: _clearWidth,
                 bubbleHeaderVM: BubbleHeaderVM(
                   leadingIcon: _countryFlag,
                   leadingIconIsBubble: true,
                   leadingIconBoxColor: Colorz.grey50,
                   headline: 'Country is Activated',
                   hasSwitch: true,
+                  hasMoreButton: true,
                   onSwitchTap: (bool val) {
                     _countryModel.value = _countryModel.value.copyWith(
                       isActivated: val,
@@ -236,17 +237,18 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   switchIsOn: country.isActivated,
 
                 ),
-                bubbleWidth: _clearWidth,
                 secondLine: 'When Country is Deactivated, '
                     'only business authors may see it while creating business profile',
               ),
 
               /// --- IS GLOBAL
               TileBubble(
+                bubbleWidth: _clearWidth,
                 bubbleHeaderVM: BubbleHeaderVM(
                   headline: 'Country is Global ?',
                   leadingIcon: _countryFlag,
                   leadingIconBoxColor: Colorz.grey50,
+                  hasSwitch: true,
                   onSwitchTap: (bool val) {
                     _countryModel.value = _countryModel.value.copyWith(
                       isGlobal: val,
@@ -254,7 +256,6 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   },
                   switchIsOn: country.isGlobal,
                 ),
-                bubbleWidth: _clearWidth,
                 secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',
               ),
 
