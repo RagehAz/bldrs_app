@@ -185,7 +185,6 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pageTitle: 'Awesome notification test',
       layoutWidget: Column(
         children: <Widget>[

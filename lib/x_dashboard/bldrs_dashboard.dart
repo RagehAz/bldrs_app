@@ -228,7 +228,6 @@ class BldrsDashBoard extends StatelessWidget {
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.white,
       appBarRowWidgets: <Widget>[

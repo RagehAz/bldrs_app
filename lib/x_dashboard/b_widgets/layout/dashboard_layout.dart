@@ -56,7 +56,6 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       // scaffoldKey: _globalKey,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       pageTitle: widget.pageTitle,

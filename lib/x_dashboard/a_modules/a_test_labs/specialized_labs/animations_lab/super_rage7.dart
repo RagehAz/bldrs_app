@@ -30,7 +30,6 @@ class SuperRage7Screen extends StatelessWidget {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       loading: ValueNotifier(true),
-      zoneButtonIsOn: false,
       appBarType: AppBarType.basic,
       pageTitle: 'Rageh Azzazi',
       layoutWidget: Stack(

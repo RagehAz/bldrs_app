@@ -46,7 +46,6 @@ class MainLayout extends StatelessWidget {
     this.onSearchChanged,
     this.historyButtonIsOn = true,
     this.sectionButtonIsOn = true,
-    this.zoneButtonIsOn = true,
     this.searchHint,
     this.loading,
     this.swipeDirection,
@@ -76,7 +75,6 @@ class MainLayout extends StatelessWidget {
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
-  final bool zoneButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
   final ValueNotifier<SwipeDirection> swipeDirection;
@@ -209,7 +207,6 @@ class MainLayout extends StatelessWidget {
                     numberOfStrips: numberOfStrips,
                     appBarScrollController: appBarScrollController,
                     sectionButtonIsOn: sectionButtonIsOn,
-                    zoneButtonIsOn: zoneButtonIsOn,
                     searchController: searchController,
                     onSearchSubmit: onSearchSubmit,
                     historyButtonIsOn: historyButtonIsOn,

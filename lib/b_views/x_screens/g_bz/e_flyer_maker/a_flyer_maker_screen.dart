@@ -124,7 +124,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       appBarType: AppBarType.basic,
       loading: _loading,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
 
         const Expander(),

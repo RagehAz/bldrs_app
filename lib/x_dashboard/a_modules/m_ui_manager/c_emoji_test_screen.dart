@@ -50,7 +50,6 @@ class EmojiTestScreen extends StatelessWidget {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       layoutWidget: GridView.builder(
           itemCount: _emojis.length,
           padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: 100),

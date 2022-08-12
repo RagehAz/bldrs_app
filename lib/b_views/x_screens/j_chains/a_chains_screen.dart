@@ -200,7 +200,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
       pageTitle: widget.pageTitle,
-      zoneButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       onBack: (){

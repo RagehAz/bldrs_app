@@ -1,26 +1,21 @@
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class TileBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TileBubble({
-    @required this.verse,
-    @required this.icon,
-    this.iconBoxColor = Colorz.nothing,
-    this.iconSizeFactor = 0.6,
+    this.bubbleHeaderVM,
+    this.bubbleWidth,
     this.verseColor = Colorz.white255,
     this.btOnTap,
     this.secondLine,
-    this.switchIsOn,
-    this.switching,
     this.iconIsBubble = true,
     this.insideDialog = false,
     this.moreBtOnTap,
@@ -30,15 +25,11 @@ class TileBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
-  final dynamic icon;
-  final Color iconBoxColor;
-  final double iconSizeFactor;
+  final double bubbleWidth;
+  final BubbleHeaderVM bubbleHeaderVM;
   final Color verseColor;
   final Function btOnTap;
   final String secondLine;
-  final bool switchIsOn;
-  final ValueChanged<bool> switching;
   final bool iconIsBubble;
   final bool insideDialog;
   final Function moreBtOnTap;
@@ -46,107 +37,49 @@ class TileBubble extends StatelessWidget {
   final List<String> bulletPoints;
   final Color bubbleColor;
   /// --------------------------------------------------------------------------
-  static const double iconBoxWidth = 30;
+  static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
   /// --------------------------------------------------------------------------
-  static double childWidth(BuildContext context) {
-    return Bubble.bubbleWidth(context: context, stretchy: false) - iconBoxWidth;
+  static double getBubbleWidth({
+    @required BuildContext context,
+    double bubbleWidthOverride,
+  }){
+    final double _bubbleWidth = bubbleWidthOverride ?? BldrsAppBar.width(context);
+    return _bubbleWidth;
+  }
+// -----------------------------------------------------------------------------
+  static double childWidth({
+    @required BuildContext context,
+    double bubbleWidthOverride,
+  }) {
+
+    final double _bubbleWidth = getBubbleWidth(
+      context: context,
+      bubbleWidthOverride: bubbleWidthOverride,
+    );
+
+    return _bubbleWidth - iconBoxWidth - (2 * Ratioz.appBarMargin);
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double iconWidth = iconSizeFactor * iconBoxWidth;
-    final double iconBoxPadding = iconBoxWidth - iconWidth;
-
-    final double _switchButtonWidth = switchIsOn == null && moreBtOnTap == null ?
-    0 : 50;
-
-    final double _verseWidth = insideDialog == true ?
-    CenterDialog.getWidth(context) - 30 - 50 - _switchButtonWidth
-        :
-    Bubble.clearWidth(context) - iconBoxWidth - 50 - _switchButtonWidth;
+    final double _bubbleWidth = getBubbleWidth(
+      context: context,
+      bubbleWidthOverride: bubbleWidth,
+    );
 
     return Bubble(
+      width: _bubbleWidth,
       onBubbleTap: btOnTap,
       bubbleColor: bubbleColor,
       columnChildren: <Widget>[
 
-        /// HEADER ( LEADING ICON - TITLE - SWITCHER - MORE BUTTON )
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-
-            /// --- LEADING ICON
-            if (icon is String)
-              DreamBox(
-                width: iconBoxWidth,
-                height: iconBoxWidth,
-                icon: icon,
-                // iconColor: Colorz.Green255,
-                iconSizeFactor: iconSizeFactor,
-                color: iconBoxColor,
-                margins: EdgeInsets.zero,
-                bubble: iconIsBubble,
-              ),
-
-            if (icon is String == false)
-              Padding(
-                padding: EdgeInsets.zero,
-                child: Container(
-                  width: iconBoxWidth,
-                  height: iconBoxWidth,
-                  padding: EdgeInsets.all(iconBoxPadding),
-                  child: icon,
-                ),
-              ),
-
-            /// --- MAIN TEXT
-            Container(
-              width: _verseWidth,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  SuperVerse(
-                    verse: verse,
-                    margin: 5,
-                    color: verseColor,
-                    maxLines: 2,
-                    centered: false,
-                  ),
-
-                ],
-              ),
-            ),
-
-            const Expander(),
-
-            if (switchIsOn != null)
-              SizedBox(
-                width: _switchButtonWidth,
-                height: 35,
-                child: Switch(
-                  activeColor: Colorz.yellow255,
-                  activeTrackColor: Colorz.yellow80,
-                  focusColor: Colorz.darkBlue,
-                  inactiveThumbColor: Colorz.grey255,
-                  inactiveTrackColor: Colorz.grey80,
-                  value: switchIsOn,
-                  onChanged: (bool val) => switching(val),
-                ),
-              ),
-
-            if (moreBtOnTap != null)
-              DreamBox(
-                height: 35,
-                width: 35,
-                icon: Iconz.more,
-                iconSizeFactor: 0.6,
-                onTap: moreBtOnTap,
-              ),
-
-          ],
+        /// BUBBLE HEADER
+        if (bubbleHeaderVM != null)
+        BubbleHeader(
+          viewModel: bubbleHeaderVM.copyWith(
+            headerWidth: _bubbleWidth - (2 * Ratioz.appBarMargin),
+          ),
         ),
 
         /// BULLET POINTS
@@ -174,7 +107,10 @@ class TileBubble extends StatelessWidget {
 
                 /// SECOND LINE
                 SizedBox(
-                  width: childWidth(context),
+                  width: childWidth(
+                    context: context,
+                    bubbleWidthOverride: _bubbleWidth,
+                  ),
                   child: SuperVerse(
                     verse: secondLine,
                     color: Colorz.white200,
@@ -208,7 +144,7 @@ class TileBubble extends StatelessWidget {
 
                 /// CHILD
                 Container(
-                  width: childWidth(context),
+                  width: childWidth(context: context),
                   // decoration: BoxDecoration(
                   //     color: Colorz.white10,
                   //     borderRadius: Borderers.superBorderAll(context, Bubble.clearCornersValue)

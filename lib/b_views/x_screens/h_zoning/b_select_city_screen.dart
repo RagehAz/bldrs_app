@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/bbb_select_city_screen_all_cities_view.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/bbb_select_city_screen_search_view.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/c_new_select_district_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/c_select_district_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -247,7 +247,6 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       appBarType: AppBarType.search,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
       pageTitle: xPhrase(context, 'phid_selectCity'),

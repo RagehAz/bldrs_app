@@ -210,7 +210,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return MainLayout(
       canGoBack: widget.canGoBack,
       skyType: SkyType.black,
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,

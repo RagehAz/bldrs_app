@@ -21,7 +21,6 @@ class FlyerReviewsScreen extends StatelessWidget {
 
     return MainLayout(
       pageTitle: 'Flyer Reviews',
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,

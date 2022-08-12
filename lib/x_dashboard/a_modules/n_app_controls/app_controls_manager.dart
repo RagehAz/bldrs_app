@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -81,7 +82,6 @@ class _AppControlsManagerState extends State<AppControlsManager> {
       appBarType: AppBarType.basic,
       pageTitle: 'App Controls',
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       pyramidsAreOn: true,
       loading: _loading,
       layoutWidget: ValueListenableBuilder(
@@ -102,7 +102,17 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                 ),
 
                 TileBubble(
-                  verse: 'Show only Verified Flyers',
+                  bubbleHeaderVM: BubbleHeaderVM(
+                    headline: 'Show only Verified Flyers',
+                    leadingIcon: Iconz.news,
+                    leadingIconSizeFactor: 0.5,
+                    switchIsOn: controls.showOnlyVerifiedFlyersInHomeWall,
+                    onSwitchTap: (bool val) => switchOnlyShowVerifiedFlyersInHomeWall(
+                      context: context,
+                      value: val,
+                      appControlsModel: _appControls,
+                    ),
+                  ),
                   bulletPoints: const <String>[
                     'Audit States are :-',
                     'null',
@@ -113,14 +123,6 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                   secondLine: 'Only verified flyers will be shown in Home screen wall.\n'
                       'if switched off, Audit state will be neglected in its search query showing both null and verified Audit states.\n'
                       'But still banned and suspended flyers will not be viewed.\n',
-                  icon: Iconz.news,
-                  iconSizeFactor: 0.5,
-                  switchIsOn: controls.showOnlyVerifiedFlyersInHomeWall,
-                  switching: (bool val) => switchOnlyShowVerifiedFlyersInHomeWall(
-                    context: context,
-                    value: val,
-                    appControlsModel: _appControls,
-                  ),
                 ),
 
               ],

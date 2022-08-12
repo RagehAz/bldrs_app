@@ -71,7 +71,6 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
     return MainLayout(
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      zoneButtonIsOn: false,
       appBarRowWidgets: <Widget>[
         const Expander(),
         AppBarButton(

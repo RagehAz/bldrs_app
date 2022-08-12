@@ -20,7 +20,6 @@ class BalloonTypesScreen extends StatelessWidget {
     const List<UserStatus> _balloonTypes = UserModel.userStatuses;
 
     return MainLayout(
-      zoneButtonIsOn: false,
       sectionButtonIsOn: false,
       pageTitle: 'Balloon Types',
       appBarType: AppBarType.basic,

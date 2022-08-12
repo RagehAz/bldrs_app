@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_new_select_country_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/b_new_select_city_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/c_new_select_district_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
+import 'package:bldrs/b_views/x_screens/h_zoning/c_select_district_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
