@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
@@ -13,7 +14,6 @@ import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
-import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
@@ -571,6 +571,7 @@ Future<void> onRefreshHomeWall(BuildContext context) async {
 /// FLYERS INTERACTIONS
 
 // -------------------------------
+/*
 Future<void> onFlyerTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -588,6 +589,7 @@ Future<void> onFlyerTap({
   );
 
 }
+ */
 // -----------------------------------------------------------------------------
 
 /// OBELISK

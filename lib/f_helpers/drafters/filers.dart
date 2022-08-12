@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -94,8 +95,13 @@ class Filers {
 // ---------------------------------------
   ///
   static String getFileNameFromFile(File file){
-    final String _path = file.path;
-    final String _fileName = TextMod.removeTextBeforeLastSpecialCharacter(_path, '/');
+    String _fileName;
+
+    if (file != null){
+      final String _path = file.path;
+      _fileName = TextMod.removeTextBeforeLastSpecialCharacter(_path, '/');
+    }
+
     return _fileName;
   }
 // -----------------------------------------------------------------
@@ -371,6 +377,40 @@ class Filers {
       blog('files lastModifiedSync()s are not Identical');
     }
 
+  }
+// -----------------------------------------------------------------
+
+/// PICK PDF
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<File> pickPDF() async {
+
+    File _file;
+
+    final FilePickerResult result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowCompression: true,
+      allowMultiple: false,
+      dialogTitle: 'Pick PDF File',
+      lockParentWindow: false,
+      onFileLoading: (FilePickerStatus status){
+        blog('status : ${status.name}');
+      },
+      /// ??
+      allowedExtensions: <String>['pdf'],
+      // initialDirectory:
+      /// ??
+      // withData:
+      // withReadStream:
+    );
+
+    if (result != null){
+      final PlatformFile _platformFile = result.files.first;
+      _file = File(_platformFile.path);
+    }
+
+    return _file;
   }
 // -----------------------------------------------------------------
 }
