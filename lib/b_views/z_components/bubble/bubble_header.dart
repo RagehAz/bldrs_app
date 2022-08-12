@@ -80,7 +80,7 @@ class BubbleHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double iconBoxSize = 30;
   static const double switcherButtonWidth = 50;
-  static const double moreButtonSize = 30;
+  static const double moreButtonSize = iconBoxSize;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -134,7 +134,7 @@ class BubbleHeader extends StatelessWidget {
         if (viewModel.hasSwitch == true)
           BubbleSwitcher(
             width: _switcherWidth,
-            height: 35,
+            height: iconBoxSize,
             switchIsOn: viewModel.switchIsOn,
             onSwitch: viewModel.onSwitchTap,
           ),

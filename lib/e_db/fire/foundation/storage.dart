@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 
 class Storage {
 
-  Storage();
+  const Storage();
 
 
   /// FIREBASE STORAGE METHODS
@@ -78,25 +79,79 @@ class Storage {
 
 // ------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<dynamic> uploadFile({
+  static Future<String> uploadFile({
     @required BuildContext context,
     @required File file,
     @required String docName,
     @required String fileName,
+    @required String fileExtension,
+    @required List<String> ownersIDs,
+    Map<String, String> metaDataAddOn,
   }) async {
-    // final Reference _ref = getRef(
-    //     context: context,
-    //     docName: docName,
-    //     picName: fileName
-    // );
 
-    // final UploadTask _uploadTask = _ref.putFile(file);
+    blog('uploadFile : START');
 
-    // final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
-    //
-    //   blog('upload completed');
-    //
-    // });
+    /// NOTE : RETURNS URL
+    String _fileURL;
+
+    await tryAndCatch(
+      context: context,
+        methodName: 'uploadFile',
+        functions: () async {
+
+          /// GET REF
+          final Reference _ref = getRef(
+            context: context,
+            docName: docName,
+            picName: fileName,
+            fileExtension: fileExtension,
+          );
+
+          blog('uploadFile : 1 - got ref : $_ref');
+
+          /// ASSIGN FILE OWNERS
+          Map<String, String> _metaDataMap = <String, String>{};
+          for (final String ownerID in ownersIDs) {
+            _metaDataMap[ownerID] = 'cool';
+          }
+
+          blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
+
+          /// ADD EXTRA METADATA MAP PAIRS
+          if (metaDataAddOn != null) {
+            _metaDataMap = Mapper.mergeMaps(
+              baseMap: _metaDataMap,
+              insert: metaDataAddOn,
+              replaceDuplicateKeys: true,
+            );
+          }
+
+          blog('uploadFile : 3 - added extra meta data : _metaDataMap : $_metaDataMap');
+
+          /// FORM METADATA
+          final SettableMetadata metaData = SettableMetadata(
+            customMetadata: _metaDataMap,
+          );
+
+          blog('uploadFile : 4 - assigned meta data');
+
+
+          final UploadTask _uploadTask = _ref.putFile(
+            file,
+            metaData,
+          );
+
+          blog('uploadFile : 5 - uploaded file : fileName : $fileName : file.fileNameWithExtension : ${file.fileNameWithExtension}');
+
+          final TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
+            blog('uploadFile : 6 - upload file completed');
+          });
+          blog('uploadFile : 7 - task state : ${_snapshot.state}');
+
+          _fileURL = await _ref.getDownloadURL();
+          blog('uploadFile : 8 - got url : $_fileURL');
+
+        });
 
     /*
 
@@ -163,6 +218,9 @@ ButtonBar(
 https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c4314
 
      */
+
+    blog('uploadFile : END');
+    return _fileURL;
   }
 // ------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -185,45 +243,25 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         methodName: 'createStoragePicAndGetURL',
         functions: () async {
 
-          final Reference _ref = getRef(
-            context: context,
-            docName: docName,
-            picName: picName,
-          );
-
-          blog('X1 - getting storage ref : $_ref');
-
           final ImageSize imageSize = await ImageSize.superImageSize(inputFile);
-
-          blog('X2 - image size is ${imageSize.height} * ${imageSize.width}');
-
 
           final Map<String, String> _metaDataMap = <String, String>{
             'width': '${imageSize.width}',
             'height': '${imageSize.height}',
           };
-          for (final String ownerID in ownersIDs){
-            _metaDataMap[ownerID]= 'cool';
-          }
 
-          final SettableMetadata metaData = SettableMetadata(
-              customMetadata: _metaDataMap,
+          _imageURL = await uploadFile(
+            context: context,
+            docName: docName,
+            fileName: picName,
+            file: inputFile,
+            ownersIDs: ownersIDs,
+            fileExtension: 'jpg',
+            metaDataAddOn: _metaDataMap,
           );
 
-
-          blog('X3 - meta data assigned');
-
-          await _ref.putFile(
-            inputFile,
-            metaData,
-          );
-
-          blog('X4 - File has been uploaded $inputFile');
-
-          _imageURL = await _ref.getDownloadURL();
-
-          blog('X5 - _imageURL is downloaded  $_imageURL');
         });
+
     return _imageURL;
   }
 // ------------------------------------------------
@@ -234,28 +272,38 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String flyerID,
     @required String bzCreatorID,
     @required String flyerAuthorID,
+    ValueChanged<List<String>> onFinished,
   }) async {
 
     final List<String> _picturesURLs = <String>[];
 
     if (Mapper.checkCanLoopList(slides) == true && flyerID != null && bzCreatorID != null){
 
-      for (final SlideModel slide in slides) {
+      await Future.wait(<Future>[
 
-        final String _picURL = await createStoragePicAndGetURL(
-          context: context,
-          inputFile: slide.pic,
-          docName: StorageDoc.slides,
-          ownersIDs: <String>[bzCreatorID, flyerAuthorID],
-          picName: SlideModel.generateSlideID(
-            flyerID: flyerID,
-            slideIndex: slide.slideIndex,
-          ),
-        );
+            ...List.generate(slides.length, (index) async {
 
-        _picturesURLs.add(_picURL);
-      }
+              final String _picURL = await createStoragePicAndGetURL(
+                context: context,
+                inputFile: slides[index].pic,
+                docName: StorageDoc.slides,
+                ownersIDs: <String>[bzCreatorID, flyerAuthorID],
+                picName: SlideModel.generateSlideID(
+                  flyerID: flyerID,
+                  slideIndex: slides[index].slideIndex,
+                ),
+              );
 
+              _picturesURLs.add(_picURL);
+
+            }),
+
+      ]);
+
+    }
+
+    if (onFinished != null){
+      onFinished(_picturesURLs);
     }
 
     return _picturesURLs;
@@ -324,7 +372,56 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     return _url;
   }
-// -----------------------------------------------------------------------------
+// ------------------------------------------------
+
+
+
+
+
+  static Future<String> uploadFlyerPDFAndGetURL({
+    @required BuildContext context,
+    @required dynamic file,
+    @required String flyerID,
+    @required List<String> ownersIDs,
+    ValueChanged<String> onFinished,
+  }) async {
+
+    String _url;
+
+    if (file != null){
+
+      if (ObjectChecker.objectIsFile(file) == true){
+        final String _existingFileName = Filers.getFileNameFromFile(file);
+        final String _finalDocName = FlyerModel.generatePDFName(
+          existingFileName: _existingFileName,
+          flyerID: flyerID,
+        );
+
+        _url = await Storage.uploadFile(
+          context: context,
+          file: file,
+          docName: StorageDoc.flyersPDfs,
+          fileName: _finalDocName,
+          fileExtension: 'pdf',
+          ownersIDs: ownersIDs,
+          // metaDataAddOn: ,
+        );
+      }
+
+      else if (ObjectChecker.objectIsURL(file) == true){
+        _url = file;
+      }
+
+
+    }
+
+    if (onFinished != null){
+      onFinished(_url);
+    }
+
+    return _url;
+  }
+ // -----------------------------------------------------------------------------
 
   /// READ (GETTERS)
 

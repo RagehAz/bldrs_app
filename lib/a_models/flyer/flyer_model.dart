@@ -55,6 +55,7 @@ class FlyerModel {
     // -------------------------
     @required this.showsAuthor,
     @required this.score,
+    @required this.pdf,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -82,6 +83,7 @@ class FlyerModel {
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
+  final dynamic pdf;
 // -----------------------------------------------------------------------------
 
   /// FLYER CYPHERS
@@ -115,6 +117,7 @@ class FlyerModel {
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
       'score' : score,
+      'pdf' : pdf is String == true ? pdf : null,
     };
   }
 // ------------------------------------------
@@ -171,6 +174,7 @@ class FlyerModel {
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
+        pdf: map['pdf'],
         docSnapshot: map['docSnapshot'],
       );
 
@@ -221,6 +225,7 @@ class FlyerModel {
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
     int score,
+    dynamic pdf,
   }){
 
     return FlyerModel(
@@ -243,6 +248,7 @@ class FlyerModel {
       priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
+      pdf: pdf ?? this.pdf,
     );
 
   }
@@ -409,6 +415,7 @@ class FlyerModel {
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
+    blog('pdf : $pdf');
     SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
@@ -444,55 +451,61 @@ class FlyerModel {
       blog('flyer2 == null');
     }
     if (flyer1.id != flyer2.id){
-      blog('flyer1.id != flyer2.id');
+      blog('flyers ids are not identical');
     }
     if (flyer1.headline != flyer2.headline){
-      blog('flyer1.headline != flyer2.headline');
+      blog('flyers headlines are not identical');
     }
     if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
-      blog('flyer1.trigram != flyer2.trigram');
+      blog('flyers trigrams are not identical');
     }
     if (flyer1.description != flyer2.description){
-      blog('flyer1.description != flyer2.description');
+      blog('flyers descriptions are not identical');
     }
     if (flyer1.flyerType != flyer2.flyerType){
-      blog('flyer1.flyerType != flyer2.flyerType');
+      blog('flyers flyersTypes are not identical');
     }
     if (flyer1.publishState != flyer2.publishState){
-      blog('flyer1.publishState != flyer2.publishState');
+      blog('flyers publishStates are not identical');
     }
     if (flyer1.auditState != flyer2.auditState){
-      blog('flyer1.auditState != flyer2.auditState');
+      blog('flyers auditStates are not identical');
     }
     if (Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == false){
-      blog('flyer1.keywordsIDs != flyer2.keywordsIDs');
+      blog('flyers keywordsIDs are not identical');
     }
     if (flyer1.showsAuthor != flyer2.showsAuthor){
-      blog('flyer1.showsAuthor != flyer2.showsAuthor');
+      blog('flyers showsAuthor are not identical');
     }
     if (ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == false){
-      blog('flyer1.zone != flyer2.zone');
+      blog('flyers zones are not identical');
     }
     if (flyer1.authorID != flyer2.authorID){
-      blog('flyer1.authorID != flyer2.authorID');
+      blog('flyers authorsIDs are not identical');
     }
     if (flyer1.bzID != flyer2.bzID){
-      blog('flyer1.bzID != flyer2.bzID');
+      blog('flyers bzzIDs are not identical');
     }
     if (Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == false){
-      blog('flyer1.position != flyer2.position');
+      blog('flyers positions are not identical');
     }
     if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
-      blog('flyer1.slides != flyer2.slides');
+      blog('flyers slides are not identical');
     }
     if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
-      blog('flyer1.specs != flyer2.specs');
+      blog('flyers specs are not identical');
     }
     if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
-      blog('flyer1.times != flyer2.times');
+      blog('flyers times are not identical');
     }
     if (flyer1.priceTagIsOn != flyer2.priceTagIsOn){
-      blog('flyer1.priceTagIsOn != flyer2.priceTagIsOn');
+      blog('flyers priceTagIsOn are not identical');
+    }
+    if (flyer1.score != flyer2.score){
+      blog('flyers scores are not identical');
+    }
+    if (flyer1.pdf != flyer2.pdf){
+      blog('flyers pdfs are not identical');
     }
 
 
@@ -527,6 +540,7 @@ class FlyerModel {
       priceTagIsOn : true,
       zone: ZoneModel.dummyZone(),
       score: 0,
+      pdf: null,
     );
   }
 // ------------------------------------------
@@ -857,7 +871,9 @@ class FlyerModel {
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
           SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
-          flyer1.priceTagIsOn == flyer2.priceTagIsOn
+          flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
+          flyer1.pdf == flyer2.pdf
+          // && flyer1.score == flyer2.score
       ){
         _areIdentical = true;
       }
@@ -886,5 +902,25 @@ class FlyerModel {
     return _shortHeadline;
   }
 // -----------------------------------------------------------------------------
+
+/// PDF ATTACHMENT
+
+// ------------------------------------------
+  static String generatePDFName({
+    @required String existingFileName,
+    @required String flyerID,
+  }){
+    assert(existingFileName != null && flyerID != null, 'generatePDFName : ypu should name inputs here');
+
+    return '${flyerID}_$existingFileName';
+  }
+// ------------------------------------------
+  static String getPDFNameFromGeneratedName({
+  @required String generatedName,
+}){
+    final String _output = generatedName;
+    return TextMod.removeTextAfterFirstSpecialCharacter(_output, '_');
+  }
+// ------------------------------------------
 }
 /// ---------------------

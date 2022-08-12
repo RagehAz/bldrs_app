@@ -37,7 +37,7 @@ class FlyerFireOps {
   /// CREATE
 
 // -----------------------------------
-  /// TESTED :
+  ///
   static Future<Map<String, dynamic>> createFlyerOps({
     @required BuildContext context,
     @required FlyerModel draftFlyer,
@@ -66,7 +66,7 @@ class FlyerFireOps {
         final String _bzCreatorID = AuthorModel.getCreatorAuthorFromBz(bzModel).userID;
         final String _flyerAuthorID = AuthFireOps.superUserID();
 
-        _finalFlyer = await _createFlyerStorageImagesAndUpdateFlyer(
+        _finalFlyer = await _uploadImagesAndPDFsAndUpdateFlyer(
           context: context,
           flyerID: _flyerID,
           draftFlyer: draftFlyer,
@@ -118,7 +118,8 @@ class FlyerFireOps {
     return _docRef?.id;
   }
 // -----------------------------------
-  static Future<FlyerModel> _createFlyerStorageImagesAndUpdateFlyer({
+  /// TESTED : WORKS PERFECT
+  static Future<FlyerModel> _uploadImagesAndPDFsAndUpdateFlyer({
     @required BuildContext context,
     @required FlyerModel draftFlyer,
     @required String flyerID,
@@ -126,19 +127,38 @@ class FlyerFireOps {
     @required String flyerAuthorID,
   }) async {
 
-    blog('_createFlyerStorageImagesAndUpdateFlyer : START');
+    blog('_uploadImagesAndPDFsAndUpdateFlyer : START');
 
     FlyerModel _finalFlyer;
 
     if (draftFlyer != null){
 
-      final List<String> _picturesURLs = await Storage.createStorageSlidePicsAndGetURLs(
-        context: context,
-        slides: draftFlyer.slides,
-        flyerID: flyerID,
-        bzCreatorID: creatorAuthorID,
-        flyerAuthorID: flyerAuthorID,
-      );
+      List<String> _picturesURLs;
+      String _pdfURL;
+
+      await Future.wait(<Future>[
+
+        Storage.createStorageSlidePicsAndGetURLs(
+            context: context,
+            slides: draftFlyer.slides,
+            flyerID: flyerID,
+            bzCreatorID: creatorAuthorID,
+            flyerAuthorID: flyerAuthorID,
+            onFinished: (List<String> _urls){
+              _picturesURLs = _urls;
+            }),
+
+        Storage.uploadFlyerPDFAndGetURL(
+            context: context,
+            flyerID: flyerID,
+            file: draftFlyer.pdf,
+            ownersIDs: <String>[creatorAuthorID, flyerAuthorID],
+            onFinished: (String url){
+              _pdfURL = url ;
+            }),
+
+      ]);
+
 
       if (Mapper.checkCanLoopList(_picturesURLs) == true){
 
@@ -160,6 +180,7 @@ class FlyerFireOps {
           slides: _updatedSlides,
           trigram: TextGen.createTrigram(input: draftFlyer.headline),
           times: _updatedPublishTime,
+          pdf: _pdfURL,
         );
 
         await _updateFlyerDoc(
@@ -172,7 +193,7 @@ class FlyerFireOps {
 
     }
 
-    blog('_createFlyerStorageImagesAndUpdateFlyer : END');
+    blog('_uploadImagesAndPDFsAndUpdateFlyer : END');
 
     return _finalFlyer;
   }

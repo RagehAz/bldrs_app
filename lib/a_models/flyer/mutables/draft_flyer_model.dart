@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -37,6 +39,7 @@ class DraftFlyerModel{
     @required this.times,
     @required this.priceTagIsOn,
     @required this.score,
+    @required this.pdf,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -56,6 +59,7 @@ class DraftFlyerModel{
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final int score;
+  final dynamic pdf;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -80,6 +84,7 @@ class DraftFlyerModel{
     List<PublishTime> times,
     bool priceTagIsOn,
     int score,
+    File pdf,
   }) => DraftFlyerModel(
     id: id ?? this.id,
     headlineController: headlineController ?? this.headlineController,
@@ -98,6 +103,7 @@ class DraftFlyerModel{
     times: times ?? this.times,
     priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
     score: score ?? this.score,
+    pdf: pdf ?? this.pdf,
   );
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -121,6 +127,7 @@ class DraftFlyerModel{
       times: times,
       priceTagIsOn: priceTagIsOn,
       score: score,
+      pdf: pdf,
 
     );
   }
@@ -162,6 +169,7 @@ class DraftFlyerModel{
       times: const <PublishTime>[],
       priceTagIsOn: false,
       score: 0,
+      pdf: null,
     );
 
     return _draft;
@@ -194,6 +202,7 @@ class DraftFlyerModel{
         times: flyerModel.times,
         priceTagIsOn: flyerModel.priceTagIsOn,
         score: flyerModel.score,
+        pdf: flyerModel.pdf,
       );
 
     }
@@ -337,7 +346,8 @@ class DraftFlyerModel{
     SpecModel.blogSpecs(specs);
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
-
+    blog('pdf : $pdf');
+    blog('score : $score');
     MutableSlide.blogSlides(mutableSlides);
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');

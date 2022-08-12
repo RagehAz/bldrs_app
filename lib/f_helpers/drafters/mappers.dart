@@ -4,6 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sembast/utils/value_utils.dart';
+
+enum InsertionDuplicity {
+  dontInsert,
+  replace,
+}
+
 // -----------------------------------------------------------------------------
   /*
   typedef dMap = Map<String, dynamic>;
@@ -466,6 +472,7 @@ class Mapper {
               map: _output,
               key: key,
               value: _value,
+              replaceDuplicateKey: true,
             );
 
           }
@@ -575,23 +582,6 @@ class Mapper {
   }) {
 
     Map<String, dynamic> _result = <String, dynamic>{};
-
-    if (map != null){
-      map.putIfAbsent(key, () => value);
-      _result = _result..addAll(map);
-    }
-
-    return _result;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, String> _insertPairInMapWithStringValue({
-    @required Map<String, String> map,
-    @required String key,
-    @required String value,
-  }) {
-
-    Map<String, String> _result = <String, String>{};
 
     if (map != null){
       map.putIfAbsent(key, () => value);
@@ -716,7 +706,6 @@ class Mapper {
     return _output;
   }
 // -------------------------------------
-
   static List<Map<String, dynamic>> removeMapFromMapsByIdField({
     @required List<Map<String, dynamic>> baseMaps,
     @required Map<String, dynamic> mapToRemove,
@@ -743,6 +732,84 @@ class Mapper {
       // else {
       //   blog('removeMapFromMapsByIdField : did not find this map and nothing is removed');
       // }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MAP<String, String> MODIFIERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _insertPairInMapWithStringValue({
+    @required Map<String, String> map,
+    @required String key,
+    @required String value,
+    @required bool replaceDuplicateKey, // otherwise will keep existing pair
+  }) {
+
+    Map<String, String> _result = <String, String>{};
+
+    if (map != null){
+
+      _result = _result..addAll(map);
+
+      final String _existingValue = map[key];
+
+      /// IF KEY IS Absent
+      if (_existingValue == null){
+        // _result.putIfAbsent(key, () => value);
+        _result[key] = value;
+      }
+
+      /// IF KEY IS ALREADY PRESENT
+      else {
+
+        if (replaceDuplicateKey == true){
+          _result[key] = value;
+        }
+
+      }
+
+    }
+
+    return _result;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> mergeMaps({
+    @required Map<String, String> baseMap,
+    @required Map<String, String> insert,
+    @required bool replaceDuplicateKeys,
+  }){
+    Map<String, String> _output = {};
+
+    if (baseMap != null){
+
+      _output = baseMap;
+
+      if (insert != null){
+
+        final List<String> _keys = insert.keys.toList();
+
+        if (checkCanLoopList(_keys) == true){
+
+          for (final String key in _keys){
+
+            _output = _insertPairInMapWithStringValue(
+              map: _output,
+              key: key,
+              value: insert[key],
+              replaceDuplicateKey: replaceDuplicateKeys,
+            );
+
+          }
+
+        }
+
+      }
 
     }
 
