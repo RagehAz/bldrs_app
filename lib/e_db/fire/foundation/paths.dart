@@ -97,7 +97,7 @@ abstract class StorageDoc{
   static const String notesBanners  = 'notesBanners'; /// storage/notesBanners/{notiID}
   static const String authors       = 'authors';
 
-  static const String flyersPDfs = 'flyersPDfs'; /// storage/flyersDataSheets/{flyerID}
+  static const String flyersPDFs = 'flyersPDFs'; /// storage/flyersPDFs/{flyerID}
 
 }
 // -----------------------------------------------------------------------------

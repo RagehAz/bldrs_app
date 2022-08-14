@@ -131,7 +131,7 @@ class BzFireOps {
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: logo,
-        picName: bzID,
+        fileName: bzID,
         docName: StorageDoc.logos,
         ownersIDs: <String>[bzCreatorID],
       );
@@ -150,7 +150,7 @@ class BzFireOps {
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: _fileFromURL,
-        picName: bzID,
+        fileName: bzID,
         docName: StorageDoc.logos,
         ownersIDs: <String>[bzCreatorID],
       );
@@ -190,7 +190,7 @@ class BzFireOps {
         inputFile: draftBz.authors[0].pic,
         docName: StorageDoc.authors,
         ownersIDs: <String>[userModel.id],
-        picName: AuthorModel.generateAuthorPicID(
+        fileName: AuthorModel.generateAuthorPicID(
           authorID: userModel.id,
           bzID: bzID,
         ),
@@ -427,7 +427,7 @@ class BzFireOps {
         context: context,
         inputFile: _authorWithImageFile.pic,
         docName: StorageDoc.authors,
-        picName: _picName,
+        fileName: _picName,
         ownersIDs: _picOwnersIDs,
       );
 
@@ -583,8 +583,8 @@ class BzFireOps {
 
       await Storage.deleteStoragePic(
         context: context,
-        picName: bzModel.id,
-        docName: StorageDoc.logos,
+        fileName: bzModel.id,
+        storageDocName: StorageDoc.logos,
       );
 
     }
@@ -696,16 +696,16 @@ class BzFireOps {
 // --------------------------
   static Future<void> deleteAuthorPic({
     @required BuildContext context,
-    @required String authorID,
+    @required AuthorModel authorModel,
     @required String bzID,
   }) async {
 
     await Storage.deleteStoragePic(
       context: context,
-      docName: StorageDoc.authors,
-      picName: AuthorModel.generateAuthorPicID(
-          authorID: authorID,
-          bzID: bzID
+      storageDocName: StorageDoc.authors,
+      fileName: AuthorModel.generateAuthorPicID(
+          authorID: authorModel.userID,
+          bzID: bzID,
       ),
     );
 

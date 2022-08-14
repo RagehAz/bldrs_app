@@ -1,9 +1,12 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -83,7 +86,61 @@ class FlyerModel {
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
-  final dynamic pdf;
+  final FlyerPDF pdf;
+// -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// --------------------------------------
+  /// TESTED : WORKS PERFECT
+  FlyerModel copyWith({
+    String id,
+    String headline,
+    List<String> trigram,
+    String description,
+    FlyerType flyerType,
+    PublishState publishState,
+    AuditState auditState,
+    List<String> keywordsIDs,
+    bool showsAuthor,
+    ZoneModel zone,
+    String authorID,
+    String bzID,
+    GeoPoint position,
+    List<SlideModel> slides,
+    bool isBanned,
+    List<SpecModel> specs,
+    List<PublishTime> times,
+    bool priceTagIsOn,
+    DocumentSnapshot docSnapshot,
+    int score,
+    FlyerPDF pdf,
+  }){
+
+    return FlyerModel(
+      id: id ?? this.id,
+      headline: headline ?? this.headline,
+      trigram: trigram ?? this.trigram,
+      description: description ?? this.description,
+      flyerType: flyerType ?? this.flyerType,
+      publishState: publishState ?? this.publishState,
+      auditState: auditState ?? this.auditState,
+      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+      showsAuthor: showsAuthor ?? this.showsAuthor,
+      zone: zone ?? this.zone,
+      authorID: authorID ?? this.authorID,
+      bzID: bzID ?? this.bzID,
+      position: position ?? this.position,
+      slides: slides ?? this.slides,
+      specs: specs ?? this.specs,
+      times: times ?? this.times,
+      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+      docSnapshot: docSnapshot ?? this.docSnapshot,
+      score: score ?? this.score,
+      pdf: pdf ?? this.pdf,
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// FLYER CYPHERS
@@ -117,7 +174,7 @@ class FlyerModel {
       'priceTagIsOn' : priceTagIsOn,
       'times' : PublishTime.cipherPublishTimesToMap(times: times, toJSON: toJSON),
       'score' : score,
-      'pdf' : pdf is String == true ? pdf : null,
+      'pdf' : pdf?.toMap(),
     };
   }
 // ------------------------------------------
@@ -174,7 +231,7 @@ class FlyerModel {
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
-        pdf: map['pdf'],
+        pdf: FlyerPDF.decipher(map['pdf']),
         docSnapshot: map['docSnapshot'],
       );
 
@@ -201,56 +258,6 @@ class FlyerModel {
     }
 
     return _flyersList;
-  }
-// ------------------------------------------
-  /// TESTED : WORKS PERFECT
-  FlyerModel copyWith({
-    String id,
-    String headline,
-    List<String> trigram,
-    String description,
-    FlyerType flyerType,
-    PublishState publishState,
-    AuditState auditState,
-    List<String> keywordsIDs,
-    bool showsAuthor,
-    ZoneModel zone,
-    String authorID,
-    String bzID,
-    GeoPoint position,
-    List<SlideModel> slides,
-    bool isBanned,
-    List<SpecModel> specs,
-    List<PublishTime> times,
-    bool priceTagIsOn,
-    DocumentSnapshot docSnapshot,
-    int score,
-    dynamic pdf,
-  }){
-
-    return FlyerModel(
-      id: id ?? this.id,
-      headline: headline ?? this.headline,
-      trigram: trigram ?? this.trigram,
-      description: description ?? this.description,
-      flyerType: flyerType ?? this.flyerType,
-      publishState: publishState ?? this.publishState,
-      auditState: auditState ?? this.auditState,
-      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
-      showsAuthor: showsAuthor ?? this.showsAuthor,
-      zone: zone ?? this.zone,
-      authorID: authorID ?? this.authorID,
-      bzID: bzID ?? this.bzID,
-      position: position ?? this.position,
-      slides: slides ?? this.slides,
-      specs: specs ?? this.specs,
-      times: times ?? this.times,
-      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
-      docSnapshot: docSnapshot ?? this.docSnapshot,
-      score: score ?? this.score,
-      pdf: pdf ?? this.pdf,
-    );
-
   }
 // -----------------------------------------------------------------------------
 
@@ -411,11 +418,11 @@ class FlyerModel {
     blog('authorID : $authorID');
     blog('bzID : $bzID');
     blog('position : $position');
-    blog('specs : $specs');
+    SpecModel.blogSpecs(specs);
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
-    blog('pdf : $pdf');
+    FlyerPDF.blogFlyerPDF(pdf);
     SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
@@ -504,7 +511,7 @@ class FlyerModel {
     if (flyer1.score != flyer2.score){
       blog('flyers scores are not identical');
     }
-    if (flyer1.pdf != flyer2.pdf){
+    if (FlyerPDF.checkFlyerPDFsAreIdentical(pdf1: flyer1.pdf, pdf2: flyer2.pdf) == false){
       blog('flyers pdfs are not identical');
     }
 
@@ -869,7 +876,7 @@ class FlyerModel {
           flyer1.bzID == flyer2.bzID &&
           Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == true &&
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
-          SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
+          // SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
           flyer1.pdf == flyer2.pdf
@@ -881,10 +888,14 @@ class FlyerModel {
     }
 
     if (_areIdentical == false){
+      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
       blogFlyersDifferences(
         flyer1: flyer1,
         flyer2: flyer2,
       );
+    }
+    else {
+      blog('checkFlyersAreIdentical : _areIdentical : $_areIdentical');
     }
 
     return _areIdentical;
@@ -903,24 +914,42 @@ class FlyerModel {
   }
 // -----------------------------------------------------------------------------
 
-/// PDF ATTACHMENT
 
-// ------------------------------------------
-  static String generatePDFName({
-    @required String existingFileName,
-    @required String flyerID,
-  }){
-    assert(existingFileName != null && flyerID != null, 'generatePDFName : ypu should name inputs here');
 
-    return '${flyerID}_$existingFileName';
+
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> generateFlyerOwners({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+    List<String> _owners = <String>[];
+
+    if (bzID != null){
+
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+          context: context,
+          bzID: bzID,
+      );
+
+      if (_bzModel != null){
+
+        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromBz(_bzModel);
+
+        _owners.add(_creator.userID);
+
+        _owners = TextMod.addStringToListIfDoesNotContainIt(
+            strings: _owners,
+            stringToAdd: AuthFireOps.superUserID(),
+        );
+
+      }
+
+    }
+
+    return _owners;
   }
-// ------------------------------------------
-  static String getPDFNameFromGeneratedName({
-  @required String generatedName,
-}){
-    final String _output = generatedName;
-    return TextMod.removeTextAfterFirstSpecialCharacter(_output, '_');
-  }
-// ------------------------------------------
+
+
 }
+
 /// ---------------------

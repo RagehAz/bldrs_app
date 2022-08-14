@@ -59,7 +59,7 @@ class UserFireOps {
       _userPicURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: userModel.pic,
-        picName: userModel.id,
+        fileName: userModel.id,
         docName: StorageDoc.users,
         ownersIDs: <String>[userModel.id],
       );
@@ -74,7 +74,7 @@ class UserFireOps {
         _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _picFile,
-          picName: userModel.id,
+          fileName: userModel.id,
           docName: StorageDoc.users,
           ownersIDs: <String>[userModel.id],
         );
@@ -656,8 +656,8 @@ static Future<dynamic> deleteUserOps({
           blog('UserFireOps : deleteNonAuthorUserOps : deleting user pic');
           await Storage.deleteStoragePic(
             context: context,
-            docName: StorageDoc.users,
-            picName: userModel.id,
+            storageDocName: StorageDoc.users,
+            fileName: userModel.id,
           );
 
           /// DELETE user doc : firestore/users/userID

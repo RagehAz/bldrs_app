@@ -10,6 +10,7 @@ class BubbleTitle extends StatelessWidget {
     this.centered = false,
     this.redDot = false,
     this.titleColor = Colorz.white255,
+    this.titleScaleFactor = 1,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +18,7 @@ class BubbleTitle extends StatelessWidget {
   final bool redDot;
   final bool centered;
   final Color titleColor;
+  final double titleScaleFactor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class BubbleTitle extends StatelessWidget {
         centered: centered,
         color: titleColor,
         italic: true,
+        scaleFactor: titleScaleFactor,
       ),
     );
 

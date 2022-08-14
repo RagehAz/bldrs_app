@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
@@ -59,7 +58,7 @@ class DraftFlyerModel{
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final int score;
-  final dynamic pdf;
+  final FlyerPDF pdf;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -84,7 +83,7 @@ class DraftFlyerModel{
     List<PublishTime> times,
     bool priceTagIsOn,
     int score,
-    File pdf,
+    FlyerPDF pdf,
   }) => DraftFlyerModel(
     id: id ?? this.id,
     headlineController: headlineController ?? this.headlineController,
@@ -309,6 +308,30 @@ class DraftFlyerModel{
 
     return _draft;
   }
+// -------------------------------------
+
+  static DraftFlyerModel removePDF(DraftFlyerModel draft){
+    return DraftFlyerModel(
+      id: draft.id,
+      headlineController: draft.headlineController,
+      descriptionController: draft.descriptionController,
+      flyerType: draft.flyerType,
+      publishState: draft.publishState,
+      auditState: draft.auditState,
+      keywordsIDs: draft.keywordsIDs,
+      showsAuthor: draft.showsAuthor,
+      zone: draft.zone,
+      authorID: draft.authorID,
+      bzID: draft.bzID,
+      position: draft.position,
+      mutableSlides: draft.mutableSlides,
+      specs: draft.specs,
+      times: draft.times,
+      priceTagIsOn: draft.priceTagIsOn,
+      score: draft.score,
+      pdf: null,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -343,11 +366,11 @@ class DraftFlyerModel{
     blog('bzID : $bzID');
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
-    SpecModel.blogSpecs(specs);
-    PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
-    blog('pdf : $pdf');
+    FlyerPDF.blogFlyerPDF(pdf);
     blog('score : $score');
+    PublishTime.blogTimes(times);
+    SpecModel.blogSpecs(specs);
     MutableSlide.blogSlides(mutableSlides);
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
