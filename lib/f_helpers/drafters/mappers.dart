@@ -447,54 +447,6 @@ class Mapper {
     return _output;
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
-
-    Map<String, String> _output = {};
-
-    if (object != null){
-
-      blog('1 - FUCK : object ${object.runtimeType}');
-
-      if (object.runtimeType.toString() == 'ImmutableMap<String, Object?>'){
-
-        final Map _map =  object;
-        blog('3 - FUCK : _map : ${_map.runtimeType}');
-        final List<String> _keys = _map.keys.toList();
-
-        if (checkCanLoopList(_keys) == true){
-
-          for (final String key in _keys){
-
-            final String _value = _map[key] is String ? _map[key] : _map[key].toString();
-
-            _output = _insertPairInMapWithStringValue(
-              map: _output,
-              key: key,
-              value: _value,
-              replaceDuplicateKey: true,
-            );
-
-          }
-
-        }
-
-      }
-
-      else {
-        blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
-      }
-
-    }
-
-    blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
-    blogMap(_output);
-
-    // assert(_output != null, 'DO NOT CONTINUE BITCH');
-
-    return _output;
-  }
-// -------------------------------------
 
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
@@ -732,84 +684,6 @@ class Mapper {
       // else {
       //   blog('removeMapFromMapsByIdField : did not find this map and nothing is removed');
       // }
-
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-
-  /// MAP<String, String> MODIFIERS
-
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, String> _insertPairInMapWithStringValue({
-    @required Map<String, String> map,
-    @required String key,
-    @required String value,
-    @required bool replaceDuplicateKey, // otherwise will keep existing pair
-  }) {
-
-    Map<String, String> _result = <String, String>{};
-
-    if (map != null){
-
-      _result = _result..addAll(map);
-
-      final String _existingValue = map[key];
-
-      /// IF KEY IS Absent
-      if (_existingValue == null){
-        // _result.putIfAbsent(key, () => value);
-        _result[key] = value;
-      }
-
-      /// IF KEY IS ALREADY PRESENT
-      else {
-
-        if (replaceDuplicateKey == true){
-          _result[key] = value;
-        }
-
-      }
-
-    }
-
-    return _result;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Map<String, String> mergeMaps({
-    @required Map<String, String> baseMap,
-    @required Map<String, String> insert,
-    @required bool replaceDuplicateKeys,
-  }){
-    Map<String, String> _output = {};
-
-    if (baseMap != null){
-
-      _output = baseMap;
-
-      if (insert != null){
-
-        final List<String> _keys = insert.keys.toList();
-
-        if (checkCanLoopList(_keys) == true){
-
-          for (final String key in _keys){
-
-            _output = _insertPairInMapWithStringValue(
-              map: _output,
-              key: key,
-              value: insert[key],
-              replaceDuplicateKey: replaceDuplicateKeys,
-            );
-
-          }
-
-        }
-
-      }
 
     }
 
@@ -1206,4 +1080,160 @@ class Mapper {
     return _output;
   }
 // -----------------------------------------------------------------------------
+
+  /// MAP<STRING, STRING> STUFF
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getKeysHavingThisValue({
+    @required Map<String, String> map,
+    @required String value,
+  }){
+    final List<String> _output = <String>[];
+
+    if (map != null && value != null){
+
+      final List<String> _keys = map.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final String _mapValue = map[key];
+
+          if (_mapValue == value){
+            _output.add(key);
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _insertPairInMapWithStringValue({
+    @required Map<String, String> map,
+    @required String key,
+    @required String value,
+    @required bool replaceDuplicateKey, // otherwise will keep existing pair
+  }) {
+
+    Map<String, String> _result = <String, String>{};
+
+    if (map != null){
+
+      _result = _result..addAll(map);
+
+      final String _existingValue = map[key];
+
+      /// IF KEY IS Absent
+      if (_existingValue == null){
+        // _result.putIfAbsent(key, () => value);
+        _result[key] = value;
+      }
+
+      /// IF KEY IS ALREADY PRESENT
+      else {
+
+        if (replaceDuplicateKey == true){
+          _result[key] = value;
+        }
+
+      }
+
+    }
+
+    return _result;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> mergeMaps({
+    @required Map<String, String> baseMap,
+    @required Map<String, String> insert,
+    @required bool replaceDuplicateKeys,
+  }){
+    Map<String, String> _output = {};
+
+    if (baseMap != null){
+
+      _output = baseMap;
+
+      if (insert != null){
+
+        final List<String> _keys = insert.keys.toList();
+
+        if (checkCanLoopList(_keys) == true){
+
+          for (final String key in _keys){
+
+            _output = _insertPairInMapWithStringValue(
+              map: _output,
+              key: key,
+              value: insert[key],
+              replaceDuplicateKey: replaceDuplicateKeys,
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
+
+    Map<String, String> _output = {};
+
+    if (object != null){
+
+      blog('1 - FUCK : object ${object.runtimeType}');
+
+      if (object.runtimeType.toString() == 'ImmutableMap<String, Object?>'){
+
+        final Map _map =  object;
+        blog('3 - FUCK : _map : ${_map.runtimeType}');
+        final List<String> _keys = _map.keys.toList();
+
+        if (checkCanLoopList(_keys) == true){
+
+          for (final String key in _keys){
+
+            final String _value = _map[key] is String ? _map[key] : _map[key].toString();
+
+            _output = _insertPairInMapWithStringValue(
+              map: _output,
+              key: key,
+              value: _value,
+              replaceDuplicateKey: true,
+            );
+
+          }
+
+        }
+
+      }
+
+      else {
+        blog('getStringStringMapFromImmutableMapStringObject : starts : is NOT IMMUTABLE MAP');
+      }
+
+    }
+
+    blog('4 - getStringStringMapFromImmutableMapStringObject : _output ${_output.runtimeType}');
+    blogMap(_output);
+
+    // assert(_output != null, 'DO NOT CONTINUE BITCH');
+
+    return _output;
+  }
+// -------------------------------------
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
@@ -18,6 +19,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -277,38 +280,20 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-      // final String  _url = await Storage.uploadPDFAndGetUrl(
-      //   context: context,
-      //   docName: StorageDoc.flyersDataSheets,
-      //   ownersIDs: [AuthFireOps.superUserID()],
-      //   fileNameOverride: 'boboooooo',
-      //   metaDataAddOn: {
-      //     'a77a' : 'sexy',
-      //   },
-      // );
-      //
-      // blog(_url);
-      // blog('ok');
+    const String storageDocName = StorageDoc.flyersPDFs;
+    final String fileName = FlyerPDF.generatePDFStorageName(
+        pdfFileName: 'Y3-text-TheIronMan',
+        flyerID: 'ttQa6owiiptbmuxDKFRO',
+    );
+    // const String url = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/cflyersPDFs%2FttQa6owiiptbmuxDKFRO_Y3-text-TheIronMan?alt=media&token=f23b1afb-f98d-497b-b20f-07558589a62d';
 
-    /// MAPS ARE IDENTICAL TEST
-    /*
+    final bool _canDelete = await Storage.checkCanDeleteStorageFile(
+        context: context,
+        fileName: fileName,
+        storageDocName: storageDocName,
+    );
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-    final UserModel _user2 = _user.copyWith();
-
-    final Map<String, dynamic> _map1 = _user.toMap(toJSON: false);
-    final Map<String, dynamic> _map2 = _user2.toMap(toJSON: false);
-
-    final bool _identical = Mapper.checkMapsAreIdentical(map2: _map2, map1: _map1);
-
-    if (_identical == true){
-      blog('are identical x ');
-    }
-    else{
-      blog('its not working shit x' );
-    }
-     */
+    blog('_canDelete : $_canDelete');
 
   }
 // -----------------------------------------------------------------------------

@@ -94,15 +94,43 @@ class Filers {
   }
 // ---------------------------------------
   ///
-  static String getFileNameFromFile(File file){
+  static String getFileNameFromFile({
+    @required File file,
+    bool withExtension = false,
+  }){
     String _fileName;
 
     if (file != null){
       final String _path = file.path;
       _fileName = TextMod.removeTextBeforeLastSpecialCharacter(_path, '/');
+
+
+      if (withExtension == false){
+        _fileName = TextMod.removeTextAfterLastSpecialCharacter(_fileName, '.');
+      }
+
     }
 
     return _fileName;
+  }
+
+  static String getFileExtensionFromFile(File file){
+
+    ///  NOTE 'jpg' - 'png' - 'pdf' ... etc => which does not include the '.'
+    String _fileExtension;
+
+    if (file != null){
+
+      final String _fileNameWithExtension = getFileNameFromFile(
+        file: file,
+        withExtension: true,
+      );
+
+      _fileExtension = TextMod.removeTextBeforeLastSpecialCharacter(_fileNameWithExtension, '.');
+
+    }
+
+    return _fileExtension;
   }
 // -----------------------------------------------------------------
 
@@ -200,24 +228,31 @@ class Filers {
   }
 // ---------------------------------------
   static Future<File> getFileFromURL(String imageUrl) async {
+    blog('getFileFromURL : START');
     /// generate random number.
     final Random _rng = Random();
+    blog('getFileFromURL : _rng : $_rng');
 
     /// get temporary directory of device.
     final Directory _tempDir = await getTemporaryDirectory();
+    blog('getFileFromURL : _tempDir : $_tempDir');
 
     /// get temporary path from temporary directory.
     final String _tempPath = _tempDir.path;
+    blog('getFileFromURL : _tempPath : $_tempPath');
 
     /// create a new file in temporary path with random file name.
-    final File _file = File('$_tempPath${(_rng.nextInt(100)).toString()}.png');
+    final File _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
+    blog('getFileFromURL : _file : $_file');
 
     /// call http.get method and pass imageUrl into it to get response.
     final Uri _imageUri = Uri.parse(imageUrl);
     final http.Response _response = await http.get(_imageUri);
+    blog('getFileFromURL : _response : $_response');
 
     /// write bodyBytes received in response to file.
     await _file.writeAsBytes(_response.bodyBytes);
+    blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
 
     /// now return the file which is created with random name in
     /// temporary directory and image bytes from response is written to // that file.
@@ -359,22 +394,26 @@ class Filers {
     if (file2 == null){
       blog('file2 is null');
     }
-    if (file1.path != file2.path){
-      blog('files paths are not Identical');
-    }
-    if (file1.lengthSync() != file2.lengthSync()){
-      blog('files lengthSync()s are not Identical');
-    }
-    if (file1.resolveSymbolicLinksSync() != file2.resolveSymbolicLinksSync()){
-      blog('files resolveSymbolicLinksSync()s are not Identical');
-    }
-    final bool _lastModifiedAreIdentical = Timers.checkTimesAreIdentical(
-        accuracy: TimeAccuracy.microSecond,
-        time1: file1.lastModifiedSync(),
-        time2: file2.lastModifiedSync()
-    );
-    if (_lastModifiedAreIdentical == true){
-      blog('files lastModifiedSync()s are not Identical');
+    if (file1 != null && file2 != null){
+
+      if (file1.path != file2.path){
+        blog('files paths are not Identical');
+      }
+      if (file1.lengthSync() != file2.lengthSync()){
+        blog('files lengthSync()s are not Identical');
+      }
+      if (file1.resolveSymbolicLinksSync() != file2.resolveSymbolicLinksSync()){
+        blog('files resolveSymbolicLinksSync()s are not Identical');
+      }
+      final bool _lastModifiedAreIdentical = Timers.checkTimesAreIdentical(
+          accuracy: TimeAccuracy.microSecond,
+          time1: file1.lastModifiedSync(),
+          time2: file2.lastModifiedSync()
+      );
+      if (_lastModifiedAreIdentical == true){
+        blog('files lastModifiedSync()s are not Identical');
+      }
+
     }
 
   }

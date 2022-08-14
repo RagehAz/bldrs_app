@@ -1,17 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +30,15 @@ class Storage {
   /// TESTED : WORKS PERFECT
   static Reference getRef({
     @required BuildContext context,
-    @required String docName,
-    @required String picName,
-    String fileExtension = 'jpg',
+    @required String storageDocName,
+    @required String fileName, // without extension
   }) {
     blog('getting fire storage reference');
 
     final Reference _ref = FirebaseStorage.instance
         .ref()
-        .child(docName)
-        .child('$picName.$fileExtension');
+        .child(storageDocName)
+        .child(fileName);
 
     return _ref;
   }
@@ -82,9 +80,8 @@ class Storage {
   static Future<String> uploadFile({
     @required BuildContext context,
     @required File file,
-    @required String docName,
+    @required String storageDocName,
     @required String fileName,
-    @required String fileExtension,
     @required List<String> ownersIDs,
     Map<String, String> metaDataAddOn,
   }) async {
@@ -102,9 +99,8 @@ class Storage {
           /// GET REF
           final Reference _ref = getRef(
             context: context,
-            docName: docName,
-            picName: fileName,
-            fileExtension: fileExtension,
+            storageDocName: storageDocName,
+            fileName: fileName,
           );
 
           blog('uploadFile : 1 - got ref : $_ref');
@@ -114,6 +110,9 @@ class Storage {
           for (final String ownerID in ownersIDs) {
             _metaDataMap[ownerID] = 'cool';
           }
+          /// ADD EXTENSION
+          final String _extension = Filers.getFileExtensionFromFile(file);
+          _metaDataMap['extension'] = _extension;
 
           blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
 
@@ -228,7 +227,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required BuildContext context,
     @required File inputFile,
     @required String docName,
-    @required String picName,
+    @required String fileName,
     @required List<String> ownersIDs,
   }) async {
 
@@ -252,11 +251,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
           _imageURL = await uploadFile(
             context: context,
-            docName: docName,
-            fileName: picName,
+            storageDocName: docName,
+            fileName: fileName,
             file: inputFile,
             ownersIDs: ownersIDs,
-            fileExtension: 'jpg',
             metaDataAddOn: _metaDataMap,
           );
 
@@ -288,7 +286,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
                 inputFile: slides[index].pic,
                 docName: StorageDoc.slides,
                 ownersIDs: <String>[bzCreatorID, flyerAuthorID],
-                picName: SlideModel.generateSlideID(
+                fileName: SlideModel.generateSlideID(
                   flyerID: flyerID,
                   slideIndex: slides[index].slideIndex,
                 ),
@@ -332,7 +330,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           context: context,
           inputFile: pics[i],
           docName: StorageDoc.slides,
-          picName: names[i],
+          fileName: names[i],
           ownersIDs: ownersIDs,
         );
 
@@ -362,7 +360,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     _url = await createStoragePicAndGetURL(
       context: context,
-      picName: fileName,
+      fileName: fileName,
       docName: docName,
       inputFile: _result,
       ownersIDs: ownersIDs,
@@ -378,66 +376,97 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
 
 
-  static Future<String> uploadFlyerPDFAndGetURL({
+  static Future<FlyerPDF> uploadFlyerPDFAndGetFlyerPDF({
     @required BuildContext context,
-    @required dynamic file,
+    @required FlyerPDF pdf,
     @required String flyerID,
     @required List<String> ownersIDs,
-    ValueChanged<String> onFinished,
+    ValueChanged<FlyerPDF> onFinished,
   }) async {
 
-    String _url;
+    FlyerPDF _pdf = pdf.copyWith();
 
-    if (file != null){
+    if (pdf != null && (pdf.file != null || pdf.url != null)){
 
-      if (ObjectChecker.objectIsFile(file) == true){
-        final String _existingFileName = Filers.getFileNameFromFile(file);
-        final String _finalDocName = FlyerModel.generatePDFName(
-          existingFileName: _existingFileName,
-          flyerID: flyerID,
+      final bool _shouldUploadNewFile = pdf.file != null;
+      final bool _shouldReUploadExistingURL = pdf.file == null && pdf.url != null;
+
+      final String _pdfStorageName = FlyerPDF.generatePDFStorageName(
+        pdfFileName: pdf.fileName,
+        flyerID: flyerID,
+      );
+
+      String _url;
+
+      /// A NEW FILE WAS GIVEN
+      if (_shouldUploadNewFile == true){
+
+        if (ObjectChecker.objectIsFile(pdf.file) == true){
+
+          _url = await Storage.uploadFile(
+            context: context,
+            file: pdf.file,
+            storageDocName: StorageDoc.flyersPDFs,
+            fileName: _pdfStorageName,
+            ownersIDs: ownersIDs,
+            // metaDataAddOn: ,
+          );
+
+        }
+
+      }
+
+      /// NO NEW FILE GIVEN - BUT NEED TO RE-UPLOAD EXISTING URL WITH NEW NAME
+      else if (_shouldReUploadExistingURL == true){
+
+        final File _fileFromURL = await Filers.getFileFromURL(pdf.url);
+        final FullMetadata _meta = await getMetadataFromURL(
+            context: context,
+            url: pdf.url,
         );
 
         _url = await Storage.uploadFile(
           context: context,
-          file: file,
-          docName: StorageDoc.flyersPDfs,
-          fileName: _finalDocName,
-          fileExtension: 'pdf',
+          file: _fileFromURL,
+          storageDocName: StorageDoc.flyersPDFs,
+          fileName: _pdfStorageName,
           ownersIDs: ownersIDs,
-          // metaDataAddOn: ,
+          metaDataAddOn: _meta.customMetadata,
         );
+
       }
 
-      else if (ObjectChecker.objectIsURL(file) == true){
-        _url = file;
-      }
-
+      _pdf = FlyerPDF(
+        fileName: pdf.fileName,
+        url: _url,
+        // file: null,
+      );
 
     }
 
     if (onFinished != null){
-      onFinished(_url);
+      onFinished(_pdf);
     }
 
-    return _url;
+    return _pdf;
   }
  // -----------------------------------------------------------------------------
 
   /// READ (GETTERS)
 
 // ------------------------------------------------
-  /// TESTED : WORKS PERFECT : NOTE
+  /// TESTED : WORKS PERFECT
   static Future<String> getImageURLByPath({
     @required BuildContext context,
-    @required String docName,
+    @required String storageDocName,
     /// Note : use picName without file extension
-    @required String picName,
+    @required String fileName,
   }) async {
 
     final Reference _ref = getRef(
       context: context,
-      docName: docName,
-      picName: picName,
+      storageDocName: storageDocName,
+      fileName: fileName,
     );
 
     String _url;
@@ -484,8 +513,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 // ------------------------------------------------
   static Future<File> getImageFileByPath({
     @required BuildContext context,
-    @required String docName,
-    @required String picName,
+    @required String storageDocName,
+    @required String fileName,
   }) async {
     File _file;
 
@@ -503,8 +532,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     final Reference _ref = getRef(
       context: context,
-      docName: docName,
-      picName: picName,
+      storageDocName: storageDocName,
+      fileName: fileName,
     );
 
 
@@ -524,45 +553,159 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   static Future<String> getImageNameByURL({
     @required BuildContext context,
     @required String url,
-    @required bool withExtension,
+    // @required bool withExtension,
   }) async {
+    blog('getImageNameByURL : START');
+    String _output;
 
-    final Reference _ref = await getRefFromURL(
-      context: context,
-      url: url,
-    );
+    if (ObjectChecker.objectIsURL(url) == true){
 
-    /// NAME WITH EXTENSION
-    String _output = _ref.name;
+      final Reference _ref = await getRefFromURL(
+        context: context,
+        url: url,
+      );
 
-    /// WITHOUT EXTENSION
-    if (withExtension == false){
-      _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '.');
+      /// NAME WITH EXTENSION
+      final String _output = _ref.name;
+
+      blog('getImageNameByURL : _output : $_output');
+
+      // /// WITHOUT EXTENSION
+      // if (withExtension == false){
+      //   _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '.');
+      // }
+
+      blog('getImageNameByURL :  _output : $_output');
+
     }
 
+
+    blog('getImageNameByURL : END');
     return _output;
   }
 // ------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<FullMetadata> getMetadataFromURL({
-    @required String url,
     @required BuildContext context,
+    @required String url,
   }) async {
 
     FullMetadata _meta;
 
     if (ObjectChecker.objectIsURL(url) == true){
 
-      final Reference _ref = await Storage.getRefFromURL(
-          url: url,
-          context: context
-      );
+      await tryAndCatch(
+        context: context,
+        methodName: 'getMetadataFromURL',
+        functions: () async {
 
-      _meta = await _ref.getMetadata();
+          final Reference _ref = await Storage.getRefFromURL(
+              url: url,
+              context: context
+          );
+
+          _meta = await _ref.getMetadata();
+
+
+        },
+      );
 
     }
 
     return _meta;
+  }
+// ------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<FullMetadata> getMetadataByFileName({
+    @required BuildContext context,
+    @required String storageDocName,
+    @required String fileName,
+  }) async {
+
+    FullMetadata _meta;
+
+    blog('getMetadataByFileName : $storageDocName/$fileName');
+
+    if (storageDocName != null && fileName != null){
+
+      await tryAndCatch(
+        context: context,
+          methodName: 'getMetadataByFileName',
+          functions: () async {
+
+            final Reference _ref = Storage.getRef(
+              context: context,
+              storageDocName: storageDocName,
+              fileName: fileName,
+            );
+
+            _meta = await _ref?.getMetadata();
+
+          },
+      );
+
+
+    }
+
+    return _meta;
+  }
+// ------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> getOwnersIDsByURL({
+    @required BuildContext context,
+    @required String url,
+  }) async {
+    final List<String> _ids = [];
+
+    if (ObjectChecker.objectIsURL(url) == true){
+
+      final FullMetadata _metaData = await getMetadataFromURL(
+          context: context,
+          url: url,
+      );
+
+      final Map<String, String> _map = _metaData?.customMetadata;
+
+      final List<String> _ownersIDs = Mapper.getKeysHavingThisValue(
+        map: _map,
+        value: 'cool',
+      );
+
+      _ids.addAll(_ownersIDs);
+
+    }
+
+    return _ids;
+  }
+// ------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> getOwnersIDsByFileName({
+    @required BuildContext context,
+    @required String storageDocName,
+    @required String fileName,
+  }) async {
+    final List<String> _ids = [];
+
+    if (fileName != null && storageDocName != null){
+
+      final FullMetadata _metaData = await getMetadataByFileName(
+        context: context,
+        storageDocName: storageDocName,
+        fileName: fileName,
+      );
+
+      final Map<String, String> _map = _metaData?.customMetadata;
+
+      final List<String> _ownersIDs = Mapper.getKeysHavingThisValue(
+        map: _map,
+        value: 'cool',
+      );
+
+      _ids.addAll(_ownersIDs);
+
+    }
+
+    return _ids;
   }
 // -----------------------------------------------------------------------------
 
@@ -574,25 +717,38 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String oldURL,
     @required File newPic,
   }) async {
+    String _output;
 
-    final Reference _ref = await getRefFromURL(
-      url: oldURL,
-      context: context,
-    );
+    if (oldURL != null && newPic != null){
 
-    final FullMetadata _fullMeta = await _ref.getMetadata();
+      await tryAndCatch(
+        methodName: 'updateExistingPic',
+        functions: () async {
 
-    final Map<String, dynamic> _existingMetaData = _fullMeta.customMetadata;
+          final Reference _ref = await getRefFromURL(
+            url: oldURL,
+            context: context,
+          );
 
-    final SettableMetadata metaData = SettableMetadata(
-      customMetadata: _existingMetaData,
-    );
+          final FullMetadata _fullMeta = await _ref?.getMetadata();
 
-    await _ref.putFile(newPic, metaData);
+          final Map<String, dynamic> _existingMetaData = _fullMeta?.customMetadata;
 
-    final String _newURL = await _ref.getDownloadURL();
+          final SettableMetadata metaData = SettableMetadata(
+            customMetadata: _existingMetaData,
+          );
 
-    return _newURL;
+          await _ref?.putFile(newPic, metaData);
+
+          _output = await _ref?.getDownloadURL();
+
+
+        },
+      );
+
+    }
+
+    return _output;
   }
 // ------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -629,7 +785,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         inputFile: newPic,
         ownersIDs: ownersIDs,
         docName: docName,
-        picName: picName,
+        fileName: picName,
       );
 
     }
@@ -686,55 +842,107 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStoragePic({
     @required BuildContext context,
-    @required String docName,
-    @required String picName,
+    @required String storageDocName,
+    @required String fileName,
   }) async {
 
-    blog('deleteStoragePic : start');
+    blog('deleteStoragePic : START');
 
-    final dynamic _result = await tryCatchAndReturnBool(
+    final bool _canDelete = await checkCanDeleteStorageFile(
         context: context,
-        methodName: 'deleteStoragePic',
-        functions: () async {
-
-          final Reference _picRef = getRef(
-            context: context,
-            docName: docName,
-            picName: picName,
-          );
-
-          // blog('pic ref : $_picRef');
-          // final FullMetadata _metaData = await _picRef?.getMetadata();
-          // blogFullMetaData(_metaData);
-
-          await _picRef?.delete();
-        },
-        onError: (String error) async {
-
-          const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
-          if (error == _noImageError){
-
-            blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $docName : picName : $picName');
-
-          }
-          else {
-            blog('deleteStoragePic : error : $error');
-          }
-
-        }
+        fileName: fileName,
+        storageDocName: storageDocName,
     );
 
-    /// if result is true
-    if (_result == true) {
-      blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $docName : picName : $picName');
+    if (_canDelete == true){
+
+      final dynamic _result = await tryCatchAndReturnBool(
+          context: context,
+          methodName: 'deleteStoragePic',
+          functions: () async {
+
+            final Reference _picRef = getRef(
+              context: context,
+              storageDocName: storageDocName,
+              fileName: fileName,
+            );
+
+            // blog('pic ref : $_picRef');
+            // final FullMetadata _metaData = await _picRef?.getMetadata();
+            // blogFullMetaData(_metaData);
+
+            await _picRef?.delete();
+          },
+          onError: (String error) async {
+
+            const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired reference.';
+            if (error == _noImageError){
+
+              blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $storageDocName : picName : $fileName');
+
+            }
+            else {
+              blog('deleteStoragePic : $storageDocName/$fileName : error : $error');
+            }
+
+          }
+      );
+
+      /// if result is true
+      if (_result == true) {
+        blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $storageDocName : picName : $fileName');
+      }
+
+      // else {
+      //
+      // }
+
     }
 
-    // else {
-    //
-    // }
+    else {
+      blog('deleteStoragePic : CAN NOT DELETE STORAGE FILE');
+    }
 
-    blog('deleteStoragePic : end');
 
+    blog('deleteStoragePic : END');
+
+  }
+// ------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkCanDeleteStorageFile({
+    @required BuildContext context,
+    @required String fileName,
+    @required String storageDocName,
+  }) async {
+    bool _canDelete = false;
+
+    blog('checkCanDeleteStorageFile : START');
+
+    if (fileName != null && storageDocName != null){
+
+      final List<String> _ownersIDs = await getOwnersIDsByFileName(
+        context: context,
+        storageDocName: storageDocName,
+        fileName: fileName,
+      );
+
+      blog('checkCanDeleteStorageFile : _ownersIDs : $_ownersIDs');
+
+      if (Mapper.checkCanLoopList(_ownersIDs) == true){
+
+        _canDelete = Mapper.checkStringsContainString(
+            strings: _ownersIDs,
+            string: AuthFireOps.superUserID(),
+        );
+
+        blog('checkCanDeleteStorageFile : _canDelete : $_canDelete');
+
+      }
+
+    }
+
+    blog('checkCanDeleteStorageFile : END');
+    return _canDelete;
   }
 // -----------------------------------------------------------------------------
 
@@ -757,23 +965,28 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// TESTED : WORKS PERFECT
   static void blogFullMetaData(FullMetadata metaData){
 
-    blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- START');
-    blog('name : ${metaData.name}');
-    blog('bucket : ${metaData.bucket}');
-    blog('cacheControl : ${metaData.cacheControl}');
-    blog('contentDisposition : ${metaData.contentDisposition}');
-    blog('contentEncoding : ${metaData.contentEncoding}');
-    blog('contentLanguage : ${metaData.contentLanguage}');
-    blog('contentType : ${metaData.contentType}');
-    blog('customMetadata : ${metaData.customMetadata}'); // map
-    blog('fullPath : ${metaData.fullPath}');
-    blog('generation : ${metaData.generation}');
-    blog('md5Hash : ${metaData.md5Hash}');
-    blog('metadataGeneration : ${metaData.metadataGeneration}');
-    blog('metageneration : ${metaData.metageneration}');
-    blog('size : ${metaData.size}');
-    blog('timeCreated : ${metaData.timeCreated}'); // date time
-    blog('updated : ${metaData.updated}'); // date time
+    blog('BLOGGING STORAGE FILE META DATA ------------------------------- START');
+    if (metaData == null){
+      blog('Meta data is null');
+    }
+    else {
+      blog('name : ${metaData.name}');
+      blog('bucket : ${metaData.bucket}');
+      blog('cacheControl : ${metaData.cacheControl}');
+      blog('contentDisposition : ${metaData.contentDisposition}');
+      blog('contentEncoding : ${metaData.contentEncoding}');
+      blog('contentLanguage : ${metaData.contentLanguage}');
+      blog('contentType : ${metaData.contentType}');
+      blog('customMetadata : ${metaData.customMetadata}'); // map
+      blog('fullPath : ${metaData.fullPath}');
+      blog('generation : ${metaData.generation}');
+      blog('md5Hash : ${metaData.md5Hash}');
+      blog('metadataGeneration : ${metaData.metadataGeneration}');
+      blog('metageneration : ${metaData.metageneration}');
+      blog('size : ${metaData.size}');
+      blog('timeCreated : ${metaData.timeCreated}'); // date time
+      blog('updated : ${metaData.updated}'); // date time
+    }
     blog('BLOGGING STORAGE IMAGE META DATA ------------------------------- END');
 
   }
@@ -782,13 +995,18 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   static void blogReference(Reference ref){
     blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- START');
 
-    blog('name : ${ref.name}');
-    blog('fullPath : ${ref.fullPath}');
-    blog('bucket : ${ref.bucket}');
-    blog('hashCode : ${ref.hashCode}');
-    blog('parent : ${ref.parent}');
-    blog('root : ${ref.root}');
-    blog('storage : ${ref.storage}');
+    if (ref == null){
+      blog('Reference is null');
+    }
+    else {
+      blog('name : ${ref.name}');
+      blog('fullPath : ${ref.fullPath}');
+      blog('bucket : ${ref.bucket}');
+      blog('hashCode : ${ref.hashCode}');
+      blog('parent : ${ref.parent}');
+      blog('root : ${ref.root}');
+      blog('storage : ${ref.storage}');
+    }
 
     blog('BLOGGING STORAGE IMAGE REFERENCE ------------------------------- END');
   }
