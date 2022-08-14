@@ -138,12 +138,8 @@ class ImageSize {
   /// BLOGGING
 
 // -------------------------------------
-  void blogSize({String methodName}) {
-    blog('START - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- START ---');
-
-    blog('image size: W [ $width ] x H [ $height ]');
-
-    blog('END - PRINT IMAGE SIZE - IN - $methodName - ------------------------------------- END ---');
+  void blogSize({String methodName = 'ImageSize'}) {
+    blog('blogSize : $methodName : image size: W [ $width ] x H [ $height ]');
   }
 // -----------------------------------------------------------------------------
 

@@ -64,7 +64,10 @@ class SuperFilteredImage extends StatefulWidget {
 
       final File _output = await Filers.getFileFromUint8List(
         uInt8List: _uint8List,
-        fileName: Filers.getFileNameFromFile(input),
+        fileName: Filers.getFileNameFromFile(
+          file: input,
+          withExtension: true,
+        ),
       );
 
 

@@ -830,7 +830,7 @@ Future<void> _modifyAttachmentIfFile({
     final String _url = await Storage.createStoragePicAndGetURL(
       context: context,
       inputFile: note.value.attachment,
-      picName: _id,
+      fileName: _id,
       docName: StorageDoc.notesBanners,
       ownersIDs: _concludeImageOwnersIDs(note.value),
     );
@@ -913,13 +913,12 @@ Future<void> onDeleteNote({
       final String _picName = await Storage.getImageNameByURL(
         context: context,
         url: noteModel.attachment,
-        withExtension: false,
       );
 
       await Storage.deleteStoragePic(
           context: context,
-          docName: StorageDoc.notesBanners,
-          picName: _picName,
+          storageDocName: StorageDoc.notesBanners,
+          fileName: _picName,
       );
 
     }

@@ -288,7 +288,10 @@ class SpecModel {
   static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
     bool _areIdentical = false;
 
-    if (spec1 != null && spec2 != null) {
+    if (spec1 == null && spec2 == null){
+      _areIdentical = true;
+    }
+    else if (spec1 != null && spec2 != null) {
       if (spec1.pickerChainID == spec2.pickerChainID) {
         if (spec1.value == spec2.value) {
           _areIdentical = true;
@@ -302,15 +305,42 @@ class SpecModel {
   /// TESTED : WORKS PERFECT
   static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
-    final Map<String, dynamic> specsAMap = cipherSpecs(specs1);
-    final Map<String, dynamic> specsBMap = cipherSpecs(specs2);
+    bool _listsAreIdentical = false;
 
-    final bool _listsAreIdentical = Mapper.checkMapsAreIdentical(
-        map1: specsAMap,
-        map2: specsBMap,
-    );
+    if (specs1 == null && specs2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (specs1.isEmpty == true && specs2.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+    else if (Mapper.checkCanLoopList(specs1) == true && Mapper.checkCanLoopList(specs2) == true){
 
-    blog('specsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
+      if (specs1.length != specs2.length){
+        _listsAreIdentical = false;
+      }
+      else {
+
+        for (int i = 0; i < specs1.length; i++){
+
+          final SpecModel _spec1 = specs1[i];
+          final SpecModel _spec2 = specs2[i];
+
+          final bool _areIdentical = checkSpecsAreIdentical(_spec1, _spec2);
+
+          if (_areIdentical == false){
+            _listsAreIdentical = false;
+            break;
+          }
+
+          _listsAreIdentical = true;
+
+        }
+
+      }
+
+    }
+
+    // blog('specsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
 
     return _listsAreIdentical;
   }

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
@@ -24,9 +25,9 @@ import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 
 class FlyerFireOps {
 
@@ -134,7 +135,7 @@ class FlyerFireOps {
     if (draftFlyer != null){
 
       List<String> _picturesURLs;
-      String _pdfURL;
+      FlyerPDF _pdf;
 
       await Future.wait(<Future>[
 
@@ -148,13 +149,13 @@ class FlyerFireOps {
               _picturesURLs = _urls;
             }),
 
-        Storage.uploadFlyerPDFAndGetURL(
+        Storage.uploadFlyerPDFAndGetFlyerPDF(
             context: context,
             flyerID: flyerID,
-            file: draftFlyer.pdf,
+            pdf: draftFlyer.pdf,
             ownersIDs: <String>[creatorAuthorID, flyerAuthorID],
-            onFinished: (String url){
-              _pdfURL = url ;
+            onFinished: (FlyerPDF flyerPDF){
+              _pdf = flyerPDF ;
             }),
 
       ]);
@@ -180,7 +181,7 @@ class FlyerFireOps {
           slides: _updatedSlides,
           trigram: TextGen.createTrigram(input: draftFlyer.headline),
           times: _updatedPublishTime,
-          pdf: _pdfURL,
+          pdf: _pdf,
         );
 
         await _updateFlyerDoc(
@@ -453,17 +454,23 @@ class FlyerFireOps {
 
     blog('updateFlyerOps : START');
 
-    final FlyerModel _finalFlyer = await _updateSlides(
+    FlyerModel _finalFlyer = await _updateSlides(
       context: context,
       oldFlyer: oldFlyer,
       newFlyer: newFlyer,
       bzModel: bzModel,
     );
 
+    _finalFlyer = await _updateFlyerPDF(
+      context: context,
+      oldFlyer: oldFlyer,
+      newFlyer: _finalFlyer,
+    );
+
     await _deleteUnusedSlides(
       context: context,
       oldFlyer: oldFlyer,
-      newFlyer: newFlyer,
+      newFlyer: _finalFlyer,
     );
 
     await _updateFlyerDoc(
@@ -487,7 +494,7 @@ class FlyerFireOps {
 
     FlyerModel _finalFlyer = newFlyer;
 
-    final bool _slidesAreTheSame = SlideModel.allSlidesPicsAreTheSame(
+    final bool _slidesAreTheSame = SlideModel.allSlidesPicsAreIdentical(
       oldFlyer: oldFlyer,
       newFlyer: newFlyer,
     );
@@ -497,43 +504,51 @@ class FlyerFireOps {
       /// loop each slide in updated slides to check which changed
       final List<SlideModel> _finalSlides = <SlideModel>[];
 
-      for (final SlideModel slide in newFlyer.slides) {
+      await Future.wait(<Future>[
 
-        /// if slide pic changed
-        if (ObjectChecker.objectIsFile(slide.pic) == true) {
+        ...List.generate(newFlyer.slides.length, (index) async {
 
-          /// upload File to fireStorage/slidesPics/slideID and get URL
-          final String _newPicURL = await Storage.createStoragePicAndGetURL(
-            context: context,
-            docName: StorageDoc.slides,
-            inputFile: slide.pic,
-            ownersIDs: <String>[
-              AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
-              oldFlyer.authorID,
-            ],
-            picName: SlideModel.generateSlideID(
-              flyerID: newFlyer.id,
-              slideIndex: slide.slideIndex,
-            ),
-          );
+          final SlideModel slide = newFlyer.slides[index];
 
-          final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
+          /// if slide pic changed
+          if (ObjectChecker.objectIsFile(slide.pic) == true) {
 
-          final SlideModel _updatedSlide = slide.copyWith(
-            pic: _newPicURL,
-            imageSize: _imageSize,
-          );
+            /// upload File to fireStorage/slidesPics/slideID and get URL
+            final String _newPicURL = await Storage.createStoragePicAndGetURL(
+              context: context,
+              docName: StorageDoc.slides,
+              inputFile: slide.pic,
+              ownersIDs: <String>[
+                AuthorModel.getCreatorAuthorFromBz(bzModel).userID,
+                oldFlyer.authorID,
+              ],
+              fileName: SlideModel.generateSlideID(
+                flyerID: newFlyer.id,
+                slideIndex: slide.slideIndex,
+              ),
+            );
 
-          _finalSlides.add(_updatedSlide);
+            final ImageSize _imageSize = await ImageSize.superImageSize(slide.pic);
 
-        }
+            final SlideModel _updatedSlide = slide.copyWith(
+              pic: _newPicURL,
+              imageSize: _imageSize,
+            );
 
-        /// if slide pic did not change
-        else {
-          _finalSlides.add(slide);
-        }
+            _finalSlides.add(_updatedSlide);
 
-      }
+          }
+
+          /// if slide pic did not change
+          else {
+            _finalSlides.add(slide);
+          }
+
+
+      }),
+
+      ]);
+
 
       _finalFlyer = newFlyer.copyWith(
         slides: _finalSlides,
@@ -573,8 +588,8 @@ class FlyerFireOps {
       for (final String slideID in _slidesIDsToBeDeleted) {
         await Storage.deleteStoragePic(
           context: context,
-          docName: StorageDoc.slides,
-          picName: slideID,
+          storageDocName: StorageDoc.slides,
+          fileName: slideID,
         );
       }
 
@@ -582,6 +597,89 @@ class FlyerFireOps {
 
     blog('_deleteUnusedSlides : END');
 
+  }
+// -----------------------------------
+  static Future<FlyerModel> _updateFlyerPDF({
+    @required BuildContext context,
+    @required FlyerModel oldFlyer,
+    @required FlyerModel newFlyer,
+  }) async {
+
+    blog('_updateFlyerPDF : START');
+
+    FlyerModel _output = newFlyer.copyWith();
+
+    final bool _pdfsAreIdentical = FlyerPDF.checkFlyerPDFsAreIdentical(
+        pdf1: oldFlyer.pdf,
+        pdf2: newFlyer.pdf,
+    );
+
+    blog('_updateFlyerPDF : _pdfsAreIdentical : $_pdfsAreIdentical');
+
+    if (_pdfsAreIdentical == false){
+      // -----------------------------
+      final bool _shouldDeleteOldFile = FlyerPDF.checkShouldDeleteOldPDFFile(
+        newFlyer: newFlyer,
+        oldFlyer: oldFlyer,
+      );
+      blog('_updateFlyerPDF : _shouldDeleteOldFile : $_shouldDeleteOldFile');
+      // -----------------------------
+      final bool _shouldUploadNewFile = FlyerPDF.checkShouldUploadNewPDFFile(
+          oldFlyer: oldFlyer,
+          newFlyer: newFlyer
+      );
+      blog('_updateFlyerPDF : _shouldUploadNewFile : $_shouldUploadNewFile');
+      // -----------------------------
+
+      /// UPLOAD NEW FILE IF : (it not null) && (name has changed or file has changed)
+      if (_shouldUploadNewFile == true){
+
+        final List<String> _flyerOwners = await FlyerModel.generateFlyerOwners(
+          context: context,
+          bzID: oldFlyer.bzID,
+        );
+
+        blog('_updateFlyerPDF : _ownersIDs : $_flyerOwners');
+
+        final FlyerPDF _newPDF = await Storage.uploadFlyerPDFAndGetFlyerPDF(
+          context: context,
+          pdf: newFlyer.pdf,
+          flyerID: oldFlyer.id,
+          ownersIDs: _flyerOwners,
+        );
+
+        blog('_updateFlyerPDF : _newPDF : $_newPDF');
+        FlyerPDF.blogFlyerPDF(_newPDF);
+
+
+        _output = newFlyer.copyWith(
+          pdf: _newPDF,
+        );
+
+        blog('_updateFlyerPDF : _output : $_output');
+
+      }
+
+      /// DELETE OLD PDF FILE IF : (PDF WAS REMOVED) OR (PDF FILE NAME CHANGED)
+      if (_shouldDeleteOldFile == true){
+
+        /// DELETE OLD PDF FILE
+        await Storage.deleteStoragePic(
+          context: context,
+          storageDocName: StorageDoc.flyersPDFs,
+          fileName: FlyerPDF.generatePDFStorageName(
+              pdfFileName: oldFlyer.pdf.fileName,
+              flyerID: oldFlyer.id,
+          ),
+        );
+
+        blog('_updateFlyerPDF : old file should be deleted');
+
+      }
+
+    }
+    blog('_updateFlyerPDF : END');
+    return _output;
   }
 // -----------------------------------
   /// TESTED : WORKS PERFECT
@@ -651,7 +749,7 @@ class FlyerFireOps {
       }
 
       /// DELETE FLYER STORAGE IMAGES
-      await _deleteFlyerStorageImages(
+      await _deleteFlyerStorageImagesAndPDF(
         context: context,
         flyerModel: flyerModel,
       );
@@ -705,7 +803,7 @@ class FlyerFireOps {
     return _uploadedBzModel;
   }
 // -----------------------------------
-  static Future<void> _deleteFlyerStorageImages({
+  static Future<void> _deleteFlyerStorageImagesAndPDF({
     @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
@@ -719,17 +817,34 @@ class FlyerFireOps {
         numberOfSlides: flyerModel.slides.length,
       );
 
+      /// NOTE : IF THERE ARE NO SLIDE => NO PDF WILL BE ATTACHED
       if (Mapper.checkCanLoopList(_slidesIDs) == true){
 
-        for (final String id in _slidesIDs) {
+        await Future.wait(<Future>[
 
-          await Storage.deleteStoragePic(
-            context: context,
-            picName: id,
-            docName: StorageDoc.slides,
-          );
+          /// DELETE IMAGES
+          ...List.generate(_slidesIDs.length, (index) async {
 
-        }
+            return Storage.deleteStoragePic(
+              context: context,
+              fileName: _slidesIDs[index],
+              storageDocName: StorageDoc.slides,
+            );
+
+          }),
+
+          /// DELETE PDF
+          if (flyerModel.pdf != null)
+            Storage.deleteStoragePic(
+              context: context,
+              storageDocName: StorageDoc.flyersPDFs,
+              fileName: FlyerPDF.generatePDFStorageName(
+                  pdfFileName: flyerModel.pdf.fileName,
+                  flyerID: flyerModel.id,
+              ),
+            ),
+
+        ]);
 
       }
 
@@ -776,44 +891,51 @@ class FlyerFireOps {
       List<AuthorModel> _bzAuthors = <AuthorModel>[..._bzModel.authors];
       List<String> _bzFlyersIDs = <String>[..._bzModel.flyersIDs];
 
-      for (final FlyerModel flyerModel in flyersToDelete){
+      await Future.wait(<Future>[
 
-        blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id}');
+        ...List.generate(flyersToDelete.length, (index) async {
 
-        final bool _canDelete = Mapper.checkStringsContainString(
-          strings: bzModel.flyersIDs,
-          string: flyerModel.id,
-        );
+          final FlyerModel flyerModel = flyersToDelete[index];
 
-        blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id} : can delete : $_canDelete');
+          blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id}');
 
-        if (_canDelete == true){
-
-          /// DELETE FLYER STORAGE IMAGES
-          await _deleteFlyerStorageImages(
-            context: context,
-            flyerModel: flyerModel,
+          final bool _canDelete = Mapper.checkStringsContainString(
+            strings: bzModel.flyersIDs,
+            string: flyerModel.id,
           );
 
-          /// I - delete firestore/flyers/flyerID
-          await _deleteFlyerDoc(
-            context: context,
-            flyerID: flyerModel.id,
-          );
+          blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id} : can delete : $_canDelete');
 
-          _bzFlyersIDs = Mapper.removeStringsFromStrings(
-            removeFrom: _bzFlyersIDs,
-            removeThis: <String>[flyerModel.id],
-          );
+          if (_canDelete == true){
 
-          _bzAuthors = AuthorModel.removeFlyerIDFromAuthors(
-            authors: _bzAuthors,
-            flyerID: flyerModel.id,
-          );
+            /// DELETE FLYER STORAGE IMAGES
+            await _deleteFlyerStorageImagesAndPDF(
+                context: context,
+                flyerModel: flyerModel,
+            );
 
-        }
+            /// I - delete firestore/flyers/flyerID
+            await _deleteFlyerDoc(
+                context: context,
+                flyerID: flyerModel.id,
+            );
 
-      }
+            _bzFlyersIDs = Mapper.removeStringsFromStrings(
+              removeFrom: _bzFlyersIDs,
+              removeThis: <String>[flyerModel.id],
+            );
+
+            _bzAuthors = AuthorModel.removeFlyerIDFromAuthors(
+              authors: _bzAuthors,
+              flyerID: flyerModel.id,
+            );
+
+          }
+
+
+        }),
+
+      ]);
 
       _bzModel = bzModel.copyWith(
         authors: _bzAuthors,
@@ -837,7 +959,7 @@ class FlyerFireOps {
   }
 // -----------------------------------------------------------------------------
 
-  /// PROMOTION
+  /// FLYER PROMOTIONS
 
 // -----------------------------------
   static Future<void> promoteFlyerInCity({

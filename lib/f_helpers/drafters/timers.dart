@@ -1067,7 +1067,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         context: context,
         title: 'Device clock is incorrect !',
         body: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-        confirmButtonText: 'Restart App',
+        confirmButtonText: 'Try again',
         onOk: onRestart,
       );
 

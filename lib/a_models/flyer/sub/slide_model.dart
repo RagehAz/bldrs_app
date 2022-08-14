@@ -157,38 +157,30 @@ class SlideModel {
 
 // -------------------------------------
   void blogSlide() {
-    blog('SLIDE-PRINT --------------------------------------------------START');
-
-    blog('flyerID : $flyerID');
-    blog('slideIndex : $slideIndex');
-    blog('pic : $pic');
+    blog('slideIndex : $slideIndex : flyerID : $flyerID --------------------------------------- []');
     blog('headline : $headline');
     blog('description : $description');
-    blog('picFit : $picFit');
+    blog('midColor : $midColor : filterID : $filterID : picFit : $picFit : hasCustomMatrix : ${matrix != Matrix4.identity()}');
     imageSize.blogSize();
-    blog('midColor : $midColor');
-    blog('filterID : $filterID');
-
-    Trinity.blogMatrix(matrix);
-
-    blog('SLIDE-PRINT --------------------------------------------------END');
+    blog('pic : $pic');
   }
 // -------------------------------------
   static void blogSlides(List<SlideModel> slides) {
 
+    blog('blogSlides : ${slides.length} SLIDES -----------------------------------------START');
     if (Mapper.checkCanLoopList(slides) == false) {
-      blog('slides can not be printed : slides are : $slides');
+      blog('blogSlides : slides can not be printed : slides are : $slides');
     }
 
     else {
-      blog('XXX - STARTING TO PRINT ALL ${slides.length} SLIDES');
 
       for (final SlideModel slide in slides) {
         slide.blogSlide();
       }
 
-      blog('XXX - ENDED PRINTING ALL ${slides.length} SLIDES');
     }
+
+    blog('blogSlides -------------------------------------------------- END');
   }
 // -------------------------------------
   static void blogSlidesDifferences({
@@ -282,7 +274,7 @@ class SlideModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool allSlidesPicsAreTheSame({
+  static bool allSlidesPicsAreIdentical({
     @required FlyerModel newFlyer,
     @required FlyerModel oldFlyer,
   }) {
@@ -413,11 +405,19 @@ class SlideModel {
     @required String flyerID,
     @required int slideIndex,
   }) {
-    /// NOTE : slide index shall never have more than two digits
-    /// and flyer should never be more than 10 slides long
-    final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
-    final String _slideID = '${flyerID}_$_slideIndexString';
-    return _slideID;
+
+    String _output;
+
+    if (flyerID != null && slideIndex != null){
+      /// NOTE : slide index shall never have more than two digits
+      /// as flyer should never be more than 10 slides long
+      final String _slideIndexString = slideIndex <= 9 ? '0$slideIndex' : '$slideIndex';
+      _output = '${flyerID}_$_slideIndexString'; // no
+
+    }
+
+
+    return _output;
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -430,8 +430,8 @@ class SlideModel {
     for (int i = 0; i < numberOfSlides; i++) {
 
       final String _slideID = SlideModel.generateSlideID(
-          flyerID: flyerID,
-          slideIndex: i,
+        flyerID: flyerID,
+        slideIndex: i,
       );
 
       _slidesIDs.add(_slideID);
