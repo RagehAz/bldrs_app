@@ -361,19 +361,13 @@ class MutableSlide {
   /// TESTED : WORKS PERFECT
   void blogSlide(){
 
-    blog('BLOGGING SLIDE ------------> START');
-    blog('picFile : $picFile');
+    blog('slideIndex : $slideIndex --------------------------------------- [m]');
     blog('headline : ${headline.text}');
-    imageSize.blogSize();
-    blog('midColor : $midColor');
-    blog('opacity : $opacity');
-    blog('slideIndex : $slideIndex');
-    blog('picURL : $picURL');
     blog('description : ${description.text}');
-    blog('picFit : $picFit');
-    blog('matrix : $matrix');
-    blog('filter : ${filter?.id}');
-    blog('BLOGGING SLIDE ------------> END');
+    imageSize.blogSize();
+    blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
+    blog('picFile : $picFile');
+    blog('picURL : $picURL');
 
   }
 // -------------------------------------

@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/aa_flyer_maker_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -118,7 +117,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitle: xPhrase(context, 'phid_createFlyer'),
+      pageTitle: widget.flyerToEdit == null ? xPhrase(context, 'phid_createFlyer') : 'Edit Flyer',
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
@@ -129,31 +128,22 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         const Expander(),
 
         AppBarButton(
-          verse: 'test',
+          verse: 'Identical',
           onTap: (){
-            // SpecModel.blogSpecs(_draftFlyer.value.specs);
 
-            final MutableSlide _slide1 = _draftFlyer.value.mutableSlides[0].copyWith(
-
+            FlyerModel.checkFlyersAreIdentical(
+                flyer1: widget.flyerToEdit,
+                flyer2: _draftFlyer.value.toFlyerModel(),
             );
-            final MutableSlide _slide2 = _draftFlyer.value.mutableSlides[0].copyWith();
 
-            if (_slide1 == _slide2){
-              blog('are identical');
-            }
-            else {
-              blog('fuck are not identical');
-            }
-
-            blog('hashCode : ${_slide2.hashCode} : ${_slide1.hashCode}',);
 
           },
         ),
 
         AppBarButton(
-          verse: 'flyer',
+          verse: 'draft',
           onTap: (){
-            widget.flyerToEdit?.blogFlyer(methodName: 'XXX');
+            widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
             _draftFlyer.value.blogDraft();
           },
         ),

@@ -37,7 +37,7 @@ class ObjectChecker {
   static bool objectIsURL(dynamic file) {
     bool _validURL;
 
-    if (file is String) {
+    if (file != null && file is String) {
       _validURL = Uri.parse(file).isAbsolute;
 
     }

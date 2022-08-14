@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
@@ -250,6 +249,25 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                               const DotSeparator(),
 
+                              PDFSelectionBubble(
+                                formKey: formKey,
+                                existingPDF: _draft.pdf,
+                                onChangePDF: (FlyerPDF pdf){
+
+                                  blog('onChangePDF : aho with ${pdf.fileName}');
+
+                                  draft.value = draft.value.copyWith(
+                                    pdf: pdf,
+                                  );
+
+                                },
+                                onDeletePDF: (){
+                                  draft.value = DraftFlyerModel.removePDF(draft.value);
+                                },
+                              ),
+
+                              const DotSeparator(),
+
                               /// ZONE SELECTOR
                               ZoneSelectionBubble(
                                 title: 'Flyer Target city',
@@ -264,20 +282,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                                   draft: draft,
                                   zone: zone,
                                 ),
-                              ),
-
-                              const DotSeparator(),
-
-                              PDFSelectionBubble(
-                                onFilePicked: (File file){
-
-                                  blog('wtf');
-
-                                  draft.value = draft.value.copyWith(
-                                    pdf: file,
-                                  );
-
-                                },
                               ),
 
                               const DotSeparator(),
@@ -302,14 +306,12 @@ class FlyerMakerScreenView extends StatelessWidget {
                         onTap: () async {
 
                           if (isEditingFlyer == true){
-
                             await onPublishFlyerUpdatesTap(
                               context: context,
                               draft: draft,
                               formKey: formKey,
                               originalFlyer: originalFlyer,
                             );
-
                           }
 
                           else {
