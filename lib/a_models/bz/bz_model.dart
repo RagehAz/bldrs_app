@@ -1870,4 +1870,53 @@ class BzModel{
     return _invalidFields;
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is BzModel){
+      _areIdentical = checkBzzAreIdentical(
+        bz1: this,
+        bz2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode ^
+  bzTypes.hashCode ^
+  bzForm.hashCode ^
+  createdAt.hashCode ^
+  accountType.hashCode ^
+  name.hashCode ^
+  trigram.hashCode ^
+  logo.hashCode ^
+  scope.hashCode ^
+  zone.hashCode ^
+  about.hashCode ^
+  position.hashCode ^
+  contacts.hashCode ^
+  authors.hashCode ^
+  showsTeam.hashCode ^
+  isVerified.hashCode ^
+  bzState.hashCode ^
+  flyersIDs.hashCode ^
+  docSnapshot.hashCode;
+// -----------------------------------------------------------------------------
 }
