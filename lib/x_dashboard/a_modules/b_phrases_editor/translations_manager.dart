@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -92,7 +92,7 @@ class _TranslationsManagerState extends State<TranslationsManager> {
     @required List<Phrase> arPhrases,
   }) async {
 
-    if (TextChecker.stringIsNotEmpty(_idController.text) == true){
+    if (Stringer.checkStringIsNotEmpty(_idController.text) == true){
       await onUploadPhrase(
         context: context,
         enOldPhrases: enPhrases,

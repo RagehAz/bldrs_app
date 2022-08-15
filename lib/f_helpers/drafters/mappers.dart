@@ -11,10 +11,6 @@ enum InsertionDuplicity {
 }
 
 // -----------------------------------------------------------------------------
-  /*
-  typedef dMap = Map<String, dynamic>;
-   */
-// -----------------------------------------------------------------------------
 class Mapper {
 // -----------------------------------------------------------------------------
 
@@ -62,48 +58,6 @@ class Mapper {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getStringsFromDynamics({
-    @required List<dynamic> dynamics,
-  }) {
-    final List<String> _strings = <String>[];
-
-    if (checkCanLoopList(dynamics)) {
-      for (final dynamic thing in dynamics) {
-        if (thing is String == true) {
-          _strings.add(thing);
-        } else {
-          _strings.add(thing.toString());
-        }
-      }
-    }
-
-    // blog('getStringsFromDynamics : _strings : $_strings');
-
-    return _strings;
-  }
-// -------------------------------------
-  static List<String> getUniqueStringsFromStrings({
-    @required List<String> strings,
-  }){
-
-    final List<String> _output = <String>[];
-
-    if (checkCanLoopList(strings) == true){
-
-      for (final String string in strings){
-
-        if (_output.contains(string) == false){
-          _output.add(string);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
   static List<String> getMapsPrimaryKeysValues({
     @required List<Map<String, dynamic>> maps,
     String primaryKey = 'id',
@@ -124,89 +78,6 @@ class Mapper {
     }
 
     return _primaryKeys;
-  }
-// -----------------------------------------------------------------------------
-
-  /// STRINGS MODIFIERS
-
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> removeStringsFromStrings({
-    @required List<String> removeFrom,
-    @required List<String> removeThis,
-  }){
-
-    final List<String> _output = <String>[];
-
-    if (checkCanLoopList(removeFrom) == true){
-
-      for (final String string in removeFrom){
-
-        final bool _canRemove = checkStringsContainString(
-            strings: removeThis,
-            string: string
-        );
-
-        if (_canRemove == true){
-          blog('removeStringsFromStrings : removing : $string');
-        }
-        else {
-          _output.add(string);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> putStringInStringsIfAbsent({
-    @required List<String> strings,
-    @required String string,
-  }){
-
-    List<String> _output = <String>[];
-
-    if (checkCanLoopList(strings) == true){
-
-      _output = <String>[...strings];
-
-    }
-
-    final bool _contains = checkStringsContainString(
-      strings: _output,
-      string: string,
-    );
-
-    if (_contains == false){
-      _output.add(string);
-    }
-
-
-    return _output;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> cleanDuplicateStrings({
-    @required List<String> strings,
-  }){
-    final List<String> _output = <String>[];
-
-    if (checkCanLoopList(strings) == true){
-
-      for (final String string in strings){
-
-        if (_output.contains(string) == false){
-          _output.add(string);
-        }
-
-      }
-
-    }
-
-    return _output;
   }
 // -----------------------------------------------------------------------------
 
@@ -507,19 +378,6 @@ class Mapper {
     final int _indexOfTheMap =
     listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
     return _indexOfTheMap;
-  }
-// -----------------------------------------------------------------------------
-
-  /// CLONING
-
-// -------------------------------------
-  static List<String> cloneListOfStrings(List<String> list) {
-    final List<dynamic> _newList = <dynamic>[];
-
-    for (final String x in list) {
-      _newList.add(x);
-    }
-    return _newList;
   }
 // -----------------------------------------------------------------------------
 
@@ -940,22 +798,8 @@ class Mapper {
 
     return _listsAreIdentical;
   }
+
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkStringsContainString({
-    @required List<String> strings,
-    @required String string,
-  }) {
-    bool _containsIt = false;
-
-    if (checkCanLoopList(strings) == true && string != null) {
-      _containsIt = strings.contains(string);
-    }
-
-    return _containsIt;
-  }
-// -------------------------------------
-
   static bool checkIsLastListObject({
     @required List<dynamic> list,
     @required int index,
@@ -1053,31 +897,6 @@ class Mapper {
     }
 
     blog('blogMapsListsDifferences : END');
-  }
-// -----------------------------------------------------------------------------
-
-  /// ?
-
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<double> getDoublesFromDynamics(List<dynamic> dynamics){
-
-    final List<double> _output = <double>[];
-
-    if (checkCanLoopList(dynamics) == true){
-
-      for (final dynamic dyn in dynamics){
-
-        if (dyn is double){
-          final double _double = dyn;
-          _output.add(_double);
-        }
-
-      }
-
-    }
-
-    return _output;
   }
 // -----------------------------------------------------------------------------
 

@@ -7,9 +7,8 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -254,9 +253,9 @@ class BzModel{
         accountType: decipherBzAccountType(map['accountType']),
         // -------------------------
         name: map['name'],
-        trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         logo: map['logo'],
-        scope: Mapper.getStringsFromDynamics(dynamics: map['scope']),
+        scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
         zone: ZoneModel.decipherZoneMap(map['zone']),
         about: map['about'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
@@ -267,7 +266,7 @@ class BzModel{
         isVerified: map['isVerified'],
         bzState: decipherBzState(map['bzState']),
         // -------------------------
-        flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
+        flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -300,7 +299,7 @@ class BzModel{
     return BzModel(
       id: null,
       name: userModel?.company,
-      trigram: TextGen.createTrigram(input: userModel?.company),
+      trigram: Stringer.createTrigram(input: userModel?.company),
       zone: userModel?.zone,
       contacts: <ContactModel>[
         ContactModel(
@@ -370,7 +369,7 @@ class BzModel{
     @required FlyerModel flyer,
 }){
 
-    final List<String> _bzFlyersIDs = Mapper.removeStringsFromStrings(
+    final List<String> _bzFlyersIDs = Stringer.removeStringsFromStrings(
       removeFrom: bzModel.flyersIDs,
       removeThis: <String>[flyer.id],
     );
@@ -562,7 +561,7 @@ class BzModel{
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
-      final List<String> _strings = Mapper.getStringsFromDynamics(dynamics: bzTypes);
+      final List<String> _strings = Stringer.getStringsFromDynamics(dynamics: bzTypes);
 
       for (final String _string in _strings){
         final BzType _bzType = decipherBzType(_string);
@@ -768,7 +767,7 @@ class BzModel{
         bzForm: bzForm,
     );
 
-    final String _bzTypesOneString = TextGen.generateStringFromStrings(
+    final String _bzTypesOneString = Stringer.generateStringFromStrings(
       strings: _bzTypesStrings,
     );
 
@@ -799,6 +798,19 @@ class BzModel{
     }
 
     return _output;
+  }
+
+  static String translateBzTypeAskHint (BuildContext context, BzType bzType){
+    final String _askHint =
+    bzType == BzType.developer ? xPhrase(context, 'phid_askHint_developer') :
+    bzType == BzType.broker ? xPhrase(context, 'phid_askHint_broker') :
+    bzType == BzType.manufacturer ? xPhrase(context, 'phid_askHint_manufacturer') :
+    bzType == BzType.supplier ? xPhrase(context, 'phid_askHint_supplier') :
+    bzType == BzType.designer ? xPhrase(context, 'phid_askHint_designer') :
+    bzType == BzType.contractor ? xPhrase(context, 'phid_askHint_contractor') :
+    bzType == BzType.craftsman ? xPhrase(context, 'phid_askHint_craftsman') :
+    xPhrase(context, 'phid_askHint');
+    return _askHint;
   }
 // -----------------------------------------------------------------------------
 
@@ -1306,7 +1318,7 @@ class BzModel{
       id: _bzID,
       logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
-      trigram: TextGen.createTrigram(input: 'Business Name'),
+      trigram: Stringer.createTrigram(input: 'Business Name'),
       bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.craftsman],
       zone: ZoneModel.dummyZone(),
       bzState: BzState.online,
@@ -1790,7 +1802,7 @@ class BzModel{
       );
     }
 
-    if (TextChecker.stringIsEmpty(bzModel?.name) == true){
+    if (Stringer.checkStringIsEmpty(bzModel?.name) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzName',
@@ -1820,7 +1832,7 @@ class BzModel{
       );
     }
 
-    if (TextChecker.stringIsEmpty(bzModel?.zone?.countryID) == true){
+    if (Stringer.checkStringIsEmpty(bzModel?.zone?.countryID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCountry',
@@ -1830,7 +1842,7 @@ class BzModel{
       );
     }
 
-    if (TextChecker.stringIsEmpty(bzModel?.zone?.cityID) == true){
+    if (Stringer.checkStringIsEmpty(bzModel?.zone?.cityID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCity',
@@ -1840,7 +1852,7 @@ class BzModel{
       );
     }
 
-    if (TextChecker.stringIsEmpty(bzModel?.about) == true){
+    if (Stringer.checkStringIsEmpty(bzModel?.about) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzAbout',

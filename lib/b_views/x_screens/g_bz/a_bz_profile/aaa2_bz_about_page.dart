@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
 class BzAboutPage extends StatelessWidget {
@@ -48,7 +48,7 @@ class BzAboutPage extends StatelessWidget {
         ),
 
         /// ABOUT
-        if (TextChecker.stringIsNotEmpty(_bzModel.about) == true)
+        if (Stringer.checkStringIsNotEmpty(_bzModel.about) == true)
           ParagraphBubble(
             title: 'About ${_bzModel.name}',
             paragraph: _bzModel.about,

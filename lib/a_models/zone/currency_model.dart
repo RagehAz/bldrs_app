@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class CurrencyModel {
     if (map != null) {
       _currency = CurrencyModel(
         id: map['id'],
-        countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
+        countriesIDs: Stringer.getStringsFromDynamics(dynamics: map['countriesIDs']),
         symbol: map['symbol'],
         digits: map['digits'],
       );
@@ -137,7 +138,7 @@ class CurrencyModel {
 
     if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
       final CurrencyModel _currencyFound = currencies.firstWhere(
-          (CurrencyModel curr) => Mapper.checkStringsContainString(
+          (CurrencyModel curr) => Stringer.checkStringsContainString(
               strings: curr.countriesIDs, string: countryID),
           orElse: () => null);
 

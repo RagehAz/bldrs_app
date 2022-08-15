@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -26,7 +27,7 @@ class Region {
     return Region(
       name: map['name'],
       continent: map['continent'],
-      countriesIDs: Mapper.getStringsFromDynamics(dynamics: map['countriesIDs']),
+      countriesIDs: Stringer.getStringsFromDynamics(dynamics: map['countriesIDs']),
     );
   }
 

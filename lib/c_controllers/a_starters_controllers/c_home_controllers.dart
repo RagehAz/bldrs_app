@@ -36,7 +36,7 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -85,14 +85,15 @@ Future<void> initializeHomeScreen(BuildContext context) async {
             context: context,
             notify: true
         ),
-        /// I - KEYWORDS
-        _initializeAllChains(context),
   ]);
 
+  /// I - KEYWORDS
+  unawaited(_initializeAllChains(context));
 
 }
 // -------------------------------
 Future<void> _initializeUserZone(BuildContext context) async {
+  blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
@@ -110,10 +111,11 @@ Future<void> _initializeUserZone(BuildContext context) async {
     );
 
   }
-
+  blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ END');
 }
 // -------------------------------
 Future<void> _initializeCurrentZone(BuildContext context) async {
+  blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
   final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
@@ -145,102 +147,37 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
 
   }
 
+  blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ END');
 }
-// -------------------------------
-/*
-Future<void> _initializeUserZoneAndCurrentZone(BuildContext context) async {
-
-  final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-  /// USER ZONE
-
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-  );
-
-  if (_myUserModel != null){
-
-    await _fetchSetMyUserCompleteZoneModel(
-      context: context,
-    );
-
-  }
-
-  /// WHEN USER IS AUTHENTICATED
-  if (_myUserModel != null && ZoneModel.checkZoneHasCountryAndCityIDs(_myUserModel.zone)) {
-
-    await zoneProvider.fetchSetCurrentCompleteZone(
-      context: context,
-      zone: _myUserModel.zone,
-      notify: false,
-    );
-
-    await _fetchSetMyUserCompleteZoneModel(
-      context: context,
-    );
-
-    await zoneProvider.fetchSetContinentByCountryID(
-      context: context,
-      countryID: _myUserModel.zone.countryID,
-      notify: true,
-    );
-
-  }
-
-  /// WHEN USER IS ANONYMOUS
-  else {
-
-    final ZoneModel _zoneByIP = await superGetZoneByIP(context);
-
-    await zoneProvider.fetchSetCurrentCompleteZone(
-      context: context,
-      zone: _zoneByIP,
-      notify: false,
-    );
-
-    blog('initializeUserZone : GOT CURRENT ZONE IDS BY IP ADDRESSES AHO');
-    _zoneByIP.blogZoneIDs();
-
-    await zoneProvider.fetchSetContinentByCountryID(
-      context: context,
-      countryID: _zoneByIP.countryID,
-      notify: true,
-    );
-
-    await _fetchSetMyUserCompleteZoneModel(
-      context: context,
-    );
-
-  }
-}
- */
 // -------------------------------
 Future<void> _initializeSponsors({
   @required BuildContext context,
   @required bool notify,
 }) async {
+  blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   await _bzzProvider.fetchSetSponsors(
     context: context,
     notify: notify,
   );
+  blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
 }
 // -------------------------------
 Future<void> _initializeAllChains(BuildContext context) async {
-
+  blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.initializeAllChains(
     context: context,
     notify: true,
   );
-
+  blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
 }
 // -------------------------------
 Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
+  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (AuthModel.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetMyBzz(
@@ -248,12 +185,14 @@ Future<void> _initializeUserBzz({
       notify: notify,
     );
   }
+  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
 // -------------------------------
 Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
+  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (AuthModel.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
@@ -261,9 +200,11 @@ Future<void> _initializeUserFollowedBzz({
       notify: notify,
     );
   }
+  blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
 // -------------------------------
 Future<void> _initializePromotedFlyers(BuildContext context) async {
+  blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ START');
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
@@ -285,6 +226,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   //
   //   });
   // }
+  blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ END');
 
 }
 
@@ -296,6 +238,7 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 Future<void> checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
+  blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
 
   if (AuthFireOps.superUserID() != null){
 
@@ -314,7 +257,7 @@ Future<void> checkIfUserIsMissingFields({
     }
 
   }
-
+  blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
 }
 // ---------------------------------
 Future<void> _controlMissingFieldsCase({
@@ -347,7 +290,7 @@ Future<void> showMissingFieldsDialog({
 }) async {
 
   final List<String> _missingFields = UserModel.missingFields(userModel);
-  final String _missingFieldsString = TextGen.generateStringFromStrings(
+  final String _missingFieldsString = Stringer.generateStringFromStrings(
     strings: _missingFields,
   );
 
@@ -749,10 +692,20 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
       for (final NoteModel note in _bzDeletionNotes){
 
-        await AuthorProtocols.authorBzExitAfterBzDeletionProtocol(
-            context: context,
-            bzID: note.attachment, // in the case of bzDeletion NoteType : attachment is bzID
+        /// in the case of bzDeletion NoteType : attachment is bzID
+        final String _bzID = note.attachment;
+
+        final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
+            strings: _userModel.myBzzIDs,
+            string: _bzID,
         );
+
+        if (_bzIDisInMyBzzIDs == true){
+          await AuthorProtocols.authorBzExitAfterBzDeletionProtocol(
+            context: context,
+            bzID: note.attachment,
+          );
+        }
 
       }
 
@@ -924,7 +877,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
       final NoteModel note = _flyerUpdatesNotes[i];
 
-      final String _flyerID = Mapper.getStringsFromDynamics(
+      final String _flyerID = Stringer.getStringsFromDynamics(
         dynamics: note.attachment,
       )?.first;
 

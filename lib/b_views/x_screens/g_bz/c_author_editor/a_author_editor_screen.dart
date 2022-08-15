@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
@@ -157,7 +158,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   comments: const <String>['This will only change your name inside this Business account'],
                   validator: (){
 
-                    if (TextChecker.stringIsEmpty(_nameController.text) == true){
+                    if (Stringer.checkStringIsEmpty(_nameController.text) == true){
                       return 'Author name can not be empty';
                     }
                     else if (_nameController.text.length <= 3){
@@ -181,7 +182,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   fieldIsRequired: true,
                   validator: (){
 
-                    if (TextChecker.stringIsEmpty(_titleController.text) == true){
+                    if (Stringer.checkStringIsEmpty(_titleController.text) == true){
                       return 'Author name can not be empty';
                     }
                     else if (_titleController.text.length <= 3){

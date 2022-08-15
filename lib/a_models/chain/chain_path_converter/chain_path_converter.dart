@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -53,7 +54,7 @@ class ChainPathConverter {
 
     Chain _chain;
 
-    if (TextChecker.stringIsNotEmpty(path)){
+    if (Stringer.checkStringIsNotEmpty(path)){
       final List<Chain> chains = createChainsFromPaths(
         paths: <String>[path],
       );
@@ -343,7 +344,7 @@ class ChainPathConverter {
 
     String _node;
 
-    if (TextChecker.stringIsNotEmpty(path) == true){
+    if (Stringer.checkStringIsNotEmpty(path) == true){
 
       final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
       final List<String> _pathNodes = _cleanedPath.split('/');
@@ -430,7 +431,7 @@ class ChainPathConverter {
 
       for (final Chain sonChain in chains){
 
-        final String _parentID = TextChecker.stringIsEmpty(parentID) ? '' : '$parentID/';
+        final String _parentID = Stringer.checkStringIsEmpty(parentID) ? '' : '$parentID/';
 
         final List<String> _paths = generateChainPaths(
           chain : sonChain,
@@ -443,7 +444,7 @@ class ChainPathConverter {
 
     }
 
-    final List<String> _cleaned = Mapper.cleanDuplicateStrings(
+    final List<String> _cleaned = Stringer.cleanDuplicateStrings(
       strings: _allPaths,
     );
 
@@ -520,7 +521,7 @@ class ChainPathConverter {
         );
 
         if (Mapper.checkCanLoopList(_foundPaths) == true){
-          _output = TextMod.addStringsToStringsIfDoNotContainThem(
+          _output = Stringer.addStringsToStringsIfDoNotContainThem(
               listToTake: _output,
               listToAdd: _foundPaths,
           );
@@ -592,7 +593,7 @@ class ChainPathConverter {
 
     final List<String> _output = <String>[...paths];
 
-    if (_output != null && TextChecker.stringIsNotEmpty(path) == true){
+    if (_output != null && Stringer.checkStringIsNotEmpty(path) == true){
 
       if (_output.contains(path) == false){
         _output.add(path);
@@ -608,7 +609,7 @@ class ChainPathConverter {
 
     List<String> _divisions = <String>[];
 
-    if (TextChecker.stringIsNotEmpty(path) == true){
+    if (Stringer.checkStringIsNotEmpty(path) == true){
 
       // final String _cleaned = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
       _divisions = path.split('/').toList();

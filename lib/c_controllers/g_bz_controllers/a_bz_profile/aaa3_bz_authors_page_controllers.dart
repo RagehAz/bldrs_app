@@ -368,7 +368,8 @@ Future<bool> _showDeleteAllAuthorFlyers({
 
 /// DELETE AUTHOR WHO HAS NO FLYERS
 
-// -------------------------------
+// ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _removeAuthorWhoHasNoFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,

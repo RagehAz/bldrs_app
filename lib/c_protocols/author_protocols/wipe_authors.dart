@@ -194,41 +194,42 @@ class WipeAuthorProtocols {
       bzID: bzID,
     );
 
-    // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
-    // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
-    // IN MY MODEL IN FIRE - LDB - PRO
+      // I RECEIVED A NOTE SAYING MY BZ HAS BEEN DELETED
+      // SO BZ HAS ALREADY BEEN DELETED BUT I WAS AN AUTHOR AND STILL HAVE TRACES OF THAT BUSINESS
+      // IN MY MODEL IN FIRE - LDB - PRO
 
-    /// GET OLD USER MODEL
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+      /// GET OLD USER MODEL
+      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+      );
 
-    /// MODIFY USER MODEL
-    final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
-      bzIDToRemove: bzID,
-      userModel: _userModel,
-    );
+      /// MODIFY USER MODEL
+      final UserModel _newUserModel = UserModel.removeBzIDFromMyBzzIDs(
+        bzIDToRemove: bzID,
+        userModel: _userModel,
+      );
 
-    /// UPDATE USER MODEL EVERYWHERE
-    await UserProtocols.renovateMyUserModel(
-      context: context,
-      newUserModel: _newUserModel,
-    );
+      /// UPDATE USER MODEL EVERYWHERE
+      await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _newUserModel,
+      );
 
-    /// DELETE MY AUTHOR PICTURE FROM STORAGE
-    await AuthorProtocols.deleteMyAuthorPicProtocol(
-      context: context,
-      bzID: bzID,
-    );
+      /// DELETE MY AUTHOR PICTURE FROM STORAGE
+      await AuthorProtocols.deleteMyAuthorPicProtocol(
+        context: context,
+        bzID: bzID,
+      );
 
-    /// DELETE BZ LOCALLY
-    await BzProtocols.deleteLocally(
-      context: context,
-      bzID: bzID,
-    );
+      /// DELETE BZ LOCALLY
+      await BzProtocols.deleteLocally(
+        context: context,
+        bzID: bzID,
+        invoker: 'authorBzExitAfterBzDeletionProtocol',
+      );
 
-    blog('WipeAuthorProtocols.authorBzExitAfterBzDeletionProtocol : end');
+      blog('WipeAuthorProtocols.authorBzExitAfterBzDeletionProtocol : end');
 
   }
 // ----------------------------------
@@ -237,11 +238,12 @@ class WipeAuthorProtocols {
     @required String bzID,
   }) async {
 
+
     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
     if (_bzModel != null){
 
-      await bzBannerDialog(
+       await bzBannerDialog(
         context: context,
         title: '${_bzModel.name} is no longer Available',
         body: 'This Business account has been permanently deleted and can no longer be used',

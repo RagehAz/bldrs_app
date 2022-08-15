@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +23,7 @@ class Trinity {
   static Matrix4 decipherMatrix(List<dynamic> doubles){
     Matrix4 _matrix;
 
-    final List<double> _doubles = Mapper.getDoublesFromDynamics(doubles);
+    final List<double> _doubles = Floaters.getDoublesFromDynamics(doubles);
 
     if (_doubles != null && _doubles.length == 16){
       _matrix = Matrix4.fromList(_doubles);

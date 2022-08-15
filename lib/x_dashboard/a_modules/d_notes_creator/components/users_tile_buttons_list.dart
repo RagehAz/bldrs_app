@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +71,7 @@ class UserTileButtonsList extends StatelessWidget {
                         color: _buttonColor,
                         onUserTap: () => onUserTap(_user),
                         sideButton: sideButton,
-                        sideButtonDeactivated: Mapper.checkStringsContainString(
+                        sideButtonDeactivated: Stringer.checkStringsContainString(
                             strings: usersWithSideButtonsDeactivated,
                             string: _user.id,
                         ),

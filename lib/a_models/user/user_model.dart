@@ -11,9 +11,7 @@ import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -116,7 +114,7 @@ class UserModel {
       status: UserStatus.normal,
       // -------------------------
       name: _user.displayName,
-      trigram: TextGen.createTrigram(input: _user.displayName),
+      trigram: Stringer.createTrigram(input: _user.displayName),
       pic: _user.photoURL,
       title: '',
       gender: Gender.male,
@@ -156,7 +154,7 @@ class UserModel {
       status: UserStatus.normal,
       // -------------------------
       name: user.displayName,
-      trigram: TextGen.createTrigram(input: user.displayName),
+      trigram: Stringer.createTrigram(input: user.displayName),
       pic: user.photoURL,
       title: '',
       gender: Gender.male,
@@ -310,7 +308,7 @@ class UserModel {
       status: decipherUserStatus(map['status']),
       // -------------------------
       name: map['name'],
-      trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram'],),
+      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
       pic: map['pic'],
       title: map['title'],
       company: map['company'],
@@ -323,7 +321,7 @@ class UserModel {
       ),
       contacts: ContactModel.decipherContacts(map['contacts']),
       // -------------------------
-      myBzzIDs: Mapper.getStringsFromDynamics(
+      myBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['myBzzIDs'],
       ),
       emailIsVerified: map['emailIsVerified'],
@@ -332,10 +330,10 @@ class UserModel {
           map: map['fcmToken'],
           fromJSON: fromJSON,
       ),
-      savedFlyersIDs: Mapper.getStringsFromDynamics(
+      savedFlyersIDs: Stringer.getStringsFromDynamics(
           dynamics: map['savedFlyersIDs'],
       ),
-      followedBzzIDs: Mapper.getStringsFromDynamics(
+      followedBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['followedBzzIDs'],
       ),
       appState: AppState.fromMap(map['appState']),
@@ -548,7 +546,7 @@ class UserModel {
     @required String bzID,
   }){
 
-    return Mapper.checkStringsContainString(
+    return Stringer.checkStringsContainString(
         strings: userModel.followedBzzIDs,
         string: bzID
     );
@@ -560,7 +558,7 @@ class UserModel {
     @required String flyerID,
   }){
 
-    return Mapper.checkStringsContainString(
+    return Stringer.checkStringsContainString(
         strings: userModel?.savedFlyersIDs,
         string: flyerID
     );
@@ -600,7 +598,7 @@ class UserModel {
     ---------------------------------->
     */
 
-    if (TextChecker.stringIsEmpty(userModel?.name) == true) {
+    if (Stringer.checkStringIsEmpty(userModel?.name) == true) {
       _missingFields.add('Name');
     }
 
@@ -608,11 +606,11 @@ class UserModel {
       _missingFields.add('Picture');
     }
 
-    if (TextChecker.stringIsEmpty(userModel?.title) == true) {
+    if (Stringer.checkStringIsEmpty(userModel?.title) == true) {
       _missingFields.add('Job Title');
     }
 
-    if (TextChecker.stringIsEmpty(userModel?.company) == true) {
+    if (Stringer.checkStringIsEmpty(userModel?.company) == true) {
       _missingFields.add('Company');
     }
 
@@ -620,11 +618,11 @@ class UserModel {
       _missingFields.add('Gender');
     }
 
-    if (TextChecker.stringIsEmpty(userModel?.zone?.countryID) == true) {
+    if (Stringer.checkStringIsEmpty(userModel?.zone?.countryID) == true) {
       _missingFields.add('Country');
     }
 
-    if (TextChecker.stringIsEmpty(userModel?.zone?.cityID) == true) {
+    if (Stringer.checkStringIsEmpty(userModel?.zone?.cityID) == true) {
       _missingFields.add('City');
     }
 
@@ -712,7 +710,7 @@ class UserModel {
     @required String bzIDToAdd,
   }){
 
-    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
       strings: userModel.myBzzIDs,
       stringToAdd: bzIDToAdd,
     );
@@ -730,7 +728,7 @@ class UserModel {
     @required String bzIDToFollow,
   }){
 
-    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
       strings: userModel.followedBzzIDs,
       stringToAdd: bzIDToFollow,
     );
@@ -748,7 +746,7 @@ class UserModel {
     @required String flyerIDToAdd,
 }){
 
-    final List<String> _newBzzIDs = TextMod.addStringToListIfDoesNotContainIt(
+    final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
       strings: userModel.savedFlyersIDs,
       stringToAdd: flyerIDToAdd,
     );
@@ -769,7 +767,7 @@ class UserModel {
 
     if (Mapper.checkCanLoopList(userModel?.myBzzIDs) == true) {
 
-      final List<String> _newList = Mapper.removeStringsFromStrings(
+      final List<String> _newList = Stringer.removeStringsFromStrings(
         removeFrom: userModel.myBzzIDs,
         removeThis: <String>[bzIDToRemove],
       );
@@ -792,7 +790,7 @@ class UserModel {
 
     if (Mapper.checkCanLoopList(userModel?.followedBzzIDs) == true) {
 
-      final List<String> _newList = Mapper.removeStringsFromStrings(
+      final List<String> _newList = Stringer.removeStringsFromStrings(
         removeFrom: userModel.followedBzzIDs,
         removeThis: <String>[bzIDToUnFollow],
       );
@@ -815,7 +813,7 @@ class UserModel {
 
     if (Mapper.checkCanLoopList(userModel?.savedFlyersIDs) == true) {
 
-      final List<String> _newList = Mapper.removeStringsFromStrings(
+      final List<String> _newList = Stringer.removeStringsFromStrings(
         removeFrom: userModel.savedFlyersIDs,
         removeThis: <String>[flyerIDToRemove],
       );

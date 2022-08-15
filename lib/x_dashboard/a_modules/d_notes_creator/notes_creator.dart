@@ -22,7 +22,7 @@ import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -542,7 +542,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                   ...List.generate(NoteModel.noteButtonsList.length, (index){
 
                                     final String _phid = NoteModel.noteButtonsList[index];
-                                    final bool _isSelected = Mapper.checkStringsContainString(
+                                    final bool _isSelected = Stringer.checkStringsContainString(
                                         strings: noteModel.buttons,
                                         string: _phid
                                     );
@@ -663,7 +663,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     considerAllFields: false,
                   );
 
-                  final String _missingFieldsString = TextGen.generateStringFromStrings(
+                  final String _missingFieldsString = Stringer.generateStringFromStrings(
                     strings: _missingNoteFields,
                     stringsSeparator: ' - ',
                   );

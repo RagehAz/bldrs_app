@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -598,7 +599,7 @@ class ContactModel {
 
       if (contact.contactType != null){
 
-        if (TextChecker.stringIsEmpty(contact.value) == false){
+        if (Stringer.checkStringIsEmpty(contact.value) == false){
           _isEmpty = false;
         }
 

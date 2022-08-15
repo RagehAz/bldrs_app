@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -301,8 +301,8 @@ Future<bool> _validateInputs({
     missingFields.value = _missingFieldsFound;
 
     final List<String> _missingFieldsValues = AlertModel.getAlertsIDs(_missingFieldsFound);
-    final List<String> _missingFieldsStrings = Mapper.getStringsFromDynamics(dynamics: _missingFieldsValues);
-    final String _missingFieldsString = TextGen.generateStringFromStrings(
+    final List<String> _missingFieldsStrings = Stringer.getStringsFromDynamics(dynamics: _missingFieldsValues);
+    final String _missingFieldsString = Stringer.generateStringFromStrings(
         strings: _missingFieldsStrings,
     );
 
@@ -353,7 +353,7 @@ BzModel createBzModelFromLocalVariables({
     createdAt: initialBzModel.createdAt, /// WILL BE OVERRIDDEN
     accountType: initialBzModel.accountType, /// NEVER CHANGED
     name: bzNameTextController.text,
-    trigram: TextGen.createTrigram(input: bzNameTextController.text),
+    trigram: Stringer.createTrigram(input: bzNameTextController.text),
     logo: bzLogo.value, /// WILL CHECK DATA TYPE
     scope: SpecModel.getSpecsIDs(selectedScopes.value),
     zone: bzZone.value,

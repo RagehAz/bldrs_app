@@ -414,6 +414,36 @@ class Imagers {
 
     return _identical;
   }
+// -------------------------------------
+  static bool picturesURLsAreIdentical({
+    @required List<String> urls1,
+    @required List<String> urls2,
+  }) {
+    bool _areIdentical = true;
+
+    if (urls1 == null && urls2 != null) {
+      _areIdentical = false;
+    }
+
+    else if (urls1 != null && urls2 == null) {
+      _areIdentical = false;
+    }
+
+    else if (urls1.length != urls2.length) {
+      _areIdentical = false;
+    }
+
+    else {
+      for (int i = 0; i < urls1.length; i++) {
+        if (urls1[i] != urls2[i]) {
+          _areIdentical = false;
+          break;
+        }
+      }
+    }
+
+    return _areIdentical;
+  }
 // -----------------------------------------------------------------
 
   /// IMAGE QUALITY
