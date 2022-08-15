@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class LogoScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LogoScreenView({
-    @required this.scaleController,
+    this.scaleController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +25,7 @@ class LogoScreenView extends StatelessWidget {
             height: 100,
           ),
 
+          if (scaleController != null)
           ScaleTransition(
             scale: scaleController,
             child: const LogoSlogan(
@@ -33,6 +34,13 @@ class LogoScreenView extends StatelessWidget {
               sizeFactor: 0.8,
             ),
           ),
+
+          if (scaleController == null)
+            const LogoSlogan(
+              showTagLine: true,
+              showSlogan: true,
+              sizeFactor: 0.8,
+            ),
 
           const SizedBox(
             width: 300,
