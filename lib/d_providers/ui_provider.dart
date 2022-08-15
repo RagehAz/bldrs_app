@@ -61,31 +61,41 @@ class UiProvider extends ChangeNotifier {
   /// --- AFTER HOME ROUTE
 
 // -------------------------------------
-  Map<String, dynamic> _afterHomeRoute;
-  Map<String, dynamic> get afterHomeRoute => _afterHomeRoute;
+  RouteSettings _afterHomeRoute;
+  RouteSettings get afterHomeRoute => _afterHomeRoute;
 // -------------------------------------
-  void setAfterHomeRoute({
-    @required String route,
-    @required bool notify,
-    dynamic passData,
-  }){
-
-    _afterHomeRoute['route'] = route;
-    if (passData != null){
-      _afterHomeRoute['passData'] = passData;
-    }
-
-    if (notify == true){
-      notifyListeners();
-    }
-
+  static RouteSettings proGetAfterHomeRoute({
+    @required BuildContext context,
+    @required bool listen,
+}){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider.afterHomeRoute;
   }
 // -------------------------------------
-  void clearAfterHomeRoute({@required bool notify}){
-    _afterHomeRoute = null;
+  static void proClearAfterHomeRoute({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    blog('proClearAfterHomeRoute : was : ${_uiProvider._afterHomeRoute}');
+    _uiProvider.setAfterHomeRoute(
+      settings: null,
+      notify: notify,
+    );
+    blog('proClearAfterHomeRoute : now : ${_uiProvider._afterHomeRoute}');
+  }
+// -------------------------------------
+  void setAfterHomeRoute({
+    @required RouteSettings settings,
+    @required bool notify,
+  }){
+
+    _afterHomeRoute = settings;
+
     if (notify == true){
       notifyListeners();
     }
+
   }
 // -----------------------------------------------------------------------------
 
