@@ -152,7 +152,10 @@ Future<void> _myBzResignationProtocol({
     );
 
     /// 11 - GO BACK HOME
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: '_myBzResignationProtocol',
+    );
 
     /// 12 - CLEAR MY ACTIVE BZ
     // _bzzProvider.clearMyActiveBz(
@@ -180,7 +183,11 @@ void onCloseMyBzScreen({
   _bzzProvider.clearMyActiveBz(notify: true);
   // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   // _notesProvider.clearPendingSentAuthorshipNotes(notify: true);
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: 'onCloseMyBzScreen',
+  );
+
 }
 // -----------------------------------------------------------------------------
 

@@ -108,7 +108,11 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
       ),
     );
 
-    Nav.goBack(context, passedData: _zoneWithDistrict);
+    Nav.goBack(
+        context: context,
+        invoker: 'SelectDistrictScreen',
+        passedData: _zoneWithDistrict,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -143,7 +147,10 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
   }
 // -----------------------------------------------------------------------------
   void _onBack(){
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'SelectDistrictScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

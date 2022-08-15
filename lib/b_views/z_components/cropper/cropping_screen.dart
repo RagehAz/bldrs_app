@@ -101,7 +101,11 @@ class _CroppingScreenState extends State<CroppingScreen> {
         await _triggerLoading(setTo: false);
 
         /// GO BACK AND PASS THE FILES
-        Nav.goBack(context, passedData: _files);
+        Nav.goBack(
+          context: context,
+          invoker: 'CroppingScreen',
+          passedData: _files,
+        );
 
       }
 

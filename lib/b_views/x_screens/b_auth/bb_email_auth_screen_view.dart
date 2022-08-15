@@ -129,7 +129,10 @@ class EmailAuthScreenView extends StatelessWidget {
                     iconSizeFactor: 0.7,
                     margins: 10,
                     color: Colorz.white20,
-                    onTap: () => Nav.goBack(context),
+                    onTap: () => Nav.goBack(
+                      context: context,
+                      invoker: 'EmailAuthScreenView',
+                    ),
                   ),
 
                   const Expander(),

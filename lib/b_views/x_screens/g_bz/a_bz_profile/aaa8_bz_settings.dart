@@ -60,7 +60,6 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
           onTap: () => onDeleteBzButtonTap(
             context: context,
             bzModel: _bzModel,
-            routeBackHome: true,
             showSuccessDialog: true,
           ),
         ),

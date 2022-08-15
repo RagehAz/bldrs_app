@@ -203,7 +203,11 @@ class _ChainsScreenState extends State<ChainsScreen> {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       onBack: (){
-        Nav.goBack(context, passedData: _selectedSpecs.value);
+        Nav.goBack(
+          context: context,
+          invoker: 'ChainsScreen',
+          passedData: _selectedSpecs.value,
+        );
       },
       onSearchChanged: (String text) => onChainsSearchChanged(
         text: text,

@@ -154,11 +154,14 @@ Future<CityModel> confirmCityDialog({
               verse: _foundCityName,
               icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
               onTap: () {
-                blog('city selected aho $_foundCityName');
 
                 _city = _foundCity;
-                Nav.goBack(context);
-                // await null;
+
+                Nav.goBack(
+                  context: context,
+                  invoker: 'confirmCityDialog : city selected aho $_foundCityName',
+                );
+
               });
         }),
 

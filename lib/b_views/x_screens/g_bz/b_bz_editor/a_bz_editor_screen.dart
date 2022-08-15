@@ -141,7 +141,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 // -------------------------------------
   void _initializeHelperVariables(){
     final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
-    final List<BzType> _concludedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
+    final List<BzType> _concludedInactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
       bzSection: _concludedBzSection,
       initialBzTypes: _initialBzModel.bzTypes,
     );

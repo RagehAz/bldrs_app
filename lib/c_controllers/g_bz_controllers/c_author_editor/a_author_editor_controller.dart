@@ -116,7 +116,10 @@ Future<void> onConfirmAuthorUpdates({
 
     WaitDialog.closeWaitDialog(context);
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'onConfirmAuthorUpdates',
+    );
   }
 
 
@@ -184,7 +187,10 @@ Future<void> onChangeAuthorRoleOps({
 
       WaitDialog.closeWaitDialog(context);
 
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: 'onChangeAuthorRoleOps',
+      );
 
     }
 

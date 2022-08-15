@@ -145,7 +145,10 @@ Future<void> onVerifyFlyer({
 }) async {
 
   /// CLOSE NAV DIALOG
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: 'onVerifyFlyer',
+  );
 
   blog('currentFlyer : ${flyerModel?.slides?.length} slides');
 

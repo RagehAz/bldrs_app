@@ -125,8 +125,13 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
 // -------------------------------------
 /// TESTED : WORKS PERFECT
-  static void goBack(BuildContext context, {dynamic passedData}) {
-  Navigator.pop(context, passedData);
+  static void goBack({
+    @required BuildContext context,
+    @required String invoker,
+    dynamic passedData,
+  }) {
+    blog('Nav.goBack : invoker : $invoker');
+    Navigator.pop(context, passedData);
 }
 // -------------------------------------
 /// TESTED : WORKS PERFECT
@@ -164,8 +169,11 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
   Navigator.popUntil(context, ModalRoute.withName(routeName));
 }
 // -------------------------------------
-  static void goBackToHomeScreen(BuildContext context) {
-  blog('goBackToHomeScreen : popUntil Routez.home');
+  static void goBackToHomeScreen({
+    @required BuildContext context,
+    @required String invoker,
+  }) {
+  blog('goBackToHomeScreen : popUntil Routez.home : $invoker');
   Navigator.popUntil(context, ModalRoute.withName(Routez.home));
 }
 // -----------------------------------------------------------------------------

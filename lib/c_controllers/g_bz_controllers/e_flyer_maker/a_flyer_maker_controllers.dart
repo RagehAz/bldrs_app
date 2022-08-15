@@ -261,7 +261,10 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   );
 
   if (result == true){
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'onCancelFlyerCreation',
+    );
   }
 
 }
@@ -412,7 +415,10 @@ Future<void> onPublishNewFlyerTap({
       draft: draft,
     );
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'onPublishNewFlyerTap',
+    );
 
     await TopDialog.showTopDialog(
       context: context,
@@ -455,7 +461,10 @@ Future<void> onPublishFlyerUpdatesTap({
       oldFlyer: originalFlyer,
     );
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'onPublishFlyerUpdatesTap',
+    );
 
     await TopDialog.showTopDialog(
       context: context,
