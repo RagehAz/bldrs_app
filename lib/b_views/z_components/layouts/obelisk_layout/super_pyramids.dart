@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_expanding_pyramid.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_pyramids.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 class SuperPyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperPyramids({
-    @required this.tabIndex,
+    @required this.progressBarModel,
     @required this.onRowTap,
     @required this.onExpansion,
     @required this.isExpanded,
@@ -17,7 +18,7 @@ class SuperPyramids extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> isExpanded;
-  final ValueNotifier<int> tabIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final Function onExpansion;
   final ValueChanged<int> onRowTap;
   final List<NavModel> navModels;
@@ -40,7 +41,7 @@ class SuperPyramids extends StatelessWidget {
           isExpanded: isExpanded,
           onTriggerExpansion: onExpansion,
           onRowTap: onRowTap,
-          tabIndex: tabIndex,
+          progressBarModel: progressBarModel,
           navModels: navModels,
         ),
 

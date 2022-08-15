@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -10,14 +11,14 @@ class ObeliskVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskVerse({
     @required this.navModel,
-    @required this.currentTabIndex,
+    @required this.progressBarModel,
     @required this.navModelIndex,
     @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NavModel navModel;
-  final ValueNotifier<int> currentTabIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final int navModelIndex;
   final Function onTap;
   /// --------------------------------------------------------------------------
@@ -26,10 +27,10 @@ class ObeliskVerse extends StatelessWidget {
 
     return ValueListenableBuilder(
       key: const ValueKey<String>('ObeliskVerse'),
-      valueListenable: currentTabIndex,
-      builder: (_, int _tabIndex, Widget child){
+      valueListenable: progressBarModel,
+      builder: (_, ProgressBarModel _progressBarModel, Widget child){
 
-        final bool _isSelected = _tabIndex == navModelIndex;
+        final bool _isSelected = _progressBarModel.index == navModelIndex;
 
         /// TEXT
         if (navModel?.canShow == true){

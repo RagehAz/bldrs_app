@@ -2,6 +2,8 @@ import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/y_pdf/a_pdf_screen.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
@@ -12,7 +14,8 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageContents extends StatelessWidget {
@@ -78,33 +81,74 @@ class InfoPageContents extends StatelessWidget {
                 else {
                   return Column(
                     children: <Widget>[
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                      /// INFO HEADLINE
+                      if (flyerModel.description.isNotEmpty == true)
+                        InfoPageHeadline(
+                          pageWidth: _pageWidth,
+                          headline: 'More about this flyer',
+                        ),
+                      /// INFO
+                      if (flyerModel.description.isNotEmpty == true)
+                        InfoPageParagraph(
+                          pageWidth: _pageWidth,
+                          flyerInfo: flyerModel.description,
+                        ),
+                      /// INFO LINE
+                      if (flyerModel.description.isNotEmpty == true)
+                        InfoPageSeparator( /// ------------------------- SEPARATOR
+                          pageWidth: _pageWidth,
+                        ),
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                      /// PDF BUTTON
+                      if (flyerModel.pdf != null)
+                      DreamBox(
+                        height: 30,
+                        width: _pageWidth - 20,
+                        color: Colorz.blue80,
+                        verse: '${flyerModel.pdf.fileName}.pdf',
+                        verseScaleFactor: 0.6,
+                        onTap: () async {
 
+                          await Nav.goToNewScreen(
+                              context: context,
+                              screen: PDFScreen(
+                                  pdf: flyerModel.pdf,
+                              ),
+                          );
+
+                        },
+                      ),
+                      /// PDF LINE
+                      if (flyerModel.pdf != null)
+                        InfoPageSeparator( /// ------------------------- SEPARATOR
+                          pageWidth: _pageWidth,
+                        ),
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                       /// KEYWORDS HEADLINE
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
                           headline: 'Flyer Keywords',
                         ),
-
                       /// KEYWORDS
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
                         InfoPageKeywords(
                           pageWidth: _pageWidth,
                           keywordsIDs: flyerModel.keywordsIDs,
                         ),
-
+                      /// KEYWORDS LINE
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
                         InfoPageSeparator( /// ------------------------- SEPARATOR
                           pageWidth: _pageWidth,
                         ),
-
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                       /// SPECS HEADLINE
                       if (flyerModel.specs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
                           headline: 'Flyer specifications',
                         ),
-
                       /// SPECS
                       if (flyerModel.specs.isNotEmpty == true)
                         InfoPageSpecs(
@@ -112,39 +156,26 @@ class InfoPageContents extends StatelessWidget {
                           specs: flyerModel.specs,
                           flyerType: flyerModel.flyerType,
                         ),
-
+                      /// SPECS LINE
                       if (flyerModel.specs.isNotEmpty == true)
                         InfoPageSeparator( /// ------------------------- SEPARATOR
                           pageWidth: _pageWidth,
                         ),
-
-                      /// DESCRIPTION HEADLINE
-                      if (flyerModel.description.isNotEmpty == true)
-                        InfoPageHeadline(
-                          pageWidth: _pageWidth,
-                          headline: 'More about this flyer',
-                        ),
-
-                      /// INFO BODY
-                      if (flyerModel.description.isNotEmpty == true)
-                        InfoPageParagraph(
-                          pageWidth: _pageWidth,
-                          flyerInfo: flyerModel.description,
-                        ),
-
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                      /// COUNTERS
                       FlyerCountersAndRecords(
                         pageWidth: _pageWidth,
                         flyerModel: flyerModel,
                         flyerCounter: flyerCounter,
                       ),
-
-                      if (flyerModel.description.isNotEmpty == true)
+                      /// COUNTERS LINE
                         InfoPageSeparator( /// ------------------------- SEPARATOR
                           pageWidth: _pageWidth,
                         ),
-
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                      /// REPORT BUTTON
                       Align(
-                        alignment: Aligners.superCenterAlignment(context),
+                        // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
                         child: ReportButton(
                           modelType: ModelType.flyer,
                           onTap: () => FlyerFireOps.onReportFlyer(
@@ -153,11 +184,11 @@ class InfoPageContents extends StatelessWidget {
                           ),
                         ),
                       ),
-
+                      /// REPORT LINE
                       InfoPageSeparator(
                         pageWidth: _pageWidth,
                       ),
-
+                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     ],
                   );
                 }

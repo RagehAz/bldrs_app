@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -53,8 +54,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   void dispose() {
     _isExpanded.dispose();
     _tabController.dispose();
-    _swipeDirection.dispose();
-    _tabIndex.dispose();
+    _progressBarModel.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -62,19 +62,21 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// TABS
 
 // -------------------------------------
-  /// TAB INDEX
-  ValueNotifier<int> _tabIndex;
-// -------------------------------------
-  /// SWIPE DIRECTION
-  ValueNotifier<SwipeDirection> _swipeDirection; /// tamam disposed
+  /// PROGRESS BAR MODEL : ( INDEX - SWIPE DIRECTION - NUMBER OF SLIDES )
+  ValueNotifier<ProgressBarModel> _progressBarModel;
 // -------------------------------------
   void _initializeTabs(){
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
 
       _isExpanded = ValueNotifier(widget.initiallyExpanded);
-      _tabIndex = ValueNotifier(widget.initialIndex);
-      _swipeDirection = ValueNotifier(SwipeDirection.next);
+
+      final ProgressBarModel _initialProgModel = ProgressBarModel(
+          swipeDirection: SwipeDirection.next,
+          index: widget.initialIndex,
+          numberOfStrips: widget.navModels.length,
+      );
+      _progressBarModel = ValueNotifier(_initialProgModel);
 
       _tabController = TabController(
         vsync: this,
@@ -93,11 +95,10 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         onHorizontalSlideSwipe(
           context: context,
           newIndex: _tabController.index,
-          currentSlideIndex: _tabIndex,
-          swipeDirection: _swipeDirection,
+          progressBarModel: _progressBarModel,
         );
 
-        _pageTitle.value = widget.navModels[_tabIndex.value].title;
+        _pageTitle.value = widget.navModels[_progressBarModel.value.index].title;
 
 
       });
@@ -118,7 +119,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       // blog('tabController.animation.value : ${tabController.animation.value}');
 
       final String _newTab = widget.navModels[_indexFromAnimation].title;
-      final String _oldTab = widget.navModels[_tabIndex.value].title;
+      final String _oldTab = widget.navModels[_progressBarModel.value.index].title;
 
       /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
       if (_newTab != _oldTab){
@@ -146,11 +147,10 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     onHorizontalSlideSwipe(
       context: context,
       newIndex: index,
-      currentSlideIndex: _tabIndex,
-      swipeDirection: _swipeDirection,
+      progressBarModel: _progressBarModel,
     );
 
-    _tabController.animateTo(_tabIndex.value,
+    _tabController.animateTo(_progressBarModel.value.index,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutExpo,
     );
@@ -181,9 +181,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       appBarType: AppBarType.basic,
       pageTitle: _pageTitle,
       loading: ValueNotifier(false),
-      index: _tabIndex,
-      swipeDirection: _swipeDirection,
-      numberOfStrips: widget.navModels.length,
+      progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,
       appBarRowWidgets: widget.appBarRowWidgets,
       onBack: (){
@@ -213,7 +211,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
             isExpanded: _isExpanded,
             onExpansion: onTriggerExpansion,
             onRowTap: onRowTap,
-            tabIndex: _tabIndex,
+            progressBarModel: _progressBarModel,
             navModels: widget.navModels,
           ),
 

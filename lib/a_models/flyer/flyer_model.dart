@@ -913,10 +913,6 @@ class FlyerModel {
     return _shortHeadline;
   }
 // -----------------------------------------------------------------------------
-
-
-
-
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
     @required BuildContext context,
@@ -953,3 +949,13 @@ class FlyerModel {
 }
 
 /// ---------------------
+
+/*
+
+    _canShowGallery = canShowGalleryPage(
+      bzModel: widget.bzModel,
+      heroTag: widget.heroTag,
+    );
+
+
+ */

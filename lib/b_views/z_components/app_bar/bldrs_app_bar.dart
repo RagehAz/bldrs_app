@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_title.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +20,7 @@ class BldrsAppBar extends StatelessWidget {
     this.pageTitle,
     this.appBarRowWidgets,
     this.loading,
-    this.swipeDirection,
-    this.index,
-    this.numberOfStrips,
+    this.progressBarModel,
     this.appBarScrollController,
     this.sectionButtonIsOn,
     this.searchController,
@@ -40,9 +38,7 @@ class BldrsAppBar extends StatelessWidget {
   final dynamic pageTitle;
   final List<Widget> appBarRowWidgets;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<SwipeDirection> swipeDirection;
-  final ValueNotifier<int> index;
-  final int numberOfStrips;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final ScrollController appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController searchController;
@@ -293,10 +289,8 @@ class BldrsAppBar extends StatelessWidget {
           /// PROGRESS BAR
           if (loading != null)
             AppBarProgressBar(
-              index: index,
-              numberOfStrips: numberOfStrips,
+              progressBarModel: progressBarModel,
               loading: loading,
-              swipeDirection: swipeDirection,
             ),
 
         ],

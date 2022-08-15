@@ -21,6 +21,7 @@ class FlyerPDF {
   /// CLONING
 
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   FlyerPDF copyWith({
     String url,
     String fileName,
@@ -37,6 +38,7 @@ class FlyerPDF {
 /// CIPHER
 
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'url' : url,
@@ -44,6 +46,7 @@ class FlyerPDF {
     };
   }
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerPDF decipher(Map<String, dynamic> map){
     FlyerPDF _flyerPDF;
 
@@ -61,6 +64,7 @@ class FlyerPDF {
 /// BLOG
 
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogFlyerPDF(FlyerPDF pdf){
     blog('blogFlyerPDF | fileName ${pdf?.fileName}\n| file ${pdf?.file}\n| url :${pdf?.url}');
   }
@@ -94,7 +98,7 @@ class FlyerPDF {
     return _areIdentical;
   }
 // --------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkShouldDeleteOldPDFFile({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
@@ -171,7 +175,7 @@ class FlyerPDF {
     return _shouldDelete;
   }
 // --------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkShouldUploadNewPDFFile({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
@@ -218,6 +222,7 @@ class FlyerPDF {
   /// PDF STORAGE NAME
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String generatePDFStorageName({
     @required String pdfFileName,
     @required String flyerID,

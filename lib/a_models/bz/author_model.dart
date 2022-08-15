@@ -334,6 +334,7 @@ class AuthorModel {
     return _bzAuthors;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static AuthorModel getCreatorAuthorFromBz(BzModel bzModel) {
 
     final AuthorModel _masterAuthor = bzModel.authors.firstWhere(
