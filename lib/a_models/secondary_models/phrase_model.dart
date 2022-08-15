@@ -1,6 +1,6 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -94,7 +94,7 @@ class Phrase {
         value: _trigramExists ?
         trigram
             :
-        TextGen.createTrigram(input: value),
+        Stringer.createTrigram(input: value),
       );
     }
 
@@ -172,7 +172,7 @@ class Phrase {
 
     final List<String> _trigram = _getTrigramIfIncluded(
       includeTrigram: includeTrigram,
-      existingTrigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
+      existingTrigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
       originalString: map['value'],
     );
 
@@ -441,7 +441,7 @@ class Phrase {
   }){
     Phrase _phrase;
 
-    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -470,7 +470,7 @@ class Phrase {
   }){
     Phrase _phrase;
 
-    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -595,7 +595,7 @@ class Phrase {
 
       final List<String> _trigram = source?.trigram;
 
-      final bool _trigramContains = Mapper.checkStringsContainString(
+      final bool _trigramContains = Stringer.checkStringsContainString(
           strings: _trigram,
           string: _fixedString
       );
@@ -716,7 +716,7 @@ class Phrase {
   }){
     bool _include = false;
 
-    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(id) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(id) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -738,7 +738,7 @@ class Phrase {
   }){
     bool _include = false;
 
-    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(value) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(value) == true){
 
       for (final Phrase phrase in phrases){
 
@@ -899,7 +899,7 @@ class Phrase {
     int _existingPhraseIndex;
     Phrase _phraseToInsert = phrase;
 
-    if (TextChecker.stringIsNotEmpty(addLanguageCode)){
+    if (Stringer.checkStringIsNotEmpty(addLanguageCode)){
       _phraseToInsert = Phrase(
         id: phrase.id,
         value: phrase.value,
@@ -994,7 +994,7 @@ class Phrase {
 
       List<Phrase> _phrasesToInsert = phrasesToInsert;
 
-      if (TextChecker.stringIsNotEmpty(addLanguageCodeToInsertedPhrases) == true){
+      if (Stringer.checkStringIsNotEmpty(addLanguageCodeToInsertedPhrases) == true){
         _phrasesToInsert = _addLangCodeToPhrases(
           phrases: phrasesToInsert,
           langCode: addLanguageCodeToInsertedPhrases,
@@ -1134,7 +1134,7 @@ class Phrase {
 
     final List<Phrase> _output = <Phrase>[...phrases];
 
-    if (Mapper.checkCanLoopList(phrases) == true && TextChecker.stringIsNotEmpty(phraseID) == true){
+    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(phraseID) == true){
 
       _output.removeWhere((ph) => ph.id == phraseID);
 
@@ -1183,7 +1183,7 @@ class Phrase {
         _output = existingTrigram;
       }
       else {
-        _output = TextGen.createTrigram(input: originalString);
+        _output = Stringer.createTrigram(input: originalString);
       }
 
     }

@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -51,7 +52,7 @@ class FlyerPromotion {
               flyerID: map['flyerID'],
               from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
               to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
-              districtsIDs: Mapper.getStringsFromDynamics(dynamics: map['districtsIDs']),
+              districtsIDs: Stringer.getStringsFromDynamics(dynamics: map['districtsIDs']),
           );
 
     }

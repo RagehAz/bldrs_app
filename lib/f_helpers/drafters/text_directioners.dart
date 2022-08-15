@@ -1,4 +1,5 @@
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -103,7 +104,7 @@ class TextDir {
     // bool _appIsLeftToRight = appIsLeftToRight(context);
     // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
 
-    final bool _controllerIsEmpty = TextChecker.stringIsEmpty(val);
+    final bool _controllerIsEmpty = Stringer.checkStringIsEmpty(val);
 
     /// when val has a value
     if (!_controllerIsEmpty) {

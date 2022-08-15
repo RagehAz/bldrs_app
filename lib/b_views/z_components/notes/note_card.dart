@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -10,7 +9,7 @@ import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a3_user_notes_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -117,7 +116,7 @@ class NoteCard extends StatelessWidget {
 
                     /// TITLE
                     SuperVerse(
-                      verse: TextChecker.stringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
+                      verse: Stringer.checkStringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
                       maxLines: 5,
                       centered: false,
                     ),
@@ -138,7 +137,7 @@ class NoteCard extends StatelessWidget {
 
                     /// BODY
                     SuperVerse(
-                      verse: TextChecker.stringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
+                      verse: Stringer.checkStringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
                       weight: VerseWeight.thin,
                       maxLines: 20,
                       centered: false,

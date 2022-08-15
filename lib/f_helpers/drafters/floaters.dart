@@ -193,4 +193,29 @@ class Floaters {
     return _marker;
   }
 // -----------------------------------------------------------------
+
+  /// DOUBLES
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<double> getDoublesFromDynamics(List<dynamic> dynamics){
+
+    final List<double> _output = <double>[];
+
+    if (Mapper.checkCanLoopList(dynamics) == true){
+
+      for (final dynamic dyn in dynamics){
+
+        if (dyn is double){
+          final double _double = dyn;
+          _output.add(_double);
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------
 }

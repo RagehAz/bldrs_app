@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -153,7 +153,7 @@ class FlyerModel {
     return <String, dynamic>{
       'id' : id,
       'headline' : slides[0].headline,
-      'trigram' : TextGen.createTrigram(input: slides[0].headline),
+      'trigram' : Stringer.createTrigram(input: slides[0].headline),
       'description' : description,
       // -------------------------
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
@@ -210,13 +210,13 @@ class FlyerModel {
       _flyerModel = FlyerModel(
         id: map['id'],
         headline: map['headline'],
-        trigram: Mapper.getStringsFromDynamics(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherFlyerState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
-        keywordsIDs: Mapper.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZoneMap(map['zone']),
         // -------------------------
@@ -527,7 +527,7 @@ class FlyerModel {
     return FlyerModel(
       id : 'x',
       headline: 'Dummy Flyer',
-      trigram: TextGen.createTrigram(input: 'Dummy Flyer'),
+      trigram: Stringer.createTrigram(input: 'Dummy Flyer'),
       description: 'This is a dummy flyer',
       authorID: AuthFireOps.superUserID(),
       flyerType : FlyerType.property,
@@ -933,7 +933,7 @@ class FlyerModel {
 
         _owners.add(_creator.userID);
 
-        _owners = TextMod.addStringToListIfDoesNotContainIt(
+        _owners = Stringer.addStringToListIfDoesNotContainIt(
             strings: _owners,
             stringToAdd: AuthFireOps.superUserID(),
         );

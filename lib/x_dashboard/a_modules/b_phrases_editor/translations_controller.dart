@@ -4,8 +4,8 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/phrase_ops.dart' as PhraseOps;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -241,7 +241,7 @@ Future<void> onUploadPhrases({
   blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
 
   final List<String> _mixedPhrasesIDs = Phrase.getPhrasesIDs(inputMixedLangPhrases);
-  final List<String> _newPhrasesIDs = Mapper.getUniqueStringsFromStrings(strings: _mixedPhrasesIDs);
+  final List<String> _newPhrasesIDs = Stringer.searchUniqueStringsFromStrings(strings: _mixedPhrasesIDs);
 
   blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
 

@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
 class CityPhidCounters {
@@ -150,7 +151,7 @@ class CityPhidCounters {
     if (cityChain != null){
       final CityPhidCounters _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
       final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsCounters);
-      _output = Mapper.getStringsFromDynamics(dynamics: _values);
+      _output = Stringer.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
 
