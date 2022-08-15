@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/aa_flyer_maker_screen_view.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -115,6 +116,15 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
 
+    // const bool _canPublish =
+    // DraftFlyerModel.checkCanPublishDraft(
+    //   draft: _draft,
+    //   headlineController: _headlineController,
+    // )
+    // true
+    // ;
+
+
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
       pageTitle: widget.flyerToEdit == null ? xPhrase(context, 'phid_createFlyer') : 'Edit Flyer',
@@ -123,6 +133,30 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       appBarType: AppBarType.basic,
       loading: _loading,
       sectionButtonIsOn: false,
+      confirmButtonModel: ConfirmButtonModel(
+          // isDeactivated: !_canPublish,
+          firstLine: _isEditingFlyer == true ? 'Update Flyer' : xPhrase(context, 'phid_publish'),
+          onTap: () async {
+
+            if (_isEditingFlyer == true){
+              await onPublishFlyerUpdatesTap(
+                context: context,
+                draft: _draftFlyer,
+                formKey: _formKey,
+                originalFlyer: widget.flyerToEdit,
+              );
+            }
+
+            else {
+              await onPublishNewFlyerTap(
+                context: context,
+                draft: _draftFlyer,
+                formKey: _formKey,
+              );
+            }
+
+          }
+      ),
       appBarRowWidgets: <Widget>[
 
         const Expander(),

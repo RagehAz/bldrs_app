@@ -3,8 +3,10 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/d_user/b_user_editor/aa_user_editor_screen_view.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -214,8 +216,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitle: xPhrase(context, 'phid_updateProfile'),
       loading: _loading,
+      confirmButtonModel: ConfirmButtonModel(
+        firstLine: xPhrase(context, 'phid_updateProfile').toUpperCase(),
+        onSkipTap: (){
+
+          blog('skip');
+
+        },
+        onTap: () => confirmEdits(
+            context: context,
+            formKey: _formKey,
+            newUserModel: _createUserModelFromLocalVariables(),
+            oldUserModel: widget.userModel,
+            onFinish: widget.onFinish,
+            loading: _loading,
+        ),
+
+      ),
       layoutWidget: UserEditorScreenView(
-        loading: _loading,
         formKey: _formKey,
         picture: _picture,
         canPickImage: _canPickImage,
@@ -230,10 +248,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         instagramController: _instagramController,
         linkedInController: _linkedInController,
         twitterController: _twitterController,
-        oldUserModel: widget.userModel,
-        createNewUserModel: _createUserModelFromLocalVariables,
-        onFinish: widget.onFinish,
-        canGoBack: widget.canGoBack,
       ),
     );
 
