@@ -267,7 +267,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     /// WHEN AT LAST INDEX
     if (widget.progressBarModel.value.index == _lastIndex){
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: '_onSlideNextTap',
+      );
     }
 
     /// WHEN AT ANY OTHER INDEX
@@ -288,7 +291,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     /// WHEN AT FIRST INDEX
     if (widget.progressBarModel.value.index == 0){
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: '_onSlideBackTap',
+      );
     }
 
     /// WHEN AT ANY OTHER SLIDE
@@ -308,7 +314,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   Future<void> _onSaveFlyer() async {
 
     if (widget.flyerIsSaved.value == true){
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: '_onSaveFlyer',
+      );
     }
 
     if (mounted == true){

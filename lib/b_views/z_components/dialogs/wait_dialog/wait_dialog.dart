@@ -38,7 +38,10 @@ class WaitDialog extends StatelessWidget {
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void closeWaitDialog(BuildContext context) {
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'closeWaitDialog',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

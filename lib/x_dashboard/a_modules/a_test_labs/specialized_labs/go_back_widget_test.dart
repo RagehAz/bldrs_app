@@ -106,7 +106,10 @@ class _GoBackWidgetState extends State<GoBackWidget> {
 
       _triggerLoading().then((_) async {
         // -------------------------------
-        Nav.goBackToHomeScreen(context);
+        Nav.goBackToHomeScreen(
+          context: context,
+          invoker: 'GoBackWidgetTest',
+        );
         // -------------------------------
         await _triggerLoading();
 

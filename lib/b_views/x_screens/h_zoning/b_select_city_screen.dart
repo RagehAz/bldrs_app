@@ -150,7 +150,11 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
 
     /// IF SELECTING COUNTY AND CITY ONLY
     if (widget.selectCountryAndCityOnly == true || _cityHasDistricts == false){
-      Nav.goBack(context, passedData: _zoneWithCity);
+      Nav.goBack(
+        context: context,
+        invoker: '_onCityTap',
+        passedData: _zoneWithCity,
+      );
     }
 
     /// IF SELECTING COUNTRY AND CITY AND DISTRICT
@@ -166,12 +170,20 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
 
       /// WHEN NO DISTRICT SELECTED
       if (_zoneWithDistrict == null){
-        Nav.goBack(context, passedData: _zoneWithCity);
+        Nav.goBack(
+          context: context,
+          invoker: '_onCityTap',
+          passedData: _zoneWithCity,
+        );
       }
 
       /// WHEN A DISTRICT IS SELECTED
       else {
-        Nav.goBack(context, passedData: _zoneWithDistrict);
+        Nav.goBack(
+            context: context,
+            invoker: '_onCityTap',
+            passedData: _zoneWithDistrict,
+        );
       }
 
     }
@@ -230,7 +242,10 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
   // -------------------------------------
   void _onBack(){
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'SelectCityScreen',
+    );
 
   }
 // -----------------------------------------------------------------------------

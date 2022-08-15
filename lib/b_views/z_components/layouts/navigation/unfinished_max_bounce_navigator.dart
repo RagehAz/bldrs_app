@@ -42,8 +42,12 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
     });
 
     if (widget.onNavigate == null) {
-      Nav.goBack(context);
-      // await null;
+
+      Nav.goBack(
+        context: context,
+        invoker: 'OldMaxBounceNavigator.navigate',
+      );
+
     }
 
     else {

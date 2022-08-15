@@ -113,10 +113,12 @@ class PriceDataCreator extends StatefulWidget {
                               countryID: _currency.countriesIDs[0],
                               onTap: () {
                                 onSelectCurrency(_currency);
-                                // await null;
 
-                                Nav.goBack(context);
-                                // await null;
+                                Nav.goBack(
+                                  context: context,
+                                  invoker: 'PriceDataCreator',
+                                );
+
                               },
                             );
                           }
@@ -160,16 +162,18 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   }
 // -----------------------------------------------------------------------------
   void _onSelectCurrency(CurrencyModel currency) {
-    // setState(() {
+
     _currency.value = currency;
-    // });
 
     _validate();
 
     widget.onCurrencyChanged(currency);
 
-    Nav.goBack(context);
-    // await null;
+    Nav.goBack(
+      context: context,
+      invoker: 'PriceDataCreator._onSelectCurrency',
+    );
+
   }
 // -----------------------------------------------------------------------------
   Future<void> _onCurrencyTap() async {

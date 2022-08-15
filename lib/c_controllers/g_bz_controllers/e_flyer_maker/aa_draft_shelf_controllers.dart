@@ -365,7 +365,10 @@ Future<void> onMoreTap({
           verse: xPhrase(context, 'phid_delete'),
           verseCentered: true,
           onTap: (){
-            Nav.goBack(context);
+            Nav.goBack(
+              context: context,
+              invoker: 'onMoreTap.delete',
+            );
             onDeleteDraft();
           },
         ),
@@ -376,7 +379,10 @@ Future<void> onMoreTap({
           verse: 'Save Draft',
           verseCentered: true,
           onTap: (){
-            Nav.goBack(context);
+            Nav.goBack(
+              context: context,
+              invoker: 'onMoreTap.save',
+            );
             onSaveDraft();
           },
         ),
@@ -387,7 +393,10 @@ Future<void> onMoreTap({
           verse: 'Publish',
           verseCentered: true,
           onTap: (){
-            Nav.goBack(context);
+            Nav.goBack(
+              context: context,
+              invoker: 'onMoreTap.Publish',
+            );
             onPublishFlyer();
           },
         ),

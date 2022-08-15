@@ -50,7 +50,10 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     if (_canNavigate.value == true){
       _numberOfTimesBack++;
       blog('go back : _numberOfTimesBack : $_numberOfTimesBack');
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: 'HorizontalBouncer.navigate',
+      );
     }
 
       _canNavigate.value = false;

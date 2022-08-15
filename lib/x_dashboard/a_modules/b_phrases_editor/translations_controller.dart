@@ -430,7 +430,10 @@ Future<void> onEditPhrase({
   @required TextEditingController idTextController,
 }) async {
 
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: 'onEditPhrase',
+  );
 
   final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByID(
     phrases: enPhrases,

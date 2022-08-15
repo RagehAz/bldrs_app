@@ -124,7 +124,10 @@ void onCancelSlideEdits({
   @required BuildContext context,
 }){
 
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: 'onCancelSlideEdits',
+  );
 
 }
 // ---------------------------------
@@ -141,7 +144,11 @@ Future<void> onConfirmSlideEdits({
     filter: filter.value,
   );
 
-  Nav.goBack(context, passedData: _slide);
+  Nav.goBack(
+      context: context,
+      invoker: 'onConfirmSlideEdits',
+      passedData: _slide,
+  );
 
 }
 // -----------------------------------------------------------------------------

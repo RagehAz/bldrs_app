@@ -1047,7 +1047,10 @@ class FlyerFireOps {
             verse: 'Inappropriate content',
             onTap: (){
               _feedback = 'Inappropriate content';
-              Nav.goBack(context);
+              Nav.goBack(
+                context: context,
+                invoker: 'onReportFlyer.Inappropriate'
+              );
             }
           ),
 
@@ -1057,7 +1060,10 @@ class FlyerFireOps {
               verse: 'Flyer content is not relevant to Bldrs.net',
               onTap: (){
                 _feedback = 'Flyer content is not relevant to Bldrs.net';
-                Nav.goBack(context);
+                Nav.goBack(
+                    context: context,
+                    invoker: 'onReportFlyer.not relevant'
+                );
               }
           ),
 
@@ -1067,7 +1073,10 @@ class FlyerFireOps {
               verse: 'content violates copyrights',
               onTap: (){
                 _feedback = 'content violates copyrights';
-                Nav.goBack(context);
+                Nav.goBack(
+                    context: context,
+                    invoker: 'onReportFlyer.copyrights'
+                );
               }
           ),
 

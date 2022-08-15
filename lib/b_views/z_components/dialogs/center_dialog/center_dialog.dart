@@ -96,7 +96,10 @@ class CenterDialog extends StatelessWidget {
   }
 // -----------------------------------------
   static void closeCenterDialog(BuildContext context){
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'closeCenterDialog',
+    );
   }
 // -----------------------------------------------------------------------------
   /*
@@ -177,8 +180,10 @@ class CenterDialog extends StatelessWidget {
                   physics: const BouncingScrollPhysics(),
                   child: GestureDetector(
                     onTap: (){
-                      blog('tapping outside the dialog');
-                      Nav.goBack(context);
+                      Nav.goBack(
+                        context: context,
+                        invoker: 'CenterDialog tapping outside the dialog',
+                      );
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
@@ -275,15 +280,30 @@ class CenterDialog extends StatelessWidget {
                                           verse: 'No',
                                           color: Colorz.white80,
                                           onTap: () =>
-                                              Nav.goBack(xxx, passedData: false),
+                                              Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.No',
+                                                passedData: false,
+                                              ),
                                         ),
 
                                       DialogButton(
                                         verse: _confirmButtonText,
                                         verseColor: Colorz.black230,
                                         color: Colorz.yellow255,
-                                        onTap: boolDialog == true ? () => Nav.goBack(xxx, passedData: true)
-                                            : onOk ?? () => Nav.goBack(xxx),
+                                        onTap:
+                                        boolDialog == true ?
+                                            () => Nav.goBack(
+                                                context: xxx,
+                                                invoker: 'CenterDialog.yes',
+                                                passedData: true
+                                            )
+                                            :
+                                        onOk ??
+                                                () => Nav.goBack(
+                                                  context: xxx,
+                                                  invoker: 'CenterDialog.ok',
+                                                ),
                                       ),
 
                                     ],

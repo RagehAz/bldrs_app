@@ -70,7 +70,10 @@ Future<void> onShowNoteOptions({
               noteModel: noteModel,
             );
 
-            Nav.goBack(context);
+            Nav.goBack(
+              context: context,
+              invoker: 'onShowNoteOptions',
+            );
 
           }
         ),

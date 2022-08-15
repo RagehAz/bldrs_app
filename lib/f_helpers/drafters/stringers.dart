@@ -229,7 +229,7 @@ class Stringer {
 
   /// SORTING STRINGS
 
-// ----------------------------
+// -------------------------------------
   /*
   static List<String> sortAlphabetically(List<String> inputList) {
     inputList.sort();
@@ -237,7 +237,7 @@ class Stringer {
   }
    */
 // -------------------------------------
-/*
+  /*
   /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
     // List<String> _outputList = <String>[];
@@ -385,6 +385,7 @@ class Stringer {
   /// GENERATORS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String generateStringFromStrings({
     @required List<String> strings,
     String stringsSeparator = ', ',

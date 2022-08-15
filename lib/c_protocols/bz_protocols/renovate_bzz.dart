@@ -64,7 +64,10 @@ class RenovateBzProtocols {
       /// ON END NAVIGATION
       if (navigateToBzInfoPageOnEnd == true){
 
-        Nav.goBackToHomeScreen(context);
+        Nav.goBackToHomeScreen(
+          context: context,
+          invoker: 'renovateBz',
+        );
 
         unawaited(
             Nav.goToNewScreen(

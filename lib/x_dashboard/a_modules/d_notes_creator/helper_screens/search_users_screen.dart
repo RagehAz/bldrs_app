@@ -148,7 +148,11 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 // -----------------------------------------------------------------------------
   void _onBack(){
 
-    Nav.goBack(context, passedData: _selectedUsers.value);
+    Nav.goBack(
+        context: context,
+        invoker: 'SearchUsersScreen.onBack',
+        passedData: _selectedUsers.value,
+    );
 
   }
 // -----------------------------------------------------------------------------

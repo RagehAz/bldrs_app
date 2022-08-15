@@ -100,7 +100,10 @@ class _FeedBackState extends State<FeedBack> {
       );
     }
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'FeedbackScreen',
+    );
   }
 // -----------------------------------------------------------------------------
   @override

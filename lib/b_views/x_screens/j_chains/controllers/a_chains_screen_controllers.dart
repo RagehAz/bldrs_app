@@ -158,7 +158,10 @@ Future<void> _setActivePhidK({
             verse: 'Go back',
             color: Colorz.yellow255,
             verseColor: Colorz.black230,
-            onTap: () => Nav.goBack(context),
+            onTap: () => Nav.goBack(
+              context: context,
+              invoker: '_setActivePhidK.centerDialog',
+            ),
           ),
 
         ],
@@ -226,7 +229,11 @@ Future<void> onSpecPickerTap({
 
     /// WHILE SELECTING ONLY ONE PHID
     else {
-      Nav.goBack(context, passedData: _result);
+      Nav.goBack(
+          context: context,
+          invoker: 'onSpecPickerTap',
+          passedData: _result,
+      );
     }
 
   }

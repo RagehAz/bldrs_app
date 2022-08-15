@@ -85,7 +85,6 @@ class WipeBzProtocols {
 
     ]);
 
-
     if (showWaitDialog == true){
       WaitDialog.closeWaitDialog(context);
     }
