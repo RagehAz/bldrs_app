@@ -245,7 +245,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 icon: _countryID == null ?
                 Iconz.share
                     :
-                Flag.getFlagIconByCountryID(_countryID),
+                Flag.getFlagIcon(_countryID),
                 onTap: () async {
                   blog('LET THE GAMES BEGIN');
 
@@ -258,7 +258,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                 icon: _countryID == null ?
                 Iconz.share
                     :
-                Flag.getFlagIconByCountryID(_countryID),
+                Flag.getFlagIcon(_countryID),
                 onTap: () async {
                   blog('LET THE GAMES BEGIN');
                   await _getPositionFromMap();

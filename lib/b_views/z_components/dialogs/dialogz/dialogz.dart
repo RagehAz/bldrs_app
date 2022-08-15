@@ -152,7 +152,7 @@ Future<CityModel> confirmCityDialog({
           return BottomDialog.wideButton(
               context: context,
               verse: _foundCityName,
-              icon: Flag.getFlagIconByCountryID(_foundCity.countryID),
+              icon: Flag.getFlagIcon(_foundCity.countryID),
               onTap: () {
 
                 _city = _foundCity;

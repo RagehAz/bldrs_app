@@ -624,8 +624,8 @@ class Chain {
 
   /// GETTERS
 
-// --------------------------------------------
-
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainSonsIDs({
     @required Chain chain,
   }){

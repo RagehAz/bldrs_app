@@ -498,7 +498,7 @@ Future<void> _onSelectCountryAsNoteSender({
     selectedSenderType.value = senderType;
     note.value = note.value.copyWith(
       senderID: _countryModel.id,
-      senderImageURL: Flag.getFlagIconByCountryID(_countryModel.id),
+      senderImageURL: Flag.getFlagIcon(_countryModel.id),
       noteSenderType: senderType,
     );
 

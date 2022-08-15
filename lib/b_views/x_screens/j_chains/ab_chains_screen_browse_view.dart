@@ -1,10 +1,16 @@
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/pickers_group.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +22,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
     @required this.onDeleteSpec,
     @required this.selectedSpecs,
     @required this.refinedSpecsPickers,
+    @required this.onlyUseCityChains,
+    @required this.flyerTypes,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +32,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final ValueNotifier<List<SpecPicker>> refinedSpecsPickers;
+  final bool onlyUseCityChains;
+  final List<FlyerType> flyerTypes;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,7 +50,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
             );
 
             return ListView.builder(
-                itemCount: _theGroupsIDs.length,
+                itemCount: _theGroupsIDs.length + 1,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(
                   top: Stratosphere.bigAppBarStratosphere,
@@ -48,20 +58,63 @@ class ChainsScreenBrowseView extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext ctx, int index) {
 
-                  final String _groupID = _theGroupsIDs[index];
+                  if (index == 0){
 
-                  final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
-                    specsPickers: refinedPickers,
-                    groupID: _groupID,
-                  );
+                    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+                        context: context,
+                        listen: true,
+                    );
 
-                  return SpecsPickersGroup(
-                    title: _groupID.toUpperCase(),
-                    selectedSpecs: selectedSpecs,
-                    groupPickers: _pickersOfThisGroup,
-                    onPickerTap: onPickerTap,
-                    onDeleteSpec: onDeleteSpec,
-                  );
+                    final List<String> _strings = FlyerTyper.translateFlyerTypes(
+                        context: context,
+                        flyerTypes: flyerTypes,
+                    );
+
+                    final String _flyerTypesString = Stringer.generateStringFromStrings(
+                        strings: _strings,
+                    );
+
+                    final String _instruction =
+                      onlyUseCityChains == true ?
+                          'Showing only keywords used in'
+                          '\n${_zone.cityName}, ${_zone.countryName}.'
+                          '\n$_flyerTypesString'
+                              :
+                          'Showing All keywords in Bldrs.net'
+                          '\n$_flyerTypesString';
+
+                    final String _icon = onlyUseCityChains == true ?
+                    _zone.flag
+                        :
+                    Iconz.info;
+
+                    return ChainInstructions(
+                      verseOverride: _instruction,
+                      leadingIcon: _icon,
+                      iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
+                    );
+
+                  }
+
+                  else {
+
+                    final String _groupID = _theGroupsIDs[index - 1];
+
+                    final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
+                      specsPickers: refinedPickers,
+                      groupID: _groupID,
+                    );
+
+                    return SpecsPickersGroup(
+                      title: _groupID.toUpperCase(),
+                      selectedSpecs: selectedSpecs,
+                      groupPickers: _pickersOfThisGroup,
+                      onPickerTap: onPickerTap,
+                      onDeleteSpec: onDeleteSpec,
+                    );
+
+
+                  }
 
                 }
             );

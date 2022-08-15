@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -63,7 +62,7 @@ class InfoPageMainDetails extends StatelessWidget {
         /// ZONE
         StatsLine(
           verse: 'Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
-          icon: Flag.getFlagIconByCountryID(flyerZone?.countryID),
+          icon: flyerZone?.flag,
           bubbleWidth: pageWidth,
         ),
 

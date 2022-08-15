@@ -134,7 +134,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     //   context: context,
     //   countryID: widget.country.id,
     // );
-    final String _countryFlag = Flag.getFlagIconByCountryID(widget.country.id);
+    final String _countryFlag = Flag.getFlagIcon(widget.country.id);
     final double _clearWidth = PageBubble.clearWidth(context);
 
     return PageBubble(
