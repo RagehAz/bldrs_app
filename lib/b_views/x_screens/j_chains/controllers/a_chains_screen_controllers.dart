@@ -87,7 +87,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       flyerTypesChainFilters: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
-      pageTitle: 'Select Flyer keyword',
+      pageTitle: 'Browse Flyers by Keyword',
     ),
   );
 
@@ -193,6 +193,7 @@ Future<void> onSpecPickerTap({
   @required BuildContext context,
   @required SpecPicker picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required List<SpecModel> originalSpecs,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
   @required ValueNotifier<List<SpecPicker>> refinedSpecsPickers,
@@ -208,6 +209,7 @@ Future<void> onSpecPickerTap({
       onlyUseCityChains: onlyUseCityChains,
       showInstructions: isMultipleSelectionMode,
       isMultipleSelectionMode:  isMultipleSelectionMode,
+      originalSpecs: originalSpecs,
     ),
   );
 

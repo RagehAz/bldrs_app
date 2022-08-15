@@ -50,6 +50,7 @@ class SpecPicker {
   /// MODIFIERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecPicker> applyDeactivatorsToSpecsPickers({
     @required List<SpecPicker> sourceSpecsPickers,
     @required List<SpecModel> selectedSpecs,
@@ -184,6 +185,24 @@ class SpecPicker {
 
     return _specPicker;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<SpecPicker> getPickersByFlyerTypes(List<FlyerType> flyerTypes){
+    final List<SpecPicker> _output = <SpecPicker>[];
+
+    if (Mapper.checkCanLoopList(flyerTypes) == true){
+
+      for (final FlyerType type in flyerTypes){
+
+        final List<SpecPicker> _pickers = getPickersByFlyerType(type);
+        _output.addAll(_pickers);
+
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -245,6 +264,7 @@ class SpecPicker {
   /// CREATORS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecPicker> createPickersForChainK({
     @required BuildContext context,
     @required Chain chainK,
@@ -280,6 +300,7 @@ class SpecPicker {
     return _pickers;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecPicker> createPickersFromAllChainKs({
     @required bool canPickManyOfAPicker,
     List<FlyerType> onlyUseTheseFlyerTypes,
@@ -319,6 +340,7 @@ class SpecPicker {
   }
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecPicker> createAllChainKPickers({
   @required bool canPickMany,
 }){

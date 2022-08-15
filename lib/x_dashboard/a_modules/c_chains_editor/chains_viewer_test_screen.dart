@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
@@ -66,26 +67,58 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
-  FlyerType _flyerType;
+  final List<FlyerType> _selectedTypes = <FlyerType>[];
 // -----------------------------------------------------------------------------
-  static const List<FlyerType> _flyerTypes = <FlyerType>[
-    null,
+  static const List<FlyerType> _allTypes = <FlyerType>[
+    // null,
     ...FlyerTyper.flyerTypesList,
   ];
 // -------------------------------------------------
   void _onTapPickerSelector(FlyerType flyerType){
 
-    setState(() {
-      _flyerType = flyerType;
-    });
+    final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
+        flyerType: flyerType,
+        flyerTypes: _selectedTypes,
+    );
+
+    if (_isSelected == true){
+      setState(() {
+        _selectedTypes.remove(flyerType);
+      });
+    }
+
+    else {
+      setState(() {
+        _selectedTypes.insert(0, flyerType);
+      });
+    }
 
   }
+
+  bool onlyPhidKs = false;
 
   @override
   Widget build(BuildContext context) {
 
     return DashBoardLayout(
-      pageTitle: _flyerType?.toString(),
+      // pageTitle: _flyerType?.toString(),
+      appBarWidgets: <Widget>[
+
+        AppBarButton(
+          icon: Iconz.keyword,
+          verse: onlyPhidKs == true ? 'Only phidKs' : 'All Chains',
+          buttonColor: onlyPhidKs == true ? Colorz.yellow255 : null,
+          verseColor: onlyPhidKs == true ? Colorz.black255 : Colorz.white255,
+          onTap: (){
+
+            setState(() {
+              onlyPhidKs = !onlyPhidKs;
+            });
+
+          },
+        ),
+
+      ],
       listWidgets: <Widget>[
 
         /// PICKERS SELECTORS
@@ -94,16 +127,20 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           height: Ratioz.appBarButtonSize + 5,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemCount: _flyerTypes.length,
+            itemCount: _allTypes.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index){
 
-                final bool _isSelected = _flyerTypes[index] == _flyerType;
+                final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
+                  flyerType: _allTypes[index],
+                  flyerTypes: _selectedTypes,
+                );
+
 
                 return AppBarButton(
-                  verse: _flyerTypes[index].toString(),
+                  verse: _allTypes[index].toString(),
                   buttonColor: _isSelected == true ? Colorz.green255 : null,
-                  onTap: () => _onTapPickerSelector(_flyerTypes[index]),
+                  onTap: () => _onTapPickerSelector(_allTypes[index]),
                 );
 
               }
@@ -118,11 +155,11 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final List<SpecModel> _specs =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypesChainFilters: [_flyerType],
+                  flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: true,
                   pageTitle: 'CITY CHAINS + MULTIPLE SELECTION',
-
+                  onlyChainKSelection: onlyPhidKs,
                 )
             );
 
@@ -141,11 +178,11 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final List<SpecModel> _specs =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypesChainFilters: [_flyerType],
+                  flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: true,
                   pageTitle: 'ALL CHAINS + MULTIPLE SELECTION',
-
+                  onlyChainKSelection: onlyPhidKs,
                 )
             );
 
@@ -164,11 +201,11 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final String string =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypesChainFilters: [_flyerType],
+                  flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: false,
                   pageTitle: 'CITY CHAINS + SINGLE SELECTION',
-
+                  onlyChainKSelection: onlyPhidKs,
                 )
             );
 
@@ -185,11 +222,11 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             final String string =  await Nav.goToNewScreen(
                 context: context,
                 screen: ChainsScreen(
-                  flyerTypesChainFilters: [_flyerType],
+                  flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: false,
                   pageTitle: 'ALL CHAINS + SINGLE SELECTION',
-
+                  onlyChainKSelection: onlyPhidKs,
                 )
             );
 

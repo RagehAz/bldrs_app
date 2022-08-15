@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/a_user_profile_screen.dart';
@@ -318,7 +317,7 @@ List<NavModel> generateMainNavModels({
   @required UserModel userModel,
 }){
 
-  final String _countryFlag = Flag.getFlagIconByCountryID(currentZone?.countryID);
+  final String _countryFlag = currentZone?.flag;
 
   return <NavModel>[
 

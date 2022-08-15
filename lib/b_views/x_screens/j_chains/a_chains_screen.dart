@@ -8,6 +8,8 @@ import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_con
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/b_chains_search_controller.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -112,7 +114,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       else {
 
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
-        if (widget.flyerTypesChainFilters == null){
+        if (Mapper.checkCanLoopList(widget.flyerTypesChainFilters) == false){
 
           _allSpecPickers = SpecPicker.createPickersForChainK(
             context: context,
@@ -124,6 +126,9 @@ class _ChainsScreenState extends State<ChainsScreen> {
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if (widget.flyerTypesChainFilters.length == 1){
           _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypesChainFilters[0]);
+        }
+        else {
+          _allSpecPickers = SpecPicker.getPickersByFlyerTypes(widget.flyerTypesChainFilters);
         }
 
       }
@@ -187,8 +192,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
     }
 }
 // -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -202,13 +205,46 @@ class _ChainsScreenState extends State<ChainsScreen> {
       pageTitle: widget.pageTitle,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
-      onBack: (){
-        Nav.goBack(
-          context: context,
-          invoker: 'ChainsScreen',
-          passedData: _selectedSpecs.value,
-        );
+      onBack: () async {
+
+        bool _canContinue = true;
+
+        if (widget.isMultipleSelectionMode == true){
+          final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
+              widget.selectedSpecs ?? [],
+              _selectedSpecs.value
+          ) == false;
+
+          if (_specsChanged == true){
+            _canContinue = await CenterDialog.showCenterDialog(
+              context: context,
+              title: 'Discard Changes',
+              body: 'This will ignore All selection changes',
+              confirmButtonText: 'Discard',
+              boolDialog: true,
+            );
+          }
+        }
+
+
+        if (_canContinue == true){
+          Nav.goBack(
+            context: context,
+            invoker: 'SpecPickerScreen.goBack',
+          );
+        }
+
       },
+      confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
+        firstLine: 'Confirm ${widget.pageTitle}',
+        onTap: (){
+          Nav.goBack(
+            context: context,
+            invoker: 'ChainsScreen',
+            passedData: _selectedSpecs.value,
+          );
+        },
+      ),
       onSearchChanged: (String text) => onChainsSearchChanged(
         text: text,
         isSearching: _isSearching,
@@ -300,9 +336,11 @@ class _ChainsScreenState extends State<ChainsScreen> {
             else {
 
               return ChainsScreenBrowseView(
+                onlyUseCityChains: widget.onlyUseCityChains,
                 refinedSpecsPickers: _refinedSpecsPickers,
                 specsPickers: _allSpecPickers,
                 selectedSpecs: _selectedSpecs,
+                flyerTypes: widget.flyerTypesChainFilters,
                 onPickerTap: (SpecPicker picker) => onSpecPickerTap(
                   context: context,
                   selectedSpecs: _selectedSpecs,
@@ -311,6 +349,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                   allSpecPickers: _allSpecPickers,
                   picker: picker,
                   refinedSpecsPickers: _refinedSpecsPickers,
+                  originalSpecs: widget.selectedSpecs ?? [],
                 ),
                 onDeleteSpec: (List<SpecModel> specs) => onRemoveSpecs(
                   specs: specs,
