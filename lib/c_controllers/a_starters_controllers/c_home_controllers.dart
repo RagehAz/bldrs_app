@@ -488,7 +488,7 @@ Future<void> onNavigate({
 
   final NavModel _navModel = models[index];
 
-  progressBarModel.value = progressBarModel.value.copyWith(
+  progressBarModel.value = progressBarModel.value?.copyWith(
     index: index,
   );
   // onTriggerExpansion();

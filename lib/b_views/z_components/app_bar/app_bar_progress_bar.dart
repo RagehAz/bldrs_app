@@ -48,10 +48,10 @@ class AppBarProgressBar extends StatelessWidget {
               builder: (_, ProgressBarModel progressBarModel, Widget childB){
 
                 return StaticProgressBar(
-                  index: progressBarModel.index,
-                  numberOfSlides: progressBarModel.numberOfStrips,
+                  index: progressBarModel?.index,
+                  numberOfSlides: progressBarModel?.numberOfStrips,
                   opacity: 1,
-                  swipeDirection: progressBarModel.swipeDirection,
+                  swipeDirection: progressBarModel?.swipeDirection,
                   loading: isLoading,
                   flyerBoxWidth: _abWidth,
                   margins: _margins,
