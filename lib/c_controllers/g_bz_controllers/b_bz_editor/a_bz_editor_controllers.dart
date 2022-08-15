@@ -23,29 +23,43 @@ import 'package:flutter/material.dart';
   /// BZ MODEL EDITORS
 
 // ----------------------------------
-void onSelectBzSection({
+Future<void> onSelectBzSection({
+  @required BuildContext context,
   @required int index,
   @required ValueNotifier<BzSection> selectedBzSection,
   @required ValueNotifier<List<BzType>> inactiveBzTypes,
   @required ValueNotifier<List<BzType>> selectedBzTypes,
   @required ValueNotifier<BzForm> selectedBzForm,
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
-}){
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
+}) async {
 
-  final BzSection _selectedSection = BzModel.bzSectionsList[index];
-  final List<BzType> _generatedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
-    bzSection: _selectedSection,
-  );
+  bool _canContinue = true;
 
-  selectedBzSection.value = _selectedSection;
-  inactiveBzTypes.value = _generatedInactiveBzTypes;
-  selectedBzTypes.value = <BzType>[];
-  selectedBzForm.value = null;
-  inactiveBzForms.value = null;
+  if (Mapper.checkCanLoopList(selectedScopes.value) == true){
+    _canContinue = await _resetScopeDialog(context);
+  }
+
+  if (_canContinue == true){
+
+    final BzSection _selectedSection = BzModel.bzSectionsList[index];
+    final List<BzType> _generatedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
+      bzSection: _selectedSection,
+    );
+
+    selectedBzSection.value = _selectedSection;
+    inactiveBzTypes.value = _generatedInactiveBzTypes;
+    selectedBzTypes.value = <BzType>[];
+    selectedBzForm.value = null;
+    inactiveBzForms.value = null;
+    selectedScopes.value = <SpecModel>[];
+
+  }
 
 }
 // ----------------------------------
-void onSelectBzType({
+Future<void> onSelectBzType({
+  @required BuildContext context,
   @required int index,
   @required ValueNotifier<List<BzType>> selectedBzTypes,
   @required ValueNotifier<List<BzType>> inactiveBzTypes,
@@ -53,31 +67,41 @@ void onSelectBzType({
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
   @required ValueNotifier<BzForm> selectedBzForm,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
-}){
+}) async {
 
-  final BzType _selectedBzType = BzModel.bzTypesList[index];
+  bool _canContinue = true;
 
-  /// UPDATE SELECTED BZ TYPES
-  selectedBzTypes.value = BzModel.addOrRemoveBzTypeToBzzTypes(
-    selectedBzTypes: selectedBzTypes.value,
-    newSelectedBzType: _selectedBzType,
-  );
+  if (Mapper.checkCanLoopList(selectedScopes.value) == true){
+    _canContinue = await _resetScopeDialog(context);
+  }
 
-  /// INACTIVE OTHER BZ TYPES
-  inactiveBzTypes.value = BzModel.concludeInactiveBzTypesBasedOnSelectedBzTypes(
-    newSelectedType: _selectedBzType,
-    selectedBzTypes: selectedBzTypes.value,
-    selectedBzSection: selectedBzSection.value,
-  );
+  if (_canContinue == true){
 
-  /// INACTIVATE BZ FORMS
-  inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(selectedBzTypes.value);
+    final BzType _selectedBzType = BzModel.bzTypesList[index];
 
-  /// UN SELECT BZ FORM
-  selectedBzForm.value = null;
+    /// UPDATE SELECTED BZ TYPES
+    selectedBzTypes.value = BzModel.addOrRemoveBzTypeToBzzTypes(
+      selectedBzTypes: selectedBzTypes.value,
+      newSelectedBzType: _selectedBzType,
+    );
 
-  /// BZ SCOPE
-  selectedScopes.value = <SpecModel>[];
+    /// INACTIVE OTHER BZ TYPES
+    inactiveBzTypes.value = BzModel.concludeInactiveBzTypesBasedOnSelectedBzTypes(
+      newSelectedType: _selectedBzType,
+      selectedBzTypes: selectedBzTypes.value,
+      selectedBzSection: selectedBzSection.value,
+    );
+
+    /// INACTIVATE BZ FORMS
+    inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(selectedBzTypes.value);
+
+    /// UN SELECT BZ FORM
+    selectedBzForm.value = null;
+
+    /// BZ SCOPE
+    selectedScopes.value = <SpecModel>[];
+
+  }
 
 }
 // ----------------------------------
@@ -151,6 +175,24 @@ Future<void> onAddScopesTap({
     selectedScopes.value = _result;
   }
 
+}
+// -----------------------------------------------------------------------------
+
+/// DIALOGS
+
+// ----------------------------------
+Future<bool> _resetScopeDialog(BuildContext context) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Reset Scope',
+    body: 'This will delete all selected business scope keywords',
+    boolDialog: true,
+    confirmButtonText: 'Reset',
+
+  );
+
+  return _result;
 }
 // -----------------------------------------------------------------------------
 

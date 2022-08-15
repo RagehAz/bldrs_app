@@ -133,9 +133,9 @@ class InfoPageContents extends StatelessWidget {
                         ),
                       /// KEYWORDS
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
-                        InfoPageKeywords(
+                        PhidsViewer(
                           pageWidth: _pageWidth,
-                          keywordsIDs: flyerModel.keywordsIDs,
+                          phids: flyerModel.keywordsIDs,
                         ),
                       /// KEYWORDS LINE
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
