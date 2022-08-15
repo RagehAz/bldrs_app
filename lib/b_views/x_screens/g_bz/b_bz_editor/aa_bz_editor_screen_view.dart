@@ -116,12 +116,14 @@ class BzEditorScreenView extends StatelessWidget {
                           selectedButtons: <String>[_selectedButton],
                           isInError: false,
                           onButtonTap: (int index) => onSelectBzSection(
+                            context: context,
                             index: index,
                             selectedBzTypes: selectedBzTypes,
                             selectedBzSection: selectedBzSection,
                             inactiveBzTypes: inactiveBzTypes,
                             inactiveBzForms: inactiveBzForms,
                             selectedBzForm: selectedBzForm,
+                            selectedScopes: selectedScopes,
                           ),
                         );
 
@@ -163,6 +165,7 @@ class BzEditorScreenView extends StatelessWidget {
                                 inactiveButtons: _inactiveButtons,
                                 isInError: false,
                                 onButtonTap: (int index) => onSelectBzType(
+                                  context: context,
                                   index: index,
                                   selectedBzForm: selectedBzForm,
                                   inactiveBzForms: inactiveBzForms,
@@ -288,7 +291,7 @@ class BzEditorScreenView extends StatelessWidget {
                           valueListenable: selectedScopes,
                           builder: (_, List<SpecModel> selectedSpecs, Widget child){
 
-                            final List<String> _keywords = SpecModel.getSpecsIDs(selectedSpecs);
+                            final List<String> _phids = SpecModel.getSpecsIDs(selectedSpecs);
 
                             return WidgetFader(
                               fadeType: Mapper.checkCanLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
@@ -308,16 +311,16 @@ class BzEditorScreenView extends StatelessWidget {
                                     ],
                                   ),
 
-                                  if (Mapper.checkCanLoopList(_keywords))
-                                  InfoPageKeywords(
+                                  if (Mapper.checkCanLoopList(_phids))
+                                  PhidsViewer(
                                     pageWidth: Bubble.clearWidth(context),
-                                    keywordsIDs: _keywords,
+                                    phids: _phids,
                                   ),
 
                                   DreamBox(
                                     height: PhidButton.getHeight(),
                                     // width: Bubble.clearWidth(context),
-                                    verse: Mapper.checkCanLoopList(_keywords) ? 'Edit Scopes' : 'Add Scopes',
+                                    verse: Mapper.checkCanLoopList(_phids) ? 'Edit Scopes' : 'Add Scopes',
                                     bubble: false,
                                     color: Colorz.white20,
                                     verseScaleFactor: 1.5,

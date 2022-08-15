@@ -60,9 +60,9 @@ class BzAboutPage extends StatelessWidget {
             title: 'Scope of services',
             columnChildren: <Widget>[
 
-              InfoPageKeywords(
+              PhidsViewer(
                 pageWidth: Scale.superScreenWidth(context),
-                keywordsIDs: _bzModel.scope,
+                phids: _bzModel.scope,
               ),
 
             ],
