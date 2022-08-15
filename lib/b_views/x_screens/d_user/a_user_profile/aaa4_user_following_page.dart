@@ -51,7 +51,7 @@ class UserFollowingPage extends StatelessWidget {
 
               blog('snapshot connectionState is : ${snapshot.connectionState}');
 
-              if (connectionIsLoading(snapshot) == true){
+              if (Streamer.connectionIsLoading(snapshot) == true){
                 return const SizedBox();
               }
 

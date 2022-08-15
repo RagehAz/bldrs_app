@@ -610,17 +610,17 @@ void initializeObeliskNumbers(BuildContext context){
 /// USER NOTES STREAM
 
 // -------------------------------
-Stream<QuerySnapshot<Object>> initializeUserNotes(BuildContext context){
+StreamSubscription initializeUserNotes(BuildContext context){
+
+  StreamSubscription _sub;
 
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-  Stream<QuerySnapshot<Object>> _stream;
-
   if (_userModel != null){
 
     /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
-    _stream  = _userUnseenReceivedNotesStream(
+    final Stream<QuerySnapshot<Object>> _stream = _userUnseenReceivedNotesStream(
       context: context
     );
 
@@ -628,7 +628,7 @@ Stream<QuerySnapshot<Object>> initializeUserNotes(BuildContext context){
       context: context,
     );
 
-    FireCollStreamer.onStreamDataChanged(
+    _sub = FireCollStreamer.onStreamDataChanged(
       stream: _stream,
       oldMaps: _oldMaps,
       onChange: (List<Map<String, dynamic>> allUpdatedMaps) async {
@@ -669,7 +669,7 @@ Stream<QuerySnapshot<Object>> initializeUserNotes(BuildContext context){
 
   }
 
-  return _stream;
+  return _sub;
 }
 // -------------------------------
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
@@ -766,12 +766,13 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 /// BZZ NOTES STREAMS
 
 // -------------------------------
-void initializeMyBzzNotes(BuildContext context){
+List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
+
+  final List<StreamSubscription> _subs = <StreamSubscription>[];
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
-
   blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
 
   if (_userIsAuthor == true){
@@ -780,15 +781,18 @@ void initializeMyBzzNotes(BuildContext context){
 
     for (final BzModel bzModel in _myBzz){
 
-      initializeBzNotesStream(
+      final StreamSubscription _sub = initializeBzNotesStream(
         context: context,
         bzID: bzModel.id,
       );
+
+      _subs.add(_sub);
 
     }
 
   }
 
+  return _subs;
 }
 // -------------------------------
 Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
@@ -843,7 +847,7 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
   return _oldMaps;
 }
 // -------------------------------
-void initializeBzNotesStream({
+StreamSubscription initializeBzNotesStream({
   @required BuildContext context,
   @required String bzID,
 }){
@@ -855,12 +859,15 @@ void initializeBzNotesStream({
     bzID: bzID,
   );
 
+  // final _stream.listen((event) { });
+
+
   final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProBzUnseenReceivedNotes(
     context: context,
     bzID: bzID,
   );
 
-  FireCollStreamer.onStreamDataChanged(
+  final StreamSubscription _streamSubscription = FireCollStreamer.onStreamDataChanged(
     stream: _stream,
     oldMaps: _oldMaps,
     onChange: (List<Map<String, dynamic>> allBzNotes) async {
@@ -897,6 +904,7 @@ void initializeBzNotesStream({
     },
   );
 
+  return _streamSubscription;
 }
 // -------------------------------
 /// TESTED : WORKS PERFECT

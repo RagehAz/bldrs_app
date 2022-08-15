@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ Widget bzModelStreamBuilder({
   return StreamBuilder<BzModel>(
     stream: getBzStream(bzID),
     builder: (BuildContext context, AsyncSnapshot<BzModel> snapshot) {
-      if (StreamChecker.connectionIsLoading(snapshot) == true) {
+      if (Streamer.connectionIsLoading(snapshot) == true) {
         return const Loading(
           loading: true,
         );

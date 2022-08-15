@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -54,7 +54,7 @@ class GeneralStatistics extends StatelessWidget {
         // initialData: null,
         builder: (BuildContext context, AsyncSnapshot<Object> snapshot) {
 
-          if (StreamChecker.connectionIsLoading(snapshot) == true) {
+          if (Streamer.connectionIsLoading(snapshot) == true) {
             return const Loading(
               loading: true,
             );
