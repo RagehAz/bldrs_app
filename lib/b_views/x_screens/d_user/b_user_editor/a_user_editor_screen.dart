@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -8,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/zone_ops.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -165,7 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       status: widget.userModel.status,
       // -------------------------
       name: _nameController.text,
-      trigram: TextGen.createTrigram(input: _nameController.text),
+      trigram: Stringer.createTrigram(input: _nameController.text),
       pic: _picture.value ?? widget.userModel.pic,
       title: _titleController.text,
       company: _companyController.text,

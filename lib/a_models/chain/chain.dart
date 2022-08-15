@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,8 @@ class Chain {
       }
 
       else {
-        final bool _contains = Mapper.checkStringsContainString(
-          strings: Mapper.getStringsFromDynamics(dynamics: sons),
+        final bool _contains = Stringer.checkStringsContainString(
+          strings: Stringer.getStringsFromDynamics(dynamics: sons),
           string: son,
         );
         if (_contains == false){
@@ -167,7 +168,7 @@ class Chain {
 
         /// FIRST SON IS STRING => SONS ARE STRINGS
         if (sons[0] is String){
-          _output = Mapper.getStringsFromDynamics(dynamics: sons);
+          _output = Stringer.getStringsFromDynamics(dynamics: sons);
         }
 
         /// FIRST SON IS NOT STRING => SONS ARE CHAINS
@@ -230,13 +231,13 @@ class Chain {
         Mapper.checkCanLoopList(specPicker?.range)
     ) {
 
-      final List<String> _rangeIDs = Mapper.getStringsFromDynamics(
+      final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
         dynamics: specPicker.range,
       );
 
       for (final String son in _filteredChain.sons) {
 
-        final bool _rangeContainsThisID = Mapper.checkStringsContainString(
+        final bool _rangeContainsThisID = Stringer.checkStringsContainString(
           strings: _rangeIDs,
           string: son,
         ) == true;
@@ -489,7 +490,7 @@ class Chain {
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
       else if (checkSonsAreStrings(chain.sons) == true){
-        _includes = Mapper.checkStringsContainString(
+        _includes = Stringer.checkStringsContainString(
             strings: chain.sons,
             string: phid,
         );
@@ -876,7 +877,7 @@ class Chain {
     blog('chains IDs are : $_chainsIDs');
 
     /// REMOVE CHAINS IDS FROM PHIDKS
-    final List<String> _cleaned = Mapper.removeStringsFromStrings(
+    final List<String> _cleaned = Stringer.removeStringsFromStrings(
       removeFrom: phids,
       removeThis: _chainsIDs,
     );

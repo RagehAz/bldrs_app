@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -36,10 +37,8 @@ class Continent {
     return Continent(
       name: map['name'],
       regions: Region.decipherRegions(map['regions']),
-      activatedCountriesIDs:
-          Mapper.getStringsFromDynamics(dynamics: map['activatedCountriesIDs']),
-      globalCountriesIDs:
-          Mapper.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
+      activatedCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['activatedCountriesIDs']),
+      globalCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
     );
   }
 // -----------------------------------------------------------------------------

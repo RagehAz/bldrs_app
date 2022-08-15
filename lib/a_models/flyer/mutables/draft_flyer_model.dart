@@ -9,8 +9,8 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -110,7 +110,7 @@ class DraftFlyerModel{
     return FlyerModel(
       id: id,
       headline: headlineController.text,
-      trigram: TextGen.createTrigram(input: headlineController.text),
+      trigram: Stringer.createTrigram(input: headlineController.text),
       description: descriptionController.text,
       flyerType: flyerType,
       publishState: publishState,

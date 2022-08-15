@@ -8,6 +8,7 @@ import 'package:bldrs/e_db/fire/ops/phrase_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -126,7 +127,7 @@ class PhraseProtocols {
         maps: _maps,
       );
 
-      final List<String> _duplicatesCleaned = Mapper.cleanDuplicateStrings(
+      final List<String> _duplicatesCleaned = Stringer.cleanDuplicateStrings(
         strings: _mapsIDs,
       );
 

@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -344,14 +345,14 @@ List<String> getNextFlyersIDs({
 
       final String _flyerID = allFlyersIDs[i];
 
-      final bool _alreadyLoaded = Mapper.checkStringsContainString(
+      final bool _alreadyLoaded = Stringer.checkStringsContainString(
         strings: loadedFlyersIDs,
         string: _flyerID,
       );
 
       final List<String> _parentFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
 
-      final bool _alreadyAParentFlyer = Mapper.checkStringsContainString(
+      final bool _alreadyAParentFlyer = Stringer.checkStringsContainString(
           strings: _parentFlyersIDs,
           string: _flyerID
       );

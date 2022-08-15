@@ -11,6 +11,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -930,7 +931,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       if (Mapper.checkCanLoopList(_ownersIDs) == true){
 
-        _canDelete = Mapper.checkStringsContainString(
+        _canDelete = Stringer.checkStringsContainString(
             strings: _ownersIDs,
             string: AuthFireOps.superUserID(),
         );

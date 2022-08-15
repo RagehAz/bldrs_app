@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

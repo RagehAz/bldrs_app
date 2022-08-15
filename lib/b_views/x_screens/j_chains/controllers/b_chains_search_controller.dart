@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.d
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -167,7 +168,7 @@ List<String> _removePhidsOutOfScope({
 
       for (final String phid in phids){
 
-        final bool _withinScope = Mapper.checkStringsContainString(
+        final bool _withinScope = Stringer.checkStringsContainString(
             strings: scope,
             string: phid,
         );

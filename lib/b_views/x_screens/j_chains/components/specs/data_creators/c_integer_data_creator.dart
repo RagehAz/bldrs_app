@@ -14,7 +14,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +122,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     final List<SpecModel> _output = <SpecModel>[];
 
     /// when there is value
-    if (TextChecker.stringIsNotEmpty(controller.text) == true){
+    if (Stringer.checkStringIsNotEmpty(controller.text) == true){
       final SpecModel _valueSpec = SpecModel(
         pickerChainID: widget.specPicker.chainID,
         value: _specValue.value,

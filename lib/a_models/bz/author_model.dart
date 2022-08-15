@@ -6,7 +6,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +127,7 @@ class AuthorModel {
       title: map['title'],
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
-      flyersIDs: Mapper.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
     );
   }
 // ----------------------------------
@@ -223,7 +223,7 @@ class AuthorModel {
 
       _ownersIDs.add(_creatorAuthor.userID);
 
-      _ownersIDs = TextMod.addStringToListIfDoesNotContainIt(
+      _ownersIDs = Stringer.addStringToListIfDoesNotContainIt(
           strings: _ownersIDs,
           stringToAdd: authorModel.userID,
       );
@@ -372,7 +372,7 @@ class AuthorModel {
 
       _author = authors.firstWhere((AuthorModel authorModel){
 
-        final bool _found = Mapper.checkStringsContainString(
+        final bool _found = Stringer.checkStringsContainString(
             strings: authorModel.flyersIDs,
             string: flyerID,
         );
@@ -534,7 +534,7 @@ class AuthorModel {
 
       // blog('addFlyerIDToAuthor : author $authorID flyers was ${_author.flyersIDs} ');
 
-      final List<String> _updatedFlyersIDs = Mapper.putStringInStringsIfAbsent(
+      final List<String> _updatedFlyersIDs = Stringer.putStringInStringsIfAbsent(
           strings: _author.flyersIDs,
           string: flyerID
       );
@@ -585,7 +585,7 @@ class AuthorModel {
 
       blog('removeFlyerIDToAuthor : author flyers was : ${_author.flyersIDs}');
 
-      final List<String> _updatedFlyersIDs = Mapper.removeStringsFromStrings(
+      final List<String> _updatedFlyersIDs = Stringer.removeStringsFromStrings(
           removeFrom: _author.flyersIDs,
           removeThis: <String>[flyerID],
       );
@@ -812,7 +812,7 @@ class AuthorModel {
         listen: false,
     );
 
-    return Mapper.checkStringsContainString(
+    return Stringer.checkStringsContainString(
         strings: _myUserModel.myBzzIDs,
         string: flyerModel.bzID,
     );

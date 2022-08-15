@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,7 @@ class ChainSplitter extends StatelessWidget {
 
       final String _phid = chainOrChainsOrSonOrSons;
 
-      final bool _isSelected = Mapper.checkStringsContainString(
+      final bool _isSelected = Stringer.checkStringsContainString(
           strings: selectedPhids,
           string: _phid,
       );
