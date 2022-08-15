@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/cc_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _loading.dispose();
     _keyboardSubscription.cancel();
 
-    _userNotesStreamSub.cancel();
+    _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
 
     super.dispose();
@@ -146,8 +147,27 @@ class _HomeScreenState extends State<HomeScreen> {
       key: const ValueKey<String>('mainLayout'),
       // navBarIsOn: false,
       appBarType: AppBarType.main,
-      onBack: (){
-        Nav.closeApp(context);
+      onBack: () async {
+
+        final bool _result = await CenterDialog.showCenterDialog(
+          context: context,
+          title: 'Exit App ?',
+          body: 'Would you like to exit and close Bldrs.net App ?',
+          boolDialog: true,
+          confirmButtonText: 'Exit Bldrs.net',
+        );
+
+        if (_result == true){
+          
+          CenterDialog.closeCenterDialog(context);
+
+          await Future.delayed(const Duration(milliseconds: 500), () async {
+            await Nav.closeApp(context);
+            },
+          );
+
+        }
+
       },
       layoutWidget: Stack(
         children: <Widget>[

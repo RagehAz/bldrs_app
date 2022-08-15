@@ -17,7 +17,7 @@ enum SearchingModel{
 
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- LOCAL ASSETS
 
@@ -55,6 +55,37 @@ class UiProvider extends ChangeNotifier {
   static List<String> proGetLocalAssetsPaths(BuildContext context){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     return _uiProvider.localAssetsPaths;
+  }
+// -----------------------------------------------------------------------------
+
+  /// --- AFTER HOME ROUTE
+
+// -------------------------------------
+  Map<String, dynamic> _afterHomeRoute;
+  Map<String, dynamic> get afterHomeRoute => _afterHomeRoute;
+// -------------------------------------
+  void setAfterHomeRoute({
+    @required String route,
+    @required bool notify,
+    dynamic passData,
+  }){
+
+    _afterHomeRoute['route'] = route;
+    if (passData != null){
+      _afterHomeRoute['passData'] = passData;
+    }
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+// -------------------------------------
+  void clearAfterHomeRoute({@required bool notify}){
+    _afterHomeRoute = null;
+    if (notify == true){
+      notifyListeners();
+    }
   }
 // -----------------------------------------------------------------------------
 
