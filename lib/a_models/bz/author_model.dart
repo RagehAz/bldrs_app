@@ -127,7 +127,7 @@ class AuthorModel {
       title: map['title'],
       role: decipherAuthorRole(map['role']),
       contacts: ContactModel.decipherContacts(map['contacts']),
-      flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
+      flyersIDs: Stringer.transformDynamicsToStrings(dynamics: map['flyersIDs']),
     );
   }
 // ----------------------------------

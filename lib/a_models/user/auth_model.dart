@@ -567,9 +567,9 @@ class AuthModel {
         /// facebookLoginResult.accessToken
         facebookLoginResultToken: map['facebookLoginResultToken'],
         facebookLoginResultAppId: map['facebookLoginResultAppId'],
-        facebookLoginResultDeclinedPermission: Stringer.getStringsFromDynamics(dynamics: map['facebookLoginResultDeclinedPermission']),
+        facebookLoginResultDeclinedPermission: Stringer.transformDynamicsToStrings(dynamics: map['facebookLoginResultDeclinedPermission']),
         facebookLoginResultExpires: Timers.decipherTime(time: map['facebookLoginResultExpires'], fromJSON: fromJSON),
-        facebookLoginResultGrantedPermission: Stringer.getStringsFromDynamics(dynamics: map['facebookLoginResultGrantedPermission']),
+        facebookLoginResultGrantedPermission: Stringer.transformDynamicsToStrings(dynamics: map['facebookLoginResultGrantedPermission']),
         facebookLoginResultGraphDomain: map['facebookLoginResultGraphDomain'],
         facebookLoginResultIsExpired: map['facebookLoginResultIsExpired'],
         facebookLoginResultLastRefresh : Timers.decipherTime(time: map['facebookLoginResultLastRefresh'], fromJSON: fromJSON),
@@ -584,10 +584,10 @@ class AuthModel {
         facebookAuthCredentialIdToken: map['facebookAuthCredentialIdToken'],
         /// googleAuthProvider
         googleAuthProviderParameters: map['googleAuthProviderParameters'],
-        googleAuthProviderScopes: Stringer.getStringsFromDynamics(dynamics: map['googleAuthProviderScopes']),
+        googleAuthProviderScopes: Stringer.transformDynamicsToStrings(dynamics: map['googleAuthProviderScopes']),
         googleAuthProviderProviderId: map['googleAuthProviderProviderId'],
         /// googleSignIn
-        googleSignInScopes: Stringer.getStringsFromDynamics(dynamics: map['googleSignInScopes']),
+        googleSignInScopes: Stringer.transformDynamicsToStrings(dynamics: map['googleSignInScopes']),
         googleSignInClientId: map['googleSignInClientId'],
         googleSignInHostedDomain: map['googleSignInHostedDomain'],
         /// googleSignIn.signInOption
