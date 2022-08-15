@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -15,6 +16,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Nav {
+// -----------------------------------------------------------------------------
 
   Nav();
 
@@ -119,59 +121,6 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 }
 // -----------------------------------------------------------------------------
 
-/// FLYER NAVIGATORS
-
-// -------------------------------------
-  static Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
-  await Navigator.of(context).push(PageRouteBuilder(
-    transitionDuration: const Duration(milliseconds: 750),
-    pageBuilder: (_, __, ___) {
-      return Hero(
-        tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
-        child: const Material(
-          type: MaterialType.transparency,
-          child: FlyerScreen(
-              // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
-              ),
-        ),
-      );
-    },
-  ));
-}
-// -------------------------------------
-  static Future<void> openFlyer({
-  @required BuildContext context,
-  String flyerID,
-  FlyerModel flyer,
-  bool isSponsored = false,
-}) async {
-
-  /// A - by  flyer
-  if (flyer != null) {
-
-    await goToNewScreen(
-        context: context,
-        screen: FlyerScreen(
-          flyerModel: flyer,
-          flyerID: flyerID,
-          isSponsored: isSponsored,
-        )
-    );
-
-  }
-
-  /// A - by flyerID
-  else if (flyerID != null) {
-    await goToRoute(context, Routez.flyerScreen, arguments: flyerID);
-  }
-
-  // /// A - nothing give
-  // else {
-  //   // do nothing
-  // }
-}
-// -----------------------------------------------------------------------------
-
 /// GOING BACK
 
 // -------------------------------------
@@ -256,7 +205,63 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 }
 // -----------------------------------------------------------------------------
 
-  /// GO SOMEWHERE
+  /// HOME SCREEN NAV.
+
+// -------------------------------------
+  static Future<void> autoNavigateFromHomeScreen(BuildContext context) async {
+
+    final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+      context: context,
+      listen: false,
+    );
+
+    if (_afterHomeRoute != null){
+
+      if (_afterHomeRoute.name == Routez.myBz){
+
+        await Nav.goToMyBzScreen(
+          context: context,
+          bzID: _afterHomeRoute.arguments,
+          replaceCurrentScreen: false,
+        );
+
+      }
+
+      /// CLEAR AFTER HOME ROUTE
+      UiProvider.proClearAfterHomeRoute(
+          context: context,
+          notify: true,
+      );
+
+    }
+
+  }
+// -------------------------------------
+  static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Exit App ?',
+      body: 'Would you like to exit and close Bldrs.net App ?',
+      boolDialog: true,
+      confirmButtonText: 'Exit Bldrs.net',
+    );
+
+    if (_result == true){
+
+      CenterDialog.closeCenterDialog(context);
+
+      await Future.delayed(const Duration(milliseconds: 500), () async {
+        await Nav.closeApp(context);
+      },
+      );
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// BZ SCREEN NAV.
 
 // -------------------------------------
   static Future<void> goToMyBzScreen({
@@ -299,12 +304,14 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
     @required String bzID,
   }) async {
 
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-  _uiProvider.setAfterHomeRoute(
-    route: Routez.myBz,
-    passData: bzID,
-    notify: true,
-  );
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider.setAfterHomeRoute(
+      settings: RouteSettings(
+        name:  Routez.myBz,
+        arguments: bzID,
+      ),
+      notify: true,
+    );
 
     await Nav.goBackToLogoScreen(
       context: context,
@@ -313,5 +320,58 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
 
   }
+// -----------------------------------------------------------------------------
+
+  /// FLYER NAVIGATORS
+
 // -------------------------------------
+  static Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
+    await Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 750),
+      pageBuilder: (_, __, ___) {
+        return Hero(
+          tag: flyerID, // galleryCoFlyers[index].flyer.flyerID,
+          child: const Material(
+            type: MaterialType.transparency,
+            child: FlyerScreen(
+              // flyerID: flyerID, // galleryCoFlyers[index].flyer.flyerID,
+            ),
+          ),
+        );
+      },
+    ));
+  }
+// -------------------------------------
+  static Future<void> openFlyer({
+    @required BuildContext context,
+    String flyerID,
+    FlyerModel flyer,
+    bool isSponsored = false,
+  }) async {
+
+    /// A - by  flyer
+    if (flyer != null) {
+
+      await goToNewScreen(
+          context: context,
+          screen: FlyerScreen(
+            flyerModel: flyer,
+            flyerID: flyerID,
+            isSponsored: isSponsored,
+          )
+      );
+
+    }
+
+    /// A - by flyerID
+    else if (flyerID != null) {
+      await goToRoute(context, Routez.flyerScreen, arguments: flyerID);
+    }
+
+    // /// A - nothing give
+    // else {
+    //   // do nothing
+    // }
+  }
+// -----------------------------------------------------------------------------
 }
