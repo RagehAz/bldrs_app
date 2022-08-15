@@ -877,7 +877,7 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
       final NoteModel note = _flyerUpdatesNotes[i];
 
-      final String _flyerID = Stringer.getStringsFromDynamics(
+      final String _flyerID = Stringer.transformDynamicsToStrings(
         dynamics: note.attachment,
       )?.first;
 
