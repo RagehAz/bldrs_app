@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_icons_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -10,7 +11,7 @@ class Obelisk extends StatelessWidget {
     @required this.isExpanded,
     @required this.onTriggerExpansion,
     @required this.onRowTap,
-    @required this.tabIndex,
+    @required this.progressBarModel,
     @required this.navModels,
     Key key
   }) : super(key: key);
@@ -18,7 +19,7 @@ class Obelisk extends StatelessWidget {
   final ValueNotifier<bool> isExpanded;
   final Function onTriggerExpansion;
   final ValueChanged<int> onRowTap;
-  final ValueNotifier<int> tabIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final List<NavModel> navModels;
   /// --------------------------------------------------------------------------
   static const double circleWidth = 40;
@@ -52,7 +53,7 @@ class Obelisk extends StatelessWidget {
           ObeliskIconsBuilder(
             isExpanded: isExpanded,
             navModels: navModels,
-            tabIndex: tabIndex,
+            progressBarModel: progressBarModel,
             onRowTap: onRowTap,
           ),
 
@@ -60,7 +61,7 @@ class Obelisk extends StatelessWidget {
           ObeliskVersesBuilder(
             isExpanded: isExpanded,
             navModels: navModels,
-            tabIndex: tabIndex,
+            progressBarModel: progressBarModel,
             onRowTap: onRowTap,
           ),
 

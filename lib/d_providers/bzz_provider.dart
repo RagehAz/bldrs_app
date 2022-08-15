@@ -12,114 +12,10 @@ import 'package:provider/provider.dart';
 class BzzProvider extends ChangeNotifier {
 // -----------------------------------------------------------------------------
 
-  /// FETCHING BZZ
+  /// WIPE OUT
 
 // -------------------------------------
-/*
   /// TESTED : WORKS PERFECT
-  Future<BzModel> fetchBzByID({
-    @required BuildContext context,
-    @required String bzID
-  }) async {
-
-    BzModel _bz = await BzLDBOps.readBz(bzID);
-
-    if (_bz != null){
-      blog('fetchBzByID : ($bzID) BzModel FOUND in LDB');
-    }
-    else {
-
-      _bz = await BzFireOps.readBz(
-        context: context,
-        bzID: bzID,
-      );
-
-      if (_bz != null) {
-        blog('fetchBzByID : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
-        await LDBOps.insertMap(
-          input: _bz.toMap(toJSON: true),
-          docName: LDBDoc.bzz,
-        );
-      }
-
-    }
-
-    if (_bz == null) {
-      blog('fetchBzByID : ($bzID) BzModel NOT FOUND');
-    }
-
-    return _bz;
-  }
- */
-// -------------------------------------
-/*
-  Future<List<BzModel>> fetchBzzModels({
-    @required BuildContext context,
-    @required List<String> bzzIDs
-  }) async {
-
-    final List<BzModel> _bzz = <BzModel>[];
-
-    if (Mapper.checkCanLoopList(bzzIDs)) {
-      for (final String bzID in bzzIDs) {
-
-        final BzModel _bz = await fetchBzByID(
-            context: context,
-            bzID: bzID,
-        );
-
-        if (_bz != null) {
-          _bzz.add(_bz);
-        }
-
-      }
-    }
-
-    return _bzz;
-  }
- */
-// -------------------------------------
-/*
-  Future<List<BzModel>> fetchUserBzz({
-    @required BuildContext context,
-    @required UserModel userModel
-  }) async {
-
-     List<BzModel> _bzz = <BzModel>[];
-
-    if (userModel != null) {
-      if (Mapper.checkCanLoopList(userModel.myBzzIDs)) {
-
-        _bzz = await fetchBzzModels(
-            context: context,
-            bzzIDs: userModel.myBzzIDs
-        );
-
-      }
-    }
-
-    return _bzz;
-  }
- */
-// -------------------------------------
-/*
-  static Future<BzModel> proFetchBzModel({
-    @required BuildContext context,
-    @required String bzID,
-  }) async {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _bzModel = await _bzzProvider.fetchBzByID(
-      context: context,
-      bzID: bzID,
-    );
-    return _bzModel;
-  }
- */
-// -----------------------------------------------------------------------------
-
-  /// OPS
-
-// -------------------------------------
   void removeProBzEveryWhere({
     @required String bzID,
     @required bool notify,
@@ -145,6 +41,36 @@ class BzzProvider extends ChangeNotifier {
         notify: notify,
       );
     }
+
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+
+    ///_sponsors
+    _bzzProvider.clearSponsors(
+      notify: false,
+    );
+
+    ///_myBzz
+    _bzzProvider.clearMyBzz(notify: false);
+
+    /// _followedBzz
+    _bzzProvider.clearFollowedBzz(notify: false);
+
+    /// _myActiveBz
+    _bzzProvider.clearMyActiveBz(notify: false);
+
+    /// _pendingAuthorshipInvitationsUsersIDs
+    _bzzProvider.setPendingAuthorshipInvitations(
+      notes: <NoteModel>[],
+      notify: true,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -232,6 +158,7 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._myBzz];
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> proGetMyBzz({
     @required BuildContext context,
     @required bool listen,
@@ -241,6 +168,7 @@ class BzzProvider extends ChangeNotifier {
     return _myBzz;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> proGetMyBzzIDs({
     @required BuildContext context,
     @required bool listen,
@@ -251,6 +179,7 @@ class BzzProvider extends ChangeNotifier {
     return _myBzzIDs;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> fetchSetMyBzz({
     @required BuildContext context,
     @required bool notify,
@@ -275,6 +204,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void _setMyBzz({
     @required List<BzModel> bzz,
     @required bool notify,
@@ -287,6 +217,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void clearMyBzz({
   @required bool notify,
 }){
@@ -296,6 +227,7 @@ class BzzProvider extends ChangeNotifier {
     );
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void removeBzFromMyBzz({
     @required String bzID,
     @required bool notify,
@@ -365,6 +297,7 @@ class BzzProvider extends ChangeNotifier {
     return <BzModel>[..._followedBzz];
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> fetchSetFollowedBzz({
     @required BuildContext context,
     @required bool notify,
@@ -388,6 +321,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void _setFollowedBzz({
     @required List<BzModel> bzz,
     @required bool notify,
@@ -398,6 +332,7 @@ class BzzProvider extends ChangeNotifier {
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void clearFollowedBzz({
   @required bool notify,
 }){
@@ -407,6 +342,7 @@ class BzzProvider extends ChangeNotifier {
     );
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   bool checkFollow({
     @required BuildContext context,
     @required String bzID,
@@ -431,6 +367,7 @@ class BzzProvider extends ChangeNotifier {
     return _isFollowing;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void removeBzFromFollowedBzz({
     @required String bzIDToRemove,
     @required bool notify,
@@ -456,6 +393,7 @@ class BzzProvider extends ChangeNotifier {
   BzModel _myActiveBz;
   BzModel get myActiveBz => _myActiveBz;
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static BzModel proGetActiveBzModel({
     @required BuildContext context,
     @required bool listen,
@@ -464,6 +402,7 @@ class BzzProvider extends ChangeNotifier {
     return _bzzProvider.myActiveBz;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void setActiveBz({
     @required BzModel bzModel,
     @required bool notify,
@@ -479,6 +418,7 @@ class BzzProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static void resetActiveBz(BuildContext context){
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -492,7 +432,8 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   void clearMyActiveBz({
   @required bool notify,
 }){
@@ -509,6 +450,7 @@ class BzzProvider extends ChangeNotifier {
   List<String> _pendingAuthorshipInvitationsUsersIDs = <String>[];
   List<String> get pendingAuthorsIDs => _pendingAuthorshipInvitationsUsersIDs;
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void setPendingAuthorshipInvitations({
     @required List<NoteModel> notes,
     @required bool notify,
@@ -545,45 +487,6 @@ class BzzProvider extends ChangeNotifier {
     }
 
     blog('setPendingAuthorshipInvitations : end : ${_pendingAuthorshipInvitationsUsersIDs.length} ids');
-
-  }
-// -----------------------------------------------------------------------------
-
-  /// PRO GETTERS
-
-// --------------------------------
-
-// -----------------------------------------------------------------------------
-
-  /// WIPE OUT
-
-// -------------------------------------
-  static void wipeOut({
-    @required BuildContext context,
-    @required bool notify,
-  }){
-
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-
-    ///_sponsors
-    _bzzProvider.clearSponsors(
-      notify: false,
-    );
-
-    ///_myBzz
-    _bzzProvider.clearMyBzz(notify: false);
-
-    /// _followedBzz
-    _bzzProvider.clearFollowedBzz(notify: false);
-
-    /// _myActiveBz
-    _bzzProvider.clearMyActiveBz(notify: false);
-
-    /// _pendingAuthorshipInvitationsUsersIDs
-    _bzzProvider.setPendingAuthorshipInvitations(
-      notes: <NoteModel>[],
-      notify: true,
-    );
 
   }
 // -----------------------------------------------------------------------------

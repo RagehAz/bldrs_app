@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/cc_home_screen_view.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // -------------------------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
-  final ValueNotifier<int> _tabIndex = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
 // -------------------------------------
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
@@ -175,10 +176,10 @@ class _HomeScreenState extends State<HomeScreen> {
               context: context,
               index: index,
               models: _navModels,
-              tabIndex: _tabIndex,
+              progressBarModel: _progressBarModel,
               isExpanded: _isExpanded,
             ),
-            tabIndex: _tabIndex,
+            progressBarModel: _progressBarModel,
             navModels: _navModels,
             isYellow: true,
           ),

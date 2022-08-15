@@ -375,7 +375,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
 
 
-
+  /// TESTED : WORKS PERFECT
   static Future<FlyerPDF> uploadFlyerPDFAndGetFlyerPDF({
     @required BuildContext context,
     @required FlyerPDF pdf,
