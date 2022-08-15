@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/app_bar/search_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/sections_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
@@ -137,7 +138,7 @@ class BldrsAppBar extends StatelessWidget {
     } else if (appBarType == AppBarType.intro) {
       _isOn = false;
     } else if (appBarType == AppBarType.search) {
-      _isOn = true;
+      _isOn = false;
     } else if (appBarType == AppBarType.non) {
       _isOn = false;
     } else {
@@ -208,44 +209,35 @@ class BldrsAppBar extends StatelessWidget {
                 /// BACK / SEARCH / SECTION / ZONE
                 Row(
                   children: <Widget>[
-
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// STARTING SPACER
                     const SizedBox(
                       width: Ratioz.appBarPadding,
                     ),
-
-                    /// BackButton
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// SECTION BUTTON
+                    if (_sectionButtonIsOn == true)
+                      const SectionsButton(),
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// BACK BUTTON
                     if (_backButtonIsOn == true && canGoBack == true)
                       BackAndSearchButton(
                         backAndSearchAction: BackAndSearchAction.goBack,
                         onTap: onBack,
                       ),
-
-                    /// Go to Search Button
-                    if (_searchButtonIsOn == true)
-                      const BackAndSearchButton(
-                        backAndSearchAction:
-                            BackAndSearchAction.goToSearchScreen,
-                      ),
-
-
-                    /// MIDDLE SPACER
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// PAGE TITLE SPACER
                     const SizedBox(
                       width: Ratioz.appBarPadding,
                     ),
-
-                    /// SECTION BUTTON
-                    if (_sectionButtonIsOn == true)
-                      const SectionsButton(),
-
                     /// PAGE TITLE
                     if (pageTitle != null)
                       AppBarTitle(
                         pageTitle: pageTitle,
                         backButtonIsOn: _backButtonIsOn,
                       ),
-
-                    /// CUSTOM APP BAR WIDGETS
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// SCROLLER WIDGETS
                     if (_scrollable == true)
                       ClipRRect(
                         borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
@@ -263,10 +255,25 @@ class BldrsAppBar extends StatelessWidget {
                           ),
                         ),
                       ),
-
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// CUSTOM APP BAR WIDGETS
                     if (appBarRowWidgets != null && _scrollable == false)
                       ...appBarRowWidgets,
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// SEARCH BUTTON PUSHER
+                    if (_searchButtonIsOn == true)
+                      const Expander(),
+                    /// SEARCH BUTTON
+                    if (_searchButtonIsOn == true)
+                      const BackAndSearchButton(
+                        backAndSearchAction: BackAndSearchAction.goToSearchScreen,
+                      ),
+                    /// SEARCH BUTTON SPACER SPACER
+                    if (_searchButtonIsOn == true)
+                      const SizedBox(
+                      width: Ratioz.appBarPadding,
+                    ),
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
 
                   ],
                 ),

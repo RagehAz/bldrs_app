@@ -134,6 +134,8 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
     return MainLayout(
       appBarType: AppBarType.search,
+      sectionButtonIsOn: false,
+      pageTitle: 'Search',
       searchHint: _getSearchHintText(context),
       pyramidsAreOn: true,
       searchController: _searchController,

@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -231,12 +232,25 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 /// TRANSITION
 
 // -------------------------------------
-  static PageTransitionType superHorizontalTransition(BuildContext context) {
-  final PageTransitionType _transition =
-  TextDir.appIsLeftToRight(context) == true ?
+  static PageTransitionType superHorizontalTransition(BuildContext context, {bool inverse = false}) {
+
+  /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
+
+  final PageTransitionType _enBookDirection = inverse == false ?
   PageTransitionType.rightToLeftWithFade
       :
   PageTransitionType.leftToRightWithFade;
+
+  final PageTransitionType _arBookDirection = inverse == false ?
+  PageTransitionType.leftToRightWithFade
+      :
+  PageTransitionType.rightToLeftWithFade;
+
+  final PageTransitionType _transition = TextDir.appIsLeftToRight(context) == true ?
+  _enBookDirection
+      :
+  _arBookDirection;
+
   return _transition;
 // -----------------------------------------------------------------------------
 }
@@ -285,16 +299,18 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
     @required String bzID,
   }) async {
 
+  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  _uiProvider.setAfterHomeRoute(
+    route: Routez.myBz,
+    passData: bzID,
+    notify: true,
+  );
+
     await Nav.goBackToLogoScreen(
       context: context,
       animatedLogoScreen: true,
     );
 
-    await Nav.goToMyBzScreen( /// TASK : THIS BITCH IS NOT ROUTING TO BZ SCREEN
-      context: context,
-      bzID: bzID,
-      replaceCurrentScreen: true,
-    );
 
   }
 // -------------------------------------
