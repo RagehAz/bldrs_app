@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/f_helpers/drafters/stream_checkers.dart' as StreamChecker;
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Widget phrasesStreamBuilder({
 
           // blog('snapshot is : $snapshot');
 
-          if (StreamChecker.connectionIsLoading(snapshot) == true) {
+          if (Streamer.connectionIsLoading(snapshot) == true) {
 
             return const Center(
               child: Loading(loading: true),

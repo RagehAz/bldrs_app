@@ -13,6 +13,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 // -----------------------------------------------------------------------------
+  /// KEYBOARDS CONTROLLERS
   StreamSubscription<bool> _keyboardSubscription;
   KeyboardVisibilityController keyboardVisibilityController;
   void _initializeKeyboard(){
@@ -64,14 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  /// NOTES STREAM SUBSCRIPTIONS
+  StreamSubscription _userNotesStreamSub;
+  List<StreamSubscription> _bzzNotesStreamsSubs;
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
     _initializeKeyboard();
-
-    initializeUserNotes(context);
-
+    _userNotesStreamSub = initializeUserNotes(context);
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -86,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted){
           initializeObeliskNumbers(context);
           // initializeUserNotes(context);
-          initializeMyBzzNotes(context);
+          _bzzNotesStreamsSubs = initializeMyBzzNotes(context);
         }
 
         if (mounted){
@@ -102,11 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    // if (_loading != null){_loading.dispose();}
+
     _loading.dispose();
     _keyboardSubscription.cancel();
 
-    super.dispose(); /// tamam
+    _userNotesStreamSub.cancel();
+    Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
+
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
 
