@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -17,16 +18,20 @@ class InfoPageParagraph extends StatelessWidget {
 
     return Center(
       key: const ValueKey<String>('InfoPageParagraph'),
-      child: Container(
+      child: Bubble(
         width: pageWidth,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: SuperVerse(
-          verse: flyerInfo,
-          maxLines: 500,
-          centered: false,
-          weight: VerseWeight.thin,
-          size: 3,
-        ),
+        // padding: const EdgeInsets.symmetric(horizontal: 5),
+        columnChildren: <Widget>[
+
+          SuperVerse(
+            verse: flyerInfo,
+            maxLines: 500,
+            centered: false,
+            weight: VerseWeight.thin,
+            size: 3,
+          ),
+
+        ],
       ),
     );
 

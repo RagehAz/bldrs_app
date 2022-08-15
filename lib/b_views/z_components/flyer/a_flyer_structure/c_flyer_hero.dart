@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
@@ -21,7 +22,7 @@ class FlyerHero extends StatelessWidget {
     @required this.isFullScreen,
     @required this.minWidthFactor,
     @required this.heroTag,
-    @required this.currentSlideIndex,
+    @required this.progressBarModel,
     @required this.onSaveFlyer,
     @required this.flyerIsSaved,
     Key key
@@ -33,7 +34,7 @@ class FlyerHero extends StatelessWidget {
   final bool isFullScreen;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
   final ValueNotifier<bool> flyerIsSaved; /// p
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
@@ -69,7 +70,7 @@ class FlyerHero extends StatelessWidget {
           flightDirection: flightDirection,
           fromHeroContext: fromHeroContext,
           toHeroContext: toHeroContext,
-          currentSlideIndex: currentSlideIndex,
+          progressBarModel: progressBarModel,
           flyerIsSaved: flyerIsSaved,
           onSaveFlyer: onSaveFlyer,
         );
@@ -82,7 +83,7 @@ class FlyerHero extends StatelessWidget {
         flyerZone: flyerZone,
         heroTag: _heroTag,
         flightDirection: FlightDirection.non,
-        currentSlideIndex: currentSlideIndex,
+        progressBarModel: progressBarModel,
         onSaveFlyer: onSaveFlyer,
         flyerIsSaved: flyerIsSaved,
       ),

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -195,7 +196,7 @@ Widget flyerFlightShuttle({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
   @required double minWidthFactor,
-  @required ValueNotifier<int> currentSlideIndex,
+  @required ValueNotifier<ProgressBarModel> progressBarModel,
   @required Function onSaveFlyer,
   @required ValueNotifier<bool> flyerIsSaved,
 }) {
@@ -254,7 +255,7 @@ Widget flyerFlightShuttle({
             flyerZone: null,
             loading: true,
             flightDirection: _flightDirection,
-            currentSlideIndex: currentSlideIndex,
+            progressBarModel: progressBarModel,
             onSaveFlyer: onSaveFlyer,
             flyerIsSaved: flyerIsSaved,
           ),

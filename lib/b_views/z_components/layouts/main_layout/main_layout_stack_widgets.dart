@@ -1,11 +1,11 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -20,9 +20,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.pageTitle,
     @required this.onBack,
     @required this.loading,
-    @required this.swipeDirection,
-    @required this.index,
-    @required this.numberOfStrips,
+    @required this.progressBarModel,
     @required this.appBarScrollController,
     @required this.searchController,
     @required this.onSearchSubmit,
@@ -55,9 +53,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool sectionButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<SwipeDirection> swipeDirection;
-  final ValueNotifier<int> index;
-  final int numberOfStrips;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
   final Function onPyramidTap;
   final bool canGoBack;
@@ -126,9 +122,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             pageTitle: pageTitle,
             onBack: onBack,
             loading: loading,
-            index: index,
-            numberOfStrips: numberOfStrips,
-            swipeDirection: swipeDirection,
+            progressBarModel: progressBarModel,
             appBarScrollController: appBarScrollController,
             sectionButtonIsOn: sectionButtonIsOn,
             searchController: searchController,

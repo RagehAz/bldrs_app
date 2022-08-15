@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -15,7 +16,7 @@ class FlyerFullScreen extends StatelessWidget {
     @required this.bzModel,
     @required this.flyerZone,
     @required this.heroTag,
-    @required this.currentSlideIndex,
+    @required this.progressBarModel,
     @required this.onSaveFlyer,
     @required this.flyerIsSaved,
     Key key
@@ -26,7 +27,7 @@ class FlyerFullScreen extends StatelessWidget {
   final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
   final ValueNotifier<bool> flyerIsSaved; /// p
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
@@ -58,7 +59,7 @@ class FlyerFullScreen extends StatelessWidget {
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
           heroTag: heroTag,
-          currentSlideIndex: currentSlideIndex,
+          progressBarModel: progressBarModel,
           flyerIsSaved: flyerIsSaved,
           onSaveFlyer: onSaveFlyer,
         ),

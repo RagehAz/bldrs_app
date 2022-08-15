@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/gallery_slide.dart';
@@ -21,9 +22,7 @@ class FlyerSlides extends StatefulWidget {
     @required this.onSlideNextTap,
     @required this.onSlideBackTap,
     @required this.onDoubleTap,
-    @required this.currentSlideIndex,
-    @required this.canShowGalleryPage,
-    @required this.numberOfSlides,
+    @required this.progressBarModel,
     @required this.flightDirection,
     this.heroTag,
     Key key
@@ -39,10 +38,8 @@ class FlyerSlides extends StatefulWidget {
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final Function onDoubleTap;
-  final ValueNotifier currentSlideIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final String heroTag;
-  final bool canShowGalleryPage;
-  final int numberOfSlides;
   final FlightDirection flightDirection;
   /// --------------------------------------------------------------------------
   @override
@@ -81,57 +78,64 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
 
     else {
 
-      return HorizontalBouncer(
-        numberOfSlides: widget.numberOfSlides,
-        controller: widget.horizontalController,
-        canNavigate: _canNavigateOnBounce(),
-        child: PageView.builder(
-          key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
-          controller: widget.horizontalController,
-          physics: widget.tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
-          // clipBehavior: Clip.antiAlias,
-          // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
-          onPageChanged: (int i) => widget.onSwipeSlide(i),
-          itemCount: widget.numberOfSlides + 1,
-          itemBuilder: (_, int index){
+      return ValueListenableBuilder(
+          valueListenable: widget.progressBarModel,
+          builder: (_, ProgressBarModel progModel, Widget child){
 
-            /// WHEN AT FLYER REAL SLIDES
-            if (index < widget.flyerModel.slides.length){
+            return HorizontalBouncer(
+              numberOfSlides: progModel.numberOfStrips,
+              controller: widget.horizontalController,
+              canNavigate: _canNavigateOnBounce(),
+              child: PageView.builder(
+                key: PageStorageKey<String>('FlyerSlides_PageView_${widget.heroTag}'),
+                controller: widget.horizontalController,
+                physics: widget.tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
+                // clipBehavior: Clip.antiAlias,
+                // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
+                onPageChanged: (int i) => widget.onSwipeSlide(i),
+                itemCount: progModel.numberOfStrips + 1,
+                itemBuilder: (_, int index){
 
-              final SlideModel _slide = widget.flyerModel.slides[index];
+                  /// WHEN AT FLYER REAL SLIDES
+                  if (index < widget.flyerModel.slides.length){
 
-              return SingleSlide(
-                key: const ValueKey<String>('slide_key'),
-                flyerBoxWidth: widget.flyerBoxWidth,
-                flyerBoxHeight: widget.flyerBoxHeight,
-                slideModel: _slide,
-                tinyMode: widget.tinyMode,
-                onSlideNextTap: widget.onSlideNextTap,
-                onSlideBackTap: widget.onSlideBackTap,
-                onDoubleTap: widget.onDoubleTap,
-              );
-            }
+                    final SlideModel _slide = widget.flyerModel.slides[index];
 
-            /// WHEN AT FAKE BOUNCER SLIDE
-            else if (index == widget.numberOfSlides){
-              return const SizedBox();
-            }
+                    return SingleSlide(
+                      key: const ValueKey<String>('slide_key'),
+                      flyerBoxWidth: widget.flyerBoxWidth,
+                      flyerBoxHeight: widget.flyerBoxHeight,
+                      slideModel: _slide,
+                      tinyMode: widget.tinyMode,
+                      onSlideNextTap: widget.onSlideNextTap,
+                      onSlideBackTap: widget.onSlideBackTap,
+                      onDoubleTap: widget.onDoubleTap,
+                    );
+                  }
 
-            /// WHEN AT GALLERY SLIDE IF EXISTED
-            else {
+                  /// WHEN AT FAKE BOUNCER SLIDE
+                  else if (index == progModel.numberOfStrips){
+                    return const SizedBox();
+                  }
 
-              return GallerySlide(
-                flyerBoxWidth: widget.flyerBoxWidth,
-                flyerBoxHeight: widget.flyerBoxHeight,
-                flyerModel: widget.flyerModel,
-                bzModel: widget.bzModel,
-                heroTag: widget.heroTag,
-              );
+                  /// WHEN AT GALLERY SLIDE IF EXISTED
+                  else {
 
-            }
+                    return GallerySlide(
+                      flyerBoxWidth: widget.flyerBoxWidth,
+                      flyerBoxHeight: widget.flyerBoxHeight,
+                      flyerModel: widget.flyerModel,
+                      bzModel: widget.bzModel,
+                      heroTag: widget.heroTag,
+                    );
 
-          },
-        ),
+                  }
+
+                },
+              ),
+            );
+
+          }
       );
 
     }

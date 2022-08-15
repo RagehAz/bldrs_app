@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
@@ -480,14 +481,16 @@ List<NavModel> generateMainNavModels({
 Future<void> onNavigate({
   @required int index,
   @required List<NavModel> models,
-  @required ValueNotifier<int> tabIndex,
+  @required ValueNotifier<ProgressBarModel> progressBarModel,
   @required BuildContext context,
   @required ValueNotifier<bool> isExpanded,
 }) async {
 
   final NavModel _navModel = models[index];
 
-  tabIndex.value = index;
+  progressBarModel.value = progressBarModel.value.copyWith(
+    index: index,
+  );
   // onTriggerExpansion();
 
   await Future.delayed(const Duration(milliseconds: 50), () async {
@@ -502,7 +505,7 @@ Future<void> onNavigate({
       transitionType: PageTransitionType.fade,
     );
 
-    tabIndex.value = null;
+    progressBarModel.value = ProgressBarModel.emptyModel();
     isExpanded.value = false;
 
   });

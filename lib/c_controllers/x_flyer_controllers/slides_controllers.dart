@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart' as Animators;
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -7,15 +8,13 @@ import 'package:flutter/material.dart';
  void onHorizontalSlideSwipe({
    @required BuildContext context,
    @required int newIndex,
-   @required ValueNotifier<int> currentSlideIndex,
-   @required ValueNotifier<SwipeDirection> swipeDirection,
+   @required ValueNotifier<ProgressBarModel> progressBarModel,
 }) {
-
 
   // blog('flyer onPageChanged oldIndex: ${_superFlyer.currentSlideIndex}, newIndex: $newIndex, _draft.numberOfSlides: ${_superFlyer.numberOfSlides}');
    final SwipeDirection _direction = Animators.getSwipeDirection(
      newIndex: newIndex,
-     oldIndex: currentSlideIndex.value,
+     oldIndex: progressBarModel.value.index,
    );
 
   /// A - if Keyboard is active
@@ -28,11 +27,9 @@ import 'package:flutter/material.dart';
       FocusScope.of(context).nextFocus();
 
       _setSwipeDirectionAndCurrentIndex(
+        progressBarModel: progressBarModel,
         newSwipeDirection: _direction,
-        swipeDirection: swipeDirection,
-        currentSlideIndex: currentSlideIndex,
         newIndex: newIndex,
-        notify: true
       );
 
     }
@@ -42,11 +39,9 @@ import 'package:flutter/material.dart';
       blog('going back');
       FocusScope.of(context).previousFocus();
       _setSwipeDirectionAndCurrentIndex(
+          progressBarModel: progressBarModel,
           newSwipeDirection: _direction,
-          swipeDirection: swipeDirection,
-          currentSlideIndex: currentSlideIndex,
           newIndex: newIndex,
-          notify: true
       );
     }
 
@@ -54,11 +49,9 @@ import 'package:flutter/material.dart';
     else {
       blog('going no where');
       _setSwipeDirectionAndCurrentIndex(
+          progressBarModel: progressBarModel,
           newSwipeDirection: _direction,
-          swipeDirection: swipeDirection,
-          currentSlideIndex: currentSlideIndex,
           newIndex: newIndex,
-          notify: true
       );
     }
   }
@@ -67,25 +60,23 @@ import 'package:flutter/material.dart';
   else {
     // blog('KEYBOARD IS NOT ACTIVE');
     _setSwipeDirectionAndCurrentIndex(
+        progressBarModel: progressBarModel,
         newSwipeDirection: _direction,
-        swipeDirection: swipeDirection,
-        currentSlideIndex: currentSlideIndex,
         newIndex: newIndex,
-        notify: true
     );
   }
 }
 // -----------------------------------------------------------------------------
 void _setSwipeDirectionAndCurrentIndex({
-  @required ValueNotifier<int> currentSlideIndex,
+  @required ValueNotifier<ProgressBarModel> progressBarModel,
   @required int newIndex,
-  @required bool notify,
-  @required ValueNotifier<SwipeDirection> swipeDirection,
   @required SwipeDirection newSwipeDirection,
 }){
 
-  currentSlideIndex.value = newIndex;
-  swipeDirection.value = newSwipeDirection;
+  progressBarModel.value = progressBarModel.value.copyWith(
+      swipeDirection: newSwipeDirection,
+      index: newIndex,
+  );
 
 }
 // -----------------------------------------------------------------------------

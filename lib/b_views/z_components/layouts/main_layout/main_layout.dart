@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_flo
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -48,9 +48,7 @@ class MainLayout extends StatelessWidget {
     this.sectionButtonIsOn = true,
     this.searchHint,
     this.loading,
-    this.swipeDirection,
-    this.index,
-    this.numberOfStrips,
+    this.progressBarModel,
     this.pyramidType,
     this.onPyramidTap,
     this.hasKeyboard = true,
@@ -77,9 +75,7 @@ class MainLayout extends StatelessWidget {
   final bool sectionButtonIsOn;
   final String searchHint;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<SwipeDirection> swipeDirection;
-  final int numberOfStrips;
-  final ValueNotifier<int> index;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
   final Function onPyramidTap;
   final bool hasKeyboard;
@@ -202,9 +198,7 @@ class MainLayout extends StatelessWidget {
                     pageTitle: pageTitle,
                     onBack: () => _onBack(context),
                     loading: loading,
-                    index: index,
-                    swipeDirection: swipeDirection,
-                    numberOfStrips: numberOfStrips,
+                    progressBarModel: progressBarModel,
                     appBarScrollController: appBarScrollController,
                     sectionButtonIsOn: sectionButtonIsOn,
                     searchController: searchController,

@@ -93,7 +93,7 @@ class Filers {
     return _filePath;
   }
 // ---------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String getFileNameFromFile({
     @required File file,
     bool withExtension = false,
@@ -113,7 +113,8 @@ class Filers {
 
     return _fileName;
   }
-
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getFileExtensionFromFile(File file){
 
     ///  NOTE 'jpg' - 'png' - 'pdf' ... etc => which does not include the '.'
