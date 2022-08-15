@@ -24,7 +24,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -266,7 +266,7 @@ class BzEditorScreenView extends StatelessWidget {
                         fieldIsRequired: true,
                         validator: (){
 
-                          if (TextChecker.stringIsEmpty(bzNameTextController.text) == true){
+                          if (Stringer.checkStringIsEmpty(bzNameTextController.text) == true){
                             return 'Business Entity name can not be empty';
                           }
                           else if (bzNameTextController.text.length <= 3){

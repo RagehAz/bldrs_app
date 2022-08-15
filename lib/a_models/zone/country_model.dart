@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/region_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -108,7 +108,7 @@ class CountryModel {
         continent: map['continent'],
         isActivated: map['isActivated'],
         isGlobal: map['isGlobal'],
-        citiesIDs: Mapper.getStringsFromDynamics(dynamics: map['citiesIDs']),
+        citiesIDs: Stringer.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language: map['language'],
         currency: map['currency'],
         phrases: decipherZonePhrases(
@@ -192,7 +192,7 @@ class CountryModel {
             id: zoneID,
             langCode: key,
             value: phrasesMap[key]['value'],
-            trigram: TextGen.createTrigram(
+            trigram: Stringer.createTrigram(
                 input: TextMod.fixCountryName(phrasesMap[key]['value']),
             ),
           );
@@ -435,7 +435,7 @@ class CountryModel {
         id: id,
         value: _countryName,
         langCode: langCode,
-        trigram: TextGen.createTrigram(input: _countryName),
+        trigram: Stringer.createTrigram(input: _countryName),
       );
 
       _output.add(_phrase);

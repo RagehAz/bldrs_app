@@ -189,6 +189,7 @@ class WipeUserProtocols {
         await BzProtocols.deleteLocally(
           context: context,
           bzID: bzModel.id,
+          invoker: '_deleteBzzICreatedProtocol',
         );
 
       }

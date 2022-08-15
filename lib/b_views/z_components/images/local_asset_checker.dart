@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +21,7 @@ class LocalAssetChecker extends StatefulWidget {
     bool _isFound = false;
 
     if (asset is String){
-      if (TextChecker.stringIsNotEmpty(asset) == true){
+      if (Stringer.checkStringIsNotEmpty(asset) == true){
 
         final ByteData _bytes = await rootBundle.load(asset).catchError((Object error){
 

@@ -6,8 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -56,9 +55,9 @@ class UserBanner extends StatelessWidget {
     bool _can = false;
 
     if (
-    TextChecker.stringIsNotEmpty(userModel?.title) == true
+    Stringer.checkStringIsNotEmpty(userModel?.title) == true
         ||
-        TextChecker.stringIsNotEmpty(userModel?.company) == true
+        Stringer.checkStringIsNotEmpty(userModel?.company) == true
     ){
       _can = true;
     }
@@ -73,7 +72,7 @@ class UserBanner extends StatelessWidget {
     userModel.blogUserModel();
 
     if (UserModel.checkUserIsAuthor(userModel) == true){
-      return TextGen.generateStringFromStrings(
+      return Stringer.generateStringFromStrings(
           strings: userModel.myBzzIDs,
           stringsSeparator: ','
       );

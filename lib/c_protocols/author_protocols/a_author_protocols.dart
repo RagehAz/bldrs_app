@@ -34,6 +34,7 @@ class AuthorProtocols {
 /// RENOVATE
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateAuthorProtocol({
     @required BuildContext context,
     @required BzModel oldBzModel,
@@ -48,6 +49,7 @@ class AuthorProtocols {
 /// WIPE
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteMyAuthorPicProtocol({
     @required BuildContext context,
     @required String bzID,
@@ -56,6 +58,7 @@ class AuthorProtocols {
       bzID: bzID
   );
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> removeMeFromBzProtocol({
     @required BuildContext context,
     @required BzModel streamedBzModelWithoutMyID,
@@ -65,6 +68,7 @@ class AuthorProtocols {
       streamedBzModelWithoutMyID: streamedBzModelWithoutMyID
   );
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> removeFlyerlessAuthorProtocol({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -75,6 +79,7 @@ class AuthorProtocols {
     author: author,
   );
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> authorBzExitAfterBzDeletionProtocol({
     @required BuildContext context,
     @required String bzID,

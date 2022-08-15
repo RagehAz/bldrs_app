@@ -38,71 +38,53 @@ class WipeBzProtocols {
       ));
     }
 
+    await Future.wait(<Future>[
+
     /// DELETE BZ FLYERS
-    await _deleteAllBzFlyersOps(
-      context: context,
-      bzModel: bzModel,
-      showWaitDialog: true,
-      updateBz: false,
-    );
-
-    /// DELETE BZ NOTES (RECEIVED)
-    await NoteProtocols.wipeBzReceivedNotes(
-      context: context,
-      bzID: bzModel.id,
-    );
-
-    /// DELETE BZ SENT AUTHORSHIPS
-    await NoteProtocols.wipeBzSentAuthorshipNotes(
-      context: context,
-      bzID: bzModel.id,
-    );
-
-    /// DELETE BZ RECORDS - COUNTERS
-    await BzRecordOps.deleteAllBzCountersAndRecords(
-      context: context,
-      bzID: bzModel.id,
-    );
-
-    /// DELETE BZ ON FIREBASE
-    await BzFireOps.deleteBzOps(
-      context: context,
-      bzModel: bzModel,
-    );
-
-    /// SEND DELETION NOTES TO AUTHORS
-    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
-      context: context,
-      bzModel: bzModel,
-      includeMyself: includeMyselfInBzDeletionNote,
-    );
-
-    /// NO NEED TO DELETE BZ IN LDB AND PRO OR REMOVE BZ FROM USER ID OR UPDATE USER NOW
-    /// AS [authorBzExitAfterBzDeletionProtocol] METHOD LISTENS TO NOTE AND IS
-    /// ACTIVATED AUTOMATICALLY
-    /*
-    /// DELETE BZ ON LDB
-    await localBzDeletionProtocol(
-      context: context,
-      bzID: bzModel.id,
-    );
-
-    /// REMOVE BZ ID FROM MY BZZ IDS
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      _deleteAllBzFlyersOps(
         context: context,
-        listen: false,
-    );
-    final UserModel _updated = UserModel.removeBzIDFromMyBzzIDs(
-        userModel: _userModel,
-        bzIDToRemove: bzModel.id,
-    );
+        bzModel: bzModel,
+        showWaitDialog: true,
+        updateBz: false,
+      ),
 
-    /// UPDATE USER MODEL EVERYWHERE
-    await UserProtocol.updateMyUserEverywhereProtocol(
+      /// DELETE BZ NOTES (RECEIVED)
+      NoteProtocols.wipeBzReceivedNotes(
         context: context,
-        newUserModel: _updated,
-    );
-     */
+        bzID: bzModel.id,
+      ),
+
+      /// DELETE BZ SENT AUTHORSHIPS
+      NoteProtocols.wipeBzSentAuthorshipNotes(
+        context: context,
+        bzID: bzModel.id,
+      ),
+
+      /// DELETE BZ RECORDS - COUNTERS
+      BzRecordOps.deleteAllBzCountersAndRecords(
+        context: context,
+        bzID: bzModel.id,
+      ),
+
+    ]);
+
+    await Future.wait(<Future>[
+
+      /// DELETE BZ ON FIREBASE
+      BzFireOps.deleteBzOps(
+        context: context,
+        bzModel: bzModel,
+      ),
+
+      /// SEND DELETION NOTES TO AUTHORS
+      NoteProtocols.sendBzDeletionNoteToAllAuthors(
+        context: context,
+        bzModel: bzModel,
+        includeMyself: includeMyselfInBzDeletionNote,
+      ),
+
+    ]);
+
 
     if (showWaitDialog == true){
       WaitDialog.closeWaitDialog(context);
@@ -156,9 +138,10 @@ class WipeBzProtocols {
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
+    @required String invoker,
   }) async {
 
-    blog('WipeBzProtocol.deleteLocally : START');
+    blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
     // NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
 
@@ -176,7 +159,7 @@ class WipeBzProtocols {
       notify: true,
     );
 
-    blog('WipeBzProtocol.deleteLocally : END');
+    blog('WipeBzProtocol.deleteLocally : $invoker : END');
   }
 // -----------------------------------------------------------------------------
 }

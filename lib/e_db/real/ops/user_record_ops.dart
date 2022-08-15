@@ -3,7 +3,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/record_ops.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -28,7 +28,7 @@ class UserRecordOps {
     final String _userID = AuthFireOps.superUserID();
     RecordModel _uploadedRecord;
 
-    if (TextChecker.stringIsNotEmpty(searchText) == true && _userID != null){
+    if (Stringer.checkStringIsNotEmpty(searchText) == true && _userID != null){
 
       final RecordModel _record = RecordModel.createSearchRecord(
         userID: _userID,

@@ -22,8 +22,7 @@ import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_generators.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -179,7 +178,7 @@ class FlyerFireOps {
         _finalFlyer = draftFlyer.copyWith(
           id: flyerID,
           slides: _updatedSlides,
-          trigram: TextGen.createTrigram(input: draftFlyer.headline),
+          trigram: Stringer.createTrigram(input: draftFlyer.headline),
           times: _updatedPublishTime,
           pdf: _pdf,
         );
@@ -207,7 +206,7 @@ class FlyerFireOps {
 
     blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
-    final List<String> _updatedBzFlyersIDs = TextMod.addStringToListIfDoesNotContainIt(
+    final List<String> _updatedBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
       strings: bzModel.flyersIDs,
       stringToAdd: newFlyerToAdd.id,
     );
@@ -900,7 +899,7 @@ class FlyerFireOps {
 
           blog('deleteMultipleBzFlyers : deleting flyer : ${flyerModel.id}');
 
-          final bool _canDelete = Mapper.checkStringsContainString(
+          final bool _canDelete = Stringer.checkStringsContainString(
             strings: bzModel.flyersIDs,
             string: flyerModel.id,
           );
@@ -921,7 +920,7 @@ class FlyerFireOps {
                 flyerID: flyerModel.id,
             );
 
-            _bzFlyersIDs = Mapper.removeStringsFromStrings(
+            _bzFlyersIDs = Stringer.removeStringsFromStrings(
               removeFrom: _bzFlyersIDs,
               removeThis: <String>[flyerModel.id],
             );

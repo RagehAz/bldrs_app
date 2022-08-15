@@ -111,9 +111,11 @@ class BzProtocols {
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
+    @required String invoker,
   }) => WipeBzProtocols.deleteLocally(
     context: context,
     bzID: bzID,
+    invoker: invoker,
   );
 
 // -----------------------------------------------------------------------------

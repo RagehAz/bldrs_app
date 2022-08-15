@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -544,7 +545,7 @@ void main() {
 
     const List<String> _toRemove = <String>['wa7ed', 'etneen'];
 
-    final List<String> _modified = Mapper.removeStringsFromStrings(
+    final List<String> _modified = Stringer.removeStringsFromStrings(
         removeFrom: _source,
         removeThis: _toRemove,
     );

@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +79,7 @@ class SpecPicker {
 
       /// REFINE
       for (final SpecPicker picker in sourceSpecsPickers) {
-        final bool _listShouldBeDeactivated = Mapper.checkStringsContainString(
+        final bool _listShouldBeDeactivated = Stringer.checkStringsContainString(
             strings: _allPickersIDsToDeactivate,
             string: picker.chainID
         );
@@ -156,7 +156,7 @@ class SpecPicker {
     List<String> _groups = <String>[];
 
     for (final SpecPicker picker in specsPickers) {
-      _groups = TextMod.addStringToListIfDoesNotContainIt(
+      _groups = Stringer.addStringToListIfDoesNotContainIt(
         strings: _groups,
         stringToAdd: picker.groupID,
       );

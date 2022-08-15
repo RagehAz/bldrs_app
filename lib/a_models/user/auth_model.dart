@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -566,9 +567,9 @@ class AuthModel {
         /// facebookLoginResult.accessToken
         facebookLoginResultToken: map['facebookLoginResultToken'],
         facebookLoginResultAppId: map['facebookLoginResultAppId'],
-        facebookLoginResultDeclinedPermission: Mapper.getStringsFromDynamics(dynamics: map['facebookLoginResultDeclinedPermission']),
+        facebookLoginResultDeclinedPermission: Stringer.getStringsFromDynamics(dynamics: map['facebookLoginResultDeclinedPermission']),
         facebookLoginResultExpires: Timers.decipherTime(time: map['facebookLoginResultExpires'], fromJSON: fromJSON),
-        facebookLoginResultGrantedPermission: Mapper.getStringsFromDynamics(dynamics: map['facebookLoginResultGrantedPermission']),
+        facebookLoginResultGrantedPermission: Stringer.getStringsFromDynamics(dynamics: map['facebookLoginResultGrantedPermission']),
         facebookLoginResultGraphDomain: map['facebookLoginResultGraphDomain'],
         facebookLoginResultIsExpired: map['facebookLoginResultIsExpired'],
         facebookLoginResultLastRefresh : Timers.decipherTime(time: map['facebookLoginResultLastRefresh'], fromJSON: fromJSON),
@@ -583,10 +584,10 @@ class AuthModel {
         facebookAuthCredentialIdToken: map['facebookAuthCredentialIdToken'],
         /// googleAuthProvider
         googleAuthProviderParameters: map['googleAuthProviderParameters'],
-        googleAuthProviderScopes: Mapper.getStringsFromDynamics(dynamics: map['googleAuthProviderScopes']),
+        googleAuthProviderScopes: Stringer.getStringsFromDynamics(dynamics: map['googleAuthProviderScopes']),
         googleAuthProviderProviderId: map['googleAuthProviderProviderId'],
         /// googleSignIn
-        googleSignInScopes: Mapper.getStringsFromDynamics(dynamics: map['googleSignInScopes']),
+        googleSignInScopes: Stringer.getStringsFromDynamics(dynamics: map['googleSignInScopes']),
         googleSignInClientId: map['googleSignInClientId'],
         googleSignInHostedDomain: map['googleSignInHostedDomain'],
         /// googleSignIn.signInOption
