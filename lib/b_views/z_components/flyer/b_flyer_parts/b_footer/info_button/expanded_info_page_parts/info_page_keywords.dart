@@ -3,15 +3,15 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class InfoPageKeywords extends StatelessWidget {
+class PhidsViewer extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const InfoPageKeywords({
-    @required this.keywordsIDs,
+  const PhidsViewer({
+    @required this.phids,
     @required this.pageWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<String> keywordsIDs;
+  final List<String> phids;
   final double pageWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -31,10 +31,10 @@ class InfoPageKeywords extends StatelessWidget {
         // alignment: WrapAlignment.spaceAround,
         children: <Widget>[
 
-          if (keywordsIDs?.isNotEmpty)
-          ...List<Widget>.generate(keywordsIDs?.length, (int index) {
+          if (phids?.isNotEmpty)
+          ...List<Widget>.generate(phids?.length, (int index) {
 
-            final String _keywordID = keywordsIDs[index];
+            final String _keywordID = phids[index];
 
             return PhidButton(
               phid: _keywordID,
