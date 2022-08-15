@@ -703,21 +703,22 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                             _receiverName = _bz?.name;
                           }
 
-                          return EditorConfirmButton(
-                            firstLine: 'Send',
-                            secondLine: 'to $_receiverName',
-                            // positionedAlignment: null,
-                            isDeactivated: !NoteModel.checkCanSendNote(note),
-                            onTap: () => onSendNote(
-                              context: context,
-                              note: _note,
-                              formKey: _formKey,
-                              titleController: _titleController,
-                              bodyController: _bodyController,
-                              receiverName: _receiverName,
-                              selectedSenderType: _selectedSenderType,
-                              selectedSenderModel: _selectedSenderModel,
-                              scrollController: _scrollController,
+                          return ConfirmButton(
+                            confirmButtonModel: ConfirmButtonModel(
+                              firstLine: 'Send',
+                              secondLine: 'to $_receiverName',
+                              isDeactivated: !NoteModel.checkCanSendNote(note),
+                              onTap: () => onSendNote(
+                                context: context,
+                                note: _note,
+                                formKey: _formKey,
+                                titleController: _titleController,
+                                bodyController: _bodyController,
+                                receiverName: _receiverName,
+                                selectedSenderType: _selectedSenderType,
+                                selectedSenderModel: _selectedSenderModel,
+                                scrollController: _scrollController,
+                              ),
                             ),
                           );
 

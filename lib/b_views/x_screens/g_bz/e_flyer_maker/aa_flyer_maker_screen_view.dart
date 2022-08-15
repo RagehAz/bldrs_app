@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
@@ -21,7 +20,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/a_flyer_maker_controllers.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -76,11 +74,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                 valueListenable: draft,
                 builder: (_, DraftFlyerModel _draft, Widget child){
 
-                  final bool _canPublish = DraftFlyerModel.checkCanPublishDraft(
-                    draft: _draft,
-                    headlineController: headlineController,
-                  );
-
                   final List<String> _bzTypeTranslation = BzModel.translateBzTypes(
                       context: context,
                       bzTypes: _bzModel.bzTypes
@@ -99,233 +92,201 @@ class FlyerMakerScreenView extends StatelessWidget {
                   );
 
 
-                  return Stack(
-                    children: <Widget>[
+                  return Form(
+                    key: formKey,
+                    child: Scroller(
+                      controller: scrollController,
+                      child: ListView(
+                        controller: scrollController,
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+                        children: <Widget>[
 
-                      Form(
-                        key: formKey,
-                        child: Scroller(
-                          controller: scrollController,
-                          child: ListView(
-                            controller: scrollController,
-                            physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
-                            children: <Widget>[
+                          /// SHELVES
+                          Bubble(
+                            width: Bubble.bubbleWidth(context: context, stretchy: false),
+                            title: 'Flyer Slides',
+                            columnChildren: <Widget>[
 
-                              /// SHELVES
-                              Bubble(
-                                width: Bubble.bubbleWidth(context: context, stretchy: false),
-                                title: 'Flyer Slides',
-                                columnChildren: <Widget>[
-
-                                  SlidesShelf(
-                                    /// PLAN : ADD FLYER LOCATION SLIDE
-                                    bzModel: _bzModel,
-                                    shelfNumber: 1,
-                                    draft: draft,
-                                    headlineController: headlineController,
-                                    isEditingFlyer: isEditingFlyer,
-                                  ),
-
-                                ],
-                              ),
-
-                              const DotSeparator(),
-
-                              /// FLYER HEADLINE
-                              TextFieldBubble(
-                                key: const ValueKey<String>('flyer_headline_text_field'),
-                                isFormField: true,
-                                textController: headlineController,
-                                title: 'Flyer Headline',
-                                fieldIsRequired: true,
-                                counterIsOn: true,
-                                maxLength: 50,
-                                maxLines: 3,
-                                keyboardTextInputType: TextInputType.multiline,
-                                // fieldIsRequired: false,
-                                textOnChanged: (String text) => onUpdateFlyerHeadline(
-                                  draft: draft,
-                                  headlineController: headlineController,
-                                ),
-                                validator: () => flyerHeadlineValidator(
-                                  headlineController: headlineController,
-                                ),
-                                // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
-                              ),
-
-                              /// FLYER DESCRIPTION
-                              TextFieldBubble(
-                                key: const ValueKey<String>('bz_scope_bubble'),
-                                textController: _draft.descriptionController,
-                                title: 'Flyer Description',
-                                counterIsOn: true,
-                                maxLength: 1000,
-                                maxLines: 7,
-                                keyboardTextInputType: TextInputType.multiline,
-                                // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
-                              ),
-
-                              const DotSeparator(),
-
-                              /// FLYER TYPE SELECTOR
-                              MultipleChoiceBubble(
-                                title: 'Flyer type',
-                                notes: <String>[
-                                  'Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.',
-                                  'Each Flyer Should have one flyer type',
-                                ],
-                                buttonsList: FlyerTyper.translateFlyerTypes(
-                                  context: context,
-                                  flyerTypes: FlyerTyper.flyerTypesList,
-                                  pluralTranslation: false,
-                                ),
-                                selectedButtons: <String>[
-                                  FlyerTyper.translateFlyerType(
-                                    context: context,
-                                    flyerType: _draft.flyerType,
-                                    pluralTranslation: false,
-                                  ),
-                                ],
-                                onButtonTap: (int index) => onSelectFlyerType(
-                                  context: context,
-                                  index: index,
-                                  draft: draft,
-                                ),
-                                isInError: false,
-                                inactiveButtons: <String>[
-                                  ...FlyerTyper.translateFlyerTypes(
-                                    context: context,
-                                    flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
-                                      bzModel: _bzModel,
-                                    ),
-                                    pluralTranslation: false,
-                                  )
-                                ],
-                              ),
-
-                              /// SPECS SELECTOR
-                              WidgetFader(
-                                fadeType: _draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
-                                min: 0.35,
-                                absorbPointer: _draft.flyerType == null,
-                                child: Bubble(
-                                  width: Bubble.bubbleWidth(context: context, stretchy: false),
-                                  title: 'Specifications',
-                                  columnChildren: <Widget>[
-
-                                    BubbleBulletPoints(
-                                      bulletPoints: <String>[
-                                        'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
-                                      ],
-                                    ),
-
-                                    InfoPageSpecs(
-                                      pageWidth: Bubble.clearWidth(context),
-                                      specs: _draft.specs,
-                                      flyerType: _draft.flyerType,
-                                    ),
-
-                                    DreamBox(
-                                      height: PhidButton.getHeight(),
-                                      // width: Bubble.clearWidth(context),
-                                      verse: Mapper.checkCanLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
-                                      bubble: false,
-                                      color: Colorz.white20,
-                                      verseScaleFactor: 1.5,
-                                      verseWeight: VerseWeight.thin,
-                                      icon: Iconz.plus,
-                                      iconSizeFactor: 0.4,
-                                      iconColor: Colorz.white20,
-                                      onTap: () => onAddSpecsTap(
-                                        context: context,
-                                        draft: draft,
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-
-                              const DotSeparator(),
-
-                              PDFSelectionBubble(
-                                formKey: formKey,
-                                existingPDF: _draft.pdf,
-                                onChangePDF: (FlyerPDF pdf){
-
-                                  blog('onChangePDF : aho with ${pdf.fileName}');
-
-                                  draft.value = draft.value.copyWith(
-                                    pdf: pdf,
-                                  );
-
-                                },
-                                onDeletePDF: (){
-                                  draft.value = DraftFlyerModel.removePDF(draft.value);
-                                },
-                              ),
-
-                              const DotSeparator(),
-
-                              /// ZONE SELECTOR
-                              ZoneSelectionBubble(
-                                title: 'Flyer Target city',
-                                notes: const <String>[
-                                  'Select The city you would like this flyer to target',
-                                  'each flyer can target only one city',
-                                  'Selecting district increases the probability of this flyer to gain more views in that district',
-                                ],
-                                currentZone: _draft.zone,
-                                onZoneChanged: (ZoneModel zone) => onZoneChanged(
-                                  context: context,
-                                  draft: draft,
-                                  zone: zone,
-                                ),
-                              ),
-
-                              const DotSeparator(),
-
-                              /// SHOW FLYER AUTHOR
-                              Bubble(
-                                width: Bubble.bubbleWidth(context: context, stretchy: false),
-                                title: 'Show Flyer author on Flyer',
-                                columnChildren: const <Widget>[],
+                              SlidesShelf(
+                                /// PLAN : ADD FLYER LOCATION SLIDE
+                                bzModel: _bzModel,
+                                shelfNumber: 1,
+                                draft: draft,
+                                headlineController: headlineController,
+                                isEditingFlyer: isEditingFlyer,
                               ),
 
                             ],
-
                           ),
-                        ),
-                      ),
 
-                      EditorConfirmButton(
-                        isDeactivated: !_canPublish,
-                        firstLine: isEditingFlyer == true ? 'Update Flyer' : xPhrase(context, 'phid_publish'),
-                        positionedAlignment: Alignment.bottomLeft,
-                        onTap: () async {
+                          const DotSeparator(),
 
-                          if (isEditingFlyer == true){
-                            await onPublishFlyerUpdatesTap(
+                          /// FLYER HEADLINE
+                          TextFieldBubble(
+                            key: const ValueKey<String>('flyer_headline_text_field'),
+                            isFormField: true,
+                            textController: headlineController,
+                            title: 'Flyer Headline',
+                            fieldIsRequired: true,
+                            counterIsOn: true,
+                            maxLength: 50,
+                            maxLines: 3,
+                            keyboardTextInputType: TextInputType.multiline,
+                            // fieldIsRequired: false,
+                            textOnChanged: (String text) => onUpdateFlyerHeadline(
+                              draft: draft,
+                              headlineController: headlineController,
+                            ),
+                            validator: () => flyerHeadlineValidator(
+                              headlineController: headlineController,
+                            ),
+                            // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+                          ),
+
+                          /// FLYER DESCRIPTION
+                          TextFieldBubble(
+                            key: const ValueKey<String>('bz_scope_bubble'),
+                            textController: _draft.descriptionController,
+                            title: 'Flyer Description',
+                            counterIsOn: true,
+                            maxLength: 1000,
+                            maxLines: 7,
+                            keyboardTextInputType: TextInputType.multiline,
+                            // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+                          ),
+
+                          const DotSeparator(),
+
+                          /// FLYER TYPE SELECTOR
+                          MultipleChoiceBubble(
+                            title: 'Flyer type',
+                            notes: <String>[
+                              'Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.',
+                              'Each Flyer Should have one flyer type',
+                            ],
+                            buttonsList: FlyerTyper.translateFlyerTypes(
+                              context: context,
+                              flyerTypes: FlyerTyper.flyerTypesList,
+                              pluralTranslation: false,
+                            ),
+                            selectedButtons: <String>[
+                              FlyerTyper.translateFlyerType(
+                                context: context,
+                                flyerType: _draft.flyerType,
+                                pluralTranslation: false,
+                              ),
+                            ],
+                            onButtonTap: (int index) => onSelectFlyerType(
+                              context: context,
+                              index: index,
+                              draft: draft,
+                            ),
+                            isInError: false,
+                            inactiveButtons: <String>[
+                              ...FlyerTyper.translateFlyerTypes(
+                                context: context,
+                                flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
+                                  bzModel: _bzModel,
+                                ),
+                                pluralTranslation: false,
+                              )
+                            ],
+                          ),
+
+                          /// SPECS SELECTOR
+                          WidgetFader(
+                            fadeType: _draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
+                            min: 0.35,
+                            absorbPointer: _draft.flyerType == null,
+                            child: Bubble(
+                              width: Bubble.bubbleWidth(context: context, stretchy: false),
+                              title: 'Specifications',
+                              columnChildren: <Widget>[
+
+                                BubbleBulletPoints(
+                                  bulletPoints: <String>[
+                                    'Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+                                  ],
+                                ),
+
+                                InfoPageSpecs(
+                                  pageWidth: Bubble.clearWidth(context),
+                                  specs: _draft.specs,
+                                  flyerType: _draft.flyerType,
+                                ),
+
+                                DreamBox(
+                                  height: PhidButton.getHeight(),
+                                  // width: Bubble.clearWidth(context),
+                                  verse: Mapper.checkCanLoopList(_draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
+                                  bubble: false,
+                                  color: Colorz.white20,
+                                  verseScaleFactor: 1.5,
+                                  verseWeight: VerseWeight.thin,
+                                  icon: Iconz.plus,
+                                  iconSizeFactor: 0.4,
+                                  iconColor: Colorz.white20,
+                                  onTap: () => onAddSpecsTap(
+                                    context: context,
+                                    draft: draft,
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                          ),
+
+                          const DotSeparator(),
+
+                          PDFSelectionBubble(
+                            formKey: formKey,
+                            existingPDF: _draft.pdf,
+                            onChangePDF: (FlyerPDF pdf){
+
+                              blog('onChangePDF : aho with ${pdf.fileName}');
+
+                              draft.value = draft.value.copyWith(
+                                pdf: pdf,
+                              );
+
+                            },
+                            onDeletePDF: (){
+                              draft.value = DraftFlyerModel.removePDF(draft.value);
+                            },
+                          ),
+
+                          const DotSeparator(),
+
+                          /// ZONE SELECTOR
+                          ZoneSelectionBubble(
+                            title: 'Flyer Target city',
+                            notes: const <String>[
+                              'Select The city you would like this flyer to target',
+                              'each flyer can target only one city',
+                              'Selecting district increases the probability of this flyer to gain more views in that district',
+                            ],
+                            currentZone: _draft.zone,
+                            onZoneChanged: (ZoneModel zone) => onZoneChanged(
                               context: context,
                               draft: draft,
-                              formKey: formKey,
-                              originalFlyer: originalFlyer,
-                            );
-                          }
+                              zone: zone,
+                            ),
+                          ),
 
-                          else {
-                            await onPublishNewFlyerTap(
-                              context: context,
-                              draft: draft,
-                              formKey: formKey,
-                            );
-                          }
+                          const DotSeparator(),
 
-                        },
+                          /// SHOW FLYER AUTHOR
+                          Bubble(
+                            width: Bubble.bubbleWidth(context: context, stretchy: false),
+                            title: 'Show Flyer author on Flyer',
+                            columnChildren: const <Widget>[],
+                          ),
+
+                        ],
+
                       ),
-
-                    ],
+                    ),
                   );
 
             });

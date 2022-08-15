@@ -108,10 +108,12 @@ class CropperFooter extends StatelessWidget {
           );
 
         },
-        child: EditorConfirmButton(
+        child: ConfirmButton(
+          confirmButtonModel: ConfirmButtonModel(
+            firstLine: 'Crop Images',
+            onTap: onCropImages,
+          ),
           positionedAlignment: Alignment.bottomRight,
-          firstLine: 'Crop Images',
-          onTap: onCropImages,
         ),
       ),
 
