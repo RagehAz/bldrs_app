@@ -22,7 +22,6 @@ class Stringer {
     }
     return _newList;
   }
-
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -231,11 +230,15 @@ class Stringer {
   /// SORTING STRINGS
 
 // ----------------------------
+  /*
   static List<String> sortAlphabetically(List<String> inputList) {
     inputList.sort();
     return inputList;
   }
-// ----------------------------
+   */
+// -------------------------------------
+/*
+  /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
     // List<String> _outputList = <String>[];
 
@@ -243,38 +246,14 @@ class Stringer {
 
     return inputList;
   }
+ */
 // -----------------------------------------------------------------------------
 
-  /// SEARCHERS
-
-// -------------------------------------
-  static List<String> searchUniqueStringsFromStrings({
-    @required List<String> strings,
-  }){
-
-    final List<String> _output = <String>[];
-
-    if (Mapper.checkCanLoopList(strings) == true){
-
-      for (final String string in strings){
-
-        if (_output.contains(string) == false){
-          _output.add(string);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-
-  /// SEARCHERS
+  /// TRANSFORMERS
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getStringsFromDynamics({
+  static List<String> transformDynamicsToStrings({
     @required List<dynamic> dynamics,
   }) {
     final List<String> _strings = <String>[];

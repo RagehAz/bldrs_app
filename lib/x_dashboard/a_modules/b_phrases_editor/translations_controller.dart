@@ -241,7 +241,7 @@ Future<void> onUploadPhrases({
   blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
 
   final List<String> _mixedPhrasesIDs = Phrase.getPhrasesIDs(inputMixedLangPhrases);
-  final List<String> _newPhrasesIDs = Stringer.searchUniqueStringsFromStrings(strings: _mixedPhrasesIDs);
+  final List<String> _newPhrasesIDs = Stringer.cleanDuplicateStrings(strings: _mixedPhrasesIDs);
 
   blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
 

@@ -34,7 +34,7 @@ class Chain {
 
       else {
         final bool _contains = Stringer.checkStringsContainString(
-          strings: Stringer.getStringsFromDynamics(dynamics: sons),
+          strings: Stringer.transformDynamicsToStrings(dynamics: sons),
           string: son,
         );
         if (_contains == false){
@@ -168,7 +168,7 @@ class Chain {
 
         /// FIRST SON IS STRING => SONS ARE STRINGS
         if (sons[0] is String){
-          _output = Stringer.getStringsFromDynamics(dynamics: sons);
+          _output = Stringer.transformDynamicsToStrings(dynamics: sons);
         }
 
         /// FIRST SON IS NOT STRING => SONS ARE CHAINS
@@ -231,7 +231,7 @@ class Chain {
         Mapper.checkCanLoopList(specPicker?.range)
     ) {
 
-      final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
+      final List<String> _rangeIDs = Stringer.transformDynamicsToStrings(
         dynamics: specPicker.range,
       );
 
