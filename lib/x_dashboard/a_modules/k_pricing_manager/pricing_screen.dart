@@ -38,7 +38,7 @@ class PricingScreen extends StatelessWidget {
               final double _localPrice =
                   Numeric.roundFractions(_mac.localPrice, 2);
 
-              final String _flag = Flag.getFlagIconByCountryID(_iso3);
+              final String _flag = Flag.getFlagIcon(_iso3);
               final String _countryName =
                   '${index + 1} - ${Localizer.translate(context, _iso3)}';
               final String _countryCurrency =

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';

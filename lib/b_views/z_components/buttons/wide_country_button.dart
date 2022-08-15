@@ -24,7 +24,7 @@ class WideCountryButton extends StatelessWidget {
     return DreamBox(
       height: 50,
       width: width ?? Bubble.clearWidth(context),
-      icon: Flag.getFlagIconByCountryID(countryID),
+      icon: Flag.getFlagIcon(countryID),
       iconSizeFactor: 0.8,
       verse: CountryModel.getTranslatedCountryName(context: context, countryID: countryID),
       bubble: false,

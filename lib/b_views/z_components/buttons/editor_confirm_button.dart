@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -38,9 +37,13 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _width = confirmButtonModel.firstLine.length > 20 ? 200 : null;
+
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
+      width: _width,
+      verseMaxLines: 2,
       color: Colorz.yellow255,
       verseColor: Colorz.black230,
       verseWeight: VerseWeight.black,
@@ -60,7 +63,7 @@ class ConfirmButton extends StatelessWidget {
     else if (confirmButtonModel.onSkipTap == null){
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
-        enAlignment: positionedAlignment ?? Aligners.superInverseBottomAlignment(context),
+        enAlignment: positionedAlignment,
         child: _button,
       );
     }
@@ -68,7 +71,7 @@ class ConfirmButton extends StatelessWidget {
     else {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
-        enAlignment: positionedAlignment ?? Aligners.superInverseBottomAlignment(context),
+        enAlignment: positionedAlignment,
         child: Row(
           children: <Widget>[
 

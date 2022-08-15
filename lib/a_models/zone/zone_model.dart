@@ -19,6 +19,7 @@ class ZoneModel {
     this.districtName,
     this.countryModel,
     this.cityModel,
+    this.flag,
   });
   /// --------------------------------------------------------------------------
   final String countryID;
@@ -29,7 +30,7 @@ class ZoneModel {
   final String districtName;
   final CountryModel countryModel;
   final CityModel cityModel;
-
+  final String flag;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -44,6 +45,7 @@ class ZoneModel {
     String districtName,
     CountryModel countryModel,
     CityModel cityModel,
+    String flag,
   }){
     return ZoneModel(
       countryID: countryID ?? this.countryID,
@@ -54,6 +56,7 @@ class ZoneModel {
       districtName: districtName ?? this.districtName,
       countryModel: countryModel ?? this.countryModel,
       cityModel: cityModel ?? this.cityModel,
+      flag: flag ?? this.flag,
     );
   }
 // -----------------------------------------------------------------------------

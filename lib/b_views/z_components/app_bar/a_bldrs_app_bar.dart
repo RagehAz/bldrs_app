@@ -215,16 +215,16 @@ class BldrsAppBar extends StatelessWidget {
                       width: Ratioz.appBarPadding,
                     ),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                    /// SECTION BUTTON
-                    if (_sectionButtonIsOn == true)
-                      const SectionsButton(),
-                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// BACK BUTTON
                     if (_backButtonIsOn == true && canGoBack == true)
                       BackAndSearchButton(
                         backAndSearchAction: BackAndSearchAction.goBack,
                         onTap: onBack,
                       ),
+                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                    /// SECTION BUTTON
+                    if (_sectionButtonIsOn == true)
+                      const SectionsButton(),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// PAGE TITLE SPACER
                     const SizedBox(

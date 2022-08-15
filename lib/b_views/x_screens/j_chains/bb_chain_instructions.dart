@@ -65,7 +65,7 @@ class SpecPickerScreenView extends StatelessWidget {
 
         /// INSTRUCTIONS BOX
         if (showInstructions == true)
-          SpecPickerInstructions(
+          ChainInstructions(
             chain: _chain,
             picker: specPicker,
           ),
