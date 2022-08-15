@@ -326,7 +326,7 @@ class FlyersGrid extends StatelessWidget {
                           flyerID: _flyerModel?.id,
                         );
 
-                        if (connectionIsLoading(snap) == true){
+                        if (Streamer.connectionIsLoading(snap) == true){
 
                           return FlyerLoading(
                             flyerBoxWidth: _flyerBoxWidth,

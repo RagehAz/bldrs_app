@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
@@ -19,13 +21,13 @@ class FireCollStreamer extends StatefulWidget {
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
-  static Future<void> onStreamDataChanged({
+  static StreamSubscription onStreamDataChanged({
     @required Stream<QuerySnapshot<Object>> stream,
     @required ValueNotifier<List<Map<String, dynamic>>> oldMaps,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
-  }) async {
+  }){
 
-    stream.listen((QuerySnapshot<Object> snapshot) async {
+    final StreamSubscription _streamSubscription = stream.listen((QuerySnapshot<Object> snapshot) async {
 
       final List<Map<String, dynamic>> _newMaps = Mapper.getMapsFromQuerySnapshot(
         querySnapshot: snapshot,
@@ -59,7 +61,7 @@ class FireCollStreamer extends StatefulWidget {
 
     );
 
-
+    return _streamSubscription;
   }
   /// --------------------------------------------------------------------------
   @override
