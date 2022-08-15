@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
@@ -33,6 +34,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onPyramidTap,
     @required this.canGoBack,
     @required this.onSearchCancelled,
+    @required this.confirmButtonModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -58,6 +60,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Function onPyramidTap;
   final bool canGoBack;
   final Function onSearchCancelled;
+  final ConfirmButtonModel confirmButtonModel;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
@@ -135,12 +138,17 @@ class MainLayoutStackWidgets extends StatelessWidget {
           ),
 
         /// --- PYRAMIDS
-        if (pyramidsAreOn == true)
+        if (pyramidsAreOn == true && confirmButtonModel == null)
           Pyramids(
             key: const ValueKey<String>('pyramids'),
             pyramidType: _concludePyramidTypePerSkyType(),
             loading: loading ?? ValueNotifier(false),
             onPyramidTap: onPyramidTap,
+          ),
+
+        if (confirmButtonModel != null)
+          ConfirmButton(
+            confirmButtonModel: confirmButtonModel,
           ),
 
         /// --- IOS BACK BUTTON
@@ -157,5 +165,6 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
       ],
     );
+
   }
 }

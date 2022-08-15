@@ -65,6 +65,14 @@ Future<void> onDeleteBzButtonTap({
       );
     // }
 
+    /// DELETE BZ LOCALLY
+    await BzProtocols.deleteLocally(
+      context: context,
+      bzID: bzModel.id,
+      invoker: 'onDeleteBzButtonTap',
+    );
+
+
     if (showSuccessDialog == true){
       await TopDialog.showTopDialog(
         context: context,

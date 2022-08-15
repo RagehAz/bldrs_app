@@ -116,131 +116,122 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       skyType: SkyType.black,
       pageTitle: 'Edit Author Details', // createBzAccount
       // appBarBackButton: true,
+      confirmButtonModel: ConfirmButtonModel(
+        firstLine: 'Confirm',
+        secondLine: 'Update Author Details',
+        onTap: () => onConfirmAuthorUpdates(
+          context: context,
+          author: _author,
+          titleController: _titleController,
+          generatedControllers: _generatedContactsControllers,
+          nameController: _nameController,
+        ),
+      ),
       layoutWidget: Form(
         key: _formKey,
-        child: Stack(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          padding: Stratosphere.stratosphereSandwich,
           children: <Widget>[
 
-            ListView(
-              physics: const BouncingScrollPhysics(),
-              padding: Stratosphere.stratosphereSandwich,
-              children: <Widget>[
+            /// --- AUTHOR IMAGE
+            ValueListenableBuilder(
+              valueListenable: _author,
+              builder: (_, AuthorModel author, Widget child){
 
-                /// --- AUTHOR IMAGE
-                ValueListenableBuilder(
-                  valueListenable: _author,
-                  builder: (_, AuthorModel author, Widget child){
-
-                    return AddImagePicBubble(
-                      picture: ValueNotifier(author.pic),
-                      title: 'Author picture',
-                      redDot: true,
-                      bubbleType: BubbleType.authorPic,
-                      onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
-                        context: context,
-                        author: _author,
-                        imagePickerType: imagePickerType,
-                      ),
-                    );
-
-                  },
-                ),
-
-                /// NAME
-                TextFieldBubble(
-                  isFormField: true,
-                  textController: _nameController,
-                  title: 'Author Name',
-                  counterIsOn: true,
-                  maxLength: 72,
-                  keyboardTextInputType: TextInputType.name,
-                  fieldIsRequired: true,
-                  comments: const <String>['This will only change your name inside this Business account'],
-                  validator: (){
-
-                    if (Stringer.checkStringIsEmpty(_nameController.text) == true){
-                      return 'Author name can not be empty';
-                    }
-                    else if (_nameController.text.length <= 3){
-                      return 'Author name should be more than 3 characters';
-                    }
-                    else {
-                      return null;
-                    }
-
-                  },
-                ),
-
-                /// TITLE
-                TextFieldBubble(
-                  isFormField: true,
-                  textController: _titleController,
-                  title: 'Job Title',
-                  counterIsOn: true,
-                  maxLength: 72,
-                  keyboardTextInputType: TextInputType.name,
-                  fieldIsRequired: true,
-                  validator: (){
-
-                    if (Stringer.checkStringIsEmpty(_titleController.text) == true){
-                      return 'Author name can not be empty';
-                    }
-                    else if (_titleController.text.length <= 3){
-                      return 'Author name should be more than 3 characters';
-                    }
-                    else {
-                      return null;
-                    }
-
-                  },
-                ),
-
-                /// CONTACTS
-                ...List.generate(ContactModel.contactTypesList.length, (index){
-
-                  final ContactType _contactType = ContactModel.contactTypesList[index];
-
-                  final String _title = ContactModel.translateContactType(
+                return AddImagePicBubble(
+                  picture: ValueNotifier(author.pic),
+                  title: 'Author picture',
+                  redDot: true,
+                  bubbleType: BubbleType.authorPic,
+                  onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
                     context: context,
-                    contactType: _contactType,
-                  );
-                  final bool _isRequired = ContactModel.checkContactIsRequired(
-                    contactType: _contactType,
-                    ownerType: ContactsOwnerType.author,
-                  );
+                    author: _author,
+                    imagePickerType: imagePickerType,
+                  ),
+                );
 
-                  final TextInputType _textInputType = ContactModel.getContactTextInputType(
-                    contactType: _contactType,
-                  );
-
-                  return ContactFieldBubble(
-                    isFormField: true,
-                    textController: _generatedContactsControllers[index],
-                    title: _title,
-                    leadingIcon: ContactModel.getContactIcon(_contactType),
-                    keyboardTextInputAction: TextInputAction.next,
-                    fieldIsRequired: _isRequired,
-                    keyboardTextInputType: _textInputType,
-                  );
-
-                }),
-
-              ],
+              },
             ),
 
-            /// ---  CONFIRM BUTTON
-            EditorConfirmButton(
-              firstLine: 'Confirm',
-              secondLine: 'Update Author Details',
-              positionedAlignment: Alignment.bottomLeft,
-              onTap: () => onConfirmAuthorUpdates(
+            /// NAME
+            TextFieldBubble(
+              isFormField: true,
+              textController: _nameController,
+              title: 'Author Name',
+              counterIsOn: true,
+              maxLength: 72,
+              keyboardTextInputType: TextInputType.name,
+              fieldIsRequired: true,
+              comments: const <String>['This will only change your name inside this Business account'],
+              validator: (){
+
+                if (Stringer.checkStringIsEmpty(_nameController.text) == true){
+                  return 'Author name can not be empty';
+                }
+                else if (_nameController.text.length <= 3){
+                  return 'Author name should be more than 3 characters';
+                }
+                else {
+                  return null;
+                }
+
+              },
+            ),
+
+            /// TITLE
+            TextFieldBubble(
+              isFormField: true,
+              textController: _titleController,
+              title: 'Job Title',
+              counterIsOn: true,
+              maxLength: 72,
+              keyboardTextInputType: TextInputType.name,
+              fieldIsRequired: true,
+              validator: (){
+
+                if (Stringer.checkStringIsEmpty(_titleController.text) == true){
+                  return 'Author name can not be empty';
+                }
+                else if (_titleController.text.length <= 3){
+                  return 'Author name should be more than 3 characters';
+                }
+                else {
+                  return null;
+                }
+
+              },
+            ),
+
+            /// CONTACTS
+            ...List.generate(ContactModel.contactTypesList.length, (index){
+
+              final ContactType _contactType = ContactModel.contactTypesList[index];
+
+              final String _title = ContactModel.translateContactType(
                 context: context,
-                author: _author,
-                titleController: _titleController,
-                generatedControllers: _generatedContactsControllers,
-                nameController: _nameController,
-              ),
-            ),
+                contactType: _contactType,
+              );
+              final bool _isRequired = ContactModel.checkContactIsRequired(
+                contactType: _contactType,
+                ownerType: ContactsOwnerType.author,
+              );
+
+              final TextInputType _textInputType = ContactModel.getContactTextInputType(
+                contactType: _contactType,
+              );
+
+              return ContactFieldBubble(
+                isFormField: true,
+                textController: _generatedContactsControllers[index],
+                title: _title,
+                leadingIcon: ContactModel.getContactIcon(_contactType),
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: _isRequired,
+                keyboardTextInputType: _textInputType,
+              );
+
+            }),
 
           ],
         ),
