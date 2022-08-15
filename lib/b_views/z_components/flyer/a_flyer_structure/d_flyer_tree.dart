@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
@@ -28,7 +29,7 @@ class FlyerTree extends StatefulWidget {
     @required this.flyerZone,
     @required this.flyerBoxWidth,
     @required this.flightDirection,
-    @required this.currentSlideIndex,
+    @required this.progressBarModel,
     @required this.onSaveFlyer,
     @required this.flyerIsSaved,
     this.onTap,
@@ -45,7 +46,7 @@ class FlyerTree extends StatefulWidget {
   final bool loading;
   final String heroTag;
   final FlightDirection flightDirection;
-  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
   final Function onSaveFlyer;
   final ValueNotifier<bool> flyerIsSaved; /// p
   /// --------------------------------------------------------------------------
@@ -66,9 +67,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   PageController _footerPageController; /// tamam disposed
   /// FOR SAVING GRAPHIC
   AnimationController _animationController; /// tamam disposed
-
-  bool _canShowGallery;
-  int _numberOfSlides;
 // ----------------------------------------------
   @override
   void initState() {
@@ -85,7 +83,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     );
     // ------------------------------------------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController(initialPage: widget.currentSlideIndex.value);
+    _horizontalSlidesController = PageController(initialPage: widget.progressBarModel.value.index);
     // ------------------------------------------
     /// FOLLOW IS ON
     final _followIsOn = checkFollowIsOn(
@@ -108,18 +106,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
     // blog('FLYER IN FLIGHT [ ${widget.flyerModel.id} ] : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
 
-    _canShowGallery = canShowGalleryPage(
-      bzModel: widget.bzModel,
-      heroTag: widget.heroTag,
-    );
-    _numberOfSlides = getNumberOfSlides(
-      flyerModel: widget.flyerModel,
-      bzModel: widget.bzModel,
-      heroTag: widget.heroTag,
-    );
-
-
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.flightDirection == FlightDirection.pop && _horizontalSlidesController.hasClients){
 
@@ -127,7 +113,9 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
             _horizontalSlidesController.animateToPage(0, duration: const Duration(milliseconds: 200), curve: Curves.easeOut)
         );
         // blog('THE FUCKING INDEX WAS : ${widget.currentSlideIndex.value}');
-        widget.currentSlideIndex.value = 0;
+        widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
+          index: 0,
+        );
         // blog('THE FUCKING INDEX ISSS : ${widget.currentSlideIndex.value}');
 
       }
@@ -169,7 +157,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _progressBarOpacity.dispose();
     _headerIsExpanded.dispose();
     _headerPageOpacity.dispose();
-    _swipeDirection.dispose();
     _graphicIsOn.dispose();
     _graphicOpacity.dispose();
     _bzCounters.dispose();
@@ -212,8 +199,6 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false); /// tamam disposed
   /// HEADER PAGE OPACITY
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0); /// tamam disposed
-  /// SWIPE DIRECTION
-  final ValueNotifier<SwipeDirection> _swipeDirection = ValueNotifier(SwipeDirection.next); /// tamam disposed
 // -----------------------------------------------------------------------------
   ValueNotifier<BzCounterModel> _bzCounters;
 // -----------------------------------------------------------------------------
@@ -269,8 +254,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     onHorizontalSlideSwipe(
       context: context,
       newIndex: index,
-      currentSlideIndex: widget.currentSlideIndex,
-      swipeDirection: _swipeDirection,
+      progressBarModel: widget.progressBarModel,
     );
 
     // blog('index has become ${widget.currentSlideIndex.value}');
@@ -282,7 +266,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     final int _lastIndex = widget.flyerModel.slides.length;
 
     /// WHEN AT LAST INDEX
-    if (widget.currentSlideIndex.value == _lastIndex){
+    if (widget.progressBarModel.value.index == _lastIndex){
       Nav.goBack(context);
     }
 
@@ -292,7 +276,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         slidingController: _horizontalSlidesController,
         numberOfSlides: widget.flyerModel.slides.length + 1,
-        currentSlide: widget.currentSlideIndex.value,
+        currentSlide: widget.progressBarModel.value.index,
       );
 
       blog('_onSlideNextTap : _newIndex : $_newIndex');
@@ -303,7 +287,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   Future<void> _onSlideBackTap() async {
 
     /// WHEN AT FIRST INDEX
-    if (widget.currentSlideIndex.value == 0){
+    if (widget.progressBarModel.value.index == 0){
       Nav.goBack(context);
     }
 
@@ -312,7 +296,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
       final int _newIndex = await Sliders.slideToBackAndGetNewIndex(
           pageController: _horizontalSlidesController,
-          currentSlide: widget.currentSlideIndex.value,
+          currentSlide: widget.progressBarModel.value.index,
       );
 
       blog('onSlideBackTap _newIndex : $_newIndex');
@@ -421,7 +405,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       stackWidgets: <Widget>[
 
         /// SLIDES
-        if (widget.currentSlideIndex?.value != null)
+        // if (widget.currentSlideIndex?.value != null)
           FlyerSlides(
             key: const ValueKey<String>('FlyerTree_FlyerSlides'),
             flyerModel: widget.flyerModel,
@@ -434,11 +418,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
             onSlideBackTap: _onSlideBackTap,
             onSlideNextTap: _onSlideNextTap,
             onDoubleTap: _onSaveFlyer,
-            currentSlideIndex: widget.currentSlideIndex,
             heroTag: widget.heroTag,
-            canShowGalleryPage : _canShowGallery,
-            numberOfSlides: _numberOfSlides,
+            progressBarModel: widget.progressBarModel,
             flightDirection: widget.flightDirection,
+
           ),
 
         /// HEADER
@@ -480,9 +463,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
           key: const ValueKey<String>('FlyerTree_ProgressBar'),
           flyerBoxWidth: widget.flyerBoxWidth,
           progressBarOpacity: _progressBarOpacity,
-          numberOfSlides: _numberOfSlides,
-          swipeDirection: _swipeDirection,
-          currentSlideIndex: widget.currentSlideIndex,
+          progressBarModel: widget.progressBarModel,
           tinyMode: _tinyMode,
           loading: widget.loading,
         ),

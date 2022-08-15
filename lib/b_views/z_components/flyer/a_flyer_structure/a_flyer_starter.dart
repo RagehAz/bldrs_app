@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
@@ -14,6 +15,7 @@ import 'package:bldrs/c_controllers/x_flyer_controllers/flyer_controllers.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/footer_controller.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +64,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
   /// CURRENT SLIDE INDEX
-  ValueNotifier<int> _currentSlideIndex; /// tamam disposed
+  ValueNotifier<ProgressBarModel> _progressBarModel; /// tamam disposed
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -146,7 +148,18 @@ class _FlyerStarterState extends State<FlyerStarter> {
             districtID: widget.flyerModel.zone.districtID,
           );
 
-          _currentSlideIndex = ValueNotifier(_startingIndex);
+          final int _numberOfSlides = getNumberOfSlides(
+            flyerModel: widget.flyerModel,
+            bzModel: _bzModel,
+            heroTag: widget.heroTag,
+          );
+
+          final ProgressBarModel _initialProgModel = ProgressBarModel(
+              swipeDirection: SwipeDirection.next,
+              index: _startingIndex,
+              numberOfStrips: _numberOfSlides,
+          );
+          _progressBarModel = ValueNotifier(_initialProgModel);
 
         }
 
@@ -165,7 +178,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     _loading?.dispose();
     _bzModelNotifier?.dispose();
     _flyerZoneNotifier?.dispose();
-    _currentSlideIndex?.dispose();
+    _progressBarModel?.dispose();
     _flyerIsSaved?.dispose();
     super.dispose(); /// tamam
   }
@@ -188,7 +201,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
           minWidthFactor: widget.minWidthFactor,
           flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
-          currentSlideIndex: _currentSlideIndex,
+          progressBarModel: _progressBarModel,
           flyerIsSaved: _flyerIsSaved,
           onSaveFlyer: onTriggerSave,
         )
@@ -203,7 +216,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
       await onSaveFlyer(
           context: context,
           flyerModel: _flyerModel,
-          slideIndex: _currentSlideIndex.value,
+          slideIndex: _progressBarModel.value.index,
           flyerIsSaved: _flyerIsSaved
       );
     }
@@ -253,7 +266,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                               minWidthFactor: widget.minWidthFactor,
                               isFullScreen: widget.isFullScreen,
                               heroTag: widget.heroTag,
-                              currentSlideIndex: _currentSlideIndex,
+                              progressBarModel: _progressBarModel,
                               onSaveFlyer: onTriggerSave,
                               flyerIsSaved: _flyerIsSaved,
                             ),

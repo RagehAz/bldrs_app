@@ -1,5 +1,5 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar_child.drat.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -7,20 +7,16 @@ class ProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBar({
     @required this.flyerBoxWidth,
-    @required this.numberOfSlides,
-    @required this.currentSlideIndex,
+    @required this.progressBarModel,
     @required this.progressBarOpacity,
-    @required this.swipeDirection,
     @required this.tinyMode,
     this.loading = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final int numberOfSlides;
-  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
   final ValueNotifier<double> progressBarOpacity; /// p
-  final ValueNotifier<SwipeDirection> swipeDirection; /// p
   final bool loading;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
@@ -43,9 +39,7 @@ class ProgressBar extends StatelessWidget {
 
         child: ProgressBarChild(
           flyerBoxWidth: flyerBoxWidth,
-          currentSlideIndex: currentSlideIndex,
-          swipeDirection: swipeDirection,
-          numberOfSlides: numberOfSlides,
+          progressBarModel: progressBarModel,
           tinyMode: tinyMode,
           loading: loading,
         ),

@@ -1,24 +1,22 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
+
 class AppBarProgressBar extends StatelessWidget {
 
   const AppBarProgressBar({
     @required this.loading,
-    @required this.swipeDirection,
-    @required this.index,
-    @required this.numberOfStrips,
+    @required this.progressBarModel,
     Key key
   }) : super(key: key);
 
   final ValueNotifier<bool> loading;
-  final ValueNotifier<SwipeDirection> swipeDirection;
-  final ValueNotifier<int> index;
-  final int numberOfStrips;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
 
   @override
   Widget build(BuildContext context) {
@@ -44,27 +42,20 @@ class AppBarProgressBar extends StatelessWidget {
           );
         }
 
-        else if (index != null){
+        else if (progressBarModel != null){
           return ValueListenableBuilder(
-              valueListenable: index,
-              builder: (_, int _index, Widget childB){
+              valueListenable: progressBarModel,
+              builder: (_, ProgressBarModel progressBarModel, Widget childB){
 
-                return ValueListenableBuilder(
-                    valueListenable: swipeDirection,
-                    builder: (_, SwipeDirection direction, Widget childC){
-
-                      return StaticProgressBar(
-                        index: _index,
-                        numberOfSlides: numberOfStrips,
-                        opacity: 1,
-                        swipeDirection: direction,
-                        loading: isLoading,
-                        flyerBoxWidth: _abWidth,
-                        margins: _margins,
-                        shrinkThickness: 0.4,
-                      );
-
-                    }
+                return StaticProgressBar(
+                  index: progressBarModel.index,
+                  numberOfSlides: progressBarModel.numberOfStrips,
+                  opacity: 1,
+                  swipeDirection: progressBarModel.swipeDirection,
+                  loading: isLoading,
+                  flyerBoxWidth: _abWidth,
+                  margins: _margins,
+                  shrinkThickness: 0.4,
                 );
 
               }

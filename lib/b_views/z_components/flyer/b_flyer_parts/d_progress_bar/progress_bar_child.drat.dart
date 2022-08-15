@@ -1,28 +1,26 @@
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/loading_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/strips.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBarChild extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBarChild({
     @required this.flyerBoxWidth,
-    @required this.numberOfSlides,
-    @required this.swipeDirection,
-    @required this.currentSlideIndex,
+    @required this.progressBarModel,
     @required this.tinyMode,
     this.loading = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final int numberOfSlides;
-  final ValueNotifier<SwipeDirection> swipeDirection; /// p
-  final ValueNotifier<int> currentSlideIndex; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
   final bool tinyMode;
   final bool loading;
   /// --------------------------------------------------------------------------
-  bool _progressBarIsLoading(){
+  bool _progressBarIsLoading({
+    @required int numberOfSlides
+  }){
     bool _isLoading = false;
 
     if (loading == true || numberOfSlides == null){
@@ -35,25 +33,33 @@ class ProgressBarChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (_progressBarIsLoading() == true){
-      return LoadingProgressBar(
-        flyerBoxWidth: flyerBoxWidth,
-      );
-    }
+    return ValueListenableBuilder(
+        valueListenable: progressBarModel,
+        child: Strips(
+          flyerBoxWidth: flyerBoxWidth,
+          progressBarModel: progressBarModel,
+          tinyMode: tinyMode,
+        ),
+        builder: (_, ProgressBarModel progModel, Widget child){
 
-    else if (Strips.canBuildStrips(numberOfSlides) == true){
-      return Strips(
-        flyerBoxWidth: flyerBoxWidth,
-        numberOfStrips: numberOfSlides,
-        currentSlideIndex: currentSlideIndex,
-        swipeDirection: swipeDirection,
-        tinyMode: tinyMode,
-      );
-    }
+          if (_progressBarIsLoading(numberOfSlides: progModel.numberOfStrips) == true){
+            return LoadingProgressBar(
+              flyerBoxWidth: flyerBoxWidth,
+            );
+          }
 
-    else {
-      return Container();
-    }
+          else if (Strips.canBuildStrips(progModel.numberOfStrips) == true){
+            return child;
+          }
+
+          else {
+            return const SizedBox();
+          }
+
+
+        }
+    );
+
   }
 
 }

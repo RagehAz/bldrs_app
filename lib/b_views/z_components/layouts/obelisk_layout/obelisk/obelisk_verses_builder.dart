@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/new_navigators/nav_model.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +9,14 @@ class ObeliskVersesBuilder extends StatelessWidget {
   const ObeliskVersesBuilder({
     @required this.isExpanded,
     @required this.navModels,
-    @required this.tabIndex,
+    @required this.progressBarModel,
     @required this.onRowTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> isExpanded;
   final List<NavModel> navModels;
-  final ValueNotifier<int> tabIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
   @override
@@ -61,7 +62,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
             return ObeliskVerse(
               onTap: () => onRowTap(index),
-              currentTabIndex: tabIndex,
+              progressBarModel: progressBarModel,
               navModelIndex: index,
               navModel: navModels[index],
             );

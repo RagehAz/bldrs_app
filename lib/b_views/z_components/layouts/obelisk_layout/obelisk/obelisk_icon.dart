@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -13,14 +14,14 @@ class ObeliskIcon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskIcon({
     @required this.navModel,
-    @required this.currentTabIndex,
+    @required this.progressBarModel,
     @required this.navModelIndex,
     @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final NavModel navModel;
-  final ValueNotifier<int> currentTabIndex;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final int navModelIndex;
   final Function onTap;
   /// --------------------------------------------------------------------------
@@ -29,10 +30,10 @@ class ObeliskIcon extends StatelessWidget {
 
     return ValueListenableBuilder(
         key: const ValueKey<String>('ObeliskIcon'),
-        valueListenable: currentTabIndex,
-        builder: (_, int _tabIndex, Widget child){
+        valueListenable: progressBarModel,
+        builder: (_, ProgressBarModel progressBarModel, Widget child){
 
-          final bool _isSelected = _tabIndex == navModelIndex;
+          final bool _isSelected = progressBarModel.index == navModelIndex;
 
           /// BUTTON CIRCLE
           if (navModel?.canShow == true){
