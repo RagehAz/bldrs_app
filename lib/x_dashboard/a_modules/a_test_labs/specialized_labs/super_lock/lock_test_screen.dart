@@ -87,6 +87,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
       sectionButtonIsOn: false,
       pageTitle: 'Lock Test',
       appBarType: AppBarType.basic,
+      confirmButtonModel: ConfirmButtonModel(
+        firstLine: 'Open Sesame',
+        onTap: _onOpenSesame,
+      ),
       layoutWidget: Container(
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
@@ -134,12 +138,6 @@ class _LockTestScreenState extends State<LockTestScreen> {
                 ),
 
               ],
-            ),
-
-            EditorConfirmButton(
-              firstLine: 'Open Sesame',
-              onTap: _onOpenSesame,
-              // positionedAlignment: null,
             ),
 
           ],

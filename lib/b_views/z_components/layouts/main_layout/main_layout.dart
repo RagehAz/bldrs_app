@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
+import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -52,6 +53,7 @@ class MainLayout extends StatelessWidget {
     this.onPyramidTap,
     this.hasKeyboard = true,
     this.onSearchCancelled,
+    this.confirmButtonModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -79,6 +81,7 @@ class MainLayout extends StatelessWidget {
   final Function onPyramidTap;
   final bool hasKeyboard;
   final Function onSearchCancelled;
+  final ConfirmButtonModel confirmButtonModel;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -213,6 +216,7 @@ class MainLayout extends StatelessWidget {
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,
                     onSearchCancelled: onSearchCancelled,
+                    confirmButtonModel: confirmButtonModel,
                     layoutWidget: layoutWidget,
                   ),
 
