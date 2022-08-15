@@ -30,7 +30,7 @@ class ObeliskVerse extends StatelessWidget {
       valueListenable: progressBarModel,
       builder: (_, ProgressBarModel _progressBarModel, Widget child){
 
-        final bool _isSelected = _progressBarModel.index == navModelIndex;
+        final bool _isSelected = _progressBarModel?.index == navModelIndex;
 
         /// TEXT
         if (navModel?.canShow == true){

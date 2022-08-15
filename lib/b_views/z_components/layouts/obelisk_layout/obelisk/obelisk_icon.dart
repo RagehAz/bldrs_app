@@ -33,7 +33,7 @@ class ObeliskIcon extends StatelessWidget {
         valueListenable: progressBarModel,
         builder: (_, ProgressBarModel progressBarModel, Widget child){
 
-          final bool _isSelected = progressBarModel.index == navModelIndex;
+          final bool _isSelected = progressBarModel?.index == navModelIndex;
 
           /// BUTTON CIRCLE
           if (navModel?.canShow == true){
