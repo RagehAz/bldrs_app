@@ -74,7 +74,12 @@ class BackAndSearchButton extends StatelessWidget {
           else {
 
             if (backAndSearchAction == BackAndSearchAction.goBack) {
-              Nav.goBack(context);
+
+              Nav.goBack(
+                context: context,
+                invoker: 'BackAndSearchButton',
+              );
+
               final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
               _uiProvider.triggerLoading(
                 setLoadingTo: false,

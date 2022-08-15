@@ -839,7 +839,7 @@ class BzModel{
     return _bzTypes;
   }
 // ------------------------------------------
-  static List<BzType> concludeInactiveBzTypesBySection({
+  static List<BzType> concludeDeactivatedBzTypesBySection({
     @required BzSection bzSection,
     List<BzType> initialBzTypes,
   }){
@@ -847,26 +847,31 @@ class BzModel{
     /// INITIAL LIST OF ALL BZ TYPES
     final List<BzType> _bzTypes = <BzType>[...BzModel.bzTypesList];
 
-    /// BZ TYPES BY SECTION
-    final List<BzType> _bzTypesBySection = concludeBzTypeByBzSection(bzSection);
+    if (bzSection != null){
 
-    /// REMOVE SELECTED BZ TYPES FROM THE LIST
-    for (final BzType bzType in _bzTypesBySection){
-      _bzTypes.remove(bzType);
-    }
+      /// BZ TYPES BY SECTION
+      final List<BzType> _bzTypesBySection = concludeBzTypeByBzSection(bzSection);
 
-    /// ADD CRAFTSMEN IF STARTING WITH DESIGNERS OR CONTRACTORS
-    if (Mapper.checkCanLoopList(initialBzTypes) == true){
-      if (bzSection == BzSection.construction){
-        if (
-        initialBzTypes.contains(BzType.designer)
-        ||
-        initialBzTypes.contains(BzType.contractor)
-        ){
-          _bzTypes.add(BzType.craftsman);
+      /// REMOVE SELECTED BZ TYPES FROM THE LIST
+      for (final BzType bzType in _bzTypesBySection){
+        _bzTypes.remove(bzType);
+      }
+
+      /// ADD CRAFTSMEN IF STARTING WITH DESIGNERS OR CONTRACTORS
+      if (Mapper.checkCanLoopList(initialBzTypes) == true){
+        if (bzSection == BzSection.construction){
+          if (
+          initialBzTypes.contains(BzType.designer)
+              ||
+              initialBzTypes.contains(BzType.contractor)
+          ){
+            _bzTypes.add(BzType.craftsman);
+          }
         }
       }
+
     }
+
 
     return _bzTypes;
   }
@@ -927,7 +932,7 @@ class BzModel{
     return _mixableTypes;
   }
 // ------------------------------------------
-  static List<BzType> concludeInactiveBzTypesBySelectedType({
+  static List<BzType> concludeDeactivatedBzTypesBySelectedType({
   @required BzType selectedBzType,
 }){
 
@@ -946,7 +951,7 @@ class BzModel{
     return _inactiveTypes;
   }
 // ------------------------------------------
-  static List<BzType> concludeInactiveBzTypesBasedOnSelectedBzTypes({
+  static List<BzType> concludeDeactivatedBzTypesBasedOnSelectedBzTypes({
     @required BzType newSelectedType,
     @required List<BzType> selectedBzTypes,
     @required BzSection selectedBzSection,
@@ -956,7 +961,7 @@ class BzModel{
 
     /// INACTIVATE BZ TYPES ACCORDING TO SECTION WHEN NOTHING IS SELECTED
     if (selectedBzTypes.isEmpty){
-      _inactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
+      _inactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
           bzSection: selectedBzSection,
       );
 
@@ -964,7 +969,7 @@ class BzModel{
 
     /// INACTIVATE BZ TYPES ACCORDING TO SELECTION
     else {
-      _inactiveBzTypes = BzModel.concludeInactiveBzTypesBySelectedType(
+      _inactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySelectedType(
         selectedBzType: newSelectedType,
       );
     }

@@ -23,11 +23,19 @@ void onGoBackFromSpecPickerScreen({
 }) {
 
   if (isMultipleSelectionMode == true){
-    Nav.goBack(context, passedData: selectedSpecs.value);
+    Nav.goBack(
+      context: context,
+      invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
+      passedData: selectedSpecs.value,
+    );
   }
 
   else {
-    Nav.goBack(context, passedData: phid);
+    Nav.goBack(
+        context: context,
+        invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
+        passedData: phid
+    );
   }
 
 }

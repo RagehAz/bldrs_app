@@ -47,9 +47,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
   void _passSelectedFlyersBack(){
 
     /// shall pass selected flyers through flyers provider
-    Nav.goBack(context, passedData:
-    // _selectedFlyers
-    [],
+    Nav.goBack(
+      context: context,
+      invoker: '_passSelectedFlyersBack',
+      passedData: [],
     );
 
   }

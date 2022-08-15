@@ -190,7 +190,11 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           if (widget.onBack != null){
             widget.onBack();
           }
-          Nav.goBack(context);
+          Nav.goBack(
+            context: context,
+            invoker: 'ObeliskLayout.onBack',
+          );
+
         }
         else {
           _isExpanded.value = false;

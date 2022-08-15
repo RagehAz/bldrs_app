@@ -189,7 +189,10 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                 title: 'Go Back ?',
               );
               if (_result == true){
-                Nav.goBack(context);
+                Nav.goBack(
+                  context: context,
+                  invoker: 'ChainsManagerScreen.onBack',
+                );
               }
             },
             onSearchSubmit: (String text) => onSearch(
@@ -252,7 +255,10 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
                               final List<Chain> _backups = await ChainFireOps.readKeywordsAndSpecsBackups(context);
 
-                              Nav.goBack(context);
+                              Nav.goBack(
+                                context: context,
+                                invoker: 'ChainsManagerScreen.Download',
+                              );
 
                               _chainsNotifier.value = _backups;
                             },
@@ -264,7 +270,10 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                             verse: 'Reload chains',
                             onTap: () async {
                               final List<Chain> _chains = await ChainFireOps.reloadKeywordsAndSpecsChains(context);
-                              Nav.goBack(context);
+                              Nav.goBack(
+                                context: context,
+                                invoker: 'ChainsManagerScreen.Reload',
+                              );
                               _chainsNotifier.value = _chains;
                             },
                           ),
