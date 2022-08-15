@@ -68,26 +68,24 @@ class WipeBzProtocols {
 
     ]);
 
-    await Future.wait(<Future>[
-
       /// DELETE BZ ON FIREBASE
-      BzFireOps.deleteBzOps(
+    await BzFireOps.deleteBzOps(
         context: context,
         bzModel: bzModel,
-      ),
+      );
 
-      /// SEND DELETION NOTES TO AUTHORS
-      NoteProtocols.sendBzDeletionNoteToAllAuthors(
-        context: context,
-        bzModel: bzModel,
-        includeMyself: includeMyselfInBzDeletionNote,
-      ),
-
-    ]);
-
+    /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){
       WaitDialog.closeWaitDialog(context);
     }
+
+    /// SEND DELETION NOTES TO AUTHORS
+    await NoteProtocols.sendBzDeletionNoteToAllAuthors(
+      context: context,
+      bzModel: bzModel,
+      includeMyself: includeMyselfInBzDeletionNote,
+    );
+
 
     blog('WipeBzProtocol.wipeBz : END');
   }
