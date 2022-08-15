@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -143,7 +142,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
                 final String _cityName = zoneModel?.cityName;
                 final String _countryName = zoneModel?.countryName;
-                final String _flag = zoneModel == null ? null : Flag.getFlagIconByCountryID(zoneModel.countryID);
+                final String _flag = zoneModel?.flag;
                 final String _verse = zoneModel == null ? 'Select a City' : 'Promoting Flyer in\n$_cityName, $_countryName';
 
                 return

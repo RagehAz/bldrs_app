@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
@@ -324,8 +323,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             valueListenable: _selectedZone,
             builder: (_, ZoneModel zone, Widget bulletPoints){
 
-              final String _countryFlag = Flag.getFlagIconByCountryID(zone?.countryID);
-
               return Bubble(
                   title: widget.title,
                   redDot: true,
@@ -337,7 +334,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(
                       title: xPhrase(context, 'phid_country'),
-                      icon: _countryFlag,
+                      icon: zone?.flag,
                       verse: zone.countryName,
                       onTap: () => _onCountryButtonTap(context: context),
                       loading: loading,

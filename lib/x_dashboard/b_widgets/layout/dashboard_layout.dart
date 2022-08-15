@@ -15,6 +15,7 @@ class DashBoardLayout extends StatefulWidget {
     this.onBldrsTap,
     this.scrollable = true,
     this.scrollerIsOn = true,
+    this.appBarWidgets,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class DashBoardLayout extends StatefulWidget {
   final Function onBldrsTap;
   final bool scrollable;
   final bool scrollerIsOn;
+  final List<Widget> appBarWidgets;
   /// --------------------------------------------------------------------------
 
 
@@ -53,7 +55,6 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
 
 
     return MainLayout(
-      // scaffoldKey: _globalKey,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
@@ -61,6 +62,10 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       pageTitle: widget.pageTitle,
       loading: widget.loading,
       appBarRowWidgets: <Widget>[
+
+        if (widget.appBarWidgets != null)
+          ...widget.appBarWidgets,
+
         const Expander(),
         BldrsNameButton(
           onTap: widget.onBldrsTap,

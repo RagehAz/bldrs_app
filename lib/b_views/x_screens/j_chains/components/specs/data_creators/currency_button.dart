@@ -29,7 +29,7 @@ class CurrencyButton extends StatelessWidget {
       height: height,
       width: width - height,
       color: Colorz.blackSemi255,
-      icon: Flag.getFlagIconByCountryID(countryID.toLowerCase()),
+      icon: Flag.getFlagIcon(countryID.toLowerCase()),
       verse: xPhrase(context, currency.id),
       secondLine: currency.symbol,
       iconSizeFactor: 0.7,

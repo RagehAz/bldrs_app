@@ -12,7 +12,7 @@ class Flag {
   final String countryID;
   final String icon;
   /// --------------------------------------------------------------------------
-  static String getFlagIconByCountryID(String countryID) {
+  static String getFlagIcon(String countryID) {
     String _flagIcon = Iconz.dvBlankSVG;
 
     if (countryID != null) {

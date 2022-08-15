@@ -129,7 +129,7 @@ class NoteSenderBalloon extends StatelessWidget {
         return DreamBox(
           width: balloonWidth,
           height: balloonWidth,
-          icon: Flag.getFlagIconByCountryID(noteModel.senderID),
+          icon: Flag.getFlagIcon(noteModel.senderID), // countryID
         );
       }
 

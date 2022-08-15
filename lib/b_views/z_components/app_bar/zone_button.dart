@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -34,7 +33,7 @@ class ZoneButton extends StatelessWidget {
     final ZoneModel _currentZone = _buttonZone(context);
 // ------------------------------
     final String _countryName = _currentZone.countryName;
-    final String _countryFlag = Flag.getFlagIconByCountryID(_currentZone?.countryID);
+    final String _countryFlag = _currentZone?.flag;
     final String _cityName = _currentZone.cityName;
     final String _districtName = _currentZone.districtName;
 // ------------------------------

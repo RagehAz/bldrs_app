@@ -365,7 +365,8 @@ class SpecModel {
 
     return _contains;
   }
-// --------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpecValue({
     @required List<SpecModel> specs,
     @required dynamic value,

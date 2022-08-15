@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class RenovateZoneProtocols {
@@ -82,6 +84,12 @@ class RenovateZoneProtocols {
         );
         _output = _output.copyWith(
           districtName: _districtName,
+        );
+      }
+
+      if (incompleteZoneModel.flag == null || incompleteZoneModel.flag == Iconz.dvBlankSVG){
+        _output = _output.copyWith(
+          flag: Flag.getFlagIcon(incompleteZoneModel.countryID),
         );
       }
 
