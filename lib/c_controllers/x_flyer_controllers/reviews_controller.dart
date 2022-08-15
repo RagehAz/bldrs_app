@@ -101,7 +101,10 @@ Future<void> onReviewOptions({
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
 
-                Nav.goBack(context);
+                Nav.goBack(
+                  context: context,
+                  invoker: 'onReviewOptions.Edit',
+                );
 
                 await _onEditReview(
                   context: context,
@@ -120,7 +123,10 @@ Future<void> onReviewOptions({
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
 
-                Nav.goBack(context);
+                Nav.goBack(
+                  context: context,
+                  invoker: 'onReviewOptions.Delete',
+                );
 
                 await _onDeleteReview(
                   context: context,
@@ -326,7 +332,10 @@ Future<void> onReplyOptions({
               verseCentered: true,
               onTap: () async {
 
-                Nav.goBack(context);
+                Nav.goBack(
+                  context: context,
+                  invoker: 'onReplyOptions.Edit',
+                );
 
                 await _onEditReply(
                   context: context,
@@ -344,7 +353,10 @@ Future<void> onReplyOptions({
               verseCentered: true,
               onTap: () async {
 
-                Nav.goBack(context);
+                Nav.goBack(
+                  context: context,
+                  invoker: 'onReplyOptions.Delete',
+                );
 
                 await _onDeleteReply(
                   context: context,

@@ -90,7 +90,11 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
     /// A - WHEN  SEQUENCE IS SELECTING (COUNTRY) ONLY
     if (widget.selectCountryIDOnly){
-      Nav.goBack(context, passedData: _zone);
+      Nav.goBack(
+        context: context,
+        invoker: '_onCountryTap',
+        passedData: _zone,
+      );
     }
 
     else {
@@ -126,7 +130,10 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
           WaitDialog.closeWaitDialog(context);
 
-          Nav.goBackToHomeScreen(context);
+          Nav.goBackToHomeScreen(
+            context: context,
+            invoker: 'SelectCountryScreen._onCountryTap'
+          );
 
         }
 
@@ -134,11 +141,19 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
         else {
 
           if (_zoneWithCity == null){
-            Nav.goBack(context, passedData: _zone);
+            Nav.goBack(
+              context: context,
+              invoker: '_onCountryTap',
+              passedData: _zone,
+            );
           }
 
           else {
-            Nav.goBack(context, passedData: _zoneWithCity);
+            Nav.goBack(
+              context: context,
+              invoker: '_onCountryTap',
+              passedData: _zoneWithCity,
+            );
           }
 
         }
@@ -158,10 +173,18 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
         );
 
         if (_zoneWithCityAndDistrict == null){
-          Nav.goBack(context, passedData: _zone);
+          Nav.goBack(
+            context: context,
+            invoker: '_onCountryTap',
+            passedData: _zone,
+          );
         }
         else {
-          Nav.goBack(context, passedData: _zoneWithCityAndDistrict);
+          Nav.goBack(
+              invoker: '_onCountryTap',
+              context: context,
+              passedData: _zoneWithCityAndDistrict,
+          );
         }
 
       }
@@ -226,7 +249,10 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -------------------------------------
   void _onBack(){
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'SelectCountryScreen',
+    );
 
   }
 // -----------------------------------------------------------------------------

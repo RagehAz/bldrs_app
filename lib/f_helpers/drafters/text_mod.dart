@@ -18,6 +18,7 @@ class TextMod {
     @required String replacement,
     @required String input,
   }) {
+
     final String _output = input.replaceAll(characterToReplace, replacement);
 
     return _output;

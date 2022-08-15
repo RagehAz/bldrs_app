@@ -89,7 +89,10 @@ Future<void> onAuthorOptionsTap({
       onTap: () async {
 
         /// TO CLOSE BOTTOM DIALOG
-        Nav.goBack(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'onAuthorOptionsTap.Change team role for',
+        );
 
         await _onChangeAuthorRole(
           context: context,
@@ -113,7 +116,10 @@ Future<void> onAuthorOptionsTap({
       onTap: () async {
 
         /// TO CLOSE BOTTOM DIALOG
-        Nav.goBack(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'onAuthorOptionsTap.Edit $_authorName Author details',
+        );
 
         await _onEditAuthor(
           context: context,
@@ -137,7 +143,10 @@ Future<void> onAuthorOptionsTap({
       onTap: (){
 
         /// CLOSE BOTTOM DIALOG
-        Nav.goBack(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'onAuthorOptionsTap.Remove $_authorName from the team',
+        );
 
         onDeleteAuthorFromBz(
           context: context,
@@ -463,7 +472,10 @@ Future<void> _onChangeAuthorRole({
 }) async {
 
   /// CLOSE BOTTOM DIALOG
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: '_onChangeAuthorRole',
+  );
 
   await Nav.goToNewScreen(
     context: context,

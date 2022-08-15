@@ -137,7 +137,10 @@ class MainLayout extends StatelessWidget {
     }
 
     else if (canGoBack == true){
-      Nav.goBack(context);
+      Nav.goBack(
+        context: context,
+        invoker: 'MainLayout._onBack',
+      );
     }
 
   }

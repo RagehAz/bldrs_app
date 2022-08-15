@@ -180,7 +180,10 @@ Future<void> onDeleteUser({
       if (_credentialsAreGood == true){
 
         /// CLOSE BOTTOM DIALOG
-        Nav.goBack(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'onDeleteUser',
+        );
 
         /// START WAITING
         unawaited(WaitDialog.showWaitDialog(

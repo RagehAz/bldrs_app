@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/c_main_search/aa_main_search_screen_view.dart';
@@ -156,7 +155,10 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
           notify: true,
         );
 
-        Nav.goBack(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'MainSearchScreen',
+        );
 
       },
       layoutWidget: SearchScreenView(

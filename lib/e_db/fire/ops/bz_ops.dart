@@ -605,7 +605,10 @@ class BzFireOps {
                 verse: 'This Account published Inappropriate content',
                 onTap: (){
                   _feedback = 'This Account published Inappropriate content';
-                  Nav.goBack(context);
+                  Nav.goBack(
+                    context: context,
+                    invoker: 'reportBz.Inappropriate',
+                  );
                 }
             ),
 
@@ -615,7 +618,10 @@ class BzFireOps {
                 verse: 'This Account violates copyrights',
                 onTap: (){
                   _feedback = 'This Account violates copyrights';
-                  Nav.goBack(context);
+                  Nav.goBack(
+                    context: context,
+                    invoker: 'reportBz.copyrights',
+                  );
                 }
             ),
 

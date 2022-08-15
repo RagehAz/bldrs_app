@@ -43,7 +43,7 @@ Future<void> onSelectBzSection({
   if (_canContinue == true){
 
     final BzSection _selectedSection = BzModel.bzSectionsList[index];
-    final List<BzType> _generatedInactiveBzTypes = BzModel.concludeInactiveBzTypesBySection(
+    final List<BzType> _generatedInactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
       bzSection: _selectedSection,
     );
 
@@ -86,7 +86,7 @@ Future<void> onSelectBzType({
     );
 
     /// INACTIVE OTHER BZ TYPES
-    inactiveBzTypes.value = BzModel.concludeInactiveBzTypesBasedOnSelectedBzTypes(
+    inactiveBzTypes.value = BzModel.concludeDeactivatedBzTypesBasedOnSelectedBzTypes(
       newSelectedType: _selectedBzType,
       selectedBzTypes: selectedBzTypes.value,
       selectedBzSection: selectedBzSection.value,

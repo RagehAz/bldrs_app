@@ -50,7 +50,10 @@ Future<void> onEditProfileTap(BuildContext context) async {
         userModel: _myUserModel,
         canGoBack: true,
         onFinish: () async {
-          Nav.goBack(context);
+          Nav.goBack(
+            context: context,
+            invoker: 'onEditProfileTap',
+          );
         },
       )
   );

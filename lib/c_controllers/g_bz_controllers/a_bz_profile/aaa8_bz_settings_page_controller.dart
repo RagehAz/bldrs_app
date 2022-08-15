@@ -4,11 +4,9 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/b_bz_editor/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -37,7 +35,6 @@ Future<void> onEditBzButtonTap({
 Future<void> onDeleteBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
-  @required bool routeBackHome,
   @required bool showSuccessDialog,
 }) async {
 
@@ -57,19 +54,22 @@ Future<void> onDeleteBzButtonTap({
 
     /// NO NEED FOR ROUTING BACK AND SHOWING DIALOGS HERE
     /// AS BZ DELETION PROTOCOL DOES THE JOB
-
-    /// re-route back
-    if (routeBackHome == true){
-      Nav.goBackToHomeScreen(context);
-    }
+    //
+    // /// re-route back
+    // if (routeBackHome == true){
+    //   Nav.goBackToHomeScreen(
+    //       context: context,
+    //       invoker: 'onDeleteBzButtonTap'
+    //   );
+    // }
 
     if (showSuccessDialog == true){
-      await TopDialog.showTopDialog(
-        context: context,
-        firstLine: 'Business Account has been deleted successfully',
-        color: Colorz.green255,
-        textColor: Colorz.white255,
-      );
+      // await TopDialog.showTopDialog(
+      //   context: context,
+      //   firstLine: 'Business Account has been deleted successfully',
+      //   color: Colorz.green255,
+      //   textColor: Colorz.white255,
+      // );
     }
 
   }

@@ -903,7 +903,10 @@ Future<void> onDeleteNote({
 
   if (_result == true){
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'onDeleteNote',
+    );
     loading.value = true;
 
     /// DELETE ATTACHMENT IF IMAGE
@@ -992,7 +995,11 @@ Future<void> onSelectNoteTemplateTap({
   @required NoteModel noteModel,
 }) async {
 
-  Nav.goBack(context, passedData: noteModel);
+  Nav.goBack(
+      context: context,
+      invoker: 'onSelectNoteTemplateTap',
+      passedData: noteModel,
+  );
 
 }
 // -------------------------------

@@ -223,7 +223,10 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
     blog('selected unit : $unitID');
 
     _selectedUnit.value = unitID;
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: 'IntegerAndDoubleDataCreator._onSelectUnit',
+    );
 
     _onTextChanged(controller.text);
 

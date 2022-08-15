@@ -430,7 +430,12 @@ class BottomDialog extends StatelessWidget {
               keyboardTextInputType: _keyboardModel.textInputType,
               keyboardTextInputAction: _keyboardModel.textInputAction,
               autoFocus: true,
-              onSubmitted: _keyboardModel.onSubmitted ?? (String val) {Nav.goBack(context);},
+              onSubmitted: _keyboardModel.onSubmitted ?? (String val){
+                Nav.goBack(
+                  context: context,
+                  invoker: 'keyboardDialog',
+                );
+                },
 
             ),
 
@@ -446,7 +451,10 @@ class BottomDialog extends StatelessWidget {
                 if (_keyboardModel.onSubmitted != null){
 
                   Keyboard.closeKeyboard(context);
-                  Nav.goBack(context);
+                  Nav.goBack(
+                    context: context,
+                    invoker: 'keyboardDialog',
+                  );
                   _keyboardModel.onSubmitted(_keyboardModel.controller.text);
 
                 }

@@ -99,7 +99,10 @@ Future<void> _onEditFlyerButtonTap({
 }) async {
 
   /// CLOSE BOTTOM DIALOG
-  Nav.goBack(context);
+  Nav.goBack(
+    context: context,
+    invoker: '_onEditFlyerButtonTap',
+  );
 
   await Nav.goToNewScreen(
       context: context,
@@ -159,7 +162,10 @@ Future<void> _onDeleteFlyerButtonTap({
         oldBzModel: _bzModel
     );
 
-    Nav.goBack(context);
+    Nav.goBack(
+      context: context,
+      invoker: '_onDeleteFlyerButtonTap',
+    );
 
     await TopDialog.showTopDialog(
       context: context,
