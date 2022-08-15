@@ -1,16 +1,16 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/x_screens/a_starters/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/cc_home_screen_view.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/super_pyramids.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -97,6 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
           await _triggerLoading();
         }
 
+        if (mounted){
+          await Nav.autoNavigateFromHomeScreen(context);
+        }
+
       });
 
     _isInit = false;
@@ -130,89 +134,85 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
-
-    /// TASK MAIN NAV MODELS SHOULD BE PLACED IN PROVIDER TO LISTEN TO REBUILDS WHEN DELETING A BZ
-    /// TASK : IT SHOULD WORK NOW AS WE PUT THE PRO GETTERS OUTSIDE THE BELOW METHOD
-    final List<NavModel> _navModels = generateMainNavModels(
-      context: context,
-      userModel: _userModel,
-      bzzModels: _bzzModels,
-      currentZone: _currentZone,
+    final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+        context: context,
+        listen: true,
     );
 
-    return MainLayout(
-      key: const ValueKey<String>('mainLayout'),
-      // navBarIsOn: false,
-      appBarType: AppBarType.main,
-      onBack: () async {
+    /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
+    if (_afterHomeRoute != null){
+      return const Scaffold(
+        body: LogoScreenView(),
+      );
+    }
 
-        final bool _result = await CenterDialog.showCenterDialog(
-          context: context,
-          title: 'Exit App ?',
-          body: 'Would you like to exit and close Bldrs.net App ?',
-          boolDialog: true,
-          confirmButtonText: 'Exit Bldrs.net',
-        );
+    /// WHEN AFTER HOME ROUTE IS NULL
+    else {
 
-        if (_result == true){
-          
-          CenterDialog.closeCenterDialog(context);
+      final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: true);
+      final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
 
-          await Future.delayed(const Duration(milliseconds: 500), () async {
-            await Nav.closeApp(context);
-            },
-          );
+      /// TASK MAIN NAV MODELS SHOULD BE PLACED IN PROVIDER TO LISTEN TO REBUILDS WHEN DELETING A BZ
+      /// TASK : IT SHOULD WORK NOW AS WE PUT THE PRO GETTERS OUTSIDE THE BELOW METHOD
+      final List<NavModel> _navModels = generateMainNavModels(
+        context: context,
+        userModel: _userModel,
+        bzzModels: _bzzModels,
+        currentZone: _currentZone,
+      );
 
-        }
+      return MainLayout(
+        key: const ValueKey<String>('mainLayout'),
+        // navBarIsOn: false,
+        appBarType: AppBarType.main,
+        onBack: () => Nav.onLastGoBackInHomeScreen(context,),
+        layoutWidget: Stack(
+          children: <Widget>[
 
-      },
-      layoutWidget: Stack(
-        children: <Widget>[
+            /// PAGE CONTENTS
+            ValueListenableBuilder(
+              valueListenable: _loading,
+              builder: (_, bool loading, Widget child){
 
-          /// PAGE CONTENTS
-          ValueListenableBuilder(
-            valueListenable: _loading,
-            builder: (_, bool loading, Widget child){
+                /// LOADING
+                if (loading == true) {
+                  return const FlyersGrid(
+                    isLoadingGrid: true,
+                  );
+                }
 
-              /// LOADING
-              if (loading == true) {
-                return const FlyersGrid(
-                  isLoadingGrid: true,
-                );
-              }
+                /// UNKNOWN CONDITION
+                else {
 
-              /// UNKNOWN CONDITION
-              else {
+                  return const UserHomeScreen();
+                }
 
-                return const UserHomeScreen();
-              }
-
-            },
-          ),
-
-          /// PYRAMIDS NAVIGATOR
-          /// TASK : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
-          SuperPyramids(
-            isExpanded: _isExpanded,
-            onExpansion: onTriggerExpansion,
-            onRowTap: (int index) => onNavigate(
-              context: context,
-              index: index,
-              models: _navModels,
-              progressBarModel: _progressBarModel,
-              isExpanded: _isExpanded,
+              },
             ),
-            progressBarModel: _progressBarModel,
-            navModels: _navModels,
-            isYellow: true,
-          ),
 
-        ],
-      ),
-    );
+            /// PYRAMIDS NAVIGATOR
+            /// TASK : SHOULD LISTEN TO NAV MODELS IN A PROVIDER,, AND SHOULD PUT THE SELECTOR DEEPTER INSIDE SUPER PYRAMIDS
+            SuperPyramids(
+              isExpanded: _isExpanded,
+              onExpansion: onTriggerExpansion,
+              onRowTap: (int index) => onNavigate(
+                context: context,
+                index: index,
+                models: _navModels,
+                progressBarModel: _progressBarModel,
+                isExpanded: _isExpanded,
+              ),
+              progressBarModel: _progressBarModel,
+              navModels: _navModels,
+              isYellow: true,
+            ),
+
+          ],
+        ),
+      );
+
+    }
 
   }
 

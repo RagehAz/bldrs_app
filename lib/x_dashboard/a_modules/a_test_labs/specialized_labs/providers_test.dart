@@ -415,6 +415,17 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               },
             ),
 
+            /// BASIC PHRASES
+            ProviderTestButton(
+              title: 'uiProvider.afterHomeRoute',
+              value: _uiProvider.afterHomeRoute,
+              onTap: (){
+                blog(
+                    '_uiProvider.afterHomeRoute | name : ${_uiProvider.afterHomeRoute.name} | '
+                    'arguments.runtimeType : ${_uiProvider.afterHomeRoute.arguments.runtimeType} | '
+                    'arguments : ${_uiProvider.afterHomeRoute.arguments}');
+              },
+            ),
 
             const SeparatorLine(),
 
