@@ -5,10 +5,10 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
@@ -27,8 +27,10 @@ class PDFScreen extends StatefulWidget {
 }
 
 class _PDFScreenState extends State<PDFScreen> {
+// -----------------------------------------------------------------------------
   final ValueNotifier<Uint8List> _uInt8List = ValueNotifier(null);
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(ProgressBarModel.emptyModel());
+  final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -74,6 +76,7 @@ class _PDFScreenState extends State<PDFScreen> {
     _loading.dispose();
     _uInt8List.dispose();
     _progressBarModel.dispose();
+    _pdfController.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
@@ -86,6 +89,43 @@ class _PDFScreenState extends State<PDFScreen> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       progressBarModel: _progressBarModel,
+      appBarRowWidgets: const <Widget>[
+
+        Expander(),
+
+        /// WORKS BUT LOOKS UGLY
+        // ValueListenableBuilder(
+        //     valueListenable: _pdfController,
+        //     builder: (_, PDFViewController controller, Widget child){
+        //
+        //       return Row(
+        //         children: <Widget>[
+        //
+        //           AppBarButton(
+        //             icon: Iconz.arrowLeft,
+        //             isDeactivated: controller == null,
+        //             onTap: (){
+        //               final int _pastIndex = _progressBarModel.value.index - 1;
+        //               controller.setPage(_pastIndex);
+        //             },
+        //           ),
+        //
+        //           AppBarButton(
+        //             icon: Iconz.arrowRight,
+        //             isDeactivated: controller == null,
+        //             onTap: (){
+        //               final int _nextIndex = _progressBarModel.value.index + 1;
+        //               controller.setPage(_nextIndex);
+        //             },
+        //           ),
+        //
+        //         ],
+        //       );
+        //
+        //     }
+        // )
+
+      ],
       layoutWidget: PageBubble(
         appBarType: AppBarType.basic,
         screenHeightWithoutSafeArea: Scale.superScreenHeightWithoutSafeArea(context),
@@ -109,21 +149,30 @@ class _PDFScreenState extends State<PDFScreen> {
                 // defaultPage: 0,
 
                 /// UI
-                // autoSpacing: true,
+                autoSpacing: false,
                 // fitEachPage: true,
                 fitPolicy: FitPolicy.BOTH,
-                // nightMode: false,
+                nightMode: true,
                 swipeHorizontal: true,
 
                 /// INTERACTION
                 // enableSwipe: true,
-                // pageFling: true,
+                pageFling: false,
                 // pageSnap: true,
                 // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{},
 
                 /// EVENTS
-                onPageChanged: (int x, int y){
-                  blog('onPageChanged : x : $x : y : $y');
+                onPageChanged: (int newIndex, int numberOfPages){
+                  blog('onPageChanged : x : $newIndex : y : $numberOfPages');
+
+                  ProgressBarModel.updateProgressBarNotifierOnIndexChanged(
+                    context: context,
+                    newIndex: newIndex,
+                    progressBarModel: _progressBarModel,
+                    syncFocusScope: false,
+                    numberOfPages: numberOfPages,
+                  );
+
                 },
                 onError: (dynamic error){
                   blog('onError : error.runtimeType : ${error.runtimeType} : error : ${error.toString()}');
@@ -139,13 +188,14 @@ class _PDFScreenState extends State<PDFScreen> {
                 },
                 onViewCreated: (PDFViewController controller) async {
 
-                  final int _currentPage = await controller.getCurrentPage();
-                  final int _pageCount = await controller.getPageCount();
-                  // final bool _pageSet = await controller.setPage(0);
+                  _pdfController.value = controller;
 
-                  blog('onViewCreated : controller : ${controller.toString()}');
-                  blog('onViewCreated : _currentPage : $_currentPage');
-                  blog('onViewCreated : _pageCount : $_pageCount');
+                  // final int _currentPage = await controller.getCurrentPage();
+                  // final int _pageCount = await controller.getPageCount();
+                  // final bool _pageSet = await controller.setPage(0);
+                  // blog('onViewCreated : controller : ${controller.toString()}');
+                  // blog('onViewCreated : _currentPage : $_currentPage');
+                  // blog('onViewCreated : _pageCount : $_pageCount');
 
                 },
 
