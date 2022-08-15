@@ -15,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 // -----------------------------------------------------------------------------
@@ -83,7 +82,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   final dynamic result = await Nav.goToNewScreen(
     context: context,
-    transitionType: PageTransitionType.leftToRight,
+    transitionType: Nav.superHorizontalTransition(context),
     screen: const ChainsScreen(
       flyerTypesChainFilters: null,
       onlyUseCityChains: true,
