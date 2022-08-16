@@ -62,7 +62,7 @@ class SuperFilteredImage extends StatefulWidget {
 
       blog('processImage : uint7list is : $_uint8List');
 
-      final File _output = await Filers.getFileFromUint8List(
+      final File _output = await Filers.transformUint8ListToFile(
         uInt8List: _uint8List,
         fileName: Filers.getFileNameFromFile(
           file: input,

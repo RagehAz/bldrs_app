@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -10,12 +11,14 @@ class FlyerPDF {
   const FlyerPDF({
     @required this.url,
     @required this.fileName,
+    @required this.size,
     this.file,
 });
   /// --------------------------------------------------------------------------
   final String url;
   final String fileName;
   final File file;
+  final double size;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -25,12 +28,14 @@ class FlyerPDF {
   FlyerPDF copyWith({
     String url,
     String fileName,
+    double size,
     File file,
   }){
     return FlyerPDF(
       url: url ?? this.url,
       fileName: fileName ?? this.fileName,
       file: file ?? this.file,
+      size: size ?? this.size,
     );
   }
 // -----------------------------------------------------------------------------
@@ -43,6 +48,7 @@ class FlyerPDF {
     return {
       'url' : url,
       'fileName' : fileName,
+      'size' : size,
     };
   }
 // --------------------------------------
@@ -54,6 +60,7 @@ class FlyerPDF {
       _flyerPDF = FlyerPDF(
           url: map['url'],
           fileName: map['fileName'],
+          size: map['size'],
       );
     }
 
@@ -88,6 +95,7 @@ class FlyerPDF {
       if (
           pdf1.fileName == pdf2.fileName &&
           pdf1.url == pdf2.url &&
+          pdf1.size == pdf2.size &&
           Filers.checkFilesAreIdentical(file1: pdf1.file, file2: pdf2.file) == true
       ){
         _areIdentical = true;
@@ -231,6 +239,51 @@ class FlyerPDF {
 
     return '${flyerID}_$pdfFileName';
   }
-// ------------------------------------------
+// -----------------------------------------------------------------------------
 
+  /// MODIFIERS
+
+// ------------------------------------------
+  static Future<FlyerPDF> completeModel(FlyerPDF model) async {
+    FlyerPDF _output;
+
+    if (model != null){
+
+      _output = model;
+
+      /// ONLY WHEN URL EXITS
+      if (_output.url != null){
+
+        /// MISSING FILE
+        if (_output.file == null){
+          _output = _output.copyWith(
+            file: await Filers.transformURLToFile(_output.url),
+          );
+        }
+
+      }
+
+      /// ONLY IF FILE EXISTS
+      if (_output.file != null){
+
+        /// MISSING SIZE
+        if (_output.size == null){
+          _output = _output.copyWith(
+            size: Filers.getFileSize(_output.file),
+          );
+        }
+
+        /// MISSING NAME
+        if (Stringer.checkStringIsEmpty(_output.fileName) == true){
+          _output = _output.copyWith(
+            fileName: Filers.getFileNameFromFile(file: _output.file),
+          );
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
 }

@@ -129,7 +129,7 @@ class Floaters {
     if (_isFile == true) {
       _file = image;
     } else {
-      _file = await Filers.getFileFromURL(image);
+      _file = await Filers.transformURLToFile(image);
     }
 
     final List<int> imageBytes = _file.readAsBytesSync();

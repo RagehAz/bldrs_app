@@ -93,7 +93,7 @@ class ImageSize {
       Uint8List _uInt8List;
       // -----------------------------------------------------------o
       if (_isURL == true) {
-        final File _file = await Filers.getFileFromURL(image);
+        final File _file = await Filers.transformURLToFile(image);
         _uInt8List = _file.readAsBytesSync();
         // await null;
         _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
