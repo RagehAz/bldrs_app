@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -82,6 +83,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 // -----------------------------------------------------------------------------
   Stream<DocumentSnapshot<Object>> _stream;
   ValueNotifier<Map<String, dynamic>> _oldMap;
+  StreamSubscription _sub;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -92,6 +94,8 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
       collName: widget.collName,
       docName: widget.docName,
     );
+
+    _sub = _stream.listen((event) { });
 
     FireDocStreamer.onStreamDataChanged(
       stream: _stream,
@@ -114,11 +118,13 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
       blog('FireDocStreamer : DISPOSING THE FUCKING PAGE');
-    _oldMap.dispose();
-    super.dispose();
+      _oldMap.dispose();
+      _sub.cancel();
+      super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

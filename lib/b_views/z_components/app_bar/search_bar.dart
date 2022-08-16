@@ -37,7 +37,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-
+// -----------------------------------------------------------------------------
   TextEditingController _searchTextController;
 // -----------------------------------------------------------------------------
   @override
@@ -46,6 +46,7 @@ class _SearchBarState extends State<SearchBar> {
     _searchTextController = widget.searchController ?? TextEditingController();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
 
@@ -53,7 +54,7 @@ class _SearchBarState extends State<SearchBar> {
       _searchTextController.dispose();
     }
 
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

@@ -56,7 +56,7 @@ class FlyerHeader extends StatefulWidget {
 }
 
 class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
-
+// -----------------------------------------------------------------------------
   ColorTween _backgroundColorTween;
   BorderRadiusTween _headerCornerTween;
   BorderRadiusTween _logoCornersTween;
@@ -68,7 +68,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   Animation<double> _headerMiddleSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
   CurvedAnimation _animation;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -90,6 +90,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     ).animate(widget.headerAnimationController);
   }
 // -----------------------------------------------------------------------------
+  /*
 //   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -104,11 +105,13 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     // _isInit = false;
     super.didChangeDependencies();
   }
+   */
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _animation.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
 

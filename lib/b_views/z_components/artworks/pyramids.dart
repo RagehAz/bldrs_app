@@ -54,10 +54,11 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _controller.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   String getPyramid(PyramidType type){

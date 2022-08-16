@@ -81,7 +81,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     super.initState();
   }
 // -----------------------------------------------------------------------------
-// --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -97,10 +96,20 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
+    _scrollController.dispose();
+    _usersProvider.dispose();
+    _zoneProvider.dispose();
+    _flyersProvider.dispose();
+    _chainsProvider.dispose();
+    _uiProvider.dispose();
+    _phraseProvider.dispose();
+    _bzzProvider.dispose();
+    _loading.dispose();
     _animationController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

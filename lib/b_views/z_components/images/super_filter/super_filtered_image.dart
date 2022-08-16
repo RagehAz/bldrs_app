@@ -105,7 +105,7 @@ class SuperFilteredImage extends StatefulWidget {
 class _SuperFilteredImageState extends State<SuperFilteredImage> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -128,7 +128,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
   @override
   void dispose(){
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   File _file;

@@ -15,14 +15,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class AnimationsLab extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const AnimationsLab({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _AnimationsLabState createState() => _AnimationsLabState();
-
+/// --------------------------------------------------------------------------
 }
 
 class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateMixin {
@@ -53,6 +53,13 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
     )..addListener(() {
         setState(() {});
       });
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _btController.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void resizeBox() {

@@ -44,10 +44,13 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     super.deactivate();
   }
 // -----------------------------------------------------------------------------
+  /*
+  /// TAMAM
   @override
   void dispose() {
-    super.dispose(); /// tamam
+    super.dispose();
   }
+   */
 // -----------------------------------------------------------------------------
   void _onStreamDataChanged(List<Map<String, dynamic>> maps){
 

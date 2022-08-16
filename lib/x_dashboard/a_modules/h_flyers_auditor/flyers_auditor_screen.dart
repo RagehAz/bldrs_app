@@ -23,11 +23,11 @@ class FlyersAuditor extends StatefulWidget {
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
   // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController(); /// tamam disposed
+  final ScrollController _scrollController = ScrollController();
   ValueNotifier<List<FlyerModel>> _flyers;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -51,7 +51,8 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   void dispose() {
     _scrollController.dispose();
     _loading.dispose();
-    super.dispose(); /// tamam
+    _flyers.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

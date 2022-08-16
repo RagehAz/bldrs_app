@@ -3,16 +3,16 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class AppBarTitle extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const AppBarTitle({
     @required this.pageTitle,
     @required this.backButtonIsOn,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final dynamic pageTitle;
   final bool backButtonIsOn;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

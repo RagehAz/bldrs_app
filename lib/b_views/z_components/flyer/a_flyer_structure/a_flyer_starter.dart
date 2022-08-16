@@ -43,9 +43,11 @@ class FlyerStarter extends StatefulWidget {
 class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
-  Future<void> _triggerLoading({@required setTo}) async {
+  Future<void> _triggerLoading({
+    @required setTo,
+  }) async {
     if (mounted == true){
       _loading.value = setTo;
     }
@@ -56,15 +58,15 @@ class _FlyerStarterState extends State<FlyerStarter> {
   }
 // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
-  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   /// FLYER ZONE
-  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
 // -----------------------------------------------------------------------------
   /// CURRENT SLIDE INDEX
-  ValueNotifier<ProgressBarModel> _progressBarModel; /// tamam disposed
+  ValueNotifier<ProgressBarModel> _progressBarModel;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -173,6 +175,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading?.dispose();
@@ -180,7 +183,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     _flyerZoneNotifier?.dispose();
     _progressBarModel?.dispose();
     _flyerIsSaved?.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
@@ -209,7 +212,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
   }
 // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _flyerIsSaved; /// tamam disposed
+  ValueNotifier<bool> _flyerIsSaved;
   Future<void> onTriggerSave() async {
 
     if (mounted == true){

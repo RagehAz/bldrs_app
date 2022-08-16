@@ -6,20 +6,20 @@ import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:flutter/material.dart';
 
 class DashButton extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const DashButton({
     @required this.size,
     @required this.dashButtonModel,
     this.color = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final DashButtonModel dashButtonModel;
   final double size;
   final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     return DreamBox(
       width: size,

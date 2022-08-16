@@ -31,7 +31,7 @@ class ChainTreeViewer extends StatefulWidget {
 
 class _ChainTreeViewerState extends State<ChainTreeViewer> {
 // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _expanded; /// tamam disposed
+  ValueNotifier<bool> _expanded;
 // ----------------------------------------------
   @override
   void initState() {
@@ -39,10 +39,11 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
     _expanded = ValueNotifier(widget.initiallyExpanded);
   }
 // ----------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _expanded.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // ----------------------------------------------
   void _triggerExpansion(){

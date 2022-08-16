@@ -60,7 +60,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   bool _canGoBack = false;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
   Future<void> _triggerLoading({bool setTo}) async {
 
@@ -128,6 +128,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     _isInit = false;
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _imagesData.dispose();
@@ -136,6 +137,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     _currentImageIndex.dispose();
     _statuses.dispose();
     _croppedImages.dispose();
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -234,6 +236,5 @@ class _CroppingScreenState extends State<CroppingScreen> {
     );
 
   }
-
 
 }

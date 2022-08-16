@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SlideImagePart extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SlideImagePart({
     @required this.tinyMode,
     @required this.slideModel,
@@ -17,7 +17,7 @@ class SlideImagePart extends StatelessWidget {
     @required this.onDoubleTap,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool tinyMode;
