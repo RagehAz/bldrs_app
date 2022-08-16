@@ -54,6 +54,8 @@ abstract class Colorz {
   static const Color darkRed230 = Color.fromARGB(230, 97, 5, 5);
   static const Color darkRed255 = Color.fromARGB(255, 97, 5, 5);
 // -----------------------------------------------------------------------------
+  static const Color errorColor = Color.fromARGB(150, 94, 6, 6);
+// -----------------------------------------------------------------------------
   static const Color green20 = Color.fromARGB(20, 24, 157, 14);
   static const Color green50 = Color.fromARGB(50, 24, 157, 14);
   static const Color green80 = Color.fromARGB(80, 24, 157, 14);
