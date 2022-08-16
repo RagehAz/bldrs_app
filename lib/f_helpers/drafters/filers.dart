@@ -138,8 +138,19 @@ class Filers {
   /// GETTERS
 
 // ---------------------------------------
+  ///
+  static double getFileSize(File file){
+    final int sizeInBytes = file.lengthSync();
+    final double sizeInMb = sizeInBytes / (1024 * 1024);
+    return sizeInMb;
+  }
+// -----------------------------------------------------------------
+
+  /// TRANSFORMERS
+
+// ---------------------------------------
   /// TAMAM
-  static Future<File> getFileFromLocalRasterAsset({
+  static Future<File> transformLocalRasterAssetToFile({
     @required BuildContext context,
     @required String localAsset,
     int width = 100,
@@ -175,7 +186,7 @@ class Filers {
               width: width,
           );
 
-          _file = await getFileFromUint8List(
+          _file = await transformUint8ListToFile(
               uInt8List: _uInt,
               fileName: _fileName,
           );
@@ -186,7 +197,7 @@ class Filers {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> getFileFromUint8List({
+  static Future<File> transformUint8ListToFile({
     @required Uint8List uInt8List,
     @required String fileName,
   }) async {
@@ -204,7 +215,7 @@ class Filers {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> getFilesFromUint8Lists({
+  static Future<List<File>> transformUint8ListsToFiles({
     @required List<Uint8List> uInt8Lists,
     @required String fileName,
   }) async {
@@ -214,7 +225,7 @@ class Filers {
 
       for (int i = 0; i < uInt8Lists.length; i++){
 
-        final File _file = await getFileFromUint8List(
+        final File _file = await transformUint8ListToFile(
             uInt8List: uInt8Lists[i],
             fileName: '${fileName}_$i',
         );
@@ -228,7 +239,8 @@ class Filers {
     return _output;
   }
 // ---------------------------------------
-  static Future<File> getFileFromURL(String imageUrl) async {
+  /// TESTED : WORKS PERFECT
+  static Future<File> transformURLToFile(String fileURL) async {
     blog('getFileFromURL : START');
     /// generate random number.
     final Random _rng = Random();
@@ -247,7 +259,7 @@ class Filers {
     blog('getFileFromURL : _file : $_file');
 
     /// call http.get method and pass imageUrl into it to get response.
-    final Uri _imageUri = Uri.parse(imageUrl);
+    final Uri _imageUri = Uri.parse(fileURL);
     final http.Response _response = await http.get(_imageUri);
     blog('getFileFromURL : _response : $_response');
 
@@ -260,7 +272,7 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
-  static Future<File> getFileFromDynamic(dynamic pic) async {
+  static Future<File> transformDynamicToFile(dynamic pic) async {
     File _file;
 
     if (pic != null) {
@@ -271,7 +283,7 @@ class Filers {
       //   _file = await getFileFromPickerAsset(pic);
       // }
       else if (ObjectChecker.objectIsURL(pic) == true) {
-        _file = await getFileFromURL(pic);
+        _file = await transformURLToFile(pic);
       }
       else if (ObjectChecker.objectIsJPGorPNG(pic) == true) {
         // _file = await getFile
@@ -281,12 +293,12 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
-  static Future<File> getFilerFromBase64(String base64) async {
+  static Future<File> transformBase64ToFile(String base64) async {
 
     final Uint8List _fileAgainAsInt = base64Decode(base64);
     // await null;
 
-    final File _fileAgain = await getFileFromUint8List(
+    final File _fileAgain = await transformUint8ListToFile(
       uInt8List: _fileAgainAsInt,
       fileName: '${Numeric.createUniqueID()}',
     );
@@ -338,9 +350,27 @@ class Filers {
 
     return _identical;
   }
+// ---------------------------------------
+
+  static bool checkFileSizeIsBiggerThan({
+    @required File file,
+    @required double megaBytes,
+  }){
+    bool _bigger = false;
+
+    if (file != null && megaBytes != null){
+
+      final double fileSize = getFileSize(file);
+
+        _bigger = fileSize > megaBytes;
+
+    }
+
+    return _bigger;
+  }
 // -----------------------------------------------------------------
 
-/// BLOG
+  /// BLOG
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
@@ -420,7 +450,7 @@ class Filers {
   }
 // -----------------------------------------------------------------
 
-/// PICK PDF
+  /// PICK PDF
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT

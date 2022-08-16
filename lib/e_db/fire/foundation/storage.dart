@@ -352,7 +352,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }) async {
     String _url;
 
-    final File _result = await Filers.getFileFromLocalRasterAsset(
+    final File _result = await Filers.transformLocalRasterAssetToFile(
       context: context,
       localAsset: asset,
     );
@@ -398,11 +398,14 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       );
 
       String _url;
+      File _fileFromURL;
 
       /// A NEW FILE WAS GIVEN
       if (_shouldUploadNewFile == true){
 
         if (ObjectChecker.objectIsFile(pdf.file) == true){
+
+          _fileFromURL = pdf.file;
 
           _url = await Storage.uploadFile(
             context: context,
@@ -420,7 +423,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       /// NO NEW FILE GIVEN - BUT NEED TO RE-UPLOAD EXISTING URL WITH NEW NAME
       else if (_shouldReUploadExistingURL == true){
 
-        final File _fileFromURL = await Filers.getFileFromURL(pdf.url);
+        _fileFromURL = await Filers.transformURLToFile(pdf.url);
         final FullMetadata _meta = await getMetadataFromURL(
             context: context,
             url: pdf.url,
@@ -439,6 +442,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       _pdf = FlyerPDF(
         fileName: pdf.fileName,
+        size: Filers.getFileSize(_fileFromURL),
         url: _url,
         // file: null,
       );
@@ -501,7 +505,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
         final Uint8List _uInts = await _ref.getData();
 
-        _file = await Filers.getFileFromUint8List(
+        _file = await Filers.transformUint8ListToFile(
           uInt8List: _uInts,
           fileName: _ref.name,
         );
@@ -541,7 +545,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (_ref != null) {
       final Uint8List _uInts = await _ref.getData();
 
-      _file = await Filers.getFileFromUint8List(
+      _file = await Filers.transformUint8ListToFile(
           uInt8List: _uInts,
           fileName: _ref.name
       );
