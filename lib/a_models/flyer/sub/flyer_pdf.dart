@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 class FlyerPDF {
@@ -224,6 +225,17 @@ class FlyerPDF {
     }
 
     return _shouldUpload;
+  }
+// --------------------------------------
+  bool checkSizeLimitReached(){
+
+    bool _bigger = false;
+
+    if (size != null){
+      _bigger = size > Standards.maxFileSizeLimit;
+    }
+
+    return _bigger;
   }
 // -----------------------------------------------------------------------------
 

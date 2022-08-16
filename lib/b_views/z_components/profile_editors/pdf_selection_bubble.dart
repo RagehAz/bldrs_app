@@ -1,14 +1,18 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -85,34 +89,69 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   @override
   Widget build(BuildContext context) {
 
+
     return ValueListenableBuilder(
         valueListenable: _pdf,
         builder: (_, FlyerPDF pdf, Widget child){
 
+
           final bool _fileExists = pdf?.file != null;
           final bool _urlExists = pdf?.url != null;
+          final bool _sizeLimitReached = pdf?.checkSizeLimitReached() == true;
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
             width: Bubble.bubbleWidth(context: context, stretchy: false),
             title: 'PDF Attachment',
+            bubbleColor: Colorizer.errorize(
+                errorIsOn: _sizeLimitReached,
+                defaultColor: Colorz.white10,
+                canErrorize: true,
+            ),
             columnChildren: <Widget>[
 
               const BubbleBulletPoints(
                 bulletPoints: <String>[
-                  'You can attach a PDF File to this flyer',
-                  'Anybody can view and download this PDF file',
+                  'You can attach a PDF File to this flyer.',
+                  'Anybody can view and download this PDF file.',
+                  'PDF file size can only be less than 3 Mb.',
                 ],
               ),
 
               if (_fileExists == true || _urlExists == true)
-                const BubbleTitle(
-                  title: 'PDF File name',
-                  // centered: false,
-                  redDot: true,
-                  titleScaleFactor: 0.9,
-                  // titleColor: Colorz.white255,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+
+                    const BubbleTitle(
+                      title: 'PDF File name',
+                      titleScaleFactor: 0.9,
+                    ),
+
+
+                    if (pdf.size != null)
+                    SuperVerse(
+                      verse: '${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
+                      italic: true,
+                      color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
+                      weight: VerseWeight.thin,
+                      scaleFactor: 0.9,
+                    ),
+
+                    if (pdf.size == null)
+                      Loading(
+                        loading: true,
+                        size: SuperVerse.superVerseRealHeight(
+                            context: context,
+                            size: 2,
+                            sizeFactor: 0.9,
+                            hasLabelBox: false,
+                        ),
+                      )
+
+                  ],
                 ),
+
 
                 if (_fileExists == true || _urlExists == true)
               SuperTextField(
