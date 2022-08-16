@@ -123,7 +123,7 @@ class _BldrsAppState extends State<BldrsApp> {
     _loading.dispose();
     _locale.dispose();
     _fireError.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed

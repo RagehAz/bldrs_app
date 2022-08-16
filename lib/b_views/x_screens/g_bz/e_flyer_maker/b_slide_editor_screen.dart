@@ -33,10 +33,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // ------------------------------------
   @override
   void initState() {
+    super.initState();
 
     initializeTempSlide();
-
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

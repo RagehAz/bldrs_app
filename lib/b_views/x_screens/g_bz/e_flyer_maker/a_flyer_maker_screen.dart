@@ -38,6 +38,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _isEditingFlyer = widget.flyerToEdit != null;
 
@@ -47,7 +48,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       context: context,
     );
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// --- LOADING

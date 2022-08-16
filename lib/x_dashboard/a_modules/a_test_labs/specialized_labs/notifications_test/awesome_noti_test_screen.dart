@@ -93,7 +93,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
     _awesomeNotification.createdSink.close();
     _awesomeNotification.dispose();
     _streamSubscription?.cancel();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
 //   Future<void> _firebasePushHandler(RemoteMessage message){

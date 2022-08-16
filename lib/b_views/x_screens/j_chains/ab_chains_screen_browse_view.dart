@@ -59,35 +59,38 @@ class ChainsScreenBrowseView extends StatelessWidget {
                 itemBuilder: (BuildContext ctx, int index) {
 
                   if (index == 0){
-
+                    // ---------------------
                     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
                         context: context,
                         listen: true,
                     );
-
+                    // ---------------------
                     final List<String> _strings = FlyerTyper.translateFlyerTypes(
                         context: context,
                         flyerTypes: flyerTypes,
                     );
-
+                    // ---------------------
                     final String _flyerTypesString = Stringer.generateStringFromStrings(
                         strings: _strings,
                     );
-
+                    // ---------------------
+                    final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
+                    '' : '\n$_flyerTypesString';
+                    // ---------------------
                     final String _instruction =
-                      onlyUseCityChains == true ?
-                          'Showing only keywords used in'
-                          '\n${_zone.cityName}, ${_zone.countryName}.'
-                          '\n$_flyerTypesString'
-                              :
-                          'Showing All keywords in Bldrs.net'
-                          '\n$_flyerTypesString';
-
+                    onlyUseCityChains == true ?
+                        'Showing only keywords used in'
+                        '\n${_zone.cityName}, ${_zone.countryName}.'
+                        '$_flyerTypesStringWithNewLineIfNotNull'
+                            :
+                        'Showing All keywords in Bldrs.net'
+                        '\n$_flyerTypesString';
+                    // ---------------------
                     final String _icon = onlyUseCityChains == true ?
                     _zone.flag
                         :
                     Iconz.info;
-
+                    // ---------------------
                     return ChainInstructions(
                       verseOverride: _instruction,
                       leadingIcon: _icon,

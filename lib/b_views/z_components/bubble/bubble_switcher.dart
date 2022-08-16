@@ -30,10 +30,10 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
 // ----------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _isOn = ValueNotifier<bool>(widget.switchIsOn);
 
-    super.initState();
   }
 // ----------------------------------------------------
   /// TAMAM

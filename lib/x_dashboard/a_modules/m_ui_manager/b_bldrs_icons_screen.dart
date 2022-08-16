@@ -35,8 +35,8 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _icons = UiProvider.proGetLocalAssetsPaths(context);
     super.initState();
+    _icons = UiProvider.proGetLocalAssetsPaths(context);
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

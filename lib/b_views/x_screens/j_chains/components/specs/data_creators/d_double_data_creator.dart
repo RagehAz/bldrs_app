@@ -39,9 +39,8 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    controller.text = widget.initialValue?.toString();
-
     super.initState();
+    controller.text = widget.initialValue?.toString();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

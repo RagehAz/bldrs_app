@@ -43,8 +43,8 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    // _notifications.addAll(BldrsNotiModelz.allNotifications());
     super.initState();
+    // _notifications.addAll(BldrsNotiModelz.allNotifications());
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

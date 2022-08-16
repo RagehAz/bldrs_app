@@ -82,9 +82,12 @@ class ChainInstructions extends StatelessWidget {
             width: 10,
           ),
 
-          SizedBox(
+          Container(
             height: SpecPickerScreen.instructionBoxHeight,
-            width: _screenWidth * 0.7,
+            constraints: BoxConstraints(
+              maxWidth: _screenWidth * 0.7,
+            ),
+            // width: _screenWidth * 0.7,
             child: SuperVerse(
               verse: _instructions,
               maxLines: 3,

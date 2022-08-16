@@ -75,7 +75,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
   void dispose() {
     _loading.dispose();
     _scrollController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   ///
