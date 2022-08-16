@@ -4,6 +4,7 @@ import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.da
 import 'package:flutter/cupertino.dart';
 
 class AppControlsFireOps{
+// -----------------------------------------------------------------------------
 
   AppControlsFireOps();
 
@@ -12,6 +13,7 @@ class AppControlsFireOps{
 /// CREATE
 
 // ------------------------------------------
+  ///
 // -----------------------------------------------------------------------------
 
 /// READ

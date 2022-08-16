@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DialogOfTargetAchievement extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const DialogOfTargetAchievement({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   static Future<void> show({
     BuildContext context,
     TargetModel target
@@ -41,7 +41,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
       ),
     );
   }
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Column(

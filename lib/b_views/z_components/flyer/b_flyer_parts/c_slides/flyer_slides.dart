@@ -47,7 +47,6 @@ class FlyerSlides extends StatefulWidget {
 }
 
 class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClientMixin<FlyerSlides>{
-
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------

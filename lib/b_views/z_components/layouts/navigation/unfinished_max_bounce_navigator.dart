@@ -57,7 +57,6 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
       // });
     }
   }
-
 // -----------------------------------------------------------------------------
   bool _goesBackOnlyCheck() {
     bool _goesBack;
@@ -70,7 +69,6 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 
     return _goesBack;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

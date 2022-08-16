@@ -2,7 +2,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class TheBoxOfDreamBox extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const TheBoxOfDreamBox({
     @required this.inActiveMode,
     @required this.opacity,
@@ -14,7 +14,7 @@ class TheBoxOfDreamBox extends StatelessWidget {
     @required this.children,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final bool inActiveMode;
   final double opacity;
   final EdgeInsets boxMargins;
@@ -23,7 +23,7 @@ class TheBoxOfDreamBox extends StatelessWidget {
   final Color boxColor;
   final BorderRadius cornersAsBorderRadius;
   final List<Widget> children;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

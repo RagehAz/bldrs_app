@@ -44,10 +44,11 @@ class _SavingNoticeState extends State<SavingNotice> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _curvedAnimation.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

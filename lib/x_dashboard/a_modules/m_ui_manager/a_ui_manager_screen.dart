@@ -9,11 +9,11 @@ import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class UIManager extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const UIManager({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DashBoardLayout(

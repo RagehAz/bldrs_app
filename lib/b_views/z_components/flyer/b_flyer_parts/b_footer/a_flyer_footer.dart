@@ -44,9 +44,9 @@ class FlyerFooter extends StatefulWidget {
 
 class _FlyerFooterState extends State<FlyerFooter> {
 // -----------------------------------------------------------------------------
-  ScrollController _infoPageVerticalController; /// tamam disposed
-  ScrollController _reviewPageVerticalController; /// tamam disposed
-  TextEditingController _reviewTextController; /// tamam disposed
+  ScrollController _infoPageVerticalController;
+  ScrollController _reviewPageVerticalController;
+  TextEditingController _reviewTextController;
   ValueNotifier<FlyerCounterModel> _flyerCounter;
 // -----------------------------------------------------------------------------
   @override
@@ -58,6 +58,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _reviewTextController = TextEditingController(); /// tamam
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _flyerCounter.dispose();
@@ -68,7 +69,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------
   bool _isInit = true;
@@ -98,7 +99,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   }
 // -----------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -112,7 +113,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     }
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
 // ----------------------------------------
   Future<void> onInfoButtonTap() async {
     _infoButtonExpanded.value = !_infoButtonExpanded.value;
@@ -148,9 +149,8 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false); /// tamam disposed
-  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true); /// tamam disposed
-// ----------------------------------------
+  final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false);
+  final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
 // -----------------------------------------------------------------------------
   bool _canShowInfoButtonChecker({
   @required InfoButtonType infoButtonType,

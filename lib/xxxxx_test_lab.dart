@@ -48,13 +48,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   ZoneProvider _zoneProvider;
   PhraseProvider _phraseProvider;
-  ScrollController _scrollController; /// tamam disposed
-  AnimationController _animationController; /// tamam disposed
+  ScrollController _scrollController;
+  AnimationController _animationController;
   UiProvider _uiProvider;
   ChainsProvider  _chainsProvider;
   String _fuckingText;
-  BzzProvider _bzzProvider;
   // FlyersProvider _flyersProvider;
+  BzzProvider _bzzProvider;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -97,12 +97,22 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
+    _zoneProvider.dispose();
+    _phraseProvider.dispose();
+    _uiProvider.dispose();
+    _chainsProvider.dispose();
+    _bzzProvider.dispose();
+
     _textController.dispose();
     _scrollController.dispose();
     _animationController.dispose();
     _highlightedText.dispose();
     _thePic.dispose();
-    super.dispose(); /// tamam
+    _hashVerse.dispose();
+    _showHash.dispose();
+    _theFiles.dispose();
+
+    super.dispose();
   }
   // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -276,6 +286,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<List<File>> _theFiles = ValueNotifier(<File>[]);
+// -----------------------------------------------------------------------------
+
+  /// xxx
 
   Future<void> _fastTest(BuildContext context) async {
 
@@ -295,6 +308,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     blog('_canDelete : $_canDelete');
 
   }
+
+  /// xxx
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

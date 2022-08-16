@@ -11,24 +11,30 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class KeyboardFieldWidgetTest extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const KeyboardFieldWidgetTest({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<KeyboardFieldWidgetTest> createState() => _KeyboardFieldWidgetTestState();
-
+/// --------------------------------------------------------------------------
 }
 
 class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
-
+// -------------------------------------
   final TextEditingController _controller = TextEditingController();
-
+// -------------------------------------
   @override
   void initState() {
     // _keyboardType = textInputTypes[_index];
     super.initState();
+  }
+// -------------------------------------
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 // -------------------------------------
 /*

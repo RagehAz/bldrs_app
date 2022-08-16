@@ -27,28 +27,26 @@ class DashBoardLayout extends StatefulWidget {
   final bool scrollerIsOn;
   final List<Widget> appBarWidgets;
   /// --------------------------------------------------------------------------
-
-
   @override
   State<DashBoardLayout> createState() => _DashBoardLayoutState();
+/// --------------------------------------------------------------------------
 }
 
 class _DashBoardLayoutState extends State<DashBoardLayout> {
-
+// -----------------------------------------------------------------------------
   ScrollController _controller;
-
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _controller = ScrollController();
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

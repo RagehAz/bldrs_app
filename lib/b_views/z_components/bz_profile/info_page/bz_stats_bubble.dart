@@ -18,19 +18,19 @@ class BzStatsBubble extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   @override
   State<BzStatsBubble> createState() => _BzStatsBubbleState();
+/// --------------------------------------------------------------------------
 }
 
 class _BzStatsBubbleState extends State<BzStatsBubble> {
-
+// -----------------------------------------------------------------------------
   ValueNotifier<BzCounterModel> _bzCounter;
   BzModel _bzModel;
-
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -79,18 +79,14 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
-
     _loading.dispose();
     _bzCounter.dispose();
-
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
-
-
-  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

@@ -56,7 +56,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   final ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -95,6 +95,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
@@ -104,7 +105,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _titleController.dispose();
     _bodyController.dispose();
     _scrollController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

@@ -25,7 +25,7 @@ class ChainsViewTestScreen extends StatefulWidget {
 class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -61,10 +61,11 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   final List<FlyerType> _selectedTypes = <FlyerType>[];

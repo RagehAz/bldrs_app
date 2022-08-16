@@ -335,6 +335,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose(){
 
@@ -342,11 +343,19 @@ class _SuperTextFieldState extends State<SuperTextField> {
       _controller.dispose();
     }
 
-    // _textLength.dispose();
-    // _errors.dispose();
+    if (widget.scrollController == null){
+      _scrollController.dispose();
+    }
+
+    if (widget.focusNode == null){
+      _focusNode.dispose();
+    }
+
+    _textValue.dispose();
+
     _textDirection.dispose();
 
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   TextEditingController _initializeTextController(){

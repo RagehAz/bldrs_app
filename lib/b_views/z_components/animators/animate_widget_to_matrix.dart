@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AnimateWidgetToMatrix extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const AnimateWidgetToMatrix({
     @required this.child,
     @required this.matrix,
@@ -9,22 +9,22 @@ class AnimateWidgetToMatrix extends StatefulWidget {
     this.origin,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Widget child;
   final Matrix4 matrix;
   final Duration duration;
   final Offset origin;
-
-
+  /// --------------------------------------------------------------------------
   @override
   _AnimateWidgetToMatrixState createState() => _AnimateWidgetToMatrixState();
+/// --------------------------------------------------------------------------
 }
 
 class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with TickerProviderStateMixin {
-
+  // --------------------------------------------------------------------------
   AnimationController _animationController;
   CurvedAnimation _curvedAnimation;
-
+  // --------------------------------------------------------------------------
   @override
   void initState() {
 
@@ -41,13 +41,15 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
 
     super.initState();
   }
-
+  // --------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _animationController.dispose();
-    super.dispose(); /// tamam
+    _curvedAnimation.dispose();
+    super.dispose();
   }
-
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -91,5 +93,4 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
     }
 
   }
-
 }

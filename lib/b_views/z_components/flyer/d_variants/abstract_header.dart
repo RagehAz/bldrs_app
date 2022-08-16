@@ -9,16 +9,16 @@ import 'package:flutter/material.dart';
 
 
 class AbstractMiniHeader extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const AbstractMiniHeader({
     @required this.flyerBoxWidth,
     @required this.bzModel,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------

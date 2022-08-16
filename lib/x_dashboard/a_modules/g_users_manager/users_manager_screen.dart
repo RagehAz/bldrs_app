@@ -24,7 +24,7 @@ class UsersManagerScreen extends StatefulWidget {
 class _UsersManagerScreenState extends State<UsersManagerScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -64,6 +64,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     super.didChangeDependencies();
   }
   // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
@@ -72,15 +73,15 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _selectedUser.dispose();
     _pageController.dispose();
     _scrollController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController(); /// tamam disposed
-  final PageController _pageController = PageController(); /// tamam disposed
+  final ScrollController _scrollController = ScrollController();
+  final PageController _pageController = PageController();
 // -----------------------------------------------------------------------------
-  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null); /// tamam disposed
-  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]); /// tamam disposed
-  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null); /// tamam disposed
+  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]);
+  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null);
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

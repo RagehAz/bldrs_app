@@ -1,17 +1,13 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-extension Printer on dynamic {
-  void log() {
-    return dev.log(toString());
-  }
-}
+
 
 class VideoPlayerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const VideoPlayerScreen({Key key}) : super(key: key);
+  const VideoPlayerScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -53,7 +49,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                _value.log();
+                // _value.log();
                 setState(() {
                   _videoPlayerController.setVolume(100);
                 });
@@ -107,7 +103,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 _videoPlayerController.play();
                 _videoPlayerController.setLooping(true);
               });
-              _value.isPlaying.log();
+              // _value.isPlaying.log();
             },
             child: const Icon(Icons.play_arrow),
           ),
@@ -120,7 +116,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 _videoPlayerController.pause();
                 _videoPlayerController.setLooping(false);
               });
-              _value.isPlaying.log();
+              // _value.isPlaying.log();
             },
             child: const Icon(Icons.pause),
           ),

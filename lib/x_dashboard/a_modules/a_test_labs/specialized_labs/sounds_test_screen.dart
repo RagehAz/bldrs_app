@@ -18,6 +18,7 @@ class SoundsTestScreen extends StatefulWidget {
 }
 
 class _SoundsTestScreenState extends State<SoundsTestScreen> {
+// -----------------------------------------------------------------------------
   final AudioPlayer _player = AudioPlayer();
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -58,13 +59,15 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _player.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
+  /*
 //   Future<void> _init() async {
 //
 //     /// Inform the operating system of our app's audio attributes etc.
@@ -104,6 +107,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
 //       _player.stop();
 //     }
 //   }
+  */
 // -----------------------------------------------------------------------------
   /*
   Stream<PositionData> get _positionDataStream =>

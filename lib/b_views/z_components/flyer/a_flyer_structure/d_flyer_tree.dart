@@ -59,14 +59,14 @@ class FlyerTree extends StatefulWidget {
 class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   /// FOR HEADER
-  AnimationController _headerAnimationController; /// tamam disposed
-  ScrollController _headerScrollController; /// tamam disposed
+  AnimationController _headerAnimationController;
+  ScrollController _headerScrollController;
   /// FOR SLIDES
-  PageController _horizontalSlidesController; /// tamam disposed
+  PageController _horizontalSlidesController;
   /// FOR FOOTER
-  PageController _footerPageController; /// tamam disposed
+  PageController _footerPageController;
   /// FOR SAVING GRAPHIC
-  AnimationController _animationController; /// tamam disposed
+  AnimationController _animationController;
 // ----------------------------------------------
   @override
   void initState() {
@@ -123,29 +123,32 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-//   bool _isInit = true;
-//   @override
-//   void didChangeDependencies() {
-//     if (_isInit) {
-//     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-//     _uiProvider.startController(
-//             () async {
-//
-//               if (widget.currentSlideIndex.value == widget.flyerModel.slides.length && widget.inFlight == true){
-//
-//                 // await _slideToZeroIndex();
-//                 blog('condition ahooooooooooooo is blah blah');
-//
-//               }
-//
-//
-//         }
-//     );
-//     }
-//     _isInit = false;
-//     super.didChangeDependencies();
-//   }
+  /*
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    _uiProvider.startController(
+            () async {
+
+              if (widget.currentSlideIndex.value == widget.flyerModel.slides.length && widget.inFlight == true){
+
+                // await _slideToZeroIndex();
+                blog('condition ahooooooooooooo is blah blah');
+
+              }
+
+
+        }
+    );
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+   */
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _headerAnimationController.dispose();
@@ -160,7 +163,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
     _graphicIsOn.dispose();
     _graphicOpacity.dispose();
     _bzCounters.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _listenToHorizontalController(){
@@ -190,15 +193,15 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   /// FOLLOW IS ON
-  final ValueNotifier<bool> _followIsOn = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo) => _followIsOn.value = setTo;
 // -----------------------------------------------------------------------------
   /// PROGRESS BAR OPACITY
-  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1); /// tamam disposed
+  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
   /// HEADER IS EXPANDED
-  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false);
   /// HEADER PAGE OPACITY
-  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0); /// tamam disposed
+  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
 // -----------------------------------------------------------------------------
   ValueNotifier<BzCounterModel> _bzCounters;
 // -----------------------------------------------------------------------------
@@ -338,8 +341,8 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
 
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false); /// tamam disposed
-  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1); /// tamam disposed
+  final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
+  final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
 // -----------------------------------------------------------------------------
   Future<void> _triggerAnimation(bool isSaved) async {
 

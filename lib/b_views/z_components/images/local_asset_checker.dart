@@ -48,7 +48,7 @@ class LocalAssetChecker extends StatefulWidget {
 class _LocalAssetCheckerState extends State<LocalAssetChecker> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -62,7 +62,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
     }
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _exists = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _exists = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -90,11 +90,12 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _exists.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

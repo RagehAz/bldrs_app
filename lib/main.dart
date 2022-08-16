@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
@@ -29,6 +28,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
+
   /// TASK : In optimization : study this : https://pub.dev/packages/keframe
   // debugPrintMarkNeedsPaintStacks = false;
   // debugProfilePaintsEnabled = false;

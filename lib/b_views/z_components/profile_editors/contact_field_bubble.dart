@@ -67,12 +67,13 @@ class ContactFieldBubble extends StatefulWidget {
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   // --------------------------------------------------------------------------
   String paste = '';
-  final TextEditingController pasteController = TextEditingController(); /// tamam disposed
+  final TextEditingController pasteController = TextEditingController();
   // --------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     pasteController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
   // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {

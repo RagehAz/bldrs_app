@@ -20,12 +20,12 @@ import 'package:flutter/material.dart';
 
 class FCMTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FCMTestScreen({Key key}) : super(key: key);
-
+  const FCMTestScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   _FCMTestScreenState createState() => _FCMTestScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -34,7 +34,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   /// FCM : firebase cloud messaging
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 // -----------------------------------------------------------------------------
-  // StreamSubscription _iosSubscription;
+  /// StreamSubscription _iosSubscription;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -66,25 +66,21 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
     //   // firebaseMessaging.unsubscribeFromTopic('flyers');
     // }
   }
-
 // -----------------------------------------------------------------------------
   void _subscribeToFlyers() {
     _fcm.subscribeToTopic('flyers');
     blog('subscribed to [ flyers ]');
   }
-
 // ------------------------------------
   void _unsubscribeFromFlyers() {
     _fcm.unsubscribeFromTopic('flyers');
   }
-
 // ------------------------------------
   Future<String> _getToken() async {
     final String _fcmToken = await _fcm.getToken();
     blog('_getToken : _fcmToken : $_fcmToken');
     return _fcmToken;
   }
-
 // ------------------------------------
   Future<void> _updateMyUserFCMToken() async {
 
@@ -105,7 +101,6 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
     blog(_settings.toString());
   }
-
 // -----------------------------------------------------------------------------
   NoteModel _note;
   bool _noteIsOn = false;
@@ -121,11 +116,11 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
   }
    */
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
-    super.dispose();
 
-    /// tamam
+    super.dispose();
   }
 
 // -----------------------------------------------------------------------------

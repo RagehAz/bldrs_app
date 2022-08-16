@@ -33,7 +33,7 @@ class _StreamingTestState extends State<StreamingTest> {
   FireQueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -76,10 +76,12 @@ class _StreamingTestState extends State<StreamingTest> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
-    super.dispose(); /// tamam
+    _localMaps.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<List<Map<String, dynamic>>> _localMaps = ValueNotifier(<Map<String, dynamic>>[]);
