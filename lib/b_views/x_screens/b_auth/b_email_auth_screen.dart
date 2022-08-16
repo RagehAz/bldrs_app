@@ -22,26 +22,25 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // -----------------------------------------------------------------------------
-  final TextEditingController _emailController = TextEditingController(); /// tamam disposed
-  final TextEditingController _passwordController = TextEditingController(); /// tamam disposed
-  final TextEditingController _passwordConfirmationController = TextEditingController(); /// tamam disposed
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConfirmationController = TextEditingController();
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSigningIn = ValueNotifier(true); /// tamam disposed
+  final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
-
     _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmationController.dispose();
     _isSigningIn.dispose();
-
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _switchSignIn() {

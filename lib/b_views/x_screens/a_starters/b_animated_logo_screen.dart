@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
@@ -91,14 +92,23 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
+    _loading.dispose();
     // _sloganAniController.dispose();
     _sloganCurvedAnimation.dispose();
     _logoAniController.dispose();
     _logoCurvedAnimation.dispose();
     _loading.dispose();
+    if (Mapper.checkCanLoopList(_linesControllers) == true){
+      for (final CurvedAnimation cont in _linesControllers){
+        cont.dispose();
+      }
+    }
+
     super.dispose(); /// tamam
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

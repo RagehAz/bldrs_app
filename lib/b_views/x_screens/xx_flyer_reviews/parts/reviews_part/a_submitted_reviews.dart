@@ -33,7 +33,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   ScrollController _controller;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -68,6 +68,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
