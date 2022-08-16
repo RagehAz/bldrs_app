@@ -145,9 +145,9 @@ class TextChecker {
   /// TASK : is this the correct way to dispose a text controller ? are you sure ?
   static void disposeControllerIfPossible(TextEditingController controller) {
     if (controller != null) {
-      if (textControllerIsEmpty(controller) == true) {
+      // if (textControllerIsEmpty(controller) == true) {
         controller.dispose();
-      }
+      // }
     }
   }
 // -----------------------------------------------------------------------------

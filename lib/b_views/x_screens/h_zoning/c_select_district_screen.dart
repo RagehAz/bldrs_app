@@ -34,13 +34,13 @@ class SelectDistrictScreen extends StatefulWidget {
 
 class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
-  final ValueNotifier<List<DistrictModel>> _cityDistricts = ValueNotifier<List<DistrictModel>>(<DistrictModel>[]);  /// tamam disposed
-  final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<List<DistrictModel>> _cityDistricts = ValueNotifier<List<DistrictModel>>(<DistrictModel>[]);
+  final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -93,6 +93,17 @@ class _SelectDistrictScreenState extends State<SelectDistrictScreen> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _isSearching.dispose();
+    _cityDistricts.dispose();
+    _foundDistricts.dispose();
+    _cityDistricts.dispose();
+    _loading.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onDistrictTap(String districtID) async {

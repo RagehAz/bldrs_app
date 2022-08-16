@@ -20,7 +20,7 @@ class BzAuthorsPage extends StatefulWidget {
     this.bubbleWidth,
     Key key,
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -32,7 +32,7 @@ class BzAuthorsPage extends StatefulWidget {
 class _BzAuthorsPageState extends State<BzAuthorsPage> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -74,10 +74,11 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

@@ -108,15 +108,15 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
-
     _loading.dispose();
     _keyboardSubscription.cancel();
-
     _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
-
+    _isExpanded.dispose();
+    _progressBarModel.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

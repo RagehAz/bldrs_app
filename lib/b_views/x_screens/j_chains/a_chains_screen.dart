@@ -52,7 +52,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   /// DATA
   Chain _bigChainK;
   List<SpecPicker> _allSpecPickers = <SpecPicker>[];
-  ValueNotifier<List<SpecPicker>> _refinedSpecsPickers; /// tamam disposed
+  ValueNotifier<List<SpecPicker>> _refinedSpecsPickers;
   ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
   /// SEARCHING
   final TextEditingController _searchTextController = TextEditingController();
@@ -81,6 +81,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     /// DATA

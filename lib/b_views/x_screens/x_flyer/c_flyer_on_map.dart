@@ -46,11 +46,11 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
+// -----------------------------------------------------------------------------
   LatLng _pickedLocation;
   BitmapDescriptor customMarker;
   int markerWidth = 125;
   bool confirmButtonIsActive;
-
   LocationData currentLocation;
   Location location;
   bool _serviceEnabled;
@@ -66,7 +66,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     getUserLocation();
     confirmButtonIsActive = true;
   }
-
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    mapController.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   Future<void> getUserLocation() async {
     setState(() {
@@ -94,7 +100,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     blog('CurrentLocation: $currentLocation');
     await missingFunction();
   }
-
 // -----------------------------------------------------------------------------
   Future<void> initialize() async {
     _serviceEnabled = await location.serviceEnabled();
@@ -114,12 +119,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
     blog('location permission is $_permissionGranted');
   }
-
 // -----------------------------------------------------------------------------
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-
 // -----------------------------------------------------------------------------
   void _selectLocation(LatLng position) {
     setState(() {
@@ -128,7 +131,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
     blog('The fucking position is $position');
   }
-
 // -----------------------------------------------------------------------------
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     final ByteData data = await rootBundle.load(path);
@@ -282,4 +284,5 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       ),
     );
   }
+// -----------------------------------------------------------------------------
 }

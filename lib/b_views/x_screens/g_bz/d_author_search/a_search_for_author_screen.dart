@@ -41,6 +41,15 @@ class _SearchForAuthorScreenState extends State<SearchForAuthorScreen> {
   }
   */
 // -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _foundUsers.dispose();
+    _isSearching.dispose();
+    _loading.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(

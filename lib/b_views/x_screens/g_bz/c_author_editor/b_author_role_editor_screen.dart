@@ -141,7 +141,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
     return _canChange;
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

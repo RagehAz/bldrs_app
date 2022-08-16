@@ -32,16 +32,11 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-  @override
-  void didChangeDependencies() {
-
-    super.didChangeDependencies();
-  }
-// -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _passSelectedFlyersBack(){

@@ -34,8 +34,8 @@ class DoubleDataCreator extends StatefulWidget {
 class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController controller = TextEditingController(); /// tamam disposed
-  final ValueNotifier<double> _double = ValueNotifier<double>(null); /// tamam disposed
+  final TextEditingController controller = TextEditingController();
+  final ValueNotifier<double> _double = ValueNotifier<double>(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -43,12 +43,13 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _double.dispose();
     controller.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _validate() {
