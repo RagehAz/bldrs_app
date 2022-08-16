@@ -679,6 +679,7 @@ Future<void> _onSelectImageURLAsAttachment({
     context: context,
     cropAfterPick: true,
     isFlyerRatio: false,
+    resizeToWidth: null,
   );
 
 

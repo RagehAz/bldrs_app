@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
@@ -58,7 +58,7 @@ class DraftFlyerModel{
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final int score;
-  final FlyerPDF pdf;
+  final FileModel pdf;
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -83,7 +83,7 @@ class DraftFlyerModel{
     List<PublishTime> times,
     bool priceTagIsOn,
     int score,
-    FlyerPDF pdf,
+    FileModel pdf,
   }) => DraftFlyerModel(
     id: id ?? this.id,
     headlineController: headlineController ?? this.headlineController,
@@ -367,7 +367,7 @@ class DraftFlyerModel{
     blog('position : $position');
     blog('mutableSlides : ${mutableSlides.length} slides');
     blog('priceTagIsOn : $priceTagIsOn');
-    FlyerPDF.blogFlyerPDF(pdf);
+    FileModel.blogFlyerPDF(pdf);
     blog('score : $score');
     PublishTime.blogTimes(times);
     SpecModel.blogSpecs(specs);

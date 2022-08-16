@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
@@ -134,7 +134,7 @@ class FlyerFireOps {
     if (draftFlyer != null){
 
       List<String> _picturesURLs;
-      FlyerPDF _pdf;
+      FileModel _pdf;
 
       await Future.wait(<Future>[
 
@@ -153,7 +153,7 @@ class FlyerFireOps {
             flyerID: flyerID,
             pdf: draftFlyer.pdf,
             ownersIDs: <String>[creatorAuthorID, flyerAuthorID],
-            onFinished: (FlyerPDF flyerPDF){
+            onFinished: (FileModel flyerPDF){
               _pdf = flyerPDF ;
             }),
 
@@ -609,7 +609,7 @@ class FlyerFireOps {
 
     FlyerModel _output = newFlyer.copyWith();
 
-    final bool _pdfsAreIdentical = FlyerPDF.checkFlyerPDFsAreIdentical(
+    final bool _pdfsAreIdentical = FileModel.checkFileModelsAreIdentical(
         pdf1: oldFlyer.pdf,
         pdf2: newFlyer.pdf,
     );
@@ -618,13 +618,13 @@ class FlyerFireOps {
 
     if (_pdfsAreIdentical == false){
       // -----------------------------
-      final bool _shouldDeleteOldFile = FlyerPDF.checkShouldDeleteOldPDFFile(
+      final bool _shouldDeleteOldFile = FileModel.checkShouldDeleteOldFlyerPDFFileModel(
         newFlyer: newFlyer,
         oldFlyer: oldFlyer,
       );
       blog('_updateFlyerPDF : _shouldDeleteOldFile : $_shouldDeleteOldFile');
       // -----------------------------
-      final bool _shouldUploadNewFile = FlyerPDF.checkShouldUploadNewPDFFile(
+      final bool _shouldUploadNewFile = FileModel.checkShouldUploadNewPDFFileModel(
           oldFlyer: oldFlyer,
           newFlyer: newFlyer
       );
@@ -641,7 +641,7 @@ class FlyerFireOps {
 
         blog('_updateFlyerPDF : _ownersIDs : $_flyerOwners');
 
-        final FlyerPDF _newPDF = await Storage.uploadFlyerPDFAndGetFlyerPDF(
+        final FileModel _newPDF = await Storage.uploadFlyerPDFAndGetFlyerPDF(
           context: context,
           pdf: newFlyer.pdf,
           flyerID: oldFlyer.id,
@@ -649,7 +649,7 @@ class FlyerFireOps {
         );
 
         blog('_updateFlyerPDF : _newPDF : $_newPDF');
-        FlyerPDF.blogFlyerPDF(_newPDF);
+        FileModel.blogFlyerPDF(_newPDF);
 
 
         _output = newFlyer.copyWith(
@@ -667,7 +667,7 @@ class FlyerFireOps {
         await Storage.deleteStoragePic(
           context: context,
           storageDocName: StorageDoc.flyersPDFs,
-          fileName: FlyerPDF.generatePDFStorageName(
+          fileName: FileModel.generateFlyerPDFStorageName(
               pdfFileName: oldFlyer.pdf.fileName,
               flyerID: oldFlyer.id,
           ),
@@ -838,7 +838,7 @@ class FlyerFireOps {
             Storage.deleteStoragePic(
               context: context,
               storageDocName: StorageDoc.flyersPDFs,
-              fileName: FlyerPDF.generatePDFStorageName(
+              fileName: FileModel.generateFlyerPDFStorageName(
                   pdfFileName: flyerModel.pdf.fileName,
                   flyerID: flyerModel.id,
               ),

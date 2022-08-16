@@ -141,7 +141,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               builder: (_, AuthorModel author, Widget child){
 
                 return AddImagePicBubble(
-                  picture: ValueNotifier(author.pic),
+                  fileModel: ValueNotifier(author.pic),
                   title: 'Author picture',
                   redDot: true,
                   bubbleType: BubbleType.authorPic,

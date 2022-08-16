@@ -62,7 +62,6 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
   void dispose() {
     _isConnected.dispose();
     subscription.cancel();
-    // _generalProvider.dispose(); /// BUG
     super.dispose();
   }
 // -----------------------------------------------------------------------------

@@ -1,9 +1,12 @@
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -20,7 +23,7 @@ enum BubbleType {
 class AddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AddImagePicBubble({
-    @required this.picture,
+    @required this.fileModel,
     @required this.onAddPicture,
     @required this.title,
     @required this.redDot,
@@ -29,7 +32,7 @@ class AddImagePicBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
-  final ValueNotifier<dynamic> picture; /// p
+  final ValueNotifier<FileModel> fileModel;
   final String title;
   final BubbleType bubbleType;
   final bool redDot;
@@ -81,131 +84,151 @@ class AddImagePicBubble extends StatelessWidget {
         redDot: redDot,
         columnChildren: <Widget>[
 
-          Stack(
-            alignment: Alignment.center,
+          /// GALLERY & DELETE LAYER
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
 
-              /// GALLERY & DELETE LAYER
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              /// FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
+              const SizedBox(
+                width: btZoneWidth,
+                height: picWidth,
+              ),
+
+              Stack(
                 children: <Widget>[
 
-                  /// FAKE LEFT FOOTPRINT TO CENTER THE ROW IN THE MIDDLE O BUBBLE
-                  const SizedBox(
-                    width: btZoneWidth,
-                    height: picWidth,
+                  /// PICTURE LAYER
+                  ValueListenableBuilder(
+                      valueListenable: fileModel,
+                      builder: (_, FileModel fileModel, Widget child){
+
+                        final dynamic pic = fileModel.file ?? fileModel.url;
+
+                        if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
+                          return BzLogo(
+                            width: picWidth,
+                            image: pic,
+                            margins: const EdgeInsets.all(10),
+                            corners: _picBorders,
+                            // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                          );
+                        }
+
+                        else if (bubbleType == BubbleType.userPic){
+
+                          return Balloona(
+                            balloonWidth: picWidth,
+                            loading: false,
+                            pic: pic,
+                            balloonType: concludeBalloonByUserStatus(UserStatus.searching),
+                            // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                          );
+                        }
+
+                        else {
+
+                          return DreamBox(
+                            width: picWidth,
+                            height: picWidth,
+                            icon: pic,
+                            bubble: false,
+                            // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
+                          );
+                        }
+
+
+                      }
                   ),
 
-                  /// FAKE FOOTPRINT UNDER PIC
-                  const SizedBox(
-                    width: picWidth * 1.1,
-                    height: picWidth,
-                  ),
+                  /// PLUS ICON LAYER
+                  ValueListenableBuilder(
+                    valueListenable: fileModel,
+                    builder: (_, FileModel fileModel, Widget child){
 
-                  /// GALLERY & DELETE BUTTONS
-                  SizedBox(
-                    width: btZoneWidth,
-                    height: picWidth,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
+                      /// PLUS ICON
+                      if (fileModel == null){
+                        return child;
+                      }
 
-                        /// GALLERY BUTTON
-                        DreamBox(
-                          width: btWidth,
-                          height: btWidth,
-                          icon: Iconz.phoneGallery,
-                          iconSizeFactor: 0.6,
-                          onTap: () => onAddPicture(ImagePickerType.galleryImage),
-                        ),
+                      /// FILE SIZE
+                      else {
 
-                        /// DELETE pic
-                        DreamBox(
-                          width: btWidth,
-                          height: btWidth,
-                          icon: Iconz.camera,
-                          iconSizeFactor: 0.5,
-                          onTap: () => onAddPicture(ImagePickerType.cameraImage),
-                        ),
+                        /// SIZE IS NULL
+                        if (fileModel.size == null){
+                          return const SizedBox();
+                        }
 
-                      ],
+                        /// SIZE
+                        else {
+                          return Container(
+                            width: picWidth,
+                            height: picWidth,
+                            alignment: Aligners.superInverseBottomAlignment(context),
+                            child: SuperVerse(
+                              verse: '${fileModel.size} Mb',
+                              size: 1,
+                              centered: false,
+                              shadow: true,
+                              labelColor: Colorz.white20,
+                            ),
+                          );
+                        }
+
+                      }
+
+                    },
+
+                    child: DreamBox(
+                      height: picWidth,
+                      width: picWidth,
+                      corners: _picBorders,
+                      icon: Iconz.plus,
+                      iconSizeFactor: 0.4,
+                      bubble: false,
+                      opacity: 0.9,
+                      iconColor: Colorz.white255,
+                      onTap: () => onAddPicture(ImagePickerType.galleryImage),
                     ),
-                  ),
+
+                  )
+
                 ],
               ),
 
-              /// PICTURE LAYER
-              ValueListenableBuilder(
-                  valueListenable: picture,
-                  builder: (_, dynamic pic, Widget child){
 
-                    if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
-                      return BzLogo(
-                        width: picWidth,
-                        image: pic,
-                        margins: const EdgeInsets.all(10),
-                        corners: _picBorders,
-                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
-                      );
-                    }
+              /// GALLERY & DELETE BUTTONS
+              SizedBox(
+                width: btZoneWidth,
+                height: picWidth,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
 
-                    else if (bubbleType == BubbleType.userPic){
+                    /// GALLERY BUTTON
+                    DreamBox(
+                      width: btWidth,
+                      height: btWidth,
+                      icon: Iconz.phoneGallery,
+                      iconSizeFactor: 0.6,
+                      onTap: () => onAddPicture(ImagePickerType.galleryImage),
+                    ),
 
-                      return Balloona(
-                        balloonWidth: picWidth,
-                        loading: false,
-                        pic: pic,
-                        balloonType: concludeBalloonByUserStatus(UserStatus.searching),
-                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
-                      );
-                    }
+                    /// DELETE pic
+                    DreamBox(
+                      width: btWidth,
+                      height: btWidth,
+                      icon: Iconz.camera,
+                      iconSizeFactor: 0.5,
+                      onTap: () => onAddPicture(ImagePickerType.cameraImage),
+                    ),
 
-                    else {
-
-                      return DreamBox(
-                        width: picWidth,
-                        height: picWidth,
-                        icon: pic,
-                        bubble: false,
-                        // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
-                      );
-                    }
-
-
-                  }
+                  ],
+                ),
               ),
 
-              /// PLUS ICON LAYER
-              ValueListenableBuilder(
-                valueListenable: picture,
-                builder: (_, dynamic pic, Widget child){
-
-                  if (pic == null){
-                    return child;
-                  }
-
-                  else {
-                    return const SizedBox();
-                  }
-
-                  },
-
-                child: DreamBox(
-                  height: picWidth,
-                  width: picWidth,
-                  corners: _picBorders,
-                  icon: Iconz.plus,
-                  iconSizeFactor: 0.4,
-                  bubble: false,
-                  opacity: 0.9,
-                  iconColor: Colorz.white255,
-                  onTap: () => onAddPicture(ImagePickerType.galleryImage),
-                ),
-
-              )
-
             ],
-          ),
+          )
 
         ]
     );

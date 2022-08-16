@@ -90,7 +90,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   void dispose(){
     _loading.dispose();
     _selectedZone.dispose();
-    _zoneProvider.dispose();
     // _selectedCountry.dispose();
     // _selectedCity.dispose();
     // _selectedDistrict.dispose();
