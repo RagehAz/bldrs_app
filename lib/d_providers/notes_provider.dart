@@ -417,6 +417,20 @@ class NotesProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  static void proRemoveNotesFromBzzNotes({
+    @required BuildContext context,
+    @required List<NoteModel> notes,
+    @required String bzID,
+    @required bool notify,
+  }){
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _notesProvider.removeNotesFromBzzNotes(
+      bzID: bzID,
+      notify: notify,
+      notes: notes,
+    );
+  }
+// -------------------------------------
   void removeAllNotesOfThisBzFromAllBzzNotes({
     @required String bzID,
     @required bool notify,

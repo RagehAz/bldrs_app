@@ -10,6 +10,7 @@ class NotificationFlyers extends StatelessWidget {
   const NotificationFlyers({
     @required this.bodyWidth,
     @required this.flyers,
+    @required this.noteID,
     this.onFlyerTap,
     Key key,
   }) : super(key: key);
@@ -17,6 +18,7 @@ class NotificationFlyers extends StatelessWidget {
   final double bodyWidth;
   final List<FlyerModel> flyers;
   final ValueChanged<FlyerModel> onFlyerTap;
+  final String noteID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,6 +39,7 @@ class NotificationFlyers extends StatelessWidget {
           :
       flyers.length == 1 ?
       FlyerInNoteCard(
+        noteID: noteID,
         flyerModel: flyers[0],
         onFlyerTap: onFlyerTap,
       )
@@ -51,6 +54,7 @@ class NotificationFlyers extends StatelessWidget {
             final FlyerModel _flyer = flyers[index];
 
             return FlyerInNoteCard(
+              noteID: noteID,
               flyerModel: _flyer,
               onFlyerTap: onFlyerTap,
             );
@@ -64,16 +68,18 @@ class NotificationFlyers extends StatelessWidget {
 }
 
 class FlyerInNoteCard extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const FlyerInNoteCard({
     @required this.flyerModel,
     @required this.onFlyerTap,
+    @required this.noteID,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final ValueChanged<FlyerModel> onFlyerTap;
-// -----------------------------------------------------------------------------
+  final String noteID;
+  /// --------------------------------------------------------------------------
   bool _absorbFlyerTap() {
     bool _absorb;
 
@@ -99,6 +105,7 @@ class FlyerInNoteCard extends StatelessWidget {
         child: AbsorbPointer(
           absorbing: _absorbFlyerTap(),
           child: FlyerStarter(
+            heroTag: noteID,
             minWidthFactor: FlyerBox.sizeFactorByHeight(context, 200),
             flyerModel: flyerModel,
           ),

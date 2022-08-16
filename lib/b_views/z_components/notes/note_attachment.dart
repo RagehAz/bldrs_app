@@ -64,6 +64,7 @@ class NoteAttachment extends StatelessWidget {
             final List<FlyerModel> _flyers = snap.data;
 
             return NotificationFlyers(
+              noteID: noteModel.id,
               bodyWidth: boxWidth,
               flyers: _flyers,
             );

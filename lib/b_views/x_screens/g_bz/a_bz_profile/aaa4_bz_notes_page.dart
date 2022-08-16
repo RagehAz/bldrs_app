@@ -30,8 +30,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   // @override
   // bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  NotesProvider _notesProvider;
+  ScrollController _scrollController;
   BzModel _bzModel;
   // Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------------------------------------------------
@@ -53,10 +52,8 @@ class _BzNotesPageState extends State<BzNotesPage>{
   @override
   void initState() {
     super.initState();
-
     blog('initState --------------- BZ - NOTES - PAGE ---- BIAAATCH');
-
-    _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    _scrollController = ScrollController();
     _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
   }
 // -----------------------------------------------------------------------------
@@ -82,15 +79,16 @@ class _BzNotesPageState extends State<BzNotesPage>{
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  bool _disposed = false;
   @override
   void dispose() {
-
-    _scrollController.dispose();
-    _loading.dispose();
-    _markAllBzUnseenNotesAsSeen();
-
-    blog('DISPOSING --------------- BZ - NOTES - PAGE ---- BIAAATCH');
-    _notesProvider.dispose();
+    if (_disposed == false){
+      blog('DISPOSING --------------- BZ - NOTES - PAGE ---- BIAAATCH');
+      _scrollController.dispose();
+      _loading.dispose();
+      _markAllBzUnseenNotesAsSeen();
+      _disposed = true;
+    }
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -120,13 +118,15 @@ class _BzNotesPageState extends State<BzNotesPage>{
       // );
 
       /// UN-FLASH PYRAMID
-      _notesProvider.setIsFlashing(
+      NotesProvider.proSetIsFlashing(
+        context: context,
         setTo: false,
         notify: true,
       );
 
       /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
-      _notesProvider.removeNotesFromBzzNotes(
+      NotesProvider.proRemoveNotesFromBzzNotes(
+        context: context,
         notes: _notesToMark,
         bzID: _bzModel.id,
         notify: true,
