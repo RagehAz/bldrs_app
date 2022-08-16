@@ -18,17 +18,19 @@ class _AuthScreenState extends State<AuthScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------
-//   Future<void> _triggerLoading({bool setTo}) async {
-//     if (mounted == true){
-//       if (setTo == null){
-//         _loading.value = !_loading.value;
-//       }
-//       else {
-//         _loading.value = setTo;
-//       }
-//       blogLoading(loading: _loading.value, callerName: 'SearchBzzScreen',);
-//     }
-//   }
+  /*
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'SearchBzzScreen',);
+    }
+  }
+   */
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -47,6 +49,7 @@ class _AuthScreenState extends State<AuthScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
@@ -58,9 +61,6 @@ class _AuthScreenState extends State<AuthScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
-
-
-
   @override
   Widget build(BuildContext context) {
 

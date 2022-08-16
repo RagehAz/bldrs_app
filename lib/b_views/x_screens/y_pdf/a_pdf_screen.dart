@@ -34,7 +34,6 @@ class _PDFScreenState extends State<PDFScreen> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -71,13 +70,14 @@ class _PDFScreenState extends State<PDFScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _uInt8List.dispose();
     _progressBarModel.dispose();
     _pdfController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

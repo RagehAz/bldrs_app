@@ -22,17 +22,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const FeedBack({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _FeedBackState createState() => _FeedBackState();
+/// --------------------------------------------------------------------------
 }
 
 class _FeedBackState extends State<FeedBack> {
-  TextEditingController _feedbackController; /// tamam disposed
+  TextEditingController _feedbackController;
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -57,13 +58,14 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void initState() {
     super.initState();
-    _feedbackController = TextEditingController(); /// tamam
+    _feedbackController = TextEditingController();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _feedbackController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {

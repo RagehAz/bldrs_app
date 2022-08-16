@@ -43,11 +43,11 @@ class SelectCountryScreen extends StatefulWidget {
 
 class _SelectCountryScreenState extends State<SelectCountryScreen> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
-  final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -67,6 +67,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _isSearching.dispose();

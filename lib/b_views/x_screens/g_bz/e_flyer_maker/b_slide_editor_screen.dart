@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/b_slide_editor_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
+
 class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorScreen({
@@ -25,10 +26,10 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 // -----------------------------------------------------------------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // ------------------------------------
-  ValueNotifier<MutableSlide> _tempSlide; /// tamam disposed
-  ValueNotifier<Matrix4> _matrix; /// tamam disposed
-  ValueNotifier<ImageFilterModel> _filterModel; /// tamam disposed
-  final ValueNotifier<bool> _isTransforming = ValueNotifier(false); /// tamam disposed
+  ValueNotifier<MutableSlide> _tempSlide;
+  ValueNotifier<Matrix4> _matrix;
+  ValueNotifier<ImageFilterModel> _filterModel;
+  final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
 // ------------------------------------
   @override
   void initState() {
@@ -38,13 +39,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _tempSlide.dispose();
     _isTransforming.dispose();
     _matrix.dispose();
     _filterModel.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void initializeTempSlide(){

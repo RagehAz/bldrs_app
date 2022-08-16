@@ -26,11 +26,11 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 // -----------------------------------------------------------------------------
   // final String error;
   // final bool loading;
-  AnimationController _scaleController; /// tamam disposed
+  AnimationController _scaleController;
   static const int _fadeCycleDuration = 800;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -56,11 +56,12 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _scaleController.dispose();
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

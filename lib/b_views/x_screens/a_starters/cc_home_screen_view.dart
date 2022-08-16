@@ -57,6 +57,13 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

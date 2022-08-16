@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/b_bz_editor/a_bz_editor_controllers.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   UserModel _userModel;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -87,18 +86,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   BzModel _initialBzModel;
   // -------------------------
   /// String _bzID; // NOT REQUIRED HERE
-  ValueNotifier<List<BzType>> _selectedBzTypes; /// tamam disposed
-  ValueNotifier<BzForm> _selectedBzForm; /// tamam disposed
+  ValueNotifier<List<BzType>> _selectedBzTypes;
+  ValueNotifier<BzForm> _selectedBzForm;
   /// DateTime _createdAt; // NOT REQUIRED HERE
   /// BzAccountType _accountType // NOT REQUIRED HERE
   // -------------------------
   TextEditingController _bzNameTextController;
-  ValueNotifier<dynamic> _bzLogo; /// tamam disposed
-  ValueNotifier<ZoneModel> _selectedBzZone; /// tamam disposed
+  ValueNotifier<dynamic> _bzLogo;
+  ValueNotifier<ZoneModel> _selectedBzZone;
   ValueNotifier<List<SpecModel>> _selectedScopes;
-  TextEditingController _bzAboutTextController; /// tamam disposed
-  ValueNotifier<GeoPoint> _bzPosition; /// tamam disposed
-  ValueNotifier<List<ContactModel>> _bzContacts; /// tamam disposed
+  TextEditingController _bzAboutTextController;
+  ValueNotifier<GeoPoint> _bzPosition;
+  ValueNotifier<List<ContactModel>> _bzContacts;
   /// List<AuthorModel> _bzAuthors; // NOT REQUIRED HERE
   /// bool _bzShowsTeam; // NOT REQUIRED HERE
   // -------------------------
@@ -136,10 +135,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// HELPER VARIABLES
   
 // -------------------------------------
-  ValueNotifier<BzSection> _selectedBzSection; /// tamam disposed
-  ValueNotifier<List<BzType>> _inactiveBzTypes; /// tamam disposed
-  ValueNotifier<List<BzForm>> _inactiveBzForms; /// tamam disposed
-  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]); /// tamam disposed
+  ValueNotifier<BzSection> _selectedBzSection;
+  ValueNotifier<List<BzType>> _inactiveBzTypes;
+  ValueNotifier<List<BzForm>> _inactiveBzForms;
+  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
 // -------------------------------------
   void _initializeHelperVariables(){
     final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
@@ -153,6 +152,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _inactiveBzForms = ValueNotifier(_concludedInactiveBzForms);
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
 
@@ -170,13 +170,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzSection.dispose();
     _inactiveBzTypes.dispose();
     _inactiveBzForms.dispose();
+    _bzNameTextController.dispose();
+    _bzAboutTextController.dispose();
 
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------
   void _disposeTextControllers(){
-    TextChecker.disposeControllerIfPossible(_bzNameTextController);
-    TextChecker.disposeControllerIfPossible(_bzAboutTextController);
+    // TextChecker.disposeControllerIfPossible(_bzNameTextController);
+    // TextChecker.disposeControllerIfPossible(_bzAboutTextController);
   }
 // -----------------------------------------------------------------------------
   @override

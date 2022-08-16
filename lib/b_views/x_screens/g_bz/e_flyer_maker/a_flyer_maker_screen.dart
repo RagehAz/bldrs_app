@@ -30,9 +30,9 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController(); /// tamam disposed
-  TextEditingController _headlineController; /// tamam disposed
-  ValueNotifier<DraftFlyerModel> _draftFlyer; /// tamam disposed
+  final ScrollController _scrollController = ScrollController();
+  TextEditingController _headlineController;
+  ValueNotifier<DraftFlyerModel> _draftFlyer;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isEditingFlyer;
 // -----------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   }
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -98,6 +98,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose(){
     _scrollController.dispose();
@@ -110,7 +111,6 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
