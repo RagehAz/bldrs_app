@@ -213,4 +213,17 @@ class Colorizer {
     return ColorFilter.mode(imageSaturationColor, BlendMode.saturation);
   }
 // -----------------------------------------------------------------------------
+  static Color errorize({
+    @required bool errorIsOn,
+    @required Color defaultColor,
+    @required bool canErrorize,
+  }){
+    Color _color = defaultColor;
+    /// if condition is true => error is on
+    if (errorIsOn == true && canErrorize == true){
+      _color = Colorz.errorColor;
+    }
+    return _color;
+  }
+// -----------------------------------------------------------------------------
 }

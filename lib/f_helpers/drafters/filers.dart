@@ -138,11 +138,12 @@ class Filers {
   /// GETTERS
 
 // ---------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static double getFileSize(File file){
     final int sizeInBytes = file.lengthSync();
     final double sizeInMb = sizeInBytes / (1024 * 1024);
-    return sizeInMb;
+    final double _output = Numeric.roundFractions(sizeInMb, 1);
+    return _output;
   }
 // -----------------------------------------------------------------
 
@@ -351,7 +352,7 @@ class Filers {
     return _identical;
   }
 // ---------------------------------------
-
+/*
   static bool checkFileSizeIsBiggerThan({
     @required File file,
     @required double megaBytes,
@@ -368,6 +369,7 @@ class Filers {
 
     return _bigger;
   }
+ */
 // -----------------------------------------------------------------
 
   /// BLOG
