@@ -63,6 +63,8 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
+
     _scrollController = ScrollController();
 
     _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -78,7 +80,6 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
       vsync: this,
     );
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

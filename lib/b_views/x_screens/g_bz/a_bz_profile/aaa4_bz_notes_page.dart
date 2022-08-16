@@ -52,12 +52,12 @@ class _BzNotesPageState extends State<BzNotesPage>{
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     blog('initState --------------- BZ - NOTES - PAGE ---- BIAAATCH');
 
     _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

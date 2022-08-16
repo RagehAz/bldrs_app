@@ -56,9 +56,9 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     _pdf = ValueNotifier(widget.existingPDF);
     _textController = TextEditingController(text: widget.existingPDF?.fileName);
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

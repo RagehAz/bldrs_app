@@ -46,6 +46,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _bzModel = widget.bzModel ?? BzzProvider.proGetActiveBzModel(
       context: context,
@@ -53,7 +54,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
     );
 
     _bzCounter = ValueNotifier<BzCounterModel>(null);
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

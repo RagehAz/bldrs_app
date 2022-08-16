@@ -81,6 +81,8 @@ class _CroppingScreenState extends State<CroppingScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
+
     _initializeControllers();
     _statuses.addListener(() async {
 
@@ -110,7 +112,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
       }
 
     });
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

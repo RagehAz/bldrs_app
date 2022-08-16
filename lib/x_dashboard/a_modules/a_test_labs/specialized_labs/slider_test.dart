@@ -54,7 +54,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     _divisionsController.dispose();
     _minController.dispose();
     _maxController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Widget _button(String verse) {

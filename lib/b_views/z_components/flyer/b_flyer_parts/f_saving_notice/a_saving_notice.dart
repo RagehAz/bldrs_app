@@ -34,6 +34,7 @@ class _SavingNoticeState extends State<SavingNotice> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _curvedAnimation = CurvedAnimation(
       curve: Curves.elasticOut,
@@ -41,7 +42,6 @@ class _SavingNoticeState extends State<SavingNotice> {
       parent: widget.animationController,
     );
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

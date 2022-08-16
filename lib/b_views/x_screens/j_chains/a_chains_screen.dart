@@ -65,6 +65,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
     // ------------------------------
     _bigChainK = ChainsProvider.proGetBigChainK(
       context: context,
@@ -78,7 +79,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
     }
 
     // ------------------------------
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM
@@ -226,7 +226,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
             );
           }
         }
-
 
         if (_canContinue == true){
           Nav.goBack(
