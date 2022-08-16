@@ -27,8 +27,8 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
 // -------------------------------------
   @override
   void initState() {
-    // _keyboardType = textInputTypes[_index];
     super.initState();
+    // _keyboardType = textInputTypes[_index];
   }
 // -------------------------------------
   @override

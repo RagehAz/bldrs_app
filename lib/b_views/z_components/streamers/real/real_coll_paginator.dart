@@ -102,8 +102,6 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     }
 
     super.dispose();
-
-    /// tamam
   }
 // -----------------------------------------------------------------------------
   Future<void> _readMore() async {

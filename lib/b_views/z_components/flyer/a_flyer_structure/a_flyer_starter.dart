@@ -70,6 +70,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _flyerModel = widget.flyerModel;
 
@@ -80,7 +81,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
     _flyerIsSaved = ValueNotifier(_isSaved);
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

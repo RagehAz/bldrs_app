@@ -60,11 +60,11 @@ class _GallerySlideState extends State<GallerySlide> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _scrollController = ScrollController();
     _scrollController.addListener(_addScrollListener);
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

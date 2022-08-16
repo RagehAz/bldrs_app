@@ -121,8 +121,8 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _file = widget.imageFile;
     super.initState();
+    _file = widget.imageFile;
   }
 // -----------------------------------------------------------------------------
   @override

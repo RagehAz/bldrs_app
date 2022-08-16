@@ -45,6 +45,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     final Duration _duration = widget.duration ?? const Duration(seconds: 2);
 
@@ -60,7 +61,6 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
       reverseCurve: widget.curve,
     );
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

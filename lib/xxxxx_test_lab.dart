@@ -58,6 +58,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _fuckingText = 'Lorum Ipsum Gypsum board\n'
         'This is a test paragraph that includes design '
@@ -91,8 +92,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     _hashVerse = ValueNotifier(_original);
 
-
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

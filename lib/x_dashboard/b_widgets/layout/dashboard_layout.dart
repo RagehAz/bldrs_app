@@ -38,8 +38,8 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _controller = ScrollController();
     super.initState();
+    _controller = ScrollController();
   }
 // -----------------------------------------------------------------------------
   @override

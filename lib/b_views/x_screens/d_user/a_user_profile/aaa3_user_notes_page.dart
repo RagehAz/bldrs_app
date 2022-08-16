@@ -28,8 +28,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // @override
   // bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  NotesProvider _notesProvider;
+  ScrollController _scrollController;
   // Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -49,8 +48,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     super.initState();
+    _scrollController = ScrollController();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -81,11 +80,9 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     blog('DISPOSING USER NOTES PAGE AHO');
 
-    _scrollController.dispose();
     _loading.dispose();
     _markAllUserUnseenNotesAsSeen();
-
-    _notesProvider.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -109,7 +106,8 @@ class _UserNotesPageState extends State<UserNotesPage> {
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
 
-        _notesProvider.setIsFlashing(
+        NotesProvider.proSetIsFlashing(
+          context: context,
           setTo: false,
           notify: true,
         );

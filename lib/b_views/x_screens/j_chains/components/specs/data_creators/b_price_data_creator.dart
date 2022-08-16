@@ -148,11 +148,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
+    super.initState();
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     _currency.value = _zoneProvider.currentCurrency;
     controller.text = widget.initialPriceValue?.toString() ?? '';
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

@@ -42,12 +42,12 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _pageTitle = ValueNotifier(widget.navModels[0].title);
 
     _initializeTabs();
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override

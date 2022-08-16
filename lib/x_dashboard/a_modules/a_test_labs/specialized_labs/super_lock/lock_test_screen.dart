@@ -30,10 +30,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
   // --------------------
   @override
   void initState() {
+    super.initState();
     _a = LockWheel.standardLockIcons[_indexA].key;
     _b = LockWheel.standardLockIcons[_indexB].key;
     _c = LockWheel.standardLockIcons[_indexC].key;
-    super.initState();
   }
   // --------------------
   void _changeA(String a){_a = a;}

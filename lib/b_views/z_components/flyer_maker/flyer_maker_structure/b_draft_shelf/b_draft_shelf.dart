@@ -62,8 +62,8 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
+    _scrollController = ScrollController();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

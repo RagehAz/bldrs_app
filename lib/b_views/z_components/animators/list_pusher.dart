@@ -34,6 +34,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _duration = widget.duration ?? const Duration(milliseconds: 800);
 
@@ -49,7 +50,6 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
       reverseCurve: widget.curve,
     );
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

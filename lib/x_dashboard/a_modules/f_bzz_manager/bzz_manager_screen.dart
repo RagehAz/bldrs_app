@@ -49,7 +49,6 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-
     super.initState();
   }
 // -----------------------------------------------------------------------------

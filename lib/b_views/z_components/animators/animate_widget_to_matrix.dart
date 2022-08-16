@@ -27,6 +27,7 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
   // --------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _animationController = AnimationController(
       duration: widget.duration ?? const Duration(seconds: 3),
@@ -39,7 +40,6 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
         curve: Curves.easeInOutCirc,
     );
 
-    super.initState();
   }
   // --------------------------------------------------------------------------
   /// TAMAM
