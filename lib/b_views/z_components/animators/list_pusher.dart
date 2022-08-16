@@ -52,11 +52,12 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _animationController.dispose();
     _curvedAnimation.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _animate() async {

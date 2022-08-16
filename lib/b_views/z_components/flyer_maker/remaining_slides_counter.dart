@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class RemainingSlidesCounter extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const RemainingSlidesCounter({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return DreamBox(

@@ -17,7 +17,7 @@ class TestingTemplate extends StatefulWidget {
 class _TestingTemplateState extends State<TestingTemplate> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -53,10 +53,11 @@ class _TestingTemplateState extends State<TestingTemplate> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// XXXX
   @override
   void dispose() {
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

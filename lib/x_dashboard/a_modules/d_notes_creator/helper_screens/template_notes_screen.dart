@@ -47,6 +47,13 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {

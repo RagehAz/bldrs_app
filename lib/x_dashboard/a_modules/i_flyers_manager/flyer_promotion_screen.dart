@@ -36,14 +36,15 @@ class FlyerPromotionScreen extends StatefulWidget {
 }
 
 class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
-
+// -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _selectedZone.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
-  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier(null);
   Future<void> _onSelectCityTap() async {
 
     final ZoneModel _zone = await controlSelectCountryAndCityOnly(context);

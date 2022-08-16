@@ -43,7 +43,7 @@ class ShelfSlide extends StatefulWidget {
 
 class _ShelfSlideState extends State<ShelfSlide> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _animateSlide = ValueNotifier(true); /// tamam disposed
+  final ValueNotifier<bool> _animateSlide = ValueNotifier(true);
   void _onReAnimate(){
 
     blog('re-animating');
@@ -52,10 +52,11 @@ class _ShelfSlideState extends State<ShelfSlide> {
     _animateSlide.value = true;
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _animateSlide.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

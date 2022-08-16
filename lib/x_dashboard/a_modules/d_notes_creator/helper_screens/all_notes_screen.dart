@@ -31,12 +31,15 @@ class AllNotesScreen extends StatefulWidget {
 
 class _AllNotesScreenState extends State<AllNotesScreen> {
 // -----------------------------------------------------------------------------
-//   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
-  final ScrollController _scrollController = ScrollController();
+  ///
+  //   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
+  ///
   // bool _canPaginate = true;
+  ///
+  final ScrollController _scrollController = ScrollController();
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -83,46 +86,48 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    // _notes.dispose();
-    super.dispose(); /// tamam
+    _scrollController.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
-//   Future<void> _paginateAllNotes() async {
-//
-//     _loading.value = true;
-//
-//     final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-//       context: context,
-//       collName: FireColl.notes,
-//       startAfter: Mapper.checkCanLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
-//       orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
-//       addDocsIDs: true,
-//       addDocSnapshotToEachMap: true,
-//       limit: 8,
-//       // finders: <FireFinder>[
-//       //   FireFinder(
-//       //     field: 'recieverID',
-//       //     comparison: FireComparison.equalTo,
-//       //     value: recieverID,
-//       //   ),
-//       // ],
-//     );
-//
-//     if (Mapper.checkCanLoopList(_maps) == true){
-//
-//       final List<NoteModel> _newNotes = NoteModel.decipherNotes(
-//         maps: _maps,
-//         fromJSON: false,
-//       );
-//
-//       final List<NoteModel> _combinesNotes = <NoteModel>[..._notes.value, ..._newNotes];
-//       _notes.value = _combinesNotes;
-//
-//     }
-//
-//     _loading.value = false;
-//
+  /*
+  Future<void> _paginateAllNotes() async {
+
+    _loading.value = true;
+
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
+      collName: FireColl.notes,
+      startAfter: Mapper.checkCanLoopList(_notes.value) == true ? _notes.value.last.docSnapshot : null,
+      orderBy: const Fire.QueryOrderBy(fieldName: 'sentTime', descending: true),
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+      limit: 8,
+      // finders: <FireFinder>[
+      //   FireFinder(
+      //     field: 'recieverID',
+      //     comparison: FireComparison.equalTo,
+      //     value: recieverID,
+      //   ),
+      // ],
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      final List<NoteModel> _newNotes = NoteModel.decipherNotes(
+        maps: _maps,
+        fromJSON: false,
+      );
+
+      final List<NoteModel> _combinesNotes = <NoteModel>[..._notes.value, ..._newNotes];
+      _notes.value = _combinesNotes;
+
+    }
+
+    _loading.value = false;
+
 //   }
+   */
 // -----------------------------------------------------------------------------
   Future<void> _onNoteTap({
     @required NoteModel note,

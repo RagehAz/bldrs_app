@@ -8,11 +8,11 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class EmojiTestScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const EmojiTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   Future<void> onEmojiTap({
     @required BuildContext context,
     @required EmojiModel emo,
@@ -39,7 +39,7 @@ class EmojiTestScreen extends StatelessWidget {
     );
 
   }
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

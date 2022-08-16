@@ -29,15 +29,12 @@ class GoogleMapScreen extends StatefulWidget {
     this.geoPoint,
     this.isSelecting = false,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final GeoPoint geoPoint;
   final bool isSelecting;
-
   /// --------------------------------------------------------------------------
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
@@ -65,7 +62,6 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -73,7 +69,13 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     _geoPoint = const GeoPoint(
         30.0778, 31.2852); //widget.geoPoint ?? Atlas.dummyPosition();
   }
-
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _googleMapController.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -90,18 +92,21 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
 // -----------------------------------------------------------------------------
-//   String _previewImage;
-//   void _showPreview(double lat, double lng){
-//     blog('show Preview, Lat: $lat, lng: $lng');
-//     final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
-//     setState(() {
-//       _previewImage = staticMapImageUrl;
-//     });
-//   }
+  /*
+  String _previewImage;
+  void _showPreview(double lat, double lng){
+    blog('show Preview, Lat: $lat, lng: $lng');
+    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(lat, lng);
+    setState(() {
+      _previewImage = staticMapImageUrl;
+    });
+  }
+   */
 // -----------------------------------------------------------------------------
-  void _selectLocation({@required LatLng latLng}) {
+  void _selectLocation({
+    @required LatLng latLng
+  }) {
     final GeoPoint _point = GeoPoint(latLng.latitude, latLng.longitude);
 
     blog('LatLng : lat : ${latLng.latitude} : lng : ${latLng.longitude}');
@@ -113,30 +118,31 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
     blog('_selectLocation :  $latLng');
   }
-
 // -----------------------------------------------------------------------------
-//   BitmapDescriptor _mapMarker;
-//   Set<Marker> _getMarkers(){
-//
-//     Set<Marker> _markers = {};
-//
-//     if (_mapMarker != null && _geoPoint != null){
-//       _markers = {
-//         Marker(
-//           markerId: MarkerId('m1'),
-//           position: LatLng(_geoPoint?.longitude, _geoPoint?.longitude),
-//           icon: _mapMarker ?? null,
-//           anchor: Offset(0.5,1),
-//           draggable: false,
-//           visible: true,
-//           zIndex: 0.0,
-//           flat: true,
-//         ),
-//       };
-//     }
-//
-//     return _markers;
-//   }
+  /*
+  BitmapDescriptor _mapMarker;
+  Set<Marker> _getMarkers(){
+
+    Set<Marker> _markers = {};
+
+    if (_mapMarker != null && _geoPoint != null){
+      _markers = {
+        Marker(
+          markerId: MarkerId('m1'),
+          position: LatLng(_geoPoint?.longitude, _geoPoint?.longitude),
+          icon: _mapMarker ?? null,
+          anchor: Offset(0.5,1),
+          draggable: false,
+          visible: true,
+          zIndex: 0.0,
+          flat: true,
+        ),
+      };
+    }
+
+    return _markers;
+  }
+   */
 // -----------------------------------------------------------------------------
   GoogleMapController _googleMapController;
   @override

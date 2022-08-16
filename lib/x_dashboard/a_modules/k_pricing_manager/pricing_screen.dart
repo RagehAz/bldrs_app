@@ -9,10 +9,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class PricingScreen extends StatelessWidget {
-  const PricingScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const PricingScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final List<BigMac> _macs = BigMac.bigMacs();
 
     _macs.sort((BigMac macA, BigMac macB) => BigMac.localPriceToDollar(
@@ -33,33 +37,25 @@ class PricingScreen extends StatelessWidget {
               final BigMac _mac = _macs[index];
               final String _iso3 = _mac.countryID;
               final String _currency = _macs[index].currency;
-              final double _toDollarRate =
-                  Numeric.roundFractions(_mac.toDollarRate, 2);
-              final double _localPrice =
-                  Numeric.roundFractions(_mac.localPrice, 2);
+              final double _toDollarRate = Numeric.roundFractions(_mac.toDollarRate, 2);
+              final double _localPrice = Numeric.roundFractions(_mac.localPrice, 2);
 
               final String _flag = Flag.getFlagIcon(_iso3);
-              final String _countryName =
-                  '${index + 1} - ${Localizer.translate(context, _iso3)}';
-              final String _countryCurrency =
-                  '1 \$ = $_toDollarRate $_currency';
-              final String _localBigMacPrice =
-                  'BigMac = $_localPrice $_currency';
-              final double _roundedMacPriceUSD = Numeric.roundFractions(
-                  BigMac.getBigMacDollarPriceByISO3(_iso3), 2);
-              final String _localMacPriceInUSD =
-                  '= $_roundedMacPriceUSD \$ * ${Numeric.roundFractions(BigMac.bigMacsCountToBuyProAccount(), 2)} macs';
+              final String _countryName = '${index + 1} - ${Localizer.translate(context, _iso3)}';
+              final String _countryCurrency = '1 \$ = $_toDollarRate $_currency';
+              final String _localBigMacPrice = 'BigMac = $_localPrice $_currency';
+              final double _roundedMacPriceUSD = Numeric.roundFractions(BigMac.getBigMacDollarPriceByISO3(_iso3), 2);
+              final String _localMacPriceInUSD = '= $_roundedMacPriceUSD \$ * ${Numeric.roundFractions(BigMac.bigMacsCountToBuyProAccount(), 2)} macs';
 
-              final double _proAccountPriceInLocalCurrency =
-                  BigMac.proAccountPriceInLocalCurrencyByISO3(_iso3);
-              final double _proPriceRounded =
-                  Numeric.roundFractions(_proAccountPriceInLocalCurrency, 2);
+              final double _proAccountPriceInLocalCurrency = BigMac.proAccountPriceInLocalCurrencyByISO3(_iso3);
+              final double _proPriceRounded = Numeric.roundFractions(_proAccountPriceInLocalCurrency, 2);
               final String _proPrice = '$_proPriceRounded $_currency';
               final double _proPriceDollar = BigMac.localPriceToDollar(
                   localPrice: _proAccountPriceInLocalCurrency,
-                  toDollarRate: _toDollarRate);
-              final double _proPriceDollarRounded =
-                  Numeric.roundFractions(_proPriceDollar, 2);
+                  toDollarRate: _toDollarRate,
+              );
+
+              final double _proPriceDollarRounded = Numeric.roundFractions(_proPriceDollar, 2);
               final String _proPrice$ = '$_proPriceDollarRounded \$';
 
               return SizedBox(

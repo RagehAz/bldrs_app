@@ -18,11 +18,11 @@ import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const GeneralStatistics({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     final double _screenWidth = MediaQuery.of(context).size.width;
@@ -35,13 +35,16 @@ class GeneralStatistics extends StatelessWidget {
       sectionButtonIsOn: false,
       pageTitle: Wordz.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
+
         Expander(),
+
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
           child: BldrsName(
             size: 40,
           ),
         ),
+
       ],
       layoutWidget:
 

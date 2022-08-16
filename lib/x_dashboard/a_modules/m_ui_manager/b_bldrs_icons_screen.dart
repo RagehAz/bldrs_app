@@ -16,13 +16,14 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class IconsViewerScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const IconsViewerScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<IconsViewerScreen> createState() => _IconsViewerScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _IconsViewerScreenState extends State<IconsViewerScreen> {
@@ -36,6 +37,15 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
   void initState() {
     _icons = UiProvider.proGetLocalAssetsPaths(context);
     super.initState();
+  }
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _isSearching.dispose();
+    _found.dispose();
+    _textHighlight.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onSearchChanged(String text) async {
@@ -113,6 +123,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
       ),
     );
   }
+
 }
 
 class IconsGridBuilder extends StatelessWidget {

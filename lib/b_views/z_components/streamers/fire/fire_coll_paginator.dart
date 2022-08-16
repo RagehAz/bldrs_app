@@ -37,7 +37,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   bool _isPaginating = false;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -52,6 +52,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   }
 // -----------------------------------------------------------------------------
   PaginatorNotifiers _paginatorNotifiers;
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -86,13 +87,16 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
-    _loading.dispose(); /// tamam
+    _loading.dispose();
 
     if (widget.paginatorNotifiers == null){
       _paginatorNotifiers.dispose();
     }
+
+    _controller.dispose();
 
     super.dispose();
   }

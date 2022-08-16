@@ -8,16 +8,16 @@ import 'package:flutter/material.dart';
 
 
 class AppBarProgressBar extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const AppBarProgressBar({
     @required this.loading,
     @required this.progressBarModel,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

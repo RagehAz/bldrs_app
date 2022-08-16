@@ -42,7 +42,6 @@ class BldrsDashBoard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   List<DashButtonModel> _getButtons(){
 
-
     final List<DashButtonModel> _buttons = <DashButtonModel>[
 
       /// TEST LAB

@@ -8,13 +8,13 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class WaitDialog extends StatelessWidget {
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   const WaitDialog({
     this.canManuallyGoBack = false,
     this.loadingPhrase,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final bool canManuallyGoBack;
   final String loadingPhrase;
 // -----------------------------------------------------------------------------

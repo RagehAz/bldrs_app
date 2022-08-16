@@ -42,7 +42,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -58,18 +58,20 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   }
    */
 // -----------------------------------------------------------------------------
-  ScrollController _scrollController; /// tamam disposed
+  ScrollController _scrollController;
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _scrollController = ScrollController();
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose(){
     _scrollController.dispose();
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -151,4 +153,5 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     );
 // -----------------------------------------------------------------------------
   }
+
 }

@@ -29,6 +29,7 @@ class FlyersShelfListBuilder extends StatefulWidget {
 }
 
 class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
+// -----------------------------------------------------------------------------
   final ScrollController _controller = ScrollController();
 // -----------------------------------------------------------------------------
   @override
@@ -36,7 +37,13 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
     super.initState();
     _controller.addListener(listenToScrolling);
   }
-
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   void listenToScrolling() {
     if (_controller.position.atEdge) {
@@ -54,7 +61,6 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       }
     }
   }
-
 // -----------------------------------------------------------------------------
   bool _absorbingFlyerTap() {
     bool _absorbing;
@@ -67,7 +73,6 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     return _absorbing;
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -189,4 +194,5 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         },
     );
   }
+
 }

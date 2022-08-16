@@ -58,6 +58,15 @@ import 'package:flutter/foundation.dart';
       return true;
     }(), '_');
 
+    /// NOUR IDEA
+    /*
+    extension Printer on dynamic {
+      void log() {
+        return dev.log(toString());
+      }
+    }
+     */
+
   }
 // -----------------------------------------------------------------------------
   void blogLoading({

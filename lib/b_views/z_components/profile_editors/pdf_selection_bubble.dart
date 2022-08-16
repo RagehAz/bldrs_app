@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
@@ -41,7 +40,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   TextEditingController _textController;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -80,9 +79,12 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _pdf.dispose();
+    _textController.dispose();
+    _loading.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

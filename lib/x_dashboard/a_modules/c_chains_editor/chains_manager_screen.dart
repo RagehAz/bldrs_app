@@ -36,9 +36,9 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
   ValueNotifier<List<Chain>> _chainsNotifier;
   // List<String> _allChainsPaths;
   // Chain _testChain;
-  final PageController _pageController = PageController(); /// tamam disposed
-  TextEditingController _textController; /// tamam disposed
-  TextEditingController _searchController;/// tamam disposed
+  final PageController _pageController = PageController();
+  TextEditingController _textController;
+  TextEditingController _searchController;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -114,6 +114,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _isSearching.dispose();
@@ -123,7 +124,8 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     _textController.dispose();
     _searchController.dispose();
     _chainsNotifier.dispose();
-    super.dispose(); /// tamam
+    _selectedPath.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _onStripTap({

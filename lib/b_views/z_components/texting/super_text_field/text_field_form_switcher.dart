@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class TextFormFieldSwitcher extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const TextFormFieldSwitcher({
     /// main
     @required this.isFormField,
@@ -51,8 +51,8 @@ class TextFormFieldSwitcher extends StatelessWidget {
 
     Key key,
   }) : super(key: key);
-
-  /// main
+  /// --------------------------------------------------------------------------
+  // main
   final bool isFormField;
   final TextEditingController controller;
   final String hintText;

@@ -29,9 +29,9 @@ class ZoomablePicture extends StatefulWidget {
 }
 
 class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin {
+// -----------------------------------------------------------------------------
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -48,14 +48,13 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       }
     });
   }
-
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _transformationController.dispose();
     _zoomAnimationController.dispose();
-
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {
@@ -132,4 +131,5 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
 
     );
   }
+
 }
