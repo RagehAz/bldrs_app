@@ -96,7 +96,9 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       _paginatorNotifiers.dispose();
     }
 
-    _controller.dispose();
+    if (widget.scrollController == null){
+      _controller.dispose();
+    }
 
     super.dispose();
   }
