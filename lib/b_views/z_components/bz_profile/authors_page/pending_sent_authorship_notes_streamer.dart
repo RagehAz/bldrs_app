@@ -27,10 +27,9 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     blog('a77a ba2a');
-
-    super.initState();
 
   }
 // -----------------------------------------------------------------------------

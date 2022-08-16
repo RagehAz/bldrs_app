@@ -35,8 +35,8 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
 // -----------------------------------------
   @override
   void initState() {
-    _canNavigate = ValueNotifier(widget.canNavigate);
     super.initState();
+    _canNavigate = ValueNotifier(widget.canNavigate);
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

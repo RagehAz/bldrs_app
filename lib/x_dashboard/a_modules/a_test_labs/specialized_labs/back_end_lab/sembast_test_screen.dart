@@ -77,7 +77,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
 

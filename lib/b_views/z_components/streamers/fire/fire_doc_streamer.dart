@@ -87,6 +87,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _oldMap = ValueNotifier<Map<String, dynamic>>(null);
 
@@ -114,8 +115,6 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
         },
     );
 
-
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

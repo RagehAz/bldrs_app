@@ -37,6 +37,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
+    super.initState();
 
     _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 
@@ -55,31 +56,28 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
         });
 
-    super.initState();
   }
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
     _isConnected.dispose();
     subscription.cancel();
-    _generalProvider.dispose();
+    // _generalProvider.dispose(); /// BUG
     super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> initConnectivity() async {
 
+    final bool _connected = await DeviceChecker.checkConnectivity(
+      context: context,
+    );
+
     if (mounted == true) {
-
-      final bool _connected = await DeviceChecker.checkConnectivity(
-        context: context,
-      );
-
-      _isConnected = ValueNotifier(_connected);
-      _generalProvider.setConnectivity(
+        _isConnected = ValueNotifier(_connected);
+        _generalProvider.setConnectivity(
           isConnected: _connected,
           notify: true,
-      );
-
+        );
     }
 
   }

@@ -95,20 +95,20 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   /// TAMAM
   @override
   void dispose() {
+
     _loading.dispose();
     // _sloganAniController.dispose();
     _sloganCurvedAnimation.dispose();
     _logoAniController.dispose();
     _logoCurvedAnimation.dispose();
-    _loading.dispose();
+
     if (Mapper.checkCanLoopList(_linesControllers) == true){
       for (final CurvedAnimation cont in _linesControllers){
         cont.dispose();
       }
     }
 
-    super.dispose(); /// tamam
-
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;

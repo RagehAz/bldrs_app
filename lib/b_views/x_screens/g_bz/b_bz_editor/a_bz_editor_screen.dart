@@ -173,7 +173,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _bzNameTextController.dispose();
     _bzAboutTextController.dispose();
 
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _disposeTextControllers(){

@@ -28,8 +28,8 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
 // -----------------------------------------------------------------------------
   @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
+    _scrollController = ScrollController();
   }
 // -----------------------------------------------------------------------------
   /// TAMAM
