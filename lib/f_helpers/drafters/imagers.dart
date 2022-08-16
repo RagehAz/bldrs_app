@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -8,6 +12,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
+import 'package:image/image.dart' as img;
 
 enum ImagePickerType {
   cameraImage,
@@ -39,6 +44,7 @@ class Imagers {
     @required BuildContext context,
     @required bool cropAfterPick,
     @required bool isFlyerRatio,
+    double resizeToWidth,
     AssetEntity selectAsset,
   }) async {
 
@@ -55,6 +61,7 @@ class Imagers {
       selectedAssets: _assets,
       cropAfterPick: cropAfterPick,
       isFlyerRatio: isFlyerRatio,
+      resizeToWidth: resizeToWidth,
     );
 
     if (Mapper.checkCanLoopList(_files) == true){
@@ -68,6 +75,7 @@ class Imagers {
     @required BuildContext context,
     @required bool isFlyerRatio,
     @required bool cropAfterPick,
+    double resizeToWidth,
     int maxAssets = 10,
     List<AssetEntity> selectedAssets,
   }) async {
@@ -84,6 +92,7 @@ class Imagers {
         context: context,
         pickedFiles: _files,
         isFlyerRatio: isFlyerRatio,
+        resizeToWidth: resizeToWidth,
       );
     }
 
@@ -240,6 +249,7 @@ class Imagers {
     @required BuildContext context,
     @required bool cropAfterPick,
     @required bool isFlyerRatio,
+    double resizeToWidth,
   }) async {
 
     File _file = await _shootCameraImage(
@@ -252,6 +262,7 @@ class Imagers {
         context: context,
         pickedFiles: <File>[_file],
         isFlyerRatio: isFlyerRatio,
+        resizeToWidth: resizeToWidth,
       );
 
       if (Mapper.checkCanLoopList(_files) == true){
@@ -330,14 +341,16 @@ class Imagers {
     @required BuildContext context,
     @required File pickedFile,
     @required bool isFlyerRatio,
+    double resizeToWidth,
 }) async {
 
     File _file;
 
     final List<File> _files = await cropImages(
-        context: context,
-        pickedFiles: <File>[pickedFile],
-        isFlyerRatio: isFlyerRatio
+      context: context,
+      pickedFiles: <File>[pickedFile],
+      isFlyerRatio: isFlyerRatio,
+      resizeToWidth: resizeToWidth,
     );
 
     if (Mapper.checkCanLoopList(_files) == true){
@@ -351,6 +364,7 @@ class Imagers {
     @required BuildContext context,
     @required List<File> pickedFiles,
     @required bool isFlyerRatio,
+    double resizeToWidth,
   }) async {
 
     List<File> _files = <File>[];
@@ -368,10 +382,88 @@ class Imagers {
 
     }
 
+    if (Mapper.checkCanLoopList(_files) == true){
+      _files = await resizeImages(
+        files: _files,
+        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+        finalWidth: resizeToWidth,
+      );
+    }
+
     return _files;
   }
 // -----------------------------------------------------------------
 
+  /// CROP IMAGE
+
+// ---------------------------------------
+  static Future<File> resizeImage({
+    @required File file,
+    /// image width will be resized to this final width
+    @required double finalWidth,
+    @required double aspectRatio,
+  }) async {
+
+    File _output;
+
+    if (file != null){
+
+      final Uint8List uint = await Floaters.getUint8ListFromFile(file);
+      final img.Image _image = img.decodeImage(uint);
+
+      final img.Image _resized = img.copyResize(
+        _image,
+        width: finalWidth.floor(),
+        height: (aspectRatio * finalWidth.floor()).floor(),
+        interpolation: img.Interpolation.average,
+      );
+
+      /// ENCONDED IMAGE
+      final Uint8List _asJpegEncoded = img.encodeJpg(_resized, quality: 80);
+
+      _output = await Filers.transformUint8ListToFile(
+        uInt8List: _asJpegEncoded,
+        fileName: Filers.getFileNameFromFile(file: file),
+      );
+
+    }
+
+    return _output;
+  }
+// ---------------------------------------
+  static Future<List<File>> resizeImages({
+    @required List<File> files,
+    @required double aspectRatio,
+    @required double finalWidth,
+  }) async {
+    final List<File> _files = <File>[];
+
+    if (Mapper.checkCanLoopList(files) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(files.length, (index) async {
+
+          final File _file = await resizeImage(
+            file: files[index],
+            aspectRatio: aspectRatio,
+            finalWidth: finalWidth ?? 500,
+          );
+
+          if (_file != null){
+            _files.add(_file);
+          }
+
+        }),
+
+      ]);
+
+    }
+
+    return _files;
+
+  }
+// -----------------------------------------------------------------
   /// CHECKERS
 
 // ---------------------------------------

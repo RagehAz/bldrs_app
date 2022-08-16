@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
@@ -377,22 +377,22 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
 
   /// TESTED : WORKS PERFECT
-  static Future<FlyerPDF> uploadFlyerPDFAndGetFlyerPDF({
+  static Future<FileModel> uploadFlyerPDFAndGetFlyerPDF({
     @required BuildContext context,
-    @required FlyerPDF pdf,
+    @required FileModel pdf,
     @required String flyerID,
     @required List<String> ownersIDs,
-    ValueChanged<FlyerPDF> onFinished,
+    ValueChanged<FileModel> onFinished,
   }) async {
 
-    FlyerPDF _pdf = pdf.copyWith();
+    FileModel _pdf = pdf.copyWith();
 
     if (pdf != null && (pdf.file != null || pdf.url != null)){
 
       final bool _shouldUploadNewFile = pdf.file != null;
       final bool _shouldReUploadExistingURL = pdf.file == null && pdf.url != null;
 
-      final String _pdfStorageName = FlyerPDF.generatePDFStorageName(
+      final String _pdfStorageName = FileModel.generateFlyerPDFStorageName(
         pdfFileName: pdf.fileName,
         flyerID: flyerID,
       );
@@ -440,7 +440,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       }
 
-      _pdf = FlyerPDF(
+      _pdf = FileModel(
         fileName: pdf.fileName,
         size: Filers.getFileSize(_fileFromURL),
         url: _url,

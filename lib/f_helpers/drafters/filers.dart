@@ -27,6 +27,7 @@ class Filers {
 /// CREATORS - WRITING
 
 // ---------------------------------------
+
   /// TESTED : WORKS PERFECT
   static Future<File> createNewEmptyFile({
     @required String fileName,
@@ -143,6 +144,10 @@ class Filers {
     final int sizeInBytes = file.lengthSync();
     final double sizeInMb = sizeInBytes / (1024 * 1024);
     final double _output = Numeric.roundFractions(sizeInMb, 1);
+
+    blog(
+          'getFileSize : sizeInBytes : $sizeInBytes : sizeInMb : $sizeInMb : _output : $_output'
+    );
     return _output;
   }
 // -----------------------------------------------------------------
@@ -219,6 +224,7 @@ class Filers {
   static Future<List<File>> transformUint8ListsToFiles({
     @required List<Uint8List> uInt8Lists,
     @required String fileName,
+
   }) async {
     final List<File> _output = <File>[];
 

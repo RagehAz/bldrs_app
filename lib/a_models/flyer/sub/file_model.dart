@@ -7,9 +7,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
-class FlyerPDF {
+class FileModel {
   /// --------------------------------------------------------------------------
-  const FlyerPDF({
+  const FileModel({
     @required this.url,
     @required this.fileName,
     @required this.size,
@@ -26,19 +26,38 @@ class FlyerPDF {
 
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  FlyerPDF copyWith({
+  FileModel copyWith({
     String url,
     String fileName,
     double size,
     File file,
   }){
-    return FlyerPDF(
+    return FileModel(
       url: url ?? this.url,
       fileName: fileName ?? this.fileName,
       file: file ?? this.file,
       size: size ?? this.size,
     );
   }
+// --------------------------------------
+
+  static FileModel createModelByNewFile(File file){
+    FileModel _model;
+
+    if (file != null){
+      _model = FileModel(
+          url: null,
+          file: file,
+          fileName: Filers.getFileNameFromFile(file: file),
+          size: Filers.getFileSize(file),
+      );
+    }
+
+    return _model;
+  }
+
+
+
 // -----------------------------------------------------------------------------
 
 /// CIPHER
@@ -54,11 +73,11 @@ class FlyerPDF {
   }
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  static FlyerPDF decipher(Map<String, dynamic> map){
-    FlyerPDF _flyerPDF;
+  static FileModel decipher(Map<String, dynamic> map){
+    FileModel _flyerPDF;
 
     if (map != null){
-      _flyerPDF = FlyerPDF(
+      _flyerPDF = FileModel(
           url: map['url'],
           fileName: map['fileName'],
           size: map['size'],
@@ -73,7 +92,7 @@ class FlyerPDF {
 
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  static void blogFlyerPDF(FlyerPDF pdf){
+  static void blogFlyerPDF(FileModel pdf){
     blog('blogFlyerPDF | fileName ${pdf?.fileName}\n| file ${pdf?.file}\n| url :${pdf?.url}');
   }
 // -----------------------------------------------------------------------------
@@ -82,9 +101,9 @@ class FlyerPDF {
 
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkFlyerPDFsAreIdentical({
-    @required FlyerPDF pdf1,
-    @required FlyerPDF pdf2,
+  static bool checkFileModelsAreIdentical({
+    @required FileModel pdf1,
+    @required FileModel pdf2,
   }){
     bool _areIdentical = false;
 
@@ -108,7 +127,7 @@ class FlyerPDF {
   }
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkShouldDeleteOldPDFFile({
+  static bool checkShouldDeleteOldFlyerPDFFileModel({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
   }){
@@ -185,7 +204,7 @@ class FlyerPDF {
   }
 // --------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkShouldUploadNewPDFFile({
+  static bool checkShouldUploadNewPDFFileModel({
     @required FlyerModel oldFlyer,
     @required FlyerModel newFlyer,
   }){
@@ -243,7 +262,7 @@ class FlyerPDF {
 
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String generatePDFStorageName({
+  static String generateFlyerPDFStorageName({
     @required String pdfFileName,
     @required String flyerID,
   }){
@@ -256,8 +275,9 @@ class FlyerPDF {
   /// MODIFIERS
 
 // ------------------------------------------
-  static Future<FlyerPDF> completeModel(FlyerPDF model) async {
-    FlyerPDF _output;
+  /// TESTED : WORKS PERFECT
+  static Future<FileModel> completeModel(FileModel model) async {
+    FileModel _output;
 
     if (model != null){
 
@@ -298,4 +318,14 @@ class FlyerPDF {
 
     return _output;
   }
+// -----------------------------------------------------------------------------
+
+  /// BLOG
+
+// ------------------------------------------
+  /// TESTED : WORKS PERFECT
+void blogFileModel(){
+    blog('blogFileModel : fileName : $fileName : size : $size : urlExists : ${url != null} : fileExists : ${file != null}');
+}
+// -----------------------------------------------------------------------------
 }

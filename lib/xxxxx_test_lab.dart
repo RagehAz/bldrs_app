@@ -1,6 +1,7 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
@@ -18,8 +19,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/foundation/storage.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -96,11 +96,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   @override
   void dispose() {
-    _zoneProvider.dispose();
-    _phraseProvider.dispose();
-    _uiProvider.dispose();
-    _chainsProvider.dispose();
-    _bzzProvider.dispose();
 
     _textController.dispose();
     _scrollController.dispose();
@@ -291,20 +286,39 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    const String storageDocName = StorageDoc.flyersPDFs;
-    final String fileName = FlyerPDF.generatePDFStorageName(
-        pdfFileName: 'Y3-text-TheIronMan',
-        flyerID: 'ttQa6owiiptbmuxDKFRO',
-    );
-    // const String url = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/cflyersPDFs%2FttQa6owiiptbmuxDKFRO_Y3-text-TheIronMan?alt=media&token=f23b1afb-f98d-497b-b20f-07558589a62d';
+    // const String storageDocName = StorageDoc.flyersPDFs;
+    // final String fileName = FileModel.generateFlyerPDFStorageName(
+    //     pdfFileName: 'Y3-text-TheIronMan',
+    //     flyerID: 'ttQa6owiiptbmuxDKFRO',
+    // );
+    // // const String url = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/cflyersPDFs%2FttQa6owiiptbmuxDKFRO_Y3-text-TheIronMan?alt=media&token=f23b1afb-f98d-497b-b20f-07558589a62d';
+    //
+    // final bool _canDelete = await Storage.checkCanDeleteStorageFile(
+    //     context: context,
+    //     fileName: fileName,
+    //     storageDocName: storageDocName,
+    // );
+    //
+    // blog('_canDelete : $_canDelete');
 
-    final bool _canDelete = await Storage.checkCanDeleteStorageFile(
-        context: context,
-        fileName: fileName,
-        storageDocName: storageDocName,
+    final File _file = await Imagers.pickAndCropSingleImage(
+      context: context,
+      cropAfterPick: true,
+      isFlyerRatio: false,
+      resizeToWidth: 1024,
     );
 
-    blog('_canDelete : $_canDelete');
+    final FileModel _fileModel = FileModel.createModelByNewFile(_file);
+    _fileModel.blogFileModel();
+
+    // final int _length = await _file.length();
+    // final double mb = _length / (1024 * 1024);
+    // final double _rounded = Numeric.roundFractions(mb, 1);
+    // blog('thing : length : $_length : mb : $mb : _rounded : $_rounded');
+
+    _thePic.value = _file;
+
+    // should be 3.6MB : 3657 x 4000 14.6MP
 
   }
 
