@@ -48,7 +48,6 @@ class FlyerMakerScreenView extends StatelessWidget {
   final bool isEditingFlyer;
   final FlyerModel originalFlyer;
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 
@@ -297,4 +296,5 @@ class FlyerMakerScreenView extends StatelessWidget {
     );
 
   }
+
 }
