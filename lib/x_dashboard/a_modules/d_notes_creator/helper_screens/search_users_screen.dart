@@ -38,7 +38,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -76,6 +76,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _historyUsers.dispose();

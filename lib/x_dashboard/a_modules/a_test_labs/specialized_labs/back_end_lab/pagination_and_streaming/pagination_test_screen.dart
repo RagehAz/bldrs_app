@@ -12,11 +12,14 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:flutter/material.dart';
 
 class PaginatorTest extends StatefulWidget {
-
-  const PaginatorTest({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const PaginatorTest({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   _PaginatorTestState createState() => _PaginatorTestState();
+/// --------------------------------------------------------------------------
 }
 
 class _PaginatorTestState extends State<PaginatorTest> {
@@ -24,7 +27,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
   FireQueryModel _queryParameters;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -67,9 +70,11 @@ class _PaginatorTestState extends State<PaginatorTest> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
+    _scrollController.dispose();
     super.dispose(); /// tamam
   }
 // -----------------------------------------------------------------------------

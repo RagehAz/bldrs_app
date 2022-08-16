@@ -37,10 +37,12 @@ class _StopWatchBarState extends State<StopWatchBar> {
   final bool _isHours = true;
   final ScrollController _logScrollController = ScrollController();
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _stopWatchTimer.dispose();
-    super.dispose(); /// tamam
+    _logScrollController.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _startCounter() {

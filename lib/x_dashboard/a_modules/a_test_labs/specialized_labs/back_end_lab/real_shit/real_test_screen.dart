@@ -16,19 +16,26 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:flutter/material.dart';
 
 class RealTestScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const RealTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<RealTestScreen> createState() => _RealTestScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _RealTestScreenState extends State<RealTestScreen> {
-
+// -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

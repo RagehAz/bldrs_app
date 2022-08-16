@@ -5,11 +5,11 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class CropperCorner extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const CropperCorner({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

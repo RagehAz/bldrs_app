@@ -24,12 +24,12 @@ class ZonesEditorScreen extends StatefulWidget {
 
 class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 // -----------------------------------------------------------------------------
-  ScrollController _scrollController; /// tamam disposed
-  PageController _pageController; /// tamam disposed
+  ScrollController _scrollController;
+  PageController _pageController;
   final ValueNotifier<ZoneModel> _zone = ValueNotifier<ZoneModel>(null);
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -68,13 +68,14 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _zone.dispose();
     _pageController.dispose();
     _scrollController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

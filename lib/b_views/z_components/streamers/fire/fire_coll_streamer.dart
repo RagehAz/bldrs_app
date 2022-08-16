@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
@@ -73,6 +72,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
   final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
+  StreamSubscription _sub;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -81,6 +81,8 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     _stream = Fire.streamCollection(
       queryModel: widget.queryModel,
     );
+
+    _sub =  _stream.listen((event) { });
 
     FireCollStreamer.onStreamDataChanged(
       stream: _stream,
@@ -99,21 +101,24 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
   }
 // -----------------------------------------------------------------------------
-
+  /// TAMAM
   @override
   void dispose() {
 
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    _oldMaps.dispose();
+    _sub.cancel();
 
-      /// do whatever the fuck you like to set state
-      /// notifyListeners
-      /// elly enta nefsak fih yaba
-
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_){
+    //
+    //   /// do whatever the fuck you like to set state
+    //   /// notifyListeners
+    //   /// elly enta nefsak fih yaba
+    //
+    // });
 
     super.dispose();
   }
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 

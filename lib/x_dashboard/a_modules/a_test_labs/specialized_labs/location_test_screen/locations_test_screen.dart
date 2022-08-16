@@ -28,21 +28,25 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class LocationsTestScreen extends StatefulWidget {
-  const LocationsTestScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const LocationsTestScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   _LocationsTestScreenState createState() => _LocationsTestScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _LocationsTestScreenState extends State<LocationsTestScreen> {
-  // List<int> _list = <int>[1,2,3,4,5,6,7,8];
-  // int _loops = 0;
-  // Color _color = Colorz.BloodTest;
-  // SuperFlyer _flyer;
-  // bool _thing;
-
+// -----------------------------------------------------------------------------
+  /// List<int> _list = <int>[1,2,3,4,5,6,7,8];
+  /// int _loops = 0;
+  /// Color _color = Colorz.BloodTest;
+  /// SuperFlyer _flyer;
+  /// bool _thing;
+// -----------------------------------------------------------------------------
   ScrollController _scrollController;
-
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
@@ -64,14 +68,18 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     _scrollController = ScrollController();
     super.initState();
   }
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
@@ -87,7 +95,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
 // -----------------------------------------------------------------------------
   GeoPoint _point;
   Future<void> _getCurrentUserLocation() async {
@@ -142,12 +149,13 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
     unawaited(_triggerLoading());
   }
-
 // -----------------------------------------------------------------------------
   String _countryID;
   CountryModel _countryModel;
   CityModel _cityModel;
-  Future<void> _getCountryData({@required GeoPoint geoPoint}) async {
+  Future<void> _getCountryData({
+    @required GeoPoint geoPoint
+  }) async {
 
     final ZoneProvider _zoneProvider =
         Provider.of<ZoneProvider>(context, listen: false);
@@ -176,7 +184,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       });
     }
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -302,4 +309,5 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       ),
     );
   }
+
 }

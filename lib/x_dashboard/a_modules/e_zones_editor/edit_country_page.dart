@@ -57,6 +57,15 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     super.initState();
     _initialize();
   }
+// -----------------------------------------------------------------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _enNameController.dispose();
+    _arNameController.dispose();
+    _countryModel.dispose();
+    super.dispose();
+  }
 // ---------------------------------------------------------------------------
   TextEditingController _enNameController;
   TextEditingController _arNameController;

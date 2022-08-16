@@ -30,12 +30,13 @@ class GallerySlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<GallerySlide> createState() => _GallerySlideState();
+/// --------------------------------------------------------------------------
 }
 
 class _GallerySlideState extends State<GallerySlide> {
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------------------------------
   Future<void> _triggerLoading({bool setTo}) async {
 
@@ -82,12 +83,13 @@ class _GallerySlideState extends State<GallerySlide> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();
     _loadedFlyers.dispose();
     _loading.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _addScrollListener() async {
@@ -114,7 +116,7 @@ class _GallerySlideState extends State<GallerySlide> {
   /// BZ FLYERS
 
 // --------------------------------------------
-  final ValueNotifier<List<FlyerModel>> _loadedFlyers = ValueNotifier(<FlyerModel>[]); /// tamam disposed
+  final ValueNotifier<List<FlyerModel>> _loadedFlyers = ValueNotifier(<FlyerModel>[]);
 // --------------------------------------------
   Future<void> _fetchMoreFlyers() async {
 

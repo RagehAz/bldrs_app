@@ -7,11 +7,11 @@ import 'package:bldrs/f_helpers/theme/targetz.dart' as Targetz;
 import 'package:flutter/material.dart';
 
 class TargetsBubble extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const TargetsBubble({
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   static List<TargetModel> getAllTargets() {
     final List<TargetModel> _allTargets =
         Targetz.insertTargetsProgressIntoTargetsModels(
@@ -21,15 +21,16 @@ class TargetsBubble extends StatelessWidget {
 
     return _allTargets;
   }
-
 // -----------------------------------------------------------------------------
-  Future<void> _onClaimTap({BuildContext context, TargetModel target}) async {
+  Future<void> _onClaimTap({
+    @required BuildContext context,
+    @required TargetModel target
+  }) async {
     await DialogOfTargetAchievement.show(
       context: context,
       target: target,
     );
   }
-
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -71,4 +72,5 @@ class TargetsBubble extends StatelessWidget {
       ),
     );
   }
+
 }

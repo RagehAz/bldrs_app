@@ -12,13 +12,14 @@ import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.da
 import 'package:flutter/material.dart';
 
 class AppControlsManager extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const AppControlsManager({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _AppControlsManagerState createState() => _AppControlsManagerState();
+/// --------------------------------------------------------------------------
 }
 
 class _AppControlsManagerState extends State<AppControlsManager> {
@@ -27,7 +28,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   ValueNotifier<AppControlsModel> _appControls;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -67,11 +68,13 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   }
    */
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _showOnlyVerifiedFlyers.dispose();
-    super.dispose(); /// tamam
+    _appControls.dispose();
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override

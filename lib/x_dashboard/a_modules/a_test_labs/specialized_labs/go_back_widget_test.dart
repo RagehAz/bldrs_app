@@ -8,22 +8,28 @@ import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class GoBackWidgetTest extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const GoBackWidgetTest({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<GoBackWidgetTest> createState() => _GoBackWidgetTestState();
+/// --------------------------------------------------------------------------
 }
 
 class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
-
+// -----------------------------------------------------------------------------
   final ValueNotifier<bool> backWidgetIsOn = ValueNotifier<bool>(false);
-
+// -----------------------------------------------------------------------------
+  @override
+  void dispose() {
+    backWidgetIsOn.dispose();
+    super.dispose();
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     return DashBoardLayout(
         listWidgets: <Widget>[

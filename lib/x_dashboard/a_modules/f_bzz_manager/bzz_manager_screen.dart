@@ -29,11 +29,11 @@ class BzzManagerScreen extends StatefulWidget {
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
 
-  final TextEditingController _searchController = TextEditingController(); /// tamam disposed
+  final TextEditingController _searchController = TextEditingController();
 
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -69,16 +69,16 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     _isInit = false;
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     _searchController.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   final List<BzModel> _bzzModels = <BzModel>[];
-
   Future<dynamic> _readMoreBzz() async {
     final List<dynamic> _bzzMaps = await Fire.readCollectionDocs(
       context: context,

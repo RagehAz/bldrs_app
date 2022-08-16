@@ -5,8 +5,11 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class DialogOfSlidesAndAnkhs extends StatelessWidget {
-  const DialogOfSlidesAndAnkhs({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const DialogOfSlidesAndAnkhs({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   static Future<void> show({BuildContext context}) async {
     await CenterDialog.showCenterDialog(
       context: context,
@@ -24,7 +27,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       ),
     );
   }
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Column(

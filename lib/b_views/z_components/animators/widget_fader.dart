@@ -40,8 +40,8 @@ class WidgetFader extends StatefulWidget {
 class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   AnimationController _animationController;
-  CurvedAnimation _animation;
   // Animation<double> _opacityTween;
+  CurvedAnimation _animation;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -63,11 +63,12 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     super.initState();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _animationController.dispose();
     _animation.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _animate() async {

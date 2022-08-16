@@ -9,13 +9,14 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_l
 import 'package:flutter/material.dart';
 
 class LockTestScreen extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const LockTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   State<LockTestScreen> createState() => _LockTestScreenState();
+/// --------------------------------------------------------------------------
 }
 
 class _LockTestScreenState extends State<LockTestScreen> {

@@ -3,16 +3,16 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer
 import 'package:flutter/material.dart';
 
 class FooterButtonSpacer extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const FooterButtonSpacer({
     @required this.flyerBoxWidth,
     @required this.tinyMode,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool tinyMode;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SizedBox(

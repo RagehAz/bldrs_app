@@ -5,11 +5,11 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class SecondNotiTestScreen extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const SecondNotiTestScreen({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
