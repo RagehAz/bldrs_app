@@ -36,13 +36,46 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   ValueNotifier<FlyerPDF> _pdf = ValueNotifier(null);
   TextEditingController _textController;
 // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+// -----------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'PDFSelectionBubble',);
+    }
+  }
+// -----------------------------------------------------------------------------
   @override
   void initState() {
     _pdf = ValueNotifier(widget.existingPDF);
     _textController = TextEditingController(text: widget.existingPDF?.fileName);
     super.initState();
   }
+// -----------------------------------------------------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
 
+      _triggerLoading().then((_) async {
+        // -------------------------------
+        _pdf.value = await FlyerPDF.completeModel(_pdf.value);
+        // -------------------------------
+        await _triggerLoading();
+
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
   @override
   void dispose() {
     _pdf.dispose();
@@ -209,6 +242,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         _pdf.value = FlyerPDF(
                           file: _file,
                           fileName: _fileName,
+                          size: Filers.getFileSize(_file),
                           url: null,
                         );
 
