@@ -90,7 +90,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     _markAllBzUnseenNotesAsSeen();
 
     blog('DISPOSING --------------- BZ - NOTES - PAGE ---- BIAAATCH');
-    // _notesProvider.dispose();
+    _notesProvider.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

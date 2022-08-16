@@ -46,10 +46,9 @@ class IntegerAndDoubleDataCreator extends StatefulWidget {
 class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreator> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController controller = TextEditingController(); /// tamam disposed
-
-  ValueNotifier<dynamic> _specValue; /// tamam disposed
-  ValueNotifier<String> _selectedUnit; /// tamam disposed
+  final TextEditingController controller = TextEditingController();
+  ValueNotifier<dynamic> _specValue;
+  ValueNotifier<String> _selectedUnit;
   Chain _unitChain;
 // -----------------------------------------------------------------------------
   @override
@@ -72,12 +71,13 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 // ---------------------------------
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     controller.dispose();
     _specValue.dispose();
     _selectedUnit.dispose();
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
   void _validate() {

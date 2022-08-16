@@ -33,7 +33,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // Stream<List<NoteModel>> _receivedNotesStream;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -75,6 +75,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
 
@@ -84,7 +85,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _loading.dispose();
     _markAllUserUnseenNotesAsSeen();
 
-    // _notesProvider.dispose();
+    _notesProvider.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

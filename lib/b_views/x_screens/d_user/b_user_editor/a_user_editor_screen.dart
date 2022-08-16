@@ -37,24 +37,24 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final ValueNotifier<bool> _canPickImage = ValueNotifier(true); /// tamam disposed
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<dynamic> _picture = ValueNotifier(null); /// tamam disposed
-  final ValueNotifier<Gender> _gender = ValueNotifier(null); /// tamam disposed
-  final ValueNotifier<ZoneModel> _zone = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<dynamic> _picture = ValueNotifier(null);
+  final ValueNotifier<Gender> _gender = ValueNotifier(null);
+  final ValueNotifier<ZoneModel> _zone = ValueNotifier(null);
   // --------------------
   // String _currentLanguageCode;
   GeoPoint _currentPosition;
   // --------------------
-  final TextEditingController _nameController = TextEditingController(); /// tamam disposed
-  final TextEditingController _titleController = TextEditingController(); /// tamam disposed
-  final TextEditingController _companyController = TextEditingController(); /// tamam disposed
-  final TextEditingController _phoneController = TextEditingController(); /// tamam disposed
-  final TextEditingController _emailController = TextEditingController(); /// tamam disposed
-  final TextEditingController _facebookController = TextEditingController(); /// tamam disposed
-  final TextEditingController _linkedInController = TextEditingController(); /// tamam disposed
-  final TextEditingController _instagramController = TextEditingController(); /// tamam disposed
-  final TextEditingController _twitterController = TextEditingController(); /// tamam disposed
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _facebookController = TextEditingController();
+  final TextEditingController _linkedInController = TextEditingController();
+  final TextEditingController _instagramController = TextEditingController();
+  final TextEditingController _twitterController = TextEditingController();
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -134,6 +134,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------
+  /// tamam
   @override
   void dispose() {
     _nameController.dispose();
@@ -150,8 +151,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _picture.dispose();
     _gender.dispose();
     _zone.dispose();
-
-    super.dispose(); /// tamam
+    super.dispose();
   }
 // -----------------------------------------------------------------------------
 

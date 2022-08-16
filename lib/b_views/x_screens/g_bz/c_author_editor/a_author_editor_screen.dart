@@ -31,13 +31,13 @@ class AuthorEditorScreen extends StatefulWidget {
 class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ValueNotifier<AuthorModel> _author; /// tamam disposed
-  TextEditingController _nameController; /// tamam disposed
-  TextEditingController _titleController; /// tamam disposed
-  List<TextEditingController> _generatedContactsControllers; /// tamam disposed
+  ValueNotifier<AuthorModel> _author;
+  TextEditingController _nameController;
+  TextEditingController _titleController;
+  List<TextEditingController> _generatedContactsControllers;
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
@@ -89,6 +89,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
 

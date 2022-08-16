@@ -39,9 +39,9 @@ class SelectCityScreen extends StatefulWidget {
 
 class _NewSelectCityScreen extends State<SelectCityScreen> {
 // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
-  final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);  /// tamam disposed
-  final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null); /// tamam disposed
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
+  final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -70,11 +70,13 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
     _currentZone = ValueNotifier<ZoneModel>(_initialZone);
   }
 // -----------------------------------------------------------------------------
+  /// TAMAM
   @override
   void dispose() {
     _isSearching.dispose();
     _foundCities.dispose();
     _countryCities.dispose();
+    _currentZone.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------

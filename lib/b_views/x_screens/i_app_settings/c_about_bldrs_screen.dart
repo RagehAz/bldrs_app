@@ -15,9 +15,11 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {
-
-  const AboutBldrsScreen({Key key}) : super(key: key);
-
+  /// --------------------------------------------------------------------------
+  const AboutBldrsScreen({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return MainLayout(

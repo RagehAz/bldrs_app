@@ -10,17 +10,11 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
-class BzSettingsPage extends StatefulWidget {
+class BzSettingsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzSettingsPage({
     Key key
   }) : super(key: key);
-
-  @override
-  State<BzSettingsPage> createState() => _BzSettingsPageState();
-}
-
-class _BzSettingsPageState extends State<BzSettingsPage> {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,8 +25,8 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
     );
 
     final bool _userIsCreator = AuthorModel.checkUserIsCreatorAuthor(
-        userID: AuthFireOps.superUserID(),
-        bzModel: _bzModel,
+      userID: AuthFireOps.superUserID(),
+      bzModel: _bzModel,
     );
 
     return FloatingCenteredList(
@@ -53,16 +47,16 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
           const DotSeparator(),
 
         if (_userIsCreator == true)
-        SettingsWideButton(
-          verse: 'Delete ${_bzModel.name} Business account',
-          color: Colorz.bloodTest,
-          icon: Iconz.xSmall,
-          onTap: () => onDeleteBzButtonTap(
-            context: context,
-            bzModel: _bzModel,
-            showSuccessDialog: true,
+          SettingsWideButton(
+            verse: 'Delete ${_bzModel.name} Business account',
+            color: Colorz.bloodTest,
+            icon: Iconz.xSmall,
+            onTap: () => onDeleteBzButtonTap(
+              context: context,
+              bzModel: _bzModel,
+              showSuccessDialog: true,
+            ),
           ),
-        ),
 
         const DotSeparator(color: Colorz.yellow80,),
 
@@ -70,4 +64,5 @@ class _BzSettingsPageState extends State<BzSettingsPage> {
     );
 
   }
+
 }
