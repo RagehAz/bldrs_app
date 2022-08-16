@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -19,7 +19,7 @@ class PDFScreen extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final FlyerPDF pdf;
+  final FileModel pdf;
   /// --------------------------------------------------------------------------
   @override
   _PDFScreenState createState() => _PDFScreenState();

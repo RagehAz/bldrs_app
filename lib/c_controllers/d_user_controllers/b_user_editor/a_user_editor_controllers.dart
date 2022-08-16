@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -22,7 +23,7 @@ import 'package:flutter/material.dart';
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
-  @required ValueNotifier<dynamic> picture,
+  @required ValueNotifier<FileModel> fileModel,
   @required ImagePickerType imagePickerType,
 }) async {
 
@@ -37,6 +38,7 @@ Future<void> takeUserPicture({
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
+        resizeToWidth: null,
       );
     }
     else if (imagePickerType == ImagePickerType.cameraImage){
@@ -44,6 +46,7 @@ Future<void> takeUserPicture({
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
+        resizeToWidth: null,
       );
     }
 
@@ -57,7 +60,7 @@ Future<void> takeUserPicture({
     /// IF PICKED AN IMAGE
     else {
       blog('takeUserPicture : we got the pic in : ${_imageFile?.path}');
-      picture.value = _imageFile;
+      fileModel.value = FileModel.createModelByNewFile(_imageFile);
       canPickImage.value = true;
     }
 

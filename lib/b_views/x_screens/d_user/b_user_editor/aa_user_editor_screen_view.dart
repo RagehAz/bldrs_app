@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -19,7 +20,7 @@ class UserEditorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreenView({
     @required this.formKey,
-    @required this.picture,
+    @required this.fileModel,
     @required this.canPickImage,
     @required this.nameController,
     @required this.genderNotifier,
@@ -36,7 +37,7 @@ class UserEditorScreenView extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
-  final ValueNotifier<dynamic> picture;
+  final ValueNotifier<FileModel> fileModel;
   final ValueNotifier<bool> canPickImage;
   final TextEditingController nameController;
   final ValueNotifier<Gender> genderNotifier;
@@ -68,12 +69,12 @@ class UserEditorScreenView extends StatelessWidget {
           AddImagePicBubble(
             title: 'Picture',
             redDot: true,
-            picture: picture,
+            fileModel: fileModel,
             bubbleType: BubbleType.userPic,
             onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
               context: context,
               canPickImage: canPickImage,
-              picture: picture,
+              fileModel: fileModel,
               imagePickerType: imagePickerType,
             ),
           ),

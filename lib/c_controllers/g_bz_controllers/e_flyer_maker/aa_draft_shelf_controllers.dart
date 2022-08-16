@@ -197,6 +197,7 @@ Future<void> _addImagesForNewFlyer({
         // maxAssets: 10,
         isFlyerRatio: true,
         cropAfterPick: false,
+        resizeToWidth: null,
       );
       if (Mapper.checkCanLoopList(_files) == true){
         _pickedFiles = _files;
@@ -209,6 +210,7 @@ Future<void> _addImagesForNewFlyer({
         // maxAssets: 10,
         isFlyerRatio: true,
         cropAfterPick: false,
+        resizeToWidth: null,
       );
       if (_file != null){
         _pickedFiles = <File>[_file];

@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
@@ -24,9 +24,9 @@ class PDFSelectionBubble extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueChanged<FlyerPDF> onChangePDF;
+  final ValueChanged<FileModel> onChangePDF;
   final Function onDeletePDF;
-  final FlyerPDF existingPDF;
+  final FileModel existingPDF;
   final GlobalKey<FormState> formKey;
   /// --------------------------------------------------------------------------
   @override
@@ -36,7 +36,7 @@ class PDFSelectionBubble extends StatefulWidget {
 
 class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 // ------------------------------
-  ValueNotifier<FlyerPDF> _pdf = ValueNotifier(null);
+  ValueNotifier<FileModel> _pdf = ValueNotifier(null);
   TextEditingController _textController;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -68,7 +68,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
       _triggerLoading().then((_) async {
         // -------------------------------
-        _pdf.value = await FlyerPDF.completeModel(_pdf.value);
+        _pdf.value = await FileModel.completeModel(_pdf.value);
         // -------------------------------
         await _triggerLoading();
 
@@ -94,7 +94,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
     return ValueListenableBuilder(
         valueListenable: _pdf,
-        builder: (_, FlyerPDF pdf, Widget child){
+        builder: (_, FileModel pdf, Widget child){
 
 
           final bool _fileExists = pdf?.file != null;
@@ -280,7 +280,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                         final String _fileName = Filers.getFileNameFromFile(file: _file);
                         _textController.text = _fileName;
 
-                        _pdf.value = FlyerPDF(
+                        _pdf.value = FileModel(
                           file: _file,
                           fileName: _fileName,
                           size: Filers.getFileSize(_file),
