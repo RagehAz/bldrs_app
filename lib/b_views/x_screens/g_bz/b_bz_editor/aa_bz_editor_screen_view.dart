@@ -216,7 +216,7 @@ class BzEditorScreenView extends StatelessWidget {
               /// --- ADD LOGO
               AddImagePicBubble(
                 key: const ValueKey<String>('add_logo_bubble'),
-                picture: bzLogo,
+                fileModel: bzLogo,
                 title: xPhrase(context, 'phid_businessLogo'),
                 redDot: true,
                 bubbleType: BubbleType.bzLogo,

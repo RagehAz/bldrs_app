@@ -127,6 +127,7 @@ Future<void> takeBzLogo({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
+      resizeToWidth: null,
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
@@ -134,6 +135,7 @@ Future<void> takeBzLogo({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
+      resizeToWidth: null,
     );
   }
 

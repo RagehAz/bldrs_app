@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_pdf.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
@@ -86,7 +86,7 @@ class FlyerModel {
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
-  final FlyerPDF pdf;
+  final FileModel pdf;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -114,7 +114,7 @@ class FlyerModel {
     bool priceTagIsOn,
     DocumentSnapshot docSnapshot,
     int score,
-    FlyerPDF pdf,
+    FileModel pdf,
   }){
 
     return FlyerModel(
@@ -231,7 +231,7 @@ class FlyerModel {
         priceTagIsOn: map['priceTagIsOn'],
         times: PublishTime.decipherPublishTimesFromMap(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
-        pdf: FlyerPDF.decipher(map['pdf']),
+        pdf: FileModel.decipher(map['pdf']),
         docSnapshot: map['docSnapshot'],
       );
 
@@ -422,7 +422,7 @@ class FlyerModel {
     PublishTime.blogTimes(times);
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
-    FlyerPDF.blogFlyerPDF(pdf);
+    FileModel.blogFlyerPDF(pdf);
     SlideModel.blogSlides(slides);
 
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
@@ -511,7 +511,7 @@ class FlyerModel {
     if (flyer1.score != flyer2.score){
       blog('flyers scores are not identical');
     }
-    if (FlyerPDF.checkFlyerPDFsAreIdentical(pdf1: flyer1.pdf, pdf2: flyer2.pdf) == false){
+    if (FileModel.checkFileModelsAreIdentical(pdf1: flyer1.pdf, pdf2: flyer2.pdf) == false){
       blog('flyers pdfs are not identical');
     }
 

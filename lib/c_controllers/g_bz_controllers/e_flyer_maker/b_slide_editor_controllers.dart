@@ -54,6 +54,7 @@ Future<void> onCropSlide({
     context: context,
     pickedFile: tempSlide.value.picFile,
     isFlyerRatio: true,
+    resizeToWidth: null,
   );
 
   if (_file != null){

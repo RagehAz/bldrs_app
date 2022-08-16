@@ -30,6 +30,7 @@ Future<void> takeAuthorImage({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
+      resizeToWidth: null,
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
@@ -37,6 +38,7 @@ Future<void> takeAuthorImage({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
+      resizeToWidth: null,
     );
   }
 

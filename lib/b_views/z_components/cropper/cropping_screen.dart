@@ -160,6 +160,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     for (final CropController controller in _controllers){
       controller.crop();
+
     }
 
   }

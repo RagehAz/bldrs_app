@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -39,7 +40,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<dynamic> _picture = ValueNotifier(null);
+  final ValueNotifier<FileModel> _picture = ValueNotifier(null);
   final ValueNotifier<Gender> _gender = ValueNotifier(null);
   final ValueNotifier<ZoneModel> _zone = ValueNotifier(null);
   // --------------------
@@ -72,7 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   void _initializeLocalVariables(){
-    _picture.value            = widget.userModel?.pic;
+    _picture.value            = FileModel(url: widget.userModel?.pic, fileName: null, size: null);
     _gender.value             = widget.userModel?.gender;
     _zone.value               = widget.userModel?.zone;
 
@@ -124,6 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       if (widget.userModel?.zone == null){
         final ZoneModel _superZone = await ZoneFireOps.superGetZoneByIP(context);
         _zone.value = _superZone;
+        _picture.value = await FileModel.completeModel(_picture.value);
       }
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
@@ -167,7 +169,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       // -------------------------
       name: _nameController.text,
       trigram: Stringer.createTrigram(input: _nameController.text),
-      pic: _picture.value ?? widget.userModel.pic,
+      pic: _picture.value.file ?? _picture.value.url ?? widget.userModel.pic,
       title: _titleController.text,
       company: _companyController.text,
       gender: _gender.value,
@@ -235,7 +237,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       layoutWidget: UserEditorScreenView(
         formKey: _formKey,
-        picture: _picture,
+        fileModel: _picture,
         canPickImage: _canPickImage,
         nameController: _nameController,
         genderNotifier: _gender,
