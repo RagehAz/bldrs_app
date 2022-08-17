@@ -96,7 +96,7 @@ class ImageSize {
         final File _file = await Filers.transformURLToFile(image);
         _uInt8List = _file.readAsBytesSync();
         // await null;
-        _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
+        _decodedImage = await Floaters.transformUint8ListToUiImage(_uInt8List);
       }
       // --------------------------o
       /*
@@ -113,12 +113,12 @@ class ImageSize {
         // blog('_isFile staring aho : $_isFile');
         _uInt8List = await image.readAsBytesSync();
         // blog('_uInt8List : $_uInt8List');
-        _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
+        _decodedImage = await Floaters.transformUint8ListToUiImage(_uInt8List);
         // blog('_decodedImage : $_decodedImage');
       }
       // --------------------------o
       else if (_isUints == true) {
-        _decodedImage = await Floaters.getUiImageFromUint8List(image);
+        _decodedImage = await Floaters.transformUint8ListToUiImage(image);
       }
       // -----------------------------------------------------------o
       if (_decodedImage != null) {

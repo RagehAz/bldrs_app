@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image/image.dart' as img;
 
 class Floaters {
 // -----------------------------------------------------------------
@@ -22,7 +25,7 @@ class Floaters {
   /// ui.Image
 
 // ---------------------------------------
-  static Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
+  static Future<ui.Image> transformUint8ListToUiImage(Uint8List uInt) async {
     ui.Image _decodedImage;
 
     if (uInt != null) {
@@ -32,36 +35,63 @@ class Floaters {
     return _decodedImage;
   }
 // ---------------------------------------
-  static Future<ui.Image> getUiImageFromIntList(List<int> img) async {
+  static Future<ui.Image> transformIntsToUiImage(List<int> ints) async {
     final Completer<ui.Image> completer = Completer<ui.Image>();
 
-    ui.decodeImageFromList(img, completer.complete);
+    ui.decodeImageFromList(ints, completer.complete);
 
     return completer.future;
+  }
+// -----------------------------------------------------------------
+
+  /// ui.Image
+
+// ---------------------------------------
+  static Future<File> transformImgImageToFile(img.Image img) async {
+
   }
 // -----------------------------------------------------------------
 
   /// uInt8List
 
 // ---------------------------------------
-  static Uint8List getUint8ListFromByteData(ByteData byteData) {
+  static Uint8List transformByteDataToUint8List(ByteData byteData) {
     final Uint8List _uInts = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
     return _uInts;
   }
 // ---------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Uint8List> getUint8ListFromFile(File file) async {
-    final Uint8List _uInt = await file.readAsBytes();
+  ///
+  static Future<Uint8List> transformFileToUint8List(File file) async {
+    Uint8List _uInt;
+
+    // blog('transformFileToUint8List : START');
+    //
+    // if (file != null){
+    //   await tryAndCatch(
+    //       methodName: 'transformFileToUint8List',
+    //       functions: () async {
+    //
+    //         blog('transformFileToUint8List : _uInt : $_uInt');
+            _uInt = await file.readAsBytes();
+    //         blog('transformFileToUint8List : _uInt : $_uInt');
+    //
+    //       });
+    // }
+
+    blog('transformFileToUint8List : END');
+
     return _uInt;
   }
 // ---------------------------------------
-  static Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
+  static Future<List<Uint8List>> transformFilesToUint8Lists(List<File> files) async {
     final List<Uint8List> _screenShots = <Uint8List>[];
 
     if (Mapper.checkCanLoopList(files)) {
       for (final File file in files) {
-        final Uint8List _uInt = await getUint8ListFromFile(file);
-        _screenShots.add(_uInt);
+        final Uint8List _uInt = await transformFileToUint8List(file);
+        if (_uInt != null){
+          _screenShots.add(_uInt);
+        }
       }
     }
 
@@ -69,7 +99,7 @@ class Floaters {
   }
 // ---------------------------------------
   /// TAMAM
-  static Future<Uint8List> getUint8ListFromLocalRasterAsset({
+  static Future<Uint8List> transformLocalRasterAssetToUint8List({
     @required String asset,
     @required int width
   }) async {
@@ -77,16 +107,20 @@ class Floaters {
 
     final ui.Codec _codec = await ui.instantiateImageCodec(
         _byteData.buffer.asUint8List(),
-        targetWidth: width);
+        targetWidth: width,
+    );
+
     final ui.FrameInfo _fi = await _codec.getNextFrame();
+
     final Uint8List _result =
     (await _fi.image.toByteData(format: ui.ImageByteFormat.png))
         .buffer
         .asUint8List();
+
     return _result;
   }
 // ---------------------------------------
-  static Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
+  static Future<Uint8List> transformRasterURLToUint8List(int width, int height, String urlAsset) async {
     final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
     final Canvas _canvas = Canvas(_pictureRecorder);
     final Paint _paint = Paint()..color = Colors.transparent;
@@ -104,7 +138,7 @@ class Floaters {
 
     final ByteData _detail = await rootBundle.load(urlAsset);
     final ui.Image _imaged =
-    await getUiImageFromIntList(Uint8List.view(_detail.buffer));
+    await transformIntsToUiImage(Uint8List.view(_detail.buffer));
 
     _canvas.drawImage(_imaged, Offset.zero, Paint());
 
@@ -120,7 +154,7 @@ class Floaters {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> getBase64FromFileOrURL(dynamic image) async {
+  static Future<String> transformFileOrURLToBase64(dynamic image) async {
     File _file;
 
     final bool _isFile = ObjectChecker.objectIsFile(image);
@@ -155,7 +189,7 @@ class Floaters {
   /// BitmapDescriptor
 
 // ---------------------------------------
-  static Future<BitmapDescriptor> getBitmapFromSVG({
+  static Future<BitmapDescriptor> transformSVGToBitmap({
     @required BuildContext context,
     @required String assetName,
   }) async {
@@ -183,9 +217,8 @@ class Floaters {
     final ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
-
 // ---------------------------------------
-  static Future<BitmapDescriptor> getBitmapFromPNG({
+  static Future<BitmapDescriptor> transformPNGToBitmap({
     String pngPic = Iconz.flyerPinPNG,
   }) async {
     final BitmapDescriptor _marker =
@@ -198,7 +231,7 @@ class Floaters {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<double> getDoublesFromDynamics(List<dynamic> dynamics){
+  static List<double> transformDynamicsToDoubles(List<dynamic> dynamics){
 
     final List<double> _output = <double>[];
 

@@ -322,7 +322,7 @@ void main() {
 
     final dynamic _pic = _flyerModel.slides[0].pic;
 
-    final String _base64 = await Floaters.getBase64FromFileOrURL(_pic);
+    final String _base64 = await Floaters.transformFileOrURLToBase64(_pic);
 
     // final bool _isURL = ObjectChecker.objectIsString(_pic);
 
