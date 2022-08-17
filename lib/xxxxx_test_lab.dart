@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
@@ -19,6 +20,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -303,13 +305,22 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     final File _file = await Imagers.pickAndCropSingleImage(
       context: context,
-      cropAfterPick: true,
+      cropAfterPick: false,
       isFlyerRatio: false,
       resizeToWidth: 1024,
     );
 
-    final FileModel _fileModel = FileModel.createModelByNewFile(_file);
-    _fileModel.blogFileModel();
+    if (_file != null){
+
+      Filers.blogFile(file: _file);
+
+      final FileModel _fileModel = FileModel.createModelByNewFile(_file);
+      _fileModel.blogFileModel();
+
+      final ImageSize _imageSize = await ImageSize.superImageSize(_file);
+      _imageSize.blogSize();
+
+    }
 
     // final int _length = await _file.length();
     // final double mb = _length / (1024 * 1024);

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bldrs/b_views/z_components/cropper/cropper_footer.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -8,7 +9,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -94,10 +94,15 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
       if (_allImagesCropped == true && _canGoBack == true){
 
+        final List<String> _names = await Filers.getFilesNamesFromFiles(
+          files: widget.files,
+          // withExtension: false,
+        );
+
         /// GENERATE CROPPED FILES
         final List<File> _files = await Filers.transformUint8ListsToFiles(
           uInt8Lists: _croppedImages.value,
-          fileName: Numeric.createUniqueID().toString(),//widget.filesName,
+          filesNames: _names,
         );
 
         await _triggerLoading(setTo: false);
@@ -121,7 +126,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     if (_isInit) {
       _triggerLoading(setTo: true).then((_) async {
-        _imagesData.value = await Floaters.getUint8ListsFromFiles(widget.files);
+        _imagesData.value = await Floaters.transformFilesToUint8Lists(widget.files);
         _croppedImages.value = _imagesData.value;
         await _triggerLoading(setTo: false);
       });

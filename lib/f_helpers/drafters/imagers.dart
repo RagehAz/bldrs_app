@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -40,6 +41,7 @@ class Imagers {
   /// PICK IMAGE FROM GALLERY
 
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> pickAndCropSingleImage({
     @required BuildContext context,
     @required bool cropAfterPick,
@@ -71,6 +73,7 @@ class Imagers {
     return _file;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<File>> pickAndCropMultipleImages({
     @required BuildContext context,
     @required bool isFlyerRatio,
@@ -83,7 +86,6 @@ class Imagers {
     List<File> _files = await _pickMultipleImages(
       context: context,
       maxAssets: maxAssets,
-      cropAfterPick: cropAfterPick,
       selectedAssets: selectedAssets,
     );
 
@@ -99,10 +101,10 @@ class Imagers {
     return _files;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<File>> _pickMultipleImages({
     @required BuildContext context,
     @required int maxAssets,
-    @required bool cropAfterPick,
     List<AssetEntity> selectedAssets,
   }) async {
 
@@ -245,6 +247,7 @@ class Imagers {
   /// TAKE IMAGE FROM CAMERA
 
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> shootAndCropCameraImage({
     @required BuildContext context,
     @required bool cropAfterPick,
@@ -273,7 +276,8 @@ class Imagers {
 
     return _file;
   }
-// -----------------------------------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> _shootCameraImage({
     @required BuildContext context,
 }) async {
@@ -337,6 +341,7 @@ class Imagers {
   /// CROP IMAGE
 
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> cropImage({
     @required BuildContext context,
     @required File pickedFile,
@@ -360,6 +365,7 @@ class Imagers {
     return _file;
 }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<File>> cropImages({
     @required BuildContext context,
     @required List<File> pickedFiles,
@@ -382,19 +388,23 @@ class Imagers {
 
     }
 
-    if (Mapper.checkCanLoopList(_files) == true){
-      _files = await resizeImages(
-        files: _files,
-        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
-        finalWidth: resizeToWidth,
-      );
-    }
+    // if (Mapper.checkCanLoopList(_files) == true){
+    //
+    //   blog('cropImages : file aho : ${_files[0]}');
+    //
+    //   _files = await resizeImages(
+    //     files: _files,
+    //     aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+    //     finalWidth: resizeToWidth,
+    //   );
+    //
+    // }
 
     return _files;
   }
 // -----------------------------------------------------------------
 
-  /// CROP IMAGE
+  /// RESIZE IMAGE
 
 // ---------------------------------------
   static Future<File> resizeImage({
@@ -404,31 +414,48 @@ class Imagers {
     @required double aspectRatio,
   }) async {
 
+    blog('resizeImage : START');
+
     File _output;
 
     if (file != null){
 
-      final Uint8List uint = await Floaters.getUint8ListFromFile(file);
-      final img.Image _image = img.decodeImage(uint);
+      // final Uint8List uint = await Floaters.transformFileToUint8List(file);
 
-      final img.Image _resized = img.copyResize(
-        _image,
-        width: finalWidth.floor(),
-        height: (aspectRatio * finalWidth.floor()).floor(),
-        interpolation: img.Interpolation.average,
-      );
+      // blog('resizeImage : uint : $uint');
 
-      /// ENCONDED IMAGE
-      final Uint8List _asJpegEncoded = img.encodeJpg(_resized, quality: 80);
+      // final img.Image _image = img.decodeImage(uint);
+      //
+      // blog('resizeImage : _image : $_image');
+      //
+      // final img.Image _resized = img.copyResize(
+      //   _image,
+      //   width: finalWidth.floor(),
+      //   height: (aspectRatio * finalWidth.floor()).floor(),
+      //   interpolation: img.Interpolation.average,
+      // );
+      //
+      // blog('resizeImage : _resized $_resized');
+      //
+      // /// ENCODED IMAGE
+      // final Uint8List _asJpegEncoded = img.encodeJpg(_resized, quality: 100);
+      //
+      // blog('resizeImage : _asJpegEncoded $_asJpegEncoded');
+      //
+      // final Uint8List _uInts = _resized.
 
-      _output = await Filers.transformUint8ListToFile(
-        uInt8List: _asJpegEncoded,
-        fileName: Filers.getFileNameFromFile(file: file),
-      );
+      // final File _refile = await Filers.transformUint8ListToFile(
+      //     uInt8List: uint,
+      //     fileName: 'kos ommak',
+      // );
+
+      // blog('resizeImage : _refile $_refile');
+      //
+      // _output = _refile;
 
     }
 
-    return _output;
+    return file;
   }
 // ---------------------------------------
   static Future<List<File>> resizeImages({
