@@ -47,7 +47,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
   @override
   void initState() {
     super.initState();
-    final AppControlsModel _initialModel = GeneralProvider.proGerAppControls(context);
+    final AppControlsModel _initialModel = GeneralProvider.proGerAppControls(context, listen: false);
     _appControls = ValueNotifier(_initialModel);
   }
 // -----------------------------------------------------------------------------

@@ -59,7 +59,7 @@ class _PDFScreenState extends State<PDFScreen> {
       _triggerLoading().then((_) async {
 
         final File _pdfFile = await Filers.transformURLToFile(widget.pdf.url);
-        final Uint8List _data = await Floaters.getUint8ListFromFile(_pdfFile);
+        final Uint8List _data = await Floaters.transformFileToUint8List(_pdfFile);
         _uInt8List.value = _data;
 
         await _triggerLoading();
