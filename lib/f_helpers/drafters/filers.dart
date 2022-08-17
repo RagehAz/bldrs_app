@@ -31,7 +31,7 @@ class Filers {
   /// TESTED : WORKS PERFECT
   static Future<File> createNewEmptyFile({
     @required String fileName,
-    bool useTemporaryDirectory = false,
+    bool useTemporaryDirectory = true,
   }) async {
 
     final String _filePath = await _createNewFilePath(
@@ -61,7 +61,7 @@ class Filers {
     File _file;
 
     if (file != null && byteData != null) {
-      final Uint8List _uInts = Floaters.getUint8ListFromByteData(byteData);
+      final Uint8List _uInts = Floaters.transformByteDataToUint8List(byteData);
       _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
     }
 
@@ -81,7 +81,7 @@ class Filers {
   /// TESTED : WORKS PERFECT
   static Future<String> _createNewFilePath({
     @required String fileName,
-    bool useTemporaryDirectory = false,
+    bool useTemporaryDirectory = true,
   }) async {
 
     final Directory _appDocDir = useTemporaryDirectory ?
@@ -113,6 +113,31 @@ class Filers {
     }
 
     return _fileName;
+  }
+// ---------------------------------------
+  static Future<List<String>> getFilesNamesFromFiles({
+    @required List<File> files,
+    bool withExtension = false,
+  }) async {
+
+    final List<String> _names = <String>[];
+
+    if (Mapper.checkCanLoopList(files) == true){
+
+      for (final File _file in files){
+
+        final String _name = getFileNameFromFile(
+          file: _file,
+          withExtension: withExtension,
+        );
+
+        _names.add(_name);
+
+      }
+
+    }
+
+    return _names;
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
@@ -187,7 +212,7 @@ class Filers {
           //
           // blog('4. file is ${_file.path}');
 
-          final Uint8List _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
+          final Uint8List _uInt = await Floaters.transformLocalRasterAssetToUint8List(
               asset: _asset,
               width: width,
           );
@@ -209,7 +234,7 @@ class Filers {
   }) async {
 
     final File _file = await createNewEmptyFile(
-      fileName: fileName,
+      fileName: '${fileName}_copy',
     );
 
     final File _result = await writeUint8ListOnFile(
@@ -223,8 +248,7 @@ class Filers {
   /// TESTED : WORKS PERFECT
   static Future<List<File>> transformUint8ListsToFiles({
     @required List<Uint8List> uInt8Lists,
-    @required String fileName,
-
+    @required List<String> filesNames,
   }) async {
     final List<File> _output = <File>[];
 
@@ -234,10 +258,12 @@ class Filers {
 
         final File _file = await transformUint8ListToFile(
             uInt8List: uInt8Lists[i],
-            fileName: '${fileName}_$i',
+            fileName: filesNames[i],
         );
 
-        _output.add(_file);
+        if (_file != null){
+          _output.add(_file);
+        }
 
       }
 
@@ -398,20 +424,20 @@ class Filers {
       blog('blogFile : $methodName : file.runtimeType : ${file.runtimeType}');
       blog('blogFile : $methodName : file.isAbsolute : ${file.isAbsolute}');
       blog('blogFile : $methodName : file.parent : ${file.parent}');
-      blog('blogFile : $methodName : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
+      // blog('blogFile : $methodName : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
       blog('blogFile : $methodName : file.lengthSync() : ${file.lengthSync()}');
       blog('blogFile : $methodName : file.toString() : ${file.toString()}');
       blog('blogFile : $methodName : file.lastAccessedSync() : ${file.lastAccessedSync()}');
       blog('blogFile : $methodName : file.lastModifiedSync() : ${file.lastModifiedSync()}');
-      blog('blogFile : $methodName : file.openSync() : ${file.openSync()}');
-      blog('blogFile : $methodName : file.openWrite() : ${file.openWrite()}');
-      blog('blogFile : $methodName : file.statSync() : ${file.statSync()}');
+      // blog('blogFile : $methodName : file.openSync() : ${file.openSync()}');
+      // blog('blogFile : $methodName : file.openWrite() : ${file.openWrite()}');
+      // blog('blogFile : $methodName : file.statSync() : ${file.statSync()}');
       blog('blogFile : $methodName : file.existsSync() : ${file.existsSync()}');
+      // DynamicLinks.blogURI(
+      //   uri: file.uri,
+      //   methodName: methodName,
+      // );
       blog('blogFile : $methodName : file.hashCode : ${file.hashCode}');
-      DynamicLinks.blogURI(
-        uri: file.uri,
-        methodName: methodName,
-      );
 
       // blog('blogFile : $methodName : file.readAsLinesSync() : ${file.readAsLinesSync()}'); /// Unhandled Exception: FileSystemException: Failed to decode data using encoding 'utf-8',
       // blog('blogFile : $methodName : file.readAsStringSync() : ${file.readAsStringSync()}'); /// ERROR WITH IMAGE FILES
