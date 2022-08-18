@@ -48,6 +48,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
       context: context,
       screen: EditProfileScreen(
         userModel: _myUserModel,
+        reAuthBeforeConfirm: true,
         canGoBack: true,
         onFinish: () async {
           Nav.goBack(
@@ -70,7 +71,12 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
   bool _continue = await _authorshipDeletionCheckups(context);
 
   if (_continue == true){
-    _continue = await _userPasswordCheckups(context);
+    _continue = await reAuthenticateUser(
+      context: context,
+      dialogTitle: 'Delete your Account',
+      dialogBody: 'Are you sure you want to delete your Account ?',
+      confirmButtonText: 'Yes, Delete',
+    );
   }
 
   if (_continue == true){
@@ -179,7 +185,12 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 }
 // ---------------------------------
 /// TESTED : WORKS PERFECT
-Future<bool> _userPasswordCheckups(BuildContext context) async {
+Future<bool> reAuthenticateUser({
+  @required BuildContext context,
+  @required String dialogTitle,
+  @required String dialogBody,
+  @required String confirmButtonText,
+}) async {
 
   bool _canContinue = false;
 
@@ -192,9 +203,9 @@ Future<bool> _userPasswordCheckups(BuildContext context) async {
 
     _canContinue = await Dialogz.userDialog(
       context: context,
-      title: 'Delete your Account',
-      body: 'Are you sure you want to delete your Account ?',
-      confirmButtonText: 'Yes, Delete',
+      title: dialogTitle,
+      body: dialogBody,
+      confirmButtonText: confirmButtonText,
       userModel: _userModel,
     );
 

@@ -64,6 +64,7 @@ class CenterDialog extends StatelessWidget {
   /// LAUNCHERS
 
 // -----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> showCenterDialog({
     @required BuildContext context,
     dynamic body = '',
@@ -95,6 +96,7 @@ class CenterDialog extends StatelessWidget {
     return _result;
   }
 // -----------------------------------------
+  /// TESTED : WORKS PERFECT
   static void closeCenterDialog(BuildContext context){
     Nav.goBack(
       context: context,

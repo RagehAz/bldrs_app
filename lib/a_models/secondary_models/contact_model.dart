@@ -101,6 +101,7 @@ class ContactModel {
   /// CYPHERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, Object> toMap() {
     return <String, Object>{
       'value': value,
@@ -108,6 +109,7 @@ class ContactModel {
     };
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
     Map<String, Object> _map = <String, Object>{};
 
@@ -126,6 +128,7 @@ class ContactModel {
     return _map;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> decipherContacts(Map<String, dynamic> maps) {
     final List<ContactModel> _contacts = <ContactModel>[];
 
@@ -149,6 +152,7 @@ class ContactModel {
     return _contacts;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static ContactType decipherContactType(String contactType) {
     switch (contactType) {
       case 'phone':     return ContactType.phone;     break;
@@ -165,6 +169,7 @@ class ContactModel {
     }
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherContactType(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone:     return 'phone';     break;
@@ -211,6 +216,7 @@ class ContactModel {
   /// GETTERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static ContactModel getAContactModelFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
@@ -221,6 +227,7 @@ class ContactModel {
     return contact;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String getAContactValueFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
@@ -436,6 +443,7 @@ class ContactModel {
     ContactType.twitter,
   ];
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String getContactIcon(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone: return Iconz.comPhone; break;
@@ -511,11 +519,35 @@ class ContactModel {
       }
     }
   }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<ContactModel> replaceContact({
+    @required List<ContactModel> contacts,
+    @required ContactModel contactToReplace,
+  }){
+    List<ContactModel> _output = <ContactModel>[];
+
+    if (Mapper.checkCanLoopList(contacts) == true && contactToReplace != null){
+
+      _output = <ContactModel>[...contacts];
+
+      final int _index = contacts.indexWhere((element) => element.contactType == contactToReplace.contactType);
+
+      if (_index != -1){
+        _output.removeAt(_index);
+        _output.insert(_index, contactToReplace);
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> dummyContacts(){
 
     return const <ContactModel>[
@@ -565,12 +597,14 @@ class ContactModel {
   /// BLOGGING
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   void blogContact({
     String methodName = 'ContactModel',
   }){
     blog('$methodName : $contactType : $value');
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogContacts({
     @required List<ContactModel> contacts,
     String methodName = 'Contacts Models',
@@ -779,6 +813,32 @@ class ContactModel {
     }
 
     return _isWebLink;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkEmailChanged({
+    @required List<ContactModel> oldContacts,
+    @required List<ContactModel> newContacts,
+  }){
+    bool _changed = false;
+
+    final ContactModel _oldModel = getAContactModelFromContacts(
+        contacts: oldContacts,
+        contactType: ContactType.email,
+    );
+
+    final ContactModel _newModel = getAContactModelFromContacts(
+      contacts: newContacts,
+      contactType: ContactType.email,
+    );
+
+    blog('checkEmailChanged : ${_oldModel.value} == ${_newModel.value} ?');
+
+    if (_oldModel?.value != _newModel?.value){
+      _changed = true;
+    }
+
+    return _changed;
   }
 // -----------------------------------------------------------------------------
 }
