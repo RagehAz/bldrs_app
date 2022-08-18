@@ -176,7 +176,8 @@ Future<CityModel> confirmCityDialog({
 
 /// TEXT FIELD DIALOGS
 
-// ---------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<String> showPasswordDialog(BuildContext context) async {
 
   final TextEditingController _password = TextEditingController();
@@ -214,6 +215,7 @@ Future<String> showPasswordDialog(BuildContext context) async {
 /// USERS DIALOGS
 
 // ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> userDialog({
   @required BuildContext context,
   @required UserModel userModel,

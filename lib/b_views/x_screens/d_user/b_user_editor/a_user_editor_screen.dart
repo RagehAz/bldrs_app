@@ -23,12 +23,14 @@ class EditProfileScreen extends StatefulWidget {
     @required this.userModel,
     @required this.onFinish,
     @required this.canGoBack,
+    @required this.reAuthBeforeConfirm,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final Function onFinish;
   final bool canGoBack;
+  final bool reAuthBeforeConfirm;
   /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -226,12 +228,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
         },
         onTap: () => confirmEdits(
-            context: context,
-            formKey: _formKey,
-            newUserModel: _createUserModelFromLocalVariables(),
-            oldUserModel: widget.userModel,
-            onFinish: widget.onFinish,
-            loading: _loading,
+          context: context,
+          formKey: _formKey,
+          newUserModel: _createUserModelFromLocalVariables(),
+          oldUserModel: widget.userModel,
+          onFinish: widget.onFinish,
+          loading: _loading,
+          forceReAuthentication: widget.reAuthBeforeConfirm,
         ),
 
       ),

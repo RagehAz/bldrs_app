@@ -49,6 +49,8 @@ class UserProfileScreen extends StatelessWidget {
               userID: AuthFireOps.superUserID(),
             );
 
+            _fireUserModel.blogUserModel();
+
             await UserProtocols.updateLocally(
               context: context,
               newUserModel: _fireUserModel,

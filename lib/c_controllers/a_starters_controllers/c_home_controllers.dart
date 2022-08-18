@@ -273,6 +273,7 @@ Future<void> _controlMissingFieldsCase({
       context: context,
       screen: EditProfileScreen(
         userModel: authModel.userModel,
+        reAuthBeforeConfirm: false,
         canGoBack: true,
         onFinish: () async {
           Nav.goBack(
@@ -285,7 +286,8 @@ Future<void> _controlMissingFieldsCase({
   );
 
 }
-// ---------------------------------
+// ------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> showMissingFieldsDialog({
   @required BuildContext context,
   @required UserModel userModel,

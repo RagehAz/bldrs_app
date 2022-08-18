@@ -200,7 +200,7 @@ class BzModel{
       'trigram': trigram,
       'logo': logo,
       'scope': scope,
-      'zone': zone.toMap(),
+      'zone': zone?.toMap(),
       'about': about,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
       'contacts': ContactModel.cipherContacts(contacts),

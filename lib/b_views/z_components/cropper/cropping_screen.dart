@@ -82,6 +82,8 @@ class _CroppingScreenState extends State<CroppingScreen> {
   void initState() {
     super.initState();
 
+    _files = FileModel.getFilesFromModels(widget.fileModels);
+
     _initializeControllers();
     _statuses.addListener(() async {
 
@@ -94,7 +96,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
       if (_allImagesCropped == true && _canGoBack == true){
 
         final List<String> _names = await Filers.getFilesNamesFromFiles(
-          files: FileModel.getFilesFromModels(widget.fileModels),
+          files: _files,
           withExtension: true,
         );
 
@@ -148,12 +150,12 @@ class _CroppingScreenState extends State<CroppingScreen> {
 // -----------------------------------------------------------------------------
   void _initializeControllers(){
 
-    for (int i = 0; i < widget.fileModels.length; i++){
+    for (int i = 0; i < _files.length; i++){
       final CropController _controller = CropController();
       _controllers.add(_controller);
     }
 
-    final List<CropStatus> _statusesList =  List.filled(widget.fileModels.length, CropStatus.nothing);
+    final List<CropStatus> _statusesList =  List.filled(_files.length, CropStatus.nothing);
     _statuses = ValueNotifier(_statusesList);
 
   }
