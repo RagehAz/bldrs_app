@@ -317,7 +317,7 @@ class MapModel{
 
     return _output;
   }
-
+// ----------------------------------------
   static List<MapModel> removeMapModel({
     @required List<MapModel> mapModels,
     @required String key,
@@ -336,6 +336,20 @@ class MapModel{
     }
 
     return _output;
+  }
+// ----------------------------------------
+  static List<MapModel> removeMapsWithThisValue({
+    @required List<MapModel> mapModels,
+    @required dynamic value,
+  }){
+    final List<MapModel> _output = mapModels ?? <MapModel>[];
+
+    if (Mapper.checkCanLoopList(mapModels) == true && value != null){
+      _output.removeWhere((element) => element.value == value);
+    }
+
+    return _output;
+
   }
 // -----------------------------------------------------------------------------
 

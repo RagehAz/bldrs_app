@@ -88,7 +88,6 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-
     return MainLayout(
         pyramidsAreOn: true,
         sectionButtonIsOn: false,

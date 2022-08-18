@@ -1,30 +1,41 @@
 
 
+import 'package:bldrs/a_models/chain/city_phid_counters.dart';
+import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class EditCityPage extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const EditCityPage({
     @required this.zoneModel,
     @required this.screenHeight,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final ZoneModel zoneModel;
   final double screenHeight;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -58,7 +69,7 @@ class EditCityPage extends StatelessWidget {
             /// POPULATION
             DataStrip(
                 dataKey: 'Population',
-                dataValue: _city?.population,
+                dataValue: Numeric.formatNumToSeparatedKilos(number: _city?.population),
             ),
 
             /// DISTRICTS
@@ -70,7 +81,7 @@ class EditCityPage extends StatelessWidget {
             /// POSITION
             DataStrip(
               dataKey: 'Position',
-              dataValue: _city?.position,
+              dataValue: 'Lat: ${_city?.position?.latitude} , Lng: ${_city?.position?.longitude}',
             ),
 
             /// STATE
@@ -125,6 +136,73 @@ class EditCityPage extends StatelessWidget {
                   '\nUsers of This city can view Flyers now,, not only The Businesses'
                   '\nWhen Switched On users can only see City Businesses but not Flyers or Questions',
             ),
+
+            const SeparatorLine(
+              width: 300,
+            ),
+
+            if (_city?.cityID != null)
+              FutureBuilder(
+                  future: Real.readDocOnce(
+                    context: context,
+                    collName: RealColl.chainsUsage,
+                    docName: _city.cityID,
+                  ),
+                  builder: (_, AsyncSnapshot<dynamic> snapshot){
+                    final Map<String, dynamic> _map = snapshot.data;
+
+                    if (Streamer.connectionIsLoading(snapshot) == true){
+                      return const Loading(loading: true);
+                    }
+
+                    else {
+
+                      final CityPhidCounters _countersModel = CityPhidCounters.decipherCityChain(
+                          map: _map,
+                          cityID: _city.cityID,
+                      );
+
+                      List<MapModel> keywords = _countersModel.phidsCounters;
+                      keywords = MapModel.removeMapsWithThisValue(
+                        mapModels: keywords,
+                        value: 0,
+                      );
+                      keywords = MapModel.removeMapsWithThisValue(
+                        mapModels: keywords,
+                        value: _city.cityID,
+                      );
+
+                      return Column(
+                        children: <Widget>[
+
+                          if (Mapper.checkCanLoopList(keywords) == true)
+                          ...List.generate(keywords.length, (index){
+
+                            final MapModel _kw = keywords[index];
+
+                            return DreamBox(
+                              height: 30,
+                              width: PageBubble.clearWidth(context),
+                              icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
+                              verse: '${_kw.value} : ${_kw.key}',
+                              verseScaleFactor: 0.6,
+                              verseWeight: VerseWeight.thin,
+                              verseCentered: false,
+                            );
+
+                          },
+
+
+                          )
+                        ],
+
+                      );
+
+                    }
+
+                  }),
+
+            const Horizon(),
 
           ],
         ),
