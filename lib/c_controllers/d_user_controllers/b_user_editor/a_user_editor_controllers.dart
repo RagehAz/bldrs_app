@@ -20,7 +20,8 @@ import 'package:flutter/material.dart';
 
 /// EDITORS
 
-// ----------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
@@ -68,15 +69,16 @@ Future<void> takeUserPicture({
   }
 
 }
-
-// ----------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 void onChangeGender({
   @required Gender selectedGender,
   @required ValueNotifier<Gender> genderNotifier,
 }){
   genderNotifier.value = selectedGender;
 }
-// ----------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 void onZoneChanged({
   @required ZoneModel selectedZone,
   @required ValueNotifier<ZoneModel> zoneNotifier,
@@ -96,7 +98,8 @@ void onZoneChanged({
 
 /// CONFIRMATION OPS
 
-// ----------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -179,7 +182,8 @@ bool _inputsAreValid({
 
   return _inputsAreValid;
 }
-// ----------------------------------------
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
 Future<UserModel> _updateUserModel({
   @required BuildContext context,
   @required UserModel oldUserModel,

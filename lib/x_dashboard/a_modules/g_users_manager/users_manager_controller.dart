@@ -80,6 +80,8 @@ Future<void> onSelectUser({
   @required ValueNotifier<UserModel> selectedUserModel,
 }) async {
 
+  userModel.blogUserModel(methodName: 'Dashboard onSelectUser');
+
   selectedUserModel.value = await completeUserZoneModel(
     context: context,
     userModel: userModel,
