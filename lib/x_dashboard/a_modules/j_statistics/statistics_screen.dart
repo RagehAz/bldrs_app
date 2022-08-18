@@ -260,15 +260,15 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_craftsmen'),
+                  verse: xPhrase(context, 'phid_tradesmanship'),
                   count: 0,
-                  icon: Iconz.bxCraftsOn,
+                  icon: Iconz.bxTradesOn,
                   iconSizeFactor: 0.95,
                 ),
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_craft'),
+                  verse: xPhrase(context, 'phid_k_flyer_type_trade'),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,

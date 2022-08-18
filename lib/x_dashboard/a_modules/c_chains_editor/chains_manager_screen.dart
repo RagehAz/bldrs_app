@@ -59,7 +59,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
     //       id: 'phid_design',
     //       sons: <String>[
     //         'phid_contractor',
-    //         'phid_craft',
+    //         'phid_trade',
     //       ],
     //     ),
     //

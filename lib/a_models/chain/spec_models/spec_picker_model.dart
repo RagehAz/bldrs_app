@@ -173,7 +173,7 @@ class SpecPicker {
         :
     flyerType == FlyerType.design ? designSpecsPickers
         :
-    flyerType == FlyerType.craft ? craftSpecsPickers
+    flyerType == FlyerType.trade ? tradeSpecsPickers
         :
     flyerType == FlyerType.project ? designSpecsPickers
         :
@@ -363,9 +363,9 @@ class SpecPicker {
         isRequired: false,
       ),
 
-      /// CRAFTS
+      /// Trades
       SpecPicker(
-        chainID: 'phid_k_flyer_type_crafts',
+        chainID: 'phid_k_flyer_type_trades',
         groupID: 'Construction',
         canPickMany: canPickMany,
         isRequired: false,

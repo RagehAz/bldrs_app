@@ -61,7 +61,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _fuckingText = 'Lorum Ipsum Gypsum board\n'
         'This is a test paragraph that includes design '
         'and Designs with projects of designs and properties '
-        'with a touch of crafts and several other cool '
+        'with a touch of trades and several other cool '
         'awesome stuff bitch';
 
 

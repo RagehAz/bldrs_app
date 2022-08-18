@@ -127,8 +127,8 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: 'Crafts-men',
-                leadingIcon: Iconz.bxCraftsOn,
+                headline: 'Artisans',
+                leadingIcon: Iconz.bxTradesOn,
               ),
               bubbleColor: Colorz.white20,
               secondLine: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '

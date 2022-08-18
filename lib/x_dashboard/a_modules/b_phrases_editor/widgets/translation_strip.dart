@@ -61,14 +61,14 @@ class TranslationStrip extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     children: <Widget>[
                       SuperVerse(
-                        verse: 'en ID : ${enPhrase.id}',
+                        verse: 'en ID : ${enPhrase?.id}',
                         labelColor: Colorz.white20,
                         size: 1,
                         scaleFactor: 1.1,
                         italic: true,
                         centered: false,
                         weight: VerseWeight.thin,
-                        onTap: () => onCopyValue(enPhrase.id),
+                        onTap: () => onCopyValue(enPhrase?.id),
                       ),
                     ],
                   ),
@@ -86,16 +86,16 @@ class TranslationStrip extends StatelessWidget {
                     await BottomDialog.showBottomDialog(
                         context: context,
                         draggable: true,
-                        title: 'enID : ${enPhrase.id} : arID ${arPhrase.id}',
+                        title: 'enID : ${enPhrase?.id} : arID ${arPhrase?.id}',
                         child: Column(
                           children: <Widget>[
 
                             SuperVerse(
-                              verse: enPhrase.value,
+                              verse: enPhrase?.value,
                               maxLines: 5,
                               size: 3,
                               color: Colorz.yellow255,
-                              onTap: () => onDelete(enPhrase.value),
+                              onTap: () => onDelete(enPhrase?.value),
                             ),
 
                             SuperVerse(
@@ -103,7 +103,7 @@ class TranslationStrip extends StatelessWidget {
                               maxLines: 5,
                               size: 3,
                               color: Colorz.yellow255,
-                              onTap: () => onDelete(arPhrase.value),
+                              onTap: () => onDelete(arPhrase?.value),
                             ),
 
                             const SizedBox(
@@ -148,15 +148,15 @@ class TranslationStrip extends StatelessWidget {
               children: <Widget>[
 
                 SuperVerse(
-                  verse: enPhrase.value,
+                  verse: enPhrase?.value,
                   labelColor: Colorz.white20,
-                  onTap: () => onCopyValue(enPhrase.value),
+                  onTap: () => onCopyValue(enPhrase?.value),
                 ),
 
                 SuperVerse(
-                  verse: arPhrase.value,
+                  verse: arPhrase?.value,
                   labelColor: Colorz.white20,
-                  onTap: () => onCopyValue(arPhrase.value),
+                  onTap: () => onCopyValue(arPhrase?.value),
                 ),
 
 

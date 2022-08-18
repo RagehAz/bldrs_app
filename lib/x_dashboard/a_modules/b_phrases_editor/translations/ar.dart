@@ -70,7 +70,7 @@ List<Phrase> keywordsAndSpecsArabic = const  <Phrase>[
     Phrase(id: 'phid_k_bldrsChain', value: 'Bldrs Keywords'),
     Phrase(id: 'phid_k_properties_keywords', value: 'Properties Keywords'),
     Phrase(id: 'phid_k_designs_keywords', value: 'Designs Keywords'),
-    Phrase(id: 'phid_k_crafts_keywords', value: 'Crafts Keywords'),
+    Phrase(id: 'phid_k_trades_keywords', value: 'Trades Keywords'),
     Phrase(id: 'phid_k_products_keywords', value: 'Products Keywords'),
     Phrase(id: 'phid_k_equipment_keywords', value: 'Equipment Keywords'),
 
