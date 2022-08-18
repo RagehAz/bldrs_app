@@ -563,6 +563,7 @@ class Real {
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readPath({
     @required BuildContext context,
+    /// looks like : 'collName/docName/...'
     @required String path,
   }) async {
 
