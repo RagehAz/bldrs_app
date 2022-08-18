@@ -20,13 +20,11 @@ class CroppingScreen extends StatefulWidget {
   /// -----------------------------------------------------------------------------
   const CroppingScreen({
     @required this.files,
-    @required this.filesName,
     this.aspectRatio = 1,
     Key key
   }) : super(key: key);
   /// -----------------------------------------------------------------------------
   final List<File> files;
-  final String filesName;
   final double aspectRatio;
   /// -----------------------------------------------------------------------------
   @override
@@ -95,7 +93,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
         final List<String> _names = await Filers.getFilesNamesFromFiles(
           files: widget.files,
-          // withExtension: false,
+          withExtension: true,
         );
 
         /// GENERATE CROPPED FILES

@@ -13,6 +13,7 @@ import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Future<void> takeUserPicture({
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
-        resizeToWidth: null,
+        resizeToWidth: Standards.userPictureWidthPixels,
       );
     }
     else if (imagePickerType == ImagePickerType.cameraImage){
@@ -46,7 +47,7 @@ Future<void> takeUserPicture({
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
-        resizeToWidth: null,
+        resizeToWidth: Standards.userPictureWidthPixels,
       );
     }
 

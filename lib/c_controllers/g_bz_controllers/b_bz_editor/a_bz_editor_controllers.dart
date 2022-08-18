@@ -16,6 +16,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -127,7 +128,7 @@ Future<void> takeBzLogo({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
-      resizeToWidth: null,
+      resizeToWidth: Standards.logoWidthPixels,
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
@@ -135,7 +136,7 @@ Future<void> takeBzLogo({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
-      resizeToWidth: null,
+      resizeToWidth: Standards.logoWidthPixels,
     );
   }
 

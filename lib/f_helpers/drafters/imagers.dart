@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -13,7 +10,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
-import 'package:image/image.dart' as img;
 
 
 enum ImagePickerType {
@@ -48,15 +44,15 @@ class Imagers {
     @required bool cropAfterPick,
     @required bool isFlyerRatio,
     double resizeToWidth,
-    AssetEntity selectAsset,
+    AssetEntity selectedAsset,
   }) async {
 
     File _file;
 
-    final List<AssetEntity> _assets = selectAsset == null ?
+    final List<AssetEntity> _assets = selectedAsset == null ?
     <AssetEntity>[]
         :
-    <AssetEntity>[selectAsset];
+    <AssetEntity>[selectedAsset];
 
     final List<File> _files = await pickAndCropMultipleImages(
       context: context,
@@ -84,18 +80,28 @@ class Imagers {
     List<AssetEntity> selectedAssets,
   }) async {
 
+    /// PICK
     List<File> _files = await _pickMultipleImages(
       context: context,
       maxAssets: maxAssets,
       selectedAssets: selectedAssets,
     );
 
+    /// CROP
     if (cropAfterPick == true && Mapper.checkCanLoopList(_files) == true){
       _files = await cropImages(
         context: context,
         pickedFiles: _files,
         isFlyerRatio: isFlyerRatio,
-        resizeToWidth: resizeToWidth,
+      );
+    }
+
+    /// RESIZE
+    if (resizeToWidth != null && Mapper.checkCanLoopList(_files) == true){
+      _files = await resizeImages(
+          inputFiles: _files,
+          resizeToWidth: resizeToWidth,
+          isFlyerRatio: isFlyerRatio,
       );
     }
 
@@ -256,19 +262,35 @@ class Imagers {
     double resizeToWidth,
   }) async {
 
+    /// SHOOT
     File _file = await _shootCameraImage(
       context: context,
     );
 
-    if (cropAfterPick == true && _file != null){
+    /// CROP - RESIZE
+    if (_file != null){
 
-      final List<File> _files = await cropImages(
-        context: context,
-        pickedFiles: <File>[_file],
-        isFlyerRatio: isFlyerRatio,
-        resizeToWidth: resizeToWidth,
-      );
+      List<File> _files = <File>[_file];
 
+      /// CROP
+      if (cropAfterPick == true && _file != null){
+        _files = await cropImages(
+          context: context,
+          pickedFiles: <File>[_file],
+          isFlyerRatio: isFlyerRatio,
+        );
+      }
+
+      /// RESIZE
+      if (resizeToWidth != null && _file != null){
+        _files = await resizeImages(
+          inputFiles: _files,
+          resizeToWidth: resizeToWidth,
+          isFlyerRatio: isFlyerRatio,
+        );
+      }
+
+      /// ASSIGN THE FILE
       if (Mapper.checkCanLoopList(_files) == true){
         _file = _files.first;
       }
@@ -281,7 +303,7 @@ class Imagers {
   /// TESTED : WORKS PERFECT
   static Future<File> _shootCameraImage({
     @required BuildContext context,
-}) async {
+  }) async {
 
     final AssetEntity entity = await CameraPicker.pickFromCamera(
       context,
@@ -336,7 +358,7 @@ class Imagers {
     final File _file = await entity?.file;
 
     return _file;
-}
+  }
 // -----------------------------------------------------------------
 
   /// CROP IMAGE
@@ -347,7 +369,6 @@ class Imagers {
     @required BuildContext context,
     @required File pickedFile,
     @required bool isFlyerRatio,
-    double resizeToWidth,
 }) async {
 
     File _file;
@@ -356,7 +377,6 @@ class Imagers {
       context: context,
       pickedFiles: <File>[pickedFile],
       isFlyerRatio: isFlyerRatio,
-      resizeToWidth: resizeToWidth,
     );
 
     if (Mapper.checkCanLoopList(_files) == true){
@@ -371,7 +391,6 @@ class Imagers {
     @required BuildContext context,
     @required List<File> pickedFiles,
     @required bool isFlyerRatio,
-    double resizeToWidth,
   }) async {
 
     List<File> _files = <File>[];
@@ -382,21 +401,8 @@ class Imagers {
         context: context,
         screen: CroppingScreen(
           files: pickedFiles,
-          filesName: 'bob',
           aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
         ),
-      );
-
-    }
-
-    if (Mapper.checkCanLoopList(_files) == true){
-
-      blog('cropImages : file aho : ${_files[0]}');
-
-      _files = await resizeImages(
-        files: _files,
-        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
-        finalWidth: resizeToWidth,
       );
 
     }
@@ -408,83 +414,25 @@ class Imagers {
   /// RESIZE IMAGE
 
 // ---------------------------------------
-  static Future<File> resizeImage({
-    @required File file,
-    /// image width will be resized to this final width
-    @required double finalWidth,
-    @required double aspectRatio,
-  }) async {
-
-    blog('resizeImage : START');
-
-    File _output;
-
-    if (file != null){
-
-      final Uint8List uint = await Floaters.getUint8ListFromFile(file);
-
-      blog('resizeImage : uint : $uint');
-
-      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(uint);
-
-      blog('resizeImage : _imgImage : $_imgImage');
-
-      final img.Image _resized = Floaters.resizeImgImage(
-          imgImage: _imgImage,
-          width: finalWidth.floor(),
-          height:  (aspectRatio * finalWidth.floor()).floor(),
-      );
-
-      blog('resizeImage : _resized $_resized');
-
-      final Uint8List _uIntAgain = Floaters.getUint8ListFromImgImage(_resized);
-
-
-      final File _refile = await Filers.getFileFromUint8List(
-          uInt8List: _uIntAgain,
-          fileName: 'kos ommak',
-      );
-
-      blog('resizeImage : _refile $_refile');
-
-      _output = _refile;
-
-    }
-
-    return _output;
-  }
-// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<File>> resizeImages({
-    @required List<File> files,
-    @required double aspectRatio,
-    @required double finalWidth,
+    @required List<File> inputFiles,
+    @required double resizeToWidth,
+    @required bool isFlyerRatio,
   }) async {
-    final List<File> _files = <File>[];
+    List<File> _files = <File>[];
 
-    if (Mapper.checkCanLoopList(files) == true){
+    if (Mapper.checkCanLoopList(inputFiles) == true){
 
-      await Future.wait(<Future>[
-
-        ...List.generate(files.length, (index) async {
-
-          final File _file = await resizeImage(
-            file: files[index],
-            aspectRatio: aspectRatio,
-            finalWidth: finalWidth ?? 500,
-          );
-
-          if (_file != null){
-            _files.add(_file);
-          }
-
-        }),
-
-      ]);
+      _files = await Filers.resizeImages(
+        files: _files,
+        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+        finalWidth: resizeToWidth,
+      );
 
     }
 
     return _files;
-
   }
 // -----------------------------------------------------------------
   /// CHECKERS
