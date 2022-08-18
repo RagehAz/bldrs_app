@@ -77,4 +77,13 @@ class Standards {
 // ----------------------------------
   static const double maxFileSizeLimit = 3;
 // -----------------------------------------------------------------------------
+
+  /// IMAGES WIDTHS
+
+// ----------------------------------
+  static const double logoWidthPixels = 500;
+  static const double userPictureWidthPixels = 500;
+  static const double authorPictureWidthPixels = 500;
+  static const double slideWidthPixels = 1080;
+  static const double noteAttachmentWidthPixels = 1000;
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/local_asset_checker.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -99,6 +98,18 @@ class SuperImage extends StatelessWidget {
         ),
       );
     }
+
+  }
+// -----------------------------------------------------------------------------
+  Widget _futureImageBuilder (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot){
+
+    return _FutureImage(
+      snapshot: snapshot,
+      width: width,
+      height: height,
+      boxFit: boxFit,
+      errorBuilder: _errorBuilder,
+    );
 
   }
 // -----------------------------------------------------------------------------
@@ -237,7 +248,6 @@ class SuperImage extends StatelessWidget {
                 height: height,
                 errorBuilder: _errorBuilder,
                 // scale: 1,
-
               )
 
                   :
@@ -247,30 +257,7 @@ class SuperImage extends StatelessWidget {
               FutureBuilder(
                 key: const ValueKey<String>('SuperImage_uiImage'),
                 future: Floaters.getUint8ListFromUiImage(pic),
-                builder: (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot){
-
-                  /// LOADING
-                  if (Streamer.connectionIsLoading(snapshot) == true){
-                    return InfiniteLoadingBox(
-                      width: width,
-                      height: height,
-                    );
-                  }
-
-                  /// UI.IMAGE
-                  else {
-
-                    return Image.memory(
-                      snapshot.data,
-                      fit: boxFit,
-                      width: width,
-                      height: height,
-                      errorBuilder: _errorBuilder,
-                      // scale: 1,
-                    );
-                  }
-
-                },
+                builder: _futureImageBuilder,
               )
 
                   :
@@ -287,7 +274,7 @@ class SuperImage extends StatelessWidget {
                 // scale: 1,
               )
 
-                  :
+              :
 
               Image.asset(
                 Iconz.dvGouran,
@@ -302,6 +289,50 @@ class SuperImage extends StatelessWidget {
             ),
           ),
         ),
+      );
+    }
+
+  }
+}
+
+class _FutureImage extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const _FutureImage({
+    @required this.snapshot,
+    @required this.width,
+    @required this.height,
+    @required this.boxFit,
+    @required this.errorBuilder,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final AsyncSnapshot<Uint8List> snapshot;
+  final double width;
+  final double height;
+  final BoxFit boxFit;
+  final Function(BuildContext, Object, StackTrace) errorBuilder;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    /// LOADING
+    if (Streamer.connectionIsLoading(snapshot) == true){
+      return InfiniteLoadingBox(
+        width: width,
+        height: height,
+      );
+    }
+
+    /// UI.IMAGE
+    else {
+
+      return Image.memory(
+        snapshot.data,
+        fit: boxFit,
+        width: width,
+        height: height,
+        errorBuilder: errorBuilder,
+        // scale: 1,
       );
     }
 

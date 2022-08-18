@@ -23,6 +23,7 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_bzz_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/search_users_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/helper_screens/template_notes_screen.dart';
@@ -679,9 +680,8 @@ Future<void> _onSelectImageURLAsAttachment({
     context: context,
     cropAfterPick: true,
     isFlyerRatio: false,
-    resizeToWidth: null,
+    resizeToWidth: Standards.noteAttachmentWidthPixels,
   );
-
 
   // final ImageSize _picSize = await ImageSize.superImageSize(_pic);
   // final double _picViewHeight = ImageSize.concludeHeightByGraphicSizes(

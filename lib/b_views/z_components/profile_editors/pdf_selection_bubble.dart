@@ -277,7 +277,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                       if (_file != null){
 
-                        final String _fileName = Filers.getFileNameFromFile(file: _file);
+                        final String _fileName = Filers.getFileNameFromFile(
+                          file: _file,
+                          withExtension: false,
+                        );
                         _textController.text = _fileName;
 
                         _pdf.value = FileModel(
