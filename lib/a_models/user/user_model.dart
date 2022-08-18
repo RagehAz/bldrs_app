@@ -569,6 +569,7 @@ class UserModel {
   /// GETTERS
 
 // -----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> missingFields(UserModel userModel) {
     final List<String> _missingFields = <String>[];
 

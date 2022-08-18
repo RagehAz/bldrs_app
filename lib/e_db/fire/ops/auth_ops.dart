@@ -500,7 +500,7 @@ static Future<bool> passwordIsCorrect({
         );
 
         final FirebaseAuth _auth = FirebaseAuth?.instance;
-        _credential = await _auth.currentUser.reauthenticateWithCredential(_authCredential);
+        _credential = await _auth.currentUser?.reauthenticateWithCredential(_authCredential);
 
       }
   );
@@ -513,5 +513,39 @@ static Future<bool> passwordIsCorrect({
   }
 
 }
+// -----------------------------------------------------------------------------
+
+/// UPDATE
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> updateUserEmail({
+    @required BuildContext context,
+    @required String newEmail,
+  }) async {
+    blog('updateUserEmail : START');
+
+    bool _success = false;
+
+    final FirebaseAuth _auth = FirebaseAuth?.instance;
+    final String _oldEmail = _auth.currentUser.email;
+
+    blog('updateUserEmail : new : $newEmail : old : $_oldEmail');
+
+    if (_oldEmail != newEmail){
+
+      _success = await tryCatchAndReturnBool(
+        context: context,
+        methodName: 'updateUserEmail',
+        functions: () async {
+          await _auth.currentUser.updateEmail(newEmail);
+          blog('updateUserEmail : END');
+        },
+      );
+
+    }
+
+    return _success;
+  }
 // -----------------------------------------------------------------------------
 }
