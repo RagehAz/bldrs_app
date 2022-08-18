@@ -109,7 +109,7 @@ class AddImagePicBubble extends StatelessWidget {
                           return BzLogo(
                             width: picWidth,
                             image: pic,
-                            margins: const EdgeInsets.all(10),
+                            // margins: const EdgeInsets.all(10),
                             corners: _picBorders,
                             // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
                           );
@@ -155,7 +155,7 @@ class AddImagePicBubble extends StatelessWidget {
                       else {
 
                         /// SIZE IS NULL
-                        if (fileModel.size == null){
+                        if (fileModel.size == null || fileModel.size < (3 * 1024 * 1024)){
                           return const SizedBox();
                         }
 
@@ -170,7 +170,7 @@ class AddImagePicBubble extends StatelessWidget {
                               size: 1,
                               centered: false,
                               shadow: true,
-                              labelColor: Colorz.white20,
+                              labelColor: Colorz.red255,
                             ),
                           );
                         }

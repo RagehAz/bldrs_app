@@ -92,7 +92,7 @@ class UserBanner extends StatelessWidget {
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);
 
-    final bool _itIsMe = userModel.id == AuthFireOps.superUserID();
+    final bool _itIsMe = userModel?.id == AuthFireOps.superUserID();
 
     return Bubble(
       centered: true,

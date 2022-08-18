@@ -1,79 +1,23 @@
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/b_views/x_screens/d_user/xx_components/user_profile_banners.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
 
 class UserProfilePage extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+
   const UserProfilePage({
-    this.userModel,
-    this.showContacts = false,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final UserModel userModel;
-  final bool showContacts;
-  /// --------------------------------------------------------------------------
-  static String generateTitleCompanyString({
-    @required UserModel userModel,
-    @required BuildContext context,
-  }){
-
-    String _string;
-
-    final String _title = userModel?.title;
-    final String _company = userModel.company;
-
-    if (_title == null && _company == null){
-      _string = null;
-    }
-    else if (_title == null && _company != null){
-      _string = _company;
-    }
-    else if (_title != null && _company == null){
-      _string = _title;
-    }
-    else if (_title != null && _company != null){
-      _string = '$_title ${xPhrase(context, 'phid_at')} $_company';
-    }
-    else {
-      _string = null;
-    }
-
-    return _string;
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = userModel ?? UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: true,
-    );
-
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      // padding: Stratosphere.stratosphereSandwich,
-      child: Column(
-        children: <Widget>[
-
-          /// USER BANNER
-          UserBanner(
-            userModel: _userModel,
-          ),
-
-          /// CONTACTS
-          if (showContacts == true)
-            ContactsBubble(
-              contacts: _userModel?.contacts,
-              location: _userModel?.location,
-              canLaunchOnTap: true,
-            ),
-
-        ],
+    return const SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      padding: Stratosphere.stratosphereSandwich,
+      child: UserProfileBanners(
+          showContacts: true
       ),
     );
+
   }
 }

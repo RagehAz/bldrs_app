@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -263,7 +264,7 @@ class UserFireOps {
     }
 
     /// B - create final UserModel
-    final UserModel _finalUserModel = newUserModel.copyWith(
+    UserModel _finalUserModel = newUserModel.copyWith(
       pic: _userPicURL ?? oldUserModel.pic,
     );
 
@@ -274,6 +275,12 @@ class UserFireOps {
 
     if (_userModelsAreIdentical == false){
 
+      _finalUserModel = await updateUserEmailIfChanged(
+        context: context,
+        oldUserModel: oldUserModel,
+        newUserModel: newUserModel,
+      );
+
       await Fire.updateDoc(
         context: context,
         collName: FireColl.users,
@@ -281,9 +288,68 @@ class UserFireOps {
         input: _finalUserModel.toMap(toJSON: false),
       );
 
+
     }
 
     return _finalUserModel;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<UserModel> updateUserEmailIfChanged({
+    @required BuildContext context,
+    @required UserModel oldUserModel,
+    @required UserModel newUserModel,
+  }) async {
+
+    UserModel _output = newUserModel.copyWith();
+
+    final bool _emailChanged = ContactModel.checkEmailChanged(
+      oldContacts: oldUserModel.contacts,
+      newContacts: newUserModel.contacts,
+    );
+
+    if (_emailChanged == true){
+
+      final String _newEmail = ContactModel.getAContactValueFromContacts(
+        contacts: newUserModel.contacts,
+        contactType: ContactType.email,
+      );
+
+      if (Stringer.checkStringIsEmpty(_newEmail) == false){
+
+        final bool _success = await AuthFireOps.updateUserEmail(
+          context: context,
+          newEmail: _newEmail,
+        );
+
+        /// EMAIL CHANGED
+        if (_success == true){
+          /// keep newUserModel as is with the new email defined in it
+        }
+        else {
+          /// refactor the newUserModel with the old email
+          final ContactModel _oldEmailContact = ContactModel.getAContactModelFromContacts(
+              contacts: oldUserModel.contacts,
+              contactType: ContactType.email,
+          );
+
+          final List<ContactModel> _contacts = ContactModel.replaceContact(
+            contacts: newUserModel.contacts,
+            contactToReplace: _oldEmailContact,
+          );
+
+          _output = newUserModel.copyWith(
+            contacts: _contacts,
+          );
+
+        }
+
+      }
+
+    }
+
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

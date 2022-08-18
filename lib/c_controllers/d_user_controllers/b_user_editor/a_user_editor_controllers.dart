@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
+import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
 import 'package:bldrs/e_db/fire/ops/user_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -105,6 +106,7 @@ Future<void> confirmEdits({
   @required UserModel oldUserModel,
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
+  @required bool forceReAuthentication,
 }) async {
 
   final bool _canContinue = _inputsAreValid(
@@ -122,42 +124,57 @@ Future<void> confirmEdits({
   /// A - IF ALL REQUIRED FIELDS ARE VALID
   else {
 
-    /// B1 - ASK FOR CONFIRMATION
-    final bool _continueOps = await CenterDialog.showCenterDialog(
-      context: context,
-      title: '',
-      body: 'Are you sure you want to continue ?',
-      boolDialog: true,
-    );
+    bool _continueOps = true;
 
-    /// B2 - IF USER CONFIRMS
-    if (_continueOps == true) {
-
-      final UserModel _uploadedUserModel = await _updateUserModel(
+    if (forceReAuthentication == true){
+      _continueOps = await reAuthenticateUser(
         context: context,
-        newUserModel: newUserModel,
-        loading: loading,
-        oldUserModel: oldUserModel,
+        dialogTitle: 'User Check',
+        dialogBody: 'Please add your password to be able to continue',
+        confirmButtonText: 'Continue',
+      );
+    }
+
+    if (_continueOps == true){
+
+      /// B1 - ASK FOR CONFIRMATION
+      _continueOps = await CenterDialog.showCenterDialog(
+        context: context,
+        title: '',
+        body: 'Are you sure you want to continue ?',
+        boolDialog: true,
       );
 
-      if (_uploadedUserModel != null){
+      /// B2 - IF USER CONFIRMS
+      if (_continueOps == true) {
 
-        final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
-        final AuthModel _authModel = _originalAuthModel.copyWith(
-          userModel: _uploadedUserModel,
-        );
-
-        await setUserAndAuthModelsAndCompleteUserZoneLocally(
+        final UserModel _uploadedUserModel = await _updateUserModel(
           context: context,
-          authModel: _authModel,
-          notify: true,
+          newUserModel: newUserModel,
+          loading: loading,
+          oldUserModel: oldUserModel,
         );
+
+        if (_uploadedUserModel != null){
+
+          final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
+          final AuthModel _authModel = _originalAuthModel.copyWith(
+            userModel: _uploadedUserModel,
+          );
+
+          await setUserAndAuthModelsAndCompleteUserZoneLocally(
+            context: context,
+            authModel: _authModel,
+            notify: true,
+          );
+
+        }
+
+        blog('confirmEdits : finished updating the user Model');
+
+        onFinish();
 
       }
-
-      blog('confirmEdits : finished updating the user Model');
-
-      onFinish();
 
     }
 
@@ -213,4 +230,4 @@ Future<UserModel> _updateUserModel({
 
   return _uploadedUserModel;
 }
-// ----------------------------------------
+// ---------------------------------

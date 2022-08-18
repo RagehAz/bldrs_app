@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa1_user_profile_page.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa2_user_status_page.dart';
-import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa4_user_following_page.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa3_user_notes_page.dart';
+import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa4_user_following_page.dart';
 import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aaa5_user_settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,7 @@ class UserScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const List<Widget> pages = <Widget>[
 
-    UserProfilePage(showContacts: true),
+    UserProfilePage(),
 
     UserStatusPage(),
 
