@@ -1,12 +1,14 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/edit_city_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/edit_country_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_controller.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 // -----------------------------------------------------------------------------
   ScrollController _scrollController;
   PageController _pageController;
-  final ValueNotifier<ZoneModel> _zone = ValueNotifier<ZoneModel>(null);
+  ValueNotifier<ZoneModel> _zone;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -46,6 +48,9 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   @override
   void initState() {
     super.initState();
+
+    _zone = ValueNotifier<ZoneModel>(null);
+
     _scrollController = ScrollController();
     _pageController = PageController();
   }
@@ -82,6 +87,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+
 
     return MainLayout(
         pyramidsAreOn: true,
@@ -136,7 +142,17 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
           builder: (_, ZoneModel zone, Widget child){
 
             if (zone == null){
-              return const SizedBox();
+              return Center(
+                child: DreamBox(
+                  verse: 'Select Zone',
+                  height: 100,
+                  verseMaxLines: 2,
+                  onTap: () => goToCountrySelectionScreen(
+                    context: context,
+                    zone: _zone,
+                  ),
+                ),
+              );
             }
 
             else {
@@ -157,146 +173,21 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
                 controller: _pageController,
                 children: <Widget>[
 
-
-
+                  /// COUNTRY PAGE
                   CountryEditorPage(
                     country: zone.countryModel,
                     screenHeight: _screenHeight,
+                    onCityTap: () => goToCitySelectionScreen(
+                      context: context,
+                      zone: _zone,
+                      pageController: _pageController,
+                    ),
                   ),
 
-                  /// COUNTRIES PAGE
-                  // PageBubble(
-                  //   screenHeightWithoutSafeArea: _screenHeight,
-                  //   appBarType: AppBarType.basic,
-                  //   color: Colorz.white10,
-                  //   child: ListView(
-                  //     physics: const BouncingScrollPhysics(),
-                  //     children: <Widget>[
-                  //
-                  //       const Stratosphere(),
-                  //
-                  //       /// ID
-                  //       DataStrip(
-                  //         width: _appBarWidth,
-                  //         dataKey: 'ID',
-                  //         dataValue: zone.countryID,
-                  //         color: Colorz.black255,
-                  //       ),
-                  //
-                  //       /// REGION - CONTINENT
-                  //       DataStrip(
-                  //         width: _appBarWidth,
-                  //         dataKey: 'Region\nCont.',
-                  //         dataValue: '${zone.countryModel.region} - ${zone.countryModel.continent}',
-                  //         color: Colorz.black255,
-                  //       ),
-                  //
-                  //       /// CURRENCY
-                  //       DataStrip(
-                  //         width: _appBarWidth,
-                  //         dataKey: 'Currency',
-                  //         dataValue: '${_currencyModel.symbol} : ${xPhrase(context, _currencyModel.id)}',
-                  //         color: Colorz.black255,
-                  //       ),
-                  //
-                  //       /// LANGUAGE
-                  //       DataStrip(
-                  //         width: _appBarWidth,
-                  //         dataKey: 'Lang',
-                  //         dataValue: zone.countryModel.language,
-                  //         color: Colorz.black255,
-                  //       ),
-                  //
-                  //       const DotSeparator(),
-                  //
-                  //       // /// ENGLISH NAME
-                  //       // TextFieldBubble(
-                  //       //   title: 'English Name',
-                  //       //   textController: _enNameController,
-                  //       //   textOnChanged: (String text){
-                  //       //
-                  //       //     _countryModel.value = _countryModel.value.copyWith(
-                  //       //       phrases: updatePhrases(
-                  //       //           langCode: 'en',
-                  //       //           text: text
-                  //       //       ),
-                  //       //     );
-                  //       //
-                  //       //   },
-                  //       // ),
-                  //       //
-                  //       // /// ARABIC NAME
-                  //       // TextFieldBubble(
-                  //       //   title: 'Arabic Name',
-                  //       //   textController: _arNameController,
-                  //       //   textOnChanged: (String text){
-                  //       //
-                  //       //     _countryModel.value = _countryModel.value.copyWith(
-                  //       //       phrases: updatePhrases(
-                  //       //           langCode: 'ar',
-                  //       //           text: text
-                  //       //       ),
-                  //       //     );
-                  //       //
-                  //       //   },
-                  //       // ),
-                  //
-                  //       const DotSeparator(),
-                  //
-                  //       /// --- IS ACTIVATED
-                  //       TileBubble(
-                  //         verse: 'Country is Activated',
-                  //         secondLine: 'When Country is Deactivated, '
-                  //             'only business authors may see it while creating business profile',
-                  //         icon: _countryFlag,
-                  //         iconBoxColor: Colorz.grey50,
-                  //         iconSizeFactor: 1,
-                  //         switchIsOn: zone.countryModel.isActivated,
-                  //         switching: (bool val) {
-                  //
-                  //           _zone.value = _zone.value.copyWith(
-                  //             countryModel: _zone.value.countryModel.copyWith(
-                  //               isActivated: val,
-                  //             ),
-                  //           );
-                  //
-                  //         },
-                  //       ),
-                  //
-                  //       /// --- IS GLOBAL
-                  //       TileBubble(
-                  //         verse: 'Country is Global ?',
-                  //         secondLine:
-                  //         'When Country is not Global, only users of this country will see its businesses and flyers',
-                  //         icon: _countryFlag,
-                  //         iconBoxColor: Colorz.grey50,
-                  //         iconSizeFactor: 1,
-                  //         switchIsOn: zone.countryModel.isGlobal,
-                  //         switching: (bool val) {
-                  //
-                  //           _zone.value = _zone.value.copyWith(
-                  //             countryModel: _zone.value.countryModel.copyWith(
-                  //               isGlobal: val,
-                  //             ),
-                  //           );
-                  //
-                  //         },
-                  //       ),
-                  //
-                  //       const DotSeparator(),
-                  //
-                  //       const Horizon(),
-                  //
-                  //     ],
-                  //   ),
-                  // ),
-
-                  /// CITIES PAGE
-                  PageBubble(
-                    screenHeightWithoutSafeArea: _screenHeight,
-                    appBarType: AppBarType.search,
-                    color: Colorz.bloodTest,
-                    child: Container(),
+                  /// CITY PAGE
+                  EditCityPage(
+                    screenHeight: _screenHeight,
+                    zoneModel: zone,
                   ),
 
                 ],

@@ -54,6 +54,7 @@ class ObjectChecker {
   /// TESTED : WORKS PERFECT
   static bool isBase64(dynamic value) {
     if (value is String == true) {
+
       final RegExp rx = RegExp(
           r'^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$',
           multiLine: true,
@@ -63,10 +64,15 @@ class ObjectChecker {
 
       if (isBase64Valid == true) {
         return true;
-      } else {
+      }
+
+      else {
         return false;
       }
-    } else {
+
+    }
+
+    else {
       return false;
     }
   }
@@ -87,6 +93,7 @@ class ObjectChecker {
       // blog('objectIsFile : isFile : $_isFile : [file is File : $isFileA] - [file == _File] : $isFileB');
 
     }
+
     else {
       blog('objectIsFile : isFile : null');
     }
@@ -103,7 +110,7 @@ class ObjectChecker {
       if (
       object.runtimeType.toString() == '_Uint8ArrayView'
           ||
-          object.runtimeType.toString() == 'Uint8List'
+      object.runtimeType.toString() == 'Uint8List'
       ) {
         _isUint8List = true;
       }
@@ -118,7 +125,9 @@ class ObjectChecker {
 
     if (fileExtensionOf(object) == 'svg') {
       _isSVG = true;
-    } else {
+    }
+
+    else {
       _isSVG = false;
     }
 
@@ -133,7 +142,9 @@ class ObjectChecker {
         fileExtensionOf(object) == 'jpg' ||
         fileExtensionOf(object) == 'png') {
       _objectIsJPGorPNG = true;
-    } else {
+    }
+
+    else {
       _objectIsJPGorPNG = false;
     }
 
@@ -180,7 +191,9 @@ class ObjectChecker {
 
     if (_int == null) {
       _objectIsIntInString = false;
-    } else {
+    }
+
+    else {
       _objectIsIntInString = true;
     }
 
@@ -202,7 +215,9 @@ class ObjectChecker {
 
     if (_double == null) {
       _objectIsDoubleInString = false;
-    } else {
+    }
+
+    else {
       _objectIsDoubleInString = true;
     }
 
@@ -213,19 +228,16 @@ class ObjectChecker {
 // -----------------------------------------------------------------------------
   static bool objectIsDateTime(dynamic object) {
     final bool _isDatTime = object?.runtimeType == DateTime;
-
     return _isDatTime;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsGeoPoint(dynamic object) {
     final bool _isGeoPoint = object?.runtimeType == GeoPoint;
-
     return _isGeoPoint;
   }
 // -----------------------------------------------------------------------------
   static bool objectIsTimeStamp(dynamic object) {
     final bool _isTimestamp = object?.runtimeType == Timestamp;
-
     return _isTimestamp;
   }
 // -----------------------------------------------------------------------------
@@ -249,6 +261,7 @@ class ObjectChecker {
     if (object == null){
       _isNull = true;
     }
+
     else {
       _isNull = false;
     }

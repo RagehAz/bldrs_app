@@ -11,7 +11,7 @@ class FireCollPaginator extends StatefulWidget {
   const FireCollPaginator({
     @required this.queryModel,
     @required this.builder,
-    @required this.scrollController,
+    this.scrollController,
     this.loadingWidget,
     this.addExtraMapsAtEnd = true,
     this.child,
@@ -110,21 +110,21 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   ScrollController _controller;
   void listenToScroll(){
 
-    _controller = widget.scrollController;
+    _controller = widget.scrollController ?? ScrollController();
 
     _controller.addListener(() async {
 
       final bool _canPaginate = Scrollers.canPaginate(
-        scrollController: widget.scrollController,
+        scrollController: _controller,
         isPaginating: _isPaginating,
         paginationHeight: 100,
       );
 
-      // Scrollers.blogScrolling(
-      //   scrollController: widget.scrollController,
-      //   isPaginating: _isPaginating,
-      //   paginationHeight: 0,
-      // );
+      Scrollers.blogScrolling(
+        scrollController: _controller,
+        isPaginating: _isPaginating,
+        paginationHeight: 0,
+      );
 
       if (_canPaginate == true){
 
