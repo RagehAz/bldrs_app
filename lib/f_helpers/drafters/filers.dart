@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/fire/methods/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -61,7 +61,7 @@ class Filers {
     File _file;
 
     if (file != null && byteData != null) {
-      final Uint8List _uInts = Floaters.transformByteDataToUint8List(byteData);
+      final Uint8List _uInts = Floaters.getUint8ListFromByteData(byteData);
       _file = await writeUint8ListOnFile(file: file, uint8list: _uInts);
     }
 
@@ -181,7 +181,7 @@ class Filers {
 
 // ---------------------------------------
   /// TAMAM
-  static Future<File> transformLocalRasterAssetToFile({
+  static Future<File> getFileFromLocalRasterAsset({
     @required BuildContext context,
     @required String localAsset,
     int width = 100,
@@ -212,12 +212,12 @@ class Filers {
           //
           // blog('4. file is ${_file.path}');
 
-          final Uint8List _uInt = await Floaters.transformLocalRasterAssetToUint8List(
+          final Uint8List _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
               asset: _asset,
               width: width,
           );
 
-          _file = await transformUint8ListToFile(
+          _file = await getFileFromUint8List(
               uInt8List: _uInt,
               fileName: _fileName,
           );
@@ -228,7 +228,7 @@ class Filers {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> transformUint8ListToFile({
+  static Future<File> getFileFromUint8List({
     @required Uint8List uInt8List,
     @required String fileName,
   }) async {
@@ -246,7 +246,7 @@ class Filers {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> transformUint8ListsToFiles({
+  static Future<List<File>> getFilesFromUint8Lists({
     @required List<Uint8List> uInt8Lists,
     @required List<String> filesNames,
   }) async {
@@ -256,7 +256,7 @@ class Filers {
 
       for (int i = 0; i < uInt8Lists.length; i++){
 
-        final File _file = await transformUint8ListToFile(
+        final File _file = await getFileFromUint8List(
             uInt8List: uInt8Lists[i],
             fileName: filesNames[i],
         );
@@ -273,7 +273,7 @@ class Filers {
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> transformURLToFile(String fileURL) async {
+  static Future<File> getFileFromURL(String fileURL) async {
     blog('getFileFromURL : START');
     /// generate random number.
     final Random _rng = Random();
@@ -305,7 +305,7 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
-  static Future<File> transformDynamicToFile(dynamic pic) async {
+  static Future<File> getFileFromDynamics(dynamic pic) async {
     File _file;
 
     if (pic != null) {
@@ -316,7 +316,7 @@ class Filers {
       //   _file = await getFileFromPickerAsset(pic);
       // }
       else if (ObjectChecker.objectIsURL(pic) == true) {
-        _file = await transformURLToFile(pic);
+        _file = await getFileFromURL(pic);
       }
       else if (ObjectChecker.objectIsJPGorPNG(pic) == true) {
         // _file = await getFile
@@ -326,12 +326,12 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
-  static Future<File> transformBase64ToFile(String base64) async {
+  static Future<File> getFileFromBase64(String base64) async {
 
     final Uint8List _fileAgainAsInt = base64Decode(base64);
     // await null;
 
-    final File _fileAgain = await transformUint8ListToFile(
+    final File _fileAgain = await getFileFromUint8List(
       uInt8List: _fileAgainAsInt,
       fileName: '${Numeric.createUniqueID()}',
     );

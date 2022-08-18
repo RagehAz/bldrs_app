@@ -44,7 +44,6 @@ class CroppingScreen extends StatefulWidget {
     return _imageSpaceHeight;
   }
 // -----------------------------------------------------------------------------
-
 }
 
 class _CroppingScreenState extends State<CroppingScreen> {
@@ -100,7 +99,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
         );
 
         /// GENERATE CROPPED FILES
-        final List<File> _files = await Filers.transformUint8ListsToFiles(
+        final List<File> _files = await Filers.getFilesFromUint8Lists(
           uInt8Lists: _croppedImages.value,
           filesNames: _names,
         );
@@ -126,7 +125,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     if (_isInit) {
       _triggerLoading(setTo: true).then((_) async {
-        _imagesData.value = await Floaters.transformFilesToUint8Lists(widget.files);
+        _imagesData.value = await Floaters.getUint8ListsFromFiles(widget.files);
         _croppedImages.value = _imagesData.value;
         await _triggerLoading(setTo: false);
       });

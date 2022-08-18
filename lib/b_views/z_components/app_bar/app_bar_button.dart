@@ -20,7 +20,7 @@ class AppBarButton extends StatelessWidget {
   final Color verseColor;
   final Color buttonColor;
   final Function onTap;
-  final String icon;
+  final dynamic icon;
   final bool bubble;
   final bool isDeactivated;
   /// --------------------------------------------------------------------------

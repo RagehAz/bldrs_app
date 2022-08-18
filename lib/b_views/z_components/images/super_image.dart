@@ -1,8 +1,14 @@
 import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/local_asset_checker.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -59,7 +65,12 @@ class SuperImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: Colorz.white10,
+      color: Colorz.red255, // Colorz.white10,
+      child: const SuperVerse(
+        verse: 'FOKING ERROR',
+        size: 0,
+        maxLines: 2,
+      ),
     );
   }
 // -----------------------------------------------------------------------------
@@ -142,6 +153,7 @@ class SuperImage extends StatelessWidget {
               /// JPG OR PNG
               ObjectChecker.objectIsJPGorPNG(pic) ?
               LocalAssetChecker(
+                key: const ValueKey<String>('SuperImage_png_or_jpg'),
                 asset: pic,
                 child: Image.asset(
                   pic,
@@ -159,6 +171,7 @@ class SuperImage extends StatelessWidget {
               /// SVG
               ObjectChecker.objectIsSVG(pic) ?
               LocalAssetChecker(
+                key: const ValueKey<String>('SuperImage_svg'),
                 asset: pic,
                 child: WebsafeSvg.asset(
                   pic,
@@ -175,6 +188,7 @@ class SuperImage extends StatelessWidget {
               ObjectChecker.objectIsURL(pic) ?
               Image.network(
                 pic,
+                key: const ValueKey<String>('SuperImage_url'),
                 fit: boxFit,
                 width: width,
                 height: height,
@@ -189,6 +203,7 @@ class SuperImage extends StatelessWidget {
               ObjectChecker.objectIsFile(pic) ?
               Image.file(
                 pic,
+                key: const ValueKey<String>('SuperImage_file'),
                 fit: boxFit,
                 width: width,
                 height: height,
@@ -202,6 +217,7 @@ class SuperImage extends StatelessWidget {
               ObjectChecker.objectIsUint8List(pic) ?
               Image.memory(
                 pic,
+                key: const ValueKey<String>('SuperImage_uInt8List'),
                 fit: boxFit,
                 width: width,
                 height: height,
@@ -215,6 +231,7 @@ class SuperImage extends StatelessWidget {
               ObjectChecker.isBase64(pic) ?
               Image.memory(
                 base64Decode(pic),
+                key: const ValueKey<String>('SuperImage_base64'),
                 fit: boxFit,
                 width: width,
                 height: height,
@@ -223,31 +240,64 @@ class SuperImage extends StatelessWidget {
 
               )
 
-              //     :
-              //
-              // /// ASSET
-              // ObjectChecker.objectIsAsset(pic) ?
-              // AssetThumb(
-              //   asset: pic,
-              //   width: width.toInt(), //(pic.originalWidth).toInt(),
-              //   height: height.toInt(), //(pic.originalHeight).toInt(),
-              //   // quality: 100,
-              //   spinner: const Loading(
-              //     loading: true,
-              //   ),
-              // )
+                  :
+
+              /// UI.IMAGE
+              ObjectChecker.objectIsUiImage(pic) ?
+              FutureBuilder(
+                key: const ValueKey<String>('SuperImage_uiImage'),
+                future: Floaters.getUint8ListFromUiImage(pic),
+                builder: (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot){
+
+                  /// LOADING
+                  if (Streamer.connectionIsLoading(snapshot) == true){
+                    return InfiniteLoadingBox(
+                      width: width,
+                      height: height,
+                    );
+                  }
+
+                  /// UI.IMAGE
+                  else {
+
+                    return Image.memory(
+                      snapshot.data,
+                      fit: boxFit,
+                      width: width,
+                      height: height,
+                      errorBuilder: _errorBuilder,
+                      // scale: 1,
+                    );
+                  }
+
+                },
+              )
+
+                  :
+
+              /// IMG.IMAGE
+              ObjectChecker.objectIsImgImage(pic) ?
+              Image.memory(
+                Floaters.getUint8ListFromImgImage(pic),
+                key: const ValueKey<String>('SuperImage_imgImage'),
+                fit: boxFit,
+                width: width,
+                height: height,
+                errorBuilder: _errorBuilder,
+                // scale: 1,
+              )
 
                   :
 
               Image.asset(
                 Iconz.dvGouran,
+                key: const ValueKey<String>('SuperImage_other'),
                 fit: boxFit,
                 width: width,
                 height: height,
                 errorBuilder: _errorBuilder,
                 scale: 1,
-              )
-              ,
+              ),
 
             ),
           ),
@@ -255,5 +305,46 @@ class SuperImage extends StatelessWidget {
       );
     }
 
+  }
+}
+
+class InfiniteLoadingBox extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const InfiniteLoadingBox({
+    @required this.width,
+    @required this.height,
+    this.color,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final double width;
+  final double height;
+  final Color color;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return WidgetFader(
+      fadeType: FadeType.repeatForwards,
+      curve: Curves.decelerate,
+      duration: const Duration(milliseconds: 1000),
+      builder: (double value, Widget child){
+
+        final double _percentage = value / 1;
+
+        return Container(
+          width: width,
+          height: height,
+          color: Colorz.white50,
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: width,
+            height: height * _percentage,
+            color: color ?? Colorz.white20,
+          ),
+        );
+
+      },
+    );
   }
 }

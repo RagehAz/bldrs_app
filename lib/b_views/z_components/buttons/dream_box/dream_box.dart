@@ -124,7 +124,7 @@ class DreamBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double graphicWidth({
-    String icon,
+    dynamic icon,
     double height,
     bool loading,
     double iconSizeFactor,
@@ -148,9 +148,9 @@ class DreamBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double iconMargin({
+    dynamic icon,
     double height,
     double graphicWidth,
-    String icon,
     String verse,
   }) {
 
