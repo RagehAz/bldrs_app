@@ -352,7 +352,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }) async {
     String _url;
 
-    final File _result = await Filers.transformLocalRasterAssetToFile(
+    final File _result = await Filers.getFileFromLocalRasterAsset(
       context: context,
       localAsset: asset,
     );
@@ -423,7 +423,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       /// NO NEW FILE GIVEN - BUT NEED TO RE-UPLOAD EXISTING URL WITH NEW NAME
       else if (_shouldReUploadExistingURL == true){
 
-        _fileFromURL = await Filers.transformURLToFile(pdf.url);
+        _fileFromURL = await Filers.getFileFromURL(pdf.url);
         final FullMetadata _meta = await getMetadataFromURL(
             context: context,
             url: pdf.url,
@@ -505,7 +505,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
         final Uint8List _uInts = await _ref.getData();
 
-        _file = await Filers.transformUint8ListToFile(
+        _file = await Filers.getFileFromUint8List(
           uInt8List: _uInts,
           fileName: _ref.name,
         );
@@ -545,7 +545,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     if (_ref != null) {
       final Uint8List _uInts = await _ref.getData();
 
-      _file = await Filers.transformUint8ListToFile(
+      _file = await Filers.getFileFromUint8List(
           uInt8List: _uInts,
           fileName: _ref.name
       );
