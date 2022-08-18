@@ -85,7 +85,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       _beat(start: 5550,  duration: 1000, verse: 'Bldrs.net', color: Colorz.yellow255), // 10
       _beat(start: 4800,  duration: 300,  verse: ' - Designers'), // 7
       _beat(start: 5150,  duration: 300,  verse: ' - Contractors'), // 8
-      _beat(start: 5450,  duration: 300,  verse: ' - Craftsmen'), // 9
+      _beat(start: 5450,  duration: 300,  verse: ' - Artisans'), // 9
     ];
 
     _initializeAnimationControllers();

@@ -68,7 +68,7 @@ class LogoSlogan extends StatelessWidget {
             width: _logoWidth,
             // height: _logoHeight * 0.7,
             child: SuperVerse(
-              verse: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Craftsmen', // Wordz.bldrsDescription(context),
+              verse: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans', // Wordz.bldrsDescription(context),
               size: 3,
               weight: VerseWeight.thin,
               shadow: true,

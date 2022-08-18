@@ -428,7 +428,7 @@ class Phrase {
     List<Phrase> _output = <Phrase>[];
 
     if (Mapper.checkCanLoopList(phrases) == true){
-      _output = phrases.where((phr) => phr.langCode == langCode).toList();
+      _output = phrases.where((phr) => phr?.langCode == langCode).toList();
     }
 
     return _output;

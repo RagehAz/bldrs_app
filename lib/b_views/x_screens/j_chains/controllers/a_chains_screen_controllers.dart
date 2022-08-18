@@ -37,8 +37,8 @@ bool allChainsCanNotBeBuilt({
     flyerType: FlyerType.design,
     onlyUseCityChains: true,
   );
-  final Chain _craftChain = _chainsProvider.getChainKByFlyerType(
-    flyerType: FlyerType.craft,
+  final Chain _tradesChain = _chainsProvider.getChainKByFlyerType(
+    flyerType: FlyerType.trade,
     onlyUseCityChains: true,
   );
   final Chain _productChain = _chainsProvider.getChainKByFlyerType(
@@ -55,7 +55,7 @@ bool allChainsCanNotBeBuilt({
   if (
   canBuildChain(_propertyChain) == false &&
       canBuildChain(_designChain) == false &&
-      canBuildChain(_craftChain) == false &&
+      canBuildChain(_tradesChain) == false &&
       canBuildChain(_productChain) == false &&
       canBuildChain(_equipmentChain) == false
 

@@ -288,7 +288,7 @@ String pathOfSubDoc({
   }) async {
     DocumentReference<Object> _ref;
 
-    Mapper.blogMap(input, methodName: 'createNamedDoc : [ $collName/$collName ]');
+    // Mapper.blogMap(input, methodName: 'createNamedDoc : [ $collName/$collName ]');
 
     await tryAndCatch(
         context: context,
