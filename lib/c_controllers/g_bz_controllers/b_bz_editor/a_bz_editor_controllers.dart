@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -117,14 +117,14 @@ void onSelectBzForm({
 // ----------------------------------
 Future<void> takeBzLogo({
   @required BuildContext context,
-  @required ValueNotifier<dynamic> bzLogo,
+  @required ValueNotifier<FileModel> bzLogo,
   @required ImagePickerType imagePickerType,
 }) async {
 
-  File _imageFile;
+  FileModel _imageFileModel;
 
   if(imagePickerType == ImagePickerType.galleryImage){
-    _imageFile = await Imagers.pickAndCropSingleImage(
+    _imageFileModel = await Imagers.pickAndCropSingleImage(
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
@@ -132,7 +132,7 @@ Future<void> takeBzLogo({
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
-    _imageFile = await Imagers.shootAndCropCameraImage(
+    _imageFileModel = await Imagers.shootAndCropCameraImage(
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
@@ -140,8 +140,8 @@ Future<void> takeBzLogo({
     );
   }
 
-  if (_imageFile != null){
-    bzLogo.value = _imageFile;
+  if (_imageFileModel != null){
+    bzLogo.value = _imageFileModel;
   }
 
 }
@@ -342,7 +342,7 @@ BzModel createBzModelFromLocalVariables({
   @required ValueNotifier<BzForm> selectedBzForm,
   @required BzModel initialBzModel,
   @required TextEditingController bzNameTextController,
-  @required ValueNotifier<dynamic> bzLogo,
+  @required ValueNotifier<FileModel> bzLogo,
   @required ValueNotifier<ZoneModel> bzZone,
   @required TextEditingController bzAboutTextController,
   @required ValueNotifier<GeoPoint> bzPosition,
@@ -357,7 +357,7 @@ BzModel createBzModelFromLocalVariables({
     accountType: initialBzModel.accountType, /// NEVER CHANGED
     name: bzNameTextController.text,
     trigram: Stringer.createTrigram(input: bzNameTextController.text),
-    logo: bzLogo.value, /// WILL CHECK DATA TYPE
+    logo: bzLogo.value.file, /// WILL CHECK DATA TYPE
     scope: SpecModel.getSpecsIDs(selectedScopes.value),
     zone: bzZone.value,
     about: bzAboutTextController.text,

@@ -476,7 +476,6 @@ List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
 ];
 
 List<SpecPicker> productSpecsPickers = const <SpecPicker>[
-
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------

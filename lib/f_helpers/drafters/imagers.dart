@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -40,7 +39,7 @@ class Imagers {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> pickAndCropSingleImage({
+  static Future<FileModel> pickAndCropSingleImage({
     @required BuildContext context,
     @required bool cropAfterPick,
     @required bool isFlyerRatio,
@@ -48,14 +47,14 @@ class Imagers {
     AssetEntity selectedAsset,
   }) async {
 
-    File _file;
+    FileModel _fileModel;
 
     final List<AssetEntity> _assets = selectedAsset == null ?
     <AssetEntity>[]
         :
     <AssetEntity>[selectedAsset];
 
-    final List<File> _files = await pickAndCropMultipleImages(
+    final List<FileModel> _fileModels = await pickAndCropMultipleImages(
       context: context,
       maxAssets: 1,
       selectedAssets: _assets,
@@ -64,15 +63,15 @@ class Imagers {
       resizeToWidth: resizeToWidth,
     );
 
-    if (Mapper.checkCanLoopList(_files) == true){
-      _file = _files.first;
+    if (Mapper.checkCanLoopList(_fileModels) == true){
+      _fileModel = _fileModels.first;
     }
 
-    return _file;
+    return _fileModel;
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> pickAndCropMultipleImages({
+  static Future<List<FileModel>> pickAndCropMultipleImages({
     @required BuildContext context,
     @required bool isFlyerRatio,
     @required bool cropAfterPick,
@@ -82,41 +81,35 @@ class Imagers {
   }) async {
 
     /// PICK
-    List<File> _files = await _pickMultipleImages(
+    List<FileModel> _fileModels = await _pickMultipleImages(
       context: context,
       maxAssets: maxAssets,
       selectedAssets: selectedAssets,
     );
 
-    blog('picked : ${_files.length} files');
-
     /// CROP
-    if (cropAfterPick == true && Mapper.checkCanLoopList(_files) == true){
-      _files = await cropImages(
+    if (cropAfterPick == true && Mapper.checkCanLoopList(_fileModels) == true){
+      _fileModels = await cropImages(
         context: context,
-        pickedFiles: _files,
+        pickedFileModels: _fileModels,
         isFlyerRatio: isFlyerRatio,
       );
     }
 
-    blog('cropped : ${_files.length} files');
-
     /// RESIZE
-    if (resizeToWidth != null && Mapper.checkCanLoopList(_files) == true){
-      _files = await resizeImages(
-          inputFiles: _files,
+    if (resizeToWidth != null && Mapper.checkCanLoopList(_fileModels) == true){
+      _fileModels = await resizeImages(
+          inputFileModels: _fileModels,
           resizeToWidth: resizeToWidth,
           isFlyerRatio: isFlyerRatio,
       );
     }
 
-    blog('resized : ${_files.length} files');
-
-    return _files;
+    return _fileModels;
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> _pickMultipleImages({
+  static Future<List<FileModel>> _pickMultipleImages({
     @required BuildContext context,
     @required int maxAssets,
     List<AssetEntity> selectedAssets,
@@ -243,13 +236,22 @@ class Imagers {
       ),
     );
 
-    final List<File> _output = <File>[];
+    final List<FileModel> _output = <FileModel>[];
 
     if (Mapper.checkCanLoopList(pickedAssets) == true){
 
       for (final AssetEntity asset in pickedAssets){
+
         final File _file = await asset.file;
-        _output.add(_file);
+
+        final FileModel _fileModel = FileModel(
+          size: Filers.getFileSize(_file),
+          fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
+          file: _file,
+          url: null,
+        );
+
+        _output.add(_fileModel);
       }
 
     }
@@ -262,53 +264,55 @@ class Imagers {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> shootAndCropCameraImage({
+  static Future<FileModel> shootAndCropCameraImage({
     @required BuildContext context,
     @required bool cropAfterPick,
     @required bool isFlyerRatio,
     double resizeToWidth,
   }) async {
 
+    FileModel _output;
+
     /// SHOOT
-    File _file = await _shootCameraImage(
+    final FileModel _fileModel = await _shootCameraImage(
       context: context,
     );
 
     /// CROP - RESIZE
-    if (_file != null){
+    if (_fileModel != null){
 
-      List<File> _files = <File>[_file];
+      List<FileModel> _outputFiles = <FileModel>[_fileModel];
 
       /// CROP
-      if (cropAfterPick == true && _file != null){
-        _files = await cropImages(
+      if (cropAfterPick == true){
+        _outputFiles = await cropImages(
           context: context,
-          pickedFiles: <File>[_file],
+          pickedFileModels: _outputFiles,
           isFlyerRatio: isFlyerRatio,
         );
       }
 
       /// RESIZE
-      if (resizeToWidth != null && _file != null){
-        _files = await resizeImages(
-          inputFiles: _files,
+      if (resizeToWidth != null){
+        _outputFiles = await resizeImages(
+          inputFileModels: _outputFiles,
           resizeToWidth: resizeToWidth,
           isFlyerRatio: isFlyerRatio,
         );
       }
 
       /// ASSIGN THE FILE
-      if (Mapper.checkCanLoopList(_files) == true){
-        _file = _files.first;
+      if (Mapper.checkCanLoopList(_outputFiles) == true){
+        _output = _outputFiles.first;
       }
 
     }
 
-    return _file;
+    return _output;
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> _shootCameraImage({
+  static Future<FileModel> _shootCameraImage({
     @required BuildContext context,
   }) async {
 
@@ -364,7 +368,14 @@ class Imagers {
 
     final File _file = await entity?.file;
 
-    return _file;
+    final FileModel _fileModel = FileModel(
+      size: Filers.getFileSize(_file),
+      fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
+      file: _file,
+      url: null,
+    );
+
+    return _fileModel;
   }
 // -----------------------------------------------------------------
 
@@ -372,49 +383,49 @@ class Imagers {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> cropImage({
+  static Future<FileModel> cropImage({
     @required BuildContext context,
-    @required File pickedFile,
+    @required FileModel pickedFile,
     @required bool isFlyerRatio,
 }) async {
 
-    File _file;
+    FileModel _fileModel;
 
-    final List<File> _files = await cropImages(
+    final List<FileModel> _fileModels = await cropImages(
       context: context,
-      pickedFiles: <File>[pickedFile],
+      pickedFileModels: <FileModel>[pickedFile],
       isFlyerRatio: isFlyerRatio,
     );
 
-    if (Mapper.checkCanLoopList(_files) == true){
-      _file = _files.first;
+    if (Mapper.checkCanLoopList(_fileModels) == true){
+      _fileModel = _fileModels.first;
     }
 
-    return _file;
+    return _fileModel;
 }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> cropImages({
+  static Future<List<FileModel>> cropImages({
     @required BuildContext context,
-    @required List<File> pickedFiles,
+    @required List<FileModel> pickedFileModels,
     @required bool isFlyerRatio,
   }) async {
 
-    List<File> _files = <File>[];
+    List<FileModel> _fileModels = <FileModel>[];
 
-    if (Mapper.checkCanLoopList(pickedFiles) == true){
+    if (Mapper.checkCanLoopList(pickedFileModels) == true){
 
-      _files = await Nav.goToNewScreen(
+      _fileModels = await Nav.goToNewScreen(
         context: context,
         screen: CroppingScreen(
-          files: pickedFiles,
+          fileModels: pickedFileModels,
           aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
         ),
       );
 
     }
 
-    return _files;
+    return _fileModels;
   }
 // -----------------------------------------------------------------
 
@@ -422,26 +433,32 @@ class Imagers {
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<File>> resizeImages({
-    @required List<File> inputFiles,
+  static Future<List<FileModel>> resizeImages({
+    @required List<FileModel> inputFileModels,
     @required double resizeToWidth,
     @required bool isFlyerRatio,
   }) async {
-    List<File> _files = <File>[];
 
-    if (Mapper.checkCanLoopList(inputFiles) == true){
+    List<FileModel> _fileModels = <FileModel>[];
 
-      _files = await Filers.resizeImages(
-        files: inputFiles,
+    if (Mapper.checkCanLoopList(inputFileModels) == true){
+
+      final List<File> _files = await Filers.resizeImages(
+        files: FileModel.getFilesFromModels(inputFileModels),
         aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
         finalWidth: resizeToWidth,
       );
 
+      if (Mapper.checkCanLoopList(_files) == true){
+        _fileModels = FileModel.createModelsByNewFiles(_files);
+      }
+
     }
 
-    return _files;
+    return _fileModels;
   }
 // -----------------------------------------------------------------
+
   /// CHECKERS
 
 // ---------------------------------------
