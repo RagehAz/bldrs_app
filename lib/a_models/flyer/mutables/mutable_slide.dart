@@ -119,7 +119,7 @@ class MutableSlide {
     @required SlideModel slide,
   }) async {
 
-    final File _file = await Filers.transformURLToFile(slide.pic);
+    final File _file = await Filers.getFileFromURL(slide.pic);
 
     return MutableSlide(
       slideIndex: slide.slideIndex,

@@ -489,7 +489,7 @@ class SlideModel {
 
     if (Mapper.checkCanLoopList(slides)) {
       for (final SlideModel slide in slides) {
-        final File _file = await Filers.transformURLToFile(slide.pic);
+        final File _file = await Filers.getFileFromURL(slide.pic);
 
         _files.add(_file);
       }

@@ -71,7 +71,7 @@ class UserFireOps {
     else if (ObjectChecker.objectIsURL(userModel.pic) == true) {
       /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthType.facebook || authBy == AuthType.google) {
-        final File _picFile = await Filers.transformURLToFile(userModel.pic);
+        final File _picFile = await Filers.getFileFromURL(userModel.pic);
         _userPicURL = await Storage.createStoragePicAndGetURL(
           context: context,
           inputFile: _picFile,

@@ -23,7 +23,7 @@ class Trinity {
   static Matrix4 decipherMatrix(List<dynamic> doubles){
     Matrix4 _matrix;
 
-    final List<double> _doubles = Floaters.transformDynamicsToDoubles(doubles);
+    final List<double> _doubles = Floaters.getDoublesFromDynamics(doubles);
 
     if (_doubles != null && _doubles.length == 16){
       _matrix = Matrix4.fromList(_doubles);

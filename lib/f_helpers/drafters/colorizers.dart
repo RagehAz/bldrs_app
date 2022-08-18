@@ -122,7 +122,7 @@ class Colorizer {
   /// TESTED : WORKS PERFECT
   static Future<Color> getAverageColor(dynamic pic) async {
 
-    final File _imageFile = await Filers.transformDynamicToFile(pic);
+    final File _imageFile = await Filers.getFileFromDynamics(pic);
 
     final Image.Image bitmap = Image.decodeImage(_imageFile.readAsBytesSync());
 
