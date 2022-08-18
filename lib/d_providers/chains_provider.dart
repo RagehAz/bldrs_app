@@ -675,6 +675,15 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String proGetPhidIcon({
+    @required BuildContext context,
+    @required dynamic son,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    return _chainsProvider.getPhidIcon(context: context, son: son);
+  }
 // -----------------------------------------------------------------------------o
   Future<void> changeHomeWallFlyerType({
     @required BuildContext context,
