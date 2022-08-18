@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/user_profile/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
@@ -54,25 +53,27 @@ class UserProfilePage extends StatelessWidget {
       listen: true,
     );
 
-    return ListView(
+    return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: <Widget>[
+      // padding: Stratosphere.stratosphereSandwich,
+      child: Column(
+        children: <Widget>[
 
-        /// USER BANNER
-        UserBanner(
+          /// USER BANNER
+          UserBanner(
             userModel: _userModel,
-        ),
+          ),
 
-        /// CONTACTS
-        if (showContacts == true)
-        ContactsBubble(
-          contacts: _userModel?.contacts,
-          location: _userModel?.location,
-          canLaunchOnTap: true,
-        ),
+          /// CONTACTS
+          if (showContacts == true)
+            ContactsBubble(
+              contacts: _userModel?.contacts,
+              location: _userModel?.location,
+              canLaunchOnTap: true,
+            ),
 
-      ],
+        ],
+      ),
     );
   }
 }

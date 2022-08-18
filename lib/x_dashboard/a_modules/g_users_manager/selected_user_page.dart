@@ -252,14 +252,19 @@ class SelectedUserPage extends StatelessWidget {
               usersModels: usersModels,
             );
 
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: _widgets.length,
-              itemBuilder: (_, index){
+            return Container(
+              width: PageBubble.width(context),
+              height: PageBubble.height(appBarType: AppBarType.search, context: context, screenHeight: screenHeight),
+              color: Colorz.bloodTest,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: _widgets.length,
+                itemBuilder: (_, index){
 
-                return _widgets[index];
+                  return _widgets[index];
 
-              },
+                },
+              ),
             );
 
           }

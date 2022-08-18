@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as img;
+import 'package:path/path.dart';
 
 class Filers {
 // -----------------------------------------------------------------
@@ -155,12 +156,11 @@ class Filers {
 
     if (file != null){
 
-      final String _fileNameWithExtension = getFileNameFromFile(
-        file: file,
-        withExtension: true,
-      );
+      /// '.jpg' - '.png' '.pdf'
+      final String _dotExtension = extension(file.path);
 
-      _fileExtension = TextMod.removeTextBeforeLastSpecialCharacter(_fileNameWithExtension, '.');
+      /// 'jpg' - 'png' 'pdf'
+      _fileExtension = TextMod.removeTextBeforeLastSpecialCharacter(_dotExtension, '.');
 
     }
 
