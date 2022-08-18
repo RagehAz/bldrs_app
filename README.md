@@ -3,7 +3,7 @@
 
 **The Builders Network**
 
-_Connect with Developers, Brokers, Manufacturers, Suppliers, Designers, Contractors and Craftsmen._
+_Connect with Developers, Brokers, Manufacturers, Suppliers, Designers, Contractors and Artisans._
 
 -----------------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ All Business Entities can have a `BusinessForm` of ( `Company` or `Individual en
 
 - `Designers`       : { Design / Engineer } properties.  
 - `Contractors`     : { Manage } properties construction.
-- `Craftsmen`       : { Construct } properties.
+- `Artisans`       : { Construct } properties.
 
 `Supplies Section`:
 

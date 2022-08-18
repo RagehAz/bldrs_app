@@ -404,7 +404,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     // ----------------------------
     /// CONSTRUCTION ACTIVITIES
     SpecPicker(
-        chainID: 'phid_k_flyer_type_crafts',
+        chainID: 'phid_k_flyer_type_trades',
         groupID: 'Construction Activities',
         canPickMany: true,
         isRequired: false,
@@ -434,13 +434,13 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     // ------------------------------------------------------------
 ];
 
-List<SpecPicker> craftSpecsPickers = const <SpecPicker>[
+List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
     /// TYPE
     SpecPicker(
-        chainID: 'phid_k_flyer_type_crafts',
+        chainID: 'phid_k_flyer_type_trades',
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,

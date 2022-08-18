@@ -57,7 +57,7 @@ import 'package:flutter/cupertino.dart';
 //   // propertySpaces, // from a list
 //   // -------------------------------------------------------------------------
 //
-//   /// CRAFTS
+//   /// Trades
 //
 //   // ------------------------------------------
 //   /// PRICING
@@ -424,7 +424,7 @@ class SpecModel {
     'phid_k_flyer_type_property',
     'phid_k_flyer_type_design',
     'phid_k_flyer_type_design',
-    'phid_k_flyer_type_crafts',
+    'phid_k_flyer_type_trades',
     'phid_k_flyer_type_product',
     'phid_k_flyer_type_equipment',
   ];
