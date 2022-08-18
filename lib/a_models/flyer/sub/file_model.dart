@@ -48,8 +48,11 @@ class FileModel {
       _model = FileModel(
           url: null,
           file: file,
-          fileName: Filers.getFileNameFromFile(file: file),
           size: Filers.getFileSize(file),
+          fileName: Filers.getFileNameFromFile(
+            file: file,
+            withExtension: true,
+          ),
       );
     }
 
@@ -308,7 +311,10 @@ class FileModel {
         /// MISSING NAME
         if (Stringer.checkStringIsEmpty(_output.fileName) == true){
           _output = _output.copyWith(
-            fileName: Filers.getFileNameFromFile(file: _output.file),
+            fileName: Filers.getFileNameFromFile(
+              file: _output.file,
+              withExtension: true,
+            ),
           );
         }
 

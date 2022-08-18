@@ -192,29 +192,35 @@ Future<void> _addImagesForNewFlyer({
   if(mounted){
 
     if (imagePickerType == ImagePickerType.galleryImage){
+
       final List<File> _files = await Imagers.pickAndCropMultipleImages(
         context: context,
         // maxAssets: 10,
         isFlyerRatio: true,
         cropAfterPick: false,
-        resizeToWidth: null,
+        resizeToWidth: Standards.slideWidthPixels,
       );
+
       if (Mapper.checkCanLoopList(_files) == true){
         _pickedFiles = _files;
       }
+
     }
 
     else if (imagePickerType == ImagePickerType.cameraImage){
+
       final File _file = await Imagers.shootAndCropCameraImage(
         context: context,
         // maxAssets: 10,
         isFlyerRatio: true,
         cropAfterPick: false,
-        resizeToWidth: null,
+        resizeToWidth: Standards.slideWidthPixels,
       );
+
       if (_file != null){
         _pickedFiles = <File>[_file];
       }
+
     }
 
 

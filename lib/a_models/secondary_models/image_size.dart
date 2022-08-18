@@ -109,9 +109,9 @@ class ImageSize {
       }
        */
       // --------------------------o
-      else if (_isFile) {
+      else if (_isFile == true) {
         // blog('_isFile staring aho : $_isFile');
-        _uInt8List = await image.readAsBytesSync();
+        _uInt8List = await Floaters.getUint8ListFromFile(image);
         // blog('_uInt8List : $_uInt8List');
         _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
         // blog('_decodedImage : $_decodedImage');
