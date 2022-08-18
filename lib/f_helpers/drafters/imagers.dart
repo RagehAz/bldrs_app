@@ -15,6 +15,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 import 'package:image/image.dart' as img;
 
+
 enum ImagePickerType {
   cameraImage,
   galleryImage,
@@ -388,17 +389,17 @@ class Imagers {
 
     }
 
-    // if (Mapper.checkCanLoopList(_files) == true){
-    //
-    //   blog('cropImages : file aho : ${_files[0]}');
-    //
-    //   _files = await resizeImages(
-    //     files: _files,
-    //     aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
-    //     finalWidth: resizeToWidth,
-    //   );
-    //
-    // }
+    if (Mapper.checkCanLoopList(_files) == true){
+
+      blog('cropImages : file aho : ${_files[0]}');
+
+      _files = await resizeImages(
+        files: _files,
+        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+        finalWidth: resizeToWidth,
+      );
+
+    }
 
     return _files;
   }
@@ -420,42 +421,37 @@ class Imagers {
 
     if (file != null){
 
-      // final Uint8List uint = await Floaters.transformFileToUint8List(file);
+      final Uint8List uint = await Floaters.getUint8ListFromFile(file);
 
-      // blog('resizeImage : uint : $uint');
+      blog('resizeImage : uint : $uint');
 
-      // final img.Image _image = img.decodeImage(uint);
-      //
-      // blog('resizeImage : _image : $_image');
-      //
-      // final img.Image _resized = img.copyResize(
-      //   _image,
-      //   width: finalWidth.floor(),
-      //   height: (aspectRatio * finalWidth.floor()).floor(),
-      //   interpolation: img.Interpolation.average,
-      // );
-      //
-      // blog('resizeImage : _resized $_resized');
-      //
-      // /// ENCODED IMAGE
-      // final Uint8List _asJpegEncoded = img.encodeJpg(_resized, quality: 100);
-      //
-      // blog('resizeImage : _asJpegEncoded $_asJpegEncoded');
-      //
-      // final Uint8List _uInts = _resized.
+      final img.Image _imgImage = await Floaters.getImgImageFromUint8List(uint);
 
-      // final File _refile = await Filers.transformUint8ListToFile(
-      //     uInt8List: uint,
-      //     fileName: 'kos ommak',
-      // );
+      blog('resizeImage : _imgImage : $_imgImage');
 
-      // blog('resizeImage : _refile $_refile');
-      //
-      // _output = _refile;
+      final img.Image _resized = Floaters.resizeImgImage(
+          imgImage: _imgImage,
+          width: finalWidth.floor(),
+          height:  (aspectRatio * finalWidth.floor()).floor(),
+      );
+
+      blog('resizeImage : _resized $_resized');
+
+      final Uint8List _uIntAgain = Floaters.getUint8ListFromImgImage(_resized);
+
+
+      final File _refile = await Filers.getFileFromUint8List(
+          uInt8List: _uIntAgain,
+          fileName: 'kos ommak',
+      );
+
+      blog('resizeImage : _refile $_refile');
+
+      _output = _refile;
 
     }
 
-    return file;
+    return _output;
   }
 // ---------------------------------------
   static Future<List<File>> resizeImages({

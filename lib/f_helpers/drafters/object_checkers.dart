@@ -4,6 +4,8 @@ import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart' as img;
+import 'dart:ui' as ui;
 
 // -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
@@ -136,6 +138,36 @@ class ObjectChecker {
     }
 
     return _objectIsJPGorPNG;
+  }
+// -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool objectIsUiImage(dynamic object){
+    bool _isUiImage = false;
+
+    if (object != null){
+
+      if (object is ui.Image){
+        _isUiImage = true;
+      }
+
+    }
+
+    return _isUiImage;
+  }
+// -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool objectIsImgImage(dynamic object){
+    bool _isImgImage = false;
+
+    if (object != null){
+
+      if (object is img.Image){
+        _isImgImage = true;
+      }
+
+    }
+
+    return _isImgImage;
   }
 // -----------------------------------------------------------------------------
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {

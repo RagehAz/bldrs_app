@@ -39,7 +39,7 @@ class SuperFilteredImage extends StatefulWidget {
 
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
-      Uint8List _uint8List = await Floaters.transformFileToUint8List(input);
+      Uint8List _uint8List = await Floaters.getUint8ListFromFile(input);
 
       final image_editor.ImageEditorOption option = image_editor.ImageEditorOption();
 
@@ -62,7 +62,7 @@ class SuperFilteredImage extends StatefulWidget {
 
       blog('processImage : uint7list is : $_uint8List');
 
-      final File _output = await Filers.transformUint8ListToFile(
+      final File _output = await Filers.getFileFromUint8List(
         uInt8List: _uint8List,
         fileName: Filers.getFileNameFromFile(
           file: input,

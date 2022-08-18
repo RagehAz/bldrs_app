@@ -15,10 +15,11 @@ class WideButton extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.width,
     this.iconSizeFactor = 0.6,
+    this.verseScaleFactor = 1,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String icon;
+  final dynamic icon;
   final Function onTap;
   final String verse;
   final bool isActive;
@@ -26,6 +27,7 @@ class WideButton extends StatelessWidget {
   final Color verseColor;
   final double width;
   final double iconSizeFactor;
+  final double verseScaleFactor;
   /// --------------------------------------------------------------------------
   static const double height = 50;
   @override
@@ -38,6 +40,7 @@ class WideButton extends StatelessWidget {
       width: _buttonWith,
       verse: verse,
       verseColor: verseColor,
+      verseScaleFactor: verseScaleFactor,
       icon: icon,
       iconSizeFactor: iconSizeFactor,
       verseCentered: false,

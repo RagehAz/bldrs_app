@@ -77,7 +77,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final Color highlightColor;
   /// ----------------------------------------------------------------------------
   static CrossAxisAlignment versesCrossAlignment({
-    String icon,
+    dynamic icon,
     TextDirection textDirection,
     String secondLine,
     bool verseCentered

@@ -289,7 +289,7 @@ class FileModel {
         /// MISSING FILE
         if (_output.file == null){
           _output = _output.copyWith(
-            file: await Filers.transformURLToFile(_output.url),
+            file: await Filers.getFileFromURL(_output.url),
           );
         }
 
