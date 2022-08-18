@@ -436,7 +436,7 @@ String getSectionIcon({
     flyerType == FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
     flyerType == FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
     flyerType == FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-    flyerType == FlyerType.trade ? 'By Artists, Craftsmen & Technicians.' : //Wordz.constructionTagLine(context) :
+    flyerType == FlyerType.trade ? 'By Artisans, Craftsmen & Technicians.' : //Wordz.constructionTagLine(context) :
     flyerType == FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
     flyerType == FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 

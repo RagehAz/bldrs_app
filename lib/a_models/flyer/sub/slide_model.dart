@@ -583,7 +583,7 @@ class SlideModel {
     if (mSlide != null) {
       _slideModel = SlideModel(
         slideIndex: mSlide.slideIndex,
-        pic: mSlide.picURL ?? mSlide.picFile,
+        pic: mSlide.picURL ?? mSlide.picFileModel,
         headline: mSlide.headline.text,
         description: mSlide.description.text,
         picFit: mSlide.picFit,

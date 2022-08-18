@@ -511,7 +511,7 @@ class FlyerModel {
     if (flyer1.score != flyer2.score){
       blog('flyers scores are not identical');
     }
-    if (FileModel.checkFileModelsAreIdentical(pdf1: flyer1.pdf, pdf2: flyer2.pdf) == false){
+    if (FileModel.checkFileModelsAreIdentical(model1: flyer1.pdf, model2: flyer2.pdf) == false){
       blog('flyers pdfs are not identical');
     }
 

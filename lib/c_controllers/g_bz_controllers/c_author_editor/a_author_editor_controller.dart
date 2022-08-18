@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:io';
+
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -24,10 +25,10 @@ Future<void> takeAuthorImage({
   @required ImagePickerType imagePickerType,
 }) async {
 
-  File _imageFile;
+  FileModel _imageFileModel;
 
   if(imagePickerType == ImagePickerType.galleryImage){
-    _imageFile = await Imagers.pickAndCropSingleImage(
+    _imageFileModel = await Imagers.pickAndCropSingleImage(
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
@@ -35,7 +36,7 @@ Future<void> takeAuthorImage({
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
-    _imageFile = await Imagers.shootAndCropCameraImage(
+    _imageFileModel = await Imagers.shootAndCropCameraImage(
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
@@ -43,9 +44,9 @@ Future<void> takeAuthorImage({
     );
   }
 
-  if (_imageFile != null){
+  if (_imageFileModel != null){
     author.value = author.value.copyWith(
-      pic: _imageFile,
+      pic: _imageFileModel.file,
     );
   }
 

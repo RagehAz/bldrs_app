@@ -195,7 +195,8 @@ class DraftFlyerModel{
         bzID: flyerModel.bzID,
         position: flyerModel.position,
         mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
-            slides: flyerModel.slides
+          slides: flyerModel.slides,
+          flyerID: flyerModel.id,
         ),
         specs: flyerModel.specs,
         times: flyerModel.times,

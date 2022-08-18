@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -33,10 +31,10 @@ Future<void> takeUserPicture({
 
     canPickImage.value = false;
 
-    File _imageFile;
+    FileModel _imageFileModel;
 
     if(imagePickerType == ImagePickerType.galleryImage){
-      _imageFile = await Imagers.pickAndCropSingleImage(
+      _imageFileModel = await Imagers.pickAndCropSingleImage(
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
@@ -44,7 +42,7 @@ Future<void> takeUserPicture({
       );
     }
     else if (imagePickerType == ImagePickerType.cameraImage){
-      _imageFile = await Imagers.shootAndCropCameraImage(
+      _imageFileModel = await Imagers.shootAndCropCameraImage(
         context: context,
         cropAfterPick: true,
         isFlyerRatio: false,
@@ -53,7 +51,7 @@ Future<void> takeUserPicture({
     }
 
     /// IF DID NOT PIC ANY IMAGE
-    if (_imageFile == null) {
+    if (_imageFileModel == null) {
       blog('takeUserPicture : did not take user picture');
       // picture.value = null;
       canPickImage.value = true;
@@ -61,8 +59,8 @@ Future<void> takeUserPicture({
 
     /// IF PICKED AN IMAGE
     else {
-      blog('takeUserPicture : we got the pic in : ${_imageFile?.path}');
-      fileModel.value = FileModel.createModelByNewFile(_imageFile);
+      blog('takeUserPicture : we got the pic in : ${_imageFileModel?.file}');
+      fileModel.value = _imageFileModel;
       canPickImage.value = true;
     }
 
