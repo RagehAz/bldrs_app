@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class CountryEditorPage extends StatefulWidget {
@@ -20,12 +21,13 @@ class CountryEditorPage extends StatefulWidget {
   const CountryEditorPage({
     @required this.country,
     @required this.screenHeight,
+    @required this.onCityTap,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final double screenHeight;
+  final Function onCityTap;
   /// --------------------------------------------------------------------------
   @override
   _CountryEditorPageState createState() => _CountryEditorPageState();
@@ -149,6 +151,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     return PageBubble(
       screenHeightWithoutSafeArea: widget.screenHeight,
       appBarType: AppBarType.basic,
+      color: Colorz.black80,
       child: ValueListenableBuilder(
         valueListenable: _countryModel,
         builder: (_, CountryModel country, Widget child){
@@ -160,6 +163,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
           return ListView(
             physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             children: <Widget>[
 
               /// ID
@@ -188,6 +192,13 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                 width: _clearWidth,
                 dataKey: 'Lang',
                 dataValue: country.language,
+              ),
+
+              /// CITIES
+              WideButton(
+                width: PageBubble.clearWidth(context),
+                verse: 'View ${country.citiesIDs.length} Cities',
+                onTap: widget.onCityTap,
               ),
 
               const DotSeparator(),
@@ -237,7 +248,6 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   leadingIconBoxColor: Colorz.grey50,
                   headline: 'Country is Activated',
                   hasSwitch: true,
-                  hasMoreButton: true,
                   onSwitchTap: (bool val) {
                     _countryModel.value = _countryModel.value.copyWith(
                       isActivated: val,
@@ -246,8 +256,9 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   switchIsOn: country.isActivated,
 
                 ),
-                secondLine: 'When Country is Deactivated, '
-                    'only business authors may see it while creating business profile',
+                secondLine: 'The Main Country Switch.. When Activated, '
+                    'Users can see it and use it accordingly'
+                    '\n When Deactivated, Bldrs.net is not switched on for that country',
               ),
 
               /// --- IS GLOBAL
@@ -265,7 +276,11 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   },
                   switchIsOn: country.isGlobal,
                 ),
-                secondLine: 'When Country is not Global, only users of this country will see its businesses and flyers',
+                secondLine: 'Country is only Local by Default, '
+                    'where only Users in this country can see themselves '
+                    '...When Global, Anybody in the world can view this country'
+                    '\nBoth businesses and users of other countries may be '
+                    "able to browse this country's Flyers, Businesses & Questions if Country went Global",
               ),
 
               const DotSeparator(),
