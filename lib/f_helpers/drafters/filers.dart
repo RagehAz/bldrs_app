@@ -16,6 +16,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as img;
 
 class Filers {
 // -----------------------------------------------------------------
@@ -27,10 +28,13 @@ class Filers {
 /// CREATORS - WRITING
 
 // ---------------------------------------
-
   /// TESTED : WORKS PERFECT
   static Future<File> createNewEmptyFile({
     @required String fileName,
+    /// APP DIRECTORY
+    /// /data/user/0/com.bldrs.net/app_flutter/{fileName}
+    /// TEMPORARY DIRECTORY
+    /// /data/user/0/com.bldrs.net/cache/{fileName}
     bool useTemporaryDirectory = true,
   }) async {
 
@@ -54,6 +58,7 @@ class Filers {
     return file;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<File> writeBytesOnFile({
     @required File file,
     @required ByteData byteData,
@@ -91,13 +96,14 @@ class Filers {
 
     final String _appDocPath = _appDocDir.path;
     final String _filePath = '$_appDocPath/$fileName';
+
     return _filePath;
   }
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
   static String getFileNameFromFile({
     @required File file,
-    bool withExtension = false,
+    @required bool withExtension,
   }){
     String _fileName;
 
@@ -115,9 +121,10 @@ class Filers {
     return _fileName;
   }
 // ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<String>> getFilesNamesFromFiles({
     @required List<File> files,
-    bool withExtension = false,
+    @required bool withExtension,
   }) async {
 
     final List<String> _names = <String>[];
@@ -161,18 +168,26 @@ class Filers {
   }
 // -----------------------------------------------------------------
 
-  /// GETTERS
+  /// SIZE
 
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
   static double getFileSize(File file){
-    final int sizeInBytes = file.lengthSync();
-    final double sizeInMb = sizeInBytes / (1024 * 1024);
-    final double _output = Numeric.roundFractions(sizeInMb, 1);
 
-    blog(
-          'getFileSize : sizeInBytes : $sizeInBytes : sizeInMb : $sizeInMb : _output : $_output'
-    );
+    double _output;
+
+    if (file != null){
+
+      final int sizeInBytes = file.lengthSync();
+      final double sizeInMb = sizeInBytes / (1024 * 1024);
+      _output = Numeric.roundFractions(sizeInMb, 1);
+
+      blog('getFileSize : '
+          'sizeInBytes : $sizeInBytes : '
+          'sizeInMb : $sizeInMb : '
+          '_output : $_output');
+    }
+
     return _output;
   }
 // -----------------------------------------------------------------
@@ -180,6 +195,8 @@ class Filers {
   /// TRANSFORMERS
 
 // ---------------------------------------
+  /// LOCAL RASTER ASSET
+// ---------------------
   /// TAMAM
   static Future<File> getFileFromLocalRasterAsset({
     @required BuildContext context,
@@ -227,6 +244,8 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
+  /// Uint8List
+// ---------------------
   /// TESTED : WORKS PERFECT
   static Future<File> getFileFromUint8List({
     @required Uint8List uInt8List,
@@ -234,7 +253,7 @@ class Filers {
   }) async {
 
     final File _file = await createNewEmptyFile(
-      fileName: '${fileName}_copy',
+      fileName: fileName,
     );
 
     final File _result = await writeUint8ListOnFile(
@@ -244,7 +263,7 @@ class Filers {
 
     return _result;
   }
-// ---------------------------------------
+// ---------------------
   /// TESTED : WORKS PERFECT
   static Future<List<File>> getFilesFromUint8Lists({
     @required List<Uint8List> uInt8Lists,
@@ -272,6 +291,32 @@ class Filers {
     return _output;
   }
 // ---------------------------------------
+  /// ImgImage
+// ---------------------
+  /// TESTED : WORKS PERFECT
+  static Future<File> getFileFromImgImage({
+    @required img.Image imgImage,
+    @required String fileName,
+}) async {
+
+    File file;
+
+    if (imgImage != null){
+
+      final Uint8List _uIntAgain = Floaters.getUint8ListFromImgImage(imgImage);
+
+      file = await Filers.getFileFromUint8List(
+        uInt8List: _uIntAgain,
+        fileName: fileName,
+      );
+
+    }
+
+    return file;
+  }
+// ---------------------------------------
+  /// URL
+// ---------------------
   /// TESTED : WORKS PERFECT
   static Future<File> getFileFromURL(String fileURL) async {
     blog('getFileFromURL : START');
@@ -305,6 +350,23 @@ class Filers {
     return _file;
   }
 // ---------------------------------------
+  /// BASE 64
+// ---------------------
+  static Future<File> getFileFromBase64(String base64) async {
+
+    final Uint8List _fileAgainAsInt = base64Decode(base64);
+    // await null;
+
+    final File _fileAgain = await getFileFromUint8List(
+      uInt8List: _fileAgainAsInt,
+      fileName: '${Numeric.createUniqueID()}',
+    );
+
+    return _fileAgain;
+  }
+// ---------------------------------------
+  /// DYNAMICS
+// ---------------------
   static Future<File> getFileFromDynamics(dynamic pic) async {
     File _file;
 
@@ -324,19 +386,6 @@ class Filers {
     }
 
     return _file;
-  }
-// ---------------------------------------
-  static Future<File> getFileFromBase64(String base64) async {
-
-    final Uint8List _fileAgainAsInt = base64Decode(base64);
-    // await null;
-
-    final File _fileAgain = await getFileFromUint8List(
-      uInt8List: _fileAgainAsInt,
-      fileName: '${Numeric.createUniqueID()}',
-    );
-
-    return _fileAgain;
   }
 // -----------------------------------------------------------------
 
@@ -480,6 +529,85 @@ class Filers {
       }
 
     }
+
+  }
+// -----------------------------------------------------------------
+
+  /// IMAGE FILE RESIZE
+
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<File> resizeImage({
+    @required File file,
+    /// image width will be resized to this final width
+    @required double finalWidth,
+    @required double aspectRatio,
+  }) async {
+
+    blog('resizeImage : START');
+
+    File _output = file;
+
+    if (file != null){
+
+      img.Image _imgImage = await Floaters.getImgImageFromFile(file);
+
+      /// only resize if final width is smaller than original
+      if (finalWidth < _imgImage.width){
+
+        _imgImage = Floaters.resizeImgImage(
+          imgImage: _imgImage,
+          width: finalWidth.floor(),
+          height:  (aspectRatio * finalWidth.floor()).floor(),
+        );
+
+        final File _refile = await Filers.getFileFromImgImage(
+          imgImage: _imgImage,
+          fileName: Filers.getFileNameFromFile(
+            file: file,
+            withExtension: true,
+          ),
+        );
+
+        _output = _refile;
+      }
+
+    }
+
+    return _output;
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<File>> resizeImages({
+    @required List<File> files,
+    @required double aspectRatio,
+    @required double finalWidth,
+  }) async {
+    final List<File> _files = <File>[];
+
+    if (Mapper.checkCanLoopList(files) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(files.length, (index) async {
+
+          final File _file = await resizeImage(
+            file: files[index],
+            aspectRatio: aspectRatio,
+            finalWidth: finalWidth ?? 500,
+          );
+
+          if (_file != null){
+            _files.add(_file);
+          }
+
+        }),
+
+      ]);
+
+    }
+
+    return _files;
 
   }
 // -----------------------------------------------------------------

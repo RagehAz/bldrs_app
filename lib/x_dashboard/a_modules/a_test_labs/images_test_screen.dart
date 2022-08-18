@@ -2,8 +2,13 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -82,6 +87,15 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
     return DashBoardLayout(
       loading: _loading,
+      onBldrsTap: (){
+        setState(() {
+          _file = null;
+          uInt = null;
+          uiImage = null;
+          imgImage = null;
+
+        });
+      },
       appBarWidgets: [
 
         /// GET IMAGE FROM GALLERY
@@ -128,6 +142,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               context: context,
               pickedFile: _file,
               isFlyerRatio: false,
+              // resizeToWidth: null,
             );
 
             if (_pickedFile != null){
@@ -158,9 +173,9 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           verse: 'resize',
           onTap: () async {
 
-            final File _pickedFile = await Imagers.resizeImage(
+            final File _pickedFile = await Filers.resizeImage(
                 file: _file,
-                finalWidth: 10,
+                finalWidth: 1080,
                 aspectRatio: 1
             );
 
@@ -270,6 +285,57 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                       // },
                     ),
 
+                    const SeparatorLine(),
+
+                    /// FILE NAME
+                    DataStrip(
+                        dataKey: 'Name',
+                        dataValue: Filers.getFileNameFromFile(
+                          file: _file,
+                          withExtension: true,
+                        ),
+                    ),
+
+                    /// FILE PATH
+                    DataStrip(
+                      dataKey: 'Path',
+                      dataValue: _file?.path,
+                    ),
+
+                    /// FILE SIZE (Byte)
+                    DataStrip(
+                      dataKey: 'Size (b)',
+                      dataValue: _file?.lengthSync(),
+                    ),
+
+                    /// FILE SIZE (MB)
+                    DataStrip(
+                      dataKey: 'Size (Mb)',
+                      dataValue: Filers.getFileSize(_file),
+                    ),
+
+                    /// FILE SIZE
+                    DataStrip(
+                      dataKey: 'Width x Height',
+                      dataValue: '[ w ${uiImage?.width} px ] . [ h ${uiImage?.height} px ]',
+                    ),
+
+                    /// SUPER SIZE
+                    FutureBuilder(
+                        future: ImageSize.superImageSize(_file),
+                        builder: (_, AsyncSnapshot<ImageSize> snapshot){
+
+                          final ImageSize imageSize = snapshot.data;
+
+                          return DataStrip(
+                            dataKey: 'SUPER SIZE',
+                            dataValue: '[ w ${imageSize?.width} px ] . [ h ${imageSize?.height} px ]',
+                          );
+
+                        }
+                    ),
+
+
                   ]
                 );
 
@@ -277,6 +343,8 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
             },
         ),
+
+        const Horizon(),
 
       ],
     );

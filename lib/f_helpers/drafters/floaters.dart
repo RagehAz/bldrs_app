@@ -65,11 +65,20 @@ class Floaters {
   /// img.Image
 
 // ---------------------------------------
-  /*
-  static Future<File> getFileFromImgImage(img.Image img) async {
+  /// TESTED : WORKS PERFECT
+  static Future<img.Image> getImgImageFromFile(File file) async {
+    img.Image _image;
 
+    if (file != null){
+
+      final Uint8List uint = await Floaters.getUint8ListFromFile(file);
+
+      _image = await Floaters.getImgImageFromUint8List(uint);
+
+    }
+
+    return _image;
   }
-   */
 // ---------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<img.Image> getImgImageFromUint8List(Uint8List uInt) async {
@@ -287,6 +296,14 @@ static img.Image decodeToImgImage({
       uInt = img.encodeJpg(imgImage, quality: 100);
     }
 
+    return uInt;
+  }
+// ---------------------------------------
+  static Future<Uint8List> getUint8ListFromImgImageAsync(img.Image imgImage) async{
+    Uint8List uInt;
+    if (imgImage != null){
+      uInt = getUint8ListFromImgImage(imgImage);
+    }
     return uInt;
   }
 // -----------------------------------------------------------------

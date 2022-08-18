@@ -10,6 +10,7 @@ import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -30,7 +31,7 @@ Future<void> takeAuthorImage({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
-      resizeToWidth: null,
+      resizeToWidth: Standards.authorPictureWidthPixels,
     );
   }
   else if (imagePickerType == ImagePickerType.cameraImage){
@@ -38,7 +39,7 @@ Future<void> takeAuthorImage({
       context: context,
       cropAfterPick: true,
       isFlyerRatio: false,
-      resizeToWidth: null,
+      resizeToWidth: Standards.authorPictureWidthPixels,
     );
   }
 
