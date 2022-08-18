@@ -37,15 +37,15 @@ enum BzSection {
 }
 /// ---------------------
 enum BzType {
-  developer, // dv -> pp (property flyer - property source flyer)
-  broker, // br -> pp (property flyer)
+  developer, // (property flyer - property source flyer)
+  broker, // (property flyer)
 
-  designer, // dr - ds (design flyer)
-  contractor, // cn - pj (project flyer)
-  craftsman, // ar - cr (craft flyer)
+  designer, // (design flyer)
+  contractor, // (project flyer)
+  artisan, // (trade flyer)
 
-  manufacturer, // mn - pd (product flyer - product source flyer)
-  supplier, // sp - pd (product flyer)
+  manufacturer, // (product flyer - product source flyer)
+  supplier, // (product flyer)
 }
 /// ---------------------
 enum BzForm {
@@ -521,7 +521,7 @@ class BzModel{
       case BzType.broker          :  return 'broker'        ; break;
       case BzType.designer        :  return 'designer'      ; break;
       case BzType.contractor      :  return 'contractor'    ; break;
-      case BzType.craftsman       :  return 'craftsman'     ; break;
+      case BzType.artisan         :  return 'artisan'       ; break;
       case BzType.manufacturer    :  return 'manufacturer'  ; break;
       case BzType.supplier        :  return 'supplier'      ; break;
       default:  return null;
@@ -549,7 +549,7 @@ class BzModel{
       case 'broker'         : return BzType.broker;         break;
       case 'designer'       : return BzType.designer;       break;
       case 'contractor'     : return BzType.contractor;     break;
-      case 'craftsman'      : return BzType.craftsman;      break;
+      case 'artisan'        : return BzType.artisan;        break;
       case 'manufacturer'   : return BzType.manufacturer;   break;
       case 'supplier'       : return BzType.supplier;       break;
       default:  return null;
@@ -582,7 +582,7 @@ class BzModel{
     BzType.broker,
     BzType.designer,
     BzType.contractor,
-    BzType.craftsman,
+    BzType.artisan,
     BzType.manufacturer,
     BzType.supplier,
   ];
@@ -614,7 +614,7 @@ class BzModel{
         :
     bzType == BzType.contractor ? Iconz.bxProjectsOff
         :
-    bzType == BzType.craftsman ? Iconz.bxCraftsOff
+    bzType == BzType.artisan ? Iconz.bxTradesOff
         :
     null;
 
@@ -636,7 +636,7 @@ class BzModel{
         :
     bzType == BzType.contractor ? Iconz.bxProjectsOn
         :
-    bzType == BzType.craftsman ? Iconz.bxCraftsOn
+    bzType == BzType.artisan ? Iconz.bxTradesOn
         :
     null;
 
@@ -683,7 +683,7 @@ class BzModel{
         bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokerage') :
         bzType == BzType.designer ? xPhrase(context, 'phid_design') :
         bzType == BzType.contractor ? xPhrase(context, 'phid_contracting') :
-        bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsmanship') :
+        bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
         bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturing') :
         bzType == BzType.supplier ? xPhrase(context, 'phid_supplying') :
         'Builders';
@@ -699,7 +699,7 @@ class BzModel{
           bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokers') :
           bzType == BzType.designer ? xPhrase(context, 'phid_designers') :
           bzType == BzType.contractor ? xPhrase(context, 'phid_contractors') :
-          bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsmen') :
+          bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
           bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturers') :
           bzType == BzType.supplier ? xPhrase(context, 'phid_supplier') :
           'Builders';
@@ -712,7 +712,7 @@ class BzModel{
           bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBroker') :
           bzType == BzType.designer ? xPhrase(context, 'phid_designer') :
           bzType == BzType.contractor ? xPhrase(context, 'phid_contractor') :
-          bzType == BzType.craftsman ? xPhrase(context, 'phid_craftsman') :
+          bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
           bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturer') :
           bzType == BzType.supplier ? xPhrase(context, 'phid_suppliers') :
           'Builder';
@@ -808,7 +808,7 @@ class BzModel{
     bzType == BzType.supplier ? xPhrase(context, 'phid_askHint_supplier') :
     bzType == BzType.designer ? xPhrase(context, 'phid_askHint_designer') :
     bzType == BzType.contractor ? xPhrase(context, 'phid_askHint_contractor') :
-    bzType == BzType.craftsman ? xPhrase(context, 'phid_askHint_craftsman') :
+    bzType == BzType.artisan ? xPhrase(context, 'phid_askHint_artisan') :
     xPhrase(context, 'phid_askHint');
     return _askHint;
   }
@@ -828,7 +828,7 @@ class BzModel{
 
     /// CONSTRUCTION BZ TYPES
     else if (bzSection == BzSection.construction){
-      _bzTypes = <BzType>[BzType.designer, BzType.contractor, BzType.craftsman];
+      _bzTypes = <BzType>[BzType.designer, BzType.contractor, BzType.artisan];
     }
 
     /// SUPPLIES BZ TYPES
@@ -857,7 +857,7 @@ class BzModel{
         _bzTypes.remove(bzType);
       }
 
-      /// ADD CRAFTSMEN IF STARTING WITH DESIGNERS OR CONTRACTORS
+      /// ADD ARTISAN IF STARTING WITH DESIGNERS OR CONTRACTORS
       if (Mapper.checkCanLoopList(initialBzTypes) == true){
         if (bzSection == BzSection.construction){
           if (
@@ -865,7 +865,7 @@ class BzModel{
               ||
               initialBzTypes.contains(BzType.contractor)
           ){
-            _bzTypes.add(BzType.craftsman);
+            _bzTypes.add(BzType.artisan);
           }
         }
       }
@@ -910,8 +910,8 @@ class BzModel{
       ];
     }
 
-    /// CRAFTSMAN
-    if (bzType == BzType.craftsman){
+    /// ARTISAN
+    if (bzType == BzType.artisan){
       _mixableTypes = <BzType>[];
     }
 
@@ -1180,8 +1180,8 @@ class BzModel{
       _bzForm = <BzForm>[BzForm.company, BzForm.individual];
     }
 
-    /// CRAFTSMAN
-    else if (selectedBzType == BzType.craftsman){
+    /// ARTISAN
+    else if (selectedBzType == BzType.artisan){
       _bzForm = <BzForm>[BzForm.individual];
     }
 
@@ -1296,7 +1296,7 @@ class BzModel{
 
       case BzType.designer: return BzSection.construction; break;
       case BzType.contractor: return BzSection.construction; break;
-      case BzType.craftsman: return BzSection.construction; break;
+      case BzType.artisan: return BzSection.construction; break;
 
       case BzType.supplier: return BzSection.construction; break;
       case BzType.manufacturer: return BzSection.construction; break;
@@ -1324,7 +1324,7 @@ class BzModel{
       logo: Iconz.dumBusinessLogo, //'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bzLogos%2Far1.jpg?alt=media&token=f68673f8-409a-426a-9a80-f1026715c469'
       name: 'Business Name That os a bit too kinda tall and little bit extra tall aho',
       trigram: Stringer.createTrigram(input: 'Business Name'),
-      bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.craftsman],
+      bzTypes: const <BzType>[BzType.designer, BzType.broker, BzType.contractor, BzType.artisan],
       zone: ZoneModel.dummyZone(),
       bzState: BzState.online,
       position: Atlas.dummyLocation(),

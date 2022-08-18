@@ -367,7 +367,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
     _textValue = ValueNotifier(_controller.text);
     _controller.addListener(() {
 
-      _textValue.value = _controller.text;
+      setNotifier(
+          notifier: _textValue,
+          mounted: mounted,
+          value: _controller.text,
+      );
 
     });
 

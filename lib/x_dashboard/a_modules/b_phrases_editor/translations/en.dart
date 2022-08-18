@@ -55,12 +55,12 @@ List<Phrase> keywordsAndSpecsEnglish = const <Phrase>[
     /// KEYWORDS
 
     // -----------------------------
-    Phrase(id: 'phid_k_bldrsChain', value: 'Bldrs Keywords'),
-    Phrase(id: 'phid_k_properties_keywords', value: 'Properties Keywords'),
-    Phrase(id: 'phid_k_designs_keywords', value: 'Designs Keywords'),
-    Phrase(id: 'phid_k_crafts_keywords', value: 'Crafts Keywords'),
-    Phrase(id: 'phid_k_products_keywords', value: 'Products Keywords'),
-    Phrase(id: 'phid_k_equipment_keywords', value: 'Equipment Keywords'),
+    Phrase(id: 'phid_sections', value: 'Bldrs Keywords'),
+    Phrase(id: 'phid_k_flyer_type_property', value: 'Properties Keywords'),
+    Phrase(id: 'phid_k_flyer_type_design', value: 'Designs Keywords'),
+    Phrase(id: 'phid_k_flyer_type_trades', value: 'Trades Keywords'),
+    Phrase(id: 'phid_k_flyer_type_design', value: 'Products Keywords'),
+    Phrase(id: 'phid_k_flyer_type_equipment', value: 'Equipment Keywords'),
 
     // -----------------------------------------------------------------------
 

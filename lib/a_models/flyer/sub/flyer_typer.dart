@@ -11,7 +11,7 @@ enum FlyerType {
   property,
   design,
   project,
-  craft,
+  trade,
   product,
   equipment,
   non,
@@ -28,7 +28,7 @@ class FlyerTyper{
     FlyerType.design, /// TASK : SHOULD COMBINE DESIGN WITH PROJECT
     FlyerType.project,
     FlyerType.product,
-    FlyerType.craft,
+    FlyerType.trade,
     FlyerType.equipment,
   ];
 // -----------------------------------------------------------------------------
@@ -38,7 +38,7 @@ class FlyerTyper{
     FlyerType.design,
     FlyerType.product,
     FlyerType.project,
-    FlyerType.craft,
+    FlyerType.trade,
     FlyerType.equipment,
   ];
 // -----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ class FlyerTyper{
       case 'design'   : return FlyerType.design; break; // 2
       case 'product'  : return FlyerType.product; break; // 3
       case 'project'  : return FlyerType.project; break; // 4
-      case 'craft'    : return FlyerType.craft; break; // 5
+      case 'trade'    : return FlyerType.trade; break; // 5
       case 'equipment': return FlyerType.equipment; break; // 6
       default: return null;
     }
@@ -66,7 +66,7 @@ class FlyerTyper{
       case FlyerType.design     : return 'design'; break;
       case FlyerType.product    : return 'product'; break;
       case FlyerType.project    : return 'project'; break;
-      case FlyerType.craft      : return 'craft'; break;
+      case FlyerType.trade      : return 'trade'; break;
       case FlyerType.equipment  : return 'equipment'; break;
       default: return null;
     }
@@ -118,7 +118,7 @@ class FlyerTyper{
         :
     flyerType == FlyerType.project ? Iconz.bxProjectsOn
         :
-    flyerType == FlyerType.craft ? Iconz.bxCraftsOn
+    flyerType == FlyerType.trade ? Iconz.bxTradesOn
         :
     flyerType == FlyerType.product ? Iconz.bxProductsOn
         :
@@ -139,7 +139,7 @@ class FlyerTyper{
         :
     flyerType == FlyerType.project ? Iconz.bxProjectsOff
         :
-    flyerType == FlyerType.craft ? Iconz.bxCraftsOff
+    flyerType == FlyerType.trade ? Iconz.bxTradesOff
         :
     flyerType == FlyerType.product ? Iconz.bxProductsOff
         :
@@ -178,7 +178,7 @@ String getSectionIcon({
       case 2: return 'design'; break; // 2
       case 3: return 'product'; break; // 3
       case 4: return 'project'; break; // 4
-      case 5: return 'craft'; break; // 5
+      case 5: return 'trade'; break; // 5
       case 6: return 'equipment'; break; // 6
       case 7: return 'newProperty'; break; // 7
       case 8: return 'resaleProperty'; break; // 8
@@ -198,7 +198,7 @@ String getSectionIcon({
       case BzType.broker: return FlyerType.property; break;
       case BzType.designer: return FlyerType.design; break;
       case BzType.contractor: return FlyerType.project; break;
-      case BzType.craftsman: return FlyerType.craft; break;
+      case BzType.artisan: return FlyerType.trade; break;
       case BzType.manufacturer: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
       case BzType.supplier: return FlyerType.product; break; // product or equipment for author to choose while creating flyer
       default: return null;
@@ -214,7 +214,7 @@ String getSectionIcon({
       case BzType.broker: return <FlyerType>[FlyerType.property]; break;
       case BzType.designer: return <FlyerType>[FlyerType.design]; break;
       case BzType.contractor: return <FlyerType>[FlyerType.project]; break;
-      case BzType.craftsman: return <FlyerType>[FlyerType.craft]; break;
+      case BzType.artisan: return <FlyerType>[FlyerType.trade]; break;
       case BzType.manufacturer: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
       case BzType.supplier: return <FlyerType>[FlyerType.product, FlyerType.equipment]; break; // product or equipment for author to choose while creating flyer
       default: return null;
@@ -272,12 +272,13 @@ String getSectionIcon({
   static FlyerType concludeFlyerTypeByChainID({
     @required String chainID,
   }){
+
     switch (chainID) {
       /// REAL ESTATE
       case 'phid_k_flyer_type_property':  return FlyerType.property; break;
       /// CONSTRUCTION
       case 'phid_k_flyer_type_design':    return FlyerType.design; break;
-      case 'phid_k_flyer_type_crafts':    return FlyerType.craft; break;
+      case 'phid_k_flyer_type_trades':    return FlyerType.trade; break;
       /// SUPPLIES
       case 'phid_k_flyer_type_product':   return FlyerType.product; break;
       case 'phid_k_flyer_type_equipment': return FlyerType.equipment; break;
@@ -296,7 +297,7 @@ String getSectionIcon({
       case FlyerType.property   : _chainID = 'phid_k_flyer_type_property'; break;
       case FlyerType.design     : _chainID = 'phid_k_flyer_type_design'; break;
       case FlyerType.project    : _chainID = 'phid_k_flyer_type_design'; break;
-      case FlyerType.craft      : _chainID = 'phid_k_flyer_type_crafts'; break;
+      case FlyerType.trade      : _chainID = 'phid_k_flyer_type_trades'; break;
       case FlyerType.product    : _chainID = 'phid_k_flyer_type_product'; break;
       case FlyerType.equipment  : _chainID = 'phid_k_flyer_type_equipment'; break;
       case FlyerType.all        : _chainID = 'phid_sections'; break;
@@ -316,7 +317,7 @@ String getSectionIcon({
       case 'phid_k_flyer_type_property':  return 'RealEstate'; break;
     /// CONSTRUCTION
       case 'phid_k_flyer_type_design':    return 'Construction'; break;
-      case 'phid_k_flyer_type_crafts':    return 'Construction'; break;
+      case 'phid_k_flyer_type_trades':    return 'Construction'; break;
     /// SUPPLIES
       case 'phid_k_flyer_type_product':   return 'Supplies'; break;
       case 'phid_k_flyer_type_equipment': return 'Supplies'; break;
@@ -363,7 +364,7 @@ String getSectionIcon({
         flyerType == FlyerType.product     ? xPhrase(context, 'phid_products')    :
         flyerType == FlyerType.project     ? xPhrase(context, 'phid_projects')    :
         flyerType == FlyerType.equipment   ? xPhrase(context, 'phid_equipments')    :
-        flyerType == FlyerType.craft       ? xPhrase(context, 'phid_crafts')    :
+        flyerType == FlyerType.trade       ? xPhrase(context, 'phid_trades')    :
         xPhrase(context, 'phid_general');
     }
 
@@ -376,7 +377,7 @@ String getSectionIcon({
         flyerType == FlyerType.product          ? xPhrase(context, 'phid_productFlyer')    :
         flyerType == FlyerType.project          ? xPhrase(context, 'phid_projectFlyer')    :
         flyerType == FlyerType.equipment        ? xPhrase(context, 'phid_equipmentFlyer')    :
-        flyerType == FlyerType.craft            ? xPhrase(context, 'phid_craftFlyer')    :
+        flyerType == FlyerType.trade            ? xPhrase(context, 'phid_tradeFlyer')    :
         xPhrase(context, 'phid_general');
     }
 
@@ -435,7 +436,7 @@ String getSectionIcon({
     flyerType == FlyerType.property ? 'By RealEstate Developers & Brokers.' : //Wordz.realEstateTagLine(context) :
     flyerType == FlyerType.design ? 'By Architects & Designers' : //Wordz.constructionTagLine(context) :
     flyerType == FlyerType.project ? 'By Contractors' : //Wordz.constructionTagLine(context) :
-    flyerType == FlyerType.craft ? 'By Craftsmen, Technicians & Artists.' : //Wordz.constructionTagLine(context) :
+    flyerType == FlyerType.trade ? 'By Artists, Craftsmen & Technicians.' : //Wordz.constructionTagLine(context) :
     flyerType == FlyerType.product ? 'By Manufacturers & Suppliers.' : //Wordz.suppliesTagLine(context) :
     flyerType == FlyerType.equipment ? 'By Manufacturers & Suppliers.' : //Wordz.constructionTagLine(context) :
 

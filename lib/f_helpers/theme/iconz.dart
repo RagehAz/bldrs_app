@@ -80,8 +80,8 @@ static const String bxProductsOn = '$_iconsPath/ft_products_on.svg' ;
 static const String bxProductsOff = '$_iconsPath/ft_products_off.svg' ;
 static const String bxProjectsOn = '$_iconsPath/ft_projects_on.svg' ;
 static const String bxProjectsOff = '$_iconsPath/ft_projects_off.svg' ;
-static const String bxCraftsOn = '$_iconsPath/ft_crafts_on.svg' ;
-static const String bxCraftsOff = '$_iconsPath/ft_crafts_off.svg' ;
+static const String bxTradesOn = '$_iconsPath/ft_trades_on.svg' ;
+static const String bxTradesOff = '$_iconsPath/ft_trades_off.svg' ;
 static const String bxEquipmentOn = '$_iconsPath/ft_equipment_on.svg' ;
 static const String bxEquipmentOff = '$_iconsPath/ft_equipment_off.svg' ;
 static const String bxOwnerOn = '$_iconsPath/ft_owner_on.svg' ;
@@ -248,8 +248,8 @@ static const String contSouthAmerica = '$_iconsPath/cont_south_america.svg' ;
       bxProductsOff,
       bxProjectsOn,
       bxProjectsOff,
-      bxCraftsOn,
-      bxCraftsOff,
+      bxTradesOn,
+      bxTradesOff,
       bxEquipmentOn,
       bxEquipmentOff,
       bxOwnerOn,

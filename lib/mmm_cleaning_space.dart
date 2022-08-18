@@ -16,3 +16,11 @@ decodeExr
 decodeBmp
 decodeIco
  */
+
+/// ------------
+/*
+
+craftsman => artisan - artisans
+craft => Trade - trades
+
+ */
