@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -39,8 +40,12 @@ class FileModel {
       size: size ?? this.size,
     );
   }
-// --------------------------------------
+// -----------------------------------------------------------------------------
 
+  /// INITIALIZATION
+
+// --------------------------------------
+  /// TESTED : WORKS PERFECT
   static FileModel createModelByNewFile(File file){
     FileModel _model;
 
@@ -58,9 +63,49 @@ class FileModel {
 
     return _model;
   }
+// --------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<FileModel> createModelsByNewFiles(List<File> files){
+    final List<FileModel> _models = <FileModel>[];
 
+    if (Mapper.checkCanLoopList(files) == true){
 
+      for (final File file in files){
 
+        final FileModel _model = createModelByNewFile(file);
+        _models.add(_model);
+
+      }
+
+    }
+
+    return _models;
+  }
+// --------------------------------------
+  static Future<FileModel> createModelByUrl({
+    @required String url,
+    @required String fileName,
+  }) async {
+    FileModel _model;
+
+    if (url != null){
+
+      final File _file = await Filers.getFileFromURL(url);
+
+      _model = FileModel(
+        url: url,
+        file: _file,
+        size: Filers.getFileSize(_file),
+        fileName: fileName ?? Filers.getFileNameFromFile(
+          file: _file,
+          withExtension: true,
+        ),
+      );
+
+    }
+
+    return _model;
+  }
 // -----------------------------------------------------------------------------
 
 /// CIPHER
@@ -100,26 +145,58 @@ class FileModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// GETTERS
+
+// ------------------------------------------
+  static List<File> getFilesFromModels(List<FileModel> files){
+    final List<File> _files = <File>[];
+
+    if (Mapper.checkCanLoopList(files) == true){
+
+      for (final FileModel model in files){
+        _files.add(model.file);
+      }
+
+    }
+
+    return _files;
+  }
+// ------------------------------------------
+  static List<String> getNamesFromModels(List<FileModel> files){
+    final List<String> _names = <String>[];
+
+    if (Mapper.checkCanLoopList(files) == true){
+
+      for (final FileModel model in files){
+        _names.add(model.fileName);
+      }
+
+    }
+
+    return _names;
+  }
+// -----------------------------------------------------------------------------
+
 /// CHECKER
 
 // --------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkFileModelsAreIdentical({
-    @required FileModel pdf1,
-    @required FileModel pdf2,
+    @required FileModel model1,
+    @required FileModel model2,
   }){
     bool _areIdentical = false;
 
-    if (pdf1 == null && pdf2 == null){
+    if (model1 == null && model2 == null){
       _areIdentical = true;
     }
-    else if (pdf1 != null && pdf2 != null){
+    else if (model1 != null && model2 != null){
 
       if (
-          pdf1.fileName == pdf2.fileName &&
-          pdf1.url == pdf2.url &&
-          pdf1.size == pdf2.size &&
-          Filers.checkFilesAreIdentical(file1: pdf1.file, file2: pdf2.file) == true
+          model1.fileName == model2.fileName &&
+          model1.url == model2.url &&
+          model1.size == model2.size &&
+          Filers.checkFilesAreIdentical(file1: model1.file, file2: model2.file) == true
       ){
         _areIdentical = true;
       }

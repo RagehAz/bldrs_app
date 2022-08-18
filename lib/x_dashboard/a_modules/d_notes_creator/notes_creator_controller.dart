@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -676,7 +677,7 @@ Future<void> _onSelectImageURLAsAttachment({
   @required NoteAttachmentType attachmentType,
 }) async {
 
-  final File _file = await Imagers.pickAndCropSingleImage(
+  final FileModel _fileModel = await Imagers.pickAndCropSingleImage(
     context: context,
     cropAfterPick: true,
     isFlyerRatio: false,
@@ -692,7 +693,7 @@ Future<void> _onSelectImageURLAsAttachment({
 
   note.value = note.value.copyWith(
     attachmentType: attachmentType,
-    attachment: _file,
+    attachment: _fileModel.file,
   );
 
 }

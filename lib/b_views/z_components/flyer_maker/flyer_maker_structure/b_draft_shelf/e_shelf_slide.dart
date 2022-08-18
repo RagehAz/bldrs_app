@@ -64,7 +64,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
     final double _flyerBoxHeight = FlyerBox.height(context, ShelfSlide.flyerBoxWidth);
 
-    blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFile?.path}');
+    blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFileModel?.file?.path}');
 
     return Container(
       width: ShelfSlide.flyerBoxWidth,
@@ -112,7 +112,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 SuperFilteredImage(
                   width: ShelfSlide.flyerBoxWidth,
                   height: _flyerBoxHeight,
-                  imageFile: widget.mutableSlide.picFile,
+                  imageFile: widget.mutableSlide.picFileModel.file,
                   filterModel: widget.mutableSlide.filter,
                 ),
 
@@ -151,7 +151,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                     child: SuperFilteredImage(
                       width: ShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
-                      imageFile: widget.mutableSlide.picFile,
+                      imageFile: widget.mutableSlide.picFileModel.file,
                       filterModel: widget.mutableSlide.filter,
                       boxFit: widget.mutableSlide.picFit,
                     ),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
@@ -16,7 +17,7 @@ import 'package:flutter/material.dart';
 class MutableSlide {
   /// --------------------------------------------------------------------------
   const MutableSlide({
-    @required this.picFile,
+    @required this.picFileModel,
     @required this.headline,
     @required this.midColor,
     @required this.opacity,
@@ -31,7 +32,7 @@ class MutableSlide {
 // -----------------------------------------------------------------------------
   final int slideIndex;
   final String picURL;
-  final File picFile;
+  final FileModel picFileModel;
   final BoxFit picFit;
   final ImageSize imageSize;
   final TextEditingController headline;
@@ -45,7 +46,7 @@ class MutableSlide {
   MutableSlide copyWith({
       int slideIndex,
       String picURL,
-      File picFile,
+      FileModel picFileModel,
       BoxFit picFit,
       TextEditingController headline,
       TextEditingController description,
@@ -56,7 +57,7 @@ class MutableSlide {
       ImageFilterModel filter,
 }){
     return MutableSlide(
-      picFile: picFile ?? this.picFile,
+      picFileModel: picFileModel ?? this.picFileModel,
       headline: headline ?? this.headline,
       imageSize: imageSize ?? this.imageSize,
       midColor: midColor ?? this.midColor,
@@ -79,7 +80,7 @@ class MutableSlide {
     return MutableSlide(
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
-      picFile: null,
+      picFileModel: null,
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
       imageSize: slide.imageSize,
@@ -117,14 +118,21 @@ class MutableSlide {
   /// TESTED : WORKS PERFECT
   static Future<MutableSlide> createMutableSlideFromSlide({
     @required SlideModel slide,
+    @required String flyerID,
   }) async {
 
-    final File _file = await Filers.getFileFromURL(slide.pic);
+    final FileModel _file = await FileModel.createModelByUrl(
+      url: slide.pic,
+      fileName: SlideModel.generateSlideID(
+          flyerID: flyerID,
+          slideIndex: slide.slideIndex,
+      ),
+    );
 
     return MutableSlide(
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
-      picFile: _file,
+      picFileModel: _file,
       headline: TextEditingController(text: slide.headline),
       description: TextEditingController(text: slide.description),
       // -------------------------
@@ -141,6 +149,7 @@ class MutableSlide {
   /// TESTED : WORKS PERFECT
   static Future<List<MutableSlide>> createMutableSlidesFromSlides({
     @required List<SlideModel> slides,
+    @required String flyerID,
   }) async {
 
     final List<MutableSlide> _slides = <MutableSlide>[];
@@ -150,6 +159,7 @@ class MutableSlide {
 
         final MutableSlide _mutableSlide = await createMutableSlideFromSlide(
           slide: slide,
+          flyerID: flyerID,
         );
 
         _slides.add(_mutableSlide);
@@ -228,7 +238,6 @@ class MutableSlide {
 
     if (file != null){
 
-      final File _file = file;
       final ImageSize _imageSize = await ImageSize.superImageSize(file);
       final BoxFit _fit = ImageSize.concludeBoxFit(
           picWidth: _imageSize.width,
@@ -236,10 +245,10 @@ class MutableSlide {
           viewWidth: FlyerBox.width(context, 1),
           viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
       );
-      final Color _midColor = await Colorizer.getAverageColor(_file);
+      final Color _midColor = await Colorizer.getAverageColor(file);
 
       _slide = MutableSlide(
-        picFile: _file,
+        picFileModel: FileModel.createModelByNewFile(file),
         headline: headline ?? TextEditingController(),
         imageSize: _imageSize,
         midColor: _midColor,
@@ -269,8 +278,8 @@ class MutableSlide {
     final List<File> _files = <File>[];
 
     for (final MutableSlide mSlide in mutableSlides) {
-      if (mSlide.picFile != null) {
-        _files.add(mSlide.picFile);
+      if (mSlide.picFileModel != null) {
+        _files.add(mSlide.picFileModel.file);
       }
     }
 
@@ -330,7 +339,7 @@ class MutableSlide {
     if (mSlides != null && mSlides.isNotEmpty && fileToSearchFor != null) {
       _assetIndexInAssets = mSlides.indexWhere(
             (MutableSlide mSlide) =>
-        Filers.checkFilesAreIdentical(file1: mSlide?.picFile, file2: fileToSearchFor) == true,
+        Filers.checkFilesAreIdentical(file1: mSlide?.picFileModel?.file, file2: fileToSearchFor) == true,
       );
     }
 
@@ -366,7 +375,7 @@ class MutableSlide {
     blog('description : ${description.text}');
     imageSize.blogSize();
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
-    blog('picFile : $picFile');
+    blog('picFile : $picFileModel');
     blog('picURL : $picURL');
 
   }
@@ -402,8 +411,8 @@ class MutableSlide {
     if (slide1.picURL != slide2.picURL){
       blog('MutableSlidesDifferences : picURLs are not Identical');
     }
-    if (Filers.checkFilesAreIdentical(file1: slide1.picFile, file2: slide2.picFile) == false){
-      blog('MutableSlidesDifferences : picFiles are not Identical');
+    if (FileModel.checkFileModelsAreIdentical(model1: slide1.picFileModel, model2: slide2.picFileModel) == false){
+      blog('MutableSlidesDifferences : picFileModels are not Identical');
     }
     if (slide1.picFit != slide2.picFit){
       blog('MutableSlidesDifferences : picFits are not Identical');
@@ -462,7 +471,7 @@ class MutableSlide {
       if (
           slide1.slideIndex == slide2.slideIndex &&
           slide1.picURL == slide2.picURL &&
-          Filers.checkFilesAreIdentical(file1: slide1.picFile, file2: slide2.picFile) &&
+          FileModel.checkFileModelsAreIdentical(model1: slide1.picFileModel, model2: slide2.picFileModel) &&
           slide1.picFit == slide2.picFit &&
           ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
           slide1.headline.text == slide2.headline.text &&
@@ -515,7 +524,7 @@ class MutableSlide {
 // ----------------------------------------
   @override
   int get hashCode =>
-      picFile.hashCode
+      picFileModel.hashCode
       ^
       headline.hashCode
       ^

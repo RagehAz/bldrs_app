@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -193,7 +194,7 @@ Future<void> _addImagesForNewFlyer({
 
     if (imagePickerType == ImagePickerType.galleryImage){
 
-      final List<File> _files = await Imagers.pickAndCropMultipleImages(
+      final List<FileModel> _fileModels = await Imagers.pickAndCropMultipleImages(
         context: context,
         // maxAssets: 10,
         isFlyerRatio: true,
@@ -201,15 +202,15 @@ Future<void> _addImagesForNewFlyer({
         resizeToWidth: Standards.slideWidthPixels,
       );
 
-      if (Mapper.checkCanLoopList(_files) == true){
-        _pickedFiles = _files;
+      if (Mapper.checkCanLoopList(_fileModels) == true){
+        _pickedFiles = FileModel.getFilesFromModels(_fileModels);
       }
 
     }
 
     else if (imagePickerType == ImagePickerType.cameraImage){
 
-      final File _file = await Imagers.shootAndCropCameraImage(
+      final FileModel _fileModel = await Imagers.shootAndCropCameraImage(
         context: context,
         // maxAssets: 10,
         isFlyerRatio: true,
@@ -217,8 +218,8 @@ Future<void> _addImagesForNewFlyer({
         resizeToWidth: Standards.slideWidthPixels,
       );
 
-      if (_file != null){
-        _pickedFiles = <File>[_file];
+      if (_fileModel != null){
+        _pickedFiles = <File>[_fileModel.file];
       }
 
     }

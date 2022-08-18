@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -92,7 +93,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// BzAccountType _accountType // NOT REQUIRED HERE
   // -------------------------
   TextEditingController _bzNameTextController;
-  ValueNotifier<dynamic> _bzLogo;
+  ValueNotifier<FileModel> _bzLogo;
   ValueNotifier<ZoneModel> _selectedBzZone;
   ValueNotifier<List<SpecModel>> _selectedScopes;
   TextEditingController _bzAboutTextController;
@@ -122,7 +123,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzTypes = ValueNotifier(_initialBzModel.bzTypes);
     _selectedBzForm = ValueNotifier(_initialBzModel.bzForm);
     _bzNameTextController = TextEditingController(text: _initialBzModel.name);
-    _bzLogo = ValueNotifier(_initialBzModel.logo);
+    _bzLogo = ValueNotifier(FileModel(
+      url: _initialBzModel.logo,
+      fileName: _initialBzModel.id,
+      size: null,
+    ));
     _selectedScopes = ValueNotifier(_specs);
     _selectedBzZone = ValueNotifier(_initialBzModel.zone);
     _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
