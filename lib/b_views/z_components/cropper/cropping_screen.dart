@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_footer.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -19,12 +20,12 @@ import 'package:flutter/material.dart';
 class CroppingScreen extends StatefulWidget {
   /// -----------------------------------------------------------------------------
   const CroppingScreen({
-    @required this.files,
+    @required this.fileModels,
     this.aspectRatio = 1,
     Key key
   }) : super(key: key);
   /// -----------------------------------------------------------------------------
-  final List<File> files;
+  final List<FileModel> fileModels;
   final double aspectRatio;
   /// -----------------------------------------------------------------------------
   @override
@@ -55,6 +56,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   /// when it reaches the length of the given files,, goes back with new cropped files
   ValueNotifier<List<CropStatus>> _statuses;
   bool _canGoBack = false;
+  List<File> _files = <File>[];
 // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -86,18 +88,18 @@ class _CroppingScreenState extends State<CroppingScreen> {
       /// CHECK IF STATUSES ARE ALL READY
       final bool _allImagesCropped = Mapper.checkListsAreIdentical(
           list1: _statuses.value,
-          list2: List.filled(widget.files.length, CropStatus.ready),
+          list2: List.filled(widget.fileModels.length, CropStatus.ready),
       );
 
       if (_allImagesCropped == true && _canGoBack == true){
 
         final List<String> _names = await Filers.getFilesNamesFromFiles(
-          files: widget.files,
+          files: FileModel.getFilesFromModels(widget.fileModels),
           withExtension: true,
         );
 
         /// GENERATE CROPPED FILES
-        final List<File> _files = await Filers.getFilesFromUint8Lists(
+        _files = await Filers.getFilesFromUint8Lists(
           uInt8Lists: _croppedImages.value,
           filesNames: _names,
         );
@@ -108,7 +110,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
         Nav.goBack(
           context: context,
           invoker: 'CroppingScreen',
-          passedData: _files,
+          passedData: FileModel.createModelsByNewFiles(_files),
         );
 
       }
@@ -123,7 +125,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     if (_isInit) {
       _triggerLoading(setTo: true).then((_) async {
-        _imagesData.value = await Floaters.getUint8ListsFromFiles(widget.files);
+        _imagesData.value = await Floaters.getUint8ListsFromFiles(_files);
         _croppedImages.value = _imagesData.value;
         await _triggerLoading(setTo: false);
       });
@@ -146,12 +148,12 @@ class _CroppingScreenState extends State<CroppingScreen> {
 // -----------------------------------------------------------------------------
   void _initializeControllers(){
 
-    for (int i = 0; i < widget.files.length; i++){
+    for (int i = 0; i < widget.fileModels.length; i++){
       final CropController _controller = CropController();
       _controllers.add(_controller);
     }
 
-    final List<CropStatus> _statusesList =  List.filled(widget.files.length, CropStatus.nothing);
+    final List<CropStatus> _statusesList =  List.filled(widget.fileModels.length, CropStatus.nothing);
     _statuses = ValueNotifier(_statusesList);
 
   }
@@ -201,7 +203,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
                   screenHeight: _screenHeight,
                   controllers: _controllers,
                   croppedImages: _croppedImages,
-                  files: widget.files,
+                  files: _files,
                   imagesData: imagesData,
                   pageController: _pageController,
                   statuses: _statuses,
@@ -212,7 +214,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
                   screenHeight: _screenHeight,
                   aspectRatio: widget.aspectRatio,
                   currentImageIndex: _currentImageIndex,
-                  files: widget.files,
+                  files: _files,
                   onCropImages: () async {
 
                     await _cropImages();

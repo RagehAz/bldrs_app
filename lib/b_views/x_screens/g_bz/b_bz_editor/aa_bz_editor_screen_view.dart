@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -55,7 +56,7 @@ class BzEditorScreenView extends StatelessWidget {
   final ValueNotifier<List<BzForm>> inactiveBzForms;
   final ValueNotifier<BzForm> selectedBzForm;
   final ValueNotifier<List<SpecModel>> selectedScopes;
-  final ValueNotifier<dynamic> bzLogo;
+  final ValueNotifier<FileModel> bzLogo;
   final TextEditingController bzNameTextController;
   final TextEditingController bzAboutTextController;
   final ValueNotifier<ZoneModel> selectedBzZone;

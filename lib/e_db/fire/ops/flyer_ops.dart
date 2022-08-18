@@ -610,8 +610,8 @@ class FlyerFireOps {
     FlyerModel _output = newFlyer.copyWith();
 
     final bool _pdfsAreIdentical = FileModel.checkFileModelsAreIdentical(
-        pdf1: oldFlyer.pdf,
-        pdf2: newFlyer.pdf,
+        model1: oldFlyer.pdf,
+        model2: newFlyer.pdf,
     );
 
     blog('_updateFlyerPDF : _pdfsAreIdentical : $_pdfsAreIdentical');

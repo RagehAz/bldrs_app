@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -50,18 +50,18 @@ Future<void> onCropSlide({
   @required ValueNotifier<Matrix4> matrix,
 }) async {
 
-  final File _file = await Imagers.cropImage(
+  final FileModel _fileModel = await Imagers.cropImage(
     context: context,
-    pickedFile: tempSlide.value.picFile,
+    pickedFile: tempSlide.value.picFileModel,
     isFlyerRatio: true,
   );
 
-  if (_file != null){
+  if (_fileModel != null){
 
-    final ImageSize _imageSize = await ImageSize.superImageSize(_file);
-    final Color _midColor = await Colorizer.getAverageColor(_file);
+    final ImageSize _imageSize = await ImageSize.superImageSize(_fileModel);
+    final Color _midColor = await Colorizer.getAverageColor(_fileModel);
     final MutableSlide _updatedSlide = tempSlide.value.copyWith(
-      picFile: _file,
+      picFileModel: _fileModel,
       imageSize: _imageSize,
       midColor: _midColor,
       matrix: matrix.value,

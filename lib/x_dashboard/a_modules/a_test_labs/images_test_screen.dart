@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -106,22 +107,22 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           verse: 'take',
           onTap: () async {
 
-            final File _pickedFile = await Imagers.pickAndCropSingleImage(
+            final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
                 context: context,
                 cropAfterPick: false,
                 isFlyerRatio: false,
             );
 
-            if (_pickedFile != null){
+            if (_pickedFileModel != null){
 
               _loading.value = true;
 
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFile);
+              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFileModel.file);
               final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
               final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
 
               setState(() {
-                _file = _pickedFile;
+                _file = _pickedFileModel.file;
                 uInt = _uInt;
                 uiImage = _uiImage;
                 imgImage = _imgImage;
@@ -140,23 +141,23 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           verse: 'crop',
           onTap: () async {
 
-            final File _pickedFile = await Imagers.cropImage(
+            final FileModel _pickedFileModel = await Imagers.cropImage(
               context: context,
-              pickedFile: _file,
+              pickedFile: FileModel.createModelByNewFile(_file),
               isFlyerRatio: false,
               // resizeToWidth: null,
             );
 
-            if (_pickedFile != null){
+            if (_pickedFileModel != null){
 
               _loading.value = true;
 
-              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFile);
+              final Uint8List _uInt = await Floaters.getUint8ListFromFile(_pickedFileModel.file);
               final ui.Image _uiImage = await Floaters.getUiImageFromUint8List(_uInt);
               final img.Image _imgImage = await Floaters.getImgImageFromUint8List(_uInt);
 
               setState(() {
-                _file = _pickedFile;
+                _file = _pickedFileModel.file;
                 uInt = _uInt;
                 uiImage = _uiImage;
                 imgImage = _imgImage;
