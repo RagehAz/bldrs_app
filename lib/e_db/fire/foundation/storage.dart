@@ -115,6 +115,7 @@ class Storage {
           final String _extension = Filers.getFileExtensionFromFile(file);
           _metaDataMap['extension'] = _extension;
 
+
           blog('uploadFile : 2 - assigned owners : _metaDataMap : $_metaDataMap');
 
           /// ADD EXTRA METADATA MAP PAIRS
@@ -824,7 +825,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           context: context
       );
 
-      final FullMetadata _meta = await _ref.getMetadata();
+      // final FullMetadata _meta = await _ref.getMetadata();
 
       final SettableMetadata metaData = SettableMetadata(
           customMetadata: metaDataMap,
@@ -832,7 +833,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
       await _ref.updateMetadata(metaData);
 
-      Storage.blogFullMetaData(_meta);
+      // Storage.blogFullMetaData(_meta);
 
     }
 

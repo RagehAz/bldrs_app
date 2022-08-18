@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -87,6 +88,8 @@ class Imagers {
       selectedAssets: selectedAssets,
     );
 
+    blog('picked : ${_files.length} files');
+
     /// CROP
     if (cropAfterPick == true && Mapper.checkCanLoopList(_files) == true){
       _files = await cropImages(
@@ -96,6 +99,8 @@ class Imagers {
       );
     }
 
+    blog('cropped : ${_files.length} files');
+
     /// RESIZE
     if (resizeToWidth != null && Mapper.checkCanLoopList(_files) == true){
       _files = await resizeImages(
@@ -104,6 +109,8 @@ class Imagers {
           isFlyerRatio: isFlyerRatio,
       );
     }
+
+    blog('resized : ${_files.length} files');
 
     return _files;
   }
@@ -425,7 +432,7 @@ class Imagers {
     if (Mapper.checkCanLoopList(inputFiles) == true){
 
       _files = await Filers.resizeImages(
-        files: _files,
+        files: inputFiles,
         aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
         finalWidth: resizeToWidth,
       );

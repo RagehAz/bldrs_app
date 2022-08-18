@@ -12,12 +12,14 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
+import 'package:path/path.dart';
 
 class ImagesTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -214,8 +216,44 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
               else {
 
+                blog('kos omkla');
+
                 return Column(
                   children: <Widget>[
+
+                    /// META DATA
+                    // WideButton(
+                    //   verse: 'get Meta data',
+                    //   onTap: () async {
+                    //
+                    //     /// TO CHANGE META DATA OF SPECIFIC FILE
+                    //     // // bSHZNhydCNqQFvEVK8Rc
+                    //     //
+                    //     // final FullMetadata _meta = await Storage.getMetadataByFileName(
+                    //     //     context: context,
+                    //     //     storageDocName: StorageDoc.logos,
+                    //     //     fileName: 'bSHZNhydCNqQFvEVK8Rc',
+                    //     // );
+                    //     //
+                    //     // Map<String, String> _maw = _meta.customMetadata;
+                    //     // _maw['extension'] = 'png';
+                    //     //
+                    //     // final SettableMetadata metaData = SettableMetadata(
+                    //     //   customMetadata: _maw,
+                    //     // );
+                    //     //
+                    //     // final Reference _ref = Storage.getRef(
+                    //     //   context: context,
+                    //     //   storageDocName: StorageDoc.logos,
+                    //     //   fileName: 'bSHZNhydCNqQFvEVK8Rc',
+                    //     // );
+                    //     //
+                    //     // await _ref.updateMetadata(metaData);
+                    //
+                    //   },
+                    // ),
+
+                    const SeparatorLine(),
 
                     /// TAMAM : FILE
                     WideButton(
@@ -335,6 +373,11 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                         }
                     ),
 
+                    /// EXTENSION
+                    DataStrip(
+                      dataKey: 'Ext.',
+                      dataValue: _file?.path == null ? '' : TextMod.removeTextBeforeLastSpecialCharacter(extension(_file?.path), '.'),
+                    ),
 
                   ]
                 );
