@@ -178,7 +178,7 @@ class Mapper {
 
     if (snapshot.exists) {
 
-      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+      // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
       if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
         _output = getMapFromInternalHashLinkedMapObjectObject(
@@ -397,7 +397,6 @@ class Mapper {
       map.putIfAbsent(key, () => value);
       _result = _result..addAll(map);
     }
-
     return _result;
   }
 // -------------------------------------
@@ -829,15 +828,22 @@ class Mapper {
     blog('MAP-PRINT $methodName : --------------------------------------------------START');
 
     if (map != null){
+
+      blog('<String, dynamic>{');
+
       final List<dynamic> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
       for (int i = 0; i < _keys.length; i++) {
-        blog('MAP-PRINT : ${_keys[i]} : ${_values[i]}');
+        blog('${_keys[i]} : ${_values[i]},');
       }
+
+      blog('} . Length : ${_keys.length} keys');
+
     }
+
     else {
-      blog('map is null : can not blog');
+      blog('MAP IS NULL');
     }
 
     blog('MAP-PRINT $methodName : --------------------------------------------------END');
