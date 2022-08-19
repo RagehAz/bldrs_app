@@ -52,7 +52,7 @@ class FlyerPromotion {
               flyerID: map['flyerID'],
               from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
               to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
-              districtsIDs: Stringer.transformDynamicsToStrings(dynamics: map['districtsIDs']),
+              districtsIDs: Stringer.getStringsFromDynamics(dynamics: map['districtsIDs']),
           );
 
     }

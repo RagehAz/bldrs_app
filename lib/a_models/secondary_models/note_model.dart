@@ -271,7 +271,7 @@ class NoteModel {
           time: map['responseTime'],
           fromJSON: fromJSON,
         ),
-        buttons: Stringer.transformDynamicsToStrings(dynamics: map['buttons']),
+        buttons: Stringer.getStringsFromDynamics(dynamics: map['buttons']),
         token: map['token'],
         docSnapshot: map['docSnapshot'],
       );
@@ -410,7 +410,7 @@ class NoteModel {
     else if (
     attachmentType == NoteAttachmentType.flyersIDs
     ){
-      final List<String> _strings = Stringer.transformDynamicsToStrings(
+      final List<String> _strings = Stringer.getStringsFromDynamics(
         dynamics: attachment,
       );
       _output = _strings;

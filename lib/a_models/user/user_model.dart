@@ -308,7 +308,7 @@ class UserModel {
       status: decipherUserStatus(map['status']),
       // -------------------------
       name: map['name'],
-      trigram: Stringer.transformDynamicsToStrings(dynamics: map['trigram'],),
+      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
       pic: map['pic'],
       title: map['title'],
       company: map['company'],
@@ -321,7 +321,7 @@ class UserModel {
       ),
       contacts: ContactModel.decipherContacts(map['contacts']),
       // -------------------------
-      myBzzIDs: Stringer.transformDynamicsToStrings(
+      myBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['myBzzIDs'],
       ),
       emailIsVerified: map['emailIsVerified'],
@@ -330,10 +330,10 @@ class UserModel {
           map: map['fcmToken'],
           fromJSON: fromJSON,
       ),
-      savedFlyersIDs: Stringer.transformDynamicsToStrings(
+      savedFlyersIDs: Stringer.getStringsFromDynamics(
           dynamics: map['savedFlyersIDs'],
       ),
-      followedBzzIDs: Stringer.transformDynamicsToStrings(
+      followedBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['followedBzzIDs'],
       ),
       appState: AppState.fromMap(map['appState']),

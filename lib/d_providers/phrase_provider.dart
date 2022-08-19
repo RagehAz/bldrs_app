@@ -169,7 +169,7 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   String getTranslatedPhraseByID(String id){
 
-    String _translation = '...';
+    String _translation = id;
 
     if (
     _basicPhrases != null

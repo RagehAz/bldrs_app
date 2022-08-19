@@ -27,7 +27,7 @@ class Region {
     return Region(
       name: map['name'],
       continent: map['continent'],
-      countriesIDs: Stringer.transformDynamicsToStrings(dynamics: map['countriesIDs']),
+      countriesIDs: Stringer.getStringsFromDynamics(dynamics: map['countriesIDs']),
     );
   }
 
