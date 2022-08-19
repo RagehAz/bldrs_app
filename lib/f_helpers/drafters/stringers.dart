@@ -254,7 +254,7 @@ class Stringer {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> transformDynamicsToStrings({
+  static List<String> getStringsFromDynamics({
     @required List<dynamic> dynamics,
   }) {
     final List<String> _strings = <String>[];

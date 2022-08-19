@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/city_phid_counters.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
+import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols_old.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -281,7 +281,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final Chain _bigChainK = await ChainProtocols.fetchBigChainK(context);
+    final Chain _bigChainK = await ChainProtocolsOLD.fetchBigChainKOLD(context);
 
     _setBigChainK(
       chain: _bigChainK,
@@ -324,7 +324,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final Chain _specsChain = await ChainProtocols.fetchBigChainS(context);
+    final Chain _specsChain = await ChainProtocolsOLD.fetchBigChainSOLD(context);
 
     setBigChainS(
       specsChain: _specsChain,
@@ -357,7 +357,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final CityPhidCounters _cityPhidCounters = await ChainProtocols.readCityPhidCountersOfCurrentZone(
+    final CityPhidCounters _cityPhidCounters = await ChainProtocolsOLD.readCityPhidCountersOfCurrentZone(
       context: context,
     );
 

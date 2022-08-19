@@ -210,13 +210,13 @@ class FlyerModel {
       _flyerModel = FlyerModel(
         id: map['id'],
         headline: map['headline'],
-        trigram: Stringer.transformDynamicsToStrings(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherFlyerState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
-        keywordsIDs: Stringer.transformDynamicsToStrings(dynamics: map['keywordsIDs']),
+        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZoneMap(map['zone']),
         // -------------------------

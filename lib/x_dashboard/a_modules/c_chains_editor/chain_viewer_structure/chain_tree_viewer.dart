@@ -122,7 +122,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               ChainTreeStrip(
                 width: widget.width,
                 level: widget.initialLevel + 1,
-                phraseID: Chain.cipherDataCreator(widget.chain?.sons),
+                phraseID: Chain.cipherDataCreatorOLD(widget.chain?.sons),
                 phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),

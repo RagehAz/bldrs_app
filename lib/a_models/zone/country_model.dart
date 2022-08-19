@@ -108,7 +108,7 @@ class CountryModel {
         continent: map['continent'],
         isActivated: map['isActivated'],
         isGlobal: map['isGlobal'],
-        citiesIDs: Stringer.transformDynamicsToStrings(dynamics: map['citiesIDs']),
+        citiesIDs: Stringer.getStringsFromDynamics(dynamics: map['citiesIDs']),
         language: map['language'],
         currency: map['currency'],
         phrases: decipherZonePhrases(

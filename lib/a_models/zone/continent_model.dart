@@ -37,8 +37,8 @@ class Continent {
     return Continent(
       name: map['name'],
       regions: Region.decipherRegions(map['regions']),
-      activatedCountriesIDs: Stringer.transformDynamicsToStrings(dynamics: map['activatedCountriesIDs']),
-      globalCountriesIDs: Stringer.transformDynamicsToStrings(dynamics: map['globalCountriesIDs']),
+      activatedCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['activatedCountriesIDs']),
+      globalCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
     );
   }
 // -----------------------------------------------------------------------------

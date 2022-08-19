@@ -304,7 +304,7 @@ Future<bool> _validateInputs({
     missingFields.value = _missingFieldsFound;
 
     final List<String> _missingFieldsValues = AlertModel.getAlertsIDs(_missingFieldsFound);
-    final List<String> _missingFieldsStrings = Stringer.transformDynamicsToStrings(dynamics: _missingFieldsValues);
+    final List<String> _missingFieldsStrings = Stringer.getStringsFromDynamics(dynamics: _missingFieldsValues);
     final String _missingFieldsString = Stringer.generateStringFromStrings(
         strings: _missingFieldsStrings,
     );
