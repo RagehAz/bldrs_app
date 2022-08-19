@@ -151,7 +151,7 @@ class CityPhidCounters {
     if (cityChain != null){
       final CityPhidCounters _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
       final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsCounters);
-      _output = Stringer.transformDynamicsToStrings(dynamics: _values);
+      _output = Stringer.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
 

@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/chain_ops.dart';
+import 'package:bldrs/e_db/fire/ops/chain_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -255,7 +255,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                             verse: 'Download and set last Backup',
                             onTap: () async {
 
-                              final List<Chain> _backups = await ChainFireOps.readKeywordsAndSpecsBackups(context);
+                              final List<Chain> _backups = await ChainFireOpsOLD.readKeywordsAndSpecsBackups(context);
 
                               Nav.goBack(
                                 context: context,
@@ -271,7 +271,7 @@ class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
                             context: context,
                             verse: 'Reload chains',
                             onTap: () async {
-                              final List<Chain> _chains = await ChainFireOps.reloadKeywordsAndSpecsChains(context);
+                              final List<Chain> _chains = await ChainFireOpsOLD.reloadKeywordsAndSpecsChains(context);
                               Nav.goBack(
                                 context: context,
                                 invoker: 'ChainsManagerScreen.Reload',

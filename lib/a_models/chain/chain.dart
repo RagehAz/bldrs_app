@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/data_creator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -34,7 +35,7 @@ class Chain {
 
       else {
         final bool _contains = Stringer.checkStringsContainString(
-          strings: Stringer.transformDynamicsToStrings(dynamics: sons),
+          strings: Stringer.getStringsFromDynamics(dynamics: sons),
           string: son,
         );
         if (_contains == false){
@@ -51,36 +52,103 @@ class Chain {
       // }
 
     }
-
 // -----------------------------------------------------------------------------
 
-  /// CYPHERS
+  /// REAL CYPHERS
+
+// --------------------------------------------
+  static Map<String, dynamic> cipherChainKPaths({
+  @required List<String> chainKPaths,
+}){
+
+    Map<String, dynamic> _map = {};
+    final List<String> _keys = <String>[];
+
+    if (Mapper.checkCanLoopList(chainKPaths) == true){
+
+      for (int i = 0; i < chainKPaths.length; i++){
+
+        final String _path = chainKPaths[i];
+        final String _key = ChainPathConverter.getLastPathNode(_path);
+        _keys.add(_key);
+
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: _key,
+            value: _path,
+          );
+        }
+
+        else {
+          blog('cipherChainKPaths : error here key is taken : _key $_key : ${_map[_key]}');
+          throw Error();
+        }
+
+      }
+
+
+    }
+
+    return _map;
+  }
+// --------------------------------------------
+  static Chain decipherBigChainKRealMap({
+    @required Map<String, dynamic> bigChainKMap,
+  }) {
+    Chain _bigChainK;
+
+    if (bigChainKMap != null) {
+
+      final List<dynamic> _dynamicsValues = bigChainKMap.values.toList();
+      _dynamicsValues.remove(RealDoc.chains_bigChainK);
+
+      final List<String> _paths = Stringer.getStringsFromDynamics(
+        dynamics: _dynamicsValues,
+      );
+
+      final List<Chain> _chainKSons = ChainPathConverter.createChainsFromPaths(
+        paths: _paths,
+      );
+
+      _bigChainK = Chain(
+        id: 'chainK',
+        sons: _chainKSons,
+      );
+
+    }
+
+    return _bigChainK;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OLD FIRE CYPHERS
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMapOLD(){
     return
         {
           'id': id,
-          'sons': _cipherSons(sons),
+          'sons': _cipherSonsOLD(sons),
         };
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static dynamic _cipherSons(dynamic sons){
+  static dynamic _cipherSonsOLD(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
     final bool _sonsAreChains = checkSonsAreChains(sons);
     final bool _sonsAreString = checkSonsAreStrings(sons);
     final bool _sonsAreDataCreator = checkSonsAreDataCreator(sons);
 
     if (_sonsAreChains == true){
-      return cipherChains(sons); // List<Map<String, dynamic>>
+      return cipherChainsOLD(sons); // List<Map<String, dynamic>>
     }
     else if (_sonsAreString == true){
       return sons; // List<String>
     }
     else if ( _sonsAreDataCreator == true){
-      return cipherDataCreator(sons);
+      return cipherDataCreatorOLD(sons);
     }
     else {
       return null;
@@ -89,7 +157,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String cipherDataCreator(dynamic sons){
+  static String cipherDataCreatorOLD(dynamic sons){
     switch (sons){
 
       case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';      break;
@@ -108,7 +176,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static DataCreator decipherDataCreator(String string){
+  static DataCreator decipherDataCreatorOLD(String string){
     switch (string){
       case 'DataCreator_doubleKeyboard':        return DataCreator.doubleKeyboard;      break;
       case 'DataCreator_doubleSlider':          return DataCreator.doubleSlider;        break;
@@ -125,14 +193,14 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> cipherChains(List<Chain> chains){
+  static List<Map<String, dynamic>> cipherChainsOLD(List<Chain> chains){
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (Mapper.checkCanLoopList(chains) == true){
 
       for (final Chain chain in chains){
-        final Map<String, dynamic> _map = chain.toMap();
+        final Map<String, dynamic> _map = chain.toMapOLD();
         _maps.add(_map);
       }
 
@@ -142,13 +210,13 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain decipherChain(Map<String, dynamic> map){
+  static Chain decipherChainOLD(Map<String, dynamic> map){
     Chain _chain;
 
     if (map != null){
       _chain = Chain(
         id: map['id'],
-        sons: _decipherSons(map['sons']),
+        sons: _decipherSonsOLD(map['sons']),
       );
     }
 
@@ -156,7 +224,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static dynamic _decipherSons(dynamic sons){
+  static dynamic _decipherSonsOLD(dynamic sons){
     dynamic _output;
 
     if (sons != null){
@@ -168,12 +236,12 @@ class Chain {
 
         /// FIRST SON IS STRING => SONS ARE STRINGS
         if (sons[0] is String){
-          _output = Stringer.transformDynamicsToStrings(dynamics: sons);
+          _output = Stringer.getStringsFromDynamics(dynamics: sons);
         }
 
         /// FIRST SON IS NOT STRING => SONS ARE CHAINS
         else {
-        _output = decipherChains(sons);
+        _output = decipherChainsOLD(sons);
         }
 
       }
@@ -182,7 +250,7 @@ class Chain {
       else if (sons is String){
         final bool _isDataCreator = TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
         if (_isDataCreator == true){
-          _output = decipherDataCreator(sons);
+          _output = decipherDataCreatorOLD(sons);
         }
       }
 
@@ -192,13 +260,13 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> decipherChains(List<dynamic> maps){
+  static List<Chain> decipherChainsOLD(List<dynamic> maps){
     final List<Chain> _chains = <Chain>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps){
-        final Chain _chain = decipherChain(map);
+        final Chain _chain = decipherChainOLD(map);
         _chains.add(_chain);
       }
 
@@ -231,7 +299,7 @@ class Chain {
         Mapper.checkCanLoopList(specPicker?.range)
     ) {
 
-      final List<String> _rangeIDs = Stringer.transformDynamicsToStrings(
+      final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
         dynamics: specPicker.range,
       );
 

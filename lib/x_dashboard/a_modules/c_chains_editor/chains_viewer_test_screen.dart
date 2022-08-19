@@ -1,12 +1,22 @@
+import 'dart:async';
+
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_view_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +111,8 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final double _screenWidth = Scale.superScreenWidth(context);
+
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
@@ -121,6 +133,14 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
 
       ],
       listWidgets: <Widget>[
+
+        // ---------------------------------------
+
+        /// VIEWING PRO CHAINS
+        InfoPageHeadline(
+            pageWidth: _screenWidth - 20,
+            headline: 'Viewing Pro Chains',
+        ),
 
         /// PICKERS SELECTORS
         SizedBox(
@@ -235,6 +255,83 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
 
           },
         ),
+
+        // ---------------------------------------
+
+        const SeparatorLine(),
+
+        /// VIEWING PRO CHAINS
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headline: 'Chain Real Ops',
+        ),
+
+        /// CREATE CHAIN K
+        WideButton(
+          verse: 'Real.CREATE BigChainK from ProChainK',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            final Chain chainK = ChainsProvider.proGetBigChainK(
+                context: context,
+                onlyUseCityChains: false,
+                listen: false
+            );
+
+            final Chain _chainKUploaded = await ChainProtocols.composeChainK(
+                context: context,
+                chainK: chainK
+            );
+
+            if (_chainKUploaded == null){
+              blog('No ChainK received');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _chainKUploaded,
+                ),
+              );
+            }
+
+          },
+        ),
+
+        /// READ CHAIN K
+        WideButton(
+          verse: 'Real.READ BigChainK',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            unawaited(WaitDialog.showWaitDialog(context: context,));
+
+            final Chain _bigChainK = await ChainRealOps.readBigChainK(context);
+
+            _bigChainK?.blogChain();
+
+            WaitDialog.closeWaitDialog(context);
+
+            if (_bigChainK == null){
+              blog('No ChainK found');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _bigChainK,
+                ),
+              );
+            }
+
+          },
+        ),
+
+        // ---------------------------------------
+
+        const SeparatorLine(),
 
       ],
     );

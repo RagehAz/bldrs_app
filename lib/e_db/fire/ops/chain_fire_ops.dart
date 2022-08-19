@@ -8,10 +8,10 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/cupertino.dart';
 
-class ChainFireOps {
+class ChainFireOpsOLD {
 // -----------------------------------------------------------------------------
 
-  const ChainFireOps();
+  const ChainFireOpsOLD();
 
 // -----------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ class ChainFireOps {
             docName: FireDoc.admin_backups,
             subCollName: FireSubColl.admin_backups_chains,
             subDocName: 'keywords',
-            input: _keywordsChain.toMap(),
+            input: _keywordsChain.toMapOLD(),
           );
 
           final Chain _specsChain = await readSpecsChain(context);
@@ -44,7 +44,7 @@ class ChainFireOps {
             docName: FireDoc.admin_backups,
             subCollName: FireSubColl.admin_backups_chains,
             subDocName: 'specs',
-            input: _specsChain.toMap(),
+            input: _specsChain.toMapOLD(),
           );
 
           /// UPDATE THE BACKUP TIME STAMP
@@ -108,7 +108,7 @@ class ChainFireOps {
       docName: FireDoc.chains_keywords,
     );
 
-    final Chain _chain = Chain.decipherChain(_map);
+    final Chain _chain = Chain.decipherChainOLD(_map);
 
     return _chain;
   }
@@ -122,7 +122,7 @@ class ChainFireOps {
       docName: FireDoc.chains_specs,
     );
 
-    final Chain _chain = Chain.decipherChain(_map);
+    final Chain _chain = Chain.decipherChainOLD(_map);
 
     return _chain;
   }
@@ -138,7 +138,7 @@ class ChainFireOps {
       subDocName: FireSubDoc.admin_backups_chains_keywords,
     );
 
-    final Chain _keywordChain = Chain.decipherChain(_keywordsChainMap);
+    final Chain _keywordChain = Chain.decipherChainOLD(_keywordsChainMap);
 
     final Map<String, dynamic> _specsChainMap = await Fire.readSubDoc(
       context: context,
@@ -148,7 +148,7 @@ class ChainFireOps {
       subDocName: FireSubDoc.admin_backups_chains_specs,
     );
 
-    final Chain _specsChain = Chain.decipherChain(_specsChainMap);
+    final Chain _specsChain = Chain.decipherChainOLD(_specsChainMap);
 
     return <Chain>[_keywordChain, _specsChain];
   }
@@ -193,7 +193,7 @@ class ChainFireOps {
         context: context,
         collName: FireColl.chains,
         docName: FireDoc.chains_specs,
-        input: _updatedChain.toMap(),
+        input: _updatedChain.toMapOLD(),
       );
 
     }
@@ -229,7 +229,7 @@ class ChainFireOps {
       context: context,
       collName: FireColl.chains,
       docName: fireDoc,
-      input: _finalChain.toMap(),
+      input: _finalChain.toMapOLD(),
     );
 
   }
@@ -244,7 +244,7 @@ class ChainFireOps {
       context: context,
       collName: FireColl.chains,
       docName: FireDoc.chains_keywords,
-      input: newKeywordsChain.toMap(),
+      input: newKeywordsChain.toMapOLD(),
     );
 
   }
@@ -259,7 +259,7 @@ class ChainFireOps {
       context: context,
       collName: FireColl.chains,
       docName: FireDoc.chains_specs,
-      input: newSpecsChain.toMap(),
+      input: newSpecsChain.toMapOLD(),
     );
 
   }
