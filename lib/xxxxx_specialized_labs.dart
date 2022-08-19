@@ -11,6 +11,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_en
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/real_shit/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/back_end_lab/sembast_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/dynamic_links_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/email_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/go_back_widget_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/golden_scrolls_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboard_field_widget_test.dart';
@@ -40,6 +41,13 @@ class SpecializedLabs extends StatelessWidget {
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     final List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// EMAIL SENDER
+      DashButtonModel(
+        verse: 'email Test Screen',
+        icon: Iconz.comEmail,
+        screen: const EmailTestScreen(),
+      ),
 
       /// IMAGES TEST SCREEN
       DashButtonModel(

@@ -29,11 +29,14 @@ class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<void> showSuccessDialog({
   @required BuildContext context,
+    String firstLine,
+    String secondLine,
 }) async {
 
     await showTopDialog(
       context: context,
-      firstLine: 'Success',
+      firstLine: firstLine ?? 'Success',
+      secondLine: secondLine,
       color: Colorz.green255,
       textColor: Colorz.white255,
     );

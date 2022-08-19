@@ -57,6 +57,7 @@ dependencies:
   intl: ^0.17.0
   just_audio: ^0.9.24
   location: ^4.4.0
+  mailer: ^5.2.0
   matrix_gesture_detector: ^0.1.0
   matrix2d: ^1.0.2
   matrix4_transform: ^2.0.1
