@@ -406,7 +406,7 @@ class ChainPathConverter {
 
         final DataCreator _sons = chain.sons;
 
-        final String _dc = Chain.cipherDataCreator(_sons);
+        final String _dc = Chain.cipherDataCreatorOLD(_sons);
 
         final String _path = '$previousPath${chain.id}/$_dc/';
 

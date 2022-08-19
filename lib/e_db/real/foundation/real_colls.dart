@@ -1,8 +1,9 @@
+// ignore_for_file: constant_identifier_names
 
 class RealColl {
 // -----------------------------------------------------------------------------
 
-  RealColl();
+  const RealColl();
 
 // -----------------------------------------------------------------------------
   /// BZ
@@ -33,5 +34,20 @@ class RealColl {
   /// CHAINS
 // -------------------
   static const String chainsUsage = 'chainsUsage';
+  static const String chains = 'chains';
 // -----------------------------------------------------------------------------
+}
+
+class RealDoc {
+// -----------------------------------------------------------------------------
+
+  const RealDoc();
+
+// -----------------------------------------------------------------------------
+  /// CHAINS
+// -------------------
+  static const String chains_bigChainK = 'bigChainK';
+  static const String chains_bigChainS = 'bigChainS';
+// -----------------------------------------------------------------------------
+
 }

@@ -253,9 +253,9 @@ class BzModel{
         accountType: decipherBzAccountType(map['accountType']),
         // -------------------------
         name: map['name'],
-        trigram: Stringer.transformDynamicsToStrings(dynamics: map['trigram']),
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         logo: map['logo'],
-        scope: Stringer.transformDynamicsToStrings(dynamics: map['scope']),
+        scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
         zone: ZoneModel.decipherZoneMap(map['zone']),
         about: map['about'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
@@ -266,7 +266,7 @@ class BzModel{
         isVerified: map['isVerified'],
         bzState: decipherBzState(map['bzState']),
         // -------------------------
-        flyersIDs: Stringer.transformDynamicsToStrings(dynamics: map['flyersIDs']),
+        flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
         docSnapshot: map['docSnapshot'],
       );
     }
@@ -561,7 +561,7 @@ class BzModel{
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
-      final List<String> _strings = Stringer.transformDynamicsToStrings(dynamics: bzTypes);
+      final List<String> _strings = Stringer.getStringsFromDynamics(dynamics: bzTypes);
 
       for (final String _string in _strings){
         final BzType _bzType = decipherBzType(_string);

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chain_sons_builder.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -35,6 +36,8 @@ class ChainSplitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _width = width ?? BldrsAppBar.width(context);
+
     /// IF SON IS A PHID
     if (chainOrChainsOrSonOrSons is String) {
 
@@ -49,7 +52,7 @@ class ChainSplitter extends StatelessWidget {
 
       return PhidButton(
         phid: _phid,
-        width: width,
+        width: _width,
         parentLevel: parentLevel,
         searchText: searchText,
         color: _color,
@@ -63,7 +66,7 @@ class ChainSplitter extends StatelessWidget {
     else if (chainOrChainsOrSonOrSons is List<String>){
       return ChainSonsBuilder(
         sons: chainOrChainsOrSonOrSons,
-        width: width,
+        width: _width,
         parentLevel: parentLevel,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,
@@ -81,7 +84,7 @@ class ChainSplitter extends StatelessWidget {
       return ChainBuilder(
         key: PageStorageKey<String>(_chain.id),
         chain: _chain,
-        boxWidth: width,
+        boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
         firstHeadline: xPhrase(context, _chain.id),
         secondHeadline: null,
@@ -99,7 +102,7 @@ class ChainSplitter extends StatelessWidget {
     else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
       return ChainSonsBuilder(
         sons: chainOrChainsOrSonOrSons,
-        width: width,
+        width: _width,
         parentLevel: parentLevel,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,

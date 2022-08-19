@@ -172,7 +172,7 @@ class Phrase {
 
     final List<String> _trigram = _getTrigramIfIncluded(
       includeTrigram: includeTrigram,
-      existingTrigram: Stringer.transformDynamicsToStrings(dynamics: map['trigram']),
+      existingTrigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
       originalString: map['value'],
     );
 
