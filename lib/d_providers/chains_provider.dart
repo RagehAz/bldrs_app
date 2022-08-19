@@ -310,6 +310,15 @@ class ChainsProvider extends ChangeNotifier {
   Chain get bigChainS => _bigChainS;
 // -------------------------------------
   /// TESTED : WORKS PERFECT
+  static Chain proGetBigChainS({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
+    return _chainsProvider.bigChainS;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _fetchSetBigChainS({
     @required BuildContext context,
     @required bool notify,

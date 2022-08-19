@@ -1,4 +1,5 @@
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -237,7 +238,7 @@ class Stringer {
   }
    */
 // -------------------------------------
-  /*
+
   /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
     // List<String> _outputList = <String>[];
@@ -246,7 +247,7 @@ class Stringer {
 
     return inputList;
   }
- */
+
 // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
@@ -416,6 +417,145 @@ class Stringer {
     }
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogStrings({
+    @required List<String> strings,
+    String invoker,
+  }){
+    blog('blogStrings : START --- : $invoker');
+    if (Mapper.checkCanLoopList(strings) == true){
+      
+
+      for (int i = 0; i <strings.length; i++){
+
+        final int _length = strings.length;
+        final int _numberOfDigits = Numeric.concludeNumberOfDigits(_length);
+        final String _index = Numeric.formatNumberWithinDigits(
+            num: i+1,
+            digits: _numberOfDigits
+        );
+
+        blog('$_index : [ ${strings[i]} ]');
+        
+      }
+      
+    }
+    else {
+      blog('blogStrings : strings can not be blogged');
+    }
+    
+    blog('blogStrings : END --- : $invoker');
+    
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void blogStringsListsDifferences({
+    @required List<String> strings1,
+    @required List<String> strings2,
+  }){
+
+    blog('blogStringsListsDifferences : START');
+
+    if (strings1 == null){
+      blog('0 - strings1 is null');
+    }
+    if (strings2 == null){
+      blog('0 - strings1 is null');
+    }
+    if (strings1?.isEmpty == true){
+      blog('0 - strings1 is Empty');
+    }
+    if (strings2?.isNotEmpty == null){
+      blog('0 - strings1 is Empty');
+    }
+    if (Mapper.checkCanLoopList(strings1) == true && Mapper.checkCanLoopList(strings2) == true){
+
+      final bool _listsAreIdentical = Mapper.checkListsAreIdentical(
+        list1: strings1,
+        list2: strings2,
+      );
+
+      /// LISTS ARE IDENTICAL ALREADY
+      if (_listsAreIdentical == true){
+        blog('1 - strings lists are PERFECTLY identical and of length : ${strings1.length}');
+      }
+
+      /// LISTS ARE NOT IDENTICAL
+      else {
+        blog('1 - strings lists are NOT identical');
+
+        final bool _sortedAreIdentical = Mapper.checkListsAreIdentical(
+          list1: Stringer.sortAlphabetically2(strings1),
+          list2: Stringer.sortAlphabetically2(strings2),
+        );
+
+        /// LISTS JUST NEEDED SORTING
+        if (_sortedAreIdentical == true){
+          blog('2 - strings lists just needed sorting to be identical, and has length of : ${strings1.length}');
+        }
+
+        else {
+          blog('2 - SORTED strings lists are NOT identical AS WELL');
+
+          List<String> _longer;
+          List<String> _shorter;
+          if (strings1.length > strings2.length){
+            _longer = <String>[...strings1];
+            _shorter = <String>[...strings2];
+            blog('3 - [ strings 1 length ( ${strings1.length} ) ] > [ strings 2 length ( ${strings2.length} ) ] : '
+                '${_longer.length} - ${_shorter.length} = ${_longer.length - _shorter.length}');
+          }
+          else if (strings1.length < strings2.length){
+            _longer = <String>[...strings2];
+            _shorter = <String>[...strings1];
+            blog('3 - [ strings 2 length ( ${strings2.length} ) ] > [ strings 1 length ( ${strings1.length} ) ] : '
+                '${_longer.length} - ${_shorter.length} = ${_longer.length - _shorter.length}');
+          }
+          else if (strings1.length == strings2.length){
+            blog('3 - strings lengths are identical of ( ${strings2.length} )');
+            _longer = <String>[...strings2];
+            _shorter = <String>[...strings1];
+          }
+          else {
+            blog('3 - a77a : something is wrong here');
+          }
+
+          for (int i = 0; i < _longer.length; i++){
+
+            final String _string = _longer[i];
+
+            final bool _shorterContains = checkStringsContainString(
+              strings: _shorter,
+              string: _string,
+            );
+
+            if (_shorterContains == false){
+              blog('4 - shorter strings do not have : index : ( $i / ${_longer.length} ) : string : ( $_string )');
+            }
+            // else {
+            //   blog('shorter has  : index : ( $i ) : string : ( $_string )');
+            // }
+
+          }
+
+
+        }
+
+
+
+      }
+
+
+    }
+
+    blog('blogStringsListsDifferences : END');
+
   }
 // -----------------------------------------------------------------------------
 }

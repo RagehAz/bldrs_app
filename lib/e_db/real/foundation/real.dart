@@ -258,7 +258,7 @@ class Real {
       methodName: 'createDoc',
       functions: () async {
 
-        final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName$docName';
+        final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName/$docName';
 
         /// GET PATH
         DatabaseReference _ref = _getRefByPath(
@@ -535,7 +535,7 @@ class Real {
     );
 
     if (_map != null){
-      blog('Real.readDocOnce : map added to [REAL/$collName/$docName] : map : $_map');
+      blog('Real.readDocOnce : map read from [REAL/$collName/$docName] : map : ${_map.length} keys');
     }
 
     return _map;
