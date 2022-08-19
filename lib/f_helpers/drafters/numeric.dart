@@ -169,6 +169,15 @@ class Numeric {
 
     return _output;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static int concludeNumberOfDigits(int length){
+
+    final String _stringed = length.toString();
+    final int _digits = _stringed.length;
+
+    return _digits;
+  }
 // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS

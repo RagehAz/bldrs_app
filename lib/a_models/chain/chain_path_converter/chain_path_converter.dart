@@ -668,8 +668,32 @@ class ChainPathConverter {
 
     return _include;
   }
-// -------------------------------------------
+// -----------------------------------------------------------------------------
 
+  /// SPECIAL GENERATORS
+
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String generateChainSPathKeyForFirebase({
+  @required String path,
+}){
+
+    /// NOTE : WORKS ONLY WITH CHAIN S paths
+    // map pair looks like this
+    /// style_phid_s_arch_style_arabian : chainS/phid_s_style/phid_s_arch_style_arabian/
+    // => '{secondNode_xxx} + {yyy}
+    // => key = 'xxx_yyy'
+
+    final String _phid = ChainPathConverter.getLastPathNode(path);
+    final List<String> _split = ChainPathConverter.splitPathNodes(path);
+
+    final String _groupLine = _split[_split.length - 2];
+    final String group = TextMod.removeTextBeforeLastSpecialCharacter(_groupLine, '_');
+    final String _key = '${group}_$_phid';
+
+    return _key;
+  }
+// -----------------------------------------------------------------------------
 /*
   static bool phidIsAChainID({
     @required List<String> paths,

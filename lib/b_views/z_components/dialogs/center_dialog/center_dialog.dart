@@ -250,7 +250,7 @@ class CenterDialog extends StatelessWidget {
                                         verse: body.runtimeType == String ? body
                                             :
                                         body.toString(),
-                                        maxLines: 6,
+                                        maxLines: 20,
                                         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
                                       ),
                                     ),
