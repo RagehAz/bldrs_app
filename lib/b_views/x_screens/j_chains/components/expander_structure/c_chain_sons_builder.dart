@@ -7,6 +7,7 @@ class ChainSonsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainSonsBuilder({
     @required this.sons,
+    @required this.previousPath,
     @required this.width,
     @required this.parentLevel,
     @required this.onPhidTap,
@@ -17,9 +18,10 @@ class ChainSonsBuilder extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic sons;
+  final String previousPath;
   final double width;
   final int parentLevel;
-  final ValueChanged<String> onPhidTap;
+  final Function(String path, String phid) onPhidTap;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<String> searchText;
@@ -46,7 +48,7 @@ class ChainSonsBuilder extends StatelessWidget {
 
             ...List.generate(sons?.length ?? 0, (index){
 
-              final dynamic _chain = sons[index];
+              final dynamic son = sons[index];
 
               return Container(
                 width: _sonWidth,
@@ -56,7 +58,8 @@ class ChainSonsBuilder extends StatelessWidget {
                   right: Ratioz.appBarPadding,
                 ),
                 child: ChainSplitter(
-                  chainOrChainsOrSonOrSons: _chain,
+                  previousPath: previousPath,
+                  chainOrChainsOrSonOrSons: son,
                   width: _sonWidth,
                   onSelectPhid: onPhidTap,
                   selectedPhids: selectedPhids,

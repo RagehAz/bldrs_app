@@ -63,7 +63,7 @@ class PhidButton extends StatelessWidget {
       _scaleFactor = 1.7;
     }
     else {
-      _scaleFactor = 0.7;
+      _scaleFactor = 0.65;
     }
 
     return _scaleFactor;
