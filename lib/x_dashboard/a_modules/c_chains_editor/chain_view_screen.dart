@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -9,9 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -80,53 +79,45 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
 // -----------------------------------------------------------------------------
   Future<void> onPhidTap(String path, String phid) async {
 
+    final String _path = ChainPathConverter.fixPathFormatting(path);
+
     await BottomDialog.showButtonsBottomDialog(
         context: context,
-        numberOfWidgets: 2,
+        numberOfWidgets: 7,
         draggable: true,
-        title: path,
+        title: phid,
         buttonHeight: 50,
         builder: (_, PhraseProvider phrasePro){
 
           return <Widget>[
 
-            BottomDialog.wideButton(
-                context: context,
-                verse: 'Delete',
-                onTap: () async {
+            /// PATH SPLIT
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: BubbleBulletPoints(
+                bulletPoints: ChainPathConverter.splitPathNodes(_path),
+                bubbleWidth: BottomDialog.clearWidth(context),
+              ),
+            ),
 
-                  Nav.goBack(context: context, invoker: 'onPhidTap delete button');
-
-                  final bool _continue = await CenterDialog.showCenterDialog(
-                    context: context,
-                    title: 'Delete ${phid} ?',
-                    body: 'this path will be deleted :-'
-                        '\n[ $path ]',
-                    boolDialog: true,
-                  );
-
-                  if (_continue == true){
-
-                    final Chain _updated = Chain.removePathFromChain(
-                        chain: _chain.value,
-                        path: path,
-                    );
-
-                    _chain.value = _updated;
-
-                    await TopDialog.showSuccessDialog(
-                      context: context,
-                      firstLine: '( $phid ) has been deleted',
-                    );
-
-                  }
-
-                }),
-
-
+            /// EDIT
             BottomDialog.wideButton(
               context: context,
               verse: 'Edit',
+              onTap: () => onEditPhid(
+                path: _path,
+                phid: phid,
+              ),
+            ),
+
+            /// DELETE
+            BottomDialog.wideButton(
+              context: context,
+              verse: 'Delete',
+              onTap: () => onDeletePhid(
+                path: _path,
+                phid: phid,
+              ),
             ),
 
           ];
@@ -135,7 +126,143 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
     );
 
   }
+// -----------------------------------------------------------------------------
+  Future<void> onAddNewPath (String path) async {
+    blog('path was  : $path');
 
+    final String _path = ChainPathConverter.fixPathFormatting(path);
+    blog('path aho is  : $_path');
+
+    final String _typedPath = await pathKeyboardDialog(
+      path: path,
+      title: 'Add to path',
+    );
+
+    final Chain _updated = Chain.addPathToChain(
+      chain: _chain.value,
+      path: _typedPath,
+    );
+
+    // _updated.blogChain();
+
+    _chain.value = _updated;
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> onDeletePhid ({
+    @required String phid,
+    @required String path,
+  }) async {
+
+    Nav.goBack(
+        context: context,
+        invoker: 'onDeletePhid delete button',
+    );
+
+    final bool _continue = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Delete $phid ?',
+      body: 'this path will be deleted :-'
+          '\n[ $path ]',
+      boolDialog: true,
+    );
+
+    if (_continue == true){
+
+      final Chain _updated = Chain.removePathFromChain(
+        chain: _chain.value,
+        path: path,
+      );
+
+      _chain.value = _updated;
+
+      await TopDialog.showSuccessDialog(
+        context: context,
+        firstLine: '( $phid ) has been deleted',
+      );
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  Future<void> onEditPhid({
+    @required String phid,
+    @required String path,
+  }) async {
+
+    Nav.goBack(context: context, invoker: 'onEditPhid');
+
+    final String _typedPath = await pathKeyboardDialog(
+      path: path,
+      title: 'Edit path',
+    );
+
+    if (path != _typedPath){
+
+      final bool _continue = await CenterDialog.showCenterDialog(
+        context: context,
+        height: 500,
+        title: 'Edit this path ?',
+        body: 'old\n$path'
+            '\n\n'
+            'new\n$_typedPath',
+        boolDialog: true,
+      );
+
+      if (_continue == true){
+
+        final Chain _updated = Chain.replaceChainPathWithPath(
+          chain: _chain.value,
+          pathToRemove: path,
+          pathToReplace: _typedPath,
+        );
+
+        _chain.value = _updated;
+
+      }
+
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  final TextEditingController _controller = TextEditingController();
+  final FocusNode _node = FocusNode();
+  Future<String> pathKeyboardDialog({
+    @required String path,
+    @required String title,
+  }) async {
+
+    String _typedPath;
+     _controller.text = ChainPathConverter.fixPathFormatting(path);
+
+    void doneWithPath(String text){
+      _typedPath = ChainPathConverter.fixPathFormatting(text);
+    }
+
+    _typedPath = await BottomDialog.keyboardDialog(
+      context: context,
+      keyboardModel: KeyboardModel.standardModel().copyWith(
+        title: title,
+        hintText: path,
+        controller: _controller,
+        focusNode: _node,
+        minLines: 3,
+        maxLines: 8,
+        maxLength: 1000,
+        isFloatingField: false,
+        textInputAction: TextInputAction.done,
+        textInputType: TextInputType.url,
+        // onChanged: (String text){},
+        onSubmitted: doneWithPath,
+        onEditingComplete: doneWithPath,
+      ),
+    );
+
+    _typedPath = ChainPathConverter.fixPathFormatting(_typedPath);
+
+    return _typedPath;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -182,49 +309,7 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
                 initiallyExpanded: false,
                 chainOrChainsOrSonOrSons: chain,
                 onSelectPhid: onPhidTap,
-                onAddToPath: (String path) async {
-                  blog('path was  : $path');
-                  // final String _p = TextMod.removeTextBeforeFirstSpecialCharacter(path, '/');
-                  final String _path = TextMod.removeTextBeforeFirstSpecialCharacter(path, '/');
-                  blog('path aho is  : $_path');
-
-                  String _output;
-                  void doneWithPath(String text){
-                    _output = text;
-                    Keyboard.closeKeyboard(context);
-                  }
-
-                  _output = await BottomDialog.keyboardDialog(
-                    context: context,
-                    // confirmButtonIsOn: true,
-                    keyboardModel: KeyboardModel.standardModel().copyWith(
-                        title: 'Add to path',
-                        hintText: _path,
-                        controller: TextEditingController(text: '$_path/'),
-                        minLines: 3,
-                        maxLines: 8,
-                        maxLength: 1000,
-                        isFloatingField: false,
-                        // textInputAction: TextInputAction.done,
-                        textInputType: TextInputType.url,
-                        // onChanged: (String text){},
-                        onSubmitted: doneWithPath,
-                        onEditingComplete: doneWithPath,
-                    ),
-                  );
-
-                  blog('newPath is : $_output');
-
-                  final Chain _updated = Chain.addPathToChain(
-                    chain: chain,
-                    path: '$_output/',
-                  );
-
-                  _updated.blogChain();
-
-                  _chain.value = _updated;
-
-                },
+                onAddToPath: onAddNewPath,
 
               );
 
