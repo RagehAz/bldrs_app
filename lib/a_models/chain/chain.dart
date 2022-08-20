@@ -1204,6 +1204,7 @@ class Chain {
     return _output;
   }
 // --------------------------------------------
+  /// TEST : WORKS PERFECT
   static Chain removePathFromChain({
     @required Chain chain,
     @required String path,
@@ -1234,6 +1235,43 @@ class Chain {
     }
 
     // blog('addPathToChain : END');
+    return _output;
+  }
+// --------------------------------------------
+  /// TEST : WORKS PERFECT
+  static Chain replaceChainPathWithPath({
+    @required Chain chain,
+    @required String pathToRemove,
+    @required String pathToReplace,
+  }){
+    Chain _output = chain;
+
+    if (chain !=null && pathToRemove != null && pathToReplace != null && pathToRemove != pathToReplace){
+
+      final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+        parentID: chain.id,
+        chains: chain.sons,
+      );
+
+      /// REMOVE ORIGINAL PATH
+      final List<String> _afterRemove = Stringer.removeStringsFromStrings(
+        removeFrom: _chainPaths,
+        removeThis: <String>[pathToRemove],
+      );
+
+      /// INSERT NEW PATH
+      final List<String> _afterInsert = Stringer.addStringToListIfDoesNotContainIt(
+          strings: _afterRemove,
+          stringToAdd: pathToReplace,
+      );
+
+      _output = ChainPathConverter.createChainFromPaths(
+        chainID: chain.id,
+        paths: _afterInsert,
+      );
+
+    }
+
     return _output;
   }
 // --------------------------------------------

@@ -20,7 +20,7 @@ class KeyboardModel {
     @required this.onSavedForForm,
     @required this.onEditingComplete,
     @required this.isFloatingField,
-});
+}): assert(controller != null, 'KeyboardModel controller should NEVER be null');
 
   final String title;
   final String hintText;
@@ -91,7 +91,7 @@ class KeyboardModel {
       maxLength: null,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.text,
-      focusNode: FocusNode(),
+      focusNode: null,
       canObscure: false,
       counterIsOn: false,
       isFormField: false,
