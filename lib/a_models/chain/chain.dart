@@ -57,12 +57,17 @@ class Chain {
   /// REAL CYPHERS
 
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherChainKPaths({
-  @required List<String> chainKPaths,
+  @required Chain chainK,
 }){
 
+    final List<String> chainKPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: chainK.sons,
+    );
+
     Map<String, dynamic> _map = {};
-    final List<String> _keys = <String>[];
 
     if (Mapper.checkCanLoopList(chainKPaths) == true){
 
@@ -70,7 +75,6 @@ class Chain {
 
         final String _path = chainKPaths[i];
         final String _key = ChainPathConverter.getLastPathNode(_path);
-        _keys.add(_key);
 
         if (_map[_key] == null){
           _map = Mapper.insertPairInMap(
@@ -93,6 +97,7 @@ class Chain {
     return _map;
   }
 // --------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Chain decipherBigChainKRealMap({
     @required Map<String, dynamic> bigChainKMap,
   }) {
@@ -119,6 +124,81 @@ class Chain {
     }
 
     return _bigChainK;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherChainSPaths({
+    @required Chain chainS,
+  }){
+
+      /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
+
+    final List<String> chainSPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: chainS.sons,
+    );
+
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.checkCanLoopList(chainSPaths) == true){
+
+      for (int i = 0; i < chainSPaths.length; i++){
+
+        final String _path = chainSPaths[i];
+        final String _key = ChainPathConverter.generateChainSPathKeyForFirebase(
+            path: _path,
+        );
+
+        /// THIS KEY IS UNIQUE
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: _key,
+            value: _path,
+          );
+        }
+
+        /// THE KEY IS TAKEN ALREADY
+        else {
+          blog('cipherChainSPaths : error here key is taken : _key $_key : ${_map[_key]}');
+          throw Error();
+        }
+
+      }
+
+
+    }
+
+    return _map;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain decipherBigChainSRealMap({
+    @required Map<String, dynamic> bigChainSMap,
+  }) {
+    Chain _bigChainS;
+
+    if (bigChainSMap != null) {
+
+      final List<dynamic> _dynamicsValues = bigChainSMap.values.toList();
+      _dynamicsValues.remove(RealDoc.chains_bigChainS);
+
+      final List<String> _paths = Stringer.getStringsFromDynamics(
+        dynamics: _dynamicsValues,
+      );
+
+      final List<Chain> _chainSSons = ChainPathConverter.createChainsFromPaths(
+        paths: _paths,
+      );
+
+      _bigChainS = Chain(
+        id: 'chainS',
+        sons: _chainSSons,
+      );
+
+    }
+
+    return _bigChainS;
   }
 // -----------------------------------------------------------------------------
 

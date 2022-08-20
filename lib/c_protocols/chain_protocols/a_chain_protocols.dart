@@ -15,6 +15,7 @@ class ChainProtocols {
   /// COMPOSE
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<Chain> composeChainK({
     @required BuildContext context,
     @required Chain chainK,
@@ -26,7 +27,7 @@ class ChainProtocols {
     ));
 
     /// NOTE : chain K does not allow duplicate IDs in last node
-    final Chain _bigChainK = await ChainRealOps.createChainK(
+    final Chain _bigChainK = await ChainRealOps.createBigChainK(
         context: context,
         chainK: chainK,
     );
@@ -34,6 +35,28 @@ class ChainProtocols {
     WaitDialog.closeWaitDialog(context);
 
     return _bigChainK;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Chain> composeChainS({
+    @required BuildContext context,
+    @required Chain chainS,
+  }) async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingPhrase: 'Uploading ChainS to RealTime Database',
+    ));
+
+    /// NOTE : chain S allows duplicate keys in its last nodes
+    final Chain _bigChainS = await ChainRealOps.createBigChainS(
+      context: context,
+      chainS: chainS,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    return _bigChainS;
   }
 // -----------------------------------------------------------------------------
 
