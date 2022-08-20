@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -153,7 +154,7 @@ class CenterDialog extends StatelessWidget {
 
     const double _buttonHeight = DialogButton.height;
     const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
-    final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
+    // final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
 
     final String _confirmButtonText = _getConfirmButtonText();
 
@@ -179,7 +180,7 @@ class CenterDialog extends StatelessWidget {
 
               return GestureDetector(
                 child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   child: GestureDetector(
                     onTap: (){
                       Nav.goBack(
@@ -207,72 +208,80 @@ class CenterDialog extends StatelessWidget {
                             boxShadow: Shadower.appBarShadow,
                             borderRadius: _dialogBorders,
                           ),
-                          child: ListView(
-                            physics: const NeverScrollableScrollPhysics(),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
 
-                              /// TITLE - BODY - CHILD
+                              /// TITLE
                               Container(
                                 width: _dialogWidth,
-                                height: _contentZoneHeight,
                                 alignment: Alignment.center,
-                                // color: Colorz.White30,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  mainAxisSize: MainAxisSize.min,
+                                // color: Colorz.BloodTest,
+                                child: title == null ? Container()
+                                    :
+                                SuperVerse(
+                                  verse: title,
+                                  color: Colorz.yellow255,
+                                  shadow: true,
+                                  size: 3,
+                                  italic: true,
+                                  maxLines: 2,
+                                  // labelColor: Colorz.Yellow,
+                                  margin: const EdgeInsets.only(
+                                    top: 20,
+                                    bottom: 5,
+                                    left: Ratioz.appBarMargin,
+                                    right: Ratioz.appBarMargin,
+                                  ),
+                                ),
+                              ),
+
+                              /// BODY
+                              SizedBox(
+                                width: _dialogWidth,
+                                // height: _bodyZoneHeight,
+                                child: SuperVerse(
+                                  verse: body.runtimeType == String ? body
+                                      :
+                                  body.toString(),
+                                  maxLines: 20,
+                                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
+                                ),
+                              ),
+
+                              /// child
+                              if (child != null)
+                                Column(
                                   children: <Widget>[
 
-                                    /// TITLE
+                                    SeparatorLine(
+                                      width: _dialogWidth,
+                                    ),
+
                                     Container(
                                       width: _dialogWidth,
-                                      // height: _titleZoneHeight,
-                                      alignment: Alignment.center,
-                                      // color: Colorz.BloodTest,
-                                      child: title == null ? Container()
-                                          :
-                                      SuperVerse(
-                                        verse: title,
-                                        color: Colorz.yellow255,
-                                        shadow: true,
-                                        size: 3,
-                                        italic: true,
-                                        maxLines: 2,
-                                        // labelColor: Colorz.Yellow,
-                                        margin: Ratioz.appBarMargin,
+                                      constraints: BoxConstraints(
+                                        maxHeight: _dialogHeight * 0.6,
                                       ),
-                                    ),
-
-                                    /// BODY
-                                    SizedBox(
-                                      width: _dialogWidth,
-                                      // height: _bodyZoneHeight,
-                                      child: SuperVerse(
-                                        verse: body.runtimeType == String ? body
-                                            :
-                                        body.toString(),
-                                        maxLines: 20,
-                                        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
-                                      ),
-                                    ),
-
-                                    /// child
-                                    if (child != null)
-                                      SizedBox(
-                                          width: _dialogWidth,
-                                          // height: _childZoneHeight,
+                                      child: SingleChildScrollView(
+                                          physics: const BouncingScrollPhysics(),
                                           child: child
                                       ),
+                                    ),
+
+                                    SeparatorLine(
+                                      width: _dialogWidth,
+                                    ),
 
                                   ],
                                 ),
-                              ),
+
 
                               /// BUTTONS
                               if (boolDialog != null)
                                 SizedBox(
                                   width: _dialogWidth,
                                   height: _buttonZoneHeight,
-                                  // color: Colorz.BloodTest,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -296,21 +305,39 @@ class CenterDialog extends StatelessWidget {
                                         onTap:
                                         boolDialog == true ?
                                             () => Nav.goBack(
-                                                context: xxx,
-                                                invoker: 'CenterDialog.yes',
-                                                passedData: true
-                                            )
+                                            context: xxx,
+                                            invoker: 'CenterDialog.yes',
+                                            passedData: true
+                                        )
                                             :
                                         onOk ??
                                                 () => Nav.goBack(
-                                                  context: xxx,
-                                                  invoker: 'CenterDialog.ok',
-                                                ),
+                                              context: xxx,
+                                              invoker: 'CenterDialog.ok',
+                                            ),
                                       ),
 
                                     ],
                                   ),
                                 ),
+
+
+                              // /// TITLE - BODY - CHILD
+                              // Container(
+                              //   width: _dialogWidth,
+                              //   // height: _contentZoneHeight,
+                              //   alignment: Alignment.center,
+                              //   // color: Colorz.White30,
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //     // mainAxisSize: MainAxisSize.min,
+                              //     children: <Widget>[
+                              //
+                              //
+                              //     ],
+                              //   ),
+                              // ),
+
 
                             ],
                           ),
