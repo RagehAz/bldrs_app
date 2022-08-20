@@ -67,7 +67,7 @@ class ChainsScreenSearchView extends StatelessWidget {
                       selectedPhids: SpecModel.getSpecsIDs(_selectedSpecs),
                       initiallyExpanded: true,
                       onSelectPhid: onSelectPhid,
-                      searchText: searchText
+                      searchText: searchText,
                   );
 
                 },

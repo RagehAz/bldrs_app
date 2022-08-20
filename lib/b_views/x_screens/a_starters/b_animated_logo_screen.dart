@@ -242,7 +242,6 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       onBack: (){
         Nav.closeApp(context);
       },
-      hasKeyboard: false,
       layoutWidget: Stack(
         alignment: Alignment.center,
         children: <Widget>[

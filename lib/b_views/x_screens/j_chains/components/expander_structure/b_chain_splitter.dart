@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chain_sons_builder.dart';
@@ -24,6 +25,7 @@ class ChainSplitter extends StatelessWidget {
     this.onSelectPhid,
     this.selectedPhids,
     this.searchText,
+    this.onAddToPath,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +37,7 @@ class ChainSplitter extends StatelessWidget {
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<String> searchText;
+  final Function(String path) onAddToPath;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,8 +65,8 @@ class ChainSplitter extends StatelessWidget {
         // isDisabled: false,
         onTap: (){
 
-          final String _path = '$previousPath/$_phid';
-          final String _cleanedPath = TextMod.removeTextBeforeFirstSpecialCharacter(_path, '/');
+          final String _path = '$previousPath/$_phid/';
+          final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
           onSelectPhid(_cleanedPath, _phid);
 
         }, // good
@@ -82,6 +85,7 @@ class ChainSplitter extends StatelessWidget {
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
+        onAddToPath: onAddToPath,
       );
     }
 
@@ -106,6 +110,7 @@ class ChainSplitter extends StatelessWidget {
         parentLevel: parentLevel,
         selectedPhids: selectedPhids,
         searchText: searchText,
+        onAddToPath: onAddToPath,
       );
 
     }
@@ -122,6 +127,7 @@ class ChainSplitter extends StatelessWidget {
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
+        onAddToPath: onAddToPath,
       );
     }
 

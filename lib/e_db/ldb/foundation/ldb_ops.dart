@@ -28,8 +28,8 @@ class LDBOps {
       case LDBDoc.flyers: return 'id';
       case LDBDoc.bzz: return 'id';
       case LDBDoc.users: return 'id';
-      case LDBDoc.keywordsChain: return 'id';
-      case LDBDoc.specsChain: return 'id';
+      case LDBDoc.bigChainK: return 'id';
+      case LDBDoc.bigChainS: return 'id';
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
       case LDBDoc.continents: return 'name';

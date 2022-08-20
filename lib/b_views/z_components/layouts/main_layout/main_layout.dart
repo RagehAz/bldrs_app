@@ -35,11 +35,9 @@ class MainLayout extends StatelessWidget {
     this.appBarType,
     this.pageTitle,
     this.skyType = SkyType.night,
-    // this.loading = false,
     this.onBack,
     this.canGoBack = true,
     this.scaffoldKey,
-    // this.myTinyBzz,
     this.appBarScrollController,
     this.searchController,
     this.onSearchSubmit,
@@ -51,7 +49,6 @@ class MainLayout extends StatelessWidget {
     this.progressBarModel,
     this.pyramidType,
     this.onPyramidTap,
-    this.hasKeyboard = true,
     this.onSearchCancelled,
     this.confirmButtonModel,
     Key key
@@ -63,11 +60,9 @@ class MainLayout extends StatelessWidget {
   final AppBarType appBarType;
   final dynamic pageTitle;
   final SkyType skyType;
-  // final bool loading;
   final Function onBack;
   final bool canGoBack;
   final Key scaffoldKey;
-  // final List<TinyBz> myTinyBzz;
   final ScrollController appBarScrollController;
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
@@ -79,7 +74,6 @@ class MainLayout extends StatelessWidget {
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
   final Function onPyramidTap;
-  final bool hasKeyboard;
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
   /// --------------------------------------------------------------------------
@@ -191,7 +185,7 @@ class MainLayout extends StatelessWidget {
                   backgroundColor: _backgroundColor,
 
                   /// KEYBOARD
-                  bottomSheet: hasKeyboard == true ? const KeyboardFloatingField() : null,
+                  bottomSheet: const KeyboardFloatingField(),
 
                   /// BODY CONTENT
                   body: MainLayoutStackWidgets(
