@@ -315,7 +315,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                 foundChains: _foundChains,
                 selectedSpecs: _selectedSpecs,
                 searchText: _searchText,
-                onSelectPhid: (String phid) => onSelectPhid(
+                onSelectPhid: (String path, String phid) => onSelectPhid(
                     context: context,
                     phid: phid,
                     isMultipleSelectionMode: widget.isMultipleSelectionMode,

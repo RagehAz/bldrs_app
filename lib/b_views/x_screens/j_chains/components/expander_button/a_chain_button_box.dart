@@ -30,7 +30,7 @@ class ChainButtonBox extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   static double sonHeight(){
-    return 40;
+    return 45;
   }
 // -----------------------------------------------------------------------------
   @override

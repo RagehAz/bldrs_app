@@ -23,7 +23,7 @@ class ChainsScreenSearchView extends StatelessWidget {
   final double screenHeight;
   final ValueNotifier<List<Chain>> foundChains;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final ValueChanged<String> onSelectPhid;
+  final Function(String path, String phid) onSelectPhid;
   final ValueNotifier<String> searchText;
   /// --------------------------------------------------------------------------
   @override

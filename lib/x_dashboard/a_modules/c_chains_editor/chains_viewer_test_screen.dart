@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -273,28 +274,40 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           color: Colorz.blue80,
           onTap: () async {
 
-            final Chain chainK = ChainsProvider.proGetBigChainK(
-                context: context,
-                onlyUseCityChains: false,
-                listen: false
+            final bool _continue = await CenterDialog.showCenterDialog(
+              context: context,
+              title: 'Create new Chain ?',
+              body: 'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
+              boolDialog: true,
+              color: Colorz.bloodTest,
             );
 
-            final Chain _chainKUploaded = await ChainProtocols.composeChainK(
-                context: context,
-                chainK: chainK
-            );
+            if (_continue == true){
 
-            if (_chainKUploaded == null){
-              blog('No ChainK received');
-            }
-
-            else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainViewScreen(
-                  chain: _chainKUploaded,
-                ),
+              final Chain chainK = ChainsProvider.proGetBigChainK(
+                  context: context,
+                  onlyUseCityChains: false,
+                  listen: false
               );
+
+              final Chain _chainKUploaded = await ChainProtocols.composeChainK(
+                  context: context,
+                  chainK: chainK
+              );
+
+              if (_chainKUploaded == null){
+                blog('No ChainK received');
+              }
+
+              else {
+                await Nav.goToNewScreen(
+                  context: context,
+                  screen: ChainViewScreen(
+                    chain: _chainKUploaded,
+                  ),
+                );
+              }
+
             }
 
           },
@@ -306,27 +319,39 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           color: Colorz.blue80,
           onTap: () async {
 
-            final Chain chainS = ChainsProvider.proGetBigChainS(
-                context: context,
-                listen: false
+            final bool _continue = await CenterDialog.showCenterDialog(
+              context: context,
+              title: 'Create new Chain ?',
+              body: 'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
+              boolDialog: true,
+              color: Colorz.bloodTest,
             );
 
-            final Chain _chainSUploaded = await ChainProtocols.composeChainS(
-                context: context,
-                chainS: chainS
-            );
+            if (_continue == true){
 
-            if (_chainSUploaded == null){
-              blog('No ChainS received');
-            }
-
-            else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainViewScreen(
-                  chain: _chainSUploaded,
-                ),
+              final Chain chainS = ChainsProvider.proGetBigChainS(
+                  context: context,
+                  listen: false
               );
+
+              final Chain _chainSUploaded = await ChainProtocols.composeChainS(
+                  context: context,
+                  chainS: chainS
+              );
+
+              if (_chainSUploaded == null){
+                blog('No ChainS received');
+              }
+
+              else {
+                await Nav.goToNewScreen(
+                  context: context,
+                  screen: ChainViewScreen(
+                    chain: _chainSUploaded,
+                  ),
+                );
+              }
+
             }
 
           },
@@ -341,8 +366,6 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             unawaited(WaitDialog.showWaitDialog(context: context,));
 
             final Chain _bigChainK = await ChainRealOps.readBigChainK(context);
-
-            _bigChainK?.blogChain();
 
             WaitDialog.closeWaitDialog(context);
 
@@ -371,8 +394,6 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
             unawaited(WaitDialog.showWaitDialog(context: context,));
 
             final Chain _bigChainS = await ChainRealOps.readBigChainS(context);
-
-            _bigChainS?.blogChain();
 
             WaitDialog.closeWaitDialog(context);
 
