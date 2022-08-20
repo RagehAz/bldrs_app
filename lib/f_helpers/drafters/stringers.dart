@@ -455,25 +455,46 @@ class Stringer {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static void blogStringsListsDifferences({
+  static List<String> blogStringsListsDifferences({
     @required List<String> strings1,
     @required List<String> strings2,
+    String list1Name,
+    String list2Name,
   }){
-
     blog('blogStringsListsDifferences : START');
 
+    /// ASSING LISTS NAMES
+    final String _list1Name = list1Name ?? 'strings1';
+    final String _list2Name = list2Name ?? 'strings2';
+
+    /// SET UP LOGGING
+    final List<String> _blogLog = <String>[];
+    void blogAndAddToLog(String log){
+      _blogLog.add(log);
+      blog(log);
+    }
+
+    /// 1 IS NULL
     if (strings1 == null){
-      blog('0 - strings1 is null');
+      blogAndAddToLog('0 - $_list1Name is null');
     }
+
+    /// 2 IS NULL
     if (strings2 == null){
-      blog('0 - strings1 is null');
+      blogAndAddToLog('0 - $_list2Name is null');
     }
+
+    /// 1 IS EMPTY
     if (strings1?.isEmpty == true){
-      blog('0 - strings1 is Empty');
+      blogAndAddToLog('0 - $_list1Name is Empty');
     }
+
+    /// 2 IS EMPTY
     if (strings2?.isNotEmpty == null){
-      blog('0 - strings1 is Empty');
+      blogAndAddToLog('0 - $_list2Name is Empty');
     }
+
+    /// DEEP CHECKS
     if (Mapper.checkCanLoopList(strings1) == true && Mapper.checkCanLoopList(strings2) == true){
 
       final bool _listsAreIdentical = Mapper.checkListsAreIdentical(
@@ -481,14 +502,15 @@ class Stringer {
         list2: strings2,
       );
 
-      /// LISTS ARE IDENTICAL ALREADY
+      /// LISTS IDENTICAL
       if (_listsAreIdentical == true){
-        blog('1 - strings lists are PERFECTLY identical and of length : ${strings1.length}');
+        blogAndAddToLog('1 - strings lists are PERFECTLY identical and of length : ${strings1.length}');
       }
 
-      /// LISTS ARE NOT IDENTICAL
+      /// NOT IDENTICAL
       else {
-        blog('1 - strings lists are NOT identical');
+
+        blogAndAddToLog('1 - strings lists are NOT identical');
 
         final bool _sortedAreIdentical = Mapper.checkListsAreIdentical(
           list1: Stringer.sortAlphabetically2(strings1),
@@ -497,35 +519,52 @@ class Stringer {
 
         /// LISTS JUST NEEDED SORTING
         if (_sortedAreIdentical == true){
-          blog('2 - strings lists just needed sorting to be identical, and has length of : ${strings1.length}');
+          blogAndAddToLog('2 - strings lists just needed sorting to be identical, and has length of : ${strings1.length}');
         }
 
+        /// EVEN SORTED ARE NOT IDENTICAL
         else {
-          blog('2 - SORTED strings lists are NOT identical AS WELL');
+
+          blogAndAddToLog('2 - SORTED strings lists are NOT identical AS WELL');
 
           List<String> _longer;
           List<String> _shorter;
+
+          /// 1 > 2
           if (strings1.length > strings2.length){
+
             _longer = <String>[...strings1];
             _shorter = <String>[...strings2];
-            blog('3 - [ strings 1 length ( ${strings1.length} ) ] > [ strings 2 length ( ${strings2.length} ) ] : '
+
+            blogAndAddToLog('3 - [ $_list1Name.length ( ${strings1.length} ) ] > [ $_list2Name.length ( ${strings2.length} ) ] : '
                 '${_longer.length} - ${_shorter.length} = ${_longer.length - _shorter.length}');
-          }
-          else if (strings1.length < strings2.length){
-            _longer = <String>[...strings2];
-            _shorter = <String>[...strings1];
-            blog('3 - [ strings 2 length ( ${strings2.length} ) ] > [ strings 1 length ( ${strings1.length} ) ] : '
-                '${_longer.length} - ${_shorter.length} = ${_longer.length - _shorter.length}');
-          }
-          else if (strings1.length == strings2.length){
-            blog('3 - strings lengths are identical of ( ${strings2.length} )');
-            _longer = <String>[...strings2];
-            _shorter = <String>[...strings1];
-          }
-          else {
-            blog('3 - a77a : something is wrong here');
+
           }
 
+          /// 1 < 2
+          else if (strings1.length < strings2.length){
+
+            _longer = <String>[...strings2];
+            _shorter = <String>[...strings1];
+
+            blogAndAddToLog('3 - [ $_list2Name.length ( ${strings2.length} ) ] > [ $_list1Name.length ( ${strings1.length} ) ] : '
+                '${_longer.length} - ${_shorter.length} = ${_longer.length - _shorter.length}');
+
+          }
+
+          /// 1 == 2
+          else if (strings1.length == strings2.length){
+            _longer = <String>[...strings2];
+            _shorter = <String>[...strings1];
+            blogAndAddToLog('3 - strings lengths are identical of ( ${strings2.length} )');
+          }
+
+          /// WTF
+          else {
+            blogAndAddToLog('3 - a77a : something is wrong here');
+          }
+
+          /// ITERATE TO SEE EACH ELEMENT
           for (int i = 0; i < _longer.length; i++){
 
             final String _string = _longer[i];
@@ -535,9 +574,11 @@ class Stringer {
               string: _string,
             );
 
+            /// SHORTER LIST DO NOT HAVE THIS LIST
             if (_shorterContains == false){
-              blog('4 - shorter strings do not have : index : ( $i / ${_longer.length} ) : string : ( $_string )');
+              blogAndAddToLog('4 - shorter List do not have : index : ( $i / ${_longer.length} ) : string : ( $_string )');
             }
+
             // else {
             //   blog('shorter has  : index : ( $i ) : string : ( $_string )');
             // }
@@ -556,6 +597,7 @@ class Stringer {
 
     blog('blogStringsListsDifferences : END');
 
+    return _blogLog;
   }
 // -----------------------------------------------------------------------------
 }
