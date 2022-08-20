@@ -145,6 +145,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                     onEditingComplete: null,
                     onChanged: null,
                     isFormField: false,
+                    isFloatingField: true,
                   );
 
                   _uiProvider.setKeyboard(

@@ -54,11 +54,25 @@ class Chain {
     }
 // -----------------------------------------------------------------------------
 
+  /// CLONING
+
+// --------------------------------------------
+  Chain copyWith({
+    String id,
+    dynamic sons,
+  }){
+    return Chain(
+        id: id ?? this.id,
+        sons: sons ?? this.sons,
+    );
+  }
+// -----------------------------------------------------------------------------
+
   /// REAL CYPHERS
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherChainKPaths({
+  static Map<String, dynamic> cipherBigChainK({
   @required Chain chainK,
 }){
 
@@ -98,7 +112,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain decipherBigChainKRealMap({
+  static Chain decipherBigChainK({
     @required Map<String, dynamic> bigChainKMap,
   }) {
     Chain _bigChainK;
@@ -127,7 +141,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherChainSPaths({
+  static Map<String, dynamic> cipherBigChainS({
     @required Chain chainS,
   }){
 
@@ -173,7 +187,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain decipherBigChainSRealMap({
+  static Chain decipherBigChainS({
     @required Map<String, dynamic> bigChainSMap,
   }) {
     Chain _bigChainS;
@@ -528,10 +542,10 @@ class Chain {
               chain2: chains2[i],
           );
 
-          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
-          blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
 
           if (_twoChainsAreIdentical == false){
+          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
+          blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
           }
@@ -565,49 +579,20 @@ class Chain {
           chains: chains2
       );
 
-      // blog('chains : ${_pathsA.length} <=> originals : ${_pathsB.length}');
-
-      // chainsA[1].blogChain();
-
-      // blogStrings(_pathsA);
-
-      // chainsB[1].blogChain();
-
-      return Mapper.checkListsAreIdentical(
+      final bool _identical = Mapper.checkListsAreIdentical(
           list1: _pathsA,
           list2: _pathsB
       );
 
-      // blogStrings(_pathsB);
+      if (_identical == false){
+        Stringer.blogStringsListsDifferences(
+          strings1: _pathsA,
+          strings2: _pathsB,
+        );
+      }
 
-      // bool _areTheSame = true;
+      return _identical;
 
-      // if (_pathsA.length == _pathsB.length){
-      //
-      //    for (int i = 0; i < _pathsA.length; i++){
-      //
-      //      final String _pathA = _pathsA[i];
-      //      final String _pathB = _pathsB[i];
-      //
-      //      if (_pathA == _pathB){
-      //        // _areTheSame = true;
-      //        // blog('Path# ( ${i+1} / ${_pathsA.length} ) : are the same');
-      //      }
-      //      else {
-      //        blog('Path# ( ${i+1} / ${_pathsA.length} ) : are NOT the same : ( $_pathA ) != ( $_pathB )');
-      //        _areTheSame = false;
-      //        // break; /// remove the break if you want to print the above dev blog for all differences
-      //      }
-      //
-      //    }
-      //
-      // }
-      // else {
-      //   blog('chainsListPathsAreTheSame : paths A : ${_pathsA.length} != B ${_pathsB.length}');
-      //   _areTheSame = false;
-      // }
-
-      // return _areTheSame;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -1185,6 +1170,71 @@ class Chain {
       }
 
       return _output;
+  }
+// --------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Chain addPathToChain({
+    @required Chain chain,
+    @required String path,
+  }){
+    // blog('addPathToChain : START');
+
+      Chain _output = chain;
+
+      if (chain != null && path != null){
+
+        final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+            parentID: chain.id,
+            chains: chain.sons,
+        );
+
+        final List<String> _updated = ChainPathConverter.addPathToPaths(
+            paths: _chainPaths,
+            path: path
+        );
+
+        _output = ChainPathConverter.createChainFromPaths(
+          chainID: chain.id,
+          paths: _updated,
+        );
+
+      }
+
+    // blog('addPathToChain : END');
+    return _output;
+  }
+// --------------------------------------------
+  static Chain removePathFromChain({
+    @required Chain chain,
+    @required String path,
+  }){
+    // blog('addPathToChain : START');
+
+    Chain _output = chain;
+
+    if (chain != null && path != null){
+
+      final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+        parentID: chain.id,
+        chains: chain.sons,
+      );
+
+      final String _fixedPath = ChainPathConverter.fixPathFormatting(path);
+
+      final List<String> _updated = Stringer.removeStringsFromStrings(
+          removeFrom: _chainPaths,
+          removeThis: <String>[_fixedPath],
+      );
+
+      _output = ChainPathConverter.createChainFromPaths(
+        chainID: chain.id,
+        paths: _updated,
+      );
+
+    }
+
+    // blog('addPathToChain : END');
+    return _output;
   }
 // --------------------------------------------
 }

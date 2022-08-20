@@ -171,7 +171,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                 },
                 isFormField: true,
-                isTheSuperKeyboardField: true,
+                isFloatingField: true,
                 autoValidate: true,
                 validator: (){
 

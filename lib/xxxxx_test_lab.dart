@@ -1,12 +1,10 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -19,10 +17,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -286,92 +282,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final Chain chainS = ChainsProvider.proGetBigChainS(
-        context: context,
-        // onlyUseCityChains: false,
-        listen: false
-    );
-
-    final List<String> _paths = ChainPathConverter.generateChainsPaths(
-        parentID: 'chainS',
-        chains: chainS.sons,
-    );
-
-    blog('chainS paths are : ${_paths.length} paths');
-
-    Map<String, dynamic> _map = {};
-    final List<String> _keys = <String>[];
-
-    for (int i = 0; i < _paths.length; i++){
-
-      final String _path = _paths[i];
-      final String _key = ChainPathConverter.generateChainSPathKeyForFirebase(path: _path);
-      _keys.add(_key);
-
-      if (_map[_key] == null){
-        _map = Mapper.insertPairInMap(
-          map: _map,
-          key: _key,
-          value: _path,
-        );
-      }
-
-      else {
-
-        final String _phid = ChainPathConverter.getLastPathNode(_path);
-        final bool _continue = await CenterDialog.showCenterDialog(
-            context: context,
-            height: 600,
-            boolDialog: true,
-            title: 'obbaaa',
-            body: 'phid : $_phid'
-                '\n.\n has duplicate key already there'
-                '\n.\nmap[phid]\n${_map[_phid]}'
-                '\n.\npath\n$_path',
-            confirmButtonText: 'continue ?',
-          );
-
-          if (_continue == false){
-            break;
-          }
-      }
-
-    }
-
-    // Stringer.blogStrings(strings: _paths);
-    //
-    // final List<String> _mapKeys = _map.keys.toList();
-    // // blog('map has ${_keys.length} keys : while list has ${_paths.length} paths');
-    //
-    // Stringer.blogStringsListsDifferences(
-    //   strings1: _mapKeys,
-    //   strings2: _keys,
-    // );
-
-    Mapper.blogMap(_map);
-
-    final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
-      title: 'Upload ?',
-      body: 'Finished iterations,, wanna upload ?',
-      boolDialog: true,
-    );
-
-    if (_continue == true){
-
-      await Real.createDocInPath(
-        context: context,
-        pathWithoutDocName: 'chains',
-        addDocIDToOutput: false,
-        docName: 'bigChainS',
-        map: _map,
-      );
-
-    }
-
-
-    // Mapper.blogMap(_map);
-
   }
 
   /*
@@ -452,59 +362,10 @@ phid_k_pt_studio
             verse: 'chainS',
             onTap: () async {
 
-              final Chain _proChainS = ChainsProvider.proGetBigChainS(
-                  context: context,
-                  // onlyUseCityChains: false,
-                  listen: false,
-              );
-
-              Map<String, dynamic> _map = await Real.readDocOnce(
-                context: context,
-                collName: 'chains',
-                docName: 'bigChainS',
-              );
-
-              _map = Mapper.removePair(map: _map, fieldKey: 'id');
-
-              final List<String> _paths = <String>[];
-
-              final List<String> _keys = _map.keys.toList();
-              blog('chain map has ${_keys.length} keys');
-              for (final String key in _keys){
-                final String path = _map[key];
-                _paths.add(path);
-              }
-
-              final List<Chain> _chainKSons = ChainPathConverter.createChainsFromPaths(
-                paths: _paths,
-              );
-
-              final Chain chain = Chain(
-                id: 'chainS',
-                sons: _chainKSons,
-              );
-
-              final bool _chainsIdentical = Chain.checkChainsAreIdentical(
-                chain1: chain,
-                chain2: _proChainS,
-              );
-
-              blog('identical : $_chainsIdentical');
-
-              final List<String> _originalPaths = ChainPathConverter.generateChainsPaths(
-                  parentID: 'chainS',
-                  chains: _proChainS.sons,
-              );
-
-              Stringer.blogStringsListsDifferences(
-                  strings1: Stringer.sortAlphabetically2(_originalPaths),
-                  strings2: Stringer.sortAlphabetically2(_paths),
-              );
-
-
             }
         ),
 
+        /// FAST TEST
         AppBarButton(
             verse: 'fastTestss',
             onTap: () async {await _fastTest(context);},

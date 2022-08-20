@@ -34,7 +34,7 @@ class ChainRealOps {
     /// NOTE : chain K does not allow duplicate IDs in last node
     if (chainK != null){
 
-      final Map<String, dynamic> _map = Chain.cipherChainKPaths(
+      final Map<String, dynamic> _map = Chain.cipherBigChainK(
         chainK: chainK,
       );
 
@@ -46,7 +46,7 @@ class ChainRealOps {
         map: _map,
       );
 
-      _uploaded = Chain.decipherBigChainKRealMap(
+      _uploaded = Chain.decipherBigChainK(
           bigChainKMap: _uploadedChainKMap
       );
 
@@ -66,7 +66,7 @@ class ChainRealOps {
     /// NOTE : chain K does not allow duplicate IDs in last node
     if (chainS != null){
 
-      final Map<String, dynamic> _map = Chain.cipherChainSPaths(
+      final Map<String, dynamic> _map = Chain.cipherBigChainS(
         chainS: chainS,
       );
 
@@ -78,7 +78,7 @@ class ChainRealOps {
         map: _map,
       );
 
-      _uploaded = Chain.decipherBigChainSRealMap(
+      _uploaded = Chain.decipherBigChainS(
           bigChainSMap: _uploadedChainSMap
       );
 
@@ -100,7 +100,7 @@ class ChainRealOps {
         docName: RealDoc.chains_bigChainK,
     );
 
-    final Chain _bigChainK = Chain.decipherBigChainKRealMap(
+    final Chain _bigChainK = Chain.decipherBigChainK(
       bigChainKMap: _bigChainKMap,
     );
 
@@ -116,7 +116,7 @@ class ChainRealOps {
       docName: RealDoc.chains_bigChainS,
     );
 
-    final Chain _bigChainS = Chain.decipherBigChainSRealMap(
+    final Chain _bigChainS = Chain.decipherBigChainS(
       bigChainSMap: _bigChainSMap,
     );
 

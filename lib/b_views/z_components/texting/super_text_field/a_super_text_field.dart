@@ -62,7 +62,7 @@ class SuperTextField extends StatefulWidget {
     this.onEditingComplete,
     this.validator,
 
-    this.isTheSuperKeyboardField = false,
+    this.isFloatingField = false,
     this.canObscure,
     Key key,
   }) : super(key: key);
@@ -113,7 +113,7 @@ class SuperTextField extends StatefulWidget {
   /// should return error string or null if there is no error
   final String Function() validator;
 
-  final bool isTheSuperKeyboardField;
+  final bool isFloatingField;
   final bool canObscure;
   /// --------------------------------------------------------------------------
   @override
@@ -522,7 +522,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     // FocusManager.instance.rootScope.requestFocus();
 
-    if (widget.isTheSuperKeyboardField == false){
+    if (widget.isFloatingField != null){
 
       final bool _keyboardIs = Keyboard.keyboardIsOn(context);
       blog('keyboard : $_keyboardIs : _controller : ${_controller.hashCode}');
@@ -544,6 +544,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         onEditingComplete: widget.onEditingComplete,
         onSavedForForm: widget.onSavedForForm,
         onSubmitted: widget.onSubmitted,
+        isFloatingField: widget.isFloatingField,
       );
 
       FocusManager.instance.primaryFocus?.unfocus();
@@ -579,7 +580,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    if (widget.isTheSuperKeyboardField == true){
+    /// NORMAL TEXT FIELD
+    if (widget.isFloatingField == false){
       return SuperTextFieldBox(
         width: widget.width,
         margins: widget.margins,
@@ -654,6 +656,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       );
     }
 
+    /// FLOATING TEXT FIELD
     else {
       return GestureDetector(
         onTap: () => _onTap(context),

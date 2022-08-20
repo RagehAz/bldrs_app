@@ -413,6 +413,62 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           },
         ),
 
+        /// FETCH CHAIN K
+        WideButton(
+          verse: 'FETCH BigChainK',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            unawaited(WaitDialog.showWaitDialog(context: context,));
+
+            final Chain _bigChainK = await ChainProtocols.fetchBigChainK(context);
+
+            WaitDialog.closeWaitDialog(context);
+
+            if (_bigChainK == null){
+              blog('No ChainK found');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _bigChainK,
+                ),
+              );
+            }
+
+          },
+        ),
+
+        /// READ CHAIN S
+        WideButton(
+          verse: 'FETCH BigChainS',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            unawaited(WaitDialog.showWaitDialog(context: context,));
+
+            final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
+
+            WaitDialog.closeWaitDialog(context);
+
+            if (_bigChainS == null){
+              blog('No ChainS found');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _bigChainS,
+                ),
+              );
+            }
+
+          },
+        ),
+
         // ---------------------------------------
 
         const SeparatorLine(),

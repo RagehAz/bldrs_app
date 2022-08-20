@@ -418,11 +418,12 @@ class BottomDialog extends StatelessWidget {
           children: <Widget>[
 
             TextFieldBubble(
+              isFloatingField: _keyboardModel.isFloatingField,
               title: _keyboardModel.title,
               textController: _keyboardModel.controller,
               maxLines: _keyboardModel.maxLines,
+              minLines: _keyboardModel.minLines,
               maxLength: _keyboardModel.maxLength,
-              minLines: _keyboardModel.maxLines,
               bubbleWidth: _clearWidth,
               hintText: _keyboardModel.hintText,
               counterIsOn: _keyboardModel.counterIsOn,
