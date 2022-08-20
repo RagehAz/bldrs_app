@@ -447,7 +447,7 @@ phid_k_pt_studio
 
         const Expander(),
 
-        /// DO SOM-SING
+        /// DO SOMETHING
         AppBarButton(
             verse: 'chainS',
             onTap: () async {
