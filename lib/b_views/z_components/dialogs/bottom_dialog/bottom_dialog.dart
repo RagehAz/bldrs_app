@@ -406,6 +406,21 @@ class BottomDialog extends StatelessWidget {
         titleIsOn: false
     );
 
+    void _onConfirmTap (String text){
+
+      if (_keyboardModel.onSubmitted != null){
+
+        Keyboard.closeKeyboard(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'keyboardDialog',
+        );
+        _keyboardModel.onSubmitted(_keyboardModel.controller.text);
+
+      }
+
+    }
+
     await BottomDialog.showBottomDialog(
       context: context,
       draggable: true,
@@ -431,12 +446,7 @@ class BottomDialog extends StatelessWidget {
               keyboardTextInputType: _keyboardModel.textInputType,
               keyboardTextInputAction: _keyboardModel.textInputAction,
               autoFocus: true,
-              onSubmitted: _keyboardModel.onSubmitted ?? (String val){
-                Nav.goBack(
-                  context: context,
-                  invoker: 'keyboardDialog',
-                );
-                },
+              onSubmitted: _onConfirmTap,
 
             ),
 
@@ -447,20 +457,7 @@ class BottomDialog extends StatelessWidget {
               margins: const EdgeInsets.symmetric(horizontal: 10),
               verse:'Confirm',
 
-              onTap: (){
-
-                if (_keyboardModel.onSubmitted != null){
-
-                  Keyboard.closeKeyboard(context);
-                  Nav.goBack(
-                    context: context,
-                    invoker: 'keyboardDialog',
-                  );
-                  _keyboardModel.onSubmitted(_keyboardModel.controller.text);
-
-                }
-
-              },
+              onTap: () => _onConfirmTap(_keyboardModel.controller.text),
             ),
 
           ],
