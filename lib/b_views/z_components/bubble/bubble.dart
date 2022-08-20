@@ -129,21 +129,6 @@ class Bubble extends StatelessWidget {
     Scale.superMargins(margins: margins)
         :
     Scale.superMargins(margins: margins);
-
-    ///////////////////////////////////////////////////////////////////////////
-    /// bos keda we need to consider this tree here in this bubble
-    // return Material(
-    //     color: Colorz.Nothing,
-    //     child: InkWell(
-    //     onTap: btOnTap,
-    //     splashColor: Colorz.WhiteSmoke,
-    //     child: InPyramidsBubble(
-    ///////////////////////////////////////////////////////////////////////////
-
-// -----------------------------------------------------------------------------
-    final double _actionBtSize = _getTitleHeight(context);
-// -----------------------------------------------------------------------------
-    final double _actionBtCorner = _actionBtSize * 0.4;
 // -----------------------------------------------------------------------------
     final double _bubbleWidth = width ??
         bubbleWidth(
@@ -151,15 +136,30 @@ class Bubble extends StatelessWidget {
           stretchy: stretchy,
         );
 // -----------------------------------------------------------------------------
-//     final double _titleWidth = stretchy == true ?
-//     null
-//         :
-//     _bubbleWidth - _actionBtSize * 2;
-// -----------------------------------------------------------------------------
     final BorderRadius _corners = corners == null ?
     borders(context)
         :
     Borderers.superBorder(context: context, corners: corners);
+// -----------------------------------------------------------------------------
+    final Alignment _alignment = centered == true ?
+    Alignment.center
+        :
+    Aligners.superCenterAlignment(context);
+// -----------------------------------------------------------------------------
+    final Widget _bubbleContents = _BubbleContents(
+      title: title,
+      width: width,
+      centered: centered,
+      actionBtFunction: actionBtFunction,
+      actionBtIcon: actionBtIcon,
+      leadingAndActionButtonsSizeFactor: leadingAndActionButtonsSizeFactor,
+      leadingIcon: leadingIcon,
+      leadingIconColor: leadingIconColor,
+      redDot: redDot,
+      stretchy: stretchy,
+      titleColor: titleColor,
+      columnChildren: columnChildren,
+    );
 // -----------------------------------------------------------------------------
     return Container(
       key: key,
@@ -170,105 +170,154 @@ class Bubble extends StatelessWidget {
         color: bubbleColor,
         borderRadius: _corners,
       ),
-      alignment: centered == true ?
-      Alignment.center
-          :
-      Aligners.superCenterAlignment(context),
-      child: Material(
+      alignment: _alignment,
+      child: onBubbleTap == null ?
+
+      _bubbleContents
+
+      :
+
+      Material(
         color: Colorz.nothing,
         child: InkWell(
           onTap: onBubbleTap,
           splashColor: Colorz.yellow255,
           borderRadius: _corners,
-          child: Padding(
-            padding: const EdgeInsets.all(_pageMargin),
-            child: Column(
-              mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
-              mainAxisAlignment: centered == true ?
-              MainAxisAlignment.center
-                  :
-              MainAxisAlignment.start,
-              crossAxisAlignment: centered == true ?
-              CrossAxisAlignment.center
-                  :
-              CrossAxisAlignment.start,
-              children: <Widget>[
-
-                if (title != null || actionBtIcon != null)
-                  Container(
-                    width: clearWidth(context),
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: centered == true ?
-                      MainAxisAlignment.start
-                          :
-                      MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: centered == true ?
-                      MainAxisSize.min
-                          :
-                      MainAxisSize.max,
-                      children: <Widget>[
-
-                        /// --- ACTION BUTTON
-                        if (centered == true && actionBtIcon != null)
-                          SizedBox(
-                            height: _actionBtSize,
-                            width: _actionBtSize,
-                          ),
-
-                        /// --- EXPANDER
-                        if (centered == true) const Expander(),
-
-                        /// --- LEADING BUTTON
-                        if (leadingIcon != null)
-                          DreamBox(
-                            height: _actionBtSize,
-                            width: _actionBtSize,
-                            corners: _actionBtCorner,
-                            // color: actionBtColor,
-                            icon: leadingIcon,
-                            iconColor: leadingIconColor,
-                            iconSizeFactor: leadingAndActionButtonsSizeFactor,
-                            onTap: actionBtFunction,
-                            bubble: false,
-                          ),
-
-                        /// --- BUBBLE TITLE
-                        if (title != null)
-                          BubbleTitle(
-                            title: title,
-                            centered: centered,
-                            redDot: redDot,
-                            titleColor: titleColor,
-                          ),
-
-                        /// --- EXPANDER
-                        // if (centered == true)
-                          const Expander(),
-
-                        /// --- ACTION BUTTON
-                        if (actionBtIcon != null)
-                          DreamBox(
-                            height: _actionBtSize * 1.25,
-                            width: _actionBtSize * 1.25,
-                            corners: _actionBtCorner,
-                            // color: actionBtColor,
-                            icon: actionBtIcon,
-                            iconSizeFactor: leadingAndActionButtonsSizeFactor,
-                            onTap: actionBtFunction,
-                          ),
-
-                      ],
-                    ),
-                  ),
-
-                ...columnChildren,
-
-              ],
-            ),
-          ),
+          child: _bubbleContents,
         ),
+      ),
+
+    );
+  }
+}
+
+class _BubbleContents extends StatelessWidget {
+
+  /// --------------------------------------------------------------------------
+  const _BubbleContents({
+    @required this.columnChildren,
+    @required this.centered,
+    @required this.stretchy,
+    @required this.title,
+    @required this.titleColor,
+    @required this.redDot,
+    @required this.actionBtIcon,
+    @required this.actionBtFunction,
+    @required this.width,
+    @required this.leadingAndActionButtonsSizeFactor,
+    @required this.leadingIcon,
+    @required this.leadingIconColor,
+    Key key,
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final List<Widget> columnChildren;
+  final bool centered;
+  final bool stretchy;
+  final String title;
+  final Color titleColor;
+  final bool redDot;
+  final String actionBtIcon;
+  final Function actionBtFunction;
+  final double width;
+  final double leadingAndActionButtonsSizeFactor;
+  final String leadingIcon;
+  final Color leadingIconColor;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+// -----------------------------------------------------------------------------
+    final double _actionBtSize = Bubble._getTitleHeight(context);
+// -----------------------------------------------------------------------------
+    final double _actionBtCorner = _actionBtSize * 0.4;
+// -----------------------------------------------------------------------------
+
+    return Padding(
+      key: const ValueKey<String>('_BubbleContents'),
+      padding: const EdgeInsets.all(Bubble._pageMargin),
+      child: Column(
+        mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
+        mainAxisAlignment: centered == true ?
+        MainAxisAlignment.center
+            :
+        MainAxisAlignment.start,
+        crossAxisAlignment: centered == true ?
+        CrossAxisAlignment.center
+            :
+        CrossAxisAlignment.start,
+        children: <Widget>[
+
+          if (title != null || actionBtIcon != null)
+            Container(
+              width: Bubble.clearWidth(context),
+              alignment: Alignment.topCenter,
+              child: Row(
+                mainAxisAlignment: centered == true ?
+                MainAxisAlignment.start
+                    :
+                MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: centered == true ?
+                MainAxisSize.min
+                    :
+                MainAxisSize.max,
+                children: <Widget>[
+
+                  /// --- ACTION BUTTON
+                  if (centered == true && actionBtIcon != null)
+                    SizedBox(
+                      height: _actionBtSize,
+                      width: _actionBtSize,
+                    ),
+
+                  /// --- EXPANDER
+                  if (centered == true) const Expander(),
+
+                  /// --- LEADING BUTTON
+                  if (leadingIcon != null)
+                    DreamBox(
+                      height: _actionBtSize,
+                      width: _actionBtSize,
+                      corners: _actionBtCorner,
+                      // color: actionBtColor,
+                      icon: leadingIcon,
+                      iconColor: leadingIconColor,
+                      iconSizeFactor: leadingAndActionButtonsSizeFactor,
+                      onTap: actionBtFunction,
+                      bubble: false,
+                    ),
+
+                  /// --- BUBBLE TITLE
+                  if (title != null)
+                    BubbleTitle(
+                      title: title,
+                      centered: centered,
+                      redDot: redDot,
+                      titleColor: titleColor,
+                    ),
+
+                  /// --- EXPANDER
+                  // if (centered == true)
+                  const Expander(),
+
+                  /// --- ACTION BUTTON
+                  if (actionBtIcon != null)
+                    DreamBox(
+                      height: _actionBtSize * 1.25,
+                      width: _actionBtSize * 1.25,
+                      corners: _actionBtCorner,
+                      // color: actionBtColor,
+                      icon: actionBtIcon,
+                      iconSizeFactor: leadingAndActionButtonsSizeFactor,
+                      onTap: actionBtFunction,
+                    ),
+
+                ],
+              ),
+            ),
+
+          ...columnChildren,
+
+        ],
       ),
     );
   }

@@ -47,10 +47,11 @@ class ChainPathConverter {
   /// CREATE CHAINS FROM PATHS
 
 // --------------------------------------------
+  /// TEST : WORKS PERFECT
   static Chain createChainFromPaths({
-  @required String chainID,
+    @required String chainID,
     @required List<String> paths,
-}){
+  }){
 
     final List<Chain> _sons = ChainPathConverter.createChainsFromPaths(
       paths: paths,
@@ -137,7 +138,7 @@ class ChainPathConverter {
     }
 
   }
-
+// --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Chain _combineSonsIfChainsIntoOneChain({
     @required List<Chain> chains,
@@ -725,8 +726,8 @@ class ChainPathConverter {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static String generateChainSPathKeyForFirebase({
-  @required String path,
-}){
+    @required String path,
+  }){
 
     /// NOTE : WORKS ONLY WITH CHAIN S paths
     // map pair looks like this
@@ -894,16 +895,23 @@ class ChainPathConverter {
 
     if (Stringer.checkStringIsNotEmpty(path) == true){
 
-
+      /// REMOVE INITIAL SLASH IS EXISTS
       if (_output[0] == '/'){
         _output = TextMod.removeTextBeforeFirstSpecialCharacter(_output, '/');
       }
 
-      // final int _length = _output.length;
-      // blog('_output[_length-2] : ${_output[_length-2]}');
-      // if (_output[_length - 2] == '/'){
-      //   _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
-      // }
+      /// REMOVE LAST '//////' IF EXISTS
+      int _lastIndex = _output.length - 1;
+      if (_output[_lastIndex] == '/'){
+          _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
+          _output = '$_output/'; // should always keep one last slash
+      }
+
+      /// ASSURE LAST SLASH EXISTS
+      _lastIndex = _output.length - 1;
+      if (_output[_lastIndex] != '/'){
+        _output = '$_output/'; // should always keep one last slash
+      }
 
     }
 

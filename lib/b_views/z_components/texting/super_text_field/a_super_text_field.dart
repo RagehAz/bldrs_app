@@ -17,11 +17,11 @@ class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperTextField({
     @required this.width,
+    @required this.textController,
     @required this.title,
 
     /// main
     this.isFormField,
-    this.textController,
     this.initialValue,
     this.hintText = '...',
     this.autofocus = false,
@@ -378,6 +378,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     return _controller;
   }
 // -----------------------------------------------------------------------------
+  /*
 //   ValueNotifier<List<String>> _errors;
 //   String _lastValidatorError;
 // ------------------------------------------------
@@ -476,6 +477,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 //     }
 //
 //   }
+   */
 // -----------------------------------------------------------------------------
   void _onTextChanged(String val) {
 
@@ -601,7 +603,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 // selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
                 builder: (_, UiProvider uiPro, Widget child){
 
-                  final TextEditingController _textController = uiPro.keyboardModel?.controller ?? _controller;
+                  final TextEditingController _textController = _controller; //uiPro.keyboardModel?.controller ?? _controller;
                   final bool _isObscured = uiPro.textFieldsObscured;
 
                   return TextFormFieldSwitcher(
