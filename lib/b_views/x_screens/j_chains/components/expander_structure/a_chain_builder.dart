@@ -9,6 +9,7 @@ class ChainBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainBuilder({
     @required this.chain,
+    @required this.previousPath,
     @required this.boxWidth,
     @required this.icon,
     @required this.firstHeadline,
@@ -26,6 +27,7 @@ class ChainBuilder extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Chain chain;
+  final String previousPath;
   final bool deactivated;
   final double boxWidth;
   final bool inverseAlignment;
@@ -34,7 +36,7 @@ class ChainBuilder extends StatelessWidget {
   final String secondHeadline;
   final Color initialColor;
   final Color expansionColor;
-  final ValueChanged<String> onPhidTap;
+  final Function(String path, String phid) onPhidTap;
   final bool initiallyExpanded;
   final int parentLevel;
   final List<String> selectedPhids;
@@ -65,9 +67,10 @@ class ChainBuilder extends StatelessWidget {
         searchText: searchText,
         child: ChainSplitter(
           width: _sonWidth,
+          previousPath: '$previousPath/${chain.id}',
           chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
-          onSelectPhid: (String phid) => onPhidTap(phid),
+          onSelectPhid: (String path, String phid) => onPhidTap(path, phid),
           parentLevel: parentLevel,
           selectedPhids: selectedPhids,
           searchText: searchText,

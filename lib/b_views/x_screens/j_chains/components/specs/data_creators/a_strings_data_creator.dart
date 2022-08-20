@@ -43,12 +43,13 @@ class StringsDataCreator extends StatelessWidget {
         borderRadius: _corners,
         child: ChainSplitter(
           width: BldrsAppBar.width(context),
+          previousPath: specPicker.chainID,
           chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
             specPicker: specPicker,
             context: context,
             onlyUseCityChains: onlyUseCityChains,
           )?.sons,
-          onSelectPhid: (String phid) => onPhidTap(phid),
+          onSelectPhid: (String path, String phid) => onPhidTap(phid),
           selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
           initiallyExpanded: false,
         ),

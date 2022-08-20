@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class ChainSplitter extends StatelessWidget {
   const ChainSplitter({
     @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
+    this.previousPath = '',
     this.parentLevel = 0,
     this.width,
     this.onSelectPhid,
@@ -27,8 +29,9 @@ class ChainSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
   final int parentLevel;
+  final String previousPath;
   final double width;
-  final ValueChanged<String> onSelectPhid;
+  final Function(String path, String phid) onSelectPhid;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<String> searchText;
@@ -57,7 +60,13 @@ class ChainSplitter extends StatelessWidget {
         searchText: searchText,
         color: _color,
         // isDisabled: false,
-        onTap: () => onSelectPhid(_phid),
+        onTap: (){
+
+          final String _path = '$previousPath/$_phid';
+          final String _cleanedPath = TextMod.removeTextBeforeFirstSpecialCharacter(_path, '/');
+          onSelectPhid(_cleanedPath, _phid);
+
+        }, // good
       );
 
     }
@@ -66,6 +75,7 @@ class ChainSplitter extends StatelessWidget {
     else if (chainOrChainsOrSonOrSons is List<String>){
       return ChainSonsBuilder(
         sons: chainOrChainsOrSonOrSons,
+        previousPath: previousPath, // good
         width: _width,
         parentLevel: parentLevel,
         onPhidTap: onSelectPhid,
@@ -76,13 +86,15 @@ class ChainSplitter extends StatelessWidget {
     }
 
     /// IF SON IS CHAIN
-    else if (chainOrChainsOrSonOrSons.runtimeType == Chain) {
+    else if (chainOrChainsOrSonOrSons is Chain) {
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       final Chain _chain = chainOrChainsOrSonOrSons;
+      // blog('$parentLevel : $previousPath/${_chain.id}');
 
       return ChainBuilder(
         key: PageStorageKey<String>(_chain.id),
+        previousPath: previousPath, //_chain.id, //'$previousPath/${}',
         chain: _chain,
         boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
@@ -100,8 +112,10 @@ class ChainSplitter extends StatelessWidget {
 
     /// IF SONS IS List<Chain>
     else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
+
       return ChainSonsBuilder(
         sons: chainOrChainsOrSonOrSons,
+        previousPath: previousPath, // good
         width: _width,
         parentLevel: parentLevel,
         onPhidTap: onSelectPhid,
