@@ -1,7 +1,4 @@
-
-
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +23,8 @@ class ChainRealOps {
 /// CREATE
 
 // ------------------------------------------
-  static Future<Chain> createChainK({
+  /// TESTED : WORKS PERFECT
+  static Future<Chain> createBigChainK({
     @required BuildContext context,
     @required Chain chainK,
   }) async {
@@ -36,16 +34,43 @@ class ChainRealOps {
     /// NOTE : chain K does not allow duplicate IDs in last node
     if (chainK != null){
 
-      final List<String> _paths = ChainPathConverter.generateChainsPaths(
-        parentID: '',
-        chains: chainK.sons,
-      );
-
       final Map<String, dynamic> _map = Chain.cipherChainKPaths(
-        chainKPaths: _paths,
+        chainK: chainK,
       );
 
       final Map<String, dynamic> _uploadedChainKMap = await Real.createDocInPath(
+        context: context,
+        pathWithoutDocName: RealColl.chains,
+        addDocIDToOutput: false,
+        docName: RealDoc.chains_bigChainK,
+        map: _map,
+      );
+
+      _uploaded = Chain.decipherBigChainKRealMap(
+          bigChainKMap: _uploadedChainKMap
+      );
+
+    }
+
+    return _uploaded;
+  }
+// ------------------------------------------
+  /// TESTED : WORK PERFECT
+  static Future<Chain> createBigChainS({
+    @required BuildContext context,
+    @required Chain chainS,
+  }) async {
+
+    Chain _uploaded;
+
+    /// NOTE : chain K does not allow duplicate IDs in last node
+    if (chainS != null){
+
+      final Map<String, dynamic> _map = Chain.cipherChainSPaths(
+        chainS: chainS,
+      );
+
+      final Map<String, dynamic> _uploadedChainSMap = await Real.createDocInPath(
         context: context,
         pathWithoutDocName: RealColl.chains,
         addDocIDToOutput: false,
@@ -53,8 +78,8 @@ class ChainRealOps {
         map: _map,
       );
 
-      _uploaded = Chain.decipherBigChainKRealMap(
-          bigChainKMap: _uploadedChainKMap
+      _uploaded = Chain.decipherBigChainSRealMap(
+          bigChainSMap: _uploadedChainSMap
       );
 
     }
@@ -82,7 +107,21 @@ class ChainRealOps {
     return _bigChainK;
   }
 // ------------------------------------------
-  static Future<Chain> readBigChainS(BuildContext context) async {}
+  /// TESTED : WORKS PERFECT
+  static Future<Chain> readBigChainS(BuildContext context) async {
+
+    final Map<String, dynamic> _bigChainSMap = await Real.readDocOnce(
+      context: context,
+      collName: RealColl.chains,
+      docName: RealDoc.chains_bigChainS,
+    );
+
+    final Chain _bigChainS = Chain.decipherBigChainSRealMap(
+      bigChainSMap: _bigChainSMap,
+    );
+
+    return _bigChainS;
+  }
 // -----------------------------------------------------------------------------
 
 /// UPDATE

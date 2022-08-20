@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
@@ -299,6 +300,38 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           },
         ),
 
+        /// CREATE CHAIN S
+        WideButton(
+          verse: 'Real.CREATE BigChainS from ProChainS',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            final Chain chainS = ChainsProvider.proGetBigChainS(
+                context: context,
+                listen: false
+            );
+
+            final Chain _chainSUploaded = await ChainProtocols.composeChainS(
+                context: context,
+                chainS: chainS
+            );
+
+            if (_chainSUploaded == null){
+              blog('No ChainS received');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _chainSUploaded,
+                ),
+              );
+            }
+
+          },
+        ),
+
         /// READ CHAIN K
         WideButton(
           verse: 'Real.READ BigChainK',
@@ -329,9 +362,41 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
           },
         ),
 
+        /// READ CHAIN S
+        WideButton(
+          verse: 'Real.READ BigChainS',
+          color: Colorz.blue80,
+          onTap: () async {
+
+            unawaited(WaitDialog.showWaitDialog(context: context,));
+
+            final Chain _bigChainS = await ChainRealOps.readBigChainS(context);
+
+            _bigChainS?.blogChain();
+
+            WaitDialog.closeWaitDialog(context);
+
+            if (_bigChainS == null){
+              blog('No ChainS found');
+            }
+
+            else {
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainViewScreen(
+                  chain: _bigChainS,
+                ),
+              );
+            }
+
+          },
+        ),
+
         // ---------------------------------------
 
         const SeparatorLine(),
+
+        const Horizon(),
 
       ],
     );
