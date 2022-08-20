@@ -15,8 +15,8 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chain_tree_viewer.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_viewer_structure/chains_tree_starter.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_viewer_structure/chain_tree_viewer.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_viewer_structure/chains_tree_starter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
