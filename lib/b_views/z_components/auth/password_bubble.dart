@@ -48,7 +48,7 @@ class PasswordBubbles extends StatelessWidget {
           canObscure: true,
           onSubmitted: onSubmitted,
           hintText: '',
-          isTheSuperKeyboardField: isTheSuperKeyboardField,
+          isFloatingField: isTheSuperKeyboardField,
         ),
 
         /// CONFIRM PASSWORD

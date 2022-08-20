@@ -48,7 +48,7 @@ class TextFieldBubble extends StatelessWidget {
     this.minLines = 1,
     this.autoFocus = false,
     this.focusNode,
-    this.isTheSuperKeyboardField = false,
+    this.isFloatingField = false,
     this.onFieldTap,
     Key key,
   }) : super(key: key);
@@ -86,7 +86,7 @@ class TextFieldBubble extends StatelessWidget {
   final int minLines;
   final bool autoFocus;
   final FocusNode focusNode;
-  final bool isTheSuperKeyboardField;
+  final bool isFloatingField;
   final Function onFieldTap;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
@@ -202,7 +202,7 @@ class TextFieldBubble extends StatelessWidget {
                     validator: validator,
                     focusNode: focusNode,
                     autofocus: autoFocus,
-                    isTheSuperKeyboardField : isTheSuperKeyboardField,
+                    isFloatingField : isFloatingField,
                     textSize: textSize,
                     minLines: minLines,
                     onTap: onFieldTap,

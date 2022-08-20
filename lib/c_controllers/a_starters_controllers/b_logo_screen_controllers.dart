@@ -220,7 +220,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         /// KEYWORDS CHAIN
         if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.keywordsChain,);
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainK,);
           _userAppState = _userAppState.copyWith(
             keywordsChainVersion: _globalState.keywordsChainVersion,
           );
@@ -252,7 +252,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         /// SPEC CHAIN VERSION
         if (_globalState.specsChainVersion > _userState.specsChainVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specsChain,);
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainS,);
           _userAppState = _userAppState.copyWith(
             specsChainVersion: _globalState.specsChainVersion,
           );
