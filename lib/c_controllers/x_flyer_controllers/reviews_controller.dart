@@ -172,6 +172,7 @@ Future<void> _onEditReview({
       onChanged: null,
       onSavedForForm: null,
       onEditingComplete: null,
+      isFloatingField: false,
       onSubmitted: (String text){
 
         _isConfirmed = true;
@@ -274,6 +275,7 @@ Future<void> onBzReply({
       onChanged: null,
       onSavedForForm: null,
       onEditingComplete: null,
+      isFloatingField: false,
       onSubmitted: (String text){
 
         _isConfirmed = true;
@@ -401,6 +403,7 @@ Future<void> _onEditReply({
       onChanged: null,
       onSavedForForm: null,
       onEditingComplete: null,
+      isFloatingField: false,
       onSubmitted: (String text){
 
         _isConfirmed = true;

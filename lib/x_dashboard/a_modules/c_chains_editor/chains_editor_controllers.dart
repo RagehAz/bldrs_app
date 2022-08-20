@@ -325,7 +325,7 @@ Future<void> _updateKeywordsChainOps({
   /// 2 - UPDATE ON LDB
   await LDBOps.insertMap(
       input: chain.toMapOLD(),
-      docName: LDBDoc.keywordsChain,
+      docName: LDBDoc.bigChainK,
   );
 
   /// 3 - UPDATE PROVIDER
@@ -356,13 +356,13 @@ Future<void> _updateSpecsChainOps({
   /// 2 - UPDATE ON LDB
   await LDBOps.insertMap(
     input: chain.toMapOLD(),
-    docName: LDBDoc.specsChain,
+    docName: LDBDoc.bigChainS,
   );
 
   /// 3 - UPDATE PROVIDER
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   _chainsProvider.setBigChainS(
-      specsChain: chain,
+      bigChainS: chain,
       notify: true
   );
 

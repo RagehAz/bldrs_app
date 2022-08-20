@@ -1,5 +1,8 @@
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +16,7 @@ class ChainSonsBuilder extends StatelessWidget {
     @required this.onPhidTap,
     @required this.selectedPhids,
     @required this.initiallyExpanded,
+    @required this.onAddToPath,
     this.searchText,
     Key key
   }) : super(key: key);
@@ -25,6 +29,7 @@ class ChainSonsBuilder extends StatelessWidget {
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<String> searchText;
+  final Function(String path) onAddToPath;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -66,10 +71,34 @@ class ChainSonsBuilder extends StatelessWidget {
                   initiallyExpanded: initiallyExpanded,
                   parentLevel: parentLevel+1,
                   searchText: searchText,
+                  onAddToPath: onAddToPath,
                 ),
               );
 
             }),
+
+            if (onAddToPath != null)
+            DreamBox(
+              height: 60,
+              width: _sonWidth,
+              verse: 'Add to path :',
+              secondLine: '$previousPath/...',
+              icon: Iconz.plus,
+              iconSizeFactor: 0.5,
+              verseScaleFactor: 1.2,
+              secondLineScaleFactor: 1.1,
+              secondLineColor: Colorz.black255,
+              secondVerseMaxLines: 2,
+              verseCentered: false,
+              verseColor: Colorz.black255,
+              color: Colorz.yellow255,
+              margins: const EdgeInsets.only(
+                bottom: Ratioz.appBarPadding,
+                left: Ratioz.appBarPadding,
+                right: Ratioz.appBarPadding,
+              ),
+              onTap: () => onAddToPath(previousPath),
+            ),
 
           ],
         ),

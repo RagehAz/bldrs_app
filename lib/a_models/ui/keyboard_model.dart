@@ -19,6 +19,7 @@ class KeyboardModel {
     @required this.onSubmitted,
     @required this.onSavedForForm,
     @required this.onEditingComplete,
+    @required this.isFloatingField,
 });
 
   final String title;
@@ -38,6 +39,7 @@ class KeyboardModel {
   final ValueChanged<String> onSubmitted;
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
+  final bool isFloatingField;
 
   KeyboardModel copyWith({
     String title,
@@ -56,6 +58,7 @@ class KeyboardModel {
     ValueChanged<String> onSubmitted,
     ValueChanged<String> onSavedForForm,
     Function onEditingComplete,
+    bool isFloatingField,
 }){
     return KeyboardModel(
       title: title ?? this.title,
@@ -74,27 +77,29 @@ class KeyboardModel {
       onSubmitted: onSubmitted ?? this.onSubmitted,
       onSavedForForm: onSavedForForm ?? this.onSavedForForm,
       onEditingComplete: onEditingComplete ?? this.onEditingComplete,
+      isFloatingField: isFloatingField ?? this.isFloatingField,
     );
   }
 
   static KeyboardModel standardModel(){
     return KeyboardModel(
-        title: null,
-        hintText: '...',
-        controller: TextEditingController(),
-        minLines: 1,
-        maxLines: 1,
-        maxLength: null,
-        textInputAction: TextInputAction.done,
-        textInputType: TextInputType.text,
-        focusNode: FocusNode(),
-        canObscure: false,
-        counterIsOn: false,
-        isFormField: false,
-        onChanged: null,
-        onSubmitted: null,
-        onSavedForForm: null,
-        onEditingComplete: null
+      title: null,
+      hintText: '...',
+      controller: TextEditingController(),
+      minLines: 1,
+      maxLines: 1,
+      maxLength: null,
+      textInputAction: TextInputAction.done,
+      textInputType: TextInputType.text,
+      focusNode: FocusNode(),
+      canObscure: false,
+      counterIsOn: false,
+      isFormField: false,
+      onChanged: null,
+      onSubmitted: null,
+      onSavedForForm: null,
+      onEditingComplete: null,
+      isFloatingField: false,
     );
   }
 }

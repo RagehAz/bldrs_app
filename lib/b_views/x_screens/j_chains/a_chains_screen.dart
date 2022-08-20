@@ -199,7 +199,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      hasKeyboard: false,
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,

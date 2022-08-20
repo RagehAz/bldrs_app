@@ -23,6 +23,7 @@ class ChainBuilder extends StatelessWidget {
     this.onPhidTap,
     this.parentLevel = 0,
     this.searchText,
+    this.onAddToPath,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +42,7 @@ class ChainBuilder extends StatelessWidget {
   final int parentLevel;
   final List<String> selectedPhids;
   final ValueNotifier<String> searchText;
+  final Function(String path) onAddToPath;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -74,6 +76,7 @@ class ChainBuilder extends StatelessWidget {
           parentLevel: parentLevel,
           selectedPhids: selectedPhids,
           searchText: searchText,
+          onAddToPath: onAddToPath,
         ),
       ),
     );

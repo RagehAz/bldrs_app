@@ -47,6 +47,23 @@ class ChainPathConverter {
   /// CREATE CHAINS FROM PATHS
 
 // --------------------------------------------
+  static Chain createChainFromPaths({
+  @required String chainID,
+    @required List<String> paths,
+}){
+
+    final List<Chain> _sons = ChainPathConverter.createChainsFromPaths(
+      paths: paths,
+    );
+
+    final Chain _output = _combineSonsIfChainsIntoOneChain(
+      rootChainID: chainID,
+      chains: _sons,
+    );
+
+    return _output;
+  }
+// --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Chain createChainFromSinglePath({
     @required String path,
@@ -119,6 +136,39 @@ class ChainPathConverter {
 
     }
 
+  }
+
+  /// TESTED : WORKS PERFECT
+  static Chain _combineSonsIfChainsIntoOneChain({
+    @required List<Chain> chains,
+    @required String rootChainID,
+  }){
+    Chain _output;
+
+    if (Mapper.checkCanLoopList(chains) == true && rootChainID != null){
+
+      final List<Chain> combinesSons = <Chain>[];
+
+      for (final Chain chain in chains){
+
+        if (Chain.checkSonsAreChains(chain.sons) == true){
+          final List<Chain> _chains = chain.sons;
+          combinesSons.addAll(_chains);
+        }
+        else if (chain is Chain){
+          combinesSons.add(chain);
+        }
+
+      }
+
+      _output = Chain(
+        id: rootChainID,
+        sons: combinesSons,
+      );
+
+    }
+
+    return _output;
   }
 // -------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -828,5 +878,36 @@ class ChainPathConverter {
   }
 
  */
+// -----------------------------------------------------------------------------
 
+/// FIXERS
+
+// --------------------------------------------
+  static String fixPathFormatting(String path){
+
+    /// NOTE : GOOD FORMAT SHOULD BE
+    // 'chainK/blah_blah/phid/
+    /// => no '/' in the beggining
+    /// => there MUST '/' in the end
+
+    String _output = path.trim();
+
+    if (Stringer.checkStringIsNotEmpty(path) == true){
+
+
+      if (_output[0] == '/'){
+        _output = TextMod.removeTextBeforeFirstSpecialCharacter(_output, '/');
+      }
+
+      // final int _length = _output.length;
+      // blog('_output[_length-2] : ${_output[_length-2]}');
+      // if (_output[_length - 2] == '/'){
+      //   _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
+      // }
+
+    }
+
+      return _output;
+  }
+// -----------------------------------------------------------------------------
 }
