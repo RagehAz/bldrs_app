@@ -9,12 +9,10 @@ class DreamBoxGradient extends StatelessWidget {
     @required this.corners,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
   final BorderRadius corners;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

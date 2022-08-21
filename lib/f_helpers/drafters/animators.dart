@@ -2,7 +2,7 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:flutter/material.dart';
 
 class Animators {
-/// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 
   const Animators();
 

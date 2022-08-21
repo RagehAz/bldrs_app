@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
 class FlyerCounterModel {
   /// -----------------------------------------------------------------------------
-  FlyerCounterModel({
+  const FlyerCounterModel({
     @required this.flyerID,
     @required this.saves,
     @required this.shares,

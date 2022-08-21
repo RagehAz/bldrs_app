@@ -14,12 +14,10 @@ class BzCreditsCounter extends StatelessWidget {
     @required this.ankhsCredit,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final String slidesCredit;
   final String ankhsCredit;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

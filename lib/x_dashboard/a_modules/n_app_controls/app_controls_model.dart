@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppControlsModel {
   /// --------------------------------------------------------------------------
-  AppControlsModel({
+  const AppControlsModel({
     @required this.showOnlyVerifiedFlyersInHomeWall, /// fakes maloosh lazma khalas, we always show only verified flyers
-});
+  });
   /// --------------------------------------------------------------------------
   final bool showOnlyVerifiedFlyersInHomeWall;
 // -----------------------------------------------------------------------------

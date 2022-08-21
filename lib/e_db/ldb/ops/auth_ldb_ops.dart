@@ -5,8 +5,9 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 class AuthLDBOps {
+// -----------------------------------------------------------------------------
 
-  AuthLDBOps();
+  const AuthLDBOps();
 
 // -----------------------------------------------------------------------------
 

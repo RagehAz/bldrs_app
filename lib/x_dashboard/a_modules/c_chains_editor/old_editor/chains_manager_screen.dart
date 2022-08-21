@@ -19,18 +19,18 @@ import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_chain
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChainsManagerScreen extends StatefulWidget {
+class OLDChainsManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainsManagerScreen({
+  const OLDChainsManagerScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _ChainsManagerScreenState createState() => _ChainsManagerScreenState();
+  _OLDChainsManagerScreenState createState() => _OLDChainsManagerScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _ChainsManagerScreenState extends State<ChainsManagerScreen> {
+class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
 // -----------------------------------------------------------------------------
   List<Chain> _originalChains;
   ValueNotifier<List<Chain>> _chainsNotifier;

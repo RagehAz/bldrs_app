@@ -5,8 +5,9 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerLDBOps {
+// -----------------------------------------------------------------------------
 
-  FlyerLDBOps();
+ const FlyerLDBOps();
 
 // -----------------------------------------------------------------------------
 

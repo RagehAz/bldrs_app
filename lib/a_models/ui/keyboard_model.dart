@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class KeyboardModel {
-
+// -----------------------------------------------------------------------------
   const KeyboardModel({
     @required this.title,
     @required this.hintText,
@@ -21,7 +21,7 @@ class KeyboardModel {
     @required this.onEditingComplete,
     @required this.isFloatingField,
 }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
-
+// -----------------------------------------------------------------------------
   final String title;
   final String hintText;
   final TextEditingController controller;
@@ -40,7 +40,7 @@ class KeyboardModel {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   final bool isFloatingField;
-
+// -----------------------------------------------------------------------------
   KeyboardModel copyWith({
     String title,
     String hintText,
@@ -80,7 +80,7 @@ class KeyboardModel {
       isFloatingField: isFloatingField ?? this.isFloatingField,
     );
   }
-
+// -----------------------------------------------------------------------------
   static KeyboardModel standardModel(){
     return KeyboardModel(
       title: null,
@@ -102,4 +102,5 @@ class KeyboardModel {
       isFloatingField: false,
     );
   }
+// -----------------------------------------------------------------------------
 }

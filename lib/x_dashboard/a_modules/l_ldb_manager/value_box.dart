@@ -11,12 +11,10 @@ class ValueBox extends StatelessWidget {
     this.color = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String dataKey;
   final dynamic value;
   final Color color;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

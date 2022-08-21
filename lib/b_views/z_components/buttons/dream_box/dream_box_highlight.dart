@@ -11,12 +11,10 @@ class DreamBoxHighlight extends StatelessWidget {
     @required this.corners,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
   final dynamic corners;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

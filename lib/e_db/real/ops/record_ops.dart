@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class RecordRealOps {
 // -----------------------------------------------------------------------------
 
-  RecordRealOps();
+  const RecordRealOps();
 
 // -----------------------------------------------------------------------------
 

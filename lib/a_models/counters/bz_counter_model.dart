@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BzCounterModel {
   /// -----------------------------------------------------------------------------
-  BzCounterModel({
+  const BzCounterModel({
     @required this.bzID,
     @required this.follows,
     @required this.calls,

@@ -9,9 +9,10 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 @immutable
 class ChainPathConverter {
-// -------------------------------------------
+// -----------------------------------------------------------------------------
 
   const ChainPathConverter();
+
 // -----------------------------------------------------------------------------
 
   /// DEBUG BLOGGING

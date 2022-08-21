@@ -38,16 +38,19 @@ Future<void> readMoreUnVerifiedFlyers({
     startAfter: Mapper.checkCanLoopList(flyers.value) == true ? flyers.value.last.docSnapshot : null,
     addDocSnapshotToEachMap: true,
     finders: <FireFinder>[
-      FireFinder(
+
+      const FireFinder(
         field: 'auditState',
         comparison: FireComparison.nullValue,
         value: true,
       ),
+
       FireFinder(
         field: 'publishState',
         comparison: FireComparison.equalTo,
         value: FlyerModel.cipherPublishState(PublishState.published),
       ),
+
     ],
   );
 
