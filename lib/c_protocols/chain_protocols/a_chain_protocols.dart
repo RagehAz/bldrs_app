@@ -4,15 +4,15 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/city_phid_counters.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChainProtocols {
 // -----------------------------------------------------------------------------
@@ -75,33 +75,18 @@ class ChainProtocols {
   /// TESTED : WORKS PERFECT
   static Future<Chain> fetchBigChainK(BuildContext context) async {
 
-    Chain _bigChainK;
-
     /// 1 - search LDB
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.bigChainK,
-    );
+    Chain _bigChainK = await ChainLDBOps.readBigChainK();
 
-    /// 2 - bigChainK found in LDB
-    if (Mapper.checkCanLoopList(_maps)) {
-
-      _bigChainK = Chain.decipherBigChainK(
-        bigChainKMap: _maps[0],
-      );
-    }
-
-    /// 3 - bigChainK is not found in LDB
-    else {
+    /// 2 - bigChainK is not found in LDB
+    if (_bigChainK == null){
 
       _bigChainK = await ChainRealOps.readBigChainK(context);
 
       /// 3 - insert in LDB when found on firebase
       if (_bigChainK != null){
 
-        await LDBOps.insertMap(
-          input: Chain.cipherBigChainK(chainK: _bigChainK),
-          docName: LDBDoc.bigChainK,
-        );
+        await ChainLDBOps.insertBigChainK(_bigChainK);
 
       }
 
@@ -113,31 +98,18 @@ class ChainProtocols {
   /// TESTED : WORKS PERFECT
   static Future<Chain> fetchBigChainS(BuildContext context) async {
 
-    Chain _bigChainS;
-
     /// 1 - search LDB
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.bigChainS,
-    );
+    Chain _bigChainS = await ChainLDBOps.readBigChainS();
 
-    /// 2 - bigChainS found in LDB
-    if (Mapper.checkCanLoopList(_maps)) {
-      _bigChainS = Chain.decipherBigChainS(
-          bigChainSMap: _maps[0],
-      );
-    }
+    /// 2 - bigChainS is not found in LDB
+    if (_bigChainS == null) {
 
-    /// 3 - bigChainS is not found in LDB
-    else {
       _bigChainS = await ChainRealOps.readBigChainS(context);
 
       /// 3 - insert in LDB when found on firebase
       if (_bigChainS != null){
 
-        await LDBOps.insertMap(
-          input: Chain.cipherBigChainS(chainS: _bigChainS),
-          docName: LDBDoc.bigChainS,
-        );
+        await ChainLDBOps.insertBigChainS(_bigChainS);
 
       }
 
@@ -174,12 +146,12 @@ class ChainProtocols {
 
 // -------------------------------------
   ///
-  static Future<void> renovateChainK({
+  static Future<void> renovateBigChainK({
     @required BuildContext context,
-    @required Chain chainK,
+    @required Chain bigChainK,
   }) async {
 
-    if (chainK != null){
+    if (bigChainK != null){
 
       await Future.wait(<Future>[
 
@@ -187,12 +159,12 @@ class ChainProtocols {
           context: context,
           collName: RealColl.chains,
           docName: RealDoc.chains_bigChainK,
-          map: Chain.cipherBigChainK(chainK: chainK),
+          map: Chain.cipherBigChainK(chainK: bigChainK),
         ),
 
-        updateChainKLocally(
+        updateBigChainKLocally(
             context: context,
-            chainK: chainK
+            bigChainK: bigChainK
         ),
 
       ]);
@@ -202,12 +174,12 @@ class ChainProtocols {
   }
 // -------------------------------------
   ///
-  static Future<void> renovateChainS({
+  static Future<void> renovateBigChainS({
     @required BuildContext context,
-    @required Chain chainS,
+    @required Chain bigChainS,
   }) async {
 
-    if (chainS != null){
+    if (bigChainS != null){
 
       await Future.wait(<Future>[
 
@@ -215,12 +187,12 @@ class ChainProtocols {
           context: context,
           collName: RealColl.chains,
           docName: RealDoc.chains_bigChainS,
-          map: Chain.cipherBigChainS(chainS: chainS),
+          map: Chain.cipherBigChainS(chainS: bigChainS),
         ),
 
-        updateChainSLocally(
+        updateBigChainSLocally(
             context: context,
-            chainS: chainS
+            bigChainS: bigChainS
         ),
 
       ]);
@@ -230,26 +202,52 @@ class ChainProtocols {
   }
 // -------------------------------------
   ///
-  static Future<void> updateChainKLocally({
+  static Future<void> updateBigChainKLocally({
     @required BuildContext context,
-    @required Chain chainK,
+    @required Chain bigChainK,
   }) async {
 
+    if (bigChainK != null){
+
     /// UPDATE CHAIN K IN LDB
+      await ChainLDBOps.updateBigChainK(
+          newBigChainK: bigChainK,
+      );
 
     /// UPDATE CHAIN K IN PRO
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      await _chainsProvider.updateBigChainKOps(
+        context: context,
+        bigChainK: bigChainK,
+        notify: true,
+      );
+
+    }
 
   }
 // -------------------------------------
   ///
-  static Future<void> updateChainSLocally({
+  static Future<void> updateBigChainSLocally({
     @required BuildContext context,
-    @required Chain chainS,
+    @required Chain bigChainS,
   }) async {
 
-    /// UPDATE CHAIN K IN LDB
+    if (bigChainS != null){
 
-    /// UPDATE CHAIN K IN PRO
+      /// UPDATE CHAIN S IN LDB
+      await ChainLDBOps.updateBigChainS(
+        newBigChainS: bigChainS,
+      );
+
+      /// UPDATE CHAIN S IN PRO
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      await _chainsProvider.updateBigChainSOps(
+        context: context,
+        bigChainS: bigChainS,
+        notify: true,
+      );
+
+    }
 
   }
 // -----------------------------------------------------------------------------

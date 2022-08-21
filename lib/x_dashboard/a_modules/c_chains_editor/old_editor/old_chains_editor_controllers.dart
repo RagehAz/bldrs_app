@@ -347,26 +347,26 @@ Future<void> _updateSpecsChainOps({
   @required Chain chain,
 }) async {
 
-  /// 1 - UPDATE ON FIREBASE
-  await ChainFireOpsOLD.updateSpecsChain(
-    context: context,
-    newSpecsChain: chain,
-  );
-
-  /// 2 - UPDATE ON LDB
-  await LDBOps.insertMap(
-    input: chain.toMapOLD(),
-    docName: LDBDoc.bigChainS,
-  );
-
-  /// 3 - UPDATE PROVIDER
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  _chainsProvider.setBigChainS(
-      bigChainS: chain,
-      notify: true
-  );
-
-  /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
-  await AppStateOps.updateSpecsChainVersion(context);
+  // /// 1 - UPDATE ON FIREBASE
+  // await ChainFireOpsOLD.updateSpecsChain(
+  //   context: context,
+  //   newSpecsChain: chain,
+  // );
+  //
+  // /// 2 - UPDATE ON LDB
+  // await LDBOps.insertMap(
+  //   input: chain.toMapOLD(),
+  //   docName: LDBDoc.bigChainS,
+  // );
+  //
+  // /// 3 - UPDATE PROVIDER
+  // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  // _chainsProvider.setBigChainS(
+  //     bigChainS: chain,
+  //     notify: true
+  // );
+  //
+  // /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+  // await AppStateOps.updateSpecsChainVersion(context);
 }
 // ------------------------------------------------

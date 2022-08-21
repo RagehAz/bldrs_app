@@ -181,13 +181,13 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// CITY CHAIN K
       _refineSetCityChainK(
-        bigChainK: _bigChainK,
+        bigChainK: bigChainK,
         notify: false,
       ),
       /// BIG CHAIN K PHRASES
       _generateSetBigChainKPhrases(
         context: context,
-        bigChainK: _bigChainK,
+        bigChainK: bigChainK,
         notify: false,
       ),
     ]);
@@ -195,7 +195,41 @@ class ChainsProvider extends ChangeNotifier {
     /// 3. CITY CHAIN K PHRASES
     await _generateSetCityChainKPhrases(
       context: context,
-      cityChainK: _cityChainK,
+      cityChainK: bigChainK,
+      notify: false,
+    );
+    // --------------------
+    /// NOTIFY LISTENERS
+    if (notify == true){
+      notifyListeners();
+    }
+    // --------------------
+  }
+// -------------------------------------
+  Future<void> updateBigChainSOps({
+    @required BuildContext context,
+    @required Chain bigChainS,
+    @required bool notify,
+  }) async {
+    // --------------------
+    /// KEEP : BIG CHAIN K
+    /// UPDATE : BIG CHAIN S
+    /// KEEP : CITY PHID COUNTERS
+    /// KEEP : CITY CHAIN K
+    /// KEEP : BIG CHAIN K PHRASES
+    /// UPDATE : BIG CHAIN S PHRASES
+    /// KEEP : CITY CHAIN K PHRASES
+    // --------------------
+    /// 1. BIG CHAIN S
+    _setBigChainS(
+      bigChainS: bigChainS,
+      notify: false,
+    );
+    // --------------------
+      /// BIG CHAIN S PHRASES
+    await _generateSetBigChainSPhrases(
+      context: context,
+      bigChainS: bigChainS,
       notify: false,
     );
     // --------------------
@@ -326,7 +360,7 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
 
-    setBigChainS(
+    _setBigChainS(
       bigChainS: _bigChainS,
       notify: notify,
     );
@@ -334,7 +368,7 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  void setBigChainS({
+  void _setBigChainS({
     @required Chain bigChainS,
     @required bool notify,
   }){

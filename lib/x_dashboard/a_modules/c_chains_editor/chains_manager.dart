@@ -107,9 +107,9 @@ class _ChainsManagerState extends State<ChainsManager> {
     }
 
   }
-
+// -----------------------------------------------------------------------------
   bool onlyPhidKs = false;
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -480,5 +480,5 @@ class _ChainsManagerState extends State<ChainsManager> {
       ],
     );
   }
-
+// -----------------------------------------------------------------------------
 }
