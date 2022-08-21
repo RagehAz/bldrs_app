@@ -14,13 +14,11 @@ class StatusButtons extends StatelessWidget {
     @required this.currentUserStatus,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<Map<String, Object>> status;
   final Function switchUserStatus;
   final int stateIndex;
   final UserStatus currentUserStatus;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

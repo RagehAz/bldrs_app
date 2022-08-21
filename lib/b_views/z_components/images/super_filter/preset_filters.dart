@@ -1,17 +1,21 @@
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
-
+// -----------------------------------------------------------------------------
+/// TASK : CLEAN THIS PAGE ON RELEASE
+// -----------------------------------------------------------------------------
 /// Preset filters that can be used directly
 class PresetFilters {
+// -----------------------------------------------------------------------------
 
-  PresetFilters();
+  const PresetFilters();
 
+// -----------------------------------------------------------------------------
   /// NoFilter: No filter
   static ImageFilterModel none = const ImageFilterModel(
     id: 'No Filter',
     matrixes: <List<double>>[],
   );
-
+// ----------------------------------
   /// Clarendon: adds light to lighter areas and dark to darker areas
   static ImageFilterModel clarendon = ImageFilterModel(
     id: 'Clarendon',
@@ -21,7 +25,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(.15),
     ],
   );
-
+// ----------------------------------
   /// Increase red color gradient
   static ImageFilterModel addictiveRed = ImageFilterModel(
     id: 'AddictiveRed',
@@ -29,7 +33,7 @@ class PresetFilters {
       ColorFilterLayer.addictiveColor(50, 0, 0),
     ],
   );
-
+// ----------------------------------
   /// Increase blue color gradient
   static ImageFilterModel addictiveBlue = ImageFilterModel(
     id: 'AddictiveBlue',
@@ -37,7 +41,7 @@ class PresetFilters {
       ColorFilterLayer.addictiveColor(0, 0, 50),
     ],
   );
-
+// ----------------------------------
   /// Gingham: Vintage-inspired, taking some color out
   static ImageFilterModel gingham = ImageFilterModel(
     id: 'Gingham',
@@ -46,7 +50,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(-.15),
     ],
   );
-
+// ----------------------------------
   /// Moon: B/W, increase brightness and decrease contrast
   static ImageFilterModel moon = ImageFilterModel(
     id: 'Moon',
@@ -56,7 +60,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Lark: Brightens and intensifies colours but not red hues
   static ImageFilterModel lark = ImageFilterModel(
     id: 'Lark',
@@ -66,7 +70,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(-.04),
     ],
   );
-
+// ----------------------------------
   /// Reyes: a vintage filter, gives your photos a “dusty” look
   static ImageFilterModel reyes = ImageFilterModel(
     id: 'Reyes',
@@ -76,7 +80,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(-.05),
     ],
   );
-
+// ----------------------------------
   /// Juno: Brightens colors, and intensifies red and yellow hues
   static ImageFilterModel juno = ImageFilterModel(
     id: 'Juno',
@@ -85,7 +89,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.3),
     ],
   );
-
+// ----------------------------------
   /// Slumber: Desaturates the image as well as adds haze for a retro, dreamy look – with an emphasis on blacks and blues
   static ImageFilterModel slumber = ImageFilterModel(
     id: 'Slumber',
@@ -94,7 +98,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(-0.5),
     ],
   );
-
+// ----------------------------------
   /// Crema: Adds a creamy look that both warms and cools the image
   static ImageFilterModel crema = ImageFilterModel(
     id: 'Crema',
@@ -103,7 +107,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(-0.05),
     ],
   );
-
+// ----------------------------------
   /// Ludwig: A slight hint of desaturation that also enhances light
   static ImageFilterModel ludwig = ImageFilterModel(
     id: 'Ludwig',
@@ -112,7 +116,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(-0.03),
     ],
   );
-
+// ----------------------------------
   /// Aden: This filter gives a blue/pink natural look
   static ImageFilterModel aden = ImageFilterModel(
     id: 'Aden',
@@ -121,7 +125,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(-0.2),
     ],
   );
-
+// ----------------------------------
   /// Perpetua: Adding a pastel look, this filter is ideal for portraits
   static ImageFilterModel perpetua = ImageFilterModel(
     id: 'Perpetua',
@@ -129,7 +133,7 @@ class PresetFilters {
       ColorFilterLayer.rgbScale(1.05, 1.1, 1),
     ],
   );
-
+// ----------------------------------
   /// Amaro: Adds light to an image, with the focus on the centre
   static ImageFilterModel amaro = ImageFilterModel(
     id: 'Amaro',
@@ -138,7 +142,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.15),
     ],
   );
-
+// ----------------------------------
   /// Mayfair: Applies a warm pink tone, subtle vignetting to brighten the photograph center and a thin black border
   static ImageFilterModel mayfair = ImageFilterModel(
     id: 'Mayfair',
@@ -147,7 +151,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.15),
     ],
   );
-
+// ----------------------------------
   /// Rise: Adds a "glow" to the image, with softer lighting of the subject
   static ImageFilterModel rise = ImageFilterModel(
     id: 'Rise',
@@ -157,7 +161,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.1),
     ],
   );
-
+// ----------------------------------
   /// Hudson: Creates an "icy" illusion with heightened shadows, cool tint and dodged center
   static ImageFilterModel hudson = ImageFilterModel(
     id: 'Hudson',
@@ -167,7 +171,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.15),
     ],
   );
-
+// ----------------------------------
   /// Valencia: Fades the image by increasing exposure and warming the colors, to give it an antique feel
   static ImageFilterModel valencia = ImageFilterModel(
     id: 'Valencia',
@@ -177,7 +181,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(0.05),
     ],
   );
-
+// ----------------------------------
   /// X-Pro II: Increases color vibrance with a golden tint, high contrast and slight vignette added to the edges
   static ImageFilterModel xProII = ImageFilterModel(
     id: 'X-Pro II',
@@ -187,7 +191,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(0.15),
     ],
   );
-
+// ----------------------------------
   /// Sierra: Gives a faded, softer look
   static ImageFilterModel sierra = ImageFilterModel(
     id: 'Sierra',
@@ -196,7 +200,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.1),
     ],
   );
-
+// ----------------------------------
   /// Willow: A monochromatic filter with subtle purple tones and a translucent white border
   static ImageFilterModel willow = ImageFilterModel(
     id: 'Willow',
@@ -206,7 +210,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Lo-Fi: Enriches color and adds strong shadows through the use of saturation and "warming" the temperature
   static ImageFilterModel loFi = ImageFilterModel(
     id: 'Lo-Fi',
@@ -215,7 +219,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.2),
     ],
   );
-
+// ----------------------------------
   /// Inkwell: Direct shift to black and white
   static ImageFilterModel inkwell = ImageFilterModel(
     id: 'Inkwell',
@@ -223,7 +227,7 @@ class PresetFilters {
       ColorFilterLayer.grayscale(),
     ],
   );
-
+// ----------------------------------
   /// Hefe: Hight contrast and saturation, with a similar effect to Lo-Fi but not quite as dramatic
   static ImageFilterModel hefe = ImageFilterModel(
     id: 'Hefe',
@@ -232,7 +236,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.15),
     ],
   );
-
+// ----------------------------------
   /// Nashville: Warms the temperature, lowers contrast and increases exposure to give a light "pink" tint – making it feel "nostalgic"
   static ImageFilterModel nashville = ImageFilterModel(
     id: 'Nashville',
@@ -241,7 +245,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(-0.05),
     ],
   );
-
+// ----------------------------------
   /// Stinson: washing out the colors ever so slightly
   static ImageFilterModel stinson = ImageFilterModel(
     id: 'Stinson',
@@ -250,7 +254,7 @@ class PresetFilters {
       ColorFilterLayer.sepia(0.3),
     ],
   );
-
+// ----------------------------------
   /// Vesper: adds a yellow tint that
   static ImageFilterModel vesper = ImageFilterModel(
     id: 'Vesper',
@@ -260,7 +264,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(0.06),
     ],
   );
-
+// ----------------------------------
   /// Earlybird: Gives an older look with a sepia tint and warm temperature
   static ImageFilterModel earlybird = ImageFilterModel(
     id: 'Earlybird',
@@ -269,7 +273,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.15),
     ],
   );
-
+// ----------------------------------
   /// Brannan: Increases contrast and exposure and adds a metallic tint
   static ImageFilterModel brannan = ImageFilterModel(
     id: 'Brannan',
@@ -278,7 +282,7 @@ class PresetFilters {
       ColorFilterLayer.colorOverlay(140, 10, 185, 0.1),
     ],
   );
-
+// ----------------------------------
   /// Sutro: Burns photo edges, increases highlights and shadows dramatically with a focus on purple and brown colors
   static ImageFilterModel sutro = ImageFilterModel(
     id: 'Sutro',
@@ -287,7 +291,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(-0.1),
     ],
   );
-
+// ----------------------------------
   /// Toaster: Ages the image by "burning" the centre and adds a dramatic vignette
   static ImageFilterModel toaster = ImageFilterModel(
     id: 'Toaster',
@@ -296,7 +300,7 @@ class PresetFilters {
       ColorFilterLayer.colorOverlay(255, 145, 0, 0.2),
     ],
   );
-
+// ----------------------------------
   /// Walden: Increases exposure and adds a yellow tint
   static ImageFilterModel walden = ImageFilterModel(
     id: 'Walden',
@@ -305,7 +309,7 @@ class PresetFilters {
       ColorFilterLayer.colorOverlay(255, 255, 0, 0.2),
     ],
   );
-
+// ----------------------------------
   /// 1977: The increased exposure with a red tint gives the photograph a rosy, brighter, faded look.
   static ImageFilterModel f1977 = ImageFilterModel(
     id: '1977',
@@ -314,7 +318,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Kelvin: Increases saturation and temperature to give it a radiant "glow"
   static ImageFilterModel kelvin = ImageFilterModel(
     id: 'Kelvin',
@@ -324,7 +328,7 @@ class PresetFilters {
       ColorFilterLayer.saturation(0.35),
     ],
   );
-
+// ----------------------------------
   /// Maven: darkens images, increases shadows, and adds a slightly yellow tint overal
   static ImageFilterModel maven = ImageFilterModel(
     id: 'Maven',
@@ -334,7 +338,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(0.05),
     ],
   );
-
+// ----------------------------------
   /// Ginza: brightens and adds a warm glow
   static ImageFilterModel ginza = ImageFilterModel(
     id: 'Ginza',
@@ -343,7 +347,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Skyline: brightens to the image pop
   static ImageFilterModel skyline = ImageFilterModel(
     id: 'Skyline',
@@ -352,7 +356,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Dogpatch: increases the contrast, while washing out the lighter colors
   static ImageFilterModel dogpatch = ImageFilterModel(
     id: 'Dogpatch',
@@ -361,7 +365,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Brooklyn
   static ImageFilterModel brooklyn = ImageFilterModel(
     id: 'Brooklyn',
@@ -370,7 +374,7 @@ class PresetFilters {
       ColorFilterLayer.sepia(0.3),
     ],
   );
-
+// ----------------------------------
   /// Helena: adds an orange and teal vibe
   static ImageFilterModel helena = ImageFilterModel(
     id: 'Helena',
@@ -379,7 +383,7 @@ class PresetFilters {
       ColorFilterLayer.contrast(0.15),
     ],
   );
-
+// ----------------------------------
   /// Ashby: gives images a great golden glow and a subtle vintage feel
   static ImageFilterModel ashby = ImageFilterModel(
     id: 'Ashby',
@@ -388,7 +392,7 @@ class PresetFilters {
       ColorFilterLayer.brightness(0.1),
     ],
   );
-
+// ----------------------------------
   /// Charmes: a high contrast filter, warming up colors in your image with a red tint
   static ImageFilterModel charmes = ImageFilterModel(
     id: 'Charmes',
@@ -398,7 +402,7 @@ class PresetFilters {
     ],
   );
 }
-
+// -----------------------------------------------------------------------------
 /// List of filter presets
 List<ImageFilterModel> presetFiltersList = [
   PresetFilters.none,

@@ -14,7 +14,6 @@ class FlyerTypeButton extends StatelessWidget {
     this.triggerIconColor = true,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final bool isSelected;
   final String icon;
@@ -22,7 +21,6 @@ class FlyerTypeButton extends StatelessWidget {
   final String verse;
   final Function onTap;
   final bool triggerIconColor;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

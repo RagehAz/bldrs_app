@@ -17,7 +17,7 @@ class ColorFilterLayer {
   ///   );
   /// }
 
-  ColorFilterLayer();
+  const ColorFilterLayer();
 
   /// color(1 - scale) - color * scale
   static List<double> colorOverlay(double red, double green, double blue, double scale) {

@@ -12,12 +12,10 @@ class FieldsRow extends StatelessWidget {
     @required this.title,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final Function openList;
   final List<String> fields;
   final String title;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

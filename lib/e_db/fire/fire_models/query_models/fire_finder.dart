@@ -18,7 +18,7 @@ enum FireComparison {
 
 class FireFinder {
   /// --------------------------------------------------------------------------
-  FireFinder({
+  const FireFinder({
     @required this.field,
     @required this.comparison,
     @required this.value,

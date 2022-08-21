@@ -6,8 +6,10 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
 class UserLDBOps {
+// -----------------------------------------------------------------------------
 
-  UserLDBOps();
+  const UserLDBOps();
+
 // -----------------------------------------------------------------------------
 
   /// CREATE
@@ -19,10 +21,10 @@ class UserLDBOps {
     if (userModel != null){
 
       await LDBOps.insertMap(
-          docName: LDBDoc.users,
-          input: userModel.toMap(
-              toJSON: true,
-          ),
+        docName: LDBDoc.users,
+        input: userModel.toMap(
+          toJSON: true,
+        ),
       );
 
     }
@@ -35,10 +37,10 @@ class UserLDBOps {
 
       await LDBOps.insertMaps(
         docName: LDBDoc.users,
-          inputs: UserModel.cipherUsers(
-              users: users,
-              toJSON: true,
-          ),
+        inputs: UserModel.cipherUsers(
+          users: users,
+          toJSON: true,
+        ),
       );
 
     }
@@ -57,8 +59,8 @@ class UserLDBOps {
     );
 
     final List<UserModel> _users = UserModel.decipherUsers(
-        maps: _maps,
-        fromJSON: true,
+      maps: _maps,
+      fromJSON: true,
     );
 
     return _users;
@@ -66,22 +68,22 @@ class UserLDBOps {
 // ---------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> readUserOps({
-  @required String userID,
-}) async {
+    @required String userID,
+  }) async {
 
     final Map<String, dynamic> _userMap = await LDBOps.searchFirstMap(
-        fieldToSortBy: 'id',
-        searchField: 'id',
-        searchValue: userID,
-        docName: LDBDoc.users,
+      fieldToSortBy: 'id',
+      searchField: 'id',
+      searchValue: userID,
+      docName: LDBDoc.users,
     );
 
     UserModel _userModel;
 
     if (_userMap != null){
       _userModel = UserModel.decipherUser(
-          map: _userMap,
-          fromJSON: true,
+        map: _userMap,
+        fromJSON: true,
       );
     }
 
@@ -98,10 +100,10 @@ class UserLDBOps {
     if (userModel != null){
 
       await LDBOps.insertMap(
-          docName: LDBDoc.users,
-          input: userModel.toMap(
-              toJSON: true,
-          ),
+        docName: LDBDoc.users,
+        input: userModel.toMap(
+          toJSON: true,
+        ),
       );
 
     }
@@ -132,7 +134,7 @@ class UserLDBOps {
   static Future<void> removeBzIDFromMyBzIDs({
     @required String bzIDToRemove,
     @required UserModel userModel,
-}) async {
+  }) async {
 
     // final String _myUserID = superUserID();
     //
@@ -158,7 +160,7 @@ class UserLDBOps {
 
     }
 
-}
+  }
 // -----------------------------------------------------------------------------
 
   /// DELETE
@@ -167,8 +169,8 @@ class UserLDBOps {
   static Future<void> deleteUserOps(String userID) async {
 
     await LDBOps.deleteMap(
-        docName: LDBDoc.users,
-        objectID: userID,
+      docName: LDBDoc.users,
+      objectID: userID,
     );
 
   }

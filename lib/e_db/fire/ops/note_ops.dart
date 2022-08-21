@@ -18,8 +18,9 @@ typedef NotiModelsWidgetsBuilder = Widget Function(
     );
 // -----------------------------------------------------------------------------
 class NoteFireOps {
+// -----------------------------------------------------------------------------
 
-  NoteFireOps();
+  const NoteFireOps();
 
 // -----------------------------------------------------------------------------
 
@@ -194,7 +195,7 @@ class NoteFireOps {
         comparison: FireComparison.equalTo,
         value: NoteModel.cipherNoteType(NoteType.authorship),
       ),
-      FireFinder(
+      const FireFinder(
         field: 'seen',
         comparison: FireComparison.equalTo,
         value: false,

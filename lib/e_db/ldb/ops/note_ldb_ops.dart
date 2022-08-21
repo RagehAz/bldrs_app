@@ -4,11 +4,13 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:flutter/material.dart';
 
 class NoteLDBOps {
-
-  NoteLDBOps();
 // -----------------------------------------------------------------------------
 
-/// CREATE / INSERT
+  const NoteLDBOps();
+
+// -----------------------------------------------------------------------------
+
+  /// CREATE / INSERT
 
 // ------------------------------------------
   static Future<void> insertNotes(List<NoteModel> notes) async {
@@ -24,13 +26,13 @@ class NoteLDBOps {
   }
 // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// -----------------------------------------------------------------------------
+// ------------------------------------------
   static Future<List<NoteModel>> readAllNotes(BuildContext context) async {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-        docName: LDBDoc.notes,
+      docName: LDBDoc.notes,
     );
 
     return NoteModel.decipherNotes(maps: _maps, fromJSON: true);
@@ -39,13 +41,13 @@ class NoteLDBOps {
 
 /// UPDATE
 
-// -----------------------------------------------------------------------------
-
+// ------------------------------------------
+///
 // -----------------------------------------------------------------------------
 
 /// DELETE
 
 // ------------------------------------------
-//   static Future<void>
+///
 // -----------------------------------------------------------------------------
 }

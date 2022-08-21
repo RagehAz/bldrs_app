@@ -3,7 +3,7 @@ import 'package:page_transition/page_transition.dart';
 
 class DashButtonModel {
   /// --------------------------------------------------------------------------
-  DashButtonModel({
+  const DashButtonModel({
     @required this.verse,
     @required this.icon,
     @required this.screen,

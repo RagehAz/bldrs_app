@@ -32,11 +32,9 @@ class Lang {
     @required this.code,
     @required this.name,
   });
-
   /// --------------------------------------------------------------------------
   final String code;
   final String name;
-
   /// --------------------------------------------------------------------------
   static List<MapModel> getLingoNamesMapModels(List<Lang> lingos) {
     final List<MapModel> _lingosMapModels = <MapModel>[];
@@ -52,7 +50,6 @@ class Lang {
 
     return _lingosMapModels;
   }
-
 // -----------------------------------------------------------------------------
   static const List<Lang> allLanguages = <Lang>[
     englishLingo,

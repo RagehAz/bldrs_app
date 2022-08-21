@@ -14,7 +14,7 @@ import 'package:firebase_database/firebase_database.dart' as fireDB;
 class FlyerRecordOps {
 // -----------------------------------------------------------------------------
 
-  FlyerRecordOps();
+  const FlyerRecordOps();
 
 // -----------------------------------------------------------------------------
 

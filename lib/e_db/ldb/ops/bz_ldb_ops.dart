@@ -4,8 +4,10 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:flutter/material.dart';
 
 class BzLDBOps {
+// -----------------------------------------------------------------------------
 
-  BzLDBOps();
+  const BzLDBOps();
+
 // -----------------------------------------------------------------------------
 
   /// CREATE

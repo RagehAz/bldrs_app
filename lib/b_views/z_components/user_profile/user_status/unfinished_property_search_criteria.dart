@@ -18,7 +18,6 @@ class PropertySearchCriteria extends StatelessWidget {
     // @required this.currentPropertyContract,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final Function openEnumLister;
   // final Map<String, Object> currentPropertyUse;

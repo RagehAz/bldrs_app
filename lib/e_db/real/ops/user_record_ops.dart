@@ -10,7 +10,7 @@ import 'package:flutter/cupertino.dart';
 class UserRecordOps {
 // -----------------------------------------------------------------------------
 
-  UserRecordOps();
+  const UserRecordOps();
 
 // -----------------------------------------------------------------------------
 

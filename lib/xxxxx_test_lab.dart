@@ -17,6 +17,7 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -281,6 +282,26 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   /// xxx
 
   Future<void> _fastTest(BuildContext context) async {
+
+    final Map<String, dynamic> _map = {
+      'this': 'works',
+      'yous': 'bitcho',
+      // 'bobo' : 'koko',
+    };
+
+    // await Real.createNamedDoc(
+    //     context: context,
+    //     collName: 'xxx',
+    //     docName: 'fuck',
+    //     map: _map,
+    // );
+
+    await Real.updateDoc(
+          context: context,
+          collName: 'xxx',
+          docName: 'fuck',
+          map: _map,
+    );
 
   }
 
