@@ -145,13 +145,15 @@ class ChainProtocols {
   /// RENOVATE
 
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateBigChainK({
     @required BuildContext context,
     @required Chain bigChainK,
   }) async {
 
     if (bigChainK != null){
+
+      unawaited(WaitDialog.showWaitDialog(context: context,));
 
       await Future.wait(<Future>[
 
@@ -163,23 +165,28 @@ class ChainProtocols {
         ),
 
         updateBigChainKLocally(
-            context: context,
-            bigChainK: bigChainK
+          context: context,
+          bigChainK: bigChainK,
+          showWaitDialog: false,
         ),
 
       ]);
+
+      WaitDialog.closeWaitDialog(context);
 
     }
 
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateBigChainS({
     @required BuildContext context,
     @required Chain bigChainS,
   }) async {
 
     if (bigChainS != null){
+
+      unawaited(WaitDialog.showWaitDialog(context: context,));
 
       await Future.wait(<Future>[
 
@@ -191,25 +198,33 @@ class ChainProtocols {
         ),
 
         updateBigChainSLocally(
-            context: context,
-            bigChainS: bigChainS
+          context: context,
+          bigChainS: bigChainS,
+          showWaitDialog: false,
         ),
 
       ]);
+
+      WaitDialog.closeWaitDialog(context);
 
     }
 
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainKLocally({
     @required BuildContext context,
     @required Chain bigChainK,
+    @required bool showWaitDialog,
   }) async {
 
     if (bigChainK != null){
 
-    /// UPDATE CHAIN K IN LDB
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(context: context,));
+      }
+
+      /// UPDATE CHAIN K IN LDB
       await ChainLDBOps.updateBigChainK(
           newBigChainK: bigChainK,
       );
@@ -222,17 +237,27 @@ class ChainProtocols {
         notify: true,
       );
 
+      if (showWaitDialog == true){
+        WaitDialog.closeWaitDialog(context);
+      }
+
+
     }
 
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainSLocally({
     @required BuildContext context,
     @required Chain bigChainS,
+    @required bool showWaitDialog,
   }) async {
 
     if (bigChainS != null){
+
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(context: context,));
+      }
 
       /// UPDATE CHAIN S IN LDB
       await ChainLDBOps.updateBigChainS(
@@ -246,6 +271,10 @@ class ChainProtocols {
         bigChainS: bigChainS,
         notify: true,
       );
+
+      if (showWaitDialog == true){
+        WaitDialog.closeWaitDialog(context);
+      }
 
     }
 

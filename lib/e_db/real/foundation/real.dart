@@ -233,7 +233,7 @@ class Real {
           await _ref.set(map);
 
 
-          blog('Real.createNamedDoc : added to [REAL/$collName/$docName] : push is $pushNodeOneStepDeepWithUniqueID : map : $map');
+          blog('Real.createNamedDoc : added to [REAL/$collName/$docName] : push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
 
         },
 
