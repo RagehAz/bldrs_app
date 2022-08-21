@@ -21,15 +21,15 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
-  @required Chain originalChain,
+  @required ValueNotifier<Chain> initialChain,
   @required Chain editedChain,
 }) async {
 
-  blog('onSyncChain : ---------------- START : originalChain.id : ${originalChain.id}');
+  blog('onSyncChain : ---------------- START : originalChain.id : ${initialChain.value.id}');
 
   final bool _continue = await _preSyncCheckups(
     context: context,
-    originalChain: originalChain,
+    originalChain: initialChain.value,
     editedChain: editedChain,
   );
 
@@ -37,9 +37,11 @@ Future<void> onSyncChain({
 
     await _updateChain(
       context: context,
-      originalChain: originalChain,
+      initialChain: initialChain.value,
       editedChain: editedChain,
     );
+
+    initialChain.value = editedChain;
 
   }
 
@@ -86,18 +88,18 @@ Future<bool> _preSyncCheckups({
   return _continue;
 }
 // ----------------------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _updateChain({
   @required BuildContext context,
-  @required Chain originalChain,
+  @required Chain initialChain,
   @required Chain editedChain,
 }) async {
 
   final String _realChainDoc =
-  originalChain.id == 'chainK' ?
+  initialChain.id == 'chainK' ?
   RealDoc.chains_bigChainK
       :
-  originalChain.id == 'chainS' ?
+  initialChain.id == 'chainS' ?
   RealDoc.chains_bigChainS
       :
   null;
@@ -130,7 +132,7 @@ Future<void> _updateChain({
   if (_success == true){
     await TopDialog.showSuccessDialog(
       context: context,
-      firstLine: '${originalChain.id} updated successfully',
+      firstLine: '${initialChain.id} updated successfully',
       secondLine: 'in ( Real/chains/$_realChainDoc)',
     );
   }

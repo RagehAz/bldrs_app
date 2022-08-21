@@ -157,6 +157,7 @@ class ChainsProvider extends ChangeNotifier {
   /// UPDATES
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> updateBigChainKOps({
     @required BuildContext context,
     @required Chain bigChainK,
@@ -206,6 +207,7 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> updateBigChainSOps({
     @required BuildContext context,
     @required Chain bigChainS,
