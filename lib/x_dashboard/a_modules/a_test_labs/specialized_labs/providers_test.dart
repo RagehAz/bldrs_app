@@ -357,9 +357,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// CITY PHID COUNTERS
             ProviderTestButton(
               title: 'chainsProvider.cityPhidCounters',
-              value: _chainsProvider?.cityPhidCounters,
+              value: _chainsProvider?.cityPhidsModel,
               onTap: (){
-                _chainsProvider?.cityPhidCounters?.blogCityChain();
+                _chainsProvider?.cityPhidsModel?.blogCityPhidsModel();
               },
             ),
 

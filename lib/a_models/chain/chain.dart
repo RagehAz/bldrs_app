@@ -1142,9 +1142,9 @@ class Chain {
 }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain removeAllKeywordsNotUsedInThisList({
+  static Chain removeAllPhidsNotUsedInThisList({
     @required Chain chain,
-    @required List<String> usedKeywordsIDs,
+    @required List<String> usedPhids,
   }){
       Chain _output;
 
@@ -1155,11 +1155,11 @@ class Chain {
           sons: const <dynamic>[],
         );
 
-        if (Mapper.checkCanLoopList(usedKeywordsIDs) == true){
+        if (Mapper.checkCanLoopList(usedPhids) == true){
 
           final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
             allChains: chain.sons,
-            phids: usedKeywordsIDs,
+            phids: usedPhids,
           );
 
           _output = Chain(

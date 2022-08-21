@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/city_phid_counters.dart';
+import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -10,7 +10,7 @@ import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
-import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,10 +119,10 @@ class ChainProtocols {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityPhidCounters> readCityPhidCountersOfCurrentZone({
+  static Future<CityPhidsModel> readCityPhidsOfCurrentZone({
     @required BuildContext context,
   }) async {
-    CityPhidCounters _cityPhidCounters;
+    CityPhidsModel _cityPhidCounters;
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
       context: context,
@@ -131,7 +131,7 @@ class ChainProtocols {
 
     if (_currentZone != null){
 
-      _cityPhidCounters = await CityChainOps.readCityChain(
+      _cityPhidCounters = await CityPhidsRealOps.readCityPhids(
         context: context,
         cityID: _currentZone.cityID,
       );

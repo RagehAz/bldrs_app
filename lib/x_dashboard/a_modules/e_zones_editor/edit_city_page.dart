@@ -1,6 +1,6 @@
 
 
-import 'package:bldrs/a_models/chain/city_phid_counters.dart';
+import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
@@ -157,12 +157,12 @@ class EditCityPage extends StatelessWidget {
 
                     else {
 
-                      final CityPhidCounters _countersModel = CityPhidCounters.decipherCityChain(
+                      final CityPhidsModel _countersModel = CityPhidsModel.decipherCityPhids(
                           map: _map,
                           cityID: _city.cityID,
                       );
 
-                      List<MapModel> keywords = _countersModel.phidsCounters;
+                      List<MapModel> keywords = _countersModel.phidsMapModels;
                       keywords = MapModel.removeMapsWithThisValue(
                         mapModels: keywords,
                         value: 0,
