@@ -19,6 +19,7 @@ class ZoneLDBOps{
 // ---------------------------------
   /// CREATE / INSERT
 // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertContinents(List<Continent> continents) async {
 
     await LDBOps.insertMap(
@@ -30,6 +31,7 @@ class ZoneLDBOps{
 // ---------------------------------
   /// READ
 // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readContinents() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
@@ -55,6 +57,7 @@ class ZoneLDBOps{
 // ---------------------------------
   /// CREATE / INSERT
 // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertCountry(CountryModel country) async {
 
     await LDBOps.insertMap(
@@ -66,6 +69,7 @@ class ZoneLDBOps{
 // ---------------------------------
   /// READ
 // ---------------
+  /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountry(String countryID) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(

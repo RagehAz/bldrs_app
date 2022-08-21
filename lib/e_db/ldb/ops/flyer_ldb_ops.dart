@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -26,24 +27,28 @@ class FlyerLDBOps {
     blog('FlyerLDBOps.insertFlyer : END');
   }
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> insertFlyers(List<FlyerModel> flyers) async {
-    
-    await LDBOps.insertMaps(
-      docName: LDBDoc.flyers,
-      inputs: FlyerModel.cipherFlyers(
+
+    if (Mapper.checkCanLoopList(flyers) == true){
+
+      await LDBOps.insertMaps(
+        docName: LDBDoc.flyers,
+        inputs: FlyerModel.cipherFlyers(
           flyers: flyers,
           toJSON: true,
-      ),
-    );
-    
+        ),
+      );
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 
 /// READ
 
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> readFlyer(String flyerID) async {
     
     final Map<String, dynamic> _map = await LDBOps.searchFirstMap(
@@ -61,7 +66,7 @@ class FlyerLDBOps {
     return  _flyer;
   }
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readFlyers(List<String> flyersIDs) async {
     
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
@@ -81,7 +86,7 @@ class FlyerLDBOps {
 /// UPDATE
 
 // ----------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static Future<void> updateFlyer(FlyerModel flyer) async {
 
     await LDBOps.insertMap(
@@ -105,6 +110,7 @@ class FlyerLDBOps {
 
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeOut(BuildContext context) async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.flyers);
