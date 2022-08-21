@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
 class UserLDBOps {
@@ -31,6 +30,7 @@ class UserLDBOps {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertUsers(List<UserModel> users) async {
 
     if (Mapper.checkCanLoopList(users) == true){
@@ -110,9 +110,9 @@ class UserLDBOps {
 
   }
 // ---------------------------------
+  /// DEPRECATED
   /*
 
-  DEPRECATED
 
   static Future<void> addBzIDToMyBzzIDs({
     @required String bzIDToAdd,
@@ -131,6 +131,8 @@ class UserLDBOps {
   }
    */
 // ---------------------------------
+  /// DEPRECATED
+  /*
   static Future<void> removeBzIDFromMyBzIDs({
     @required String bzIDToRemove,
     @required UserModel userModel,
@@ -161,11 +163,13 @@ class UserLDBOps {
     }
 
   }
+ */
 // -----------------------------------------------------------------------------
 
   /// DELETE
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteUserOps(String userID) async {
 
     await LDBOps.deleteMap(
