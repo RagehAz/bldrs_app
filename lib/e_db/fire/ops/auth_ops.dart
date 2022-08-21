@@ -16,10 +16,11 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthFireOps {
+// ----------------------------------------------------------------------------
 
-  AuthFireOps();
+  const AuthFireOps();
 
-/// ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
   static User superFirebaseUser() {
   final User _user = FirebaseAuth.instance.currentUser;
   return _user;

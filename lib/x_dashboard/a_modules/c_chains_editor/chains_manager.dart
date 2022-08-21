@@ -23,18 +23,18 @@ import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
-class ChainsViewTestScreen extends StatefulWidget {
+class ChainsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainsViewTestScreen({
+  const ChainsManager({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _ChainsViewTestScreenState createState() => _ChainsViewTestScreenState();
+  _ChainsManagerState createState() => _ChainsManagerState();
 /// --------------------------------------------------------------------------
 }
 
-class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
+class _ChainsManagerState extends State<ChainsManager> {
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -270,6 +270,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
 
         /// CREATE CHAIN K
         WideButton(
+          isActive: false,
           verse: 'Real.CREATE BigChainK from ProChainK',
           color: Colorz.blue80,
           onTap: () async {
@@ -315,6 +316,7 @@ class _ChainsViewTestScreenState extends State<ChainsViewTestScreen> {
 
         /// CREATE CHAIN S
         WideButton(
+          isActive: false,
           verse: 'Real.CREATE BigChainS from ProChainS',
           color: Colorz.blue80,
           onTap: () async {

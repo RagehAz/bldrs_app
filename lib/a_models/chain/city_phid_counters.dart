@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class CityPhidCounters {
 /// --------------------------------------------------------------------------
-  CityPhidCounters({
+  const CityPhidCounters({
     @required this.cityID,
     @required this.phidsCounters,
 });

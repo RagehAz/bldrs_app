@@ -7,6 +7,8 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -171,7 +173,85 @@ class ChainProtocols {
   /// RENOVATE
 
 // -------------------------------------
-///
+  ///
+  static Future<void> renovateChainK({
+    @required BuildContext context,
+    @required Chain chainK,
+  }) async {
+
+    if (chainK != null){
+
+      await Future.wait(<Future>[
+
+        Real.updateDoc(
+          context: context,
+          collName: RealColl.chains,
+          docName: RealDoc.chains_bigChainK,
+          map: Chain.cipherBigChainK(chainK: chainK),
+        ),
+
+        updateChainKLocally(
+            context: context,
+            chainK: chainK
+        ),
+
+      ]);
+
+    }
+
+  }
+// -------------------------------------
+  ///
+  static Future<void> renovateChainS({
+    @required BuildContext context,
+    @required Chain chainS,
+  }) async {
+
+    if (chainS != null){
+
+      await Future.wait(<Future>[
+
+        Real.updateDoc(
+          context: context,
+          collName: RealColl.chains,
+          docName: RealDoc.chains_bigChainS,
+          map: Chain.cipherBigChainS(chainS: chainS),
+        ),
+
+        updateChainSLocally(
+            context: context,
+            chainS: chainS
+        ),
+
+      ]);
+
+    }
+
+  }
+// -------------------------------------
+  ///
+  static Future<void> updateChainKLocally({
+    @required BuildContext context,
+    @required Chain chainK,
+  }) async {
+
+    /// UPDATE CHAIN K IN LDB
+
+    /// UPDATE CHAIN K IN PRO
+
+  }
+// -------------------------------------
+  ///
+  static Future<void> updateChainSLocally({
+    @required BuildContext context,
+    @required Chain chainS,
+  }) async {
+
+    /// UPDATE CHAIN K IN LDB
+
+    /// UPDATE CHAIN K IN PRO
+
+  }
 // -----------------------------------------------------------------------------
 
   /// WIPE

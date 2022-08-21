@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 class NavModel {
   /// --------------------------------------------------------------------------
-  NavModel({
+  const NavModel({
     @required this.id,
     @required this.title,
     @required this.icon,

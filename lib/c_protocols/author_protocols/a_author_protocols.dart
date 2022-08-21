@@ -8,8 +8,10 @@ import 'package:bldrs/c_protocols/author_protocols/wipe_authors.dart';
 import 'package:flutter/material.dart';
 
 class AuthorProtocols {
+// -----------------------------------------------------------------------------
 
   const AuthorProtocols();
+
 // -----------------------------------------------------------------------------
 
 /// COMPOSE

@@ -43,8 +43,9 @@ Bldr.net Use cases that require dynamic link
 
 /// FDL : FIREBASE DYNAMIC LINK
 class DynamicLinks {
+// -----------------------------------------------------------------------------
 
-  DynamicLinks();
+  const DynamicLinks();
 
 // -----------------------------------------------------------------------------
 

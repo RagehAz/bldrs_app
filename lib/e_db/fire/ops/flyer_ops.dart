@@ -29,8 +29,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFireOps {
+// -----------------------------------------------------------------------------
 
-  FlyerFireOps();
+  const FlyerFireOps();
 
 // -----------------------------------------------------------------------------
 
@@ -416,7 +417,8 @@ class FlyerFireOps {
           ),
 
         if (priceTagIsOn != null)
-          FireFinder(
+
+          const FireFinder(
             field: 'priceTagIsOn',
             comparison: FireComparison.equalTo,
             value: true,

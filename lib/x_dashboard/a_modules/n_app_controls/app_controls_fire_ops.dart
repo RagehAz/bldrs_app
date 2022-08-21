@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 class AppControlsFireOps{
 // -----------------------------------------------------------------------------
 
-  AppControlsFireOps();
+  const AppControlsFireOps();
 
 // -----------------------------------------------------------------------------
 
