@@ -22,36 +22,36 @@ class Chain {
   final dynamic sons;
 // -----------------------------------------------------------------------------
 
-    void addPathSon({
-      @required dynamic son,
-      @required bool isLastSonInPath,
-    }) {
+  void addPathSon({
+    @required dynamic son,
+    @required bool isLastSonInPath,
+  }) {
 
-      // blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
+    // blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
 
-      if (isLastSonInPath == false){
+    if (isLastSonInPath == false){
+      sons.add(son);
+    }
+
+    else {
+      final bool _contains = Stringer.checkStringsContainString(
+        strings: Stringer.getStringsFromDynamics(dynamics: sons),
+        string: son,
+      );
+      if (_contains == false){
         sons.add(son);
       }
-
-      else {
-        final bool _contains = Stringer.checkStringsContainString(
-          strings: Stringer.getStringsFromDynamics(dynamics: sons),
-          string: son,
-        );
-        if (_contains == false){
-          sons.add(son);
-        }
-      }
-
-      // else if (sonsAreDataCreator(sons)){
-      //   // do nothing
-      // }
-      //
-      // else {
-      //   sons.add(son);
-      // }
-
     }
+
+    // else if (sonsAreDataCreator(sons)){
+    //   // do nothing
+    // }
+    //
+    // else {
+    //   sons.add(son);
+    // }
+
+  }
 
 // -----------------------------------------------------------------------------
 
@@ -64,8 +64,8 @@ class Chain {
     dynamic sons,
   }){
     return Chain(
-        id: id ?? this.id,
-        sons: sons ?? this.sons,
+      id: id ?? this.id,
+      sons: sons ?? this.sons,
     );
   }
 // -----------------------------------------------------------------------------
@@ -75,8 +75,8 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBigChainK({
-  @required Chain chainK,
-}){
+    @required Chain chainK,
+  }){
 
     final List<String> chainKPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
@@ -147,7 +147,7 @@ class Chain {
     @required Chain chainS,
   }){
 
-      /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
+    /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
 
     final List<String> chainSPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
@@ -162,7 +162,7 @@ class Chain {
 
         final String _path = chainSPaths[i];
         final String _key = ChainPathConverter.generateChainSPathKeyForFirebase(
-            path: _path,
+          path: _path,
         );
 
         /// THIS KEY IS UNIQUE
@@ -224,10 +224,10 @@ class Chain {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMapOLD(){
     return
-        {
-          'id': id,
-          'sons': _cipherSonsOLD(sons),
-        };
+      {
+        'id': id,
+        'sons': _cipherSonsOLD(sons),
+      };
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -337,7 +337,7 @@ class Chain {
 
         /// FIRST SON IS NOT STRING => SONS ARE CHAINS
         else {
-        _output = decipherChainsOLD(sons);
+          _output = decipherChainsOLD(sons);
         }
 
       }
@@ -380,7 +380,7 @@ class Chain {
     @required BuildContext context,
     @required SpecPicker specPicker,
     @required bool onlyUseCityChains,
-}) {
+  }) {
 
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
@@ -390,7 +390,7 @@ class Chain {
     );
 
     if (
-        Mapper.checkCanLoopList(_filteredChain?.sons)
+    Mapper.checkCanLoopList(_filteredChain?.sons)
         &&
         Mapper.checkCanLoopList(specPicker?.range)
     ) {
@@ -422,7 +422,7 @@ class Chain {
   }
 // -----------------------------------------------------------------------------
 
-/// CHECKERS
+  /// CHECKERS
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -458,7 +458,7 @@ class Chain {
   static bool checkChainsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
-}){
+  }){
     bool _areIdentical = false;
 
     if (chain1 !=null && chain2 != null){
@@ -490,10 +490,10 @@ class Chain {
 
     if (
     sonsAisChains == sonsBisChains
-    &&
-    sonsAisDataCreator == sonsBisDataCreator
-    &&
-    sonsBIsStrings == sonsAIsStrings
+        &&
+        sonsAisDataCreator == sonsBisDataCreator
+        &&
+        sonsBIsStrings == sonsAIsStrings
     ){
 
       /// IF SONS ARE CHAINS
@@ -531,8 +531,8 @@ class Chain {
 
     if (
     Mapper.checkCanLoopList(chains1) == true
-    &&
-    Mapper.checkCanLoopList(chains2) == true
+        &&
+        Mapper.checkCanLoopList(chains2) == true
     ){
 
       if (chains1.length == chains2.length){
@@ -540,14 +540,14 @@ class Chain {
         for (int i = 0; i < chains1.length; i++){
 
           final bool _twoChainsAreIdentical = checkChainsAreIdentical(
-              chain1: chains1[i],
-              chain2: chains2[i],
+            chain1: chains1[i],
+            chain2: chains2[i],
           );
 
 
           if (_twoChainsAreIdentical == false){
-          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
-          blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
+            final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
+            blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
           }
@@ -568,32 +568,32 @@ class Chain {
   static bool checkChainsListPathsAreIdentical({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
-}){
+  }){
 
-      final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
-          parentID: '',
-          chains: chains1
+    final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains1
+    );
+
+
+    final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains2
+    );
+
+    final bool _identical = Mapper.checkListsAreIdentical(
+        list1: _pathsA,
+        list2: _pathsB
+    );
+
+    if (_identical == false){
+      Stringer.blogStringsListsDifferences(
+        strings1: _pathsA,
+        strings2: _pathsB,
       );
+    }
 
-
-      final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
-          parentID: '',
-          chains: chains2
-      );
-
-      final bool _identical = Mapper.checkListsAreIdentical(
-          list1: _pathsA,
-          list2: _pathsB
-      );
-
-      if (_identical == false){
-        Stringer.blogStringsListsDifferences(
-          strings1: _pathsA,
-          strings2: _pathsB,
-        );
-      }
-
-      return _identical;
+    return _identical;
 
   }
 // --------------------------------------------
@@ -601,18 +601,18 @@ class Chain {
   static bool checkChainsPathsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
-}){
-      return checkChainsListPathsAreIdentical(
-          chains1: [chain1],
-          chains2: [chain2],
-      );
-}
+  }){
+    return checkChainsListPathsAreIdentical(
+      chains1: [chain1],
+      chains2: [chain2],
+    );
+  }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainIncludeThisPhid({
     @required Chain chain,
     @required String phid,
-}){
+  }){
     bool _includes = false;
 
     if (chain != null && phid != null){
@@ -626,8 +626,8 @@ class Chain {
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
       else if (checkSonsAreStrings(chain.sons) == true){
         _includes = Stringer.checkStringsContainString(
-            strings: chain.sons,
-            string: phid,
+          strings: chain.sons,
+          string: phid,
         );
         // blog('boss : chain ${chain.id} STRINGS SONS includes $phid : $_includes');
       }
@@ -654,7 +654,7 @@ class Chain {
   static bool checkChainsIncludeThisPhid({
     @required List<Chain> chains,
     @required String phid,
-}){
+  }){
     bool _includes = false;
 
     if (Mapper.checkCanLoopList(chains) == true && phid != null){
@@ -701,12 +701,12 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   void blogChain({
-  int level = 0,
-}){
+    int level = 0,
+  }){
 
-      final String _space = getChainBlogTreeSpacing(level);
+    final String _space = getChainBlogTreeSpacing(level);
 
-      // blog('sons run type is ${sons.runtimeType}');
+    // blog('sons run type is ${sons.runtimeType}');
 
     if (id != null){
       if (checkSonsAreDataCreator(sons)){
@@ -765,7 +765,7 @@ class Chain {
     @required Chain chain,
   }){
 
-      /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
+    /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
     final List<String> _chainSonsIDs = <String>[];
 
     if (chain != null && Mapper.checkCanLoopList(chain.sons) == true){
@@ -788,8 +788,8 @@ class Chain {
   static Chain getChainFromChainsByID({
     @required String chainID,
     @required List<Chain> chains,
-}){
-      /// gets first matching "either parent or nested chain" in the input chains trees,
+  }){
+    /// gets first matching "either parent or nested chain" in the input chains trees,
 
     Chain _chain;
 
@@ -806,8 +806,8 @@ class Chain {
         else if (checkSonsAreChains(chain?.sons) == true){
 
           final Chain _son = getChainFromChainsByID(
-              chainID: chainID,
-              chains: chain?.sons,
+            chainID: chainID,
+            chains: chain?.sons,
           );
 
           if (_son != null){
@@ -830,38 +830,38 @@ class Chain {
     @required String phid,
   }){
 
-      String _chainID;
+    String _chainID;
 
-      if (Mapper.checkCanLoopList(allChains) == true && phid != null){
+    if (Mapper.checkCanLoopList(allChains) == true && phid != null){
 
-        final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
-            allChains: allChains,
-            phid: phid
-        );
+      final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
+          allChains: allChains,
+          phid: phid
+      );
 
-        if (Mapper.checkCanLoopList(_chains) == true){
+      if (Mapper.checkCanLoopList(_chains) == true){
 
-          final Chain _chain = _chains.first;
-          _chainID = _chain.id;
-
-        }
+        final Chain _chain = _chains.first;
+        _chainID = _chain.id;
 
       }
 
-      return _chainID;
+    }
+
+    return _chainID;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainsIDsFromPhids({
     @required List<Chain> allChains,
     @required List<String> phids,
-}){
+  }){
     final List<String> _chainsIDs = <String>[];
 
     if (
     Mapper.checkCanLoopList(allChains) == true
-    &&
-    Mapper.checkCanLoopList(phids) == true
+        &&
+        Mapper.checkCanLoopList(phids) == true
     ){
 
       for (final String phid in phids){
@@ -914,57 +914,57 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyStringsSonsIDsFromChain({
-  @required Chain chain,
-}){
-      final List<String> _stringsIDs = <String>[];
+    @required Chain chain,
+  }){
+    final List<String> _stringsIDs = <String>[];
 
-      if (chain != null){
+    if (chain != null){
 
-        if (checkSonsAreStrings(chain.sons) == true){
+      if (checkSonsAreStrings(chain.sons) == true){
 
-          _stringsIDs.addAll(chain.sons);
+        _stringsIDs.addAll(chain.sons);
 
-        }
-        else if (checkSonsAreChains(chain.sons) == true){
+      }
+      else if (checkSonsAreChains(chain.sons) == true){
 
-          final List<String> _allNestedStrings = getOnlyStringsSonsIDsFromChains(
-            chains: chain.sons,
-          );
+        final List<String> _allNestedStrings = getOnlyStringsSonsIDsFromChains(
+          chains: chain.sons,
+        );
 
-          _stringsIDs.addAll(_allNestedStrings);
-
-        }
+        _stringsIDs.addAll(_allNestedStrings);
 
       }
 
-      return _stringsIDs;
+    }
+
+    return _stringsIDs;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyStringsSonsIDsFromChains({
-  @required List<Chain> chains,
-}){
-      final List<String> _stringsIDs = <String>[];
+    @required List<Chain> chains,
+  }){
+    final List<String> _stringsIDs = <String>[];
 
-      if (Mapper.checkCanLoopList(chains) == true){
+    if (Mapper.checkCanLoopList(chains) == true){
 
-        for (final Chain chain in chains){
+      for (final Chain chain in chains){
 
-          final List<String> _strings = getOnlyStringsSonsIDsFromChain(
-              chain: chain,
-          );
+        final List<String> _strings = getOnlyStringsSonsIDsFromChain(
+          chain: chain,
+        );
 
-          _stringsIDs.addAll(_strings);
-
-        }
+        _stringsIDs.addAll(_strings);
 
       }
 
-      return _stringsIDs;
+    }
+
+    return _stringsIDs;
   }
 // -----------------------------------------------------------------------------
 
-/// MODIFIERS
+  /// MODIFIERS
 
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -976,10 +976,10 @@ class Chain {
 
     if (
     Mapper.checkCanLoopList(chainsToAdd) == true
-    &&
-    chainToTake != null
-    &&
-    checkSonsAreChains(chainToTake.sons) == true
+        &&
+        chainToTake != null
+        &&
+        checkSonsAreChains(chainToTake.sons) == true
     ){
 
       final List<Chain> _newSons = <Chain>[
@@ -1001,12 +1001,12 @@ class Chain {
   static List<String> removeAllChainIDsFromKeywordsIDs({
     @required List<Chain> allChains,
     @required List<String> phids,
-}){
+  }){
 
     /// GET ALL CHAINS IDS
     final List<String> _chainsIDs = getOnlyChainsIDsFromPhids(
-        allChains: allChains,
-        phids: phids,
+      allChains: allChains,
+      phids: phids,
     );
 
     blog('chains IDs are : $_chainsIDs');
@@ -1021,7 +1021,7 @@ class Chain {
         '${phids.length} input phrases : _cleaned IDs are : $_cleaned');
 
     return _cleaned;
-}
+  }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> updateNode({
@@ -1029,149 +1029,149 @@ class Chain {
     @required String oldPhid,
     @required String newPhid,
     @required Chain sourceChain,
-}) async {
+  }) async {
 
-      List<String> _modifiedPaths = <String>[];
-      // int _numberOfModifiedPaths = 0;
-      // final List<String> _pathsContainingOldPhid = ChainPathConverter.findPathsContainingPhid(
-      //   phid: oldPhid,
-      //   paths: _chainPaths,
-      // );
+    List<String> _modifiedPaths = <String>[];
+    // int _numberOfModifiedPaths = 0;
+    // final List<String> _pathsContainingOldPhid = ChainPathConverter.findPathsContainingPhid(
+    //   phid: oldPhid,
+    //   paths: _chainPaths,
+    // );
 
-      final List<String> _chainPaths = ChainPathConverter.generateChainPaths(
-        chain: sourceChain,
-      );
+    final List<String> _chainPaths = ChainPathConverter.generateChainPaths(
+      chain: sourceChain,
+    );
 
-      if (Mapper.checkCanLoopList(_chainPaths)){
+    if (Mapper.checkCanLoopList(_chainPaths)){
 
-        for (int i = 0; i< _chainPaths.length; i++){
+      for (int i = 0; i< _chainPaths.length; i++){
 
-          final String _path = _chainPaths[i];
+        final String _path = _chainPaths[i];
 
-          final bool _pathContainOldPhid = TextChecker.stringContainsSubString(
-            string: _path,
-            subString: oldPhid,
-          );
+        final bool _pathContainOldPhid = TextChecker.stringContainsSubString(
+          string: _path,
+          subString: oldPhid,
+        );
 
-          /// PATH CONTAINS OLD PHID
-          if (_pathContainOldPhid == true){
-            final List<String> _nodes = ChainPathConverter.splitPathNodes(_path);
+        /// PATH CONTAINS OLD PHID
+        if (_pathContainOldPhid == true){
+          final List<String> _nodes = ChainPathConverter.splitPathNodes(_path);
 
-            /// get level / index of the old phid
-            final int _index = _nodes.indexOf(oldPhid);
+          /// get level / index of the old phid
+          final int _index = _nodes.indexOf(oldPhid);
 
-            /// loop in all paths
-            if (_index != -1){
+          /// loop in all paths
+          if (_index != -1){
 
-              // _numberOfModifiedPaths++;
+            // _numberOfModifiedPaths++;
 
-              // final bool _result = await CenterDialog.showCenterDialog(
-              //   context: context,
-              //   title: 'Replace ( $oldPhid ) with ( $newPhid ) ?',
-              //   body: '${_pathsContainingOldPhid.length} paths has this ID'
-              //       '\n${_pathsContainingOldPhid.length - _numberOfModifiedPaths} paths remaining to be modified'
-              //       '\npath is : $_path'
-              //       '\n${_chainPaths.length} total number of all paths in this chain',
-              //   boolDialog: true,
-              // );
+            // final bool _result = await CenterDialog.showCenterDialog(
+            //   context: context,
+            //   title: 'Replace ( $oldPhid ) with ( $newPhid ) ?',
+            //   body: '${_pathsContainingOldPhid.length} paths has this ID'
+            //       '\n${_pathsContainingOldPhid.length - _numberOfModifiedPaths} paths remaining to be modified'
+            //       '\npath is : $_path'
+            //       '\n${_chainPaths.length} total number of all paths in this chain',
+            //   boolDialog: true,
+            // );
 
-              // if (_result == true){
-                _nodes[_index] = newPhid;
-                final String _combinedPath = ChainPathConverter.combinePathNodes(_nodes);
+            // if (_result == true){
+            _nodes[_index] = newPhid;
+            final String _combinedPath = ChainPathConverter.combinePathNodes(_nodes);
 
-                _modifiedPaths = ChainPathConverter.addPathToPaths(
-                    paths: _modifiedPaths,
-                    path: _combinedPath,
-                );
-
-              // }
-              // else {
-              //   _modifiedPaths = ChainPathConverter.addPathToPaths(
-              //     paths: _modifiedPaths,
-              //     path: _path,
-              //   );
-              // }
-
-            }
-
-          }
-
-          /// PATH DOES NOT CONTAIN OLD PHID
-          else {
             _modifiedPaths = ChainPathConverter.addPathToPaths(
               paths: _modifiedPaths,
-              path: _path,
+              path: _combinedPath,
             );
+
+            // }
+            // else {
+            //   _modifiedPaths = ChainPathConverter.addPathToPaths(
+            //     paths: _modifiedPaths,
+            //     path: _path,
+            //   );
+            // }
+
           }
 
         }
 
+        /// PATH DOES NOT CONTAIN OLD PHID
+        else {
+          _modifiedPaths = ChainPathConverter.addPathToPaths(
+            paths: _modifiedPaths,
+            path: _path,
+          );
+        }
+
       }
 
-      final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
+    }
 
-      return _output?.first;
+    final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
+
+    return _output?.first;
   }
 // --------------------------------------------
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
     @required String oldChainID,
-}){
-      List<Chain> _output = <Chain>[];
+  }){
+    List<Chain> _output = <Chain>[];
 
-      if (Mapper.checkCanLoopList(chains) == true && chainToReplace != null){
+    if (Mapper.checkCanLoopList(chains) == true && chainToReplace != null){
 
-        final int _index = chains.indexWhere((chain) => oldChainID == chain.id);
+      final int _index = chains.indexWhere((chain) => oldChainID == chain.id);
 
-        /// WHEN NO CHAIN TO UPDATE FOUND
-        if (_index == -1){
-          _output = chains;
-        }
-
-        /// WHEN FOUND
-        else {
-          chains.removeAt(_index);
-          chains.insert(_index, chainToReplace);
-          _output = <Chain>[...chains];
-        }
-
+      /// WHEN NO CHAIN TO UPDATE FOUND
+      if (_index == -1){
+        _output = chains;
       }
 
-      return _output;
-}
+      /// WHEN FOUND
+      else {
+        chains.removeAt(_index);
+        chains.insert(_index, chainToReplace);
+        _output = <Chain>[...chains];
+      }
+
+    }
+
+    return _output;
+  }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static Chain removeAllPhidsNotUsedInThisList({
     @required Chain chain,
     @required List<String> usedPhids,
   }){
-      Chain _output;
+    Chain _output;
 
-      if (chain != null){
+    if (chain != null){
 
-        _output = Chain(
-          id: chain?.id,
-          sons: const <dynamic>[],
+      _output = Chain(
+        id: chain?.id,
+        sons: const <dynamic>[],
+      );
+
+      if (Mapper.checkCanLoopList(usedPhids) == true){
+
+        final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
+          allChains: chain.sons,
+          phids: usedPhids,
         );
 
-        if (Mapper.checkCanLoopList(usedPhids) == true){
-
-          final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
-            allChains: chain.sons,
-            phids: usedPhids,
-          );
-
-          _output = Chain(
-            id: chain.id,
-            sons: _foundPathsChains,
-          );
-
-        }
+        _output = Chain(
+          id: chain.id,
+          sons: _foundPathsChains,
+        );
 
       }
 
-      return _output;
+    }
+
+    return _output;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -1181,26 +1181,26 @@ class Chain {
   }){
     // blog('addPathToChain : START');
 
-      Chain _output = chain;
+    Chain _output = chain;
 
-      if (chain != null && path != null){
+    if (chain != null && path != null){
 
-        final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
-            parentID: chain.id,
-            chains: chain.sons,
-        );
+      final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+        parentID: chain.id,
+        chains: chain.sons,
+      );
 
-        final List<String> _updated = ChainPathConverter.addPathToPaths(
-            paths: _chainPaths,
-            path: path
-        );
+      final List<String> _updated = ChainPathConverter.addPathToPaths(
+          paths: _chainPaths,
+          path: path
+      );
 
-        _output = ChainPathConverter.createChainFromPaths(
-          chainID: chain.id,
-          paths: _updated,
-        );
+      _output = ChainPathConverter.createChainFromPaths(
+        chainID: chain.id,
+        paths: _updated,
+      );
 
-      }
+    }
 
     // blog('addPathToChain : END');
     return _output;
@@ -1225,8 +1225,8 @@ class Chain {
       final String _fixedPath = ChainPathConverter.fixPathFormatting(path);
 
       final List<String> _updated = Stringer.removeStringsFromStrings(
-          removeFrom: _chainPaths,
-          removeThis: <String>[_fixedPath],
+        removeFrom: _chainPaths,
+        removeThis: <String>[_fixedPath],
       );
 
       _output = ChainPathConverter.createChainFromPaths(
@@ -1248,7 +1248,15 @@ class Chain {
   }){
     Chain _output = chain;
 
-    if (chain !=null && pathToRemove != null && pathToReplace != null && pathToRemove != pathToReplace){
+    if (
+        chain !=null
+        &&
+        pathToRemove != null
+        &&
+        pathToReplace != null
+        &&
+        pathToRemove != pathToReplace
+    ){
 
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: chain.id,
@@ -1263,8 +1271,8 @@ class Chain {
 
       /// INSERT NEW PATH
       final List<String> _afterInsert = Stringer.addStringToListIfDoesNotContainIt(
-          strings: _afterRemove,
-          stringToAdd: pathToReplace,
+        strings: _afterRemove,
+        stringToAdd: pathToReplace,
       );
 
       _output = ChainPathConverter.createChainFromPaths(

@@ -38,10 +38,10 @@ String superIcon(BuildContext context, dynamic icon){
 //-------------------------------------
 /// ----------------------------------------------------------------------------------------
 
-class PhraseProtocols {
+class PhraseProtocolsOLD {
 // -----------------------------------------------------------------------------
 
-  const PhraseProtocols();
+  const PhraseProtocolsOLD();
 
 // -----------------------------------------------------------------------------
 
@@ -191,7 +191,7 @@ class PhraseProtocols {
         chain: chain,
       );
 
-      _phrases = await PhraseProtocols.composeMixedLangPhrasesFromPhids(
+      _phrases = await PhraseProtocolsOLD.composeMixedLangPhrasesFromPhids(
         context: context,
         phids: _phids,
       );
@@ -199,7 +199,8 @@ class PhraseProtocols {
     }
 
     return _phrases;
-  }// -----------------------------------------------------------------------------
+  }
+// -----------------------------------------------------------------------------
 
   /// FETCHING PHRASES
 
