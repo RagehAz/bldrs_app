@@ -13,7 +13,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/search/bz_search.dart' as BzFireSearch;
 import 'package:bldrs/e_db/fire/search/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/e_db/fire/search/user_fire_search.dart';
-import 'package:bldrs/e_db/real/ops/user_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/user_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -342,7 +342,7 @@ Future<void> _createFireSearchRecord({
 
   if (searchText.isNotEmpty){
 
-    final RecordModel _record = await UserRecordOps.createUserSearchRecord(
+    final RecordModel _record = await UserRecordRealOps.createUserSearchRecord(
         context: context,
         searchText: searchText
     );

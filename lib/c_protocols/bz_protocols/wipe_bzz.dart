@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/fire/ops/bz_ops.dart';
+import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +61,7 @@ class WipeBzProtocols {
       ),
 
       /// DELETE BZ RECORDS - COUNTERS
-      BzRecordOps.deleteAllBzCountersAndRecords(
+      BzRecordRealOps.deleteAllBzCountersAndRecords(
         context: context,
         bzID: bzModel.id,
       ),

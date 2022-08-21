@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/real/ops/record_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/real/ops/record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

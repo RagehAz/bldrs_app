@@ -11,13 +11,13 @@ import 'package:flutter/material.dart';
 /// CREATE
 
 // -----------------------------
-
+///
 // ---------------------------------------------------------------------------
 
 /// READ
 
 // -----------------------------
-
+///
 // -----------------------------
 Stream<List<Phrase>> getTransModelStream({
   @required BuildContext context,
@@ -70,6 +70,7 @@ Future<List<Phrase>> readBasicPhrases({
 
 }
 // -----------------------------
+/*
 // Future<Phrase> readCountryPhrase({
 //   @required BuildContext context,
 //   @required String langCode,
@@ -91,7 +92,9 @@ Future<List<Phrase>> readBasicPhrases({
 //
 //   return _countryPhrase;
 // }
+ */
 // -----------------------------
+/*
 // Future<Phrase> readCityPhrase({
 //   @required BuildContext context,
 //   @required String langCode,
@@ -113,6 +116,7 @@ Future<List<Phrase>> readBasicPhrases({
 //
 //   return _cityPhrase;
 // }
+ */
 // ---------------------------------------------------------------------------
 
 /// UPDATE
@@ -211,3 +215,4 @@ Future<void> backupPhrasesOps(BuildContext context) async {
   }
 
 }
+// ---------------------------------------------------------------------------

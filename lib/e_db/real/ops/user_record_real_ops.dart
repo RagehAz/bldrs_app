@@ -1,16 +1,16 @@
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
-import 'package:bldrs/e_db/real/ops/record_ops.dart';
+import 'package:bldrs/e_db/real/ops/record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
-class UserRecordOps {
+class UserRecordRealOps {
 // -----------------------------------------------------------------------------
 
-  const UserRecordOps();
+  const UserRecordRealOps();
 
 // -----------------------------------------------------------------------------
 

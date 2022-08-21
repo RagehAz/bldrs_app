@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +79,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-        final FlyerCounterModel _counter = await FlyerRecordOps.readFlyerCounters(
+        final FlyerCounterModel _counter = await FlyerRecordRealOps.readFlyerCounters(
           context: context,
           flyerID: widget.flyerModel.id,
         );
