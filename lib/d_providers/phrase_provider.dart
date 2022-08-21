@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -73,7 +73,7 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    await PhraseProtocols.composeActiveCountriesMixedLangPhrases(
+    await PhraseProtocolsOLD.composeActiveCountriesMixedLangPhrases(
       context: context,
     );
 
@@ -143,7 +143,7 @@ class PhraseProvider extends ChangeNotifier {
 }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
-    final List<Phrase> _phrases = await PhraseProtocols.fetchBasicPhrasesByCurrentLang(
+    final List<Phrase> _phrases = await PhraseProtocolsOLD.fetchBasicPhrasesByCurrentLang(
         context: context,
     );
 
