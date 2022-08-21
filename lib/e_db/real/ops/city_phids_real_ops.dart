@@ -1,14 +1,14 @@
-import 'package:bldrs/a_models/chain/city_phid_counters.dart';
+import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
-class CityChainOps {
+class CityPhidsRealOps {
 // -----------------------------------------------------------------------------
 
-  const CityChainOps();
+  const CityPhidsRealOps();
 
 // -----------------------------------------------------------------------------
 
@@ -16,11 +16,11 @@ class CityChainOps {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityPhidCounters> readCityChain({
+  static Future<CityPhidsModel> readCityPhids({
     @required BuildContext context,
     @required String cityID,
 }) async {
-    CityPhidCounters _cityChain;
+    CityPhidsModel _cityChain;
 
     if (cityID != null){
 
@@ -31,7 +31,7 @@ class CityChainOps {
       );
 
       if (_map != null){
-        _cityChain = CityPhidCounters.decipherCityChain(
+        _cityChain = CityPhidsModel.decipherCityPhids(
           map: _map,
           cityID: _map['id'],
         );
@@ -55,7 +55,7 @@ class CityChainOps {
 
     if (flyerModel != null){
 
-      final CityPhidCounters _cityChainToAdd = CityPhidCounters.createCityChainFromFlyer(
+      final CityPhidsModel _cityPhidsToAdd = CityPhidsModel.createCityPhidModelFromFlyer(
         flyerModel: flyerModel,
       );
 
@@ -63,7 +63,7 @@ class CityChainOps {
         context: context,
         collName: RealColl.chainsUsage,
         docName: flyerModel.zone.cityID,
-        mapOfFieldsAndNumbers: _cityChainToAdd.toMap(),
+        mapOfFieldsAndNumbers: _cityPhidsToAdd.toMap(),
         isIncrementing: isIncrementing,
       );
 

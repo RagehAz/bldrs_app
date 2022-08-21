@@ -9,7 +9,7 @@ import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
-import 'package:bldrs/e_db/real/ops/city_chain_ops.dart';
+import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -65,7 +65,7 @@ class WipeFlyerProtocols {
           incrementThis: - flyerModel.slides.length,
         ),
 
-        CityChainOps.incrementFlyerCityChainUsage(
+        CityPhidsRealOps.incrementFlyerCityChainUsage(
           context: context,
           flyerModel: flyerModel,
           isIncrementing: false,
@@ -139,7 +139,7 @@ class WipeFlyerProtocols {
           flyersIDs: _flyersIDs,
         ),
 
-        CityChainOps.incrementFlyersCityChainUsage(
+        CityPhidsRealOps.incrementFlyersCityChainUsage(
           context: context,
           flyersModels: flyers,
           isIncrementing: false,

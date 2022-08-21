@@ -39,7 +39,9 @@ class _ChainsManagerState extends State<ChainsManager> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  Future<void> _triggerLoading({bool setTo}) async {
+  Future<void> _triggerLoading({
+    bool setTo,
+  }) async {
     if (mounted == true){
       if (setTo == null){
         _loading.value = !_loading.value;
