@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -437,7 +437,7 @@ Future<void> recordFlyerView({
   @required int index,
 }) async {
 
-  await FlyerRecordOps.viewFlyer(
+  await FlyerRecordRealOps.viewFlyer(
     context: context,
     flyerModel: flyerModel,
     index: index,

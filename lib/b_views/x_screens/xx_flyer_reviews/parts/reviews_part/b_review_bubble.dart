@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/ba_r
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/parts/reviews_part/bb_review_text_balloon.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';

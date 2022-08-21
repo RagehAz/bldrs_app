@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -585,7 +585,7 @@ void main() {
 // -----------------------------------------------------------------------------
   test('app need update', () {
 
-    final bool _needUpdate = AppStateOps.appVersionNeedUpdate(
+    final bool _needUpdate = AppStateFireOps.appVersionNeedUpdate(
         globalVersion: '1.2.5+2',
         userVersion: '1.2.4',
     );

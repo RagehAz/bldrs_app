@@ -1,12 +1,12 @@
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
-import 'package:bldrs/e_db/real/ops/review_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
+import 'package:bldrs/e_db/fire/ops/review_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,7 @@ class ReviewProtocols {
         flyerID: flyerID,
     );
 
-    await FlyerRecordOps.reviewCreation(
+    await FlyerRecordRealOps.reviewCreation(
       context: context,
       review: text,
       flyerID: flyerID,
@@ -169,7 +169,7 @@ class ReviewProtocols {
           docName: reviewModel.id,
         ),
 
-        FlyerRecordOps.reviewDeletion(
+        FlyerRecordRealOps.reviewDeletion(
             context: context,
             flyerID: reviewModel.flyerID,
             bzID: bzID,
@@ -229,7 +229,7 @@ class ReviewProtocols {
         await Future.wait(<Future>[
 
           if (isDeletingFlyer == false)
-            FlyerRecordOps.incrementFlyerCounter(
+            FlyerRecordRealOps.incrementFlyerCounter(
               context: context,
               flyerID: flyerID,
               field: 'reviews',
@@ -237,7 +237,7 @@ class ReviewProtocols {
             ),
 
           if (isDeletingBz == false)
-            BzRecordOps.incrementBzCounter(
+            BzRecordRealOps.incrementBzCounter(
               context: context,
               bzID: bzID,
               field: 'allReviews',

@@ -2,11 +2,11 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
+import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -124,7 +124,7 @@ class RenovateUserProtocols {
 
     if (followIsOn == true){
 
-      await BzRecordOps.followBz(
+      await BzRecordRealOps.followBz(
           context: context,
           bzID: bzID,
       );
@@ -143,7 +143,7 @@ class RenovateUserProtocols {
 
     else {
 
-      await BzRecordOps.unfollowBz(
+      await BzRecordRealOps.unfollowBz(
           context: context,
           bzID: bzID,
       );
@@ -180,7 +180,7 @@ class RenovateUserProtocols {
 
     if (flyerIsSaved == true){
 
-      await FlyerRecordOps.saveFlyer(
+      await FlyerRecordRealOps.saveFlyer(
           context: context,
           flyerID: flyerID,
           bzID: bzID,
@@ -201,7 +201,7 @@ class RenovateUserProtocols {
 
     else {
 
-      await FlyerRecordOps.unSaveFlyer(
+      await FlyerRecordRealOps.unSaveFlyer(
         context: context,
         flyerID: flyerID,
         bzID: bzID,

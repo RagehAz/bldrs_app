@@ -5,12 +5,12 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/e_db/fire/ops/flyer_ops.dart';
+import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
-import 'package:bldrs/e_db/real/ops/flyer_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -53,12 +53,12 @@ class WipeFlyerProtocols {
           isDeletingBz: isDeletingBz,
         ),
 
-        FlyerRecordOps.deleteAllFlyerCountersAndRecords(
+        FlyerRecordRealOps.deleteAllFlyerCountersAndRecords(
           context: context,
           flyerID: flyerModel.id,
         ),
 
-        BzRecordOps.incrementBzCounter(
+        BzRecordRealOps.incrementBzCounter(
           context: context,
           bzID: bzModel.id,
           field: 'allSlides',
@@ -134,7 +134,7 @@ class WipeFlyerProtocols {
           bzID: bzModel.id,
         ),
 
-        FlyerRecordOps.deleteMultipleFlyersCountersAndRecords(
+        FlyerRecordRealOps.deleteMultipleFlyersCountersAndRecords(
           context: context,
           flyersIDs: _flyersIDs,
         ),
@@ -156,7 +156,7 @@ class WipeFlyerProtocols {
       );
 
       if (isDeletingBz == false){
-        await BzRecordOps.incrementBzCounter(
+        await BzRecordRealOps.incrementBzCounter(
           context: context,
           bzID: _bzModel.id,
           field: 'allSlides',
