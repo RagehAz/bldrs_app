@@ -14,6 +14,7 @@ class AuthLDBOps {
 /// CREATE
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
  static Future<void> insertAuthModel(AuthModel authModel) async {
 
    if (authModel != null){
@@ -36,6 +37,7 @@ class AuthLDBOps {
 /// READ
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
  static Future<AuthModel> readAuthModel() async {
 
    AuthModel _authModel;
@@ -90,6 +92,7 @@ class AuthLDBOps {
 /// DELETE
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAuthModel(String uid) async {
 
    if (uid != null){

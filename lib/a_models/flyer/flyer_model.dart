@@ -246,7 +246,7 @@ class FlyerModel {
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(maps)){
+    if (Mapper.checkCanLoopList(maps) == true){
 
       for (final Map<String, dynamic> map in maps){
         _flyersList.add(decipherFlyer(

@@ -25,6 +25,7 @@ class BzLDBOps {
 
   }
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> insertBzz({
   @required List<BzModel> bzz,
 }) async {
@@ -43,6 +44,7 @@ class BzLDBOps {
   /// READ
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<BzModel> readBz(String bzID) async {
 
     final Map<String, dynamic> _bzMap = await LDBOps.searchFirstMap(
@@ -65,6 +67,7 @@ class BzLDBOps {
 
   }
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> readAll() async {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
@@ -83,6 +86,7 @@ class BzLDBOps {
   /// UPDATE
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBzOps({
     @required BzModel bzModel,
   }) async {
@@ -98,6 +102,7 @@ class BzLDBOps {
   /// DELETE
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteBzOps({
     @required String bzID,
   }) async {
@@ -109,6 +114,7 @@ class BzLDBOps {
 
   }
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeOut(BuildContext context) async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
