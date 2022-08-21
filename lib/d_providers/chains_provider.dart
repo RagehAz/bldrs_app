@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
@@ -468,7 +468,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+    final List<Phrase> _phrases = await PhraseProtocolsOLD.generatePhrasesFromChain(
       context: context,
       chain: bigChainK,
     );
@@ -505,7 +505,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+    final List<Phrase> _phrases = await PhraseProtocolsOLD.generatePhrasesFromChain(
       context: context,
       chain: bigChainS,
     );
@@ -543,7 +543,7 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+    final List<Phrase> _phrases = await PhraseProtocolsOLD.generatePhrasesFromChain(
       context: context,
       chain: cityChainK,
     );
@@ -586,6 +586,27 @@ class ChainsProvider extends ChangeNotifier {
   static String proGetHomeWallPhid(BuildContext context){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.wallPhid;
+  }
+// -------------------------------------
+
+  Future<void> changeHomeWallFlyerType({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+    @required String phid,
+    @required bool notify,
+  }) async {
+    blog('Changing section to $flyerType');
+
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+
+    await _flyersProvider.paginateWallFlyers(context);
+
+    _setWallFlyerAndPhid(
+      flyerType: flyerType,
+      phid: phid,
+      notify: notify,
+    );
+
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
@@ -728,26 +749,6 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.getPhidIcon(context: context, son: son);
-  }
-// -----------------------------------------------------------------------------o
-  Future<void> changeHomeWallFlyerType({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required String phid,
-    @required bool notify,
-  }) async {
-    blog('Changing section to $flyerType');
-
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-    await _flyersProvider.paginateWallFlyers(context);
-
-    _wallFlyerType = flyerType;
-    _wallPhid = phid;
-
-    if (notify == true){
-      notifyListeners();
-    }
   }
 // -----------------------------------------------------------------------------o
 }

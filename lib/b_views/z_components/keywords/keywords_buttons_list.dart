@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

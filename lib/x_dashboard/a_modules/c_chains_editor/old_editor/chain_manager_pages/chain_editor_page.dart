@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';

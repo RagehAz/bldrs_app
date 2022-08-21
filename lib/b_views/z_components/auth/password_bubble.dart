@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:flutter/material.dart';
 
 class PasswordBubbles extends StatelessWidget {
