@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/e_db/fire/methods/cloud_functions.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
-import 'package:bldrs/e_db/fire/ops/user_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
+import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/notifications/notifications.dart';

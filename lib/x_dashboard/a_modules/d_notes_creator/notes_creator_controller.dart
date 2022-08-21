@@ -15,7 +15,7 @@ import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
-import 'package:bldrs/e_db/fire/ops/note_ops.dart';
+import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
