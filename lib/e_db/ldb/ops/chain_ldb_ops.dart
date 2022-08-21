@@ -14,7 +14,7 @@ class ChainLDBOps {
 /// CREATE
 
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> insertBigChainK(Chain bigChainK) async {
 
     await LDBOps.insertMap(
@@ -24,7 +24,7 @@ class ChainLDBOps {
 
   }
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> insertBigChainS(Chain bigChainS) async {
 
     await LDBOps.insertMap(
@@ -38,7 +38,7 @@ class ChainLDBOps {
 /// READ
 
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainK() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
@@ -58,7 +58,7 @@ class ChainLDBOps {
     return _bigChainK;
   }
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainS() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
@@ -82,23 +82,23 @@ class ChainLDBOps {
 /// UPDATE
 
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainK({
     @required Chain newBigChainK,
   }) async {
 
-    await deleteBigChainK();
+    // await deleteBigChainK();
 
     await insertBigChainK(newBigChainK);
 
   }
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainS({
     @required Chain newBigChainS,
   }) async {
 
-    await deleteBigChainS();
+    // await deleteBigChainS();
 
     await insertBigChainS(newBigChainS);
 
@@ -108,7 +108,7 @@ class ChainLDBOps {
 /// DELETE
 
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteBigChainK() async {
 
     await LDBOps.deleteAllMapsAtOnce(
@@ -117,7 +117,7 @@ class ChainLDBOps {
 
   }
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteBigChainS() async {
 
     await LDBOps.deleteAllMapsAtOnce(
