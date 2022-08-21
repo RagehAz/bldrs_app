@@ -303,7 +303,7 @@ class _ChainsManagerState extends State<ChainsManager> {
               else {
                 await Nav.goToNewScreen(
                   context: context,
-                  screen: ChainViewScreen(
+                  screen: ChainEditorScreen(
                     chain: _chainKUploaded,
                   ),
                 );
@@ -348,7 +348,7 @@ class _ChainsManagerState extends State<ChainsManager> {
               else {
                 await Nav.goToNewScreen(
                   context: context,
-                  screen: ChainViewScreen(
+                  screen: ChainEditorScreen(
                     chain: _chainSUploaded,
                   ),
                 );
@@ -378,7 +378,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             else {
               await Nav.goToNewScreen(
                 context: context,
-                screen: ChainViewScreen(
+                screen: ChainEditorScreen(
                   chain: _bigChainK,
                 ),
               );
@@ -406,7 +406,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             else {
               await Nav.goToNewScreen(
                 context: context,
-                screen: ChainViewScreen(
+                screen: ChainEditorScreen(
                   chain: _bigChainS,
                 ),
               );
@@ -434,7 +434,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             else {
               await Nav.goToNewScreen(
                 context: context,
-                screen: ChainViewScreen(
+                screen: ChainEditorScreen(
                   chain: _bigChainK,
                 ),
               );
@@ -462,7 +462,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             else {
               await Nav.goToNewScreen(
                 context: context,
-                screen: ChainViewScreen(
+                screen: ChainEditorScreen(
                   chain: _bigChainS,
                 ),
               );

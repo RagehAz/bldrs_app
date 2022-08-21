@@ -5,12 +5,12 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
 import 'package:flutter/material.dart';
 
-class ChainViewScreen extends StatefulWidget {
+class ChainEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainViewScreen({
+  const ChainEditorScreen({
     @required this.chain,
     Key key
   }) : super(key: key);
@@ -18,13 +18,14 @@ class ChainViewScreen extends StatefulWidget {
   final Chain chain;
   /// --------------------------------------------------------------------------
   @override
-  State<ChainViewScreen> createState() => _ChainViewScreenState();
+  State<ChainEditorScreen> createState() => _ChainEditorScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _ChainViewScreenState extends State<ChainViewScreen> {
+class _ChainEditorScreenState extends State<ChainEditorScreen> {
 // -----------------------------------------------------------------------------
-  ValueNotifier<Chain> _chain;
+  ValueNotifier<Chain> _initialChain;
+  ValueNotifier<Chain> _tempChain;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -44,7 +45,8 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
   @override
   void initState() {
     super.initState();
-    _chain = ValueNotifier(widget.chain);
+    _initialChain = ValueNotifier( widget.chain);
+    _tempChain = ValueNotifier( widget.chain);
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -67,7 +69,8 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _chain.dispose();
+    _tempChain.dispose();
+    _initialChain.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -83,28 +86,34 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
         const Expander(),
 
         ValueListenableBuilder(
-          valueListenable: _chain,
-          builder: (_, Chain chain, Widget child){
+            valueListenable: _initialChain,
+            builder: (_, Chain initialChain, Widget child){
 
-            final bool _areIdentical = Chain.checkChainsPathsAreIdentical(
-                chain1: chain,
-                chain2: widget.chain,
-            );
+          return ValueListenableBuilder(
+            valueListenable: _tempChain,
+            builder: (_, Chain tempChain, Widget child){
 
-            return AppBarButton(
-              verse: 'Sync',
-              isDeactivated: _areIdentical,
-              buttonColor: Colorz.yellow255,
-              verseColor: Colorz.black255,
-              onTap: () => onSyncChain(
-                context: context,
-                originalChain: widget.chain,
-                editedChain: _chain.value,
-              ),
-            );
+              final bool _areIdentical = Chain.checkChainsPathsAreIdentical(
+                chain1: tempChain,
+                chain2: initialChain,
+              );
+
+              return AppBarButton(
+                verse: 'Sync',
+                isDeactivated: _areIdentical,
+                buttonColor: Colorz.yellow255,
+                verseColor: Colorz.black255,
+                onTap: () => onSyncChain(
+                  context: context,
+                  initialChain: _initialChain,
+                  editedChain: _tempChain.value,
+                ),
+              );
 
             },
-        ),
+          );
+
+        }),
 
       ],
       layoutWidget: Container(
@@ -115,24 +124,24 @@ class _ChainViewScreenState extends State<ChainViewScreen> {
           physics: const BouncingScrollPhysics(),
           padding: Stratosphere.stratosphereSandwich,
           child: ValueListenableBuilder(
-            valueListenable: _chain,
-            builder: (_, Chain chain, Widget child){
+            valueListenable: _tempChain,
+            builder: (_, Chain tempChain, Widget child){
 
               // chain.blogChain();
 
               return ChainSplitter(
                 initiallyExpanded: false,
-                chainOrChainsOrSonOrSons: chain,
+                chainOrChainsOrSonOrSons: tempChain,
                 onSelectPhid: (String path, String phid) => onPhidTap(
                   context: context,
                   path: path,
                   phid: phid,
-                  tempChain: _chain,
+                  tempChain: _tempChain,
                 ),
                 onAddToPath: (String path) => onAddNewPath(
                   context: context,
                   path: path,
-                  tempChain: _chain,
+                  tempChain: _tempChain,
                 ),
 
               );
