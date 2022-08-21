@@ -107,9 +107,9 @@ Future<void> _updateChain({
   /// BIG CHAIN K RENOVATION
   if (_realChainDoc == RealDoc.chains_bigChainK) {
 
-    await ChainProtocols.renovateChainK(
+    await ChainProtocols.renovateBigChainK(
         context: context,
-        chainK: editedChain
+        bigChainK: editedChain
     );
 
     _success = true;
@@ -118,9 +118,9 @@ Future<void> _updateChain({
   /// BIG CHAIN S RENOVATION
   else if (_realChainDoc == RealDoc.chains_bigChainS) {
 
-    await ChainProtocols.renovateChainS(
+    await ChainProtocols.renovateBigChainS(
         context: context,
-        chainS: editedChain
+        bigChainS: editedChain
     );
 
     _success = true;
