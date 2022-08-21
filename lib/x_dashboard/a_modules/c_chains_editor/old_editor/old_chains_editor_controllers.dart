@@ -3,8 +3,7 @@ import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_methods/chain_fire_ops.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -14,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_chain_methods/chain_fire_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -337,7 +337,7 @@ Future<void> _updateKeywordsChainOps({
   );
 
   /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
-    await AppStateOps.updateGlobalKeywordsChainVersion(context);
+    await AppStateFireOps.updateGlobalKeywordsChainVersion(context);
   }
 
 }

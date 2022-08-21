@@ -11,8 +11,8 @@ import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_ops.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
+import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
@@ -189,14 +189,14 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   if (AuthModel.userIsSignedIn() == true){
 
-    final AppState _globalState = await AppStateOps.readGlobalAppState(context);
+    final AppState _globalState = await AppStateFireOps.readGlobalAppState(context);
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final AppState _userState = _usersProvider?.myUserModel?.appState;
 
     if (_userState != null){
 
-      final String _detectedAppVersion = await AppStateOps.getAppVersion();
-      final bool _userAppNeedUpdate = AppStateOps.appVersionNeedUpdate(
+      final String _detectedAppVersion = await AppStateFireOps.getAppVersion();
+      final bool _userAppNeedUpdate = AppStateFireOps.appVersionNeedUpdate(
           globalVersion: _globalState.appVersion,
           userVersion: _detectedAppVersion
       );
@@ -273,7 +273,7 @@ Future<void> _initializeAppState(BuildContext context) async {
         );
 
         if (_appStateNeedUpdate == true){
-          await AppStateOps.updateUserAppState(
+          await AppStateFireOps.updateUserAppState(
             context: context,
             userID: _usersProvider.myUserModel.id,
             newAppState: _userAppState,

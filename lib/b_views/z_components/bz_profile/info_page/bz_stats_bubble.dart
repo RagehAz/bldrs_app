@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/e_db/real/ops/bz_record_ops.dart';
+import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -63,7 +63,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
       _triggerLoading().then((_) async {
 
-        final BzCounterModel _counters = await BzRecordOps.readBzCounters(
+        final BzCounterModel _counters = await BzRecordRealOps.readBzCounters(
           context: context,
           bzID: _bzModel.id,
         );
