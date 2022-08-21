@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/city_phid_counters.dart';
+import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
@@ -29,7 +29,7 @@ class ChainsProvider extends ChangeNotifier {
     /// NOTE : initialization for fetching setting :-
     /// BIG CHAIN K
     /// BIG CHAIN S
-    /// CITY PHID COUNTERS
+    /// CITY PHIDS MODEL
     /// CITY CHAIN K
     /// BIG CHAIN K PHRASES
     /// BIG CHAIN S PHRASES
@@ -48,7 +48,7 @@ class ChainsProvider extends ChangeNotifier {
           notify: false,
       ),
       /// CITY PHID COUNTERS
-      _readSetCityPhidCounters(
+      _readSetCityPhidsModel(
         context: context,
         notify: false,
       ),
@@ -75,12 +75,12 @@ class ChainsProvider extends ChangeNotifier {
       ),
     ]);
     // --------------------
-      /// 3. CITY CHAIN K PHRASES
-      await _generateSetCityChainKPhrases(
-          context: context,
-          cityChainK: _cityChainK,
-          notify: false,
-      );
+    /// 3. CITY CHAIN K PHRASES
+    await _generateSetCityChainKPhrases(
+      context: context,
+      cityChainK: _cityChainK,
+      notify: false,
+    );
     // --------------------
     /// NOTIFY LISTENERS
     if (notify == true){
@@ -102,7 +102,7 @@ class ChainsProvider extends ChangeNotifier {
     /// BIG CHAIN S
     _bigChainS = null;
     /// CITY PHID COUNTERS
-    _cityPhidCounters = null;
+    _cityPhidsModel = null;
     /// CITY CHAIN K
     _cityChainK = null;
     /// BIG CHAIN K PHRASES
@@ -132,8 +132,8 @@ class ChainsProvider extends ChangeNotifier {
     /// GET : CITY CHAIN K
     /// GET CITY CHAIN K PHRASES
     // --------------------
-    /// 1. CITY PHID COUNTERS
-    await _readSetCityPhidCounters(
+    /// 1. CITY PHIDS MODEL
+    await _readSetCityPhidsModel(
       context: context,
       notify: false,
     );
@@ -257,7 +257,7 @@ class ChainsProvider extends ChangeNotifier {
     /// BIG CHAIN S
     _bigChainS = null;
     /// CITY PHID COUNTERS
-    _cityPhidCounters = null;
+    _cityPhidsModel = null;
     /// CITY CHAIN K
     _cityChainK = null;
     /// BIG CHAIN K PHRASES
@@ -384,33 +384,33 @@ class ChainsProvider extends ChangeNotifier {
   /// CITY PHID COUNTERS
 
 // -------------------------------------
-  CityPhidCounters _cityPhidCounters;
-  CityPhidCounters get cityPhidCounters => _cityPhidCounters;
+  CityPhidsModel _cityPhidsModel;
+  CityPhidsModel get cityPhidsModel => _cityPhidsModel;
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _readSetCityPhidCounters({
+  Future<void> _readSetCityPhidsModel({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final CityPhidCounters _cityPhidCounters = await ChainProtocols.readCityPhidCountersOfCurrentZone(
+    final CityPhidsModel _cityPhidsModel = await ChainProtocols.readCityPhidsOfCurrentZone(
       context: context,
     );
 
-    _setCityPhidCounters(
-      cityPhidCounter: _cityPhidCounters,
+    _setCityPhidModels(
+      cityPhidsModel: _cityPhidsModel,
       notify: notify,
     );
 
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  void _setCityPhidCounters({
-    @required CityPhidCounters cityPhidCounter,
+  void _setCityPhidModels({
+    @required CityPhidsModel cityPhidsModel,
     @required bool notify,
   }){
 
-    _cityPhidCounters = cityPhidCounter;
+    _cityPhidsModel = cityPhidsModel;
     if (notify == true){
       notifyListeners();
     }
@@ -431,9 +431,9 @@ class ChainsProvider extends ChangeNotifier {
     @required Chain bigChainK,
   }) async {
 
-    final Chain _cityChainK = CityPhidCounters.removeUnusedKeywordsFromChainForThisCity(
-      chain: bigChainK,
-      currentCityChain: _cityPhidCounters,
+    final Chain _cityChainK = CityPhidsModel.removeUnusedPhidsFromChainKForThisCity(
+      bigChainK: bigChainK,
+      currentCityPhidsModel: _cityPhidsModel,
     );
 
     _setCityChainK(

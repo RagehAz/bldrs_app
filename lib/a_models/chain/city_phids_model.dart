@@ -6,15 +6,15 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
-class CityPhidCounters {
+class CityPhidsModel {
 /// --------------------------------------------------------------------------
-  const CityPhidCounters({
+  const CityPhidsModel({
     @required this.cityID,
-    @required this.phidsCounters,
+    @required this.phidsMapModels,
 });
   /// --------------------------------------------------------------------------
   final String cityID;
-  final List<MapModel> phidsCounters;
+  final List<MapModel> phidsMapModels;
 // -----------------------------------------------------------------------------
 
 /// CYPHERS
@@ -22,26 +22,26 @@ class CityPhidCounters {
 // --------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
-    final Map<String, dynamic> _map = MapModel.cipherMapModels(phidsCounters);
+    final Map<String, dynamic> _map = MapModel.cipherMapModels(phidsMapModels);
     return _map;
   }
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidCounters decipherCityChain({
+  static CityPhidsModel decipherCityPhids({
     @required Map<String, dynamic> map,
     @required String cityID,
   }){
 
-    CityPhidCounters _cityChain;
+    CityPhidsModel _cityPhids;
 
     if (Map != null && cityID != null){
-      _cityChain = CityPhidCounters(
+      _cityPhids = CityPhidsModel(
         cityID: cityID,
-        phidsCounters: MapModel.decipherMapModels(map),
+        phidsMapModels: MapModel.decipherMapModels(map),
       );
     }
 
-    return _cityChain;
+    return _cityPhids;
   }
 // -----------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ class CityPhidCounters {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static List<MapModel> createKeywordsIDsUsageMapsFromSpecs({
+  static List<MapModel> createPhidsMapModelsFromSpecs({
   @required List<SpecModel> specs,
 }){
     List<MapModel> _maps = <MapModel>[];
@@ -105,16 +105,16 @@ class CityPhidCounters {
   }
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidCounters createCityChainFromFlyer({
+  static CityPhidsModel createCityPhidModelFromFlyer({
     @required FlyerModel flyerModel,
   }){
-    CityPhidCounters _cityChain;
+    CityPhidsModel _cityChain;
 
     if (flyerModel != null){
 
-      _cityChain = CityPhidCounters(
+      _cityChain = CityPhidsModel(
           cityID: flyerModel.zone.cityID,
-          phidsCounters: createKeywordsIDsUsageMapsFromSpecs(
+          phidsMapModels: createPhidsMapModelsFromSpecs(
             specs: flyerModel.specs,
           ),
       );
@@ -129,12 +129,12 @@ class CityPhidCounters {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  void blogCityChain({
+  void blogCityPhidsModel({
     String methodName = '',
   }){
     MapModel.blogMapModels(
-      mapModels: phidsCounters,
-      methodName: 'blogCityChain : $methodName : ($cityID)',
+      mapModels: phidsMapModels,
+      methodName: 'blogCityPhidsModel : $methodName : ($cityID)',
     );
   }
 // -----------------------------------------------------------------------------
@@ -143,14 +143,14 @@ class CityPhidCounters {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getKeywordsIDsFromCityChain({
-    @required CityPhidCounters cityChain,
+  static List<String> getPhidsFromCityPhidsModel({
+    @required CityPhidsModel cityPhidsModel,
   }){
     List<String> _output = <String>[];
 
-    if (cityChain != null){
-      final CityPhidCounters _cleanedCityChain = _cleanZeroValuesKeywords(cityChain);
-      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsCounters);
+    if (cityPhidsModel != null){
+      final CityPhidsModel _cleanedCityChain = _cleanZeroValuesPhids(cityPhidsModel);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsMapModels);
       _output = Stringer.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
@@ -163,15 +163,15 @@ class CityPhidCounters {
 
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidCounters _cleanZeroValuesKeywords(CityPhidCounters cityChain){
+  static CityPhidsModel _cleanZeroValuesPhids(CityPhidsModel cityPhidsModel){
 
-    CityPhidCounters _output;
+    CityPhidsModel _output;
 
-    if (cityChain != null){
+    if (cityPhidsModel != null){
 
       final List<MapModel> _cleanedKeywords = <MapModel>[];
 
-      for (final MapModel mapModel in cityChain.phidsCounters){
+      for (final MapModel mapModel in cityPhidsModel.phidsMapModels){
 
         if (mapModel.value is int){
           /// ONLY GET USAGE VALUES BIGGER THAN 0
@@ -182,9 +182,9 @@ class CityPhidCounters {
 
       }
 
-      _output = CityPhidCounters(
-        cityID: cityChain.cityID,
-        phidsCounters: _cleanedKeywords,
+      _output = CityPhidsModel(
+        cityID: cityPhidsModel.cityID,
+        phidsMapModels: _cleanedKeywords,
       );
 
     }
@@ -193,18 +193,18 @@ class CityPhidCounters {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Chain removeUnusedKeywordsFromChainForThisCity({
-    @required Chain chain,
-    @required CityPhidCounters currentCityChain,
+  static Chain removeUnusedPhidsFromChainKForThisCity({
+    @required Chain bigChainK,
+    @required CityPhidsModel currentCityPhidsModel,
   }) {
 
-    final List<String> _usedKeywordsIDs = CityPhidCounters.getKeywordsIDsFromCityChain(
-      cityChain: currentCityChain,
+    final List<String> _usedPhids = CityPhidsModel.getPhidsFromCityPhidsModel(
+      cityPhidsModel: currentCityPhidsModel,
     );
 
-    final Chain _refined = Chain.removeAllKeywordsNotUsedInThisList(
-      chain: chain,
-      usedKeywordsIDs: _usedKeywordsIDs,
+    final Chain _refined = Chain.removeAllPhidsNotUsedInThisList(
+      chain: bigChainK,
+      usedPhids: _usedPhids,
     );
 
     return _refined;
