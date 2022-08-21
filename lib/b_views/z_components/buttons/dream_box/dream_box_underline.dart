@@ -16,7 +16,6 @@ class DreamBoxUnderLine extends StatelessWidget {
     @required this.underLineShadowIsOn,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
@@ -26,7 +25,6 @@ class DreamBoxUnderLine extends StatelessWidget {
   final int verseSize;
   final double scaleFactor;
   final bool underLineShadowIsOn;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

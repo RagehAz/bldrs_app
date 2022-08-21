@@ -5,7 +5,9 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -16,12 +18,14 @@ import 'package:flutter/material.dart';
 /// SYNCING
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
   @required Chain originalChain,
   @required Chain editedChain,
 }) async {
-  blog('working on ${originalChain.id}');
+
+  blog('onSyncChain : ---------------- START : originalChain.id : ${originalChain.id}');
 
   final bool _continue = await _preSyncCheckups(
     context: context,
@@ -31,12 +35,18 @@ Future<void> onSyncChain({
 
   if (_continue == true){
 
-    blog('fuck you ahooo');
+    await _updateChain(
+      context: context,
+      originalChain: originalChain,
+      editedChain: editedChain,
+    );
 
   }
 
+  blog('onSyncChain : ---------------- END');
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _preSyncCheckups({
   @required BuildContext context,
   @required Chain originalChain,
@@ -75,11 +85,63 @@ Future<bool> _preSyncCheckups({
 
   return _continue;
 }
+// ----------------------------------
+///
+Future<void> _updateChain({
+  @required BuildContext context,
+  @required Chain originalChain,
+  @required Chain editedChain,
+}) async {
+
+  final String _realChainDoc =
+  originalChain.id == 'chainK' ?
+  RealDoc.chains_bigChainK
+      :
+  originalChain.id == 'chainS' ?
+  RealDoc.chains_bigChainS
+      :
+  null;
+
+  bool _success = false;
+
+  /// BIG CHAIN K RENOVATION
+  if (_realChainDoc == RealDoc.chains_bigChainK) {
+
+    await ChainProtocols.renovateChainK(
+        context: context,
+        chainK: editedChain
+    );
+
+    _success = true;
+  }
+
+  /// BIG CHAIN S RENOVATION
+  else if (_realChainDoc == RealDoc.chains_bigChainS) {
+
+    await ChainProtocols.renovateChainS(
+        context: context,
+        chainS: editedChain
+    );
+
+    _success = true;
+  }
+
+  /// SUCCESS DIALOG
+  if (_success == true){
+    await TopDialog.showSuccessDialog(
+      context: context,
+      firstLine: '${originalChain.id} updated successfully',
+      secondLine: 'in ( Real/chains/$_realChainDoc)',
+    );
+  }
+
+}
 // -----------------------------------------------------------------------------
 
   /// SELECTION
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onPhidTap({
   @required BuildContext context,
   @required String path,
@@ -143,6 +205,7 @@ Future<void> onPhidTap({
   /// MODIFIERS
 
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAddNewPath ({
   @required BuildContext context,
   @required String path,
@@ -151,7 +214,7 @@ Future<void> onAddNewPath ({
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
 
-  final String _typedPath = await pathKeyboardDialog(
+  final String _typedPath = await _pathKeyboardDialog(
     context: context,
     path: _path,
     title: 'Add to path',
@@ -175,6 +238,7 @@ Future<void> onAddNewPath ({
 
 }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
   Future<void> onDeleteThePhid ({
     @required BuildContext context,
     @required String phid,
@@ -213,6 +277,7 @@ Future<void> onAddNewPath ({
 
   }
 // ----------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onEditPhid({
   @required BuildContext context,
   @required ValueNotifier<Chain> tempChain,
@@ -222,7 +287,7 @@ Future<void> onEditPhid({
 
   Nav.goBack(context: context, invoker: 'onEditPhid');
 
-  final String _typedPath = await pathKeyboardDialog(
+  final String _typedPath = await _pathKeyboardDialog(
     context: context,
     path: path,
     title: 'Edit path',
@@ -261,7 +326,8 @@ Future<void> onEditPhid({
 
 }
 // ----------------------------------
-Future<String> pathKeyboardDialog({
+/// TESTED : WORKS PERFECT
+Future<String> _pathKeyboardDialog({
   @required BuildContext context,
   @required String path,
   @required String title,

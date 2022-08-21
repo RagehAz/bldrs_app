@@ -654,7 +654,7 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
             value: _userModel.id,
           ),
 
-          FireFinder(
+          const FireFinder(
             field: 'seen',
             comparison: FireComparison.equalTo,
             value: false,
@@ -769,7 +769,7 @@ Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
             value: bzID,
           ),
 
-          FireFinder(
+          const FireFinder(
             field: 'seen',
             comparison: FireComparison.equalTo,
             value: false,

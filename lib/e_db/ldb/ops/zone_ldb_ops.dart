@@ -8,15 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 class ZoneLDBOps{
+// -----------------------------------------------------------------------------
 
-  ZoneLDBOps();
-  // -----------------------------------------------------------------------------
+  const ZoneLDBOps();
+
+// -----------------------------------------------------------------------------
 
   /// CONTINENT
 
-  // ---------------------------------
+// ---------------------------------
   /// CREATE / INSERT
-  // ---------------
+// ---------------
   static Future<void> insertContinents(List<Continent> continents) async {
 
     await LDBOps.insertMap(
@@ -25,9 +27,9 @@ class ZoneLDBOps{
     );
 
   }
-  // ---------------------------------
+// ---------------------------------
   /// READ
-  // ---------------
+// ---------------
   static Future<List<Continent>> readContinents() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
@@ -42,17 +44,17 @@ class ZoneLDBOps{
 
     return _continents;
   }
-  // ---------------------------------
+// ---------------------------------
   /// UPDATE
-  // ---------------
+// ---------------
   /// DELETE
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// COUNTRY
 
-  // ---------------------------------
+// ---------------------------------
   /// CREATE / INSERT
-  // ---------------
+// ---------------
   static Future<void> insertCountry(CountryModel country) async {
 
     await LDBOps.insertMap(
@@ -61,9 +63,9 @@ class ZoneLDBOps{
     );
 
   }
-  // ---------------------------------
+// ---------------------------------
   /// READ
-  // ---------------
+// ---------------
   static Future<CountryModel> readCountry(String countryID) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
@@ -80,17 +82,17 @@ class ZoneLDBOps{
 
     return _country;
   }
-  // ---------------------------------
+// ---------------------------------
   /// UPDATE
-  // ---------------
+// ---------------
   /// DELETE
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// CITY
 
-  // ---------------------------------
+// ---------------------------------
   /// CREATE / INSERT
-  // ---------------
+// ---------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCity(CityModel city) async {
 
@@ -100,9 +102,9 @@ class ZoneLDBOps{
     );
 
   }
-  // ---------------------------------
+// ---------------------------------
   /// READ
-  // ---------------
+// ---------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity(String cityID) async {
 
@@ -120,7 +122,7 @@ class ZoneLDBOps{
 
     return _city;
   }
-  // ---------------
+// ---------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> searchCitiesByName({
     @required String cityName,
@@ -134,23 +136,23 @@ class ZoneLDBOps{
     );
 
     final List<CityModel> _foundCities = CityModel.decipherCitiesMaps(
-        maps: _foundMaps,
-        fromJSON: true,
+      maps: _foundMaps,
+      fromJSON: true,
     );
 
     return _foundCities;
   }
 // ---------------------------------
   /// UPDATE
-  // ---------------
+// ---------------
   /// DELETE
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// CURRENCIES
 
-  // ---------------------------------
+// ---------------------------------
   /// CREATE / INSERT
-  // ---------------
+// ---------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCurrencies(List<CurrencyModel> currencies) async {
 
@@ -160,9 +162,9 @@ class ZoneLDBOps{
     );
 
   }
-  // ---------------------------------
+// ---------------------------------
   /// READ
-  // ---------------
+// ---------------
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> readCurrencies() async {
 

@@ -10,29 +10,29 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/xxxxx_test_lab.dart';
-import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bzz_manager_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chains_manager_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/i_flyers_manager/all_flyers_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/flyers_auditor_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/currency_manager.dart';
-import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/k_pricing_manager/pricing_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/j_statistics/statistics_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/a_ui_manager_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bzz_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/flyers_auditor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/i_flyers_manager/all_flyers_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/j_statistics/statistics_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/currency_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/k_pricing_manager/pricing_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/l_ldb_manager/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
+import 'package:bldrs/xxxxx_test_lab.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
-import 'package:bldrs/e_db/fire/ops/auth_ops.dart';
 
 class BldrsDashBoard extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -42,13 +42,13 @@ class BldrsDashBoard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   List<DashButtonModel> _getButtons(){
 
-    final List<DashButtonModel> _buttons = <DashButtonModel>[
+    const List<DashButtonModel> _buttons = <DashButtonModel>[
 
       /// TEST LAB
       DashButtonModel(
         verse: 'Test Lab',
         icon: Iconz.lab,
-        screen: const TestLab(),
+        screen: TestLab(),
       ),
 
       null,
@@ -57,7 +57,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'App Controls',
         icon: Iconz.dashBoard,
-        screen: const AppControlsManager(),
+        screen: AppControlsManager(),
       ),
 
 
@@ -65,49 +65,49 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'Phrases\nEditor',
         icon: Iconz.language,
-        screen: const TranslationsManager(),
+        screen: TranslationsManager(),
       ),
 
       /// CHAINS EDITOR
       DashButtonModel(
-        verse: 'Chains\nEditor',
+        verse: 'Chains\nManager',
         icon: Iconz.keyword,
-        screen: const ChainsManagerScreen(),
+        screen: ChainsManager(),
       ),
 
       /// NOTIFICATIONS CREATOR
       DashButtonModel(
         verse: 'Notes\nCreator',
         icon: Iconz.news,
-        screen: const NotesCreatorScreen(),
+        screen: NotesCreatorScreen(),
       ),
 
       /// ZONES EDITOR
       DashButtonModel(
         verse: 'Zones Editor',
         icon: Iconz.earth,
-        screen: const ZonesEditorScreen(),
+        screen: ZonesEditorScreen(),
       ),
 
       /// BZZ MANAGER
       DashButtonModel(
         verse: 'Businesses Manager',
         icon: Iconz.bz,
-        screen: const BzzManagerScreen(),
+        screen: BzzManagerScreen(),
       ),
 
       /// USERS MANAGER
       DashButtonModel(
         verse: 'Users Manager',
         icon: Iconz.users,
-        screen: const UsersManagerScreen(),
+        screen: UsersManagerScreen(),
       ),
 
       /// FLYERS AUDITOR
       DashButtonModel(
         verse: 'Flyers Auditor',
         icon: Iconz.verifyFlyer,
-        screen: const FlyersAuditor(),
+        screen: FlyersAuditor(),
       ),
 
       null,
@@ -116,7 +116,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'All Flyers',
         icon: Iconz.flyerScale,
-        screen: const AllFlyersScreen(),
+        screen: AllFlyersScreen(),
       ),
 
       null,
@@ -125,7 +125,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'Statistics',
         icon: Iconz.statistics,
-        screen: const GeneralStatistics(),
+        screen: GeneralStatistics(),
       ),
 
       null,
@@ -134,20 +134,20 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'BigMc',
         icon: Iconz.bigMac,
-        screen: const PricingScreen(),
+        screen: PricingScreen(),
       ),
 
       DashButtonModel(
         verse: 'Currencies',
         icon: Iconz.dollar,
-        screen: const CurrencyManagerScreen(),
+        screen: CurrencyManagerScreen(),
       ),
 
       /// LDB VIEWER
       DashButtonModel(
         verse: 'Local db viewers',
         icon: Iconz.terms,
-        screen: const LDBViewersScreen(),
+        screen: LDBViewersScreen(),
       ),
 
       null,
@@ -156,7 +156,7 @@ class BldrsDashBoard extends StatelessWidget {
       DashButtonModel(
         verse: 'UI Manager',
         icon: Iconz.dvDonaldDuck,
-        screen: const UIManager(),
+        screen: UIManager(),
       ),
 
     ];

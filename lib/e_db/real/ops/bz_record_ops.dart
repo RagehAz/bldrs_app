@@ -13,7 +13,7 @@ import 'package:firebase_database/firebase_database.dart' as fireDB;
 class BzRecordOps {
 // -----------------------------------------------------------------------------
 
-  BzRecordOps();
+  const BzRecordOps();
 
 // -----------------------------------------------------------------------------
 

@@ -3,8 +3,10 @@ import 'package:flutter/foundation.dart';
 
 /// TASK : should be save on firestore to be able to edit them from dashboard
 class Standards {
+// -----------------------------------------------------------------------------
 
-  Standards();
+  const Standards();
+
 // -----------------------------------------------------------------------------
 
   /// APP STANDARDS
