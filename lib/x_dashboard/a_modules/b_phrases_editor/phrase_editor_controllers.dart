@@ -2,8 +2,9 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
+import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -232,10 +233,10 @@ Future<void> onConfirmEditPhrase({
     _output.insert(0, updatedEnPhrase);
     _output.insert(0, updatedArPhrase);
 
-    blog('deletePhidFromPhrases : inserted : id  ${updatedEnPhrase.id} : '
-        '${updatedEnPhrase.value} : lang : ${updatedEnPhrase.langCode}');
-    blog('deletePhidFromPhrases : inserted : id  ${updatedArPhrase.id} : '
-        '${updatedArPhrase.value} : lang : ${updatedArPhrase.langCode}');
+    // blog('deletePhidFromPhrases : inserted : id  ${updatedEnPhrase.id} : '
+    //     '${updatedEnPhrase.value} : lang : ${updatedEnPhrase.langCode}');
+    // blog('deletePhidFromPhrases : inserted : id  ${updatedArPhrase.id} : '
+    //     '${updatedArPhrase.value} : lang : ${updatedArPhrase.langCode}');
 
 
     tempMixedPhrases.value = Phrase.sortPhrasesByID(phrases: _output);
@@ -435,7 +436,7 @@ Future<void> onDeletePhrase({
         phid: phraseID,
     );
 
-    blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
+    // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
 
     tempMixedPhrases.value = _result;
     //     Phrase.symmetrizePhrases(
@@ -443,7 +444,7 @@ Future<void> onDeletePhrase({
     //     allMixedPhrases: tempMixedPhrases.value,
     // );
 
-    blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH');
+    // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH');
 
     await TopDialog.showSuccessDialog(
       context: context,
@@ -499,7 +500,7 @@ Future<void> onDeletePhrase({
 
 /// SYNC
 
-// ---------------------------------------------------------------------------
+// -----------------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSyncPhrases({
   @required BuildContext context,
@@ -539,293 +540,36 @@ Future<void> onSyncPhrases({
 
 
 }
-// -----------------------------
-/*
-Future<void> onUploadPhrases({
-  @required List<Phrase> arOldPhrases,
-  @required List<Phrase> enOldPhrases,
-  @required List<Phrase> inputMixedLangPhrases,
-  @required BuildContext context,
-}) async {
-
-  // int _count = 0;
-
-  // final int _numberOfEnPhrases = enOldPhrases.length;
-  // final int _numberOfArPhrases = arOldPhrases.length;
-  // final int _numberOfInputMixedPhrases = inputMixedLangPhrases.length;
-
-  // blog('onUploadPhrases : '
-  //     'numberOfEnPhrases : $_numberOfEnPhrases : '
-  //     'numberOfArPhrases : $_numberOfArPhrases : '
-  //     'numberOfInputMixedPhrases : $_numberOfInputMixedPhrases'
-  // );
-  // blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
-
-  final List<String> _mixedPhrasesIDs = Phrase.getPhrasesIDs(inputMixedLangPhrases);
-  final List<String> _newPhrasesIDs = Stringer.cleanDuplicateStrings(strings: _mixedPhrasesIDs);
-
-  // blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
-
-  for (final String _phid in _newPhrasesIDs){
-
-    final Phrase _enPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
-      phrases: inputMixedLangPhrases,
-      phid: _phid,
-      langCode: 'en',
-    );
-
-    final Phrase _arPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
-      phrases: inputMixedLangPhrases,
-      phid: _phid,
-      langCode: 'ar',
-    );
-
-    await onUploadPhrase(
-        arOldPhrases: arOldPhrases,
-        enOldPhrases: enOldPhrases,
-        context: context,
-        phraseID: _phid,
-        enValue: _enPhrase.value,
-        arValue: _arPhrase.value,
-    );
-
-    // _count++;
-    // blog('uploaded : $_phid and remaining ${_numberOfEnPhrases - _count}');
-
-  }
-
-}
- */
-// -----------------------------
-/*
-Future<void> onUploadPhrase({
-  @required List<Phrase> arOldPhrases,
-  @required List<Phrase> enOldPhrases,
-  @required BuildContext context,
-  @required String phraseID,
-  @required String enValue,
-  @required String arValue,
-}) async {
-
-  final bool _continueOps = await _preUploadCheck(
-    arOldPhrases: arOldPhrases,
-    enOldPhrases: enOldPhrases,
-    context: context,
-    phraseID: phraseID,
-    arValue: arValue,
-    enValue: enValue,
-  );
-
-  if (_continueOps == true){
-
-
-    final List<Phrase> _enPhrases = Phrase.insertPhrase(
-      forceUpdateDuplicate: true,
-      phrases: enOldPhrases,
-      phrase: Phrase(
-        id: phraseID,
-        value: enValue,
-      ),
-    );
-
-    // blog('4');
-
-    final List<Phrase> _arPhrases = Phrase.insertPhrase(
-      forceUpdateDuplicate: true,
-      phrases: arOldPhrases,
-      phrase: Phrase(
-        id: phraseID,
-        value: arValue,
-      ),
-    );
-
-    // blog('5');
-
-    if (_enPhrases == null || _arPhrases == null){
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'Obaaaaa',
-        body: 'Keda fi 7aga mesh mazboota \n could not upload or update',
-      );
-
-    }
-
-    else {
-
-      final bool _success = await PhraseOps.updatePhrases(
-          context: context,
-          enPhrases: _enPhrases,
-          arPhrases: _arPhrases,
-      );
-
-      if (_success == true){
-        await TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Added id :$phraseID',
-          secondLine: '$enValue : $arValue',
-        );
-      }
-
-      else {
-        await TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Failed to add :$phraseID',
-          secondLine: '$enValue : $arValue',
-          color: Colorz.red255,
-        );
-      }
-
-    }
-
-  }
-
-}
- */
 // ---------------------------------------------------------------------------
-/// DONE
-/*
-Future<void> _addWordsFromJSONToFirebaseForTheFirstTime({
+
+/// OLD FIRE READ OPS
+
+// -----------------------------
+/// TASK : DELETE AFTER DELETING PHRASES FIRE COLL FROM FIREBASE
+Future<List<Phrase>> readMainPhrasesFromFire({
   @required BuildContext context,
-  @required List<Phrase> enOldPhrases,
-  @required List<Phrase> arOldPhrases,
+  @required String langCode,
 }) async {
 
-  const List<String> _jsonIDs = superJSONWords;
+  final Map<String, dynamic> _phrasesMap = await Fire.readDoc(
+      context: context,
+      collName: FireColl.phrases,
+      docName: langCode,
+  );
 
-  List<Phrase> _enPhrases = <Phrase>[
-    ...enOldPhrases ?? []
-  ];
-  List<Phrase> _arPhrases = <Phrase>[
-    ...arOldPhrases ?? []
-  ];
+  if (_phrasesMap != null){
 
-  for (final String id in _jsonIDs){
-
-    final Phrase _enPhrase = Phrase(
-      id: 'phid_$id',
-      value: await Localizer.getTranslationFromJSONByLangCode(
-        context: context,
-        jsonKey: id,
-        langCode: 'en',
-      ),
-    );
-    _enPhrases = Phrase.insertPhrase(
-      phrases: _enPhrases,
-      phrase: _enPhrase,
-      forceUpdateDuplicate: true,
+    final List<Phrase> _phrasesModels = Phrase.decipherOneLangPhrasesMap(
+      map: _phrasesMap,
+      addLangCodeOverride: langCode,
     );
 
-    final Phrase _arPhrase = Phrase(
-      id: 'phid_$id',
-      value: await Localizer.getTranslationFromJSONByLangCode(
-        context: context,
-        jsonKey: id,
-        langCode: 'ar',
-      ),
-    );
-    _arPhrases = Phrase.insertPhrase(
-      phrases: _arPhrases,
-      phrase: _arPhrase,
-      forceUpdateDuplicate: true,
-    );
-
+    return _phrasesModels;
   }
 
-  await updateDocField(
-    context: context,
-    collName: FireColl.translations,
-    docName: 'en',
-    field: 'phrases',
-    input: Phrase.cipherPhrases(phrases: _enPhrases),
-  );
-
-  await updateDocField(
-    context: context,
-    collName: FireColl.translations,
-    docName: 'ar',
-    field: 'phrases',
-    input:  Phrase.cipherPhrases(phrases: _arPhrases),
-  );
-
-}
-// -----------------------------
-Future<void> _onAddKeywordsToOriginalPhrases({
-  @required BuildContext context,
-  @required List<Phrase> originalEnPhrases,
-  @required List<Phrase> originalArPhrases,
-}) async {
-
-  const String _docName = FireDoc.keys_propertiesKeywords; // <----------------------
-
-  final Map<String, dynamic> _docMap = await readDoc(
-    context: context,
-    collName: FireColl.keys,
-    docName: _docName,
-  );
-
-
-  final List<String> _keys = _docMap.keys.toList();
-
-  final List<Phrase> _enPhrasesToAdd = <Phrase>[];
-  final List<Phrase> _arPhrasesToAdd = <Phrase>[];
-  final List<String> _keywordsIDs = <String>[];
-
-  for (final String key in _keys){
-
-    final Map<String, dynamic> _keywordMap = _docMap[key];
-    final String _keywordID = 'phid_k_${_keywordMap['id']}';
-
-    final Phrase _enPhrase = Phrase(
-      id: _keywordID,
-      value: _keywordMap['names']['en']['value'],
-    );
-
-    final Phrase _arPhrase = Phrase(
-      id: _keywordID,
-      value: _keywordMap['names']['ar']['value'],
-    );
-
-    _enPhrasesToAdd.add(_enPhrase);
-    _arPhrasesToAdd.add(_arPhrase);
-    _keywordsIDs.add(_keywordID);
+  else {
+    return null;
   }
 
-  final List<Phrase> _enResult = <Phrase>[...originalEnPhrases, ..._enPhrasesToAdd];
-  final List<Phrase> _arResult = <Phrase>[...originalArPhrases, ..._arPhrasesToAdd];
-
-  /// update english translations
-  await updateDocField(
-    context: context,
-    collName: FireColl.translations,
-    docName: 'en',
-    field: 'phrases',
-    input: Phrase.cipherPhrases(phrases: _enResult),
-  );
-
-  /// update arabic translations
-  await updateDocField(
-    context: context,
-    collName: FireColl.translations,
-    docName: 'ar',
-    field: 'phrases',
-    input: Phrase.cipherPhrases(phrases: _arResult),
-  );
-
-  await updateDocField(
-    context: context,
-    collName: FireColl.keys,
-    docName: 'keywords',
-    field: _docName,
-    input: _keywordsIDs,
-  );
-
-  Phrase.blogPhrases(_enResult);
-  Phrase.blogPhrases(_arResult);
-  blog('number of keywords = ${_keys.length} + ${originalEnPhrases.length} existing = ${_keys.length + originalEnPhrases.length} TOTAL');
-  blog('final list is ${_enResult.length} english : ${_arResult.length} arabic');
-
 }
-// -----------------------------
-*/
 // ---------------------------------------------------------------------------

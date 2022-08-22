@@ -1,11 +1,11 @@
-import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+// import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+// import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+// import 'package:bldrs/e_db/fire/foundation/firestore.dart';
+// import 'package:bldrs/e_db/fire/foundation/paths.dart';
+// import 'package:bldrs/f_helpers/drafters/timers.dart';
+// import 'package:bldrs/f_helpers/drafters/tracers.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 
 /// CREATE
@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 // -----------------------------
 ///
 // -----------------------------
+/*
 Stream<List<Phrase>> getTransModelStream({
   @required BuildContext context,
   @required String langCode,
@@ -41,34 +42,8 @@ Stream<List<Phrase>> getTransModelStream({
   return _stream;
 
 }
+ */
 // -----------------------------
-/// TESTED : WORKS PERFECT
-Future<List<Phrase>> readBasicPhrases({
-  @required BuildContext context,
-  @required String langCode,
-}) async {
-
-  final Map<String, dynamic> _phrasesMap = await Fire.readDoc(
-      context: context,
-      collName: FireColl.phrases,
-      docName: langCode,
-  );
-
-  if (_phrasesMap != null){
-
-    final List<Phrase> _phrasesModels = Phrase.decipherOneLangPhrasesMap(
-      map: _phrasesMap,
-      addLangCodeOverride: langCode,
-    );
-
-    return _phrasesModels;
-  }
-
-  else {
-    return null;
-  }
-
-}
 // -----------------------------
 /*
 // Future<Phrase> readCountryPhrase({
@@ -122,6 +97,7 @@ Future<List<Phrase>> readBasicPhrases({
 /// UPDATE
 
 // -----------------------------
+/*
 Future<bool> updatePhrases({
   @required BuildContext context,
   @required List<Phrase> enPhrases,
@@ -144,6 +120,7 @@ Future<bool> updatePhrases({
 
   return _enDocRef != null;
 }
+ */
 // ---------------------------------------------------------------------------
 
 /// DELETE
@@ -155,6 +132,7 @@ Future<bool> updatePhrases({
 /// BACK UP
 
 // -----------------------------
+/*
 /// TESTED : WORKS PERFECT
 Future<void> backupPhrasesOps(BuildContext context) async {
 
@@ -215,4 +193,5 @@ Future<void> backupPhrasesOps(BuildContext context) async {
   }
 
 }
+ */
 // ---------------------------------------------------------------------------

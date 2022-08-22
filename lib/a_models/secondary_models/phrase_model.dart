@@ -475,6 +475,7 @@ class Phrase {
 // -------------------------------------
   /// BY ID
 // -----------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByID({
     @required List<Phrase> phrases,
     @required String phid,
@@ -494,6 +495,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByIDs({
     @required List<Phrase> phrases,
     @required List<String> phids,
@@ -750,7 +752,7 @@ class Phrase {
   /// SYMMETRY
 
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrase({
     @required Phrase phrase,
     @required List<Phrase> allMixedPhrases,
@@ -781,6 +783,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrases({
     @required List<Phrase> phrasesToSymmetrize,
     @required List<Phrase> allMixedPhrases,
@@ -1230,7 +1233,7 @@ class Phrase {
 
     }
 
-    blog('_combinePhrasesWithoutDuplicateIDs : output phrases inserted are : ${_output.length} phrases ');
+    // blog('_combinePhrasesWithoutDuplicateIDs : output phrases inserted are : ${_output.length} phrases ');
     // Phrase.blogPhrases(_output);
 
     return _output;
@@ -1342,7 +1345,7 @@ class Phrase {
         if (phrases[i].id == phid){
           // _output.removeAt(i);
           _output.remove(phrases[i]);
-          blog('deletePhidFromPhrases : deleted : $i : id  ${phrases[i].id} : ${phrases[i].value} : lang : ${phrases[i].langCode}');
+          // blog('deletePhidFromPhrases : deleted : $i : id  ${phrases[i].id} : ${phrases[i].value} : lang : ${phrases[i].langCode}');
         }
 
       }
