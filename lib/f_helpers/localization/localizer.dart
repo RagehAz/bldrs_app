@@ -5,7 +5,7 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -208,7 +208,7 @@ class Localizer {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
-    Wordz.languageCode(context) == Lang.englishLingo.code ?
+    Words.languageCode(context) == Lang.englishLingo.code ?
     await changeAppLanguage(context, Lang.arabicLingo.code)
         :
     await changeAppLanguage(context, Lang.englishLingo.code);
@@ -245,7 +245,7 @@ class Localizer {
   static bool appIsArabic(BuildContext context) {
     bool _isArabic;
 
-    if (Wordz.languageCode(context) == Lang.arabicLingo.code) {
+    if (Words.languageCode(context) == Lang.arabicLingo.code) {
       _isArabic = true;
     } else {
       _isArabic = false;

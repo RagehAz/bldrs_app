@@ -3,7 +3,7 @@ import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 enum VerseWeight {
@@ -279,15 +279,15 @@ class SuperVerse extends StatelessWidget {
 // -----------------------------------------------------------------------------
   static String superVerseFont(BuildContext context, VerseWeight weight) {
     final String _verseFont =
-    weight == VerseWeight.thin ? Wordz.bodyFont(context)
+    weight == VerseWeight.thin ? Words.bodyFont(context)
         :
-    weight == VerseWeight.regular ? Wordz.bodyFont(context)
+    weight == VerseWeight.regular ? Words.bodyFont(context)
         :
-    weight == VerseWeight.bold ? Wordz.headlineFont(context)
+    weight == VerseWeight.bold ? Words.headlineFont(context)
         :
-    weight == VerseWeight.black ? Wordz.headlineFont(context)
+    weight == VerseWeight.black ? Words.headlineFont(context)
         :
-    Wordz.bodyFont(context);
+    Words.bodyFont(context);
     return _verseFont;
   }
 // -----------------------------------------------------------------------------

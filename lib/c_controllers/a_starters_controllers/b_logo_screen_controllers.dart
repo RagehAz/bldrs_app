@@ -340,7 +340,7 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
   blog('_initializeAppLanguage : START');
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-  await _phraseProvider.fetchSetCurrentLangAndPhrases(
+  await _phraseProvider.fetchSetCurrentLangAndAllPhrases(
     context: context,
   );
 

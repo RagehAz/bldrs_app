@@ -14,7 +14,7 @@ import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -177,7 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       company: _companyController.text,
       gender: _gender.value,
       zone: _zone.value,
-      language: Wordz.languageCode(context),
+      language: Words.languageCode(context),
       location: _currentPosition,
       contacts: _createContactList(existingContacts: widget.userModel.contacts),
       // -------------------------
