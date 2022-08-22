@@ -14,7 +14,7 @@ class PhraseLDBOps {
 /// CREATE
 
 // ------------------------------------------
-
+  ///  TESTED : WORKS PERFECT
   static Future<void> insertMainPhrases({
     @required List<Phrase> mixedLangsPhrases,
   }) async {
@@ -76,7 +76,7 @@ class PhraseLDBOps {
     return _mainPhrases;
   }
 // ------------------------------------------
-
+  ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readCountriesPhrases() async {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
@@ -90,7 +90,7 @@ class PhraseLDBOps {
     return _countriesMixedLangPhrases;
   }
 // ------------------------------------------
-
+  ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchMainPhrasesByIDs({
     @required List<String> phids,
   }) async {
@@ -155,7 +155,7 @@ class PhraseLDBOps {
 /// DELETE
 
 // ------------------------------------------
-  ///
+  ///  TESTED : WORKS PERFECT
   static Future<void> deleteMainPhrases() async {
 
     await LDBOps.deleteAllMapsAtOnce(
