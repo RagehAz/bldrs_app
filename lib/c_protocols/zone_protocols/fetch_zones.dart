@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart' as Dialogz;
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/fire/search/zone_search.dart' as ZoneFireSearch;
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';

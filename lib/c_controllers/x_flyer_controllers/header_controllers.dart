@@ -267,7 +267,7 @@ Future<void> onCallTap({
 
   else {
 
-    await bzContactsDialog(
+    await Dialogz.bzContactsDialog(
         context: context,
         title: 'Contact ${bzModel.name}',
         body: 'Select an Author to contact',

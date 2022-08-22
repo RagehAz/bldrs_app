@@ -9,7 +9,8 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_translations_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/phrase_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -82,14 +83,29 @@ class _PhraseManagerState extends State<PhraseManager> {
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
 
+        /// GO TO OLD EDITOR
         AppBarButton(
           icon: Iconz.language,
-          verse: 'go to Old \n TranslationsManager',
+          verse: 'OLD Editor',
           onTap: () async {
 
             await Nav.goToNewScreen(
                 context: context,
-                screen: const TranslationsManager(),
+                screen: const OLDTranslationsManager(),
+            );
+
+          },
+        ),
+
+        /// GO TO NEW EDITOR
+        AppBarButton(
+          icon: Iconz.language,
+          verse: 'NEW Editor',
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const PhraseEditorScreen(),
             );
 
           },

@@ -25,281 +25,316 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+class Dialogz {
 // -----------------------------------------------------------------------------
 
-/// ERRORS DIALOGS
+  const Dialogz();
+
+// -----------------------------------------------------------------------------
+
+  /// ERRORS DIALOGS
 
 // ---------------------------------
-/// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
-Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
+  /// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
+  static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
-  final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
-    /// SIGN IN ERROR
-    <String, dynamic>{
-      'error': '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
-      'reply': xPhrase(context, 'phid_emailNotFound', phrasePro: _phraseProvider),
-    },
-    <String, dynamic>{
-      'error': '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
-      'reply': xPhrase(context, 'phid_no_internet_connection', phrasePro: _phraseProvider),
-    },
-    <String, dynamic>{
-      'error':
-      '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
-    },
-    <String, dynamic>{
-      'error': '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
-      'reply': xPhrase(context, 'phid_wrongPassword', phrasePro: _phraseProvider),
+    final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
+      /// SIGN IN ERROR
+      <String, dynamic>{
+        'error': '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
+        'reply': xPhrase(context, 'phid_emailNotFound', phrasePro: _phraseProvider),
+      },
+      <String, dynamic>{
+        'error': '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
+        'reply': xPhrase(context, 'phid_no_internet_connection', phrasePro: _phraseProvider),
+      },
+      <String, dynamic>{
+        'error':
+        '[firebase_auth/invalid-email]', // The email address is badly formatted.',
+        'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
+      },
+      <String, dynamic>{
+        'error': '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
+        'reply': xPhrase(context, 'phid_wrongPassword', phrasePro: _phraseProvider),
 
-      /// TASK : should link accounts authentication
-    },
-    <String, dynamic>{
-      'error': '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
-      'reply': xPhrase(context, 'phid_too_many_fails_error', phrasePro: _phraseProvider),
+        /// TASK : should link accounts authentication
+      },
+      <String, dynamic>{
+        'error': '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
+        'reply': xPhrase(context, 'phid_too_many_fails_error', phrasePro: _phraseProvider),
 
-      /// TASK : should link accounts authentication and delete this dialog
-    },
-    <String, dynamic>{
-      'error': 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
-      'reply': xPhrase(context, 'phid_could_not_sign_by_google', phrasePro: _phraseProvider),
-    },
+        /// TASK : should link accounts authentication and delete this dialog
+      },
+      <String, dynamic>{
+        'error': 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
+        'reply': xPhrase(context, 'phid_could_not_sign_by_google', phrasePro: _phraseProvider),
+      },
 
-    /// REGISTER ERRORS
-    <String, dynamic>{
-      'error': '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
-      'reply': xPhrase(context, 'phid_emailAlreadyRegistered', phrasePro: _phraseProvider),
-    },
-    <String, dynamic>{
-      'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-      'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
-    },
+      /// REGISTER ERRORS
+      <String, dynamic>{
+        'error': '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
+        'reply': xPhrase(context, 'phid_emailAlreadyRegistered', phrasePro: _phraseProvider),
+      },
+      <String, dynamic>{
+        'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
+        'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
+      },
 
-    /// NETWORK ERRORS
-    <String, dynamic>{
-      'error': '[cloud_firestore/unavailable]', // The service is currently unavailable. This is a most likely a transient condition and may be corrected by retrying with a backoff.
-      'reply': 'Network is unresponsive, please try again',
-    },
+      /// NETWORK ERRORS
+      <String, dynamic>{
+        'error': '[cloud_firestore/unavailable]', // The service is currently unavailable. This is a most likely a transient condition and may be corrected by retrying with a backoff.
+        'reply': 'Network is unresponsive, please try again',
+      },
 
-    /// SHARED ERRORS
-    <String, dynamic>{
-      'error': null,
-      'reply': xPhrase(context, 'phid_somethingIsWrong', phrasePro: _phraseProvider),
-    },
-  ];
+      /// SHARED ERRORS
+      <String, dynamic>{
+        'error': null,
+        'reply': xPhrase(context, 'phid_somethingIsWrong', phrasePro: _phraseProvider),
+      },
+    ];
 
-  // blog('authErrorDialog result : $result');
+    // blog('authErrorDialog result : $result');
 
-  String _errorReply;
+    String _errorReply;
 
-  for (final Map<String, dynamic> map in _errors) {
-    final bool _mapContainsTheError = TextChecker.stringContainsSubString(
-      string: result,
-      subString: map['error'],
+    for (final Map<String, dynamic> map in _errors) {
+      final bool _mapContainsTheError = TextChecker.stringContainsSubString(
+        string: result,
+        subString: map['error'],
+      );
+
+      if (_mapContainsTheError == true) {
+        _errorReply = map['reply'];
+        break;
+      } else {
+        _errorReply = xPhrase(context, 'phid_something_went_wrong_error', phrasePro: _phraseProvider);
+      }
+    }
+
+    // [firebase_auth/user-not-found]
+    // [firebase_auth/user-not-found]
+
+    blog('_errorReply : $_errorReply');
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
+      body: _errorReply,
+    );
+  }
+// -----------------------------------------------------------------------------
+
+  /// ZONE DIALOGS
+
+// ---------------------------------
+  static Future<CityModel> confirmCityDialog({
+    @required BuildContext context,
+    @required List<CityModel> cities,
+  }) async {
+    CityModel _city;
+
+    await BottomDialog.showButtonsBottomDialog(
+        context: context,
+        draggable: true,
+        buttonHeight: 50,
+        numberOfWidgets: cities.length + 1,
+        builder: (BuildContext context, PhraseProvider _phraseProvider){
+
+          return <Widget>[
+
+            const SuperVerse(
+              verse: 'Please confirm your city',
+            ),
+
+            ...List<Widget>.generate(cities.length, (int index) {
+
+              final CityModel _foundCity = cities[index];
+              final String _foundCityName = xPhrase(context, _foundCity.cityID);
+
+              return BottomDialog.wideButton(
+                  context: context,
+                  verse: _foundCityName,
+                  icon: Flag.getFlagIcon(_foundCity.countryID),
+                  onTap: () {
+
+                    _city = _foundCity;
+
+                    Nav.goBack(
+                      context: context,
+                      invoker: 'confirmCityDialog : city selected aho $_foundCityName',
+                    );
+
+                  });
+            }),
+
+          ];
+
+        }
     );
 
-    if (_mapContainsTheError == true) {
-      _errorReply = map['reply'];
-      break;
-    } else {
-      _errorReply = xPhrase(context, 'phid_something_went_wrong_error', phrasePro: _phraseProvider);
-    }
+    return _city;
   }
-
-  // [firebase_auth/user-not-found]
-  // [firebase_auth/user-not-found]
-
-  blog('_errorReply : $_errorReply');
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    title: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
-    body: _errorReply,
-  );
-}
 // -----------------------------------------------------------------------------
 
-/// ZONE DIALOGS
-
-// ---------------------------------
-Future<CityModel> confirmCityDialog({
-  @required BuildContext context,
-  @required List<CityModel> cities,
-}) async {
-  CityModel _city;
-
-  await BottomDialog.showButtonsBottomDialog(
-    context: context,
-    draggable: true,
-    buttonHeight: 50,
-    numberOfWidgets: cities.length + 1,
-    builder: (BuildContext context, PhraseProvider _phraseProvider){
-
-      return <Widget>[
-
-        const SuperVerse(
-          verse: 'Please confirm your city',
-        ),
-
-        ...List<Widget>.generate(cities.length, (int index) {
-
-          final CityModel _foundCity = cities[index];
-          final String _foundCityName = xPhrase(context, _foundCity.cityID);
-
-          return BottomDialog.wideButton(
-              context: context,
-              verse: _foundCityName,
-              icon: Flag.getFlagIcon(_foundCity.countryID),
-              onTap: () {
-
-                _city = _foundCity;
-
-                Nav.goBack(
-                  context: context,
-                  invoker: 'confirmCityDialog : city selected aho $_foundCityName',
-                );
-
-              });
-        }),
-
-      ];
-
-    }
-  );
-
-  return _city;
-}
-// -----------------------------------------------------------------------------
-
-/// TEXT FIELD DIALOGS
+  /// TEXT FIELD DIALOGS
 
 // ---------------------------------------
-/// TESTED : WORKS PERFECT
-Future<String> showPasswordDialog(BuildContext context) async {
+  /// TESTED : WORKS PERFECT
+  static Future<String> showPasswordDialog(BuildContext context) async {
 
-  final TextEditingController _password = TextEditingController();
+    final TextEditingController _password = TextEditingController();
 
-  await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Enter Your password',
-    height: Scale.superScreenHeight(context) * 0.6,
-    onOk: () async {
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Enter Your password',
+      height: Scale.superScreenHeight(context) * 0.6,
+      onOk: () async {
 
-      CenterDialog.closeCenterDialog(context);
-      Keyboard.closeKeyboard(context);
+        CenterDialog.closeCenterDialog(context);
+        Keyboard.closeKeyboard(context);
 
-    },
-    child: PasswordBubbles(
-      boxWidth: CenterDialog.clearWidth(context),
-      passwordController: _password,
-      showPasswordOnly: true,
-      passwordValidator: () => passwordValidation(
-        context: context,
-        password: _password.text,
+      },
+      child: PasswordBubbles(
+        boxWidth: CenterDialog.clearWidth(context),
+        passwordController: _password,
+        showPasswordOnly: true,
+        passwordValidator: () => passwordValidation(
+          context: context,
+          password: _password.text,
+        ),
+        passwordConfirmationController: null,
+        passwordConfirmationValidator: null,
+        onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
+        isTheSuperKeyboardField: true,
       ),
-      passwordConfirmationController: null,
-      passwordConfirmationValidator: null,
-      onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
-      isTheSuperKeyboardField: true,
-    ),
-  );
+    );
 
-  return _password.text;
-}
-
+    return _password.text;
+  }
 // -----------------------------------------------------------------------------
 
-/// USERS DIALOGS
+  /// CONFIRMATION DIALOGS
 
 // ---------------------------------
-/// TESTED : WORKS PERFECT
-Future<bool> userDialog({
-  @required BuildContext context,
-  @required UserModel userModel,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
+  static Future<bool> goBackDialog({
+    @required BuildContext context,
+    String title,
+    String body,
+    String confirmButtonText,
+    bool goBackOnConfirm = false,
+  }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    boolDialog: boolDialog,
-    confirmButtonText: confirmButtonText,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: UserBanner(
-      userModel: userModel,
-    ),
-  );
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title ?? 'Go Back ?',
+      body: body,
+      boolDialog: true,
+      confirmButtonText: confirmButtonText ?? 'Go Back',
+    );
 
-  return _result;
-}
+    if (goBackOnConfirm == true && _result == true){
+      Nav.goBack(
+        context: context,
+        invoker: 'goBackDialog : $title',
+      );
+    }
+
+    return _result;
+
+  }
 // -----------------------------------------------------------------------------
 
-/// BZZ DIALOGS
+  /// USERS DIALOGS
 
 // ---------------------------------
-Future<bool> bzBannerDialog({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
+  /// TESTED : WORKS PERFECT
+  static Future<bool> userDialog({
+    @required BuildContext context,
+    @required UserModel userModel,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    bool boolDialog = true,
+  }) async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    confirmButtonText: confirmButtonText,
-    boolDialog: boolDialog,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: BzBanner(
-      boxWidth: CenterDialog.clearWidth(context),
-      boxHeight: CenterDialog.clearWidth(context),
-      bzModel: bzModel,
-      bigName: false,
-    ),
-  );
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      boolDialog: boolDialog,
+      confirmButtonText: confirmButtonText,
+      height: Scale.superScreenHeight(context) * 0.85,
+      child: UserBanner(
+        userModel: userModel,
+      ),
+    );
 
-  return _result;
+    return _result;
+  }
+// -----------------------------------------------------------------------------
 
-}
+  /// BZZ DIALOGS
+
 // ---------------------------------
-Future<bool> bzzBannersDialog({
-  @required BuildContext context,
-  @required List<BzModel> bzzModels,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
+  static Future<bool> bzBannerDialog({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    bool boolDialog = true,
+  }) async {
 
-  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      confirmButtonText: confirmButtonText,
+      boolDialog: boolDialog,
+      height: Scale.superScreenHeight(context) * 0.85,
+      child: BzBanner(
+        boxWidth: CenterDialog.clearWidth(context),
+        boxHeight: CenterDialog.clearWidth(context),
+        bzModel: bzModel,
+        bigName: false,
+      ),
+    );
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    confirmButtonText: confirmButtonText,
-    boolDialog: boolDialog,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: _gridHeight,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: ListView.builder(
-        itemCount: bzzModels?.length ?? 0,
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        itemBuilder: (_, int index){
+    return _result;
+
+  }
+// ---------------------------------
+  static Future<bool> bzzBannersDialog({
+    @required BuildContext context,
+    @required List<BzModel> bzzModels,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    bool boolDialog = true,
+  }) async {
+
+    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      confirmButtonText: confirmButtonText,
+      boolDialog: boolDialog,
+      height: Scale.superScreenHeight(context) * 0.85,
+      child: Container(
+        width: CenterDialog.getWidth(context),
+        height: _gridHeight,
+        color: Colorz.white10,
+        alignment: Alignment.center,
+        child: ListView.builder(
+          itemCount: bzzModels?.length ?? 0,
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          itemBuilder: (_, int index){
 
             return BzBanner(
               bzModel: bzzModels[index],
@@ -309,141 +344,142 @@ Future<bool> bzzBannersDialog({
             );
 
           },
-      ),
-    ),
-  );
-
-  return _result;
-
-
-}
-// -----------------------------------------------------------------------------
-
-/// AUTHORS DIALOGS
-
-// ---------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> bzContactsDialog({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  ValueChanged<ContactModel> onContact,
-}) async {
-
-  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    confirmButtonText: 'Cancel',
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: _gridHeight,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: ListView.builder(
-        itemCount: bzModel?.authors?.length ?? 0,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        itemBuilder: (_, int index){
-
-          return AuthorCard(
-            author: bzModel.authors[index],
-            bzModel: bzModel,
-            onContact: onContact,
-            bubbleWidth: CenterDialog.getWidth(context),
-            moreButtonIsOn: false,
-          );
-
-        },
-      ),
-    ),
-  );
-
-}
-// -----------------------------------------------------------------------------
-/// FLYERS DIALOGS
-
-// ---------------------------------
-Future<bool> flyersDialog({
-  @required BuildContext context,
-  @required List<String> flyersIDs,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
-
-  final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    boolDialog: boolDialog,
-    confirmButtonText: confirmButtonText,
-    height: Scale.superScreenHeight(context) * 0.85,
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: _gridHeight,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: FlyersGrid(
-        scrollController: ScrollController(),
-        paginationFlyersIDs: flyersIDs,
-        scrollDirection: Axis.horizontal,
-        gridWidth: CenterDialog.getWidth(context) - 10,
-        gridHeight: _gridHeight,
-        topPadding: 0,
-        numberOfColumnsOrRows: 1,
-      ),
-    ),
-
-  );
-
-  return _result;
-
-
-}
-// ---------------------------------
-Future<bool> flyerDialog({
-  @required BuildContext context,
-  @required FlyerModel flyer,
-  @required String title,
-  @required String body,
-  String confirmButtonText,
-  bool boolDialog = true,
-}) async {
-
-  final double _screenHeight = Scale.superScreenHeight(context);
-  final double _dialogHeight = _screenHeight * 0.7;
-  final double _flyerBoxHeight = _dialogHeight * 0.5;
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    title: title,
-    body: body,
-    boolDialog: boolDialog,
-    confirmButtonText: confirmButtonText,
-    height: _dialogHeight,
-    child: SizedBox(
-      height: _flyerBoxHeight,
-      child: AbsorbPointer(
-        child: FlyerStarter(
-          flyerModel: flyer,
-          minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
         ),
       ),
-    ),
-  );
+    );
 
-  return _result;
+    return _result;
 
-}
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// AUTHORS DIALOGS
+
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> bzContactsDialog({
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    ValueChanged<ContactModel> onContact,
+  }) async {
+
+    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      confirmButtonText: 'Cancel',
+      height: Scale.superScreenHeight(context) * 0.85,
+      child: Container(
+        width: CenterDialog.getWidth(context),
+        height: _gridHeight,
+        color: Colorz.white10,
+        alignment: Alignment.center,
+        child: ListView.builder(
+          itemCount: bzModel?.authors?.length ?? 0,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          itemBuilder: (_, int index){
+
+            return AuthorCard(
+              author: bzModel.authors[index],
+              bzModel: bzModel,
+              onContact: onContact,
+              bubbleWidth: CenterDialog.getWidth(context),
+              moreButtonIsOn: false,
+            );
+
+          },
+        ),
+      ),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+  /// FLYERS DIALOGS
+
+// ---------------------------------
+  static Future<bool> flyersDialog({
+    @required BuildContext context,
+    @required List<String> flyersIDs,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    bool boolDialog = true,
+  }) async {
+
+    final double _gridHeight = Scale.superScreenHeight(context) * 0.5;
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      boolDialog: boolDialog,
+      confirmButtonText: confirmButtonText,
+      height: Scale.superScreenHeight(context) * 0.85,
+      child: Container(
+        width: CenterDialog.getWidth(context),
+        height: _gridHeight,
+        color: Colorz.white10,
+        alignment: Alignment.center,
+        child: FlyersGrid(
+          scrollController: ScrollController(),
+          paginationFlyersIDs: flyersIDs,
+          scrollDirection: Axis.horizontal,
+          gridWidth: CenterDialog.getWidth(context) - 10,
+          gridHeight: _gridHeight,
+          topPadding: 0,
+          numberOfColumnsOrRows: 1,
+        ),
+      ),
+
+    );
+
+    return _result;
+
+
+  }
+// ---------------------------------
+  static Future<bool> flyerDialog({
+    @required BuildContext context,
+    @required FlyerModel flyer,
+    @required String title,
+    @required String body,
+    String confirmButtonText,
+    bool boolDialog = true,
+  }) async {
+
+    final double _screenHeight = Scale.superScreenHeight(context);
+    final double _dialogHeight = _screenHeight * 0.7;
+    final double _flyerBoxHeight = _dialogHeight * 0.5;
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: title,
+      body: body,
+      boolDialog: boolDialog,
+      confirmButtonText: confirmButtonText,
+      height: _dialogHeight,
+      child: SizedBox(
+        height: _flyerBoxHeight,
+        child: AbsorbPointer(
+          child: FlyerStarter(
+            flyerModel: flyer,
+            minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
+          ),
+        ),
+      ),
+    );
+
+    return _result;
+
+  }
 // -----------------------------------------------------------------------------
 
 /// OLD DIALOGS
@@ -550,3 +586,5 @@ Future<bool> flyersDeactivationDialog({
 }
  */
 // -----------------------------------------------------------------------------
+
+}
