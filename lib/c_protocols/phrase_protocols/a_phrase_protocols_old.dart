@@ -1,42 +1,19 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// ----------------------------------------------------------------------------------------
-//-------------------------------------
-/// ~~~~~~ SUPER PHRASE ~~~~~~
-//---------------------
-String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
-  final PhraseProvider _phraseProvider = phrasePro ??
-      Provider.of<PhraseProvider>(context, listen: false);
-
-  return _phraseProvider.getTranslatedPhraseByID(id);
-}
-//---------------------
-String superIcon(BuildContext context, dynamic icon){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
-  return _chainsProvider.getPhidIcon(
-    context: context,
-    son: icon,
-  );
-}
-//---------------------
-/// ~~~~~~ SUPER PHRASE ~~~~~~
-//-------------------------------------
-/// ----------------------------------------------------------------------------------------
 
 class PhraseProtocolsOLD {
 // -----------------------------------------------------------------------------
@@ -65,7 +42,7 @@ class PhraseProtocolsOLD {
           searchField: 'id',
           fieldIsList: false,
           searchValue: phid,
-          docName: LDBDoc.basicPhrases,
+          docName: LDBDoc.mainPhrases,
         );
 
         // blog('found these maps in basic phrases ldb doc');
@@ -112,10 +89,8 @@ class PhraseProtocolsOLD {
       );
 
       /// THEN STORE THEM IN LDB
-      await LDBOps.insertMaps(
-        inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
-        docName: LDBDoc.countriesPhrases,
-        allowDuplicateIDs: true,
+      await PhraseLDBOps.insertCountriesPhrases(
+          countriesMixedLangsPhrases: _countriesMixedLangPhrases,
       );
 
     }
@@ -151,10 +126,6 @@ class PhraseProtocolsOLD {
       /// ACTIVE COUNTRIES LISTS HAD CHANGED
       else {
 
-        await LDBOps.deleteAllMapsAtOnce(
-          docName: LDBDoc.countriesPhrases,
-        );
-
         /// CREATE THEM FROM JSON
         _countriesMixedLangPhrases = await CountryModel.createMixedCountriesPhrases(
           langCodes: ['en', 'ar'],
@@ -162,10 +133,8 @@ class PhraseProtocolsOLD {
         );
 
         /// THEN STORE THEM IN LDB
-        await LDBOps.insertMaps(
-          inputs: Phrase.cipherMixedLangPhrases(phrases: _countriesMixedLangPhrases),
-          docName: LDBDoc.countriesPhrases,
-          allowDuplicateIDs: true,
+        await PhraseLDBOps.updateCountriesPhrases(
+            updatedCountriesMixedLangsPhrases: _countriesMixedLangPhrases,
         );
 
 
@@ -210,19 +179,9 @@ class PhraseProtocolsOLD {
     @required BuildContext context,
   }) async {
 
-    List<Phrase> _allPhrases;
-
     /// 1- get phrases from LDB
-    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.basicPhrases,
-    );
+    List<Phrase> _allPhrases = await PhraseLDBOps.readMainPhrases();
 
-    if (Mapper.checkCanLoopList(_maps) == true){
-      blog('fetchPhrasesByLangCode : phrases found in local db ');
-      _allPhrases = Phrase.decipherMixedLangPhrases(
-        maps: _maps,
-      );
-    }
 
     /// 2 - if not found in LDB , read from firebase
     if (Mapper.checkCanLoopList(_allPhrases) == false){
@@ -243,14 +202,8 @@ class PhraseProtocolsOLD {
       if (Mapper.checkCanLoopList(_allPhrases) == true){
         blog('fetchPhrasesByLangCode : phrases found in Firestore');
 
-        final List<Map<String, dynamic>> _allMaps = Phrase.cipherMixedLangPhrases(
-          phrases: _allPhrases,
-        );
-
-        await LDBOps.insertMaps(
-          inputs: _allMaps,
-          docName: LDBDoc.basicPhrases,
-          allowDuplicateIDs: true,
+        await PhraseLDBOps.insertMainPhrases(
+          mixedLangsPhrases: _allPhrases,
         );
 
       }
@@ -322,7 +275,7 @@ class PhraseProtocolsOLD {
   static Future<void> reloadPhrases(BuildContext context) async {
 
     /// delete LDB phrases
-    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases);
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.mainPhrases);
 
     /// RELOAD APP LOCALIZATION
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);

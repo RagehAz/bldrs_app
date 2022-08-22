@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
@@ -215,4 +217,46 @@ class PhraseProvider extends ChangeNotifier {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// USED X PHRASES => for dev only
+
+// -------------------------------------
+  List<String> _usedXPhrases = <String>[];
+  List<String> get usedXPhrases => _usedXPhrases;
+
+  void addToUsedXPhrases(String id){
+
+    _usedXPhrases = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _usedXPhrases,
+        stringToAdd: id,
+    );
+
+    // do not notifyListeners,, I will read it manually later
+
+  }
+// -----------------------------------------------------------------------------
 }
+/// ----------------------------------------------------------------------------------------
+//-------------------------------------
+/// ~~~~~~ SUPER PHRASE ~~~~~~
+//---------------------
+String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
+
+  final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
+  _phraseProvider.addToUsedXPhrases(id);
+
+  return _phraseProvider.getTranslatedPhraseByID(id);
+}
+//---------------------
+String phidIcon(BuildContext context, dynamic icon){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+
+  return _chainsProvider.getPhidIcon(
+    context: context,
+    son: icon,
+  );
+}
+//---------------------
+/// ~~~~~~ SUPER PHRASE ~~~~~~
+//-------------------------------------
+/// ----------------------------------------------------------------------------------------

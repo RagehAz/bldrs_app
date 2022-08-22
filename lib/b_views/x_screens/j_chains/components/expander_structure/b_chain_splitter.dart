@@ -5,8 +5,8 @@ import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/a
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/c_chain_sons_builder.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';

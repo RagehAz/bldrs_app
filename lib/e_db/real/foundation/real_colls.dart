@@ -36,6 +36,10 @@ class RealColl {
   static const String chainsUsage = 'chainsUsage';
   static const String chains = 'chains';
 // -----------------------------------------------------------------------------
+/// Phrases
+// -------------------
+  static const String phrases = 'phrases';
+// -----------------------------------------------------------------------------
 }
 
 class RealDoc {

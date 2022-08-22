@@ -23,7 +23,7 @@ class LDBDoc {
   static const String notes = 'notes';
 
   /// all docs include mixed lang phrases with extra primary key of "id_langCodo"
-  static const String basicPhrases = 'basicPhrases';
+  static const String mainPhrases = 'mainPhrases';
   static const String countriesPhrases = 'countriesPhrases';
 
   static const String appState = 'appState';
@@ -51,7 +51,7 @@ class LDBDoc {
     continents,
     currencies,
     notes,
-    basicPhrases,
+    mainPhrases,
     countriesPhrases,
     appState,
     appControls,
