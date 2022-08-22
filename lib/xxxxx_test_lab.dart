@@ -282,11 +282,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final Map<String, dynamic> _map = {
-      'this': 'works',
-      'yous': 'bitcho',
-      // 'bobo' : 'koko',
-    };
+    // final Map<String, dynamic> _map = {
+    //   'this': 'works',
+    //   'yous': 'bitcho',
+    //   // 'bobo' : 'koko',
+    // };
 
     // await Real.createNamedDoc(
     //     context: context,
@@ -295,11 +295,18 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     //     map: _map,
     // );
 
-    await Real.updateDoc(
-          context: context,
-          collName: 'xxx',
-          docName: 'fuck',
-          map: _map,
+    // await Real.updateDoc(
+    //       context: context,
+    //       collName: 'xxx',
+    //       docName: 'fuck',
+    //       map: _map,
+    // );
+
+    await Real.deleteField(
+        context: context,
+        collName: 'xxx',
+        docName: 'fuck',
+        fieldName: 'this',
     );
 
   }
