@@ -178,7 +178,7 @@ class DistrictModel{
           districtID: districtID,
       );
 
-      final Phrase _phrase = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
+      final Phrase _phrase = Phrase.searchFirstPhraseByCurrentLang(
           context: context,
           phrases: _district?.phrases,
       );
@@ -198,7 +198,7 @@ class DistrictModel{
     @required DistrictModel district,
 }){
 
-    final Phrase _districtName = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
+    final Phrase _districtName = Phrase.searchFirstPhraseByCurrentLang(
         context: context,
         phrases: district?.phrases,
     );
@@ -223,7 +223,7 @@ class DistrictModel{
     for (final String langCode in langCodes){
       for (final DistrictModel district in sourceDistricts){
 
-        final Phrase _districtPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+        final Phrase _districtPhrase = Phrase.searchPhraseByIDAndLangCode(
           phid: district.districtID,
           langCode: langCode,
           phrases: district.phrases,

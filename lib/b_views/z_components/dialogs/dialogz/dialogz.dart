@@ -218,6 +218,22 @@ class Dialogz {
   /// CONFIRMATION DIALOGS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> confirmProceed({
+    @required BuildContext context,
+  }) async {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Proceed ?',
+      // body: body,
+      boolDialog: true,
+    );
+
+    return _result;
+  }
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
     @required BuildContext context,
     String title,
@@ -278,6 +294,7 @@ class Dialogz {
   /// BZZ DIALOGS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> bzBannerDialog({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -306,6 +323,7 @@ class Dialogz {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> bzzBannersDialog({
     @required BuildContext context,
     @required List<BzModel> bzzModels,
@@ -405,6 +423,7 @@ class Dialogz {
   /// FLYERS DIALOGS
 
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> flyersDialog({
     @required BuildContext context,
     @required List<String> flyersIDs,
@@ -446,6 +465,7 @@ class Dialogz {
 
   }
 // ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> flyerDialog({
     @required BuildContext context,
     @required FlyerModel flyer,

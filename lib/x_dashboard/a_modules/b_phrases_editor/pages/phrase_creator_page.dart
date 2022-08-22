@@ -21,6 +21,7 @@ class PhraseCreatorPage extends StatelessWidget {
     @required this.enController,
     @required this.arController,
     @required this.tempMixedPhrases,
+    @required this.pageController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class PhraseCreatorPage extends StatelessWidget {
   final TextEditingController enController;
   final TextEditingController arController;
   final ValueNotifier<List<Phrase>> tempMixedPhrases;
+  final PageController pageController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -112,6 +114,10 @@ class PhraseCreatorPage extends StatelessWidget {
               margins: const EdgeInsets.symmetric(horizontal: 10),
               onTap: () => onConfirmEditPhrase(
                 context: context,
+                pageController: pageController,
+                arTextController: arController,
+                enTextController: enController,
+                idTextController: idController,
                 tempMixedPhrases: tempMixedPhrases,
                 updatedEnPhrase: Phrase(
                     id: idController.text,

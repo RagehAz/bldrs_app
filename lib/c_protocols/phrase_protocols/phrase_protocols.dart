@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/phrase_real_ops.dart';
@@ -113,16 +116,24 @@ class PhraseProtocols {
   static Future<void> renovateMainPhrases({
     @required BuildContext context,
     @required List<Phrase> updatedMixedMainPhrases,
+    @required bool showWaitDialog,
   }) async {
 
     if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
 
-      final List<Phrase> _en = Phrase.getPhrasesByLangFromPhrases(
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(
+          context: context,
+          loadingPhrase: 'Syncing',
+        ));
+      }
+
+      final List<Phrase> _en = Phrase.searchPhrasesByLang(
           phrases: updatedMixedMainPhrases,
           langCode: 'en',
       );
 
-      final List<Phrase> _ar = Phrase.getPhrasesByLangFromPhrases(
+      final List<Phrase> _ar = Phrase.searchPhrasesByLang(
         phrases: updatedMixedMainPhrases,
         langCode: 'ar',
       );
@@ -142,13 +153,17 @@ class PhraseProtocols {
             updatedPhrases: _ar
         ),
 
+        /// LOCAL UPDATE
+        updateMainPhrasesLocally(
+          context: context,
+          newMainPhrases: updatedMixedMainPhrases,
+        )
+
       ]);
 
-      /// LOCAL UPDATE
-      await updateMainPhrasesLocally(
-        context: context,
-        newMainPhrases: updatedMixedMainPhrases,
-      );
+      if (showWaitDialog == true){
+        WaitDialog.closeWaitDialog(context);
+      }
 
     }
 

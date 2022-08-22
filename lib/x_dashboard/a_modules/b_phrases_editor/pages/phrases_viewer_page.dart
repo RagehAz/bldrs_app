@@ -15,8 +15,8 @@ class PhrasesViewerPage extends StatelessWidget {
     @required this.isSearching,
     @required this.mixedSearchedPhrases,
     @required this.scrollController,
-    @required this.enPhrases,
-    @required this.arPhrases,
+    // @required this.enPhrases,
+    // @required this.arPhrases,
     @required this.pageController,
     @required this.enController,
     @required this.arController,
@@ -30,8 +30,8 @@ class PhrasesViewerPage extends StatelessWidget {
   final ValueNotifier<bool> isSearching; /// p
   final ValueNotifier<List<Phrase>> mixedSearchedPhrases; /// p
   final ScrollController scrollController;
-  final List<Phrase> enPhrases;
-  final List<Phrase> arPhrases;
+  // final List<Phrase> enPhrases;
+  // final List<Phrase> arPhrases;
   final PageController pageController;
   final TextEditingController enController;
   final TextEditingController arController;
@@ -47,8 +47,9 @@ class PhrasesViewerPage extends StatelessWidget {
       await onTapEditPhrase(
         context: context,
         pageController: pageController,
-        enPhrases: enPhrases,
-        arPhrases: arPhrases,
+        tempMixedPhrases: tempMixedPhrases,
+        // enPhrases: enPhrases,
+        // arPhrases: arPhrases,
         phraseID: phid,
         enTextController: enController,
         arTextController: arController,
@@ -94,29 +95,30 @@ class PhrasesViewerPage extends StatelessWidget {
               /// FOUND RESULTS
               else {
 
-                final List<Phrase> _allMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
-                  enPhrases : enPhrases,
-                  arPhrases : arPhrases,
-                  mixedPhrases : mixedPhrases,
-                );
+                // final List<Phrase> _allMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
+                //   enPhrases : enPhrases,
+                //   arPhrases : arPhrases,
+                //   mixedPhrases : mixedPhrases,
+                // );
 
-                final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allMixedPhrases);
+                // final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allMixedPhrases);
 
-                final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                  phrases: _cleaned,
-                  langCode: 'en',
-                );
-
-                final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
-                  phrases: _cleaned,
-                  langCode: 'ar',
-                );
+                // final List<Phrase> _enPhrases = Phrase.getPhrasesByLangFromPhrases(
+                //   phrases: _cleaned,
+                //   langCode: 'en',
+                // );
+                //
+                // final List<Phrase> _arSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
+                //   phrases: _cleaned,
+                //   langCode: 'ar',
+                // );
 
                 return PhrasesBuilderBubble(
                   screenHeight: screenHeight,
                   searchController: searchController,
-                  enPhrases: _enSearchedPhrases,
-                  arPhrases: _arSearchedPhrases,
+                  mixedPhrases: mixedPhrases,
+                  // enPhrases: _enSearchedPhrases,
+                  // arPhrases: _arSearchedPhrases,
                   scrollController: scrollController,
                   onCopyValue: (String value) => TextMod.controllerCopy(context, value),
                   onDeletePhraseTap: _onDeletePhraseTap,
@@ -137,15 +139,23 @@ class PhrasesViewerPage extends StatelessWidget {
         }
 
       },
-      child: PhrasesBuilderBubble(
-        screenHeight: screenHeight,
-        searchController: searchController,
-        scrollController: scrollController,
-        arPhrases: arPhrases,
-        enPhrases: enPhrases,
-        onCopyValue: (String value) => TextMod.controllerCopy(context, value),
-        onEditPhraseTap: _onEditPhraseTap,
-        onDeletePhraseTap: _onDeletePhraseTap,
+      child: ValueListenableBuilder(
+        valueListenable: tempMixedPhrases,
+        builder: (_, List<Phrase> tempPhrases, Widget child){
+
+          return PhrasesBuilderBubble(
+            screenHeight: screenHeight,
+            searchController: searchController,
+            scrollController: scrollController,
+            mixedPhrases: tempPhrases,
+            // enPhrases: enPhrases,
+            // arPhrases: arPhrases,
+            onCopyValue: (String value) => TextMod.controllerCopy(context, value),
+            onEditPhraseTap: _onEditPhraseTap,
+            onDeletePhraseTap: _onDeletePhraseTap,
+          );
+
+        },
       ),
     );
 

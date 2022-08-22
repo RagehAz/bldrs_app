@@ -109,7 +109,7 @@ class PhraseStrip extends StatelessWidget {
                             ),
 
                             SuperVerse(
-                              verse: arPhrase.value,
+                              verse: arPhrase?.value,
                               maxLines: 5,
                               color: Colorz.yellow255,
                               weight: VerseWeight.thin,
