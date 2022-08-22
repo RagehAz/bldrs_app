@@ -436,6 +436,37 @@ class Sembast  {
 
     return _map;
   }
+
+  // -----------------------------
+  /// TASK : searchMultiple NOT TESTED
+  static Future<List<Map<String, Object>>> searchMultiple({
+    @required String docName,
+    @required String searchField,
+    @required List<Object> searchObjects,
+    @required String fieldToSortBy,
+  }) async {
+
+    final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
+    final Database _db = await _getDB();
+
+    final Finder _finder = Finder(
+      filter: Filter.inList(searchField, searchObjects),
+      sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
+    );
+
+    final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
+    await _doc.find(
+      _db,
+      finder: _finder,
+    );
+
+    final List<Map<String, Object>> _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+      return snapshot.value;
+    }).toList();
+
+    return _maps;
+  }
+
 // -----------------------------------------------------------------------------
 
   /// DELETE

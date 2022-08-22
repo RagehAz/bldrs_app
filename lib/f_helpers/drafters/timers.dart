@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -308,7 +308,7 @@ class Timers {
     if (time != null && time.year != null && time.month != null){
       _output =
       '${xPhrase(context, 'phid_inn')} '
-          '${Wordz.bldrsShortName(context)} '
+          '${Words.bldrsShortName(context)} '
           '${xPhrase(context, 'phid_since')} : '
           '${generateMonthNameByInt(context, time.month)} '
           '${time.year}';

@@ -7,7 +7,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class AppSettingsScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ABOUT
           SettingsWideButton(
-            verse: '${xPhrase(context, 'phid_about')} ${Wordz.bldrsFullName(context)}',
+            verse: '${xPhrase(context, 'phid_about')} ${Words.bldrsFullName(context)}',
             onTap: () => onAboutBldrsTap(context),
             icon: Iconz.language,
           ),
