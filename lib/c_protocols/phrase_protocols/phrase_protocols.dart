@@ -16,97 +16,17 @@ class PhraseProtocols {
 
 // -----------------------------------------------------------------------------
 
-/// COMPOSE
+  /// COMPOSE
 
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> composeMixedLangPhrasesFromPhids({
-    @required BuildContext context,
-    @required List<String> phids,
-  }) async {
-
-    List<Phrase> _phrases = <Phrase>[];
-
-    if (Mapper.checkCanLoopList(phids) == true){
-
-      final List<Phrase> _found = await PhraseLDBOps.searchMainPhrasesByIDs(
-          phids: phids
-      );
-
-      _phrases = Phrase.insertPhrases(
-        insertIn: _phrases,
-        phrasesToInsert: _found,
-        forceUpdate: true,
-        allowDuplicateIDs: true,
-      );
-
-    }
-
-    return _phrases;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> composeCountriesMixedLangPhrases({
-    @required BuildContext context,
-    @required List<String> langCodes,
-  }) async {
-
-    /// NOTE : this generates all counties phrases
-    // NOTE : gets phrases from LDB or creates countries phrases then stores in LDB
-
-    /// 1 - GET THEM FROM LDB
-    List<Phrase> _allCountriesPhrases = await PhraseLDBOps.readCountriesPhrases();
-
-    /// 2 - WHEN LDB IS EMPTY
-    if (Mapper.checkCanLoopList(_allCountriesPhrases) == false) {
-
-      /// CREATE THEM FROM JSON
-      _allCountriesPhrases = await CountryModel.createMixedCountriesPhrases(
-        langCodes: langCodes,
-        countriesIDs: CountryModel.getAllCountriesIDs(),
-      );
-
-      /// THEN STORE THEM IN LDB
-      await PhraseLDBOps.insertCountriesPhrases(
-        countriesMixedLangsPhrases: _allCountriesPhrases,
-      );
-
-    }
-
-    return _allCountriesPhrases;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> generatePhrasesFromChain({
-    @required Chain chain,
-    @required BuildContext context,
-  }) async {
-
-    /// should include en - ar phrases for all IDs
-    List<Phrase> _phrases = <Phrase>[];
-
-    if (chain != null){
-
-      final List<String> _phids = Chain.getOnlyStringsSonsIDsFromChain(
-        chain: chain,
-      );
-
-      _phrases = await composeMixedLangPhrasesFromPhids(
-        context: context,
-        phids: _phids,
-      );
-
-    }
-
-    return _phrases;
-  }
+  /// => ALREADY COMPOSED AND NO NEED TO RE-COMPOSE
 // -----------------------------------------------------------------------------
 
 /// FETCH
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> fetchAllPhrasesByEnAndAr({
+  static Future<List<Phrase>> fetchMainMixedLangPhrases({
     @required BuildContext context,
   }) async {
 
@@ -159,13 +79,14 @@ class PhraseProtocols {
 
   }
 // -------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> fetchMainPhrasesByCurrentLang({
     @required BuildContext context,
   }) async {
     // blog('PhraseProtocols.fetchBasicPhrasesByCurrentLang : START');
 
-    final List<Phrase> _phrases = await fetchAllPhrasesByEnAndAr(
+    final List<Phrase> _phrases = await fetchMainMixedLangPhrases(
       context: context,
     );
 
@@ -183,10 +104,78 @@ class PhraseProtocols {
     // blog('PhraseProtocols.fetchBasicPhrasesByCurrentLang : END');
     return _cleaned;
   }
+   */
 // -----------------------------------------------------------------------------
 
 /// RENOVATE
 
+// -------------------------------------
+  static Future<void> renovateMainPhrases({
+    @required BuildContext context,
+    @required List<Phrase> updatedMixedMainPhrases,
+  }) async {
+
+    if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
+
+      final List<Phrase> _en = Phrase.getPhrasesByLangFromPhrases(
+          phrases: updatedMixedMainPhrases,
+          langCode: 'en',
+      );
+
+      final List<Phrase> _ar = Phrase.getPhrasesByLangFromPhrases(
+        phrases: updatedMixedMainPhrases,
+        langCode: 'ar',
+      );
+
+      /// REAL UPDATE
+      await Future.wait(<Future>[
+
+        PhraseRealOps.updatePhrasesForLang(
+            context: context,
+            langCode: 'en',
+            updatedPhrases: _en
+        ),
+
+        PhraseRealOps.updatePhrasesForLang(
+            context: context,
+            langCode: 'ar',
+            updatedPhrases: _ar
+        ),
+
+      ]);
+
+      /// LOCAL UPDATE
+      await updateMainPhrasesLocally(
+        context: context,
+        newMainPhrases: updatedMixedMainPhrases,
+      );
+
+    }
+
+  }
+// -------------------------------------
+  static Future<void> updateMainPhrasesLocally({
+    @required BuildContext context,
+    @required List<Phrase> newMainPhrases,
+  }) async {
+
+    if (Mapper.checkCanLoopList(newMainPhrases) == true){
+
+      /// UPDATE LDB
+      await PhraseLDBOps.updateMainPhrases(
+          updatedMixedLangsPhrases: newMainPhrases,
+      );
+
+      /// UPDATE PRO
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+      _phraseProvider.setMainPhrases(
+          setTo: newMainPhrases,
+          notify: true,
+      );
+
+    }
+
+  }
 // -------------------------------------
   static Future<void> reloadMainPhrases(BuildContext context) async {
 
@@ -207,5 +196,91 @@ class PhraseProtocols {
 
 // -------------------------------------
 
+// -----------------------------------------------------------------------------
+
+  /// GENERATE PHRASES
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> generateMixedLangPhrasesFromPhids({
+    @required BuildContext context,
+    @required List<String> phids,
+  }) async {
+
+    List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      final List<Phrase> _found = await PhraseLDBOps.searchMainPhrasesByIDs(
+          phids: phids
+      );
+
+      _phrases = Phrase.insertPhrases(
+        insertIn: _phrases,
+        phrasesToInsert: _found,
+        forceUpdate: true,
+        allowDuplicateIDs: true,
+      );
+
+    }
+
+    return _phrases;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> generateCountriesMixedLangPhrases({
+    @required BuildContext context,
+    @required List<String> langCodes,
+  }) async {
+
+    /// NOTE : this generates all counties phrases
+    // NOTE : gets phrases from LDB or creates countries phrases then stores in LDB
+
+    /// 1 - GET THEM FROM LDB
+    List<Phrase> _allCountriesPhrases = await PhraseLDBOps.readCountriesPhrases();
+
+    /// 2 - WHEN LDB IS EMPTY
+    if (Mapper.checkCanLoopList(_allCountriesPhrases) == false) {
+
+      /// CREATE THEM FROM JSON
+      _allCountriesPhrases = await CountryModel.createMixedCountriesPhrases(
+        langCodes: langCodes,
+        countriesIDs: CountryModel.getAllCountriesIDs(),
+      );
+
+      /// THEN STORE THEM IN LDB
+      await PhraseLDBOps.insertCountriesPhrases(
+        countriesMixedLangsPhrases: _allCountriesPhrases,
+      );
+
+    }
+
+    return _allCountriesPhrases;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Phrase>> generatePhrasesFromChain({
+    @required Chain chain,
+    @required BuildContext context,
+  }) async {
+
+    /// should include en - ar phrases for all IDs
+    List<Phrase> _phrases = <Phrase>[];
+
+    if (chain != null){
+
+      final List<String> _phids = Chain.getOnlyStringsSonsIDsFromChain(
+        chain: chain,
+      );
+
+      _phrases = await generateMixedLangPhrasesFromPhids(
+        context: context,
+        phids: _phids,
+      );
+
+    }
+
+    return _phrases;
+  }
 // -----------------------------------------------------------------------------
 }

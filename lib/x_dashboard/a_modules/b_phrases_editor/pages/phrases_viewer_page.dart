@@ -5,12 +5,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/translations_bubble.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/phrase_builder_bubble.dart';
 import 'package:flutter/material.dart';
 
-class TranslationsPage extends StatelessWidget {
+class PhrasesViewerPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TranslationsPage({
+  const PhrasesViewerPage({
     @required this.screenHeight,
     @required this.isSearching,
     @required this.mixedSearchedPhrases,
@@ -22,6 +22,7 @@ class TranslationsPage extends StatelessWidget {
     @required this.arController,
     @required this.idTextController,
     @required this.searchController,
+    @required this.tempMixedPhrases,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,10 +37,34 @@ class TranslationsPage extends StatelessWidget {
   final TextEditingController arController;
   final TextEditingController idTextController;
   final TextEditingController searchController;
+  final ValueNotifier<List<Phrase>> tempMixedPhrases;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+// -----------------------------
+    Future<void> _onEditPhraseTap(String phid) async {
 
+      await onTapEditPhrase(
+        context: context,
+        pageController: pageController,
+        enPhrases: enPhrases,
+        arPhrases: arPhrases,
+        phraseID: phid,
+        enTextController: enController,
+        arTextController: arController,
+        idTextController: idTextController,
+      );
+
+    }
+// -----------------------------
+    Future<void> _onDeletePhraseTap(String phid) async {
+       await onDeletePhrase(
+        context: context,
+        phraseID: phid,
+        tempMixedPhrases: tempMixedPhrases,
+      );
+    }
+// -----------------------------
     return ValueListenableBuilder(
       valueListenable: isSearching,
       builder: (_, bool isSearching, Widget child){
@@ -51,30 +76,31 @@ class TranslationsPage extends StatelessWidget {
             valueListenable: mixedSearchedPhrases,
             builder: (_, List<Phrase> mixedPhrases, Widget child){
 
+              /// NO RESULT FOUND
               if (mixedPhrases.isEmpty == true){
                 return PageBubble(
                     screenHeightWithoutSafeArea: screenHeight,
                     appBarType: AppBarType.search,
                     color: Colorz.black125,
-                    child: const Center(
-                      child: SuperVerse(
-                        verse: 'No result found',
-                        size: 3,
-                        italic: true,
-                      ),
+                    child: const SuperVerse(
+                      verse: 'No result found',
+                      size: 3,
+                      italic: true,
+                      margin: 40,
                     ),
                 );
               }
 
+              /// FOUND RESULTS
               else {
 
-                final List<Phrase> _allLanguagesPhrasesOfAllMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
+                final List<Phrase> _allMixedPhrases = Phrase.getAllLanguagesPhrasesOfMixedPhrases(
                   enPhrases : enPhrases,
                   arPhrases : arPhrases,
                   mixedPhrases : mixedPhrases,
                 );
 
-                final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allLanguagesPhrasesOfAllMixedPhrases);
+                final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_allMixedPhrases);
 
                 final List<Phrase> _enSearchedPhrases = Phrase.getPhrasesByLangFromPhrases(
                   phrases: _cleaned,
@@ -86,33 +112,15 @@ class TranslationsPage extends StatelessWidget {
                   langCode: 'ar',
                 );
 
-                return TranslationsBubble(
+                return PhrasesBuilderBubble(
                   screenHeight: screenHeight,
                   searchController: searchController,
                   enPhrases: _enSearchedPhrases,
                   arPhrases: _arSearchedPhrases,
                   scrollController: scrollController,
                   onCopyValue: (String value) => TextMod.controllerCopy(context, value),
-                  onDeletePhrase: (String phraseID) => onDeletePhrase(
-                    context: context,
-                    phraseID: phraseID,
-                    enPhrases: enPhrases,
-                    arPhrases: arPhrases,
-                  ),
-                  onEditPhrase: (String phraseID) async {
-
-                    await onEditPhrase(
-                      context: context,
-                      pageController: pageController,
-                      enPhrases: enPhrases,
-                      arPhrases: arPhrases,
-                      phraseID: phraseID,
-                      enTextController: enController,
-                      arTextController: arController,
-                      idTextController: idTextController,
-                    );
-
-                  },
+                  onDeletePhraseTap: _onDeletePhraseTap,
+                  onEditPhraseTap: _onEditPhraseTap,
                 );
 
               }
@@ -129,29 +137,15 @@ class TranslationsPage extends StatelessWidget {
         }
 
       },
-      child: TranslationsBubble(
+      child: PhrasesBuilderBubble(
         screenHeight: screenHeight,
         searchController: searchController,
         scrollController: scrollController,
         arPhrases: arPhrases,
         enPhrases: enPhrases,
         onCopyValue: (String value) => TextMod.controllerCopy(context, value),
-        onEditPhrase: (String phraseID) => onEditPhrase(
-          context: context,
-          pageController: pageController,
-          enPhrases: enPhrases,
-          arPhrases: arPhrases,
-          phraseID: phraseID,
-          enTextController: enController,
-          arTextController: arController,
-          idTextController: idTextController,
-        ),
-        onDeletePhrase: (String phraseID) => onDeletePhrase(
-          context: context,
-          phraseID: phraseID,
-          enPhrases: enPhrases,
-          arPhrases: arPhrases,
-        ),
+        onEditPhraseTap: _onEditPhraseTap,
+        onDeletePhraseTap: _onDeletePhraseTap,
       ),
     );
 

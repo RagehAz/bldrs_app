@@ -1,13 +1,12 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart' as PhraseOps;
 import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 
@@ -128,9 +127,101 @@ void _onSearchPhrases({
 }
 // ---------------------------------------------------------------------------
 
-/// FIRE OPS
+/// MODIFIERS
 
 // -----------------------------
+/// EDIT - ADD
+// --------------
+Future<void> onTapEditPhrase({
+  @required BuildContext context,
+  @required String phraseID,
+  @required List<Phrase> arPhrases,
+  @required List<Phrase> enPhrases,
+  @required PageController pageController,
+  @required TextEditingController enTextController,
+  @required TextEditingController arTextController,
+  @required TextEditingController idTextController,
+}) async {
+
+  /// CLOSE BOTTOM DIALOG
+  Nav.goBack(
+    context: context,
+    invoker: 'onTapEditPhrase',
+  );
+
+  final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+    phrases: enPhrases,
+    id: phraseID,
+  );
+
+  final Phrase _arPhrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+    phrases: arPhrases,
+    id: phraseID,
+  );
+
+  enTextController.text = _enPhrase.value;
+  arTextController.text = _arPhrase.value;
+  idTextController.text = _enPhrase.id;
+
+  await Sliders.slideToNext(
+    pageController: pageController,
+    numberOfSlides: 2,
+    currentSlide: 0,
+  );
+
+}
+// --------------
+Future<void> onConfirmEditPhrase({
+  @required BuildContext context,
+  @required ValueNotifier<List<Phrase>> tempMixedPhrases,
+  @required Phrase updatedEnPhrase,
+  @required Phrase updatedArPhrase,
+}) async {
+
+  final bool _canContinue = await _preUploadCheck(
+    context: context,
+    arOldPhrases: Phrase.getPhrasesByLangFromPhrases(phrases: tempMixedPhrases.value, langCode: 'ar'),
+    enOldPhrases: Phrase.getPhrasesByLangFromPhrases(phrases: tempMixedPhrases.value, langCode: 'en'),
+    arValue: updatedArPhrase.value,
+    enValue: updatedEnPhrase.value,
+    phraseID: updatedEnPhrase.id,
+  );
+
+  if (_canContinue == true){
+
+    List<Phrase> _output = tempMixedPhrases.value;
+
+    /// REMOVE OLD PHRASES IF EXISTED
+    final bool _idExists = Phrase.phrasesIncludeThisID(
+        phrases: tempMixedPhrases.value,
+        id: updatedArPhrase.id,
+    );
+    if (_idExists == true){
+      _output = Phrase.deletePhidFromPhrases(
+          phrases: _output,
+          phid: updatedArPhrase.id,
+      );
+    }
+
+    /// ADD UPDATED PHRASES
+    _output = Phrase.insertPhrases(
+      insertIn: tempMixedPhrases.value,
+      phrasesToInsert: <Phrase>[updatedEnPhrase, updatedArPhrase],
+      allowDuplicateIDs: true,
+      forceUpdate: false,
+    );
+
+    tempMixedPhrases.value = _output;
+
+    await TopDialog.showSuccessDialog(
+      context: context,
+      firstLine: 'Phrases Updated',
+    );
+
+  }
+
+}
+// --------------
 Future<bool> _preUploadCheck({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
@@ -141,94 +232,224 @@ Future<bool> _preUploadCheck({
 }) async {
 
   bool _continueOps = true;
-  String _alertMessage;
-  bool _idIsTakenEn;
-  bool _idIsTakenAr;
-  bool _valueHasDuplicateEn;
-  bool _valueHasDuplicateAr;
-  Phrase _phrase;
 
-  /// EN ID TAKEN
-  _idIsTakenEn = Phrase.phrasesIncludeThisID(
-    phrases: enOldPhrases,
-    id: phraseID,
-  );
-  if (_idIsTakenEn == true){
-    _phrase = Phrase.getPhraseFromPhrasesByID(
+  /// INPUTS ARE INVALID
+  if (
+      Stringer.checkStringIsEmpty(phraseID) == true ||
+      Stringer.checkStringIsEmpty(enValue) == true ||
+      Stringer.checkStringIsEmpty(arValue) == true
+  ){
+    await CenterDialog.showCenterDialog(
+      context: context,
+      title: 'Check inputs',
+      body: 'The ID or one of the values is empty.',
+      color: Colorz.red255,
+    );
+
+    _continueOps = false;
+  }
+
+  /// INPUTS ARE VALID
+  else {
+
+    String _alertMessage;
+    bool _idIsTaken;
+    bool _idIsTakenAr;
+    bool _valueHasDuplicateEn;
+    bool _valueHasDuplicateAr;
+    Phrase _phrase;
+
+    /// EN ID TAKEN
+    _idIsTaken = Phrase.phrasesIncludeThisID(
       phrases: enOldPhrases,
       id: phraseID,
     );
-    _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
-  }
+    if (_idIsTaken == true){
+      _phrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+        phrases: enOldPhrases,
+        id: phraseID,
 
-  /// AR ID TAKEN
-  _idIsTakenAr = Phrase.phrasesIncludeThisID(
-    phrases: arOldPhrases,
-    id: phraseID,
-  );
-  if (_idIsTakenAr == true){
-    _phrase = Phrase.getPhraseFromPhrasesByID(
+      );
+      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+    }
+
+    /// AR ID TAKEN
+    _idIsTakenAr = Phrase.phrasesIncludeThisID(
       phrases: arOldPhrases,
       id: phraseID,
     );
-    _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
-  }
+    if (_idIsTakenAr == true){
+      _phrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+        phrases: arOldPhrases,
+        id: phraseID,
+      );
+      _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
+    }
 
-  if (_idIsTakenAr == false && _idIsTakenEn == false){
+    if (_idIsTakenAr == false && _idIsTaken == false){
 
-    /// EN VALUE DUPLICATE
-    _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
-      phrases: enOldPhrases,
-      value: enValue,
-    );
-    if (_valueHasDuplicateEn == true){
-      _phrase = Phrase.getPhraseFromPhrasesByValue(
+      /// EN VALUE DUPLICATE
+      _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
         phrases: enOldPhrases,
         value: enValue,
       );
-      _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
-    }
+      if (_valueHasDuplicateEn == true){
+        _phrase = Phrase.getPhraseFromPhrasesByValue(
+          phrases: enOldPhrases,
+          value: enValue,
+        );
+        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+      }
 
-    /// EN VALUE DUPLICATE
-    _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
-      phrases: arOldPhrases,
-      value: arValue,
-    );
-    if (_valueHasDuplicateAr == true){
-      _phrase = Phrase.getPhraseFromPhrasesByValue(
+      /// EN VALUE DUPLICATE
+      _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
         phrases: arOldPhrases,
         value: arValue,
       );
-      _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+      if (_valueHasDuplicateAr == true){
+        _phrase = Phrase.getPhraseFromPhrasesByValue(
+          phrases: arOldPhrases,
+          value: arValue,
+        );
+        _alertMessage = 'VALUE is Taken : ${_phrase.value}\nid : ${_phrase.id} : langCode : ${_phrase.langCode}';
+      }
+
     }
 
-  }
+    // so ..
 
-  // so ..
+    if (_alertMessage != null){
 
-  if (_alertMessage != null){
+      final String _actionTypeMessage =
+      _idIsTaken == true || _idIsTakenAr == true ? 'This will override this Phrase'
+          :
+      _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
+          :
+      'This Will Upload';
 
-    final String _actionTypeMessage =
-    _idIsTakenEn == true || _idIsTakenAr == true ? 'This will override this Phrase'
-        :
-    _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
-        :
-    'This Will Upload';
+      _continueOps = await CenterDialog.showCenterDialog(
+        context: context,
+        title: '7aseb !',
+        boolDialog: true,
+        body: '$_alertMessage\n'
+            '$_actionTypeMessage\n'
+            'Wanna continue uploading ?',
+      );
 
-    _continueOps = await CenterDialog.showCenterDialog(
-      context: context,
-      title: '7aseb !',
-      boolDialog: true,
-      body: '$_alertMessage\n'
-          '$_actionTypeMessage\n'
-          'Wanna continue uploading ?',
-    );
+    }
 
   }
 
   return _continueOps;
 }
 // -----------------------------
+/// DELETE
+// --------------
+Future<void> onDeletePhrase({
+  @required BuildContext context,
+  @required String phraseID,
+  @required ValueNotifier<List<Phrase>> tempMixedPhrases,
+}) async {
+
+  final bool _continue = await CenterDialog.showCenterDialog(
+    context: context,
+    title: 'Bgad ?',
+    boolDialog: true,
+    body: 'Delete This Phrase ?'
+        '\n\nPhid : $phraseID',
+  );
+
+  if (_continue == true){
+
+    /// CLOSE BOTTOM DIALOG
+    Nav.goBack(
+      context: context,
+      invoker: 'onDeletePhrase',
+    );
+
+    final List<Phrase> _result = Phrase.deletePhidFromPhrases(
+        phrases: tempMixedPhrases.value,
+        phid: phraseID
+    );
+
+    tempMixedPhrases.value = _result;
+
+    await TopDialog.showSuccessDialog(
+      context: context,
+      firstLine: 'Phrase has been deleted',
+    );
+
+
+    /// old shit , delete this
+    // final List<Phrase> _enPhrases = Phrase.deletePhidFromPhrases(
+    //   phrases: enPhrases,
+    //   phid: phraseID,
+    // );
+    //
+    // final List<Phrase> _arPhrases = Phrase.deletePhidFromPhrases(
+    //   phrases: arPhrases,
+    //   phid: phraseID,
+    // );
+    //
+    // final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreIdentical(
+    //   phrases1: _enPhrases,
+    //   phrases2: enPhrases,
+    // );
+    //
+    // final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreIdentical(
+    //   phrases1: _enPhrases,
+    //   phrases2: arPhrases,
+    // );
+    //
+    // if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
+    //
+    //   await PhraseOps.updatePhrases(
+    //     context: context,
+    //     enPhrases: _enPhrases,
+    //     arPhrases: _arPhrases,
+    //   );
+    //
+    // }
+    //
+    // else {
+    //
+    //   await CenterDialog.showCenterDialog(
+    //     context: context,
+    //     title: 'EH DAH !!',
+    //     body: 'CAN NOT DELETE THIS\n id : $phraseID',
+    //   );
+    //
+    // }
+
+  }
+
+}
+// ---------------------------------------------------------------------------
+
+/// SYNC
+
+// ---------------------------------------------------------------------------
+Future<void> onSyncPhrases({
+  @required BuildContext context,
+  @required ValueNotifier<List<Phrase>> tempMixedPhrases,
+  @required ValueNotifier<List<Phrase>> initialMixedPhrases,
+}) async {
+
+  await PhraseProtocols.renovateMainPhrases(
+    context: context,
+    updatedMixedMainPhrases: tempMixedPhrases.value,
+  );
+
+  initialMixedPhrases.value = tempMixedPhrases.value;
+
+  await TopDialog.showSuccessDialog(
+    context: context,
+    firstLine: 'Sync Successful',
+  );
+
+}
+// -----------------------------
+/*
 Future<void> onUploadPhrases({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
@@ -236,23 +457,23 @@ Future<void> onUploadPhrases({
   @required BuildContext context,
 }) async {
 
-  int _count = 0;
+  // int _count = 0;
 
-  final int _numberOfEnPhrases = enOldPhrases.length;
-  final int _numberOfArPhrases = arOldPhrases.length;
-  final int _numberOfInputMixedPhrases = inputMixedLangPhrases.length;
+  // final int _numberOfEnPhrases = enOldPhrases.length;
+  // final int _numberOfArPhrases = arOldPhrases.length;
+  // final int _numberOfInputMixedPhrases = inputMixedLangPhrases.length;
 
-  blog('onUploadPhrases : '
-      'numberOfEnPhrases : $_numberOfEnPhrases : '
-      'numberOfArPhrases : $_numberOfArPhrases : '
-      'numberOfInputMixedPhrases : $_numberOfInputMixedPhrases'
-  );
-  blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
+  // blog('onUploadPhrases : '
+  //     'numberOfEnPhrases : $_numberOfEnPhrases : '
+  //     'numberOfArPhrases : $_numberOfArPhrases : '
+  //     'numberOfInputMixedPhrases : $_numberOfInputMixedPhrases'
+  // );
+  // blog('expected outcome = ${_numberOfArPhrases + (_numberOfInputMixedPhrases/2)}');
 
   final List<String> _mixedPhrasesIDs = Phrase.getPhrasesIDs(inputMixedLangPhrases);
   final List<String> _newPhrasesIDs = Stringer.cleanDuplicateStrings(strings: _mixedPhrasesIDs);
 
-  blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
+  // blog('_mixedPhrasesIDs.length : ${_mixedPhrasesIDs.length} : _newPhrasesIDs.length : ${_newPhrasesIDs.length}');
 
   for (final String _phid in _newPhrasesIDs){
 
@@ -277,13 +498,15 @@ Future<void> onUploadPhrases({
         arValue: _arPhrase.value,
     );
 
-    _count++;
-    blog('uploaded : $_phid and remaining ${_numberOfEnPhrases - _count}');
+    // _count++;
+    // blog('uploaded : $_phid and remaining ${_numberOfEnPhrases - _count}');
 
   }
 
 }
+ */
 // -----------------------------
+/*
 Future<void> onUploadPhrase({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
@@ -366,149 +589,6 @@ Future<void> onUploadPhrase({
 
   }
 
-}
-// -----------------------------
-Future<void> onDeletePhrase({
-  @required String phraseID,
-  @required List<Phrase> arPhrases,
-  @required List<Phrase> enPhrases,
-  @required BuildContext context,
-}) async {
-
-  final bool _continue = await CenterDialog.showCenterDialog(
-    context: context,
-    title: 'Bgad ?',
-    body: 'Delete This Phras ?\nID : $phraseID',
-    boolDialog: true,
-  );
-
-  if (_continue == true){
-
-    final List<Phrase> _enPhrases = Phrase.deletePhraseFromPhrases(
-      phrases: enPhrases,
-      phraseID: phraseID,
-    );
-
-    final List<Phrase> _arPhrases = Phrase.deletePhraseFromPhrases(
-      phrases: arPhrases,
-      phraseID: phraseID,
-    );
-
-    final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreIdentical(
-      phrases1: _enPhrases,
-      phrases2: enPhrases,
-    );
-
-    final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreIdentical(
-      phrases1: _enPhrases,
-      phrases2: arPhrases,
-    );
-
-    if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
-
-      await PhraseOps.updatePhrases(
-        context: context,
-        enPhrases: _enPhrases,
-        arPhrases: _arPhrases,
-      );
-
-    }
-
-    else {
-
-      await CenterDialog.showCenterDialog(
-        context: context,
-        title: 'EH DAH !!',
-        body: 'CAN NOT DELETE THIS\n id : $phraseID',
-      );
-
-    }
-
-  }
-
-}
-// -----------------------------
-Future<void> onEditPhrase({
-  @required BuildContext context,
-  @required String phraseID,
-  @required List<Phrase> arPhrases,
-  @required List<Phrase> enPhrases,
-  @required PageController pageController,
-  @required TextEditingController enTextController,
-  @required TextEditingController arTextController,
-  @required TextEditingController idTextController,
-}) async {
-
-  Nav.goBack(
-    context: context,
-    invoker: 'onEditPhrase',
-  );
-
-  final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByID(
-    phrases: enPhrases,
-    id: phraseID,
-  );
-
-  final Phrase _arPhrase = Phrase.getPhraseFromPhrasesByID(
-    phrases: arPhrases,
-    id: phraseID,
-  );
-
-  enTextController.text = _enPhrase.value;
-  arTextController.text = _arPhrase.value;
-  idTextController.text = _enPhrase.id;
-
-  await Sliders.slideToNext(
-      pageController: pageController,
-      numberOfSlides: 2,
-      currentSlide: 0,
-  );
-
-}
-// ---------------------------------------------------------------------------
-/// DANGEROUS
-/*
-Future<void> _createNewTransModel({
-  @required BuildContext context,
-  @required String enDocName,
-  @required String arDocName,
-}) async {
-
-  // if (enDocName != 'en' && arDocName != 'ar'){
-
-  const TransModel _enModel = TransModel(
-    langCode: 'en',
-    phrases: [
-      Phrase(id: 'phid_inTheNameOfAllah', value: 'In the name of Allah'),
-    ],
-  );
-
-  const TransModel _arModel = TransModel(
-    langCode: 'ar',
-    phrases: [
-      Phrase(id: 'phid_inTheNameOfAllah', value: 'بسم اللّه الرحمن الرحيم'),
-    ],
-  );
-
-  await createNamedDoc(
-    context: context,
-    collName: FireColl.translations,
-    docName: enDocName,
-    input: _enModel.toMap(),
-  );
-
-  await createNamedDoc(
-    context: context,
-    collName: FireColl.translations,
-    docName: arDocName,
-    input: _arModel.toMap(),
-  );
-
-  // }
-
-  // else {
-  //   blog('BITCH YOU CAN NOT DO THIS SHIT OR YOU RUINE EVERYTHING');
-  // }
 }
  */
 // ---------------------------------------------------------------------------

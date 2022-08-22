@@ -6,19 +6,19 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.da
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/translation_strip.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/phrase_strip.dart';
 import 'package:flutter/material.dart';
 
-class TranslationsBubble extends StatelessWidget {
+class PhrasesBuilderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TranslationsBubble({
+  const PhrasesBuilderBubble({
     @required this.screenHeight,
     @required this.enPhrases,
     @required this.arPhrases,
     @required this.scrollController,
     @required this.onCopyValue,
-    @required this.onDeletePhrase,
-    @required this.onEditPhrase,
+    @required this.onDeletePhraseTap,
+    @required this.onEditPhraseTap,
     @required this.searchController,
     Key key
   }) : super(key: key);
@@ -29,8 +29,8 @@ class TranslationsBubble extends StatelessWidget {
   final ScrollController scrollController;
   final Function onCopyValue;
   /// passes phrase id
-  final ValueChanged<String> onDeletePhrase;
-  final ValueChanged<String> onEditPhrase;
+  final ValueChanged<String> onDeletePhraseTap;
+  final ValueChanged<String> onEditPhraseTap;
   final TextEditingController searchController;
   /// --------------------------------------------------------------------------
   @override
@@ -62,14 +62,14 @@ class TranslationsBubble extends StatelessWidget {
               final Phrase _enPhrase = _canBuild  ? enPhrases[index]  : null;
               final Phrase _arPhrase = _canBuild  ? arPhrases[index] : null;
 
-              return TranslationStrip(
+              return PhraseStrip(
                 width: BldrsAppBar.width(context) - 20,
                 searchController: searchController,
                 enPhrase: _enPhrase,
                 arPhrase: _arPhrase,
                 onCopyValue: onCopyValue,
-                onDelete: () => onDeletePhrase(_enPhrase.id),
-                onEdit: () => onEditPhrase(_enPhrase.id),
+                onDelete: () => onDeletePhraseTap(_enPhrase.id),
+                onEdit: () => onEditPhraseTap(_enPhrase.id),
               );
 
 
