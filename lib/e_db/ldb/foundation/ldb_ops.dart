@@ -206,6 +206,24 @@ class LDBOps {
 
     return _result;
   }
+// ----------------------------------------
+
+  static Future<List<Map<String, Object>>> searchMultipleValues({
+    @required String docName,
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required List<Object> searchObjects,
+  }) async {
+
+    final List<Map<String, Object>> _result = await Sembast.searchMultiple(
+      docName: docName,
+      searchField: searchField,
+      searchObjects: searchObjects,
+      fieldToSortBy: fieldToSortBy,
+    );
+
+    return _result;
+  }
 // -----------------------------------------------------------------------------
 
   /// DELETE

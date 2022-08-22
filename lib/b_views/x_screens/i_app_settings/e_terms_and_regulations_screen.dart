@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class TermsAndRegulationsScreen extends StatelessWidget {
@@ -348,7 +348,7 @@ List<Widget> generateTerms({
     MVerse('تم إنشاء شروط الخدمة هذه لـ bldrs.net بواسطة PolicyMaker.io في 2022-08-01.'),
   ];
 
-  final String _lang = activeLanguage(context);
+  final String _lang = Words.activeLanguage(context);
   
   return _lang == 'Arabic' ? _arabicTerms : _englishTerms;
 }

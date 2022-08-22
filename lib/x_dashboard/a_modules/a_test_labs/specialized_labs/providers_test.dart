@@ -398,9 +398,9 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             /// BASIC PHRASES
             ProviderTestButton(
               title: 'phraseProvider.basicPhrases',
-              value: _phraseProvider.basicPhrases,
+              value: _phraseProvider.mainPhrases,
               onTap: (){
-                Phrase.blogPhrases(_phraseProvider.basicPhrases);
+                Phrase.blogPhrases(_phraseProvider.mainPhrases);
               },
             ),
 

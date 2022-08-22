@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class PropertySearchCriteria extends StatelessWidget {
@@ -45,7 +45,7 @@ class PropertySearchCriteria extends StatelessWidget {
     const double _boxHeight = 100;
     const bool _bubble = true;
 
-    final Alignment defaultAlignment = Wordz.textDirection(context) == 'ltr'
+    final Alignment defaultAlignment = Words.textDirection(context) == 'ltr'
         ? Alignment.centerLeft
         : Alignment.centerRight;
 

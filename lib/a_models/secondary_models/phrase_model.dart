@@ -3,7 +3,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -445,7 +445,7 @@ class Phrase {
 
     /// NOTE : Searches list of phrases of different lang codes by current the lang code
 
-    final String _currentLanguageCode = Wordz.languageCode(context);
+    final String _currentLanguageCode = Words.languageCode(context);
     Phrase _phrase;
 
     if (Mapper.checkCanLoopList(phrases)){

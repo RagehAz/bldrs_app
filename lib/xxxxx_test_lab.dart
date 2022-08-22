@@ -246,7 +246,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _currentZone.blogZone();
     final bool _isLoading = _uiProvider.isLoading;
     blogLoading(loading: _isLoading, callerName: 'TestScreen');
-    final List<Phrase> _phrases = _phraseProvider.basicPhrases;
+    final List<Phrase> _phrases = _phraseProvider.mainPhrases;
     Phrase.blogPhrases(_phrases);
     final BzModel _myActiveBz = _bzzProvider.myActiveBz;
     _myActiveBz.blogBz();

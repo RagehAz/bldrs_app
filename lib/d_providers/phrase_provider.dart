@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -42,7 +42,7 @@ class PhraseProvider extends ChangeNotifier {
         )
     );
 
-    await fetchSetCurrentLangAndPhrases(
+    await fetchSetCurrentLangAndAllPhrases(
       context: context,
       setLangCode: langCode,
     );
@@ -64,7 +64,7 @@ class PhraseProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
-  Future<void> fetchSetCurrentLangAndPhrases({
+  Future<void> fetchSetCurrentLangAndAllPhrases({
     @required BuildContext context,
     String setLangCode,
   }) async {
@@ -75,11 +75,12 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    await PhraseProtocolsOLD.composeActiveCountriesMixedLangPhrases(
+    await PhraseProtocols.composeCountriesMixedLangPhrases(
       context: context,
+      langCodes: ['en', 'ar'],
     );
 
-    await fetchSetBasicPhrases(
+    await fetchSetMainPhrases(
         context: context,
         notify: true
     );
@@ -108,7 +109,7 @@ class PhraseProvider extends ChangeNotifier {
   }) async {
 
     /// A. DETECT DEVICE LANGUAGE
-    final String _langCode = setLangCode ?? Wordz.languageCode(context);
+    final String _langCode = setLangCode ?? Words.languageCode(context);
 
     /// C. SET CURRENT LANGUAGE
     _setCurrentLanguage(
@@ -136,32 +137,32 @@ class PhraseProvider extends ChangeNotifier {
 
 // -------------------------------------
   /// does not include trigrams : used for superPhrase translating method only not for search engines
-  List<Phrase> _basicPhrases = <Phrase>[];
-  List<Phrase> get basicPhrases  => _basicPhrases;
+  List<Phrase> _mainPhrases = <Phrase>[];
+  List<Phrase> get mainPhrases  => _mainPhrases;
 // -------------------------------------
-  Future<void> fetchSetBasicPhrases({
+  Future<void> fetchSetMainPhrases({
     @required BuildContext context,
     @required bool notify,
 }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
-    final List<Phrase> _phrases = await PhraseProtocolsOLD.fetchBasicPhrasesByCurrentLang(
+    final List<Phrase> _phrases = await PhraseProtocols.fetchBasicPhrasesByCurrentLang(
         context: context,
     );
 
-    _setBasicPhrases(
+    _setMainPhrases(
       setTo: _phrases,
       notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setBasicPhrases({
+  void _setMainPhrases({
     @required List<Phrase> setTo,
     @required bool notify,
   }){
 
-    _basicPhrases = setTo;
+    _mainPhrases = setTo;
 
     if (notify == true){
       notifyListeners();
@@ -174,12 +175,12 @@ class PhraseProvider extends ChangeNotifier {
     String _translation = id;
 
     if (
-    _basicPhrases != null
+    _mainPhrases != null
         &&
-    Mapper.checkCanLoopList(_basicPhrases) == true
+    Mapper.checkCanLoopList(_mainPhrases) == true
     ){
 
-      final Phrase _phrase = _basicPhrases.singleWhere(
+      final Phrase _phrase = _mainPhrases.singleWhere(
               (phrase) => phrase.id == id,
           orElse: ()=> null
       );
@@ -210,7 +211,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
     /// _basicPhrases
-    _phraseProvider._setBasicPhrases(
+    _phraseProvider._setMainPhrases(
         setTo: <Phrase>[],
         notify: notify
     );
