@@ -75,7 +75,7 @@ class PhraseProvider extends ChangeNotifier {
       setLangCode: setLangCode,
     );
 
-    await PhraseProtocols.composeCountriesMixedLangPhrases(
+    await PhraseProtocols.generateCountriesMixedLangPhrases(
       context: context,
       langCodes: ['en', 'ar'],
     );
@@ -146,26 +146,43 @@ class PhraseProvider extends ChangeNotifier {
 }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
-    final List<Phrase> _phrases = await PhraseProtocols.fetchMainPhrasesByCurrentLang(
+    final List<Phrase> _phrases = await PhraseProtocols.fetchMainMixedLangPhrases(
         context: context,
     );
 
-    _setMainPhrases(
+    setMainPhrases(
       setTo: _phrases,
       notify: notify,
     );
 
   }
 // -------------------------------------
-  void _setMainPhrases({
+  void setMainPhrases({
     @required List<Phrase> setTo,
     @required bool notify,
   }){
 
-    _mainPhrases = setTo;
+    /// NOTE : FILTERS GIVEN PHRASES AS PER CURRENT LANG + REMOVE TRIGRAMS
 
-    if (notify == true){
-      notifyListeners();
+    if (Mapper.checkCanLoopList(setTo) == true){
+
+      /// FILTER BY LANG
+      final List<Phrase> _phrasesByLang = Phrase.getPhrasesByLangFromPhrases(
+        phrases: setTo,
+        langCode: _currentLangCode,
+      );
+
+      /// REMOVE TRIGRAMS
+      final List<Phrase> _cleaned = Phrase.removeTrigramsFromPhrases(_phrasesByLang);
+
+      /// SET
+      _mainPhrases = _cleaned;
+
+      /// NOTIFY
+      if (notify == true){
+        notifyListeners();
+      }
+
     }
 
   }
@@ -211,7 +228,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
     /// _basicPhrases
-    _phraseProvider._setMainPhrases(
+    _phraseProvider.setMainPhrases(
         setTo: <Phrase>[],
         notify: notify
     );

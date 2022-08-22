@@ -1,23 +1,18 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/trans_model_streamer.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
 import 'package:flutter/material.dart';
 
 class OLDTranslationsManager extends StatefulWidget {
@@ -93,23 +88,23 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
     @required List<Phrase> arPhrases,
   }) async {
 
-    if (Stringer.checkStringIsNotEmpty(_idController.text) == true){
-      await onUploadPhrase(
-        context: context,
-        enOldPhrases: enPhrases,
-        arOldPhrases: arPhrases,
-        enValue: _englishController.text,
-        arValue: _arabicController.text,
-        phraseID: _idController.text,
-      );
-    }
-
-    else {
-      await TopDialog.showTopDialog(
-        context: context,
-        firstLine: 'ID is Empty',
-      );
-    }
+    // if (Stringer.checkStringIsNotEmpty(_idController.text) == true){
+    //   await onUploadPhrase(
+    //     context: context,
+    //     enOldPhrases: enPhrases,
+    //     arOldPhrases: arPhrases,
+    //     enValue: _englishController.text,
+    //     arValue: _arabicController.text,
+    //     phraseID: _idController.text,
+    //   );
+    // }
+    //
+    // else {
+    //   await TopDialog.showTopDialog(
+    //     context: context,
+    //     firstLine: 'ID is Empty',
+    //   );
+    // }
 
   }
   // -----------------------------
@@ -253,7 +248,7 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     const double _buttonsHeight = 40;
 
     return PhrasesStreamer(
@@ -368,35 +363,36 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
 
                   ],
 
-                  layoutWidget: PageView(
-                    controller: _pageController,
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
-
-                      /// TRANSLATIONS LIST PAGE
-                      TranslationsPage(
-                        screenHeight: _screenHeight,
-                        searchController: _searchController,
-                        pageController: _pageController,
-                        scrollController: _docScrollController,
-                        arController: _arabicController,
-                        enController: _englishController,
-                        arPhrases: _arPhrases,
-                        enPhrases: _enPhrases,
-                        idTextController: _idController,
-                        isSearching: _isSearching,
-                        mixedSearchedPhrases: _mixedSearchedPhrases,
-                      ),
-
-                      /// CREATOR
-                      TranslationsCreatorPage(
-                        idController: _idController,
-                        enController: _englishController,
-                        arController: _arabicController,
-                      ),
-
-                    ],
-                  ),
+                  // layoutWidget: PageView(
+                  //   controller: _pageController,
+                  //   physics: const BouncingScrollPhysics(),
+                  //   children: <Widget>[
+                  //
+                  //     // /// TRANSLATIONS LIST PAGE
+                  //     // PhrasesViewerPage(
+                  //     //   screenHeight: _screenHeight,
+                  //     //   searchController: _searchController,
+                  //     //   pageController: _pageController,
+                  //     //   scrollController: _docScrollController,
+                  //     //   arController: _arabicController,
+                  //     //   enController: _englishController,
+                  //     //   arPhrases: _arPhrases,
+                  //     //   enPhrases: _enPhrases,
+                  //     //   idTextController: _idController,
+                  //     //   isSearching: _isSearching,
+                  //     //   mixedSearchedPhrases: _mixedSearchedPhrases,
+                  //     // ),
+                  //
+                  //     // /// CREATOR
+                  //     // PhraseCreatorPage(
+                  //     //   tempMixedPhrases: ,
+                  //     //   idController: _idController,
+                  //     //   enController: _englishController,
+                  //     //   arController: _arabicController,
+                  //     // ),
+                  //
+                  //   ],
+                  // ),
 
                 );
               }
