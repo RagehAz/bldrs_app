@@ -210,7 +210,7 @@ Future<bool> _preFlyerDeleteCheckups({
   /// CONFIRM DELETION IS CREATOR
   else {
 
-    _canContinue = await flyerDialog(
+    _canContinue = await Dialogz.flyerDialog(
       context: context,
       title: 'Delete Flyer',
       body: 'This will delete this flyer and all its content and can not be retrieved any more',
