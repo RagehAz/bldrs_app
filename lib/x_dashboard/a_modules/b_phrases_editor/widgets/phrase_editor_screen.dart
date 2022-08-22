@@ -68,6 +68,8 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         _initialMixedPhrases.value = _mixedPhrases;
         _tempMixedPhrases.value = _mixedPhrases;
 
+        Phrase.blogPhrases(_tempMixedPhrases.value);
+
         await _triggerLoading(setTo: false);
       });
 
@@ -155,6 +157,10 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                       context: context,
                       tempMixedPhrases: _tempMixedPhrases,
                       initialMixedPhrases :_initialMixedPhrases,
+                      idTextController: _idController,
+                      enTextController: _englishController,
+                      arTextController: _arabicController,
+                      pageController: _pageController,
                     ),
                   );
 
@@ -172,17 +178,6 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
           valueListenable: _tempMixedPhrases,
           builder: (_, List<Phrase> mixedTempPhrases, Widget child){
 
-            final List<Phrase> _enPhrases = Phrase.getPhrasesByLangFromPhrases(
-              phrases: mixedTempPhrases,
-              langCode: 'en',
-            );
-
-            final List<Phrase> _arPhrases = Phrase.getPhrasesByLangFromPhrases(
-              phrases: mixedTempPhrases,
-              langCode: 'ar',
-            );
-
-
             return PageView(
               controller: _pageController,
               physics: const BouncingScrollPhysics(),
@@ -195,8 +190,6 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   scrollController: _scrollController,
                   enController: _englishController,
                   arController: _arabicController,
-                  enPhrases: Phrase.sortPhrasesByID(phrases: _enPhrases,),
-                  arPhrases: Phrase.sortPhrasesByID(phrases: _arPhrases,),
                   idTextController: _idController,
                   isSearching: _isSearching,
                   mixedSearchedPhrases: _mixedSearchedPhrases,
@@ -210,6 +203,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   enController: _englishController,
                   arController: _arabicController,
                   tempMixedPhrases: _tempMixedPhrases,
+                  pageController: _pageController,
                 ),
 
               ],

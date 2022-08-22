@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -80,11 +82,18 @@ void _onSearchPhrases({
     // blog('onSearchPhrases : _enResults = $_enResults');
 
     // final List<Phrase> _result
-    _foundPhrases = Phrase.searchPhrases(
+    _foundPhrases = Phrase.searchPhrasesRegExp(
       phrases: allMixedPhrases,
       text: searchController.text,
-      byValue: true,
+      lookIntoValues: true,
       // byID: true,
+    );
+
+    final List<String> _phids = Phrase.getPhrasesIDs(_foundPhrases);
+
+    _foundPhrases = Phrase.searchPhrasesByIDs(
+      phrases: allMixedPhrases,
+      phids: _phids,
     );
 
     // blog('onSearchPhrases : _arResults = $_arResults');
@@ -132,15 +141,17 @@ void _onSearchPhrases({
 // -----------------------------
 /// EDIT - ADD
 // --------------
+/// TESTED : WORKS PERFECT
 Future<void> onTapEditPhrase({
   @required BuildContext context,
   @required String phraseID,
-  @required List<Phrase> arPhrases,
-  @required List<Phrase> enPhrases,
+  // @required List<Phrase> arPhrases,
+  // @required List<Phrase> enPhrases,
   @required PageController pageController,
   @required TextEditingController enTextController,
   @required TextEditingController arTextController,
   @required TextEditingController idTextController,
+  @required ValueNotifier<List<Phrase>> tempMixedPhrases,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -149,14 +160,16 @@ Future<void> onTapEditPhrase({
     invoker: 'onTapEditPhrase',
   );
 
-  final Phrase _enPhrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
-    phrases: enPhrases,
-    id: phraseID,
+  final Phrase _enPhrase = Phrase.searchPhraseByIDAndLangCode(
+    phrases: tempMixedPhrases.value,
+    phid: phraseID,
+    langCode: 'en',
   );
 
-  final Phrase _arPhrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
-    phrases: arPhrases,
-    id: phraseID,
+  final Phrase _arPhrase = Phrase.searchPhraseByIDAndLangCode(
+    phrases: tempMixedPhrases.value,
+    phid: phraseID,
+    langCode: 'ar',
   );
 
   enTextController.text = _enPhrase.value;
@@ -171,47 +184,75 @@ Future<void> onTapEditPhrase({
 
 }
 // --------------
+/// TESTED : WORKS PERFECT
 Future<void> onConfirmEditPhrase({
   @required BuildContext context,
   @required ValueNotifier<List<Phrase>> tempMixedPhrases,
   @required Phrase updatedEnPhrase,
   @required Phrase updatedArPhrase,
+  @required PageController pageController,
+  @required TextEditingController enTextController,
+  @required TextEditingController arTextController,
+  @required TextEditingController idTextController,
 }) async {
 
-  final bool _canContinue = await _preUploadCheck(
+  bool _canContinue = await Dialogz.confirmProceed(
     context: context,
-    arOldPhrases: Phrase.getPhrasesByLangFromPhrases(phrases: tempMixedPhrases.value, langCode: 'ar'),
-    enOldPhrases: Phrase.getPhrasesByLangFromPhrases(phrases: tempMixedPhrases.value, langCode: 'en'),
-    arValue: updatedArPhrase.value,
-    enValue: updatedEnPhrase.value,
-    phraseID: updatedEnPhrase.id,
   );
 
   if (_canContinue == true){
+    _canContinue = await _preEditCheck(
+      context: context,
+      arOldPhrases: Phrase.searchPhrasesByLang(phrases: tempMixedPhrases.value, langCode: 'ar'),
+      enOldPhrases: Phrase.searchPhrasesByLang(phrases: tempMixedPhrases.value, langCode: 'en'),
+      enValue: updatedEnPhrase.value,
+      arValue: updatedArPhrase.value,
+      phraseID: updatedEnPhrase.id,
+    );
+  }
 
-    List<Phrase> _output = tempMixedPhrases.value;
+  if (_canContinue == true){
+
+    List<Phrase> _output = <Phrase>[...tempMixedPhrases.value];
 
     /// REMOVE OLD PHRASES IF EXISTED
-    final bool _idExists = Phrase.phrasesIncludeThisID(
+    final bool _idExists = Phrase.checkPhrasesIncludeThisID(
         phrases: tempMixedPhrases.value,
-        id: updatedArPhrase.id,
+        id: idTextController.text,
     );
+    // blog('_idExists : $_idExists');
     if (_idExists == true){
       _output = Phrase.deletePhidFromPhrases(
           phrases: _output,
-          phid: updatedArPhrase.id,
+          phid: idTextController.text,
       );
     }
 
     /// ADD UPDATED PHRASES
-    _output = Phrase.insertPhrases(
-      insertIn: tempMixedPhrases.value,
-      phrasesToInsert: <Phrase>[updatedEnPhrase, updatedArPhrase],
-      allowDuplicateIDs: true,
-      forceUpdate: false,
-    );
+    _output.insert(0, updatedEnPhrase);
+    _output.insert(0, updatedArPhrase);
 
-    tempMixedPhrases.value = _output;
+    blog('deletePhidFromPhrases : inserted : id  ${updatedEnPhrase.id} : '
+        '${updatedEnPhrase.value} : lang : ${updatedEnPhrase.langCode}');
+    blog('deletePhidFromPhrases : inserted : id  ${updatedArPhrase.id} : '
+        '${updatedArPhrase.value} : lang : ${updatedArPhrase.langCode}');
+
+
+    tempMixedPhrases.value = Phrase.sortPhrasesByID(phrases: _output);
+
+    // blog(
+    //     'added : ${updatedEnPhrase.value} : ${updatedArPhrase.value}\n'
+    //     '0 : ${tempMixedPhrases.value[0].id} : ${_output[0].id}\n'
+    //     '1 : ${tempMixedPhrases.value[1].id} : ${_output[1].id}\n'
+    //     '2 : ${tempMixedPhrases.value[2].id} : ${_output[2].id}\n'
+    // );
+
+    await _goBackToPhrasesPageAndResetControllers(
+      pageController: pageController,
+      arTextController: arTextController,
+      enTextController: enTextController,
+      idTextController: idTextController,
+    );
 
     await TopDialog.showSuccessDialog(
       context: context,
@@ -222,7 +263,8 @@ Future<void> onConfirmEditPhrase({
 
 }
 // --------------
-Future<bool> _preUploadCheck({
+/// TESTED : WORKS PERFECT
+Future<bool> _preEditCheck({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
   @required String phraseID,
@@ -253,48 +295,49 @@ Future<bool> _preUploadCheck({
   else {
 
     String _alertMessage;
-    bool _idIsTaken;
+    bool _idIsTakenEn;
     bool _idIsTakenAr;
     bool _valueHasDuplicateEn;
     bool _valueHasDuplicateAr;
     Phrase _phrase;
 
     /// EN ID TAKEN
-    _idIsTaken = Phrase.phrasesIncludeThisID(
+    _idIsTakenEn = Phrase.checkPhrasesIncludeThisID(
       phrases: enOldPhrases,
       id: phraseID,
     );
-    if (_idIsTaken == true){
-      _phrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+    if (_idIsTakenEn == true){
+      _phrase = Phrase.searchPhraseByIDAndLangCode(
         phrases: enOldPhrases,
-        id: phraseID,
-
+        phid: phraseID,
+        langCode: 'en'
       );
       _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
     }
 
     /// AR ID TAKEN
-    _idIsTakenAr = Phrase.phrasesIncludeThisID(
+    _idIsTakenAr = Phrase.checkPhrasesIncludeThisID(
       phrases: arOldPhrases,
       id: phraseID,
     );
     if (_idIsTakenAr == true){
-      _phrase = Phrase.getPhraseFromPhrasesByIDWithLangCode(
+      _phrase = Phrase.searchPhraseByIDAndLangCode(
         phrases: arOldPhrases,
-        id: phraseID,
+        phid: phraseID,
+        langCode: 'ar',
       );
       _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
     }
 
-    if (_idIsTakenAr == false && _idIsTaken == false){
+    if (_idIsTakenAr == false && _idIsTakenEn == false){
 
       /// EN VALUE DUPLICATE
-      _valueHasDuplicateEn = Phrase.phrasesIncludeThisValue(
+      _valueHasDuplicateEn = Phrase.checkPhrasesIncludeThisValue(
         phrases: enOldPhrases,
         value: enValue,
       );
       if (_valueHasDuplicateEn == true){
-        _phrase = Phrase.getPhraseFromPhrasesByValue(
+        _phrase = Phrase.searchPhraseByIdenticalValue(
           phrases: enOldPhrases,
           value: enValue,
         );
@@ -302,12 +345,12 @@ Future<bool> _preUploadCheck({
       }
 
       /// EN VALUE DUPLICATE
-      _valueHasDuplicateAr = Phrase.phrasesIncludeThisValue(
+      _valueHasDuplicateAr = Phrase.checkPhrasesIncludeThisValue(
         phrases: arOldPhrases,
         value: arValue,
       );
       if (_valueHasDuplicateAr == true){
-        _phrase = Phrase.getPhraseFromPhrasesByValue(
+        _phrase = Phrase.searchPhraseByIdenticalValue(
           phrases: arOldPhrases,
           value: arValue,
         );
@@ -321,7 +364,7 @@ Future<bool> _preUploadCheck({
     if (_alertMessage != null){
 
       final String _actionTypeMessage =
-      _idIsTaken == true || _idIsTakenAr == true ? 'This will override this Phrase'
+      _idIsTakenEn == true || _idIsTakenAr == true ? 'This will override this Phrase'
           :
       _valueHasDuplicateAr == true || _valueHasDuplicateEn == true ? 'This will add New Phrase'
           :
@@ -342,9 +385,29 @@ Future<bool> _preUploadCheck({
 
   return _continueOps;
 }
+// --------------
+/// TESTED : WORKS PERFECT
+Future<void> _goBackToPhrasesPageAndResetControllers({
+  @required PageController pageController,
+  @required TextEditingController enTextController,
+  @required TextEditingController arTextController,
+  @required TextEditingController idTextController,
+}) async {
+
+  enTextController.text = '';
+  arTextController.text = '';
+  idTextController.text = '';
+
+  await Sliders.slideToBackFrom(
+    pageController: pageController,
+    currentSlide: 1,
+  );
+
+}
 // -----------------------------
 /// DELETE
 // --------------
+/// TESTED : WORKS PERFECT
 Future<void> onDeletePhrase({
   @required BuildContext context,
   @required String phraseID,
@@ -369,10 +432,18 @@ Future<void> onDeletePhrase({
 
     final List<Phrase> _result = Phrase.deletePhidFromPhrases(
         phrases: tempMixedPhrases.value,
-        phid: phraseID
+        phid: phraseID,
     );
 
+    blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
+
     tempMixedPhrases.value = _result;
+    //     Phrase.symmetrizePhrases(
+    //     phrasesToSymmetrize: _result,
+    //     allMixedPhrases: tempMixedPhrases.value,
+    // );
+
+    blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH');
 
     await TopDialog.showSuccessDialog(
       context: context,
@@ -429,23 +500,43 @@ Future<void> onDeletePhrase({
 /// SYNC
 
 // ---------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSyncPhrases({
   @required BuildContext context,
   @required ValueNotifier<List<Phrase>> tempMixedPhrases,
   @required ValueNotifier<List<Phrase>> initialMixedPhrases,
+  @required PageController pageController,
+  @required TextEditingController enTextController,
+  @required TextEditingController arTextController,
+  @required TextEditingController idTextController,
 }) async {
 
-  await PhraseProtocols.renovateMainPhrases(
-    context: context,
-    updatedMixedMainPhrases: tempMixedPhrases.value,
-  );
+  final bool _continue = await Dialogz.confirmProceed(context: context);
 
-  initialMixedPhrases.value = tempMixedPhrases.value;
+  if (_continue == true){
 
-  await TopDialog.showSuccessDialog(
-    context: context,
-    firstLine: 'Sync Successful',
-  );
+    await PhraseProtocols.renovateMainPhrases(
+      context: context,
+      updatedMixedMainPhrases: tempMixedPhrases.value,
+      showWaitDialog: true,
+    );
+
+    initialMixedPhrases.value = tempMixedPhrases.value;
+
+    await _goBackToPhrasesPageAndResetControllers(
+      pageController: pageController,
+      arTextController: arTextController,
+      enTextController: enTextController,
+      idTextController: idTextController,
+    );
+
+    await TopDialog.showSuccessDialog(
+      context: context,
+      firstLine: 'Sync Successful',
+    );
+
+  }
+
 
 }
 // -----------------------------

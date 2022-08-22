@@ -229,7 +229,7 @@ class CityModel {
 
     if (city != null) {
 
-      final Phrase _phrase = Phrase.getPhraseByCurrentLangFromMixedLangPhrases(
+      final Phrase _phrase = Phrase.searchFirstPhraseByCurrentLang(
           context: context,
           phrases: city.phrases
       );
@@ -371,7 +371,7 @@ class CityModel {
     for (final String langCode in langCodes){
       for (final CityModel city in sourceCities){
 
-        final Phrase _cityPhrase = Phrase.getPhraseByIDAndLangCodeFromPhrases(
+        final Phrase _cityPhrase = Phrase.searchPhraseByIDAndLangCode(
           phid: city.cityID,
           langCode: langCode,
           phrases: city.phrases,
