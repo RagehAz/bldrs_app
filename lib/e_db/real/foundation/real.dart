@@ -514,6 +514,7 @@ class Real {
     @required BuildContext context,
     @required String collName,
     @required String docName,
+    bool addDocID = true,
   }) async {
 
     final DatabaseReference ref = _createPathAndGetRef(
@@ -530,7 +531,8 @@ class Real {
           final DatabaseEvent event = await ref.once(DatabaseEventType.value);
 
           _map = Mapper.getMapFromDataSnapshot(
-              snapshot: event.snapshot,
+            snapshot: event.snapshot,
+            addDocID: addDocID,
           );
 
         },

@@ -125,6 +125,7 @@ class PhraseProtocols {
         PhraseRealOps.readPhrasesByLang(
             context: context,
             langCode: 'en',
+            createTrigram: true,
             onFinish: (List<Phrase> _enPhrases){
               _allPhrases.addAll(_enPhrases);
             }
@@ -133,6 +134,7 @@ class PhraseProtocols {
         PhraseRealOps.readPhrasesByLang(
             context: context,
             langCode: 'ar',
+            createTrigram: true,
             onFinish: (List<Phrase> _arPhrases){
               _allPhrases.addAll(_arPhrases);
             }
@@ -158,7 +160,7 @@ class PhraseProtocols {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> fetchBasicPhrasesByCurrentLang({
+  static Future<List<Phrase>> fetchMainPhrasesByCurrentLang({
     @required BuildContext context,
   }) async {
     // blog('PhraseProtocols.fetchBasicPhrasesByCurrentLang : START');

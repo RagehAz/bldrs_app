@@ -15,7 +15,7 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_screen.dart';
@@ -63,9 +63,9 @@ class BldrsDashBoard extends StatelessWidget {
 
       /// PHRASES EDITOR
       DashButtonModel(
-        verse: 'Phrases\nEditor',
+        verse: 'Phrase\nManager',
         icon: Iconz.language,
-        screen: TranslationsManager(),
+        screen: PhraseManager(),
       ),
 
       /// CHAINS EDITOR

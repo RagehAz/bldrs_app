@@ -14,6 +14,7 @@ class PhraseRealOps {
 /// CREATE
 
 // ------------------------------------------
+  ///  TESTED : WORKS PERFECT
   static Future<void> createPhrasesForLang({
     @required BuildContext context,
     @required String langCode,
@@ -47,9 +48,11 @@ class PhraseRealOps {
 /// READ
 
 // ------------------------------------------
+  ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readPhrasesByLang({
     @required BuildContext context,
     @required String langCode,
+    @required bool createTrigram,
     ValueChanged<List<Phrase>> onFinish,
   }) async {
 
@@ -58,16 +61,18 @@ class PhraseRealOps {
     if (langCode != null){
 
       final Map<String, dynamic> _map = await Real.readDocOnce(
-          context: context,
-          collName: RealColl.phrases,
-          docName: langCode,
+        context: context,
+        collName: RealColl.phrases,
+        docName: langCode,
+        addDocID: false,
       );
 
       if (_map != null){
 
         _output = Phrase.decipherPhrasesFromReal(
-            langCode: langCode,
-            map: _map,
+          langCode: langCode,
+          map: _map,
+          includeTrigram: createTrigram,
         );
 
       }
