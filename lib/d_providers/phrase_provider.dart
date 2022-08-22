@@ -167,7 +167,7 @@ class PhraseProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(setTo) == true){
 
       /// FILTER BY LANG
-      final List<Phrase> _phrasesByLang = Phrase.getPhrasesByLangFromPhrases(
+      final List<Phrase> _phrasesByLang = Phrase.searchPhrasesByLang(
         phrases: setTo,
         langCode: _currentLangCode,
       );

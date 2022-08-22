@@ -76,13 +76,13 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
   Phrase _oldArPhrase;
   void _initialize(){
 
-    _oldEnPhrase = Phrase.getPhraseByLangFromPhrases(
+    _oldEnPhrase = Phrase.searchFirstPhraseByLang(
       phrases: widget.country.phrases,
       langCode: 'en',
     );
     _enNameController = TextEditingController(text: _oldEnPhrase?.value);
 
-    _oldArPhrase = Phrase.getPhraseByLangFromPhrases(
+    _oldArPhrase = Phrase.searchFirstPhraseByLang(
       phrases: widget.country.phrases,
       langCode: 'ar',
     );
@@ -116,7 +116,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     @required String text,
   }){
 
-    final Phrase _phrase = Phrase.getPhraseByLangFromPhrases(
+    final Phrase _phrase = Phrase.searchFirstPhraseByLang(
       phrases: _countryModel.value.phrases,
       langCode: langCode,
     );
