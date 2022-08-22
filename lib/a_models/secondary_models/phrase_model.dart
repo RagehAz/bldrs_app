@@ -493,30 +493,50 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
-  static Phrase getPhraseFromPhrasesByID({
+  /// TESTED : WORKS PERFECT
+  static Phrase getPhraseFromPhrasesByIDWithLangCode({
     @required List<Phrase> phrases,
     @required String id,
+    String searchLangCode,
     String addLangCode,
   }){
     Phrase _phrase;
 
     if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(id) == true){
 
-      for (final Phrase phrase in phrases){
+      /// SEARCH PHRASES
+      _phrase = phrases.firstWhere((ph){
 
-        if (phrase.id == id){
+        bool _found = false;
 
-          _phrase = Phrase(
-            id: id,
-            value: phrase.value,
-            trigram: phrase.trigram,
-            langCode: addLangCode ?? phrase.langCode,
-          );
-
-          break;
+        if (ph.id == id){
+          _found = true;
         }
 
-      }
+        if (searchLangCode != null){
+
+          if (ph.langCode == searchLangCode){
+            _found = true;
+          }
+          else {
+            _found = false;
+          }
+
+        }
+
+
+        return _found;
+      });
+
+
+    }
+
+    /// ADD LANG CODE IF REQUIRED
+    if (addLangCode != null && _phrase != null){
+
+      _phrase = _phrase.copyWith(
+        langCode: addLangCode,
+      );
 
     }
 
@@ -571,13 +591,13 @@ class Phrase {
 
       for (final Phrase phrase in mixedPhrases){
 
-        final Phrase _en = getPhraseFromPhrasesByID(
+        final Phrase _en = getPhraseFromPhrasesByIDWithLangCode(
           phrases: enPhrases,
           id: phrase.id,
           addLangCode: 'en',
         );
 
-        final Phrase _ar = getPhraseFromPhrasesByID(
+        final Phrase _ar = getPhraseFromPhrasesByIDWithLangCode(
           phrases: arPhrases,
           id: phrase.id,
           addLangCode: 'ar',
@@ -1112,7 +1132,7 @@ class Phrase {
     <Phrase>[]
     ;
 
-    if (Mapper.checkCanLoopList(phrasesToInsert)){
+    if (Mapper.checkCanLoopList(phrasesToInsert) == true){
 
       for (final Phrase phrase in phrasesToInsert){
 
@@ -1187,16 +1207,22 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
-  static List<Phrase> deletePhraseFromPhrases({
+  static List<Phrase> deletePhidFromPhrases({
     @required List<Phrase> phrases,
-    @required String phraseID,
+    @required String phid,
   }){
 
-    final List<Phrase> _output = <Phrase>[...phrases];
+    List<Phrase> _output = <Phrase>[];
 
-    if (Mapper.checkCanLoopList(phrases) == true && Stringer.checkStringIsNotEmpty(phraseID) == true){
+    if (
+    Mapper.checkCanLoopList(phrases) == true
+        &&
+        Stringer.checkStringIsNotEmpty(phid) == true
+    ){
 
-      _output.removeWhere((ph) => ph.id == phraseID);
+      _output = <Phrase>[...phrases];
+
+      _output.removeWhere((ph) => ph.id == phid);
 
     }
 
