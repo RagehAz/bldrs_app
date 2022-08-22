@@ -35,7 +35,7 @@ class LDBOps {
       case LDBDoc.cities: return 'cityID';
       case LDBDoc.continents: return 'name';
       case LDBDoc.currencies: return 'id';
-      case LDBDoc.basicPhrases: return 'id';
+      case LDBDoc.mainPhrases: return 'id';
       case LDBDoc.countriesPhrases: return 'id';
       case LDBDoc.appState: return 'id';
       case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF

@@ -9,7 +9,6 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/e_flyer_maker/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';

@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 enum FlyerType {
