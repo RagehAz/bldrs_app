@@ -2,91 +2,120 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart' as PhraseOps;
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:clipboard/clipboard.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart' as PhraseOps;
 import 'package:flutter/material.dart';
 // ---------------------------------------------------------------------------
 
 /// SEARCH
 
 // -----------------------------
-void onSearchPhrases({
-  @required String text,
+///  TESTED : WORKS PERFECT
+void onPhrasesSearchChanged({
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
-  @required List<Phrase> enPhrase,
-  @required List<Phrase> arPhrases,
-  /// mixes between en & ar values in one list
+  @required List<Phrase> allMixedPhrases,
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
-  bool forceSearch = false,
 }){
 
-  blog('onSearchPhrases : ');
-
-  isSearching.value = TextChecker.triggerIsSearching(
+  TextChecker.triggerIsSearchingNotifier(
     text: searchController.text,
-    isSearching: isSearching.value,
-    minCharLimit: forceSearch ? 1 : Standards.minSearchChar,
+    isSearching: isSearching,
   );
-
-  blog('onSearchPhrases : isSearching.value : ${isSearching.value}');
 
   if (isSearching.value == true){
 
-    blog('onSearchPhrases : isSearching.value == true');
+    _onSearchPhrases(
+      allMixedPhrases: allMixedPhrases,
+      isSearching: isSearching,
+      mixedSearchResult: mixedSearchResult,
+      searchController: searchController,
+    );
 
+  }
+
+}
+// -----------------------------
+///  TESTED : WORKS PERFECT
+void onPhrasesSearchSubmit({
+  @required ValueNotifier<bool> isSearching,
+  @required TextEditingController searchController,
+  @required List<Phrase> allMixedPhrases,
+  @required ValueNotifier<List<Phrase>> mixedSearchResult,
+}){
+
+  isSearching.value = true;
+
+  _onSearchPhrases(
+    allMixedPhrases: allMixedPhrases,
+    isSearching: isSearching,
+    mixedSearchResult: mixedSearchResult,
+    searchController: searchController,
+  );
+
+}
+// -----------------------------
+///  TESTED : WORKS PERFECT
+void _onSearchPhrases({
+  @required ValueNotifier<bool> isSearching,
+  @required TextEditingController searchController,
+  @required List<Phrase> allMixedPhrases,
+  /// mixes between en & ar values in one list
+  @required ValueNotifier<List<Phrase>> mixedSearchResult,
+}){
+
+  if (isSearching.value == true){
 
     List<Phrase> _foundPhrases = <Phrase>[];
 
-    final List<Phrase> _enResults = Phrase.searchPhrases(
-      phrases: enPhrase,
+    // final List<Phrase> _enResults = Phrase.searchPhrases(
+    //   phrases: enPhrase,
+    //   text: searchController.text,
+    //   byValue: true,
+    // );
+    //
+    // blog('onSearchPhrases : _enResults = $_enResults');
+
+    // final List<Phrase> _result
+    _foundPhrases = Phrase.searchPhrases(
+      phrases: allMixedPhrases,
       text: searchController.text,
       byValue: true,
+      // byID: true,
     );
 
-    blog('onSearchPhrases : _enResults = $_enResults');
+    // blog('onSearchPhrases : _arResults = $_arResults');
+    //
+    // _foundPhrases = Phrase.insertPhrases(
+    //   insertIn: _foundPhrases,
+    //   phrasesToInsert: _enResults,
+    //   forceUpdate: false,
+    //   addLanguageCode: 'en',
+    //   allowDuplicateIDs: false,
+    // );
+    //
+    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding en');
+    //
+    // _foundPhrases = Phrase.insertPhrases(
+    //   insertIn: _foundPhrases,
+    //   phrasesToInsert: _arResults,
+    //   forceUpdate: false,
+    //   addLanguageCode: 'ar',
+    //   allowDuplicateIDs: false,
+    // );
 
-    final List<Phrase> _arResults = Phrase.searchPhrases(
-      phrases: arPhrases,
-      text: searchController.text,
-      byValue: true,
-    );
-
-    blog('onSearchPhrases : _arResults = $_arResults');
-
-    _foundPhrases = Phrase.insertPhrases(
-      insertIn: _foundPhrases,
-      phrasesToInsert: _enResults,
-      forceUpdate: false,
-      addLanguageCode: 'en',
-      allowDuplicateIDs: false,
-    );
-
-    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding en');
-
-    _foundPhrases = Phrase.insertPhrases(
-      insertIn: _foundPhrases,
-      phrasesToInsert: _arResults,
-      forceUpdate: false,
-      addLanguageCode: 'ar',
-      allowDuplicateIDs: false,
-    );
-
-    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding ar');
+    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding ar');
 
     // blog('mixed phrase are : ');
     // Phrase.blogPhrases(_foundPhrases);
 
     final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_foundPhrases);
 
-    blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after cleaning');
+    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after cleaning');
 
     mixedSearchResult.value = _cleaned;
 
@@ -96,26 +125,6 @@ void onSearchPhrases({
     mixedSearchResult.value = <Phrase>[];
   }
 
-}
-// ---------------------------------------------------------------------------
-
-/// PHRASE EDITOR
-
-// -----------------------------
-void onClearText(TextEditingController controller){
-  controller.text = '';
-}
-// -----------------------------
-Future<void> onPasteText(TextEditingController controller) async {
-  final String value = await FlutterClipboard.paste();
-  controller.text = value;
-}
-// -----------------------------
-Future<void> onCopyText(BuildContext context, String value) async {
-  await Keyboard.copyToClipboard(
-    context: context,
-    copy: value,
-  );
 }
 // ---------------------------------------------------------------------------
 

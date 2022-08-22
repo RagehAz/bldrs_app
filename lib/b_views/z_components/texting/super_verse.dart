@@ -55,7 +55,7 @@ class SuperVerse extends StatelessWidget {
   final bool leadingDot;
   final bool redDot;
   final bool strikeThrough;
-  final ValueNotifier<String> highlight;
+  final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
   final Color shadowColor;
   /// --------------------------------------------------------------------------
@@ -679,7 +679,7 @@ class Verse extends StatelessWidget {
   final int size;
   final Color labelColor;
   final String verse;
-  final ValueNotifier<String> highlight;
+  final ValueNotifier<dynamic> highlight;
   final int maxLines;
   final bool centered;
   final Color color;
@@ -804,7 +804,15 @@ class Verse extends StatelessWidget {
             :
         ValueListenableBuilder(
             valueListenable: highlight,
-            builder: (_, String _highlight, Widget child){
+            builder: (_, dynamic _highlight, Widget child){
+
+              final String _highLightedText =
+              _highlight is TextEditingValue ? _highlight.text
+                  :
+              _highlight is String ? _highlight
+              :
+                  null
+              ;
 
               return RichText(
                 maxLines: maxLines,
@@ -817,7 +825,7 @@ class Verse extends StatelessWidget {
                   style: _style,
                   children: _generateTextSpans(
                     verse: verse,
-                    highlighted: _highlight,
+                    highlighted: _highLightedText,
                     defaultStyle: _style,
                     highlightColor: highlightColor,
                   ),

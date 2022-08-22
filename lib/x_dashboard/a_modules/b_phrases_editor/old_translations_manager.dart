@@ -17,7 +17,7 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
 class OLDTranslationsManager extends StatefulWidget {
@@ -286,15 +286,15 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
                       _isSearching.value = false;
                     }
                   },
-                  onSearchSubmit: (String text) => onSearchPhrases(
-                    text: text,
-                    arPhrases: _arPhrases,
-                    enPhrase: _enPhrases,
-                    isSearching: _isSearching,
-                    mixedSearchResult: _mixedSearchedPhrases,
-                    searchController: _searchController,
-                    forceSearch: true,
-                  ),
+                  // onSearchSubmit: (String text) => onSearchPhrases(
+                  //   text: text,
+                  //   allMixedPhrases: _arPhrases,
+                  //   enPhrase: _enPhrases,
+                  //   isSearching: _isSearching,
+                  //   mixedSearchResult: _mixedSearchedPhrases,
+                  //   searchController: _searchController,
+                  //   // forceSearch: true,
+                  // ),
                   appBarRowWidgets: <Widget>[
 
                     /// RELOAD
@@ -323,18 +323,18 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
                       ),
                     ),
 
-                    /// PASTE
-                    DreamBox(
-                      height: _buttonsHeight,
-                      verseShadow: false,
-                      verseMaxLines: 2,
-                      verseScaleFactor: 0.6,
-                      verse: 'paste',
-                      margins: const EdgeInsets.symmetric(horizontal: 5),
-                      onTap: () async {
-                        await onPasteText(_searchController);
-                      },
-                    ),
+                    // /// PASTE
+                    // DreamBox(
+                    //   height: _buttonsHeight,
+                    //   verseShadow: false,
+                    //   verseMaxLines: 2,
+                    //   verseScaleFactor: 0.6,
+                    //   verse: 'paste',
+                    //   margins: const EdgeInsets.symmetric(horizontal: 5),
+                    //   onTap: () async {
+                    //     await onPasteText(_searchController);
+                    //   },
+                    // ),
 
                     const Expander(),
 
@@ -365,16 +365,6 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
                         }
                     ),
 
-                    // /// BLDRS BUTTON
-                    // GestureDetector(
-                    //   onTap: _onBldrsTap,
-                    //   child: const Padding(
-                    //     padding: EdgeInsets.symmetric(horizontal: 10),
-                    //     child: BldrsName(
-                    //       size: 40,
-                    //     ),
-                    //   ),
-                    // ),
 
                   ],
 
@@ -386,6 +376,7 @@ class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
                       /// TRANSLATIONS LIST PAGE
                       TranslationsPage(
                         screenHeight: _screenHeight,
+                        searchController: _searchController,
                         pageController: _pageController,
                         scrollController: _docScrollController,
                         arController: _arabicController,
