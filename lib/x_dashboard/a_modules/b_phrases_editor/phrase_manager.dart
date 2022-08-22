@@ -4,6 +4,8 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -14,6 +16,7 @@ import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/phrase_edit
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PhraseManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -119,7 +122,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// PHRASES CREATION
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headline: 'Phrases creation',
+          headline: 'REAL',
         ),
 
         /// MIGRATE main phrases from fire to real
@@ -155,7 +158,7 @@ class _PhraseManagerState extends State<PhraseManager> {
           },
         ),
 
-        /// REAL READ
+        /// REAL EN READ
         WideButton(
           verse: 'REAL READ EN PHRASESs',
           onTap: () async {
@@ -184,7 +187,60 @@ class _PhraseManagerState extends State<PhraseManager> {
           },
         ),
 
+        /// REAL ar READ
+        WideButton(
+          verse: 'REAL READ AR PHRASESs',
+          onTap: () async {
 
+            final List<Phrase> _realPhrases = await PhraseRealOps.readPhrasesByLang(
+              context: context,
+              langCode: 'ar',
+              createTrigram: true,
+            );
+
+            Phrase.blogPhrases(_realPhrases);
+
+          },
+        ),
+
+        // ---------------------------------------
+
+        /// PHRASES PRO
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headline: 'PRO',
+        ),
+
+        /// READ MAIN PHRASES
+        WideButton(
+          verse: 'READ PRO MAIN PHRASES',
+          onTap: () async {
+
+            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+            final List<Phrase> _phrases = _phraseProvider.mainPhrases;
+            Phrase.blogPhrases(_phrases);
+
+          },
+        ),
+
+        // ---------------------------------------
+
+        /// LDD
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headline: 'LDB',
+        ),
+
+        /// READ MAIN PHRASES
+        WideButton(
+          verse: 'READ LDB MAIN PHRASES',
+          onTap: () async {
+
+            final List<Phrase> _phrases = await PhraseLDBOps.readMainPhrases();
+            Phrase.blogPhrases(_phrases);
+
+          },
+        ),
 
         // ---------------------------------------
 

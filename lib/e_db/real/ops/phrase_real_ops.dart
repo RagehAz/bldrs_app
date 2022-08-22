@@ -26,7 +26,7 @@ class PhraseRealOps {
     if (langCode != null && Mapper.checkCanLoopList(phrases) == true){
 
       /// ASSURE ALL PHRASES ARE ON THIS LAND CODE
-      final List<Phrase> _phrasesOfLang = Phrase.getPhrasesByLangFromPhrases(
+      final List<Phrase> _phrasesOfLang = Phrase.searchPhrasesByLang(
           phrases: phrases,
           langCode: langCode
       );
