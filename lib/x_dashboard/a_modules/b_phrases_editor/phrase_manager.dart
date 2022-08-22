@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -10,8 +11,7 @@ import 'package:bldrs/e_db/real/ops/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_phrase_editor/phrase_fire_ops.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/old_translations_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/phrase_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
@@ -86,20 +86,6 @@ class _PhraseManagerState extends State<PhraseManager> {
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
 
-        /// GO TO OLD EDITOR
-        AppBarButton(
-          icon: Iconz.language,
-          verse: 'OLD Editor',
-          onTap: () async {
-
-            await Nav.goToNewScreen(
-                context: context,
-                screen: const OLDTranslationsManager(),
-            );
-
-          },
-        ),
-
         /// GO TO NEW EDITOR
         AppBarButton(
           icon: Iconz.language,
@@ -117,6 +103,8 @@ class _PhraseManagerState extends State<PhraseManager> {
       ],
       listWidgets: <Widget>[
 
+
+
         // ---------------------------------------
 
         /// PHRASES CREATION
@@ -131,7 +119,7 @@ class _PhraseManagerState extends State<PhraseManager> {
           verse: 'MIGRATE main phrases from FIRE to REAL',
           onTap: () async {
 
-            final List<Phrase> _enPhrases = await readBasicPhrases(
+            final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
                 context: context,
                 langCode: 'en',
             );
@@ -141,7 +129,7 @@ class _PhraseManagerState extends State<PhraseManager> {
                 phrases: _enPhrases
             );
 
-            final List<Phrase> _arPhrases = await readBasicPhrases(
+            final List<Phrase> _arPhrases = await readMainPhrasesFromFire(
               context: context,
               langCode: 'ar',
             );
