@@ -45,6 +45,70 @@ class Phrase {
   /// CYPHERS
 
 // -------------------------------------
+  static Map<String, dynamic> cipherPhrasesToReal(List<Phrase> phrases){
+
+    Map<String, dynamic> _map;
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+      _map = {};
+
+      for (final Phrase phrase in phrases){
+
+        _map = Mapper.insertPairInMap(
+            map: _map,
+            key: phrase.id,
+            value: phrase.value,
+        );
+
+      }
+
+    }
+
+    return _map;
+  }
+// -------------------------------------
+  static List<Phrase> decipherPhrasesFromReal({
+    @required String langCode,
+    @required Map<String, dynamic> map,
+    bool includeTrigram,
+  }){
+    final List<Phrase> _output = <Phrase>[];
+
+    if (map != null){
+
+      final List<String> _keys = map.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          final List<String> _trigram =
+          includeTrigram == true ?
+          Stringer.createTrigram(
+            input: map[key],
+            // removeSpaces: false,
+            )
+              :
+          null;
+
+          final Phrase _phrase = Phrase(
+            id: key,
+            value: map[key],
+            langCode: langCode,
+            trigram: _trigram,
+          );
+
+          _output.add(_phrase);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool includeID,

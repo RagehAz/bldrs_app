@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -203,7 +202,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                       return BottomDialog.wideButton(
                         context: context,
                         verse: _unitName,
-                        icon: superIcon(context, _unitID),
+                        icon: phidIcon(context, _unitID),
                         verseCentered: true,
                         onTap: () => _onSelectUnit(_unitID),
                       );

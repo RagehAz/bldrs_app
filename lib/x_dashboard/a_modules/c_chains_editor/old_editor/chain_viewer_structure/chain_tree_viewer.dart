@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/a_phrase_protocols_old.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_viewer_structure/chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 

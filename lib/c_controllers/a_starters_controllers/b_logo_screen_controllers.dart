@@ -236,7 +236,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         /// PHRASES
         if (_globalState.phrasesVersion > _userState.phrasesVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.basicPhrases,);
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.mainPhrases,);
           _userAppState = _userAppState.copyWith(
             phrasesVersion: _globalState.phrasesVersion,
           );
