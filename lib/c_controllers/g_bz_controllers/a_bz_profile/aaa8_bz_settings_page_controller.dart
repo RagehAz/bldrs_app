@@ -154,7 +154,7 @@ Future<bool> _showConfirmDeleteBzDialog({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await bzBannerDialog(
+  final bool _result = await Dialogz.bzBannerDialog(
     context: context,
     bzModel: bzModel,
     title: 'Delete ${bzModel.name} Business Account ?',
@@ -185,7 +185,7 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await flyersDialog(
+  final bool _result = await Dialogz.flyersDialog(
     context: context,
     title: '${bzModel.flyersIDs.length} flyers will be permanently deleted',
     body: 'Once flyers are deleted, they can not be retrieved',

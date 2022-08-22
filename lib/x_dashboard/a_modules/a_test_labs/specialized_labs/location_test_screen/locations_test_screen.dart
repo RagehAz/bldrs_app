@@ -239,7 +239,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                         );
                       }
                     },
-                    historyButtonIsOn: false),
+                    searchIconIsOn: false),
               ),
 
               FlagBox(

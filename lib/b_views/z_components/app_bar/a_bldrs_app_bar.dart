@@ -283,7 +283,7 @@ class BldrsAppBar extends StatelessWidget {
                   SearchBar(
                     searchController: searchController,
                     onSearchSubmit: onSearchSubmit,
-                    historyButtonIsOn: historyButtonIsOn,
+                    searchIconIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     hintText: searchHint,
                     onSearchCancelled: onSearchCancelled,

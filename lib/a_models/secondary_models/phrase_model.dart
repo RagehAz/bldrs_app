@@ -466,9 +466,9 @@ class Phrase {
 
     Phrase _phrase;
 
-    if (Mapper.checkCanLoopList(phrases)) {
+    if (Mapper.checkCanLoopList(phrases) == true) {
 
-      _phrase = phrases.singleWhere(
+      _phrase = phrases.firstWhere(
               (Phrase phrase) => phrase.langCode == langCode,
           orElse: () => null
       );
