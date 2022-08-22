@@ -19,7 +19,7 @@ class PhraseProtocols {
 /// COMPOSE
 
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> composeMixedLangPhrasesFromPhids({
     @required BuildContext context,
     @required List<String> phids,
@@ -45,7 +45,7 @@ class PhraseProtocols {
     return _phrases;
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> composeCountriesMixedLangPhrases({
     @required BuildContext context,
     @required List<String> langCodes,
@@ -76,7 +76,7 @@ class PhraseProtocols {
     return _allCountriesPhrases;
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChain({
     @required Chain chain,
     @required BuildContext context,

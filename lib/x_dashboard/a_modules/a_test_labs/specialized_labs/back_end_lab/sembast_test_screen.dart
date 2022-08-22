@@ -216,17 +216,18 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
   }
 // ----------------------------------------
-/*  Future<void> _search() async {
+  Future<void> _search() async {
 
-    final List<Map<String, dynamic>> _result = await LDBOps.searchLDBDocTrigram(
-        searchValue: 'Cairo',
+    final List<Map<String, dynamic>> _result = await LDBOps.searchMultipleValues(
         docName: _docName,
-        lingoCode: 'en',
+        fieldToSortBy: 'id',
+        searchField: 'id',
+        searchObjects: ['x1', null],
     );
 
     Mapper.blogMaps(_result);
   }
- */
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -276,6 +277,12 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
               SmallFuckingButton(
                 verse: 'Delete All',
                 onTap: _deleteAll,
+              ),
+
+              /// SEARCH
+              SmallFuckingButton(
+                verse: 'SEARCH',
+                onTap: _search,
               ),
 
             ],

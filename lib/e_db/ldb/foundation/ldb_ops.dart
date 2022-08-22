@@ -207,7 +207,7 @@ class LDBOps {
     return _result;
   }
 // ----------------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchMultipleValues({
     @required String docName,
     @required String fieldToSortBy,
