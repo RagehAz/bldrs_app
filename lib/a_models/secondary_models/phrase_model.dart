@@ -44,7 +44,8 @@ class Phrase {
 
   /// CYPHERS
 
-// -------------------------------------
+// ------------------------------------------
+  ///  TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPhrasesToReal(List<Phrase> phrases){
 
     Map<String, dynamic> _map;
@@ -66,11 +67,12 @@ class Phrase {
 
     return _map;
   }
-// -------------------------------------
+// ------------------------------------------
+  ///  TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesFromReal({
     @required String langCode,
     @required Map<String, dynamic> map,
-    bool includeTrigram,
+    bool includeTrigram = true,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -398,14 +400,7 @@ class Phrase {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   void blogPhrase(){
-
-    blog('PHRASE ------------------------------------- START');
-
-    blog('id : $id');
-    blog('langCode : $langCode');
-    blog('value : $value');
-
-    blog('PHRASE ------------------------------------- END');
+    blog('PHRASE : langCode : $langCode : id : $id : $value : trigram(${trigram.length})');
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT

@@ -59,7 +59,7 @@ class PhraseLDBOps {
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readMainPhrases() async {
 
-    List<Phrase> _mainPhrases;
+    List<Phrase> _mainPhrases = <Phrase>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
       docName: LDBDoc.mainPhrases,
