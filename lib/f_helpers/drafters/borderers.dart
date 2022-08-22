@@ -1,5 +1,5 @@
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class Borderers {
@@ -17,7 +17,7 @@ class Borderers {
     double enBottomRight,
     double enTopRight
   }) {
-    return Wordz.textDirection(context) == 'rtl'
+    return Words.textDirection(context) == 'rtl'
         ? BorderRadius.only(
       topLeft: Radius.circular(enTopRight),
       topRight: Radius.circular(enTopLeft),

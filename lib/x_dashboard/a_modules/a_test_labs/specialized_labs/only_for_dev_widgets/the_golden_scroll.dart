@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class GoldenScroll extends StatelessWidget {
@@ -55,7 +55,7 @@ class GoldenScroll extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colorz.white255,
-              fontFamily: Wordz.bodyFont(context),
+              fontFamily: Words.bodyFont(context),
               fontStyle: FontStyle.italic,
               decoration: TextDecoration.none,
               fontSize: MediaQuery.of(context).size.height * 0.02,

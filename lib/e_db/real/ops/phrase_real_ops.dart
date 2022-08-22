@@ -50,6 +50,7 @@ class PhraseRealOps {
   static Future<List<Phrase>> readPhrasesByLang({
     @required BuildContext context,
     @required String langCode,
+    ValueChanged<List<Phrase>> onFinish,
   }) async {
 
     List<Phrase> _output = <Phrase>[];
@@ -71,6 +72,10 @@ class PhraseRealOps {
 
       }
 
+    }
+
+    if (onFinish != null){
+      onFinish(_output);
     }
 
     return _output;

@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/f_helpers/theme/wordz.dart' as Wordz;
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class GeneralStatistics extends StatelessWidget {
@@ -33,7 +33,7 @@ class GeneralStatistics extends StatelessWidget {
       skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
       sectionButtonIsOn: false,
-      pageTitle: Wordz.allahoAkbar(context),
+      pageTitle: Words.allahoAkbar(context),
       appBarRowWidgets: const <Widget>[
 
         Expander(),

@@ -77,11 +77,8 @@ class PhraseLDBOps {
   }
 // ------------------------------------------
 
-  static Future<List<Phrase>> readCountriesPhrases({
-    @required List<String> activeCountriesIDs,
-  }) async {
+  static Future<List<Phrase>> readCountriesPhrases() async {
 
-    /// GET THEM FROM LDB
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
       docName: LDBDoc.countriesPhrases,
     );
@@ -91,6 +88,31 @@ class PhraseLDBOps {
     );
 
     return _countriesMixedLangPhrases;
+  }
+// ------------------------------------------
+
+  static Future<List<Phrase>> searchMainPhrasesByIDs({
+    @required List<String> phids,
+  }) async {
+
+    List<Phrase> _output = <Phrase>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.searchMultipleValues(
+        docName: LDBDoc.mainPhrases,
+        searchField: 'id',
+        searchObjects: phids,
+        fieldToSortBy: 'id',
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      _output = Phrase.decipherMixedLangPhrases(
+        maps: _maps,
+      );
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

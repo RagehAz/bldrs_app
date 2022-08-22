@@ -1,17 +1,26 @@
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-String allahoAkbar (BuildContext context) => Localizer.translate(context, 'allahoAkbar');
-String activeLanguage (BuildContext context) => Localizer.translate(context, 'activeLanguage');
-String textDirection (BuildContext context) => Localizer.translate(context, 'textDirection');
-String headlineFont (BuildContext context) => Localizer.translate(context, 'headlineFont');
-String bodyFont (BuildContext context) => Localizer.translate(context, 'bodyFont');
-String languageName (BuildContext context) => Localizer.translate(context, 'languageName');
-String languageCode (BuildContext context) => Localizer.translate(context, 'languageCode');
-String bldrsFullName (BuildContext context) => Localizer.translate(context, 'bldrsFullName');
-String bldrsShortName (BuildContext context) => Localizer.translate(context, 'bldrsShortName');
-String bldrsTagLine (BuildContext context) => Localizer.translate(context, 'bldrsTagLine');
-String bldrsDescription (BuildContext context) => Localizer.translate(context, 'bldrsDescription');
+class Words {
+// -----------------------------------------------------------------------------
+
+  const Words();
+
+// -----------------------------------------------------------------------------
+  static String allahoAkbar (BuildContext context) => Localizer.translate(context, 'allahoAkbar');
+  static String activeLanguage (BuildContext context) => Localizer.translate(context, 'activeLanguage');
+  static String textDirection (BuildContext context) => Localizer.translate(context, 'textDirection');
+  static String headlineFont (BuildContext context) => Localizer.translate(context, 'headlineFont');
+  static String bodyFont (BuildContext context) => Localizer.translate(context, 'bodyFont');
+  static String languageName (BuildContext context) => Localizer.translate(context, 'languageName');
+  static String languageCode (BuildContext context) => Localizer.translate(context, 'languageCode');
+  static String bldrsFullName (BuildContext context) => Localizer.translate(context, 'bldrsFullName');
+  static String bldrsShortName (BuildContext context) => Localizer.translate(context, 'bldrsShortName');
+  static String bldrsTagLine (BuildContext context) => Localizer.translate(context, 'bldrsTagLine');
+  static String bldrsDescription (BuildContext context) => Localizer.translate(context, 'bldrsDescription');
+// -----------------------------------------------------------------------------
+}
+
 // String xxx3 (BuildContext context) => Localizer.translate(context, 'xxx3');
 // String accountType (BuildContext context) => Localizer.translate(context, 'accountType');
 // String owner (BuildContext context) => Localizer.translate(context, 'owner');
