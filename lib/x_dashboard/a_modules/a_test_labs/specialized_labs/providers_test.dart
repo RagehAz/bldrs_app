@@ -18,6 +18,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -401,6 +402,15 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               value: _phraseProvider.mainPhrases,
               onTap: (){
                 Phrase.blogPhrases(_phraseProvider.mainPhrases);
+              },
+            ),
+
+            /// USED X PHRASES
+            ProviderTestButton(
+              title: 'phraseProvider.usedXPhrases : ( ${_phraseProvider.usedXPhrases.length} phrases )',
+              value: _phraseProvider.usedXPhrases,
+              onTap: (){
+                Stringer.blogStrings(strings: _phraseProvider.usedXPhrases);
               },
             ),
 

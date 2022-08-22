@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -23,7 +22,7 @@ class PhraseManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _PhraseManagerState createState() => _PhraseManagerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PhraseManagerState extends State<PhraseManager> {
