@@ -5,8 +5,8 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/phrase_creator_page.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/phrases_viewer_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
@@ -143,7 +143,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
                   final bool _areIdentical = Phrase.phrasesListsAreIdentical(
                       phrases1: _initial,
-                      phrases2: _temp
+                      phrases2: _temp,
                   );
 
                   return AppBarButton(
@@ -151,7 +151,11 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                     isDeactivated: _areIdentical,
                     buttonColor: Colorz.yellow255,
                     verseColor: Colorz.black255,
-                    // onTap: () => onSyncPhrases(),
+                    onTap: () => onSyncPhrases(
+                      context: context,
+                      tempMixedPhrases: _tempMixedPhrases,
+                      initialMixedPhrases :_initialMixedPhrases,
+                    ),
                   );
 
                 },
@@ -184,8 +188,8 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
 
-                /// TRANSLATIONS LIST PAGE
-                TranslationsPage(
+                /// PHRASES VIEWER PAGE
+                PhrasesViewerPage(
                   screenHeight: _screenHeight,
                   pageController: _pageController,
                   scrollController: _scrollController,
@@ -197,13 +201,15 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   isSearching: _isSearching,
                   mixedSearchedPhrases: _mixedSearchedPhrases,
                   searchController: _searchController,
+                  tempMixedPhrases: _tempMixedPhrases,
                 ),
 
-                /// CREATOR
-                TranslationsCreatorPage(
+                /// PHRASE EDITOR PAGE
+                PhraseCreatorPage(
                   idController: _idController,
                   enController: _englishController,
                   arController: _arabicController,
+                  tempMixedPhrases: _tempMixedPhrases,
                 ),
 
               ],

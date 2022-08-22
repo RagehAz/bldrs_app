@@ -1,25 +1,33 @@
+import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
-class TranslationsCreatorPage extends StatelessWidget {
+class PhraseCreatorPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TranslationsCreatorPage({
+  const PhraseCreatorPage({
     @required this.idController,
     @required this.enController,
     @required this.arController,
+    @required this.tempMixedPhrases,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TextEditingController idController;
   final TextEditingController enController;
   final TextEditingController arController;
+  final ValueNotifier<List<Phrase>> tempMixedPhrases;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -27,8 +35,10 @@ class TranslationsCreatorPage extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
+    blog('dd');
+
     return SizedBox(
-      key: const ValueKey<String>('translations_creator_page'),
+      key: const ValueKey<String>('PhraseCreatorPage'),
       width: _screenWidth,
       height: _screenHeight,
       child: ListView(
@@ -36,6 +46,7 @@ class TranslationsCreatorPage extends StatelessWidget {
         padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 10),
         children: <Widget>[
 
+          /// ID
           TextFieldBubble(
             title: 'Key',
             hintText: 'Phrase key',
@@ -66,6 +77,7 @@ class TranslationsCreatorPage extends StatelessWidget {
             ],
           ),
 
+          /// ENGLISH
           TextFieldBubble(
             title: 'English',
             hintText: 'English phrase',
@@ -76,6 +88,7 @@ class TranslationsCreatorPage extends StatelessWidget {
             actionBtIcon: Iconz.xLarge,
           ),
 
+          /// ARABIC
           TextFieldBubble(
             title: 'عربي',
             hintText: 'مصطلح عربي',
@@ -87,9 +100,36 @@ class TranslationsCreatorPage extends StatelessWidget {
             textDirection: TextDirection.ltr,
           ),
 
+          Align(
+            alignment: Aligners.superInverseCenterAlignment(context),
+            child: DreamBox(
+              verse: 'Confirm'.toUpperCase(),
+              height: 50,
+              color: Colorz.yellow255,
+              verseWeight: VerseWeight.black,
+              verseItalic: true,
+              verseColor: Colorz.black255,
+              margins: const EdgeInsets.symmetric(horizontal: 10),
+              onTap: () => onConfirmEditPhrase(
+                context: context,
+                tempMixedPhrases: tempMixedPhrases,
+                updatedEnPhrase: Phrase(
+                    id: idController.text,
+                    value: enController.text,
+                    langCode: 'en'
+                ),
+                updatedArPhrase: Phrase(
+                    id: idController.text,
+                    value: arController.text,
+                    langCode: 'ar'
+                ),
+              ),
+            ),
+          ),
+
           if (Keyboard.keyboardIsOn(context) == true)
             const Horizon(
-              heightFactor: 3,
+              heightFactor: 5,
             ),
 
         ],

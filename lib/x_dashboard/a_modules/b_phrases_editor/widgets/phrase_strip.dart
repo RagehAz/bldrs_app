@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
-class TranslationStrip extends StatelessWidget {
+class PhraseStrip extends StatelessWidget {
 // -----------------------------------------------------------------------------
-  const TranslationStrip({
+  const PhraseStrip({
     @required this.width,
     @required this.enPhrase,
     @required this.arPhrase,
@@ -88,27 +88,32 @@ class TranslationStrip extends StatelessWidget {
                   iconSizeFactor: 0.6,
                   onTap: () async {
 
+                    final String title = enPhrase?.id == arPhrase?.id ?
+                    arPhrase?.id
+                        :
+                    'enID : ${enPhrase?.id} : arID ${arPhrase?.id}';
+
                     await BottomDialog.showBottomDialog(
                         context: context,
                         draggable: true,
-                        title: 'enID : ${enPhrase?.id} : arID ${arPhrase?.id}',
+                        title: title,
                         child: Column(
                           children: <Widget>[
 
                             SuperVerse(
                               verse: enPhrase?.value,
                               maxLines: 5,
-                              size: 3,
                               color: Colorz.yellow255,
-                              onTap: () => onDelete(enPhrase?.value),
+                              weight: VerseWeight.thin,
+                              margin: 5,
                             ),
 
                             SuperVerse(
                               verse: arPhrase.value,
                               maxLines: 5,
-                              size: 3,
                               color: Colorz.yellow255,
-                              onTap: () => onDelete(arPhrase?.value),
+                              weight: VerseWeight.thin,
+                              margin: 5,
                             ),
 
                             const SizedBox(
@@ -167,7 +172,6 @@ class TranslationStrip extends StatelessWidget {
                   highlight: searchController,
                   onTap: () => onCopyValue(arPhrase?.value),
                 ),
-
 
               ],
             ),
