@@ -594,6 +594,7 @@ class Phrase {
     return _output;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrases({
     @required List<Phrase> phrases,
     @required String text,

@@ -261,6 +261,7 @@ class TextChecker {
     return _itContainsIt;
   }
   // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool stringContainsSubStringRegExp({
     String string,
     String subString,

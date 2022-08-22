@@ -1,8 +1,10 @@
 // ignore_for_file: always_put_control_body_on_new_line
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:flutter/foundation.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:flutter/material.dart';
 
 class TextMod {
 // -----------------------------------------------------------------------------
@@ -608,6 +610,26 @@ class TextMod {
     }
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+
+/// TEXT CONTROLLERS
+
+// ----------------------------
+  static void controllerClear(TextEditingController controller){
+    controller.text = '';
+  }
+// ----------------------------
+  static Future<void> controllerPaste(TextEditingController controller) async {
+    final String value = await FlutterClipboard.paste();
+    controller.text = value;
+  }
+// ----------------------------
+  static Future<void> controllerCopy(BuildContext context, String value) async {
+    await Keyboard.copyToClipboard(
+      context: context,
+      copy: value,
+    );
   }
 // -----------------------------------------------------------------------------
 }
