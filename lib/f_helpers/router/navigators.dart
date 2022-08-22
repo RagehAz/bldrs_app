@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -247,11 +248,10 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 // -------------------------------------
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
-    final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await Dialogz.goBackDialog(
       context: context,
       title: 'Exit App ?',
       body: 'Would you like to exit and close Bldrs.net App ?',
-      boolDialog: true,
       confirmButtonText: 'Exit Bldrs.net',
     );
 

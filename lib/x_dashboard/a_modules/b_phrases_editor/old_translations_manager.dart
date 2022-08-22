@@ -20,18 +20,18 @@ import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 
-class TranslationsManager extends StatefulWidget {
+class OLDTranslationsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const TranslationsManager({
+  const OLDTranslationsManager({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _TranslationsManagerState createState() => _TranslationsManagerState();
+  _OLDTranslationsManagerState createState() => _OLDTranslationsManagerState();
 /// --------------------------------------------------------------------------
 }
 
-class _TranslationsManagerState extends State<TranslationsManager> {
+class _OLDTranslationsManagerState extends State<OLDTranslationsManager> {
   // ---------------------------------------------------------------------------
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
