@@ -146,7 +146,7 @@ class PhraseProvider extends ChangeNotifier {
 }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
-    final List<Phrase> _phrases = await PhraseProtocols.fetchBasicPhrasesByCurrentLang(
+    final List<Phrase> _phrases = await PhraseProtocols.fetchMainPhrasesByCurrentLang(
         context: context,
     );
 
