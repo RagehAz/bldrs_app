@@ -438,7 +438,7 @@ class Sembast  {
   }
 
   // -----------------------------
-  /// TASK : searchMultiple NOT TESTED
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchMultiple({
     @required String docName,
     @required String searchField,
@@ -450,7 +450,7 @@ class Sembast  {
     final Database _db = await _getDB();
 
     final Finder _finder = Finder(
-      filter: Filter.inList(searchField, searchObjects),
+      filter: Filter.inList(searchField, searchObjects ?? []),
       sortOrders: <SortOrder>[SortOrder(fieldToSortBy)],
     );
 
