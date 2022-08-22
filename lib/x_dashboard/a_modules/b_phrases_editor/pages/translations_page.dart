@@ -2,7 +2,9 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/widgets/translations_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +21,7 @@ class TranslationsPage extends StatelessWidget {
     @required this.enController,
     @required this.arController,
     @required this.idTextController,
+    @required this.searchController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +35,7 @@ class TranslationsPage extends StatelessWidget {
   final TextEditingController enController;
   final TextEditingController arController;
   final TextEditingController idTextController;
+  final TextEditingController searchController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,6 +55,7 @@ class TranslationsPage extends StatelessWidget {
                 return PageBubble(
                     screenHeightWithoutSafeArea: screenHeight,
                     appBarType: AppBarType.search,
+                    color: Colorz.black125,
                     child: const Center(
                       child: SuperVerse(
                         verse: 'No result found',
@@ -83,10 +88,11 @@ class TranslationsPage extends StatelessWidget {
 
                 return TranslationsBubble(
                   screenHeight: screenHeight,
+                  searchController: searchController,
                   enPhrases: _enSearchedPhrases,
                   arPhrases: _arSearchedPhrases,
                   scrollController: scrollController,
-                  onCopyValue: (String value) => onCopyText(context, value),
+                  onCopyValue: (String value) => TextMod.controllerCopy(context, value),
                   onDeletePhrase: (String phraseID) => onDeletePhrase(
                     context: context,
                     phraseID: phraseID,
@@ -125,10 +131,11 @@ class TranslationsPage extends StatelessWidget {
       },
       child: TranslationsBubble(
         screenHeight: screenHeight,
+        searchController: searchController,
         scrollController: scrollController,
         arPhrases: arPhrases,
         enPhrases: enPhrases,
-        onCopyValue: (String value) => onCopyText(context, value),
+        onCopyValue: (String value) => TextMod.controllerCopy(context, value),
         onEditPhrase: (String phraseID) => onEditPhrase(
           context: context,
           pageController: pageController,
