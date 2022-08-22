@@ -7,6 +7,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_creator_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/translations_page.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
 class PhraseEditorScreen extends StatefulWidget {
@@ -115,10 +116,23 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
           context: context,
           goBackOnConfirm: true,
         ),
+      onSearchChanged: (String text) => onPhrasesSearchChanged(
+        isSearching: _isSearching,
+        allMixedPhrases: _tempMixedPhrases.value,
+        mixedSearchResult: _mixedSearchedPhrases,
+        searchController: _searchController,
+      ),
+      onSearchSubmit: (String text) => onPhrasesSearchSubmit(
+        isSearching: _isSearching,
+        allMixedPhrases: _tempMixedPhrases.value,
+        mixedSearchResult: _mixedSearchedPhrases,
+        searchController: _searchController,
+      ),
       appBarRowWidgets: <Widget>[
 
         const Expander(),
 
+        /// SYNC BUTTON
         ValueListenableBuilder(
             valueListenable: _initialMixedPhrases,
             builder: (_, List<Phrase> _initial, Widget child){
@@ -182,6 +196,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   idTextController: _idController,
                   isSearching: _isSearching,
                   mixedSearchedPhrases: _mixedSearchedPhrases,
+                  searchController: _searchController,
                 ),
 
                 /// CREATOR

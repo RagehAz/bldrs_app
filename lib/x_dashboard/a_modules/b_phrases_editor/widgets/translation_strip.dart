@@ -17,6 +17,7 @@ class TranslationStrip extends StatelessWidget {
     @required this.onDelete,
     @required this.onEdit,
     @required this.onCopyValue,
+    @required this.searchController,
     Key key
   }) : super(key: key);
 // -----------------------------------------------------------------------------
@@ -26,6 +27,7 @@ class TranslationStrip extends StatelessWidget {
   final Function onDelete;
   final Function onEdit;
   final ValueChanged<String> onCopyValue;
+  final TextEditingController searchController;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class TranslationStrip extends StatelessWidget {
             child: Row(
               children: <Widget>[
 
+                /// PHRASE ID
                 SizedBox(
                   width: width - 30 - 15,
                   child: ListView(
@@ -62,6 +65,7 @@ class TranslationStrip extends StatelessWidget {
                     children: <Widget>[
                       SuperVerse(
                         verse: 'en ID : ${enPhrase?.id}',
+                        highlight: searchController,
                         labelColor: Colorz.white20,
                         size: 1,
                         scaleFactor: 1.1,
@@ -76,6 +80,7 @@ class TranslationStrip extends StatelessWidget {
 
                 const Expander(),
 
+                /// EDIT PHRASE BUTTON
                 DreamBox(
                   height: 30,
                   width: 30,
@@ -147,15 +152,19 @@ class TranslationStrip extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: <Widget>[
 
+                /// EN VALUE
                 SuperVerse(
                   verse: enPhrase?.value,
                   labelColor: Colorz.white20,
+                  highlight: searchController,
                   onTap: () => onCopyValue(enPhrase?.value),
                 ),
 
+                /// AR VALUE
                 SuperVerse(
                   verse: arPhrase?.value,
                   labelColor: Colorz.white20,
+                  highlight: searchController,
                   onTap: () => onCopyValue(arPhrase?.value),
                 ),
 

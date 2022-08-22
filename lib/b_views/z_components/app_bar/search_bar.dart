@@ -3,11 +3,11 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 
 class SearchBar extends StatefulWidget {
@@ -72,10 +72,7 @@ class _SearchBarState extends State<SearchBar> {
     }
 
   }
-// -----------------------------------------------------------------------------
-  Future<void> _onPasteSearchValue() async {
-    await onPasteText(_searchTextController);
-  }
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -203,7 +200,7 @@ class _SearchBarState extends State<SearchBar> {
                             _onClearSearch();
                           }
                           else {
-                            await _onPasteSearchValue();
+                            await TextMod.controllerPaste(_searchTextController);
                           }
 
                         },

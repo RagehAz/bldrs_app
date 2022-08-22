@@ -3,9 +3,9 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/translations_controller.dart';
 import 'package:flutter/material.dart';
 
 class TranslationsCreatorPage extends StatelessWidget {
@@ -40,9 +40,9 @@ class TranslationsCreatorPage extends StatelessWidget {
             title: 'Key',
             hintText: 'Phrase key',
             textController: idController,
-            onBubbleTap: () => onCopyText(context, idController.text),
-            pasteFunction: () => onPasteText(idController),
-            actionBtFunction: () => onClearText(idController),
+            onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
+            pasteFunction: () => TextMod.controllerPaste(idController),
+            actionBtFunction: () => TextMod.controllerClear(idController),
             actionBtIcon: Iconz.xLarge,
             // isError: ,
             columnChildren: <Widget>[
@@ -70,9 +70,9 @@ class TranslationsCreatorPage extends StatelessWidget {
             title: 'English',
             hintText: 'English phrase',
             textController: enController,
-            onBubbleTap: () => onCopyText(context, enController.text),
-            pasteFunction: () => onPasteText(enController),
-            actionBtFunction: () => onClearText(enController),
+            onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
+            pasteFunction: () => TextMod.controllerPaste(enController),
+            actionBtFunction: () => TextMod.controllerClear(enController),
             actionBtIcon: Iconz.xLarge,
           ),
 
@@ -80,9 +80,9 @@ class TranslationsCreatorPage extends StatelessWidget {
             title: 'عربي',
             hintText: 'مصطلح عربي',
             textController: arController,
-            onBubbleTap: () => onCopyText(context, arController.text),
-            pasteFunction: () => onPasteText(arController),
-            actionBtFunction: () => onClearText(arController),
+            onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
+            pasteFunction: () => TextMod.controllerPaste(arController),
+            actionBtFunction: () => TextMod.controllerClear(arController),
             actionBtIcon: Iconz.xLarge,
             textDirection: TextDirection.ltr,
           ),
