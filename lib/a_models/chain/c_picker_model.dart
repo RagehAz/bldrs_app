@@ -1,7 +1,6 @@
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/raw_data/specs_pickers.dart';
-import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/cc_pickers_blocker.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -368,44 +367,6 @@ class PickerModel {
     }
 
     return _groups;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> getPickersByFlyerType(FlyerType flyerType) {
-    final List<PickerModel> _specPicker =
-    flyerType == FlyerType.property ? propertySpecsPickers
-        :
-    flyerType == FlyerType.design ? designSpecsPickers
-        :
-    flyerType == FlyerType.trade ? tradeSpecsPickers
-        :
-    flyerType == FlyerType.project ? designSpecsPickers
-        :
-    flyerType == FlyerType.product ? productSpecsPickers
-        :
-    flyerType == FlyerType.equipment ? equipmentSpecsPickers
-        :
-    <PickerModel>[];
-
-    return _specPicker;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> getPickersByFlyerTypes(List<FlyerType> flyerTypes){
-    final List<PickerModel> _output = <PickerModel>[];
-
-    if (Mapper.checkCanLoopList(flyerTypes) == true){
-
-      for (final FlyerType type in flyerTypes){
-
-        final List<PickerModel> _pickers = getPickersByFlyerType(type);
-        _output.addAll(_pickers);
-
-      }
-
-    }
-
-    return _output;
   }
 // -----------------------------------------------------------------------------
 

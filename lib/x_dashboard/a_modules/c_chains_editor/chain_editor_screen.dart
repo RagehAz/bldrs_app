@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';

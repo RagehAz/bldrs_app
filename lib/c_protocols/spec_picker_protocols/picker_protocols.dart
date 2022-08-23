@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -85,7 +85,7 @@ class PickerProtocols {
     return _pickers;
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> renovateFlyerTypPickers({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -119,7 +119,7 @@ class PickerProtocols {
 
   }
 // -------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerTypePickerLocally({
     @required BuildContext context,
     @required FlyerType flyerType,

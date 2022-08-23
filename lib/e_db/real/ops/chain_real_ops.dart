@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:flutter/cupertino.dart';
