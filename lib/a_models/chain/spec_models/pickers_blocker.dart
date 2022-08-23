@@ -33,14 +33,16 @@ class PickersBlocker {
 
   /// CYPHER
 
-// -------------------------------------
+// -----------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> _toMap(){
     return {
       'value': value,
       'pickersIDsToBlock' : pickersIDsToBlock,
     };
   }
-// -------------------------------------
+// -----------------------------
+  /// TESTED : WORKS PERFECT
   static PickersBlocker _decipherBlocker(Map<String, dynamic> map){
       PickersBlocker _blocker;
 
@@ -55,7 +57,8 @@ class PickersBlocker {
 
       return _blocker;
   }
-// -------------------------------------
+// -----------------------------
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker> blockers){
     final List <Map<String, dynamic>> _maps  = <Map<String, dynamic>>[];
 
@@ -71,13 +74,18 @@ class PickersBlocker {
 
     return _maps;
   }
-// -------------------------------------
-  static List<PickersBlocker> decipherBlockers(List<Map<String, dynamic>> maps){
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickersBlocker> decipherBlockers(List<Object> maps){
     final List<PickersBlocker> _blockers = <PickersBlocker>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
+      for (final Object _linkedHashMap in maps){
+
+        final Map<String, dynamic> map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
+            internalHashLinkedMapObjectObject: _linkedHashMap,
+        );
 
         final PickersBlocker _blocker = _decipherBlocker(map);
         _blockers.add(_blocker);

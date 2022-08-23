@@ -37,6 +37,7 @@ class FlyerTyper{
   /// CYPHERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static FlyerType decipherFlyerType(String x) {
     switch (x) {
       case 'all'      : return FlyerType.all;       break; // 1
@@ -50,9 +51,10 @@ class FlyerTyper{
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String cipherFlyerType(FlyerType x) {
     switch (x) {
-      case FlyerType.all        : return 'all';       break;
+      // case FlyerType.all        : return 'all';       break;
       case FlyerType.property   : return 'property';  break;
       case FlyerType.design     : return 'design';    break;
       case FlyerType.product    : return 'product';   break;
@@ -63,6 +65,7 @@ class FlyerTyper{
     }
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
 
     final List<String> _strings = <String>[];
@@ -77,6 +80,7 @@ class FlyerTyper{
     return _strings;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
 
     final List<FlyerType> _flyersTypes = <FlyerType>[];
@@ -104,6 +108,7 @@ class FlyerTyper{
     FlyerType.equipment,
   ];
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static int getFlyerTypeIndexFromSectionsTabs(FlyerType flyerType){
     final int _index = savedFlyersTabs.indexWhere((type) => type == flyerType);
     return _index;
@@ -258,6 +263,7 @@ String getSectionIcon({
   /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkFlyerTypesIncludeThisType({
     @required FlyerType flyerType,
     @required List<FlyerType> flyerTypes,
@@ -339,6 +345,7 @@ String getSectionIcon({
     return _strings;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateFlyerTypeByBzType({
     @required BuildContext context,
     @required BzType bzType,
@@ -356,6 +363,7 @@ String getSectionIcon({
     return _translation;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateFlyerTypeDescription({
     @required BuildContext context,
     @required FlyerType flyerType,

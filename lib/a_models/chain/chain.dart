@@ -396,25 +396,25 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static Chain filterSpecPickerChainRange({
     @required BuildContext context,
-    @required PickerModel specPicker,
+    @required PickerModel picker,
     @required bool onlyUseCityChains,
   }) {
 
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
       context: context,
-      chainID: specPicker.chainID,
+      chainID: picker.chainID,
       onlyUseCityChains: onlyUseCityChains,
     );
 
     if (
     Mapper.checkCanLoopList(_filteredChain?.sons)
         &&
-        Mapper.checkCanLoopList(specPicker?.range)
+        Mapper.checkCanLoopList(picker?.range)
     ) {
 
       final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
-        dynamics: specPicker.range,
+        dynamics: picker.range,
       );
 
       for (final String son in _filteredChain.sons) {

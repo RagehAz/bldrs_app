@@ -45,7 +45,7 @@ class StringsDataCreator extends StatelessWidget {
           width: BldrsAppBar.width(context),
           previousPath: specPicker.chainID,
           chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
-            specPicker: specPicker,
+            picker: specPicker,
             context: context,
             onlyUseCityChains: onlyUseCityChains,
           )?.sons,
