@@ -21,10 +21,12 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_screen.dart';
 import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -282,30 +284,16 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    Map<String, dynamic> _map = {
-      'test': 'fuck',
-    };
-
-    Mapper.blogMap(_map);
-
-    _map = Mapper.insertPairInMap(
-      map: _map,
-      key: 'new',
-      value: 'initial Value',
-      overrideExisting: true,
+    final String _phid = await Nav.goToNewScreen(
+        context: context,
+        screen: const PhraseEditorScreen(),
     );
 
-    Mapper.blogMap(_map);
+    blog('the selected shit is : $_phid');
 
-    _map = Mapper.insertPairInMap(
-      map: _map,
-      key: 'new',
-      value: 'second Value',
-      // overrideExisting: false,
-    );
-
-    Mapper.blogMap(_map);
-
+    // Map<String, dynamic> _map = {
+    //   'test': 'fuck',
+    // };
 
     // await Real.createNamedDoc(
     //     context: context,
@@ -339,6 +327,8 @@ phid_k_pt_studio
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('d');
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
