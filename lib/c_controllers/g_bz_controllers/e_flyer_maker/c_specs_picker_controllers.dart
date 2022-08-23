@@ -223,7 +223,7 @@ Future<void> updateSelectedSpecsAtPhidSelection({
 }) async {
 
   blog('received kw id : $phid');
-  picker?.blogSpecPicker();
+  picker?.blogPicker();
 
   if (picker != null && picker.chainID != null){
 
