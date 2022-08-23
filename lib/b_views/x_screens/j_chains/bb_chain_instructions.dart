@@ -25,7 +25,7 @@ class SpecPickerScreenView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SpecPicker specPicker;
+  final PickerModel specPicker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final double screenHeight;
   final bool showInstructions;

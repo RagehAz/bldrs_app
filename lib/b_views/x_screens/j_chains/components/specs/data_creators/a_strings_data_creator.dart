@@ -19,7 +19,7 @@ class StringsDataCreator extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SpecPicker specPicker;
+  final PickerModel specPicker;
   final bool onlyUseCityChains;
   final List<SpecModel> selectedSpecs;
   final ValueChanged<String> onPhidTap;

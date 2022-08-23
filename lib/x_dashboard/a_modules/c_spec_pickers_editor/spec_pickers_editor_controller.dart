@@ -15,13 +15,18 @@ import 'package:flutter/material.dart';
 // -----------------------------
 Future<void> onSyncSpecPickers({
   @required BuildContext context,
-  @required ValueNotifier<List<SpecPicker>> initialPickers,
-  @required ValueNotifier<List<SpecPicker>> tempPickers,
+  @required ValueNotifier<List<PickerModel>> initialPickers,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  blog('onSyncSpecPickers');
+  final bool _continue = await Dialogs.confirmProceed(context: context);
 
-  SpecPicker.blogSpecsPickers(tempPickers.value);
+  if (_continue == true){
+
+    blog('onSyncSpecPickers');
+    // await SpecPickerProtocols.renovatePickers();
+
+  }
 
 }
 // ---------------------------------------------------------------------------
@@ -32,7 +37,7 @@ Future<void> onSyncSpecPickers({
 /// TESTED : WORKS PERFECT
 Future<void> onPickerTileTap({
   @required BuildContext context,
-  @required SpecPicker picker,
+  @required PickerModel picker,
 }) async {
 
   await Nav.goToNewScreen(
@@ -51,8 +56,8 @@ Future<void> onPickerTileTap({
 /// TESTED : WORKS PERFECT
 Future<void> onPickerChainIDTap({
   @required BuildContext context,
-  @required SpecPicker picker,
-  @required ValueNotifier<List<SpecPicker>> tempPickers,
+  @required PickerModel picker,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
   final TextEditingController _controller = TextEditingController(text: picker.chainID);
@@ -69,11 +74,11 @@ Future<void> onPickerChainIDTap({
 
   if (picker.chainID != _controller.text){
 
-    final SpecPicker _updated = picker.copyWith(
+    final PickerModel _updated = picker.copyWith(
       chainID: _controller.text,
     );
 
-    tempPickers.value = SpecPicker.replacePicker(
+    tempPickers.value = PickerModel.replacePicker(
       sourcePickers: tempPickers.value,
       pickerChainIDtoReplace: picker.chainID,
       updatedPicker: _updated,
@@ -86,8 +91,8 @@ Future<void> onPickerChainIDTap({
 /// TESTED : WORKS PERFECT
 Future<void> onPickerUnitChainIDTap({
   @required BuildContext context,
-  @required SpecPicker picker,
-  @required ValueNotifier<List<SpecPicker>> tempPickers,
+  @required PickerModel picker,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
   final TextEditingController _controller = TextEditingController(text: picker.unitChainID);
@@ -104,11 +109,11 @@ Future<void> onPickerUnitChainIDTap({
 
   if (picker.unitChainID != _controller.text){
 
-    final SpecPicker _updated = picker.copyWith(
+    final PickerModel _updated = picker.copyWith(
       unitChainID: _controller.text,
     );
 
-    tempPickers.value = SpecPicker.replacePicker(
+    tempPickers.value = PickerModel.replacePicker(
       sourcePickers: tempPickers.value,
       pickerChainIDtoReplace: picker.chainID,
       updatedPicker: _updated,
@@ -122,18 +127,18 @@ Future<void> onPickerUnitChainIDTap({
 /// TESTED : WORKS PERFECT
 Future<void> onSwitchIsRequired({
   @required BuildContext context,
-  @required SpecPicker picker,
-  @required ValueNotifier<List<SpecPicker>> tempPickers,
+  @required PickerModel picker,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
   @required bool newValue,
 }) async {
 
   if (picker.isRequired != newValue){
 
-    final SpecPicker _updated = picker.copyWith(
+    final PickerModel _updated = picker.copyWith(
         isRequired: newValue
     );
 
-    tempPickers.value = SpecPicker.replacePicker(
+    tempPickers.value = PickerModel.replacePicker(
       sourcePickers: tempPickers.value,
       pickerChainIDtoReplace: picker.chainID,
       updatedPicker: _updated,
@@ -146,18 +151,18 @@ Future<void> onSwitchIsRequired({
 /// TESTED : WORKS PERFECT
 Future<void> onSwitchCanPickMany({
   @required BuildContext context,
-  @required SpecPicker picker,
-  @required ValueNotifier<List<SpecPicker>> tempPickers,
+  @required PickerModel picker,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
   @required bool newValue,
 }) async {
 
   if (picker.canPickMany != newValue){
 
-    final SpecPicker _updated = picker.copyWith(
+    final PickerModel _updated = picker.copyWith(
         canPickMany: newValue
     );
 
-    tempPickers.value = SpecPicker.replacePicker(
+    tempPickers.value = PickerModel.replacePicker(
       sourcePickers: tempPickers.value,
       pickerChainIDtoReplace: picker.chainID,
       updatedPicker: _updated,
