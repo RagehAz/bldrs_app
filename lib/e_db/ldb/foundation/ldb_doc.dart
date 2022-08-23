@@ -13,9 +13,11 @@ class LDBDoc {
   static const String flyers = 'flyers';
   static const String bzz = 'bzz';
   static const String users = 'users';
+
   static const String bigChainK = 'bigChainK';
   static const String bigChainS = 'bigChainS';
-  static const String specPickers = 'specPickers';
+  static const String pickers = 'pickers';
+
   static const String countries = 'countries';
   static const String cities = 'cities';
   static const String continents = 'continents';
@@ -45,7 +47,7 @@ class LDBDoc {
     users,
     bigChainK,
     bigChainS,
-    specPickers,
+    pickers,
     countries,
     cities,
     continents,

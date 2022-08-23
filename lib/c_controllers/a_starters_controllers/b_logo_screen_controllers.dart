@@ -244,7 +244,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         /// SPEC PICKERS
         if (_globalState.specPickersVersion > _userState.specPickersVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.specPickers,);
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.pickers,);
           _userAppState = _userAppState.copyWith(
             specPickersVersion: _globalState.specPickersVersion,
           );
