@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -9,6 +9,14 @@ class PickerRealOps {
 
   const PickerRealOps();
 
+// ---------------------------------------------------------------------------
+
+  /// PATHS
+
+// -----------------------------
+  static  String getRealDocNameByRootChainID(){
+
+  }
 // ---------------------------------------------------------------------------
 
 /// CREATE
