@@ -22,7 +22,7 @@ class SpecPickerTile extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final SpecPicker specPicker;
+  final PickerModel specPicker;
   final List<SpecModel> selectedSpecs;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------

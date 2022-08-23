@@ -20,7 +20,7 @@ class SpecPickerEditorScreen extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<SpecPicker> specPickers;
+  final List<PickerModel> specPickers;
   /// --------------------------------------------------------------------------
   @override
   _SpecPickerEditorScreenState createState() => _SpecPickerEditorScreenState();
@@ -29,9 +29,9 @@ class SpecPickerEditorScreen extends StatefulWidget {
 
 class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<SpecPicker>> _initialSpecPickers = ValueNotifier(<SpecPicker>[]);
-  final ValueNotifier<List<SpecPicker>> _tempPickers = ValueNotifier(<SpecPicker>[]);
-  final ValueNotifier<List<SpecPicker>> _refinedPickers = ValueNotifier(<SpecPicker>[]);
+  final ValueNotifier<List<PickerModel>> _initialSpecPickers = ValueNotifier(<PickerModel>[]);
+  final ValueNotifier<List<PickerModel>> _tempPickers = ValueNotifier(<PickerModel>[]);
+  final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier(<PickerModel>[]);
 
   final PageController _pageController = PageController();
 // -----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
         _initialSpecPickers.value = widget.specPickers;
         _tempPickers.value = widget.specPickers;
-        final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToPickers(
+        final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockers(
           sourcePickers: widget.specPickers,
           selectedSpecs: const [],
         );
@@ -135,13 +135,13 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
         /// SYNC BUTTON
         ValueListenableBuilder(
             valueListenable: _initialSpecPickers,
-            builder: (_, List<SpecPicker> _initial, Widget child){
+            builder: (_, List<PickerModel> _initial, Widget child){
 
               return ValueListenableBuilder(
                 valueListenable: _tempPickers,
-                builder: (_, List<SpecPicker> _temp, Widget child){
+                builder: (_, List<PickerModel> _temp, Widget child){
 
-                  final bool _areIdentical = SpecPicker.checkSpecPickersListsAreIdentical(
+                  final bool _areIdentical = PickerModel.checkSpecPickersListsAreIdentical(
                     pickers1: _initial,
                     pickers2: _temp,
                   );
@@ -170,14 +170,14 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
           valueListenable: _tempPickers,
-          builder: (_, List<SpecPicker> tempPickers, Widget child){
+          builder: (_, List<PickerModel> tempPickers, Widget child){
 
-            final List<SpecPicker> refinedPickers = SpecPicker.applyDeactivatorsToPickers(
+            final List<PickerModel> refinedPickers = PickerModel.applyBlockers(
               sourcePickers: tempPickers,
               selectedSpecs: const [],
             );
 
-            final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
+            final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
               specsPickers: refinedPickers,
             );
 
@@ -192,7 +192,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                   final String _groupID = _theGroupsIDs[index];
 
-                  final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getPickersByGroupID(
+                  final List<PickerModel> _pickersOfThisGroup = PickerModel.getPickersByGroupID(
                     pickers: refinedPickers,
                     groupID: _groupID,
                   );
@@ -214,7 +214,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                         ...List<Widget>.generate(_pickersOfThisGroup.length,
                                 (int index) {
 
-                              final SpecPicker _picker = _pickersOfThisGroup[index];
+                              final PickerModel _picker = _pickersOfThisGroup[index];
 
                               return PickerEditor(
                                 picker: _picker,

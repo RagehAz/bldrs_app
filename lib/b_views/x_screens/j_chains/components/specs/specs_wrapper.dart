@@ -21,12 +21,12 @@ class SpecsWrapper extends StatelessWidget {
   final List<SpecModel> specs;
   final ValueChanged<List<SpecModel>> onSpecTap;
   final bool xIsOn;
-  final SpecPicker picker;
+  final PickerModel picker;
   final dynamic padding;
   /// --------------------------------------------------------------------------
   static bool combineTheTwoSpecs({
     @required List<SpecModel> specs,
-    @required SpecPicker picker,
+    @required PickerModel picker,
 }){
     bool _combine = false;
 

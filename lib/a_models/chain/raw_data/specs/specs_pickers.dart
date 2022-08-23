@@ -1,17 +1,17 @@
-import 'package:bldrs/a_models/chain/spec_models/pickers_deactivator.dart';
+import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 
-List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
+List<PickerModel> propertySpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
     /// TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_k_flyer_type_property',
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
+        blockers: <PickersBlocker>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -22,21 +22,21 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - MAIN SPECIFICATIONS
     // ----------------------------
     /// PROPERTY FORM
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyForm',
         groupID: 'Main Specifications', /// TASK : TRANSLATE THIS
         canPickMany: false,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
-          PickersDeactivator(
+        blockers: <PickersBlocker>[
+          PickersBlocker(
               value: 'phid_s_pf_land',
-              pickersIDsToDeactivate: <String>[
+              pickersIDsToBlock: <String>[
                 'phid_s_propertyArea',
                 'phid_s_propertyAreaUnit'
               ]),
-          PickersDeactivator(
+          PickersBlocker(
               value: 'phid_s_pf_mobile',
-              pickersIDsToDeactivate: <String>[
+              pickersIDsToBlock: <String>[
                 'phid_s_lotArea',
                 'phid_s_lotAreaUnit',
                 'phid_s_propertyFloorNumber',
@@ -48,7 +48,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY LICENSE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyLicense',
         groupID: 'Main Specifications',
         canPickMany: true,
@@ -58,37 +58,37 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - PROPERTY PRICING SPECIFICATIONS
     // ----------------------------
     /// PROPERTY CONTRACT TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_contractType',
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
-          PickersDeactivator(
+        blockers: <PickersBlocker>[
+          PickersBlocker(
               value: 'phid_s_contractType_NewSale',
-              pickersIDsToDeactivate: <String>['phid_s_propertyRentPrice',]
+              pickersIDsToBlock: <String>['phid_s_propertyRentPrice',]
           ),
-          PickersDeactivator(
+          PickersBlocker(
               value: 'phid_s_contractType_Resale',
-              pickersIDsToDeactivate: <String>['phid_s_propertyRentPrice',],
+              pickersIDsToBlock: <String>['phid_s_propertyRentPrice',],
           ),
-          PickersDeactivator(
+          PickersBlocker(
               value: 'phid_s_contractType_Rent',
-              pickersIDsToDeactivate: <String>['phid_s_PropertySalePrice',]
+              pickersIDsToBlock: <String>['phid_s_PropertySalePrice',]
           ),
         ],
     ),
     // -------------
     /// PROPERTY PAYMENT METHOD
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_paymentMethod',
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <PickersDeactivator>[
-          PickersDeactivator(
+        blockers: <PickersBlocker>[
+          PickersBlocker(
               value: 'phid_s_payment_cash',
-              pickersIDsToDeactivate: <String>[
+              pickersIDsToBlock: <String>[
                 'phid_s_numberOfInstallments',
                 'phid_s_InstallmentsDuration',
                 'phid_s_InstallmentsDurationUnit'
@@ -98,7 +98,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY SALE PRICE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_PropertySalePrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -107,7 +107,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY RENT PRICE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyRentPrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -129,7 +129,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - INSTALLMENTS
     // ----------------------------
     /// PROPERTY NUMBER OF INSTALLMENTS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_numberOfInstallments',
         groupID: 'Installments',
         canPickMany: false,
@@ -137,7 +137,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY INSTALLMENTS DURATION
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_installmentsDuration',
         groupID: 'Installments',
         canPickMany: false,
@@ -159,7 +159,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyArea',
         groupID: 'Property Area',
         canPickMany: false,
@@ -170,7 +170,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - LOT AREA
     // ----------------------------
     /// LOT AREA
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_plotArea',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -181,7 +181,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - PROPERTY SPATIAL SPECIFICATION
     // ----------------------------
     /// PROPERTY SPACES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_property_spaces', // phid_s_group_space_type has chain but translates (Space type)
         groupID: 'Spatial Specifications',
         canPickMany: true,
@@ -189,7 +189,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY FLOOR NUMBER
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyFloorNumber',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -197,7 +197,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY DEDICATED PARKING LOTS COUNT
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyDedicatedParkingSpaces',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -205,7 +205,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY NUMBER OF BEDROOMS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyNumberOfBedrooms',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -213,7 +213,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY NUMBER OF BATHROOMS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyNumberOfBathrooms',
         groupID: 'Spatial Specifications',
         canPickMany: false,
@@ -223,7 +223,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - PROPERTY FEATURES SPECIFICATIONS
     // ----------------------------
     /// PROPERTY VIEW
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyView',
         groupID: 'Property Features',
         canPickMany: true,
@@ -231,7 +231,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY INDOOR FEATURES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_sub_ppt_feat_indoor',
         groupID: 'Property Features',
         canPickMany: true,
@@ -239,7 +239,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY FINISHING LEVEL
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_sub_ppt_feat_finishing',
         groupID: 'Property Features',
         canPickMany: false,
@@ -247,7 +247,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY DECORATION STYLE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyDecorationStyle',
         groupID: 'Property Features',
         canPickMany: true,
@@ -257,7 +257,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - COMMUNITY FEATURES SPECIFICATIONS
     // ----------------------------
     /// IN  A COMPOUND
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_sub_ppt_feat_compound',
         groupID: 'Community Features',
         canPickMany: false,
@@ -265,7 +265,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// AMENITIES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_sub_ppt_feat_amenities',
         groupID: 'Community Features',
         canPickMany: true,
@@ -273,7 +273,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// COMMUNITY SERVICES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_sub_ppt_feat_services',
         groupID: 'Community Features',
         canPickMany: true,
@@ -283,7 +283,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     /// - BUILDING FEATURES SPECIFICATIONS
     // ----------------------------
     /// BUILDING NUMBER OF FLOORS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_buildingNumberOfFloors',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -291,7 +291,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// BUILDING AGE IN YEARS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_buildingAge',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -299,7 +299,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// BUILDING TOTAL UNITS COUNTS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_buildingTotalPropertiesCount',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -307,7 +307,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// BUILDING TOTAL PARKING LOTS COUNTS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_buildingTotalParkingLotsCount',
         groupID: 'Building Specifications',
         canPickMany: false,
@@ -316,17 +316,17 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
     // ------------------------------------------------------------
 ];
 
-List<SpecPicker> designSpecsPickers = const <SpecPicker>[
+List<PickerModel> designSpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
     /// TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_k_flyer_type_design',
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
+        blockers: <PickersBlocker>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -337,7 +337,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - DESIGN SPECIFICATIONS
     // ----------------------------
     /// DESIGN TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_group_dz_type',
         groupID: 'Design Specifications',
         canPickMany: true,
@@ -345,7 +345,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// DESIGN SPACES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_group_space_type',
         groupID: 'Design Specifications',
         canPickMany: true,
@@ -353,7 +353,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// DESIGN STYLE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_style',
         groupID: 'Design Specifications',
         canPickMany: true,
@@ -363,7 +363,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - PROPERTY SPECIFICATIONS
     // ----------------------------
     /// PROPERTY FORM
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyForm',
         groupID: 'Property Specifications',
         canPickMany: false,
@@ -371,7 +371,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// PROPERTY LICENSE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyLicense',
         groupID: 'Property Specifications',
         canPickMany: true,
@@ -381,7 +381,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - CONSTRUCTION COST
     // ----------------------------
     /// PROJECT COST
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_projectCost',
         groupID: 'Construction Cost',
         canPickMany: false,
@@ -392,7 +392,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - CONSTRUCTION DURATION
     // ----------------------------
     /// Construction DURATION
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_constructionDuration',
         groupID: 'Construction Duration',
         canPickMany: false,
@@ -403,7 +403,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - CONSTRUCTION ACTIVITIES
     // ----------------------------
     /// CONSTRUCTION ACTIVITIES
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_k_flyer_type_trades',
         groupID: 'Construction Activities',
         canPickMany: true,
@@ -413,7 +413,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - PROPERTY AREA
     // ----------------------------
     /// PROPERTY AREA
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_propertyArea',
         groupID: 'Property Area',
         canPickMany: false,
@@ -424,7 +424,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     /// - PROPERTY AREA
     // ----------------------------
     /// LOT AREA
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_plotArea',
         groupID: 'Lot Area',
         canPickMany: false,
@@ -434,17 +434,17 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
     // ------------------------------------------------------------
 ];
 
-List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
+List<PickerModel> tradeSpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
     /// TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_k_flyer_type_trades',
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
+        blockers: <PickersBlocker>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -455,7 +455,7 @@ List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
     /// - PRICING
     // ----------------------------
     /// CONSTRUCTION ACTIVITY PRICE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_price',
         groupID: 'Cost',
         canPickMany: false,
@@ -466,7 +466,7 @@ List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
     /// - MEASUREMENTS
     // ----------------------------
     /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_constructionActivityMeasurementMethod',
         groupID: 'Cost',
         canPickMany: false,
@@ -475,17 +475,17 @@ List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
     // ------------------------------------------------------------
 ];
 
-List<SpecPicker> productSpecsPickers = const <SpecPicker>[
+List<PickerModel> productSpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
     /// TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_k_flyer_type_product',
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <PickersDeactivator>[
+        blockers: <PickersBlocker>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -496,37 +496,37 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - PRICING SPECIFICATIONS
     // ----------------------------
     /// CONTRACT TYPE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_contractType',
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <PickersDeactivator>[
-            PickersDeactivator(
+        blockers: <PickersBlocker>[
+            PickersBlocker(
                 value: 'phid_s_contractType_NewSale',
-                pickersIDsToDeactivate: <String>['phid_s_rentPrice',]
+                pickersIDsToBlock: <String>['phid_s_rentPrice',]
             ),
-            PickersDeactivator(
+            PickersBlocker(
                 value: 'phid_s_contractType_Resale',
-                pickersIDsToDeactivate: <String>['phid_s_rentPrice',],
+                pickersIDsToBlock: <String>['phid_s_rentPrice',],
             ),
-            PickersDeactivator(
+            PickersBlocker(
                 value: 'phid_s_contractType_Rent',
-                pickersIDsToDeactivate: <String>['phid_s_salePrice',]
+                pickersIDsToBlock: <String>['phid_s_salePrice',]
             ),
         ],
     ),
     // -------------
     /// PAYMENT METHOD
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_paymentMethod',
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <PickersDeactivator>[
-            PickersDeactivator(
+        blockers: <PickersBlocker>[
+            PickersBlocker(
                 value: 'phid_s_payment_cash',
-                pickersIDsToDeactivate: <String>[
+                pickersIDsToBlock: <String>[
                     'phid_s_numberOfInstallments',
                     'phid_s_InstallmentsDuration',
                     'phid_s_InstallmentsDurationUnit'
@@ -536,7 +536,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// SALE PRICE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_salePrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -545,7 +545,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// RENT PRICE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_rentPrice',
         groupID: 'Pricing',
         canPickMany: false,
@@ -556,7 +556,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - INSTALLMENTS
     // ----------------------------
     /// NUMBER OF INSTALLMENTS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_numberOfInstallments',
         groupID: 'Installments',
         canPickMany: false,
@@ -564,7 +564,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// INSTALLMENTS DURATION
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_installmentsDuration',
         groupID: 'Installments',
         canPickMany: false,
@@ -575,7 +575,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - DESIGN SPECIFICATIONS
     // ----------------------------
     /// COLOR
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_color',
         groupID: 'Design',
         canPickMany: true,
@@ -585,7 +585,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - DIMENSIONS SPECIFICATIONS
     // ----------------------------
     /// WIDTH
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_width',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -594,7 +594,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// LENGTH
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_length',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -603,7 +603,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// HEIGHT
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_height',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -612,7 +612,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// THICKNESS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_thickness',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -621,7 +621,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// DIAMETER
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_diameter',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -630,7 +630,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// RADIUS
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_radius',
         groupID: 'Dimensions',
         canPickMany: false,
@@ -641,7 +641,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - SIZE SPECIFICATIONS
     // ----------------------------
     /// FOOTPRINT
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_footPrint',
         groupID: 'Size',
         canPickMany: false,
@@ -650,7 +650,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// VOLUME
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_volume',
         groupID: 'Size',
         canPickMany: false,
@@ -659,7 +659,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// WIGHT
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_weight',
         groupID: 'Size',
         canPickMany: false,
@@ -668,7 +668,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// SIZE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_size',
         groupID: 'Size',
         canPickMany: false,
@@ -678,7 +678,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - SIZE SPECIFICATIONS
     // ----------------------------
     /// QUANTITY
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_count',
         groupID: 'Quantity',
         canPickMany: false,
@@ -688,7 +688,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - ELECTRIC SPECIFICATIONS
     // ----------------------------
     /// WATTAGE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_wattage',
         groupID: 'Electricity',
         canPickMany: false,
@@ -696,7 +696,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// WATTAGE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_voltage',
         groupID: 'Electricity',
         canPickMany: false,
@@ -704,7 +704,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     ),
     // -------------
     /// WATTAGE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_ampere',
         groupID: 'Electricity',
         canPickMany: false,
@@ -714,7 +714,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - AVAILABILITY SPECIFICATIONS
     // ----------------------------
     /// WATTAGE
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_inStock',
         groupID: 'Availability',
         canPickMany: false,
@@ -724,21 +724,21 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - DELIVERY SPECIFICATIONS
     // ----------------------------
     /// DELIVERY AVAILABILITY
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_deliveryAvailable',
         groupID: 'Availability',
         canPickMany: false,
         isRequired: false,
-        deactivators: <PickersDeactivator>[
-            PickersDeactivator(
+        blockers: <PickersBlocker>[
+            PickersBlocker(
                 value: false,
-                pickersIDsToDeactivate: <String>['phid_s_deliveryMinDuration'],
+                pickersIDsToBlock: <String>['phid_s_deliveryMinDuration'],
             ),
         ],
     ),
     // -------------
     /// DELIVERY AVAILABILITY
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_deliveryMinDuration',
         groupID: 'Availability',
         canPickMany: false,
@@ -749,7 +749,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - MANUFACTURER SPECIFICATIONS
     // ----------------------------
     /// MADE IN
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_madeIn',
         groupID: 'Manufacturer Info',
         canPickMany: false,
@@ -759,7 +759,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     /// - WARRANTY SPECIFICATIONS
     // ----------------------------
     /// WARRANTY DURATION
-    SpecPicker(
+    PickerModel(
         chainID: 'phid_s_insuranceDuration',
         groupID: 'Warranty',
         canPickMany: false,
@@ -769,4 +769,4 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
     // ----------------------------
 ];
 
-List<SpecPicker> equipmentSpecsPickers = <SpecPicker>[];
+List<PickerModel> equipmentSpecsPickers = <PickerModel>[];

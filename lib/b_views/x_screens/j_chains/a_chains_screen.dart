@@ -51,8 +51,8 @@ class _ChainsScreenState extends State<ChainsScreen> {
 // -----------------------------------------------------------------------------
   /// DATA
   Chain _bigChainK;
-  List<SpecPicker> _allSpecPickers = <SpecPicker>[];
-  ValueNotifier<List<SpecPicker>> _refinedSpecsPickers;
+  List<PickerModel> _allSpecPickers = <PickerModel>[];
+  ValueNotifier<List<PickerModel>> _refinedSpecsPickers;
   ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
   /// SEARCHING
   final TextEditingController _searchTextController = TextEditingController();
@@ -105,7 +105,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
-        _allSpecPickers = SpecPicker.createPickersFromAllChainKs(
+        _allSpecPickers = PickerModel.createPickersFromAllChainKs(
           onlyUseTheseFlyerTypes: widget.flyerTypesChainFilters,
           canPickManyOfAPicker: true,
         );
@@ -117,7 +117,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
         if (Mapper.checkCanLoopList(widget.flyerTypesChainFilters) == false){
 
-          _allSpecPickers = SpecPicker.createPickersForChainK(
+          _allSpecPickers = PickerModel.createPickersForChainK(
             context: context,
             chainK: _bigChainK,
             canPickManyOfAPicker: false,
@@ -126,10 +126,10 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if (widget.flyerTypesChainFilters.length == 1){
-          _allSpecPickers = SpecPicker.getPickersByFlyerType(widget.flyerTypesChainFilters[0]);
+          _allSpecPickers = PickerModel.getPickersByFlyerType(widget.flyerTypesChainFilters[0]);
         }
         else {
-          _allSpecPickers = SpecPicker.getPickersByFlyerTypes(widget.flyerTypesChainFilters);
+          _allSpecPickers = PickerModel.getPickersByFlyerTypes(widget.flyerTypesChainFilters);
         }
 
       }
@@ -137,13 +137,13 @@ class _ChainsScreenState extends State<ChainsScreen> {
       // ------------------------------
       _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
       // ------------------------------
-      final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToPickers(
+      final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockers(
         sourcePickers: _allSpecPickers,
         selectedSpecs: widget.selectedSpecs,
       );
-      _refinedSpecsPickers = ValueNotifier<List<SpecPicker>>(_theRefinedPickers);
+      _refinedSpecsPickers = ValueNotifier<List<PickerModel>>(_theRefinedPickers);
       // ------------------------------
-      final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
+      final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
         specsPickers: _theRefinedPickers,
       );
       _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
@@ -161,7 +161,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
       final List<Chain> _sons = <Chain>[];
 
-      for (final SpecPicker _picker in _allSpecPickers){
+      for (final PickerModel _picker in _allSpecPickers){
         final Chain _chain = ChainsProvider.proFindChainByID(
           context: context,
           chainID: _picker.chainID,
@@ -319,7 +319,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     phid: phid,
                     isMultipleSelectionMode: widget.isMultipleSelectionMode,
                     selectedSpecs: _selectedSpecs,
-                    specPicker: SpecPicker.getPickerByChainIDOrUnitChainID(
+                    specPicker: PickerModel.getPickerByChainIDOrUnitChainID(
                       pickers: _allSpecPickers,
                       chainIDOrUnitChainID: getSpecPickerChainIDOfPhid(
                         context: context,
@@ -340,7 +340,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                 specsPickers: _allSpecPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: widget.flyerTypesChainFilters,
-                onPickerTap: (SpecPicker picker) => onSpecPickerTap(
+                onPickerTap: (PickerModel picker) => onSpecPickerTap(
                   context: context,
                   selectedSpecs: _selectedSpecs,
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
