@@ -22,6 +22,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
     @required this.onCopyValue,
     @required this.onDeletePhraseTap,
     @required this.onEditPhraseTap,
+    @required this.onSelectPhrase,
     @required this.searchController,
     @required this.mixedPhrases,
     Key key
@@ -35,6 +36,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
   /// passes phrase id
   final ValueChanged<String> onDeletePhraseTap;
   final ValueChanged<String> onEditPhraseTap;
+  final ValueChanged<String> onSelectPhrase;
   final TextEditingController searchController;
   final List<Phrase> mixedPhrases;
   /// --------------------------------------------------------------------------
@@ -104,6 +106,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
                   onCopyValue: onCopyValue,
                   onDelete: () => onDeletePhraseTap(_enPhrase.id),
                   onEdit: () => onEditPhraseTap(_enPhrase.id),
+                  onSelect: () => onSelectPhrase(_enPhrase.id),
                 );
               }
 
