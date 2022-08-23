@@ -461,7 +461,7 @@ class PickerModel {
   }
 // -------------------------------------
   ///
-  static bool checkSpecPickersListsAreIdentical({
+  static bool checkPickersListsAreIdentical({
     @required List<PickerModel> pickers1,
     @required List<PickerModel> pickers2,
   }){
@@ -511,7 +511,7 @@ class PickerModel {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  void blogSpecPicker() {
+  void blogPicker() {
     blog('SPEC-PICKER-PRINT --------------------------------------------------START');
 
     blog('chainID : $chainID');
@@ -526,10 +526,10 @@ class PickerModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static void blogSpecsPickers(List<PickerModel> specsPickers) {
+  static void blogPickers(List<PickerModel> specsPickers) {
     if (Mapper.checkCanLoopList(specsPickers)) {
       for (final PickerModel _picker in specsPickers) {
-        _picker.blogSpecPicker();
+        _picker.blogPicker();
       }
     }
   }
@@ -586,7 +586,7 @@ class PickerModel {
       canPickMany: canPickManyOfAPicker,
     );
 
-    final List<PickerModel> _specPickers = <PickerModel>[];
+    final List<PickerModel> _pickers = <PickerModel>[];
 
     /// IF SPECIFIC TYPES ARE GIVEN, ADD WHATS ENLISTED
     if (Mapper.checkCanLoopList(onlyUseTheseFlyerTypes) == true){
@@ -600,7 +600,7 @@ class PickerModel {
         final bool _useThisType = onlyUseTheseFlyerTypes.contains(_flyerType);
 
         if (_useThisType == true){
-          _specPickers.add(picker);
+          _pickers.add(picker);
         }
 
       }
@@ -609,10 +609,10 @@ class PickerModel {
 
     /// IF NO SPECIFIC TYPE GIVEN, ADD ALL
     else {
-      _specPickers.addAll(allChainKPickers);
+      _pickers.addAll(allChainKPickers);
     }
 
-    return _specPickers;
+    return _pickers;
   }
 
 // -------------------------------------
@@ -722,7 +722,7 @@ class PickerModel {
 // -----------------------------------------------------------------------------
 }
 
-String getSpecPickerChainIDOfPhid({
+String getPickerChainIDOfPhid({
   @required String phid,
   @required BuildContext context,
 }){
@@ -739,15 +739,15 @@ String getSpecPickerChainIDOfPhid({
   return _rooChainID;
 }
 
-PickerModel findSpecPickerByPhid({
+PickerModel findPickerByPhid({
   @required BuildContext context,
   @required String phid,
-  @required List<PickerModel> allSpecPickers,
+  @required List<PickerModel> allPickers,
 }){
 
   final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
-    pickers: allSpecPickers,
-    chainIDOrUnitChainID: getSpecPickerChainIDOfPhid(
+    pickers: allPickers,
+    chainIDOrUnitChainID: getPickerChainIDOfPhid(
       context: context,
       phid: phid,
     ),
@@ -756,22 +756,22 @@ PickerModel findSpecPickerByPhid({
   return _picker;
 }
 
-List<PickerModel> findSpecPickersByPhids({
+List<PickerModel> findPickersByPhids({
   @required BuildContext context,
   @required List<String> phids,
-  @required List<PickerModel> allSpecPickers,
+  @required List<PickerModel> allPickers,
 }){
 
   final List<PickerModel> _pickers = <PickerModel>[];
 
-  if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allSpecPickers) == true){
+  if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allPickers) == true){
 
     for (final String phid in phids){
 
-      final PickerModel _picker = findSpecPickerByPhid(
+      final PickerModel _picker = findPickerByPhid(
         context: context,
         phid: phid,
-        allSpecPickers: allSpecPickers,
+        allPickers: allPickers,
       );
 
       if (_picker != null){

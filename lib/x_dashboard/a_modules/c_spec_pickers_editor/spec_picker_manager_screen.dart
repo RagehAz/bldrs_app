@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/raw_data/specs_pickers.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/e_db/real/ops/picker_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -77,6 +80,9 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
     final double _screenWidth = Scale.superScreenWidth(context);
 
+    const List<PickerModel> _dummyPickers = propertySpecsPickers;
+    const FlyerType _dummyFlyerType = FlyerType.property;
+
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
@@ -105,17 +111,55 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         /// PROPERTIES SPEC PICKER
         WideButton(
-          verse: 'BLOG propertySpecsPickers',
+          verse: 'go to Properties',
           onTap: () async {
 
             // SpecPicker.blogSpecsPickers(propertySpecsPickers);
 
             await Nav.goToNewScreen(
                 context: context,
-                screen: SpecPickerEditorScreen(
+                screen: const SpecPickerEditorScreen(
                     specPickers: propertySpecsPickers,
                 ),
             );
+
+          },
+        ),
+
+        // ---------------------------------------
+
+        /// SPEC REAL OPS
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headline: 'SPEC REAL OPS',
+        ),
+
+        /// CREATE DUMMY PICKERS
+        WideButton(
+          verse: 'CREATE',
+          onTap: () async {
+
+            await PickerRealOps.createPickers(
+                context: context,
+                pickers: _dummyPickers,
+                flyerType: _dummyFlyerType,
+            );
+
+
+          },
+        ),
+
+        /// READ DUMMY PICKERS
+        WideButton(
+          verse: 'READ',
+          onTap: () async {
+
+            final List<PickerModel> _pickers = await PickerRealOps.readPickers(
+              context: context,
+              flyerType: _dummyFlyerType,
+            );
+
+            PickerModel.blogPickers(_pickers);
 
           },
         ),

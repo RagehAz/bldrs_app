@@ -19,11 +19,11 @@ enum FlyerType {
 }
 
 class FlyerTyper{
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   const FlyerTyper();
 
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
     FlyerType.property,
     FlyerType.design, /// TASK : SHOULD COMBINE DESIGN WITH PROJECT
@@ -39,12 +39,12 @@ class FlyerTyper{
 // -------------------------------------
   static FlyerType decipherFlyerType(String x) {
     switch (x) {
-      case 'all'      : return FlyerType.all; break; // 1
-      case 'property' : return FlyerType.property; break; // 1
-      case 'design'   : return FlyerType.design; break; // 2
-      case 'product'  : return FlyerType.product; break; // 3
-      case 'project'  : return FlyerType.project; break; // 4
-      case 'trade'    : return FlyerType.trade; break; // 5
+      case 'all'      : return FlyerType.all;       break; // 1
+      case 'property' : return FlyerType.property;  break; // 1
+      case 'design'   : return FlyerType.design;    break; // 2
+      case 'product'  : return FlyerType.product;   break; // 3
+      case 'project'  : return FlyerType.project;   break; // 4
+      case 'trade'    : return FlyerType.trade;     break; // 5
       case 'equipment': return FlyerType.equipment; break; // 6
       default: return null;
     }
@@ -52,12 +52,12 @@ class FlyerTyper{
 // -------------------------------------
   static String cipherFlyerType(FlyerType x) {
     switch (x) {
-      case FlyerType.all        : return 'all'; break;
-      case FlyerType.property   : return 'property'; break;
-      case FlyerType.design     : return 'design'; break;
-      case FlyerType.product    : return 'product'; break;
-      case FlyerType.project    : return 'project'; break;
-      case FlyerType.trade      : return 'trade'; break;
+      case FlyerType.all        : return 'all';       break;
+      case FlyerType.property   : return 'property';  break;
+      case FlyerType.design     : return 'design';    break;
+      case FlyerType.product    : return 'product';   break;
+      case FlyerType.project    : return 'project';   break;
+      case FlyerType.trade      : return 'trade';     break;
       case FlyerType.equipment  : return 'equipment'; break;
       default: return null;
     }
@@ -376,14 +376,13 @@ String getSectionIcon({
 
 // -----------------------------------------------------------------------------
 
-/// CHAIN <--> FLYER TYPE : CONCLUDERS
+  /// CHAIN <--> FLYER TYPE : CONCLUDERS
 
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FlyerType concludeFlyerTypeByChainID({
     @required String chainID,
   }){
-
     switch (chainID) {
     /// REAL ESTATE
       case Chain.propertyChainID:  return FlyerType.property; break;

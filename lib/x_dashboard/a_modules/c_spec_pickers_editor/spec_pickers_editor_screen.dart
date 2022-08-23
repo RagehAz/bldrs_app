@@ -141,7 +141,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                 valueListenable: _tempPickers,
                 builder: (_, List<PickerModel> _temp, Widget child){
 
-                  final bool _areIdentical = PickerModel.checkSpecPickersListsAreIdentical(
+                  final bool _areIdentical = PickerModel.checkPickersListsAreIdentical(
                     pickers1: _initial,
                     pickers2: _temp,
                   );
