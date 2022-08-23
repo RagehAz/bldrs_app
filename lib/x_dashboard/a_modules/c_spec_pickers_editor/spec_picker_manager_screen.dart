@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs_pickers.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

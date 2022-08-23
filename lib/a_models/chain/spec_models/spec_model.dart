@@ -1,4 +1,5 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -420,22 +421,15 @@ class SpecModel {
     return _containsNewSale;
   }
 // --------------------------------
-  static List<String> keywordsChainsIDs = <String>[
-    'phid_k_flyer_type_property',
-    'phid_k_flyer_type_design',
-    'phid_k_flyer_type_design',
-    'phid_k_flyer_type_trades',
-    'phid_k_flyer_type_product',
-    'phid_k_flyer_type_equipment',
-  ];
+
 // --------------------------------
-  static bool checkSpecIsFromKeywords({
+  static bool checkSpecIsFromChainK({
     @required SpecModel spec,
   }){
     bool _isFromKeywords = false;
 
     if (spec != null){
-      _isFromKeywords =  keywordsChainsIDs.contains(spec.pickerChainID);
+      _isFromKeywords =  Chain.chainKSonsIDs.contains(spec.pickerChainID);
     }
 
     return _isFromKeywords;

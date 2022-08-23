@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
+import 'package:bldrs/a_models/chain/raw_data/specs_pickers.dart';
 import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
@@ -556,9 +556,9 @@ class PickerModel {
 
         final PickerModel _picker = PickerModel(
           chainID: subChainID,
-          groupID: FlyerTyper.getGroupIDByFlyerTypeChainID(
+          groupID: FlyerTyper.getGroupIDByChainKSonID(
             context: context,
-            chainID: subChainID,
+            chainKSonID: subChainID,
           ),
           canPickMany: canPickManyOfAPicker,
           isRequired: false,
@@ -576,11 +576,13 @@ class PickerModel {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
+    @required BuildContext context,
     @required bool canPickManyOfAPicker,
     List<FlyerType> onlyUseTheseFlyerTypes,
   }) {
 
     final List<PickerModel> allChainKPickers = createAllChainKPickers(
+      context: context,
       canPickMany: canPickManyOfAPicker,
     );
 
@@ -616,6 +618,7 @@ class PickerModel {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createAllChainKPickers({
+    @required BuildContext context,
   @required bool canPickMany,
 }){
 
@@ -623,40 +626,55 @@ class PickerModel {
 
       /// PROPERTIES
       PickerModel(
-        chainID: 'phid_k_flyer_type_property',
-        groupID: 'RealEstate',
+        chainID: Chain.propertyChainID,
+        groupID: FlyerTyper.getGroupIDByChainKSonID(
+            context: context,
+            chainKSonID: Chain.propertyChainID,
+        ),
         canPickMany: canPickMany,
         isRequired: false,
       ),
 
       /// DESIGN
       PickerModel(
-        chainID: 'phid_k_flyer_type_design',
-        groupID: 'Construction',
+        chainID: Chain.designChainID,
+        groupID: FlyerTyper.getGroupIDByChainKSonID(
+          context: context,
+          chainKSonID: Chain.designChainID,
+        ),
         canPickMany: canPickMany,
         isRequired: false,
       ),
 
-      /// Trades
+      /// TRADES
       PickerModel(
-        chainID: 'phid_k_flyer_type_trades',
-        groupID: 'Construction',
+        chainID: Chain.tradesChainID,
+        groupID: FlyerTyper.getGroupIDByChainKSonID(
+          context: context,
+          chainKSonID: Chain.tradesChainID,
+        ),
         canPickMany: canPickMany,
         isRequired: false,
       ),
 
       /// PRODUCTS
       PickerModel(
-        chainID: 'phid_k_flyer_type_product',
-        groupID: 'Supplies',
+        chainID: Chain.productChainID,
+        groupID: FlyerTyper.getGroupIDByChainKSonID(
+          context: context,
+          chainKSonID: Chain.productChainID,
+        ),
         canPickMany: canPickMany,
         isRequired: false,
       ),
 
-      /// PRODUCTS
+      /// EQUIPMENT
       PickerModel(
-        chainID: 'phid_k_flyer_type_equipment',
-        groupID: 'Supplies',
+        chainID: Chain.equipmentChainID,
+        groupID: FlyerTyper.getGroupIDByChainKSonID(
+          context: context,
+          chainKSonID: Chain.equipmentChainID,
+        ),
         canPickMany: canPickMany,
         isRequired: false,
       ),

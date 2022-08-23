@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';
@@ -156,7 +157,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_property'),
+                  verse: xPhrase(context, Chain.propertyChainID),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -182,7 +183,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_design'),
+                  verse: xPhrase(context, Chain.designChainID),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -208,7 +209,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_product'),
+                  verse: xPhrase(context, Chain.productChainID),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -216,7 +217,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_equipment'),
+                  verse: xPhrase(context, Chain.equipmentChainID),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
