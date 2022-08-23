@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/b_pickers_group_headline.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aa_chains_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/ab_chains_screen_browse_view.dart';
@@ -106,6 +106,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
         _allSpecPickers = PickerModel.createPickersFromAllChainKs(
+          context: context,
           onlyUseTheseFlyerTypes: widget.flyerTypesChainFilters,
           canPickManyOfAPicker: true,
         );

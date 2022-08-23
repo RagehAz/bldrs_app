@@ -1,5 +1,6 @@
+import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 
 List<PickerModel> propertySpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
@@ -7,7 +8,7 @@ List<PickerModel> propertySpecsPickers = const <PickerModel>[
     // ----------------------------
     /// TYPE
     PickerModel(
-        chainID: 'phid_k_flyer_type_property',
+        chainID: Chain.propertyChainID,
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
@@ -322,7 +323,7 @@ List<PickerModel> designSpecsPickers = const <PickerModel>[
     // ----------------------------
     /// TYPE
     PickerModel(
-        chainID: 'phid_k_flyer_type_design',
+        chainID: Chain.designChainID,
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
@@ -404,7 +405,7 @@ List<PickerModel> designSpecsPickers = const <PickerModel>[
     // ----------------------------
     /// CONSTRUCTION ACTIVITIES
     PickerModel(
-        chainID: 'phid_k_flyer_type_trades',
+        chainID: Chain.tradesChainID,
         groupID: 'Construction Activities',
         canPickMany: true,
         isRequired: false,
@@ -440,7 +441,7 @@ List<PickerModel> tradeSpecsPickers = const <PickerModel>[
     // ----------------------------
     /// TYPE
     PickerModel(
-        chainID: 'phid_k_flyer_type_trades',
+        chainID: Chain.tradesChainID,
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
@@ -481,7 +482,7 @@ List<PickerModel> productSpecsPickers = const <PickerModel>[
     // ----------------------------
     /// TYPE
     PickerModel(
-        chainID: 'phid_k_flyer_type_product',
+        chainID: Chain.productChainID,
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
@@ -769,4 +770,22 @@ List<PickerModel> productSpecsPickers = const <PickerModel>[
     // ----------------------------
 ];
 
-List<PickerModel> equipmentSpecsPickers = <PickerModel>[];
+List<PickerModel> equipmentSpecsPickers = const <PickerModel>[
+    // ------------------------------------------------------------
+    /// - TYPE SPECIFICATIONS
+    // ----------------------------
+    /// TYPE
+    PickerModel(
+        chainID: Chain.equipmentChainID,
+        groupID: 'Type',
+        canPickMany: true,
+        isRequired: true,
+        blockers: <PickersBlocker>[
+            // SpecDeactivator(
+            //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
+            //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
+            // ),
+        ],
+    ),
+    // ------------------------------------------------------------
+];
