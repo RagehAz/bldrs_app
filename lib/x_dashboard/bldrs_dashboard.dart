@@ -17,6 +17,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/spec_picker_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator.dart';
 import 'package:bldrs/x_dashboard/a_modules/e_zones_editor/zones_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/f_bzz_manager/bzz_manager_screen.dart';
@@ -43,122 +44,116 @@ class BldrsDashBoard extends StatelessWidget {
   List<DashButtonModel> _getButtons(){
 
     const List<DashButtonModel> _buttons = <DashButtonModel>[
-
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// TEST LAB
       DashButtonModel(
         verse: 'Test Lab',
         icon: Iconz.lab,
         screen: TestLab(),
       ),
-
+      /// EMPTY
       null,
-
-      /// TEST LAB
-      DashButtonModel(
-        verse: 'App Controls',
-        icon: Iconz.dashBoard,
-        screen: AppControlsManager(),
-      ),
-
-
-      /// PHRASES EDITOR
-      DashButtonModel(
-        verse: 'Phrase\nManager',
-        icon: Iconz.language,
-        screen: PhraseManager(),
-      ),
-
-      /// CHAINS EDITOR
-      DashButtonModel(
-        verse: 'Chains\nManager',
-        icon: Iconz.keyword,
-        screen: ChainsManager(),
-      ),
-
-      /// NOTIFICATIONS CREATOR
-      DashButtonModel(
-        verse: 'Notes\nCreator',
-        icon: Iconz.news,
-        screen: NotesCreatorScreen(),
-      ),
-
-      /// ZONES EDITOR
-      DashButtonModel(
-        verse: 'Zones Editor',
-        icon: Iconz.earth,
-        screen: ZonesEditorScreen(),
-      ),
-
-      /// BZZ MANAGER
-      DashButtonModel(
-        verse: 'Businesses Manager',
-        icon: Iconz.bz,
-        screen: BzzManagerScreen(),
-      ),
-
-      /// USERS MANAGER
-      DashButtonModel(
-        verse: 'Users Manager',
-        icon: Iconz.users,
-        screen: UsersManagerScreen(),
-      ),
-
-      /// FLYERS AUDITOR
-      DashButtonModel(
-        verse: 'Flyers Auditor',
-        icon: Iconz.verifyFlyer,
-        screen: FlyersAuditor(),
-      ),
-
-      null,
-
-      /// ALL FLYERS
-      DashButtonModel(
-        verse: 'All Flyers',
-        icon: Iconz.flyerScale,
-        screen: AllFlyersScreen(),
-      ),
-
-      null,
-
-      /// STATISTICS
-      DashButtonModel(
-        verse: 'Statistics',
-        icon: Iconz.statistics,
-        screen: GeneralStatistics(),
-      ),
-
-      null,
-
-      /// BIGMC
-      DashButtonModel(
-        verse: 'BigMc',
-        icon: Iconz.bigMac,
-        screen: PricingScreen(),
-      ),
-
-      DashButtonModel(
-        verse: 'Currencies',
-        icon: Iconz.dollar,
-        screen: CurrencyManagerScreen(),
-      ),
-
       /// LDB VIEWER
       DashButtonModel(
         verse: 'Local db viewers',
         icon: Iconz.terms,
         screen: LDBViewersScreen(),
       ),
-
-      null,
-
       /// UI MANAGER
       DashButtonModel(
-        verse: 'UI Manager',
+        verse: 'UI\nManager',
         icon: Iconz.dvDonaldDuck,
         screen: UIManager(),
       ),
-
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      /// PHRASES EDITOR
+      DashButtonModel(
+        verse: 'Phrase\nManager',
+        icon: Iconz.language,
+        screen: PhraseManager(),
+      ),
+      /// CHAINS EDITOR
+      DashButtonModel(
+        verse: 'Chains\nManager',
+        icon: Iconz.keyword,
+        screen: ChainsManager(),
+      ),
+      /// SPEC PICKER manager
+      DashButtonModel(
+        verse: 'Spec Picker\nManager',
+        icon: Iconz.more,
+        screen: SpecPickerManager(),
+      ),
+      /// EMPTY
+      null,
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      /// USERS MANAGER
+      DashButtonModel(
+        verse: 'Users Manager',
+        icon: Iconz.users,
+        screen: UsersManagerScreen(),
+      ),
+      /// BZZ MANAGER
+      DashButtonModel(
+        verse: 'Businesses Manager',
+        icon: Iconz.bz,
+        screen: BzzManagerScreen(),
+      ),
+      /// ZONES EDITOR
+      DashButtonModel(
+        verse: 'Zones\nEditor',
+        icon: Iconz.earth,
+        screen: ZonesEditorScreen(),
+      ),
+      /// CURRENCIES
+      DashButtonModel(
+        verse: 'Currency\nManager',
+        icon: Iconz.dollar,
+        screen: CurrencyManagerScreen(),
+      ),
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      /// FLYERS AUDITOR
+      DashButtonModel(
+        verse: 'Flyers Auditor',
+        icon: Iconz.verifyFlyer,
+        screen: FlyersAuditor(),
+      ),
+      /// ALL FLYERS
+      DashButtonModel(
+        verse: 'All Flyers',
+        icon: Iconz.flyerScale,
+        screen: AllFlyersScreen(),
+      ),
+      /// EMPTY
+      null,
+      /// STATISTICS
+      DashButtonModel(
+        verse: 'Statistics',
+        icon: Iconz.statistics,
+        screen: GeneralStatistics(),
+      ),
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      /// NOTIFICATIONS CREATOR
+      DashButtonModel(
+        verse: 'Notes\nCreator',
+        icon: Iconz.news,
+        screen: NotesCreatorScreen(),
+      ),
+      /// EMPTY
+      null,
+      /// BIG MAC
+      DashButtonModel(
+        verse: 'BigMc',
+        icon: Iconz.bigMac,
+        screen: PricingScreen(),
+      ),
+      /// APP CONTROLS
+      DashButtonModel(
+        verse: 'App Controls',
+        icon: Iconz.dashBoard,
+        screen: AppControlsManager(),
+      ),
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ];
 
     return _buttons;
@@ -207,10 +202,10 @@ class BldrsDashBoard extends StatelessWidget {
 
     // -------------------------------------------------------
     const double _gridSpacing = 10;
-    const int numberOfColumns = 3;
+    const int numberOfColumns = 4;
     // const double _itemHeight = 50;
 
-    final double _boxSize = (_screenWidth - ((numberOfColumns + 1) * _gridSpacing)) / 3;
+    final double _boxSize = (_screenWidth - ((numberOfColumns + 1) * _gridSpacing)) / numberOfColumns;
 
     final SliverGridDelegate _gridDelegate =
     SliverGridDelegateWithFixedCrossAxisCount(
