@@ -22,19 +22,19 @@ class InfoPageSpecs extends StatelessWidget {
   final List<SpecModel> specs;
   final FlyerType flyerType;
   /// --------------------------------------------------------------------------
-  List<SpecPicker> _getFlyerSpecsPickers({
+  List<PickerModel> _getFlyerSpecsPickers({
     @required List<SpecModel> flyerSpecs,
     @required FlyerType flyerType,
   }){
-    final List<SpecPicker> _pickers = <SpecPicker>[];
+    final List<PickerModel> _pickers = <PickerModel>[];
 
-    final List<SpecPicker> _flyerTypePickers = SpecPicker.getPickersByFlyerType(flyerType);
+    final List<PickerModel> _flyerTypePickers = PickerModel.getPickersByFlyerType(flyerType);
 
     if (Mapper.checkCanLoopList(flyerSpecs)){
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecPicker _picker = SpecPicker.getPickerByChainIDOrUnitChainID(
+        final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
           pickers: _flyerTypePickers,
           chainIDOrUnitChainID: _spec.pickerChainID,
         );
@@ -42,7 +42,7 @@ class InfoPageSpecs extends StatelessWidget {
         // blog('picker chain ID is : ${_spec.pickerChainID}');
         // _picker.blogSpecPicker();
 
-        final bool _alreadyAdded = SpecPicker.checkPickersContainPicker(
+        final bool _alreadyAdded = PickerModel.checkPickersContainPicker(
           pickers: _pickers,
           picker: _picker,
         );
@@ -119,7 +119,7 @@ class InfoPageSpecs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<SpecPicker> _flyerSpecsPickers = _getFlyerSpecsPickers(
+    final List<PickerModel> _flyerSpecsPickers = _getFlyerSpecsPickers(
       flyerType: flyerType,
       flyerSpecs: specs,
     );
@@ -136,7 +136,7 @@ class InfoPageSpecs extends StatelessWidget {
             padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, int index){
 
-              final SpecPicker _specPicker = _flyerSpecsPickers[index];
+              final PickerModel _specPicker = _flyerSpecsPickers[index];
 
               final String _pickerName = xPhrase(context, _specPicker?.chainID);
 

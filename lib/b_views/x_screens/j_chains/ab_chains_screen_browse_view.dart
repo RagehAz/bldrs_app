@@ -27,11 +27,11 @@ class ChainsScreenBrowseView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<SpecPicker> specsPickers;
-  final ValueChanged<SpecPicker> onPickerTap;
+  final List<PickerModel> specsPickers;
+  final ValueChanged<PickerModel> onPickerTap;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final ValueNotifier<List<SpecPicker>> refinedSpecsPickers;
+  final ValueNotifier<List<PickerModel>> refinedSpecsPickers;
   final bool onlyUseCityChains;
   final List<FlyerType> flyerTypes;
   /// --------------------------------------------------------------------------
@@ -43,9 +43,9 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
       return ValueListenableBuilder(
           valueListenable: refinedSpecsPickers,
-          builder: (_, List<SpecPicker> refinedPickers, Widget childB){
+          builder: (_, List<PickerModel> refinedPickers, Widget childB){
 
-            final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
+            final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
               specsPickers: refinedPickers,
             );
 
@@ -103,7 +103,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
                     final String _groupID = _theGroupsIDs[index - 1];
 
-                    final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getPickersByGroupID(
+                    final List<PickerModel> _pickersOfThisGroup = PickerModel.getPickersByGroupID(
                       pickers: refinedPickers,
                       groupID: _groupID,
                     );

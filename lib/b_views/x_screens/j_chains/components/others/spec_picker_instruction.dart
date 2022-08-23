@@ -21,14 +21,14 @@ class ChainInstructions extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String verseOverride;
-  final SpecPicker picker;
+  final PickerModel picker;
   final Chain chain;
   final String leadingIcon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------
   String _getInstructions({
     @required Chain specChain,
-    @required SpecPicker picker,
+    @required PickerModel picker,
   }) {
     String _instructions;
 

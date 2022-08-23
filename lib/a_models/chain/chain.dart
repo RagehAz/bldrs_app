@@ -378,7 +378,7 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static Chain filterSpecPickerChainRange({
     @required BuildContext context,
-    @required SpecPicker specPicker,
+    @required PickerModel specPicker,
     @required bool onlyUseCityChains,
   }) {
 

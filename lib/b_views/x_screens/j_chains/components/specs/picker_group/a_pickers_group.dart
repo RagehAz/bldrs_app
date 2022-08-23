@@ -18,8 +18,8 @@ class SpecsPickersGroup extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final String headline;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final List<SpecPicker> groupPickers;
-  final ValueChanged<SpecPicker> onPickerTap;
+  final List<PickerModel> groupPickers;
+  final ValueChanged<PickerModel> onPickerTap;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------
   @override

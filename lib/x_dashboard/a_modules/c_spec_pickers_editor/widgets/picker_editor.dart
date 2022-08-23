@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/pickers_deactivator.dart';
+import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/cc_spec_picker_tile.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/spec_label.dart';
@@ -23,8 +23,8 @@ class PickerEditor extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final SpecPicker picker;
-  final ValueNotifier<List<SpecPicker>> tempPickers;
+  final PickerModel picker;
+  final ValueNotifier<List<PickerModel>> tempPickers;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class PickerEditor extends StatelessWidget {
           ),
 
         /// DEACTIVATORS
-        if (Mapper.checkCanLoopList(picker.deactivators) == true)
+        if (Mapper.checkCanLoopList(picker.blockers) == true)
           LineBubble(
             child: Column(
               children: <Widget>[
@@ -179,10 +179,10 @@ class PickerEditor extends StatelessWidget {
                 ),
 
                 /// DEACTIVATORS
-                ...List<Widget>.generate(picker.deactivators.length,
+                ...List<Widget>.generate(picker.blockers.length,
                         (int index) {
 
-                      final PickersDeactivator deAct = picker.deactivators[index];
+                      final PickersBlocker deAct = picker.blockers[index];
 
                       return Column(
                         children: <Widget>[
@@ -203,7 +203,7 @@ class PickerEditor extends StatelessWidget {
                           /// DEACT PICKERS IDS
                           BubbleBulletPoints(
                             bubbleWidth: BldrsAppBar.width(context) - 20,
-                            bulletPoints: deAct.pickersIDsToDeactivate,
+                            bulletPoints: deAct.pickersIDsToBlock,
                           ),
 
                         ],

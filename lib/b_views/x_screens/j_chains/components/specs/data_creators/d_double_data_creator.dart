@@ -24,7 +24,7 @@ class DoubleDataCreator extends StatefulWidget {
   final ValueChanged<double> onDoubleChanged;
   final double initialValue;
   final Function onSubmitted;
-  final SpecPicker specPicker;
+  final PickerModel specPicker;
   /// --------------------------------------------------------------------------
   @override
   State<DoubleDataCreator> createState() => _DoubleDataCreatorState();
