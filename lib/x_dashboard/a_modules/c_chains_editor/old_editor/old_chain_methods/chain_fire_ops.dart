@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';

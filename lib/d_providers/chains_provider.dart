@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/city_phids_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
@@ -654,15 +654,45 @@ class ChainsProvider extends ChangeNotifier {
   Map<String, dynamic> _allPickers = {};
   Map<String, dynamic> get allPickers => _allPickers;
 // -------------------------------------
-  static List<PickerModel> proGetFlyerTypePickers({
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> proGetPickersByFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
+    @required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
     return  _chainsProvider.allPickers[_pickersKey];
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> proGetPickersByFlyerTypes({
+    @required BuildContext context,
+    @required List<FlyerType> flyerTypes,
+    @required bool listen,
+  }){
+    final List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(flyerTypes) == true){
+
+      for (final FlyerType type in flyerTypes){
+
+        final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+          context: context,
+          flyerType: type,
+          listen: listen,
+        );
+
+        _output.addAll(_pickers);
+
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> fetchSetAllPickers({
     @required BuildContext context,
     @required bool notify,
@@ -704,6 +734,7 @@ class ChainsProvider extends ChangeNotifier {
 
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   void setFlyerTypePickers({
     @required BuildContext context,
     @required FlyerType flyerType,

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/chain.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';

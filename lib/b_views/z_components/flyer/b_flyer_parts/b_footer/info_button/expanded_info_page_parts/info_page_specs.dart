@@ -1,8 +1,9 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -23,12 +24,17 @@ class InfoPageSpecs extends StatelessWidget {
   final FlyerType flyerType;
   /// --------------------------------------------------------------------------
   List<PickerModel> _getFlyerSpecsPickers({
+    @required BuildContext context,
     @required List<SpecModel> flyerSpecs,
     @required FlyerType flyerType,
   }){
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    final List<PickerModel> _flyerTypePickers = PickerModel.getPickersByFlyerType(flyerType);
+    final List<PickerModel> _flyerTypePickers = ChainsProvider.proGetPickersByFlyerType(
+      context: context,
+      flyerType: flyerType,
+      listen: true,
+    );
 
     if (Mapper.checkCanLoopList(flyerSpecs)){
 
@@ -120,6 +126,7 @@ class InfoPageSpecs extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<PickerModel> _flyerSpecsPickers = _getFlyerSpecsPickers(
+      context: context,
       flyerType: flyerType,
       flyerSpecs: specs,
     );
