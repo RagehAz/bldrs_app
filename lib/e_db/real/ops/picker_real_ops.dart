@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';

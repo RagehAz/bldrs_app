@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/city_phids_model.dart';
+import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';

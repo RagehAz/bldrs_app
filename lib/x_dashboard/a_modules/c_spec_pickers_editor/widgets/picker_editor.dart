@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/cc_pickers_blocker.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/cc_spec_picker_tile.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -182,7 +182,7 @@ class PickerEditor extends StatelessWidget {
                 ...List<Widget>.generate(picker.blockers.length,
                         (int index) {
 
-                      final PickersBlocker deAct = picker.blockers[index];
+                      final PickersBlocker _blocker = picker.blockers[index];
 
                       return Column(
                         children: <Widget>[
@@ -193,7 +193,7 @@ class PickerEditor extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: BubbleHeader(
                               viewModel: BubbleHeaderVM(
-                                headline: deAct.value.toString(),
+                                headline: _blocker.value.toString(),
                                 headerWidth: BldrsAppBar.width(context)- 20,
                               ),
                             ),
@@ -203,7 +203,7 @@ class PickerEditor extends StatelessWidget {
                           /// DEACT PICKERS IDS
                           BubbleBulletPoints(
                             bubbleWidth: BldrsAppBar.width(context) - 20,
-                            bulletPoints: deAct.pickersIDsToBlock,
+                            bulletPoints: _blocker.pickersIDsToBlock,
                           ),
 
                         ],

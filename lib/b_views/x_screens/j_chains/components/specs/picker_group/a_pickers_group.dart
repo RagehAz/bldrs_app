@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/c_picker_tiles_builder.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/b_pickers_group_headline.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';

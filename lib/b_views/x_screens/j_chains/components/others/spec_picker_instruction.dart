@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
