@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/a_models/chain/spec_models/pickers_blocker.dart';
 
-List<PickerModel> propertySpecsPickers = const <PickerModel>[
+const List<PickerModel> propertySpecsPickers =  <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
@@ -317,7 +317,7 @@ List<PickerModel> propertySpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
 ];
 
-List<PickerModel> designSpecsPickers = const <PickerModel>[
+const List<PickerModel> designSpecsPickers = <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
@@ -435,7 +435,7 @@ List<PickerModel> designSpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
 ];
 
-List<PickerModel> tradeSpecsPickers = const <PickerModel>[
+const List<PickerModel> tradeSpecsPickers = <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
@@ -476,7 +476,7 @@ List<PickerModel> tradeSpecsPickers = const <PickerModel>[
     // ------------------------------------------------------------
 ];
 
-List<PickerModel> productSpecsPickers = const <PickerModel>[
+const List<PickerModel> productSpecsPickers = <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
@@ -770,7 +770,7 @@ List<PickerModel> productSpecsPickers = const <PickerModel>[
     // ----------------------------
 ];
 
-List<PickerModel> equipmentSpecsPickers = const <PickerModel>[
+const List<PickerModel> equipmentSpecsPickers = <PickerModel>[
     // ------------------------------------------------------------
     /// - TYPE SPECIFICATIONS
     // ----------------------------
