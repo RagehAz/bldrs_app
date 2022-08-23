@@ -197,7 +197,7 @@ Future<void> onConfirmEditPhrase({
   @required TextEditingController idTextController,
 }) async {
 
-  bool _canContinue = await Dialogz.confirmProceed(
+  bool _canContinue = await Dialogs.confirmProceed(
     context: context,
   );
 
@@ -512,7 +512,7 @@ Future<void> onSyncPhrases({
   @required TextEditingController idTextController,
 }) async {
 
-  final bool _continue = await Dialogz.confirmProceed(context: context);
+  final bool _continue = await Dialogs.confirmProceed(context: context);
 
   if (_continue == true){
 

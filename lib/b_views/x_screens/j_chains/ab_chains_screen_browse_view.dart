@@ -103,8 +103,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
                     final String _groupID = _theGroupsIDs[index - 1];
 
-                    final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
-                      specsPickers: refinedPickers,
+                    final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getPickersByGroupID(
+                      pickers: refinedPickers,
                       groupID: _groupID,
                     );
 
