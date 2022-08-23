@@ -137,8 +137,8 @@ class _ChainsScreenState extends State<ChainsScreen> {
       // ------------------------------
       _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
       // ------------------------------
-      final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
-        sourceSpecsPickers: _allSpecPickers,
+      final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToPickers(
+        sourcePickers: _allSpecPickers,
         selectedSpecs: widget.selectedSpecs,
       );
       _refinedSpecsPickers = ValueNotifier<List<SpecPicker>>(_theRefinedPickers);
@@ -319,9 +319,9 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     phid: phid,
                     isMultipleSelectionMode: widget.isMultipleSelectionMode,
                     selectedSpecs: _selectedSpecs,
-                    specPicker: SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
-                      specsPickers: _allSpecPickers,
-                      pickerChainID: getSpecPickerChainIDOfPhid(
+                    specPicker: SpecPicker.getPickerByChainIDOrUnitChainID(
+                      pickers: _allSpecPickers,
+                      chainIDOrUnitChainID: getSpecPickerChainIDOfPhid(
                         context: context,
                         phid: phid,
                       ),

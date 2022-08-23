@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
@@ -135,7 +136,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 // ----------------------------------------
   Future<void> _updateMap(Map<String, dynamic> map) async {
 
-    final String _newID = await BottomDialog.keyboardDialog(
+    final String _newID = await Dialogs.keyboardDialog(
       context: context,
       keyboardModel: KeyboardModel.standardModel().copyWith(
         hintText: 'Wtf is this',

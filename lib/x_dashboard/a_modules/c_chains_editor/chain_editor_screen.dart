@@ -82,7 +82,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
       pageTitle: widget.chain.id,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
-      onBack: () => Dialogz.goBackDialog(
+      onBack: () => Dialogs.goBackDialog(
         context: context,
         goBackOnConfirm: true,
       ),

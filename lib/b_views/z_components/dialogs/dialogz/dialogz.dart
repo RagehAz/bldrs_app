@@ -1,10 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -13,6 +15,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_start
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
 import 'package:bldrs/c_controllers/b_auth_controllers/auth_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -25,11 +28,18 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Dialogz {
+class Dialogs {
 // -----------------------------------------------------------------------------
 
-  const Dialogz();
+  const Dialogs();
+// -----------------------------------------------------------------------------
 
+  /// CLOSE
+
+// ---------------------------------
+  static void closDialog(BuildContext context){
+    Nav.goBack(context: context, invoker: 'closeDialog');
+  }
 // -----------------------------------------------------------------------------
 
   /// ERRORS DIALOGS
@@ -212,6 +222,85 @@ class Dialogz {
     );
 
     return _password.text;
+  }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> keyboardDialog({
+    @required BuildContext context,
+    KeyboardModel keyboardModel,
+    bool confirmButtonIsOn = true,
+  }) async {
+
+    final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
+
+    const double _ratioOfScreenHeight = 0.75;
+    final double _overridingDialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
+    final double _clearWidth = BottomDialog.clearWidth(context);
+    final double _clearHeight = BottomDialog.clearHeight(
+        context: context,
+        overridingDialogHeight: _overridingDialogHeight,
+        draggable: true,
+        titleIsOn: false
+    );
+
+    void _onConfirmTap (String text){
+
+        Keyboard.closeKeyboard(context);
+        Nav.goBack(
+          context: context,
+          invoker: 'keyboardDialog',
+        );
+      if (_keyboardModel.onSubmitted != null){
+        _keyboardModel.onSubmitted(_keyboardModel.controller.text);
+      }
+
+    }
+
+    await BottomDialog.showBottomDialog(
+      context: context,
+      draggable: true,
+      height: _overridingDialogHeight,
+      child: SizedBox(
+        width: _clearWidth,
+        height: _clearHeight,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+
+            TextFieldBubble(
+              isFloatingField: _keyboardModel.isFloatingField,
+              title: _keyboardModel.title,
+              textController: _keyboardModel.controller,
+              maxLines: _keyboardModel.maxLines,
+              minLines: _keyboardModel.minLines,
+              maxLength: _keyboardModel.maxLength,
+              bubbleWidth: _clearWidth,
+              hintText: _keyboardModel.hintText,
+              counterIsOn: _keyboardModel.counterIsOn,
+              canObscure: _keyboardModel.canObscure,
+              keyboardTextInputType: _keyboardModel.textInputType,
+              keyboardTextInputAction: _keyboardModel.textInputAction,
+              autoFocus: true,
+              onSubmitted: _onConfirmTap,
+
+            ),
+
+            if (confirmButtonIsOn == true)
+              DreamBox(
+                height: 40,
+                verseScaleFactor: 0.6,
+                margins: const EdgeInsets.symmetric(horizontal: 10),
+                verse:'Confirm',
+
+                onTap: () => _onConfirmTap(_keyboardModel.controller.text),
+              ),
+
+          ],
+        ),
+      ),
+    );
+
+    return _keyboardModel.controller.text;
   }
 // -----------------------------------------------------------------------------
 

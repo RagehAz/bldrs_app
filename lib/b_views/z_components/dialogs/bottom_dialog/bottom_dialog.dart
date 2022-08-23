@@ -1,17 +1,13 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -386,86 +382,6 @@ class BottomDialog extends StatelessWidget {
       onDeactivatedTap: onDeactivatedTap,
     );
 
-  }
-// -----------------------------------------------------------------------------
-  static Future<String> keyboardDialog({
-    @required BuildContext context,
-    KeyboardModel keyboardModel,
-    bool confirmButtonIsOn = true,
-  }) async {
-
-    final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
-
-    const double _ratioOfScreenHeight = 0.75;
-    final double _overridingDialogHeight = dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
-    final double _clearWidth = clearWidth(context);
-    final double _clearHeight = clearHeight(
-        context: context,
-        overridingDialogHeight: _overridingDialogHeight,
-        draggable: true,
-        titleIsOn: false
-    );
-
-    void _onConfirmTap (String text){
-
-      if (_keyboardModel.onSubmitted != null){
-
-        Keyboard.closeKeyboard(context);
-        Nav.goBack(
-          context: context,
-          invoker: 'keyboardDialog',
-        );
-        _keyboardModel.onSubmitted(_keyboardModel.controller.text);
-
-      }
-
-    }
-
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      height: _overridingDialogHeight,
-      child: SizedBox(
-        width: _clearWidth,
-        height: _clearHeight,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-
-            TextFieldBubble(
-              isFloatingField: _keyboardModel.isFloatingField,
-              title: _keyboardModel.title,
-              textController: _keyboardModel.controller,
-              maxLines: _keyboardModel.maxLines,
-              minLines: _keyboardModel.minLines,
-              maxLength: _keyboardModel.maxLength,
-              bubbleWidth: _clearWidth,
-              hintText: _keyboardModel.hintText,
-              counterIsOn: _keyboardModel.counterIsOn,
-              canObscure: _keyboardModel.canObscure,
-              keyboardTextInputType: _keyboardModel.textInputType,
-              keyboardTextInputAction: _keyboardModel.textInputAction,
-              autoFocus: true,
-              onSubmitted: _onConfirmTap,
-
-            ),
-
-            if (confirmButtonIsOn == true)
-            DreamBox(
-              height: 40,
-              verseScaleFactor: 0.6,
-              margins: const EdgeInsets.symmetric(horizontal: 10),
-              verse:'Confirm',
-
-              onTap: () => _onConfirmTap(_keyboardModel.controller.text),
-            ),
-
-          ],
-        ),
-      ),
-    );
-
-    return _keyboardModel.controller.text;
   }
 // -----------------------------------------------------------------------------
   bool _titleIsOnCheck() {

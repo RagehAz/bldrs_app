@@ -136,7 +136,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
       if (Mapper.checkCanLoopList(_myBzzICreated) == true){
 
         /// SHOW WILL DELETE BZZ DIALOG
-        _canDeleteAndExitMyBzz = await Dialogz.bzzBannersDialog(
+        _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
           context: context,
           bzzModels: _myBzzICreated,
           title: 'Your business Accounts Will be permanently deleted',
@@ -154,7 +154,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
       if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true && _canDeleteAndExitMyBzz == true){
 
         /// SHOW WILL EXIT BZZ DIALOG
-        _canDeleteAndExitMyBzz = await Dialogz.bzzBannersDialog(
+        _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
           context: context,
           bzzModels: _myBzzIDidNotCreate,
           title: 'Delete your membership in these Business accounts',
@@ -199,7 +199,7 @@ Future<bool> reAuthenticateUser({
 
   if (_userModel != null){
 
-    _canContinue = await Dialogz.userDialog(
+    _canContinue = await Dialogs.userDialog(
       context: context,
       title: dialogTitle,
       body: dialogBody,
@@ -257,7 +257,7 @@ Future<bool> _checkPassword({
 
   bool _passwordIsCorrect;
 
-  final String _password = await Dialogz.showPasswordDialog(context);
+  final String _password = await Dialogs.showPasswordDialog(context);
 
   if (_password.isNotEmpty == true){
 

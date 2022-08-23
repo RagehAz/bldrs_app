@@ -113,7 +113,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         _isSearching.value = false;
       },
       loading: _loading,
-      onBack: () => Dialogz.goBackDialog(
+      onBack: () => Dialogs.goBackDialog(
           context: context,
           goBackOnConfirm: true,
         ),

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
+import 'package:bldrs/a_models/chain/spec_models/pickers_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
 
 List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
@@ -11,7 +11,7 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
+        deactivators: <PickersDeactivator>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -27,16 +27,16 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
         groupID: 'Main Specifications', /// TASK : TRANSLATE THIS
         canPickMany: false,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_pf_land',
-              specsListsIDsToDeactivate: <String>[
+        deactivators: <PickersDeactivator>[
+          PickersDeactivator(
+              value: 'phid_s_pf_land',
+              pickersIDsToDeactivate: <String>[
                 'phid_s_propertyArea',
                 'phid_s_propertyAreaUnit'
               ]),
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_pf_mobile',
-              specsListsIDsToDeactivate: <String>[
+          PickersDeactivator(
+              value: 'phid_s_pf_mobile',
+              pickersIDsToDeactivate: <String>[
                 'phid_s_lotArea',
                 'phid_s_lotAreaUnit',
                 'phid_s_propertyFloorNumber',
@@ -63,18 +63,18 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_contractType_NewSale',
-              specsListsIDsToDeactivate: <String>['phid_s_propertyRentPrice',]
+        deactivators: <PickersDeactivator>[
+          PickersDeactivator(
+              value: 'phid_s_contractType_NewSale',
+              pickersIDsToDeactivate: <String>['phid_s_propertyRentPrice',]
           ),
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_contractType_Resale',
-              specsListsIDsToDeactivate: <String>['phid_s_propertyRentPrice',],
+          PickersDeactivator(
+              value: 'phid_s_contractType_Resale',
+              pickersIDsToDeactivate: <String>['phid_s_propertyRentPrice',],
           ),
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_contractType_Rent',
-              specsListsIDsToDeactivate: <String>['phid_s_PropertySalePrice',]
+          PickersDeactivator(
+              value: 'phid_s_contractType_Rent',
+              pickersIDsToDeactivate: <String>['phid_s_PropertySalePrice',]
           ),
         ],
     ),
@@ -85,10 +85,10 @@ List<SpecPicker> propertySpecsPickers = const <SpecPicker>[
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <SpecDeactivator>[
-          SpecDeactivator(
-              specValueThatDeactivatesSpecsLists: 'phid_s_payment_cash',
-              specsListsIDsToDeactivate: <String>[
+        deactivators: <PickersDeactivator>[
+          PickersDeactivator(
+              value: 'phid_s_payment_cash',
+              pickersIDsToDeactivate: <String>[
                 'phid_s_numberOfInstallments',
                 'phid_s_InstallmentsDuration',
                 'phid_s_InstallmentsDurationUnit'
@@ -326,7 +326,7 @@ List<SpecPicker> designSpecsPickers = const <SpecPicker>[
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
+        deactivators: <PickersDeactivator>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -444,7 +444,7 @@ List<SpecPicker> tradeSpecsPickers = const <SpecPicker>[
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
+        deactivators: <PickersDeactivator>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -485,7 +485,7 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
         groupID: 'Type',
         canPickMany: true,
         isRequired: true,
-        deactivators: <SpecDeactivator>[
+        deactivators: <PickersDeactivator>[
             // SpecDeactivator(
             //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
             //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
@@ -501,18 +501,18 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <SpecDeactivator>[
-            SpecDeactivator(
-                specValueThatDeactivatesSpecsLists: 'phid_s_contractType_NewSale',
-                specsListsIDsToDeactivate: <String>['phid_s_rentPrice',]
+        deactivators: <PickersDeactivator>[
+            PickersDeactivator(
+                value: 'phid_s_contractType_NewSale',
+                pickersIDsToDeactivate: <String>['phid_s_rentPrice',]
             ),
-            SpecDeactivator(
-                specValueThatDeactivatesSpecsLists: 'phid_s_contractType_Resale',
-                specsListsIDsToDeactivate: <String>['phid_s_rentPrice',],
+            PickersDeactivator(
+                value: 'phid_s_contractType_Resale',
+                pickersIDsToDeactivate: <String>['phid_s_rentPrice',],
             ),
-            SpecDeactivator(
-                specValueThatDeactivatesSpecsLists: 'phid_s_contractType_Rent',
-                specsListsIDsToDeactivate: <String>['phid_s_salePrice',]
+            PickersDeactivator(
+                value: 'phid_s_contractType_Rent',
+                pickersIDsToDeactivate: <String>['phid_s_salePrice',]
             ),
         ],
     ),
@@ -523,10 +523,10 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
         groupID: 'Pricing',
         canPickMany: false,
         isRequired: false,
-        deactivators: <SpecDeactivator>[
-            SpecDeactivator(
-                specValueThatDeactivatesSpecsLists: 'phid_s_payment_cash',
-                specsListsIDsToDeactivate: <String>[
+        deactivators: <PickersDeactivator>[
+            PickersDeactivator(
+                value: 'phid_s_payment_cash',
+                pickersIDsToDeactivate: <String>[
                     'phid_s_numberOfInstallments',
                     'phid_s_InstallmentsDuration',
                     'phid_s_InstallmentsDurationUnit'
@@ -729,10 +729,10 @@ List<SpecPicker> productSpecsPickers = const <SpecPicker>[
         groupID: 'Availability',
         canPickMany: false,
         isRequired: false,
-        deactivators: <SpecDeactivator>[
-            SpecDeactivator(
-                specValueThatDeactivatesSpecsLists: false,
-                specsListsIDsToDeactivate: <String>['phid_s_deliveryMinDuration'],
+        deactivators: <PickersDeactivator>[
+            PickersDeactivator(
+                value: false,
+                pickersIDsToDeactivate: <String>['phid_s_deliveryMinDuration'],
             ),
         ],
     ),

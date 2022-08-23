@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -154,24 +155,15 @@ Future<void> _onEditReview({
 
   bool _isConfirmed = false;
 
-  final String _shit = await BottomDialog.keyboardDialog(
+  final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       title: 'Edit Your Review',
       hintText: 'What do you think of this flyer ?',
       controller: TextEditingController(text: reviewModel.text),
-      minLines: 1,
       maxLines: 5,
-      maxLength: null,
       textInputAction: TextInputAction.newline,
-      textInputType: TextInputType.text,
       focusNode: FocusNode(),
-      canObscure: false,
-      counterIsOn: false,
-      isFormField: false,
-      onChanged: null,
-      onSavedForForm: null,
-      onEditingComplete: null,
       isFloatingField: false,
       onSubmitted: (String text){
 
@@ -257,24 +249,15 @@ Future<void> onBzReply({
 
   bool _isConfirmed = false;
 
-  final String _shit = await BottomDialog.keyboardDialog(
+  final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       title: 'Reply to this review',
       hintText: 'Reply ...',
       controller: TextEditingController(text: reviewModel.reply),
-      minLines: 1,
       maxLines: 5,
-      maxLength: null,
       textInputAction: TextInputAction.newline,
-      textInputType: TextInputType.text,
       focusNode: FocusNode(),
-      canObscure: false,
-      counterIsOn: false,
-      isFormField: false,
-      onChanged: null,
-      onSavedForForm: null,
-      onEditingComplete: null,
       isFloatingField: false,
       onSubmitted: (String text){
 
@@ -385,24 +368,15 @@ Future<void> _onEditReply({
 
   bool _isConfirmed = false;
 
-  final String _shit = await BottomDialog.keyboardDialog(
+  final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       title: 'Edit Your Reply',
       hintText: 'Reply',
       controller: TextEditingController(text: reviewModel.reply),
-      minLines: 1,
       maxLines: 5,
-      maxLength: null,
       textInputAction: TextInputAction.newline,
-      textInputType: TextInputType.text,
       focusNode: FocusNode(),
-      canObscure: false,
-      counterIsOn: false,
-      isFormField: false,
-      onChanged: null,
-      onSavedForForm: null,
-      onEditingComplete: null,
       isFloatingField: false,
       onSubmitted: (String text){
 

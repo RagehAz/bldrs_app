@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/raw_data/specs/specs_pickers.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_deactivator.dart';
+import 'package:bldrs/a_models/chain/spec_models/pickers_deactivator.dart';
 import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -31,14 +31,39 @@ class SpecPicker {
 
   /// this dictates which specs are required for publishing the flyer, and which are optional
   final bool isRequired;
-  final List<SpecDeactivator> deactivators;
+  final List<PickersDeactivator> deactivators;
 
   /// THE SELECTABLE RANGE allows selecting only parts of the original spec list
-  /// if <KW>['id1', 'id2'] only these IDs will be included,
+  /// if <KW>['id1', 'id2'] only these IDs will be included out of <KW>['id1', 'id2', 'id3', 'id4', 'id5'],
   /// if <int>[1, 5] then only this range is selectable
   final List<dynamic> range;
   /// FOR DATA CREATORS, they require measurement unit like day meter dollar
   final String unitChainID;
+// -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  SpecPicker copyWith({
+    String chainID,
+    String groupID,
+    bool canPickMany,
+    bool isRequired,
+    List<PickersDeactivator> deactivators,
+    List<dynamic> range,
+    String unitChainID,
+  }){
+    return SpecPicker(
+      chainID: chainID ?? this.chainID,
+      groupID: groupID ?? this.groupID,
+      canPickMany: canPickMany ?? this.canPickMany,
+      isRequired: isRequired ?? this.isRequired,
+      unitChainID: unitChainID ?? this.unitChainID,
+      deactivators: deactivators ?? this.deactivators,
+      range: range ?? this.range,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// CYPHER
@@ -51,35 +76,35 @@ class SpecPicker {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<SpecPicker> applyDeactivatorsToSpecsPickers({
-    @required List<SpecPicker> sourceSpecsPickers,
+  static List<SpecPicker> applyDeactivatorsToPickers({
+    @required List<SpecPicker> sourcePickers,
     @required List<SpecModel> selectedSpecs,
   }) {
     final List<SpecPicker> _pickers = <SpecPicker>[];
 
-    if (Mapper.checkCanLoopList(sourceSpecsPickers)) {
+    if (Mapper.checkCanLoopList(sourcePickers)) {
       final List<String> _allPickersIDsToDeactivate = <String>[];
 
       /// GET DEACTIVATED PICKERS
-      for (final SpecPicker picker in sourceSpecsPickers) {
-        final List<SpecDeactivator> _deactivators = picker.deactivators;
+      for (final SpecPicker picker in sourcePickers) {
+        final List<PickersDeactivator> _deactivators = picker.deactivators;
 
         if (Mapper.checkCanLoopList(_deactivators)) {
-          for (final SpecDeactivator deactivator in _deactivators) {
+          for (final PickersDeactivator deactivator in _deactivators) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
                 specs: selectedSpecs,
-                value: deactivator.specValueThatDeactivatesSpecsLists
+                value: deactivator.value
             );
 
             if (_isSelected == true) {
-              _allPickersIDsToDeactivate.addAll(deactivator.specsListsIDsToDeactivate);
+              _allPickersIDsToDeactivate.addAll(deactivator.pickersIDsToDeactivate);
             }
           }
         }
       }
 
       /// REFINE
-      for (final SpecPicker picker in sourceSpecsPickers) {
+      for (final SpecPicker picker in sourcePickers) {
         final bool _listShouldBeDeactivated = Stringer.checkStringsContainString(
             strings: _allPickersIDsToDeactivate,
             string: picker.chainID
@@ -93,29 +118,65 @@ class SpecPicker {
 
     return _pickers;
   }
+// -------------------------------------
+
+  static List<SpecPicker> replacePicker({
+    @required List<SpecPicker> sourcePickers,
+    @required String pickerChainIDtoReplace,
+    @required SpecPicker updatedPicker,
+  }){
+    List<SpecPicker> _output = <SpecPicker>[];
+
+    if (Mapper.checkCanLoopList(sourcePickers) == true){
+      _output = <SpecPicker>[...sourcePickers];
+
+      if (pickerChainIDtoReplace != null && updatedPicker != null){
+
+        final int _index = _output.indexWhere((element){
+          return element.chainID == pickerChainIDtoReplace;
+        });
+
+        if (_index != -1){
+
+          blog('replacePicker : removing : $pickerChainIDtoReplace');
+          _output.removeWhere((element){
+            return element.chainID == pickerChainIDtoReplace;
+          });
+
+          blog('replacePicker : inserting : ${updatedPicker.chainID}');
+          _output.insert(_index, updatedPicker);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// GETTERS
 
 // -------------------------------------
-  static SpecPicker getPickerFromPickersByChainIDOrUnitChainID({
-    @required List<SpecPicker> specsPickers,
-    @required String pickerChainID,
+  static SpecPicker getPickerByChainIDOrUnitChainID({
+    @required List<SpecPicker> pickers,
+    @required String chainIDOrUnitChainID,
   }) {
 
-    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $pickerChainID');
+    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
     // SpecPicker.blogSpecsPickers(specsPickers);
 
   /// gets the picker where chain ID is the main chain or unit chain ID
 
     SpecPicker _specPicker;
 
-    if (Mapper.checkCanLoopList(specsPickers) && pickerChainID != null) {
-      _specPicker = specsPickers.firstWhere(
+    if (Mapper.checkCanLoopList(pickers) && chainIDOrUnitChainID != null) {
+      _specPicker = pickers.firstWhere(
               (SpecPicker picker) =>
-              picker.chainID == pickerChainID
+              picker.chainID == chainIDOrUnitChainID
                   ||
-              picker.unitChainID == pickerChainID,
+              picker.unitChainID == chainIDOrUnitChainID,
           orElse: () => null
       );
     }
@@ -133,14 +194,14 @@ class SpecPicker {
   }
    */
 // -------------------------------------
-  static List<SpecPicker> getSpecsPickersByGroupID({
-    @required List<SpecPicker> specsPickers,
+  static List<SpecPicker> getPickersByGroupID({
+    @required List<SpecPicker> pickers,
     @required String groupID,
   }) {
     final List<SpecPicker> _specsPicker = <SpecPicker>[];
 
-    if (Mapper.checkCanLoopList(specsPickers)) {
-      for (final SpecPicker list in specsPickers) {
+    if (Mapper.checkCanLoopList(pickers)) {
+      for (final SpecPicker list in pickers) {
         if (list.groupID == groupID) {
           _specsPicker.add(list);
         }
@@ -209,7 +270,7 @@ class SpecPicker {
 
 // -------------------------------------
   ///
-  static bool pickersContainPicker({
+  static bool checkPickersContainPicker({
     @required SpecPicker picker,
     @required List<SpecPicker> pickers,
   }) {
@@ -252,7 +313,7 @@ class SpecPicker {
           picker1.isRequired == picker2.isRequired &&
           picker1.unitChainID == picker2.unitChainID &&
 
-          SpecDeactivator.checkDeactivatorsListsAreIdentical(
+          PickersDeactivator.checkDeactivatorsListsAreIdentical(
               deActs1: picker1.deactivators,
               deActs2: picker2.deactivators
           ) == true &&
@@ -476,6 +537,43 @@ class SpecPicker {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is SpecPicker){
+      _areIdentical = checkPickersAreIdentical(
+        picker1: this,
+        picker2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  chainID.hashCode ^
+  groupID.hashCode ^
+  canPickMany.hashCode ^
+  isRequired.hashCode ^
+  unitChainID.hashCode ^
+  range.hashCode ^
+  deactivators.hashCode;
+// -----------------------------------------------------------------------------
 }
 
 String getSpecPickerChainIDOfPhid({
@@ -501,9 +599,9 @@ SpecPicker findSpecPickerByPhid({
   @required List<SpecPicker> allSpecPickers,
 }){
 
-  final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
-    specsPickers: allSpecPickers,
-    pickerChainID: getSpecPickerChainIDOfPhid(
+  final SpecPicker _picker = SpecPicker.getPickerByChainIDOrUnitChainID(
+    pickers: allSpecPickers,
+    chainIDOrUnitChainID: getSpecPickerChainIDOfPhid(
       context: context,
       phid: phid,
     ),
