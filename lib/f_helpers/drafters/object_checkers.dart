@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

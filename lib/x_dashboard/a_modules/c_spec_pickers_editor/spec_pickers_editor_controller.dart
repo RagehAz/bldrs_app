@@ -1,11 +1,12 @@
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/e_db/real/ops/picker_real_ops.dart';
+import 'package:bldrs/c_protocols/spec_picker_protocols/picker_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ Future<void> onSyncSpecPickers({
   @required BuildContext context,
   @required ValueNotifier<List<PickerModel>> initialPickers,
   @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required FlyerType flyerType,
 }) async {
 
   final bool _continue = await Dialogs.confirmProceed(context: context);
@@ -28,10 +30,17 @@ Future<void> onSyncSpecPickers({
     blog('onSyncSpecPickers');
     // await SpecPickerProtocols.renovatePickers();
 
-    await PickerRealOps.updatePickers(
+    await PickerProtocols.renovateFlyerTypPickers(
         context: context,
-        flyerType: FlyerType.property,
-        updatedPickers: tempPickers.value,
+        flyerType: flyerType,
+        pickers: tempPickers.value,
+    );
+
+    initialPickers.value = tempPickers.value;
+
+    await TopDialog.showSuccessDialog(
+      context: context,
+      firstLine: 'Sync Successful',
     );
 
   }

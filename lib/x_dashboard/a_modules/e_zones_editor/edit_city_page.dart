@@ -1,6 +1,6 @@
 
 
-import 'package:bldrs/a_models/chain/city_phids_model.dart';
+import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';

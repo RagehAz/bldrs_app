@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/chain/chain.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
-import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aa_chains_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/ab_chains_screen_browse_view.dart';
@@ -127,10 +127,18 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if (widget.flyerTypesChainFilters.length == 1){
-          _allSpecPickers = PickerModel.getPickersByFlyerType(widget.flyerTypesChainFilters[0]);
+          _allSpecPickers = ChainsProvider.proGetPickersByFlyerType(
+            context: context,
+            flyerType: widget.flyerTypesChainFilters[0],
+            listen: false,
+          );
         }
         else {
-          _allSpecPickers = PickerModel.getPickersByFlyerTypes(widget.flyerTypesChainFilters);
+          _allSpecPickers = ChainsProvider.proGetPickersByFlyerTypes(
+            context: context,
+            flyerTypes: widget.flyerTypesChainFilters,
+            listen: false,
+          );
         }
 
       }
