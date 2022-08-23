@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/specs/pickers_group.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/a_pickers_group.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -45,7 +45,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
           valueListenable: refinedSpecsPickers,
           builder: (_, List<SpecPicker> refinedPickers, Widget childB){
 
-            final List<String> _theGroupsIDs = SpecPicker.getGroupsFromSpecsPickers(
+            final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
               specsPickers: refinedPickers,
             );
 
@@ -109,7 +109,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
                     );
 
                     return SpecsPickersGroup(
-                      title: _groupID.toUpperCase(),
+                      headline: _groupID.toUpperCase(),
                       selectedSpecs: selectedSpecs,
                       groupPickers: _pickersOfThisGroup,
                       onPickerTap: onPickerTap,
@@ -124,34 +124,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
           }
       );
-      /*
-      return ListView.builder(
-          itemCount: _theGroupsIDs.length,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(
-            top: Stratosphere.bigAppBarStratosphere,
-            bottom: Ratioz.horizon,
-          ),
-          itemBuilder: (BuildContext ctx, int index) {
 
-            final String _groupID = _theGroupsIDs[index];
-
-            final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
-              specsPickers: specsPickers,
-              groupID: _groupID,
-            );
-
-            return SpecsPickersGroup(
-              title: _groupID.toUpperCase(),
-              selectedSpecs: selectedSpecs,
-              groupPickers: _pickersOfThisGroup,
-              onPickerTap: onPickerTap,
-              onDeleteSpec: onDeleteSpec,
-            );
-
-          }
-      );
-       */
     }
 
     /// WHEN NO PICKERS THERE

@@ -24,7 +24,7 @@ class DashButton extends StatelessWidget {
     return DreamBox(
       width: size,
       height: size,
-      color: Colorz.black255,
+      color: Colorz.black80,
       onTap: () async {
 
         if (dashButtonModel.screen != null){
@@ -53,9 +53,11 @@ class DashButton extends StatelessWidget {
             height: size - (size * 0.5 + (size * 0.05 * 2)),
             padding: EdgeInsets.symmetric(horizontal: size * 0.05),
             child: SuperVerse(
-              verse: dashButtonModel.verse,
+              verse: dashButtonModel.verse.toUpperCase(),
               maxLines: 2,
               scaleFactor: size * 0.008,
+              italic: true,
+              weight: VerseWeight.black,
             ),
           ),
 
