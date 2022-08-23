@@ -15,6 +15,7 @@ class PhraseStrip extends StatelessWidget {
     @required this.enPhrase,
     @required this.arPhrase,
     @required this.onDelete,
+    @required this.onSelect,
     @required this.onEdit,
     @required this.onCopyValue,
     @required this.searchController,
@@ -26,6 +27,7 @@ class PhraseStrip extends StatelessWidget {
   final Phrase arPhrase;
   final Function onDelete;
   final Function onEdit;
+  final Function onSelect;
   final ValueChanged<String> onCopyValue;
   final TextEditingController searchController;
 // -----------------------------------------------------------------------------
@@ -124,18 +126,31 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse: 'Edit',
+                              verse: 'Edit'.toUpperCase(),
                               margins: const EdgeInsets.only(bottom: 5),
+                              verseItalic: true,
                               onTap: onEdit,
                             ),
 
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse: 'Delete',
+                              verse: 'Delete'.toUpperCase(),
                               margins: const EdgeInsets.only(bottom: 5),
+                              verseItalic: true,
                               onTap: onDelete,
                             ),
+
+                            DreamBox(
+                              width: BottomDialog.clearWidth(context),
+                              height: 40,
+                              verse: 'Select'.toUpperCase(),
+                              margins: const EdgeInsets.only(bottom: 5),
+                              verseItalic: true,
+                              onTap: onSelect,
+                            ),
+
+
 
                           ],
 

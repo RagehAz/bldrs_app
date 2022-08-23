@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -145,7 +146,7 @@ void _onSearchPhrases({
 /// TESTED : WORKS PERFECT
 Future<void> onTapEditPhrase({
   @required BuildContext context,
-  @required String phraseID,
+  @required String phid,
   // @required List<Phrase> arPhrases,
   // @required List<Phrase> enPhrases,
   @required PageController pageController,
@@ -163,13 +164,13 @@ Future<void> onTapEditPhrase({
 
   final Phrase _enPhrase = Phrase.searchPhraseByIDAndLangCode(
     phrases: tempMixedPhrases.value,
-    phid: phraseID,
+    phid: phid,
     langCode: 'en',
   );
 
   final Phrase _arPhrase = Phrase.searchPhraseByIDAndLangCode(
     phrases: tempMixedPhrases.value,
-    phid: phraseID,
+    phid: phid,
     langCode: 'ar',
   );
 
@@ -208,7 +209,7 @@ Future<void> onConfirmEditPhrase({
       enOldPhrases: Phrase.searchPhrasesByLang(phrases: tempMixedPhrases.value, langCode: 'en'),
       enValue: updatedEnPhrase.value,
       arValue: updatedArPhrase.value,
-      phraseID: updatedEnPhrase.id,
+      phid: updatedEnPhrase.id,
     );
   }
 
@@ -268,7 +269,7 @@ Future<void> onConfirmEditPhrase({
 Future<bool> _preEditCheck({
   @required List<Phrase> arOldPhrases,
   @required List<Phrase> enOldPhrases,
-  @required String phraseID,
+  @required String phid,
   @required String enValue,
   @required String arValue,
   @required BuildContext context,
@@ -278,7 +279,7 @@ Future<bool> _preEditCheck({
 
   /// INPUTS ARE INVALID
   if (
-      Stringer.checkStringIsEmpty(phraseID) == true ||
+      Stringer.checkStringIsEmpty(phid) == true ||
       Stringer.checkStringIsEmpty(enValue) == true ||
       Stringer.checkStringIsEmpty(arValue) == true
   ){
@@ -305,12 +306,12 @@ Future<bool> _preEditCheck({
     /// EN ID TAKEN
     _idIsTakenEn = Phrase.checkPhrasesIncludeThisID(
       phrases: enOldPhrases,
-      id: phraseID,
+      id: phid,
     );
     if (_idIsTakenEn == true){
       _phrase = Phrase.searchPhraseByIDAndLangCode(
         phrases: enOldPhrases,
-        phid: phraseID,
+        phid: phid,
         langCode: 'en'
       );
       _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
@@ -319,12 +320,12 @@ Future<bool> _preEditCheck({
     /// AR ID TAKEN
     _idIsTakenAr = Phrase.checkPhrasesIncludeThisID(
       phrases: arOldPhrases,
-      id: phraseID,
+      id: phid,
     );
     if (_idIsTakenAr == true){
       _phrase = Phrase.searchPhraseByIDAndLangCode(
         phrases: arOldPhrases,
-        phid: phraseID,
+        phid: phid,
         langCode: 'ar',
       );
       _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
@@ -411,7 +412,7 @@ Future<void> _goBackToPhrasesPageAndResetControllers({
 /// TESTED : WORKS PERFECT
 Future<void> onDeletePhrase({
   @required BuildContext context,
-  @required String phraseID,
+  @required String phid,
   @required ValueNotifier<List<Phrase>> tempMixedPhrases,
 }) async {
 
@@ -420,7 +421,7 @@ Future<void> onDeletePhrase({
     title: 'Bgad ?',
     boolDialog: true,
     body: 'Delete This Phrase ?'
-        '\n\nPhid : $phraseID',
+        '\n\nPhid : $phid',
   );
 
   if (_continue == true){
@@ -433,7 +434,7 @@ Future<void> onDeletePhrase({
 
     final List<Phrase> _result = Phrase.deletePhidFromPhrases(
         phrases: tempMixedPhrases.value,
-        phid: phraseID,
+        phid: phid,
     );
 
     // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
@@ -451,47 +452,39 @@ Future<void> onDeletePhrase({
       firstLine: 'Phrase has been deleted',
     );
 
+  }
 
-    /// old shit , delete this
-    // final List<Phrase> _enPhrases = Phrase.deletePhidFromPhrases(
-    //   phrases: enPhrases,
-    //   phid: phraseID,
-    // );
-    //
-    // final List<Phrase> _arPhrases = Phrase.deletePhidFromPhrases(
-    //   phrases: arPhrases,
-    //   phid: phraseID,
-    // );
-    //
-    // final bool _enPhrasesListsAreTheSame = Phrase.phrasesListsAreIdentical(
-    //   phrases1: _enPhrases,
-    //   phrases2: enPhrases,
-    // );
-    //
-    // final bool _arPhrasesAreTheSame = Phrase.phrasesListsAreIdentical(
-    //   phrases1: _enPhrases,
-    //   phrases2: arPhrases,
-    // );
-    //
-    // if (_enPhrasesListsAreTheSame != true && _arPhrasesAreTheSame != true){
-    //
-    //   await PhraseOps.updatePhrases(
-    //     context: context,
-    //     enPhrases: _enPhrases,
-    //     arPhrases: _arPhrases,
-    //   );
-    //
-    // }
-    //
-    // else {
-    //
-    //   await CenterDialog.showCenterDialog(
-    //     context: context,
-    //     title: 'EH DAH !!',
-    //     body: 'CAN NOT DELETE THIS\n id : $phraseID',
-    //   );
-    //
-    // }
+}
+// -----------------------------
+/// SELECTION
+// --------------
+/// TESTED : WORKS PERFECT
+Future<void> onSelectPhrase({
+  @required BuildContext context,
+  @required String phid,
+}) async {
+
+  final bool _continue = await Dialogs.goBackDialog(
+    context: context,
+    title: 'Select This & go Back ?',
+    body: '$phid\n${xPhrase(context, phid)}',
+    confirmButtonText: 'Select & Back',
+  );
+
+  if (_continue == true){
+
+    /// CLOSE BOTTOM DIALOG
+    Nav.goBack(
+      context: context,
+      invoker: 'onDeletePhrase',
+    );
+
+    /// GO BACK AND PASS PHID
+    Nav.goBack(
+      context: context,
+      invoker: 'onDeletePhrase',
+      passedData: phid,
+    );
 
   }
 

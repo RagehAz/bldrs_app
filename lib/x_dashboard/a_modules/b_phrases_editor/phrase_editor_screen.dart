@@ -68,7 +68,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         _initialMixedPhrases.value = _mixedPhrases;
         _tempMixedPhrases.value = _mixedPhrases;
 
-        Phrase.blogPhrases(_tempMixedPhrases.value);
+        // Phrase.blogPhrases(_tempMixedPhrases.value);
 
         await _triggerLoading(setTo: false);
       });
