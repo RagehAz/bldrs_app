@@ -20,7 +20,7 @@ class ChainRealOps {
 
 // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -88,16 +88,16 @@ class ChainRealOps {
   }
 // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
 // ------------------------------------------
   /// TESTED : WORK PERFECT
   static Future<Chain> readBigChainK(BuildContext context) async {
 
     final Map<String, dynamic> _bigChainKMap = await Real.readDocOnce(
-        context: context,
-        collName: RealColl.chains,
-        docName: RealDoc.chains_bigChainK,
+      context: context,
+      collName: RealColl.chains,
+      docName: RealDoc.chains_bigChainK,
     );
 
     final Chain _bigChainK = Chain.decipherBigChainK(
@@ -124,8 +124,46 @@ class ChainRealOps {
   }
 // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
+// ------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateBigChainK({
+    @required BuildContext context,
+    @required Chain bigChainK,
+  }) async {
+
+    if (bigChainK != null){
+
+      await Real.updateDoc(
+        context: context,
+        collName: RealColl.chains,
+        docName: RealDoc.chains_bigChainK,
+        map: Chain.cipherBigChainK(chainK: bigChainK),
+      );
+
+    }
+
+  }
+// ------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> updateBigChainS({
+    @required BuildContext context,
+    @required Chain bigChainS,
+  }) async {
+
+    if (bigChainS != null){
+
+      await Real.updateDoc(
+        context: context,
+        collName: RealColl.chains,
+        docName: RealDoc.chains_bigChainS,
+        map: Chain.cipherBigChainS(chainS: bigChainS),
+      );
+
+    }
+
+  }
 // ------------------------------------------
   static Future<void> updateChainKPath({
     @required BuildContext context,
@@ -144,11 +182,14 @@ class ChainRealOps {
   }
 // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
 // ------------------------------------------
+  /// NO NEED
+/*
   static Future<void> deleteChainKPhidK() async {}
 // ------------------------------------------
   static Future<void> deleteChainSPhidS() async {}
+   */
 // -----------------------------------------------------------------------------
 }
