@@ -115,7 +115,7 @@ Future<void> onSendAuthorshipInvitation({
   @required BzModel bzModel,
 }) async {
 
-  final bool _result = await Dialogz.userDialog(
+  final bool _result = await Dialogs.userDialog(
     context: context,
     title: 'Send Invitation ?',
     body: 'confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',

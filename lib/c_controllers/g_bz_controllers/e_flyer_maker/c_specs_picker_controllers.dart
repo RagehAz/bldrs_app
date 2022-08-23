@@ -150,8 +150,8 @@ void updateSpecsPickersAndGroups({
 
       selectedSpecs.value = specPickerResult;
 
-      refinedPickers.value = SpecPicker.applyDeactivatorsToSpecsPickers(
-        sourceSpecsPickers: sourceSpecPickers,
+      refinedPickers.value = SpecPicker.applyDeactivatorsToPickers(
+        sourcePickers: sourceSpecPickers,
         selectedSpecs: specPickerResult,
       );
 

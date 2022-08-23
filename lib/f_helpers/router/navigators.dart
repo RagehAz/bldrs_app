@@ -248,7 +248,7 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 // -------------------------------------
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
-    final bool _result = await Dialogz.goBackDialog(
+    final bool _result = await Dialogs.goBackDialog(
       context: context,
       title: 'Exit App ?',
       body: 'Would you like to exit and close Bldrs.net App ?',

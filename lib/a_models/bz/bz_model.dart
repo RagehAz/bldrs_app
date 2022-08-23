@@ -1703,6 +1703,7 @@ class BzModel{
     BzTab.settings,
   ];
 // // ------------------------------------------
+  /*
 //   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
 //   static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
 //     'Flyers',
@@ -1714,6 +1715,7 @@ class BzModel{
 //     'Network',
 //     'settings',
 //   ];
+   */
 // ------------------------------------------
   static String getBzTabID({
     @required BzTab bzTab,

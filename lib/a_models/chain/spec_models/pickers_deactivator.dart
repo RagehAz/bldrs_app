@@ -2,17 +2,38 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class SpecDeactivator {
+class PickersDeactivator {
 /// -----------------------------------------------------------------------------
-  const SpecDeactivator({
-    @required this.specValueThatDeactivatesSpecsLists,
-    @required this.specsListsIDsToDeactivate,
+  const PickersDeactivator({
+    @required this.value,
+    @required this.pickersIDsToDeactivate,
   });
-  /// -----------------------------------------------------------------------------
-  final dynamic specValueThatDeactivatesSpecsLists;
-  /// when this specValue is selected
-  /// all lists with these listsIDs get deactivated
-  final List<String> specsListsIDsToDeactivate;
+  // -----------------------------------------------------------------------------
+  /// 1. when this value is selected in selected specs list
+  final dynamic value;
+  /// 2. these below pickers Ids will be deactivated
+  final List<String> pickersIDsToDeactivate;
+// -----------------------------------------------------------------------------
+
+  /// CLONING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  PickersDeactivator copyWith({
+    dynamic value,
+    List<String> pickersIDsToDeactivate,
+  }){
+    return PickersDeactivator(
+      value: value ?? this.value,
+      pickersIDsToDeactivate: pickersIDsToDeactivate ?? this.pickersIDsToDeactivate,
+    );
+  }
+// -----------------------------------------------------------------------------
+
+  /// CYPHER
+
+// -------------------------------------
+  ///
 // -----------------------------------------------------------------------------
 
   /// CHECKERS
@@ -20,8 +41,8 @@ class SpecDeactivator {
 // -------------------------------------
   ///
   static bool checkDeactivatorsAreIdentical({
-    @required SpecDeactivator deAct1,
-    @required SpecDeactivator deAct2,
+    @required PickersDeactivator deAct1,
+    @required PickersDeactivator deAct2,
   }){
     bool _areIdentical = false;
 
@@ -32,11 +53,11 @@ class SpecDeactivator {
 
       if (
 
-          deAct1.specValueThatDeactivatesSpecsLists == deAct2.specValueThatDeactivatesSpecsLists &&
+          deAct1.value == deAct2.value &&
 
           Mapper.checkListsAreIdentical(
-            list1: deAct1.specsListsIDsToDeactivate,
-            list2: deAct2.specsListsIDsToDeactivate,
+            list1: deAct1.pickersIDsToDeactivate,
+            list2: deAct2.pickersIDsToDeactivate,
           ) == true
 
       ){
@@ -50,8 +71,8 @@ class SpecDeactivator {
 // -------------------------------------
   ///
   static bool checkDeactivatorsListsAreIdentical({
-    @required List<SpecDeactivator> deActs1,
-    @required List<SpecDeactivator> deActs2,
+    @required List<PickersDeactivator> deActs1,
+    @required List<PickersDeactivator> deActs2,
   }){
     bool _listsAreIdentical = false;
 
@@ -70,8 +91,8 @@ class SpecDeactivator {
 
         for (int i = 0; i < deActs1.length; i++){
 
-          final SpecDeactivator _deAct1 = deActs1[i];
-          final SpecDeactivator _deAct2 = deActs2[i];
+          final PickersDeactivator _deAct1 = deActs1[i];
+          final PickersDeactivator _deAct2 = deActs2[i];
 
           final bool _areIdentical = checkDeactivatorsAreIdentical(
             deAct1: _deAct1,

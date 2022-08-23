@@ -1,16 +1,16 @@
 import 'dart:async';
-import 'package:bldrs/a_models/chain/spec_models/spec_model.dart';
+
 import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/a_pickers_group.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/b_pickers_group_headline.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/spec_pickers_editor_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/widgets/picker_editor.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerEditorScreen extends StatefulWidget {
@@ -66,8 +66,8 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
         _initialSpecPickers.value = widget.specPickers;
         _tempPickers.value = widget.specPickers;
-        final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToSpecsPickers(
-          sourceSpecsPickers: widget.specPickers,
+        final List<SpecPicker> _theRefinedPickers = SpecPicker.applyDeactivatorsToPickers(
+          sourcePickers: widget.specPickers,
           selectedSpecs: const [],
         );
         // blog('_theRefinedPickers  : $_theRefinedPickers');
@@ -107,7 +107,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
-      onBack: () => Dialogz.goBackDialog(
+      onBack: () => Dialogs.goBackDialog(
         context: context,
         goBackOnConfirm: true,
       ),
@@ -153,8 +153,8 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                     verseColor: Colorz.black255,
                     onTap: () => onSyncSpecPickers(
                       context: context,
-                      initialSpecPickers: _initialSpecPickers,
-                      tempSpecPickers :_tempPickers,
+                      initialPickers: _initialSpecPickers,
+                      tempPickers :_tempPickers,
                     ),
                   );
 
@@ -172,48 +172,63 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
           valueListenable: _tempPickers,
           builder: (_, List<SpecPicker> tempPickers, Widget child){
 
-            return ValueListenableBuilder(
-                valueListenable: _refinedPickers,
-                builder: (_, List<SpecPicker> refinedPickers, Widget childB){
+            final List<SpecPicker> refinedPickers = SpecPicker.applyDeactivatorsToPickers(
+              sourcePickers: tempPickers,
+              selectedSpecs: const [],
+            );
 
-                  final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
-                    specsPickers: refinedPickers,
+            final List<String> _theGroupsIDs = SpecPicker.getGroupsIDs(
+              specsPickers: refinedPickers,
+            );
+
+            return ListView.builder(
+                itemCount: _theGroupsIDs.length,
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.only(
+                  top: Stratosphere.bigAppBarStratosphere,
+                  bottom: Ratioz.horizon,
+                ),
+                itemBuilder: (BuildContext ctx, int index) {
+
+                  final String _groupID = _theGroupsIDs[index];
+
+                  final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getPickersByGroupID(
+                    pickers: refinedPickers,
+                    groupID: _groupID,
                   );
 
-                  Stringer.blogStrings(strings: _theGroupsIDs);
+                  blog('groupID : $_groupID');
 
-                  return ListView.builder(
-                      itemCount: _theGroupsIDs.length,
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(
-                        top: Stratosphere.bigAppBarStratosphere,
-                        bottom: Ratioz.horizon,
-                      ),
-                      itemBuilder: (BuildContext ctx, int index) {
+                  return Padding(
+                    key: const ValueKey<String>('SpecsPickersGroup'),
+                    padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
+                    child: Column(
+                      children: <Widget>[
 
-                        final String _groupID = _theGroupsIDs[index];
+                        /// GROUP HEADLINE
+                        PickersGroupHeadline(
+                          headline:  _groupID.toUpperCase(),
+                        ),
 
-                        final List<SpecPicker> _pickersOfThisGroup = SpecPicker.getSpecsPickersByGroupID(
-                          specsPickers: refinedPickers,
-                          groupID: _groupID,
-                        );
+                        /// GROUP SPECS PICKERS
+                        ...List<Widget>.generate(_pickersOfThisGroup.length,
+                                (int index) {
 
-                        blog('groupID : $_groupID');
+                              final SpecPicker _picker = _pickersOfThisGroup[index];
 
-                        return SpecsPickersGroup(
-                          headline: _groupID.toUpperCase(),
-                          selectedSpecs: ValueNotifier([]),
-                          groupPickers: _pickersOfThisGroup,
-                          onPickerTap: (SpecPicker picker){
-                            picker.blogSpecPicker();
-                          },
-                          onDeleteSpec: (List<SpecModel> specs){
-                            SpecModel.blogSpecs(specs);
-                          },
-                        );
+                              return PickerEditor(
+                                picker: _picker,
+                                tempPickers: _tempPickers,
+                              );
 
-                      }
+                            }
+
+                        ),
+
+                      ],
+                    ),
                   );
+
 
                 }
             );

@@ -34,15 +34,15 @@ class InfoPageSpecs extends StatelessWidget {
 
       for (final SpecModel _spec in flyerSpecs){
 
-        final SpecPicker _picker = SpecPicker.getPickerFromPickersByChainIDOrUnitChainID(
-          specsPickers: _flyerTypePickers,
-          pickerChainID: _spec.pickerChainID,
+        final SpecPicker _picker = SpecPicker.getPickerByChainIDOrUnitChainID(
+          pickers: _flyerTypePickers,
+          chainIDOrUnitChainID: _spec.pickerChainID,
         );
 
         // blog('picker chain ID is : ${_spec.pickerChainID}');
         // _picker.blogSpecPicker();
 
-        final bool _alreadyAdded = SpecPicker.pickersContainPicker(
+        final bool _alreadyAdded = SpecPicker.checkPickersContainPicker(
           pickers: _pickers,
           picker: _picker,
         );
