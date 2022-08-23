@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -389,14 +390,30 @@ class Mapper {
     @required Map<String, dynamic> map,
     @required String key,
     @required dynamic value,
+    bool overrideExisting = false,
   }) {
 
     Map<String, dynamic> _result = <String, dynamic>{};
 
     if (map != null){
-      map.putIfAbsent(key, () => value);
-      _result = _result..addAll(map);
+
+      _result = map;
+
+      /// PAIR IS NULL
+      if (map[key] == null){
+        _result.putIfAbsent(key, () => value);
+        // _result = _result..addAll(map);
+      }
+
+      /// PAIR HAS VALUE
+      else {
+        if (overrideExisting == true){
+          _result[key] = value;
+        }
+      }
+
     }
+
     return _result;
   }
 // -------------------------------------
@@ -825,20 +842,25 @@ class Mapper {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
-    blog('MAP-PRINT $methodName : --------------------------------------------------START');
 
     if (map != null){
 
-      blog('<String, dynamic>{');
+      blog('$methodName ~~~> <String, dynamic>{');
 
       final List<dynamic> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
       for (int i = 0; i < _keys.length; i++) {
-        blog('${_keys[i]} : ${_values[i]},');
+
+        final String _index = Numeric.uniformizeIndexDigits(
+          index: i,
+          listLength: _keys.length,
+        );
+
+        blog('         $_index. ${_keys[i]} : ${_values[i]},');
       }
 
-      blog('} . Length : ${_keys.length} keys');
+      blog('      }.........Length : ${_keys.length} keys <~~~');
 
     }
 
@@ -846,7 +868,6 @@ class Mapper {
       blog('MAP IS NULL');
     }
 
-    blog('MAP-PRINT $methodName : --------------------------------------------------END');
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT

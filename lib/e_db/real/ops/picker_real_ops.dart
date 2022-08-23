@@ -15,6 +15,7 @@ class PickerRealOps {
   /// PATHS
 
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static  String _getPickerRealDocNameByFlyerType(FlyerType flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
@@ -23,6 +24,7 @@ class PickerRealOps {
 /// CREATE
 
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> createPickers({
     @required BuildContext context,
     @required List<PickerModel> pickers,
@@ -42,6 +44,7 @@ class PickerRealOps {
 /// READ
 
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> readPickers({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -50,10 +53,12 @@ class PickerRealOps {
 
     if (flyerType != null){
 
+
       final Map<String, dynamic> _map = await Real.readDoc(
         context: context,
         collName: RealColl.pickers,
         docName: _getPickerRealDocNameByFlyerType(flyerType),
+        addDocID: false,
       );
 
       if (_map != null){
@@ -71,6 +76,7 @@ class PickerRealOps {
 /// UPDATE
 
 // -----------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updatePickers({
     @required BuildContext context,
     @required FlyerType flyerType,

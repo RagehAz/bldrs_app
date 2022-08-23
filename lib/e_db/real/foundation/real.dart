@@ -476,6 +476,7 @@ class Real {
     @required BuildContext context,
     @required String collName,
     @required String docName,
+    bool addDocID = true,
   }) async {
 
     Map<String, dynamic> _output;
@@ -496,7 +497,8 @@ class Real {
         _output = Mapper.getMapFromDataSnapshot(
           snapshot: snapshot,
           onNull: () => blog('Real.readDoc : No data available.'),
-
+          addDocID: addDocID,
+          // onExists:
         );
 
       },

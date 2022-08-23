@@ -179,6 +179,19 @@ class Numeric {
 
     return _digits;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String uniformizeIndexDigits({
+    @required int index,
+    @required int listLength,
+}){
+
+    return formatNumberWithinDigits(
+      digits: concludeNumberOfDigits(listLength),
+      num: index,
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS

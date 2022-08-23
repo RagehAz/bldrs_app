@@ -41,6 +41,7 @@ class LDBOps {
       case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
       case LDBDoc.authModel: return 'uid';
       case LDBDoc.notes: return 'id';
+      case LDBDoc.pickers: return 'id';
       case 'test': return 'id';
       default: return null;
     }

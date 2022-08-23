@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/city_phids_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -7,8 +6,6 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
-import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
 import 'package:flutter/material.dart';
@@ -157,11 +154,9 @@ class ChainProtocols {
 
       await Future.wait(<Future>[
 
-        Real.updateDoc(
-          context: context,
-          collName: RealColl.chains,
-          docName: RealDoc.chains_bigChainK,
-          map: Chain.cipherBigChainK(chainK: bigChainK),
+        ChainRealOps.updateBigChainK(
+            context: context,
+            bigChainK: bigChainK
         ),
 
         updateBigChainKLocally(
@@ -190,11 +185,9 @@ class ChainProtocols {
 
       await Future.wait(<Future>[
 
-        Real.updateDoc(
-          context: context,
-          collName: RealColl.chains,
-          docName: RealDoc.chains_bigChainS,
-          map: Chain.cipherBigChainS(chainS: bigChainS),
+        ChainRealOps.updateBigChainS(
+            context: context,
+            bigChainS: bigChainS
         ),
 
         updateBigChainSLocally(
@@ -284,5 +277,6 @@ class ChainProtocols {
   /// WIPE
 
 // -------------------------------------
-
+  /// NO NEED
+// -----------------------------------------------------------------------------
 }
