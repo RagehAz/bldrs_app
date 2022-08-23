@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/chain_path_converter/chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/data_creator.dart';
-import 'package:bldrs/a_models/chain/spec_models/spec_picker_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
@@ -370,6 +370,24 @@ class Chain {
 
     return _chains;
   }
+// -----------------------------------------------------------------------------
+
+  /// STANDARDS
+
+// --------------------------------------------
+  static const String propertyChainID = 'phid_k_flyer_type_property';
+  static const String designChainID = 'phid_k_flyer_type_design';
+  static const String tradesChainID = 'phid_k_flyer_type_trades';
+  static const String productChainID = 'phid_k_flyer_type_product';
+  static const String equipmentChainID = 'phid_k_flyer_type_equipment';
+// --------------------------------------------
+  static List<String> chainKSonsIDs = <String>[
+    propertyChainID,
+    designChainID,
+    tradesChainID,
+    productChainID,
+    equipmentChainID,
+  ];
 // -----------------------------------------------------------------------------
 
   /// FILTERS

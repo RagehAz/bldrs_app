@@ -58,7 +58,7 @@ class CityPhidsModel {
 
       for (final SpecModel spec in specs){
 
-        final bool _specIsKeywordID = SpecModel.checkSpecIsFromKeywords(
+        final bool _specIsKeywordID = SpecModel.checkSpecIsFromChainK(
           spec: spec,
         );
 
