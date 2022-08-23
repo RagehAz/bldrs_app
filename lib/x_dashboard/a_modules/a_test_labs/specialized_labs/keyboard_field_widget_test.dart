@@ -132,20 +132,10 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                     title: 'Hey There !',
                     hintText: null,
                     controller: _controller,
-                    minLines: 1,
                     maxLines: 5,
                     maxLength: 100,
-                    textInputAction: TextInputAction.done,
                     textInputType: Keyboard.textInputTypes[_index],
                     focusNode: FocusNode(),
-                    canObscure: false,
-                    counterIsOn: false,
-                    onSubmitted: null,
-                    onSavedForForm: null,
-                    onEditingComplete: null,
-                    onChanged: null,
-                    isFormField: false,
-                    isFloatingField: true,
                   );
 
                   _uiProvider.setKeyboard(

@@ -242,7 +242,7 @@ class FetchZoneProtocols {
           /// D-2 if multiple cities found
           else {
 
-            final CityModel _selectedCity = await Dialogz.confirmCityDialog(
+            final CityModel _selectedCity = await Dialogs.confirmCityDialog(
               context: context,
               cities: _foundCities,
             );

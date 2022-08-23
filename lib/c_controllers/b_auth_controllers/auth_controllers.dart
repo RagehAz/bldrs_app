@@ -200,7 +200,7 @@ Future<void> _controlAuthFailure({
   final String _errorMessage = authModel.authError ??
       'Something went wrong, please try again';
 
-  await Dialogz.authErrorDialog(
+  await Dialogs.authErrorDialog(
       context: context,
       result: _errorMessage
   );
