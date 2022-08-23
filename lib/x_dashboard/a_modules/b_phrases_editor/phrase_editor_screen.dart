@@ -103,7 +103,6 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
-
     return MainLayout(
       pageTitle: 'Phrases Editor',
       sectionButtonIsOn: false,
