@@ -50,7 +50,7 @@ class PhrasesViewerPage extends StatelessWidget {
         tempMixedPhrases: tempMixedPhrases,
         // enPhrases: enPhrases,
         // arPhrases: arPhrases,
-        phraseID: phid,
+        phid: phid,
         enTextController: enController,
         arTextController: arController,
         idTextController: idTextController,
@@ -61,9 +61,18 @@ class PhrasesViewerPage extends StatelessWidget {
     Future<void> _onDeletePhraseTap(String phid) async {
        await onDeletePhrase(
         context: context,
-        phraseID: phid,
+        phid: phid,
         tempMixedPhrases: tempMixedPhrases,
       );
+    }
+// -----------------------------
+    Future<void> _onSelectPhrase(String phid) async {
+
+      await onSelectPhrase(
+        context: context,
+        phid: phid,
+      );
+
     }
 // -----------------------------
     return ValueListenableBuilder(
@@ -123,6 +132,7 @@ class PhrasesViewerPage extends StatelessWidget {
                   onCopyValue: (String value) => TextMod.controllerCopy(context, value),
                   onDeletePhraseTap: _onDeletePhraseTap,
                   onEditPhraseTap: _onEditPhraseTap,
+                  onSelectPhrase: _onSelectPhrase,
                 );
 
               }
@@ -153,6 +163,7 @@ class PhrasesViewerPage extends StatelessWidget {
             onCopyValue: (String value) => TextMod.controllerCopy(context, value),
             onEditPhraseTap: _onEditPhraseTap,
             onDeletePhraseTap: _onDeletePhraseTap,
+            onSelectPhrase: _onSelectPhrase,
           );
 
         },
