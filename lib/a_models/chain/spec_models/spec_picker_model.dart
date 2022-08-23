@@ -151,7 +151,7 @@ class SpecPicker {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getGroupsFromSpecsPickers({
+  static List<String> getGroupsIDs({
     @required List<SpecPicker> specsPickers,
   }) {
     List<String> _groups = <String>[];
@@ -208,6 +208,7 @@ class SpecPicker {
   /// CHECKERS
 
 // -------------------------------------
+  ///
   static bool pickersContainPicker({
     @required SpecPicker picker,
     @required List<SpecPicker> pickers,
@@ -230,6 +231,90 @@ class SpecPicker {
     }
 
     return _contains;
+  }
+// -------------------------------------
+  ///
+  static bool checkPickersAreIdentical({
+    @required SpecPicker picker1,
+    @required SpecPicker picker2,
+  }){
+    bool _areIdentical = false;
+
+    if (picker1 == null && picker2 == null){
+      _areIdentical = true;
+    }
+    else if (picker1 != null && picker2 != null){
+
+      if (
+          picker1.groupID == picker2.groupID &&
+          picker1.chainID == picker2.chainID &&
+          picker1.canPickMany == picker2.canPickMany &&
+          picker1.isRequired == picker2.isRequired &&
+          picker1.unitChainID == picker2.unitChainID &&
+
+          SpecDeactivator.checkDeactivatorsListsAreIdentical(
+              deActs1: picker1.deactivators,
+              deActs2: picker2.deactivators
+          ) == true &&
+
+          Mapper.checkListsAreIdentical(
+              list1: picker1.range,
+              list2: picker2.range,
+          ) == true
+
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+// -------------------------------------
+  ///
+  static bool checkSpecPickersListsAreIdentical({
+    @required List<SpecPicker> pickers1,
+    @required List<SpecPicker> pickers2,
+  }){
+    bool _listsAreIdentical = false;
+
+    if (pickers1 == null && pickers2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (pickers1.isEmpty == true && pickers2.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+    else if (Mapper.checkCanLoopList(pickers1) == true && Mapper.checkCanLoopList(pickers2) == true){
+
+      if (pickers1.length != pickers2.length){
+        _listsAreIdentical = false;
+      }
+      else {
+
+        for (int i = 0; i < pickers1.length; i++){
+
+          final SpecPicker _picker1 = pickers1[i];
+          final SpecPicker _picker2 = pickers2[i];
+
+          final bool _areIdentical = checkPickersAreIdentical(
+            picker1: _picker1,
+            picker2: _picker2,
+          );
+
+          if (_areIdentical == false){
+            _listsAreIdentical = false;
+            break;
+          }
+
+          _listsAreIdentical = true;
+
+        }
+
+      }
+
+    }
+
+    return _listsAreIdentical;
   }
 // -----------------------------------------------------------------------------
 
