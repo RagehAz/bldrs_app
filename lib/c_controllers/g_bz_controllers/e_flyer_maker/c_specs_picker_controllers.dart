@@ -127,9 +127,9 @@ Future<void> _goToSpecPickerScreen({
 void updateSpecsPickersAndGroups({
   @required BuildContext context,
   @required dynamic specPickerResult,
-  @required SpecPicker specPicker,
-  @required List<SpecPicker> sourceSpecPickers,
-  @required ValueNotifier<List<SpecPicker>> refinedPickers,
+  @required PickerModel specPicker,
+  @required List<PickerModel> sourceSpecPickers,
+  @required ValueNotifier<List<PickerModel>> refinedPickers,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
@@ -150,7 +150,7 @@ void updateSpecsPickersAndGroups({
 
       selectedSpecs.value = specPickerResult;
 
-      refinedPickers.value = SpecPicker.applyDeactivatorsToPickers(
+      refinedPickers.value = PickerModel.applyBlockers(
         sourcePickers: sourceSpecPickers,
         selectedSpecs: specPickerResult,
       );
@@ -191,7 +191,7 @@ Future<void> onSelectPhid({
   @required BuildContext context,
   @required String phid,
   @required bool isMultipleSelectionMode,
-  @required SpecPicker specPicker,
+  @required PickerModel specPicker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
 
@@ -218,7 +218,7 @@ Future<void> onSelectPhid({
 Future<void> updateSelectedSpecsAtPhidSelection({
   @required BuildContext context,
   @required String phid,
-  @required SpecPicker picker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
 
@@ -330,7 +330,7 @@ void onCurrencyChanged({
 // -----------------------------------
 void onPriceChanged({
   @required String price,
-  @required SpecPicker picker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
@@ -352,7 +352,7 @@ void onPriceChanged({
 // -----------------------------------
 void onAddSpecs({
   @required List<SpecModel> specs,
-  @required SpecPicker picker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
@@ -368,7 +368,7 @@ void onAddSpecs({
 // -----------------------------------
 void onAddDouble({
   @required double num,
-  @required SpecPicker picker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 

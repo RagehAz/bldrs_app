@@ -490,7 +490,7 @@ class SpecModel {
 // --------------------------------
   static List<SpecModel> getSpecsRelatedToPicker({
     @required List<SpecModel> specs,
-    @required SpecPicker picker,
+    @required PickerModel picker,
 }){
     List<SpecModel> _result = <SpecModel>[];
 

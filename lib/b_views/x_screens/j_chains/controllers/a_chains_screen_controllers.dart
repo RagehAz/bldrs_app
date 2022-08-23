@@ -191,13 +191,13 @@ Future<void> _setActivePhidK({
 // --------------------------------
 Future<void> onSpecPickerTap({
   @required BuildContext context,
-  @required SpecPicker picker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
   @required List<SpecModel> originalSpecs,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
-  @required ValueNotifier<List<SpecPicker>> refinedSpecsPickers,
-  @required List<SpecPicker> allSpecPickers,
+  @required ValueNotifier<List<PickerModel>> refinedSpecsPickers,
+  @required List<PickerModel> allSpecPickers,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(

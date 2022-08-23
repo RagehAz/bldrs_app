@@ -33,7 +33,7 @@ class IntegerAndDoubleDataCreator extends StatefulWidget {
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final dynamic initialValue;
   final String initialUnit;
-  final SpecPicker specPicker;
+  final PickerModel specPicker;
   final Function onKeyboardSubmitted;
   final DataCreator dataCreatorType;
   /// --------------------------------------------------------------------------

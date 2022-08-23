@@ -15,8 +15,8 @@ class PickersTilesBuilder extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final List<SpecPicker> specPickers;
-  final ValueChanged<SpecPicker> onPickerTap;
+  final List<PickerModel> specPickers;
+  final ValueChanged<PickerModel> onPickerTap;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------
   @override
@@ -35,7 +35,7 @@ class PickersTilesBuilder extends StatelessWidget {
               ...List<Widget>.generate(specPickers.length,
                       (int index) {
 
-                    final SpecPicker _picker = specPickers[index];
+                    final PickerModel _picker = specPickers[index];
 
                     final List<SpecModel> _pickerSelectedSpecs = SpecModel.getSpecsRelatedToPicker(
                       specs: _allSelectedSpecs,
