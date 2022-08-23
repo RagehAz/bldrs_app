@@ -1,13 +1,16 @@
 import 'package:bldrs/a_models/chain/chain.dart';
 import 'package:bldrs/a_models/chain/city_phids_model.dart';
+import 'package:bldrs/a_models/chain/spec_models/picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
+import 'package:bldrs/c_protocols/spec_picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +32,7 @@ class ChainsProvider extends ChangeNotifier {
     /// NOTE : initialization for fetching setting :-
     /// BIG CHAIN K
     /// BIG CHAIN S
+    /// ALL PICKERS
     /// CITY PHIDS MODEL
     /// CITY CHAIN K
     /// BIG CHAIN K PHRASES
@@ -44,6 +48,11 @@ class ChainsProvider extends ChangeNotifier {
       ),
       /// BIG CHAIN S
       _fetchSetBigChainS(
+          context: context,
+          notify: false,
+      ),
+      /// ALL PICKERS
+      fetchSetAllPickers(
           context: context,
           notify: false,
       ),
@@ -101,6 +110,8 @@ class ChainsProvider extends ChangeNotifier {
     _bigChainK = null;
     /// BIG CHAIN S
     _bigChainS = null;
+    /// ALL PICKERS
+    _allPickers = {};
     /// CITY PHID COUNTERS
     _cityPhidsModel = null;
     /// CITY CHAIN K
@@ -125,6 +136,7 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
     /// KEEP : BIG CHAIN K
     /// KEEP : BIG CHAIN S
+    /// KEEP : ALL PICKERS
     /// KEEP : BIG CHAIN K PHRASES
     /// KEEP : BIG CHAIN S PHRASES
     // --------------------
@@ -256,6 +268,8 @@ class ChainsProvider extends ChangeNotifier {
     _bigChainK = null;
     /// BIG CHAIN S
     _bigChainS = null;
+    /// ALL PICKERS
+    _allPickers = {};
     /// CITY PHID COUNTERS
     _cityPhidsModel = null;
     /// CITY CHAIN K
@@ -631,6 +645,87 @@ class ChainsProvider extends ChangeNotifier {
       flyerType: null,
       notify: notify,
     );
+  }
+// -----------------------------------------------------------------------------
+
+  /// ALL PICKER
+
+// -------------------------------------
+  Map<String, dynamic> _allPickers = {};
+  Map<String, dynamic> get allPickers => _allPickers;
+// -------------------------------------
+  static List<PickerModel> proGetFlyerTypePickers({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
+    return  _chainsProvider.allPickers[_pickersKey];
+  }
+// -------------------------------------
+  Future<void> fetchSetAllPickers({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    await Future.wait(<Future>[
+
+      ...List.generate(FlyerTyper.flyerTypesList.length, (index) async {
+
+        final FlyerType _flyerType = FlyerTyper.flyerTypesList[index];
+
+        await PickerProtocols.fetchFlyerTypPickers(
+          context: context,
+          flyerType: _flyerType,
+          onFinish: (List<PickerModel> pickers){
+
+            blog('fetchSetAllPickers : DONE WITH $_flyerType');
+
+            final bool _isLastIndex = index + 1 == FlyerTyper.flyerTypesList.length;
+            bool _notify = false;
+            if (_isLastIndex == true){
+              _notify = notify;
+            }
+
+            setFlyerTypePickers(
+              context: context,
+              flyerType: _flyerType,
+              pickers: pickers,
+              notify: _notify,
+            );
+
+          },
+        );
+
+
+      }),
+
+    ]);
+
+  }
+// -------------------------------------
+  void setFlyerTypePickers({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+    @required List<PickerModel> pickers,
+    @required bool notify,
+  }){
+
+    final String _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
+
+    blog('setFlyerTypePickers : $_pickersID : $flyerType');
+
+    _allPickers = Mapper.insertPairInMap(
+      map: _allPickers,
+      key: _pickersID,
+      value: pickers,
+      overrideExisting: true,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
 // -----------------------------------------------------------------------------o
 

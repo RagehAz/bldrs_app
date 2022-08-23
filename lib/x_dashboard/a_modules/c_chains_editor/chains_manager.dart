@@ -83,12 +83,12 @@ class _ChainsManagerState extends State<ChainsManager> {
   }
 // -----------------------------------------------------------------------------
   final List<FlyerType> _selectedTypes = <FlyerType>[];
-// -----------------------------------------------------------------------------
+// ------------------------
   static const List<FlyerType> _allTypes = <FlyerType>[
     // null,
     ...FlyerTyper.flyerTypesList,
   ];
-// -------------------------------------------------
+// ------------------------
   void _onTapPickerSelector(FlyerType flyerType){
 
     final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
@@ -109,7 +109,7 @@ class _ChainsManagerState extends State<ChainsManager> {
     }
 
   }
-// -----------------------------------------------------------------------------
+// ------------------------
   bool onlyPhidKs = false;
 // -----------------------------------------------------------------------------
   @override

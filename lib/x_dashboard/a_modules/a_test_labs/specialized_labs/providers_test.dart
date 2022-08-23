@@ -18,6 +18,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -379,6 +380,15 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
               value: _chainsProvider?.wallPhid,
               onTap: (){
                 blog(_chainsProvider?.wallPhid);
+              },
+            ),
+
+            /// ALL PICKERS
+            ProviderTestButton(
+              title: 'chainsProvider.allPickers',
+              value: _chainsProvider?.allPickers,
+              onTap: (){
+                Mapper.blogMap(_chainsProvider?.allPickers);
               },
             ),
 
