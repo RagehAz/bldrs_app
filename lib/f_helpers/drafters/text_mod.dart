@@ -1,6 +1,8 @@
 // ignore_for_file: always_put_control_body_on_new_line
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:clipboard/clipboard.dart';
@@ -635,13 +637,92 @@ class TextMod {
 // ----------------------------
   /// PHONE NUMBER
 // -----------
-  static String createInternationalNumber({
+  static String initializePhoneNumber({
     @required String number,
     @required String countryID,
   }){
+    String initialNumber;
 
+    /// NO NUMBER GIVEN
+    if (Stringer.checkStringIsEmpty(number) == true){
+
+      final String _code = CountryModel.getCountryPhoneCode(countryID);
+
+      if (Stringer.checkStringIsEmpty(_code) == false){
+        initialNumber = _code;
+      }
+
+    }
+
+    /// NUMBER IS GIVEN
+    else {
+      initialNumber = number;
+    }
+
+    return initialNumber;
   }
 // ----------------------------
+  static String nullifyNumberIfOnlyCountryCode({
+    @required String number,
+    @required String countryID,
+  }){
+    String _output;
+
+
+
+    if (number != null && countryID != null){
+
+      final String _code = CountryModel.getCountryPhoneCode(countryID);
+
+      if (_code != number){
+        _output = TextMod.removeSpacesFromAString(number);
+      }
+
+    }
+
+    return _output;
+  }
+// ----------------------------
+  /// WEB LINK
+// -----------
+  static const String httpsCode = 'https://';
+// -----------
+  static String initializeWebLink({
+    @required String url,
+  }){
+    String _initialText;
+
+    /// NO URL GIVEN
+    if (Stringer.checkStringIsEmpty(url) == true){
+      _initialText = httpsCode;
+    }
+
+    /// URL IS GIVEN
+    else {
+      _initialText = url;
+    }
+
+    return _initialText;
+  }
+// ----------------------------
+  static String nullifyUrlLinkIfOnlyHTTPS({
+    @required String url,
+  }){
+    String _output;
+
+    /// URL IS DEFINED
+    if (Stringer.checkStringIsEmpty(url) == false){
+
+      if (httpsCode != url){
+        _output = removeSpacesFromAString(url);
+      }
+
+    }
+
+    return _output;
+  }
+// ----------------------------
+
 }
 
 /*

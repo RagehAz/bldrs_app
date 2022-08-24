@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -13,14 +11,11 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/country_fix.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/e_db/real/foundation/real.dart';
-import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -219,7 +214,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   void _onTextFieldChanged(String text){
     blog('received text : $text');
 
-    _highlightedText.value = text;
+    final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
+      number: text,
+      countryID: 'egy',
+    );
+
+
+    _highlightedText.value = _phone;
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
@@ -286,21 +287,16 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final Map<String, dynamic> _map = CountryModel.getAllPhoneCodes();
+    const String _countryID = 'egy';
+    const String number = '+';
 
-    final List<String> _keys = _map.keys.toList();
+    final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
+        number: number,
+        countryID: _countryID,
+    );
 
-    for (final String countryID in _keys){
+    blog('_phone : $_phone');
 
-      await Real.updateDocField(
-          context: context,
-          collName: RealColl.zoneCountries,
-          docName: countryID,
-          fieldName: 'phoneCode',
-          value: _map[countryID],
-      );
-
-    }
     }
 
   //  final List<String> _countriesIDs = CountryModel.getAllCountriesIDs();
@@ -334,7 +330,6 @@ phid_k_pt_studio
   @override
   Widget build(BuildContext context) {
 
-    blog('d');
 
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
@@ -404,7 +399,7 @@ phid_k_pt_studio
 
         /// FAST TEST
         AppBarButton(
-            verse: 'fastTestss',
+            verse: 'fastTest',
             onTap: () async {await _fastTest(context);},
         ),
 
@@ -506,6 +501,19 @@ phid_k_pt_studio
 
                   ],
                 ),
+
+                ValueListenableBuilder(
+                    valueListenable: _highlightedText,
+                    builder: (_, String text, Widget child){
+
+                      return SuperVerse(
+                        verse: text,
+                        labelColor: Colorz.blue80,
+                      );
+
+                    }
+                ),
+
 
                 /// HASH VERSE
                 // ValueListenableBuilder(
