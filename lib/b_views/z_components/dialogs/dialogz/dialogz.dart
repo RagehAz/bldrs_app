@@ -217,7 +217,7 @@ class Dialogs {
         passwordConfirmationController: null,
         passwordConfirmationValidator: null,
         onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
-        isTheSuperKeyboardField: true,
+        // isTheSuperKeyboardField: false,
       ),
     );
 
