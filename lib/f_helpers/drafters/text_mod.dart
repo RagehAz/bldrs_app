@@ -637,6 +637,7 @@ class TextMod {
 // ----------------------------
   /// PHONE NUMBER
 // -----------
+  /// TESTED : WORKS PERFECT
   static String initializePhoneNumber({
     @required String number,
     @required String countryID,
@@ -662,6 +663,7 @@ class TextMod {
     return initialNumber;
   }
 // ----------------------------
+  /// TESTED : WORKS PERFECT
   static String nullifyNumberIfOnlyCountryCode({
     @required String number,
     @required String countryID,
@@ -687,6 +689,7 @@ class TextMod {
 // -----------
   static const String httpsCode = 'https://';
 // -----------
+  /// TESTED : WORKS PERFECT
   static String initializeWebLink({
     @required String url,
   }){
@@ -705,6 +708,7 @@ class TextMod {
     return _initialText;
   }
 // ----------------------------
+  /// TESTED : WORKS PERFECT
   static String nullifyUrlLinkIfOnlyHTTPS({
     @required String url,
   }){
