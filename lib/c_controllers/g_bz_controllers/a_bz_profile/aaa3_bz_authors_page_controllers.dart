@@ -443,6 +443,7 @@ Future<void> _onEditAuthor({
     context: context,
     screen: AuthorEditorScreen(
       author: authorModel,
+      bzModel: bzModel,
     ),
   );
 

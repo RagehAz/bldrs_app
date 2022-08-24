@@ -120,6 +120,7 @@ class TextChecker {
   /// TEXT CONTROLLER CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool textControllerIsEmpty(TextEditingController controller) {
     bool _controllerIsEmpty;
 
