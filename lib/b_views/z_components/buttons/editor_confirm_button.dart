@@ -20,7 +20,6 @@ class ConfirmButtonModel{
   final bool isDeactivated;
   final Function onSkipTap;
 /// --------------------------------------------------------------------------
-
 }
 
 class ConfirmButton extends StatelessWidget {

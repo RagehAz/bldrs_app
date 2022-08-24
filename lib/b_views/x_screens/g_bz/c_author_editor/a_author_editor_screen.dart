@@ -1,4 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -18,10 +20,12 @@ class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorEditorScreen({
     @required this.author,
+    @required this.bzModel,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AuthorModel author;
+  final BzModel bzModel;
   /// --------------------------------------------------------------------------
   @override
   _AuthorEditorScreenState createState() => _AuthorEditorScreenState();
@@ -32,6 +36,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   ValueNotifier<AuthorModel> _author;
+  ValueNotifier<FileModel> _authorPicFile;
   TextEditingController _nameController;
   TextEditingController _titleController;
   List<TextEditingController> _generatedContactsControllers;
@@ -39,7 +44,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -51,7 +55,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'AuthorEditorScreen',);
     }
   }
-   */
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -65,11 +68,21 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     );
 
     _author = ValueNotifier(_theAuthor);
+    final FileModel _initialImageFile = FileModel(
+      url: _theAuthor.pic,
+      fileName: AuthorModel.generateAuthorPicID(
+          authorID: _theAuthor.userID,
+          bzID: widget.bzModel.id,
+      ),
+      size: null,
+    );
+    _authorPicFile = ValueNotifier(_initialImageFile);
     _nameController = TextEditingController(text: _theAuthor.name);
     _titleController = TextEditingController(text: _theAuthor.title);
 
-    _generatedContactsControllers = ContactModel.generateContactsControllers(
+    _generatedContactsControllers = ContactModel.initializeContactsControllers(
       existingContacts: _theAuthor.contacts,
+      countryID: widget.bzModel.zone.countryID,
     );
 
   }
@@ -79,10 +92,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      // _triggerLoading().then((_) async {
-      //
-      //   await _triggerLoading();
-      // });
+      _triggerLoading().then((_) async {
+
+        _authorPicFile.value = await FileModel.completeModel(_authorPicFile.value);
+
+        await _triggerLoading();
+      });
 
       _isInit = false;
     }
@@ -126,6 +141,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           titleController: _titleController,
           generatedControllers: _generatedContactsControllers,
           nameController: _nameController,
+          bzModel: widget.bzModel,
         ),
       ),
       layoutWidget: Form(
@@ -141,7 +157,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               builder: (_, AuthorModel author, Widget child){
 
                 return AddImagePicBubble(
-                  fileModel: ValueNotifier(author.pic),
+                  fileModel: _authorPicFile,
                   title: 'Author picture',
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
