@@ -86,9 +86,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _companyController.text   = widget.userModel?.company;
     _titleController.text     = widget.userModel?.title;
 
-    _phoneController.text     = ContactModel.getAContactValueFromContacts(
-        contacts: widget.userModel?.contacts,
-        contactType: ContactType.phone
+    _phoneController.text     = TextMod.createInternationalNumber(
+      number : ContactModel.getAContactValueFromContacts(
+          contacts: widget.userModel?.contacts,
+          contactType: ContactType.phone
+      ),
+      countryID : _zone.value?.countryID,
     );
     _emailController.text     = ContactModel.getAContactValueFromContacts(
       contacts: widget.userModel?.contacts,

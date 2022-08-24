@@ -359,10 +359,9 @@ class _SuperTextFieldState extends State<SuperTextField> {
   }
 // -----------------------------------------------------------------------------
   TextEditingController _initializeTextController(){
-    final TextEditingController _controller = widget.textController ?? TextEditingController();
-    if (widget.initialValue != null){
-      _controller.text = widget.initialValue;
-    }
+
+    final TextEditingController _controller = widget.textController ??
+        TextEditingController(text: widget.initialValue ?? '');
 
     _textValue = ValueNotifier(_controller.text);
     _controller.addListener(() {
