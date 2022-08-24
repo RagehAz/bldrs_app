@@ -43,7 +43,7 @@ class DistrictModel{
       'isPublic' : isPublic,
       'phrases' : CountryModel.cipherZonePhrases(
         phrases: phrases,
-        toJSON: toJSON,
+        includeTrigram: toJSON,
       ),
 
     };

@@ -412,7 +412,7 @@ class Phrase {
 
       for (final Phrase phrase in phrases){
         blog(
-            '#$_count : '
+            '  #$_count : '
                 'id : [ ${phrase.id} ] : '
                 'langCode : [ ${phrase.langCode} ] : '
                 'name : [ ${phrase.value} ] : '

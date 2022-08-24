@@ -24,6 +24,14 @@ class CountryModel {
     @required this.language,
     @required this.currency,
     @required this.phrases,
+
+    @required this.iso2,
+    @required this.phoneCode,
+    @required this.capital,
+    @required this.langCodes,
+    @required this.areaSqKm,
+    @required this.internetUsers,
+    @required this.gdp, // in Millions
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -41,6 +49,14 @@ class CountryModel {
   final String currency;
   /// mixed languages country names
   final List<Phrase> phrases;
+
+  final String iso2;
+  final String phoneCode;
+  final String capital;
+  final String langCodes;
+  final int areaSqKm;
+  final int internetUsers;
+  final double gdp;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -56,6 +72,13 @@ class CountryModel {
     String language,
     String currency,
     List<Phrase> phrases,
+    String iso2,
+    String phoneCode,
+    String capital,
+    String langCodes,
+    int areaSqKm,
+    int internetUsers,
+    double gdp,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -67,6 +90,13 @@ class CountryModel {
       language: language ?? this.language,
       currency: currency ?? this.currency,
       phrases: phrases ?? this.phrases,
+      iso2: iso2 ?? this.iso2,
+      phoneCode: phoneCode ?? this.phoneCode,
+      capital: capital ?? this.capital,
+      langCodes: langCodes ?? this.langCodes,
+      areaSqKm: areaSqKm ?? this.areaSqKm,
+      internetUsers: internetUsers ?? this.internetUsers,
+      gdp: gdp ?? this.gdp,
     );
   }
 // -----------------------------------------------------------------------------
@@ -75,7 +105,7 @@ class CountryModel {
 
 // -------------------------------------
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    @required bool includePhrasesTrigrams,
   }) {
     return <String, dynamic>{
       'id': id,
@@ -88,14 +118,20 @@ class CountryModel {
       'currency': currency,
       'phrases' : cipherZonePhrases(
         phrases: phrases,
-        toJSON: toJSON,
+        includeTrigram: includePhrasesTrigrams,
       ),
+      'iso2' : iso2,
+      'phoneCode' : phoneCode,
+      'capital' : capital,
+      'langCodes' : langCodes,
+      'areaSqKm' : areaSqKm,
+      'internetUsers' : internetUsers,
+      'gdp' : gdp,
     };
   }
 // -------------------------------------
   static CountryModel decipherCountryMap({
     @required Map<String, dynamic> map,
-    @required bool fromJSON,
   }) {
 
     CountryModel _countryModel;
@@ -115,6 +151,13 @@ class CountryModel {
           phrasesMap: map['phrases'],
           zoneID: map['id'],
         ),
+        iso2 : map['iso2'],
+        phoneCode : map['phoneCode'],
+        capital : map['capital'],
+        langCodes : map['langCodes'],
+        areaSqKm : map['areaSqKm'],
+        internetUsers : map['internetUsers'],
+        gdp : map['gdp'],
       );
     }
 
@@ -123,7 +166,6 @@ class CountryModel {
 // -------------------------------------
   static List<CountryModel> decipherCountriesMaps({
     @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
   }) {
     final List<CountryModel> _countries = <CountryModel>[];
 
@@ -132,7 +174,6 @@ class CountryModel {
         _countries.add(
             decipherCountryMap(
               map: map,
-              fromJSON: fromJSON,
             )
         );
       }
@@ -148,7 +189,7 @@ class CountryModel {
   /// phrases contain mixed languages phrases in one list
   static Map<String, dynamic> cipherZonePhrases({
     @required List<Phrase> phrases,
-    @required bool toJSON,
+    @required bool includeTrigram,
   }){
     Map<String, dynamic> _output = {};
 
@@ -161,7 +202,7 @@ class CountryModel {
             key: phrase.langCode,
             value: phrase.toMap(
               includeID: false,
-              includeTrigram: toJSON,
+              includeTrigram: includeTrigram,
               // includeLangCode: false,
             ),
         );
@@ -317,6 +358,261 @@ class CountryModel {
 
     return _ids;
   }
+
+  static Map<String, dynamic> getAllPhoneCodes(){
+    return <String, dynamic>{
+    'ala': '+358',
+    'alb': '+355',
+    'dza': '+213',
+    'asm': '+1',
+    'and': '+376',
+    'ago': '+244',
+    'aia': '+1',
+    'atg': '+1',
+    'arg': '+54',
+    'arm': '+374',
+    'abw': '+297',
+    'aus': '+61',
+    'aut': '+43',
+    'aze': '+994',
+    'bhs': '+1',
+    'bhr': '+973',
+    'bgd': '+880',
+    'brb': '+1-246',
+    'blr': '+375',
+    'bel': '+32',
+    'blz': '+501',
+    'ben': '+229',
+    'bmu': '+1',
+    'btn': '+975',
+    'bol': '+591',
+    'bes': '+599',
+    'bih': '+387',
+    'bwa': '+267',
+    'bvt': '+55',
+    'bra': '+55',
+    'iot': '+246',
+    'brn': '+673',
+    'bgr': '+359',
+    'bfa': '+226',
+    'bdi': '+257',
+    'cpv': '+238',
+    'khm': '+855',
+    'cmr': '+237',
+    'can': '+1',
+    'cym': '+1',
+    'caf': '+236',
+    'tcd': '+235',
+    'chl': '+56',
+    'chn': '+86',
+    'cxr': '+61',
+    'cck': '+61',
+    'col': '+57',
+    'com': '+269',
+    'cog': '+242',
+    'cod': '+243',
+    'cok': '+682',
+    'cri': '+506',
+    'civ': '+225',
+    'hrv': '+385',
+    'cub': '+53',
+    'cuw': '+599',
+    'cyp': '+357',
+    'cze': '+420',
+    'dnk': '+45',
+    'dji': '+253',
+    'dma': '+1',
+    'dom': '+1',
+    'ecu': '+593',
+    'egy': '+20',
+    'slv': '+503',
+    'gnq': '+240',
+    'eri': '+291',
+    'est': '+372',
+    'swz': '+268',
+    'eth': '+251',
+    'flk': '+500',
+    'fro': '+298',
+    'fji': '+679',
+    'fin': '+358',
+    'fra': '+33',
+    'guf': '+594',
+    'pyf': '+689',
+    'atf': '+262',
+    'gab': '+241',
+    'gmb': '+220',
+    'geo': '+995',
+    'deu': '+49',
+    'gha': '+233',
+    'gib': '+350',
+    'grc': '+30',
+    'grl': '+299',
+    'grd': '+1',
+    'glp': '+590',
+    'gum': '+1',
+    'gtm': '+502',
+    'ggy': '+44-1481',
+    'gin': '+224',
+    'gnb': '+245',
+    'guy': '+592',
+    'hti': '+509',
+    'hmd': '+0',
+    'vat': '+379',
+    'hnd': '+504',
+    'hkg': '+852',
+    'hun': '+36',
+    'isl': '+354',
+    'ind': '+91',
+    'idn': '+62',
+    'irn': '+98',
+    'irq': '+964',
+    'irl': '+353',
+    'imn': '+44-1624',
+    'isr': '+972',
+    'ita': '+39',
+    'jam': '+1',
+    'jpn': '+81',
+    'jey': '+44-1534',
+    'jor': '+962',
+    'kaz': '+7',
+    'ken': '+254',
+    'kir': '+686',
+    'prk': '+850',
+    'kor': '+82',
+    'kwt': '+965',
+    'kgz': '+996',
+    'lao': '+856',
+    'lva': '+371',
+    'lbn': '+961',
+    'lso': '+266',
+    'lbr': '+231',
+    'lby': '+218',
+    'lie': '+423',
+    'ltu': '+370',
+    'lux': '+352',
+    'mac': '+853',
+    'mdg': '+261',
+    'mwi': '+265',
+    'mys': '+60',
+    'mdv': '+960',
+    'mli': '+223',
+    'mlt': '+356',
+    'mhl': '+692',
+    'mtq': '+596',
+    'mrt': '+222',
+    'mus': '+230',
+    'myt': '+262',
+    'mex': '+52',
+    'fsm': '+691',
+    'mda': '+373',
+    'mco': '+377',
+    'mng': '+976',
+    'mne': '+382',
+    'msr': '+1',
+    'mar': '+212',
+    'moz': '+258',
+    'mmr': '+95',
+    'nam': '+264',
+    'nru': '+674',
+    'npl': '+977',
+    'nld': '+31',
+    'ncl': '+687',
+    'nzl': '+64',
+    'nic': '+505',
+    'ner': '+227',
+    'nga': '+234',
+    'niu': '+683',
+    'nfk': '+672',
+    'mkd': '+389',
+    'mnp': '+1',
+    'nor': '+47',
+    'omn': '+968',
+    'pak': '+92',
+    'plw': '+680',
+    'pse': '+970',
+    'pan': '+507',
+    'png': '+675',
+    'pry': '+595',
+    'per': '+51',
+    'phl': '+63',
+    'pcn': '+64',
+    'pol': '+48',
+    'prt': '+351',
+    'pri': '+1',
+    'qat': '+974',
+    'reu': '+262',
+    'rou': '+40',
+    'rus': '+7',
+    'rwa': '+250',
+    'blm': '+590',
+    'shn': '+290',
+    'kna': '+1',
+    'lca': '+1',
+    'maf': '+590',
+    'spm': '+508',
+    'vct': '+1',
+    'wsm': '+685',
+    'smr': '+378',
+    'stp': '+239',
+    'sau': '+966',
+    'sen': '+221',
+    'srb': '+381',
+    'syc': '+248',
+    'sle': '+232',
+    'sgp': '+65',
+    'sxm': '+1',
+    'svk': '+421',
+    'svn': '+386',
+    'slb': '+677',
+    'som': '+252',
+    'zaf': '+27',
+    'sgs': '+500',
+    'ssd': '+211',
+    'esp': '+34',
+    'lka': '+94',
+    'sdn': '+249',
+    'sur': '+597',
+    'sjm': '+47',
+    'swe': '+46',
+    'che': '+41',
+    'syr': '+963',
+    'twn': '+886',
+    'tjk': '+992',
+    'tza': '+255',
+    'tha': '+66',
+    'tls': '+670',
+    'tgo': '+228',
+    'tkl': '+690',
+    'ton': '+676',
+    'tto': '+1',
+    'tun': '+216',
+    'tur': '+90',
+    'tkm': '+993',
+    'tca': '+1',
+    'tuv': '+688',
+    'uga': '+256',
+    'ukr': '+380',
+    'are': '+971',
+    'gbr': '+44',
+    'usa': '+1',
+    'umi': '+1',
+    'ury': '+598',
+    'uzb': '+998',
+    'vut': '+678',
+    'ven': '+58',
+    'vnm': '+84',
+    'vgb': '+1',
+    'vir': '+1',
+    'wlf': '+681',
+    'esh': '+212',
+    'yem': '+967',
+    'zmb': '+260',
+    'zwe': '+263',
+    'euz': '',
+    'xks': '+383',
+    'afg': '+93',
+    };
+  }
 // -------------------------------------
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
 
@@ -386,14 +682,23 @@ class CountryModel {
   void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
     blog('$methodName ------------------------------------------- START');
 
-    blog('id : $id');
-    blog('region : $region');
-    blog('continent : $continent');
-    blog('isActivated : $isActivated');
-    blog('isGlobal : $isGlobal');
-    blog('citiesIDs : $citiesIDs');
+    blog('  id : $id');
+    blog('  region : $region');
+    blog('  continent : $continent');
+    blog('  isActivated : $isActivated');
+    blog('  isGlobal : $isGlobal');
+    blog('  citiesIDs : ${citiesIDs.length} cities');
+    blog('  language : $language');
+    blog('  currency : $currency');
+    blog('  iso2 : $iso2');
+    blog('  phoneCode : $phoneCode');
+    blog('  capital : $capital');
+    blog('  langCodes : $langCodes');
+    blog('  areaSqKm : $areaSqKm');
+    blog('  internetUsers : $internetUsers');
+    blog('  gdp : $gdp');
+
     Phrase.blogPhrases(phrases);
-    blog('language : $language');
 
     blog('$methodName ------------------------------------------- END');
   }
