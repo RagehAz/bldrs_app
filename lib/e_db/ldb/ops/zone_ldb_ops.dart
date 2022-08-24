@@ -61,7 +61,7 @@ class ZoneLDBOps{
   static Future<void> insertCountry(CountryModel country) async {
 
     await LDBOps.insertMap(
-      input: country.toMap(toJSON: true),
+      input: country.toMap(includePhrasesTrigrams: true),
       docName: LDBDoc.countries,
     );
 
@@ -81,7 +81,6 @@ class ZoneLDBOps{
 
     final CountryModel _country  = CountryModel.decipherCountryMap(
       map: _map,
-      fromJSON: true,
     );
 
     return _country;

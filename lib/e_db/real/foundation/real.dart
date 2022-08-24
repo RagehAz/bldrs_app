@@ -232,8 +232,8 @@ class Real {
 
           await _ref.set(map);
 
-
-          blog('Real.createNamedDoc : added to [REAL/$collName/$docName] : push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
+          // blog('Real.reateNamedDoc : added to [REAL/$collName/$docName] : '
+          //     'push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
 
         },
 
@@ -617,7 +617,7 @@ class Real {
 
   }
 // ----------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : ERRRROOOOOOOOOOOOR
   static Future<void> updateDocField({
     @required BuildContext context,
     @required String collName,

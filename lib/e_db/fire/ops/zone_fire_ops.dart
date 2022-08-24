@@ -68,7 +68,6 @@ class ZoneFireOps {
 
     final CountryModel _countryModel = CountryModel.decipherCountryMap(
       map: _map,
-      fromJSON: false,
     );
 
     return _countryModel;

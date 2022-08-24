@@ -524,7 +524,6 @@ class ExoticMethods {
 
     final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
         maps: allMaps,
-        fromJSON: false
     );
 
     return _countries;

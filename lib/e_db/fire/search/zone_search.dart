@@ -42,7 +42,6 @@ Future<List<CountryModel>> countriesModelsByCountryName({
     if (Mapper.checkCanLoopList(_result)) {
       _countries = CountryModel.decipherCountriesMaps(
         maps: _result,
-        fromJSON: false,
       );
     }
   }
