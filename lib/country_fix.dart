@@ -162,10 +162,16 @@ String xGetPhoneCode(String countryID){
   String code;
 
   if (countryID != null){
-    final Map<String, dynamic> _map = getInternetCountries().singleWhere((map) => map['ISO3'] == countryID.toUpperCase(), orElse: ()=> null);
+
+    final Map<String, dynamic> _map = getInternetCountries().singleWhere(
+            (map) => map['ISO3'] == countryID.toUpperCase(),
+        orElse: ()=> null
+    );
+
     if (_map != null){
       code = '+${_map['Phone Code']}';
     }
+
   }
 
   return code;
