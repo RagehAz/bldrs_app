@@ -74,6 +74,7 @@ Future<void> onConfirmAuthorUpdates({
   @required TextEditingController nameController,
   @required TextEditingController titleController,
   @required List<TextEditingController> generatedControllers,
+  @required BzModel bzModel,
 }) async {
 
   final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
@@ -106,7 +107,8 @@ Future<void> onConfirmAuthorUpdates({
         title: titleController.text,
         contacts: ContactModel.createContactsListByGeneratedControllers(
           generatedControllers: generatedControllers,
-        )
+          countryID: bzModel.zone.countryID,
+        ),
     );
 
     author.value = _author;
