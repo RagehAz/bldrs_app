@@ -27,6 +27,7 @@ class TextMod {
     return _output;
   }
 // ----------------------------
+  /// TESTED : WORKS PERFECT
   static String obscureText({
     @required String text,
     String obscurityCharacter = '*',
@@ -631,7 +632,16 @@ class TextMod {
       copy: value,
     );
   }
-// -----------------------------------------------------------------------------
+// ----------------------------
+  /// PHONE NUMBER
+// -----------
+  static String createInternationalNumber({
+    @required String number,
+    @required String countryID,
+  }){
+
+  }
+// ----------------------------
 }
 
 /*

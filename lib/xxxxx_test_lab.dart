@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -12,21 +13,22 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/country_fix.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/real/foundation/real.dart';
+import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_screen.dart';
 import 'package:bldrs/xxxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -284,34 +286,38 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final String _phid = await Nav.goToNewScreen(
-        context: context,
-        screen: const PhraseEditorScreen(),
-    );
+    final Map<String, dynamic> _map = CountryModel.getAllPhoneCodes();
 
-    blog('the selected shit is : $_phid');
+    final List<String> _keys = _map.keys.toList();
 
-    // Map<String, dynamic> _map = {
-    //   'test': 'fuck',
-    // };
+    for (final String countryID in _keys){
 
-    // await Real.createNamedDoc(
-    //     context: context,
-    //     collName: 'xxx',
-    //     docName: 'fuck',
-    //     map: _map,
-    // );
+      await Real.updateDocField(
+          context: context,
+          collName: RealColl.zoneCountries,
+          docName: countryID,
+          fieldName: 'phoneCode',
+          value: _map[countryID],
+      );
 
-    // await Real.updateDoc(
-    //       context: context,
-    //       collName: 'xxx',
-    //       docName: 'fuck',
-    //       map: _map,
-    // );
+    }
+    }
 
-
-
-  }
+  //  final List<String> _countriesIDs = CountryModel.getAllCountriesIDs();
+  //
+  //  blog('<String, dynamic>{');
+  //  for (final String countryID in _countriesIDs){
+  //    final String _code = xGetPhoneCode(countryID);
+  //    if (_code != null){
+  //      blog("  '$countryID': '$_code',");
+  //    }
+  //    else {
+  //      blog("  '$countryID': 'fuck you',");
+  //    }
+  //  }
+  //  blog('}');
+  //
+  // }
 
   /*
 

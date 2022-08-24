@@ -58,7 +58,7 @@ class CityModel {
       ),
       'phrases' : CountryModel.cipherZonePhrases(
         phrases: phrases,
-        toJSON: toJSON,
+        includeTrigram: toJSON,
       ),
     };
   }
