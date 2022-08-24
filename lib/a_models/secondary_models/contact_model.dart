@@ -1,7 +1,9 @@
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +97,31 @@ class ContactModel {
     }
 
     return _models;
+  }
+// ----------------------------------
+  static String initializePhoneValue({
+    @required ZoneModel zone,
+    @required List<ContactModel> contacts,
+  }){
+    return TextMod.initializePhoneNumber(
+      countryID : zone?.countryID,
+      number : ContactModel.getAContactValueFromContacts(
+          contacts: contacts,
+          contactType: ContactType.phone
+      ),
+    );
+  }
+// ----------------------------------
+  static String initializeWebLinkValue({
+    @required List<ContactModel> contacts,
+    @required ContactType contactType,
+  }){
+    return TextMod.initializeWebLink(
+        url: ContactModel.getAContactValueFromContacts(
+          contacts: contacts,
+          contactType: contactType,
+        )
+    );
   }
 // -----------------------------------------------------------------------------
 
