@@ -86,30 +86,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _companyController.text   = widget.userModel?.company;
     _titleController.text     = widget.userModel?.title;
 
-    _phoneController.text     = TextMod.createInternationalNumber(
+    _phoneController.text     = TextMod.initializePhoneNumber(
+      countryID : _zone.value?.countryID,
       number : ContactModel.getAContactValueFromContacts(
           contacts: widget.userModel?.contacts,
           contactType: ContactType.phone
       ),
-      countryID : _zone.value?.countryID,
     );
     _emailController.text     = ContactModel.getAContactValueFromContacts(
       contacts: widget.userModel?.contacts,
       contactType: ContactType.email,
     );
-    _facebookController.text  = ContactModel.getAContactValueFromContacts(
+    _facebookController.text  = ContactModel.initializeWebLinkValue(
       contacts: widget.userModel?.contacts,
       contactType: ContactType.facebook,
     );
-    _linkedInController.text  = ContactModel.getAContactValueFromContacts(
+    _linkedInController.text  = ContactModel.initializeWebLinkValue(
       contacts: widget.userModel?.contacts,
       contactType: ContactType.linkedIn,
     );
-    _instagramController.text = ContactModel.getAContactValueFromContacts(
+    _instagramController.text = ContactModel.initializeWebLinkValue(
       contacts: widget.userModel?.contacts,
       contactType: ContactType.instagram,
     );
-    _twitterController.text   = ContactModel.getAContactValueFromContacts(
+    _twitterController.text   = ContactModel.initializeWebLinkValue(
       contacts: widget.userModel?.contacts,
       contactType: ContactType.twitter,
     );
@@ -203,12 +203,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     /// return a new contacts list with all old values and new overridden values
     final List<ContactModel> newContacts = ContactModel.createContactsList(
       existingContacts: existingContacts,
-      phone: TextMod.removeSpacesFromAString(_phoneController.text),
+      phone: TextMod.nullifyNumberIfOnlyCountryCode(
+          number: _nameController.text,
+          countryID: _zone.value.countryID,
+      ),
       email: TextMod.removeSpacesFromAString(_emailController.text),
-      facebook: TextMod.removeSpacesFromAString(_facebookController.text),
-      linkedIn: TextMod.removeSpacesFromAString(_linkedInController.text),
-      instagram: TextMod.removeSpacesFromAString(_instagramController.text),
-      twitter: TextMod.removeSpacesFromAString(_twitterController.text),
+      facebook: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _facebookController.text),
+      linkedIn: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _linkedInController.text),
+      instagram: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _instagramController.text),
+      twitter: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _twitterController.text),
     );
     return newContacts;
   }
