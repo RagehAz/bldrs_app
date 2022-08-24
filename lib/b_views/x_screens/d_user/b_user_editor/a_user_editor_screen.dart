@@ -204,7 +204,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final List<ContactModel> newContacts = ContactModel.createContactsList(
       existingContacts: existingContacts,
       phone: TextMod.nullifyNumberIfOnlyCountryCode(
-          number: _nameController.text,
+          number: _phoneController.text,
           countryID: _zone.value.countryID,
       ),
       email: TextMod.removeSpacesFromAString(_emailController.text),

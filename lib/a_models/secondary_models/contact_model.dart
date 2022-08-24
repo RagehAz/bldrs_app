@@ -99,6 +99,7 @@ class ContactModel {
     return _models;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String initializePhoneValue({
     @required ZoneModel zone,
     @required List<ContactModel> contacts,
@@ -112,6 +113,7 @@ class ContactModel {
     );
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String initializeWebLinkValue({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
@@ -597,6 +599,7 @@ class ContactModel {
   /// GENERATORS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<TextEditingController> generateContactsControllers({
     List<ContactModel> existingContacts,
   }){
@@ -653,6 +656,7 @@ class ContactModel {
   /// CHECKERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkContactIsEmpty(ContactModel contact){
     bool _isEmpty = true;
 

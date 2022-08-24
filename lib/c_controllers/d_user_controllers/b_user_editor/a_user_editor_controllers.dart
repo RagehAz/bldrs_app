@@ -137,16 +137,16 @@ Future<void> confirmEdits({
 
     if (_continueOps == true){
 
-      /// B1 - ASK FOR CONFIRMATION
-      _continueOps = await CenterDialog.showCenterDialog(
-        context: context,
-        title: '',
-        body: 'Are you sure you want to continue ?',
-        boolDialog: true,
-      );
+      // /// B1 - ASK FOR CONFIRMATION
+      // _continueOps = await CenterDialog.showCenterDialog(
+      //   context: context,
+      //   title: '',
+      //   body: 'Are you sure you want to continue ?',
+      //   boolDialog: true,
+      // );
 
-      /// B2 - IF USER CONFIRMS
-      if (_continueOps == true) {
+      // /// B2 - IF USER CONFIRMS
+      // if (_continueOps == true) {
 
         final UserModel _uploadedUserModel = await _updateUserModel(
           context: context,
@@ -174,7 +174,7 @@ Future<void> confirmEdits({
 
         onFinish();
 
-      }
+      // }
 
     }
 
