@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -284,11 +285,11 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
           /// WHILE LOADING CHAIN
           if (chain == null){
-            return const Center(
+            return Center(
               child: WidgetFader(
                 fadeType: FadeType.repeatAndReverse,
                 child: SuperVerse(
-                  verse: 'Loading\n Please Wait',
+                  verse: xPhrase(context, '##Loading\n Please Wait'),
                   weight: VerseWeight.black,
                   maxLines: 2,
                 ),
