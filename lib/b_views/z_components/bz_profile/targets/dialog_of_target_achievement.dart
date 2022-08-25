@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/target/target_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/dialog_of_slides_and_ankhs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +19,13 @@ class DialogOfTargetAchievement extends StatelessWidget {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Congratulations',
-      body: 'You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
+      title: xPhrase(context, '##Congratulations'),
+      body: xPhrase(context, '##You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs'),
       confirmButtonText: 'CLAIM',
       child: Column(
         children: <Widget>[
           SuperVerse(
-            verse: 'To know more about Slides and Ankhs\nTap here',
+            verse: xPhrase(context, '##To know more about Slides and Ankhs\nTap here'),
             maxLines: 3,
             weight: VerseWeight.thin,
             italic: true,
@@ -47,7 +48,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
     return Column(
       children: <Widget>[
         SuperVerse(
-          verse: 'To know more about Slides and Ankhs\nTap here',
+          verse: xPhrase(context, '##To know more about Slides and Ankhs\nTap here'),
           maxLines: 3,
           weight: VerseWeight.thin,
           italic: true,
