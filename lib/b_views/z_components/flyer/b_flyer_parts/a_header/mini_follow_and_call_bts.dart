@@ -99,13 +99,11 @@ class OldFollowBT extends StatelessWidget {
     @required this.followOn,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Function onFollowTap;
   final Function tappingUnfollow;
   final bool followOn;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

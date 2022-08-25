@@ -451,7 +451,7 @@ void main() {
     const String _input = '123456789abcdefg';
     const int _number = 7;
     final String _output = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: _input, numberOfCharacters: _number);
+        input: _input, numberOfChars: _number);
     expect(_output, '1234567');
   });
 // -----------------------------------------------------------------------------

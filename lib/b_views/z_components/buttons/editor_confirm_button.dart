@@ -48,6 +48,7 @@ class ConfirmButton extends StatelessWidget {
       verseWeight: VerseWeight.black,
       verseItalic: true,
       verse: confirmButtonModel.firstLine,
+      verseCasing: VerseCasing.upperCase,
       secondLine: confirmButtonModel.secondLine,
       secondLineColor: Colorz.black255,
       verseScaleFactor: 0.7,

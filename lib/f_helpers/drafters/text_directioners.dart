@@ -75,7 +75,7 @@ class TextDir {
 
       final String _trimmedVal = TextMod.removeSpacesFromAString(_string.trim());
 
-      final String _firstCharacter = TextMod.cutFirstCharacterOfAString(_trimmedVal);
+      final String _firstCharacter = TextMod.cutNumberOfCharactersOfAStringBeginning(_trimmedVal, 1);
 
       // String _val = _trimmedVal; // first character defines the direction
 
@@ -110,7 +110,7 @@ class TextDir {
     if (!_controllerIsEmpty) {
       final String _trimmedVal = TextMod.removeSpacesFromAString(val.trim());
 
-      final String _firstCharacter = TextMod.cutFirstCharacterOfAString(_trimmedVal);
+      final String _firstCharacter = TextMod.cutNumberOfCharactersOfAStringBeginning(_trimmedVal, 1);
 
       // String _val = _trimmedVal; // first character defines the direction
 
