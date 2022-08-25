@@ -110,7 +110,7 @@ class SectionsButton extends StatelessWidget {
                         DreamBox(
                           height: 40,
                           width: 40,
-                          icon: _icon ?? Iconz.stop,
+                          icon: _icon ?? Iconz.keywords,
                           bubble: false,
                         ),
 
