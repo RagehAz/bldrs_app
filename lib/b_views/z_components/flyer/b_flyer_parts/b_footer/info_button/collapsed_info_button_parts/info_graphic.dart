@@ -1,9 +1,8 @@
-import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/images/super_image.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -55,9 +54,8 @@ class InfoGraphic extends StatelessWidget {
               return AnimatedOpacity(
                 opacity: _buttonIsExpanded ? 1 : 0,
                 duration: const Duration(milliseconds: 100),
-                child: SuperVerse(
-                  verse: xPhrase(context, '##Flyer Info'),
-
+                child: const SuperVerse(
+                  verse: '##Flyer Info',
                 ),
               );
 

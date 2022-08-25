@@ -19,7 +19,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/b_bz_editor/a_bz_editor_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -97,7 +96,7 @@ class BzEditorScreenView extends StatelessWidget {
                     );
 
                     return MultipleChoiceBubble(
-                      title: xPhrase(context, 'phid_sections'),
+                      title: 'phid_sections',
                       buttonsList: _allSections,
                       selectedButtons: <String>[_selectedButton],
                       isInError: false,
@@ -145,7 +144,7 @@ class BzEditorScreenView extends StatelessWidget {
                           );
 
                           return MultipleChoiceBubble(
-                            title: 'Business Entity type',
+                            title: '##Business Entity type',
                             buttonsList: _allButtons,
                             selectedButtons: _selectedButtons,
                             inactiveButtons: _inactiveButtons,
@@ -194,7 +193,7 @@ class BzEditorScreenView extends StatelessWidget {
                         );
 
                         return MultipleChoiceBubble(
-                          title: xPhrase(context, 'phid_businessForm'),
+                          title: 'phid_businessForm',
                           // description: superPhrase(context, 'phid_businessForm_description'),
                           buttonsList: _buttonsList,
                           selectedButtons: <String>[_selectedButton],
@@ -218,7 +217,7 @@ class BzEditorScreenView extends StatelessWidget {
               AddImagePicBubble(
                 key: const ValueKey<String>('add_logo_bubble'),
                 fileModel: bzLogo,
-                titleVerse: xPhrase(context, 'phid_businessLogo'),
+                titleVerse: 'phid_businessLogo',
                 redDot: true,
                 bubbleType: BubbleType.bzLogo,
                 onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
@@ -236,9 +235,9 @@ class BzEditorScreenView extends StatelessWidget {
 
                   final String _title =
                   selectedBzForm == BzForm.individual ?
-                  xPhrase(context, 'phid_business_entity_name')
+                  'phid_business_entity_name'
                       :
-                  xPhrase(context, 'phid_companyName');
+                  'phid_companyName';
 
                   return TextFieldBubble(
                     isFormField: true,
@@ -253,10 +252,10 @@ class BzEditorScreenView extends StatelessWidget {
                     validator: (){
 
                       if (Stringer.checkStringIsEmpty(bzNameTextController.text) == true){
-                        return 'Business Entity name can not be empty';
+                        return '##Business Entity name can not be empty';
                       }
                       else if (bzNameTextController.text.length <= 3){
-                        return 'Business Entity name should be more than 3 characters';
+                        return '##Business Entity name should be more than 3 characters';
                       }
                       else {
                         return null;
@@ -288,12 +287,12 @@ class BzEditorScreenView extends StatelessWidget {
                               context: context,
                               stretchy: false,
                             ),
-                            title: 'Scope of services',
+                            title: '##Scope of services',
                             columnChildren: <Widget>[
 
-                              BubbleBulletPoints(
+                              const BubbleBulletPoints(
                                 bulletPoints:  <String>[
-                                  xPhrase(context, '##Select at least 1 keyword to help search engines show your content in its dedicated place'),
+                                  '##Select at least 1 keyword to help search engines show your content in its dedicated place',
                                 ],
                               ),
 
@@ -306,7 +305,7 @@ class BzEditorScreenView extends StatelessWidget {
                               DreamBox(
                                 height: PhidButton.getHeight(),
                                 // width: Bubble.clearWidth(context),
-                                verse: Mapper.checkCanLoopList(_phids) ? 'Edit Scopes' : 'Add Scopes',
+                                verse: Mapper.checkCanLoopList(_phids) ? '##Edit Scopes' : '##Add Scopes',
                                 bubble: false,
                                 color: Colorz.white20,
                                 verseScaleFactor: 1.5,
@@ -334,7 +333,7 @@ class BzEditorScreenView extends StatelessWidget {
               TextFieldBubble(
                 key: const ValueKey<String>('bz_about_bubble'),
                 textController: bzAboutTextController,
-                titleVerse: xPhrase(context, 'phid_about'),
+                titleVerse: 'phid_about',
                 counterIsOn: true,
                 maxLength: 1000,
                 maxLines: 20,
@@ -351,7 +350,7 @@ class BzEditorScreenView extends StatelessWidget {
                   builder: (_, ZoneModel bzZone, Widget child){
 
                     return ZoneSelectionBubble(
-                      titleVerse: xPhrase(context, '##Headquarters zone'), //Wordz.hqCity(context),
+                      titleVerse: '##Headquarters zone', //Wordz.hqCity(context),
                       currentZone: bzZone,
                       onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                         zoneModel: zone,

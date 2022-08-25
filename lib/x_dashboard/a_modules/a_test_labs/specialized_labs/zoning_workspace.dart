@@ -28,7 +28,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pageTitleVerse: 'Zoning work space',
+      pageTitleVerse:  'Zoning work space',
       pyramidType: PyramidType.crystalYellow,
       layoutWidget: FloatingCenteredList(
         columnChildren: <Widget>[
@@ -53,7 +53,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
 
           ZoneSelectionBubble(
             currentZone: _bubbleZone,
-            titleVerse: 'Zoning test',
+            titleVerse:  'Zoning test',
             bulletPoints:  const <String>[
               'Fuck you',
               'Bitch',

@@ -102,41 +102,41 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
                 /// FOLLOWERS
                 StatsLine(
-                  verse:  '${_counter.follows} ${xPhrase(context, 'phid_followers')}',
+                  verse:  '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
                   icon: Iconz.follow,
                 ),
 
                 /// CALLS
                 StatsLine(
-                  verse:  '${_counter.calls} ${xPhrase(context, 'phid_callsReceived')}',
+                  verse:  '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
                   icon: Iconz.comPhone,
                 ),
 
                 /// SLIDES & FLYERS
                 StatsLine(
                   verse:  '${_counter.allSlides} '
-                      '${xPhrase(context, 'phid_slidesPublished')} '
-                      '${xPhrase(context, 'phid_inn')} '
+                      '${xPhrase( context, 'phid_slidesPublished')} '
+                      '${xPhrase( context, 'phid_inn')} '
                       '${_bzModel.flyersIDs.length} '
-                      '${xPhrase(context, 'phid_flyers')}',
+                      '${xPhrase( context, 'phid_flyers')}',
                   icon: Iconz.gallery,
                 ),
 
                 /// SAVES
                 StatsLine(
-                  verse:  '${_counter.allSaves} ${xPhrase(context, 'phid_totalSaves')}',
+                  verse:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
                   icon: Iconz.saveOn,
                 ),
 
                 /// VIEWS
                 StatsLine(
-                  verse:  '${_counter.allViews} ${xPhrase(context, 'phid_total_flyer_views')}',
+                  verse:  '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
                   icon: Iconz.viewsIcon,
                 ),
 
                 /// SHARES
                 StatsLine(
-                  verse:  '${_counter.allShares} ${xPhrase(context, 'phid_totalShares')}',
+                  verse:  '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
                   icon: Iconz.share,
                 ),
 

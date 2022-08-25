@@ -57,8 +57,8 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       _selectedZone.value = ZoneModel(
         countryID: _zone.countryID,
         cityID: _zone.cityID,
-        countryName: xPhrase(context, _country.id),
-        cityName: xPhrase(context, _city.cityID),
+        countryName: xPhrase( context, _country.id),
+        cityName: xPhrase( context, _city.cityID),
       );
 
     }
@@ -123,7 +123,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      pageTitleVerse: 'Flyer promotion',
+      pageTitleVerse:  'Flyer promotion',
       appBarType: AppBarType.basic,
       layoutWidget: Column(
         children: <Widget>[

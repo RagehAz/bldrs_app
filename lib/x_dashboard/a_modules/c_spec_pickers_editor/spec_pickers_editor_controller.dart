@@ -82,8 +82,8 @@ Future<void> onPickerChainIDTap({
   await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: 'Edit ChainID',
-      hintVerse: 'Edit ChainID',
+      titleVerse:  'Edit ChainID',
+      hintVerse:  'Edit ChainID',
       controller: _controller,
       isFloatingField: false,
     ),
@@ -117,8 +117,8 @@ Future<void> onPickerUnitChainIDTap({
   await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: 'Edit Unit ChainID',
-      hintVerse: 'Edit Unit ChainID',
+      titleVerse:  'Edit Unit ChainID',
+      hintVerse:  'Edit Unit ChainID',
       controller: _controller,
       isFloatingField: false,
     ),

@@ -13,7 +13,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -58,7 +57,7 @@ class InfoPageContents extends StatelessWidget {
           /// MAIN DETAILS HEADLINE
           InfoPageHeadline(
             pageWidth: _pageWidth,
-            headlineVerse: xPhrase(context, '##Main Details'),
+            headlineVerse: '##Main Details',
           ),
 
           /// MAIN DETAILS : FLYER TYPE - PUBLISH TIME - ZONE
@@ -87,7 +86,7 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.description.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: xPhrase(context, '##More about this flyer'),
+                          headlineVerse: '##More about this flyer',
                         ),
                       /// INFO
                       if (flyerModel.description.isNotEmpty == true)
@@ -130,7 +129,7 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: xPhrase(context, '##Flyer Keywords'),
+                          headlineVerse: '##Flyer Keywords',
                         ),
                       /// KEYWORDS
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
@@ -148,7 +147,7 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.specs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: xPhrase(context, '##Flyer specifications'),
+                          headlineVerse: '##Flyer specifications',
                         ),
                       /// SPECS
                       if (flyerModel.specs.isNotEmpty == true)

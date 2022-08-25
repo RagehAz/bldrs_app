@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -122,7 +121,7 @@ class OldFollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    final String followText = xPhrase(context, 'phid_follow');
+    const String followText = 'phid_follow';
     final Color followTextColor = followOn == true ? Colorz.black230 : Colorz.white255;
     // === === === === === === === === === === === === === === === === === ===
     // void followTap() {
@@ -273,7 +272,7 @@ class OldCallBT extends StatelessWidget {
 
                 /// FLYERS TEXT
                 SuperVerse(
-                  verse: xPhrase(context, 'phid_call'),
+                  verse: 'phid_call',
                   size: 1,
                   scaleFactor: flyerBoxWidth / Scale.superScreenWidth(context),
                 )

@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/cropper/cropper_corner.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/layouts/keep_alive_page.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:crop_your_image/crop_your_image.dart';
@@ -72,8 +71,8 @@ class CropperPages extends StatelessWidget {
                 width: _screenWidth,
                 height: _imageSpaceHeight,
                 color: Colorz.black255,
-                child: SuperVerse(
-                  verse: xPhrase(context, '##Image format is inCompatible\nPlease select another Image'),
+                child: const SuperVerse(
+                  verse: '##Image format is inCompatible\nPlease select another Image',
                   maxLines: 3,
                 ),
               );

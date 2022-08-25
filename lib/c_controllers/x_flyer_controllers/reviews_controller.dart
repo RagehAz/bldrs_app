@@ -97,7 +97,7 @@ Future<void> onReviewOptions({
           /// EDIT REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##Edit'),
+              verse: '##Edit',
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -119,7 +119,7 @@ Future<void> onReviewOptions({
           /// DELETE REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##Delete'),
+              verse: '##Delete',
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -158,8 +158,8 @@ Future<void> _onEditReview({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: 'Edit Your Review',
-      hintVerse: 'What do you think of this flyer ?',
+      titleVerse:  '##Edit Your Review',
+      hintVerse:  '##What do you think of this flyer ?',
       controller: TextEditingController(text: reviewModel.text),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -209,8 +209,8 @@ Future<void> _onDeleteReview({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Delete Review ?',
-    bodyVerse: 'Your review on this flyer will be permanently deleted',
+    titleVerse:  '##Delete Review ?',
+    bodyVerse:  '##Your review on this flyer will be permanently deleted',
     boolDialog: true,
   );
 
@@ -252,8 +252,8 @@ Future<void> onBzReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: 'Reply to this review',
-      hintVerse: 'Reply ...',
+      titleVerse:  '##Reply to this review',
+      hintVerse:  '##Reply ...',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -313,7 +313,7 @@ Future<void> onReplyOptions({
           /// EDIT REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##Edit'),
+              verse: '##Edit',
               verseCentered: true,
               onTap: () async {
 
@@ -334,7 +334,7 @@ Future<void> onReplyOptions({
           /// DELETE REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##Delete'),
+              verse: '##Delete',
               verseCentered: true,
               onTap: () async {
 
@@ -371,8 +371,8 @@ Future<void> _onEditReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: 'Edit Your Reply',
-      hintVerse: 'Reply',
+      titleVerse:  '##Edit Your Reply',
+      hintVerse:  '##Reply',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -423,8 +423,8 @@ Future<void> _onDeleteReply({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Delete Reply ?',
-    bodyVerse: 'Your reply on this review will be permanently deleted',
+    titleVerse:  '##Delete Reply ?',
+    bodyVerse:  '##Your reply on this review will be permanently deleted',
     boolDialog: true,
   );
 

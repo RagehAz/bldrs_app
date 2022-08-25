@@ -133,7 +133,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
-      pageTitleVerse: 'All Flyers',
+      pageTitleVerse:  'All Flyers',
       appBarRowWidgets: const <Widget>[],
       // loading: _loading,
       layoutWidget: _flyers == null ?

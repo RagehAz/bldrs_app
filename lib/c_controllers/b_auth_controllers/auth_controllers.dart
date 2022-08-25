@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
@@ -89,7 +89,7 @@ Future<void> authByEmailSignIn({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: xPhrase(context, '##Signing in'),
+      loadingVerse: '##Signing in',
     ));
 
     /// C - FIRE SIGN IN OPS
@@ -134,7 +134,7 @@ Future<void> authByEmailRegister({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: xPhrase(context, '##Creating new Account'),
+      loadingVerse: '##Creating new Account',
     ));
 
     /// C - START REGISTER OPS
@@ -330,22 +330,19 @@ bool _prepareForEmailAuthOps({
 }
 // -------------------------------------
 String emailValidation({
-  @required BuildContext context,
   @required String val,
 }) {
-
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
   String _output;
 
   if (val.isEmpty) {
-    _output = xPhrase(context, 'phid_enterEmail', phrasePro: _phraseProvider);
+    _output = 'phid_enterEmail';
   }
 
   else {
 
     if (EmailValidator.validate(val) == false){
-      _output = xPhrase(context, 'phid_emailInvalid', phrasePro: _phraseProvider);
+      _output = 'phid_emailInvalid';
     }
 
   }
@@ -354,19 +351,17 @@ String emailValidation({
 }
 // -------------------------------------
 String passwordValidation({
-  @required BuildContext context,
   @required String password,
 }){
 
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
   String _output;
 
   if (password.isEmpty){
-    _output = xPhrase(context, 'phid_enterPassword', phrasePro: _phraseProvider);
+    _output = 'phid_enterPassword';
   }
 
   else if (password.length < 6){
-    _output = xPhrase(context, 'phid_min6CharError', phrasePro: _phraseProvider);
+    _output = 'phid_min6CharError';
   }
 
   return _output;
@@ -381,15 +376,15 @@ String passwordConfirmationValidation({
   String _output;
 
   if (passwordConfirmation.isEmpty || password.isEmpty){
-    _output = xPhrase(context, 'phid_confirmPassword');
+    _output = 'phid_confirmPassword';
   }
 
   else if (passwordConfirmation != password){
-    _output = xPhrase(context, 'phid_passwordMismatch');
+    _output = 'phid_passwordMismatch';
   }
 
   else if (password.length < 6){
-    _output = xPhrase(context, 'phid_min6CharError');
+    _output = 'phid_min6CharError';
   }
 
   return _output;

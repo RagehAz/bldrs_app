@@ -254,8 +254,8 @@ Future<void> onCallTap({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '${bzModel.name} has no available contact',
-      bodyVerse: 'A reminder notification for the business will be sent to request updating their phone number',
+      titleVerse:  '##${bzModel.name} has no available contact',
+      bodyVerse:  '##A reminder notification for the business will be sent to request updating their phone number',
     );
 
     await NoteProtocols.sendNoBzContactAvailableNote(

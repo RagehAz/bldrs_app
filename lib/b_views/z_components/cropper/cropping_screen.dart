@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_footer.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropper_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -178,7 +176,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: xPhrase(context, '##Crop Images'),
+      pageTitleVerse: '##Crop Images',
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       // pyramidsAreOn: false,

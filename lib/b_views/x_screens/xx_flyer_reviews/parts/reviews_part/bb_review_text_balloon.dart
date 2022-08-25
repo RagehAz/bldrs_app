@@ -15,7 +15,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/reviews_controller.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -81,7 +80,7 @@ class ReviewTextBalloon extends StatelessWidget {
               /// TEXT FIELD
               if (isCreatorMode == true)
                   SuperTextField(
-                    titleVerse: xPhrase(context, '##Edit Review'),
+                    titleVerse: '##Edit Review',
                     width: _textBubbleWidth,
                     textController: reviewTextController,
                     maxLines: 8,
@@ -103,7 +102,7 @@ class ReviewTextBalloon extends StatelessWidget {
                   children: <Widget>[
 
                     DreamBox(
-                      verse: xPhrase(context, '##SUBMIT'),
+                      verse: '##SUBMIT',
                       height: 40,
                       color: Colorz.yellow255,
                       verseColor: Colorz.black255,
@@ -160,7 +159,7 @@ class ReviewTextBalloon extends StatelessWidget {
                       if (_imAuthorInFlyerBz == true)
                         ReviewBubbleButton(
                         icon: Iconz.utPlanning,
-                        verse: xPhrase(context, '##Reply'),
+                        verse: '##Reply',
                         count: null,
                         isOn: false,
                         onTap: () => onBzReply(

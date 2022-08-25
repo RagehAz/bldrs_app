@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.da
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -207,7 +206,7 @@ class AuthorCard extends StatelessWidget {
 
               /// NUMBER OF FLYERS
               AuthorCardDetail(
-                verse: xPhrase(context, '##${author.flyersIDs.length} published flyers'),
+                verse: '##${author.flyersIDs.length} published flyers',
                 bubble: false,
                 icon: Iconz.flyer,
                 boxWidth: _bubbleWidth - authorPicSize - 40,

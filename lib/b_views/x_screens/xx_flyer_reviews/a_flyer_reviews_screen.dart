@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/x_screens/xx_flyer_reviews/aa_flyer_review_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +20,7 @@ class FlyerReviewsScreen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: xPhrase(context, '##Flyer Reviews'),
+      pageTitleVerse: '##Flyer Reviews',
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,

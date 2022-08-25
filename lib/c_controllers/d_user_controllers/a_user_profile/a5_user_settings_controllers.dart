@@ -86,9 +86,9 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Account is Deleted Successfully',
-      bodyVerse: 'It has been an honor.',
-      confirmButtonVerse: 'The Honor is Mine',
+      titleVerse:  '##Account is Deleted Successfully',
+      bodyVerse:  '##It has been an honor.',
+      confirmButtonVerse:  '##The Honor is Mine',
     );
 
     /// SIGN OUT OPS

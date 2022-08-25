@@ -285,12 +285,12 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (EN)',
-                dataValue: xPhrase(context, _countryModel?.id),
+                dataValue: xPhrase( context, _countryModel?.id),
               ),
 
               DataStripWithHeadline(
                 dataKey: 'Country Name (AR)',
-                dataValue: xPhrase(context, _countryModel?.id),
+                dataValue: xPhrase( context, _countryModel?.id),
               ),
 
               DataStripWithHeadline(
@@ -300,7 +300,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'City Name (EN)',
-                dataValue: xPhrase(context, _cityModel?.cityID),
+                dataValue: xPhrase( context, _cityModel?.cityID),
               ),
 
             ],

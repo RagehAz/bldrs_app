@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_controllers/x_flyer_controllers/footer_controller.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +72,7 @@ class FlyerFooterButtons extends StatelessWidget {
                   count: counter?.shares,
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.share,
-                  verse: xPhrase(context, 'phid_send'),
+                  verse: 'phid_send',
                   isOn: false,
                   canTap: !tinyMode,
                   onTap: () => onShareFlyer(
@@ -91,7 +90,7 @@ class FlyerFooterButtons extends StatelessWidget {
                   count: counter?.reviews,
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.utPlanning,
-                  verse: xPhrase(context, '##Review'),
+                  verse: '##Review',
                   isOn: false,
                   canTap: !tinyMode,
                   onTap: () => onReviewButtonTap(
@@ -112,7 +111,7 @@ class FlyerFooterButtons extends StatelessWidget {
                     count: counter?.saves,
                     flyerBoxWidth: flyerBoxWidth,
                     icon: Iconz.save,
-                    verse: isSaved == true ? xPhrase(context, 'phid_saved') : xPhrase(context, 'phid_save'),
+                    verse: isSaved == true ? 'phid_saved' : 'phid_save',
                     isOn: isSaved,
                     canTap: true,
                     onTap: onSaveFlyer,

@@ -169,7 +169,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     blog('AllNotesScreen : REBUILDING SCREEN');
 
     return MainLayout(
-      pageTitleVerse: 'Note Creator',
+      pageTitleVerse:  'Note Creator',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
