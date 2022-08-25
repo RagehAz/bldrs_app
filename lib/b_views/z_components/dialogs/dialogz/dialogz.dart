@@ -496,7 +496,7 @@ class Dialogs {
             return AuthorCard(
               author: bzModel.authors[index],
               bzModel: bzModel,
-              onContact: onContact,
+              onContactTap: onContact,
               bubbleWidth: CenterDialog.getWidth(context),
               moreButtonIsOn: false,
             );
