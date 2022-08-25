@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -30,7 +31,7 @@ class TextFieldBubble extends StatelessWidget {
     this.keyboardTextInputAction,
     this.initialTextValue,
     this.validator,
-    this.comments,
+    this.bulletPoints,
     this.fieldIsRequired = false,
     // this.loading = false,
     this.actionBtIcon,
@@ -69,7 +70,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
   final String Function() validator;
-  final List<String> comments;
+  final List<String> bulletPoints;
   final bool fieldIsRequired;
   // final bool loading;
   final String actionBtIcon;
@@ -248,11 +249,11 @@ class TextFieldBubble extends StatelessWidget {
                 loading: isLoading,
               ),
 
-              /// PASTE BUTTON
+              /// TASK : MOVE PASTE BUTTON TO BE INSIDE THE ROW ABOVE JUST LIKE CONTACTS BUBBLE
               if (pasteFunction != null)
                 DreamBox(
                   height: 35,
-                  verse: 'paste  ',
+                  verse: xPhrase(context, '#paste  '),
                   verseScaleFactor: 0.5,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,
@@ -263,10 +264,10 @@ class TextFieldBubble extends StatelessWidget {
             ],
           ),
 
-          if (Mapper.checkCanLoopList(comments) == true)
+          if (Mapper.checkCanLoopList(bulletPoints) == true)
             BubbleBulletPoints(
               bubbleWidth: bubbleWidth,
-              bulletPoints: comments,
+              bulletPoints: bulletPoints,
             ),
 
           if (Mapper.checkCanLoopList(columnChildren) == true)
