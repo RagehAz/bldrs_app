@@ -81,7 +81,7 @@ class ChainSonsBuilder extends StatelessWidget {
             DreamBox(
               height: 60,
               width: _sonWidth,
-              verse: 'Add to path :',
+              verse:  'Add to path :',
               secondLine: '$previousPath/...',
               icon: Iconz.plus,
               iconSizeFactor: 0.5,

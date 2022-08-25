@@ -564,7 +564,7 @@ Future<void> _publishFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingPhrase: 'Uploading flyer',
+        loadingVerse: 'Uploading flyer',
       ));
 
   final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
@@ -604,7 +604,7 @@ Future<void> _updateFlyerOps({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Uploading flyer',
+      loadingVerse: 'Uploading flyer',
     ));
 
     final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();

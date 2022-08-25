@@ -117,7 +117,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
           unawaited(WaitDialog.showWaitDialog(
             context: context,
-            loadingPhrase: 'Loading, please wait',
+            loadingVerse: xPhrase(context, '##Loading, please wait'),
           ));
 
           final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);

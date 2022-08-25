@@ -10,6 +10,7 @@ import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_author
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
@@ -35,7 +36,7 @@ class WipeUserProtocols {
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingPhrase: 'Deleting your Account',
+        loadingVerse: xPhrase(context, '##Deleting your Account'),
       ));
     }
 

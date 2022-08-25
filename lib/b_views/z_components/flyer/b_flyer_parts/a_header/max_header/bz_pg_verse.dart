@@ -78,7 +78,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
         children: <Widget>[
 
           SuperVerse(
-            verse: '${xPhrase(context, 'phid_about')} ${widget.bzName}',
+            verse:  '${xPhrase(context, 'phid_about')} ${widget.bzName}',
             weight: VerseWeight.thin,
             margin: 10,
             color: Colorz.grey255,

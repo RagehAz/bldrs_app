@@ -225,7 +225,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// META DATA
                     // WideButton(
-                    //   verse: 'get Meta data',
+                    //   verse:  'get Meta data',
                     //   onTap: () async {
                     //
                     //     /// TO CHANGE META DATA OF SPECIFIC FILE

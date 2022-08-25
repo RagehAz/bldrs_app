@@ -199,7 +199,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             child: DreamBox(
               height: 60,
               width: 250,
-              verse: 'Send Notification',
+              verse:  'Send Notification',
               verseScaleFactor: 0.7,
               color: Colorz.yellow255,
               verseColor: Colorz.black255,
@@ -214,7 +214,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           DreamBox(
             height: 60,
             width: 250,
-            verse: 'send scheduled',
+            verse:  'send scheduled',
             verseScaleFactor: 0.7,
             color: Colorz.yellow255,
             verseColor: Colorz.black255,
@@ -226,7 +226,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           DreamBox(
             height: 60,
             width: 250,
-            verse: 'cancel schedules',
+            verse:  'cancel schedules',
             verseScaleFactor: 0.7,
             color: Colorz.yellow255,
             verseColor: Colorz.black255,
@@ -237,7 +237,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           ),
 
           WideButton(
-            verse: 'Cancel Stream',
+            verse:  'Cancel Stream',
             onTap: () async {
 
               if (_streamSubscription == null){

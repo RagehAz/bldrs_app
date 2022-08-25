@@ -192,7 +192,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 DreamBox(
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
-                  verse: '${xPhrase(context, 'phid_paste')}  ',
+                  verse:  '${xPhrase(context, 'phid_paste')}  ',
                   verseScaleFactor: 0.5,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,

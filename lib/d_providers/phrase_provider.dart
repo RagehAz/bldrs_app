@@ -37,7 +37,7 @@ class PhraseProvider extends ChangeNotifier {
     unawaited(
         WaitDialog.showWaitDialog(
           context: context,
-          loadingPhrase: xPhrase(context, 'phid_change_app_lang_description',
+          loadingVerse: xPhrase(context, 'phid_change_app_lang_description',
               phrasePro: _phraseProvider,
           ),
         )

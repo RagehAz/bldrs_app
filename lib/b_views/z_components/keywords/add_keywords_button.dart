@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +49,8 @@ class AddKeywordsButton extends StatelessWidget {
 
                         /// 'Group' TITLE
                         // if (title != null)
-                        const SuperVerse(
-                          verse: 'Add ...',
+                        SuperVerse(
+                          verse: xPhrase(context, '##Add ...'),
                           size: 1,
                           italic: true,
                           color: Colorz.white125,
@@ -61,9 +62,9 @@ class AddKeywordsButton extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: const <Widget>[
+                          children: <Widget>[
                             SuperVerse(
-                              verse: 'Keywords',
+                              verse: xPhrase(context, '##Keywords'),
                               size: 1,
                               color: Colorz.white125,
                               centered: false,

@@ -248,7 +248,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
-                verse: 'Get Current Location',
+                verse:  'Get Current Location',
                 icon: _countryID == null ?
                 Iconz.share
                     :
@@ -261,7 +261,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
-                verse: 'Get Position from Map',
+                verse:  'Get Position from Map',
                 icon: _countryID == null ?
                 Iconz.share
                     :

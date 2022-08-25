@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -30,7 +31,7 @@ class ComposeBzProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Creating a new Business Account',
+      loadingVerse: xPhrase(context, '##Creating a new Business Account'),
     ));
 
     /// FIREBASE CREATE BZ OPS
