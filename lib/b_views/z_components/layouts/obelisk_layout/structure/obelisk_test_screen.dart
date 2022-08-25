@@ -24,6 +24,7 @@ class ObeliskTestScreen extends StatelessWidget {
             title: UserModel.translateUserTab(context: context, userTab: _userTab),
             icon: UserModel.getUserTabIcon(_userTab),
             screen: UserScreenViewPages.pages[index],
+            translateTitle: true,
           );
         }),
 

@@ -37,7 +37,7 @@ class ChainInstructions extends StatelessWidget {
     }
 
     else {
-      _instructions = picker.canPickMany == true ?
+      _instructions = picker?.canPickMany == true ?
       'You may pick multiple specifications from this list'
           :
       'You can pick only one specification from this list';

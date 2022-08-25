@@ -41,6 +41,7 @@ class SuperVerse extends StatelessWidget {
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
     this.verseCasing,
+    this.translate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -64,6 +65,7 @@ class SuperVerse extends StatelessWidget {
   final Color highlightColor;
   final Color shadowColor;
   final VerseCasing verseCasing;
+  final bool translate;
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
     return SuperVerse(
@@ -499,6 +501,7 @@ class SuperVerse extends StatelessWidget {
               highlightColor: highlightColor,
               strikeThrough: strikeThrough,
               verseCasing: verseCasing,
+              translate: translate,
             ),
 
             if (redDot == true)
@@ -690,6 +693,7 @@ class Verse extends StatelessWidget {
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
     this.verseCasing,
+    this.translate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -708,6 +712,7 @@ class Verse extends StatelessWidget {
   final Color highlightColor;
   final Color shadowColor;
   final VerseCasing verseCasing;
+  final bool translate;
   /// --------------------------------------------------------------------------
   static List<TextSpan> _generateTextSpans({
     @required String verse,
@@ -784,44 +789,49 @@ class Verse extends StatelessWidget {
     @required BuildContext context,
     @required String verse,
     @required VerseCasing verseCasing,
+    @required bool translate,
   }){
 
-    String _output = verse.trim();
+    String _output = translate == true ? verse.trim() : '.$verse';
 
-    /// ADJUST VALUE
-    if (Stringer.checkStringIsEmpty(_output) == false){
+    if (translate == true){
 
-      /// IS PHID
-      final bool _isPhid = TextChecker.checkVerseIsPhid(_output);
-      if (_isPhid == true){
+      /// ADJUST VALUE
+      if (Stringer.checkStringIsEmpty(_output) == false){
 
-        final String _foundXPhrase = xPhrase(context, verse);
+        /// IS PHID
+        final bool _isPhid = TextChecker.checkVerseIsPhid(_output);
+        if (_isPhid == true){
 
-        /// X PHRASE NOT FOUND
-        if (_foundXPhrase == null){
-          _output = 'x.$_output';
+          final String _foundXPhrase = xPhrase(context, verse);
+
+          /// X PHRASE NOT FOUND
+          if (_foundXPhrase == null){
+            _output = 'x.$_output';
+          }
+
+          /// X PHRASE FOUND
+          else {
+            _output = '.$_foundXPhrase';
+          }
+
         }
 
-        /// X PHRASE FOUND
+        /// NOT NOT PHID
         else {
-          _output = '^$_foundXPhrase';
-        }
 
-      }
+          /// IS TEMP
+          final bool _isTemp = TextChecker.checkVerseIsTemp(_output);
+          if (_isTemp == true){
+            _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
+            _output = '##.$_output';
+          }
 
-      /// NOT NOT PHID
-      else {
+          /// NOT TEMP - NOT PHID
+          else {
+            _output = '>.$_output';
+          }
 
-        /// IS TEMP
-        final bool _isTemp = TextChecker.checkVerseIsTemp(_output);
-        if (_isTemp == true){
-          _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
-          _output = '##.$_output';
-        }
-
-        /// NOT TEMP - NOT PHID
-        else {
-          _output = '>.$_output';
         }
 
       }
@@ -858,6 +868,7 @@ class Verse extends StatelessWidget {
       context: context,
       verse: verse,
       verseCasing: verseCasing,
+      translate: translate,
     );
 // ------------------------------------
     return Flexible(
