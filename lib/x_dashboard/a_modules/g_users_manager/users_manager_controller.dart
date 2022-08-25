@@ -190,7 +190,7 @@ Future<void> onDeleteUser({
         /// START WAITING
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse: 'Deleting ${userModel.name} : ${userModel.id}',
+          loadingVerse:  'Deleting ${userModel.name} : ${userModel.id}',
         ));
 
         /// DELETE firebase user : auth/userID

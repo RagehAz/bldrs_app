@@ -197,7 +197,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// CITIES
               WideButton(
                 width: PageBubble.clearWidth(context),
-                verse: 'View ${country.citiesIDs.length} Cities',
+                verse:  'View ${country.citiesIDs.length} Cities',
                 onTap: widget.onCityTap,
               ),
 
@@ -206,7 +206,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// ENGLISH NAME
               TextFieldBubble(
                 bubbleWidth: _clearWidth,
-                title: 'English Name',
+                title:  'English Name',
                 textController: _enNameController,
                 textOnChanged: (String text){
 
@@ -223,7 +223,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// ARABIC NAME
               TextFieldBubble(
                 bubbleWidth: _clearWidth,
-                title: 'Arabic Name',
+                title:  'Arabic Name',
                 textController: _arNameController,
                 textOnChanged: (String text){
 
@@ -246,7 +246,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   leadingIcon: _countryFlag,
                   leadingIconIsBubble: true,
                   leadingIconBoxColor: Colorz.grey50,
-                  headline: 'Country is Activated',
+                  headlineVerse:  'Country is Activated',
                   hasSwitch: true,
                   onSwitchTap: (bool val) {
                     _countryModel.value = _countryModel.value.copyWith(
@@ -256,7 +256,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   switchIsOn: country.isActivated,
 
                 ),
-                secondLine: 'The Main Country Switch.. When Activated, '
+                secondLineVerse:  'The Main Country Switch.. When Activated, '
                     'Users can see it and use it accordingly'
                     '\n When Deactivated, Bldrs.net is not switched on for that country',
               ),
@@ -265,7 +265,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               TileBubble(
                 bubbleWidth: _clearWidth,
                 bubbleHeaderVM: BubbleHeaderVM(
-                  headline: 'Country is Global ?',
+                  headlineVerse:  'Country is Global ?',
                   leadingIcon: _countryFlag,
                   leadingIconBoxColor: Colorz.grey50,
                   hasSwitch: true,
@@ -276,7 +276,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                   },
                   switchIsOn: country.isGlobal,
                 ),
-                secondLine: 'Country is only Local by Default, '
+                secondLineVerse:  'Country is only Local by Default, '
                     'where only Users in this country can see themselves '
                     '...When Global, Anybody in the world can view this country'
                     '\nBoth businesses and users of other countries may be '

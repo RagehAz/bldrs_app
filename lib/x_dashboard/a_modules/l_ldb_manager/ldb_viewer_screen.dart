@@ -70,7 +70,7 @@ class LDBViewerScreen extends StatefulWidget {
             DreamBox(
               height: 40,
               width: 40,
-              verse: '${index + 1}',
+              verse:  '${index + 1}',
               verseScaleFactor: 0.6,
               margins: const EdgeInsets.all(5),
               bubble: false,
@@ -201,7 +201,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
           DreamBox(
             width: BottomDialog.clearWidth(context),
             height: 40,
-            verse: 'Clear ${widget.ldbDocName} data',
+            verse:  'Clear ${widget.ldbDocName} data',
             verseWeight: VerseWeight.thin,
             verseScaleFactor: 0.7,
             onTap: _onClearLDB,

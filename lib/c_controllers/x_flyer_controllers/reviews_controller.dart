@@ -97,7 +97,7 @@ Future<void> onReviewOptions({
           /// EDIT REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: 'Edit',
+              verse: xPhrase(context, '##Edit'),
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -119,7 +119,7 @@ Future<void> onReviewOptions({
           /// DELETE REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: 'Delete',
+              verse: xPhrase(context, '##Delete'),
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -313,7 +313,7 @@ Future<void> onReplyOptions({
           /// EDIT REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: 'Edit',
+              verse: xPhrase(context, '##Edit'),
               verseCentered: true,
               onTap: () async {
 
@@ -334,7 +334,7 @@ Future<void> onReplyOptions({
           /// DELETE REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: 'Delete',
+              verse: xPhrase(context, '##Delete'),
               verseCentered: true,
               onTap: () async {
 

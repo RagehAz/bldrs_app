@@ -384,7 +384,7 @@ Future<void> onMoreTap({
         /// SAVE DRAFT
         BottomDialog.wideButton(
           context: context,
-          verse: 'Save Draft',
+          verse: xPhrase(context, '##Save Draft'),
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -398,7 +398,7 @@ Future<void> onMoreTap({
         /// PUBLISH
         BottomDialog.wideButton(
           context: context,
-          verse: 'Publish',
+          verse: xPhrase(context, '##Publish'),
           verseCentered: true,
           onTap: (){
             Nav.goBack(

@@ -79,7 +79,7 @@ Future<void> onAuthorOptionsTap({
     /// CHANGE ROLE
     BottomDialog.wideButton(
       context: context,
-      verse: 'Change team role for $_authorName',
+      verse: xPhrase(context, '##Change team role for $_authorName'),
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
@@ -106,7 +106,7 @@ Future<void> onAuthorOptionsTap({
     /// EDIT AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: 'Edit $_authorName Author details',
+      verse: xPhrase(context, '##Edit $_authorName Author details'),
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
@@ -133,7 +133,7 @@ Future<void> onAuthorOptionsTap({
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: 'Remove $_authorName from the team',
+      verse: xPhrase(context, '##Remove $_authorName from the team'),
       icon: Iconz.xSmall,
       isDeactivated: _canRemoveAuthor == false,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
@@ -284,7 +284,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: 'Removing ${authorModel.name}',
+        loadingVerse: xPhrase(context, '##Removing ${authorModel.name}'),
       ));
     }
 
