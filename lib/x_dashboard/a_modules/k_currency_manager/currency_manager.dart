@@ -30,7 +30,7 @@ class CurrencyManagerScreen extends StatelessWidget {
     final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
 
     return MainLayout(
-      pageTitle: 'Currencies',
+      pageTitleVerse: 'Currencies',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,

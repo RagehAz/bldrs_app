@@ -113,11 +113,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
             ),
             columnChildren: <Widget>[
 
-              const BubbleBulletPoints(
+              BubbleBulletPoints(
                 bulletPoints: <String>[
-                  'You can attach a PDF File to this flyer.',
-                  'Anybody can view and download this PDF file.',
-                  'PDF file size can only be less than 3 Mb.',
+                  xPhrase(context, '##You can attach a PDF File to this flyer.'),
+                  xPhrase(context, '##Anybody can view and download this PDF file.'),
+                  xPhrase(context, '##PDF file size can only be less than 3 Mb.'),
                 ],
               ),
 
@@ -159,7 +159,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 if (_fileExists == true || _urlExists == true)
               SuperTextField(
                 width: Bubble.clearWidth(context),
-                title: 'File Name',
+                titleVerse: xPhrase(context, '##File Name'),
                 maxLines: 1,
                 textController: _textController,
                 onChanged: (String text){

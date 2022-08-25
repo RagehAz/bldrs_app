@@ -650,10 +650,10 @@ class BzFireOps {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          title: 'Thanks a Million',
-          body: 'We will look into this matter and take the necessary '
+          titleVerse: 'Thanks a Million',
+          bodyVerse: 'We will look into this matter and take the necessary '
               'action as soon as possible\n Thank you for helping out',
-          confirmButtonText: 'Most Welcome',
+          confirmButtonVerse: 'Most Welcome',
         );
 
       }

@@ -267,10 +267,10 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
-      pageTitle: xPhrase(context, 'phid_select_a_country'),
+      pageTitleVerse: xPhrase(context, 'phid_select_a_country'),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHint: xPhrase(context, 'phid_search_countries'),
+      searchHintVerse: xPhrase(context, 'phid_search_countries'),
       loading: _loading,
       layoutWidget: Scroller(
         child: ValueListenableBuilder(

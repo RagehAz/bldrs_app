@@ -25,7 +25,7 @@ class CenteredListLayout extends StatelessWidget {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pageTitle: title,
+      pageTitleVerse: title,
       appBarType: AppBarType.basic,
       pyramidType: pyramidType,
       skyType: skyType,

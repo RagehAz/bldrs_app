@@ -110,7 +110,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// PHRASES CREATION
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headline: 'REAL',
+          headlineVerse:  'REAL',
         ),
 
         /// MIGRATE main phrases from fire to real
@@ -196,7 +196,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// PHRASES PRO
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headline: 'PRO',
+          headlineVerse:  'PRO',
         ),
 
         /// READ MAIN PHRASES
@@ -216,7 +216,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// LDD
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headline: 'LDB',
+          headlineVerse:  'LDB',
         ),
 
         /// READ MAIN PHRASES

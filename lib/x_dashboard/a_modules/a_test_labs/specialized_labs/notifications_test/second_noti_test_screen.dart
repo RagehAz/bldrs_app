@@ -15,7 +15,7 @@ class SecondNotiTestScreen extends StatelessWidget {
 
     return MainLayout(
       pyramidsAreOn: true,
-      pageTitle: 'Second Notification Screen',
+      pageTitleVerse: 'Second Notification Screen',
       sectionButtonIsOn: false,
       layoutWidget: Column(
         children: <Widget>[

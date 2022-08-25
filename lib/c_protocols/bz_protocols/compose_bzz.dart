@@ -66,8 +66,8 @@ class ComposeBzProtocols {
       /// SHOW SUCCESS DIALOG
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Great !',
-        body: 'Successfully created your Business Account\n system will reboot now',
+        titleVerse: xPhrase(context, '##Great !'),
+        bodyVerse: xPhrase(context, '##Successfully created your Business Account\n system will reboot now'),
         // color: Colorz.green255,
       );
 
@@ -143,8 +143,8 @@ class ComposeBzProtocols {
     /// FAILURE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Ops !',
-      body: 'Something went wrong, Please try again',
+      titleVerse: xPhrase(context, '##Ops !'),
+      bodyVerse: xPhrase(context, '##Something went wrong, Please try again'),
     );
 
   }

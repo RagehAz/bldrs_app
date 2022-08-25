@@ -225,7 +225,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitle: xPhrase(context, 'phid_updateProfile'),
+      pageTitleVerse: xPhrase(context, 'phid_updateProfile'),
       loading: _loading,
       confirmButtonModel: ConfirmButtonModel(
         firstLine: xPhrase(context, 'phid_updateProfile').toUpperCase(),

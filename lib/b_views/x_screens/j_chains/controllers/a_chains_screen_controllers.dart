@@ -84,11 +84,11 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   final dynamic result = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
-    screen: const ChainsScreen(
+    screen: ChainsScreen(
       flyerTypesChainFilters: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
-      pageTitle: 'Browse Flyers by Keyword',
+      pageTitleVerse: xPhrase(context, '##Browse Flyers by Keyword'),
     ),
   );
 
@@ -139,8 +139,8 @@ Future<void> _setActivePhidK({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
-      body: 'The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+      titleVerse: xPhrase(context, '##Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID'),
+      bodyVerse: xPhrase(context, '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.'),
       height: 400,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

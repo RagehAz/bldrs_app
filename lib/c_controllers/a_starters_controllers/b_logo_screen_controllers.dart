@@ -296,9 +296,9 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'New App update is Available',
-    body: 'You need to update the app to continue',
-    confirmButtonText: 'Update Bldrs.net',
+    titleVerse: 'New App update is Available',
+    bodyVerse: 'You need to update the app to continue',
+    confirmButtonVerse: 'Update Bldrs.net',
   );
 
   await Launcher.launchURL('www.pinterest.com');

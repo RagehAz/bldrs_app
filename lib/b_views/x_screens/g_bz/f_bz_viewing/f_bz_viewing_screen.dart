@@ -20,7 +20,7 @@ class BzViewingScreen extends StatelessWidget {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitle: bzModel.name,
+      pageTitleVerse: bzModel.name,
       appBarType: AppBarType.basic,
       layoutWidget: BzAboutPage(
         bzModel: bzModel,

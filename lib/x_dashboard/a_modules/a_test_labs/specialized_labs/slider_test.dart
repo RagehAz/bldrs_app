@@ -74,7 +74,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
       // appBarBackButton: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitle: 'Slider test',
+      pageTitleVerse: 'Slider test',
       layoutWidget: Center(
         child: ListView(
           children: <Widget>[
@@ -82,7 +82,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             const Stratosphere(),
 
             TextFieldBubble(
-              title: 'Set Min value',
+              titleVerse: 'Set Min value',
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
               actionBtIcon: Iconz.plus,
@@ -98,7 +98,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             ),
 
             TextFieldBubble(
-              title: 'Set Max value',
+              titleVerse: 'Set Max value',
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
               actionBtIcon: Iconz.plus,
@@ -114,7 +114,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             ),
 
             TextFieldBubble(
-              title: 'Set divisions',
+              titleVerse: 'Set divisions',
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
               actionBtIcon: Iconz.plus,

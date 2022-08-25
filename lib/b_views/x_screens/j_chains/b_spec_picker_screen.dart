@@ -45,7 +45,7 @@ class SpecPickerScreen extends StatelessWidget {
       // appBarBackButton: true,
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitle: _pageTitle,
+      pageTitleVerse: _pageTitle,
       pyramidsAreOn: true,
       onBack: () async {
 

@@ -225,8 +225,8 @@ Future<UserModel> _updateUserModel({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Great !',
-    body: 'Successfully updated your user account',
+    titleVerse: 'Great !',
+    bodyVerse: 'Successfully updated your user account',
   );
 
   return _uploadedUserModel;

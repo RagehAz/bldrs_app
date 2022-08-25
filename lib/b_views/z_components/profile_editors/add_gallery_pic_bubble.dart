@@ -26,7 +26,7 @@ class AddImagePicBubble extends StatelessWidget {
   const AddImagePicBubble({
     @required this.fileModel,
     @required this.onAddPicture,
-    @required this.title,
+    @required this.titleVerse,
     @required this.redDot,
     this.bubbleType = BubbleType.none,
     Key key,
@@ -34,7 +34,7 @@ class AddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
   final ValueNotifier<FileModel> fileModel;
-  final String title;
+  final String titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
   /// --------------------------------------------------------------------------
@@ -81,7 +81,7 @@ class AddImagePicBubble extends StatelessWidget {
     );
 
     return Bubble(
-        title: title,
+        title: titleVerse,
         redDot: redDot,
         columnChildren: <Widget>[
 

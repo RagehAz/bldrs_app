@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/zoomable
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class SlideFullScreen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      pageTitle: 'Create flyers',
+      pageTitleVerse: xPhrase(context, '##Create flyers'),
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
       skyType: SkyType.black,

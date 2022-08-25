@@ -123,7 +123,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      pageTitle: 'Flyer promotion',
+      pageTitleVerse: 'Flyer promotion',
       appBarType: AppBarType.basic,
       layoutWidget: Column(
         children: <Widget>[

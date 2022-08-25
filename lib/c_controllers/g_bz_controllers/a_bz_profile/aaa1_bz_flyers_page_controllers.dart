@@ -123,7 +123,7 @@ Future<void> _onCanNotDeleteFlyerDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Can not Delete Flyer',
+    titleVerse: 'Can not Delete Flyer',
   );
 
 }
@@ -201,8 +201,8 @@ Future<bool> _preFlyerDeleteCheckups({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Can not Delete Flyer',
-      body: 'Only Business Account creator can Delete flyers',
+      titleVerse: 'Can not Delete Flyer',
+      bodyVerse: 'Only Business Account creator can Delete flyers',
     );
 
   }

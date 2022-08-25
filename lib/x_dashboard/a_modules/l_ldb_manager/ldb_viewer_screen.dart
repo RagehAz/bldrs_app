@@ -167,9 +167,9 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Future<void> _onClearLDB() async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      title: 'Confirm ?',
+      titleVerse: 'Confirm ?',
       boolDialog: true,
-      body: 'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
+      bodyVerse: 'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
       context: context,
     );
 

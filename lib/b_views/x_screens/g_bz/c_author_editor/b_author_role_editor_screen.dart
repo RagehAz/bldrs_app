@@ -112,8 +112,8 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          title: 'Can Not Demote Account creator',
-          body: ' the Author Role of ${widget.authorModel.name} can not be changed.',
+          titleVerse: xPhrase(context, '##Can Not Demote Account creator'),
+          bodyVerse: xPhrase(context, '##the Author Role of ${widget.authorModel.name} can not be changed.'),
         );
 
       }
@@ -128,7 +128,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          title: 'Only one account creator is allowed',
+          titleVerse: xPhrase(context, '##Only one account creator is allowed'),
         );
 
       }

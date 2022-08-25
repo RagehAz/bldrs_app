@@ -170,11 +170,11 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
-                title: xPhrase(context, '##Contact'),
+                titleVerse: xPhrase(context, '##Contact'),
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,
-                hintText: widget.hintText,
+                hintVerse: widget.hintText,
                 textInputType: widget.keyboardTextInputType,
                 textController: _textController,
                 onChanged: widget.textOnChanged,

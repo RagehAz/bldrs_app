@@ -131,7 +131,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitle: xPhrase(context, '##Edit Author Details'),
+      pageTitleVerse: xPhrase(context, '##Edit Author Details'),
       // appBarBackButton: true,
       confirmButtonModel: ConfirmButtonModel(
         firstLine: xPhrase(context, '##Confirm'),
@@ -159,7 +159,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                 return AddImagePicBubble(
                   fileModel: _authorPicFile,
-                  title: xPhrase(context, '##Author picture'),
+                  titleVerse: xPhrase(context, '##Author picture'),
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
                   onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
@@ -176,7 +176,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _nameController,
-              title: xPhrase(context, '##Author Name'),
+              titleVerse: xPhrase(context, '##Author Name'),
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
@@ -187,10 +187,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               validator: (){
 
                 if (Stringer.checkStringIsEmpty(_nameController.text) == true){
-                  return 'Author name can not be empty';
+                  return xPhrase(context, '##Author name can not be empty');
                 }
                 else if (_nameController.text.length <= 3){
-                  return 'Author name should be more than 3 characters';
+                  return xPhrase(context, '##Author name should be more than 3 characters');
                 }
                 else {
                   return null;
@@ -203,7 +203,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _titleController,
-              title: xPhrase(context, '##Job Title'),
+              titleVerse: xPhrase(context, '##Job Title'),
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,

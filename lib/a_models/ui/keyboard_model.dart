@@ -4,8 +4,8 @@ class KeyboardModel {
 // -----------------------------------------------------------------------------
   const KeyboardModel({
     @required this.controller,
-    @required this.title,
-    this.hintText = '...',
+    @required this.titleVerse,
+    this.hintVerse = '...',
     this.minLines = 1,
     this.maxLines = 2,
     this.maxLength,
@@ -22,8 +22,8 @@ class KeyboardModel {
     this.isFloatingField = true,
 }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
 // -----------------------------------------------------------------------------
-  final String title;
-  final String hintText;
+  final String titleVerse;
+  final String hintVerse;
   final TextEditingController controller;
   final int minLines;
   final int maxLines;
@@ -42,8 +42,8 @@ class KeyboardModel {
   final bool isFloatingField;
 // -----------------------------------------------------------------------------
   KeyboardModel copyWith({
-    String title,
-    String hintText,
+    String titleVerse,
+    String hintVerse,
     TextEditingController controller,
     int minLines,
     int maxLines,
@@ -61,8 +61,8 @@ class KeyboardModel {
     bool isFloatingField,
 }){
     return KeyboardModel(
-      title: title ?? this.title,
-      hintText: hintText ?? this.hintText,
+      titleVerse: titleVerse ?? this.titleVerse,
+      hintVerse: hintVerse ?? this.hintVerse,
       controller: controller ?? this.controller,
       minLines: minLines ?? this.minLines,
       maxLines: maxLines ?? this.maxLines,
@@ -83,7 +83,7 @@ class KeyboardModel {
 // -----------------------------------------------------------------------------
   static KeyboardModel standardModel(){
     return KeyboardModel(
-      title: null,
+      titleVerse: null,
       // hintText: '...',
       controller: TextEditingController(),
       // minLines: 1,

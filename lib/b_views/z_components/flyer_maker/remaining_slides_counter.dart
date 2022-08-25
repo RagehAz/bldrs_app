@@ -33,8 +33,8 @@ class RemainingSlidesCounter extends StatelessWidget {
         final dynamic _result = await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: true,
-          title: xPhrase(context, '##No Slides left'),
-          body: xPhrase(context, "##You don't have any more slides to add\nWould you wish to get more slides ?"),
+          titleVerse: xPhrase(context, '##No Slides left'),
+          bodyVerse: xPhrase(context, "##You don't have any more slides to add\nWould you wish to get more slides ?"),
         );
 
         if (_result == false) {
