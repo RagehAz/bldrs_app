@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,43 @@ class TextChecker {
     'en';
 
     return _lingoCode;
+  }
+// -----------------------------------------------------------------------------
+
+  /// PHID CHECK
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkVerseIsPhid(String text){
+
+    final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      input: text,
+      numberOfChars: 4, //'phid'
+    )?.toLowerCase();
+
+    // blog('checkVerseIsPhid : $_phid : is phid ${_phid == 'phid'}');
+
+    return _phid == 'phid';
+  }
+// -------------------------------------
+  static bool checkVerseIsTemp(String text){
+    final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      input: text,
+      numberOfChars: 2, //'##'
+    );
+    return _temp == '##';
+  }
+// -------------------------------------
+  static bool verseIsUpperCase(String text){
+    bool _isUpperCase = false;
+
+    if (Stringer.checkStringIsEmpty(text) == false){
+      if (text.toUpperCase() == text){
+        _isUpperCase = true;
+      }
+    }
+
+    return _isUpperCase;
   }
 // -----------------------------------------------------------------------------
 

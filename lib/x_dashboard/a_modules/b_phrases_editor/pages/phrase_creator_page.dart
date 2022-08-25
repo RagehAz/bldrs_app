@@ -105,7 +105,8 @@ class PhraseCreatorPage extends StatelessWidget {
           Align(
             alignment: Aligners.superInverseCenterAlignment(context),
             child: DreamBox(
-              verse:  'Confirm'.toUpperCase(),
+              verse:  'Confirm',
+              verseCasing: VerseCasing.upperCase,
               height: 50,
               color: Colorz.yellow255,
               verseWeight: VerseWeight.black,

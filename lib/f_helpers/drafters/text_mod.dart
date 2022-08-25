@@ -195,7 +195,7 @@ class TextMod {
 
     final String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
 
-    final String _firstCharacter = cutFirstCharacterOfAString(_stringWithoutSpaces);
+    final String _firstCharacter = cutNumberOfCharactersOfAStringBeginning(_stringWithoutSpaces, 1);
 
     final String _output =
     _stringWithoutSpaces == null || _stringWithoutSpaces == '' || _stringWithoutSpaces == ' ' ?
@@ -210,11 +210,11 @@ class TextMod {
   }
 // ----------------------------
   /// TESTED : WORKS PERFECT
-  static String cutFirstCharacterOfAString(String string) {
+  static String cutNumberOfCharactersOfAStringBeginning(String string, int number) {
     final String _output = string == null || string.isEmpty || string == '' || string == ' ' ?
     null
         :
-    string?.substring(0, 1);
+    string?.substring(0, number);
 
     return _output == null || _output == '' || _output == '' ? null : _output;
   }
@@ -403,16 +403,16 @@ class TextMod {
   /// TESTED : WORKS PERFECT
   static String removeAllCharactersAfterNumberOfCharacters({
     @required String input,
-    @required int numberOfCharacters,
+    @required int numberOfChars,
   }) {
     String _output = input;
 
     if (input != null &&
-        numberOfCharacters != null &&
+        numberOfChars != null &&
         input.isNotEmpty &&
-        numberOfCharacters > 0 &&
-        input.length > numberOfCharacters) {
-      _output = input.substring(0, numberOfCharacters);
+        numberOfChars > 0 &&
+        input.length > numberOfChars) {
+      _output = input.substring(0, numberOfChars);
     }
 
     return _output;

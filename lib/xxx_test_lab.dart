@@ -287,15 +287,15 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    const String _countryID = 'egy';
-    const String number = '+';
+    // const String _countryID = 'egy';
+    // const String number = '+';
+    //
+    // final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
+    //     number: number,
+    //     countryID: _countryID,
+    // );
 
-    final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
-        number: number,
-        countryID: _countryID,
-    );
-
-    blog('_phone : $_phone');
+    blog('aho : ${'Rageh' == 'rageh'}');
 
     }
 

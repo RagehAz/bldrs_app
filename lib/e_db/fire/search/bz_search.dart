@@ -33,7 +33,7 @@ Future<List<BzModel>> paginateBzzBySearchingBzName({
         comparison: FireComparison.arrayContains,
         value: TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: bzName.trim(),
-          numberOfCharacters: Standards.maxTrigramLength,
+          numberOfChars: Standards.maxTrigramLength,
         ),
       ),
     ],

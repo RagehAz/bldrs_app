@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,8 @@ class SettingsWideButton extends StatelessWidget {
 
       isDeactivated: !isOn,
       height: height,
-      verse: verse.toUpperCase(),
+      verse: verse,
+      verseCasing: VerseCasing.upperCase,
       icon: icon,
       width: width,
       margins: 5,
