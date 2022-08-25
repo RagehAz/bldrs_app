@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -95,7 +96,7 @@ Future<void> onConfirmAuthorUpdates({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: 'Uploading new Author details',
+      loadingVerse: xPhrase(context, '##Uploading new Author details'),
     ));
 
     final AuthorModel _author = AuthorModel(
@@ -163,7 +164,7 @@ Future<void> onChangeAuthorRoleOps({
 
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: 'Uploading new Author details',
+        loadingVerse: xPhrase(context, '##Uploading new Author details'),
       ));
 
       final BzModel _bzModel = BzzProvider.proGetActiveBzModel(

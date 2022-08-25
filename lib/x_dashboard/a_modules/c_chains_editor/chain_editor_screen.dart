@@ -104,7 +104,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
               );
 
               return AppBarButton(
-                verse: 'Sync',
+                verse:  'Sync',
                 isDeactivated: _areIdentical,
                 buttonColor: Colorz.yellow255,
                 verseColor: Colorz.black255,

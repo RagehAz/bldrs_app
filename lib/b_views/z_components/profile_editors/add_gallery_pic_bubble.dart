@@ -167,7 +167,7 @@ class AddImagePicBubble extends StatelessWidget {
                             height: picWidth,
                             alignment: Aligners.superInverseBottomAlignment(context),
                             child: SuperVerse(
-                              verse: '${fileModel.size} ${xPhrase(context, '##Mb')}',
+                              verse:  '${fileModel.size} ${xPhrase(context, '##Mb')}',
                               size: 1,
                               centered: false,
                               shadow: true,

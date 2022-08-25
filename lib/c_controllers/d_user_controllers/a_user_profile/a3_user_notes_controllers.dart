@@ -61,7 +61,7 @@ Future<void> onShowNoteOptions({
 
         BottomDialog.wideButton(
           context: context,
-          verse: 'Delete',
+          verse: xPhrase(context, '##Delete'),
           height: 50,
           onTap: () async {
 

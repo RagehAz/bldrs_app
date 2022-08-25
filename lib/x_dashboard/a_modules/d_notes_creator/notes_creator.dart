@@ -144,7 +144,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
         const Expander(),
 
         AppBarButton(
-          verse: 'All Notes',
+          verse:  'All Notes',
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const AllNotesScreen(),
@@ -152,7 +152,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
         ),
 
         AppBarButton(
-          verse: 'Templates',
+          verse:  'Templates',
           onTap: () => onGoToNoteTemplatesScreen(
             context: context,
             scrollController: _scrollController,
@@ -268,13 +268,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// NOTE TYPE
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headline: 'Note Type',
+                    headlineVerse:  'Note Type',
                     leadingIcon: Iconz.star,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
 
                   ),
-                  secondLine: 'Select Note Type',
+                  secondLineVerse:  'Select Note Type',
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -331,12 +331,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// SENDER
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headline: 'Sender',
+                    headlineVerse:  'Sender',
                     leadingIcon: Iconz.normalUser,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLine: 'Select Note Sender',
+                  secondLineVerse:  'Select Note Sender',
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -413,12 +413,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// RECEIVER
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headline: 'Receiver',
+                    headlineVerse:  'Receiver',
                     leadingIcon: Iconz.news,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLine: 'Select who will receive this Note',
+                  secondLineVerse:  'Select who will receive this Note',
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -497,7 +497,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                       return TileBubble(
                         bubbleHeaderVM: BubbleHeaderVM(
-                          headline: 'Send FCM',
+                          headlineVerse:  'Send FCM',
                           leadingIcon: Iconz.news,
                           leadingIconSizeFactor: 0.5,
                           leadingIconBoxColor: Colorz.grey50,
@@ -508,7 +508,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           ),
 
                         ),
-                        secondLine: 'This sends firebase cloud message to the receiver or '
+                        secondLineVerse:  'This sends firebase cloud message to the receiver or '
                             'to a group of receivers through a channel',
                       );
 
@@ -518,12 +518,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// BUTTONS
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headline: 'Buttons',
+                    headlineVerse:  'Buttons',
                     leadingIcon: Iconz.pause,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLine: 'Add buttons to the Note',
+                  secondLineVerse:  'Add buttons to the Note',
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -579,13 +579,13 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// ATTACHMENTS
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headline: 'Attachments',
+                    headlineVerse:  'Attachments',
                     leadingIcon: Iconz.flyer,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
 
                   ),
-                  secondLine: 'Add attachments',
+                  secondLineVerse:  'Add attachments',
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -733,7 +733,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           height: 50,
                           alignment: Aligners.superTopAlignment(context),
                           child: SuperVerse(
-                            verse: 'Missing Fields :-\n$_missingFieldsString',
+                            verse:  'Missing Fields :-\n$_missingFieldsString',
                             color: Colorz.red255,
                             size: 1,
                             italic: true,

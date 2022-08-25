@@ -71,11 +71,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Developers'),
+                headlineVerse: xPhrase(context, '##Developers'),
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Real-Estate developers, they control the construction '
+              secondLineVerse: xPhrase(context, '##Real-Estate developers, they control the construction '
                   'development over plots & lands, then lease property contracts '
                   'for sale or rent.\n'
                   '\n'
@@ -85,11 +85,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Brokers'),
+                headlineVerse: xPhrase(context, '##Brokers'),
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Real-Estate Brokerage individuals or companies, they '
+              secondLineVerse: xPhrase(context, '##Real-Estate Brokerage individuals or companies, they '
                   'consult, provide and assist you in your property purchasing '
                   'journey.\n'
                   '\n'
@@ -99,11 +99,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Designers'),
+                headlineVerse: xPhrase(context, '##Designers'),
                 leadingIcon: Iconz.bxDesignsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Architects, Decorators, Landscapers, Engineers, '
+              secondLineVerse: xPhrase(context, '##Architects, Decorators, Landscapers, Engineers, '
                   'Planners and Designers of any urban construct you see in buildings'
                   ' inside-out and their surroundings\n'
                   '\n'
@@ -113,11 +113,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Contractors'),
+                headlineVerse: xPhrase(context, '##Contractors'),
                 leadingIcon: Iconz.bxProjectsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##The Builders of properties, they contract owners in '
+              secondLineVerse: xPhrase(context, '##The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
                   ' quality then deliver contract deliverables\n'
                   '\n'
@@ -127,11 +127,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Artisans'),
+                headlineVerse: xPhrase(context, '##Artisans'),
                 leadingIcon: Iconz.bxTradesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
+              secondLineVerse: xPhrase(context, '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
                   'Artists, Artisans, Painters, Plasterers ... etc\n'
                   '\n'
                   'in Short... The Work-force and the actual builders of all constructs'),
@@ -139,11 +139,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Manufacturers'),
+                headlineVerse: xPhrase(context, '##Manufacturers'),
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Factories and Workshops that fabricates & manufactures '
+              secondLineVerse: xPhrase(context, '##Factories and Workshops that fabricates & manufactures '
                   'all construction products and equipment\n'
                   '\n'
                   'in Other words... If you want customization or want to get a big batch of '
@@ -153,11 +153,11 @@ class AboutBldrsScreen extends StatelessWidget {
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headline: xPhrase(context, '##Suppliers'),
+                headlineVerse: xPhrase(context, '##Suppliers'),
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLine: xPhrase(context, '##Those companies that import, supply, transport, sell '
+              secondLineVerse: xPhrase(context, '##Those companies that import, supply, transport, sell '
                   'or rent construction products and equipment\n'
                   '\n'
                   'They Supply Floor, cieling, wall products, paints, wood & '

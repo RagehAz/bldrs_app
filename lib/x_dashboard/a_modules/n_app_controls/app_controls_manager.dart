@@ -101,12 +101,12 @@ class _AppControlsManagerState extends State<AppControlsManager> {
               children: <Widget>[
 
                 const SuperVerse(
-                  verse: 'Wall Flyers',
+                  verse:  'Wall Flyers',
                 ),
 
                 TileBubble(
                   bubbleHeaderVM: BubbleHeaderVM(
-                    headline: 'Show only Verified Flyers',
+                    headlineVerse:  'Show only Verified Flyers',
                     leadingIcon: Iconz.news,
                     leadingIconSizeFactor: 0.5,
                     switchIsOn: controls.showOnlyVerifiedFlyersInHomeWall,
@@ -123,7 +123,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                     'suspended',
                     'banned',
                   ],
-                  secondLine: 'Only verified flyers will be shown in Home screen wall.\n'
+                  secondLineVerse:  'Only verified flyers will be shown in Home screen wall.\n'
                       'if switched off, Audit state will be neglected in its search query showing both null and verified Audit states.\n'
                       'But still banned and suspended flyers will not be viewed.\n',
                 ),

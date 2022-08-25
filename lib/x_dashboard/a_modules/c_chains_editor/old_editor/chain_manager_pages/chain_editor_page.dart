@@ -85,7 +85,7 @@ class ChainEditorPage extends StatelessWidget {
 
                     DreamBox(
                       height: 40,
-                      verse: 'Update',
+                      verse:  'Update',
                       verseScaleFactor: 0.7,
                       verseColor: Colorz.black255,
                       // verseWeight: VerseWeight.thin,
@@ -96,7 +96,7 @@ class ChainEditorPage extends StatelessWidget {
 
                     DreamBox(
                       height: 40,
-                      verse: 'Copy ID',
+                      verse:  'Copy ID',
                       verseScaleFactor: 0.7,
                       verseColor: Colorz.black255,
                       // verseWeight: VerseWeight.thin,
@@ -170,13 +170,13 @@ class ChainEditorPage extends StatelessWidget {
               /// ALL RELATED CHAINS TITLE
               if (_path != null)
                 DataStripKey(
-                  dataKey: 'Related Chains',
+                  dataKey:  'Related Chains',
                   width: _clearWidth,
                   height: DataStripWithHeadline.keyRowHeight,
                 ),
 
               SuperVerse(
-                verse: 'All Nodes that include ( $_phid ) in their paths',
+                verse:  'All Nodes that include ( $_phid ) in their paths',
                 size: 1,
                 italic: true,
                 centered: false,
