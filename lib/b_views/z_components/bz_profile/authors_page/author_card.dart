@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.da
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa3_bz_authors_page_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -20,7 +21,7 @@ class AuthorCard extends StatelessWidget {
     @required this.author,
     @required this.bzModel,
     @required this.bubbleWidth,
-    this.onContact,
+    this.onContactTap,
     this.moreButtonIsOn = true,
     Key key
   }) : super(key: key);
@@ -28,7 +29,7 @@ class AuthorCard extends StatelessWidget {
   final AuthorModel author;
   final BzModel bzModel;
   final double bubbleWidth;
-  final ValueChanged<ContactModel> onContact;
+  final ValueChanged<ContactModel> onContactTap;
   final bool moreButtonIsOn;
   /// --------------------------------------------------------------------------
   static const double authorPicSize = 80;
@@ -221,7 +222,18 @@ class AuthorCard extends StatelessWidget {
                     bubble: true,
                     verse: _contact.value,
                     boxWidth: _bubbleWidth - authorPicSize - 40,
-                    onTap: () => onContact(_contact)
+                    onTap: () async {
+
+                      if (onContactTap != null){
+                        onContactTap(_contact);
+                      }
+
+                      await Launcher.launchContactModel(
+                        context: context,
+                        contact: _contact,
+                      );
+
+                    }
                 );
 
               }),

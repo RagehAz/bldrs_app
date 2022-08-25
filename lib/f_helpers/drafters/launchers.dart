@@ -1,5 +1,8 @@
 import 'dart:async';
+
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,43 @@ class Launcher {
 
 // --------------------------------------------------------------------------
 
+  /// JOKER
+
+// ----------------------------------------
+  static Future<void> launchContactModel({
+    @required BuildContext context,
+    @required ContactModel contact,
+  }) async {
+
+    if (contact != null){
+
+      /// PHONE
+      if (contact.contactType == ContactType.phone){
+        await launchCall(contact.value);
+      }
+      /// WEB LINK
+      else if (ContactModel.checkContactTypeIsWebLink(contact.contactType) == true){
+        await launchURL(contact.value);
+      }
+      /// EMAIL
+      else if (contact.contactType == ContactType.email){
+        await launchEmail(
+          context: context,
+          email: contact.value,
+          // emailBody: '',
+          // emailSubject: '',
+        );
+      }
+      /// OBLIVION
+      else {
+        blog('will do nothing for this ${contact.contactType}');
+      }
+
+    }
+
+  }
+// --------------------------------------------------------------------------
+
   /// LAUNCH URL
 
 // ----------------------------------------
@@ -22,29 +62,83 @@ class Launcher {
     Uri _uri;
     bool _success = false;
 
-    /// LINK SHOULD CONTAIN 'http://' to work
-    final bool _containsHttp = TextChecker.stringContainsSubString(
-      string: link,
-      subString: 'http://',
-    );
+    if (Stringer.checkStringIsEmpty(link) == false){
 
-    if (_containsHttp == true){
-      _uri = Uri.parse(link);
-    }
-    else {
-      _uri = Uri.parse('http://$link');
-    }
+      /// LINK SHOULD CONTAIN 'http://' to work
+      final bool _containsHttp = TextChecker.stringContainsSubString(
+        string: link,
+        subString: 'http://',
+      );
 
-    if (await Launch.canLaunchUrl(_uri) == true) {
+      final bool _containsHttps = TextChecker.stringContainsSubString(
+        string: link,
+        subString: 'https://',
+      );
 
-      unawaited(Launch.launchUrl(_uri));
-      _success = true;
-    }
-    else {
-      blog('Can Not launch link');
+      if (_containsHttp == true || _containsHttps == true){
+        _uri = Uri.parse(link);
+      }
+      else {
+        _uri = Uri.parse('http://$link');
+      }
+
+      if (await Launch.canLaunchUrl(_uri) == true) {
+
+        unawaited(Launch.launchUrl(_uri));
+        _success = true;
+      }
+      else {
+        blog('Can Not launch link');
+      }
+
     }
 
     return _success;
+  }
+// --------------------------------------------------------------------------
+
+  /// LAUNCH EMAIL
+
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> launchEmail({
+    @required BuildContext context,
+    @required String email,
+    String emailSubject,
+    String emailBody,
+  }) async {
+
+    if (Stringer.checkStringIsEmpty(email) == false){
+
+      final String _emailSubject = emailSubject ?? _generateDefaultEmailSubject(context);
+      final String _emailBody = emailBody ?? _generateDefaultEmailBody(context);
+
+      final Uri _uri = Uri(
+        scheme: 'mailto',
+        path: email,
+        query: 'subject=$_emailSubject&body=$_emailBody',
+      );
+
+      if (await Launch.canLaunchUrl(_uri) == true) {
+        await Launch.launchUrl(_uri);
+      }
+
+      else {
+        blog('cant launch email');
+      }
+
+    }
+
+  }
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String _generateDefaultEmailSubject(BuildContext context){
+    return ''; //xPhrase(context, 'phid_bldrs');
+  }
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String _generateDefaultEmailBody(BuildContext context){
+    return '';
   }
 // --------------------------------------------------------------------------
 
@@ -54,18 +148,24 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> launchCall(String phoneNumber) async {
 
-    final Uri _uri = Uri(
-      path: phoneNumber,
-      scheme: 'tel',
-    );
+    if (Stringer.checkStringIsEmpty(phoneNumber) == false){
 
-    if (await Launch.canLaunchUrl(_uri) == true) {
-      await Launch.launchUrl(_uri);
+      final Uri _uri = Uri(
+        path: phoneNumber,
+        scheme: 'tel',
+      );
+
+      if (await Launch.canLaunchUrl(_uri) == true) {
+        await Launch.launchUrl(_uri);
+      }
+
+      else {
+        blog('cant call');
+      }
+
+
     }
 
-    else {
-      blog('cant call');
-    }
   }
 // --------------------------------------------------------------------------
 
@@ -77,14 +177,18 @@ class Launcher {
     @required LinkModel link,
   }) async {
 
-    final RenderBox _box = context.findRenderObject();
-    // final String url = '${flyerLink.url} & ${flyerLink.description}';
+    if (link != null && link.url != null){
 
-    await Share.share(
-      link.url,
-      subject: link.description,
-      sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
-    );
+      final RenderBox _box = context.findRenderObject();
+      // final String url = '${flyerLink.url} & ${flyerLink.description}';
+
+      await Share.share(
+        link.url,
+        subject: link?.description,
+        sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
+      );
+
+    }
 
   }
 // ----------------------------------------
