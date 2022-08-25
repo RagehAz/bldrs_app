@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/x_screens/j_chains/components/others/spec_picker_i
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/a_pickers_group.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -79,12 +80,12 @@ class ChainsScreenBrowseView extends StatelessWidget {
                     // ---------------------
                     final String _instruction =
                     onlyUseCityChains == true ?
-                        'Showing only keywords used in'
+                        xPhrase(context, '##Showing only keywords used in'
                         '\n${_zone.cityName}, ${_zone.countryName}.'
-                        '$_flyerTypesStringWithNewLineIfNotNull'
+                        '$_flyerTypesStringWithNewLineIfNotNull')
                             :
-                        'Showing All keywords in Bldrs.net'
-                        '\n$_flyerTypesString';
+                    xPhrase(context, '##Showing All keywords in Bldrs.net'
+                        '\n$_flyerTypesString');
                     // ---------------------
                     final String _icon = onlyUseCityChains == true ?
                     _zone.flag
@@ -135,8 +136,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
           padding: Scale.superMargins(margins: 20),
-          child: const SuperVerse(
-            verse: 'No Available Flyers in This City yet',
+          child: SuperVerse(
+            verse: xPhrase(context, '##No Available Flyers in This City yet'),
             weight: VerseWeight.black,
             italic: true,
             size: 3,

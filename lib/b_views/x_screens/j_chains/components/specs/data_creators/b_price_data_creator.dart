@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bou
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/currency_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -82,7 +83,7 @@ class PriceDataCreator extends StatefulWidget {
             DreamBox(
               height: 60,
               width: _clearWidth,
-              verse: 'More Currencies',
+              verse: xPhrase(context, '##More Currencies'),
               verseShadow: false,
               verseWeight: VerseWeight.thin,
               verseCentered: false,
