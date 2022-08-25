@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +68,7 @@ class LogoSlogan extends StatelessWidget {
             width: _logoWidth,
             // height: _logoHeight * 0.7,
             child: SuperVerse(
-              verse: xPhrase(context, '##Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans'), // Wordz.bldrsDescription(context),
+              verse: '##Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans', // Wordz.bldrsDescription(context),
               size: 3,
               weight: VerseWeight.thin,
               shadow: true,

@@ -1,16 +1,15 @@
+import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/tile_bubble.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -30,16 +29,16 @@ class AboutBldrsScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
-      pageTitleVerse: xPhrase(context, '##About Bldrs.net'),
+      pageTitleVerse: '##About Bldrs.net',
       skyType: SkyType.non,
       layoutWidget: Scroller(
         child: ListView(
           physics: const BouncingScrollPhysics(),
-          children: <Widget>[
+          children: const <Widget>[
 
-            const Stratosphere(),
+            Stratosphere(),
 
-            const LogoSlogan(
+            LogoSlogan(
               sizeFactor: 0.7,
               showSlogan: true,
             ),
@@ -48,116 +47,116 @@ class AboutBldrsScreen extends StatelessWidget {
             ParagraphBubble(
                 maxLines: 1000,
                 bubbleColor: Colorz.white20,
-                title: xPhrase(context, '##Bldrs.net'),
-                paragraph: xPhrase(context, '##Is the Network of builders\n'
+                title: '##Bldrs.net',
+                paragraph: '##Is the Network of builders\n'
                     'categorizing major Bldrs sectors as\n'
-                    'Real-estate, Construction & Supplies.\n')
+                    'Real-estate, Construction & Supplies.\n',
             ),
 
             ParagraphBubble(
               bubbleColor: Colorz.white20,
-              paragraph: xPhrase(context, '##So whenever you need to connect with a professional '
+              paragraph: '##So whenever you need to connect with a professional '
                   'or a company in a specific field or trade to aid you in '
-                  'building you projects, you have all Businesses here for you'),
+                  'building you projects, you have all Businesses here for you',
             ),
 
-            const DotSeparator(),
+            DotSeparator(),
 
             SuperVerse(
-              verse: xPhrase(context, '##Bldrs.net Business types'),
+              verse: '##Bldrs.net Business types',
               size: 4,
               italic: true,
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Developers'),
+                headlineVerse: '##Developers',
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Real-Estate developers, they control the construction '
+              secondLineVerse: '##Real-Estate developers, they control the construction '
                   'development over plots & lands, then lease property contracts '
                   'for sale or rent.\n'
                   '\n'
                   'in Short... if You are looking for a property directly from '
-                  'its creator, then these are the companies to contact'),
+                  'its creator, then these are the companies to contact',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Brokers'),
+                headlineVerse: '##Brokers',
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Real-Estate Brokerage individuals or companies, they '
+              secondLineVerse: '##Real-Estate Brokerage individuals or companies, they '
                   'consult, provide and assist you in your property purchasing '
                   'journey.\n'
                   '\n'
                   'in Short... if You are looking for someone to get you the best '
-                  'property deals, these are the ones to contact'),
+                  'property deals, these are the ones to contact',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Designers'),
+                headlineVerse: '##Designers',
                 leadingIcon: Iconz.bxDesignsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Architects, Decorators, Landscapers, Engineers, '
+              secondLineVerse: '##Architects, Decorators, Landscapers, Engineers, '
                   'Planners and Designers of any urban construct you see in buildings'
                   ' inside-out and their surroundings\n'
                   '\n'
                   'in Short... if You have an idea or project to plan its '
-                  'construction, you must contact these people'),
+                  'construction, you must contact these people',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Contractors'),
+                headlineVerse: '##Contractors',
                 leadingIcon: Iconz.bxProjectsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##The Builders of properties, they contract owners in '
+              secondLineVerse: '##The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
                   ' quality then deliver contract deliverables\n'
                   '\n'
                   'in Short... if You have a project in construction, '
-                  'they build it for you'),
+                  'they build it for you',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Artisans'),
+                headlineVerse: '##Artisans',
                 leadingIcon: Iconz.bxTradesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
+              secondLineVerse: '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
                   'Artists, Artisans, Painters, Plasterers ... etc\n'
                   '\n'
-                  'in Short... The Work-force and the actual builders of all constructs'),
+                  'in Short... The Work-force and the actual builders of all constructs',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Manufacturers'),
+                headlineVerse: '##Manufacturers',
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Factories and Workshops that fabricates & manufactures '
+              secondLineVerse: '##Factories and Workshops that fabricates & manufactures '
                   'all construction products and equipment\n'
                   '\n'
                   'in Other words... If you want customization or want to get a big batch of '
                   'construction products or equipment, these are the companies '
-                  'to contact'),
+                  'to contact',
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: xPhrase(context, '##Suppliers'),
+                headlineVerse: '##Suppliers',
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: xPhrase(context, '##Those companies that import, supply, transport, sell '
+              secondLineVerse: '##Those companies that import, supply, transport, sell '
                   'or rent construction products and equipment\n'
                   '\n'
                   'They Supply Floor, cieling, wall products, paints, wood & '
@@ -166,12 +165,12 @@ class AboutBldrsScreen extends StatelessWidget {
                   '\n'
                   'in Other words... If you want customization or want to get a big batch of '
                   'construction products or equipment, these are the companies '
-                  'to contact'),
+                  'to contact',
             ),
 
-            const DotSeparator(color: Colorz.yellow80),
+            DotSeparator(color: Colorz.yellow80),
 
-            const Horizon(),
+            Horizon(),
 
           ],
         ),

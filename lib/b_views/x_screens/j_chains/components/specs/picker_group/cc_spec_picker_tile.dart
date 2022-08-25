@@ -86,7 +86,7 @@ class SpecPickerTile extends StatelessWidget {
                             SizedBox(
                               width: _specNameBoxWidth,
                               child: SuperVerse(
-                                verse: xPhrase(context, specPicker.chainID),
+                                verse: specPicker.chainID,
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,

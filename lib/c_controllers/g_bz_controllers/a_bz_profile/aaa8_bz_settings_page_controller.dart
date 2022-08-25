@@ -174,8 +174,8 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Can Not Delete This Account',
-    bodyVerse: 'Only $_creatorAuthorsString can delete this Account',
+    titleVerse:  '##Can Not Delete This Account',
+    bodyVerse:  '##Only $_creatorAuthorsString can delete this Account',
   );
 
 }

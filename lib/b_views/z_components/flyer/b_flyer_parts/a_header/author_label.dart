@@ -111,12 +111,12 @@ class AuthorLabel extends StatelessWidget {
         :
     showLabel == true ?
     '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
-        '${xPhrase(context, 'phid_flyers')}'
+        '${xPhrase( context, 'phid_flyers')}'
         :
     '${Numeric.formatNumToCounterCaliber(context, _followersCount)} '
-        '${xPhrase(context, 'phid_followers')} . '
+        '${xPhrase( context, 'phid_followers')} . '
         '$_galleryCountCalibrated '
-        '${xPhrase(context, 'phid_flyers')}';
+        '${xPhrase( context, 'phid_flyers')}';
 // -----------------------------------------------------------------------------
 //     final double _authorImageCorners = getAuthorImageCorners(
 //       flyerBoxWidth: flyerBoxWidth,

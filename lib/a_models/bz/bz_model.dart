@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -679,14 +678,14 @@ class BzModel{
     /// NOUN
     if (nounTranslation == true){
       return
-        bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDevelopment') :
-        bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokerage') :
-        bzType == BzType.designer ? xPhrase(context, 'phid_design') :
-        bzType == BzType.contractor ? xPhrase(context, 'phid_contracting') :
-        bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
-        bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturing') :
-        bzType == BzType.supplier ? xPhrase(context, 'phid_supplying') :
-        'Builders';
+        bzType == BzType.developer ?    'phid_realEstateDevelopment' :
+        bzType == BzType.broker ?       'phid_realEstateBrokerage' :
+        bzType == BzType.designer ?     'phid_design' :
+        bzType == BzType.contractor ?   'phid_contracting' :
+        bzType == BzType.artisan ?      'phid_tradesmanship' :
+        bzType == BzType.manufacturer ? 'phid_manufacturing' :
+        bzType == BzType.supplier ?     'phid_supplying' :
+        '##Builders';
     }
 
     /// NOT NOUN
@@ -695,27 +694,27 @@ class BzModel{
       /// PLURAL
       if (pluralTranslation == true){
         return
-          bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDevelopers') :
-          bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBrokers') :
-          bzType == BzType.designer ? xPhrase(context, 'phid_designers') :
-          bzType == BzType.contractor ? xPhrase(context, 'phid_contractors') :
-          bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
-          bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturers') :
-          bzType == BzType.supplier ? xPhrase(context, 'phid_supplier') :
-          'Builders';
+          bzType == BzType.developer ?    'phid_realEstateDevelopers' :
+          bzType == BzType.broker ?       'phid_realEstateBrokers' :
+          bzType == BzType.designer ?     'phid_designers' :
+          bzType == BzType.contractor ?   'phid_contractors' :
+          bzType == BzType.artisan ?      'phid_tradesmanship' :
+          bzType == BzType.manufacturer ? 'phid_manufacturers' :
+          bzType == BzType.supplier ?     'phid_supplier' :
+          '##Builders';
       }
 
       /// SINGLE
       else {
         return
-          bzType == BzType.developer ? xPhrase(context, 'phid_realEstateDeveloper') :
-          bzType == BzType.broker ? xPhrase(context, 'phid_realEstateBroker') :
-          bzType == BzType.designer ? xPhrase(context, 'phid_designer') :
-          bzType == BzType.contractor ? xPhrase(context, 'phid_contractor') :
-          bzType == BzType.artisan ? xPhrase(context, 'phid_tradesmanship') :
-          bzType == BzType.manufacturer ? xPhrase(context, 'phid_manufacturer') :
-          bzType == BzType.supplier ? xPhrase(context, 'phid_suppliers') :
-          'Builder';
+          bzType == BzType.developer ?    'phid_realEstateDeveloper' :
+          bzType == BzType.broker ?       'phid_realEstateBroker' :
+          bzType == BzType.designer ?     'phid_designer' :
+          bzType == BzType.contractor ?   'phid_contractor' :
+          bzType == BzType.artisan ?      'phid_tradesmanship' :
+          bzType == BzType.manufacturer ? 'phid_manufacturer' :
+          bzType == BzType.supplier ?     'phid_suppliers' :
+          '##Builder';
       }
 
     }
@@ -800,16 +799,18 @@ class BzModel{
     return _output;
   }
 
-  static String translateBzTypeAskHint (BuildContext context, BzType bzType){
+  static String translateBzTypeAskHint(BuildContext context, BzType bzType){
+
     final String _askHint =
-    bzType == BzType.developer ? xPhrase(context, 'phid_askHint_developer') :
-    bzType == BzType.broker ? xPhrase(context, 'phid_askHint_broker') :
-    bzType == BzType.manufacturer ? xPhrase(context, 'phid_askHint_manufacturer') :
-    bzType == BzType.supplier ? xPhrase(context, 'phid_askHint_supplier') :
-    bzType == BzType.designer ? xPhrase(context, 'phid_askHint_designer') :
-    bzType == BzType.contractor ? xPhrase(context, 'phid_askHint_contractor') :
-    bzType == BzType.artisan ? xPhrase(context, 'phid_askHint_artisan') :
-    xPhrase(context, 'phid_askHint');
+    bzType == BzType.developer ?    'phid_askHint_developer' :
+    bzType == BzType.broker ?       'phid_askHint_broker' :
+    bzType == BzType.manufacturer ? 'phid_askHint_manufacturer' :
+    bzType == BzType.supplier ?     'phid_askHint_supplier' :
+    bzType == BzType.designer ?     'phid_askHint_designer' :
+    bzType == BzType.contractor ?   'phid_askHint_contractor' :
+    bzType == BzType.artisan ?      'phid_askHint_artisan' :
+    'phid_askHint';
+
     return _askHint;
   }
 // -----------------------------------------------------------------------------
@@ -1062,11 +1063,11 @@ class BzModel{
   }){
 
     if (bzForm == BzForm.company){
-      return xPhrase(context, 'phid_company');
+      return 'phid_company';
     }
 
     else if (bzForm == BzForm.individual){
-      return xPhrase(context, 'phid_professional');
+      return 'phid_professional';
     }
 
     else {

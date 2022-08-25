@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
@@ -117,7 +116,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
 
           unawaited(WaitDialog.showWaitDialog(
             context: context,
-            loadingVerse: xPhrase(context, '##Loading, please wait'),
+            loadingVerse: '##Loading, please wait',
           ));
 
           final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -267,10 +266,10 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
-      pageTitleVerse: xPhrase(context, 'phid_select_a_country'),
+      pageTitleVerse: 'phid_select_a_country',
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHintVerse: xPhrase(context, 'phid_search_countries'),
+      searchHintVerse: 'phid_search_countries',
       loading: _loading,
       layoutWidget: Scroller(
         child: ValueListenableBuilder(

@@ -40,7 +40,7 @@ abstract class RealHttp{
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Something went wrong',
+      titleVerse: '##Something went wrong',
       bodyVerse: error,
       color: Colorz.red255,
     );

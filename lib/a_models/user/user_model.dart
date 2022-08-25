@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -1152,7 +1151,7 @@ class UserModel {
     @required UserTab userTab,
   }){
     final String _tabPhraseID = _userTabPhraseID(userTab);
-    return xPhrase(context, _tabPhraseID);
+    return _tabPhraseID;
   }
 // -----------------------------------
   static int getUserTabIndex(UserTab userTab){

@@ -297,8 +297,8 @@ Future<void> _addImagesForExistingFlyer({
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Max. Images reached',
-    bodyVerse: 'Can not add more than $maxLength images in one slide',
+    titleVerse:  '##Max. Images reached',
+    bodyVerse:  '##Can not add more than $maxLength images in one slide',
   );
 }
 // ----------------------------------
@@ -370,7 +370,7 @@ Future<void> onMoreTap({
         /// DELETE
         BottomDialog.wideButton(
           context: context,
-          verse: xPhrase(context, 'phid_delete'),
+          verse: 'phid_delete',
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -384,7 +384,7 @@ Future<void> onMoreTap({
         /// SAVE DRAFT
         BottomDialog.wideButton(
           context: context,
-          verse: xPhrase(context, '##Save Draft'),
+          verse: '##Save Draft',
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -398,7 +398,7 @@ Future<void> onMoreTap({
         /// PUBLISH
         BottomDialog.wideButton(
           context: context,
-          verse: xPhrase(context, '##Publish'),
+          verse: '##Publish',
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -445,7 +445,7 @@ String flyerHeadlineValidator({
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
   if(val.length >= Standards.flyerHeadlineMaxLength){
-    return 'Only ${Standards.flyerHeadlineMaxLength} characters allowed for the flyer title';
+    return '##Only ${Standards.flyerHeadlineMaxLength} characters allowed for the flyer title';
   }
 
   /// WHEN HEADLINE LENGTH IS OK

@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -420,7 +421,7 @@ static String superUserID() {
   on Exception catch (error) {
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Trouble Signing out',
+      titleVerse: '#Trouble Signing out',
       bodyVerse: error,
     );
   }

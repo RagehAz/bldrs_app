@@ -26,7 +26,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Dialogs {
 // -----------------------------------------------------------------------------
@@ -48,60 +47,60 @@ class Dialogs {
   /// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
   static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
       /// SIGN IN ERROR
       <String, dynamic>{
         'error': '[firebase_auth/user-not-found]', // There is no user record corresponding to this identifier. The user may have been deleted.',
-        'reply': xPhrase(context, 'phid_emailNotFound', phrasePro: _phraseProvider),
+        'reply': 'phid_emailNotFound',
       },
       <String, dynamic>{
         'error': '[firebase_auth/network-request-failed]', // A network error (such as timeout, interrupted connection or unreachable host) has occurred.',
-        'reply': xPhrase(context, 'phid_no_internet_connection', phrasePro: _phraseProvider),
+        'reply': 'phid_no_internet_connection',
       },
       <String, dynamic>{
         'error':
         '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-        'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
+        'reply': 'phid_emailWrong',
       },
       <String, dynamic>{
         'error': '[firebase_auth/wrong-password]', // The password is invalid or the user does not have a password.',
-        'reply': xPhrase(context, 'phid_wrongPassword', phrasePro: _phraseProvider),
+        'reply': 'phid_wrongPassword',
 
         /// TASK : should link accounts authentication
       },
       <String, dynamic>{
         'error': '[firebase_auth/too-many-requests]', // We have blocked all requests from this device due to unusual activity. Try again later.',
-        'reply': xPhrase(context, 'phid_too_many_fails_error', phrasePro: _phraseProvider),
+        'reply': 'phid_too_many_fails_error',
 
         /// TASK : should link accounts authentication and delete this dialog
       },
       <String, dynamic>{
         'error': 'PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)',
-        'reply': xPhrase(context, 'phid_could_not_sign_by_google', phrasePro: _phraseProvider),
+        'reply': 'phid_could_not_sign_by_google',
       },
 
       /// REGISTER ERRORS
       <String, dynamic>{
         'error': '[firebase_auth/email-already-in-use]', // The email address is already in use by another account.',
-        'reply': xPhrase(context, 'phid_emailAlreadyRegistered', phrasePro: _phraseProvider),
+        'reply': 'phid_emailAlreadyRegistered',
       },
       <String, dynamic>{
         'error': '[firebase_auth/invalid-email]', // The email address is badly formatted.',
-        'reply': xPhrase(context, 'phid_emailWrong', phrasePro: _phraseProvider),
+        'reply': 'phid_emailWrong',
       },
 
       /// NETWORK ERRORS
       <String, dynamic>{
         'error': '[cloud_firestore/unavailable]', // The service is currently unavailable. This is a most likely a transient condition and may be corrected by retrying with a backoff.
-        'reply': 'Network is unresponsive, please try again',
+        'reply': '##Network is unresponsive, please try again',
       },
 
       /// SHARED ERRORS
       <String, dynamic>{
         'error': null,
-        'reply': xPhrase(context, 'phid_somethingIsWrong', phrasePro: _phraseProvider),
+        'reply': 'phid_somethingIsWrong',
       },
     ];
 
@@ -119,7 +118,7 @@ class Dialogs {
         _errorReply = map['reply'];
         break;
       } else {
-        _errorReply = xPhrase(context, 'phid_something_went_wrong_error', phrasePro: _phraseProvider);
+        _errorReply = 'phid_something_went_wrong_error';
       }
     }
 
@@ -130,7 +129,7 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
+      titleVerse: 'phid_a_could_not_continue_title',
       bodyVerse: _errorReply,
     );
   }
@@ -154,14 +153,14 @@ class Dialogs {
 
           return <Widget>[
 
-            SuperVerse(
-              verse: xPhrase(context, '##Please confirm your city'),
+            const SuperVerse(
+              verse: '##Please confirm your city',
             ),
 
             ...List<Widget>.generate(cities.length, (int index) {
 
               final CityModel _foundCity = cities[index];
-              final String _foundCityName = xPhrase(context, _foundCity.cityID);
+              final String _foundCityName = _foundCity.cityID;
 
               return BottomDialog.wideButton(
                   context: context,
@@ -198,7 +197,7 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: xPhrase(context, '##Enter Your password'),
+      titleVerse: '##Enter Your password',
       height: Scale.superScreenHeight(context) * 0.6,
       onOk: () async {
 
@@ -211,7 +210,6 @@ class Dialogs {
         passwordController: _password,
         showPasswordOnly: true,
         passwordValidator: () => passwordValidation(
-          context: context,
           password: _password.text,
         ),
         passwordConfirmationController: null,
@@ -314,7 +312,7 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: xPhrase(context, '##Proceed ?'),
+      titleVerse: '##Proceed ?',
       // body: body,
       boolDialog: true,
     );
@@ -480,7 +478,7 @@ class Dialogs {
       context: context,
       titleVerse: title,
       bodyVerse: body,
-      confirmButtonVerse: xPhrase(context, '##Cancel'),
+      confirmButtonVerse: '##Cancel',
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),

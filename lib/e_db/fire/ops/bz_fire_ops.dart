@@ -603,7 +603,7 @@ class BzFireOps {
             /// INAPPROPRIATE CONTENT
             BottomDialog.wideButton(
                 context: context,
-                verse: xPhrase(context, '##This Account published Inappropriate content'),
+                verse: '##This Account published Inappropriate content',
                 onTap: (){
                   _feedback = 'This Account published Inappropriate content';
                   Nav.goBack(
@@ -616,7 +616,7 @@ class BzFireOps {
             /// COPY RIGHTS
             BottomDialog.wideButton(
                 context: context,
-                verse: xPhrase(context, '##This Account violates copyrights'),
+                verse: '##This Account violates copyrights',
                 onTap: (){
                   _feedback = 'This Account violates copyrights';
                   Nav.goBack(
@@ -650,10 +650,10 @@ class BzFireOps {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: 'Thanks a Million',
-          bodyVerse: 'We will look into this matter and take the necessary '
+          titleVerse:  '##Thanks a Million',
+          bodyVerse:  '##We will look into this matter and take the necessary '
               'action as soon as possible\n Thank you for helping out',
-          confirmButtonVerse: 'Most Welcome',
+          confirmButtonVerse:  '##Most Welcome',
         );
 
       }

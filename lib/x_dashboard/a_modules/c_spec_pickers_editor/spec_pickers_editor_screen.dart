@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/picker_group/b_pickers_group_headline.dart';
@@ -106,7 +105,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: 'Phrases Editor',
+      pageTitleVerse: '##Phrases Editor',
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,

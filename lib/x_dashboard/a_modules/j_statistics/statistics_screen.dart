@@ -107,7 +107,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_businesses'),
+                  verse: 'phid_businesses',
                   count: _numberOfBzz,
                   icon: Iconz.bz,
                   iconSizeFactor: 0.95,
@@ -115,7 +115,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_flyers'),
+                  verse: 'phid_flyers',
                   count: _numberOfFlyers,
                   icon: Iconz.gallery,
                   iconSizeFactor: 0.8,
@@ -123,7 +123,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_slides'),
+                  verse: 'phid_slides',
                   count: _numberOfSlides,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -137,8 +137,8 @@ class GeneralStatistics extends StatelessWidget {
                   // margin: EdgeInsets.only(top: screenWidth * 0.05),
                 ),
 
-                SuperVerse(
-                  verse: xPhrase(context, 'phid_bz_statistics'),
+                const SuperVerse(
+                  verse: 'phid_bz_statistics',
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -149,7 +149,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_realtors'),
+                  verse: 'phid_realtors',
                   count: 0,
                   icon: Iconz.bxPropertiesOn,
                   iconSizeFactor: 0.95,
@@ -157,7 +157,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, Chain.propertyChainID),
+                  verse: Chain.propertyChainID,
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -175,7 +175,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_designers'),
+                  verse: 'phid_designers',
                   count: 0,
                   icon: Iconz.bxDesignsOn,
                   iconSizeFactor: 0.95,
@@ -183,7 +183,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, Chain.designChainID),
+                  verse: Chain.designChainID,
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -201,7 +201,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_suppliers'),
+                  verse: 'phid_suppliers',
                   count: 0,
                   icon: Iconz.bxEquipmentOn,
                   iconSizeFactor: 0.95,
@@ -209,7 +209,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, Chain.productChainID),
+                  verse: Chain.productChainID,
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -217,7 +217,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, Chain.equipmentChainID),
+                  verse: Chain.equipmentChainID,
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -235,7 +235,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_contractors'),
+                  verse: 'phid_contractors',
                   count: 0,
                   icon: Iconz.bxProjectsOn,
                   iconSizeFactor: 0.95,
@@ -243,7 +243,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_project'),
+                  verse: 'phid_k_flyer_type_project',
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -261,7 +261,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_tradesmanship'),
+                  verse: 'phid_tradesmanship',
                   count: 0,
                   icon: Iconz.bxTradesOn,
                   iconSizeFactor: 0.95,
@@ -269,7 +269,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_k_flyer_type_trade'),
+                  verse: 'phid_k_flyer_type_trade',
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -285,7 +285,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse:  '${xPhrase(context, 'phid_engagement_rates')} :-',
+                  verse:  '${xPhrase( context, 'phid_engagement_rates')} :-',
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -296,7 +296,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_totalSaves'), // Wordz.saves
+                  verse: 'phid_totalSaves', // Wordz.saves
                   count: 0,
                   icon: Iconz.saveOn,
                   iconSizeFactor: 0.8,
@@ -304,7 +304,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_views'),
+                  verse: 'phid_views',
                   count: 0,
                   icon: Iconz.viewsIcon,
                   iconSizeFactor: 0.8,
@@ -312,7 +312,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_totalShares'), // Wordz.shares
+                  verse: 'phid_totalShares', // Wordz.shares
                   count: 0,
                   icon: Iconz.share,
                   iconSizeFactor: 0.8,
@@ -320,7 +320,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_followers'),
+                  verse: 'phid_followers',
                   count: 0,
                   icon: Iconz.follow,
                   iconSizeFactor: 0.8,
@@ -328,7 +328,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_bldrsConnected'),
+                  verse: 'phid_bldrsConnected',
                   count: 0,
                   icon: Iconz.handShake,
                   iconSizeFactor: 0.9,
@@ -336,7 +336,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: xPhrase(context, 'phid_contact_me_clicks'),
+                  verse: 'phid_contact_me_clicks',
                   count: 0,
                   icon: Iconz.comPhone,
                   iconSizeFactor: 0.8,

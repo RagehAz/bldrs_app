@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -169,7 +167,7 @@ Future<void> onAddScopesTap({
       flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
       onlyUseCityChains: false,
       isMultipleSelectionMode: true,
-      pageTitleVerse: xPhrase(context, '##Select keywords'),
+      pageTitleVerse: '##Select keywords',
       selectedSpecs: selectedScopes.value,
       onlyChainKSelection: true,
     ),
@@ -189,10 +187,10 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Reset Scope',
-    bodyVerse: 'This will delete all selected business scope keywords',
+    titleVerse:  '##Reset Scope',
+    bodyVerse:  '##This will delete all selected business scope keywords',
     boolDialog: true,
-    confirmButtonVerse: 'Reset',
+    confirmButtonVerse:  '##Reset',
 
   );
 
@@ -247,8 +245,8 @@ Future<void> onBzEditsConfirmTap({
     /// REQUEST CONFIRMATION
     final bool _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '',
-      bodyVerse: 'Are you sure you want to continue ?',
+      titleVerse:  '',
+      bodyVerse:  '##Are you sure you want to continue ?',
       boolDialog: true,
     );
 
@@ -294,8 +292,8 @@ Future<bool> _validateInputs({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Please check your inputs',
-      bodyVerse: 'Some fields might require more info to be able to continue',
+      titleVerse:  '##Please check your inputs',
+      bodyVerse:  '##Some fields might require more info to be able to continue',
     );
 
   }
@@ -312,8 +310,8 @@ Future<bool> _validateInputs({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Complete Your Business profile',
-      bodyVerse: 'Required fields :\n''$_missingFieldsString',
+      titleVerse:  '##Complete Your Business profile',
+      bodyVerse:  '##Required fields :\n''$_missingFieldsString',
     );
 
     // _inputsAreValid = false;

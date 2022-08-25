@@ -2,9 +2,8 @@ import 'package:bldrs/a_models/bz/target/target_model.dart';
 import 'package:bldrs/a_models/bz/target/target_progress.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/target_progress_bar.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -77,8 +76,8 @@ class TargetCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
-                SuperVerse(
-                  verse: xPhrase(context, '##Instructions'),
+                const SuperVerse(
+                  verse: '##Instructions',
                   size: 3,
                   color: Colorz.blue255,
                   italic: true,
@@ -112,7 +111,7 @@ class TargetCard extends StatelessWidget {
               child: DreamBox(
                 width: _bubbleClearWidth,
                 height: 70,
-                verse: xPhrase(context, '##CLAIM ${target.reward.slides} Slides '),
+                verse: '##CLAIM ${target.reward.slides} Slides ',
                 verseWeight: VerseWeight.black,
                 verseItalic: true,
                 color: Colorz.yellow255,

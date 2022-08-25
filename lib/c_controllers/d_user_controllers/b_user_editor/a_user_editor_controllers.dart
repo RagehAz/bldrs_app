@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -8,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -210,7 +210,7 @@ Future<UserModel> _updateUserModel({
   loading.value = true;
   unawaited(WaitDialog.showWaitDialog(
     context: context,
-    loadingVerse: xPhrase(context, '##Updating Profile'),
+    loadingVerse: '##Updating Profile',
   ));
 
   /// start create user ops
@@ -225,8 +225,8 @@ Future<UserModel> _updateUserModel({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Great !',
-    bodyVerse: 'Successfully updated your user account',
+    titleVerse:  '##Great !',
+    bodyVerse:  '##Successfully updated your user account',
   );
 
   return _uploadedUserModel;

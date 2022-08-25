@@ -1,10 +1,9 @@
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -145,7 +144,7 @@ class InfoPageSpecs extends StatelessWidget {
 
               final PickerModel _specPicker = _flyerSpecsPickers[index];
 
-              final String _pickerName = xPhrase(context, _specPicker?.chainID);
+              final String _pickerName = _specPicker?.chainID;
 
               // blog('_pickerName is : $_pickerName');
 

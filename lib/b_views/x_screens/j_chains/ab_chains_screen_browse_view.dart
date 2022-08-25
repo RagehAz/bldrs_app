@@ -80,11 +80,11 @@ class ChainsScreenBrowseView extends StatelessWidget {
                     // ---------------------
                     final String _instruction =
                     onlyUseCityChains == true ?
-                        xPhrase(context, '##Showing only keywords used in'
+                        xPhrase( context, '##Showing only keywords used in'
                         '\n${_zone.cityName}, ${_zone.countryName}.'
                         '$_flyerTypesStringWithNewLineIfNotNull')
                             :
-                    xPhrase(context, '##Showing All keywords in Bldrs.net'
+                    xPhrase( context, '##Showing All keywords in Bldrs.net'
                         '\n$_flyerTypesString');
                     // ---------------------
                     final String _icon = onlyUseCityChains == true ?
@@ -136,8 +136,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
           width: Scale.superScreenWidth(context),
           height: Scale.superScreenHeight(context),
           padding: Scale.superMargins(margins: 20),
-          child: SuperVerse(
-            verse: xPhrase(context, '##No Available Flyers in This City yet'),
+          child: const SuperVerse(
+            verse: '##No Available Flyers in This City yet',
             weight: VerseWeight.black,
             italic: true,
             size: 3,

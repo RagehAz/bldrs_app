@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_head
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_fields.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -96,7 +95,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_follows'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.follows,
-                verse: xPhrase(context, 'phid_followers'),
+                verse: 'phid_followers',
                 icon: Iconz.follow,
                 iconSizeFactor: 0.8,
               ),
@@ -106,7 +105,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_calls'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.calls,
-                verse: xPhrase(context, 'phid_callsReceived'),
+                verse: 'phid_callsReceived',
                 icon: Iconz.comPhone,
                 iconSizeFactor: 0.8,
               ),
@@ -116,7 +115,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_flyers'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: bzModel.flyersIDs.length,
-                verse: xPhrase(context, '##Published flyers'),
+                verse: '##Published flyers',
                 icon: Iconz.gallery,
                 iconSizeFactor: 0.85,
               ),
@@ -126,7 +125,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_slides'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.allSlides,
-                verse: xPhrase(context, 'phid_slidesPublished'),
+                verse: 'phid_slidesPublished',
                 icon: Iconz.flyerScale,
                 iconSizeFactor: 0.85,
               ),
@@ -136,7 +135,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_views'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.allViews,
-                verse: xPhrase(context, 'phid_totalViews'),
+                verse: 'phid_totalViews',
                 icon: Iconz.viewsIcon,
                 iconSizeFactor: 0.85,
               ),
@@ -146,7 +145,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_shares'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.allShares,
-                verse: xPhrase(context, 'phid_totalShares'),
+                verse: 'phid_totalShares',
                 icon: Iconz.share,
                 iconSizeFactor: 0.85,
               ),
@@ -156,7 +155,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_saves'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter.allSaves,
-                verse: xPhrase(context, 'phid_totalSaves'),
+                verse: 'phid_totalSaves',
                 icon: Iconz.saveOn,
                 iconSizeFactor: 0.95,
               ),

@@ -76,8 +76,8 @@ Future<bool> _preSyncCheckups({
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
     height: 600,
-    titleVerse: 'Chains Differences',
-    bodyVerse: 'Below is a comparison result of Chain changed\n'
+    titleVerse:  'Chains Differences',
+    bodyVerse:  'Below is a comparison result of Chain changed\n'
         'Wish to upload the edited Chain',
     boolDialog: true,
     child: BubbleBulletPoints(
@@ -256,8 +256,8 @@ Future<void> onAddNewPath ({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Delete $phid ?',
-      bodyVerse: 'this path will be deleted :-'
+      titleVerse:  'Delete $phid ?',
+      bodyVerse:  'this path will be deleted :-'
           '\n[ $path ]',
       boolDialog: true,
     );
@@ -301,8 +301,8 @@ Future<void> onEditPhid({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       height: 500,
-      titleVerse: 'Edit this path ?',
-      bodyVerse: 'old\n$path'
+      titleVerse:  'Edit this path ?',
+      bodyVerse:  'old\n$path'
           '\n\n'
           'new\n$_typedPath',
       boolDialog: true,

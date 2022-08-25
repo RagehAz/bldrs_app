@@ -13,7 +13,6 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -142,9 +141,9 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 ),
                                 alignment: Alignment.topCenter,
                                 child: SuperTextField(
-                                  titleVerse: xPhrase(context, '##Flyer Slide Headline'),
+                                  titleVerse: '##Flyer Slide Headline',
                                   // key: ValueKey<String>('slide$slideIndex'),
-                                  hintVerse: xPhrase(context, '##T i t l e'),
+                                  hintVerse: '##T i t l e',
                                   width: _flyerBoxWidth,
                                   // height: flyerBoxWidth * 0.15,
                                   fieldColor: Colorz.black80,

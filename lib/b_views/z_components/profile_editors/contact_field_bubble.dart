@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:clipboard/clipboard.dart';
@@ -170,7 +169,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
-                titleVerse: xPhrase(context, '##Contact'),
+                titleVerse: '##Contact',
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,
@@ -192,7 +191,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 DreamBox(
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
-                  verse:  '${xPhrase(context, 'phid_paste')}  ',
+                  verse:  'phid_paste  ',
                   verseScaleFactor: 0.5,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,

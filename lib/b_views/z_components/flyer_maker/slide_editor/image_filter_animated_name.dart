@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +37,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
                     )
                 ),
                 child: SuperVerse(
-                  verse: xPhrase(context, _filterModel.id).toUpperCase(),
+                  verse: _filterModel.id.toUpperCase(),
                   maxLines: 3,
                   weight: VerseWeight.black,
                   italic: true,

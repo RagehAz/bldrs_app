@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -68,7 +67,7 @@ class WaitDialog extends StatelessWidget {
                 children: <Widget>[
 
                   SuperVerse(
-                    verse: xPhrase(context, 'phid_loading').toUpperCase(),
+                    verse: 'phid_loading'.toUpperCase(),
                     size: 5,
                     scaleFactor: 2,
                     shadow: true,

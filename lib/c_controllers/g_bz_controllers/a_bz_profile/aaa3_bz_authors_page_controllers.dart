@@ -79,7 +79,7 @@ Future<void> onAuthorOptionsTap({
     /// CHANGE ROLE
     BottomDialog.wideButton(
       context: context,
-      verse: xPhrase(context, '##Change team role for $_authorName'),
+      verse: '##Change team role for $_authorName',
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
@@ -106,7 +106,7 @@ Future<void> onAuthorOptionsTap({
     /// EDIT AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: xPhrase(context, '##Edit $_authorName Author details'),
+      verse: '##Edit $_authorName Author details',
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
@@ -133,7 +133,7 @@ Future<void> onAuthorOptionsTap({
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: xPhrase(context, '##Remove $_authorName from the team'),
+      verse: '##Remove $_authorName from the team',
       icon: Iconz.xSmall,
       isDeactivated: _canRemoveAuthor == false,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
@@ -193,8 +193,8 @@ Future<void> onDeleteAuthorFromBz({
   if (showConfirmationDialog == true){
     _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Remove ${authorModel.name} ?',
-      bodyVerse: '${authorModel.name} and all his published flyers will be deleted as well',
+      titleVerse:  '##Remove ${authorModel.name} ?',
+      bodyVerse:  '##${authorModel.name} and all his published flyers will be deleted as well',
       boolDialog: true,
     );
   }
@@ -247,8 +247,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'You can not remove ${authorModel.name}',
-    bodyVerse: 'Only Account Admins can remove other team members,\n'
+    titleVerse:  '##You can not remove ${authorModel.name}',
+    bodyVerse:  '##Only Account Admins can remove other team members,\n'
         'however you can remove only yourself from this business account',
   );
 
@@ -284,7 +284,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Removing ${authorModel.name}'),
+        loadingVerse: '##Removing ${authorModel.name}',
       ));
     }
 
@@ -350,11 +350,11 @@ Future<bool> _showDeleteAllAuthorFlyers({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Delete All Flyers',
-    bodyVerse: '${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
+    titleVerse:  '##Delete All Flyers',
+    bodyVerse:  '##${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
     height: 400,
     boolDialog: true,
-    confirmButtonVerse: 'Delete All Flyers And Remove ${authorModel.name}',
+    confirmButtonVerse:  '##Delete All Flyers And Remove ${authorModel.name}',
     child: Container(
       width: CenterDialog.getWidth(context),
       height: 200,
@@ -456,8 +456,8 @@ Future<void> _onShowCanNotEditAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'You can not Edit ${authorModel.name}',
-    bodyVerse: 'Only ${authorModel.name} can edit his Author detail',
+    titleVerse:  '##You can not Edit ${authorModel.name}',
+    bodyVerse:  '##Only ${authorModel.name} can edit his Author detail',
   );
 
 }
@@ -494,8 +494,8 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'You can not Change team member roles',
-    bodyVerse: 'Only Account Admins can change the roles of other team members',
+    titleVerse:  '##You can not Change team member roles',
+    bodyVerse:  '##Only Account Admins can change the roles of other team members',
   );
 
 }

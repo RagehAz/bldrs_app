@@ -50,14 +50,12 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 // -----------------------------------------------------------------------------
   String _validateEmail(){
     return emailValidation(
-        context: context,
         val: _emailController.text,
     );
   }
 // -----------------------------------------------------------------------------
   String _validatePassword(){
     return passwordValidation(
-        context: context,
         password: _passwordController.text,
     );
   }

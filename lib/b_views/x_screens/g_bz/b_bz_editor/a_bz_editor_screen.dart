@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/b_bz_editor/a_bz_editor_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -198,13 +197,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: widget.firstTimer == true ?
-      xPhrase(context, 'phid_createBzAccount')
+      'phid_createBzAccount'
           :
-      xPhrase(context, 'phid_edit_bz_info'), // createBzAccount
+      'phid_edit_bz_info', // createBzAccount
       // appBarBackButton: true,
       confirmButtonModel: ConfirmButtonModel(
-          firstLine: 'Confirm',
-          secondLine: widget.firstTimer == true ? 'Create new business profile' : 'Update business profile',
+          firstLine: '##Confirm',
+          secondLine: widget.firstTimer == true ? '##Create new business profile' : '##Update business profile',
           onTap: () => onBzEditsConfirmTap(
             context: context,
             formKey: _formKey,

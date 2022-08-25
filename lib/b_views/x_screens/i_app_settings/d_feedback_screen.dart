@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -91,15 +90,15 @@ class _FeedBackState extends State<FeedBack> {
     if (_ref == null){
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: xPhrase(context, '##Not Sent'),
-        bodyVerse: xPhrase(context, '##Sorry !, something went wrong'),
+        titleVerse: '##Not Sent',
+        bodyVerse: '##Sorry !, something went wrong',
       );
     }
     else {
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: xPhrase(context, '##Thanks'),
-        bodyVerse: xPhrase(context, '##FeedBack sent'),
+        titleVerse: '##Thanks',
+        bodyVerse: '##FeedBack sent',
       );
     }
 
@@ -123,7 +122,7 @@ class _FeedBackState extends State<FeedBack> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
-      pageTitleVerse: xPhrase(context, '##About Bldrs.net'),
+      pageTitleVerse: '##About Bldrs.net',
       skyType: SkyType.non,
       // loading: _loading,
       layoutWidget: ListView(
@@ -131,8 +130,8 @@ class _FeedBackState extends State<FeedBack> {
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 
-          SuperVerse(
-            verse: xPhrase(context, '##Your opinion Matters !'),
+          const SuperVerse(
+            verse: '##Your opinion Matters !',
             margin: 10,
             color: Colorz.yellow255,
           ),
@@ -141,8 +140,8 @@ class _FeedBackState extends State<FeedBack> {
             child: Container(
               width: Scale.superScreenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
-              child: SuperVerse(
-                verse: xPhrase(context, '##Tell us what you think about Bldrs.net, or what upgrades you might think of'),
+              child: const SuperVerse(
+                verse: '##Tell us what you think about Bldrs.net, or what upgrades you might think of',
                 margin: 5,
                 maxLines: 3,
                 size: 1,
@@ -158,7 +157,7 @@ class _FeedBackState extends State<FeedBack> {
           TextFieldBubble(
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
-            titleVerse: xPhrase(context, '##Feedback'),
+            titleVerse: '##Feedback',
             textController: _feedbackController,
             // loading: _loading,
             maxLines: 5,
@@ -172,7 +171,7 @@ class _FeedBackState extends State<FeedBack> {
           DreamBox(
             height: 50,
             width: 200,
-            verse: xPhrase(context, '##Send'),
+            verse: '##Send',
             verseColor: Colorz.black230,
             color: Colorz.yellow255,
             verseScaleFactor: 0.6,

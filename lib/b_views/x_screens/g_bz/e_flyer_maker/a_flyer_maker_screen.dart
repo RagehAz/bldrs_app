@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/a_flyer_maker_controllers.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/aa_draft_shelf_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreen extends StatefulWidget {
@@ -127,7 +126,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitleVerse: widget.flyerToEdit == null ? xPhrase(context, 'phid_createFlyer') : 'Edit Flyer',
+      pageTitleVerse: widget.flyerToEdit == null ? 'phid_createFlyer' : '##Edit Flyer',
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
@@ -135,7 +134,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       sectionButtonIsOn: false,
       confirmButtonModel: ConfirmButtonModel(
           // isDeactivated: !_canPublish,
-          firstLine: _isEditingFlyer == true ? 'Update Flyer' : xPhrase(context, 'phid_publish'),
+          firstLine: _isEditingFlyer == true ? '##Update Flyer' : 'phid_publish',
           onTap: () async {
 
             if (_isEditingFlyer == true){
@@ -162,7 +161,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         const Expander(),
 
         AppBarButton(
-          verse: xPhrase(context, '##Identical'),
+          verse: '##Identical',
           onTap: (){
 
             FlyerModel.checkFlyersAreIdentical(
@@ -175,7 +174,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         ),
 
         AppBarButton(
-          verse: xPhrase(context, '##draft'),
+          verse: '##draft',
           onTap: (){
             widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
             _draftFlyer.value.blogDraft();

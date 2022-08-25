@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aa_chains_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/ab_chains_screen_browse_view.dart';
@@ -15,7 +15,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -228,9 +227,9 @@ class _ChainsScreenState extends State<ChainsScreen> {
           if (_specsChanged == true){
             _canContinue = await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: xPhrase(context, '##Discard Changes'),
-              bodyVerse: xPhrase(context, '##This will ignore All selection changes'),
-              confirmButtonVerse: xPhrase(context, '##Discard'),
+              titleVerse: '##Discard Changes',
+              bodyVerse: '##This will ignore All selection changes',
+              confirmButtonVerse: '##Discard',
               boolDialog: true,
             );
           }
@@ -245,7 +244,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
       },
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
-        firstLine: 'Confirm ${widget.pageTitleVerse}',
+        firstLine: '##Confirm ${widget.pageTitleVerse}',
         onTap: (){
           Nav.goBack(
             context: context,
@@ -276,7 +275,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
         _isSearching.value = false;
       },
       searchController: _searchTextController,
-      searchHintVerse: xPhrase(context, '##Search keywords'),
+      searchHintVerse: '##Search keywords',
       layoutWidget: Selector<ChainsProvider, Chain>(
         selector: _getProChain,
         // child: ,
@@ -285,11 +284,11 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
           /// WHILE LOADING CHAIN
           if (chain == null){
-            return Center(
+            return const Center(
               child: WidgetFader(
                 fadeType: FadeType.repeatAndReverse,
                 child: SuperVerse(
-                  verse: xPhrase(context, '##Loading\n Please Wait'),
+                  verse: '##Loading\n Please Wait',
                   weight: VerseWeight.black,
                   maxLines: 2,
                 ),
