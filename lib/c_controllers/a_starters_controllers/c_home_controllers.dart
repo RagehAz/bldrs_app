@@ -325,6 +325,7 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
       title: 'phid_sign',
+      translateTitle: true,
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
       iconSizeFactor: 0.6,
@@ -342,7 +343,8 @@ List<NavModel> generateMainNavModels({
     /// MY PROFILE
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-      title: userModel?.name ?? 'Complete my profile',
+      title: userModel?.name ?? 'phid_complete_my_profile',
+      translateTitle: userModel?.name == null,
       icon: userModel?.pic ?? Iconz.normalUser,
       screen: const UserProfileScreen(),
       iconSizeFactor: userModel?.pic == null ? 0.55 : 1,
@@ -354,7 +356,8 @@ List<NavModel> generateMainNavModels({
     /// SAVED FLYERS
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
-      title: 'Saved Flyers',
+      title: 'phid_saved_flyers',
+      translateTitle: true,
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
       canShow: AuthModel.userIsSignedIn() == true,
@@ -375,6 +378,7 @@ List<NavModel> generateMainNavModels({
               bzID: _bzModel.id,
           ),
           title: _bzModel.name,
+          translateTitle: false,
           icon: _bzModel.logo,
           iconSizeFactor: 1,
           iconColor: Colorz.nothing,
@@ -406,6 +410,7 @@ List<NavModel> generateMainNavModels({
           context: context,
           zone: currentZone
       ),
+      translateTitle: false,
     ),
 
     /// SEPARATOR
@@ -413,7 +418,8 @@ List<NavModel> generateMainNavModels({
 
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.settings),
-      title: 'Settings',
+      title: 'phid_settings',
+      translateTitle: true,
       icon: Iconz.more,
       screen: const AppSettingsScreen(),
       iconSizeFactor: 0.6,
