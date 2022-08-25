@@ -1002,7 +1002,7 @@ class Phrase {
   static bool isKeywordPhid(String phid){
     final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: phid,
-      numberOfCharacters: 7, //'phid_k'
+      numberOfChars: 7, //'ph id _k_'
     );
     return _phidK == 'phid_k_';
   }
@@ -1010,7 +1010,7 @@ class Phrase {
   static bool isSpecPhid(String phid){
     final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: phid,
-      numberOfCharacters: 7, //'phid_s'
+      numberOfChars: 7, //'phid_s_'
     );
     return _phids == 'phid_s_';
   }

@@ -227,7 +227,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       pageTitleVerse: 'phid_updateProfile',
       loading: _loading,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: 'phid_updateProfile'.toUpperCase(),
+        firstLine: 'phid_updateProfile',
         onSkipTap: (){
 
           blog('skip');

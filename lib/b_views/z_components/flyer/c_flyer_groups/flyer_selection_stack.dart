@@ -120,7 +120,8 @@ class FlyerSelectionStack extends StatelessWidget {
               height: _flyerBoxHeight,
               alignment: Alignment.center,
               child: SuperVerse(
-                verse: '##SELECTED'.toUpperCase(),
+                verse: '##SELECTED',
+                verseCasing: VerseCasing.upperCase,
                 weight: VerseWeight.black,
                 italic: true,
                 scaleFactor: flyerBoxWidth / 100,

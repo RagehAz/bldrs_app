@@ -32,7 +32,6 @@ class WaitDialog extends StatelessWidget {
       ),
     );
 
-
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -66,8 +65,9 @@ class WaitDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
-                  SuperVerse(
-                    verse: 'phid_loading'.toUpperCase(),
+                  const SuperVerse(
+                    verse: 'phid_loading',
+                    verseCasing: VerseCasing.upperCase,
                     size: 5,
                     scaleFactor: 2,
                     shadow: true,

@@ -1,6 +1,10 @@
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -36,6 +40,7 @@ class SuperVerse extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
+    this.verseCasing,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -58,6 +63,7 @@ class SuperVerse extends StatelessWidget {
   final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
   final Color shadowColor;
+  final VerseCasing verseCasing;
   /// --------------------------------------------------------------------------
   static Widget dotVerse({String verse}) {
     return SuperVerse(
@@ -492,6 +498,7 @@ class SuperVerse extends StatelessWidget {
               highlight: highlight,
               highlightColor: highlightColor,
               strikeThrough: strikeThrough,
+              verseCasing: verseCasing,
             ),
 
             if (redDot == true)
@@ -656,6 +663,15 @@ class RedDot extends StatelessWidget {
   }
 }
 
+enum VerseCasing {
+  non,
+  upperCase,
+  lowerCase,
+  // Proper,
+  // upperCamelCase,
+  // lowerCamelCase,
+}
+
 class Verse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Verse({
@@ -673,6 +689,7 @@ class Verse extends StatelessWidget {
     this.strikeThrough = false,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
+    this.verseCasing,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -690,6 +707,7 @@ class Verse extends StatelessWidget {
   final bool strikeThrough;
   final Color highlightColor;
   final Color shadowColor;
+  final VerseCasing verseCasing;
   /// --------------------------------------------------------------------------
   static List<TextSpan> _generateTextSpans({
     @required String verse,
@@ -745,17 +763,86 @@ class Verse extends StatelessWidget {
     }
   }
 // -----------------------------------------------------------------------------
+  static String convertVerseCase({
+    @required String verse,
+    @required VerseCasing verseCasing,
+  }){
+
+    switch (verseCasing){
+      case VerseCasing.non:             return verse;                   break;
+      case VerseCasing.lowerCase:       return verse.toLowerCase();     break;
+      case VerseCasing.upperCase:       return verse.toUpperCase();     break;
+      // case VerseCasing.Proper:          return properVerse(verse);      break;
+      // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
+      // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
+      default: return verse;
+    }
+
+  }
+// -----------------------------------------------------------------------------
+  static String xFuckingSuperVerse({
+    @required BuildContext context,
+    @required String verse,
+    @required VerseCasing verseCasing,
+  }){
+
+    String _output = verse.trim();
+
+    /// ADJUST VALUE
+    if (Stringer.checkStringIsEmpty(_output) == false){
+
+      /// IS PHID
+      final bool _isPhid = TextChecker.checkVerseIsPhid(_output);
+      if (_isPhid == true){
+
+        final String _foundXPhrase = xPhrase(context, verse);
+
+        /// X PHRASE NOT FOUND
+        if (_foundXPhrase == null){
+          _output = 'x.$_output';
+        }
+
+        /// X PHRASE FOUND
+        else {
+          _output = '^$_foundXPhrase';
+        }
+
+      }
+
+      /// NOT NOT PHID
+      else {
+
+        /// IS TEMP
+        final bool _isTemp = TextChecker.checkVerseIsTemp(_output);
+        if (_isTemp == true){
+          _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
+          _output = '##.$_output';
+        }
+
+        /// NOT TEMP - NOT PHID
+        else {
+          _output = '>.$_output';
+        }
+
+      }
+
+    }
+
+    /// ADJUST CASING
+    return convertVerseCase(verse: _output, verseCasing: verseCasing);
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+// ------------------------------------
     final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
     final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-
+// ------------------------------------
     final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
     final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-
+// ------------------------------------
     final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
-
+// ------------------------------------
     final TextStyle _style = SuperVerse.createStyle(
       context: context,
       color: color,
@@ -766,7 +853,13 @@ class Verse extends StatelessWidget {
       scaleFactor: scaleFactor,
       strikeThrough: strikeThrough,
     );
-
+// ------------------------------------
+    final String _verse = xFuckingSuperVerse(
+      context: context,
+      verse: verse,
+      verseCasing: verseCasing,
+    );
+// ------------------------------------
     return Flexible(
       key: const ValueKey<String>('a_verse'),
       child: Container(
@@ -782,7 +875,7 @@ class Verse extends StatelessWidget {
         child:
         highlight == null ?
         Text(
-          verse,
+          _verse,
           softWrap: false,
           overflow: TextOverflow.ellipsis,
           maxLines: maxLines,
@@ -824,7 +917,7 @@ class Verse extends StatelessWidget {
                 text: TextSpan(
                   style: _style,
                   children: _generateTextSpans(
-                    verse: verse,
+                    verse: _verse,
                     highlighted: _highLightedText,
                     defaultStyle: _style,
                     highlightColor: highlightColor,

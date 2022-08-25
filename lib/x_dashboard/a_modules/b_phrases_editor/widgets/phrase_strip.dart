@@ -126,7 +126,8 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse:  'Edit'.toUpperCase(),
+                              verse:  'Edit',
+                              verseCasing: VerseCasing.upperCase,
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onEdit,
@@ -135,7 +136,8 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse:  'Delete'.toUpperCase(),
+                              verse:  'Delete',
+                              verseCasing: VerseCasing.upperCase,
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onDelete,
@@ -144,7 +146,8 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse:  'Select'.toUpperCase(),
+                              verse:  'Select',
+                              verseCasing: VerseCasing.upperCase,
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onSelect,

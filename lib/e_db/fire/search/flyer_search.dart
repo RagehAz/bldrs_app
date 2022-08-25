@@ -124,7 +124,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
         comparison: FireComparison.arrayContains,
         value: TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: title.trim(),
-          numberOfCharacters: Standards.maxTrigramLength,
+          numberOfChars: Standards.maxTrigramLength,
         )
       ),
       FireFinder(
