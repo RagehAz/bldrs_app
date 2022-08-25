@@ -44,77 +44,77 @@ class SpecializedLabs extends StatelessWidget {
 
       /// EMAIL SENDER
       DashButtonModel(
-        verse: 'email Test Screen',
+        verse:  'email Test Screen',
         icon: Iconz.comEmail,
         screen: EmailTestScreen(),
       ),
 
       /// IMAGES TEST SCREEN
       DashButtonModel(
-        verse: 'images Test Screen',
+        verse:  'images Test Screen',
         icon: Iconz.camera,
         screen: ImagesTestScreen(),
       ),
 
       /// CHAINS TEST SCREEN
       DashButtonModel(
-        verse: 'old Chains Manager',
+        verse:  'old Chains Manager',
         icon: Iconz.keyword,
         screen: OLDChainsManagerScreen(),
       ),
 
       /// DYNAMIC LINKS TEST
       DashButtonModel(
-        verse: 'Dynamic Links',
+        verse:  'Dynamic Links',
         icon: Iconz.reload,
         screen: DynamicLinksTestScreen(),
       ),
 
       /// THE GO BACK WIDGET
       DashButtonModel(
-        verse: 'ZONING WORK SPACE',
+        verse:  'ZONING WORK SPACE',
         icon: Iconz.earth,
         screen: ZoningWorkSpace(),
       ),
 
       /// THE GO BACK WIDGET
       DashButtonModel(
-        verse: 'KEYBOARD FIELD TEST',
+        verse:  'KEYBOARD FIELD TEST',
         icon: Iconz.language,
         screen: KeyboardFieldWidgetTest(),
       ),
 
       /// THE GO BACK WIDGET
       DashButtonModel(
-        verse: 'THE GO BACK WIDGET TEST',
+        verse:  'THE GO BACK WIDGET TEST',
         icon: Iconz.back,
         screen: GoBackWidgetTest(),
       ),
 
       /// REAL TEST
       DashButtonModel(
-        verse: 'REAL TEST',
+        verse:  'REAL TEST',
         icon: Iconz.clock,
         screen: RealTestScreen(),
       ),
 
       /// REAL HTTP TEST
       DashButtonModel(
-        verse: 'REAL HTTP TEST',
+        verse:  'REAL HTTP TEST',
         icon: Iconz.clock,
         screen: RealHttpTestScreen(),
       ),
 
       /// PROVIDER TEST
       DashButtonModel(
-        verse: 'Providers Test',
+        verse:  'Providers Test',
         icon: Iconz.check,
         screen: ProvidersTestScreen(),
       ),
 
       /// STREAMING
       DashButtonModel(
-        verse: 'STREAMING TEST',
+        verse:  'STREAMING TEST',
         icon: Iconz.statistics,
         screen: StreamingTest(),
         transitionType: PageTransitionType.leftToRightWithFade,
@@ -122,7 +122,7 @@ class SpecializedLabs extends StatelessWidget {
 
       /// PAGINATOR
       DashButtonModel(
-        verse: 'PAGINATOR TEST',
+        verse:  'PAGINATOR TEST',
         icon: Iconz.statistics,
         screen: PaginatorTest(),
         transitionType: PageTransitionType.leftToRightWithFade,
@@ -130,91 +130,91 @@ class SpecializedLabs extends StatelessWidget {
 
       /// SOUNDS TEST
       DashButtonModel(
-        verse: 'Sounds Test',
+        verse:  'Sounds Test',
         icon: Iconz.play,
         screen: SoundsTestScreen(),
       ),
 
       /// LOCK - SPINNER
       DashButtonModel(
-        verse: 'Lock Test',
+        verse:  'Lock Test',
         icon: Iconz.password,
         screen: LockTestScreen(),
       ),
 
       /// SEMBAST TESTER
       DashButtonModel(
-        verse: 'SEMBAST',
+        verse:  'SEMBAST',
         icon: Iconz.terms,
         screen: SembastReaderTestScreen(),
       ),
 
       /// VIDEO EDITOR
       DashButtonModel(
-        verse: 'Video Player',
+        verse:  'Video Player',
         icon: Iconz.play,
         screen: VideoPlayerScreen(),
       ),
 
       /// ANIMATIONS LAB
       DashButtonModel(
-        verse: 'Animations lab',
+        verse:  'Animations lab',
         icon: Iconz.dvDonaldDuck,
         screen: AnimationsLab(),
       ),
 
       /// SUPER RAGE7
       DashButtonModel(
-        verse: 'Super Rage7',
+        verse:  'Super Rage7',
         icon: Iconz.dvRageh2,
         screen: SuperRage7Screen(),
       ),
 
       /// CLOUD FUNCTIONS
       DashButtonModel(
-        verse: 'Cloud Functions',
+        verse:  'Cloud Functions',
         icon: Iconz.gears,
         screen: CloudFunctionsTest(),
       ),
 
       /// FCM TEST SCREEN
       DashButtonModel(
-        verse: 'FCM test screen',
+        verse:  'FCM test screen',
         icon: Iconz.news,
         screen: FCMTestScreen(),
       ),
 
       /// AWESOME NOTIFICATION TEST
       DashButtonModel(
-        verse: 'Awesome Notification test',
+        verse:  'Awesome Notification test',
         icon: Iconz.news,
         screen: AwesomeNotiTestScreen(),
       ),
 
       /// LOCATION TEST SCREEN
       DashButtonModel(
-        verse: 'Locations Test screen',
+        verse:  'Locations Test screen',
         icon: Iconz.dumPinPNG,
         screen: LocationsTestScreen(),
       ),
 
       /// SLIDER TEST SCREEN
       DashButtonModel(
-        verse: 'Slider Test Screen',
+        verse:  'Slider Test Screen',
         icon: Iconz.dashBoard,
         screen: SliderTestScreen(),
       ),
 
       /// GOLDEN SCROLLS
       DashButtonModel(
-        verse: 'Golden Scrolls',
+        verse:  'Golden Scrolls',
         icon: Iconz.cleopatra,
         screen: GoldenScrollsScreen(),
       ),
 
       /// SOUND TEST
       DashButtonModel(
-        verse: 'SOUND TEST',
+        verse:  'SOUND TEST',
         icon: Iconz.dvRageh,
         screen: null,
       ),

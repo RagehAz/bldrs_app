@@ -87,7 +87,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
             const SizedBox()
                 :
                 SuperVerse(
-              verse: '${widget.number}',
+              verse:  '${widget.number}',
               size: 1,
               // color: Colorz.white255,
               labelColor: widget.mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,

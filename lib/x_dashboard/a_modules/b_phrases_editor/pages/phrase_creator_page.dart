@@ -66,7 +66,7 @@ class PhraseCreatorPage extends StatelessWidget {
                   DreamBox(
                     height: 35,
                     width: 150,
-                    verse: 'Add [phid_] to ID',
+                    verse:  'Add [phid_] to ID',
                     verseScaleFactor: 0.6,
                     onTap: (){
                       idController.text = 'phid_${idController.text}';
@@ -105,7 +105,7 @@ class PhraseCreatorPage extends StatelessWidget {
           Align(
             alignment: Aligners.superInverseCenterAlignment(context),
             child: DreamBox(
-              verse: 'Confirm'.toUpperCase(),
+              verse:  'Confirm'.toUpperCase(),
               height: 50,
               color: Colorz.yellow255,
               verseWeight: VerseWeight.black,

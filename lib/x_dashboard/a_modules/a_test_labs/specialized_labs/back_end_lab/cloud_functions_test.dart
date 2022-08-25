@@ -99,7 +99,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
           children: <Widget>[
 
             WideButton(
-                verse: 'call a cloud function callable_sayHello',
+                verse:  'call a cloud function callable_sayHello',
                 onTap: () async {
                   final dynamic map = await CloudFunction.callFunction(
                       context: context,
@@ -117,7 +117,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
             /// INCREMENT FLYER COUNTER
             SettingsWideButton(
-              verse: 'INCREMENT FLYER COUNTER',
+              verse:  'INCREMENT FLYER COUNTER',
               icon: Iconz.addFlyer,
               onTap: () async {
 
@@ -166,7 +166,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
             WideButton(
               width: 250,
-              verse: 'realBypassUpdate',
+              verse:  'realBypassUpdate',
               onTap: () async {
 
                 unawaited(WaitDialog.showWaitDialog(

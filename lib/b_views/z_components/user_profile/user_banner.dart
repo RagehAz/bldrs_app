@@ -155,7 +155,7 @@ class UserBanner extends StatelessWidget {
         /// AUTHORSHIP LINE
         if (UserModel.checkUserIsAuthor(userModel) == true)
           SuperVerse(
-            verse: 'Author in ${getBzzString(userModel: userModel)}',
+            verse: xPhrase(context, '##Author in ${getBzzString(userModel: userModel)}'),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,

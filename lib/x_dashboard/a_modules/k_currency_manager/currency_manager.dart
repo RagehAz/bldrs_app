@@ -40,7 +40,7 @@ class CurrencyManagerScreen extends StatelessWidget {
         const Expander(),
 
         AppBarButton(
-          verse: 'Backup',
+          verse:  'Backup',
           onTap: () => onBackupCurrencies(context),
         ),
 

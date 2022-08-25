@@ -26,11 +26,11 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
   Widget build(BuildContext context) {
 
     return CenteredListLayout(
-        title: 'Dynamic Links',
+        title:  'Dynamic Links',
         columnChildren: <Widget>[
 
           WideButton(
-            verse: 'Initialize dynamic Links',
+            verse:  'Initialize dynamic Links',
             onTap: () async {
 
               await DynamicLinks.initDynamicLinks(context);
@@ -39,7 +39,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
           ),
 
           WideButton(
-            verse: 'Create dynamic Link',
+            verse:  'Create dynamic Link',
             onTap: () async {
 
               final Uri _uri = await DynamicLinks.createDynamicLink();

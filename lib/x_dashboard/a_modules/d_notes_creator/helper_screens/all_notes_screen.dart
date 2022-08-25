@@ -137,7 +137,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
       BottomDialog.wideButton(
         context: context,
-        verse: 'Delete',
+        verse:  'Delete',
         onTap: () => onDeleteNote(
           context: context,
           noteModel: note,

@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -111,7 +112,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                         alignment: Aligners.superCenterAlignment(context),
                         padding: _paddings,
                         child: SuperVerse(
-                          verse: '/ 40 Months',
+                          verse: xPhrase(context, '##/ 40 Months'),
                           size: 6,
                           scaleFactor: _installmentScaleFactor,
                         ),

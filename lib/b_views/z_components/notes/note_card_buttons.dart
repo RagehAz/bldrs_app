@@ -105,7 +105,7 @@ class NoteCardButtons extends StatelessWidget {
                 builder: (int fuck, Widget child){
 
                   return SuperVerse(
-                    verse: '${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}',
+                    verse:  '${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}',
                     maxLines: 3,
                     weight: VerseWeight.black,
                     italic: true,
