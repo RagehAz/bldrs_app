@@ -113,7 +113,7 @@
 //                               Colorz.white80;
 //
 //                               return SuperVerse(
-//                                 verse: '$_titleLength / ${Standards.flyerTitleMaxLength}',
+//                                 verse:  '$_titleLength / ${Standards.flyerTitleMaxLength}',
 //                                 size: 1,
 //                                 italic: true,
 //                                 color: _color,

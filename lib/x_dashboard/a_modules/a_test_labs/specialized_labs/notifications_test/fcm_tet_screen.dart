@@ -138,7 +138,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// REQUEST PERMISSION
         WideButton(
-          verse: 'Request Permission',
+          verse:  'Request Permission',
           onTap: () async {
             await checkPermissions();
           },
@@ -146,7 +146,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// GET TOKEN
         WideButton(
-          verse: 'Get Token',
+          verse:  'Get Token',
           onTap: () async {
             await _getToken();
           },
@@ -154,7 +154,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// SUBSCRIBE TO FLYER
         WideButton(
-          verse: 'Subscribe to flyer',
+          verse:  'Subscribe to flyer',
           onTap: () async {
             _subscribeToFlyers();
           },
@@ -162,7 +162,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// UNSUBSCRIBE FROM FLYER
         WideButton(
-          verse: 'UN-Subscribe to flyer',
+          verse:  'UN-Subscribe to flyer',
           onTap: () async {
             _unsubscribeFromFlyers();
           },
@@ -170,7 +170,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// UPDATE MY USER FCM TOKEN
         WideButton(
-          verse: 'update my user fcm token',
+          verse:  'update my user fcm token',
           onTap: () async {
             await _updateMyUserFCMToken();
           },
@@ -200,7 +200,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           width: Scale.superScreenWidth(context),
           color: Colorz.bloodTest,
           child: SuperVerse(
-            verse: '_note.notification.title : ${_note?.title}\n'
+            verse:  '_note.notification.title : ${_note?.title}\n'
                 '_note.notification.body : ${_note?.body}\n'
                 '_note.data : ${_note?.metaData}',
             maxLines: 100,
@@ -211,7 +211,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
         /// CLOUD FUNCTION
         WideButton(
           width: 250,
-          verse: 'call cloud function \n$_received',
+          verse:  'call cloud function \n$_received',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -231,7 +231,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// SEND NOTE
         WideButton(
-          verse: 'send note to call\n[ sendNotificationToDevice ]',
+          verse:  'send note to call\n[ sendNotificationToDevice ]',
           color: Colorz.blue80,
           onTap: () async {
 

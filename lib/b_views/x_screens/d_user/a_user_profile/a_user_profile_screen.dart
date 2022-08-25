@@ -35,12 +35,12 @@ class UserProfileScreen extends StatelessWidget {
         const Expander(),
 
         AppBarButton(
-          verse: 'Reload',
+          verse:  'Reload',
           onTap: () async {
 
             unawaited(WaitDialog.showWaitDialog(
               context: context,
-              loadingPhrase: 'Re-loading your profile',
+              loadingVerse:  'Re-loading your profile',
               canManuallyGoBack: true,
             ));
 

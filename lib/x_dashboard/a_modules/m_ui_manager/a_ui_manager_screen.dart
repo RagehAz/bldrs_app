@@ -23,7 +23,7 @@ class UIManager extends StatelessWidget {
         const Stratosphere(),
 
         WideButton(
-          verse: 'Bldrs icons',
+          verse:  'Bldrs icons',
           icon: Iconz.dvGouran,
           onTap: () async {
 
@@ -36,7 +36,7 @@ class UIManager extends StatelessWidget {
         ),
 
         WideButton(
-          verse: 'Emojis',
+          verse:  'Emojis',
           icon: Iconz.emoji,
           onTap: () async {
 
@@ -49,7 +49,7 @@ class UIManager extends StatelessWidget {
         ),
 
         WideButton(
-          verse: 'Balloons',
+          verse:  'Balloons',
           icon: Iconz.utSelling,
           onTap: () async {
 

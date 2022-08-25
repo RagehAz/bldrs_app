@@ -284,7 +284,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingPhrase: 'Removing ${authorModel.name}',
+        loadingVerse: 'Removing ${authorModel.name}',
       ));
     }
 

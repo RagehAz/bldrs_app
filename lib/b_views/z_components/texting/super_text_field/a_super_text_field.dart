@@ -214,7 +214,7 @@ class SuperTextField extends StatefulWidget {
     @required Color fieldColor,
 }){
     return SuperVerse(
-      verse: '$currentLength / $maxLength',
+      verse:  '$currentLength / $maxLength',
       weight: VerseWeight.thin,
       // size: 2,
       // scaleFactor: 1,

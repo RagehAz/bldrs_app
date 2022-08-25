@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/target/target_progress.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -74,7 +75,7 @@ class TargetProgressBar extends StatelessWidget {
                   height: _barHeight,
                   margin: const EdgeInsets.only(top: 9, left: 3, right: 3),
                   child: SuperVerse(
-                    verse: '${_progress?.current}/${_progress?.objective}',
+                    verse:  '${_progress?.current}/${_progress?.objective}',
                     size: 1,
                     scaleFactor: 0.8,
                     color: Colorz.black255,
@@ -98,7 +99,7 @@ class TargetProgressBar extends StatelessWidget {
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.flyer,
-                    verse: '${target.reward.slides} Slides',
+                    verse:  '${target.reward.slides} ${xPhrase(context, '##Slides')}',
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,
@@ -110,7 +111,7 @@ class TargetProgressBar extends StatelessWidget {
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.save,
-                    verse: '${target.reward.ankh} Ankhs',
+                    verse:  '${target.reward.ankh} ${xPhrase(context, '##Ankhs')}',
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,

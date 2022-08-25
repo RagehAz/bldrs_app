@@ -227,7 +227,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
               /// BACKUP CHAIN
               DreamBox(
                 height: 40,
-                verse: 'Backups',
+                verse:  'Backups',
                 iconSizeFactor: 0.6,
                 margins: const EdgeInsets.symmetric(horizontal: 5),
                 onTap: () async {
@@ -245,14 +245,14 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                           /// BACK UP
                           BottomDialog.wideButton(
                             context: context,
-                            verse: 'Back up current Chain',
+                            verse:  'Back up current Chain',
                             onTap: () => onBackupAllChains(context),
                           ),
 
                           /// DOWNLOAD LAST BACKUP
                           BottomDialog.wideButton(
                             context: context,
-                            verse: 'Download and set last Backup',
+                            verse:  'Download and set last Backup',
                             onTap: () async {
 
                               final List<Chain> _backups = await ChainFireOpsOLD.readKeywordsAndSpecsBackups(context);
@@ -269,7 +269,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                           /// RELOAD CHAINS
                           BottomDialog.wideButton(
                             context: context,
-                            verse: 'Reload chains',
+                            verse:  'Reload chains',
                             onTap: () async {
                               final List<Chain> _chains = await ChainFireOpsOLD.reloadKeywordsAndSpecsChains(context);
                               Nav.goBack(

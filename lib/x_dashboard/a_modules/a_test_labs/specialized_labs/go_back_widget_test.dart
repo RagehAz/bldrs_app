@@ -137,7 +137,7 @@ class _GoBackWidgetState extends State<GoBackWidget> {
       color: Colorz.black230,
       // child: const Center(
       //   child: SuperVerse(
-      //     verse: 'Wtf are you doing here ?',
+      //     verse:  'Wtf are you doing here ?',
       //     size: 5,
       //     weight: VerseWeight.black,
       //   ),

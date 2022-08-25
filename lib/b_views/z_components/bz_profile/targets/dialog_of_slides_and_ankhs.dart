@@ -14,13 +14,13 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
     await CenterDialog.showCenterDialog(
       context: context,
       height: Scale.superScreenHeight(context) - Ratioz.appBarMargin * 4,
-      confirmButtonText: 'Tamam',
-      title: 'Ankhs & Slides',
-      body: 'Blah blah blah',
+      confirmButtonText:  'Tamam',
+      title:  'Ankhs & Slides',
+      body:  'Blah blah blah',
       child: Column(
         children: const <Widget>[
           SuperVerse(
-            verse: 'Blo blo blo',
+            verse:  'Blo blo blo',
             size: 1,
           ),
         ],
@@ -33,7 +33,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
     return Column(
       children: const <Widget>[
         SuperVerse(
-          verse: 'Blo blo blo',
+          verse:  'Blo blo blo',
           size: 1,
         ),
       ],

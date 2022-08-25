@@ -124,7 +124,7 @@ class PhraseProtocols {
       if (showWaitDialog == true){
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingPhrase: 'Syncing',
+          loadingVerse:  'Syncing',
         ));
       }
 

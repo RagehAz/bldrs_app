@@ -79,7 +79,7 @@
 //     //  children: <Widget>[
 //     //
 //     //    DialogButton(
-//     //      verse: 'permit',
+//     //      verse:  'permit',
 //     //      onTap: () async {
 //     //        await Permission.contacts.request();
 //     //      },

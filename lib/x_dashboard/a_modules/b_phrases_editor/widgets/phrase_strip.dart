@@ -49,7 +49,7 @@ class PhraseStrip extends StatelessWidget {
 
           if (_idsAreTheSame == false)
             const SuperVerse(
-              verse: 'CAUTION : IDs Are Not The Same !!',
+              verse:  'CAUTION : IDs Are Not The Same !!',
             ),
 
           SizedBox(
@@ -66,7 +66,7 @@ class PhraseStrip extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     children: <Widget>[
                       SuperVerse(
-                        verse: 'en ID : ${enPhrase?.id}',
+                        verse:  'en ID : ${enPhrase?.id}',
                         highlight: searchController,
                         labelColor: Colorz.white20,
                         size: 1,
@@ -126,7 +126,7 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse: 'Edit'.toUpperCase(),
+                              verse:  'Edit'.toUpperCase(),
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onEdit,
@@ -135,7 +135,7 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse: 'Delete'.toUpperCase(),
+                              verse:  'Delete'.toUpperCase(),
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onDelete,
@@ -144,7 +144,7 @@ class PhraseStrip extends StatelessWidget {
                             DreamBox(
                               width: BottomDialog.clearWidth(context),
                               height: 40,
-                              verse: 'Select'.toUpperCase(),
+                              verse:  'Select'.toUpperCase(),
                               margins: const EdgeInsets.only(bottom: 5),
                               verseItalic: true,
                               onTap: onSelect,

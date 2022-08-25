@@ -171,7 +171,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
                 unawaited(WaitDialog.showWaitDialog(
                   context: context,
-                  loadingPhrase: 'Posting Http request aho',
+                  loadingVerse:  'Posting Http request aho',
                   canManuallyGoBack: true,
                 ),
 

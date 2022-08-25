@@ -32,7 +32,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// RECORD CREATION
         SettingsWideButton(
-          verse: 'CREATE RECORD',
+          verse:  'CREATE RECORD',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -57,7 +57,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// CREATE NEW FLYER COUNTER
         SettingsWideButton(
-          verse: 'CREATE NEW FLYER COUNTER ( flyerID )',
+          verse:  'CREATE NEW FLYER COUNTER ( flyerID )',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -79,7 +79,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// UPDATE EXISTING FLYER COUNTER ( 1656001361010677 )
         SettingsWideButton(
-          verse: 'UPDATE FLYER COUNTER flyerID',
+          verse:  'UPDATE FLYER COUNTER flyerID',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -101,7 +101,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// READ FLYER COUNTER
         SettingsWideButton(
-          verse: 'READ FLYER SCOUNTER',
+          verse:  'READ FLYER SCOUNTER',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -118,7 +118,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// READ FLYER COUNTER
         SettingsWideButton(
-          verse: 'READ FLYER COUNTER',
+          verse:  'READ FLYER COUNTER',
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -137,7 +137,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// https://ee27-102-186-98-33.ngrok.io
         SettingsWideButton(
-          verse: 'TEST',
+          verse:  'TEST',
           icon: Iconz.addFlyer,
           onTap: () async {
 

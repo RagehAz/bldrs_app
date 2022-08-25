@@ -22,14 +22,14 @@ class WaitDialog extends StatelessWidget {
   static Future<void> showWaitDialog({
     @required BuildContext context,
     bool canManuallyGoBack = false,
-    String loadingPhrase,
+    String loadingVerse,
   }) async {
 
     await showDialog(
       context: context,
       builder: (BuildContext ctx) => WaitDialog(
         canManuallyGoBack: canManuallyGoBack,
-        loadingPhrase: loadingPhrase,
+        loadingPhrase: loadingVerse,
       ),
     );
 

@@ -148,7 +148,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   );
 
                   return AppBarButton(
-                    verse: 'Sync',
+                    verse:  'Sync',
                     isDeactivated: _areIdentical,
                     buttonColor: Colorz.yellow255,
                     verseColor: Colorz.black255,

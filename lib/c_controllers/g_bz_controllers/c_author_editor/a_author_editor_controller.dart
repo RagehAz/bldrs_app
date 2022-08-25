@@ -95,7 +95,7 @@ Future<void> onConfirmAuthorUpdates({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Uploading new Author details',
+      loadingVerse: 'Uploading new Author details',
     ));
 
     final AuthorModel _author = AuthorModel(
@@ -163,7 +163,7 @@ Future<void> onChangeAuthorRoleOps({
 
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingPhrase: 'Uploading new Author details',
+        loadingVerse: 'Uploading new Author details',
       ));
 
       final BzModel _bzModel = BzzProvider.proGetActiveBzModel(

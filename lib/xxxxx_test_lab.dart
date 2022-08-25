@@ -159,7 +159,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                       children: <Widget>[
 
                         SuperVerse(
-                          verse: '$_isLoading',
+                          verse:  '$_isLoading',
                           size: 4,
                         ),
 
