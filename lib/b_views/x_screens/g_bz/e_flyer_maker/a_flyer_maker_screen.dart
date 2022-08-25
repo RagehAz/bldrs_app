@@ -162,7 +162,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         const Expander(),
 
         AppBarButton(
-          verse: 'Identical',
+          verse: xPhrase(context, '##Identical'),
           onTap: (){
 
             FlyerModel.checkFlyersAreIdentical(
@@ -175,7 +175,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         ),
 
         AppBarButton(
-          verse: 'draft',
+          verse: xPhrase(context, '##draft'),
           onTap: (){
             widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
             _draftFlyer.value.blogDraft();

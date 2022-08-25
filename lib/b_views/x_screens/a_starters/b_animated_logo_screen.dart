@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/b_logo_screen_controllers.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -75,17 +76,17 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
 
     _linesMap = <Map<String, dynamic>>[
-      _beat(start: 1900, duration: 200,   verse: 'Search'),  // 1
-      _beat(start: 2800, duration: 200,   verse: 'Connect'), // 5
-      _beat(start: 2700, duration: 200,   verse: 'Ask'), // 4
-      _beat(start: 2350, duration: 450,   verse: 'Answer'), // 3
-      _beat(start: 2000, duration: 450,   verse: 'Grow'), // 2
+      _beat(start: 1900, duration: 200,   verse: xPhrase(context, '##Search')),  // 1
+      _beat(start: 2800, duration: 200,   verse: xPhrase(context, '##Connect')), // 5
+      _beat(start: 2700, duration: 200,   verse: xPhrase(context, '##Ask')), // 4
+      _beat(start: 2350, duration: 450,   verse: xPhrase(context, '##Answer')), // 3
+      _beat(start: 2000, duration: 450,   verse: xPhrase(context, '##Grow')), // 2
 
-      _beat(start: 4700,  duration: 300,  verse: 'on'), // 6
-      _beat(start: 5550,  duration: 1000, verse: 'Bldrs.net', color: Colorz.yellow255), // 10
-      _beat(start: 4800,  duration: 300,  verse: ' - Designers'), // 7
-      _beat(start: 5150,  duration: 300,  verse: ' - Contractors'), // 8
-      _beat(start: 5450,  duration: 300,  verse: ' - Artisans'), // 9
+      _beat(start: 4700,  duration: 300,  verse: xPhrase(context, '##on')), // 6
+      _beat(start: 5550,  duration: 1000, verse: xPhrase(context, '##Bldrs.net'), color: Colorz.yellow255), // 10
+      _beat(start: 4800,  duration: 300,  verse: xPhrase(context, '## - Designers')), // 7
+      _beat(start: 5150,  duration: 300,  verse: xPhrase(context, '## - Contractors')), // 8
+      _beat(start: 5450,  duration: 300,  verse: xPhrase(context, '## - Artisans')), // 9
     ];
 
     _initializeAnimationControllers();
