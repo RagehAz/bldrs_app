@@ -106,7 +106,7 @@ class InfoPageContents extends StatelessWidget {
                         height: 30,
                         width: _pageWidth - 20,
                         color: Colorz.blue80,
-                        verse: '${flyerModel.pdf.fileName}.pdf',
+                        verse:  '${flyerModel.pdf.fileName}.pdf',
                         verseScaleFactor: 0.6,
                         onTap: () async {
 

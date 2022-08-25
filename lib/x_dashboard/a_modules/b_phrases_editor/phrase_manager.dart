@@ -89,7 +89,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// GO TO NEW EDITOR
         AppBarButton(
           icon: Iconz.language,
-          verse: 'NEW Editor',
+          verse:  'NEW Editor',
           onTap: () async {
 
             await Nav.goToNewScreen(
@@ -116,7 +116,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// MIGRATE main phrases from fire to real
         WideButton(
           isActive: false,
-          verse: 'MIGRATE main phrases from FIRE to REAL',
+          verse:  'MIGRATE main phrases from FIRE to REAL',
           onTap: () async {
 
             final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
@@ -148,7 +148,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL EN READ
         WideButton(
-          verse: 'REAL READ EN PHRASESs',
+          verse:  'REAL READ EN PHRASESs',
           onTap: () async {
 
             // final List<Phrase> _firePhrases = await readBasicPhrases(
@@ -177,7 +177,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL ar READ
         WideButton(
-          verse: 'REAL READ AR PHRASESs',
+          verse:  'REAL READ AR PHRASESs',
           onTap: () async {
 
             final List<Phrase> _realPhrases = await PhraseRealOps.readPhrasesByLang(
@@ -201,7 +201,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// READ MAIN PHRASES
         WideButton(
-          verse: 'READ PRO MAIN PHRASES',
+          verse:  'READ PRO MAIN PHRASES',
           onTap: () async {
 
             final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -221,7 +221,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// READ MAIN PHRASES
         WideButton(
-          verse: 'READ LDB MAIN PHRASES',
+          verse:  'READ LDB MAIN PHRASES',
           onTap: () async {
 
             final List<Phrase> _phrases = await PhraseLDBOps.readMainPhrases();

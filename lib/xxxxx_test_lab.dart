@@ -391,7 +391,7 @@ phid_k_pt_studio
 
         /// DO SOMETHING
         AppBarButton(
-            verse: 'chainS',
+            verse:  'chainS',
             onTap: () async {
 
             }
@@ -399,7 +399,7 @@ phid_k_pt_studio
 
         /// FAST TEST
         AppBarButton(
-            verse: 'fastTest',
+            verse:  'fastTest',
             onTap: () async {await _fastTest(context);},
         ),
 
@@ -605,7 +605,7 @@ phid_k_pt_studio
                 //   width: _screenWidth,
                 //   height: 100,
                 //   color: Colorz.green255,
-                //   verse: 'Rebuild the Fucker Bitch',
+                //   verse:  'Rebuild the Fucker Bitch',
                 //   onTap: (){
                 //     _rebuildListPusher.value = _rebuildListPusher.value++;
                 //   },

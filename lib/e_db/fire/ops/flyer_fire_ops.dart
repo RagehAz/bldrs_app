@@ -1046,7 +1046,7 @@ class FlyerFireOps {
           /// INAPPROPRIATE CONTENT
           BottomDialog.wideButton(
             context: context,
-            verse: 'Inappropriate content',
+            verse: xPhrase(context, '##Inappropriate content'),
             onTap: (){
               _feedback = 'Inappropriate content';
               Nav.goBack(
@@ -1059,7 +1059,7 @@ class FlyerFireOps {
           /// CONTENT IS NOT RELEVANT TO BLDRS
           BottomDialog.wideButton(
               context: context,
-              verse: 'Flyer content is not relevant to Bldrs.net',
+              verse: xPhrase(context, '##Flyer content is not relevant to Bldrs.net'),
               onTap: (){
                 _feedback = 'Flyer content is not relevant to Bldrs.net';
                 Nav.goBack(
@@ -1072,7 +1072,7 @@ class FlyerFireOps {
           /// COPY RIGHTS
           BottomDialog.wideButton(
               context: context,
-              verse: 'content violates copyrights',
+              verse: xPhrase(context, '##content violates copyrights'),
               onTap: (){
                 _feedback = 'content violates copyrights';
                 Nav.goBack(

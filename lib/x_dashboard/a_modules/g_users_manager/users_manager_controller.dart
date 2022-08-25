@@ -118,13 +118,13 @@ Future<void> onSelectedUserOptions({
 
           BottomDialog.wideButton(
             context: context,
-            verse: 'Fuck ${userModel.name}',
+            verse:  'Fuck ${userModel.name}',
           ),
 
 
           BottomDialog.wideButton(
             context: context,
-            verse: 'Delete this Bitch : ${userModel.name}',
+            verse:  'Delete this Bitch : ${userModel.name}',
             onTap: () => onDeleteUser(
               context: context,
               usersModels: usersModels,

@@ -75,7 +75,7 @@ class _EmailTestScreenState extends State<EmailTestScreen> {
       listWidgets: <Widget>[
 
         WideButton(
-          verse: 'Send Email',
+          verse:  'Send Email',
           onTap: () async {
 
             const String fromEmail = 'rageh-@hotmail.com';

@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -104,7 +105,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// GET IMAGE FROM GALLERY
         AppBarButton(
           icon: Iconz.phoneGallery,
-          verse: 'take',
+          verse: xPhrase(context, '##Take'),
           onTap: () async {
 
             final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
@@ -138,7 +139,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// CROP IMAGE
         AppBarButton(
           icon: _file,
-          verse: 'crop',
+          verse: xPhrase(context, '##Crop'),
           onTap: () async {
 
             final FileModel _pickedFileModel = await Imagers.cropImage(
@@ -173,7 +174,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// RESIZE
         AppBarButton(
           icon: Iconz.arrowDown,
-          verse: 'resize',
+          verse: xPhrase(context, '##resize'),
           onTap: () async {
 
             final File _pickedFile = await Filers.resizeImage(
@@ -258,7 +259,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : FILE
                     WideButton(
-                      verse: 'FILE : $_file',
+                      verse:  'FILE : $_file',
                       icon: _file,
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.6,
@@ -271,7 +272,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : uInt8List
                     WideButton(
-                      verse: 'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums',
+                      verse:  'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums',
                       icon: uInt,
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.6,
@@ -288,7 +289,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : uiImage
                     WideButton(
-                      verse: 'uiImage : ${uiImage?.toString()}',
+                      verse:  'uiImage : ${uiImage?.toString()}',
                       icon: uiImage,
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.6,
@@ -307,7 +308,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// imgImage
                     WideButton(
-                      verse: 'imgImage : ${imgImage?.toString()}',
+                      verse:  'imgImage : ${imgImage?.toString()}',
                       icon: imgImage,
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.6,
