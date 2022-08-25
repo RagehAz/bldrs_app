@@ -1739,14 +1739,14 @@ class BzModel{
     @required BuildContext context,
   }){
     switch(bzTab){
-      case BzTab.flyers   : return 'Flyers '  ; break;
-      case BzTab.about    : return 'Info  '  ; break;
-      case BzTab.authors  : return 'Team'  ; break;
-      case BzTab.notes    : return 'Notification'  ; break;
-      case BzTab.targets  : return 'Targets'  ; break;
-      case BzTab.powers   : return 'Powers'  ; break;
-      case BzTab.network  : return 'Network'  ; break;
-      case BzTab.settings : return 'Settings' ; break;
+      case BzTab.flyers   : return '##Flyers '  ; break;
+      case BzTab.about    : return '##Info  '  ; break;
+      case BzTab.authors  : return '##Team'  ; break;
+      case BzTab.notes    : return '##Notification'  ; break;
+      case BzTab.targets  : return '##Targets'  ; break;
+      case BzTab.powers   : return '##Powers'  ; break;
+      case BzTab.network  : return '##Network'  ; break;
+      case BzTab.settings : return '##Settings' ; break;
       default : return null;
     }
   }

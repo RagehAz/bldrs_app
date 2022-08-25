@@ -10,6 +10,7 @@ class NavModel {
     @required this.title,
     @required this.icon,
     @required this.screen,
+    @required this.translateTitle,
     this.iconColor,
     this.iconSizeFactor,
     this.onNavigate,
@@ -27,6 +28,7 @@ class NavModel {
   /// VISIBILITY BOOLEAN CONDITION : when to show and when not to show
   final bool canShow;
   final bool forceRedDot;
+  final bool translateTitle;
 // -----------------------------------------------------------------------------
 
   /// GETTERS

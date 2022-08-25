@@ -112,6 +112,7 @@ class MyBzScreen extends StatelessWidget {
                       title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
                       icon: BzModel.getBzTabIcon(_bzTab),
                       screen: MyBzScreenPages.pages[index],
+                      translateTitle: true,
                     );
 
                   }),
