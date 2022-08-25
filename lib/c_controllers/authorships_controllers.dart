@@ -257,7 +257,7 @@ Future<void> _acceptAuthorshipInvitation({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: "Adding you to '${bzModel.name}' business account",
+      loadingVerse: "Adding you to '${bzModel.name}' business account",
     ));
 
     await AuthorProtocols.addMeAsNewAuthorToABzProtocol(

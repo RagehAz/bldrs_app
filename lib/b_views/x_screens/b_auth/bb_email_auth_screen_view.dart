@@ -124,7 +124,7 @@ class EmailAuthScreenView extends StatelessWidget {
                   DreamBox(
                     height: _buttonHeight,
                     width: _buttonHeight,
-                    // verse: 'Back',
+                    // verse:  'Back',
                     icon: Iconizer.superBackIcon(context),
                     iconSizeFactor: 0.7,
                     margins: 10,
@@ -172,7 +172,7 @@ class EmailAuthScreenView extends StatelessWidget {
                   //     height: _buttonHeight,
                   //     verseScaleFactor: _verseScaleFactor,
                   //     width: 150,
-                  //     verse: 'Sign in',
+                  //     verse:  'Sign in',
                   //     secondLine: 'Existing account',
                   //     verseMaxLines: 2,
                   //     color: Colorz.white20,

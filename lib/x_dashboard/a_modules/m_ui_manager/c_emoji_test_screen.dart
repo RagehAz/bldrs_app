@@ -33,7 +33,7 @@ class EmojiTestScreen extends StatelessWidget {
             overridingDialogHeight: 400),
         color: Colorz.bloodTest,
         child: SuperVerse(
-          verse: '$index : ${emo.code}',
+          verse:  '$index : ${emo.code}',
         ),
       ),
     );

@@ -57,10 +57,10 @@ class AddAuthorScreenView extends StatelessWidget {
 
                 SizedBox(
                   width: Bubble.clearWidth(context),
-                  child: const SuperVerse(
-                    verse: 'This Link is available for one time use only, '
+                  child: SuperVerse(
+                    verse: xPhrase(context, '##This Link is available for one time use only, '
                         'to allow its reciever to be redirected to '
-                        'creating new author account for your Business page',
+                        'creating new author account for your Business page'),
                     weight: VerseWeight.thin,
                     maxLines: 5,
                     centered: false,
@@ -68,8 +68,8 @@ class AddAuthorScreenView extends StatelessWidget {
                   ),
                 ),
 
-                const SuperVerse(
-                  verse: 'Invitation link . com',
+                SuperVerse(
+                  verse: xPhrase(context, '##Invitation link . com'),
                   maxLines: 2,
                   margin: 10,
                   weight: VerseWeight.thin,
@@ -79,14 +79,14 @@ class AddAuthorScreenView extends StatelessWidget {
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const <Widget>[
+                  children: <Widget>[
                     DreamBox(
                       height: 50,
                       color: Colorz.yellow255,
                       icon: Iconz.share,
                       iconSizeFactor: 0.5,
                       iconColor: Colorz.black230,
-                      verse: 'Share',
+                      verse: xPhrase(context, '##Share'),
                       verseColor: Colorz.black230,
                       verseScaleFactor: 1.2,
                     ),

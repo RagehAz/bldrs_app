@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -130,8 +131,8 @@ class _FeedBackState extends State<FeedBack> {
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 
-          const SuperVerse(
-            verse: 'Your opinion Matters !',
+          SuperVerse(
+            verse: xPhrase(context, '##Your opinion Matters !'),
             margin: 10,
             color: Colorz.yellow255,
           ),
@@ -140,8 +141,8 @@ class _FeedBackState extends State<FeedBack> {
             child: Container(
               width: Scale.superScreenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
-              child: const SuperVerse(
-                verse: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
+              child: SuperVerse(
+                verse: xPhrase(context, '##Tell us what you think about Bldrs.net, or what upgrades you might think of'),
                 margin: 5,
                 maxLines: 3,
                 size: 1,
@@ -157,7 +158,7 @@ class _FeedBackState extends State<FeedBack> {
           TextFieldBubble(
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
-            title: 'Feedback',
+            title: xPhrase(context, '##Feedback'),
             textController: _feedbackController,
             // loading: _loading,
             maxLines: 5,
@@ -171,7 +172,7 @@ class _FeedBackState extends State<FeedBack> {
           DreamBox(
             height: 50,
             width: 200,
-            verse: 'Send',
+            verse: xPhrase(context, '##Send'),
             verseColor: Colorz.black230,
             color: Colorz.yellow255,
             verseScaleFactor: 0.6,

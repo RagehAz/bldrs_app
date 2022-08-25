@@ -46,7 +46,7 @@ class AuthScreenView extends StatelessWidget {
         // /// --- CONTINUE WITH GOOGLE
         // if (DeviceChecker.deviceIsAndroid() == true)
         //   MainButton(
-        //     buttonVerse: 'Continue with Google',
+        //     buttonVerse:  'Continue with Google',
         //     buttonIcon: Iconz.comGooglePlus,
         //     buttonColor: Colorz.googleRed,
         //     buttonVerseShadow: false,

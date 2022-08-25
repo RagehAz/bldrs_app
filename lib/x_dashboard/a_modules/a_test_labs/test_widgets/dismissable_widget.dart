@@ -29,7 +29,7 @@ class DismissibleBitch extends StatelessWidget {
         //   alignment: Aligners.superCenterAlignment(context),
         //   // color: Colorz.White10,
         //   child: SuperVerse(
-        //     verse: 'Dismiss -->',
+        //     verse:  'Dismiss -->',
         //     size: 2,
         //     weight: VerseWeight.thin,
         //     italic: true,

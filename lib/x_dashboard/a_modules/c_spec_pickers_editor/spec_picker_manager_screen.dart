@@ -206,7 +206,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// COMPOSE PICKERS
         // WideButton(
-        //   verse: 'COMPOSE : first pickers for ( $_translatedFlyerType )',
+        //   verse:  'COMPOSE : first pickers for ( $_translatedFlyerType )',
         //   // isActive: false,
         //   onTap: () async {
         //
@@ -222,7 +222,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// FETCH PICKERS
         // WideButton(
-        //   verse: 'FETCH : Pickers for ( $_translatedFlyerType )',
+        //   verse:  'FETCH : Pickers for ( $_translatedFlyerType )',
         //   onTap: () async {
         //
         //     final List<PickerModel> _pickers = await PickerProtocols.fetchFlyerTypPickers(
@@ -245,7 +245,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// CREATE DUMMY PICKERS
         // WideButton(
-        //   verse: 'INSERT in LDB',
+        //   verse:  'INSERT in LDB',
         //   isActive: false,
         //   onTap: () async {
         //
@@ -261,7 +261,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// READ DUMMY PICKERS
         // WideButton(
-        //   verse: 'READ LDB PICKERS ( $_translatedFlyerType )',
+        //   verse:  'READ LDB PICKERS ( $_translatedFlyerType )',
         //   onTap: () async {
         //
         //     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.pickers);
@@ -277,7 +277,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// UPDATE DUMMY PICKERS
         // WideButton(
-        //   verse: 'UPDATE LDB PICKERS',
+        //   verse:  'UPDATE LDB PICKERS',
         //   isActive: false,
         //   onTap: () async {
         //
@@ -297,7 +297,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         // /// DELETE DUMMY PICKERS
         // WideButton(
-        //   verse: 'DELETE LDB PICKERS',
+        //   verse:  'DELETE LDB PICKERS',
         //   isActive: false,
         //   onTap: () async {
         //
@@ -323,7 +323,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// SET PICKERS READ
         // WideButton(
-        //   verse: 'SET PRO PICKERS for ( $_translatedFlyerType )',
+        //   verse:  'SET PRO PICKERS for ( $_translatedFlyerType )',
         //   // isActive: false,
         //   onTap: () async {
         //
@@ -344,7 +344,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// SET PICKERS READ
         // WideButton(
-        //   verse: 'PRO FETCH SET ALL PICKERS',
+        //   verse:  'PRO FETCH SET ALL PICKERS',
         //   // isActive: false,
         //   onTap: () async {
         //

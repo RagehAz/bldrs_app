@@ -72,7 +72,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
     //
     //       DreamBox(
     //         height: 50,
-    //         verse: 'Import Contacts',
+    //         verse:  'Import Contacts',
     //         icon: Iconz.phone,
     //         iconSizeFactor: 0.7,
     //         onTap: () => onImportDeviceContactsTap(context),
@@ -103,7 +103,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
     //   //     // AlphabetScrollListHeader(
     //   //     //     widgetList: <Widget>[
     //   //     //       const SuperVerse(
-    //   //     //         verse: 'what the hell',
+    //   //     //         verse:  'what the hell',
     //   //     //       ),
     //   //     //     ],
     //   //     //     icon: Icon(Icons.search),

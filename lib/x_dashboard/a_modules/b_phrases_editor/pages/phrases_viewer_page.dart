@@ -93,7 +93,7 @@ class PhrasesViewerPage extends StatelessWidget {
                     appBarType: AppBarType.search,
                     color: Colorz.black125,
                     child: const SuperVerse(
-                      verse: 'No result found',
+                      verse:  'No result found',
                       size: 3,
                       italic: true,
                       margin: 40,

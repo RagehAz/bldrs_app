@@ -27,7 +27,7 @@ class SecondNotiTestScreen extends StatelessWidget {
             height: 400,
             color: Colorz.bloodTest,
             child: const SuperVerse(
-              verse: 'Second Notification Screen',
+              verse:  'Second Notification Screen',
             ),
           ),
 

@@ -165,7 +165,7 @@ class SearchScreenView extends StatelessWidget {
                 //               //         DreamBox(
                 //               //           height: 80,
                 //               //           width: 80,
-                //               //           verse: 'Delete User',
+                //               //           verse:  'Delete User',
                 //               //           verseMaxLines: 2,
                 //               //           onTap: () => _deleteUser(_userModel),
                 //               //         ),
