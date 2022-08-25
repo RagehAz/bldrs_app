@@ -1,11 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/c_main_search/aa_main_search_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_main_search_controllers/main_search_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -136,7 +136,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     return MainLayout(
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
-      pageTitleVerse: xPhrase(context, '##Search'),
+      pageTitleVerse: '##Search',
       searchHintVerse: _getSearchHintText(context),
       pyramidsAreOn: true,
       searchController: _searchController,

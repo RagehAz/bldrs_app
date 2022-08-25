@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_property_search_criteria.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_status_buttons.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -47,8 +46,8 @@ class StatusBubble extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// HEADLINE QUESTION
-        SuperVerse(
-          verse: xPhrase(context, '##Let the Builders know'),
+        const SuperVerse(
+          verse: '##Let the Builders know',
           margin: 0,
           italic: true,
           color: Colorz.yellow255,
@@ -56,8 +55,8 @@ class StatusBubble extends StatelessWidget {
           maxLines: 2,
         ),
 
-        SuperVerse(
-          verse: xPhrase(context, '##What are you looking for ?'),
+        const SuperVerse(
+          verse: '##What are you looking for ?',
           size: 3,
           shadow: true,
           italic: true,
@@ -90,8 +89,8 @@ class StatusBubble extends StatelessWidget {
             height: 100,
             color: Colorz.yellow255,
             margin: const EdgeInsets.only(top: abPadding * 2),
-            child: SuperVerse(
-              verse: xPhrase(context, '##SELL SELL SELL FUCKERS !!'),
+            child: const SuperVerse(
+              verse: '##SELL SELL SELL FUCKERS !!',
             ),
           ),
 

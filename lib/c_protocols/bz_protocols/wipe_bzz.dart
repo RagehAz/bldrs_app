@@ -1,11 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/bz_record_real_ops.dart';
@@ -35,7 +35,7 @@ class WipeBzProtocols {
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Deleting ${bzModel.name}'),
+        loadingVerse: '##Deleting ${bzModel.name}',
       ));
     }
 
@@ -102,7 +102,7 @@ class WipeBzProtocols {
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Deleting ${bzModel.flyersIDs.length} Flyers'),
+        loadingVerse: '##Deleting ${bzModel.flyersIDs.length} Flyers',
       ));
     }
 

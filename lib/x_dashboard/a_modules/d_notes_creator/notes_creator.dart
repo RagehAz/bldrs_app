@@ -134,7 +134,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
     return MainLayout(
       loading: _loading,
-      pageTitleVerse: 'Note Creator',
+      pageTitleVerse:  'Note Creator',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -215,7 +215,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// TITLE
                 TextFieldBubble(
-                  titleVerse: 'Note Title',
+                  titleVerse:  'Note Title',
                   isFormField: true,
                   textController: _titleController,
                   textOnChanged: (String text) => onTitleChanged(
@@ -240,7 +240,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// BODY
                 TextFieldBubble(
-                  titleVerse: 'Note Body',
+                  titleVerse:  'Note Body',
                   isFormField: true,
                   textController: _bodyController,
                   textOnChanged: (String text) => onBodyChanged(

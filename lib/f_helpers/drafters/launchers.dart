@@ -133,7 +133,7 @@ class Launcher {
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailSubject(BuildContext context){
-    return ''; //xPhrase(context, 'phid_bldrs');
+    return ''; //xPhrase( context, 'phid_bldrs');
   }
 // ----------------------------------------
   /// TESTED : WORKS PERFECT

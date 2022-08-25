@@ -40,7 +40,7 @@ class UserBanner extends StatelessWidget {
       _string = _title;
     }
     else if (_title != null && _company != null){
-      _string = '$_title ${xPhrase(context, 'phid_at')} $_company';
+      _string = '$_title ${xPhrase( context, 'phid_at')} $_company';
     }
     else {
       _string = null;
@@ -87,7 +87,7 @@ class UserBanner extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final bool _thereAreMissingFields = UserModel.checkMissingFields(userModel);
-    final String _userName = userModel?.name ?? xPhrase(context, 'phid_unknown_bldr');
+    final String _userName = userModel?.name ?? 'phid_unknown_bldr';
 
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);
@@ -155,7 +155,7 @@ class UserBanner extends StatelessWidget {
         /// AUTHORSHIP LINE
         if (UserModel.checkUserIsAuthor(userModel) == true)
           SuperVerse(
-            verse: xPhrase(context, '##Author in ${getBzzString(userModel: userModel)}'),
+            verse: '##Author in ${getBzzString(userModel: userModel)}',
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,

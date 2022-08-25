@@ -32,14 +32,10 @@ class PhraseProvider extends ChangeNotifier {
       callerName: 'changeAppLang',
     );
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-
     unawaited(
         WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse: xPhrase(context, 'phid_change_app_lang_description',
-              phrasePro: _phraseProvider,
-          ),
+          loadingVerse: 'phid_change_app_lang_description',
         )
     );
 
@@ -78,7 +74,7 @@ class PhraseProvider extends ChangeNotifier {
 
     await PhraseProtocols.generateCountriesMixedLangPhrases(
       context: context,
-      langCodes: ['en', 'ar'],
+      langCodes: <String>['en', 'ar'],
     );
 
     await fetchSetMainPhrases(

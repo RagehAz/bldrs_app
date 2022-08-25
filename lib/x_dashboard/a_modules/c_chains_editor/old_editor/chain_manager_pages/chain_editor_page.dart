@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -17,7 +16,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_viewer_structure/chain_tree_viewer.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_viewer_structure/chains_tree_starter.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ChainEditorPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -47,7 +45,7 @@ class ChainEditorPage extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: path,
         child: TextFieldBubble(
-          titleVerse: 'ID',
+          titleVerse:  'ID',
           textController: textController,
         ),
         builder: (_, String _path, Widget textField){
@@ -58,8 +56,7 @@ class ChainEditorPage extends StatelessWidget {
 
           final String _phid = ChainPathConverter.getLastPathNode(_path);
 
-          final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
-          final String _phraseName = xPhrase(context, _phid, phrasePro: _phraseProvider);
+          final String _phraseName = _phid;
 
           final List<Chain> _relatedChains = ChainPathConverter.findPhidRelatedChains(
               allChains: allChains,

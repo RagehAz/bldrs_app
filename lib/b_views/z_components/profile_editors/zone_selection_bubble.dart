@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
@@ -8,7 +7,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -333,7 +331,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(
-                      title: xPhrase(context, 'phid_country'),
+                      title: 'phid_country',
                       icon: zone?.flag,
                       verse: zone.countryName,
                       onTap: () => _onCountryButtonTap(context: context),

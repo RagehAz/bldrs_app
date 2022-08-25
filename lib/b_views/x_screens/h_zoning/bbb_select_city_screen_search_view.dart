@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_city_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -73,8 +72,8 @@ class SelectCityScreenSearchView extends StatelessWidget {
 
                   return Container(
                     margin: _topMargin,
-                    child: SuperVerse(
-                      verse: xPhrase(context, '##No Result found'),
+                    child: const SuperVerse(
+                      verse: '##No Result found',
                       labelColor: Colorz.white10,
                       size: 3,
                       weight: VerseWeight.thin,

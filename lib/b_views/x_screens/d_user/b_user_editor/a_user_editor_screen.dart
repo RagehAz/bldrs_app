@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -225,10 +224,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse: xPhrase(context, 'phid_updateProfile'),
+      pageTitleVerse: 'phid_updateProfile',
       loading: _loading,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: xPhrase(context, 'phid_updateProfile').toUpperCase(),
+        firstLine: 'phid_updateProfile'.toUpperCase(),
         onSkipTap: (){
 
           blog('skip');

@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
 import 'package:bldrs/b_views/x_screens/i_app_settings/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
@@ -23,7 +24,6 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
@@ -41,7 +41,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -300,9 +299,8 @@ Future<void> showMissingFieldsDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Complete Your profile',
-    bodyVerse:
-    'Required fields :\n'
+    titleVerse:  '##Complete Your profile',
+    bodyVerse:  '##Required fields :\n'
         '$_missingFieldsString',
   );
 
@@ -326,7 +324,7 @@ List<NavModel> generateMainNavModels({
     /// SIGN IN
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
-      title: xPhrase(context, 'phid_sign'),
+      title: 'phid_sign',
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
       iconSizeFactor: 0.6,

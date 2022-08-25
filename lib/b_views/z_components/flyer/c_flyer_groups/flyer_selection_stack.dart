@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -88,7 +87,7 @@ class FlyerSelectionStack extends StatelessWidget {
                             fadeType: FadeType.repeatAndReverse,
                             duration: const Duration(seconds: 2),
                             child: SuperVerse(
-                              verse: xPhrase(context, '##Waiting\nVerification'),
+                              verse: '##Waiting\nVerification',
                               weight: VerseWeight.black,
                               italic: true,
                               scaleFactor: flyerBoxWidth * 0.008,
@@ -121,7 +120,7 @@ class FlyerSelectionStack extends StatelessWidget {
               height: _flyerBoxHeight,
               alignment: Alignment.center,
               child: SuperVerse(
-                verse: xPhrase(context, '##SELECTED').toUpperCase(),
+                verse: '##SELECTED'.toUpperCase(),
                 weight: VerseWeight.black,
                 italic: true,
                 scaleFactor: flyerBoxWidth / 100,
@@ -173,7 +172,7 @@ class FlyerSelectionStack extends StatelessWidget {
               ),
               child: FooterButton(
                 icon: Iconz.more,
-                verse: xPhrase(context, '##More'),
+                verse: '##More',
                 flyerBoxWidth: flyerBoxWidth,
                 onTap: onFlyerOptionsTap,
                 isOn: false,

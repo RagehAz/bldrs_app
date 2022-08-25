@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dar
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +94,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
 
         if (Mapper.checkCanLoopList(_notes) == true){
           return Bubble(
-            title: xPhrase(context, '##Pending Invitation requests'),
+            title: '##Pending Invitation requests',
             width: BldrsAppBar.width(context),
             onBubbleTap: (){
               NoteModel.blogNotes(notes: _notes);
@@ -111,7 +110,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
                   userID: _note.receiverID,
                   color: Colorz.white10,
                   bubble: false,
-                  sideButton: xPhrase(context, '##Cancel'),
+                  sideButton: '##Cancel',
                   onSideButtonTap: () => onCancelSentAuthorshipInvitation(
                     context: context,
                     note: _note,

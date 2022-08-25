@@ -86,10 +86,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
-      pageTitleVerse: 'Lock Test',
+      pageTitleVerse:  'Lock Test',
       appBarType: AppBarType.basic,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: 'Open Sesame',
+        firstLine:  'Open Sesame',
         onTap: _onOpenSesame,
       ),
       layoutWidget: Container(

@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -293,27 +292,27 @@ String getSectionIcon({
     /// PLURAL
     if (pluralTranslation == true){
       return
-        flyerType == FlyerType.all         ? xPhrase(context, 'phid_all_flyer_types') :
-        flyerType == FlyerType.property    ? xPhrase(context, 'phid_properties')    :
-        flyerType == FlyerType.design      ? xPhrase(context, 'phid_designs')    :
-        flyerType == FlyerType.product     ? xPhrase(context, 'phid_products')    :
-        flyerType == FlyerType.project     ? xPhrase(context, 'phid_projects')    :
-        flyerType == FlyerType.equipment   ? xPhrase(context, 'phid_equipments')    :
-        flyerType == FlyerType.trade       ? xPhrase(context, 'phid_trades')    :
-        xPhrase(context, 'phid_general');
+        flyerType == FlyerType.all         ? 'phid_all_flyer_types' :
+        flyerType == FlyerType.property    ? 'phid_properties'      :
+        flyerType == FlyerType.design      ? 'phid_designs'         :
+        flyerType == FlyerType.product     ? 'phid_products'        :
+        flyerType == FlyerType.project     ? 'phid_projects'        :
+        flyerType == FlyerType.equipment   ? 'phid_equipments'      :
+        flyerType == FlyerType.trade       ? 'phid_trades'          :
+        'phid_general';
     }
 
     /// SINGLE
     else {
       return
-        flyerType == FlyerType.all              ? xPhrase(context, 'phid_all_flyer_types') :
-        flyerType == FlyerType.property         ? xPhrase(context, 'phid_propertyFlyer')    :
-        flyerType == FlyerType.design           ? xPhrase(context, 'phid_designFlyer')    :
-        flyerType == FlyerType.product          ? xPhrase(context, 'phid_productFlyer')    :
-        flyerType == FlyerType.project          ? xPhrase(context, 'phid_projectFlyer')    :
-        flyerType == FlyerType.equipment        ? xPhrase(context, 'phid_equipmentFlyer')    :
-        flyerType == FlyerType.trade            ? xPhrase(context, 'phid_tradeFlyer')    :
-        xPhrase(context, 'phid_general');
+        flyerType == FlyerType.all              ? 'phid_all_flyer_types'  :
+        flyerType == FlyerType.property         ? 'phid_propertyFlyer'    :
+        flyerType == FlyerType.design           ? 'phid_designFlyer'      :
+        flyerType == FlyerType.product          ? 'phid_productFlyer'     :
+        flyerType == FlyerType.project          ? 'phid_projectFlyer'     :
+        flyerType == FlyerType.equipment        ? 'phid_equipmentFlyer'   :
+        flyerType == FlyerType.trade            ? 'phid_tradeFlyer'       :
+        'phid_general';
     }
 
   }

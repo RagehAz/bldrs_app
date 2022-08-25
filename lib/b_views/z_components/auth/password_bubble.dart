@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
 
 class PasswordBubbles extends StatelessWidget {
@@ -42,10 +41,10 @@ class PasswordBubbles extends StatelessWidget {
           fieldIsRequired: true,
           keyboardTextInputType: TextInputType.visiblePassword,
           keyboardTextInputAction: showPasswordOnly ? TextInputAction.go : TextInputAction.next,
-          titleVerse: xPhrase(context, 'phid_password'),
+          titleVerse: 'phid_password',
           validator: passwordValidator,
-          bulletPoints: <String>[
-            xPhrase(context, 'phid_min6Char'),
+          bulletPoints: const <String>[
+            'phid_min6Char',
           ],
           canObscure: true,
           onSubmitted: onSubmitted,
@@ -63,9 +62,9 @@ class PasswordBubbles extends StatelessWidget {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            titleVerse: xPhrase(context, 'phid_confirmPassword'),
+            titleVerse: 'phid_confirmPassword',
             validator: passwordConfirmationValidator,
-            bulletPoints: <String>[xPhrase(context, 'phid_min6Char')],
+            bulletPoints: const <String>['phid_min6Char'],
             canObscure: true,
             onSubmitted: onSubmitted,
             hintText: '',

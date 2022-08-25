@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_con
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -29,7 +28,7 @@ class SectionsButton extends StatelessWidget {
     String _title;
 
     if (currentKeywordID == null){
-      _title = xPhrase(context, 'phid_section');
+      _title = 'phid_section';
     }
 
     else {
@@ -51,7 +50,7 @@ class SectionsButton extends StatelessWidget {
     String _body;
 
     if (currentKeywordID != null){
-      _body = xPhrase(context, currentKeywordID);
+      _body = currentKeywordID;
     }
     else {
       final String _sectionName = FlyerTyper.translateFlyerType(

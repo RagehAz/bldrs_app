@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -256,9 +254,9 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   final bool result = await CenterDialog.showCenterDialog(
     context: context,
     boolDialog: true,
-    titleVerse: 'Cancel Flyer',
-    bodyVerse: 'All progress in this flyer will be lost',
-    confirmButtonVerse: 'Yes Cancel',
+    titleVerse:  '##Cancel Flyer',
+    bodyVerse:  '##All progress in this flyer will be lost',
+    confirmButtonVerse:  '##Yes Cancel',
   );
 
   if (result == true){
@@ -323,8 +321,8 @@ Future<void> onSelectFlyerType({
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: 'Delete selected Specifications ?',
-        bodyVerse: 'All selected specifications will be deleted\nDo you wish to continue ?',
+        titleVerse:  '##Delete selected Specifications ?',
+        bodyVerse:  '##All selected specifications will be deleted\nDo you wish to continue ?',
         boolDialog: true,
       );
 
@@ -357,7 +355,7 @@ Future<void> onAddSpecsTap({
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: ChainsScreen(
-        pageTitleVerse: '$_flyerTypeString Specifications',
+        pageTitleVerse:  '##$_flyerTypeString Specifications',
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
@@ -499,7 +497,7 @@ Future<bool> _preFlyerUpdateCheck({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Flyer was not changed',
+      titleVerse:  '##Flyer was not changed',
     );
 
     _canContinue = false;
@@ -526,8 +524,8 @@ Future<bool> _prePublishFlyerCheck({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Add Images',
-      bodyVerse: 'Add at least one image to the flyer',
+      titleVerse:  '##Add Images',
+      bodyVerse:  '##Add at least one image to the flyer',
     );
 
   }
@@ -565,7 +563,7 @@ Future<void> _publishFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Uploading flyer'),
+        loadingVerse: '##Uploading flyer',
       ));
 
   final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
@@ -596,16 +594,16 @@ Future<void> _updateFlyerOps({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Update Flyer ?',
+    titleVerse:  '##Update Flyer ?',
     boolDialog: true,
-    confirmButtonVerse: 'Update',
+    confirmButtonVerse:  '##Update',
   );
 
   if (_result == true){
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: xPhrase(context, '##Uploading flyer'),
+      loadingVerse: '##Uploading flyer',
     ));
 
     final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();

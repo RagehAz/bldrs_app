@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -85,18 +83,18 @@ Future<void> onConfirmAuthorUpdates({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Confirm Edits ?',
-    bodyVerse: 'This will only edit your details as author in ${_bzModel.name} '
+    titleVerse:  '##Confirm Edits ?',
+    bodyVerse:  '##This will only edit your details as author in ${_bzModel.name} '
         'business account, and will not impact your personal profile',
     boolDialog: true,
-    confirmButtonVerse: 'Confirm',
+    confirmButtonVerse:  '##Confirm',
   );
 
   if (_result == true){
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: xPhrase(context, '##Uploading new Author details'),
+      loadingVerse: '##Uploading new Author details',
     ));
 
     final AuthorModel _author = AuthorModel(
@@ -151,8 +149,8 @@ Future<void> onChangeAuthorRoleOps({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Change Author Role',
-      bodyVerse: 'This will set ${author.name} as $_role',
+      titleVerse:  '##Change Author Role',
+      bodyVerse:  '##This will set ${author.name} as $_role',
       boolDialog: true,
     );
 
@@ -164,7 +162,7 @@ Future<void> onChangeAuthorRoleOps({
 
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Uploading new Author details'),
+        loadingVerse: '##Uploading new Author details',
       ));
 
       final BzModel _bzModel = BzzProvider.proGetActiveBzModel(

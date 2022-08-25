@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -105,7 +103,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// GET IMAGE FROM GALLERY
         AppBarButton(
           icon: Iconz.phoneGallery,
-          verse: xPhrase(context, '##Take'),
+          verse: '##Take',
           onTap: () async {
 
             final FileModel _pickedFileModel = await Imagers.pickAndCropSingleImage(
@@ -139,7 +137,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// CROP IMAGE
         AppBarButton(
           icon: _file,
-          verse: xPhrase(context, '##Crop'),
+          verse: '##Crop',
           onTap: () async {
 
             final FileModel _pickedFileModel = await Imagers.cropImage(
@@ -174,7 +172,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
         /// RESIZE
         AppBarButton(
           icon: Iconz.arrowDown,
-          verse: xPhrase(context, '##resize'),
+          verse: '##resize',
           onTap: () async {
 
             final File _pickedFile = await Filers.resizeImage(

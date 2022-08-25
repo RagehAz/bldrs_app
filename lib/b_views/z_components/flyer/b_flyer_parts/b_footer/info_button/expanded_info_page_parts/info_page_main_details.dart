@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class InfoPageMainDetails extends StatelessWidget {
         /// Flyer Type
         StatsLine(
           bubbleWidth: pageWidth,
-          verse: xPhrase(context, '##Flyer Type : $_flyerTypeString'),
+          verse: '##Flyer Type : $_flyerTypeString',
           icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
           iconSizeFactor: 1,
           verseScaleFactor: 0.85 * 0.7,
@@ -56,13 +55,13 @@ class InfoPageMainDetails extends StatelessWidget {
         /// PUBLISH TIME
         StatsLine(
           bubbleWidth: pageWidth,
-          verse: xPhrase(context, '##Published $_timeDifferance'),
+          verse: '##Published $_timeDifferance',
           icon: Iconz.calendar,
         ),
 
         /// ZONE
         StatsLine(
-          verse: xPhrase(context, '##Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}'),
+          verse: '##Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
           icon: flyerZone?.flag,
           bubbleWidth: pageWidth,
         ),

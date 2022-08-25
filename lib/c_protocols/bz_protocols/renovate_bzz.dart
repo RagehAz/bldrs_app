@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/g_bz/a_bz_profile/a_my_bz_screen.dart';
@@ -8,7 +7,6 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -36,7 +34,7 @@ class RenovateBzProtocols {
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: xPhrase(context, '##Updating Business account'),
+        loadingVerse: '##Updating Business account',
       ));
     }
 
@@ -83,8 +81,8 @@ class RenovateBzProtocols {
         /// SHOW SUCCESS DIALOG
         unawaited(TopDialog.showTopDialog(
           context: context,
-          firstLine: 'Great !',
-          secondLine: 'Successfully updated your Business Account',
+          firstLine: '##Great !',
+          secondLine: '##Successfully updated your Business Account',
           color: Colorz.green255,
           textColor: Colorz.white255,
         ));
@@ -192,8 +190,8 @@ class RenovateBzProtocols {
     /// FAILURE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: xPhrase(context, '##Ops !'),
-      bodyVerse: xPhrase(context, '##Something went wrong, Please try again'),
+      titleVerse: '##Ops !',
+      bodyVerse: '##Something went wrong, Please try again',
     );
 
   }

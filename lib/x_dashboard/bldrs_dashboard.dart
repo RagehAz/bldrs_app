@@ -163,10 +163,10 @@ class BldrsDashBoard extends StatelessWidget {
 
       final bool _result = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: 'Reboot System ?',
-        bodyVerse: 'This will clear all local data, all cache in pro and in LDB, continue ?',
+        titleVerse:  'Reboot System ?',
+        bodyVerse:  'This will clear all local data, all cache in pro and in LDB, continue ?',
         boolDialog: true,
-        confirmButtonVerse: 'Fuck it !',
+        confirmButtonVerse:  'Fuck it !',
       );
 
       if (_result == true){

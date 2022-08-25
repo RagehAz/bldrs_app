@@ -197,7 +197,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                     (index){
 
                       final String _unitID = _units[index];
-                      final String _unitName = xPhrase(context, _unitID, phrasePro: pro);
+                      final String _unitName = _unitID;
 
                       return BottomDialog.wideButton(
                         context: context,
@@ -262,10 +262,10 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
         withCounter: false,
     );
 
-    final String _hintText = xPhrase(context, widget.specPicker.chainID);
+    final String _hintText = widget.specPicker.chainID;
 
     return Bubble(
-      title: 'Add ...',
+      title: '##Add ...',
       width: _bubbleWidth,
       columnChildren: <Widget>[
 
@@ -278,7 +278,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
             Form(
               key: _formKey,
               child: SuperTextField(
-                titleVerse: xPhrase(context, '##Number'),
+                titleVerse: '##Number',
                 isFormField: true,
                 autofocus: true,
                 width: _textFieldWidth,
@@ -308,7 +308,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
                     width: _buttonWidth,
                     height: _buttonHeight,
                     // color: Colorz.bloodTest,
-                    verse: xPhrase(context, selectedUnitID),
+                    verse: selectedUnitID,
                     verseScaleFactor: 0.7,
                     verseMaxLines: 2,
                     onTap: _onUnitSelectorTap,

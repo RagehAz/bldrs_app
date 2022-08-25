@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -113,8 +112,8 @@ class _FloatingDialogState extends State<FloatingDialog> {
             /// DROP DOWN
             menuMaxHeight: 500,
             itemHeight: _stripHeight,
-            hint: SuperVerse(
-              verse: xPhrase(context, '##flotingDialingHint'),
+            hint: const SuperVerse(
+              verse: '##flotingDialingHint',
             ),
             dropdownColor: Colorz.white255,
             elevation: 30,

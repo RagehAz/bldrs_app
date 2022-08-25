@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -98,7 +97,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 fieldIsRequired: true,
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
-                titleVerse: xPhrase(context, 'phid_emailAddress'),
+                titleVerse: 'phid_emailAddress',
                 validator: validateEmail,
                 hintText: 'rageh@bldrs.net',
               ),
@@ -144,9 +143,9 @@ class EmailAuthScreenView extends StatelessWidget {
                     width: 150,
                     verseScaleFactor: _verseScaleFactor,
                     verseMaxLines: 2,
-                    verse: _isSigningIn ? xPhrase(context, 'phid_create') : xPhrase(context, 'phid_register'),
+                    verse: _isSigningIn ? 'phid_create' : 'phid_register',
                     verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
-                    secondLine: xPhrase(context, 'phid_new_account'),
+                    secondLine: 'phid_new_account',
                     secondLineColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
                     color: _isSigningIn ? Colorz.white20 : Colorz.yellow255,
                     margins: EdgeInsets.zero,
@@ -159,7 +158,7 @@ class EmailAuthScreenView extends StatelessWidget {
                     height: _buttonHeight,
                     verseScaleFactor: _verseScaleFactor,
                     color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
-                    verse: xPhrase(context, 'phid_signIn'),
+                    verse: 'phid_signIn',
                     verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
                     verseWeight: VerseWeight.black,
                     margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),

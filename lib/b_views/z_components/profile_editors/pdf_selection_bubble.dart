@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
@@ -8,7 +9,6 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -113,11 +113,11 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
             ),
             columnChildren: <Widget>[
 
-              BubbleBulletPoints(
+              const BubbleBulletPoints(
                 bulletPoints: <String>[
-                  xPhrase(context, '##You can attach a PDF File to this flyer.'),
-                  xPhrase(context, '##Anybody can view and download this PDF file.'),
-                  xPhrase(context, '##PDF file size can only be less than 3 Mb.'),
+                  '##You can attach a PDF File to this flyer.',
+                  '##Anybody can view and download this PDF file.',
+                  '##PDF file size can only be less than 3 Mb.',
                 ],
               ),
 
@@ -127,14 +127,14 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   children: <Widget>[
 
                     const BubbleTitle(
-                      title: 'PDF File name',
+                      title: '##PDF File name',
                       titleScaleFactor: 0.9,
                     ),
 
 
                     if (pdf.size != null)
                     SuperVerse(
-                      verse: xPhrase(context, '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb'),
+                      verse: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
                       italic: true,
                       color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
                       weight: VerseWeight.thin,
@@ -159,7 +159,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 if (_fileExists == true || _urlExists == true)
               SuperTextField(
                 width: Bubble.clearWidth(context),
-                titleVerse: xPhrase(context, '##File Name'),
+                titleVerse: '##File Name',
                 maxLines: 1,
                 textController: _textController,
                 onChanged: (String text){
@@ -253,7 +253,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   if (_fileExists == true || _urlExists == true)
                     DreamBox(
                       height: 50,
-                      verse: xPhrase(context, '##Remove'),
+                      verse: '##Remove',
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,

@@ -53,7 +53,7 @@ Future<void> onShowNoteOptions({
     context: context,
     draggable: true,
     numberOfWidgets: 1,
-    title: 'Options',
+    title: '##Options',
     buttonHeight: 50,
     builder: (_, PhraseProvider pro){
 
@@ -61,7 +61,7 @@ Future<void> onShowNoteOptions({
 
         BottomDialog.wideButton(
           context: context,
-          verse: xPhrase(context, '##Delete'),
+          verse: '##Delete',
           height: 50,
           onTap: () async {
 

@@ -184,7 +184,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               DataStrip(
                 width: _clearWidth,
                 dataKey: 'Currency',
-                dataValue: '${_currencyModel.symbol} : ${xPhrase(context, _currencyModel.id)}',
+                dataValue: '${_currencyModel.symbol} : ${xPhrase( context, _currencyModel.id)}',
               ),
 
               /// LANGUAGE

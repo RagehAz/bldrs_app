@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -543,7 +542,7 @@ class SpecModel {
   }) {
 
     final String _name = spec.value is String ?
-    xPhrase(context, spec.value)
+    spec.value
         :
     spec.value.toString();
 

@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -79,7 +78,7 @@ class UserBalloon extends StatelessWidget {
             alignment: Aligners.superInverseTopAlignment(context),
             child: DreamBox(
               height: size * 0.4,
-              verse: xPhrase(context, 'phid_edit'),
+              verse: 'phid_edit',
               verseScaleFactor: 0.7,
               color: Colorz.red255,
               onTap: onTap,

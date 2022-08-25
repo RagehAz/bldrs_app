@@ -50,8 +50,8 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ID
           TextFieldBubble(
-            titleVerse: 'Key',
-            hintText: 'Phrase key',
+            titleVerse:  'Key',
+            hintText:  'Phrase key',
             textController: idController,
             onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
             pasteFunction: () => TextMod.controllerPaste(idController),
@@ -81,8 +81,8 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ENGLISH
           TextFieldBubble(
-            titleVerse: 'English',
-            hintText: 'English phrase',
+            titleVerse:  'English',
+            hintText:  'English phrase',
             textController: enController,
             onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
             pasteFunction: () => TextMod.controllerPaste(enController),
@@ -92,8 +92,8 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ARABIC
           TextFieldBubble(
-            titleVerse: 'عربي',
-            hintText: 'مصطلح عربي',
+            titleVerse:  'عربي',
+            hintText:  'مصطلح عربي',
             textController: arController,
             onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
             pasteFunction: () => TextMod.controllerPaste(arController),

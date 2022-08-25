@@ -99,7 +99,7 @@ class TargetProgressBar extends StatelessWidget {
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.flyer,
-                    verse:  '${target.reward.slides} ${xPhrase(context, '##Slides')}',
+                    verse:  '${target.reward.slides} ${xPhrase( context, '##Slides')}',
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,
@@ -111,7 +111,7 @@ class TargetProgressBar extends StatelessWidget {
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.save,
-                    verse:  '${target.reward.ankh} ${xPhrase(context, '##Ankhs')}',
+                    verse:  '${target.reward.ankh} ${xPhrase( context, '##Ankhs')}',
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,

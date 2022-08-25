@@ -117,8 +117,8 @@ Future<void> onSendAuthorshipInvitation({
 
   final bool _result = await Dialogs.userDialog(
     context: context,
-    titleVerse: 'Send Invitation ?',
-    bodyVerse: 'confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
+    titleVerse:  '##Send Invitation ?',
+    bodyVerse:  '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
     userModel: selectedUser,
   );
 
@@ -140,8 +140,8 @@ Future<void> onSendAuthorshipInvitation({
     unawaited(
         TopDialog.showTopDialog(
           context: context,
-          firstLine: 'Invitation Sent',
-          secondLine: 'Account authorship invitation has been sent to ${selectedUser.name} successfully',
+          firstLine:  '##Invitation Sent',
+          secondLine:  '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
           color: Colorz.green255,
           textColor: Colorz.white255,
         ));
@@ -165,10 +165,10 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Cancel Invitation ?',
-      bodyVerse: '${_receiverModel.name} will be notified with cancelling this invitation',
+      titleVerse:  '##Cancel Invitation ?',
+      bodyVerse:  '##${_receiverModel.name} will be notified with cancelling this invitation',
       boolDialog: true,
-      confirmButtonVerse: 'Yes, Cancel Invitation',
+      confirmButtonVerse:  '##Yes, Cancel Invitation',
     );
 
     if (_result == true){
@@ -180,7 +180,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Invitation request has been cancelled',
+        firstLine:  '##Invitation request has been cancelled',
         color: Colorz.green255,
         textColor: Colorz.white255,
       );
@@ -246,8 +246,8 @@ Future<void> _acceptAuthorshipInvitation({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Accept invitation ?',
-    bodyVerse: 'This will add you as an Author for this business account',
+    titleVerse:  '##Accept invitation ?',
+    bodyVerse:  'T##his will add you as an Author for this business account',
     boolDialog: true,
   );
 
@@ -257,7 +257,7 @@ Future<void> _acceptAuthorshipInvitation({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: "Adding you to '${bzModel.name}' business account",
+      loadingVerse:  "##Adding you to '${bzModel.name}' business account",
     ));
 
     await AuthorProtocols.addMeAsNewAuthorToABzProtocol(
@@ -281,11 +281,11 @@ Future<void> _acceptAuthorshipInvitation({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'You have become an Author in ${bzModel.name}',
-      bodyVerse: 'You can control the business account, publish flyers,'
+      titleVerse:  '##You have become an Author in ${bzModel.name}',
+      bodyVerse:  '##You can control the business account, publish flyers,'
           ' reply to costumers on behalf of the business and more.\n'
           'a system reboot is required',
-      confirmButtonVerse: 'Great',
+      confirmButtonVerse:  '##Great',
     );
 
     /// NOTE : a system reboot is required at that point
@@ -313,9 +313,9 @@ Future<void> _declineAuthorshipInvitation({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Decline invitation ?',
-    bodyVerse: 'This will reject the invitation and you will not be added as an author.',
-    confirmButtonVerse: 'Decline Invitation',
+    titleVerse:  '##Decline invitation ?',
+    bodyVerse:  '##This will reject the invitation and you will not be added as an author.',
+    confirmButtonVerse:  '##Decline Invitation',
     boolDialog: true,
   );
 

@@ -28,7 +28,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// CHANGE LANGUAGE
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_changeLanguage'),
+            verse: 'phid_changeLanguage',
             onTap: () => onChangeAppLanguageTap(context),
             icon: Iconz.language,
           ),
@@ -37,14 +37,14 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ABOUT
           SettingsWideButton(
-            verse:  '${xPhrase(context, 'phid_about')} ${Words.bldrsFullName(context)}',
+            verse:  '${xPhrase( context, 'phid_about')} ${Words.bldrsFullName(context)}',
             onTap: () => onAboutBldrsTap(context),
             icon: Iconz.language,
           ),
 
           /// FEEDBACK
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_feedback'),
+            verse: 'phid_feedback',
             icon: Iconz.utSearching,
             isOn : _userIsOnline,
             onTap: () => onFeedbackTap(context),
@@ -52,14 +52,14 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// TERMS AND REGULATIONS
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_termsRegulations'),
+            verse: 'phid_termsRegulations',
             icon: Iconz.terms,
             onTap: () => onTermsAndRegulationsTap(context),
           ),
 
           /// INVITE FRIENDS
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_inviteFriends'),
+            verse: 'phid_inviteFriends',
             icon: Iconizer.shareAppIcon(),
             onTap: () => onInviteFriendsTap(context),
           ),
@@ -68,7 +68,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ADD NEW BZ
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_createBzAccount'),
+            verse: 'phid_createBzAccount',
             icon: Iconz.bz,
             isOn : _userIsOnline,
             onTap: () => onCreateNewBzTap(context),
@@ -78,7 +78,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// SIGN OUT
           SettingsWideButton(
-            verse: xPhrase(context, 'phid_signOut'),
+            verse: 'phid_signOut',
             icon: Iconz.exit,
             isOn: _userIsOnline,
             onTap: () => onSignOut(context),
