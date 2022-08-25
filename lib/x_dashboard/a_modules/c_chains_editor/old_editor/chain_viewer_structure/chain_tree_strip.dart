@@ -122,7 +122,7 @@ class ChainTreeStrip extends StatelessWidget {
 
                       /// ID
                       SuperVerse(
-                        verse: '( lvl $level ) : $phraseID',
+                        verse:  '( lvl $level ) : $phraseID',
                         size: 1,
                         centered: false,
                         weight: VerseWeight.thin,

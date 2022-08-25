@@ -88,7 +88,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 //           DreamBox(
 //             height: 80,
 //             width: BottomDialog.clearWidth(context),
-//             verse: 'Flyer by ${flyer.bzID}',
+//             verse:  'Flyer by ${flyer.bzID}',
 //             bubble: false,
 //             verseWeight: VerseWeight.thin,
 //             verseItalic: true,
@@ -96,7 +96,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 //
 //           BottomDialog.wideButton(
 //               context: context,
-//               verse: 'Open flyer',
+//               verse:  'Open flyer',
 //               icon: Iconz.viewsIcon,
 //               onTap: () async {
 //
@@ -112,7 +112,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 //
 //           BottomDialog.wideButton(
 //             context: context,
-//             verse: 'Promote Flyer',
+//             verse:  'Promote Flyer',
 //             icon: Iconz.star,
 //             onTap: () async {
 //               await goToNewScreen(context, FlyerPromotionScreen(

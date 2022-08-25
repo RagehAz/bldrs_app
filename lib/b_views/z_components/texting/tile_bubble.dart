@@ -15,7 +15,7 @@ class TileBubble extends StatelessWidget {
     this.bubbleWidth,
     this.verseColor = Colorz.white255,
     this.btOnTap,
-    this.secondLine,
+    this.secondLineVerse,
     this.iconIsBubble = true,
     this.insideDialog = false,
     this.moreBtOnTap,
@@ -29,7 +29,7 @@ class TileBubble extends StatelessWidget {
   final BubbleHeaderVM bubbleHeaderVM;
   final Color verseColor;
   final Function btOnTap;
-  final String secondLine;
+  final String secondLineVerse;
   final bool iconIsBubble;
   final bool insideDialog;
   final Function moreBtOnTap;
@@ -94,7 +94,7 @@ class TileBubble extends StatelessWidget {
         ),
 
         /// SECOND LINE
-        if (secondLine != null)
+        if (secondLineVerse != null)
           SizedBox(
             width: Bubble.bubbleWidth(context: context, stretchy: false),
             child: Row(
@@ -112,7 +112,7 @@ class TileBubble extends StatelessWidget {
                     bubbleWidthOverride: _bubbleWidth,
                   ),
                   child: SuperVerse(
-                    verse: secondLine,
+                    verse: secondLineVerse,
                     color: Colorz.white200,
                     // scaleFactor: 1,
                     italic: true,

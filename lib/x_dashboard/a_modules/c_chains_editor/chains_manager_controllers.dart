@@ -176,7 +176,7 @@ Future<void> onPhidTap({
           /// EDIT
           BottomDialog.wideButton(
             context: context,
-            verse: 'Edit',
+            verse:  'Edit',
             onTap: () => onEditPhid(
               context: context,
               tempChain: tempChain,
@@ -188,7 +188,7 @@ Future<void> onPhidTap({
           /// DELETE
           BottomDialog.wideButton(
             context: context,
-            verse: 'Delete',
+            verse:  'Delete',
             onTap: () => onDeleteThePhid(
               context: context,
               tempChain: tempChain,
