@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -130,11 +131,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitle: 'Edit Author Details', // createBzAccount
+      pageTitle: xPhrase(context, '##Edit Author Details'),
       // appBarBackButton: true,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: 'Confirm',
-        secondLine: 'Update Author Details',
+        firstLine: xPhrase(context, '##Confirm'),
+        secondLine: xPhrase(context, '##Update Author Details'),
         onTap: () => onConfirmAuthorUpdates(
           context: context,
           author: _author,
@@ -158,7 +159,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                 return AddImagePicBubble(
                   fileModel: _authorPicFile,
-                  title: 'Author picture',
+                  title: xPhrase(context, '##Author picture'),
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
                   onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
@@ -175,12 +176,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _nameController,
-              title: 'Author Name',
+              title: xPhrase(context, '##Author Name'),
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
               fieldIsRequired: true,
-              comments: const <String>['This will only change your name inside this Business account'],
+              bulletPoints: <String>[
+                xPhrase(context, '##This will only change your name inside this Business account'),
+              ],
               validator: (){
 
                 if (Stringer.checkStringIsEmpty(_nameController.text) == true){
@@ -200,7 +203,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _titleController,
-              title: 'Job Title',
+              title: xPhrase(context, '##Job Title'),
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
@@ -208,10 +211,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               validator: (){
 
                 if (Stringer.checkStringIsEmpty(_titleController.text) == true){
-                  return 'Author name can not be empty';
+                  return xPhrase(context, '##Author name can not be empty');
                 }
                 else if (_titleController.text.length <= 3){
-                  return 'Author name should be more than 3 characters';
+                  return xPhrase(context, '##Author name should be more than 3 characters');
                 }
                 else {
                   return null;
