@@ -164,6 +164,8 @@ static const String reload =  '$_iconsPath/gi_reload.svg' ;
 static const String lab = '$_iconsPath/gi_lab.svg';
 static const String cleopatra = '$_iconsPath/gi_cleopatra.svg';
 static const String sphinx = '$_iconsPath/gi_sphinx.svg';
+static const String keywords = '$_iconsPath/gi_keywords.svg';
+static const String paste = '$_iconsPath/gi_paste.svg';
 // -----------------------------------------------------------------------------
 /// PYRAMIDS
 static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg' ;

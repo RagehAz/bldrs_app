@@ -101,7 +101,7 @@ class _SearchBarState extends State<SearchBar> {
             height: _padding,
           ),
 
-          /// SEARCH X BUTTON
+          /// SEARCH BUTTON
           if (widget.searchIconIsOn == true)
           ValueListenableBuilder(
               valueListenable: _searchTextController,
@@ -112,6 +112,7 @@ class _SearchBarState extends State<SearchBar> {
                 return Row(
                   children: <Widget>[
 
+                    /// BUTTON
                     DreamBox(
                       width: _searchButtonWidth,
                       height: _searchButtonHeight,
@@ -128,6 +129,7 @@ class _SearchBarState extends State<SearchBar> {
                       },
                     ),
 
+                    /// SPACER
                     const SizedBox(
                       width: _padding,
                       height: _padding,
@@ -191,7 +193,7 @@ class _SearchBarState extends State<SearchBar> {
                       DreamBox(
                         width: _searchButtonWidth,
                         height: _searchButtonHeight,
-                        icon: _canSubmit == true ? Iconz.xSmall : Iconz.plus,
+                        icon: _canSubmit == true ? Iconz.xSmall : Iconz.paste,
                         iconSizeFactor: 0.5,
                         bubble: false,
                         onTap: () async {
