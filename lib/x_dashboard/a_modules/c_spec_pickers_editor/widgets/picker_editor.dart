@@ -46,7 +46,7 @@ class PickerEditor extends StatelessWidget {
         LineBubble(
           child: BubbleHeader(
             viewModel: BubbleHeaderVM(
-              headline: 'ChainID: ${picker.chainID}',
+              headlineVerse:  'ChainID: ${picker.chainID}',
               headerWidth: BldrsAppBar.width(context),
             ),
           ),
@@ -62,7 +62,7 @@ class PickerEditor extends StatelessWidget {
           LineBubble(
             child: BubbleHeader(
               viewModel: BubbleHeaderVM(
-                headline: 'unitChainID: ${picker.unitChainID}',
+                headlineVerse:  'unitChainID: ${picker.unitChainID}',
                 headerWidth: BldrsAppBar.width(context),
               ),
             ),
@@ -78,7 +78,7 @@ class PickerEditor extends StatelessWidget {
           child: BubbleHeader(
             viewModel: BubbleHeaderVM(
               hasSwitch: true,
-              headline: 'Is Required',
+              headlineVerse:  'Is Required',
               switchIsOn: picker.isRequired,
               headerWidth: BldrsAppBar.width(context),
               onSwitchTap: (bool value) => onSwitchIsRequired(
@@ -96,7 +96,7 @@ class PickerEditor extends StatelessWidget {
           child: BubbleHeader(
             viewModel: BubbleHeaderVM(
               hasSwitch: true,
-              headline: 'Can pick many',
+              headlineVerse:  'Can pick many',
               switchIsOn: picker.canPickMany,
               headerWidth: BldrsAppBar.width(context),
               onSwitchTap: (bool value) => onSwitchCanPickMany(
@@ -118,7 +118,7 @@ class PickerEditor extends StatelessWidget {
                 /// HEADLINE
                 BubbleHeader(
                   viewModel: BubbleHeaderVM(
-                    headline: 'Visible Range',
+                    headlineVerse:  'Visible Range',
                     headerWidth: BldrsAppBar.width(context),
                   ),
                 ),
@@ -159,7 +159,7 @@ class PickerEditor extends StatelessWidget {
                 /// HEADLINE
                 BubbleHeader(
                   viewModel: BubbleHeaderVM(
-                    headline: 'Deactivators',
+                    headlineVerse:  'Deactivators',
                     headerWidth: BldrsAppBar.width(context),
                   ),
                 ),
@@ -193,7 +193,7 @@ class PickerEditor extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             child: BubbleHeader(
                               viewModel: BubbleHeaderVM(
-                                headline: _blocker.value.toString(),
+                                headlineVerse: _blocker.value.toString(),
                                 headerWidth: BldrsAppBar.width(context)- 20,
                               ),
                             ),

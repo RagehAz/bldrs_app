@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -564,7 +565,7 @@ Future<void> _publishFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: 'Uploading flyer',
+        loadingVerse: xPhrase(context, '##Uploading flyer'),
       ));
 
   final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
@@ -604,7 +605,7 @@ Future<void> _updateFlyerOps({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: 'Uploading flyer',
+      loadingVerse: xPhrase(context, '##Uploading flyer'),
     ));
 
     final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();
