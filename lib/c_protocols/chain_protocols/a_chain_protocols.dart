@@ -29,7 +29,7 @@ class ChainProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Uploading ChainK to RealTime Database',
+      loadingVerse:  'Uploading ChainK to RealTime Database',
     ));
 
     /// NOTE : chain K does not allow duplicate IDs in last node
@@ -51,7 +51,7 @@ class ChainProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Uploading ChainS to RealTime Database',
+      loadingVerse:  'Uploading ChainS to RealTime Database',
     ));
 
     /// NOTE : chain S allows duplicate keys in its last nodes

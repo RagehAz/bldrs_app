@@ -70,7 +70,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
           ),
 
           AppBarButton(
-            verse: 'blog current zone',
+            verse:  'blog current zone',
             onTap: (){
 
               _bubbleZone?.blogZone();

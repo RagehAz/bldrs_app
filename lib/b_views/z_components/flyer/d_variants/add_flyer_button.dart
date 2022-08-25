@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.d
 import 'package:bldrs/b_views/z_components/flyer/d_variants/abstract_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -93,7 +94,7 @@ class AddFlyerButton extends StatelessWidget {
               ),
 
               SuperVerse(
-                verse: 'Add\nNew\nFlyer',
+                verse: xPhrase(context, '##Add\nNew\nFlyer'),
                 maxLines: 5,
                 scaleFactor: _flyerSizeFactor * 5,
                 color: Colorz.white200,

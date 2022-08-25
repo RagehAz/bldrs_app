@@ -287,7 +287,7 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
                   builder: (_, List<CityModel> cities, Widget child){
 
                     return SuperVerse(
-                      verse: '${cities.length} / ${widget.country.citiesIDs.length}',
+                      verse:  '${cities.length} / ${widget.country.citiesIDs.length}',
                       weight: VerseWeight.thin,
                       size: 1,
                       margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),

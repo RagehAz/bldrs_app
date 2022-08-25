@@ -73,14 +73,14 @@
 //       //     const Stratosphere(),
 //       //
 //       //     SuperVerse(
-//       //       verse: 'Here is what you need to do ...',
+//       //       verse:  'Here is what you need to do ...',
 //       //       size: 3,
 //       //       onTap: (){},
 //       //     ),
 //       //
 //       //     DreamBox(
 //       //       height: 50,
-//       //       verse: 'Import Contacts',
+//       //       verse:  'Import Contacts',
 //       //       icon: Iconz.phone,
 //       //       iconSizeFactor: 0.7,
 //       //       onTap: () => onImportDeviceContactsTap(context),
@@ -115,7 +115,7 @@
 //       //                       /// NO DEVICE CONTACTS YET
 //       //                       if (Mapper.canLoopList(contacts) == false){
 //       //                         return const SuperVerse(
-//       //                           verse: 'No contacts imported',
+//       //                           verse:  'No contacts imported',
 //       //                         );
 //       //                       }
 //       //

@@ -173,7 +173,7 @@ class BldrsDashBoard extends StatelessWidget {
 
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingPhrase: 'Rebooting system',
+          loadingVerse:  'Rebooting system',
         ));
 
         /// WIPE OUT LDB

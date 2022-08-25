@@ -35,7 +35,7 @@ class StatsLine extends StatelessWidget {
       child: DreamBox(
         height: _height,
         icon: icon,
-        verse: '$_spaces$verse',
+        verse:  '$_spaces$verse',
         verseWeight: VerseWeight.thin,
         verseItalic: true,
         iconSizeFactor: iconSizeFactor,

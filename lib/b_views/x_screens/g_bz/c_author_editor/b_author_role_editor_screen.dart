@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -222,21 +223,21 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
                 children: <Widget>[
 
                   FuckingButtonAuthorShit(
-                    verse: 'Account Creator',
+                    verse: xPhrase(context, '##Account Creator'),
                     isOn: role == AuthorRole.creator,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.creator),
                   ),
 
                   FuckingButtonAuthorShit(
-                    verse: 'Team member',
+                    verse: xPhrase(context, '##Team member'),
                     isOn: role == AuthorRole.teamMember,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.teamMember),
                   ),
 
                   FuckingButtonAuthorShit(
-                    verse: 'Account Moderator',
+                    verse: xPhrase(context, '##Account Moderator'),
                     isOn: role == AuthorRole.moderator,
                     icon: Iconz.bz,
                     onTap: () => _setAuthorRole(AuthorRole.moderator),

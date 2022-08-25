@@ -209,7 +209,7 @@ Future<UserModel> _updateUserModel({
   loading.value = true;
   unawaited(WaitDialog.showWaitDialog(
     context: context,
-    loadingPhrase: 'Updating Profile',
+    loadingVerse: 'Updating Profile',
   ));
 
   /// start create user ops

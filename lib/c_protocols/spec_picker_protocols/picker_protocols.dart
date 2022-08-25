@@ -29,7 +29,7 @@ class PickerProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Uploading ChainK to RealTime Database',
+      loadingVerse:  'Uploading ChainK to RealTime Database',
     ));
 
     await PickerRealOps.createPickers(

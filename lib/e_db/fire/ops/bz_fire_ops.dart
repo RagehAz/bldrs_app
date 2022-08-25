@@ -603,7 +603,7 @@ class BzFireOps {
             /// INAPPROPRIATE CONTENT
             BottomDialog.wideButton(
                 context: context,
-                verse: 'This Account published Inappropriate content',
+                verse: xPhrase(context, '##This Account published Inappropriate content'),
                 onTap: (){
                   _feedback = 'This Account published Inappropriate content';
                   Nav.goBack(
@@ -616,7 +616,7 @@ class BzFireOps {
             /// COPY RIGHTS
             BottomDialog.wideButton(
                 context: context,
-                verse: 'This Account violates copyrights',
+                verse: xPhrase(context, '##This Account violates copyrights'),
                 onTap: (){
                   _feedback = 'This Account violates copyrights';
                   Nav.goBack(

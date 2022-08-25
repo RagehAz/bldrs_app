@@ -37,7 +37,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// ABOUT
           SettingsWideButton(
-            verse: '${xPhrase(context, 'phid_about')} ${Words.bldrsFullName(context)}',
+            verse:  '${xPhrase(context, 'phid_about')} ${Words.bldrsFullName(context)}',
             onTap: () => onAboutBldrsTap(context),
             icon: Iconz.language,
           ),

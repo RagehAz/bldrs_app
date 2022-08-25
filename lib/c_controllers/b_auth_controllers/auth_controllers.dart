@@ -89,7 +89,7 @@ Future<void> authByEmailSignIn({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Signing in',
+      loadingVerse: xPhrase(context, '##Signing in'),
     ));
 
     /// C - FIRE SIGN IN OPS
@@ -134,7 +134,7 @@ Future<void> authByEmailRegister({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingPhrase: 'Creating new Account',
+      loadingVerse: xPhrase(context, '##Creating new Account'),
     ));
 
     /// C - START REGISTER OPS

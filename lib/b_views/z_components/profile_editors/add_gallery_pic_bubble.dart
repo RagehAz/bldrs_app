@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -166,7 +167,7 @@ class AddImagePicBubble extends StatelessWidget {
                             height: picWidth,
                             alignment: Aligners.superInverseBottomAlignment(context),
                             child: SuperVerse(
-                              verse: '${fileModel.size} Mb',
+                              verse: '${fileModel.size} ${xPhrase(context, '##Mb')}',
                               size: 1,
                               centered: false,
                               shadow: true,
