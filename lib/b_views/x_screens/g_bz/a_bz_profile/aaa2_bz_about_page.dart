@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -50,14 +51,14 @@ class BzAboutPage extends StatelessWidget {
         /// ABOUT
         if (Stringer.checkStringIsNotEmpty(_bzModel.about) == true)
           ParagraphBubble(
-            title: 'About ${_bzModel.name}',
+            title: xPhrase(context, '##About ${_bzModel.name}'),
             paragraph: _bzModel.about,
           ),
 
         /// SCOPE
         if (Mapper.checkCanLoopList(_bzModel.scope) == true)
           Bubble(
-            title: 'Scope of services',
+            title: xPhrase(context, '##Scope of services'),
             columnChildren: <Widget>[
 
               PhidsViewer(
@@ -80,7 +81,7 @@ class BzAboutPage extends StatelessWidget {
         /// FLYERS GALLERY TITLE
         if (showGallery == true)
           SuperVerse(
-            verse: 'Flyers By ${bzModel.name}',
+            verse: xPhrase(context, '##Flyers By ${bzModel.name}'),
             centered: false,
             maxLines: 2,
             margin: 20,

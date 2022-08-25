@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class BzPowersPage extends StatelessWidget {
           columnChildren: <Widget>[
 
             SuperVerse(
-              verse: '${_bzModel.name} has got 500 slides left',
+              verse: xPhrase(context, '##${_bzModel.name} has got 500 slides left'),
             ),
           ],
         ),
@@ -80,11 +81,11 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         Bubble(
-          title: 'Get Bldrs.net marketing materials',
+          title: xPhrase(context, '##Get Bldrs.net marketing materials'),
           columnChildren: <Widget>[
 
             SuperVerse.dotVerse(
-              verse: 'Download Your custom Bldr online banner',
+              verse: xPhrase(context, '##Download Your custom Bldr online banner'),
             ),
 
             Container(
@@ -99,7 +100,7 @@ class BzPowersPage extends StatelessWidget {
             ),
 
             SuperVerse.dotVerse(
-              verse: 'Download "Find us on Bldrs.net" printable banner',
+              verse: xPhrase(context, '##Download "Find us on Bldrs.net" printable banner'),
             ),
 
             Container(
@@ -119,7 +120,7 @@ class BzPowersPage extends StatelessWidget {
             ),
 
             SuperVerse.dotVerse(
-              verse: 'Use Bldrs.net graphics to customize your own materials',
+              verse: xPhrase(context, '##Use Bldrs.net graphics to customize your own materials'),
             ),
 
             Container(

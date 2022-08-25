@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/a_bz_profile/aaa8_bz_settings_page_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -35,7 +36,7 @@ class BzSettingsPage extends StatelessWidget {
         const DotSeparator(color: Colorz.yellow80,),
 
         SettingsWideButton(
-          verse: 'Edit ${_bzModel.name} Business Account',
+          verse: xPhrase(context, '##Edit ${_bzModel.name} Business Account'),
           icon: Iconz.gears,
           onTap: () => onEditBzButtonTap(
             context: context,
@@ -48,7 +49,7 @@ class BzSettingsPage extends StatelessWidget {
 
         if (_userIsCreator == true)
           SettingsWideButton(
-            verse: 'Delete ${_bzModel.name} Business account',
+            verse: xPhrase(context, '##Delete ${_bzModel.name} Business account'),
             color: Colorz.bloodTest,
             icon: Iconz.xSmall,
             onTap: () => onDeleteBzButtonTap(
