@@ -18,12 +18,12 @@ class SuperTextField extends StatefulWidget {
   const SuperTextField({
     @required this.width,
     @required this.textController,
-    @required this.title,
+    @required this.titleVerse,
 
     /// main
     this.isFormField,
     this.initialValue,
-    this.hintText = '...',
+    this.hintVerse = '...',
     this.autofocus = false,
     this.focusNode,
     this.counterIsOn = false,
@@ -68,11 +68,11 @@ class SuperTextField extends StatefulWidget {
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// main
-  final String title;
+  final String titleVerse;
   final bool isFormField;
   final TextEditingController textController;
   final String initialValue;
-  final String hintText;
+  final String hintVerse;
   final bool autofocus;
   final FocusNode focusNode;
   final bool counterIsOn;
@@ -529,8 +529,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
       blog('keyboard : $_keyboardIs : _controller : ${_controller.hashCode}');
 
       final KeyboardModel model = KeyboardModel(
-        title: widget.title,
-        hintText: widget.hintText,
+        titleVerse: widget.titleVerse,
+        hintVerse: widget.hintVerse,
         controller: _controller,
         minLines: widget.minLines ?? 1,
         maxLines: widget.maxLines ?? 1,
@@ -609,7 +609,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                     /// main
                     isFormField: widget.isFormField,
                     controller: _textController,
-                    hintText: widget.hintText,
+                    hintText: widget.hintVerse,
                     autoFocus: widget.autofocus,
                     focusNode: _focusNode,
                     counterIsOn: widget.counterIsOn,
@@ -681,7 +681,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
             builder: (_, String value, Widget child){
 
               final bool _textIsEmpty = value.isEmpty;
-              final String _value = _textIsEmpty == true ? widget.hintText ?? '' : value;
+              final String _value = _textIsEmpty == true ? widget.hintVerse ?? '' : value;
 
               if (widget.canObscure == true){
                 return Selector<UiProvider, bool>(

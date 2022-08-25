@@ -106,7 +106,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitle: 'Phrases Editor',
+      pageTitleVerse: 'Phrases Editor',
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,

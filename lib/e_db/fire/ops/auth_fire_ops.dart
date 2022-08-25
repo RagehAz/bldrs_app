@@ -420,8 +420,8 @@ static String superUserID() {
   on Exception catch (error) {
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Trouble Signing out',
-      body: error,
+      titleVerse: 'Trouble Signing out',
+      bodyVerse: error,
     );
   }
 

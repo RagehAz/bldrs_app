@@ -90,7 +90,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitle: 'Cloud Functions test',
+      pageTitleVerse: 'Cloud Functions test',
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: ListView(

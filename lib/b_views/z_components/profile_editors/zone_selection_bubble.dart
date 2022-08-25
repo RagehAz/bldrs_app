@@ -22,15 +22,15 @@ class ZoneSelectionBubble extends StatefulWidget {
   const ZoneSelectionBubble({
     @required this.currentZone,
     @required this.onZoneChanged,
-    this.title = 'Preferred Location',
-    this.notes,
+    this.titleVerse = 'Preferred Location',
+    this.bulletPoints,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ZoneModel currentZone;
   final ValueChanged<ZoneModel> onZoneChanged;
-  final String title;
-  final List<String> notes;
+  final String titleVerse;
+  final List<String> bulletPoints;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -324,11 +324,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             builder: (_, ZoneModel zone, Widget bulletPoints){
 
               return Bubble(
-                  title: widget.title,
+                  title: widget.titleVerse,
                   redDot: true,
                   columnChildren: <Widget>[
 
-                    if (Mapper.checkCanLoopList(widget.notes))
+                    if (Mapper.checkCanLoopList(widget.bulletPoints))
                       bulletPoints,
 
                     /// COUNTRY BUTTON
@@ -362,7 +362,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
             },
             child: BubbleBulletPoints(
-              bulletPoints: widget.notes,
+              bulletPoints: widget.bulletPoints,
             ),
           );
 

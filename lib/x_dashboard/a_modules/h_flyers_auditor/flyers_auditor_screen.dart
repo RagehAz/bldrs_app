@@ -410,7 +410,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      pageTitle: 'Flyers Auditor',
+      pageTitleVerse: 'Flyers Auditor',
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       loading: _loading,

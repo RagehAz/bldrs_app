@@ -130,8 +130,8 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
-      body: _errorReply,
+      titleVerse: xPhrase(context, 'phid_a_could_not_continue_title', phrasePro: _phraseProvider),
+      bodyVerse: _errorReply,
     );
   }
 // -----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Enter Your password',
+      titleVerse: xPhrase(context, '##Enter Your password'),
       height: Scale.superScreenHeight(context) * 0.6,
       onOk: () async {
 
@@ -269,13 +269,13 @@ class Dialogs {
 
             TextFieldBubble(
               isFloatingField: _keyboardModel.isFloatingField,
-              title: _keyboardModel.title,
+              titleVerse: _keyboardModel.titleVerse,
               textController: _keyboardModel.controller,
               maxLines: _keyboardModel.maxLines,
               minLines: _keyboardModel.minLines,
               maxLength: _keyboardModel.maxLength,
               bubbleWidth: _clearWidth,
-              hintText: _keyboardModel.hintText,
+              hintText: _keyboardModel.hintVerse,
               counterIsOn: _keyboardModel.counterIsOn,
               canObscure: _keyboardModel.canObscure,
               keyboardTextInputType: _keyboardModel.textInputType,
@@ -314,7 +314,7 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Proceed ?',
+      titleVerse: xPhrase(context, '##Proceed ?'),
       // body: body,
       boolDialog: true,
     );
@@ -325,24 +325,24 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
     @required BuildContext context,
-    String title,
-    String body,
+    String titleVerse,
+    String bodyVerse,
     String confirmButtonText,
     bool goBackOnConfirm = false,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title ?? 'Go Back ?',
-      body: body,
+      titleVerse: titleVerse ?? 'Go Back ?',
+      bodyVerse: bodyVerse,
       boolDialog: true,
-      confirmButtonText: confirmButtonText ?? 'Go Back',
+      confirmButtonVerse: confirmButtonText ?? 'Go Back',
     );
 
     if (goBackOnConfirm == true && _result == true){
       Nav.goBack(
         context: context,
-        invoker: 'goBackDialog : $title',
+        invoker: 'goBackDialog : $titleVerse',
       );
     }
 
@@ -358,18 +358,18 @@ class Dialogs {
   static Future<bool> userDialog({
     @required BuildContext context,
     @required UserModel userModel,
-    @required String title,
-    @required String body,
+    @required String titleVerse,
+    @required String bodyVerse,
     String confirmButtonText,
     bool boolDialog = true,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
       boolDialog: boolDialog,
-      confirmButtonText: confirmButtonText,
+      confirmButtonVerse: confirmButtonText,
       height: Scale.superScreenHeight(context) * 0.85,
       child: UserBanner(
         userModel: userModel,
@@ -395,9 +395,9 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
-      confirmButtonText: confirmButtonText,
+      titleVerse: title,
+      bodyVerse: body,
+      confirmButtonVerse: confirmButtonText,
       boolDialog: boolDialog,
       height: Scale.superScreenHeight(context) * 0.85,
       child: BzBanner(
@@ -426,9 +426,9 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
-      confirmButtonText: confirmButtonText,
+      titleVerse: title,
+      bodyVerse: body,
+      confirmButtonVerse: confirmButtonText,
       boolDialog: boolDialog,
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
@@ -478,9 +478,9 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
-      confirmButtonText: 'Cancel',
+      titleVerse: title,
+      bodyVerse: body,
+      confirmButtonVerse: xPhrase(context, '##Cancel'),
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
@@ -526,10 +526,10 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
+      titleVerse: title,
+      bodyVerse: body,
       boolDialog: boolDialog,
-      confirmButtonText: confirmButtonText,
+      confirmButtonVerse: confirmButtonText,
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
@@ -570,10 +570,10 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: title,
-      body: body,
+      titleVerse: title,
+      bodyVerse: body,
       boolDialog: boolDialog,
-      confirmButtonText: confirmButtonText,
+      confirmButtonVerse: confirmButtonText,
       height: _dialogHeight,
       child: SizedBox(
         height: _flyerBoxHeight,

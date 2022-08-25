@@ -192,8 +192,8 @@ class RenovateBzProtocols {
     /// FAILURE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Ops !',
-      body: 'Something went wrong, Please try again',
+      titleVerse: xPhrase(context, '##Ops !'),
+      bodyVerse: xPhrase(context, '##Something went wrong, Please try again'),
     );
 
   }

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -85,16 +86,16 @@ static const String sendNotificationToDevice = 'sendNotificationToDevice';
           if (_unauthenticated == true) {
             await CenterDialog.showCenterDialog(
               context: context,
-              title: 'You Are not Signed in',
-              body: 'Please Sign in into your account first',
+              titleVerse: xPhrase(context, '##You Are not Signed in'),
+              bodyVerse: xPhrase(context, '##Please Sign in into your account first'),
             );
           }
 
           else {
             await CenterDialog.showCenterDialog(
               context: context,
-              title: 'error',
-              body: error,
+              titleVerse: xPhrase(context, '##error'),
+              bodyVerse: error,
             );
           }
 

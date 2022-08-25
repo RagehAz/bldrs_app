@@ -95,8 +95,8 @@ Future<void> onChangeNoteType({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Watch out!',
-      body: 'Only Business note Sender Type can send Authorship notes'
+      titleVerse: 'Watch out!',
+      bodyVerse: 'Only Business note Sender Type can send Authorship notes'
           '\n want to continue and wipe selected sender type?',
       boolDialog: true,
     );
@@ -393,12 +393,12 @@ Future<bool> _showEthicalConfirmationDialog({
 
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Ethical Alert',
-      body: 'Sending Notes on behalf of a $_senderTypeString '
+      titleVerse: 'Ethical Alert',
+      bodyVerse: 'Sending Notes on behalf of a $_senderTypeString '
           "is kind of little bit unethical, isn't it ?\n"
           'Anyways, Would you like to continue ?',
       boolDialog: true,
-      confirmButtonText: 'Fuck Yeah',
+      confirmButtonVerse: 'Fuck Yeah',
     );
 
   }
@@ -754,8 +754,8 @@ Future<void> onSendNote({
 
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Send ?',
-      body: 'Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )',
+      titleVerse: 'Send ?',
+      bodyVerse: 'Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )',
       boolDialog: true,
     );
 
@@ -898,8 +898,8 @@ Future<void> onDeleteNote({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Delete Note ?',
-    body: 'Will Delete on Database and can never be recovered',
+    titleVerse: 'Delete Note ?',
+    bodyVerse: 'Will Delete on Database and can never be recovered',
     boolDialog: true,
   );
 

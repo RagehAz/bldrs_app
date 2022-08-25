@@ -206,7 +206,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// ENGLISH NAME
               TextFieldBubble(
                 bubbleWidth: _clearWidth,
-                title:  'English Name',
+                titleVerse:  'English Name',
                 textController: _enNameController,
                 textOnChanged: (String text){
 
@@ -223,7 +223,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
               /// ARABIC NAME
               TextFieldBubble(
                 bubbleWidth: _clearWidth,
-                title:  'Arabic Name',
+                titleVerse:  'Arabic Name',
                 textController: _arNameController,
                 textOnChanged: (String text){
 

@@ -278,12 +278,12 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
             Form(
               key: _formKey,
               child: SuperTextField(
-                title: 'Number',
+                titleVerse: xPhrase(context, '##Number'),
                 isFormField: true,
                 autofocus: true,
                 width: _textFieldWidth,
                 textController: controller,
-                hintText: _hintText,
+                hintVerse: _hintText,
                 centered: true,
                 // counterIsOn: false,
                 textSize: _textSize,

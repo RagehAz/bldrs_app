@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/d_author_search/a_author_search_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:flutter/material.dart';
 
 class SearchForAuthorScreen extends StatefulWidget {
@@ -83,8 +84,8 @@ class _SearchForAuthorScreenState extends State<SearchForAuthorScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitle: 'Add new Author',
-      searchHint: 'Search Users by name',
+      pageTitleVerse: xPhrase(context, '##Add new Author'),
+      searchHintVerse: xPhrase(context, '##Search Users by name'),
       pyramidsAreOn: true,
       // appBarBackButton: true,
       appBarType: AppBarType.search,

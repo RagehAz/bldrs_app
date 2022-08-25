@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
-    this.title,
+    this.titleVerse,
     this.bubbleWidth,
     this.hintText = '...',
     this.counterIsOn = false,
@@ -55,7 +55,7 @@ class TextFieldBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
-  final String title;
+  final String titleVerse;
   final String hintText;
   final bool counterIsOn;
   final int maxLines;
@@ -153,7 +153,7 @@ class TextFieldBubble extends StatelessWidget {
     return Bubble(
         width: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
         bubbleColor: bubbleColor,
-        title: title,
+        title: titleVerse,
         redDot: fieldIsRequired,
         actionBtIcon: actionBtIcon,
         actionBtFunction: actionBtFunction,
@@ -185,11 +185,11 @@ class TextFieldBubble extends StatelessWidget {
 
                   /// TEXT FIELD
                   SuperTextField(
-                    title: title,
+                    titleVerse: titleVerse,
                     width: fieldWidth,
                     isFormField: isFormField,
                     textDirection: textDirection,
-                    hintText: hintText,
+                    hintVerse: hintText,
                     counterIsOn: counterIsOn,
                     textInputType: keyboardTextInputType,
                     maxLines: maxLines,

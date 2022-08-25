@@ -76,8 +76,8 @@ Future<bool> _preSyncCheckups({
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
     height: 600,
-    title: 'Chains Differences',
-    body: 'Below is a comparison result of Chain changed\n'
+    titleVerse: 'Chains Differences',
+    bodyVerse: 'Below is a comparison result of Chain changed\n'
         'Wish to upload the edited Chain',
     boolDialog: true,
     child: BubbleBulletPoints(
@@ -256,8 +256,8 @@ Future<void> onAddNewPath ({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Delete $phid ?',
-      body: 'this path will be deleted :-'
+      titleVerse: 'Delete $phid ?',
+      bodyVerse: 'this path will be deleted :-'
           '\n[ $path ]',
       boolDialog: true,
     );
@@ -301,8 +301,8 @@ Future<void> onEditPhid({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       height: 500,
-      title: 'Edit this path ?',
-      body: 'old\n$path'
+      titleVerse: 'Edit this path ?',
+      bodyVerse: 'old\n$path'
           '\n\n'
           'new\n$_typedPath',
       boolDialog: true,
@@ -347,8 +347,8 @@ Future<String> _pathKeyboardDialog({
   _typedPath = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel.standardModel().copyWith(
-      title: title,
-      hintText: path,
+      titleVerse: title,
+      hintVerse: path,
       controller: _controller,
       // focusNode: _node,
       minLines: 3,

@@ -872,10 +872,10 @@ String pathOfSubDoc({
 
     final bool _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'DANGER',
-      body: 'you will delete all documents in [ $collName ] collection\n Confirm delete ?',
+      titleVerse:  'DANGER',
+      bodyVerse:  'you will delete all documents in [ $collName ] collection\n Confirm delete ?',
       boolDialog: true,
-      confirmButtonText: 'YES DELETE ALL',
+      confirmButtonVerse:  'YES DELETE ALL',
     );
 
     if (_canContinue == true){
@@ -958,10 +958,10 @@ String pathOfSubDoc({
     if (showAlertDialog == true){
       _canContinue =  await CenterDialog.showCenterDialog(
         context: context,
-        title: 'DANGER',
-        body: 'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
+        titleVerse:  'DANGER',
+        bodyVerse:  'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
         boolDialog: true,
-        confirmButtonText: 'YES DELETE ALL',
+        confirmButtonVerse:  'YES DELETE ALL',
       );
     }
 

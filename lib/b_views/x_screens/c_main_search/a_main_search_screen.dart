@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/x_screens/c_main_search/aa_main_search_screen_view
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_controllers/c_main_search_controllers/main_search_controllers.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -135,8 +136,8 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     return MainLayout(
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
-      pageTitle: 'Search',
-      searchHint: _getSearchHintText(context),
+      pageTitleVerse: xPhrase(context, '##Search'),
+      searchHintVerse: _getSearchHintText(context),
       pyramidsAreOn: true,
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,

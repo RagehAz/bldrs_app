@@ -112,7 +112,7 @@ class _PaginatorTestState extends State<PaginatorTest> {
     blog('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
 
     return MainLayout(
-      pageTitle: 'pagination Test',
+      pageTitleVerse: 'pagination Test',
       loading: _loading,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,

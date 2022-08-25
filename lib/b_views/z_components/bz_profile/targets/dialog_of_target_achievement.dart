@@ -19,9 +19,9 @@ class DialogOfTargetAchievement extends StatelessWidget {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: xPhrase(context, '##Congratulations'),
-      body: xPhrase(context, '##You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs'),
-      confirmButtonText: 'CLAIM',
+      titleVerse: xPhrase(context, '##Congratulations'),
+      bodyVerse: xPhrase(context, '##You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs'),
+      confirmButtonVerse: xPhrase(context, '##CLAIM'),
       child: Column(
         children: <Widget>[
           SuperVerse(

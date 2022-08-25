@@ -83,7 +83,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitle: 'App Controls',
+      pageTitleVerse: 'App Controls',
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       loading: _loading,

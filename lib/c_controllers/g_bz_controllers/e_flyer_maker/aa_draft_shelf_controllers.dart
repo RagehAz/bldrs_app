@@ -297,8 +297,8 @@ Future<void> _addImagesForExistingFlyer({
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Max. Images reached',
-    body: 'Can not add more than $maxLength images in one slide',
+    titleVerse: 'Max. Images reached',
+    bodyVerse: 'Can not add more than $maxLength images in one slide',
   );
 }
 // ----------------------------------

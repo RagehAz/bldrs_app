@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -41,8 +42,8 @@ Future<void> tryAndCatch({
       if (context != null){
         await CenterDialog.showCenterDialog(
           context: context,
-          body: error,
-          title: 'Something Went Wrong !',
+          bodyVerse: error,
+          titleVerse: xPhrase(context, '##Something Went Wrong !'),
         );
       }
     }

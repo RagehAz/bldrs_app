@@ -77,7 +77,7 @@ class KeyboardFloatingField extends StatelessWidget {
           return Selector<UiProvider, KeyboardModel>(
             selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
             shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-              return old?.title != newModel?.title;
+              return old?.titleVerse != newModel?.titleVerse;
             },
             builder: (_, KeyboardModel model, Widget child){
 

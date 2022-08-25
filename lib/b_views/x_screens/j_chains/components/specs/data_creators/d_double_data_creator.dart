@@ -154,14 +154,14 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
-                  title: 'Number',
+                  titleVerse: xPhrase(context, 'Number'),
                   isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
                   width: _textFieldWidth,
                   // height: _fieldHeight,
                   textController: controller,
-                  hintText: _hintText,
+                  hintVerse: _hintText,
                   fieldColor: Colorz.black20,
                   centered: true,
                   // counterIsOn: false,

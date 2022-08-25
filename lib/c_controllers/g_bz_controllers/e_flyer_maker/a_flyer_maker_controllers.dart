@@ -256,9 +256,9 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   final bool result = await CenterDialog.showCenterDialog(
     context: context,
     boolDialog: true,
-    title: 'Cancel Flyer',
-    body: 'All progress in this flyer will be lost',
-    confirmButtonText: 'Yes Cancel',
+    titleVerse: 'Cancel Flyer',
+    bodyVerse: 'All progress in this flyer will be lost',
+    confirmButtonVerse: 'Yes Cancel',
   );
 
   if (result == true){
@@ -323,8 +323,8 @@ Future<void> onSelectFlyerType({
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Delete selected Specifications ?',
-        body: 'All selected specifications will be deleted\nDo you wish to continue ?',
+        titleVerse: 'Delete selected Specifications ?',
+        bodyVerse: 'All selected specifications will be deleted\nDo you wish to continue ?',
         boolDialog: true,
       );
 
@@ -357,7 +357,7 @@ Future<void> onAddSpecsTap({
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: ChainsScreen(
-        pageTitle: '$_flyerTypeString Specifications',
+        pageTitleVerse: '$_flyerTypeString Specifications',
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
@@ -499,7 +499,7 @@ Future<bool> _preFlyerUpdateCheck({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Flyer was not changed',
+      titleVerse: 'Flyer was not changed',
     );
 
     _canContinue = false;
@@ -526,8 +526,8 @@ Future<bool> _prePublishFlyerCheck({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Add Images',
-      body: 'Add at least one image to the flyer',
+      titleVerse: 'Add Images',
+      bodyVerse: 'Add at least one image to the flyer',
     );
 
   }
@@ -596,9 +596,9 @@ Future<void> _updateFlyerOps({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Update Flyer ?',
+    titleVerse: 'Update Flyer ?',
     boolDialog: true,
-    confirmButtonText: 'Update',
+    confirmButtonVerse: 'Update',
   );
 
   if (_result == true){
