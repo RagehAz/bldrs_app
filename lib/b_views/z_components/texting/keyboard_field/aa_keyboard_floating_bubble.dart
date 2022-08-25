@@ -66,12 +66,12 @@ class KeyboardFloatingBubble extends StatelessWidget {
                     Selector<UiProvider, KeyboardModel>(
                       selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
                       shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                        return old?.title != newModel?.title;
+                        return old?.titleVerse != newModel?.titleVerse;
                       },
                       builder: (_, KeyboardModel model, Widget child){
 
                         return SuperVerse(
-                          verse: model?.title?.toUpperCase(),
+                          verse: model?.titleVerse?.toUpperCase(),
                           margin: 10,
                           italic: true,
                           weight: VerseWeight.black,
@@ -88,7 +88,7 @@ class KeyboardFloatingBubble extends StatelessWidget {
               Selector<UiProvider, KeyboardModel>(
                 selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
                 shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                  return old?.title != newModel?.title;
+                  return old?.titleVerse != newModel?.titleVerse;
                 },
                 builder: (_, KeyboardModel model, Widget child){
 

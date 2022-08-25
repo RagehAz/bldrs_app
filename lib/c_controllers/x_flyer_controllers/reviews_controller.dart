@@ -158,8 +158,8 @@ Future<void> _onEditReview({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      title: 'Edit Your Review',
-      hintText: 'What do you think of this flyer ?',
+      titleVerse: 'Edit Your Review',
+      hintVerse: 'What do you think of this flyer ?',
       controller: TextEditingController(text: reviewModel.text),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -209,8 +209,8 @@ Future<void> _onDeleteReview({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Delete Review ?',
-    body: 'Your review on this flyer will be permanently deleted',
+    titleVerse: 'Delete Review ?',
+    bodyVerse: 'Your review on this flyer will be permanently deleted',
     boolDialog: true,
   );
 
@@ -252,8 +252,8 @@ Future<void> onBzReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      title: 'Reply to this review',
-      hintText: 'Reply ...',
+      titleVerse: 'Reply to this review',
+      hintVerse: 'Reply ...',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -371,8 +371,8 @@ Future<void> _onEditReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      title: 'Edit Your Reply',
-      hintText: 'Reply',
+      titleVerse: 'Edit Your Reply',
+      hintVerse: 'Reply',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -423,8 +423,8 @@ Future<void> _onDeleteReply({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Delete Reply ?',
-    body: 'Your reply on this review will be permanently deleted',
+    titleVerse: 'Delete Reply ?',
+    bodyVerse: 'Your reply on this review will be permanently deleted',
     boolDialog: true,
   );
 

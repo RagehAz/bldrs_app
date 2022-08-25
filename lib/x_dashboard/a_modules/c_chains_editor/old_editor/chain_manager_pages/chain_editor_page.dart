@@ -47,7 +47,7 @@ class ChainEditorPage extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: path,
         child: TextFieldBubble(
-          title: 'ID',
+          titleVerse: 'ID',
           textController: textController,
         ),
         builder: (_, String _path, Widget textField){

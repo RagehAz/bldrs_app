@@ -139,8 +139,8 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     final String _newID = await Dialogs.keyboardDialog(
       context: context,
       keyboardModel: KeyboardModel.standardModel().copyWith(
-        hintText: 'Wtf is this',
-        title: 'Add new ID instead of Old ( ${map['id']} )',
+        hintVerse: 'Wtf is this',
+        titleVerse: 'Add new ID instead of Old ( ${map['id']} )',
       ),
     );
 

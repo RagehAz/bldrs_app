@@ -98,7 +98,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 fieldIsRequired: true,
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
-                title: xPhrase(context, 'phid_emailAddress'),
+                titleVerse: xPhrase(context, 'phid_emailAddress'),
                 validator: validateEmail,
                 hintText: 'rageh@bldrs.net',
               ),

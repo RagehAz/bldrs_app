@@ -145,7 +145,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
               resizeToAvoidBottomInset: false,
               body: BottomDialog(
                 height: _height,
-                title: 'WAT DA FAK',
+                title:  'WAT DA FAK',
                 child: StatefulBuilder(
 
                   builder: (_, state){
@@ -446,7 +446,7 @@ phid_k_pt_studio
                           Form(
                             key: _formKey,
                             child: SuperTextField(
-                              title: 'test Lab',
+                              titleVerse:  'test Lab',
                               isFormField: true,
                               width: _fieldWidth,
                               textController: _textController,
@@ -463,7 +463,7 @@ phid_k_pt_studio
                               },
                               // corners: 50,
                               // autofocus: false,
-                              hintText: 'fuck you',
+                              hintVerse:  'fuck you',
                               onSubmitted: (String val){
                                 blog('submitted val : $val');
                               },

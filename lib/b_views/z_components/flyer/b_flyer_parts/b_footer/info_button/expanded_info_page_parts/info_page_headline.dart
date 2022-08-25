@@ -6,12 +6,12 @@ class InfoPageHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageHeadline({
     @required this.pageWidth,
-    @required this.headline,
+    @required this.headlineVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final String headline;
+  final String headlineVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class InfoPageHeadline extends StatelessWidget {
       // padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.only(bottom: 10),
       child: SuperVerse(
-        verse: headline,
+        verse: headlineVerse,
         centered: false,
         size: 3,
         leadingDot: true,

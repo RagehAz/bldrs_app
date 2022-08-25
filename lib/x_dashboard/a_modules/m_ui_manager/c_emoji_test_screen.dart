@@ -46,7 +46,7 @@ class EmojiTestScreen extends StatelessWidget {
     final List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
     return MainLayout(
-      pageTitle: 'Emojis',
+      pageTitleVerse: 'Emojis',
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,

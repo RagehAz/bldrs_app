@@ -127,7 +127,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitle: widget.flyerToEdit == null ? xPhrase(context, 'phid_createFlyer') : 'Edit Flyer',
+      pageTitleVerse: widget.flyerToEdit == null ? xPhrase(context, 'phid_createFlyer') : 'Edit Flyer',
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,

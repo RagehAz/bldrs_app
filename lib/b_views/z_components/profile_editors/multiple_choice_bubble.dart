@@ -14,13 +14,13 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.onButtonTap,
     @required this.selectedButtons,
     @required this.isInError,
-    this.notes,
+    this.bulletPoints,
     this.inactiveButtons,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
-  final List<String> notes;
+  final List<String> bulletPoints;
   final List<String> buttonsList;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
@@ -39,9 +39,9 @@ class MultipleChoiceBubble extends StatelessWidget {
             redDot: true,
           ),
 
-          if (notes != null)
+          if (bulletPoints != null)
             BubbleBulletPoints(
-              bulletPoints: notes,
+              bulletPoints: bulletPoints,
             ),
 
           Wrap(

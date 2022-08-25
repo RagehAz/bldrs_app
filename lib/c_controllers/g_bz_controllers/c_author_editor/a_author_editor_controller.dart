@@ -85,11 +85,11 @@ Future<void> onConfirmAuthorUpdates({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Confirm Edits ?',
-    body: 'This will only edit your details as author in ${_bzModel.name} '
+    titleVerse: 'Confirm Edits ?',
+    bodyVerse: 'This will only edit your details as author in ${_bzModel.name} '
         'business account, and will not impact your personal profile',
     boolDialog: true,
-    confirmButtonText: 'Confirm',
+    confirmButtonVerse: 'Confirm',
   );
 
   if (_result == true){
@@ -151,8 +151,8 @@ Future<void> onChangeAuthorRoleOps({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Change Author Role',
-      body: 'This will set ${author.name} as $_role',
+      titleVerse: 'Change Author Role',
+      bodyVerse: 'This will set ${author.name} as $_role',
       boolDialog: true,
     );
 

@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 class CenterDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CenterDialog({
-    @required this.body,
+    @required this.bodyVerse,
     @required this.title,
     @required this.boolDialog,
     @required this.height,
@@ -27,7 +27,7 @@ class CenterDialog extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final dynamic body;
+  final dynamic bodyVerse;
   final String title;
   final bool boolDialog;
   final double height;
@@ -70,12 +70,12 @@ class CenterDialog extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<bool> showCenterDialog({
     @required BuildContext context,
-    dynamic body,
-    String title,
+    dynamic bodyVerse,
+    String titleVerse,
     bool boolDialog = false,
     double height,
     Widget child,
-    String confirmButtonText,
+    String confirmButtonVerse,
     Color color = Colorz.skyDarkBlue,
     Function onOk,
   }) async {
@@ -85,11 +85,11 @@ class CenterDialog extends StatelessWidget {
       builder: (BuildContext ctx) => CenterDialog(
         // context: context,
         // ctx: ctx,
-        body: body,
-        title: title,
+        bodyVerse: bodyVerse,
+        title: titleVerse,
         height: height,
         boolDialog: boolDialog,
-        confirmButtonText: confirmButtonText,
+        confirmButtonText: confirmButtonVerse,
         color: color,
         onOk: onOk,
         child: child,
@@ -239,14 +239,14 @@ class CenterDialog extends StatelessWidget {
                               ),
 
                               /// BODY
-                              if (Stringer.checkStringIsNotEmpty(body) == true)
+                              if (Stringer.checkStringIsNotEmpty(bodyVerse) == true)
                               SizedBox(
                                 width: _dialogWidth,
                                 // height: _bodyZoneHeight,
                                 child: SuperVerse(
-                                  verse: body.runtimeType == String ? body
+                                  verse: bodyVerse.runtimeType == String ? bodyVerse
                                       :
-                                  body.toString(),
+                                  bodyVerse.toString(),
                                   maxLines: 20,
                                   margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
                                 ),

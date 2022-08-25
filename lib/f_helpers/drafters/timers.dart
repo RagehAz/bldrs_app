@@ -1065,9 +1065,9 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Device clock is incorrect !',
-        body: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-        confirmButtonText: 'Try again',
+        titleVerse: 'Device clock is incorrect !',
+        bodyVerse: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+        confirmButtonVerse: 'Try again',
         onOk: onRestart,
       );
 

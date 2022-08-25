@@ -28,7 +28,7 @@ class FloatingField extends StatelessWidget {
       maxLength: model?.maxLength,
       keyboardTextInputAction: model?.textInputAction,
       keyboardTextInputType: model?.textInputType,
-      hintText: model?.hintText,
+      hintText: model?.hintVerse,
       autoFocus: true,
       focusNode: model?.focusNode,
       isFloatingField: true,
