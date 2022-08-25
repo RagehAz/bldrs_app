@@ -1,10 +1,9 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:clipboard/clipboard.dart';
@@ -22,10 +21,9 @@ class ContactFieldBubble extends StatefulWidget {
     this.keyboardTextInputAction,
     this.initialTextValue,
     this.validator,
-    this.comments,
+    this.bulletPoints,
     this.fieldIsRequired = false,
     this.loading = false,
-    this.actionBtColor,
     this.actionBtIcon,
     this.actionBtFunction,
     this.horusOnTapDown,
@@ -33,6 +31,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.horusOnTapCancel,
     this.leadingIcon,
     this.keyboardTextInputType = TextInputType.url,
+    this.canPaste = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,17 +44,17 @@ class ContactFieldBubble extends StatefulWidget {
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
   final Function validator;
-  final String comments;
+  final List<String> bulletPoints;
   final bool fieldIsRequired;
   final bool loading;
   final String actionBtIcon;
-  final Color actionBtColor;
   final Function actionBtFunction;
   final Function horusOnTapDown;
   final Function horusOnTapUp;
   final Function horusOnTapCancel;
   final String leadingIcon;
   final TextInputType keyboardTextInputType;
+  final bool canPaste;
 
   /// --------------------------------------------------------------------------
   @override
@@ -67,156 +66,152 @@ class ContactFieldBubble extends StatefulWidget {
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   // --------------------------------------------------------------------------
   String paste = '';
-  final TextEditingController pasteController = TextEditingController();
+  TextEditingController _textController;
+  // --------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.textController == null){
+      _textController = TextEditingController(text: widget.initialTextValue);
+    }
+    else {
+      _textController = widget.textController;
+    }
+
+  }
   // --------------------------------------------------------------------------
   /// TAMAM
   @override
   void dispose() {
-    pasteController.dispose();
+
+    if (widget.textController == null){
+      _textController.dispose();
+    }
+
     super.dispose();
   }
   // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {
     final String value = await FlutterClipboard.paste();
-    setState(() {
-      paste = value;
-      pasteController.text = paste;
-      // widget.textOnChanged(paste);
-    });
+
+    _textController.text = value;
+
+    if (widget.textOnChanged != null){
+      widget.textOnChanged(value);
+    }
+
+    // setState(() {
+    //   paste = value;
+    //   pasteController.text = paste;
+    //   // widget.textOnChanged(paste);
+    // });
   }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    const int titleVerseSize = 2;
-    final double actionBtSize = SuperVerse.superVerseRealHeight(
+    // ---------------------------
+    /// TEXT FIELD HEIGHT
+    final double _textFieldHeight = SuperTextField.getFieldHeight(
         context: context,
-        size: titleVerseSize,
-        sizeFactor: 1,
-        hasLabelBox: false,
+        minLines: 1,
+        textSize: 2,
+        scaleFactor: 1,
+        withBottomMargin: false,
+        withCounter: false,
     );
-    final double actionBtCorner = actionBtSize * 0.4;
-    const double leadingIconSize = 35;
-    const double leadingAndFieldSpacing = 5;
+    // ---------------------------
+    /// CLEAR WIDTH - SPACING
     final double bubbleClearWidth = Bubble.clearWidth(context);
-    final double fieldWidth = widget.leadingIcon == null ?
-    bubbleClearWidth
-        :
-    bubbleClearWidth - leadingIconSize - leadingAndFieldSpacing;
+    const double _spacer = 5;
+    /// LEADING ICON SIZE
+    final double leadingIconSize = widget.leadingIcon == null ? 0 : _textFieldHeight;
+    final double leadingAndFieldSpacing = widget.leadingIcon == null ? 0 : _spacer;
+    /// PASTE BUTTON SIZE
+    final double _pasteButtonHeight = _textFieldHeight;
+    final double _pasteButtonWidth = widget.canPaste == true ? 50 : 0;
+    final double _pasteButtonSpacer = widget.canPaste == true ? _spacer : 0;
+    /// FIELD SIZE
+    final double fieldWidth =
+          bubbleClearWidth
+        - leadingIconSize
+        - leadingAndFieldSpacing
+        - _pasteButtonWidth
+        - _pasteButtonSpacer;
+    // ---------------------------
+    return Bubble(
+      title: widget.title,
+        redDot: widget.fieldIsRequired,
+        actionBtIcon: widget.actionBtIcon, // widget.actionBtColor
+        actionBtFunction: widget.actionBtFunction,
+        columnChildren: <Widget>[
 
-    return Bubble(columnChildren: <Widget>[
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          /// BUBBLE TITLE
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, left: 5, right: 5),
-            child: SuperVerse(
-              verse: widget.title,
-              redDot: widget.fieldIsRequired,
-            ),
-          ),
-
-          /// ACTION BUTTON
-          if (widget.actionBtIcon != null)
-            DreamBox(
-              height: actionBtSize,
-              width: actionBtSize,
-              corners: actionBtCorner,
-              color: widget.actionBtColor,
-              icon: widget.actionBtIcon,
-              iconSizeFactor: 0.6,
-              onTap: widget.actionBtFunction,
-            ),
-
-        ],
-      ),
-
-      Stack(
-        alignment: Aligners.superInverseTopAlignment(context),
-        children: <Widget>[
-
-          /// TEXT FIELD
+          /// TEXT FIELD ROW
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             textDirection: TextDirection.ltr,
             children: <Widget>[
 
+              /// LEADING ICON
               if (widget.leadingIcon != null)
                 DreamBox(
                   height: 35,
                   width: 35,
                   icon: widget.leadingIcon,
                   iconSizeFactor: widget.leadingIcon == Iconz.comWebsite ||
-                          widget.leadingIcon == Iconz.comEmail ||
-                          widget.leadingIcon == Iconz.comPhone
+                      widget.leadingIcon == Iconz.comEmail ||
+                      widget.leadingIcon == Iconz.comPhone
                       ? 0.6 : 1,
                 ),
 
+              /// SPACER
               if (widget.leadingIcon != null)
-                Container(
-                  width: 5,
-                ),
+                const SizedBox(width: _spacer,),
 
               /// TEXT FIELD
               SuperTextField(
-                title: 'Contact',
+                title: xPhrase(context, '##Contact'),
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,
                 hintText: widget.hintText,
                 textInputType: widget.keyboardTextInputType,
-                textController: paste == '' ? widget.textController : pasteController,
+                textController: _textController,
                 onChanged: widget.textOnChanged,
                 onSavedForForm: widget.onSaved,
                 textInputAction: widget.keyboardTextInputAction,
                 validator: widget.validator,
                 textDirection: TextDirection.ltr,
+
               ),
 
-            ],
-          ),
+              if (widget.canPaste == true)
+                const SizedBox(width: _spacer,),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            textDirection: TextDirection.ltr,
-            children: <Widget>[
-
-              /// LOADING INDICATOR
-              if (widget.loading)
-                Loading(
-                  size: 35,
-                  loading: widget.loading,
+              if (widget.canPaste == true)
+                DreamBox(
+                  height: _pasteButtonHeight,
+                  width: _pasteButtonWidth,
+                  verse: '${xPhrase(context, 'phid_paste')}  ',
+                  verseScaleFactor: 0.5,
+                  verseWeight: VerseWeight.thin,
+                  verseItalic: true,
+                  color: Colorz.white10,
+                  onTap: _pasteFunction,
                 ),
 
-              DreamBox(
-                height: 35,
-                verse: '${xPhrase(context, 'phid_paste')}  ',
-                verseScaleFactor: 0.5,
-                verseWeight: VerseWeight.thin,
-                verseItalic: true,
-                color: Colorz.white10,
-                onTap: _pasteFunction,
-              ),
 
             ],
           ),
-        ],
-      ),
 
-      /// BUBBLE COMMENTS
-      if (widget.comments != null)
-        SuperVerse(
-          verse: widget.comments,
-          italic: true,
-          color: Colorz.white80,
-          weight: VerseWeight.thin,
-          leadingDot: true,
-        ),
+          /// BUBBLE COMMENTS
+          if (widget.bulletPoints != null)
+            BubbleBulletPoints(
+                bulletPoints: widget.bulletPoints,
+            ),
 
-    ]
+        ]
     );
+
   }
 }
