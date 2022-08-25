@@ -154,8 +154,8 @@ class Dialogs {
 
           return <Widget>[
 
-            const SuperVerse(
-              verse: 'Please confirm your city',
+            SuperVerse(
+              verse: xPhrase(context, '##Please confirm your city'),
             ),
 
             ...List<Widget>.generate(cities.length, (int index) {
