@@ -231,17 +231,17 @@ class Timers {
   /// TESTED : WORKS PERFECT
   static String generateMonthNameByInt(BuildContext context, int month){
     switch (month){
-      case 1    :    return  xPhrase(context, 'phid_january'); break;
-      case 2    :    return  xPhrase(context, 'phid_february'); break;
-      case 3    :    return  xPhrase(context, 'phid_march'); break;
-      case 4    :    return  xPhrase(context, 'phid_april'); break;
-      case 5    :    return  xPhrase(context, 'phid_may'); break;
-      case 6    :    return  xPhrase(context, 'phid_june'); break;
-      case 7    :    return  xPhrase(context, 'phid_july'); break;
-      case 8    :    return  xPhrase(context, 'phid_august'); break;
-      case 9    :    return  xPhrase(context, 'phid_september'); break;
-      case 11   :    return  xPhrase(context, 'phid_november'); break;
-      case 12   :    return  xPhrase(context, 'phid_december'); break;
+      case 1    :    return  'phid_january'   ; break;
+      case 2    :    return  'phid_february'  ; break;
+      case 3    :    return  'phid_march'     ; break;
+      case 4    :    return  'phid_april'     ; break;
+      case 5    :    return  'phid_may'       ; break;
+      case 6    :    return  'phid_june'      ; break;
+      case 7    :    return  'phid_july'      ; break;
+      case 8    :    return  'phid_august'    ; break;
+      case 9    :    return  'phid_september' ; break;
+      case 11   :    return  'phid_november'  ; break;
+      case 12   :    return  'phid_december'  ; break;
       default : return null;
     }
   }
@@ -307,9 +307,9 @@ class Timers {
 
     if (time != null && time.year != null && time.month != null){
       _output =
-      '${xPhrase(context, 'phid_inn')} '
+      '${xPhrase( context, 'phid_inn')} '
           '${Words.bldrsShortName(context)} '
-          '${xPhrase(context, 'phid_since')} : '
+          '${xPhrase( context, 'phid_since')} : '
           '${generateMonthNameByInt(context, time.month)} '
           '${time.year}';
     }
@@ -331,9 +331,9 @@ class Timers {
         time.day != null
     ){
       _output =
-      '${xPhrase(context, 'phid_inn')} '
-          '${xPhrase(context, 'phid_phid_bldrsShortName')} '
-          '${xPhrase(context, 'phid_since')} : '
+      '${xPhrase( context, 'phid_inn')} '
+          '${xPhrase( context, 'phid_phid_bldrsShortName')} '
+          '${xPhrase( context, 'phid_since')} : '
           '${time.day} '
           '${generateMonthNameByInt(context, time.month)} '
           '${time.year}';
@@ -1065,9 +1065,9 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: 'Device clock is incorrect !',
-        bodyVerse: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-        confirmButtonVerse: 'Try again',
+        titleVerse:  '##Device clock is incorrect !',
+        bodyVerse:  '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+        confirmButtonVerse:  '##Try again',
         onOk: onRestart,
       );
 

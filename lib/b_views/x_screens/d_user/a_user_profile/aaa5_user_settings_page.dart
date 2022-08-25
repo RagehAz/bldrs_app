@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
 import 'package:bldrs/c_controllers/i_app_settings_controllers/app_settings_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +28,14 @@ class UserSettingsPage extends StatelessWidget {
 
         /// EDIT PROFILE
         SettingsWideButton(
-          verse: xPhrase(context, 'phid_editProfile'),
+          verse: 'phid_editProfile',
           icon: Iconz.gears,
           onTap: () => onEditProfileTap(context),
         ),
 
         /// DELETE MY ACCOUNT
         SettingsWideButton(
-          verse: xPhrase(context, 'phid_delete_my_account'),
+          verse: 'phid_delete_my_account',
           icon: Iconz.xSmall,
           color: Colorz.bloodTest,
           onTap: () => onDeleteMyAccount(context),
@@ -46,7 +45,7 @@ class UserSettingsPage extends StatelessWidget {
 
         /// SIGN OUT
         SettingsWideButton(
-          verse: xPhrase(context, 'phid_signOut'),
+          verse: 'phid_signOut',
           icon: Iconz.exit,
           onTap: () => onSignOut(context),
         ),

@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -172,8 +171,8 @@ class SlidesShelf extends StatelessWidget {
 
                                         SizedBox(
                                           width: _flyerZoneWidth * 0.95,
-                                          child: SuperVerse(
-                                            verse: xPhrase(context, '##Add Photos'),
+                                          child: const SuperVerse(
+                                            verse: '##Add Photos',
                                             color: Colorz.white20,
                                             maxLines: 2,
                                           ),

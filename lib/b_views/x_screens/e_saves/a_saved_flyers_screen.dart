@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/x_screens/e_saves/aa_saved_flyers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +57,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitleVerse: xPhrase(context, 'phid_savedFlyers'),
+      pageTitleVerse: 'phid_savedFlyers',
       sectionButtonIsOn: false,
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
       layoutWidget:

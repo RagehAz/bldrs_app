@@ -106,8 +106,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Allow notifications',
-      bodyVerse: 'To be able to know what is going on',
+      titleVerse:  '##Allow notifications',
+      bodyVerse:  '##To be able to know what is going on',
       boolDialog: true,
     );
 
@@ -185,7 +185,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      pageTitleVerse: 'Awesome notification test',
+      pageTitleVerse:  'Awesome notification test',
       layoutWidget: Column(
         children: <Widget>[
 

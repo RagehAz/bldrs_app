@@ -92,7 +92,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
         pyramidsAreOn: true,
         sectionButtonIsOn: false,
         appBarType: AppBarType.basic,
-        pageTitleVerse: 'Zones Manager',
+        pageTitleVerse:  'Zones Manager',
         skyType: SkyType.black,
         appBarRowWidgets: <Widget>[
 

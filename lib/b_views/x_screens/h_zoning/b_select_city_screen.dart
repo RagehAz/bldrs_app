@@ -266,10 +266,10 @@ class _NewSelectCityScreen extends State<SelectCityScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitleVerse: xPhrase(context, 'phid_selectCity'),
+      pageTitleVerse: 'phid_selectCity',
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHintVerse:  '${xPhrase(context, 'phid_search_cities_of')} $_countryName',
+      searchHintVerse:  '${xPhrase( context, 'phid_search_cities_of')} $_countryName',
       loading: _loading,
       appBarRowWidgets: <Widget>[
 

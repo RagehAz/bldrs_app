@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -127,7 +126,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
 
     // const double _buttonSize = _buttonsBoxWidth - 25;
 
-    final String _hintText = xPhrase(context, widget.specPicker.chainID);
+    final String _hintText = widget.specPicker.chainID;
 
     return Container(
       width: _screenWidth,
@@ -154,7 +153,7 @@ class _DoubleDataCreatorState extends State<DoubleDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
-                  titleVerse: xPhrase(context, 'Number'),
+                  titleVerse: '##Number',
                   isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,

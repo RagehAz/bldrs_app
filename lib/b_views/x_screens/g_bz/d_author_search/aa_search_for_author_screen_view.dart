@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/d_author_search/a_author_search_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -57,10 +56,10 @@ class AddAuthorScreenView extends StatelessWidget {
 
                 SizedBox(
                   width: Bubble.clearWidth(context),
-                  child: SuperVerse(
-                    verse: xPhrase(context, '##This Link is available for one time use only, '
+                  child: const SuperVerse(
+                    verse: '##This Link is available for one time use only, '
                         'to allow its reciever to be redirected to '
-                        'creating new author account for your Business page'),
+                        'creating new author account for your Business page',
                     weight: VerseWeight.thin,
                     maxLines: 5,
                     centered: false,
@@ -68,8 +67,8 @@ class AddAuthorScreenView extends StatelessWidget {
                   ),
                 ),
 
-                SuperVerse(
-                  verse: xPhrase(context, '##Invitation link . com'),
+                const SuperVerse(
+                  verse: '##Invitation link . com',
                   maxLines: 2,
                   margin: 10,
                   weight: VerseWeight.thin,
@@ -79,14 +78,14 @@ class AddAuthorScreenView extends StatelessWidget {
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
+                  children: const <Widget>[
                     DreamBox(
                       height: 50,
                       color: Colorz.yellow255,
                       icon: Iconz.share,
                       iconSizeFactor: 0.5,
                       iconColor: Colorz.black230,
-                      verse: xPhrase(context, '##Share'),
+                      verse: '##Share',
                       verseColor: Colorz.black230,
                       verseScaleFactor: 1.2,
                     ),
@@ -120,7 +119,7 @@ class AddAuthorScreenView extends StatelessWidget {
                           context: context,
                           userModel: userModel,
                         ),
-                        sideButton: xPhrase(context, 'phid_invite'),
+                        sideButton: 'phid_invite',
                         usersWithSideButtonsDeactivated: _pendingInvitations,
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,

@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -112,8 +111,8 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: xPhrase(context, '##Can Not Demote Account creator'),
-          bodyVerse: xPhrase(context, '##the Author Role of ${widget.authorModel.name} can not be changed.'),
+          titleVerse: '##Can Not Demote Account creator',
+          bodyVerse: '##the Author Role of ${widget.authorModel.name} can not be changed.',
         );
 
       }
@@ -128,7 +127,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
         await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: xPhrase(context, '##Only one account creator is allowed'),
+          titleVerse: '##Only one account creator is allowed',
         );
 
       }
@@ -223,21 +222,21 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
                 children: <Widget>[
 
                   FuckingButtonAuthorShit(
-                    verse: xPhrase(context, '##Account Creator'),
+                    verse: '##Account Creator',
                     isOn: role == AuthorRole.creator,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.creator),
                   ),
 
                   FuckingButtonAuthorShit(
-                    verse: xPhrase(context, '##Team member'),
+                    verse: '##Team member',
                     isOn: role == AuthorRole.teamMember,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.teamMember),
                   ),
 
                   FuckingButtonAuthorShit(
-                    verse: xPhrase(context, '##Account Moderator'),
+                    verse: '##Account Moderator',
                     isOn: role == AuthorRole.moderator,
                     icon: Iconz.bz,
                     onTap: () => _setAuthorRole(AuthorRole.moderator),

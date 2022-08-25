@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a1_user_profile_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -34,7 +33,7 @@ class ContactsBubble extends StatelessWidget {
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
       child: Bubble(
-        title: '${xPhrase(context, 'phid_contacts')} :',
+        title: 'phid_contacts',
         columnChildren: <Widget>[
 
           /// CONTACTS WITH STRINGS

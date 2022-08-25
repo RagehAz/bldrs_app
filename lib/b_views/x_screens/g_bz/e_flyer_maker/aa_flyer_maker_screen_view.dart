@@ -21,7 +21,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/a_flyer_maker_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -127,7 +126,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
                             textController: headlineController,
-                            titleVerse: xPhrase(context, '##Flyer Headline'),
+                            titleVerse: '##Flyer Headline',
                             fieldIsRequired: true,
                             counterIsOn: true,
                             maxLength: 50,
@@ -148,7 +147,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                           TextFieldBubble(
                             key: const ValueKey<String>('bz_scope_bubble'),
                             textController: _draft.descriptionController,
-                            titleVerse: xPhrase(context, '##Flyer Description'),
+                            titleVerse: '##Flyer Description',
                             counterIsOn: true,
                             maxLength: 1000,
                             maxLines: 7,
@@ -160,10 +159,10 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER TYPE SELECTOR
                           MultipleChoiceBubble(
-                            title: xPhrase(context, '##Flyer type'),
+                            title: '##Flyer type',
                             bulletPoints: <String>[
-                              xPhrase(context, '##Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.'),
-                              xPhrase(context, '##Each Flyer Should have one flyer type'),
+                              '##Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.',
+                              '##Each Flyer Should have one flyer type',
                             ],
                             buttonsList: FlyerTyper.translateFlyerTypes(
                               context: context,
@@ -206,7 +205,7 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                                 BubbleBulletPoints(
                                   bulletPoints: <String>[
-                                    xPhrase(context, '##Add $_translatedFlyerType specification to describe and allow advanced search criteria'),
+                                    '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
                                   ],
                                 ),
 
@@ -260,11 +259,11 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// ZONE SELECTOR
                           ZoneSelectionBubble(
-                            titleVerse: xPhrase(context, '##Flyer Target city'),
-                            bulletPoints: <String>[
-                              xPhrase(context, '##Select The city you would like this flyer to target'),
-                              xPhrase(context, '##each flyer can target only one city'),
-                              xPhrase(context, '##Selecting district increases the probability of this flyer to gain more views in that district'),
+                            titleVerse: '##Flyer Target city',
+                            bulletPoints: const <String>[
+                              '##Select The city you would like this flyer to target',
+                              '##each flyer can target only one city',
+                              '##Selecting district increases the probability of this flyer to gain more views in that district',
                             ],
                             currentZone: _draft.zone,
                             onZoneChanged: (ZoneModel zone) => onZoneChanged(

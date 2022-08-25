@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -35,7 +34,7 @@ class FollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    final String followText = xPhrase(context, 'phid_follow');
+    const String followText = 'phid_follow';
 // -----------------------------------------------------------------------------
     return GestureDetector(
       onTap: onFollowTap,

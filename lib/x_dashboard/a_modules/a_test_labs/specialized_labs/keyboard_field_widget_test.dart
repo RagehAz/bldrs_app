@@ -118,7 +118,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
               const Stratosphere(),
 
               SuperTextField(
-                titleVerse: 'Test',
+                titleVerse:  'Test',
                 width: 200,
                 fieldColor: Colorz.bloodTest,
                 textController: _controller,
@@ -129,7 +129,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
                   final KeyboardModel model = KeyboardModel(
-                    titleVerse: 'Hey There !',
+                    titleVerse:  'Hey There !',
                     hintVerse: null,
                     controller: _controller,
                     maxLines: 5,

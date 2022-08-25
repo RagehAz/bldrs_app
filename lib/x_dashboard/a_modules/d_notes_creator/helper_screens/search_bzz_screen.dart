@@ -206,8 +206,8 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitleVerse: 'Search Businesses',
-      searchHintVerse: 'Search Business accounts by name',
+      pageTitleVerse:  '##Search Businesses',
+      searchHintVerse:  '##Search Business accounts by name',
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,

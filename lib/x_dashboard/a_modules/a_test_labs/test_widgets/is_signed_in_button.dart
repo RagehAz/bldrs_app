@@ -42,9 +42,9 @@ class IsSignedInButton extends StatelessWidget {
 
         final bool _result = await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: 'Sign out ?',
+          titleVerse:  'Sign out ?',
           boolDialog: true,
-          confirmButtonVerse: 'Yes!\nSign out',
+          confirmButtonVerse:  'Yes!\nSign out',
         );
 
         if (_result == true){

@@ -59,7 +59,7 @@ Future<void> onFlyerBzOptionsTap({
 
           BottomDialog.wideButton(
             context: context,
-            verse: xPhrase(context, '##Edit flyer'),
+            verse: '##Edit flyer',
             verseCentered: true,
             onTap: () => _onEditFlyerButtonTap(
               context: context,
@@ -69,7 +69,7 @@ Future<void> onFlyerBzOptionsTap({
 
           BottomDialog.wideButton(
             context: context,
-            verse: xPhrase(context, '##Delete flyer'),
+            verse: '##Delete flyer',
             verseCentered: true,
             isDeactivated: !_canDeleteFlyer,
             onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(
@@ -123,7 +123,7 @@ Future<void> _onCanNotDeleteFlyerDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Can not Delete Flyer',
+    titleVerse:  '##Can not Delete Flyer',
   );
 
 }
@@ -201,8 +201,8 @@ Future<bool> _preFlyerDeleteCheckups({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Can not Delete Flyer',
-      bodyVerse: 'Only Business Account creator can Delete flyers',
+      titleVerse:  '##Can not Delete Flyer',
+      bodyVerse:  '##Only Business Account creator can Delete flyers',
     );
 
   }

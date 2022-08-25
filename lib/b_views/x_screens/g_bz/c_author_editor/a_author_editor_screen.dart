@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -131,11 +130,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: xPhrase(context, '##Edit Author Details'),
+      pageTitleVerse: '##Edit Author Details',
       // appBarBackButton: true,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: xPhrase(context, '##Confirm'),
-        secondLine: xPhrase(context, '##Update Author Details'),
+        firstLine: '##Confirm',
+        secondLine: '##Update Author Details',
         onTap: () => onConfirmAuthorUpdates(
           context: context,
           author: _author,
@@ -159,7 +158,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                 return AddImagePicBubble(
                   fileModel: _authorPicFile,
-                  titleVerse: xPhrase(context, '##Author picture'),
+                  titleVerse: '##Author picture',
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
                   onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
@@ -176,21 +175,21 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _nameController,
-              titleVerse: xPhrase(context, '##Author Name'),
+              titleVerse: '##Author Name',
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
               fieldIsRequired: true,
-              bulletPoints: <String>[
-                xPhrase(context, '##This will only change your name inside this Business account'),
+              bulletPoints: const <String>[
+                '##This will only change your name inside this Business account',
               ],
               validator: (){
 
                 if (Stringer.checkStringIsEmpty(_nameController.text) == true){
-                  return xPhrase(context, '##Author name can not be empty');
+                  return '##Author name can not be empty';
                 }
                 else if (_nameController.text.length <= 3){
-                  return xPhrase(context, '##Author name should be more than 3 characters');
+                  return '##Author name should be more than 3 characters';
                 }
                 else {
                   return null;
@@ -203,7 +202,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             TextFieldBubble(
               isFormField: true,
               textController: _titleController,
-              titleVerse: xPhrase(context, '##Job Title'),
+              titleVerse: '##Job Title',
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
@@ -211,10 +210,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               validator: (){
 
                 if (Stringer.checkStringIsEmpty(_titleController.text) == true){
-                  return xPhrase(context, '##Author name can not be empty');
+                  return '##Author name can not be empty';
                 }
                 else if (_titleController.text.length <= 3){
-                  return xPhrase(context, '##Author name should be more than 3 characters');
+                  return '##Author name should be more than 3 characters';
                 }
                 else {
                   return null;

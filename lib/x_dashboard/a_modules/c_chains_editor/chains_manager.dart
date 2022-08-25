@@ -183,7 +183,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: true,
-                  pageTitleVerse: 'CITY CHAINS + MULTIPLE SELECTION',
+                  pageTitleVerse:  'CITY CHAINS + MULTIPLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
                 )
             );
@@ -206,7 +206,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: true,
-                  pageTitleVerse: 'ALL CHAINS + MULTIPLE SELECTION',
+                  pageTitleVerse:  'ALL CHAINS + MULTIPLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
                 )
             );
@@ -229,7 +229,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: true,
                   isMultipleSelectionMode: false,
-                  pageTitleVerse: 'CITY CHAINS + SINGLE SELECTION',
+                  pageTitleVerse:  'CITY CHAINS + SINGLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
                 )
             );
@@ -250,7 +250,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   flyerTypesChainFilters: _selectedTypes,
                   onlyUseCityChains: false,
                   isMultipleSelectionMode: false,
-                  pageTitleVerse: 'ALL CHAINS + SINGLE SELECTION',
+                  pageTitleVerse:  'ALL CHAINS + SINGLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
                 )
             );
@@ -279,8 +279,8 @@ class _ChainsManagerState extends State<ChainsManager> {
 
             final bool _continue = await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: 'Create new Chain ?',
-              bodyVerse: 'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
+              titleVerse:  'Create new Chain ?',
+              bodyVerse:  'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
               boolDialog: true,
               color: Colorz.bloodTest,
             );
@@ -325,8 +325,8 @@ class _ChainsManagerState extends State<ChainsManager> {
 
             final bool _continue = await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: 'Create new Chain ?',
-              bodyVerse: 'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
+              titleVerse:  'Create new Chain ?',
+              bodyVerse:  'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
               boolDialog: true,
               color: Colorz.bloodTest,
             );

@@ -1,11 +1,10 @@
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/bb_chain_instructions.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,7 @@ class SpecPickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final String _pageTitle = xPhrase(context, specPicker.chainID);
+    final String _pageTitle = specPicker.chainID;
 
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),

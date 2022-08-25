@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/c_controllers/a_starters_controllers/c_home_controllers.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -73,9 +72,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
     if (Mapper.checkCanLoopList(_wallFlyers) == false){
 
-      return Center(
+      return const Center(
         child: SuperVerse(
-          verse: xPhrase(context, '##No Flyers To Show'),
+          verse: '##No Flyers To Show',
           italic: true,
           weight: VerseWeight.black,
           size: 5,

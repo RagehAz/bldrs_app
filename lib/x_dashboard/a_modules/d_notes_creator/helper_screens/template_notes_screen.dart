@@ -86,13 +86,13 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
         ),
       ],
       // loading: _loading,
-      pageTitleVerse: 'News & Notifications',
+      pageTitleVerse:  '##News & Notifications',
       skyType: SkyType.black,
       pyramidsAreOn: true,
       layoutWidget: _notes.isEmpty ?
       const Center(
         child: SuperVerse(
-          verse:  'No new Notifications',
+          verse:   '##No new Notifications',
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.white20,

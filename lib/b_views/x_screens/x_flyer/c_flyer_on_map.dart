@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -235,12 +235,12 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           // ),
 
           if (widget.isSelecting)
-            Positioned(
+            const Positioned(
               top: 10,
               left: 10,
               child: DreamBox(
                 height: 60,
-                verse: xPhrase(context, '##Tap The Map\nto pin flyer on the map !'),
+                verse: '##Tap The Map\nto pin flyer on the map !',
                 verseWeight: VerseWeight.regular,
                 verseItalic: true,
                 verseMaxLines: 2,

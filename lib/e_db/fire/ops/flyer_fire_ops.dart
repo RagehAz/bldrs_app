@@ -1046,7 +1046,7 @@ class FlyerFireOps {
           /// INAPPROPRIATE CONTENT
           BottomDialog.wideButton(
             context: context,
-            verse: xPhrase(context, '##Inappropriate content'),
+            verse: '##Inappropriate content',
             onTap: (){
               _feedback = 'Inappropriate content';
               Nav.goBack(
@@ -1059,7 +1059,7 @@ class FlyerFireOps {
           /// CONTENT IS NOT RELEVANT TO BLDRS
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##Flyer content is not relevant to Bldrs.net'),
+              verse: '##Flyer content is not relevant to Bldrs.net',
               onTap: (){
                 _feedback = 'Flyer content is not relevant to Bldrs.net';
                 Nav.goBack(
@@ -1072,7 +1072,7 @@ class FlyerFireOps {
           /// COPY RIGHTS
           BottomDialog.wideButton(
               context: context,
-              verse: xPhrase(context, '##content violates copyrights'),
+              verse: '##content violates copyrights',
               onTap: (){
                 _feedback = 'content violates copyrights';
                 Nav.goBack(
@@ -1105,10 +1105,10 @@ class FlyerFireOps {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Thanks a Million',
-      bodyVerse: 'We will look into this matter and take the necessary '
+      titleVerse:  '##Thanks a Million',
+      bodyVerse:  '##We will look into this matter and take the necessary '
           'action as soon as possible\n Thank you for helping out',
-      confirmButtonVerse: 'Most Welcome',
+      confirmButtonVerse:  '##Most Welcome',
     );
 
   }
