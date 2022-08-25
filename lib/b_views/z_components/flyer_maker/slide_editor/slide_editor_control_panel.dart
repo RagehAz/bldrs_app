@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -54,7 +55,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconizer.superBackIcon(context),
-            verse: 'Cancel',
+            verse: xPhrase(context, '##Cancel'),
             onTap: onCancel,
           ),
 
@@ -62,7 +63,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.fingerTap,
-            verse: 'Reset',
+            verse: xPhrase(context, '##Reset'),
             onTap: onReset,
           ),
 
@@ -70,7 +71,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.reload,
-            verse: 'Crop',
+            verse: xPhrase(context, '##Crop'),
             onTap: onCrop,
           ),
 
@@ -78,7 +79,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.check,
-            verse: 'Confirm',
+            verse: xPhrase(context, '##Confirm'),
             onTap: onConfirm,
           ),
 
