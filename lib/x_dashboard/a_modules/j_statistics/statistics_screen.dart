@@ -81,7 +81,7 @@ class GeneralStatistics extends StatelessWidget {
                 const Stratosphere(),
 
                 const SuperVerse(
-                  verse: 'General states :-',
+                  verse:  'General states :-',
                   italic: true,
                   shadow: true,
                   weight: VerseWeight.black,
@@ -91,7 +91,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'Users',
+                  verse:  'Users',
                   count: _numberOfUsers,
                   icon: Iconz.normalUser,
                   iconSizeFactor: 0.95,
@@ -99,7 +99,7 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'Countries',
+                  verse:  'Countries',
                   count: _numberOfCountries,
                   icon: Iconz.earth,
                   iconSizeFactor: 0.95,
@@ -285,7 +285,7 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse: '${xPhrase(context, 'phid_engagement_rates')} :-',
+                  verse:  '${xPhrase(context, 'phid_engagement_rates')} :-',
                   size: 3,
                   italic: true,
                   shadow: true,

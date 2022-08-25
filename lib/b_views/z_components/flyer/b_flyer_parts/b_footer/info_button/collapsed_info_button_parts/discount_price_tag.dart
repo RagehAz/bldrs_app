@@ -84,7 +84,7 @@ class DiscountPriceTag extends StatelessWidget {
                           width: height,
                           padding: EdgeInsets.symmetric(horizontal: height * 0.05),
                           child: SuperVerse(
-                            verse: '${ _discountPercentage.toString()}%',
+                            verse:  '${ _discountPercentage.toString()}%',
                             weight: VerseWeight.black,
                             color: Colorz.red255,
                           ),

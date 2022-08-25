@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -133,7 +134,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                     if (pdf.size != null)
                     SuperVerse(
-                      verse: '${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
+                      verse: xPhrase(context, '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb'),
                       italic: true,
                       color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
                       weight: VerseWeight.thin,
@@ -252,7 +253,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   if (_fileExists == true || _urlExists == true)
                     DreamBox(
                       height: 50,
-                      verse: 'Remove',
+                      verse: xPhrase(context, '##Remove'),
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,

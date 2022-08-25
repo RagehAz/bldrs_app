@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.d
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -290,7 +291,7 @@ class CenterDialog extends StatelessWidget {
 
                                       if (boolDialog == true)
                                         DialogButton(
-                                          verse: 'No',
+                                          verse: xPhrase(context, '##No'),
                                           color: Colorz.white80,
                                           onTap: () =>
                                               Nav.goBack(

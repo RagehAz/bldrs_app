@@ -170,7 +170,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
             alignment: Alignment.bottomRight,
             child: DreamBox(
               height: 50,
-              verse: 'PROMOTE',
+              verse:  'PROMOTE',
               verseItalic: true,
               verseWeight: VerseWeight.black,
               verseColor: Colorz.black255,

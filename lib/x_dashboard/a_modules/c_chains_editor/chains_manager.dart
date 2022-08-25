@@ -174,7 +174,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// CITY CHAINS + MULTIPLE SELECTION
         WideButton(
-          verse: 'CITY CHAINS + MULTIPLE SELECTION',
+          verse:  'CITY CHAINS + MULTIPLE SELECTION',
           onTap: () async {
 
             final List<SpecModel> _specs =  await Nav.goToNewScreen(
@@ -196,7 +196,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// ALL CHAINS + MULTIPLE SELECTION
         WideButton(
-          verse: 'ALL CHAINS + MULTIPLE SELECTION',
+          verse:  'ALL CHAINS + MULTIPLE SELECTION',
           color: Colorz.bloodTest,
           onTap: () async {
 
@@ -219,7 +219,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// CITY CHAINS + SINGLE SELECTION
         WideButton(
-          verse: 'CITY CHAINS + SINGLE SELECTION',
+          verse:  'CITY CHAINS + SINGLE SELECTION',
           color: Colorz.bloodTest,
           onTap: () async {
 
@@ -241,7 +241,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// ALL CHAINS + SINGLE SELECTION
         WideButton(
-          verse: 'ALL CHAINS + SINGLE SELECTION',
+          verse:  'ALL CHAINS + SINGLE SELECTION',
           onTap: () async {
 
             final String string =  await Nav.goToNewScreen(
@@ -273,7 +273,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// CREATE CHAIN K
         WideButton(
           isActive: false,
-          verse: 'Real.CREATE BigChainK from ProChainK',
+          verse:  'Real.CREATE BigChainK from ProChainK',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -319,7 +319,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// CREATE CHAIN S
         WideButton(
           isActive: false,
-          verse: 'Real.CREATE BigChainS from ProChainS',
+          verse:  'Real.CREATE BigChainS from ProChainS',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -363,7 +363,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// READ CHAIN K
         WideButton(
-          verse: 'Real.READ BigChainK',
+          verse:  'Real.READ BigChainK',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -391,7 +391,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// READ CHAIN S
         WideButton(
-          verse: 'Real.READ BigChainS',
+          verse:  'Real.READ BigChainS',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -419,7 +419,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// FETCH CHAIN K
         WideButton(
-          verse: 'FETCH BigChainK',
+          verse:  'FETCH BigChainK',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -447,7 +447,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// READ CHAIN S
         WideButton(
-          verse: 'FETCH BigChainS',
+          verse:  'FETCH BigChainS',
           color: Colorz.blue80,
           onTap: () async {
 

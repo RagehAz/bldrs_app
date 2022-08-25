@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_fields_row.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -213,11 +214,13 @@ class PropertySearchCriteria extends StatelessWidget {
                 /// --- INITIAL NOTE
                 Align(
                   alignment: defaultAlignment,
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: _pageMargin, vertical: _pageMargin * 0.5),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: _pageMargin,
+                        vertical: _pageMargin * 0.5,
+                    ),
                     child: SuperVerse(
-                      verse: 'Select your default property search criteria !',
+                      verse: xPhrase(context, '##Select your default property search criteria !'),
                       centered: false,
                       italic: true,
                       color: Colorz.yellow200,
@@ -265,7 +268,7 @@ class PropertySearchCriteria extends StatelessWidget {
                   icon: Iconz.plus,
                   iconColor: Colorz.blue255,
                   iconSizeFactor: 0.5,
-                  verse: 'Add more details',
+                  verse: xPhrase(context, '##Add more details'),
                   verseColor: Colorz.blue255,
                   onTap: () {
                     blog('3afreet enta');

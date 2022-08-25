@@ -47,7 +47,7 @@ class BldrsDashBoard extends StatelessWidget {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// TEST LAB
       DashButtonModel(
-        verse: 'Test Lab',
+        verse:  'Test Lab',
         icon: Iconz.lab,
         screen: TestLab(),
       ),
@@ -55,32 +55,32 @@ class BldrsDashBoard extends StatelessWidget {
       null,
       /// LDB VIEWER
       DashButtonModel(
-        verse: 'Local db viewers',
+        verse:  'Local db viewers',
         icon: Iconz.terms,
         screen: LDBViewersScreen(),
       ),
       /// UI MANAGER
       DashButtonModel(
-        verse: 'UI\nManager',
+        verse:  'UI\nManager',
         icon: Iconz.dvDonaldDuck,
         screen: UIManager(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// PHRASES EDITOR
       DashButtonModel(
-        verse: 'Phrase\nManager',
+        verse:  'Phrase\nManager',
         icon: Iconz.language,
         screen: PhraseManager(),
       ),
       /// CHAINS EDITOR
       DashButtonModel(
-        verse: 'Chains\nManager',
+        verse:  'Chains\nManager',
         icon: Iconz.keyword,
         screen: ChainsManager(),
       ),
       /// SPEC PICKER manager
       DashButtonModel(
-        verse: 'Spec Picker\nManager',
+        verse:  'Spec Picker\nManager',
         icon: Iconz.more,
         screen: SpecPickerManager(),
       ),
@@ -89,38 +89,38 @@ class BldrsDashBoard extends StatelessWidget {
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// USERS MANAGER
       DashButtonModel(
-        verse: 'Users Manager',
+        verse:  'Users Manager',
         icon: Iconz.users,
         screen: UsersManagerScreen(),
       ),
       /// BZZ MANAGER
       DashButtonModel(
-        verse: 'Businesses Manager',
+        verse:  'Businesses Manager',
         icon: Iconz.bz,
         screen: BzzManagerScreen(),
       ),
       /// ZONES EDITOR
       DashButtonModel(
-        verse: 'Zones\nEditor',
+        verse:  'Zones\nEditor',
         icon: Iconz.earth,
         screen: ZonesEditorScreen(),
       ),
       /// CURRENCIES
       DashButtonModel(
-        verse: 'Currency\nManager',
+        verse:  'Currency\nManager',
         icon: Iconz.dollar,
         screen: CurrencyManagerScreen(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// FLYERS AUDITOR
       DashButtonModel(
-        verse: 'Flyers Auditor',
+        verse:  'Flyers Auditor',
         icon: Iconz.verifyFlyer,
         screen: FlyersAuditor(),
       ),
       /// ALL FLYERS
       DashButtonModel(
-        verse: 'All Flyers',
+        verse:  'All Flyers',
         icon: Iconz.flyerScale,
         screen: AllFlyersScreen(),
       ),
@@ -128,14 +128,14 @@ class BldrsDashBoard extends StatelessWidget {
       null,
       /// STATISTICS
       DashButtonModel(
-        verse: 'Statistics',
+        verse:  'Statistics',
         icon: Iconz.statistics,
         screen: GeneralStatistics(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// NOTIFICATIONS CREATOR
       DashButtonModel(
-        verse: 'Notes\nCreator',
+        verse:  'Notes\nCreator',
         icon: Iconz.news,
         screen: NotesCreatorScreen(),
       ),
@@ -143,13 +143,13 @@ class BldrsDashBoard extends StatelessWidget {
       null,
       /// BIG MAC
       DashButtonModel(
-        verse: 'BigMc',
+        verse:  'BigMc',
         icon: Iconz.bigMac,
         screen: PricingScreen(),
       ),
       /// APP CONTROLS
       DashButtonModel(
-        verse: 'App Controls',
+        verse:  'App Controls',
         icon: Iconz.dashBoard,
         screen: AppControlsManager(),
       ),
@@ -229,7 +229,7 @@ class BldrsDashBoard extends StatelessWidget {
         const Expander(),
 
         AppBarButton(
-          verse: 'Reboot System',
+          verse:  'Reboot System',
           icon: Iconz.reload,
           onTap: () => _onRebootSystem(context),
         ),
@@ -244,7 +244,7 @@ class BldrsDashBoard extends StatelessWidget {
           const SizedBox(
             height: 50,
             child: SuperVerse(
-              verse: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
+              verse:  'Dear Lord\nPlease Bless this project to be in good use for humanity',
               size: 1,
               italic: true,
               weight: VerseWeight.thin,

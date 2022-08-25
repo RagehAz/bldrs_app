@@ -127,7 +127,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// AUTH -------------------------------------------------------------
-            const SuperVerse(verse: 'Auth',),
+            const SuperVerse(verse:  'Auth',),
 
             /// SUPER USER ID
             ProviderTestButton(
@@ -151,7 +151,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// USER -------------------------------------------------------------
-            const SuperVerse(verse: 'User',),
+            const SuperVerse(verse:  'User',),
 
             /// MY USER MODEL
             ProviderTestButton(
@@ -177,7 +177,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// BZZ -------------------------------------------------------------
-            const SuperVerse(verse: 'Bzz',),
+            const SuperVerse(verse:  'Bzz',),
 
             /// MY BZZ
             ProviderTestButton(
@@ -230,7 +230,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// ZONE -------------------------------------------------------------
-            const SuperVerse(verse: 'Zone',),
+            const SuperVerse(verse:  'Zone',),
 
             /// CURRENT ZONE
             ProviderTestButton(
@@ -300,7 +300,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(verse: 'Chains',),
+            const SuperVerse(verse:  'Chains',),
 
             /// BIG CHAIN K
             ProviderTestButton(
@@ -395,7 +395,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// PHRASES -------------------------------------------------------------
-            const SuperVerse(verse: 'Phrases',),
+            const SuperVerse(verse:  'Phrases',),
 
             /// CURRENT LANG CODE
             ProviderTestButton(
@@ -427,7 +427,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// UI -------------------------------------------------------------
-            const SuperVerse(verse: 'UI',),
+            const SuperVerse(verse:  'UI',),
 
             /// BASIC PHRASES
             ProviderTestButton(
@@ -453,7 +453,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(verse: 'TO AVOID SET STATE TECHNIQUES',),
+            const SuperVerse(verse:  'TO AVOID SET STATE TECHNIQUES',),
 
             /// AVOID SET STATE : WAY # 2
             Consumer<UiProvider>(
@@ -462,7 +462,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                 return DreamBox(
                   height: 50,
                   width: 300,
-                  verse: '_loading is : $_loading',
+                  verse:  '_loading is : $_loading',
                   verseScaleFactor: 0.6,
                   verseWeight: VerseWeight.black,
                   onTap: uiProvider.triggerLoading,
@@ -479,7 +479,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                   DreamBox(
                     height: 50,
                     width: 300,
-                    verse: 'isLoading is : $isLoading',
+                    verse:  'isLoading is : $isLoading',
                     verseScaleFactor: 0.6,
                     verseWeight: VerseWeight.black,
                     onTap: () => _uiProvider.triggerLoading(
@@ -497,7 +497,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
                 child: DreamBox(
                   height: 50,
                   width: 50,
-                  verse: 'X',
+                  verse:  'X',
                   verseScaleFactor: 0.6,
                   verseWeight: VerseWeight.black,
                   color: Colorz.bloodTest,

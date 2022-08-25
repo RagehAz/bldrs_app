@@ -116,7 +116,7 @@ class MaxHeader extends StatelessWidget {
                 key: const ValueKey<String>('max_header_BzPgCounter_flyers'),
                 flyerBoxWidth: flyerBoxWidth,
                 count: bzModel.flyersIDs.length,
-                verse: 'Published flyers',
+                verse: xPhrase(context, '##Published flyers'),
                 icon: Iconz.gallery,
                 iconSizeFactor: 0.85,
               ),
