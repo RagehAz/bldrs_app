@@ -63,7 +63,7 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
 
                 else {
                   return const SuperVerse(
-                    verse: 'Go Back Widget is off',
+                    verse:  'Go Back Widget is off',
                   );
                 }
 

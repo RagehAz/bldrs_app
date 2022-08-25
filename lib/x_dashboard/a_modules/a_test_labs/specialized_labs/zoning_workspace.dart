@@ -34,7 +34,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
         columnChildren: <Widget>[
 
           AppBarButton(
-            verse: 'Zone by one button',
+            verse:  'Zone by one button',
             onTap: () async {
 
               final ZoneModel _zone = await Nav.goToNewScreen(

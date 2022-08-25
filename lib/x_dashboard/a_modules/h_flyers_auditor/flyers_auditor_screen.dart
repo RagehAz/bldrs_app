@@ -420,7 +420,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         const Expander(),
 
         AppBarButton(
-          verse: 'load more',
+          verse:  'load more',
           onTap: () => readMoreUnVerifiedFlyers(
             context: context,
             flyers: _flyers,
@@ -456,7 +456,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 else {
                   return const Center(
                     child: SuperVerse(
-                      verse: 'No Flyers Left',
+                      verse:  'No Flyers Left',
                       weight: VerseWeight.black,
                       italic: true,
                       size: 4,

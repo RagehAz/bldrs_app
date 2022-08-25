@@ -59,7 +59,7 @@ Future<void> onFlyerBzOptionsTap({
 
           BottomDialog.wideButton(
             context: context,
-            verse: 'Edit flyer',
+            verse: xPhrase(context, '##Edit flyer'),
             verseCentered: true,
             onTap: () => _onEditFlyerButtonTap(
               context: context,
@@ -69,7 +69,7 @@ Future<void> onFlyerBzOptionsTap({
 
           BottomDialog.wideButton(
             context: context,
-            verse: 'Delete flyer',
+            verse: xPhrase(context, '##Delete flyer'),
             verseCentered: true,
             isDeactivated: !_canDeleteFlyer,
             onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(

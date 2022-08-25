@@ -91,7 +91,7 @@ class FlyerFooterButtons extends StatelessWidget {
                   count: counter?.reviews,
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.utPlanning,
-                  verse: 'Review',//superPhrase(context, 'phid_review'),
+                  verse: xPhrase(context, '##Review'),
                   isOn: false,
                   canTap: !tinyMode,
                   onTap: () => onReviewButtonTap(

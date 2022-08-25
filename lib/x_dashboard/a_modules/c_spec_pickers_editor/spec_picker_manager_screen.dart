@@ -105,7 +105,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         AppBarButton(
           icon: Iconz.star,
-          verse: 'thing',
+          verse:  'thing',
           // buttonColor:
           // verseColor: Colorz.white255,
           onTap: (){
@@ -128,7 +128,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
           // final String _translatedFlyerType = FlyerTyper.cipherFlyerType(_flyerType);
 
           return WideButton(
-            verse: '${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
+            verse:  '${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
             icon: FlyerTyper.flyerTypeIconOff(_flyerType),
                         onTap: () async {
 
@@ -361,7 +361,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// PRO PICKERS READ
         WideButton(
-          verse: 'GET PRO PICKERS for ( equipment )',
+          verse:  'GET PRO PICKERS for ( equipment )',
           // isActive: false,
           onTap: () async {
 

@@ -168,7 +168,7 @@ class PickerEditor extends StatelessWidget {
                 SizedBox(
                   width: BldrsAppBar.width(context),
                   child: const SuperVerse(
-                    verse: 'Values that deactivate specific specPickers',
+                    verse:  'Values that deactivate specific specPickers',
                     size: 1,
                     centered: false,
                     margin: 10,

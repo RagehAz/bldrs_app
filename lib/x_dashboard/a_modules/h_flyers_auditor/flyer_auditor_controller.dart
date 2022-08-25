@@ -112,7 +112,7 @@ Future<void> onFlyerOptionsTap({
             /// AUDIT
             AuditorButton(
               height: _buttonHeight,
-              verse: 'Audit',
+              verse:  'Audit',
               color: Colorz.red255,
               icon: Iconz.xSmall,
               onTap: () => onAuditFlyer(
@@ -124,7 +124,7 @@ Future<void> onFlyerOptionsTap({
             /// VERIFY
             AuditorButton(
               height: _buttonHeight,
-              verse: 'Verify',
+              verse:  'Verify',
               color: Colorz.green255,
               icon: Iconz.check,
               onTap: () => onVerifyFlyer(

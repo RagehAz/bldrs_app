@@ -192,13 +192,13 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
       BottomDialog.wideButton(
         context: context,
-        verse: 'Delete',
+        verse:  'Delete',
         onTap: () => _deleteMap(map),
       ),
 
       BottomDialog.wideButton(
         context: context,
-        verse: 'Update',
+        verse:  'Update',
         onTap: () => _updateMap(map),
       ),
 
@@ -252,37 +252,37 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
               /// CREATE SINGLE
               SmallFuckingButton(
-                  verse: 'Create single',
+                  verse:  'Create single',
                   onTap: _createRandomMap
               ),
 
               /// CREATE RANDOM
               SmallFuckingButton(
-                  verse: 'Create Multi',
+                  verse:  'Create Multi',
                   onTap: _createMultipleMaps
               ),
 
               /// READ
               SmallFuckingButton(
-                verse: 'read all',
+                verse:  'read all',
                 onTap: _readAllMaps,
               ),
 
               /// UPDATE
               SmallFuckingButton(
-                verse: 'Update',
+                verse:  'Update',
                 onTap: _updateMap,
               ),
 
               /// DELETE ALL
               SmallFuckingButton(
-                verse: 'Delete All',
+                verse:  'Delete All',
                 onTap: _deleteAll,
               ),
 
               /// SEARCH
               SmallFuckingButton(
-                verse: 'SEARCH',
+                verse:  'SEARCH',
                 onTap: _search,
               ),
 

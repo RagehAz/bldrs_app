@@ -141,7 +141,7 @@ class TopDialog extends StatelessWidget {
       // DreamBox(
       //   height: 40,
       //   width: 100,
-      //   verse: 'main button',
+      //   verse:  'main button',
       //   verseScaleFactor: 0.5,
       // ),
 
@@ -206,7 +206,7 @@ class TopDialog extends StatelessWidget {
       message: verse,
       onTap: onTap,
       duration: const Duration(milliseconds: 5000),
-      title: 'wtf',
+      // title: 'wtf',
       // padding: EdgeInsets.zero,
       // margin: EdgeInsets.zero,
       borderRadius: Borderers.superBorderAll(context, 0),
@@ -225,22 +225,22 @@ class TopDialog extends StatelessWidget {
       forwardAnimationCurve: Curves.easeInOut,
       // isDismissible: true,
       leftBarIndicatorColor: Colorz.blue125,
-      mainButton: const DreamBox(
-        height: 40,
-        width: 100,
-        verse: 'main button',
-        verseScaleFactor: 0.5,
-      ),
+      // mainButton: const DreamBox(
+      //   height: 40,
+      //   width: 100,
+      //   verse:  'main button',
+      //   verseScaleFactor: 0.5,
+      // ),
       maxWidth: _screenWidth,
       messageColor: Colorz.white255,
       messageSize: 20,
-      messageText: const SuperVerse(
-        verse: 'Message text',
-        size: 1,
-      ),
-      onStatusChanged: (FlushbarStatus status) {
-        blog('status is : $status');
-      },
+      // messageText: const SuperVerse(
+      //   verse:  'Message text',
+      //   size: 1,
+      // ),
+      // onStatusChanged: (FlushbarStatus status) {
+      //   blog('status is : $status');
+      // },
       // positionOffset: 0,
       progressIndicatorBackgroundColor: Colorz.cyan50,
       // progressIndicatorController: AnimationController(),
@@ -252,10 +252,10 @@ class TopDialog extends StatelessWidget {
       showProgressIndicator: true,
       titleColor: Colorz.bloodTest,
       titleSize: 15,
-      titleText: const SuperVerse(
-        verse: 'title text',
-        size: 1,
-      ),
+      // titleText: const SuperVerse(
+      //   verse:  'title text',
+      //   size: 1,
+      // ),
       // userInputForm: ,
       icon: const DreamBox(
         width: 40,
