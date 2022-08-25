@@ -186,7 +186,7 @@ class PhraseProvider extends ChangeNotifier {
 // -------------------------------------
   String getTranslatedPhraseByID(String id){
 
-    String _translation = id;
+    String _translation;
 
     if (
     _mainPhrases != null
@@ -261,8 +261,9 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
   _phraseProvider.addToUsedXPhrases(id);
 
   if (_stringNeedTranslation(id) == true){
-    return id;
+    return null;
   }
+
   else {
     return _phraseProvider.getTranslatedPhraseByID(id);
   }
@@ -287,7 +288,7 @@ bool _stringNeedTranslation(String string){
   if (
   TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: string,
-      numberOfCharacters: 2
+      numberOfChars: 2
   ) == '##'
   ){
     _need = true;

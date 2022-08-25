@@ -24,6 +24,7 @@ class DreamBox extends StatelessWidget {
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
+    this.verseCasing,
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
@@ -73,6 +74,7 @@ class DreamBox extends StatelessWidget {
   final dynamic corners;
   final Color iconColor;
   final String verse;
+  final VerseCasing verseCasing;
   final Color verseColor;
   final VerseWeight verseWeight;
   final double verseScaleFactor;
@@ -292,6 +294,7 @@ class DreamBox extends StatelessWidget {
           DreamBoxIconVerseSecondLine(
             key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
             verse: verse,
+            verseCasing: verseCasing,
             textDirection: _textDirection,
             icon: icon,
             loading: loading,

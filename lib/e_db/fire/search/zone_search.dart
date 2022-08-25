@@ -34,7 +34,7 @@ Future<List<CountryModel>> countriesModelsByCountryName({
       field: 'phrases.$lingoCode.trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: TextMod.fixCountryName(countryName),
-        numberOfCharacters: Standards.maxTrigramLength,
+        numberOfChars: Standards.maxTrigramLength,
       ),
       valueIs: FireComparison.arrayContains,
     );
@@ -65,7 +65,7 @@ Future<List<CityModel>> citiesByCityName({
       field: 'names.$lingoCode.trigram',
       compareValue: TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: TextMod.fixCountryName(cityName),
-        numberOfCharacters: Standards.maxTrigramLength,
+        numberOfChars: Standards.maxTrigramLength,
       ),
       valueIs: FireComparison.arrayContains,
     );
@@ -103,7 +103,7 @@ Future<List<CityModel>> citiesByCityNameAndCountryID({
         final String _searchValue =
             TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: TextMod.fixCountryName(cityName),
-          numberOfCharacters: Standards.maxTrigramLength,
+              numberOfChars: Standards.maxTrigramLength,
         );
 
         final QuerySnapshot<Object> _collectionSnapshot = await _collRef

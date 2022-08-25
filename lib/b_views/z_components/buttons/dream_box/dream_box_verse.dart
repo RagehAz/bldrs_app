@@ -11,6 +11,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DreamBoxIconVerseSecondLine({
     @required this.verse,
+    @required this.verseCasing,
     @required this.textDirection,
     @required this.icon,
     @required this.loading,
@@ -45,6 +46,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String verse;
+  final VerseCasing verseCasing;
   final TextDirection textDirection;
   final dynamic icon;
   final bool loading;
@@ -319,6 +321,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   width: _verseWidth,
                   child: SuperVerse(
                     verse: verse,
+                    verseCasing: verseCasing,
                     size: verseSize,
                     weight: verseWeight,
                     color: greyscale == true || inActiveMode == true ?

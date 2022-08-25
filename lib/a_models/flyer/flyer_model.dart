@@ -907,7 +907,7 @@ class FlyerModel {
   String getShortHeadline({int numberOfCharacters = 10}){
     final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: headline,
-        numberOfCharacters: numberOfCharacters
+        numberOfChars: numberOfCharacters
     );
     return _shortHeadline;
   }
