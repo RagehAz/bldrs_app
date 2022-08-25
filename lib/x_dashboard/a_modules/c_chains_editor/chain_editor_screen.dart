@@ -79,7 +79,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitle: widget.chain.id,
+      pageTitleVerse: widget.chain.id,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       onBack: () => Dialogs.goBackDialog(

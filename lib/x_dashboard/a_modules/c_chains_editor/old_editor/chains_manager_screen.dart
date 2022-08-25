@@ -179,7 +179,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
 
           return MainLayout(
             key: const ValueKey<String>('ChainsManagerScreen'),
-            pageTitle: 'All Keywords',
+            pageTitleVerse: 'All Keywords',
             appBarType: AppBarType.search,
             pyramidsAreOn: true,
             sectionButtonIsOn: false,
@@ -188,7 +188,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
               final bool _result = await CenterDialog.showCenterDialog(
                 context: context,
                 boolDialog: true,
-                title: 'Go Back ?',
+                titleVerse: 'Go Back ?',
               );
               if (_result == true){
                 Nav.goBack(

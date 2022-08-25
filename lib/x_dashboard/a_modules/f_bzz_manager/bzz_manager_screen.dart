@@ -167,7 +167,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
-      pageTitle: '${_bzzModels.length} Bzz Manager',
+      pageTitleVerse: '${_bzzModels.length} Bzz Manager',
       loading: _loading,
       sectionButtonIsOn: false,
       skyType: SkyType.black,

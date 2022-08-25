@@ -65,8 +65,8 @@ class Storage {
           /// TASK : this is temp ,, or see how it goes
           await CenterDialog.showCenterDialog(
             context: context,
-            title: 'Something is wrong',
-            body: 'Could not get this image',
+            titleVerse:  'Something is wrong',
+            bodyVerse:  'Could not get this image',
           );
         });
 

@@ -250,8 +250,8 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
     final bool _result = await Dialogs.goBackDialog(
       context: context,
-      title: 'Exit App ?',
-      body: 'Would you like to exit and close Bldrs.net App ?',
+      titleVerse: 'Exit App ?',
+      bodyVerse: 'Would you like to exit and close Bldrs.net App ?',
       confirmButtonText: 'Exit Bldrs.net',
     );
 

@@ -180,7 +180,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitle: _pageTitle,
+      pageTitleVerse: _pageTitle,
       loading: ValueNotifier(false),
       progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,

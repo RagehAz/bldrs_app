@@ -30,7 +30,7 @@ class AboutBldrsScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
-      pageTitle: xPhrase(context, '##About Bldrs.net'),
+      pageTitleVerse: xPhrase(context, '##About Bldrs.net'),
       skyType: SkyType.non,
       layoutWidget: Scroller(
         child: ListView(

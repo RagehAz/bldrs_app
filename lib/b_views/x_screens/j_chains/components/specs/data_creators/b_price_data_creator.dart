@@ -260,14 +260,14 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
               child: Form(
                 key: _formKey,
                 child: SuperTextField(
-                  title: 'Price',
+                  titleVerse: xPhrase(context, '##Price'),
                   isFormField: true,
                   // key: ValueKey('price_text_field'),
                   autofocus: true,
                   width: _textFieldWidth,
                   // height: _fieldHeight,
                   textController: controller,
-                  hintText: _hintText,
+                  hintVerse: _hintText,
                   fieldColor: Colorz.black20,
                   centered: true,
                   // counterIsOn: false,

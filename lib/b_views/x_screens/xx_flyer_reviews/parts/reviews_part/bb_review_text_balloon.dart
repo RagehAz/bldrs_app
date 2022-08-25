@@ -81,7 +81,7 @@ class ReviewTextBalloon extends StatelessWidget {
               /// TEXT FIELD
               if (isCreatorMode == true)
                   SuperTextField(
-                    title: 'Edit Review',
+                    titleVerse: xPhrase(context, '##Edit Review'),
                     width: _textBubbleWidth,
                     textController: reviewTextController,
                     maxLines: 8,

@@ -91,15 +91,15 @@ class _FeedBackState extends State<FeedBack> {
     if (_ref == null){
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Not Sent',
-        body: 'Sorry !, something went wrong',
+        titleVerse: xPhrase(context, '##Not Sent'),
+        bodyVerse: xPhrase(context, '##Sorry !, something went wrong'),
       );
     }
     else {
       await CenterDialog.showCenterDialog(
         context: context,
-        title: 'Thanks',
-        body: 'FeedBack sent',
+        titleVerse: xPhrase(context, '##Thanks'),
+        bodyVerse: xPhrase(context, '##FeedBack sent'),
       );
     }
 
@@ -123,7 +123,7 @@ class _FeedBackState extends State<FeedBack> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
-      pageTitle: 'About Bldrs.net',
+      pageTitleVerse: xPhrase(context, '##About Bldrs.net'),
       skyType: SkyType.non,
       // loading: _loading,
       layoutWidget: ListView(
@@ -158,7 +158,7 @@ class _FeedBackState extends State<FeedBack> {
           TextFieldBubble(
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
-            title: xPhrase(context, '##Feedback'),
+            titleVerse: xPhrase(context, '##Feedback'),
             textController: _feedbackController,
             // loading: _loading,
             maxLines: 5,

@@ -285,8 +285,8 @@ Future<bool> _preEditCheck({
   ){
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Check inputs',
-      body: 'The ID or one of the values is empty.',
+      titleVerse: 'Check inputs',
+      bodyVerse: 'The ID or one of the values is empty.',
       color: Colorz.red255,
     );
 
@@ -374,9 +374,9 @@ Future<bool> _preEditCheck({
 
       _continueOps = await CenterDialog.showCenterDialog(
         context: context,
-        title: '7aseb !',
+        titleVerse: '7aseb !',
         boolDialog: true,
-        body: '$_alertMessage\n'
+        bodyVerse: '$_alertMessage\n'
             '$_actionTypeMessage\n'
             'Wanna continue uploading ?',
       );
@@ -418,9 +418,9 @@ Future<void> onDeletePhrase({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Bgad ?',
+    titleVerse: 'Bgad ?',
     boolDialog: true,
-    body: 'Delete This Phrase ?'
+    bodyVerse: 'Delete This Phrase ?'
         '\n\nPhid : $phid',
   );
 
@@ -466,8 +466,8 @@ Future<void> onSelectPhrase({
 
   final bool _continue = await Dialogs.goBackDialog(
     context: context,
-    title: 'Select This & go Back ?',
-    body: '$phid\n${xPhrase(context, phid)}',
+    titleVerse: 'Select This & go Back ?',
+    bodyVerse: '$phid\n${xPhrase(context, phid)}',
     confirmButtonText: 'Select & Back',
   );
 

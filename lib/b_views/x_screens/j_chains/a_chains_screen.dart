@@ -29,7 +29,7 @@ class ChainsScreen extends StatefulWidget {
     @required this.flyerTypesChainFilters,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
-    @required this.pageTitle,
+    @required this.pageTitleVerse,
     this.selectedSpecs,
     this.onlyChainKSelection = false,
     Key key
@@ -40,7 +40,7 @@ class ChainsScreen extends StatefulWidget {
   final List<FlyerType> flyerTypesChainFilters;
   final bool onlyUseCityChains;
   final bool isMultipleSelectionMode;
-  final String pageTitle;
+  final String pageTitleVerse;
   final bool onlyChainKSelection;
   /// --------------------------------------------------------------------------
   @override
@@ -212,7 +212,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
-      pageTitle: widget.pageTitle,
+      pageTitleVerse: widget.pageTitleVerse,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       onBack: () async {
@@ -228,9 +228,9 @@ class _ChainsScreenState extends State<ChainsScreen> {
           if (_specsChanged == true){
             _canContinue = await CenterDialog.showCenterDialog(
               context: context,
-              title: 'Discard Changes',
-              body: 'This will ignore All selection changes',
-              confirmButtonText: 'Discard',
+              titleVerse: xPhrase(context, '##Discard Changes'),
+              bodyVerse: xPhrase(context, '##This will ignore All selection changes'),
+              confirmButtonVerse: xPhrase(context, '##Discard'),
               boolDialog: true,
             );
           }
@@ -245,7 +245,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
       },
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
-        firstLine: 'Confirm ${widget.pageTitle}',
+        firstLine: 'Confirm ${widget.pageTitleVerse}',
         onTap: (){
           Nav.goBack(
             context: context,
@@ -276,7 +276,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
         _isSearching.value = false;
       },
       searchController: _searchTextController,
-      searchHint: 'Search keywords',
+      searchHintVerse: xPhrase(context, '##Search keywords'),
       layoutWidget: Selector<ChainsProvider, Chain>(
         selector: _getProChain,
         // child: ,

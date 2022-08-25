@@ -57,7 +57,7 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitle: widget.pageTitle,
+      pageTitleVerse: widget.pageTitle,
       loading: widget.loading,
       appBarRowWidgets: <Widget>[
 

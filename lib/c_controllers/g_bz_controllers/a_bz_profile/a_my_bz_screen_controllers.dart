@@ -142,8 +142,8 @@ Future<void> _myBzResignationProtocol({
     /// 3 - SHOW NOTICE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'This Business account is not available',
-      body: 'Your account does not have access to this business account',
+      titleVerse: 'This Business account is not available',
+      bodyVerse: 'Your account does not have access to this business account',
     );
 
     await AuthorProtocols.removeMeFromBzProtocol(

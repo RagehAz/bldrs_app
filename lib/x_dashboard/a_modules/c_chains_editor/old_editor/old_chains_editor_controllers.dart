@@ -44,8 +44,8 @@ Future<void> onBackupAllChains(BuildContext context) async {
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     boolDialog: true,
-    title: 'Back up All Chains ?',
-    body: 'Please confirm',
+    titleVerse: 'Back up All Chains ?',
+    bodyVerse: 'Please confirm',
   );
 
   if (_result == true){
@@ -226,8 +226,8 @@ Future<void> onSync({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Sync Chains to DB ?',
-      body: 'This will check which Chain was modified and automatically update it on database',
+      titleVerse: 'Sync Chains to DB ?',
+      bodyVerse: 'This will check which Chain was modified and automatically update it on database',
       boolDialog: true,
     );
 
@@ -283,9 +283,9 @@ Future<void> _syncSuccessDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Chains Are Synced on database Successfully',
-    body: 'you need to restart this screen to update the red button ma3lesh',
-    confirmButtonText: 'I Understand mashi',
+    titleVerse: 'Chains Are Synced on database Successfully',
+    bodyVerse: 'you need to restart this screen to update the red button ma3lesh',
+    confirmButtonVerse: 'I Understand mashi',
   );
 
 }
@@ -294,8 +294,8 @@ Future<void> _syncFailureDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'nothing Synced',
-    body: 'Something went wrong',
+    titleVerse: 'nothing Synced',
+    bodyVerse: 'Something went wrong',
     color: Colorz.bloodTest,
   );
 

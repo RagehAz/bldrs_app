@@ -193,8 +193,8 @@ Future<void> onDeleteAuthorFromBz({
   if (showConfirmationDialog == true){
     _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Remove ${authorModel.name} ?',
-      body: '${authorModel.name} and all his published flyers will be deleted as well',
+      titleVerse: 'Remove ${authorModel.name} ?',
+      bodyVerse: '${authorModel.name} and all his published flyers will be deleted as well',
       boolDialog: true,
     );
   }
@@ -247,8 +247,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'You can not remove ${authorModel.name}',
-    body: 'Only Account Admins can remove other team members,\n'
+    titleVerse: 'You can not remove ${authorModel.name}',
+    bodyVerse: 'Only Account Admins can remove other team members,\n'
         'however you can remove only yourself from this business account',
   );
 
@@ -350,11 +350,11 @@ Future<bool> _showDeleteAllAuthorFlyers({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Delete All Flyers',
-    body: '${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
+    titleVerse: 'Delete All Flyers',
+    bodyVerse: '${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
     height: 400,
     boolDialog: true,
-    confirmButtonText: 'Delete All Flyers And Remove ${authorModel.name}',
+    confirmButtonVerse: 'Delete All Flyers And Remove ${authorModel.name}',
     child: Container(
       width: CenterDialog.getWidth(context),
       height: 200,
@@ -456,8 +456,8 @@ Future<void> _onShowCanNotEditAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'You can not Edit ${authorModel.name}',
-    body: 'Only ${authorModel.name} can edit his Author detail',
+    titleVerse: 'You can not Edit ${authorModel.name}',
+    bodyVerse: 'Only ${authorModel.name} can edit his Author detail',
   );
 
 }
@@ -494,8 +494,8 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'You can not Change team member roles',
-    body: 'Only Account Admins can change the roles of other team members',
+    titleVerse: 'You can not Change team member roles',
+    bodyVerse: 'Only Account Admins can change the roles of other team members',
   );
 
 }

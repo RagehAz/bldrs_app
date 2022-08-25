@@ -153,9 +153,9 @@ Future<void> onDeleteUser({
   if (Mapper.checkCanLoopList(userModel.myBzzIDs) == true){
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'User is Author !',
-      body: 'For now, we can not delete this User from here',
-      confirmButtonText: 'Mashi',
+      titleVerse: 'User is Author !',
+      bodyVerse: 'For now, we can not delete this User from here',
+      confirmButtonVerse: 'Mashi',
     );
   }
 
@@ -163,9 +163,9 @@ Future<void> onDeleteUser({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Delete User ?',
-      body: '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
-      confirmButtonText: 'Delete Fucker',
+      titleVerse: 'Delete User ?',
+      bodyVerse: '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
+      confirmButtonVerse: 'Delete Fucker',
       boolDialog: true,
     );
 
@@ -245,8 +245,8 @@ Future<void> onDeleteUser({
 
           await CenterDialog.showCenterDialog(
             context: context,
-            title: 'Failed',
-            body: 'Could not Delete this User',
+            titleVerse: 'Failed',
+            bodyVerse: 'Could not Delete this User',
           );
 
           /// CLOSE WAITING

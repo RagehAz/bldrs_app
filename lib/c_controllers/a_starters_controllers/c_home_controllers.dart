@@ -300,8 +300,8 @@ Future<void> showMissingFieldsDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    title: 'Complete Your profile',
-    body:
+    titleVerse: 'Complete Your profile',
+    bodyVerse:
     'Required fields :\n'
         '$_missingFieldsString',
   );

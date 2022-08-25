@@ -21,7 +21,7 @@ class BalloonTypesScreen extends StatelessWidget {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pageTitle: 'Balloon Types',
+      pageTitleVerse: 'Balloon Types',
       appBarType: AppBarType.basic,
       layoutWidget: ListView(
         padding: Stratosphere.stratosphereInsets,

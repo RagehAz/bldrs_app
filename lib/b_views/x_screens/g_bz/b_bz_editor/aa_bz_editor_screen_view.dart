@@ -218,7 +218,7 @@ class BzEditorScreenView extends StatelessWidget {
               AddImagePicBubble(
                 key: const ValueKey<String>('add_logo_bubble'),
                 fileModel: bzLogo,
-                title: xPhrase(context, 'phid_businessLogo'),
+                titleVerse: xPhrase(context, 'phid_businessLogo'),
                 redDot: true,
                 bubbleType: BubbleType.bzLogo,
                 onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
@@ -244,7 +244,7 @@ class BzEditorScreenView extends StatelessWidget {
                     isFormField: true,
                     key: const Key('bzName'),
                     textController: bzNameTextController,
-                    title: _title,
+                    titleVerse: _title,
                     counterIsOn: true,
                     maxLength: 72,
                     maxLines: 2,
@@ -291,9 +291,9 @@ class BzEditorScreenView extends StatelessWidget {
                             title: 'Scope of services',
                             columnChildren: <Widget>[
 
-                              const BubbleBulletPoints(
-                                bulletPoints: <String>[
-                                  'Select at least 1 keyword to help search engines show your content in its dedicated place',
+                              BubbleBulletPoints(
+                                bulletPoints:  <String>[
+                                  xPhrase(context, '##Select at least 1 keyword to help search engines show your content in its dedicated place'),
                                 ],
                               ),
 
@@ -334,7 +334,7 @@ class BzEditorScreenView extends StatelessWidget {
               TextFieldBubble(
                 key: const ValueKey<String>('bz_about_bubble'),
                 textController: bzAboutTextController,
-                title: xPhrase(context, 'phid_about'),
+                titleVerse: xPhrase(context, 'phid_about'),
                 counterIsOn: true,
                 maxLength: 1000,
                 maxLines: 20,
@@ -351,7 +351,7 @@ class BzEditorScreenView extends StatelessWidget {
                   builder: (_, ZoneModel bzZone, Widget child){
 
                     return ZoneSelectionBubble(
-                      title: 'Headquarters zone', //Wordz.hqCity(context),
+                      titleVerse: xPhrase(context, '##Headquarters zone'), //Wordz.hqCity(context),
                       currentZone: bzZone,
                       onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                         zoneModel: zone,

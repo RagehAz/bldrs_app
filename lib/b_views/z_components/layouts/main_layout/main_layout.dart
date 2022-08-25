@@ -33,7 +33,7 @@ class MainLayout extends StatelessWidget {
     this.layoutWidget,
     this.pyramidsAreOn = false,
     this.appBarType,
-    this.pageTitle,
+    this.pageTitleVerse,
     this.skyType = SkyType.night,
     this.onBack,
     this.canGoBack = true,
@@ -44,7 +44,7 @@ class MainLayout extends StatelessWidget {
     this.onSearchChanged,
     this.historyButtonIsOn = true,
     this.sectionButtonIsOn = true,
-    this.searchHint,
+    this.searchHintVerse,
     this.loading,
     this.progressBarModel,
     this.pyramidType,
@@ -58,7 +58,7 @@ class MainLayout extends StatelessWidget {
   final Widget layoutWidget;
   final bool pyramidsAreOn;
   final AppBarType appBarType;
-  final dynamic pageTitle;
+  final dynamic pageTitleVerse;
   final SkyType skyType;
   final Function onBack;
   final bool canGoBack;
@@ -69,7 +69,7 @@ class MainLayout extends StatelessWidget {
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
-  final String searchHint;
+  final String searchHintVerse;
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
@@ -194,7 +194,7 @@ class MainLayout extends StatelessWidget {
                     skyType: skyType,
                     appBarType: appBarType,
                     appBarRowWidgets: appBarRowWidgets,
-                    pageTitle: pageTitle,
+                    pageTitle: pageTitleVerse,
                     onBack: () => _onBack(context),
                     loading: loading,
                     progressBarModel: progressBarModel,
@@ -205,7 +205,7 @@ class MainLayout extends StatelessWidget {
                     historyButtonIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     pyramidsAreOn: pyramidsAreOn,
-                    searchHint: searchHint,
+                    searchHint: searchHintVerse,
                     pyramidType: pyramidType,
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,

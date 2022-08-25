@@ -55,7 +55,7 @@ class ListLayout extends StatelessWidget {
     return MainLayout(
       skyType: sky,
       appBarType: AppBarType.basic,
-      pageTitle: pageTitle,
+      pageTitleVerse: pageTitle,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       // appBarBackButton: true,

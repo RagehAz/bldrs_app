@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -142,7 +143,7 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH TEXT FIELD
           SuperTextField(
-            title: 'Search',
+            titleVerse: xPhrase(context, '##Search'),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {
             //   blog('on saved');
@@ -162,7 +163,7 @@ class _SearchBarState extends State<SearchBar> {
                 }
               }
             },
-            hintText: widget.hintText ?? 'Search ...',
+            hintVerse: widget.hintText ?? 'Search ...',
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
             textSizeFactor: 1.15,

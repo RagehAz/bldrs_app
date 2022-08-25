@@ -163,8 +163,8 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitle: 'Search Users',
-      searchHint: 'Search Users by name',
+      pageTitleVerse: 'Search Users',
+      searchHintVerse: 'Search Users by name',
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,

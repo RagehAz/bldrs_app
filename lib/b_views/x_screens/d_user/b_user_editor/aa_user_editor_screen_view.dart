@@ -67,7 +67,7 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// PICTURE
           AddImagePicBubble(
-            title: 'Picture',
+            titleVerse: xPhrase(context, '##Picture'),
             redDot: true,
             fileModel: fileModel,
             bubbleType: BubbleType.userPic,
@@ -84,7 +84,7 @@ class UserEditorScreenView extends StatelessWidget {
             isFormField: true,
             textController: nameController,
             key: const Key('name'),
-            title: xPhrase(context, 'phid_name'),
+            titleVerse: xPhrase(context, 'phid_name'),
             keyboardTextInputType: TextInputType.name,
             keyboardTextInputAction: TextInputAction.next,
             fieldIsRequired: true,
@@ -108,7 +108,7 @@ class UserEditorScreenView extends StatelessWidget {
             isFormField: true,
             key: const Key('title'),
             textController: titleController,
-            title: xPhrase(context, 'phid_jobTitle'),
+            titleVerse: xPhrase(context, 'phid_jobTitle'),
             keyboardTextInputType: TextInputType.name,
             keyboardTextInputAction: TextInputAction.next,
             fieldIsRequired: true,
@@ -123,7 +123,7 @@ class UserEditorScreenView extends StatelessWidget {
             isFormField: true,
             textController: companyController,
             key: const Key('company'),
-            title: xPhrase(context, 'phid_companyName'),
+            titleVerse: xPhrase(context, 'phid_companyName'),
             keyboardTextInputType: TextInputType.name,
             keyboardTextInputAction: TextInputAction.next,
             fieldIsRequired: true,

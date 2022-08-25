@@ -65,8 +65,8 @@ Future<void> readMoreUnVerifiedFlyers({
   else {
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'DONE !',
-      body: 'No more flyers need verification',
+      titleVerse: 'DONE !',
+      bodyVerse: 'No more flyers need verification',
     );
   }
 
@@ -194,8 +194,8 @@ Future<void> onVerifyFlyer({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      title: 'Already Verified',
-      body: 'This flyer is already verified, check the next one. please',
+      titleVerse: 'Already Verified',
+      bodyVerse: 'This flyer is already verified, check the next one. please',
     );
   }
 
