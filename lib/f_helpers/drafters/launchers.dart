@@ -27,16 +27,16 @@ class Launcher {
     if (contact != null){
 
       /// PHONE
-      if (contact.contactType == ContactType.phone){
-        await launchCall(contact.value);
+      if (contact.type == ContactType.phone){
+        await _launchCall(contact.value);
       }
       /// WEB LINK
-      else if (ContactModel.checkContactTypeIsWebLink(contact.contactType) == true){
-        await launchURL(contact.value);
+      else if (ContactModel.checkIsWebLink(contact.type) == true){
+        await _launchURL(contact.value);
       }
       /// EMAIL
-      else if (contact.contactType == ContactType.email){
-        await launchEmail(
+      else if (contact.type == ContactType.email){
+        await _launchEmail(
           context: context,
           email: contact.value,
           // emailBody: '',
@@ -45,7 +45,7 @@ class Launcher {
       }
       /// OBLIVION
       else {
-        blog('will do nothing for this ${contact.contactType}');
+        blog('will do nothing for this ${contact.type}');
       }
 
     }
@@ -57,7 +57,7 @@ class Launcher {
 
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> launchURL(String link) async {
+  static Future<bool> _launchURL(String link) async {
 
     Uri _uri;
     bool _success = false;
@@ -101,7 +101,7 @@ class Launcher {
 
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> launchEmail({
+  static Future<void> _launchEmail({
     @required BuildContext context,
     @required String email,
     String emailSubject,
@@ -146,7 +146,7 @@ class Launcher {
 
 // ----------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> launchCall(String phoneNumber) async {
+  static Future<void> _launchCall(String phoneNumber) async {
 
     if (Stringer.checkStringIsEmpty(phoneNumber) == false){
 

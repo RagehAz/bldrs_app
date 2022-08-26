@@ -269,43 +269,27 @@ Future<void> onCallTap({
 
     await Dialogs.bzContactsDialog(
         context: context,
-        title: 'Contact ${bzModel.name}',
-        body: 'Select an Author to contact',
+        title: '##Contact ${bzModel.name}',
+        body: '##Select an Author to contact',
         bzModel: bzModel,
         onContact: (ContactModel contact) async {
 
-          bool _success = false;
+          await Future.wait(<Future>[
 
-          /// PHONE CALL
-          if (contact.contactType == ContactType.phone){
-            await Launcher.launchCall(contact.value);
-            _success = true;
-          }
-
-          /// WEB LINK - SOCIAL MEDIA
-          else if (ContactModel.checkIsWebLink(contact) == true){
-            _success = await Launcher.launchURL(contact.value);
-          }
-
-          /// EMAIL
-          else if (contact.contactType == ContactType.email){
-            /// TASK : LAUNCH EMAIL CONTACT
-            blog('onCallTap : SHOULD SEND AN EMAIL TO THIS BITCH : ${contact.value}');
-          }
-
-          /// OTHER UNKNOWN
-          else {
-            blog('onCallTap : CAN NOT LAUNCH THIS CONTACT MAN : ${contact.contactType} : ${contact.value}');
-          }
+            /// LAUNCH CONTACT
+            Launcher.launchContactModel(
+              context: context,
+              contact: contact,
+            ),
 
           /// CALL RECORD PROTOCOL
-          if (_success == true){
-            await BzRecordRealOps.callBz(
+            BzRecordRealOps.callBz(
               context: context,
               bzID: bzModel.id,
               contact: contact,
-            );
-          }
+            ),
+
+          ]);
 
         }
     );

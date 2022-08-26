@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:flutter/material.dart';
 
-/// TASK : should be save on firestore to be able to edit them from dashboard
+/// TASK : should be saved on firestore to be able to edit them from dashboard
 class Standards {
 // -----------------------------------------------------------------------------
 
@@ -18,8 +19,22 @@ class Standards {
   static const String storageBucket = 'bldrsnet.appspot.com';
   static const String projectID = 'bldrsnet';
   static const String dynamicLinksPrefix = 'https://bldrs.page.link';
-
+// ----------------
   static const String ragehImageURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/users%2FXvwGvt42RFhvcz5CYr8xFujzI5F2.jpg?alt=media&token=99b37689-c553-4eed-a14f-b6530a393b45';
+// ----------------
+  static String getBldrsAppUpdateLink(BuildContext context){
+
+    String _url;
+
+    if (DeviceChecker.deviceIsIOS() == true){
+      _url = 'www.apple.com';
+    }
+    else if (DeviceChecker.deviceIsAndroid() == true){
+      _url = 'www.google.com';
+    }
+
+    return _url;
+  }
 // -----------------------------------------------------------------------------
 
 /// FLYER STANDARDS
@@ -77,7 +92,7 @@ class Standards {
   /// FILE SIZES
 
 // ----------------------------------
-  static const double maxFileSizeLimit = 3;
+  static const double maxFileSizeLimit = 3; // in Mb
 // -----------------------------------------------------------------------------
 
   /// IMAGES WIDTHS

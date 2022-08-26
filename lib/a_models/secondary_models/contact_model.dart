@@ -1,18 +1,17 @@
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 // -----------------------------------------------------------------------------
 enum ContactType {
   phone,
   email,
+
   website,
+
   facebook,
   linkedIn,
   youtube,
@@ -33,187 +32,66 @@ class ContactModel {
   /// --------------------------------------------------------------------------
   const ContactModel({
     @required this.value,
-    @required this.contactType,
+    @required this.type,
+    this.controller,
   });
   /// --------------------------------------------------------------------------
   final String value;
-  final ContactType contactType;
+  final ContactType type;
+  final TextEditingController controller;
 // -----------------------------------------------------------------------------
 
-  /// INITIALIZERS
+  /// STANDARDS
 
 // ----------------------------------
-  static List<ContactModel> createContactsList({
-    List<ContactModel> existingContacts,
-    String phone,
-    String email,
-    String webSite,
-    String facebook,
-    String linkedIn,
-    String youTube,
-    String instagram,
-    String pinterest,
-    String tikTok,
-    String twitter,
-  }) {
-    final List<ContactModel> _newContacts = <ContactModel>[];
-    // ---------------
-    addContactIfPossibleToANewContactsList(existingContacts, phone, ContactType.phone, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, email, ContactType.email, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, webSite, ContactType.website, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, facebook, ContactType.facebook, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, linkedIn, ContactType.linkedIn, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, youTube, ContactType.youtube, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, instagram, ContactType.instagram, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, pinterest, ContactType.pinterest, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, tikTok, ContactType.tiktok, _newContacts);
-    addContactIfPossibleToANewContactsList(existingContacts, twitter, ContactType.twitter, _newContacts);
-    // ---------------
-    return _newContacts;
-  }
+  static const List<ContactType> contactTypesList = <ContactType>[
+    ContactType.phone,
+    ContactType.email,
+    ContactType.website,
+    ContactType.facebook,
+    ContactType.linkedIn,
+    ContactType.youtube,
+    ContactType.instagram,
+    ContactType.pinterest,
+    ContactType.tiktok,
+    ContactType.twitter,
+  ];
+// -----------------------------------------------------------------------------
+
+  /// GENERATORS
+
 // ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static String initializePhoneValue({
-    @required ZoneModel zone,
-    @required List<ContactModel> contacts,
-  }){
-    return TextMod.initializePhoneNumber(
-      countryID : zone?.countryID,
-      number : ContactModel.getAContactValueFromContacts(
-          contacts: contacts,
-          contactType: ContactType.phone
-      ),
-    );
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static String initializeWebLinkValue({
-    @required List<ContactModel> contacts,
-    @required ContactType contactType,
-  }){
-    return TextMod.initializeWebLink(
-        url: ContactModel.getAContactValueFromContacts(
-          contacts: contacts,
-          contactType: contactType,
-        )
-    );
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<TextEditingController> initializeContactsControllers({
-    @required List<ContactModel> existingContacts,
-    @required String countryID,
-  }){
+  static List<ContactModel> generateContactsFromFirebaseUser(User user) {
+    final List<ContactModel> _userContacts = <ContactModel>[];
+    final String _userEmail = user.email;
+    final String _userPhone = user.phoneNumber;
 
-    final List<TextEditingController> _controllers = <TextEditingController>[];
-
-    for (final ContactType contactType in contactTypesList){
-
-      String _initialValue;
-
-      /// GET EXISTING CONTACT
-      final ContactModel _existingContact = existingContacts.firstWhere(
-            (contact) => contact.contactType == contactType, orElse: () => null,
-      );
-
-      /// CONTACT NOT FOUND => DEFINE INITIAL VALUE
-      if (_existingContact == null){
-
-        /// IF PHONE
-        if (contactType == ContactType.phone){
-          _initialValue = TextMod.initializePhoneNumber(
-            countryID : countryID,
-            number : null,
-          );
-        }
-        /// IF WEB LINK
-        else if (checkContactTypeIsWebLink(contactType) == true){
-          _initialValue = ContactModel.initializeWebLinkValue(
-            contacts: [],
-            contactType: contactType,
-          );
-        }
-        /// OTHERWISE
-        else {
-          _initialValue = '';
-        }
-
-      }
-
-      /// CONTACT FOUND
-      else {
-        _initialValue = _existingContact.value;
-      }
-
-      /// ASSIGN THE CONTROLLER WITH INITIAL VALUE
-      final TextEditingController _controller = TextEditingController(
-        text: _initialValue,
-      );
-      _controllers.add(_controller);
-
+    if (_userEmail != null) {
+      _userContacts.add(
+          ContactModel(value: _userEmail, type: ContactType.email));
     }
 
-    return _controllers;
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<ContactModel> createContactsListByGeneratedControllers({
-    @required List<TextEditingController> generatedControllers,
-    @required String countryID,
-  }){
-
-    /// NOTE : CONTROLLERS SHOULD BE AUTO GENERATED BY [generateContactsControllers] method
-
-    final List<ContactModel> _models = <ContactModel>[];
-
-    for (int i = 0; i < generatedControllers.length; i++){
-
-      final TextEditingController _controller = generatedControllers[i];
-      final ContactType _contactType = contactTypesList[i];
-
-      String _endValue;
-
-      /// IF PHONE
-      if (_contactType == ContactType.phone){
-        _endValue = TextMod.nullifyNumberIfOnlyCountryCode(
-          number: _controller.text,
-          countryID: countryID,
-        );
-      }
-      /// IF WEB LINK
-      else if (checkContactTypeIsWebLink(_contactType) == true){
-        _endValue = TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _controller.text);
-      }
-      /// OTHERWISE
-      else {
-        _endValue = _controller.text;
-      }
-
-      final ContactModel _model = ContactModel(
-        contactType: _contactType,
-        value: _endValue,
-      );
-
-      if (TextChecker.textControllerIsEmpty(_controller) == false){
-        _models.add(_model);
-      }
-
+    if (_userPhone != null) {
+      _userContacts.add(
+          ContactModel(value: _userPhone, type: ContactType.phone));
     }
 
-    return _models;
+    return _userContacts;
   }
 // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
 // ----------------------------------
-  /// TESTED : WORKS PERFECT
-  Map<String, Object> toMap() {
+  /// TESTED : WORKS PERFECT : toMap();
+  /*
+  Map<String, Object> _toMap() {
     return <String, Object>{
       'value': value,
-      'contactType': cipherContactType(contactType),
+      'contactType': _cipherContactType(contactType),
     };
   }
+   */
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
@@ -224,7 +102,7 @@ class ContactModel {
         if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
             map: _map,
-            key: cipherContactType(contact.contactType),
+            key: _cipherContactType(contact.type),
             value: contact.value,
           );
         }
@@ -246,7 +124,7 @@ class ContactModel {
 
           final ContactModel _contact = ContactModel(
               value: maps[key],
-              contactType: decipherContactType(key)
+              type: _decipherContactType(key)
           );
 
           _contacts.add(_contact);
@@ -259,7 +137,7 @@ class ContactModel {
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static ContactType decipherContactType(String contactType) {
+  static ContactType _decipherContactType(String contactType) {
     switch (contactType) {
       case 'phone':     return ContactType.phone;     break;
       case 'email':     return ContactType.email;     break;
@@ -276,7 +154,7 @@ class ContactModel {
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static String cipherContactType(ContactType contactType) {
+  static String _cipherContactType(ContactType contactType) {
     switch (contactType) {
       case ContactType.phone:     return 'phone';     break;
       case ContactType.email:     return 'email';     break;
@@ -293,25 +171,191 @@ class ContactModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// EDITING INITIALIZERS
+
+// ----------------------------------
+  static List<ContactModel> initializeContactsForEditing({
+    @required List<ContactModel> contacts,
+    @required String countryID,
+  }){
+    final List<ContactModel> _output = <ContactModel>[];
+    
+    for (final ContactType type in contactTypesList){
+      
+      final ContactModel _existingContact = getContactFromContacts(
+          contacts: contacts, 
+          contactType: type,
+      );
+      
+      final String _initialValue = _initializeContactValue(
+        existingContact: _existingContact,
+        countryID: countryID,
+      );
+      
+      final ContactModel _contact = ContactModel(
+        value: _initialValue, 
+        type: type,
+        controller: TextEditingController(text: _initialValue),
+      );
+      
+      _output.add(_contact);
+      
+    }
+    
+    return _output;
+  }
+// ----------------------------------
+  static String _initializeContactValue({
+    @required ContactModel existingContact,
+    @required String countryID,
+  }){
+    String _output = '';
+    
+    if (existingContact != null){
+
+      /// IF PHONE
+      if (existingContact.type == ContactType.phone){
+        _output = TextMod.initializePhoneNumber(
+          countryID : countryID,
+          number : existingContact.value,
+        );
+      }
+      /// IF WEB LINK
+      else if (checkIsWebLink(existingContact.type) == true){
+        _output = TextMod.initializeWebLink(
+            url: existingContact.value,
+        );
+      }
+      /// OTHERWISE
+      else {
+        _output = existingContact.value;
+      }
+
+    }
+    
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// EDITING DISPOSING
+
+// ----------------------------------
+  static void disposeContactsControllers(List<ContactModel> contacts){
+    if (Mapper.checkCanLoopList(contacts) == true){
+      for (final ContactModel contact in contacts){
+
+        if (contact.controller != null){
+          contact.controller.dispose();
+        }
+
+      }
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// EDITING FINISHING
+
+// ----------------------------------
+
+  static List<ContactModel> bakeContactsAfterEditing({
+    @required List<ContactModel> contacts,
+    @required String countryID,
+  }){
+
+    final List<ContactModel> _output = <ContactModel>[];
+
+    if (Mapper.checkCanLoopList(contacts) == true){
+
+      for (int i = 0; i < contacts.length; i++){
+
+        final ContactModel _contact = contacts[i];
+        final ContactType _contactType = _contact.type;
+        final TextEditingController _controller = _contact.controller;
+
+        String _endValue;
+
+        /// IF PHONE
+        if (_contactType == ContactType.phone){
+          _endValue = TextMod.nullifyNumberIfOnlyCountryCode(
+            number: _controller.text,
+            countryID: countryID,
+          );
+        }
+        /// IF WEB LINK
+        else if (checkIsWebLink(_contactType) == true){
+          _endValue = TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _controller.text);
+        }
+        /// OTHERWISE
+        else {
+          _endValue = _controller.text;
+        }
+
+
+        if (Stringer.checkStringIsEmpty(_endValue) == false){
+
+          final ContactModel _model = ContactModel(
+            value: _endValue,
+            type: _contactType,
+          );
+
+          _output.add(_model);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+
+    /// TASK : DELETE ME
+    /*
+
+      List<ContactModel> _createContactList({
+    @required List<ContactModel> existingContacts,
+  }) {
+    /// takes current contacts, overrides them on existing contact list, then
+    /// return a new contacts list with all old values and new overridden values
+    final List<ContactModel> newContacts = ContactModel.createContactsList(
+      existingContacts: existingContacts,
+      phone: TextMod.nullifyNumberIfOnlyCountryCode(
+          number: _phoneController.text,
+          countryID: _zone.value.countryID,
+      ),
+      email: TextMod.removeSpacesFromAString(_emailController.text),
+      facebook: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _facebookController.text),
+      linkedIn: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _linkedInController.text),
+      instagram: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _instagramController.text),
+      twitter: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _twitterController.text),
+    );
+    return newContacts;
+  }
+
+     */
+
+  }
+// -----------------------------------------------------------------------------
+
   /// TRANSLATION
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String translateContactType({
     @required BuildContext context,
     @required ContactType contactType,
   }){
 
     switch (contactType){
-      case ContactType.phone:      return 'phone'; break;
-      case ContactType.email:      return 'email'; break;
-      case ContactType.website:    return 'website'; break;
-      case ContactType.facebook:   return 'facebook'; break;
-      case ContactType.linkedIn:   return 'linkedIn'; break;
-      case ContactType.youtube:    return 'youtube'; break;
-      case ContactType.instagram:  return 'instagram'; break;
-      case ContactType.pinterest:  return 'pinterest'; break;
-      case ContactType.tiktok:     return 'tiktok'; break;
-      case ContactType.twitter:    return 'twitter'; break;
+      case ContactType.phone:      return '##phone'; break;
+      case ContactType.email:      return '##email'; break;
+      case ContactType.website:    return '##website'; break;
+      case ContactType.facebook:   return '##facebook'; break;
+      case ContactType.linkedIn:   return '##linkedIn'; break;
+      case ContactType.youtube:    return '##youtube'; break;
+      case ContactType.instagram:  return '##instagram'; break;
+      case ContactType.pinterest:  return '##pinterest'; break;
+      case ContactType.tiktok:     return '##tiktok'; break;
+      case ContactType.twitter:    return '##twitter'; break;
       default: return null;
 
     }
@@ -323,18 +367,18 @@ class ContactModel {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static ContactModel getAContactModelFromContacts({
+  static ContactModel getContactFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
   }) {
     final ContactModel contact = contacts?.singleWhere(
-        (ContactModel x) => x.contactType == contactType,
+        (ContactModel x) => x.type == contactType,
         orElse: () => null);
     return contact;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static String getAContactValueFromContacts({
+  static String getValueFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType contactType,
   }) {
@@ -343,7 +387,7 @@ class ContactModel {
 
     if (Mapper.checkCanLoopList(contacts) == true){
 
-      _contactValue = getAContactModelFromContacts(
+      _contactValue = getContactFromContacts(
         contacts: contacts,
         contactType: contactType,
       )?.value;
@@ -353,165 +397,193 @@ class ContactModel {
     return _contactValue;
   }
 // ----------------------------------
-  static List<ContactModel> getContactsWithStringsFromContacts(List<ContactModel> contacts) {
-  /// contacts with strings
-  /// are Phone, Email, WhatsApp, website
-  /// which are presented by both string of value and an icon
+  /// TESTED : WORKS PERFECT
+  static TextEditingController getControllerFromContacts({
+    @required List<ContactModel> contacts,
+    @required ContactType contactType,
+  }) {
 
-    final List<ContactModel> _contactsList = <ContactModel>[];
+    TextEditingController _controller;
 
-    final ContactModel _phone = getAContactModelFromContacts(
+    if (Mapper.checkCanLoopList(contacts) == true){
+
+      _controller = getContactFromContacts(
         contacts: contacts,
-        contactType: ContactType.phone,
-    );
+        contactType: contactType,
+      )?.controller;
 
-    final ContactModel _email = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.email,
-    );
-
-    final ContactModel _website = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.website,
-    );
-
-    if (ContactModel.checkContactIsEmpty(_phone) == false) {
-      _contactsList.add(_phone);
     }
 
-    if (ContactModel.checkContactIsEmpty(_email) == false) {
-      _contactsList.add(_email);
-    }
-
-    if (ContactModel.checkContactIsEmpty(_website) == false) {
-      _contactsList.add(_website);
-    }
-
-    return _contactsList;
+    return _controller;
   }
+// -----------------------------------------------------------------------------
+
+  /// FILTERS
+
 // ----------------------------------
-  static List<ContactModel> getSocialMediaContactsFromContacts(List<ContactModel> contacts) {
-  /// contacts without strings
-  /// are Facebook LinkedIn YouTube Instagram Pinterest TikTok Twitter
-    final List<ContactModel> _contactsList = <ContactModel>[];
+  ///
+  static List<ContactModel> filterContactsWhichShouldViewValue(List<ContactModel> contacts) {
 
-    final ContactModel _facebook = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.facebook,
-    );
-    final ContactModel _linkedin = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.linkedIn,
-    );
-    final ContactModel _youtube = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.youtube,
-    );
-    final ContactModel _instagram = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.instagram,
-    );
-    final ContactModel _pinterest = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.pinterest,
-    );
-    final ContactModel _tiktok = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.tiktok,
-    );
-    final ContactModel _twitter = getAContactModelFromContacts(
-        contacts: contacts,
-        contactType: ContactType.twitter,
-    );
+    final List<ContactModel> _contacts = <ContactModel>[];
 
-    if (ContactModel.checkContactIsEmpty(_facebook) == false) {
-      _contactsList.add(_facebook);
-    }
+    for (final ContactType type in contactTypesList){
 
-    if (ContactModel.checkContactIsEmpty(_linkedin) == false) {
-      _contactsList.add(_linkedin);
-    }
+      final bool _shouldViewString = checkShouldViewValue(type);
 
-    if (ContactModel.checkContactIsEmpty(_youtube) == false) {
-      _contactsList.add(_youtube);
-    }
+      if (_shouldViewString == true){
 
-    if (ContactModel.checkContactIsEmpty(_instagram) == false) {
-      _contactsList.add(_instagram);
-    }
+        final ContactModel _contact = getContactFromContacts(
+          contacts: contacts,
+          contactType: type,
+        );
 
-    if (ContactModel.checkContactIsEmpty(_pinterest) == false) {
-      _contactsList.add(_pinterest);
-    }
+        if (ContactModel.checkContactIsEmpty(_contact) == false) {
+          _contacts.add(_contact);
+        }
 
-    if (ContactModel.checkContactIsEmpty(_tiktok) == false) {
-      _contactsList.add(_tiktok);
-    }
-
-    if (ContactModel.checkContactIsEmpty(_twitter) == false) {
-      _contactsList.add(_twitter);
-    }
-
-    return _contactsList;
-  }
-// ----------------------------------
-  static String getFirstPhoneFromContacts(List<ContactModel> contacts) {
-  /// will let user to only have one phone contact
-    // String phone = contacts?.singleWhere((co) => co.contactType == ContactType.Phone, orElse: ()=> null)?.contact;
-    final List<String> phones = <String>[];
-
-    for (final ContactModel co in contacts) {
-      if (co.contactType == ContactType.phone) {
-        phones.add(co.value);
       }
+
     }
 
-    return phones.isEmpty ? null : phones[0];
+    /// TASK : DELETE ME
+    // final ContactModel _phone = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.phone,
+    // );
+    //
+    // final ContactModel _email = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.email,
+    // );
+    //
+    // final ContactModel _website = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.website,
+    // );
+    //
+    // if (ContactModel.checkContactIsEmpty(_phone) == false) {
+    //   _contacts.add(_phone);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_email) == false) {
+    //   _contacts.add(_email);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_website) == false) {
+    //   _contacts.add(_website);
+    // }
+
+    return _contacts;
   }
 // ----------------------------------
-  static List<String> getListOfValuesFromContactsModelsList(List<ContactModel> contacts) {
-    final List<String> values = <String>[];
+  ///
+  static List<ContactModel> filterSocialMediaContacts(List<ContactModel> contacts) {
 
-    if (Mapper.checkCanLoopList(contacts)) {
-      for (final ContactModel co in contacts) {
-        values.add(co.value);
+    final List<ContactModel> _contacts = <ContactModel>[];
+
+    for (final ContactType type in contactTypesList){
+
+      final bool _isSocialMedia = checkContactIsSocialMedia(type);
+
+      if (_isSocialMedia == true){
+
+        final ContactModel _contact = getContactFromContacts(
+          contacts: contacts,
+          contactType: type,
+        );
+
+        if (ContactModel.checkContactIsEmpty(_contact) == false) {
+          _contacts.add(_contact);
+        }
+
       }
+
     }
 
-    return values;
+    /// TASK : DELETE ME
+    // final ContactModel _facebook = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.facebook,
+    // );
+    // final ContactModel _linkedin = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.linkedIn,
+    // );
+    // final ContactModel _youtube = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.youtube,
+    // );
+    // final ContactModel _instagram = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.instagram,
+    // );
+    // final ContactModel _pinterest = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.pinterest,
+    // );
+    // final ContactModel _tiktok = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.tiktok,
+    // );
+    // final ContactModel _twitter = getContactFromContacts(
+    //     contacts: contacts,
+    //     contactType: ContactType.twitter,
+    // );
+    //
+    // if (ContactModel.checkContactIsEmpty(_facebook) == false) {
+    //   _contacts.add(_facebook);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_linkedin) == false) {
+    //   _contacts.add(_linkedin);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_youtube) == false) {
+    //   _contacts.add(_youtube);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_instagram) == false) {
+    //   _contacts.add(_instagram);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_pinterest) == false) {
+    //   _contacts.add(_pinterest);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_tiktok) == false) {
+    //   _contacts.add(_tiktok);
+    // }
+    //
+    // if (ContactModel.checkContactIsEmpty(_twitter) == false) {
+    //   _contacts.add(_twitter);
+    // }
+
+    return _contacts;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static String concludeContactIcon(ContactType contactType) {
+    switch (contactType) {
+      case ContactType.phone: return Iconz.comPhone; break;
+      case ContactType.email: return Iconz.comEmail; break;
+      case ContactType.website: return Iconz.comWebsite; break;
+      case ContactType.facebook: return Iconz.comFacebook; break;
+      case ContactType.linkedIn: return Iconz.comLinkedin; break;
+      case ContactType.youtube: return Iconz.comYoutube; break;
+      case ContactType.instagram: return Iconz.comInstagram; break;
+      case ContactType.pinterest: return Iconz.comPinterest; break;
+      case ContactType.tiktok: return Iconz.comTikTok; break;
+      case ContactType.twitter: return Iconz.comTwitter; break;
+      default: return null;
+    }
   }
 // ----------------------------------
-  static List<String> getListOfIconzFromContactsModelsList(List<ContactModel> contacts) {
-    final List<String> icons = <String>[];
-
-    if (Mapper.checkCanLoopList(contacts)) {
-      for (final ContactModel co in contacts) {
-        icons.add(ContactModel.getContactIcon(co.contactType));
-      }
-    }
-
-    return icons;
-  }
-// ----------------------------------
-  static List<ContactModel> getContactsFromFirebaseUser(User user) {
-    final List<ContactModel> _userContacts = <ContactModel>[];
-    final String _userEmail = user.email;
-    final String _userPhone = user.phoneNumber;
-
-    if (_userEmail != null) {
-      _userContacts.add(
-          ContactModel(value: _userEmail, contactType: ContactType.email));
-    }
-
-    if (_userPhone != null) {
-      _userContacts.add(
-          ContactModel(value: _userPhone, contactType: ContactType.phone));
-    }
-
-    return _userContacts;
-  }
-// ----------------------------------
-  static TextInputType getContactTextInputType({
+  /// TESTED : WORKS PERFECT
+  static TextInputType concludeContactTextInputType({
     @required ContactType contactType,
   }){
 
@@ -529,102 +601,11 @@ class ContactModel {
       default: return TextInputType.text;
     }
 
-
-  }
-// -----------------------------------------------------------------------------
-
-  /// CONTACT TYPE GETTERS
-
-// ----------------------------------
-  static const List<ContactType> contactTypesList = <ContactType>[
-    ContactType.phone,
-    ContactType.email,
-    ContactType.website,
-    ContactType.facebook,
-    ContactType.linkedIn,
-    ContactType.youtube,
-    ContactType.instagram,
-    ContactType.pinterest,
-    ContactType.tiktok,
-    ContactType.twitter,
-  ];
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static String getContactIcon(ContactType contactType) {
-    switch (contactType) {
-      case ContactType.phone: return Iconz.comPhone; break;
-      case ContactType.email: return Iconz.comEmail; break;
-      case ContactType.website: return Iconz.comWebsite; break;
-      case ContactType.facebook: return Iconz.comFacebook; break;
-      case ContactType.linkedIn: return Iconz.comLinkedin; break;
-      case ContactType.youtube: return Iconz.comYoutube; break;
-      case ContactType.instagram: return Iconz.comInstagram; break;
-      case ContactType.pinterest: return Iconz.comPinterest; break;
-      case ContactType.tiktok: return Iconz.comTikTok; break;
-      case ContactType.twitter: return Iconz.comTwitter; break;
-      default: return null;
-    }
   }
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ----------------------------------
-  static void addContactIfPossibleToANewContactsList(
-    List<ContactModel> existingContacts,
-    String value,
-    ContactType type,
-    List<ContactModel> newContacts,
-  ) {
-
-    final String _existingContactValue = getAContactValueFromContacts(
-        contacts: existingContacts,
-        contactType: type,
-    );
-
-    bool _contactExistsInExistingContacts;
-
-    if (_existingContactValue == null || _existingContactValue == '') {
-      _contactExistsInExistingContacts = false;
-    }
-
-    else {
-      _contactExistsInExistingContacts = true;
-    }
-
-    bool _userChangedValue;
-
-    if (value == null) {
-      _userChangedValue = false;
-    }
-
-    else {
-      _userChangedValue = true;
-    }
-
-    /// when contact already exists in existingContacts
-    if (_contactExistsInExistingContacts == true) {
-
-      /// if value have changed add this new value otherwise add the existing value
-      if (_userChangedValue == true) {
-        newContacts.add(ContactModel(value: value, contactType: type));
-      }
-
-      else {
-        newContacts.add(
-            ContactModel(value: _existingContactValue, contactType: type));
-      }
-
-    }
-
-    /// when contact is new to existingContacts
-    else {
-      /// add new ContactModel to the new list only if a new value is assigned ( value != null )
-      if (_userChangedValue == true) {
-        newContacts.add(ContactModel(value: value, contactType: type));
-      }
-    }
-  }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> replaceContact({
@@ -637,7 +618,7 @@ class ContactModel {
 
       _output = <ContactModel>[...contacts];
 
-      final int _index = contacts.indexWhere((element) => element.contactType == contactToReplace.contactType);
+      final int _index = contacts.indexWhere((element) => element.type == contactToReplace.type);
 
       if (_index != -1){
         _output.removeAt(_index);
@@ -660,12 +641,12 @@ class ContactModel {
 
       ContactModel(
           value: 'rageh@bldrs.net',
-          contactType: ContactType.email
+          type: ContactType.email
       ),
 
       ContactModel(
           value: '0123456789',
-          contactType: ContactType.phone
+          type: ContactType.phone
       ),
 
     ];
@@ -680,7 +661,7 @@ class ContactModel {
   void blogContact({
     String methodName = 'ContactModel',
   }){
-    blog('$methodName : $contactType : $value');
+    blog('$methodName : $type : $value');
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -702,121 +683,10 @@ class ContactModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// CONTACT OWNER : REQUIRED - BLOCKED
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkContactIsEmpty(ContactModel contact){
-    bool _isEmpty = true;
-
-    if (contact != null){
-
-      if (contact.contactType != null){
-
-        if (Stringer.checkStringIsEmpty(contact.value) == false){
-          _isEmpty = false;
-        }
-
-      }
-
-    }
-
-    return _isEmpty;
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkContactIsSocialMedia(ContactModel contact){
-    bool _isSocialMedia = false;
-
-    if (
-    contact.contactType == ContactType.facebook
-    ||
-    contact.contactType == ContactType.instagram
-    ||
-    contact.contactType == ContactType.linkedIn
-    ||
-    contact.contactType == ContactType.instagram
-    ||
-    contact.contactType == ContactType.pinterest
-    ||
-    contact.contactType == ContactType.tiktok
-    ||
-    contact.contactType == ContactType.twitter
-    ||
-    contact.contactType == ContactType.youtube
-    ){
-      _isSocialMedia = true;
-    }
-
-    return _isSocialMedia;
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkContactsListsAreIdentical({
-    @required List<ContactModel> contacts1,
-    @required List<ContactModel> contacts2,
-  }){
-    bool _identical = false;
-
-    if (contacts1 == null && contacts2 == null){
-      _identical = true;
-    }
-    else if (contacts1?.isEmpty == true && contacts2?.isEmpty == true){
-      _identical = true;
-    }
-    else if (contacts1 != null && contacts2 != null){
-      if (contacts1.length == contacts2.length){
-
-        bool _allContactsAreIdentical = false;
-
-        for (int i = 0; i < contacts1.length; i++){
-
-          final bool _areIdentical = checkContactsAreIdentical(
-            contact1: contacts1[i],
-            contact2: contacts2[i],
-          );
-
-          if (_areIdentical == false){
-            _allContactsAreIdentical = false;
-            break;
-          }
-          else {
-            _allContactsAreIdentical = true;
-          }
-
-        }
-
-        if (_allContactsAreIdentical == true){
-          _identical = true;
-        }
-
-      }
-    }
-
-    return _identical;
-  }
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkContactsAreIdentical({
-    @required ContactModel contact1,
-    @required ContactModel contact2,
-  }){
-    bool _areIdentical = false;
-
-    if (contact1 != null && contact2 != null){
-
-      if (
-      contact1.value == contact2.value &&
-      contact1.contactType == contact2.contactType
-      ){
-        _areIdentical = true;
-      }
-
-    }
-
-    return _areIdentical;
-  }
-// ----------------------------------
   static bool checkContactIsRequired({
     @required ContactType contactType,
     @required ContactsOwnerType ownerType,
@@ -875,24 +745,131 @@ class ContactModel {
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsWebLink(ContactModel contact){
-    bool _isWebLink = false;
+  static bool checkContactIsBlocked({
+    @required ContactType contactType,
+    @required ContactsOwnerType ownerType,
+  }){
 
-    if (contact != null){
+    /// USER CONTACTS
+    if (ownerType == ContactsOwnerType.user){
+      switch (contactType){
+        case ContactType.phone:      return false   ; break;
+        case ContactType.email:      return false   ; break;
+        case ContactType.website:    return true   ; break;
+        case ContactType.facebook:   return false   ; break;
+        case ContactType.linkedIn:   return false   ; break;
+        case ContactType.youtube:    return true   ; break;
+        case ContactType.instagram:  return false   ; break;
+        case ContactType.pinterest:  return true   ; break;
+        case ContactType.tiktok:     return true   ; break;
+        case ContactType.twitter:    return false   ; break;
+        default: return true;
+      }
+    }
 
-      if (ObjectChecker.objectIsURL(contact.value) == true){
-        _isWebLink = true;
+    /// BZ CONTACTS
+    else if (ownerType == ContactsOwnerType.bz){
+      switch (contactType){
+        case ContactType.phone:      return false   ; break;
+        case ContactType.email:      return false   ; break;
+        case ContactType.website:    return false   ; break;
+        case ContactType.facebook:   return false   ; break;
+        case ContactType.linkedIn:   return false   ; break;
+        case ContactType.youtube:    return false   ; break;
+        case ContactType.instagram:  return false   ; break;
+        case ContactType.pinterest:  return true   ; break;
+        case ContactType.tiktok:     return false   ; break;
+        case ContactType.twitter:    return false   ; break;
+        default: return true;
       }
-      else if (contact.contactType == ContactType.website){
-        _isWebLink = true;
+    }
+
+    /// AUTHOR CONTACTS
+    else {
+      switch (contactType){
+        case ContactType.phone:      return false   ; break;
+        case ContactType.email:      return false   ; break;
+        case ContactType.website:    return false   ; break;
+        case ContactType.facebook:   return false   ; break;
+        case ContactType.linkedIn:   return false   ; break;
+        case ContactType.youtube:    return false   ; break;
+        case ContactType.instagram:  return false   ; break;
+        case ContactType.pinterest:  return true   ; break;
+        case ContactType.tiktok:     return false   ; break;
+        case ContactType.twitter:    return false   ; break;
+        default: return true;
       }
-      else {
-        _isWebLink = checkContactIsSocialMedia(contact);
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// changes CHECKERS
+
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkContactsListsAreIdentical({
+    @required List<ContactModel> contacts1,
+    @required List<ContactModel> contacts2,
+  }){
+    bool _identical = false;
+
+    if (contacts1 == null && contacts2 == null){
+      _identical = true;
+    }
+    else if (contacts1?.isEmpty == true && contacts2?.isEmpty == true){
+      _identical = true;
+    }
+    else if (contacts1 != null && contacts2 != null){
+      if (contacts1.length == contacts2.length){
+
+        bool _allContactsAreIdentical = false;
+
+        for (int i = 0; i < contacts1.length; i++){
+
+          final bool _areIdentical = checkContactsAreIdentical(
+            contact1: contacts1[i],
+            contact2: contacts2[i],
+          );
+
+          if (_areIdentical == false){
+            _allContactsAreIdentical = false;
+            break;
+          }
+          else {
+            _allContactsAreIdentical = true;
+          }
+
+        }
+
+        if (_allContactsAreIdentical == true){
+          _identical = true;
+        }
+
+      }
+    }
+
+    return _identical;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkContactsAreIdentical({
+    @required ContactModel contact1,
+    @required ContactModel contact2,
+  }){
+    bool _areIdentical = false;
+
+    if (contact1 != null && contact2 != null){
+
+      if (
+      contact1.value == contact2.value &&
+          contact1.type == contact2.type
+      ){
+        _areIdentical = true;
       }
 
     }
 
-    return _isWebLink;
+    return _areIdentical;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -902,12 +879,12 @@ class ContactModel {
   }){
     bool _changed = false;
 
-    final ContactModel _oldModel = getAContactModelFromContacts(
-        contacts: oldContacts,
-        contactType: ContactType.email,
+    final ContactModel _oldModel = getContactFromContacts(
+      contacts: oldContacts,
+      contactType: ContactType.email,
     );
 
-    final ContactModel _newModel = getAContactModelFromContacts(
+    final ContactModel _newModel = getContactFromContacts(
       contacts: newContacts,
       contactType: ContactType.email,
     );
@@ -920,26 +897,93 @@ class ContactModel {
 
     return _changed;
   }
+// -----------------------------------------------------------------------------
+
+  /// type CHECKERS
+
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkContactTypeIsWebLink(ContactType contactType){
-    switch (contactType) {
+  static bool checkContactIsEmpty(ContactModel contact){
+    bool _isEmpty = true;
 
-      case ContactType.phone: return false; break;
-      case ContactType.email: return false; break;
+    if (contact != null){
 
-      case ContactType.website: return true; break;
-      case ContactType.facebook: return true; break;
-      case ContactType.linkedIn: return true; break;
-      case ContactType.youtube: return true; break;
+      if (contact.type != null){
+
+        if (Stringer.checkStringIsEmpty(contact.value) == false){
+          _isEmpty = false;
+        }
+
+      }
+
+    }
+
+    return _isEmpty;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkContactIsSocialMedia(ContactType type){
+
+    switch (type) {
+
+      case ContactType.phone:     return false; break;
+      case ContactType.email:     return false; break;
+
+      case ContactType.website:   return false; break;
+
+      case ContactType.facebook:  return true; break;
+      case ContactType.linkedIn:  return true; break;
+      case ContactType.youtube:   return true; break;
       case ContactType.instagram: return true; break;
       case ContactType.pinterest: return true; break;
-      case ContactType.tiktok: return true; break;
-      case ContactType.twitter: return true; break;
+      case ContactType.tiktok:    return true; break;
+      case ContactType.twitter:   return true; break;
+
+      default: return false;
+
+    }
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsWebLink(ContactType type){
+    switch (type) {
+
+      case ContactType.phone:     return false; break;
+      case ContactType.email:     return false; break;
+
+      case ContactType.website:   return true; break;
+
+      case ContactType.facebook:  return true; break;
+      case ContactType.linkedIn:  return true; break;
+      case ContactType.youtube:   return true; break;
+      case ContactType.instagram: return true; break;
+      case ContactType.pinterest: return true; break;
+      case ContactType.tiktok:    return true; break;
+      case ContactType.twitter:   return true; break;
+
+      default: return false;
+    }
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkShouldViewValue(ContactType type){
+    switch (type) {
+
+      case ContactType.phone:     return true; break;
+      case ContactType.email:     return true; break;
+
+      case ContactType.website:   return true; break;
+
+      case ContactType.facebook:  return false; break;
+      case ContactType.linkedIn:  return false; break;
+      case ContactType.youtube:   return false; break;
+      case ContactType.instagram: return false; break;
+      case ContactType.pinterest: return false; break;
+      case ContactType.tiktok:    return false; break;
+      case ContactType.twitter:   return false; break;
 
       default: return false;
     }
   }
 // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

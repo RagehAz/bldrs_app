@@ -361,7 +361,10 @@ BzModel createBzModelFromLocalVariables({
     zone: bzZone.value,
     about: bzAboutTextController.text,
     position: bzPosition.value,
-    contacts: bzContacts.value,
+    contacts: ContactModel.bakeContactsAfterEditing(
+      contacts: bzContacts.value,
+      countryID: initialBzModel.zone.countryID,
+    ),
     authors: initialBzModel.authors, /// NEVER CHANGED
     showsTeam: initialBzModel.showsTeam, /// NEVER CHANGED
     isVerified: initialBzModel.isVerified, /// NEVER CHANGED

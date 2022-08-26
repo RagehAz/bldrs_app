@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -21,6 +22,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -301,7 +303,13 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
     confirmButtonVerse:  '##Update Bldrs.net',
   );
 
-  await Launcher.launchURL('www.pinterest.com');
+  await Launcher.launchContactModel(
+    context: context,
+    contact: ContactModel(
+      type: ContactType.website,
+      value: Standards.getBldrsAppUpdateLink(context),
+    ),
+  );
 
 }
 // -----------------------------------------------------------------------------

@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 // ---------------------------------
 
@@ -71,23 +72,15 @@ void onUserPicTap(){
   blog('user pic tapped');
 }
 // ---------------------------------
-Future<void> onUserContactTap(ContactModel contact) async {
+Future<void> onUserContactTap({
+  @required BuildContext context,
+  @required ContactModel contact,
+}) async {
 
-  if (contact.contactType == ContactType.email){
-    blog('User Email : ${contact.value}');
-  }
-  else if (ContactModel.checkContactIsSocialMedia(contact) == true) {
-    await Launcher.launchURL('https://${contact.value}');
-  }
-  else if (contact.contactType == ContactType.website){
-    await Launcher.launchURL('https://${contact.value}');
-  }
-  else if (contact.contactType == ContactType.phone){
-    await Launcher.launchCall(contact.value);
-  }
-  else {
-    contact.blogContact(methodName: 'onUserContactTap');
-  }
+  await Launcher.launchContactModel(
+      context: context,
+      contact: contact
+  );
 
 }
 // ---------------------------------

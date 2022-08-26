@@ -9,9 +9,9 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/b_user_editor/a_user_editor_controllers.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,12 +52,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _companyController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _facebookController = TextEditingController();
-  final TextEditingController _linkedInController = TextEditingController();
-  final TextEditingController _instagramController = TextEditingController();
-  final TextEditingController _twitterController = TextEditingController();
+  List<ContactModel> _contacts;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -77,7 +72,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _initializeLocalVariables(){
     _picture.value            = FileModel(url: widget.userModel?.pic, fileName: null, size: null);
     _gender.value             = widget.userModel?.gender;
-    _zone.value               = widget.userModel?.zone;
+    _zone.value               = widget.userModel?.zone ?? ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+    );
 
     // _currentLanguageCode      = Wordz.languageCode(context);
 
@@ -85,33 +83,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _companyController.text   = widget.userModel?.company;
     _titleController.text     = widget.userModel?.title;
 
-    _phoneController.text     = TextMod.initializePhoneNumber(
-      countryID : _zone.value?.countryID,
-      number : ContactModel.getAContactValueFromContacts(
-          contacts: widget.userModel?.contacts,
-          contactType: ContactType.phone
-      ),
-    );
-    _emailController.text     = ContactModel.getAContactValueFromContacts(
+    _contacts = ContactModel.initializeContactsForEditing(
+      countryID: _zone.value.countryID,
       contacts: widget.userModel?.contacts,
-      contactType: ContactType.email,
     );
-    _facebookController.text  = ContactModel.initializeWebLinkValue(
-      contacts: widget.userModel?.contacts,
-      contactType: ContactType.facebook,
-    );
-    _linkedInController.text  = ContactModel.initializeWebLinkValue(
-      contacts: widget.userModel?.contacts,
-      contactType: ContactType.linkedIn,
-    );
-    _instagramController.text = ContactModel.initializeWebLinkValue(
-      contacts: widget.userModel?.contacts,
-      contactType: ContactType.instagram,
-    );
-    _twitterController.text   = ContactModel.initializeWebLinkValue(
-      contacts: widget.userModel?.contacts,
-      contactType: ContactType.twitter,
-    );
+
   }
 // -----------------------------------
   @override
@@ -147,17 +123,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _nameController.dispose();
     _titleController.dispose();
     _companyController.dispose();
-    _phoneController.dispose();
-    _emailController.dispose();
-    _facebookController.dispose();
-    _linkedInController.dispose();
-    _instagramController.dispose();
-    _twitterController.dispose();
     _loading.dispose();
     _canPickImage.dispose();
     _picture.dispose();
     _gender.dispose();
     _zone.dispose();
+    ContactModel.disposeContactsControllers(_contacts);
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -181,7 +152,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       zone: _zone.value,
       language: Words.languageCode(context),
       location: _currentPosition,
-      contacts: _createContactList(existingContacts: widget.userModel.contacts),
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: _contacts,
+        countryID: _zone.value.countryID,
+      ),
       // -------------------------
       myBzzIDs: widget.userModel.myBzzIDs,
       // -------------------------
@@ -193,26 +167,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       savedFlyersIDs: widget.userModel.savedFlyersIDs,
       appState: widget.userModel.appState,
     );
-  }
-// -----------------------------------
-  List<ContactModel> _createContactList({
-    @required List<ContactModel> existingContacts,
-  }) {
-    /// takes current contacts, overrides them on existing contact list, then
-    /// return a new contacts list with all old values and new overridden values
-    final List<ContactModel> newContacts = ContactModel.createContactsList(
-      existingContacts: existingContacts,
-      phone: TextMod.nullifyNumberIfOnlyCountryCode(
-          number: _phoneController.text,
-          countryID: _zone.value.countryID,
-      ),
-      email: TextMod.removeSpacesFromAString(_emailController.text),
-      facebook: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _facebookController.text),
-      linkedIn: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _linkedInController.text),
-      instagram: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _instagramController.text),
-      twitter: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _twitterController.text),
-    );
-    return newContacts;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -253,12 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         titleController: _titleController,
         companyController: _companyController,
         zone: _zone,
-        emailController: _emailController,
-        phoneController: _phoneController,
-        facebookController: _facebookController,
-        instagramController: _instagramController,
-        linkedInController: _linkedInController,
-        twitterController: _twitterController,
+        contacts: _contacts,
       ),
     );
 

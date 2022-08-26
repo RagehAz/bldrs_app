@@ -3,17 +3,16 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/c_author_editor/a_author_editor_controller.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
@@ -39,7 +38,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   ValueNotifier<FileModel> _authorPicFile;
   TextEditingController _nameController;
   TextEditingController _titleController;
-  List<TextEditingController> _generatedContactsControllers;
+  List<ContactModel> _contacts;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -80,8 +79,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _nameController = TextEditingController(text: _theAuthor.name);
     _titleController = TextEditingController(text: _theAuthor.title);
 
-    _generatedContactsControllers = ContactModel.initializeContactsControllers(
-      existingContacts: _theAuthor.contacts,
+    _contacts = ContactModel.initializeContactsForEditing(
+      contacts: _theAuthor.contacts,
       countryID: widget.bzModel.zone.countryID,
     );
 
@@ -113,7 +112,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _nameController.dispose();
     _titleController.dispose();
 
-    TextChecker.disposeAllTextControllers(_generatedContactsControllers);
+    ContactModel.disposeContactsControllers(_contacts);
 
     super.dispose();
   }
@@ -139,7 +138,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           context: context,
           author: _author,
           titleController: _titleController,
-          generatedControllers: _generatedContactsControllers,
+          contacts: _contacts,
           nameController: _nameController,
           bzModel: widget.bzModel,
         ),
@@ -223,34 +222,40 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             ),
 
             /// CONTACTS
-            ...List.generate(ContactModel.contactTypesList.length, (index){
+            ContactsEditorsBubbles(
+              contacts: _contacts,
+              contactsOwnerType: ContactsOwnerType.author,
+            ),
 
-              final ContactType _contactType = ContactModel.contactTypesList[index];
-
-              final String _title = ContactModel.translateContactType(
-                context: context,
-                contactType: _contactType,
-              );
-              final bool _isRequired = ContactModel.checkContactIsRequired(
-                contactType: _contactType,
-                ownerType: ContactsOwnerType.author,
-              );
-
-              final TextInputType _textInputType = ContactModel.getContactTextInputType(
-                contactType: _contactType,
-              );
-
-              return ContactFieldBubble(
-                isFormField: true,
-                textController: _generatedContactsControllers[index],
-                title: _title,
-                leadingIcon: ContactModel.getContactIcon(_contactType),
-                keyboardTextInputAction: TextInputAction.next,
-                fieldIsRequired: _isRequired,
-                keyboardTextInputType: _textInputType,
-              );
-
-            }),
+            /// TASK : DELETE ME
+            // ...List.generate(ContactModel.contactTypesList.length, (index){
+            //
+            //   final ContactType _contactType = ContactModel.contactTypesList[index];
+            //
+            //   final String _title = ContactModel.translateContactType(
+            //     context: context,
+            //     contactType: _contactType,
+            //   );
+            //   final bool _isRequired = ContactModel.checkContactIsRequired(
+            //     contactType: _contactType,
+            //     ownerType: ContactsOwnerType.author,
+            //   );
+            //
+            //   final TextInputType _textInputType = ContactModel.concludeContactTextInputType(
+            //     contactType: _contactType,
+            //   );
+            //
+            //   return ContactFieldBubble(
+            //     isFormField: true,
+            //     textController: _generatedContactsControllers[index],
+            //     title: _title,
+            //     leadingIcon: ContactModel.getContactIcon(_contactType),
+            //     keyboardTextInputAction: TextInputAction.next,
+            //     fieldIsRequired: _isRequired,
+            //     keyboardTextInputType: _textInputType,
+            //   );
+            //
+            // }),
 
           ],
         ),
