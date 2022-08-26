@@ -1057,13 +1057,11 @@ class Flag {
   static const String _btn = '$_flagsPath' 'flag_as_s_bhutan.svg';
   static const String _bol = '$_flagsPath' 'flag_sa_bolivia.svg';
   static const String _bes = '$_flagsPath' 'flag_na_cr_bonaire.svg';
-  static const String _bih =
-      '$_flagsPath' 'flag_eu_s_bosnia_and_herzegovina.svg';
+  static const String _bih = '$_flagsPath' 'flag_eu_s_bosnia_and_herzegovina.svg';
   static const String _bwa = '$_flagsPath' 'flag_af_s_botswana.svg';
   static const String _bvt = '$_flagsPath' 'flag_eu_n_norway.svg';
   static const String _bra = '$_flagsPath' 'flag_sa_brazil.svg';
-  static const String _iot =
-      '$_flagsPath' 'flag_na_cr_british_indian_ocean_territory.svg';
+  static const String _iot = '$_flagsPath' 'flag_na_cr_british_indian_ocean_territory.svg';
   static const String _brn = '$_flagsPath' 'flag_as_se_brunei.svg';
   static const String _bgr = '$_flagsPath' 'flag_eu_e_bulgaria.svg';
   static const String _bfa = '$_flagsPath' 'flag_af_w_burkina_faso.svg';
@@ -1073,8 +1071,7 @@ class Flag {
   static const String _cmr = '$_flagsPath' 'flag_af_m_cameroon.svg';
   static const String _can = '$_flagsPath' 'flag_na_n_canada.svg';
   static const String _cym = '$_flagsPath' 'flag_na_cr_cayman_islands.svg';
-  static const String _caf =
-      '$_flagsPath' 'flag_af_m_central_african_republic.svg';
+  static const String _caf = '$_flagsPath' 'flag_af_m_central_african_republic.svg';
   static const String _tcd = '$_flagsPath' 'flag_af_m_chad.svg';
   static const String _chl = '$_flagsPath' 'flag_sa_chile.svg';
   static const String _chn = '$_flagsPath' 'flag_as_e_china.svg';
@@ -1197,8 +1194,7 @@ class Flag {
   static const String _niu = '$_flagsPath' 'flag_oc_poly_niue.svg';
   static const String _nfk = '$_flagsPath' 'flag_az_norfolk_island.svg';
   static const String _mkd = '$_flagsPath' 'flag_eu_s_macedonia.svg';
-  static const String _mnp =
-      '$_flagsPath' 'flag_oc_micro_northern_marianas_islands.svg';
+  static const String _mnp = '$_flagsPath' 'flag_oc_micro_northern_marianas_islands.svg';
   static const String _nor = '$_flagsPath' 'flag_eu_n_norway.svg';
   static const String _omn = '$_flagsPath' 'flag_as_w_oman.svg';
   static const String _pak = '$_flagsPath' 'flag_as_s_pakistan.svg';
@@ -1220,18 +1216,14 @@ class Flag {
   static const String _rwa = '$_flagsPath' 'flag_af_e_rwanda.svg';
   static const String _blm = '$_flagsPath' 'flag_na_cr_saint_barthelemy.svg';
   static const String _shn = '$_flagsPath' 'flag_af_w_saint_helena.svg';
-  static const String _kna =
-      '$_flagsPath' 'flag_na_cr_saint_kitts_and_nevis.svg';
+  static const String _kna = '$_flagsPath' 'flag_na_cr_saint_kitts_and_nevis.svg';
   static const String _lca = '$_flagsPath' 'flag_na_cr_saint_lucia.svg';
   static const String _maf = '$_flagsPath' 'flag_eu_w_france.svg';
-  static const String _spm =
-      '$_flagsPath' 'flag_na_n_saint_pierre_and_miquelon.svg';
-  static const String _vct =
-      '$_flagsPath' 'flag_na_cr_saint_vincent_and_the_grenadines.svg';
+  static const String _spm = '$_flagsPath' 'flag_na_n_saint_pierre_and_miquelon.svg';
+  static const String _vct = '$_flagsPath' 'flag_na_cr_saint_vincent_and_the_grenadines.svg';
   static const String _wsm = '$_flagsPath' 'flag_oc_poly_samoa.svg';
   static const String _smr = '$_flagsPath' 'flag_eu_s_san_marino.svg';
-  static const String _stp =
-      '$_flagsPath' 'flag_af_m_sao_tome_and_principe.svg';
+  static const String _stp = '$_flagsPath' 'flag_af_m_sao_tome_and_principe.svg';
   static const String _sau = '$_flagsPath' 'flag_as_w_saudi_arabia.svg';
   static const String _sen = '$_flagsPath' 'flag_af_w_senegal.svg';
   static const String _srb = '$_flagsPath' 'flag_eu_s_serbia.svg';
@@ -1250,8 +1242,7 @@ class Flag {
   static const String _lka = '$_flagsPath' 'flag_as_s_sri_lanka.svg';
   static const String _sdn = '$_flagsPath' 'flag_af_e_sudan.svg';
   static const String _sur = '$_flagsPath' 'flag_sa_suriname.svg';
-  static const String _sjm =
-      '$_flagsPath' 'flag_eu_n_svalbard_and_jan_mayen_islands.svg';
+  static const String _sjm = '$_flagsPath' 'flag_eu_n_svalbard_and_jan_mayen_islands.svg';
   static const String _swe = '$_flagsPath' 'flag_eu_n_sweden.svg';
   static const String _che = '$_flagsPath' 'flag_eu_w_switzerland.svg';
   static const String _syr = '$_flagsPath' 'flag_as_w_syria.svg';
@@ -1280,8 +1271,7 @@ class Flag {
   static const String _vut = '$_flagsPath' 'flag_oc_melan_vanuatu.svg';
   static const String _ven = '$_flagsPath' 'flag_sa_venezuela.svg';
   static const String _vnm = '$_flagsPath' 'flag_as_se_vietnam.svg';
-  static const String _vgb =
-      '$_flagsPath' 'flag_na_cr_british_virgin_islands.svg';
+  static const String _vgb = '$_flagsPath' 'flag_na_cr_british_virgin_islands.svg';
   static const String _vir = '$_flagsPath' 'flag_na_cr_virgin_islands.svg';
   static const String _wlf = '$_flagsPath' 'flag_eu_w_france.svg';
   static const String _esh = '$_flagsPath' 'flag_af_n_western_sahara.svg';
@@ -1305,18 +1295,24 @@ class CountryIso {
   final String countryID;
   final String iso;
 
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String getCountryIDByIso(String iso) {
+
     final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere(
-        (CountryIso countryIso) => countryIso.iso == iso?.toLowerCase());
+        (CountryIso countryIso) => countryIso.iso == iso?.toLowerCase(),
+        orElse: () => null,
+    );
 
     if (_countryIso == null) {
       return null;
-    } else {
+    }
+
+    else {
       return _countryIso.countryID;
     }
-  }
 
+  }
 // -----------------------------------------------------------------------------
   static const List<CountryIso> _allCountriesIsoCodes = <CountryIso>[
     CountryIso(

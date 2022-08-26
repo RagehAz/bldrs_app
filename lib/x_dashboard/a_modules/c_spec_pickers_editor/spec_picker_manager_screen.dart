@@ -128,6 +128,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
           // final String _translatedFlyerType = FlyerTyper.cipherFlyerType(_flyerType);
 
           return WideButton(
+            translate: false,
             verse:  '${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
             icon: FlyerTyper.flyerTypeIconOff(_flyerType),
                         onTap: () async {
@@ -361,6 +362,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         // /// PRO PICKERS READ
         WideButton(
+          translate: false,
           verse:  'GET PRO PICKERS for ( equipment )',
           // isActive: false,
           onTap: () async {

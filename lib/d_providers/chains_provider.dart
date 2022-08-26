@@ -613,7 +613,10 @@ class ChainsProvider extends ChangeNotifier {
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 
-    await _flyersProvider.paginateWallFlyers(context);
+    await _flyersProvider.paginateWallFlyers(
+      context: context,
+      listenToZoneChange: false,
+    );
 
     _setWallFlyerAndPhid(
       flyerType: flyerType,

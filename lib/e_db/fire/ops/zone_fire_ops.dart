@@ -10,7 +10,6 @@ import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -21,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 class ZoneFireOps {
 // -----------------------------------------------------------------------------
@@ -306,10 +304,10 @@ class ZoneFireOps {
     final Position _position = await getGeoLocatorCurrentPosition();
 
     if (_position != null) {
-      final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
-      _zoneModel = await _zoneProvider.fetchZoneModelByGeoPoint(
+      final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
+
+      _zoneModel = await ZoneProtocols.fetchZoneModelByGeoPoint(
           context: context,
           geoPoint: _geoPoint
       );

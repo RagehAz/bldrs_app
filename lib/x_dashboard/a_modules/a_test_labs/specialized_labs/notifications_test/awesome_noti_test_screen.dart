@@ -237,6 +237,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           ),
 
           WideButton(
+            translate: false,
             verse:  'Cancel Stream',
             onTap: () async {
 

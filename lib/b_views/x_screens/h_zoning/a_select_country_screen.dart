@@ -5,13 +5,11 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_all_countries_view.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/aaa_select_country_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/c_controllers/h_zoning_controllers/zoning_controllers.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -20,7 +18,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SelectCountryScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -114,25 +111,9 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
         /// IF SETTING CURRENT ZONE
         if (widget.settingCurrentZone == true){
 
-          unawaited(WaitDialog.showWaitDialog(
+          await setCurrentZone(
             context: context,
-            loadingVerse: '##Loading, please wait',
-          ));
-
-          final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-          zoneProvider.setCurrentZone(
             zone: _zoneWithCity ?? _zone,
-            notify: true,
-          );
-
-          final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-          await _chainsProvider.reInitializeCityChains(context);
-
-          WaitDialog.closeWaitDialog(context);
-
-          Nav.goBackToHomeScreen(
-            context: context,
-            invoker: 'SelectCountryScreen._onCountryTap'
           );
 
         }
