@@ -193,8 +193,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     final int _maxDigits = _currency.value.digits;
 
     final String _numberString = controller.text;
-    final String _fractionsStrings =
-        TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
+    final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
     final int _numberOfFractions = _fractionsStrings.length;
 
     final bool _invalidDigits = _numberOfFractions > _maxDigits;

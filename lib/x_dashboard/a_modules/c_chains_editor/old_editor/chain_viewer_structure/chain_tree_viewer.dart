@@ -54,7 +54,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   Widget build(BuildContext context) {
 
     final bool _sonsAreChain = Chain.checkSonsAreChains(widget.chain?.sons);
-    final bool _sonsAreStrings = Chain.checkSonsAreStrings(widget.chain?.sons);
+    final bool _sonsAreStrings = Chain.checkSonsArePhids(widget.chain?.sons);
     final bool _sonsAreDataCreators = Chain.checkSonsAreDataCreator(widget.chain?.sons);
     final int _numberOfSons =
     _sonsAreChain ? widget.chain?.sons?.length

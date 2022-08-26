@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/dd_data_creator.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -288,57 +290,34 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    // final List<CurrencyModel> _all = await ZoneProtocols.fetchCurrencies(context: context);
-    //
-    // final CurrencyModel _euro = CurrencyModel.getCurrencyByID(
-    //     allCurrencies: _all, currencyID: CurrencyModel.euroCurrencyID);
-    //
-    // _euro.blogCurrency();
-    //
-    // final List<String> _newList = <String>[CurrencyModel.euroCountryID, ..._euro.countriesIDs];
-    //
-    // final CurrencyModel _euroUpdate = _euro.copyWith(
-    //   countriesIDs: _newList,
-    // );
-    //
-    // _euroUpdate.blogCurrency();
-    //
-    // await Fire.updateDocField(
-    //     context: context,
-    //     collName: FireColl.zones,
-    //     docName: FireDoc.zones_currencies,
-    //     field: CurrencyModel.euroCurrencyID,
-    //     input: _euroUpdate.toMap(),
-    // );
+    final Chain _chainS = ChainsProvider.proGetBigChainS(context: context, listen: false);
+
+    _chainS.blogChain();
+
+    final Chain _son = Chain.getChainFromChainsByID(
+        chainID: 'phid_s_propertyForm',
+        chains: _chainS.sons,
+    );
+
+    blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    _son.blogChain();
+    blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    blog(_son.sons);
+
+    final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
+    final bool _isPhids = Chain.checkSonsArePhids(_son.sons);
+    final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
+      sons: _son.sons,
+      dataCreator: DataCreator.integerSlider,
+    );
+
+    blog('is data creator : $_isDataCreator');
+    blog('is Phids : $_isPhids');
+    blog('is Of Type : $_isOfType');
+
+    blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
 
   }
-
-  //  final List<String> _countriesIDs = CountryModel.getAllCountriesIDs();
-  //
-  //  blog('<String, dynamic>{');
-  //  for (final String countryID in _countriesIDs){
-  //    final String _code = xGetPhoneCode(countryID);
-  //    if (_code != null){
-  //      blog("  '$countryID': '$_code',");
-  //    }
-  //    else {
-  //      blog("  '$countryID': 'fuck you',");
-  //    }
-  //  }
-  //  blog('}');
-  //
-  // }
-
-  /*
-
-  /phid_k_flyer_type_product/phid_k_group_prd_appliances/phid_k_sub_prd_app_wasteDisposal/phid_k_prd_app_waste_compactor/
-
-duplicate
-phid_k_pt_studio
-
-   */
-
-  /// xxx
 
 // -----------------------------------------------------------------------------
   @override
