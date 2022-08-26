@@ -16,7 +16,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // -------------------------------
     const List<ContactType> _types = <ContactType>[
       ContactType.phone,
       ContactType.email,
@@ -30,7 +30,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
       ContactType.tiktok,
       ContactType.twitter,
     ];
-
+    // -------------------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,138 +79,6 @@ class ContactsEditorsBubbles extends StatelessWidget {
           }
 
         }),
-
-
-        // /// WEBSITE
-        // if (_isBlocked(ContactType.website) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.website),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.website,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_website',
-        //     leadingIcon: Iconz.comWebsite,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //     keyboardTextInputType: TextInputType.emailAddress,
-        //   ),
-        //
-        // /// EMAIL
-        // if (_isBlocked(ContactType.email) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.email),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.email,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_emailAddress',
-        //     leadingIcon: Iconz.comEmail,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //     keyboardTextInputType: TextInputType.emailAddress,
-        //   ),
-        //
-        // /// PHONE
-        // if (_isBlocked(ContactType.phone) == false)
-        //   ContactFieldBubble(
-        //     keyboardTextInputType: TextInputType.phone,
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.phone,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_phone',
-        //     leadingIcon: Iconz.comPhone,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //     fieldIsRequired: _isRequired(ContactType.phone),
-        //   ),
-        //
-        // const DotSeparator(),
-
-        // /// FACEBOOK
-        // if (_isBlocked(ContactType.facebook) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.facebook),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.facebook,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_facebookLink',
-        //     leadingIcon: Iconz.comFacebook,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //   ),
-        //
-        // /// INSTAGRAM
-        // if (_isBlocked(ContactType.instagram) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.instagram),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.instagram,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_instagramLink',
-        //     leadingIcon: Iconz.comInstagram,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //   ),
-        //
-        // /// LINKEDIN
-        // if (_isBlocked(ContactType.linkedIn) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.linkedIn),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.linkedIn,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_linkedinLink',
-        //     leadingIcon: Iconz.comLinkedin,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //   ),
-        //
-        // /// TWITTER
-        // if (_isBlocked(ContactType.twitter) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.twitter),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.twitter,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_twitterLink',
-        //     leadingIcon: Iconz.comTwitter,
-        //     keyboardTextInputAction: TextInputAction.next,
-        //   ),
-        //
-        // /// YOUTUBE
-        // if (_isBlocked(ContactType.youtube) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.youtube),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.youtube,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_youtube',
-        //     leadingIcon: Iconz.comYoutube,
-        //     keyboardTextInputAction: TextInputAction.done,
-        //   ),
-        //
-        // /// TIKTOK
-        // if (_isBlocked(ContactType.tiktok) == false)
-        //   ContactFieldBubble(
-        //     fieldIsRequired: _isRequired(ContactType.tiktok),
-        //     textController: ContactModel.getControllerFromContacts(
-        //       contacts: contacts,
-        //       contactType: ContactType.tiktok,
-        //     ),
-        //     isFormField: true,
-        //     title: 'phid_tiktok',
-        //     leadingIcon: Iconz.comTikTok,
-        //     keyboardTextInputAction: TextInputAction.done,
-        //   ),
 
         const DotSeparator(),
 

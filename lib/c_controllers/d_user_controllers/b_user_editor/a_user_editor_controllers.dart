@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -127,7 +128,15 @@ Future<void> confirmEdits({
 
     bool _continueOps = true;
 
-    if (forceReAuthentication == true){
+    final bool _shouldReAuthenticate =
+        forceReAuthentication == true
+            &&
+        ContactModel.checkEmailChanged(
+          oldContacts: oldUserModel.contacts,
+          newContacts: newUserModel.contacts,
+        ) == true;
+
+    if (_shouldReAuthenticate == true){
       _continueOps = await reAuthenticateUser(
         context: context,
         dialogTitle: 'User Check',

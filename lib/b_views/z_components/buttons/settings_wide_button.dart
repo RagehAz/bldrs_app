@@ -11,6 +11,8 @@ class SettingsWideButton extends StatelessWidget {
     this.isOn = true,
     this.icon,
     this.color = Colorz.white20,
+    this.verseColor = Colorz.white255,
+    this.iconColor,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -19,6 +21,8 @@ class SettingsWideButton extends StatelessWidget {
   final Function onTap;
   final bool isOn;
   final Color color;
+  final Color verseColor;
+  final Color iconColor;
   /// --------------------------------------------------------------------------
   static const double width = 300;
   static const double height = 50;
@@ -32,8 +36,11 @@ class SettingsWideButton extends StatelessWidget {
       isDeactivated: !isOn,
       height: height,
       verse: verse,
+      verseColor: verseColor,
+      verseShadow: verseColor != Colorz.black255,
       verseCasing: VerseCasing.upperCase,
       icon: icon,
+      iconColor: iconColor,
       width: width,
       margins: 5,
       iconSizeFactor: iconSizeFactor,

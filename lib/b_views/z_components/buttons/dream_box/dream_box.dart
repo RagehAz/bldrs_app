@@ -25,6 +25,7 @@ class DreamBox extends StatelessWidget {
     this.iconColor,
     this.verse,
     this.verseCasing,
+    this.translate,
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
@@ -75,6 +76,7 @@ class DreamBox extends StatelessWidget {
   final Color iconColor;
   final String verse;
   final VerseCasing verseCasing;
+  final bool translate;
   final Color verseColor;
   final VerseWeight verseWeight;
   final double verseScaleFactor;
@@ -295,6 +297,7 @@ class DreamBox extends StatelessWidget {
             key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
             verse: verse,
             verseCasing: verseCasing,
+            translate: translate,
             textDirection: _textDirection,
             icon: icon,
             loading: loading,
