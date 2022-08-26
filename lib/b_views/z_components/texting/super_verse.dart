@@ -713,7 +713,8 @@ class Verse extends StatelessWidget {
   final Color shadowColor;
   final VerseCasing verseCasing;
   final bool translate;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<TextSpan> _generateTextSpans({
     @required String verse,
     @required String highlighted,
@@ -767,7 +768,8 @@ class Verse extends StatelessWidget {
 
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String convertVerseCase({
     @required String verse,
     @required VerseCasing verseCasing,
@@ -784,7 +786,8 @@ class Verse extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static String xFuckingSuperVerse({
     @required BuildContext context,
     @required String verse,
@@ -801,7 +804,8 @@ class Verse extends StatelessWidget {
 
         /// IS PHID
         final bool _isPhid = TextChecker.checkVerseIsPhid(_output);
-        if (_isPhid == true){
+        final bool _isCurrency = TextChecker.checkVerseIsCurrency(_output);
+        if (_isPhid == true || _isCurrency == true){
 
           final String _foundXPhrase = xPhrase(context, verse);
 
@@ -910,13 +914,15 @@ class Verse extends StatelessWidget {
             valueListenable: highlight,
             builder: (_, dynamic _highlight, Widget child){
 
-              final String _highLightedText =
-              _highlight is TextEditingValue ? _highlight.text
-                  :
-              _highlight is String ? _highlight
-              :
-                  null
-              ;
+              String _highLightedText ='';
+
+              if (_highlight is TextEditingValue){
+                final TextEditingValue _t = _highlight;
+                _highLightedText = _t.text;
+              }
+              else if (_highlight is String){
+                _highLightedText = _highlight;
+              }
 
               return RichText(
                 maxLines: maxLines,

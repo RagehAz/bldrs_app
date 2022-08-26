@@ -68,10 +68,12 @@ class ObeliskVerse extends StatelessWidget {
         /// SEPARATOR
         else {
           return const AbsorbPointer(
-            child: SeparatorLine(
-              width: 100,
-              margins: EdgeInsets.only(bottom: 5, top: 5),
-              lineIsON: false,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 5, top: 5),
+              child: SeparatorLine(
+                width: 100,
+                lineIsON: false,
+              ),
             ),
           );
         }

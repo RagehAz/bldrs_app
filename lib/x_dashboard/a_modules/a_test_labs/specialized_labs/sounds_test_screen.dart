@@ -133,6 +133,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
             final String _sound = _allSounds[index];
 
             return WideButton(
+              translate: false,
               verse: TextMod.removeTextBeforeLastSpecialCharacter(_sound, '/'),
               onTap: () async {
 

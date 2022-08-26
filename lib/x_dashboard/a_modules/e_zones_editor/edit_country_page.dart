@@ -157,7 +157,10 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
         builder: (_, CountryModel country, Widget child){
 
           final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-            currencies: ZoneProvider.proGetAllCurrencies(context),
+            currencies: ZoneProvider.proGetAllCurrencies(
+              context: context,
+              listen: true,
+            ),
             countryID: country.id,
           );
 
@@ -196,6 +199,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// CITIES
               WideButton(
+                translate: false,
                 width: PageBubble.clearWidth(context),
                 verse:  'View ${country.citiesIDs.length} Cities',
                 onTap: widget.onCityTap,

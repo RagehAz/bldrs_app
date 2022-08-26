@@ -55,6 +55,7 @@ class LDBViewersScreen extends StatelessWidget {
           final String ldbDoc = LDBDoc.allDocs[index];
 
           return WideButton(
+            translate: false,
             verse: ldbDoc, // notifications prefs, my user model
             onTap: () => goToLDBViewer(context, ldbDoc),
             icon: Iconz.info,

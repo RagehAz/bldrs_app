@@ -4,9 +4,11 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/others/spec_picker_instruction.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/a_strings_data_creator.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/c_integer_data_creator.dart';
+import 'package:bldrs/b_views/z_components/texting/no_result_found.dart';
 import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -55,8 +57,12 @@ class SpecPickerScreenView extends StatelessWidget {
     );
 
     final bool _isNumberDataCreator = Chain.checkSonsAreDataCreator(_chain?.sons);
+    blog('fuck thisssss : _chain?.sons.runtimetyoe : ${_chain?.sons?.runtimeType} : specPicker.chainID, : ${specPicker.chainID} : _isNumberDataCreator : $_isNumberDataCreator : ${_chain?.sons}');
+
+    blog(_chain?.sons);
 
     final double _listZoneHeight = _getListZoneHeight();
+
 
     return Column(
       children: <Widget>[
@@ -76,9 +82,9 @@ class SpecPickerScreenView extends StatelessWidget {
           valueListenable: selectedSpecs,
           builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
 
-
             /// SPECS PICKER SELECTOR
             if (_isNumberDataCreator == false){
+
               return StringsDataCreator(
                 height: _listZoneHeight,
                 specPicker: specPicker,
@@ -162,6 +168,8 @@ class SpecPickerScreenView extends StatelessWidget {
             }
 
             else {
+              return NoResultFound();
+
               return const SizedBox();
             }
 

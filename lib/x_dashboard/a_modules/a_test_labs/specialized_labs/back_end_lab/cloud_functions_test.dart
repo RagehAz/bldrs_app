@@ -99,6 +99,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
           children: <Widget>[
 
             WideButton(
+                translate: false,
                 verse:  'call a cloud function callable_sayHello',
                 onTap: () async {
                   final dynamic map = await CloudFunction.callFunction(
@@ -165,6 +166,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             ),
 
             WideButton(
+              translate: false,
               width: 250,
               verse:  'realBypassUpdate',
               onTap: () async {

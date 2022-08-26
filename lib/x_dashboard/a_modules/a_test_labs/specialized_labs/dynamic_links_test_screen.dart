@@ -30,6 +30,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
         columnChildren: <Widget>[
 
           WideButton(
+            translate: false,
             verse:  'Initialize dynamic Links',
             onTap: () async {
 
@@ -39,6 +40,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
           ),
 
           WideButton(
+            translate: false,
             verse:  'Create dynamic Link',
             onTap: () async {
 

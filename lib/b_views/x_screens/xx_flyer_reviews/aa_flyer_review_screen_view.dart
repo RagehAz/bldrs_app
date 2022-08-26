@@ -37,10 +37,13 @@ class FlyerReviewsScreenView extends StatelessWidget {
           flyerModel: flyerModel,
         ),
 
+
         /// SEPARATOR
-        SeparatorLine(
-          width: BldrsAppBar.width(context),
-          margins: const EdgeInsets.only(top: 4.5),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.5),
+          child: SeparatorLine(
+            width: BldrsAppBar.width(context),
+          ),
         ),
 
         /// REVIEWS

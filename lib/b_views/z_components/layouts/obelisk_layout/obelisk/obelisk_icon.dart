@@ -105,9 +105,11 @@ class ObeliskIcon extends StatelessWidget {
                 // color: Colorz.bloodTest,
                 padding: EdgeInsets.only(right: rightShrinkage),
                 alignment: Alignment.center,
-                child: const SeparatorLine(
-                  width: Obelisk.circleWidth * 0.4,
-                  margins: EdgeInsets.only(bottom: 5, top: 5),
+                child: const Padding(
+                  padding: EdgeInsets.only(bottom: 5, top: 5),
+                  child: SeparatorLine(
+                    width: Obelisk.circleWidth * 0.4,
+                  ),
                 ),
               ),
             );
