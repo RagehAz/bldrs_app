@@ -272,7 +272,7 @@ class ChainPathConverter {
       _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
 
       /// B - IF SONS ARE DEFINED STRINGS
-      if (Chain.checkSonsAreStrings(parentChain.sons) == true){
+      if (Chain.checkSonsArePhids(parentChain.sons) == true){
 
         /// C - IF STRING IS ALREADY ADDED
         if (_parentChainHasThisSon == true){
@@ -425,7 +425,7 @@ class ChainPathConverter {
       // _allPaths.add(_chainPath);
 
       /// STRINGS SONS PATHS
-      if (Chain.checkSonsAreStrings(chain.sons) == true){
+      if (Chain.checkSonsArePhids(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
 
@@ -456,7 +456,7 @@ class ChainPathConverter {
       /// DATA CREATOR SONS PATHS
       if (Chain.checkSonsAreDataCreator(chain.sons) == true){
 
-        final DataCreator _sons = chain.sons;
+        final DataCreator _sons = Chain.decipherDataCreator(chain.sons);
 
         final String _dc = Chain.cipherDataCreatorOLD(_sons);
 
@@ -707,7 +707,7 @@ class ChainPathConverter {
         final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
         _include = _index != -1;
       }
-      else if (Chain.checkSonsAreStrings(chain.sons) == true){
+      else if (Chain.checkSonsArePhids(chain.sons) == true){
         final List<String> _sonsStrings = chain.sons;
         final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
         _include = _index != -1;
