@@ -310,7 +310,7 @@ class UserFireOps {
 
     if (_emailChanged == true){
 
-      final String _newEmail = ContactModel.getAContactValueFromContacts(
+      final String _newEmail = ContactModel.getValueFromContacts(
         contacts: newUserModel.contacts,
         contactType: ContactType.email,
       );
@@ -328,7 +328,7 @@ class UserFireOps {
         }
         else {
           /// refactor the newUserModel with the old email
-          final ContactModel _oldEmailContact = ContactModel.getAContactModelFromContacts(
+          final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
               contacts: oldUserModel.contacts,
               contactType: ContactType.email,
           );

@@ -683,13 +683,13 @@ void main() {
   test('contacts are the same', () {
 
     const List<ContactModel> _con1 = <ContactModel>[
-      ContactModel(value: 'x', contactType: ContactType.email),
-      ContactModel(value: 'e', contactType: ContactType.instagram),
+      ContactModel(value: 'x', type: ContactType.email),
+      ContactModel(value: 'e', type: ContactType.instagram),
     ];
 
     const List<ContactModel> _con2 = <ContactModel>[
-      ContactModel(value: 'x', contactType: ContactType.email),
-      ContactModel(value: 'ee', contactType: ContactType.instagram),
+      ContactModel(value: 'x', type: ContactType.email),
+      ContactModel(value: 'ee', type: ContactType.instagram),
     ];
 
     final bool _same = ContactModel.checkContactsListsAreIdentical(

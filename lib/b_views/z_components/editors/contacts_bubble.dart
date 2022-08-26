@@ -27,8 +27,8 @@ class ContactsBubble extends StatelessWidget {
 
     const double _abPadding = Ratioz.appBarPadding;
     const double _contactBoxHeight = 35;
-    final List<ContactModel> _contactsWithStrings = ContactModel.getContactsWithStringsFromContacts(contacts);
-    final List<ContactModel> _socialMediaContacts = ContactModel.getSocialMediaContactsFromContacts(contacts);
+    final List<ContactModel> _contactsWithStrings = ContactModel.filterContactsWhichShouldViewValue(contacts);
+    final List<ContactModel> _socialMediaContacts = ContactModel.filterSocialMediaContacts(contacts);
 
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
@@ -47,7 +47,7 @@ class ContactsBubble extends StatelessWidget {
 
                 return DreamBox(
                   height: _contactBoxHeight,
-                  icon: ContactModel.getContactIcon(_contact.contactType),
+                  icon: ContactModel.concludeContactIcon(_contact.type),
                   margins: const EdgeInsets.all(_abPadding),
                   verse: _contact?.value,
                   verseWeight: VerseWeight.thin,
@@ -55,7 +55,10 @@ class ContactsBubble extends StatelessWidget {
                   iconSizeFactor: 0.6,
                   bubble: false,
                   color: Colorz.white10,
-                  onTap: () => onUserContactTap(_contact),
+                  onTap: () => onUserContactTap(
+                    context: context,
+                    contact: _contact,
+                  ),
                 );
 
               }
@@ -74,9 +77,12 @@ class ContactsBubble extends StatelessWidget {
 
                 return DreamBox(
                   height: _contactBoxHeight,
-                  icon: ContactModel.getContactIcon(_contact.contactType),
+                  icon: ContactModel.concludeContactIcon(_contact.type),
                   margins: const EdgeInsets.all(_abPadding),
-                  onTap: () => onUserContactTap(_contact),
+                  onTap: () => onUserContactTap(
+                    context: context,
+                    contact: _contact,
+                  ),
                 );
 
               }

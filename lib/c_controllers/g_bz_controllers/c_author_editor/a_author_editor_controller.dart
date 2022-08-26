@@ -72,19 +72,14 @@ Future<void> onConfirmAuthorUpdates({
   @required ValueNotifier<AuthorModel> author,
   @required TextEditingController nameController,
   @required TextEditingController titleController,
-  @required List<TextEditingController> generatedControllers,
+  @required List<ContactModel> contacts,
   @required BzModel bzModel,
 }) async {
-
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-    context: context,
-    listen: false,
-  );
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     titleVerse:  '##Confirm Edits ?',
-    bodyVerse:  '##This will only edit your details as author in ${_bzModel.name} '
+    bodyVerse:  '##This will only edit your details as author in ${bzModel.name} '
         'business account, and will not impact your personal profile',
     boolDialog: true,
     confirmButtonVerse:  '##Confirm',
@@ -104,8 +99,8 @@ Future<void> onConfirmAuthorUpdates({
         flyersIDs: author.value.flyersIDs,
         name: nameController.text,
         title: titleController.text,
-        contacts: ContactModel.createContactsListByGeneratedControllers(
-          generatedControllers: generatedControllers,
+        contacts: ContactModel.bakeContactsAfterEditing(
+          contacts: contacts,
           countryID: bzModel.zone.countryID,
         ),
     );
@@ -114,7 +109,7 @@ Future<void> onConfirmAuthorUpdates({
 
     await AuthorProtocols.updateAuthorProtocol(
       context: context,
-      oldBzModel: _bzModel,
+      oldBzModel: bzModel,
       newAuthorModel: _author,
     );
 

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_button/c_phid_button.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
@@ -44,6 +46,7 @@ class BzEditorScreenView extends StatelessWidget {
     @required this.selectedBzZone,
     @required this.bzZone,
     @required this.userModel,
+    @required this.bzContacts,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -61,6 +64,7 @@ class BzEditorScreenView extends StatelessWidget {
   final ValueNotifier<ZoneModel> selectedBzZone;
   final ValueNotifier<ZoneModel> bzZone;
   final UserModel userModel;
+  final ValueNotifier<List<ContactModel>> bzContacts;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -364,6 +368,17 @@ class BzEditorScreenView extends StatelessWidget {
               /// --- BZ POSITION
 
               /// --- BZ CONTACTS
+              ValueListenableBuilder(
+                  valueListenable: bzContacts,
+                  builder: (_, List<ContactModel> contacts, Widget child){
+
+                    return ContactsEditorsBubbles(
+                      contacts: contacts,
+                      contactsOwnerType: ContactsOwnerType.bz,
+                    );
+
+                  },
+              ),
 
               const DotSeparator(),
 
