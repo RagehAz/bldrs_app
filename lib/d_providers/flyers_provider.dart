@@ -171,9 +171,15 @@ class FlyersProvider extends ChangeNotifier {
     return <FlyerModel>[..._wallFlyers];
   }
 // -------------------------------------
-  Future<void> paginateWallFlyers(BuildContext context) async {
+  Future<void> paginateWallFlyers({
+    @required BuildContext context,
+    @required bool listenToZoneChange,
+  }) async {
 
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(context);
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZoneIDs(
+      context: context,
+      listen: listenToZoneChange,
+    );
 
     final FlyerModel _lastWallFlyer = Mapper.checkCanLoopList(_wallFlyers) == true ?
     _wallFlyers.last

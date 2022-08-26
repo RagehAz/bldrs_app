@@ -502,7 +502,10 @@ bool initializeFlyersPagination({
 // -------------------------------
 Future<void> readMoreFlyers(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  await _flyersProvider.paginateWallFlyers(context);
+  await _flyersProvider.paginateWallFlyers(
+    context: context,
+    listenToZoneChange: false,
+  );
 }
 // -------------------------------
 Future<void> onRefreshHomeWall(BuildContext context) async {

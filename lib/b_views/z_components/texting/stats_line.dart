@@ -38,7 +38,7 @@ class StatsLine extends StatelessWidget {
         height: _height,
         icon: icon,
         verse: verse,
-        translate: translate,
+        translateVerse: translate,
         verseWeight: VerseWeight.thin,
         verseItalic: true,
         iconSizeFactor: iconSizeFactor,

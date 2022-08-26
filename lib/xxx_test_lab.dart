@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -287,17 +288,30 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    // const String _countryID = 'egy';
-    // const String number = '+';
+    // final List<CurrencyModel> _all = await ZoneProtocols.fetchCurrencies(context: context);
     //
-    // final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
-    //     number: number,
-    //     countryID: _countryID,
+    // final CurrencyModel _euro = CurrencyModel.getCurrencyByID(
+    //     allCurrencies: _all, currencyID: CurrencyModel.euroCurrencyID);
+    //
+    // _euro.blogCurrency();
+    //
+    // final List<String> _newList = <String>[CurrencyModel.euroCountryID, ..._euro.countriesIDs];
+    //
+    // final CurrencyModel _euroUpdate = _euro.copyWith(
+    //   countriesIDs: _newList,
+    // );
+    //
+    // _euroUpdate.blogCurrency();
+    //
+    // await Fire.updateDocField(
+    //     context: context,
+    //     collName: FireColl.zones,
+    //     docName: FireDoc.zones_currencies,
+    //     field: CurrencyModel.euroCurrencyID,
+    //     input: _euroUpdate.toMap(),
     // );
 
-    blog('aho : ${'Rageh' == 'rageh'}');
-
-    }
+  }
 
   //  final List<String> _countriesIDs = CountryModel.getAllCountriesIDs();
   //

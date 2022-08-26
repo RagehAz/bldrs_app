@@ -140,6 +140,7 @@ class _StreamingTestState extends State<StreamingTest> {
               builder: (_, Map<String, dynamic> map){
 
                 return WideButton(
+                  translate: false,
                   verse:  'Add Data',
                   color: Colorizer.decipherColor(map['color']),
                   onTap: () async {

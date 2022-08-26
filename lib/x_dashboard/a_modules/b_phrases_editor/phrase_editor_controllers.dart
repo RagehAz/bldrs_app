@@ -32,8 +32,8 @@ void onPhrasesSearchChanged({
 
   if (isSearching.value == true){
 
-    _onSearchPhrases(
-      allMixedPhrases: allMixedPhrases,
+    onSearchPhrases(
+      phrasesToSearchIn: allMixedPhrases,
       isSearching: isSearching,
       mixedSearchResult: mixedSearchResult,
       searchController: searchController,
@@ -53,8 +53,8 @@ void onPhrasesSearchSubmit({
 
   isSearching.value = true;
 
-  _onSearchPhrases(
-    allMixedPhrases: allMixedPhrases,
+  onSearchPhrases(
+    phrasesToSearchIn: allMixedPhrases,
     isSearching: isSearching,
     mixedSearchResult: mixedSearchResult,
     searchController: searchController,
@@ -63,17 +63,17 @@ void onPhrasesSearchSubmit({
 }
 // -----------------------------
 ///  TESTED : WORKS PERFECT
-void _onSearchPhrases({
+List<Phrase> onSearchPhrases({
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
-  @required List<Phrase> allMixedPhrases,
+  @required List<Phrase> phrasesToSearchIn,
   /// mixes between en & ar values in one list
-  @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  ValueNotifier<List<Phrase>> mixedSearchResult,
 }){
 
-  if (isSearching.value == true){
+  List<Phrase> _foundPhrases = <Phrase>[];
 
-    List<Phrase> _foundPhrases = <Phrase>[];
+  if (isSearching.value == true){
 
     // final List<Phrase> _enResults = Phrase.searchPhrases(
     //   phrases: enPhrase,
@@ -85,7 +85,7 @@ void _onSearchPhrases({
 
     // final List<Phrase> _result
     _foundPhrases = Phrase.searchPhrasesRegExp(
-      phrases: allMixedPhrases,
+      phrases: phrasesToSearchIn,
       text: searchController.text,
       lookIntoValues: true,
       // byID: true,
@@ -94,7 +94,7 @@ void _onSearchPhrases({
     final List<String> _phids = Phrase.getPhrasesIDs(_foundPhrases);
 
     _foundPhrases = Phrase.searchPhrasesByIDs(
-      phrases: allMixedPhrases,
+      phrases: phrasesToSearchIn,
       phids: _phids,
     );
 
@@ -118,23 +118,20 @@ void _onSearchPhrases({
     //   allowDuplicateIDs: false,
     // );
 
-    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after adding ar');
-
-    // blog('mixed phrase are : ');
-    // Phrase.blogPhrases(_foundPhrases);
-
-    final List<Phrase> _cleaned = Phrase.cleanIdenticalPhrases(_foundPhrases);
-
-    // blog('onSearchPhrases : _foundPhrases.length = ${_foundPhrases.length} after cleaning');
-
-    mixedSearchResult.value = _cleaned;
+    _foundPhrases = Phrase.cleanIdenticalPhrases(_foundPhrases);
 
   }
 
-  else {
-    mixedSearchResult.value = <Phrase>[];
+  if (mixedSearchResult != null){
+    if (isSearching.value == true){
+      mixedSearchResult.value = _foundPhrases;
+    }
+    else {
+      mixedSearchResult.value = <Phrase>[];
+    }
   }
 
+  return _foundPhrases;
 }
 // ---------------------------------------------------------------------------
 

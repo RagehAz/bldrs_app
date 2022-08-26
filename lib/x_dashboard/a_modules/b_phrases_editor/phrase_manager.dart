@@ -115,6 +115,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// MIGRATE main phrases from fire to real
         WideButton(
+          translate: false,
           isActive: false,
           verse:  'MIGRATE main phrases from FIRE to REAL',
           onTap: () async {
@@ -148,6 +149,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL EN READ
         WideButton(
+          translate: false,
           verse:  'REAL READ EN PHRASESs',
           onTap: () async {
 
@@ -177,6 +179,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL ar READ
         WideButton(
+          translate: false,
           verse:  'REAL READ AR PHRASESs',
           onTap: () async {
 
@@ -201,6 +204,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// READ MAIN PHRASES
         WideButton(
+          translate: false,
           verse:  'READ PRO MAIN PHRASES',
           onTap: () async {
 
@@ -221,6 +225,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// READ MAIN PHRASES
         WideButton(
+          translate: false,
           verse:  'READ LDB MAIN PHRASES',
           onTap: () async {
 

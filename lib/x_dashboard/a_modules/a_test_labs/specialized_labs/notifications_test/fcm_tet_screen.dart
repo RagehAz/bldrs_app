@@ -138,6 +138,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// REQUEST PERMISSION
         WideButton(
+          translate: false,
           verse:  'Request Permission',
           onTap: () async {
             await checkPermissions();
@@ -146,6 +147,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// GET TOKEN
         WideButton(
+          translate: false,
           verse:  'Get Token',
           onTap: () async {
             await _getToken();
@@ -154,6 +156,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// SUBSCRIBE TO FLYER
         WideButton(
+          translate: false,
           verse:  'Subscribe to flyer',
           onTap: () async {
             _subscribeToFlyers();
@@ -162,6 +165,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// UNSUBSCRIBE FROM FLYER
         WideButton(
+          translate: false,
           verse:  'UN-Subscribe to flyer',
           onTap: () async {
             _unsubscribeFromFlyers();
@@ -170,6 +174,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// UPDATE MY USER FCM TOKEN
         WideButton(
+          translate: false,
           verse:  'update my user fcm token',
           onTap: () async {
             await _updateMyUserFCMToken();
@@ -178,6 +183,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// NOTIFICATION IS ON
         WideButton(
+          translate: false,
           verse: _noteIsOn == true ? 'Notification on' : 'Notification is off',
           color: _noteIsOn == true ? Colorz.red255 : Colorz.grey50,
           verseColor: _noteIsOn == true ? Colorz.white255 : Colorz.white80,
@@ -210,6 +216,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// CLOUD FUNCTION
         WideButton(
+          translate: false,
           width: 250,
           verse:  'call cloud function \n$_received',
           color: Colorz.blue80,
@@ -231,6 +238,7 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
 
         /// SEND NOTE
         WideButton(
+          translate: false,
           verse:  'send note to call\n[ sendNotificationToDevice ]',
           color: Colorz.blue80,
           onTap: () async {

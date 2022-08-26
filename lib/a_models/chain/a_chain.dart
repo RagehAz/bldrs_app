@@ -272,20 +272,65 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static DataCreator decipherDataCreatorOLD(String string){
-    switch (string){
-      case 'DataCreator_doubleKeyboard':        return DataCreator.doubleKeyboard;      break;
-      case 'DataCreator_doubleSlider':          return DataCreator.doubleSlider;        break;
-      case 'DataCreator_doubleRangeSlider':     return DataCreator.doubleRangeSlider;   break;
+  static DataCreator decipherDataCreatorOLD(dynamic string){
 
-      case 'DataCreator_integerKeyboard':       return DataCreator.integerKeyboard;     break;
-      case 'DataCreator_integerSlider':         return DataCreator.integerSlider;       break;
-      case 'DataCreator_integerRangeSlider':    return DataCreator.integerRangeSlider;  break;
-
-      case 'DataCreator_boolSwitch':            return DataCreator.boolSwitch;          break;
-      case 'DataCreator_country':               return DataCreator.country;             break;
-      default: return null;
+    /// DataCreator_doubleKeyboard
+    if (string == 'DataCreator_doubleKeyboard' || string == ['DataCreator_doubleKeyboard']){
+      return DataCreator.doubleKeyboard;
     }
+
+    /// DataCreator_doubleSlider
+    else if (string == 'DataCreator_doubleSlider' || string == ['DataCreator_doubleSlider']){
+      return DataCreator.doubleSlider;
+    }
+
+    /// DataCreator_doubleSlider
+    else if (string == 'DataCreator_doubleRangeSlider' || string == ['DataCreator_doubleRangeSlider']){
+      return DataCreator.doubleRangeSlider;
+    }
+
+    /// DataCreator_integerKeyboard
+    else if (string == 'DataCreator_integerKeyboard' || string == ['DataCreator_integerKeyboard']){
+      return DataCreator.integerKeyboard;
+    }
+
+    /// DataCreator_integerSlider
+    else if (string == 'DataCreator_integerSlider' || string == ['DataCreator_integerSlider']){
+      return DataCreator.integerSlider;
+    }
+
+    /// DataCreator_integerRangeSlider
+    else if (string == 'DataCreator_integerRangeSlider' || string == ['DataCreator_integerRangeSlider']){
+      return DataCreator.integerRangeSlider;
+    }
+
+    /// DataCreator_boolSwitch
+    else if (string == 'DataCreator_boolSwitch' || string == ['DataCreator_boolSwitch']){
+      return DataCreator.boolSwitch;
+    }
+
+    /// DataCreator_country
+    else if (string == 'DataCreator_country' || string == ['DataCreator_country']){
+      return DataCreator.country;
+    }
+
+    /// NOTHING
+    else {
+      return null;
+    }
+
+    // switch (string){
+    //   // case 'DataCreator_doubleKeyboard' :        return DataCreator.doubleKeyboard;      break;
+    //   // case 'DataCreator_doubleSlider':          return DataCreator.doubleSlider;        break;
+    //   // case 'DataCreator_doubleRangeSlider':     return DataCreator.doubleRangeSlider;   break;
+    //   // case 'DataCreator_integerKeyboard':       return DataCreator.integerKeyboard;     break;
+    //   // case 'DataCreator_integerSlider':         return DataCreator.integerSlider;       break;
+    //   // case 'DataCreator_integerRangeSlider':    return DataCreator.integerRangeSlider;  break;
+    //   // case 'DataCreator_boolSwitch':            return DataCreator.boolSwitch;          break;
+    //   // case 'DataCreator_country':               return DataCreator.country;             break;
+    //   default: return null;
+    // }
+
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -461,6 +506,24 @@ class Chain {
 
     if (sons != null){
       _isDataCreator = sons.runtimeType.toString() == 'DataCreator';
+
+      // blog('checkSonsAreDataCreator : sons : $sons : sons.runtimeType : ${sons.runtimeType}');
+      //
+      // if (sons is List<String>){
+      //     final List<String> _sons = sons;
+      //   if (Mapper.checkCanLoopList(_sons) == true){
+      //
+      //     final String _first = _sons.first;
+      //     blog(_first);
+      //
+      //     final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
+      //     if (_dataCreator == 'DataCreator'){
+      //       _isDataCreator = true;
+      //     }
+      //
+      //   }
+      // }
+
     }
 
     return _isDataCreator;
@@ -468,7 +531,25 @@ class Chain {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsAreStrings(dynamic sons){
-    final bool _areString = sons.runtimeType.toString() == 'List<String>';
+    bool _areString = sons.runtimeType.toString() == 'List<String>';
+
+    // if (_areString == true){
+    //       final List<String> _sons = sons;
+    //
+    //     if (Mapper.checkCanLoopList(_sons) == true){
+    //
+    //       final String _first = _sons.first;
+    //
+    //       final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
+    //       if (_dataCreator == 'DataCreator'){
+    //         _areString = false;
+    //       }
+    //
+    //     }
+    //
+    //
+    // }
+
     return _areString;
   }
 // --------------------------------------------

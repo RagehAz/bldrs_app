@@ -14,7 +14,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -25,7 +24,6 @@ import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 
 class LocationsTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -157,10 +155,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     @required GeoPoint geoPoint
   }) async {
 
-    final ZoneProvider _zoneProvider =
-        Provider.of<ZoneProvider>(context, listen: false);
-
-    final ZoneModel _zoneModel = await _zoneProvider.fetchZoneModelByGeoPoint(
+    final ZoneModel _zoneModel = await ZoneProtocols.fetchZoneModelByGeoPoint(
         context: context,
         geoPoint: geoPoint
     );
@@ -248,6 +243,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
+                translate: false,
                 verse:  'Get Current Location',
                 icon: _countryID == null ?
                 Iconz.share
@@ -261,6 +257,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
+                translate: false,
                 verse:  'Get Position from Map',
                 icon: _countryID == null ?
                 Iconz.share

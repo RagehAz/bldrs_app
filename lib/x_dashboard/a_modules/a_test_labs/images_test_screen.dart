@@ -257,6 +257,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : FILE
                     WideButton(
+                      translate: false,
                       verse:  'FILE : $_file',
                       icon: _file,
                       iconSizeFactor: 1,
@@ -270,6 +271,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : uInt8List
                     WideButton(
+                      translate: false,
                       verse:  'uInt8List : ${Numeric.formatNumToCounterCaliber(context, uInt?.length)} nums',
                       icon: uInt,
                       iconSizeFactor: 1,
@@ -287,6 +289,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// TAMAM : uiImage
                     WideButton(
+                      translate: false,
                       verse:  'uiImage : ${uiImage?.toString()}',
                       icon: uiImage,
                       iconSizeFactor: 1,
@@ -306,6 +309,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
 
                     /// imgImage
                     WideButton(
+                      translate: false,
                       verse:  'imgImage : ${imgImage?.toString()}',
                       icon: imgImage,
                       iconSizeFactor: 1,
