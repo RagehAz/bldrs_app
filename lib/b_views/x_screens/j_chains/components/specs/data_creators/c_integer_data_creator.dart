@@ -181,7 +181,7 @@ class _IntegerAndDoubleDataCreatorState extends State<IntegerAndDoubleDataCreato
 
     Keyboard.closeKeyboard(context);
 
-    if (Chain.checkSonsAreStrings(_unitChain.sons) == true){
+    if (Chain.checkSonsArePhids(_unitChain.sons) == true){
 
       final List<String> _units = _unitChain.sons;
 
