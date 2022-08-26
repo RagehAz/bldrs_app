@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -9,33 +8,35 @@ class SeparatorLine extends StatelessWidget {
   const SeparatorLine({
     this.lineIsON = true,
     this.width,
-    this.margins,
     this.thickness = standardThickness,
     this.color = Colorz.yellow255,
+    this.withMargins = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool lineIsON;
   final double width;
-  final dynamic margins;
   final double thickness;
   final Color color;
+  final bool withMargins;
   /// --------------------------------------------------------------------------
-  static const double standardThickness = 0.5;
+  static const double standardThickness = 0.75;
   /// --------------------------------------------------------------------------
+  static const standardVerticalMarginValue = Ratioz.appBarMargin;
+  // --------------------------------------------------------------------------
+  static const double getTotalHeight = standardThickness + (2 * standardVerticalMarginValue);
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _width = width ?? Bubble.clearWidth(context);
-
-    final dynamic _margins = margins ?? const EdgeInsets.symmetric(vertical: Ratioz.appBarMargin);
 
     return Center(
       child: Container(
         width: _width,
         height: thickness,
         // alignment: Aligners.superCenterAlignment(context),
-        margin: Scale.superMargins(margins: _margins) ,
+        margin: withMargins == true ? const EdgeInsets.symmetric(vertical: standardVerticalMarginValue) : null,
         color: lineIsON ? color : null,
         // child: Container(
         //   width: _width * 0.8,

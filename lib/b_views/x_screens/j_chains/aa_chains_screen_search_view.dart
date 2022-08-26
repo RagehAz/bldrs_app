@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/expander_structure/b_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/no_result_found.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +39,7 @@ class ChainsScreenSearchView extends StatelessWidget {
             return PageBubble(
               screenHeightWithoutSafeArea: screenHeight,
               appBarType: AppBarType.search,
-              child: const Padding(
-                padding: EdgeInsets.only(top: 50),
-                child: SuperVerse(
-                  verse: 'phid_nothing_found',
-                  margin: 50,
-                  maxLines: 4,
-                ),
-              ),
+              child: const NoResultFound(),
             );
           }
 

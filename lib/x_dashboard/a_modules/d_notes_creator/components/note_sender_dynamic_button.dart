@@ -67,6 +67,7 @@ class NoteSenderDynamicButton extends StatelessWidget {
       final MapModel _mapModel = model;
 
       return WideButton(
+        translate: false,
         width: width,
         verse: _mapModel.key,
         icon: _mapModel.value,

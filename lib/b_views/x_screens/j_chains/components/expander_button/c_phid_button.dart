@@ -93,6 +93,7 @@ class PhidButton extends StatelessWidget {
         width: width,
         color: color,
         verse: phid,
+        translateVerse: true,
         margins: margins,
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
         icon: _getIcon(context),
@@ -105,7 +106,7 @@ class PhidButton extends StatelessWidget {
         verseItalic: true,
         onTap: onTap,
         verseHighlight: searchText,
-        verseHighlightColor: Colorz.bloodTest,
+        // verseHighlightColor: Colorz.bloodTest,
       ),
     );
 

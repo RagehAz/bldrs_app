@@ -68,6 +68,7 @@ class _TestingTemplateState extends State<TestingTemplate> {
       listWidgets: <Widget>[
 
         WideButton(
+          translate: false,
           verse:  'Fuck this',
           onTap: () async {
 

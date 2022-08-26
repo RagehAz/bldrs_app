@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/x_screens/j_chains/c_currencies_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -41,6 +42,13 @@ class SpecializedLabs extends StatelessWidget {
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     const List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// EMAIL SENDER
+      DashButtonModel(
+        verse:  'New Currency screen',
+        icon: Iconz.dollar,
+        screen: CurrenciesScreen(),
+      ),
 
       /// EMAIL SENDER
       DashButtonModel(

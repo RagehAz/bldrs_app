@@ -25,7 +25,7 @@ class DreamBox extends StatelessWidget {
     this.iconColor,
     this.verse,
     this.verseCasing,
-    this.translate,
+    this.translateVerse,
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
@@ -39,6 +39,7 @@ class DreamBox extends StatelessWidget {
     this.iconRounded = true,
     this.bubble = true,
     this.secondLine,
+    this.translateSecondLine,
     this.verseCentered = true,
     this.subChild,
     this.childAlignment = Alignment.center,
@@ -60,7 +61,7 @@ class DreamBox extends StatelessWidget {
     this.iconBackgroundColor,
     this.onDeactivatedTap,
     this.verseHighlight,
-    this.verseHighlightColor,
+    this.verseHighlightColor = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
 
@@ -76,7 +77,7 @@ class DreamBox extends StatelessWidget {
   final Color iconColor;
   final String verse;
   final VerseCasing verseCasing;
-  final bool translate;
+  final bool translateVerse;
   final Color verseColor;
   final VerseWeight verseWeight;
   final double verseScaleFactor;
@@ -90,6 +91,7 @@ class DreamBox extends StatelessWidget {
   final bool iconRounded;
   final bool bubble;
   final String secondLine;
+  final bool translateSecondLine;
   final bool verseCentered;
   final Widget subChild;
   final Alignment childAlignment;
@@ -110,7 +112,7 @@ class DreamBox extends StatelessWidget {
   final bool loading;
   final Color iconBackgroundColor;
   final Function onDeactivatedTap;
-  final ValueNotifier<String> verseHighlight;
+  final ValueNotifier<dynamic> verseHighlight;
   final Color verseHighlightColor;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
@@ -297,7 +299,7 @@ class DreamBox extends StatelessWidget {
             key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
             verse: verse,
             verseCasing: verseCasing,
-            translate: translate,
+            translate: translateVerse,
             textDirection: _textDirection,
             icon: icon,
             loading: loading,
@@ -313,6 +315,7 @@ class DreamBox extends StatelessWidget {
             verseScaleFactor: verseScaleFactor,
             verseCentered: verseCentered,
             secondLine: secondLine,
+            translateSecondLine: translateSecondLine,
             verseSize: _verseSize,
             verseWeight: verseWeight,
             inActiveMode: isDeactivated,
