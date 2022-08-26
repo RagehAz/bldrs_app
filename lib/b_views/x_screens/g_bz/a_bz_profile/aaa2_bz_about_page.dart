@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
+import 'package:bldrs/b_views/z_components/editors/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -21,11 +22,13 @@ class BzAboutPage extends StatelessWidget {
   const BzAboutPage({
     this.bzModel,
     this.showGallery = false,
+    this.showContacts = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool showGallery;
+  final bool showContacts;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,15 @@ class BzAboutPage extends StatelessWidget {
             title: '##About ${_bzModel.name}',
             paragraph: _bzModel.about,
           ),
+
+        /// BZ CONTACT
+        if (showContacts == true && Mapper.checkCanLoopList(_bzModel?.contacts) == true)
+        ContactsBubble(
+          contacts: _bzModel?.contacts,
+          location: _bzModel?.position,
+          canLaunchOnTap: true,
+        ),
+
 
         /// SCOPE
         if (Mapper.checkCanLoopList(_bzModel.scope) == true)
