@@ -263,7 +263,7 @@ Future<bool> _checkPassword({
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-    final String _email = ContactModel.getAContactValueFromContacts(
+    final String _email = ContactModel.getValueFromContacts(
       contacts: userModel?.contacts,
       contactType: ContactType.email,
     ) ?? _authModel.email;

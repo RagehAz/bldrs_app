@@ -218,7 +218,7 @@ class AuthorCard extends StatelessWidget {
                 final ContactModel _contact = author.contacts[index];
 
                 return AuthorCardDetail(
-                    icon: ContactModel.getContactIcon(_contact.contactType),
+                    icon: ContactModel.concludeContactIcon(_contact.type),
                     bubble: true,
                     verse: _contact.value,
                     boxWidth: _bubbleWidth - authorPicSize - 40,

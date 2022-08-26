@@ -302,15 +302,15 @@ class BzModel{
       zone: userModel?.zone,
       contacts: <ContactModel>[
         ContactModel(
-            contactType: ContactType.email,
-            value: ContactModel.getAContactValueFromContacts(
+            type: ContactType.email,
+            value: ContactModel.getValueFromContacts(
                 contacts: userModel.contacts,
                 contactType: ContactType.email,
             ),
         ),
         ContactModel(
-            contactType: ContactType.phone,
-            value: ContactModel.getAContactValueFromContacts(
+            type: ContactType.phone,
+            value: ContactModel.getValueFromContacts(
                 contacts: userModel.contacts,
                 contactType: ContactType.phone
             ),
