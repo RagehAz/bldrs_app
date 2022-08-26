@@ -97,19 +97,21 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
           final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel.id);
 
           return Bubble(
-              title: 'Stats',
+              title: '##Stats',
               columnChildren: <Widget>[
 
                 /// FOLLOWERS
                 StatsLine(
                   verse:  '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
                   icon: Iconz.follow,
+                  translate: false,
                 ),
 
                 /// CALLS
                 StatsLine(
                   verse:  '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
                   icon: Iconz.comPhone,
+                  translate: false,
                 ),
 
                 /// SLIDES & FLYERS
@@ -120,30 +122,35 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                       '${_bzModel.flyersIDs.length} '
                       '${xPhrase( context, 'phid_flyers')}',
                   icon: Iconz.gallery,
+                  translate: false,
                 ),
 
                 /// SAVES
                 StatsLine(
                   verse:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
                   icon: Iconz.saveOn,
+                  translate: false,
                 ),
 
                 /// VIEWS
                 StatsLine(
                   verse:  '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
                   icon: Iconz.viewsIcon,
+                  translate: false,
                 ),
 
                 /// SHARES
                 StatsLine(
                   verse:  '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
                   icon: Iconz.share,
+                  translate: false,
                 ),
 
                 /// BIRTH
                 StatsLine(
                   verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel.createdAt),
                   icon: Iconz.calendar,
+                  translate: false,
                 ),
 
               ]

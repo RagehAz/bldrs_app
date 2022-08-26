@@ -9,6 +9,7 @@ class StatsLine extends StatelessWidget {
   const StatsLine({
     @required this.icon,
     @required this.verse,
+    this.translate,
     this.iconSizeFactor = 0.7,
     this.verseScaleFactor = 0.85,
     this.onTap,
@@ -20,13 +21,14 @@ class StatsLine extends StatelessWidget {
   final double iconSizeFactor;
   final double verseScaleFactor;
   final String verse;
+  final bool translate;
   final Function onTap;
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    const String _spaces = '   ';
+    // const String _spaces = '   ';
     final double _height = onTap == null ? 25 : 40;
 
     return Container(
@@ -35,7 +37,8 @@ class StatsLine extends StatelessWidget {
       child: DreamBox(
         height: _height,
         icon: icon,
-        verse:  '$_spaces$verse',
+        verse: verse,
+        translate: translate,
         verseWeight: VerseWeight.thin,
         verseItalic: true,
         iconSizeFactor: iconSizeFactor,
