@@ -70,6 +70,7 @@ class _PDFScreenState extends State<PDFScreen> {
     super.didChangeDependencies();
   }
 // -----------------------------------------------------------------------------
+
   /// TAMAM
   @override
   void dispose() {
@@ -79,6 +80,8 @@ class _PDFScreenState extends State<PDFScreen> {
     _pdfController.dispose();
     super.dispose();
   }
+
+
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
