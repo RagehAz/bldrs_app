@@ -160,7 +160,7 @@ class UserModel {
       zone: zone,
       language: '', //Wordz.languageCode(context),
       location: null,
-      contacts: ContactModel.getContactsFromFirebaseUser(user),
+      contacts: ContactModel.generateContactsFromFirebaseUser(user),
       // -------------------------
       myBzzIDs: <String>[],
       emailIsVerified: user.emailVerified,

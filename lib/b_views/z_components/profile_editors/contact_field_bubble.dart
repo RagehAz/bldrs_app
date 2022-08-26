@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -121,6 +122,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     );
     // ---------------------------
     /// CLEAR WIDTH - SPACING
+    final double _bubbleWidth = BldrsAppBar.width(context,);
     final double bubbleClearWidth = Bubble.clearWidth(context);
     const double _spacer = 5;
     /// LEADING ICON SIZE
@@ -138,8 +140,10 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
         - _pasteButtonWidth
         - _pasteButtonSpacer;
     // ---------------------------
+
     return Bubble(
-      title: widget.title,
+      width: _bubbleWidth,
+        title: widget.title,
         redDot: widget.fieldIsRequired,
         actionBtIcon: widget.actionBtIcon, // widget.actionBtColor
         actionBtFunction: widget.actionBtFunction,
@@ -206,7 +210,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           /// BUBBLE COMMENTS
           if (widget.bulletPoints != null)
             BubbleBulletPoints(
-                bulletPoints: widget.bulletPoints,
+              bulletPoints: widget.bulletPoints,
             ),
 
         ]

@@ -131,7 +131,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzZone = ValueNotifier(_initialBzModel.zone);
     _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
     _bzPosition = ValueNotifier(_initialBzModel.position);
-    _bzContacts = ValueNotifier(_initialBzModel.contacts);
+    // -------------------------
+    final List<ContactModel> _initialContacts = ContactModel.initializeContactsForEditing(
+      countryID: _initialBzModel.zone.countryID,
+      contacts: _initialBzModel.contacts,
+    );
+    _bzContacts = ValueNotifier(_initialContacts);
     // -------------------------
   }
 // -----------------------------------------------------------------------------
@@ -170,12 +175,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzZone.dispose();
     _selectedScopes.dispose();
     _bzPosition.dispose();
-    _bzContacts.dispose();
     _selectedBzSection.dispose();
     _inactiveBzTypes.dispose();
     _inactiveBzForms.dispose();
     _bzNameTextController.dispose();
     _bzAboutTextController.dispose();
+
+    ContactModel.disposeContactsControllers(_bzContacts.value);
+    _bzContacts.dispose();
 
     super.dispose();
   }
@@ -237,6 +244,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         selectedBzZone: _selectedBzZone,
         bzZone: _selectedBzZone,
         userModel: _userModel,
+        bzContacts: _bzContacts,
       ),
     );
   }
