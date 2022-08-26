@@ -579,7 +579,11 @@ class SpecModel {
   /// This considers if the specPicker can or can't pick many spec of same list,
   /// then adds if absent and updates or ignores if exists accordingly
     ///
-    final List<SpecModel> _specs = parentSpecs;
+    final List<SpecModel> _specs = <SpecModel>[];
+
+    if (Mapper.checkCanLoopList(parentSpecs) == true){
+      _specs.addAll(parentSpecs);
+    }
 
     if (Mapper.checkCanLoopList(inputSpecs)) {
       for (final SpecModel inputSpec in inputSpecs) {
