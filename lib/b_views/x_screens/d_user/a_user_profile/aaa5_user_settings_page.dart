@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/invite_bzz_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/a5_user_settings_controllers.dart';
@@ -22,7 +21,15 @@ class UserSettingsPage extends StatelessWidget {
 
         const DotSeparator(color: Colorz.yellow80,),
 
-        const InviteBzzButton(),
+        /// INVITE BZZ
+        SettingsWideButton(
+          verse: '##Invite Businesses you know',
+          icon: Iconz.bz,
+          color: Colorz.yellow255,
+          verseColor: Colorz.black255,
+          iconColor: Colorz.black255,
+          onTap: () => onInviteBusinessesTap(context),
+        ),
 
         const DotSeparator(),
 

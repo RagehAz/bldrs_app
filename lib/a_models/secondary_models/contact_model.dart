@@ -61,6 +61,7 @@ class ContactModel {
   /// GENERATORS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> generateContactsFromFirebaseUser(User user) {
     final List<ContactModel> _userContacts = <ContactModel>[];
     final String _userEmail = user.email;
@@ -174,6 +175,7 @@ class ContactModel {
   /// EDITING INITIALIZERS
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> initializeContactsForEditing({
     @required List<ContactModel> contacts,
     @required String countryID,
@@ -205,6 +207,7 @@ class ContactModel {
     return _output;
   }
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static String _initializeContactValue({
     @required ContactModel existingContact,
     @required String countryID,
@@ -240,6 +243,7 @@ class ContactModel {
   /// EDITING DISPOSING
 
 // ----------------------------------
+  /// TESTED : WORKS PERFECT
   static void disposeContactsControllers(List<ContactModel> contacts){
     if (Mapper.checkCanLoopList(contacts) == true){
       for (final ContactModel contact in contacts){
@@ -256,7 +260,7 @@ class ContactModel {
   /// EDITING FINISHING
 
 // ----------------------------------
-
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> bakeContactsAfterEditing({
     @required List<ContactModel> contacts,
     @required String countryID,
@@ -290,7 +294,6 @@ class ContactModel {
           _endValue = _controller.text;
         }
 
-
         if (Stringer.checkStringIsEmpty(_endValue) == false){
 
           final ContactModel _model = ContactModel(
@@ -307,32 +310,6 @@ class ContactModel {
     }
 
     return _output;
-
-    /// TASK : DELETE ME
-    /*
-
-      List<ContactModel> _createContactList({
-    @required List<ContactModel> existingContacts,
-  }) {
-    /// takes current contacts, overrides them on existing contact list, then
-    /// return a new contacts list with all old values and new overridden values
-    final List<ContactModel> newContacts = ContactModel.createContactsList(
-      existingContacts: existingContacts,
-      phone: TextMod.nullifyNumberIfOnlyCountryCode(
-          number: _phoneController.text,
-          countryID: _zone.value.countryID,
-      ),
-      email: TextMod.removeSpacesFromAString(_emailController.text),
-      facebook: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _facebookController.text),
-      linkedIn: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _linkedInController.text),
-      instagram: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _instagramController.text),
-      twitter: TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _twitterController.text),
-    );
-    return newContacts;
-  }
-
-     */
-
   }
 // -----------------------------------------------------------------------------
 
@@ -421,7 +398,7 @@ class ContactModel {
   /// FILTERS
 
 // ----------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> filterContactsWhichShouldViewValue(List<ContactModel> contacts) {
 
     final List<ContactModel> _contacts = <ContactModel>[];
@@ -445,38 +422,10 @@ class ContactModel {
 
     }
 
-    /// TASK : DELETE ME
-    // final ContactModel _phone = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.phone,
-    // );
-    //
-    // final ContactModel _email = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.email,
-    // );
-    //
-    // final ContactModel _website = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.website,
-    // );
-    //
-    // if (ContactModel.checkContactIsEmpty(_phone) == false) {
-    //   _contacts.add(_phone);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_email) == false) {
-    //   _contacts.add(_email);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_website) == false) {
-    //   _contacts.add(_website);
-    // }
-
     return _contacts;
   }
 // ----------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<ContactModel> filterSocialMediaContacts(List<ContactModel> contacts) {
 
     final List<ContactModel> _contacts = <ContactModel>[];
@@ -499,64 +448,6 @@ class ContactModel {
       }
 
     }
-
-    /// TASK : DELETE ME
-    // final ContactModel _facebook = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.facebook,
-    // );
-    // final ContactModel _linkedin = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.linkedIn,
-    // );
-    // final ContactModel _youtube = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.youtube,
-    // );
-    // final ContactModel _instagram = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.instagram,
-    // );
-    // final ContactModel _pinterest = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.pinterest,
-    // );
-    // final ContactModel _tiktok = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.tiktok,
-    // );
-    // final ContactModel _twitter = getContactFromContacts(
-    //     contacts: contacts,
-    //     contactType: ContactType.twitter,
-    // );
-    //
-    // if (ContactModel.checkContactIsEmpty(_facebook) == false) {
-    //   _contacts.add(_facebook);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_linkedin) == false) {
-    //   _contacts.add(_linkedin);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_youtube) == false) {
-    //   _contacts.add(_youtube);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_instagram) == false) {
-    //   _contacts.add(_instagram);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_pinterest) == false) {
-    //   _contacts.add(_pinterest);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_tiktok) == false) {
-    //   _contacts.add(_tiktok);
-    // }
-    //
-    // if (ContactModel.checkContactIsEmpty(_twitter) == false) {
-    //   _contacts.add(_twitter);
-    // }
 
     return _contacts;
   }

@@ -12,6 +12,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   const DreamBoxIconVerseSecondLine({
     @required this.verse,
     @required this.verseCasing,
+    @required this.translate,
     @required this.textDirection,
     @required this.icon,
     @required this.loading,
@@ -47,6 +48,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final String verse;
   final VerseCasing verseCasing;
+  final bool translate;
   final TextDirection textDirection;
   final dynamic icon;
   final bool loading;
@@ -322,6 +324,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   child: SuperVerse(
                     verse: verse,
                     verseCasing: verseCasing,
+                    translate: translate,
                     size: verseSize,
                     weight: verseWeight,
                     color: greyscale == true || inActiveMode == true ?
