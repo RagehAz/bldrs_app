@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -12,6 +13,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -116,6 +118,7 @@ class _ChainsManagerState extends State<ChainsManager> {
   Widget build(BuildContext context) {
 
     final double _screenWidth = Scale.superScreenWidth(context);
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
 
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
@@ -186,6 +189,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   isMultipleSelectionMode: true,
                   pageTitleVerse:  'CITY CHAINS + MULTIPLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
+                  zone: _currentZone,
                 )
             );
 
@@ -210,6 +214,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   isMultipleSelectionMode: true,
                   pageTitleVerse:  'ALL CHAINS + MULTIPLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
+                  zone: _currentZone,
                 )
             );
 
@@ -234,6 +239,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   isMultipleSelectionMode: false,
                   pageTitleVerse:  'CITY CHAINS + SINGLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
+                  zone: _currentZone,
                 )
             );
 
@@ -256,6 +262,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                   isMultipleSelectionMode: false,
                   pageTitleVerse:  'ALL CHAINS + SINGLE SELECTION',
                   onlyChainKSelection: onlyPhidKs,
+                  zone: _currentZone,
                 )
             );
 

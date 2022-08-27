@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/components/currencies/currency_list_builder.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/currency_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/xx_currency_button.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/c_currencies_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -20,8 +20,11 @@ import 'package:provider/provider.dart';
 class CurrenciesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CurrenciesScreen({
+    this.countryIDCurrencyOverride,
     Key key
   }) : super(key: key);
+
+  final String countryIDCurrencyOverride;
   /// --------------------------------------------------------------------------
   @override
   _CurrenciesScreenState createState() => _CurrenciesScreenState();
@@ -110,7 +113,17 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
-    final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
+
+    final CurrencyModel _currencyOverride = ZoneProvider.proGetCurrencyByCountryID(
+      context: context,
+      countryID: widget.countryIDCurrencyOverride,
+      listen: false,
+    );
+
+    final CurrencyModel _currentCurrency = _currencyOverride ?? _zoneProvider.currentCurrency;
+
+    blog('_currentCurrency : ${_currentCurrency.id}');
+    _currentCurrency.blogCurrency();
 
     return MainLayout(
       pageTitleVerse: '##Select Currency',
@@ -184,12 +197,13 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                   ),
                   children: <Widget>[
 
+                    /// CURRENT CURRENCY
                     CurrencyButton(
                       currency: _currentCurrency,
-                      countryID: _zoneProvider.currentZone.countryID,
-                      onTap: () => onSelectCurrency(
+                      countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone.countryID,
+                      onTap: (CurrencyModel currency) => onSelectCurrency(
                         context: context,
-                        currency: _currentCurrency,
+                        currency: currency,
                       ),
                     ),
 
@@ -203,25 +217,25 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                         currencyID: CurrencyModel.usaCurrencyID,
                       ),
                       countryID: CurrencyModel.usaCountryID,
-                      onTap: () => onSelectCurrency(
+                      onTap: (CurrencyModel currency) => onSelectCurrency(
                         context: context,
-                        currency: _currentCurrency,
+                        currency: currency,
                       ),
                     ),
 
                     /// EURO
                     if (_currentCurrency?.id != CurrencyModel.euroCurrencyID)
                       CurrencyButton(
-                      currency: CurrencyModel.getCurrencyByID(
-                        allCurrencies: _allCurrencies,
-                        currencyID: CurrencyModel.euroCurrencyID,
+                        currency: CurrencyModel.getCurrencyByID(
+                          allCurrencies: _allCurrencies,
+                          currencyID: CurrencyModel.euroCurrencyID,
+                        ),
+                        countryID: CurrencyModel.euroCountryID,
+                        onTap: (CurrencyModel currency) => onSelectCurrency(
+                          context: context,
+                          currency: currency,
+                        ),
                       ),
-                      countryID: CurrencyModel.euroCountryID,
-                      onTap: () => onSelectCurrency(
-                        context: context,
-                        currency: _currentCurrency,
-                      ),
-                    ),
 
                     const SeparatorLine(withMargins: true,),
 

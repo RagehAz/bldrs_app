@@ -2,10 +2,11 @@ import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/aa_chains_screen_search_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/ab_chains_screen_browse_view.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/a_chains_screen_controllers.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/controllers/b_chains_search_controller.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/controllers/aa_chains_search_controller.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -13,7 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/controllers/b_pickers_screen_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -29,6 +30,7 @@ class ChainsScreen extends StatefulWidget {
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.pageTitleVerse,
+    @required this.zone,
     this.selectedSpecs,
     this.onlyChainKSelection = false,
     Key key
@@ -41,6 +43,7 @@ class ChainsScreen extends StatefulWidget {
   final bool isMultipleSelectionMode;
   final String pageTitleVerse;
   final bool onlyChainKSelection;
+  final ZoneModel zone;
   /// --------------------------------------------------------------------------
   @override
   State<ChainsScreen> createState() => _ChainsScreenState();
@@ -328,7 +331,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     phid: phid,
                     isMultipleSelectionMode: widget.isMultipleSelectionMode,
                     selectedSpecs: _selectedSpecs,
-                    specPicker: PickerModel.getPickerByChainIDOrUnitChainID(
+                    picker: PickerModel.getPickerByChainIDOrUnitChainID(
                       pickers: _allSpecPickers,
                       chainIDOrUnitChainID: getPickerChainIDOfPhid(
                         context: context,
@@ -345,12 +348,13 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
               return ChainsScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
-                refinedSpecsPickers: _refinedSpecsPickers,
+                refinedPickers: _refinedSpecsPickers,
                 specsPickers: _allSpecPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: widget.flyerTypesChainFilters,
                 onPickerTap: (PickerModel picker) => onSpecPickerTap(
                   context: context,
+                  zone: widget.zone,
                   selectedSpecs: _selectedSpecs,
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
                   onlyUseCityChains: widget.onlyUseCityChains,

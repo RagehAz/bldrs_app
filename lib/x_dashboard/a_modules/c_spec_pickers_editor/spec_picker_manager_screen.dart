@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/spec_picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/spec_pickers_editor_screen.dart';
@@ -144,6 +145,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
                   screen: SpecPickerEditorScreen(
                     specPickers: _pickers,
                     flyerType: _flyerType,
+                    flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),
                   ),
                 );
               }
