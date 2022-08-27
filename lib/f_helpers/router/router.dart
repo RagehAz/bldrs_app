@@ -1,12 +1,12 @@
-import 'package:bldrs/b_views/x_screens/a_starters/a_static_logo_screen.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/c_home_screen.dart';
-import 'package:bldrs/b_views/x_screens/b_auth/a_auth_screen.dart';
-import 'package:bldrs/b_views/x_screens/c_main_search/a_main_search_screen.dart';
-import 'package:bldrs/b_views/x_screens/e_saves/a_saved_flyers_screen.dart';
-import 'package:bldrs/b_views/x_screens/x_flyer/a_flyer_screen.dart';
+import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
+import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
+import 'package:bldrs/b_views/c_main_search/a_main_search_screen/a_main_search_screen.dart';
+import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/b_views/x_screens/a_starters/b_animated_logo_screen.dart';
+import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> allRoutes(RouteSettings settings) {

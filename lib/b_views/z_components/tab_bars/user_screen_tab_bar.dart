@@ -1,7 +1,7 @@
 // import 'package:bldrs/a_models/user/user_model.dart';
 // import 'package:bldrs/b_views/z_components/buttons/flyer_type_button.dart';
 // import 'package:bldrs/b_views/z_components/tab_bars/bldrs_sliver_tab_bar.dart';
-// import 'package:bldrs/c_controllers/g_user_controllers/a1_user_profile_controllers.dart';
+// import 'package:bldrs/c_controllers/g_user_controllers/x1_user_profile_page_controllers.dart';
 // import 'package:flutter/material.dart';
 //
 //

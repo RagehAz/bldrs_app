@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/x_screens/d_user/a_user_profile/aa_user_screen_view_pages.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/aa_user_screen_view_pages.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:flutter/material.dart';
