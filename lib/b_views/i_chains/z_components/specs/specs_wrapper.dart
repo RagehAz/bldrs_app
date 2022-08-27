@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,8 @@ class SpecsWrapper extends StatelessWidget {
 
                 return SpecLabel(
                     xIsOn: xIsOn,
-                    value: SpecModel.translateSpec(context: context, spec: _spec,),
+                    value: _spec.value,
+                  translate: true,
                     onTap: () => onSpecTap(<SpecModel>[_spec]),
                 );
 
@@ -88,7 +90,8 @@ class SpecsWrapper extends StatelessWidget {
           if (_combineTwoSpecs == true)
           SpecLabel(
             xIsOn: xIsOn,
-            value: '${SpecModel.translateSpec(context: context, spec: specs[0],)} ${SpecModel.translateSpec(context: context, spec: specs[1],)}',
+            value: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
+            translate: false,
             onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
           ),
 
