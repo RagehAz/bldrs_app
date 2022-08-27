@@ -1,5 +1,4 @@
 
-
 enum DataCreator{
 
   // fromList,
@@ -38,6 +37,8 @@ bool isIntDataCreator(DataCreator creator){
   }
 }
 // ------------------------------------------------------------
+/// NOT USED
+/*
 bool isBoolDataCreator(DataCreator creator){
 
   switch (creator){
@@ -46,11 +47,16 @@ bool isBoolDataCreator(DataCreator creator){
   }
 
 }
+
+ */
 // ------------------------------------------------------------
+/// NOT USED
+/*
 bool isCountryDataCreator(DataCreator creator){
   switch (creator){
     case DataCreator.country : return true; break;
     default : return false;
   }
 }
+*/
 // ------------------------------------------------------------

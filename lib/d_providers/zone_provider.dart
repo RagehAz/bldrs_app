@@ -173,6 +173,23 @@ class ZoneProvider extends ChangeNotifier {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
+  static CurrencyModel proGetCurrencyByCountryID({
+    @required BuildContext context,
+    @required String countryID,
+    @required bool listen,
+  }){
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+
+    final CurrencyModel _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+        currencies: _zoneProvider.allCurrencies,
+        countryID: countryID
+    );
+
+    return _currency;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
     @required BuildContext context,
     @required String countryID,

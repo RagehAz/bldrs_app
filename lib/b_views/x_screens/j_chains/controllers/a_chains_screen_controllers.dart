@@ -3,11 +3,12 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/b_spec_picker_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/b_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
-import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/c_specs_picker_controllers.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/controllers/b_pickers_screen_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -83,11 +84,15 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   final dynamic result = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
-    screen: const ChainsScreen(
+    screen: ChainsScreen(
       flyerTypesChainFilters: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
       pageTitleVerse: '##Browse Flyers by Keyword',
+      zone: ZoneProvider.proGetCurrentZone(
+          context: context,
+          listen: false,
+      ),
     ),
   );
 
@@ -198,6 +203,7 @@ Future<void> onSpecPickerTap({
   @required bool isMultipleSelectionMode,
   @required ValueNotifier<List<PickerModel>> refinedSpecsPickers,
   @required List<PickerModel> allSpecPickers,
+  @required ZoneModel zone,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -210,6 +216,7 @@ Future<void> onSpecPickerTap({
       showInstructions: isMultipleSelectionMode,
       isMultipleSelectionMode:  isMultipleSelectionMode,
       originalSpecs: originalSpecs,
+      zone: zone,
     ),
   );
 
@@ -218,12 +225,12 @@ Future<void> onSpecPickerTap({
     /// WHILE SELECTING MULTIPLE PHIDS
     if (isMultipleSelectionMode == true){
 
-      updateSpecsPickersAndGroups(
+      updatePickersAndGroups(
         context: context,
-        specPicker: picker,
+        picker: picker,
         selectedSpecs: selectedSpecs,
         refinedPickers: refinedSpecsPickers,
-        sourceSpecPickers: allSpecPickers,
+        sourcePickers: allSpecPickers,
         specPickerResult: _result,
       );
 

@@ -23,7 +23,7 @@ class CurrencyButton extends StatelessWidget {
   final double height;
   final CurrencyModel currency;
   final String countryID;
-  final Function onTap;
+  final ValueChanged<CurrencyModel> onTap;
   final String icon;
   final TextEditingController highlightController;
   /// --------------------------------------------------------------------------
@@ -49,7 +49,7 @@ class CurrencyButton extends StatelessWidget {
         iconSizeFactor: 0.7,
         verseCentered: false,
         bubble: false,
-        onTap: onTap,
+        onTap: () => onTap(currency),
         margins: 5,
         verseHighlight: highlightController,
       );
