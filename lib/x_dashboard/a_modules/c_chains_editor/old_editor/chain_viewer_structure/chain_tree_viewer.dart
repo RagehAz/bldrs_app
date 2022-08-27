@@ -54,12 +54,12 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   Widget build(BuildContext context) {
 
     final bool _sonsAreChain = Chain.checkSonsAreChains(widget.chain?.sons);
-    final bool _sonsAreStrings = Chain.checkSonsArePhids(widget.chain?.sons);
+    final bool _sonsArePhids = Chain.checkSonsArePhidsss(widget.chain?.sons);
     final bool _sonsAreDataCreators = Chain.checkSonsAreDataCreator(widget.chain?.sons);
     final int _numberOfSons =
     _sonsAreChain ? widget.chain?.sons?.length
         :
-    _sonsAreStrings ? widget.chain?.sons?.length
+    _sonsArePhids ? widget.chain?.sons?.length
         :
     1
     ;
@@ -93,8 +93,8 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                   }
               ),
 
-            /// WHEN CHAIN SONS ARE STRINGS (PHRASES IDS)
-            if (_sonsAreStrings == true) // its a List<String>
+            /// WHEN CHAIN SONS ARE PHIDS
+            if (_sonsArePhids == true) // its a List<String>
               SizedBox(
                 width: widget.width,
                 child: ListView.builder(
@@ -117,7 +117,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 ),
               ),
 
-            /// OTHERWISE
+            /// DATE CREATOR
             if (_sonsAreDataCreators == true)
               ChainTreeStrip(
                 width: widget.width,

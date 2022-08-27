@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/a_chains_screen.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/b_pickers_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/x_screens/j_chains/controllers/b_pickers_screen_controllers.dart';
@@ -209,7 +209,7 @@ Future<void> onSpecPickerTap({
   final dynamic _result = await Nav.goToNewScreen(
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
-    screen: SpecPickerScreen(
+    screen: PickerScreen(
       specPicker: picker,
       selectedSpecs: selectedSpecs,
       onlyUseCityChains: onlyUseCityChains,

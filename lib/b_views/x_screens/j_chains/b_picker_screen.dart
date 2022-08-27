@@ -10,9 +10,9 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
-class SpecPickerScreen extends StatelessWidget {
+class PickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SpecPickerScreen({
+  const PickerScreen({
     @required this.specPicker,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
@@ -33,8 +33,6 @@ class SpecPickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 60;
   /// --------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -82,7 +80,7 @@ class SpecPickerScreen extends StatelessWidget {
           context: context,
           isMultipleSelectionMode: isMultipleSelectionMode,
           selectedSpecs: selectedSpecs,
-          phid: null,
+          passPhidBack: null,
         ),
       ),
       layoutWidget: PickersScreenView(
@@ -109,7 +107,7 @@ class SpecPickerScreen extends StatelessWidget {
             context: context,
             selectedSpecs: selectedSpecs,
             isMultipleSelectionMode: isMultipleSelectionMode,
-            phid: null,
+            passPhidBack: null,
           )
       ),
 
