@@ -578,13 +578,42 @@ class Chain {
 
     return _indeed;
   }
+
+  static bool checkSonsAreCurrencies(dynamic sons){
+    bool _areCurrencies = false;
+
+    if (sons != null){
+
+      if (sons is List<String>){
+
+        final List<String> _sons = sons;
+
+        if (Mapper.checkCanLoopList(_sons) == true){
+
+          final String _first = _sons.first;
+
+          final String _phid = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
+          if (_phid == 'currency'){
+            _areCurrencies = true;
+          }
+
+        }
+
+      }
+
+    }
+
+    return _areCurrencies;
+  }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsArePhids(dynamic sons){
 
     bool _arePhids = false;
 
-        if (sons is List<String>){
+    if (sons != null){
+
+      if (sons is List<String>){
 
         final List<String> _sons = sons;
 
@@ -598,6 +627,8 @@ class Chain {
           }
 
         }
+
+      }
 
     }
 

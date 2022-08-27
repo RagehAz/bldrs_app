@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/zone/currency_model.dart';
-import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/currency_button.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/components/specs/data_creators/xx_currency_button.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyListBuilder extends StatelessWidget {
@@ -38,7 +38,7 @@ class CurrencyListBuilder extends StatelessWidget {
               width: width - 20,
               currency: _currency,
               countryID: _currency.countriesIDs.first,
-              onTap: () => onCurrencyTap(_currency),
+              onTap: onCurrencyTap,
               highlightController: searchController,
             );
 

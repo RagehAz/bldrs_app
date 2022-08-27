@@ -321,6 +321,7 @@ class BzEditorScreenView extends StatelessWidget {
                                   context: context,
                                   selectedScopes: selectedScopes,
                                   selectedBzTypes: selectedBzTypes,
+                                  bzZone: bzZone,
                                 ),
                               ),
 

@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 /// NAVIGATION
 
 // -----------------------------------
-void onGoBackFromSpecPickerScreen({
+void onGoBackFromPickerScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
   @required String phid,
@@ -124,18 +124,18 @@ Future<void> _goToSpecPickerScreen({
 }
  */
 // -----------------------------------
-void updateSpecsPickersAndGroups({
+void updatePickersAndGroups({
   @required BuildContext context,
   @required dynamic specPickerResult,
-  @required PickerModel specPicker,
-  @required List<PickerModel> sourceSpecPickers,
+  @required PickerModel picker,
+  @required List<PickerModel> sourcePickers,
   @required ValueNotifier<List<PickerModel>> refinedPickers,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
 
   final Chain _specChain = ChainsProvider.proFindChainByID(
     context: context,
-    chainID: specPicker.chainID,
+    chainID: picker.chainID,
   );
 
   // -------------------------------------------------------------
@@ -151,7 +151,7 @@ void updateSpecsPickersAndGroups({
       selectedSpecs.value = specPickerResult;
 
       refinedPickers.value = PickerModel.applyBlockers(
-        sourcePickers: sourceSpecPickers,
+        sourcePickers: sourcePickers,
         selectedSpecs: specPickerResult,
       );
 
@@ -184,14 +184,14 @@ void onRemoveSpecs({
 }
 // -----------------------------------------------------------------------------
 
-/// SPEC PICKER SCREEN
+/// PICKER SCREEN
 
 // -----------------------------------
 Future<void> onSelectPhid({
   @required BuildContext context,
   @required String phid,
   @required bool isMultipleSelectionMode,
-  @required PickerModel specPicker,
+  @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
 
@@ -199,13 +199,13 @@ Future<void> onSelectPhid({
     await updateSelectedSpecsAtPhidSelection(
       context: context,
       phid: phid,
-      picker: specPicker,
+      picker: picker,
       selectedSpecs: selectedSpecs,
     );
   }
 
   else {
-    onGoBackFromSpecPickerScreen(
+    onGoBackFromPickerScreen(
       context: context,
       phid: phid,
       isMultipleSelectionMode: isMultipleSelectionMode,
