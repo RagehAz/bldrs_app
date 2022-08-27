@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
-import 'package:bldrs/c_controllers/authorships_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

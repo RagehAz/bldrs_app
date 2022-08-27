@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loadi
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/d_shelf_slides_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
-import 'package:bldrs/c_controllers/g_bz_controllers/e_flyer_maker/aa_draft_shelf_controllers.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
