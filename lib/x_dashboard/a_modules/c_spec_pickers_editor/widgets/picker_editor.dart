@@ -140,6 +140,7 @@ class PickerEditor extends StatelessWidget {
                           return SpecLabel(
                             xIsOn: true,
                             value: item,
+                            translate: true,
                             onTap: (){
                               blog('range item : $item');
                             },

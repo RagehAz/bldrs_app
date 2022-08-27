@@ -36,6 +36,7 @@ class SettingsWideButton extends StatelessWidget {
       isDeactivated: !isOn,
       height: height,
       verse: verse,
+      translateVerse: true,
       verseColor: verseColor,
       verseShadow: verseColor != Colorz.black255,
       verseCasing: VerseCasing.upperCase,
