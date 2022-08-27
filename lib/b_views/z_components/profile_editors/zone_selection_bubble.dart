@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/c_select_district_screen.dart';
+import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
+import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
@@ -126,7 +126,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
-      screen: const SelectCountryScreen(),
+      screen: const CountriesScreen(),
     );
 
     if (_zone == null){
@@ -191,7 +191,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       final ZoneModel _zone = await Nav.goToNewScreen(
           context: context,
-          screen: SelectCityScreen(
+          screen: CitiesScreen(
             country: _selectedZone.value.countryModel,
           )
       );
@@ -260,7 +260,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       final ZoneModel _zone = await Nav.goToNewScreen(
         context: context,
-        screen: SelectDistrictScreen(
+        screen: DistrictsScreen(
           country: _selectedZone.value.countryModel,
           city: _selectedZone.value.cityModel,
         ),

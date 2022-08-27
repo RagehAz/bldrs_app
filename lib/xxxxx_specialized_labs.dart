@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/x_screens/j_chains/c_currencies_screen.dart';
+import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/a_select_country_screen.dart';
-import 'package:bldrs/b_views/x_screens/h_zoning/b_select_city_screen.dart';
+import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
+import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ Future<void> goToCountrySelectionScreen({
 
   final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
-      screen: const SelectCountryScreen(
+      screen: const CountriesScreen(
         selectCountryIDOnly: true,
       ),
   );
@@ -41,7 +41,7 @@ Future<void> goToCitySelectionScreen({
 
   final ZoneModel _zone = await Nav.goToNewScreen(
     context: context,
-    screen: SelectCityScreen(
+    screen: CitiesScreen(
       country: zone.value.countryModel,
       selectCountryAndCityOnly: true,
     ),
