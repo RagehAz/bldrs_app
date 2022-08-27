@@ -9,12 +9,14 @@ class SpecLabel extends StatelessWidget {
   const SpecLabel({
     @required this.xIsOn,
     @required this.value,
+    @required this.translate,
     @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool xIsOn;
   final String value;
+  final bool translate;
   final Function onTap;
   /// --------------------------------------------------------------------------
   @override
@@ -26,6 +28,7 @@ class SpecLabel extends StatelessWidget {
       icon: xIsOn ? Iconz.xLarge : null,
       margins: const EdgeInsets.symmetric(vertical: 2.5),
       verse: value,
+      translateVerse: translate,
       verseWeight: VerseWeight.thin,
       verseItalic: true,
       verseScaleFactor: 1.6,
