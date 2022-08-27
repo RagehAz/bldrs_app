@@ -1,17 +1,14 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreatorFieldRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NumberDataCreatorFieldRow({
-    @required this.picker,
+    @required this.hasUnit,
     @required this.formKey,
     @required this.textController,
     @required this.validator,
@@ -23,7 +20,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final PickerModel picker;
+  final bool hasUnit;
   final GlobalKey<FormState> formKey;
   final TextEditingController textController;
   final String Function() validator;
@@ -35,12 +32,6 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------
-    /// UNIT CHAIN
-    final Chain _unitChain = ChainsProvider.proFindChainByID(
-      context: context,
-      chainID: picker.unitChainID,
-    );
 // -----------------------------------------------------------
     /// HEIGHT
     const int _textSize = 4;
@@ -55,8 +46,8 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 // -----------------------------------------------------------
     /// WIDTH
     final double _clearWidth = Bubble.clearWidth(context);
-    final double _unitButtonSpacer = _unitChain == null ? 0 : Ratioz.appBarMargin;
-    final double _unitButtonWidth = _unitChain == null ? 0 : 80;
+    final double _unitButtonSpacer = hasUnit == true ? Ratioz.appBarMargin : 0;
+    final double _unitButtonWidth = hasUnit == true ? 80 : 0;
     final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer;
 // -----------------------------------------------------------
     return Row(
@@ -88,13 +79,13 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
         ),
 
         /// UNIT BUTTON SPACER
-        if (_unitChain != null)
+        if (hasUnit == true)
         const SizedBox(
             width: Ratioz.appBarMargin,
         ),
 
         /// UNIT SELECTOR BUTTON
-        if (_unitChain != null)
+        if (hasUnit == true)
           ValueListenableBuilder(
               valueListenable: selectedUnitID,
               builder: (_, String selectedUnitID, Widget child){
@@ -102,7 +93,6 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
                 return DreamBox(
                   width: _unitButtonWidth,
                   height: _buttonHeight,
-                  // color: Colorz.bloodTest,
                   verse: selectedUnitID,
                   translateVerse: true,
                   verseScaleFactor: 0.65,

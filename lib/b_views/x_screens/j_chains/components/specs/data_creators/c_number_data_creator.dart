@@ -18,16 +18,18 @@ class NumberDataCreator extends StatefulWidget {
     @required this.onKeyboardSubmitted,
     @required this.dataCreatorType,
     @required this.zone,
+    @required this.onlyUseCityChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<List<SpecModel>> onExportSpecs;
-  final dynamic initialValue;
+  final SpecModel initialValue;
   final String initialUnit;
   final PickerModel picker;
   final Function onKeyboardSubmitted;
   final DataCreator dataCreatorType;
   final ZoneModel zone;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   @override
   State<NumberDataCreator> createState() => _NumberDataCreatorState();
@@ -85,7 +87,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
-          picker: widget.picker,
+          hasUnit: true,
           validator: numberFieldValidator,
           textController: _textController,
           formKey: _formKey,

@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 void onGoBackFromPickerScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required String phid,
+  @required String passPhidBack,
   @required bool isMultipleSelectionMode,
 }) {
 
@@ -34,7 +34,7 @@ void onGoBackFromPickerScreen({
     Nav.goBack(
         context: context,
         invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
-        passedData: phid
+        passedData: passPhidBack
     );
   }
 
@@ -207,7 +207,7 @@ Future<void> onSelectPhid({
   else {
     onGoBackFromPickerScreen(
       context: context,
-      phid: phid,
+      passPhidBack: phid,
       isMultipleSelectionMode: isMultipleSelectionMode,
       selectedSpecs: selectedSpecs,
     );
