@@ -156,6 +156,7 @@ Future<void> onAddScopesTap({
   @required BuildContext context,
   @required ValueNotifier<List<BzType>> selectedBzTypes,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
+  @required ValueNotifier<ZoneModel> bzZone,
 }) async {
 
   Keyboard.closeKeyboard(context);
@@ -170,6 +171,7 @@ Future<void> onAddScopesTap({
       pageTitleVerse: '##Select keywords',
       selectedSpecs: selectedScopes.value,
       onlyChainKSelection: true,
+      zone: bzZone.value,
     ),
   );
 

@@ -22,7 +22,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
     @required this.onPickerTap,
     @required this.onDeleteSpec,
     @required this.selectedSpecs,
-    @required this.refinedSpecsPickers,
+    @required this.refinedPickers,
     @required this.onlyUseCityChains,
     @required this.flyerTypes,
     Key key
@@ -32,10 +32,61 @@ class ChainsScreenBrowseView extends StatelessWidget {
   final ValueChanged<PickerModel> onPickerTap;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final ValueNotifier<List<PickerModel>> refinedSpecsPickers;
+  final ValueNotifier<List<PickerModel>> refinedPickers;
   final bool onlyUseCityChains;
   final List<FlyerType> flyerTypes;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
+  String _getInstructions(BuildContext context){
+    // ---------------------
+    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: true,
+    );
+    // ---------------------
+    final List<String> _strings = FlyerTyper.translateFlyerTypes(
+      context: context,
+      flyerTypes: flyerTypes,
+    );
+    // ---------------------
+    final String _flyerTypesString = Stringer.generateStringFromStrings(
+      strings: _strings,
+    );
+    // ---------------------
+    final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
+    '' : '\n$_flyerTypesString';
+    // ---------------------
+    final String _instructions =
+    onlyUseCityChains == true ?
+    xPhrase( context, '##Showing only keywords used in'
+        '\n${_zone.cityName}, ${_zone.countryName}.'
+        '$_flyerTypesStringWithNewLineIfNotNull')
+        :
+    xPhrase( context, '##Showing All keywords in Bldrs.net'
+        '\n$_flyerTypesString');
+    // ---------------------
+
+    return _instructions;
+  }
+// ------------------------------------------------
+  String _getInstructionsIcon(BuildContext context){
+    // ---------------------
+    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: true,
+    );
+    // ---------------------
+
+    // ---------------------
+    final String _icon = onlyUseCityChains == true ?
+    _zone.flag
+        :
+    Iconz.info;
+    // ---------------------
+
+    return _icon;
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -43,11 +94,16 @@ class ChainsScreenBrowseView extends StatelessWidget {
     if (Mapper.checkCanLoopList(specsPickers) == true){
 
       return ValueListenableBuilder(
-          valueListenable: refinedSpecsPickers,
-          builder: (_, List<PickerModel> refinedPickers, Widget childB){
+          valueListenable: refinedPickers,
+          child: ChainInstructions(
+            instructions: _getInstructions(context),
+            leadingIcon: _getInstructionsIcon(context),
+            iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
+          ),
+          builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
             final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
-              specsPickers: refinedPickers,
+              specsPickers: _refinedPickers,
             );
 
             return ListView.builder(
@@ -59,53 +115,18 @@ class ChainsScreenBrowseView extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext ctx, int index) {
 
+                  /// INSTRUCTIONS
                   if (index == 0){
-                    // ---------------------
-                    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
-                        context: context,
-                        listen: true,
-                    );
-                    // ---------------------
-                    final List<String> _strings = FlyerTyper.translateFlyerTypes(
-                        context: context,
-                        flyerTypes: flyerTypes,
-                    );
-                    // ---------------------
-                    final String _flyerTypesString = Stringer.generateStringFromStrings(
-                        strings: _strings,
-                    );
-                    // ---------------------
-                    final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
-                    '' : '\n$_flyerTypesString';
-                    // ---------------------
-                    final String _instruction =
-                    onlyUseCityChains == true ?
-                        xPhrase( context, '##Showing only keywords used in'
-                        '\n${_zone.cityName}, ${_zone.countryName}.'
-                        '$_flyerTypesStringWithNewLineIfNotNull')
-                            :
-                    xPhrase( context, '##Showing All keywords in Bldrs.net'
-                        '\n$_flyerTypesString');
-                    // ---------------------
-                    final String _icon = onlyUseCityChains == true ?
-                    _zone.flag
-                        :
-                    Iconz.info;
-                    // ---------------------
-                    return ChainInstructions(
-                      verseOverride: _instruction,
-                      leadingIcon: _icon,
-                      iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
-                    );
-
+                    return instructions;
                   }
 
+                  /// GROUPS BUILDER
                   else {
 
                     final String _groupID = _theGroupsIDs[index - 1];
 
                     final List<PickerModel> _pickersOfThisGroup = PickerModel.getPickersByGroupID(
-                      pickers: refinedPickers,
+                      pickers: _refinedPickers,
                       groupID: _groupID,
                     );
 
@@ -116,7 +137,6 @@ class ChainsScreenBrowseView extends StatelessWidget {
                       onPickerTap: onPickerTap,
                       onDeleteSpec: onDeleteSpec,
                     );
-
 
                   }
 

@@ -8,51 +8,53 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:flutter/material.dart';
 
-class PriceDataCreator extends StatefulWidget {
+class NumberDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const PriceDataCreator({
-    @required this.zone,
-    @required this.picker,
-    @required this.initialValue,
-    @required this.onKeyboardSubmitted,
+  const NumberDataCreator({
     @required this.onExportSpecs,
+    @required this.initialValue,
+    @required this.initialUnit,
+    @required this.picker,
+    @required this.onKeyboardSubmitted,
     @required this.dataCreatorType,
+    @required this.zone,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ZoneModel zone;
-  final PickerModel picker;
-  final dynamic initialValue;
-  final Function onKeyboardSubmitted;
   final ValueChanged<List<SpecModel>> onExportSpecs;
+  final dynamic initialValue;
+  final String initialUnit;
+  final PickerModel picker;
+  final Function onKeyboardSubmitted;
   final DataCreator dataCreatorType;
+  final ZoneModel zone;
   /// --------------------------------------------------------------------------
   @override
-  State<PriceDataCreator> createState() => _PriceDataCreatorState();
-/// --------------------------------------------------------------------------
+  State<NumberDataCreator> createState() => _NumberDataCreatorState();
+  /// --------------------------------------------------------------------------
 }
 
-class _PriceDataCreatorState extends State<PriceDataCreator> {
+class _NumberDataCreatorState extends State<NumberDataCreator> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
-  final ValueNotifier<String> _selectedCurrencyID = ValueNotifier(null);
-  final ValueNotifier<double> _priceValue = ValueNotifier(null); // specValue
+  final ValueNotifier<dynamic> _specValue = ValueNotifier(null);
+  final ValueNotifier<String> _selectedUnitID = ValueNotifier(null);
 // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
-    initializeCurrencyData(
+    initializeNumberData(
       context: context,
-      zone: widget.zone,
-      selectedCurrencyID: _selectedCurrencyID,
+      selectedUnitID: _selectedUnitID,
+      initialUnit: widget.initialUnit,
+      picker: widget.picker,
       textController: _textController,
-      initialValue: widget.initialValue,
-      priceValue: _priceValue,
       dataCreatorType: widget.dataCreatorType,
+      specValue: _specValue,
+      initialValue: widget.initialValue,
     );
-
 
   }
 // -----------------------------------------------------------------------------
@@ -60,17 +62,20 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   @override
   void dispose() {
     _textController.dispose();
-    _selectedCurrencyID.dispose();
-    _priceValue.dispose();
+    _specValue.dispose();
+    _selectedUnitID.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _bubbleWidth = BldrsAppBar.width(context);
+    final String _hintText = widget.picker.chainID;
+
     return Bubble(
       title: '##Add ...',
-      width: BldrsAppBar.width(context),
+      width: _bubbleWidth,
       columnChildren: <Widget>[
 
         // /// BULLET POINTS
@@ -80,24 +85,28 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
-          hintText: '##Add price',
           picker: widget.picker,
-          validator: currencyFieldValidator,
+          validator: numberFieldValidator,
           textController: _textController,
           formKey: _formKey,
-          selectedUnitID: _selectedCurrencyID,
-          onUnitSelectorButtonTap: () => onCurrencySelectorButtonTap(
+          hintText: _hintText,
+          selectedUnitID: _selectedUnitID,
+          onUnitSelectorButtonTap: () => onUnitSelectorButtonTap(
             context: context,
-            zone: widget.zone,
             formKey: _formKey,
-            selectedCurrencyID: _selectedCurrencyID,
+            specValue: _specValue,
+            dataCreatorType: widget.dataCreatorType,
+            textController: _textController,
+            selectedUnitID: _selectedUnitID,
+            picker: widget.picker,
+            onExportSpecs: widget.onExportSpecs,
           ),
           onKeyboardChanged: (String text) => onKeyboardChanged(
             formKey: _formKey,
-            specValue: _priceValue,
+            specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
             textController: _textController,
-            selectedUnitID: _selectedCurrencyID.value,
+            selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
@@ -105,10 +114,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,
-            specValue: _priceValue,
+            specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
             textController: _textController,
-            selectedUnitID: _selectedCurrencyID.value,
+            selectedUnitID: _selectedUnitID.value,
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
@@ -116,6 +125,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
       ],
     );
-
   }
+
 }

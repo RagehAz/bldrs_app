@@ -8,9 +8,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class StringsDataCreator extends StatelessWidget {
+class PhidsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const StringsDataCreator({
+  const PhidsDataCreator({
     @required this.specPicker,
     @required this.onlyUseCityChains,
     @required this.selectedSpecs,

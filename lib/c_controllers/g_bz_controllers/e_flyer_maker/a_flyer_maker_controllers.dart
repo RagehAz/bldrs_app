@@ -360,6 +360,7 @@ Future<void> onAddSpecsTap({
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
         flyerTypesChainFilters: [draft.value.flyerType],
+        zone: draft.value.zone,
       )
   );
 
