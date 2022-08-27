@@ -284,7 +284,7 @@ class PhraseProtocols {
 
     if (chain != null){
 
-      final List<String> _phids = Chain.getOnlyStringsSonsIDsFromChain(
+      final List<String> _phids = Chain.getOnlyPhidsSonsFromChain(
         chain: chain,
       );
 

@@ -272,7 +272,7 @@ class ChainPathConverter {
       _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
 
       /// B - IF SONS ARE DEFINED STRINGS
-      if (Chain.checkSonsArePhids(parentChain.sons) == true){
+      if (parentChain.sons is List<String> || Chain.checkSonsAreDataCreator(parentChain.sons) == true){
 
         /// C - IF STRING IS ALREADY ADDED
         if (_parentChainHasThisSon == true){
@@ -425,16 +425,14 @@ class ChainPathConverter {
       // _allPaths.add(_chainPath);
 
       /// STRINGS SONS PATHS
-      if (Chain.checkSonsArePhids(chain.sons) == true){
+      if (Chain.checkSonsArePhidsss(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
-
-        final List<String> _sonsPaths = _generateChainPathsFromStringsSons(
+        final List<String> _sonsPaths = _generateChainPathsFromPhidsSons(
           parentID: chain.id,
-          sons: _sons,
+          phids: _sons,
           previousPath: previousPath,
         );
-
         _allPaths.addAll(_sonsPaths);
       }
 
@@ -442,13 +440,11 @@ class ChainPathConverter {
       if (Chain.checkSonsAreChains(chain.sons) == true){
 
         final List<Chain> _sons = chain.sons;
-
         final List<String> _sonsPaths = generateChainsPaths(
           parentID: chain.id,
           chains: _sons,
           previousPath: previousPath,
         );
-
         _allPaths.addAll(_sonsPaths);
 
       }
@@ -457,9 +453,7 @@ class ChainPathConverter {
       if (Chain.checkSonsAreDataCreator(chain.sons) == true){
 
         final DataCreator _sons = Chain.decipherDataCreator(chain.sons);
-
         final String _dc = Chain.cipherDataCreatorOLD(_sons);
-
         final String _path = '$previousPath${chain.id}/$_dc/';
 
         _allPaths.add(_path);
@@ -504,19 +498,19 @@ class ChainPathConverter {
   }
   // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _generateChainPathsFromStringsSons({
+  static List<String> _generateChainPathsFromPhidsSons({
     @required String parentID,
-    @required List<String> sons,
+    @required List<String> phids,
     String previousPath = '', // ...xx/
   }){
 
     final List<String> _paths = <String>[];
 
-    if (Mapper.checkCanLoopList(sons) == true && parentID != null){
+    if (Mapper.checkCanLoopList(phids) == true && parentID != null){
 
-      for (final String son in sons){
+      for (final String phid in phids){
 
-        _paths.add('$previousPath$parentID/$son/');
+        _paths.add('$previousPath$parentID/$phid/');
 
       }
 
@@ -702,18 +696,25 @@ class ChainPathConverter {
 
     if (Chain != null && sonID != null){
 
+      /// SONS ARE CHAINS
       if (Chain.checkSonsAreChains(chain.sons) == true){
         final List<Chain> _sonsChains = chain.sons;
         final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
         _include = _index != -1;
       }
-      else if (Chain.checkSonsArePhids(chain.sons) == true){
+
+      /// SONS ARE PHIDS
+      else if (Chain.checkSonsArePhidsss(chain.sons) == true){
         final List<String> _sonsStrings = chain.sons;
         final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
         _include = _index != -1;
       }
+
+      /// SONS ARE DATA CREATOR
       else if (Chain.checkSonsAreDataCreator(chain.sons) == true){
-        _include = chain.sons == sonID;
+        final DataCreator _dc = Chain.decipherDataCreator(chain.sons);
+        final DataCreator _deciphered = Chain.decipherDataCreator(sonID);
+        _include = _dc == _deciphered;
       }
 
     }

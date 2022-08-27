@@ -162,7 +162,7 @@ class TopDialog extends StatelessWidget {
       },
 
       onStatusChanged: (FlushbarStatus status) {
-        blog('status is : $status');
+        // blog('status is : $status');
       },
 
       /// UNKNOWN ----------------------------------------------

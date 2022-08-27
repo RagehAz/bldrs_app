@@ -234,13 +234,13 @@ class Chain {
   static dynamic _cipherSonsOLD(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
     final bool _sonsAreChains = checkSonsAreChains(sons);
-    final bool _sonsAreString = checkSonsArePhids(sons);
+    final bool _sonsArePhids = checkSonsArePhidsss(sons);
     final bool _sonsAreDataCreator = checkSonsAreDataCreator(sons);
 
     if (_sonsAreChains == true){
       return cipherChainsOLD(sons); // List<Map<String, dynamic>>
     }
-    else if (_sonsAreString == true){
+    else if (_sonsArePhids == true){
       return sons; // List<String>
     }
     else if ( _sonsAreDataCreator == true){
@@ -272,51 +272,114 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static DataCreator decipherDataCreator(dynamic string){
+  static DataCreator decipherDataCreator(dynamic sons){
 
-    if (string is DataCreator){
-      return string;
+    /// IS DATA CREATOR
+    if (sons is DataCreator){
+      return sons;
     }
     else {
 
-      /// DataCreator_doubleKeyboard
-      if (string == 'DataCreator_doubleKeyboard' || string == ['DataCreator_doubleKeyboard']){
-        return DataCreator.doubleKeyboard;
+      /// IS String
+      if (sons is String){
+
+        /// DataCreator_doubleKeyboard
+        if (sons == 'DataCreator_doubleKeyboard'){
+          return DataCreator.doubleKeyboard;
+        }
+
+        /// DataCreator_doubleSlider
+        else if (sons == 'DataCreator_doubleSlider'){
+          return DataCreator.doubleSlider;
+        }
+
+        /// DataCreator_doubleSlider
+        else if (sons == 'DataCreator_doubleRangeSlider'){
+          return DataCreator.doubleRangeSlider;
+        }
+
+        /// DataCreator_integerKeyboard
+        else if (sons == 'DataCreator_integerKeyboard'){
+          return DataCreator.integerKeyboard;
+        }
+
+        /// DataCreator_integerSlider
+        else if (sons == 'DataCreator_integerSlider'){
+          return DataCreator.integerSlider;
+        }
+
+        /// DataCreator_integerRangeSlider
+        else if (sons == 'DataCreator_integerRangeSlider'){
+          return DataCreator.integerRangeSlider;
+        }
+
+        /// DataCreator_boolSwitch
+        else if (sons == 'DataCreator_boolSwitch'){
+          return DataCreator.boolSwitch;
+        }
+
+        /// DataCreator_country
+        else if (sons == 'DataCreator_country'){
+          return DataCreator.country;
+        }
+
+        /// NOTHING => is String but not DataCreator
+        else {
+          return null;
+        }
+
       }
 
-      /// DataCreator_doubleSlider
-      else if (string == 'DataCreator_doubleSlider' || string == ['DataCreator_doubleSlider']){
-        return DataCreator.doubleSlider;
-      }
+      /// IS List<String>
+      else if (sons is List<String>){
 
-      /// DataCreator_doubleSlider
-      else if (string == 'DataCreator_doubleRangeSlider' || string == ['DataCreator_doubleRangeSlider']){
-        return DataCreator.doubleRangeSlider;
-      }
+          final String _sonsAsString = sons.toString();
 
-      /// DataCreator_integerKeyboard
-      else if (string == 'DataCreator_integerKeyboard' || string == ['DataCreator_integerKeyboard']){
-        return DataCreator.integerKeyboard;
-      }
+        /// DataCreator_doubleKeyboard
+        if (_sonsAsString == '[DataCreator_doubleKeyboard]'){
+          return DataCreator.doubleKeyboard;
+        }
 
-      /// DataCreator_integerSlider
-      else if (string == 'DataCreator_integerSlider' || string == ['DataCreator_integerSlider']){
-        return DataCreator.integerSlider;
-      }
+        /// DataCreator_doubleSlider
+          if (_sonsAsString == '[DataCreator_doubleSlider]'){
+          return DataCreator.doubleSlider;
+        }
 
-      /// DataCreator_integerRangeSlider
-      else if (string == 'DataCreator_integerRangeSlider' || string == ['DataCreator_integerRangeSlider']){
-        return DataCreator.integerRangeSlider;
-      }
+        /// DataCreator_doubleSlider
+          if (_sonsAsString == '[DataCreator_doubleRangeSlider]'){
+          return DataCreator.doubleRangeSlider;
+        }
 
-      /// DataCreator_boolSwitch
-      else if (string == 'DataCreator_boolSwitch' || string == ['DataCreator_boolSwitch']){
-        return DataCreator.boolSwitch;
-      }
+        /// DataCreator_integerKeyboard
+          if (_sonsAsString == '[DataCreator_integerKeyboard]'){
+          return DataCreator.integerKeyboard;
+        }
 
-      /// DataCreator_country
-      else if (string == 'DataCreator_country' || string == ['DataCreator_country']){
-        return DataCreator.country;
+        /// DataCreator_integerSlider
+          if (_sonsAsString == '[DataCreator_integerSlider]'){
+          return DataCreator.integerSlider;
+        }
+
+        /// DataCreator_integerRangeSlider
+          if (_sonsAsString == '[DataCreator_integerRangeSlider]'){
+          return DataCreator.integerRangeSlider;
+        }
+
+        /// DataCreator_boolSwitch
+          if (_sonsAsString == '[DataCreator_boolSwitch]'){
+          return DataCreator.boolSwitch;
+        }
+
+        /// DataCreator_country
+          if (_sonsAsString == '[DataCreator_country]'){
+          return DataCreator.country;
+        }
+
+        /// NOTHING => is List<String> but not DataCreator
+        else {
+          return null;
+        }
+
       }
 
       /// NOTHING
@@ -499,13 +562,13 @@ class Chain {
 
     bool _isDataCreator = false;
 
-    if (sons is DataCreator){
-      _isDataCreator = true;
-    }
+    if (sons != null){
 
-    else if (sons != null){
+      if (sons is DataCreator){
+        _isDataCreator = true;
+      }
 
-      if (sons.runtimeType.toString() == 'DataCreator'){
+      else if (sons.runtimeType.toString() == 'DataCreator'){
         _isDataCreator = true;
       }
 
@@ -578,7 +641,7 @@ class Chain {
 
     return _indeed;
   }
-
+// --------------------------------------------
   static bool checkSonsAreCurrencies(dynamic sons){
     bool _areCurrencies = false;
 
@@ -607,7 +670,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkSonsArePhids(dynamic sons){
+  static bool checkSonsArePhidsss(dynamic sons){
 
     bool _arePhids = false;
 
@@ -663,18 +726,18 @@ class Chain {
 
     final bool sonsAisChains = checkSonsAreChains(chain1.sons);
     final bool sonsAisDataCreator = checkSonsAreDataCreator(chain1.sons);
-    final bool sonsAIsStrings = checkSonsArePhids(chain1.sons);
+    final bool sonsAisPhids = checkSonsArePhidsss(chain1.sons);
 
     final bool sonsBisChains = checkSonsAreChains(chain2.sons);
     final bool sonsBisDataCreator = checkSonsAreDataCreator(chain2.sons);
-    final bool sonsBIsStrings = checkSonsArePhids(chain2.sons);
+    final bool sonsBIsPhids = checkSonsArePhidsss(chain2.sons);
 
     if (
     sonsAisChains == sonsBisChains
         &&
         sonsAisDataCreator == sonsBisDataCreator
         &&
-        sonsBIsStrings == sonsAIsStrings
+        sonsBIsPhids == sonsAisPhids
     ){
 
       /// IF SONS ARE CHAINS
@@ -685,8 +748,8 @@ class Chain {
         );
       }
 
-      /// IF SONS ARE STRINGS
-      if (sonsAIsStrings == true){
+      /// IF SONS ARE PHIDS
+      if (sonsAisPhids == true){
         _sonsAreIdentical = Mapper.checkListsAreIdentical(
             list1: chain1.sons,
             list2: chain2.sons
@@ -805,7 +868,7 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
-      else if (checkSonsArePhids(chain.sons) == true){
+      else if (checkSonsArePhidsss(chain.sons) == true){
         _includes = Stringer.checkStringsContainString(
           strings: chain.sons,
           string: phid,
@@ -895,7 +958,7 @@ class Chain {
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsArePhids(sons)){
+      else if (checkSonsArePhidsss(sons)){
         blog('$_space $level : $id : <String>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
@@ -1094,54 +1157,54 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getOnlyStringsSonsIDsFromChain({
+  static List<String> getOnlyPhidsSonsFromChain({
     @required Chain chain,
   }){
-    final List<String> _stringsIDs = <String>[];
+    final List<String> _phids = <String>[];
 
     if (chain != null){
 
-      if (checkSonsArePhids(chain.sons) == true){
+      if (checkSonsArePhidsss(chain.sons) == true){
 
-        _stringsIDs.addAll(chain.sons);
+        _phids.addAll(chain.sons);
 
       }
       else if (checkSonsAreChains(chain.sons) == true){
 
-        final List<String> _allNestedStrings = getOnlyStringsSonsIDsFromChains(
+        final List<String> _allNestedStrings = getOnlyPhidsSonsFromChains(
           chains: chain.sons,
         );
 
-        _stringsIDs.addAll(_allNestedStrings);
+        _phids.addAll(_allNestedStrings);
 
       }
 
     }
 
-    return _stringsIDs;
+    return _phids;
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getOnlyStringsSonsIDsFromChains({
+  static List<String> getOnlyPhidsSonsFromChains({
     @required List<Chain> chains,
   }){
-    final List<String> _stringsIDs = <String>[];
+    final List<String> _phids = <String>[];
 
     if (Mapper.checkCanLoopList(chains) == true){
 
       for (final Chain chain in chains){
 
-        final List<String> _strings = getOnlyStringsSonsIDsFromChain(
+        final List<String> _strings = getOnlyPhidsSonsFromChain(
           chain: chain,
         );
 
-        _stringsIDs.addAll(_strings);
+        _phids.addAll(_strings);
 
       }
 
     }
 
-    return _stringsIDs;
+    return _phids;
   }
 // -----------------------------------------------------------------------------
 

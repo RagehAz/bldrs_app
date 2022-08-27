@@ -186,7 +186,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
       if (Mapper.checkCanLoopList(_sons) == true){
 
-        _phidsOfAllPickers = Chain.getOnlyStringsSonsIDsFromChains(
+        _phidsOfAllPickers = Chain.getOnlyPhidsSonsFromChains(
             chains: _sons
         );
 

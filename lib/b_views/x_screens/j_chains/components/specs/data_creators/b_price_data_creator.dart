@@ -14,18 +14,22 @@ class PriceDataCreator extends StatefulWidget {
     @required this.zone,
     @required this.picker,
     @required this.initialValue,
+    @required this.initialCurrencyID,
     @required this.onKeyboardSubmitted,
     @required this.onExportSpecs,
     @required this.dataCreatorType,
+    @required this.onlyUseCityChains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ZoneModel zone;
   final PickerModel picker;
-  final dynamic initialValue;
+  final SpecModel initialValue;
+  final String initialCurrencyID;
   final Function onKeyboardSubmitted;
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final DataCreator dataCreatorType;
+  final bool onlyUseCityChains;
   /// --------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
@@ -49,6 +53,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       selectedCurrencyID: _selectedCurrencyID,
       textController: _textController,
       initialValue: widget.initialValue,
+      initialCurrencyID: widget.initialCurrencyID,
       priceValue: _priceValue,
       dataCreatorType: widget.dataCreatorType,
     );
@@ -80,13 +85,21 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
+          hasUnit: true,
           hintText: '##Add price',
-          picker: widget.picker,
-          validator: currencyFieldValidator,
+          validator: () => currencyFieldValidator(
+            context: context,
+            selectedCurrencyID: _selectedCurrencyID,
+            textController: _textController,
+          ),
           textController: _textController,
           formKey: _formKey,
           selectedUnitID: _selectedCurrencyID,
           onUnitSelectorButtonTap: () => onCurrencySelectorButtonTap(
+            specValue: _priceValue,
+            onExportSpecs: widget.onExportSpecs,
+            picker: widget.picker,
+            textController: _textController,
             context: context,
             zone: widget.zone,
             formKey: _formKey,

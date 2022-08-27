@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -14,6 +13,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -290,32 +290,35 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final Chain _chainS = ChainsProvider.proGetBigChainS(context: context, listen: false);
+    final Chain _chainS = await ChainProtocols.fetchBigChainK(context);
 
     _chainS.blogChain();
 
-    final Chain _son = Chain.getChainFromChainsByID(
-        chainID: 'phid_s_propertyForm',
-        chains: _chainS.sons,
-    );
 
-    blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    _son.blogChain();
-    blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    blog(_son.sons);
+    // _chainS.blogChain();
 
-    final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
-    final bool _isPhids = Chain.checkSonsArePhids(_son.sons);
-    final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
-      sons: _son.sons,
-      dataCreator: DataCreator.integerSlider,
-    );
-
-    blog('is data creator : $_isDataCreator');
-    blog('is Phids : $_isPhids');
-    blog('is Of Type : $_isOfType');
-
-    blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
+    // final Chain _son = Chain.getChainFromChainsByID(
+    //     chainID: 'phid_s_propertyForm',
+    //     chains: _chainS.sons,
+    // );
+    //
+    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    // _son.blogChain();
+    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    // blog(_son.sons);
+    //
+    // final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
+    // final bool _isPhids = Chain.checkSonsArePhidsss(_son.sons);
+    // final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
+    //   sons: _son.sons,
+    //   dataCreator: DataCreator.integerSlider,
+    // );
+    //
+    // blog('is data creator : $_isDataCreator');
+    // blog('is Phids : $_isPhids');
+    // blog('is Of Type : $_isOfType');
+    //
+    // blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
 
   }
 

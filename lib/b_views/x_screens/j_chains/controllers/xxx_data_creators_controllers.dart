@@ -28,29 +28,53 @@ void initializeCurrencyData({
   @required ValueNotifier<String> selectedCurrencyID,
   @required ZoneModel zone,
   @required TextEditingController textController,
-  @required dynamic initialValue,
+  @required SpecModel initialValue,
   @required ValueNotifier<double> priceValue,
   @required DataCreator dataCreatorType,
+  @required String initialCurrencyID,
 }){
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-
-
-  final String _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
-
-  final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
+  /// INITIALIZE CURRENCY
+  _initializeInitialCurrency(
     context: context,
-    countryID: _countryID,
-    listen: false,
+    selectedCurrencyID: selectedCurrencyID,
+    zone: zone,
+    initialCurrencyID: initialCurrencyID,
   );
 
-  selectedCurrencyID.value = _initialCurrency.id ?? _zoneProvider?.currentCurrency?.id;
-  textController.text = initialValue?.toString() ?? '';
-  priceValue.value = fixValueDataType(
-    controller:  textController,
+  /// INITIALIZE PRICE VALUE
+  priceValue.value = _fixValueDataType(
+    value: initialValue?.value,
     dataCreatorType: dataCreatorType,
   );
+  textController.text = priceValue.value?.toString() ?? '';
 
+}
+// ------------------------------
+void _initializeInitialCurrency({
+  @required BuildContext context,
+  @required String initialCurrencyID,
+  @required ZoneModel zone,
+  @required ValueNotifier<String> selectedCurrencyID,
+}){
+
+  String _initialCurrencyID = initialCurrencyID;
+
+  if (_initialCurrencyID == null){
+
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final String _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
+    final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
+      context: context,
+      countryID: _countryID,
+      listen: false,
+    );
+
+    _initialCurrencyID = _initialCurrency?.id ?? CurrencyModel.usaCurrencyID;
+
+  }
+
+  selectedCurrencyID.value = _initialCurrencyID;
 }
 // ------------------------------
 Future<void> onCurrencySelectorButtonTap({
@@ -58,6 +82,11 @@ Future<void> onCurrencySelectorButtonTap({
   @required ZoneModel zone,
   @required ValueNotifier<String> selectedCurrencyID,
   @required GlobalKey<FormState> formKey,
+  @required TextEditingController textController,
+  @required ValueNotifier<dynamic> specValue,
+  @required PickerModel picker,
+  @required ValueChanged<List<SpecModel>> onExportSpecs,
+
 }) async {
 
   final CurrencyModel _currency = await Nav.goToNewScreen(
@@ -67,50 +96,62 @@ Future<void> onCurrencySelectorButtonTap({
     ),
   );
 
-  _currency?.blogCurrency();
-
   if (_currency != null){
 
     selectedCurrencyID.value = _currency.id;
+
     validateField(formKey);
 
-    // widget.onCurrencyChanged(currency); ??????????????????????
-
+    _createSpecsFromLocalDataAndExport(
+      textController: textController,
+      specValue: specValue,
+      picker: picker,
+      selectedUnitID: selectedCurrencyID.value,
+      onExportSpecs: onExportSpecs,
+    );
 
   }
-
 
 }
 // ------------------------------
 String currencyFieldValidator({
-  @required ValueNotifier<CurrencyModel> selectedCurrency,
+  @required BuildContext context,
+  @required ValueNotifier<String> selectedCurrencyID,
   @required TextEditingController textController,
 }) {
+  String _output;
 
-  final int _maxDigits = selectedCurrency.value.digits;
+  final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
+      context: context,
+      currencyID: selectedCurrencyID.value,
+      listen: false
+  );
 
-  final String _numberString = textController.text;
-  final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
-  final int _numberOfFractions = _fractionsStrings.length;
+  if (selectedCurrency != null){
 
-  final bool _invalidDigits = _numberOfFractions > _maxDigits;
+    final int _maxDigits = selectedCurrency.digits;
 
-  blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
+    final String _numberString = textController.text;
+    final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
+    final int _numberOfFractions = _fractionsStrings.length;
+    final bool _invalidDigits = _numberOfFractions > _maxDigits;
 
-  if (_invalidDigits == true) {
-    final String _error = 'Can not add more than $_maxDigits fractions';
+    // blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
 
-    blog(_error);
+    if (_invalidDigits == true) {
+      final String _error = 'Can not add more than $_maxDigits fractions';
+      // blog(_error);
+      _output = _error;
+    }
 
-    return _error;
+    // else {
+    //   blog('tamam');
+    //   return null;
+    // }
+
   }
 
-  else {
-    blog('tamam');
-
-    return null;
-  }
-
+  return _output;
 }
 // ------------------------------
 /// TASK : DELETE ME WHEN EVERYTHING IS GOOD : OLD CURRENCIES DIALOG
@@ -233,7 +274,7 @@ String currencyFieldValidator({
 // ------------------------------
 void initializeNumberData({
   @required BuildContext context,
-  @required dynamic initialValue,
+  @required SpecModel initialValue,
   @required TextEditingController textController,
   @required ValueNotifier<String> selectedUnitID,
   @required PickerModel picker,
@@ -242,11 +283,14 @@ void initializeNumberData({
   @required String initialUnit,
 }){
   // ---------------------------------
-  textController.text = initialValue?.toString() ?? '';
-  specValue.value = fixValueDataType(
-    controller:  textController,
+  specValue.value = _fixValueDataType(
+    value: initialValue?.value,
     dataCreatorType: dataCreatorType,
   );
+
+  blog('a77aaaa :${specValue.value}');
+
+  textController.text = specValue.value?.toString() ?? '';
 // ---------------------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
     context: context,
@@ -338,7 +382,7 @@ Future<void> onUnitSelectorButtonTap({
 // ---------------------------------
   Keyboard.closeKeyboard(context);
 
-  final bool _arePhids = Chain.checkSonsArePhids(_unitChain.sons) == true;
+  final bool _arePhids = Chain.checkSonsArePhidsss(_unitChain.sons) == true;
 
   /// SONS ARE PHIDS
   if (_arePhids == true){
@@ -443,20 +487,19 @@ void onKeyboardChanged({
 
   validateField(formKey);
 
-  fixValueDataTypeAndSetValue(
+  _fixValueDataTypeAndSetValue(
     controller: textController,
     dataCreatorType: dataCreatorType,
     specValue: specValue,
   );
 
-  final List<SpecModel> _specs = createSpecsForValueAndUnit(
-    controller: textController,
-    value: specValue.value,
+  _createSpecsFromLocalDataAndExport(
+    textController: textController,
+    specValue: specValue,
     picker: picker,
     selectedUnitID: selectedUnitID,
+    onExportSpecs: onExportSpecs,
   );
-
-  onExportSpecs(_specs);
 
 }
 // ------------------------------
@@ -489,9 +532,106 @@ Future<void> onKeyboardSubmitted({
         await onKeyboardSubmitted();
       });
 }
-// ------------------------------
+// ----------------------------------------
 /// TASK : TEST THIS
-List<SpecModel> createSpecsForValueAndUnit({
+void _fixValueDataTypeAndSetValue({
+  @required TextEditingController controller,
+  @required DataCreator dataCreatorType,
+  @required ValueNotifier<dynamic> specValue,
+}){
+  // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
+
+  /// OLD WAY AND WORKS
+  // /// IF INT
+  // if (isIntDataCreator(dataCreatorType) == true){
+  //   final double _doubleFromString = Numeric.transformStringToDouble(controller.text);
+  //   specValue.value = _doubleFromString.toInt();
+  // }
+  //
+  // /// IF DOUBLE
+  // else if (isDoubleDataCreator(dataCreatorType) == true){
+  //   specValue.value = Numeric.transformStringToDouble(controller.text);
+  // }
+  //
+  // /// OTHERWISE
+  // else {
+  //   specValue.value = controller.text;
+  // }
+
+  /// TASK : TEST THIS
+  specValue.value = _fixValueDataType(
+    value: controller.text,
+    dataCreatorType: dataCreatorType,
+  );
+
+}
+// ----------------------------------------
+/// TASK : TEST THIS
+dynamic _fixValueDataType({
+  @required dynamic value,
+  @required DataCreator dataCreatorType,
+}){
+
+  /// IF INT
+  if (isIntDataCreator(dataCreatorType) == true){
+    int _output;
+
+    if (value is String){
+      _output = Numeric.transformStringToInt(value);
+    }
+    else if (value is num){
+      _output = value.toInt();
+    }
+
+    return _output;
+  }
+
+  /// IF DOUBLE
+  else if (isDoubleDataCreator(dataCreatorType) == true){
+    double _output;
+
+    if (value is String){
+      _output = Numeric.transformStringToDouble(value);
+    }
+    else if (value is num){
+      _output = value.toDouble();
+    }
+
+    return _output;
+  }
+
+
+  /// OTHERWISE
+  else {
+    return value;
+  }
+
+}
+// ------------------------------
+void validateField(GlobalKey<FormState> formKey) {
+  formKey.currentState.validate();
+}
+// -----------------------------------------------------------------------------
+void _createSpecsFromLocalDataAndExport({
+  @required TextEditingController textController,
+  @required ValueNotifier<dynamic> specValue,
+  @required PickerModel picker,
+  @required String selectedUnitID,
+  @required ValueChanged<List<SpecModel>> onExportSpecs,
+}){
+
+  final List<SpecModel> _specs = _createSpecsForValueAndUnit(
+    controller: textController,
+    value: specValue.value,
+    picker: picker,
+    selectedUnitID: selectedUnitID,
+  );
+
+  onExportSpecs(_specs);
+}
+// -----------------------------------------------------------------------------
+/// TASK : TEST THIS
+List<SpecModel> _createSpecsForValueAndUnit({
   @required TextEditingController controller,
   @required PickerModel picker,
   @required dynamic value,
@@ -523,65 +663,5 @@ List<SpecModel> createSpecsForValueAndUnit({
   }
 
   return _output;
-}
-// ----------------------------------------
-/// TASK : TEST THIS
-void fixValueDataTypeAndSetValue({
-  @required TextEditingController controller,
-  @required DataCreator dataCreatorType,
-  @required ValueNotifier<dynamic> specValue,
-}){
-  // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
-
-  /// OLD WAY AND WORKS
-  // /// IF INT
-  // if (isIntDataCreator(dataCreatorType) == true){
-  //   final double _doubleFromString = Numeric.transformStringToDouble(controller.text);
-  //   specValue.value = _doubleFromString.toInt();
-  // }
-  //
-  // /// IF DOUBLE
-  // else if (isDoubleDataCreator(dataCreatorType) == true){
-  //   specValue.value = Numeric.transformStringToDouble(controller.text);
-  // }
-  //
-  // /// OTHERWISE
-  // else {
-  //   specValue.value = controller.text;
-  // }
-
-  /// TASK : TEST THIS
-  specValue.value = fixValueDataType(
-    controller: controller,
-    dataCreatorType: dataCreatorType,
-  );
-
-}
-// ----------------------------------------
-/// TASK : TEST THIS
-dynamic fixValueDataType({
-  @required TextEditingController controller,
-  @required DataCreator dataCreatorType,
-}){
-  /// IF INT
-  if (isIntDataCreator(dataCreatorType) == true){
-    final double _doubleFromString = Numeric.transformStringToDouble(controller.text);
-    return _doubleFromString.toInt();
-  }
-
-  /// IF DOUBLE
-  else if (isDoubleDataCreator(dataCreatorType) == true){
-    return  Numeric.transformStringToDouble(controller.text);
-  }
-
-  /// OTHERWISE
-  else {
-    return  controller.text;
-  }
-
-}
-// ------------------------------
-void validateField(GlobalKey<FormState> formKey) {
-  formKey.currentState.validate();
 }
 // -----------------------------------------------------------------------------
