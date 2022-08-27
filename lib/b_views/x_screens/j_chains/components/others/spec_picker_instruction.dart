@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/x_screens/j_chains/b_pickers_screen.dart';
+import 'package:bldrs/b_views/x_screens/j_chains/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -26,7 +26,7 @@ class ChainInstructions extends StatelessWidget {
 
     return Container(
       width: _screenWidth,
-      height: SpecPickerScreen.instructionBoxHeight,
+      height: PickerScreen.instructionBoxHeight,
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
           horizontal: Ratioz.appBarMargin,
@@ -56,7 +56,7 @@ class ChainInstructions extends StatelessWidget {
 
           /// INSTRUCTION VERSE
           Container(
-            height: SpecPickerScreen.instructionBoxHeight,
+            height: PickerScreen.instructionBoxHeight,
             constraints: BoxConstraints(
               maxWidth: _screenWidth * 0.7,
             ),
