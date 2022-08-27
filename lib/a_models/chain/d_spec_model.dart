@@ -536,20 +536,6 @@ class SpecModel {
   }
 // --------------------------------
   /// TESTED : WORKS PERFECT
-  static String translateSpec({
-    @required BuildContext context,
-    @required SpecModel spec,
-  }) {
-
-    final String _name = spec.value is String ?
-    spec.value
-        :
-    spec.value.toString();
-
-    return _name;
-  }
-// --------------------------------
-  /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDs(List<SpecModel> specs){
     final List<String> _output = <String>[];
 
