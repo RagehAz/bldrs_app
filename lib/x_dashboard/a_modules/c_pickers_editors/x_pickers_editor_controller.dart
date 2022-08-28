@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,7 @@ Future<void> onSyncSpecPickers({
 }
 // ---------------------------------------------------------------------------
 
-/// MODIFIERS
+/// NAV
 
 // -----------------------------
 /// TESTED : WORKS PERFECT
@@ -70,6 +71,53 @@ Future<void> onPickerTileTap({
       originalSpecs: const <SpecModel>[],
     ),
   );
+
+}
+// -----------------------------
+/// TESTED : WORKS PERFECT
+Future<String> pickAPhid(BuildContext context) async {
+
+  final String _phid = await Nav.goToNewScreen(
+      context: context,
+      screen: const PhraseEditorScreen(),
+  );
+
+  return _phid;
+}
+// ---------------------------------------------------------------------------
+
+/// MODIFIERS
+
+// -----------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onUpdateGroupID({
+  @required BuildContext context,
+  @required String oldGroupID,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
+}) async {
+
+  final String _phid = await pickAPhid(context);
+
+  if (oldGroupID != _phid){
+
+    final bool _continue = await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: 'replace ( $oldGroupID ) with ( $_phid ) ?'
+    );
+
+    if (_continue == true){
+
+      final List<PickerModel> _updated = PickerModel.replaceAGroupID(
+        pickers: tempPickers.value,
+        oldGroupName: oldGroupID,
+        newGroupName: _phid,
+      );
+
+      tempPickers.value = _updated;
+
+    }
+
+  }
 
 }
 // -----------------------------

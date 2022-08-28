@@ -298,6 +298,7 @@ class BzEditorScreenView extends StatelessWidget {
                                 bulletPoints:  <String>[
                                   '##Select at least 1 keyword to help search engines show your content in its dedicated place',
                                 ],
+                                translateBullets: true,
                               ),
 
                               if (Mapper.checkCanLoopList(_phids))

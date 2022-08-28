@@ -150,7 +150,7 @@ class _SearchBarState extends State<SearchBar> {
             // },
             // labelColor: Colorz.yellow255,
             width: _textFieldWidth,
-            isFloatingField: false,
+            // isFloatingField: false,
             textController: _searchTextController,
             textItalic: true,
             textInputAction: TextInputAction.search,

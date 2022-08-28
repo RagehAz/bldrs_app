@@ -22,6 +22,7 @@ class ZoneSelectionBubble extends StatefulWidget {
     @required this.onZoneChanged,
     this.titleVerse = 'Preferred Location',
     this.bulletPoints,
+    this.translateBullets = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   final ValueChanged<ZoneModel> onZoneChanged;
   final String titleVerse;
   final List<String> bulletPoints;
+  final bool translateBullets;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -361,6 +363,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             },
             child: BubbleBulletPoints(
               bulletPoints: widget.bulletPoints,
+              translateBullets: widget.translateBullets,
             ),
           );
 

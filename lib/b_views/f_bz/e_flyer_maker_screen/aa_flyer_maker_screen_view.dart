@@ -207,6 +207,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                                   bulletPoints: <String>[
                                     '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
                                   ],
+                                  translateBullets: true,
                                 ),
 
                                 InfoPageSpecs(

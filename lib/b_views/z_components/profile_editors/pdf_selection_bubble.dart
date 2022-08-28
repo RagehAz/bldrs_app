@@ -119,6 +119,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   '##Anybody can view and download this PDF file.',
                   '##PDF file size can only be less than 3 Mb.',
                 ],
+                translateBullets: true,
               ),
 
               if (_fileExists == true || _urlExists == true)

@@ -31,6 +31,7 @@ class TextFieldBubble extends StatelessWidget {
     this.initialTextValue,
     this.validator,
     this.bulletPoints,
+    this.translateBullets = true,
     this.fieldIsRequired = false,
     // this.loading = false,
     this.actionBtIcon,
@@ -70,6 +71,7 @@ class TextFieldBubble extends StatelessWidget {
   final String initialTextValue;
   final String Function() validator;
   final List<String> bulletPoints;
+  final bool translateBullets;
   final bool fieldIsRequired;
   // final bool loading;
   final String actionBtIcon;
@@ -267,6 +269,7 @@ class TextFieldBubble extends StatelessWidget {
             BubbleBulletPoints(
               bubbleWidth: bubbleWidth,
               bulletPoints: bulletPoints,
+              translateBullets: translateBullets,
             ),
 
           if (Mapper.checkCanLoopList(columnChildren) == true)
