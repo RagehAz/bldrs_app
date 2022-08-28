@@ -318,12 +318,14 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> confirmProceed({
     @required BuildContext context,
+    String titleVerse,
+    String bodyVerse,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Proceed ?',
-      // body: body,
+      titleVerse: titleVerse ?? '##Proceed ?',
+      bodyVerse: bodyVerse,
       boolDialog: true,
     );
 

@@ -213,169 +213,6 @@ class PickerModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// MODIFIERS
-
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> applyBlockers({
-    @required List<PickerModel> sourcePickers,
-    @required List<SpecModel> selectedSpecs,
-  }) {
-    final List<PickerModel> _pickers = <PickerModel>[];
-
-    if (Mapper.checkCanLoopList(sourcePickers)) {
-      final List<String> _allPickersIDsToBlock = <String>[];
-
-      /// GET BLOCKED PICKERS
-      for (final PickerModel picker in sourcePickers) {
-        final List<PickersBlocker> _blockers = picker.blockers;
-
-        if (Mapper.checkCanLoopList(_blockers)) {
-          for (final PickersBlocker blocker in _blockers) {
-            final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
-                specs: selectedSpecs,
-                value: blocker.value
-            );
-
-            if (_isSelected == true) {
-              _allPickersIDsToBlock.addAll(blocker.pickersIDsToBlock);
-            }
-          }
-        }
-      }
-
-      /// REFINE
-      for (final PickerModel picker in sourcePickers) {
-        final bool _listShouldBeBlocked = Stringer.checkStringsContainString(
-            strings: _allPickersIDsToBlock,
-            string: picker.chainID
-        );
-
-        if (_listShouldBeBlocked == false) {
-          _pickers.add(picker);
-        }
-      }
-    }
-
-    return _pickers;
-  }
-// -----------------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> replacePicker({
-    @required List<PickerModel> sourcePickers,
-    @required String pickerChainIDtoReplace,
-    @required PickerModel updatedPicker,
-  }){
-    List<PickerModel> _output = <PickerModel>[];
-
-    if (Mapper.checkCanLoopList(sourcePickers) == true){
-      _output = <PickerModel>[...sourcePickers];
-
-      if (pickerChainIDtoReplace != null && updatedPicker != null){
-
-        final int _index = _output.indexWhere((element){
-          return element.chainID == pickerChainIDtoReplace;
-        });
-
-        if (_index != -1){
-
-          blog('replacePicker : removing : $pickerChainIDtoReplace');
-          _output.removeWhere((element){
-            return element.chainID == pickerChainIDtoReplace;
-          });
-
-          blog('replacePicker : inserting : ${updatedPicker.chainID}');
-          _output.insert(_index, updatedPicker);
-
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-// -----------------------------------------------------------------------------
-
-  /// GETTERS
-
-// -----------------------------
-  /// TESTED : WORKS PERFECT
-  static  String getPickersIDByFlyerType(FlyerType flyerType){
-    return FlyerTyper.cipherFlyerType(flyerType);
-  }
-// -----------------------------
-  /// TESTED : WORKS PERFECT
-  static PickerModel getPickerByChainIDOrUnitChainID({
-    @required List<PickerModel> pickers,
-    @required String chainIDOrUnitChainID,
-  }) {
-
-    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
-    // SpecPicker.blogSpecsPickers(specsPickers);
-
-  /// gets the picker where chain ID is the main chain or unit chain ID
-
-    PickerModel _specPicker;
-
-    if (Mapper.checkCanLoopList(pickers) && chainIDOrUnitChainID != null) {
-      _specPicker = pickers.firstWhere(
-              (PickerModel picker) =>
-              picker.chainID == chainIDOrUnitChainID
-                  ||
-              picker.unitChainID == chainIDOrUnitChainID,
-          orElse: () => null
-      );
-    }
-
-    return _specPicker;
-  }
-// -------------------------------------
-  /*
-  static int _getSpecPickerIndexByID({
-    @required List<SpecPicker> specsPickers,
-    @required String specPickerChainID,
-  }) {
-    final int _index = specsPickers.indexWhere((SpecPicker pick) => pick.chainID == specPickerChainID);
-    return _index;
-  }
-   */
-// -----------------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> getPickersByGroupID({
-    @required List<PickerModel> pickers,
-    @required String groupID,
-  }) {
-    final List<PickerModel> _specsPicker = <PickerModel>[];
-
-    if (Mapper.checkCanLoopList(pickers)) {
-      for (final PickerModel list in pickers) {
-        if (list.groupID == groupID) {
-          _specsPicker.add(list);
-        }
-      }
-    }
-
-    return _specsPicker;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> getGroupsIDs({
-    @required List<PickerModel> specsPickers,
-  }) {
-    List<String> _groups = <String>[];
-
-    for (final PickerModel picker in specsPickers) {
-      _groups = Stringer.addStringToListIfDoesNotContainIt(
-        strings: _groups,
-        stringToAdd: picker.groupID,
-      );
-    }
-
-    return _groups;
-  }
-// -----------------------------------------------------------------------------
-
   /// CHECKERS
 
 // -------------------------------------
@@ -496,6 +333,7 @@ class PickerModel {
   void blogPicker() {
     blog('SPEC-PICKER-PRINT --------------------------------------------------START');
 
+    blog('index : $index');
     blog('chainID : $chainID');
     blog('groupID : $groupID');
     blog('range : $range');
@@ -508,9 +346,12 @@ class PickerModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static void blogPickers(List<PickerModel> specsPickers) {
-    if (Mapper.checkCanLoopList(specsPickers)) {
-      for (final PickerModel _picker in specsPickers) {
+  static void blogPickers(List<PickerModel> pickers) {
+
+    final List<PickerModel> _pickers = sortPickersByIndex(pickers);
+
+    if (Mapper.checkCanLoopList(pickers)) {
+      for (final PickerModel _picker in _pickers) {
         _picker.blogPicker();
       }
     }
@@ -673,6 +514,239 @@ class PickerModel {
 
     ];
 
+  }
+// -----------------------------------------------------------------------------
+
+  /// GETTERS
+
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static  String getPickersIDByFlyerType(FlyerType flyerType){
+    return FlyerTyper.cipherFlyerType(flyerType);
+  }
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static PickerModel getPickerByChainIDOrUnitChainID({
+    @required List<PickerModel> pickers,
+    @required String chainIDOrUnitChainID,
+  }) {
+
+    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
+    // SpecPicker.blogSpecsPickers(specsPickers);
+
+    /// gets the picker where chain ID is the main chain or unit chain ID
+
+    PickerModel _specPicker;
+
+    if (Mapper.checkCanLoopList(pickers) && chainIDOrUnitChainID != null) {
+      _specPicker = pickers.firstWhere(
+              (PickerModel picker) =>
+          picker.chainID == chainIDOrUnitChainID
+              ||
+              picker.unitChainID == chainIDOrUnitChainID,
+          orElse: () => null
+      );
+    }
+
+    return _specPicker;
+  }
+// -------------------------------------
+  /*
+  static int _getSpecPickerIndexByID({
+    @required List<SpecPicker> specsPickers,
+    @required String specPickerChainID,
+  }) {
+    final int _index = specsPickers.indexWhere((SpecPicker pick) => pick.chainID == specPickerChainID);
+    return _index;
+  }
+   */
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> getPickersByGroupID({
+    @required List<PickerModel> pickers,
+    @required String groupID,
+  }) {
+    final List<PickerModel> _specsPicker = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(pickers)) {
+      for (final PickerModel list in pickers) {
+        if (list.groupID == groupID) {
+          _specsPicker.add(list);
+        }
+      }
+    }
+
+    return _specsPicker;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getGroupsIDs({
+    @required List<PickerModel> specsPickers,
+  }) {
+    List<String> _groups = <String>[];
+
+    for (final PickerModel picker in specsPickers) {
+      _groups = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _groups,
+        stringToAdd: picker.groupID,
+      );
+    }
+
+    return _groups;
+  }
+// -----------------------------------------------------------------------------
+
+  /// MODIFIERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> applyBlockersAndSort({
+    @required List<PickerModel> sourcePickers,
+    @required List<SpecModel> selectedSpecs,
+  }) {
+    final List<PickerModel> _pickers = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(sourcePickers)) {
+      final List<String> _allPickersIDsToBlock = <String>[];
+
+      /// GET BLOCKED PICKERS
+      for (final PickerModel picker in sourcePickers) {
+        final List<PickersBlocker> _blockers = picker.blockers;
+
+        if (Mapper.checkCanLoopList(_blockers)) {
+          for (final PickersBlocker blocker in _blockers) {
+            final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
+                specs: selectedSpecs,
+                value: blocker.value
+            );
+
+            if (_isSelected == true) {
+              _allPickersIDsToBlock.addAll(blocker.pickersIDsToBlock);
+            }
+          }
+        }
+      }
+
+      /// REFINE
+      for (final PickerModel picker in sourcePickers) {
+        final bool _listShouldBeBlocked = Stringer.checkStringsContainString(
+            strings: _allPickersIDsToBlock,
+            string: picker.chainID
+        );
+
+        if (_listShouldBeBlocked == false) {
+          _pickers.add(picker);
+        }
+      }
+    }
+
+    return sortPickersByIndex(_pickers);
+  }
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> replacePicker({
+    @required List<PickerModel> sourcePickers,
+    @required String pickerChainIDtoReplace,
+    @required PickerModel updatedPicker,
+  }){
+    List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(sourcePickers) == true){
+      _output = <PickerModel>[...sourcePickers];
+
+      if (pickerChainIDtoReplace != null && updatedPicker != null){
+
+        final int _index = _output.indexWhere((element){
+          return element.chainID == pickerChainIDtoReplace;
+        });
+
+        if (_index != -1){
+
+          blog('replacePicker : removing : $pickerChainIDtoReplace');
+          _output.removeWhere((element){
+            return element.chainID == pickerChainIDtoReplace;
+          });
+
+          blog('replacePicker : inserting : ${updatedPicker.chainID}');
+          _output.insert(_index, updatedPicker);
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> replaceAGroupID({
+    @required List<PickerModel> pickers,
+    @required String oldGroupName,
+    @required String newGroupName,
+}){
+    List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(pickers) == true){
+
+      _output = <PickerModel>[...pickers];
+
+      /// GROUP NAMES ARE GIVEN
+      if (
+          Stringer.checkStringIsEmpty(oldGroupName) == false
+          &&
+          Stringer.checkStringIsEmpty(newGroupName) == false
+      ){
+
+        for (final PickerModel picker in pickers){
+
+          if (picker.groupID == oldGroupName){
+
+            final PickerModel _updatedPicker = picker.copyWith(
+              groupID: newGroupName,
+            );
+
+            _output = replacePicker(
+                sourcePickers: _output,
+                pickerChainIDtoReplace: picker.chainID,
+                updatedPicker: _updatedPicker
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// SORTING
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> sortPickersByIndex(List<PickerModel> pickers){
+
+    List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(pickers) == true){
+
+      _output = <PickerModel>[... pickers];
+
+      _output.sort((PickerModel a, PickerModel b){
+
+        final int _indexA = a.index ?? 0;
+        final int _indexB = b.index ?? 0;
+
+        return _indexA.compareTo(_indexB);
+      });
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

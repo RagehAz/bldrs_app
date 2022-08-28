@@ -83,6 +83,7 @@ Future<bool> _preSyncCheckups({
     child: BubbleBulletPoints(
       bubbleWidth: CenterDialog.clearWidth(context),
       bulletPoints: _differencesLog,
+      translateBullets: false,
     ),
   );
 
@@ -170,6 +171,7 @@ Future<void> onPhidTap({
             child: BubbleBulletPoints(
               bulletPoints: ChainPathConverter.splitPathNodes(_path),
               bubbleWidth: BottomDialog.clearWidth(context),
+              translateBullets: false,
             ),
           ),
 

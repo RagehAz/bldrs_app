@@ -56,6 +56,11 @@ class BldrsAppBar extends StatelessWidget {
     return _abWidth;
   }
 // -----------------------------------------------------------------------------
+  static double clearWidth(BuildContext context, {double boxWidth}){
+    final double _appBarWidth = width(context, boxWidth: boxWidth);
+    return _appBarWidth - (2 * Ratioz.appBarPadding);
+  }
+// -----------------------------------------------------------------------------
   static double height(BuildContext context, AppBarType appBarType) {
     final double _abHeight = appBarType == AppBarType.search ?
     Ratioz.appBarBigHeight
@@ -165,6 +170,7 @@ class BldrsAppBar extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _abWidth = width(context);
+    final double _abClearWidth = clearWidth(context);
     final double _abHeight = height(context, appBarType);
     // const double _blurValue = Ratioz.blur1;
     final bool _backButtonIsOn = _backButtonIsOnCheck();
@@ -174,6 +180,12 @@ class BldrsAppBar extends StatelessWidget {
     final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
 // -----------------------------------------------------------------------------
     final bool _scrollable = _scrollableCheck();
+// -----------------------------------------------------------------------------
+    final double _titleWidth =
+        _abClearWidth
+        - _backButtonWidth
+        - AppBarTitle.getTitleHorizontalMargin(backButtonIsOn: _backButtonIsOn)
+        - 60; // bel7ob keda
 // -----------------------------------------------------------------------------
     return Container(
       width: _abWidth,
@@ -233,6 +245,7 @@ class BldrsAppBar extends StatelessWidget {
                     /// PAGE TITLE
                     if (pageTitle != null)
                       AppBarTitle(
+                        width: _titleWidth,
                         pageTitle: pageTitle,
                         backButtonIsOn: _backButtonIsOn,
                       ),

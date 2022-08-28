@@ -18,6 +18,7 @@ class BubbleHeaderVM {
     this.hasSwitch = false,
     this.hasMoreButton = false,
     this.headlineVerse,
+    this.translateHeadline,
     this.headlineColor = Colorz.white255,
     this.switchIsOn,
     this.onSwitchTap,
@@ -32,6 +33,7 @@ class BubbleHeaderVM {
   final bool hasSwitch;
   final bool hasMoreButton;
   final String headlineVerse;
+  final bool translateHeadline;
   final Color headlineColor;
   final bool switchIsOn;
   final ValueChanged<bool> onSwitchTap;
@@ -46,6 +48,7 @@ class BubbleHeaderVM {
     bool hasSwitch,
     bool hasMoreButton,
     String headlineVerse,
+    bool translateHeadline,
     Color headlineColor,
     bool switchIsOn,
     ValueChanged<bool> onSwitchTap,
@@ -60,6 +63,7 @@ class BubbleHeaderVM {
       hasSwitch: hasSwitch ?? this.hasSwitch,
       hasMoreButton: hasMoreButton ?? this.hasMoreButton,
       headlineVerse: headlineVerse ?? this.headlineVerse,
+      translateHeadline: translateHeadline ?? this.translateHeadline,
       headlineColor: headlineColor ?? this.headlineColor,
       switchIsOn: switchIsOn ?? this.switchIsOn,
       onSwitchTap: onSwitchTap ?? this.onSwitchTap,
@@ -123,6 +127,7 @@ class BubbleHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SuperVerse(
             verse: viewModel.headlineVerse,
+            translate: viewModel.translateHeadline,
             color: viewModel.headlineColor,
             maxLines: 2,
             centered: false,

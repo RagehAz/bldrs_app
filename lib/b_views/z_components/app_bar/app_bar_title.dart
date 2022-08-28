@@ -7,35 +7,55 @@ class AppBarTitle extends StatelessWidget {
   const AppBarTitle({
     @required this.pageTitle,
     @required this.backButtonIsOn,
+    @required this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic pageTitle;
   final bool backButtonIsOn;
+  final double width;
   /// --------------------------------------------------------------------------
+  Widget _titleSuperVerse(String title){
+
+    return SuperVerse(
+      verse: title.toUpperCase(),
+      weight: VerseWeight.black,
+      color: Colorz.white200,
+      margin: 0,
+      shadow: true,
+      italic: true,
+      maxLines: 2,
+      centered: false,
+      scaleFactor: 0.9,
+    );
+
+  }
+  // --------------------------------------------------------------------------
+  static double getTitleHorizontalMargin({
+    @required bool backButtonIsOn,
+  }){
+    final double _titleHorizontalMargins = backButtonIsOn == true ? 5 : 15;
+    return _titleHorizontalMargins;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final double _titleHorizontalMargins = backButtonIsOn == true ? 5 : 15;
+    final double _titleHorizontalMargins = getTitleHorizontalMargin(
+      backButtonIsOn: backButtonIsOn,
+    );
 
     return Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
+        child: Container(
+          width: width,
+          // color: Colorz.bloodTest,
+          margin: EdgeInsets.symmetric(
               horizontal: _titleHorizontalMargins
           ),
           child:
 
           pageTitle is String ?
-          SuperVerse(
-            verse: pageTitle.toUpperCase(),
-            weight: VerseWeight.black,
-            color: Colorz.white200,
-            margin: 0,
-            shadow: true,
-            italic: true,
-            maxLines: 2,
-            centered: false,
-          )
+          _titleSuperVerse(pageTitle)
 
               :
 
@@ -44,16 +64,7 @@ class AppBarTitle extends StatelessWidget {
             valueListenable: pageTitle,
             builder: (_, String title, Widget child){
 
-              return SuperVerse(
-                verse: title.toUpperCase(),
-                weight: VerseWeight.black,
-                color: Colorz.white200,
-                margin: 0,
-                shadow: true,
-                italic: true,
-                maxLines: 2,
-                centered: false,
-              );
+              return _titleSuperVerse(title);
 
               },
           )

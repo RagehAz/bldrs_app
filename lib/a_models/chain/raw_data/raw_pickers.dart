@@ -536,7 +536,7 @@ class RawPickers {
                     groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: false,
-                    index: 1,
+                    index: 2,
                 ),
                 // -------------
                 /// DESIGN SPACES
@@ -545,7 +545,7 @@ class RawPickers {
                     groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
-                    index: 2,
+                    index: 3,
                 ),
                 // -------------
                 /// - CONSTRUCTION COST
@@ -557,7 +557,7 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 6,
+                    index: 4,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION DURATION
@@ -569,7 +569,7 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_constructionDurationUnit',
-                    index: 7,
+                    index: 5,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION ACTIVITIES
@@ -580,7 +580,7 @@ class RawPickers {
                     groupID: 'Construction Activities',
                     canPickMany: true,
                     isRequired: false,
-                    index: 8,
+                    index: 6,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION EQUIPMENT
@@ -588,7 +588,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: Chain.equipmentChainID,
-                    groupID: ' ???  ',
+                    groupID: 'Construction Equipment',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -597,7 +597,7 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 4,
+                    index: 7,
                 ),
                 // ------------------------------------------------------------
                 /// - PROJECT AREAS
@@ -609,7 +609,7 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
-                    index: 1,
+                    index: 8,
                 ),
                 // ----------------------------
                 /// LOT AREA
@@ -619,12 +619,9 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
-                    index: 2
+                    index: 9,
                 ),
                 // ------------------------------------------------------------
-
-
-
 
             ],
         };
