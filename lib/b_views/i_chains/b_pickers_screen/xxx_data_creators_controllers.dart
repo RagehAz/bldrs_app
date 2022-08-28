@@ -382,7 +382,7 @@ Future<void> onUnitSelectorButtonTap({
 // ---------------------------------
   Keyboard.closeKeyboard(context);
 
-  final bool _arePhids = Chain.checkSonsArePhidsss(_unitChain.sons) == true;
+  final bool _arePhids = Chain.checkSonsArePhids(_unitChain.sons) == true;
 
   /// SONS ARE PHIDS
   if (_arePhids == true){

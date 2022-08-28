@@ -23,7 +23,7 @@ class RawPickers {
 // -------------------------
     /// TESTED : WORKS PERFECT
     static List<PickerModel> getPickersByFlyerType(FlyerType flyerType) {
-        final List<PickerModel> _specPicker =
+        final Map<String, dynamic> _map =
         flyerType == FlyerType.property ? propertiesPickers()
             :
         flyerType == FlyerType.design ? designsPickers()
@@ -36,9 +36,9 @@ class RawPickers {
             :
         flyerType == FlyerType.equipment ? equipmentPickers()
             :
-        <PickerModel>[];
+        null;
 
-        return _specPicker;
+        return _map['pickers'];
     }
 // -----------------------------------------------------------------------------
 

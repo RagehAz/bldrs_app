@@ -11,8 +11,8 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/spec_pickers_editor_controller.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/widgets/picker_editor.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/x_pickers_editor_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/z_components/picker_editor.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerEditorScreen extends StatefulWidget {
