@@ -425,7 +425,7 @@ class ChainPathConverter {
       // _allPaths.add(_chainPath);
 
       /// STRINGS SONS PATHS
-      if (Chain.checkSonsArePhidsss(chain.sons) == true){
+      if (Chain.checkSonsArePhids(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
         final List<String> _sonsPaths = _generateChainPathsFromPhidsSons(
@@ -453,7 +453,7 @@ class ChainPathConverter {
       if (Chain.checkSonsAreDataCreator(chain.sons) == true){
 
         final DataCreator _sons = Chain.decipherDataCreator(chain.sons);
-        final String _dc = Chain.cipherDataCreatorOLD(_sons);
+        final String _dc = Chain.cipherDataCreator(_sons);
         final String _path = '$previousPath${chain.id}/$_dc/';
 
         _allPaths.add(_path);
@@ -704,7 +704,7 @@ class ChainPathConverter {
       }
 
       /// SONS ARE PHIDS
-      else if (Chain.checkSonsArePhidsss(chain.sons) == true){
+      else if (Chain.checkSonsArePhids(chain.sons) == true){
         final List<String> _sonsStrings = chain.sons;
         final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
         _include = _index != -1;

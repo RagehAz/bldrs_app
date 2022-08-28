@@ -2,15 +2,17 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_spec_pickers_editor/spec_pickers_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/a_pickers_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +43,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
+      blogLoading(loading: _loading.value, callerName: 'SpecPickerManager',);
     }
   }
 // -----------------------------------------------------------------------------
@@ -98,8 +100,8 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   @override
   Widget build(BuildContext context) {
 
-    // final double _screenWidth = Scale.superScreenWidth(context);
-
+    final double _screenWidth = Scale.superScreenWidth(context);
+    blog('c');
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
@@ -110,8 +112,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
           // buttonColor:
           // verseColor: Colorz.white255,
           onTap: (){
-
-
+            blog('c');
           },
         ),
 
@@ -120,7 +121,13 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         // ---------------------------------------
 
-        const SeparatorLine(),
+        // const SeparatorLine(),
+
+        /// VIEWING SPEC PICKERS
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headlineVerse: 'Fetch Picker and go',
+        ),
 
         /// GO TO PICKERS SCREEN
         ...List.generate(_allFlyerTypes.length, (index){

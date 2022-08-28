@@ -57,7 +57,7 @@ class DataCreatorSplitter extends StatelessWidget {
 // --------------------
     final DataCreator _dataCreatorType = Chain.decipherDataCreator(_valueChain?.sons);
 // ----------------------------------------
-    final bool _isPhids = Chain.checkSonsArePhidsss(_valueChain?.sons);
+    final bool _isPhids = Chain.checkSonsArePhids(_valueChain?.sons);
     final bool _hasCurrencyUnit = picker.unitChainID == 'phid_s_currency';
 // ----------------------------------------
     final bool _isIntegerKeyboard = Chain.checkSonsAreDataCreatorOfType(

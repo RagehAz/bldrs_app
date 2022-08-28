@@ -54,7 +54,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
   Widget build(BuildContext context) {
 
     final bool _sonsAreChain = Chain.checkSonsAreChains(widget.chain?.sons);
-    final bool _sonsArePhids = Chain.checkSonsArePhidsss(widget.chain?.sons);
+    final bool _sonsArePhids = Chain.checkSonsArePhids(widget.chain?.sons);
     final bool _sonsAreDataCreators = Chain.checkSonsAreDataCreator(widget.chain?.sons);
     final int _numberOfSons =
     _sonsAreChain ? widget.chain?.sons?.length
@@ -122,7 +122,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               ChainTreeStrip(
                 width: widget.width,
                 level: widget.initialLevel + 1,
-                phraseID: Chain.cipherDataCreatorOLD(widget.chain?.sons),
+                phraseID: Chain.cipherDataCreator(widget.chain?.sons),
                 phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
