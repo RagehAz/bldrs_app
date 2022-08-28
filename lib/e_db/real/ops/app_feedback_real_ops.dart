@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 class FeedbackRealOps {
 // -----------------------------------------------------------------------------
 
-  FeedbackRealOps();
+  const FeedbackRealOps();
 
 // -----------------------------------------------------------------------------
 

@@ -44,6 +44,50 @@ class TestLab extends StatefulWidget {
 /// --------------------------------------------------------------------------
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
+
+  /// FAST TEST
+
+// -------------------------
+
+  ///
+
+  Future<void> _fastTest(BuildContext context) async {
+
+    final Chain _chainS = await ChainProtocols.fetchBigChainK(context);
+
+    _chainS.blogChain();
+
+
+    // _chainS.blogChain();
+
+    // final Chain _son = Chain.getChainFromChainsByID(
+    //     chainID: 'phid_s_propertyForm',
+    //     chains: _chainS.sons,
+    // );
+    //
+    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    // _son.blogChain();
+    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
+    // blog(_son.sons);
+    //
+    // final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
+    // final bool _isPhids = Chain.checkSonsArePhidsss(_son.sons);
+    // final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
+    //   sons: _son.sons,
+    //   dataCreator: DataCreator.integerSlider,
+    // );
+    //
+    // blog('is data creator : $_isDataCreator');
+    // blog('is Phids : $_isPhids');
+    // blog('is Of Type : $_isOfType');
+    //
+    // blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
+
+  }
+
+  ///
+
+// -----------------------------------------------------------------------------
   ZoneProvider _zoneProvider;
   PhraseProvider _phraseProvider;
   ScrollController _scrollController;
@@ -284,45 +328,6 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   }
 // -----------------------------------------------------------------------------
   final ValueNotifier<List<File>> _theFiles = ValueNotifier(<File>[]);
-// -----------------------------------------------------------------------------
-
-  /// xxx
-
-  Future<void> _fastTest(BuildContext context) async {
-
-    final Chain _chainS = await ChainProtocols.fetchBigChainK(context);
-
-    _chainS.blogChain();
-
-
-    // _chainS.blogChain();
-
-    // final Chain _son = Chain.getChainFromChainsByID(
-    //     chainID: 'phid_s_propertyForm',
-    //     chains: _chainS.sons,
-    // );
-    //
-    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    // _son.blogChain();
-    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    // blog(_son.sons);
-    //
-    // final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
-    // final bool _isPhids = Chain.checkSonsArePhidsss(_son.sons);
-    // final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
-    //   sons: _son.sons,
-    //   dataCreator: DataCreator.integerSlider,
-    // );
-    //
-    // blog('is data creator : $_isDataCreator');
-    // blog('is Phids : $_isPhids');
-    // blog('is Of Type : $_isOfType');
-    //
-    // blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
-
-  }
-
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
