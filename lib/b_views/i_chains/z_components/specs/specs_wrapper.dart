@@ -80,7 +80,7 @@ class SpecsWrapper extends StatelessWidget {
 
                 return SpecLabel(
                     xIsOn: xIsOn,
-                    value: _spec.value,
+                    value: _spec.value.toString(),
                   translate: true,
                     onTap: () => onSpecTap(<SpecModel>[_spec]),
                 );
