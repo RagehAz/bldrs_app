@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/big_mac.dart';
-import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
@@ -154,24 +153,24 @@ class ExoticMethods {
   return _allModels;
 }
 // -----------------------------------------------------------------------------
-  static Future<List<FeedbackModel>> readAllFeedbacks({
-  @required BuildContext context,
-  @required int limit,
-}) async {
+//   static Future<List<FeedbackModel>> readAllFeedbacks({
+//   @required BuildContext context,
+//   @required int limit,
+// }) async {
   // List<FeedbackModel> _allFeedbacks = await ExoticMethods.readAllFeedbacks(context: context, limit: limit);
 
-  final List<dynamic> _maps = await Fire.readCollectionDocs(
-    context: context,
-    limit: limit ?? 100,
-    collName: FireColl.feedbacks,
-    addDocsIDs: true,
-    orderBy: const QueryOrderBy(fieldName: 'timeStamp', descending: true),
-  );
+  // final List<dynamic> _maps = await Real.readColl(
+  //   context: context,
+  //   limit: limit ?? 100,
+  //   nodePath: RealColl.feedbacks,
+  //   addDocsIDs: true,
+  //   orderBy: const QueryOrderBy(fieldName: 'timeStamp', descending: true),
+  // );
+  //
+  // final List<FeedbackModel> _allModels = FeedbackModel.decipherFeedbacks(_maps);
 
-  final List<FeedbackModel> _allModels = FeedbackModel.decipherFeedbacks(_maps);
-
-  return _allModels;
-}
+//   return _allModels;
+// }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readAllFlyers({

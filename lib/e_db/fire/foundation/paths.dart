@@ -11,7 +11,6 @@ abstract class FireColl{
   static const String flyers = 'flyers';
   static const String flyersPromotions = 'flyersPromotions';
 
-  static const String feedbacks = 'feedbacks';
   static const String admin = 'admin';
 
   static const String zones = 'zones';

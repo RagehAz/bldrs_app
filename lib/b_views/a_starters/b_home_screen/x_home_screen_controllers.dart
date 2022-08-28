@@ -356,7 +356,7 @@ List<NavModel> generateMainNavModels({
     /// SAVED FLYERS
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
-      title: 'phid_saved_flyers',
+      title: 'phid_savedFlyers',
       translateTitle: true,
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
