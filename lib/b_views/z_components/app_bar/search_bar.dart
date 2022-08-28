@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -142,14 +143,14 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH TEXT FIELD
           SuperTextField(
-            titleVerse: '##Search',
+            titleVerse: xPhrase(context, 'phid_search'),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {
             //   blog('on saved');
             // },
             // labelColor: Colorz.yellow255,
             width: _textFieldWidth,
-
+            isFloatingField: false,
             textController: _searchTextController,
             textItalic: true,
             textInputAction: TextInputAction.search,
@@ -162,17 +163,19 @@ class _SearchBarState extends State<SearchBar> {
                 }
               }
             },
-            hintVerse: widget.hintText ?? 'Search ...',
+            hintVerse: widget.hintText ?? xPhrase(context, 'phid_search'),
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
             textSizeFactor: 1.15,
             onSubmitted: (String val) {
-              widget.onSearchSubmit(val);
+              if (widget.onSearchSubmit != null){
+                widget.onSearchSubmit(val);
+              }
             },
           ),
 
           /// MIDDLE SPACER
-          if (widget.searchIconIsOn == true)
+          // if (widget.searchIconIsOn == true)
 
           /// SEARCH SUBMIT
           if (widget.searchIconIsOn == true)
