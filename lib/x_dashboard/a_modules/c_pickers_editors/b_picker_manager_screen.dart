@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -119,9 +120,13 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
       ],
       listWidgets: <Widget>[
 
+        // ------------------------------------------------------------
+
+        /// EDIT PICKERS
+
         // ---------------------------------------
 
-        // const SeparatorLine(),
+        const SeparatorLine(),
 
         /// VIEWING SPEC PICKERS
         InfoPageHeadline(
@@ -163,97 +168,53 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         }),
 
-        /// TESTERS
+        const SeparatorLine(),
 
-        // /// VIEWING SPEC PICKERS
-        // InfoPageHeadline(
-        //   pageWidth: _screenWidth - 20,
-        //   headline: 'go to Initial $_translatedFlyerType Pickers',
-        // ),
-        // /// PICKERS SELECTORS
-        // SizedBox(
-        //   width: Scale.superScreenWidth(context),
-        //   height: Ratioz.appBarButtonSize + 5,
-        //   child: ListView.builder(
-        //       physics: const BouncingScrollPhysics(),
-        //       itemCount: _allTypes.length,
-        //       scrollDirection: Axis.horizontal,
-        //       itemBuilder: (_, index){
-        //
-        //         final FlyerType _flyerType = _allTypes[index];
-        //         final bool _isSelected = _flyerType == _selectedFlyerType;
-        //
-        //         return DreamBox(
-        //           height: 40,
-        //           verse: FlyerTyper.cipherFlyerType(_flyerType).toUpperCase(),
-        //           icon: FlyerTyper.flyerTypeIconOff(_flyerType),
-        //           color: _isSelected == true ? Colorz.yellow255 : Colorz.white200,
-        //           verseColor: Colorz.black255,
-        //           verseScaleFactor: 0.7,
-        //           verseWeight: VerseWeight.black,
-        //           margins: const EdgeInsets.symmetric(horizontal: 5),
-        //           verseItalic: true,
-        //           onTap: () async {
-        //
-        //             _onTapPickerSelector(_flyerType);
-        //
-        //           },
-        //         );
-        //
-        //       }
-        //   ),
-        // ),
-        // // ---------------------------------------
-        //
-        // const SeparatorLine(),
-        //
-        //
-        // /// SPEC REAL OPS
-        // InfoPageHeadline(
-        //   pageWidth: _screenWidth - 20,
-        //   headline: 'PICKER PROTOCOLS',
-        // ),
-        //
-        // /// COMPOSE PICKERS
-        // WideButton(
-        //   verse:  'COMPOSE : first pickers for ( $_translatedFlyerType )',
-        //   // isActive: false,
-        //   onTap: () async {
-        //
-        //     await PickerProtocols.composeFlyerTypePickers(
-        //         context: context,
-        //         pickers: PickerModel.getPickersByFlyerType(_selectedFlyerType),
-        //         flyerType: _selectedFlyerType,
-        //     );
-        //
-        //
-        //   },
-        // ),
-        //
-        // /// FETCH PICKERS
-        // WideButton(
-        //   verse:  'FETCH : Pickers for ( $_translatedFlyerType )',
-        //   onTap: () async {
-        //
-        //     final List<PickerModel> _pickers = await PickerProtocols.fetchFlyerTypPickers(
-        //       context: context,
-        //       flyerType: _selectedFlyerType,
-        //     );
-        //
-        //     PickerModel.blogPickers(_pickers);
-        //
-        //   },
-        // ),
+        // ------------------------------------------------------------
+
+        /// COMPOSE PICKERS
 
         // ---------------------------------------
 
-        // /// SPEC REAL OPS
-        // InfoPageHeadline(
-        //   pageWidth: _screenWidth - 20,
-        //   headline: 'PICKER LDB OPS',
-        // ),
-        //
-        // /// CREATE DUMMY PICKERS
+        /// SPEC REAL OPS
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headlineVerse: 'COMPOSING',
+        ),
+
+        /// COMPOSE PICKERS
+        WideButton(
+          verse:  'COMPOSE : first pickers for ( ${FlyerType.project} )',
+          translate: false,
+          isActive: false,
+          onTap: () async {
+
+            PickerModel.blogPickers(RawPickers.getPickersByFlyerType(FlyerType.project));
+
+            final bool _continue = await Dialogs.confirmProceed(context: context);
+
+            if (_continue == true){
+
+              await PickerProtocols.composeFlyerTypePickers(
+                context: context,
+                pickers: RawPickers.getPickersByFlyerType(FlyerType.project),
+                flyerType: FlyerType.project,
+              );
+
+            }
+
+          },
+        ),
+
+        const SeparatorLine(),
+
+        // ------------------------------------------------------------
+
+        /// PICKERS LDB
+
+        // ---------------------------------------
+
+         ///
         // WideButton(
         //   verse:  'INSERT in LDB',
         //   isActive: false,
@@ -268,22 +229,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //
         //   },
         // ),
-        //
-        // /// READ DUMMY PICKERS
-        // WideButton(
-        //   verse:  'READ LDB PICKERS ( $_translatedFlyerType )',
-        //   onTap: () async {
-        //
-        //     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.pickers);
-        //
-        //     // final List<PickerModel> _pickers = await PickerLDBOps.readPickers(
-        //     //   flyerType: _selectedFlyerType,
-        //     // );
-        //     //
-        //     // PickerModel.blogPickers(_pickers);
-        //
-        //   },
-        // ),
+
         //
         // /// UPDATE DUMMY PICKERS
         // WideButton(
@@ -320,78 +266,52 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         //   },
         // ),
         //
-        // // ---------------------------------------
-        //
-        // const SeparatorLine(),
-        //
-        //
-        // /// SPEC PRO
-        // InfoPageHeadline(
-        //   pageWidth: _screenWidth - 20,
-        //   headline: 'PRO ALL PICKERS',
-        // ),
-        //
-        // /// SET PICKERS READ
-        // WideButton(
-        //   verse:  'SET PRO PICKERS for ( $_translatedFlyerType )',
-        //   // isActive: false,
-        //   onTap: () async {
-        //
-        //
-        //
-        //     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-        //     _chainsProvider.setFlyerTypePickers(
-        //         context: context,
-        //         flyerType: _selectedFlyerType,
-        //         pickers: _pickers,
-        //         notify: true,
-        //     );
-        //
-        //     blog('done : SET PRO PICKERS for ( $_translatedFlyerType )');
-        //
-        //   },
-        // ),
-        //
-        // /// SET PICKERS READ
-        // WideButton(
-        //   verse:  'PRO FETCH SET ALL PICKERS',
-        //   // isActive: false,
-        //   onTap: () async {
-        //
-        //     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-        //     await _chainsProvider.fetchSetAllPickers(
-        //       context: context,
-        //       notify: true,
-        //     );
-        //
-        //     blog('done : PRO FETCH SET ALL PICKERS');
-        //
-        //   },
-        // ),
-        //
-        // /// PRO PICKERS READ
+
+        // ------------------------------------------------------------
+
+        /// BLOG LDB
+
+        // ---------------------------------------
+
+        /// VIEWING SPEC PICKERS
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headlineVerse: 'BLOG PICKERS',
+        ),
+
+        /// BLOG
         WideButton(
           translate: false,
-          verse:  'GET PRO PICKERS for ( equipment )',
+          verse:  'BLOG ( FlyerType.project ) PICKERS',
           // isActive: false,
           onTap: () async {
 
-            final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
-              context: context,
-              flyerType: FlyerType.equipment,
-              listen: false,
+            /// GET FROM PRO
+            // final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+            //   context: context,
+            //   flyerType: FlyerType.equipment,
+            //   listen: false,
+            // );
+
+            /// GET FROM RAW
+            final List<PickerModel> _pickers = RawPickers.getPickersByFlyerType(FlyerType.project);
+
+            final List<PickerModel> _updated = PickerModel.replaceAGroupID(
+                pickers: _pickers,
+                oldGroupName: 'Design Specificationsss',
+                newGroupName: 'fuckkkyoooo'
             );
 
-            PickerModel.blogPickers(_pickers);
+            PickerModel.blogPickers(_updated);
+
+
 
           },
         ),
-        //
-        //
-        // // ---------------------------------------
-
 
         const SeparatorLine(),
+
+        // ---------------------------------------
 
         const Horizon(),
 
