@@ -811,7 +811,7 @@ class Verse extends StatelessWidget {
 
           /// X PHRASE NOT FOUND
           if (_foundXPhrase == null){
-            _output = 'x.$_output';
+            _output = '?$_output';
           }
 
           /// X PHRASE FOUND
@@ -828,12 +828,12 @@ class Verse extends StatelessWidget {
           final bool _isTemp = TextChecker.checkVerseIsTemp(_output);
           if (_isTemp == true){
             _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
-            _output = '##.$_output';
+            _output = '##$_output';
           }
 
           /// NOT TEMP - NOT PHID
           else {
-            _output = '>.$_output';
+            _output = '>$_output';
           }
 
         }

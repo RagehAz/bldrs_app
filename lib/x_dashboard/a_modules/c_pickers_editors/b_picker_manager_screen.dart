@@ -137,7 +137,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
           return WideButton(
             translate: false,
-            verse:  '${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
+            verse:  'Edit ${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
             icon: FlyerTyper.flyerTypeIconOff(_flyerType),
                         onTap: () async {
 
@@ -152,7 +152,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
                   screen: SpecPickerEditorScreen(
                     specPickers: _pickers,
                     flyerType: _flyerType,
-                    flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),
+                    flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
                   ),
                 );
               }

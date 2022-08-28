@@ -381,12 +381,12 @@ class RawPickers {
             'docName' : FlyerTyper.cipherFlyerType(FlyerType.design),
             'pickers' : const <PickerModel>[
                 // ------------------------------------------------------------
-                /// - TYPE SPECIFICATIONS
+                /// - DESIGN SPECIFICATIONS
                 // ----------------------------
-                /// TYPE
+                /// DESIGN TYPE
                 PickerModel(
                     chainID: Chain.designChainID,
-                    groupID: 'Type',
+                    groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -396,17 +396,6 @@ class RawPickers {
                         // ),
                     ],
                     index: 0,
-                ),
-                // ------------------------------------------------------------
-                /// - DESIGN SPECIFICATIONS
-                // ----------------------------
-                /// DESIGN TYPE
-                PickerModel(
-                    chainID: 'phid_s_group_dz_type',
-                    groupID: 'Design Specifications',
-                    canPickMany: true,
-                    isRequired: true,
-                    index: 1,
                 ),
                 // -------------
                 /// DESIGN SPACES
@@ -518,8 +507,121 @@ class RawPickers {
         return {
             'docName' : FlyerTyper.cipherFlyerType(FlyerType.project),
             'pickers' : const <PickerModel>[
-
-
+                // ------------------------------------------------------------
+                /// - PROPERTY SPECIFICATIONS
+                // ----------------------------
+                /// PROPERTY LICENSE
+                PickerModel(
+                    chainID: 'phid_s_propertyLicense',
+                    groupID: 'Property Specifications',
+                    canPickMany: true,
+                    isRequired: true,
+                    index: 0,
+                ),
+                // ----------------------------
+                /// PROPERTY FORM
+                PickerModel(
+                    chainID: 'phid_s_propertyForm',
+                    groupID: 'Property Specifications',
+                    canPickMany: false,
+                    isRequired: false,
+                    index: 1,
+                ),
+                // ------------------------------------------------------------
+                /// - DESIGN SPECIFICATIONS
+                // ----------------------------
+                /// DESIGN TYPE
+                PickerModel(
+                    chainID: 'phid_s_group_dz_type',
+                    groupID: 'Design Specifications',
+                    canPickMany: true,
+                    isRequired: false,
+                    index: 1,
+                ),
+                // -------------
+                /// DESIGN SPACES
+                PickerModel(
+                    chainID: 'phid_s_group_space_type',
+                    groupID: 'Design Specifications',
+                    canPickMany: true,
+                    isRequired: true,
+                    index: 2,
+                ),
+                // -------------
+                /// - CONSTRUCTION COST
+                // ----------------------------
+                /// PROJECT COST
+                PickerModel(
+                    chainID: 'phid_s_projectCost',
+                    groupID: 'Construction Cost',
+                    canPickMany: false,
+                    isRequired: false,
+                    unitChainID: 'phid_s_currency',
+                    index: 6,
+                ),
+                // ------------------------------------------------------------
+                /// - CONSTRUCTION DURATION
+                // ----------------------------
+                /// Construction DURATION
+                PickerModel(
+                    chainID: 'phid_s_constructionDuration',
+                    groupID: 'Construction Duration',
+                    canPickMany: false,
+                    isRequired: false,
+                    unitChainID: 'phid_s_constructionDurationUnit',
+                    index: 7,
+                ),
+                // ------------------------------------------------------------
+                /// - CONSTRUCTION ACTIVITIES
+                // ----------------------------
+                /// CONSTRUCTION ACTIVITIES
+                PickerModel(
+                    chainID: Chain.tradesChainID,
+                    groupID: 'Construction Activities',
+                    canPickMany: true,
+                    isRequired: false,
+                    index: 8,
+                ),
+                // ------------------------------------------------------------
+                /// - CONSTRUCTION EQUIPMENT
+                // ----------------------------
+                /// TYPE
+                PickerModel(
+                    chainID: Chain.equipmentChainID,
+                    groupID: ' ???  ',
+                    canPickMany: true,
+                    isRequired: true,
+                    blockers: <PickersBlocker>[
+                        // SpecDeactivator(
+                        //     specValueThatDeactivatesSpecsLists: 'xxxxxxxxx',
+                        //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
+                        // ),
+                    ],
+                    index: 4,
+                ),
+                // ------------------------------------------------------------
+                /// - PROJECT AREAS
+                // ----------------------------
+                /// PROPERTY AREA
+                PickerModel(
+                    chainID: 'phid_s_propertyArea',
+                    groupID: 'Property Area',
+                    canPickMany: false,
+                    isRequired: false,
+                    unitChainID: 'phid_s_propertyAreaUnit',
+                    index: 1,
+                ),
+                // ----------------------------
+                /// LOT AREA
+                PickerModel(
+                    chainID: 'phid_s_plotArea',
+                    groupID: 'Lot Area',
+                    canPickMany: false,
+                    isRequired: false,
+                    unitChainID: 'phid_s_lotAreaUnit',
+                    index: 2
+                ),
+                // ------------------------------------------------------------
 
 
 
@@ -937,6 +1039,9 @@ class RawPickers {
                     index: 0,
                 ),
                 // ------------------------------------------------------------
+
+                /// pricing - contract type
+
             ],
         };
     }
