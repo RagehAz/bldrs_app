@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -20,6 +21,7 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
+import 'package:bldrs/e_db/real/ops/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -1096,20 +1098,26 @@ class FlyerFireOps {
         modelID: flyer.id,
       );
 
-      await Fire.createDoc(
+      final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
         context: context,
-        collName: FireColl.feedbacks,
-        input: _model.toMap(),
+        feedback: _model,
       );
+
+      if (_docRef == null){
+        await Dialogs.tryAgainDialog(context);
+      }
+      else {
+        await CenterDialog.showCenterDialog(
+          context: context,
+          titleVerse:  '##Thanks a Million',
+          bodyVerse:  '##We will look into this matter and take the necessary '
+              'action as soon as possible\n Thank you for helping out',
+          confirmButtonVerse:  '##Most Welcome',
+        );
+      }
+
     }
 
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse:  '##Thanks a Million',
-      bodyVerse:  '##We will look into this matter and take the necessary '
-          'action as soon as possible\n Thank you for helping out',
-      confirmButtonVerse:  '##Most Welcome',
-    );
 
   }
 
