@@ -133,6 +133,16 @@ class Dialogs {
       bodyVerse: _errorReply,
     );
   }
+// ---------------------------------
+  static Future<void> tryAgainDialog(BuildContext context) async {
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: 'Something went wrong!',
+      bodyVerse: 'Please try Again.',
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// ZONE DIALOGS
@@ -347,6 +357,8 @@ class Dialogs {
     return _result;
 
   }
+
+
 // -----------------------------------------------------------------------------
 
   /// USERS DIALOGS
