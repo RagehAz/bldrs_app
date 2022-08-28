@@ -144,11 +144,12 @@ class CollapsedTile extends StatelessWidget {
                         SuperVerse(
                           verse: firstHeadline,
                           centered: false,
-                          maxLines: 2,
+                          maxLines: secondHeadline == null ? 2 : 1,
                           highlight: searchText,
                         ),
 
                         /// SECOND HEADLINE
+                        if (secondHeadline != null)
                         SuperVerse(
                           verse: secondHeadline,
                           weight: VerseWeight.thin,
