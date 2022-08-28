@@ -17,6 +17,7 @@ class PickerModel {
     @required this.groupID,
     @required this.canPickMany,
     @required this.isRequired,
+    @required this.index,
     this.unitChainID,
     this.range,
     this.blockers,
@@ -38,6 +39,7 @@ class PickerModel {
   final List<String> range;
   /// FOR DATA CREATORS, they require measurement unit like day meter dollar
   final String unitChainID;
+  final int index;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -52,6 +54,7 @@ class PickerModel {
     List<PickersBlocker> blockers,
     List<dynamic> range,
     String unitChainID,
+    int index,
   }){
     return PickerModel(
       chainID: chainID ?? this.chainID,
@@ -61,6 +64,7 @@ class PickerModel {
       unitChainID: unitChainID ?? this.unitChainID,
       blockers: blockers ?? this.blockers,
       range: range ?? this.range,
+      index: index ?? this.index,
     );
   }
 // -----------------------------------------------------------------------------
@@ -80,6 +84,7 @@ class PickerModel {
       'blockers': PickersBlocker.cipherBlockers(blockers),
       'range': cipherRange(range),
       'unitChainID': unitChainID,
+      'index': index,
     };
 
     if (includeChainID == true){
@@ -109,6 +114,7 @@ class PickerModel {
         range: decipherRange(map['range']),
         blockers: PickersBlocker.decipherBlockers(map['blockers']),
         unitChainID: map['unitChainID'],
+        index: map['index'],
       );
     }
 
@@ -531,7 +537,9 @@ class PickerModel {
         chain: chainK,
       );
 
+      int _index = 0;
       for (final String subChainID in chainKSonsIDs){
+        _index++;
 
         final PickerModel _picker = PickerModel(
           chainID: subChainID,
@@ -541,6 +549,7 @@ class PickerModel {
           ),
           canPickMany: canPickManyOfAPicker,
           isRequired: false,
+          index: _index,
         );
 
         _pickers.add(_picker);
@@ -611,6 +620,7 @@ class PickerModel {
         ),
         canPickMany: canPickMany,
         isRequired: false,
+        index: 0,
       ),
 
       /// DESIGN
@@ -622,6 +632,7 @@ class PickerModel {
         ),
         canPickMany: canPickMany,
         isRequired: false,
+        index: 1,
       ),
 
       /// TRADES
@@ -633,6 +644,7 @@ class PickerModel {
         ),
         canPickMany: canPickMany,
         isRequired: false,
+        index: 2,
       ),
 
       /// PRODUCTS
@@ -644,6 +656,7 @@ class PickerModel {
         ),
         canPickMany: canPickMany,
         isRequired: false,
+        index: 3,
       ),
 
       /// EQUIPMENT
@@ -655,6 +668,7 @@ class PickerModel {
         ),
         canPickMany: canPickMany,
         isRequired: false,
+        index: 4,
       ),
 
     ];
