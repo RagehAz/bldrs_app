@@ -25,7 +25,7 @@ class FlyerTyper{
 // -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
     FlyerType.property,
-    FlyerType.design, /// TASK : SHOULD COMBINE DESIGN WITH PROJECT
+    FlyerType.design,
     FlyerType.project,
     FlyerType.product,
     FlyerType.trade,

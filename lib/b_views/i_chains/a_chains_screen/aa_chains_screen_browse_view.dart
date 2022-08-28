@@ -103,7 +103,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
           builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
             final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
-              specsPickers: _refinedPickers,
+              pickers: _refinedPickers,
             );
 
             return ListView.builder(
