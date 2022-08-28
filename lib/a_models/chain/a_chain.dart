@@ -22,12 +22,12 @@ class Chain {
   final dynamic sons;
 // -----------------------------------------------------------------------------
 
+  /// TESTED : WORKS PERFECT
   void addPathSon({
     @required dynamic son,
     @required bool isLastSonInPath,
   }) {
 
-    // blog('addPathSon : adding son : $son : isLastSonInPath : $isLastSonInPath');
 
     if (isLastSonInPath == false){
       sons.add(son);
@@ -42,14 +42,6 @@ class Chain {
         sons.add(son);
       }
     }
-
-    // else if (sonsAreDataCreator(sons)){
-    //   // do nothing
-    // }
-    //
-    // else {
-    //   sons.add(son);
-    // }
 
   }
 
@@ -234,7 +226,7 @@ class Chain {
   static dynamic _cipherSonsOLD(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
     final bool _sonsAreChains = checkSonsAreChains(sons);
-    final bool _sonsArePhids = checkSonsArePhidsss(sons);
+    final bool _sonsArePhids = checkSonsArePhids(sons);
     final bool _sonsAreDataCreator = checkSonsAreDataCreator(sons);
 
     if (_sonsAreChains == true){
@@ -244,7 +236,7 @@ class Chain {
       return sons; // List<String>
     }
     else if ( _sonsAreDataCreator == true){
-      return cipherDataCreatorOLD(sons);
+      return cipherDataCreator(sons);
     }
     else {
       return null;
@@ -253,7 +245,7 @@ class Chain {
   }
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String cipherDataCreatorOLD(dynamic sons){
+  static String cipherDataCreator(dynamic sons){
     switch (sons){
 
       case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';      break;
@@ -593,7 +585,7 @@ class Chain {
     return _isDataCreator;
   }
 // --------------------------------------------
-  /// TESTED :
+  /// TESTED : WORKS PERFECT
   static bool checkSonsAreDataCreatorOfType({
     @required dynamic sons,
     @required DataCreator dataCreator,
@@ -616,7 +608,7 @@ class Chain {
           if (Mapper.checkCanLoopList(_sons) == true){
 
             final String _first = _sons.first;
-            final String _cipheredType = Chain.cipherDataCreatorOLD(dataCreator);
+            final String _cipheredType = Chain.cipherDataCreator(dataCreator);
 
             // blog('_first : $_first');
             // blog('dataCreator : $dataCreator');
@@ -642,35 +634,8 @@ class Chain {
     return _indeed;
   }
 // --------------------------------------------
-  static bool checkSonsAreCurrencies(dynamic sons){
-    bool _areCurrencies = false;
-
-    if (sons != null){
-
-      if (sons is List<String>){
-
-        final List<String> _sons = sons;
-
-        if (Mapper.checkCanLoopList(_sons) == true){
-
-          final String _first = _sons.first;
-
-          final String _phid = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
-          if (_phid == 'currency'){
-            _areCurrencies = true;
-          }
-
-        }
-
-      }
-
-    }
-
-    return _areCurrencies;
-  }
-// --------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkSonsArePhidsss(dynamic sons){
+  static bool checkSonsArePhids(dynamic sons){
 
     bool _arePhids = false;
 
@@ -720,17 +685,18 @@ class Chain {
     return _areIdentical;
   }
 // --------------------------------------------
+  /// TASK : NOT TESTED
   static bool checkChainsSonsAreIdentical(Chain chain1, Chain chain2){
 
     bool _sonsAreIdentical = false;
 
     final bool sonsAisChains = checkSonsAreChains(chain1.sons);
     final bool sonsAisDataCreator = checkSonsAreDataCreator(chain1.sons);
-    final bool sonsAisPhids = checkSonsArePhidsss(chain1.sons);
+    final bool sonsAisPhids = checkSonsArePhids(chain1.sons);
 
     final bool sonsBisChains = checkSonsAreChains(chain2.sons);
     final bool sonsBisDataCreator = checkSonsAreDataCreator(chain2.sons);
-    final bool sonsBIsPhids = checkSonsArePhidsss(chain2.sons);
+    final bool sonsBIsPhids = checkSonsArePhids(chain2.sons);
 
     if (
     sonsAisChains == sonsBisChains
@@ -766,6 +732,7 @@ class Chain {
     return _sonsAreIdentical;
   }
 // --------------------------------------------
+  /// TASK : NOT TESTED
   static bool checkChainsListsAreIdenticalOLDMETHOD({
     @required List<Chain> chains1,
     @required List<Chain> chains2
@@ -868,7 +835,7 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
-      else if (checkSonsArePhidsss(chain.sons) == true){
+      else if (checkSonsArePhids(chain.sons) == true){
         _includes = Stringer.checkStringsContainString(
           strings: chain.sons,
           string: phid,
@@ -958,7 +925,7 @@ class Chain {
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsArePhidsss(sons)){
+      else if (checkSonsArePhids(sons)){
         blog('$_space $level : $id : <String>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
@@ -1164,7 +1131,7 @@ class Chain {
 
     if (chain != null){
 
-      if (checkSonsArePhidsss(chain.sons) == true){
+      if (checkSonsArePhids(chain.sons) == true){
 
         _phids.addAll(chain.sons);
 
