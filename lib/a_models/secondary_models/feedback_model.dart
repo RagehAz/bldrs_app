@@ -27,9 +27,9 @@ class FeedbackModel {
     return <String, dynamic>{
       'id': id,
       'userID': userID,
-      'timeStamp': Timers.cipherTime(time: timeStamp, toJSON: false),
+      'timeStamp': Timers.cipherTime(time: timeStamp, toJSON: true),
       'feedback': feedback,
-      'modelType' : RecordModel.cipherModelType(modelType),
+      'modelType' : RecordModel.cipherModelType(modelType) ?? 'general_feedback',
       'modelID' : modelID,
     };
   }
@@ -39,7 +39,7 @@ class FeedbackModel {
     return FeedbackModel(
       id: map['id'],
       userID: map['userID'],
-      timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: false),
+      timeStamp: Timers.decipherTime(time: map['timeStamp'], fromJSON: true),
       feedback: map['feedback'],
       modelType: map['modelType'],
       modelID: map['modelID'],

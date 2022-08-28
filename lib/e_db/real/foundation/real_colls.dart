@@ -47,6 +47,11 @@ class RealColl {
 /// Zones
 // -------------------
   static const String zoneCountries = 'zoneCountries';
+// -----------------------------------------------------------------------------
+/// FEED BACK
+// -------------------
+  static const String feedbacks = 'feedbacks';
+// -----------------------------------------------------------------------------
 }
 
 class RealDoc {

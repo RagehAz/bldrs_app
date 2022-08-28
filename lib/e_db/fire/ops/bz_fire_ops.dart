@@ -12,6 +12,7 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/real/ops/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -640,10 +641,10 @@ class BzFireOps {
         modelID: bzModel.id,
       );
 
-      final DocumentReference<Object> _docRef = await Fire.createDoc(
+
+      final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
         context: context,
-        collName: FireColl.feedbacks,
-        input: _model.toMap(),
+        feedback: _model,
       );
 
       if (_docRef != null){

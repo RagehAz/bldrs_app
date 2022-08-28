@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
@@ -11,14 +10,12 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/foundation/firestore.dart';
-import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/real/ops/app_feedback_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FeedBack extends StatefulWidget {
@@ -72,22 +69,18 @@ class _FeedBackState extends State<FeedBack> {
     unawaited(_triggerLoading());
 
     /// upload text to firebase
-    final DocumentReference<Object> _ref = await Fire.createDoc(
-      context: context,
-      collName: FireColl.feedbacks,
-      addDocID: true,
-      input: FeedbackModel(
-        userID: AuthFireOps.superUserID(),
-        timeStamp: DateTime.now(),
-        feedback: _feedbackController.text,
-      ).toMap(),
+    final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
+        context: context,
+        feedback: FeedbackModel(
+          userID: AuthFireOps.superUserID(),
+          timeStamp: DateTime.now(),
+          feedback: _feedbackController.text,
+        ),
     );
 
     unawaited(_triggerLoading());
 
-    // blog('ref is : ${_ref.}');
-
-    if (_ref == null){
+    if (_uploadedModel == null){
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: '##Not Sent',
@@ -122,7 +115,7 @@ class _FeedBackState extends State<FeedBack> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
-      pageTitleVerse: '##About Bldrs.net',
+      pageTitleVerse: 'phid_feedback',
       skyType: SkyType.non,
       // loading: _loading,
       layoutWidget: ListView(
