@@ -22,6 +22,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.initialTextValue,
     this.validator,
     this.bulletPoints,
+    this.translateBulletPoints = true,
     this.fieldIsRequired = false,
     this.loading = false,
     this.actionBtIcon,
@@ -45,6 +46,7 @@ class ContactFieldBubble extends StatefulWidget {
   final String initialTextValue;
   final Function validator;
   final List<String> bulletPoints;
+  final bool translateBulletPoints;
   final bool fieldIsRequired;
   final bool loading;
   final String actionBtIcon;
@@ -211,6 +213,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           if (widget.bulletPoints != null)
             BubbleBulletPoints(
               bulletPoints: widget.bulletPoints,
+              translateBullets: widget.translateBulletPoints,
             ),
 
         ]

@@ -150,7 +150,7 @@ void updatePickersAndGroups({
 
       selectedSpecs.value = specPickerResult;
 
-      refinedPickers.value = PickerModel.applyBlockers(
+      refinedPickers.value = PickerModel.applyBlockersAndSort(
         sourcePickers: sourcePickers,
         selectedSpecs: specPickerResult,
       );

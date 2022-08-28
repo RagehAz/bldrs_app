@@ -53,7 +53,9 @@ class DashButton extends StatelessWidget {
             height: size - (size * 0.5 + (size * 0.05 * 2)),
             padding: EdgeInsets.symmetric(horizontal: size * 0.05),
             child: SuperVerse(
-              verse: dashButtonModel.verse.toUpperCase(),
+              verse: dashButtonModel.verse,
+              translate: false,
+              verseCasing: VerseCasing.upperCase,
               maxLines: 2,
               scaleFactor: size * 0.008,
               italic: true,

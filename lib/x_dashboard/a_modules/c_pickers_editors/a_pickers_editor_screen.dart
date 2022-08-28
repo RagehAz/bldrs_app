@@ -1,12 +1,15 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/z_components/specs/picker_group/b_pickers_group_headline.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -72,7 +75,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
         _initialSpecPickers.value = widget.specPickers;
         _tempPickers.value = widget.specPickers;
-        final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockers(
+        final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
           sourcePickers: widget.specPickers,
           selectedSpecs: const [],
         );
@@ -109,7 +112,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: '##Phrases Editor',
+      pageTitleVerse: '##${widget.flyerType} Picker Editor',
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
@@ -179,7 +182,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
           valueListenable: _tempPickers,
           builder: (_, List<PickerModel> tempPickers, Widget child){
 
-            final List<PickerModel> refinedPickers = PickerModel.applyBlockers(
+            final List<PickerModel> refinedPickers = PickerModel.applyBlockersAndSort(
               sourcePickers: tempPickers,
               selectedSpecs: const [],
             );
@@ -188,13 +191,75 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
               specsPickers: refinedPickers,
             );
 
-            return ListView.builder(
+            return ReorderableListView.builder(
                 itemCount: _theGroupsIDs.length,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(
                   top: Stratosphere.bigAppBarStratosphere,
                   bottom: Ratioz.horizon,
                 ),
+                onReorderStart: (int oldIndex){
+                  blog('oldIndex : $oldIndex');
+                },
+                onReorderEnd: (int newIndex){
+                  blog('newIndex : $newIndex');
+                },
+                onReorder: (gIndexOLD, gIndexNew) {
+
+                  final String _groupID = _theGroupsIDs[gIndexOLD];
+                  final List<PickerModel> _groupPickers = PickerModel.getPickersByGroupID(
+                      pickers: _tempPickers.value,
+                      groupID: _groupID,
+                  );
+
+                  int _groupIndex = gIndexNew;
+                  if (gIndexNew > gIndexOLD) {
+                    _groupIndex = gIndexNew - 1;
+                  }
+                  final int _diff = _groupIndex - gIndexOLD;
+
+                  blog('_groupID : $_groupID : oldIndex : $gIndexOLD : newIndex : $_groupIndex : diff : ( $_diff )');
+
+                  // /// re-order all. pickers
+                  // final List<PickerModel> _temp = <PickerModel>[..._tempPickers.value];
+                  // for (int x = 0; x < _groupPickers.length; x++){
+                  //
+                  //   final PickerModel _pickerFromGroup = _groupPickers[x];
+                  //   final int _pickerOldIndex = _pickerFromGroup.index;
+                  //   final int _pickerNewIndex = _pickerOldIndex + _diff;
+                  //   final PickerModel _updatedPicker = _pickerFromGroup.copyWith(
+                  //     index: _pickerNewIndex,
+                  //   );
+                  //   _temp.removeWhere((element) => element.chainID == _pickerFromGroup.chainID);
+                  //   blog('$x : removed : _pickerOldIndex : ${_pickerOldIndex} : pickerID : ${_temp[_pickerOldIndex].chainID}');
+                  //   _temp.insert(_pickerNewIndex, _updatedPicker);
+                  //   blog('$x : inserted : _pickerNewIndex : ${_pickerNewIndex} : pickerID : ${_updatedPicker.chainID}');
+                  //
+                  // }
+                  //
+                  // /// re-assign index for all pickers
+                  // final List<PickerModel> _output = <PickerModel>[];
+                  // for (int i = 0; i < _temp.length; i++){
+                  //   final PickerModel _updatedPicker = _temp[i].copyWith(
+                  //     index: i,
+                  //   );
+                  //   _output.add(_updatedPicker);
+                  // }
+                  //
+                  // /// assign values
+                  // _tempPickers.value = _output;
+
+
+                  /*
+                  _tempPickers.value = PickerModel.updateGroupIndex(
+                    pickers: _tempPickers.value,
+                    oldGroupIndex: oldIndex,
+                    newGroupIndex: newIndex,
+                  );
+                   */
+
+                },
+
                 itemBuilder: (BuildContext ctx, int index) {
 
                   final String _groupID = _theGroupsIDs[index];
@@ -204,17 +269,35 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                     groupID: _groupID,
                   );
 
-                  blog('groupID : $_groupID');
+                  // blog('groupID : $_groupID');
 
-                  return Padding(
-                    key: const ValueKey<String>('SpecsPickersGroup'),
-                    padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
+                  return Container(
+                    key: ValueKey<String>(_groupID),
+                    margin: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
+                    color: Colorz.bloodTest,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
                         /// GROUP HEADLINE
-                        PickersGroupHeadline(
-                          headline:  _groupID.toUpperCase(),
+                        DreamBox(
+                          height: 40,
+                          verse:  '$index : ${xPhrase(context, _groupID)}',
+                          translateVerse: false,
+                          secondLine: _groupID,
+                          translateSecondLine: false,
+                          verseCasing: VerseCasing.upperCase,
+                          margins: 10,
+                          verseScaleFactor: 0.65,
+                          verseItalic: true,
+                          bubble: false,
+                          color: Colorz.yellow125,
+                          verseCentered: false,
+                          onTap: () => onUpdateGroupID(
+                            context: context,
+                            tempPickers: _tempPickers,
+                            oldGroupID: _groupID,
+                          ),
                         ),
 
                         /// GROUP SPECS PICKERS
@@ -223,7 +306,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                               final PickerModel _picker = _pickersOfThisGroup[index];
 
-                              return PickerEditor(
+                              return PickerEditingTile(
                                 picker: _picker,
                                 tempPickers: _tempPickers,
                                 flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),

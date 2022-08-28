@@ -15,6 +15,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.selectedButtons,
     @required this.isInError,
     this.bulletPoints,
+    this.translateBullets = true,
     this.inactiveButtons,
     Key key,
   }) : super(key: key);
@@ -26,6 +27,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   final List<String> selectedButtons;
   final List<String> inactiveButtons;
   final bool isInError;
+  final bool translateBullets;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           if (bulletPoints != null)
             BubbleBulletPoints(
               bulletPoints: bulletPoints,
+              translateBullets: translateBullets,
             ),
 
           Wrap(

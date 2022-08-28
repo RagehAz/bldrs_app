@@ -9,12 +9,14 @@ class BubbleBulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BubbleBulletPoints({
     @required this.bulletPoints,
+    @required this.translateBullets,
     this.bubbleWidth,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<String> bulletPoints;
   final double bubbleWidth;
+  final bool translateBullets;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class BubbleBulletPoints extends StatelessWidget {
               width: _bubbleWidth,
               child: SuperVerse(
                 verse: bulletPoints[index],
+                translate: translateBullets,
                 margin: 0,
                 // size: 2,
                 maxLines: 10,

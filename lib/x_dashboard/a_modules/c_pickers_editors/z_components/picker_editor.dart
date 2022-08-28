@@ -2,25 +2,24 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/i_chains/z_components/specs/picker_group/cc_spec_picker_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/line_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/x_pickers_editor_controller.dart';
 import 'package:flutter/material.dart';
 
-class PickerEditor extends StatelessWidget {
+class PickerEditingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const PickerEditor({
+  const PickerEditingTile({
     @required this.picker,
     @required this.tempPickers,
     @required this.flyerZone,
@@ -47,6 +46,23 @@ class PickerEditor extends StatelessWidget {
             child: Column(
               children: <Widget>[
 
+                /// GROUP ID
+                LineBubble(
+                  width: _clearWidth,
+                  child: BubbleHeader(
+                    viewModel: BubbleHeaderVM(
+                      headerWidth: _clearWidth,
+                      headlineVerse:  'GroupID: ${picker.groupID}',
+                      translateHeadline: false,
+                    ),
+                  ),
+                  onTap: () => onUpdateGroupID(
+                      context: context,
+                      oldGroupID: picker.groupID,
+                      tempPickers: tempPickers
+                  ),
+                ),
+
                 /// CHAIN ID
                 LineBubble(
                   width: _clearWidth,
@@ -54,6 +70,7 @@ class PickerEditor extends StatelessWidget {
                     viewModel: BubbleHeaderVM(
                       headerWidth: _clearWidth,
                       headlineVerse:  'ChainID: ${picker.chainID}',
+                      translateHeadline: false,
                     ),
                   ),
                   onTap: () => onPickerChainIDTap(
@@ -71,6 +88,7 @@ class PickerEditor extends StatelessWidget {
                       viewModel: BubbleHeaderVM(
                         headerWidth: _clearWidth,
                         headlineVerse:  'unitChainID: ${picker.unitChainID}',
+                        translateHeadline: false,
                       ),
                     ),
                     onTap: () => onPickerUnitChainIDTap(
@@ -95,6 +113,7 @@ class PickerEditor extends StatelessWidget {
                           picker: picker,
                           tempPickers: tempPickers
                       ),
+                      translateHeadline: false,
                     ),
                   ),
                 ),
@@ -114,6 +133,7 @@ class PickerEditor extends StatelessWidget {
                           picker: picker,
                           tempPickers: tempPickers
                       ),
+                      translateHeadline: false,
                     ),
                   ),
                 ),
@@ -130,6 +150,7 @@ class PickerEditor extends StatelessWidget {
                           viewModel: BubbleHeaderVM(
                             headlineVerse:  'Visible Range',
                             headerWidth: _clearWidth,
+                            translateHeadline: false,
                           ),
                         ),
 
@@ -173,6 +194,7 @@ class PickerEditor extends StatelessWidget {
                           viewModel: BubbleHeaderVM(
                             headlineVerse:  'Deactivators',
                             headerWidth: _clearWidth,
+                            translateHeadline: false,
                           ),
                         ),
 
@@ -181,6 +203,7 @@ class PickerEditor extends StatelessWidget {
                           width: _clearWidth,
                           child: const SuperVerse(
                             verse:  'Values that deactivate specific specPickers',
+                            translate: false,
                             size: 1,
                             centered: false,
                             margin: 10,
@@ -207,6 +230,7 @@ class PickerEditor extends StatelessWidget {
                                       viewModel: BubbleHeaderVM(
                                         headlineVerse: _blocker.value.toString(),
                                         headerWidth: _clearWidth,
+                                        translateHeadline: true,
                                       ),
                                     ),
 
@@ -216,6 +240,7 @@ class PickerEditor extends StatelessWidget {
                                   BubbleBulletPoints(
                                     bubbleWidth: _clearWidth,
                                     bulletPoints: _blocker.pickersIDsToBlock,
+                                    translateBullets: false,
                                   ),
 
                                 ],
@@ -232,21 +257,8 @@ class PickerEditor extends StatelessWidget {
               ],
             ),
         ),
-        
-        // /// PICKER TILE
-        // SpecPickerTile(
-        //   specPicker: picker,
-        //   selectedSpecs: const [],
-        //   onDeleteSpec: null,
-        //   onTap: () => onPickerTileTap(
-        //     context: context,
-        //     picker: picker,
-        //     flyerZone: flyerZone,
-        //   ),
-        // ),
 
-
-        const SeparatorLine(),
+        SeparatorLine(width: Bubble.clearWidth(context) - 20),
 
       ],
     );

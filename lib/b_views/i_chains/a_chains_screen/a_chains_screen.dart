@@ -149,7 +149,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       // ------------------------------
       _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
       // ------------------------------
-      final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockers(
+      final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
         sourcePickers: _allSpecPickers,
         selectedSpecs: widget.selectedSpecs,
       );
