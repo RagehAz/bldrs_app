@@ -15,9 +15,10 @@ class PickerModel {
   const PickerModel({
     @required this.chainID,
     @required this.groupID,
-    @required this.canPickMany,
-    @required this.isRequired,
     @required this.index,
+    @required this.isHeadline,
+    this.canPickMany,
+    this.isRequired,
     this.unitChainID,
     this.range,
     this.blockers,
@@ -40,6 +41,7 @@ class PickerModel {
   /// FOR DATA CREATORS, they require measurement unit like day meter dollar
   final String unitChainID;
   final int index;
+  final bool isHeadline;
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -55,6 +57,7 @@ class PickerModel {
     List<dynamic> range,
     String unitChainID,
     int index,
+    bool isHeadline,
   }){
     return PickerModel(
       chainID: chainID ?? this.chainID,
@@ -65,6 +68,7 @@ class PickerModel {
       blockers: blockers ?? this.blockers,
       range: range ?? this.range,
       index: index ?? this.index,
+      isHeadline: isHeadline ?? this.isHeadline,
     );
   }
 // -----------------------------------------------------------------------------
@@ -85,6 +89,7 @@ class PickerModel {
       'range': cipherRange(range),
       'unitChainID': unitChainID,
       'index': index,
+      'isHeadline': isHeadline,
     };
 
     if (includeChainID == true){
@@ -115,6 +120,7 @@ class PickerModel {
         blockers: PickersBlocker.decipherBlockers(map['blockers']),
         unitChainID: map['unitChainID'],
         index: map['index'],
+        isHeadline: map['isHeadline'],
       );
     }
 
@@ -333,6 +339,7 @@ class PickerModel {
   void blogPicker() {
     blog('SPEC-PICKER-PRINT --------------------------------------------------START');
 
+    blog('isHeadline : $isHeadline');
     blog('index : $index');
     blog('chainID : $chainID');
     blog('groupID : $groupID');
@@ -348,7 +355,7 @@ class PickerModel {
   /// TESTED : WORKS PERFECT
   static void blogPickers(List<PickerModel> pickers) {
 
-    final List<PickerModel> _pickers = sortPickersByIndex(pickers);
+    final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
 
     if (Mapper.checkCanLoopList(pickers)) {
       for (final PickerModel _picker in _pickers) {
@@ -358,6 +365,24 @@ class PickerModel {
     else {
       blog('pickers are empty');
     }
+  }
+
+  static void blogIndexes(List<PickerModel> pickers){
+    blog('blogIndexes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~start');
+
+    if (Mapper.checkCanLoopList(pickers)) {
+      for (final PickerModel _picker in pickers) {
+
+        final String _indent = _picker.isHeadline == true ? '->' : '---->';
+
+        blog('$_indent ${_picker.index} : ${_picker.chainID} : ${_picker.chainID}');
+      }
+    }
+    else {
+      blog('pickers are empty');
+    }
+
+    blog('blogIndexes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end');
   }
 // -----------------------------------------------------------------------------
 
@@ -382,21 +407,24 @@ class PickerModel {
       for (final String subChainID in chainKSonsIDs){
         _index++;
 
+        final String _groupID = FlyerTyper.getGroupIDByChainKSonID(
+          context: context,
+          chainKSonID: subChainID,
+        );
+
+
         final PickerModel _picker = PickerModel(
           chainID: subChainID,
-          groupID: FlyerTyper.getGroupIDByChainKSonID(
-            context: context,
-            chainKSonID: subChainID,
-          ),
+          groupID: _groupID,
           canPickMany: canPickManyOfAPicker,
           isRequired: false,
           index: _index,
+          isHeadline: false,
         );
 
         _pickers.add(_picker);
 
       }
-
 
     }
 
@@ -462,6 +490,7 @@ class PickerModel {
         canPickMany: canPickMany,
         isRequired: false,
         index: 0,
+        isHeadline: false,
       ),
 
       /// DESIGN
@@ -474,6 +503,7 @@ class PickerModel {
         canPickMany: canPickMany,
         isRequired: false,
         index: 1,
+        isHeadline: false,
       ),
 
       /// TRADES
@@ -486,6 +516,7 @@ class PickerModel {
         canPickMany: canPickMany,
         isRequired: false,
         index: 2,
+        isHeadline: false,
       ),
 
       /// PRODUCTS
@@ -498,6 +529,7 @@ class PickerModel {
         canPickMany: canPickMany,
         isRequired: false,
         index: 3,
+        isHeadline: false,
       ),
 
       /// EQUIPMENT
@@ -510,6 +542,7 @@ class PickerModel {
         canPickMany: canPickMany,
         isRequired: false,
         index: 4,
+        isHeadline: false,
       ),
 
     ];
@@ -550,42 +583,32 @@ class PickerModel {
 
     return _specPicker;
   }
-// -------------------------------------
-  /*
-  static int _getSpecPickerIndexByID({
-    @required List<SpecPicker> specsPickers,
-    @required String specPickerChainID,
-  }) {
-    final int _index = specsPickers.indexWhere((SpecPicker pick) => pick.chainID == specPickerChainID);
-    return _index;
-  }
-   */
 // -----------------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
     @required List<PickerModel> pickers,
     @required String groupID,
   }) {
-    final List<PickerModel> _specsPicker = <PickerModel>[];
+    final List<PickerModel> _output = <PickerModel>[];
 
     if (Mapper.checkCanLoopList(pickers)) {
-      for (final PickerModel list in pickers) {
-        if (list.groupID == groupID) {
-          _specsPicker.add(list);
+      for (final PickerModel picker in pickers) {
+        if (picker.groupID == groupID) {
+              _output.add(picker);
         }
       }
     }
 
-    return _specsPicker;
+    return _output;
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getGroupsIDs({
-    @required List<PickerModel> specsPickers,
+    @required List<PickerModel> pickers,
   }) {
     List<String> _groups = <String>[];
 
-    for (final PickerModel picker in specsPickers) {
+    for (final PickerModel picker in pickers) {
       _groups = Stringer.addStringToListIfDoesNotContainIt(
         strings: _groups,
         stringToAdd: picker.groupID,
@@ -640,7 +663,7 @@ class PickerModel {
       }
     }
 
-    return sortPickersByIndex(_pickers);
+    return sortPickersByIndexes(_pickers);
   }
 // -----------------------------
   /// TESTED : WORKS PERFECT
@@ -662,12 +685,12 @@ class PickerModel {
 
         if (_index != -1){
 
-          blog('replacePicker : removing : $pickerChainIDtoReplace');
+          // blog('replacePicker : removing : $pickerChainIDtoReplace');
           _output.removeWhere((element){
             return element.chainID == pickerChainIDtoReplace;
           });
 
-          blog('replacePicker : inserting : ${updatedPicker.chainID}');
+          // blog('replacePicker : inserting : ${updatedPicker.chainID}');
           _output.insert(_index, updatedPicker);
 
         }
@@ -726,23 +749,47 @@ class PickerModel {
 
   /// SORTING
 
+
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<PickerModel> sortPickersByIndex(List<PickerModel> pickers){
+  static List<PickerModel> sortPickersByIndexes(List<PickerModel> pickers){
 
-    List<PickerModel> _output = <PickerModel>[];
+    final List<PickerModel> _output = <PickerModel>[];
 
     if (Mapper.checkCanLoopList(pickers) == true){
 
-      _output = <PickerModel>[... pickers];
+      final List<PickerModel> _pickers = <PickerModel>[... pickers];
 
-      _output.sort((PickerModel a, PickerModel b){
-
+      /// SORT PICKERS BY GROUPS INDEXES
+      _pickers.sort((PickerModel a, PickerModel b){
         final int _indexA = a.index ?? 0;
         final int _indexB = b.index ?? 0;
-
         return _indexA.compareTo(_indexB);
       });
+
+      _output.addAll(_pickers);
+    }
+
+    return _output; // _correctIndexes(_output);
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> correctModelsIndexes(List<PickerModel> pickers){
+    final List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(pickers) == true) {
+
+      for (int i = 0; i < pickers.length; i++){
+
+        // blog('${pickers[i].chainID} : was ${pickers[i].index} -> now ${i}');
+
+        final PickerModel _picker = pickers[i].copyWith(
+          index: i,
+        );
+
+        _output.add(_picker);
+
+      }
 
     }
 
