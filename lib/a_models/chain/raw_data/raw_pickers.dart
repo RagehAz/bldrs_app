@@ -52,6 +52,14 @@ class RawPickers {
             'pickers' : const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - TYPE SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_type',
+                    groupID: 'Type',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// TYPE
                 PickerModel(
@@ -65,15 +73,24 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - MAIN SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_main_specs',
+                    groupID: 'Main Specifications',
+                    index: 2,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY FORM
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
-                    groupID: 'Main Specifications', /// TASK : TRANSLATE THIS
+                    groupID: 'Main Specifications',
                     canPickMany: false,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -94,7 +111,8 @@ class RawPickers {
                                 'phid_s_propertyInACompound'
                             ]),
                     ],
-                    index: 1,
+                    index: 3,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY LICENSE
@@ -103,10 +121,19 @@ class RawPickers {
                     groupID: 'Main Specifications',
                     canPickMany: true,
                     isRequired: true,
-                    index: 2,
+                    index: 4,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PROPERTY PRICING SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_pricing',
+                    groupID: 'Pricing',
+                    index: 5,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY CONTRACT TYPE
                 PickerModel(
@@ -128,7 +155,8 @@ class RawPickers {
                             pickersIDsToBlock: <String>['phid_s_PropertySalePrice',]
                         ),
                     ],
-                    index: 3,
+                    index: 6,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY PAYMENT METHOD
@@ -147,7 +175,8 @@ class RawPickers {
                             ]
                         ),
                     ],
-                    index: 4,
+                    index: 7,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY SALE PRICE
@@ -157,7 +186,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 5,
+                    index: 8,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY RENT PRICE
@@ -167,10 +197,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 6,
+                    index: 9,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - INSTALLMENTS
+
+                PickerModel(
+                    chainID: 'headline_installments',
+                    groupID: 'Installments',
+                    index: 10,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY NUMBER OF INSTALLMENTS
                 PickerModel(
@@ -178,7 +217,8 @@ class RawPickers {
                     groupID: 'Installments',
                     canPickMany: false,
                     isRequired: false,
-                    index: 7,
+                    index: 11,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY INSTALLMENTS DURATION
@@ -188,34 +228,51 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_installmentsDurationUnit',
-                    index: 8,
+                    index: 12,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
-                /// - PROPERTY AREA
+                /// - PROPERTY AREAS
+
+                PickerModel(
+                    chainID: 'headline_areas',
+                    groupID: 'Property Areas',
+                    index: 13,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
-                    index: 9,
+                    index: 14,
+                    isHeadline: false,
                 ),
-                // ------------------------------------------------------------
-                /// - LOT AREA
                 // ----------------------------
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Lot Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
-                    index: 10,
+                    index: 15,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PROPERTY SPATIAL SPECIFICATION
+
+                PickerModel(
+                    chainID: 'headline_spatial',
+                    groupID: 'Spatial Specifications',
+                    index: 16,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY SPACES
                 PickerModel(
@@ -223,7 +280,8 @@ class RawPickers {
                     groupID: 'Spatial Specifications',
                     canPickMany: true,
                     isRequired: false,
-                    index: 11,
+                    index: 17,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY FLOOR NUMBER
@@ -232,7 +290,8 @@ class RawPickers {
                     groupID: 'Spatial Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 12,
+                    index: 18,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY DEDICATED PARKING LOTS COUNT
@@ -241,7 +300,8 @@ class RawPickers {
                     groupID: 'Spatial Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 13,
+                    index: 19,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY NUMBER OF BEDROOMS
@@ -250,7 +310,8 @@ class RawPickers {
                     groupID: 'Spatial Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 14,
+                    index: 20,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY NUMBER OF BATHROOMS
@@ -259,10 +320,19 @@ class RawPickers {
                     groupID: 'Spatial Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 15,
+                    index: 21,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PROPERTY FEATURES SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_features',
+                    groupID: 'Property Features',
+                    index: 22,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY VIEW
                 PickerModel(
@@ -270,7 +340,8 @@ class RawPickers {
                     groupID: 'Property Features',
                     canPickMany: true,
                     isRequired: false,
-                    index: 16,
+                    index: 23,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY INDOOR FEATURES
@@ -279,7 +350,8 @@ class RawPickers {
                     groupID: 'Property Features',
                     canPickMany: true,
                     isRequired: false,
-                    index: 17,
+                    index: 24,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY FINISHING LEVEL
@@ -288,7 +360,8 @@ class RawPickers {
                     groupID: 'Property Features',
                     canPickMany: false,
                     isRequired: false,
-                    index: 18,
+                    index: 25,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY DECORATION STYLE
@@ -297,10 +370,19 @@ class RawPickers {
                     groupID: 'Property Features',
                     canPickMany: true,
                     isRequired: false,
-                    index: 19,
+                    index: 26,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - COMMUNITY FEATURES SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_community',
+                    groupID: 'Community Features',
+                    index: 27,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// IN  A COMPOUND
                 PickerModel(
@@ -308,7 +390,8 @@ class RawPickers {
                     groupID: 'Community Features',
                     canPickMany: false,
                     isRequired: false,
-                    index: 20,
+                    index: 28,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// AMENITIES
@@ -317,7 +400,8 @@ class RawPickers {
                     groupID: 'Community Features',
                     canPickMany: true,
                     isRequired: false,
-                    index: 21,
+                    index: 29,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// COMMUNITY SERVICES
@@ -326,10 +410,19 @@ class RawPickers {
                     groupID: 'Community Features',
                     canPickMany: true,
                     isRequired: false,
-                    index: 22,
+                    index: 30,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - BUILDING FEATURES SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_building',
+                    groupID: 'Building Specifications',
+                    index: 31,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// BUILDING NUMBER OF FLOORS
                 PickerModel(
@@ -337,7 +430,8 @@ class RawPickers {
                     groupID: 'Building Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 23,
+                    index: 32,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// BUILDING AGE IN YEARS
@@ -346,7 +440,8 @@ class RawPickers {
                     groupID: 'Building Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 24,
+                    index: 33,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// BUILDING TOTAL UNITS COUNTS
@@ -355,7 +450,8 @@ class RawPickers {
                     groupID: 'Building Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 25,
+                    index: 34,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// BUILDING TOTAL PARKING LOTS COUNTS
@@ -364,7 +460,8 @@ class RawPickers {
                     groupID: 'Building Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 26,
+                    index: 35,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
             ],
@@ -382,6 +479,14 @@ class RawPickers {
             'pickers' : const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - DESIGN SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_design_specs',
+                    groupID: 'Design Specifications',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// DESIGN TYPE
                 PickerModel(
@@ -395,7 +500,8 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// DESIGN SPACES
@@ -405,6 +511,7 @@ class RawPickers {
                     canPickMany: true,
                     isRequired: true,
                     index: 2,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// DESIGN STYLE
@@ -414,9 +521,18 @@ class RawPickers {
                     canPickMany: true,
                     isRequired: false,
                     index: 3,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PROPERTY SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_property_specs',
+                    groupID: 'Property Specifications',
+                    index: 4,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY FORM
                 PickerModel(
@@ -424,7 +540,8 @@ class RawPickers {
                     groupID: 'Property Specifications',
                     canPickMany: false,
                     isRequired: true,
-                    index: 4,
+                    index: 5,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PROPERTY LICENSE
@@ -433,10 +550,19 @@ class RawPickers {
                     groupID: 'Property Specifications',
                     canPickMany: true,
                     isRequired: true,
-                    index: 5,
+                    index: 6,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION COST
+
+                PickerModel(
+                    chainID: 'headline_cost',
+                    groupID: 'Construction Cost',
+                    index: 7,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROJECT COST
                 PickerModel(
@@ -445,10 +571,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 6,
+                    index: 8,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION DURATION
+
+                PickerModel(
+                    chainID: 'headline_duration',
+                    groupID: 'Construction Duration',
+                    index: 9,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// Construction DURATION
                 PickerModel(
@@ -457,10 +592,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_constructionDurationUnit',
-                    index: 7,
+                    index: 10,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION ACTIVITIES
+
+                PickerModel(
+                    chainID: 'headline_activities',
+                    groupID: 'Construction Activities',
+                    index: 11,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
@@ -468,31 +612,40 @@ class RawPickers {
                     groupID: 'Construction Activities',
                     canPickMany: true,
                     isRequired: false,
-                    index: 8,
+                    index: 12,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
-                /// - PROPERTY AREA
+                /// - PROPERTY AREAS
+
+                PickerModel(
+                    chainID: 'headline_areas',
+                    groupID: 'Property Areas',
+                    index: 13,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
-                    index: 9,
+                    index: 14,
+                    isHeadline: false,
                 ),
-                // ------------------------------------------------------------
-                /// - PROPERTY AREA
                 // ----------------------------
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Lot Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
-                    index: 10,
+                    index: 15,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
             ],
@@ -509,6 +662,14 @@ class RawPickers {
             'pickers' : const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - PROPERTY SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_property_specs',
+                    groupID: 'Property Specifications',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY LICENSE
                 PickerModel(
@@ -516,7 +677,8 @@ class RawPickers {
                     groupID: 'Property Specifications',
                     canPickMany: true,
                     isRequired: true,
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // ----------------------------
                 /// PROPERTY FORM
@@ -525,10 +687,19 @@ class RawPickers {
                     groupID: 'Property Specifications',
                     canPickMany: false,
                     isRequired: false,
-                    index: 1,
+                    index: 2,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - DESIGN SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_design_specs',
+                    groupID: 'Design Specifications',
+                    index: 3,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// DESIGN TYPE
                 PickerModel(
@@ -536,7 +707,8 @@ class RawPickers {
                     groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: false,
-                    index: 2,
+                    index: 4,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// DESIGN SPACES
@@ -545,10 +717,19 @@ class RawPickers {
                     groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
-                    index: 3,
+                    index: 5,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// - CONSTRUCTION COST
+
+                PickerModel(
+                    chainID: 'headline_cost',
+                    groupID: 'Construction Cost',
+                    index: 6,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROJECT COST
                 PickerModel(
@@ -557,10 +738,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 4,
+                    index: 7,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION DURATION
+
+                PickerModel(
+                    chainID: 'headline_duration',
+                    groupID: 'Construction Duration',
+                    index: 8,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// Construction DURATION
                 PickerModel(
@@ -569,10 +759,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_constructionDurationUnit',
-                    index: 5,
+                    index: 9,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION ACTIVITIES
+
+                PickerModel(
+                    chainID: 'headline_activities',
+                    groupID: 'Construction Activities',
+                    index: 10,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
@@ -580,10 +779,19 @@ class RawPickers {
                     groupID: 'Construction Activities',
                     canPickMany: true,
                     isRequired: false,
-                    index: 6,
+                    index: 11,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - CONSTRUCTION EQUIPMENT
+
+                PickerModel(
+                    chainID: 'headline_equipment',
+                    groupID: 'Construction Equipment',
+                    index: 12,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// TYPE
                 PickerModel(
@@ -597,29 +805,40 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 7,
+                    index: 13,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PROJECT AREAS
+
+                PickerModel(
+                    chainID: 'headline_areas',
+                    groupID: 'Property Areas',
+                    index: 14,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
-                    index: 8,
+                    index: 15,
+                    isHeadline: false,
                 ),
                 // ----------------------------
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Lot Area',
+                    groupID: 'Property Areas',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
-                    index: 9,
+                    index: 16,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
 
@@ -637,6 +856,14 @@ class RawPickers {
             'pickers': const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - TYPE SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_trade_type',
+                    groupID: 'Type',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// TYPE
                 PickerModel(
@@ -650,10 +877,19 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PRICING
+
+                PickerModel(
+                    chainID: 'headline_cost',
+                    groupID: 'Cost',
+                    index: 2,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITY PRICE
                 PickerModel(
@@ -662,10 +898,9 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 1,
+                    index: 3,
+                    isHeadline: false,
                 ),
-                // ------------------------------------------------------------
-                /// - MEASUREMENTS
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
                 PickerModel(
@@ -673,7 +908,8 @@ class RawPickers {
                     groupID: 'Cost',
                     canPickMany: false,
                     isRequired: false,
-                    index: 2,
+                    index: 4,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
             ],
@@ -690,6 +926,14 @@ class RawPickers {
             'pickers': const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - TYPE SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_product_type',
+                    groupID: 'Type',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// TYPE
                 PickerModel(
@@ -703,10 +947,19 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - PRICING SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_pricing',
+                    groupID: 'Pricing',
+                    index: 2,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// CONTRACT TYPE
                 PickerModel(
@@ -728,7 +981,8 @@ class RawPickers {
                             pickersIDsToBlock: <String>['phid_s_salePrice',]
                         ),
                     ],
-                    index: 1,
+                    index: 3,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// PAYMENT METHOD
@@ -747,7 +1001,8 @@ class RawPickers {
                             ]
                         ),
                     ],
-                    index: 2,
+                    index: 4,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// SALE PRICE
@@ -757,7 +1012,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 3,
+                    index: 5,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// RENT PRICE
@@ -767,10 +1023,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_currency',
-                    index: 4,
+                    index: 6,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - INSTALLMENTS
+
+                PickerModel(
+                    chainID: 'headline_installments',
+                    groupID: 'Installments',
+                    index: 7,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// NUMBER OF INSTALLMENTS
                 PickerModel(
@@ -778,7 +1043,8 @@ class RawPickers {
                     groupID: 'Installments',
                     canPickMany: false,
                     isRequired: false,
-                    index: 5,
+                    index: 8,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// INSTALLMENTS DURATION
@@ -788,10 +1054,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_installmentsDurationUnit',
-                    index: 6,
+                    index: 9,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - DESIGN SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_design',
+                    groupID: 'Design',
+                    index: 10,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// COLOR
                 PickerModel(
@@ -799,10 +1074,19 @@ class RawPickers {
                     groupID: 'Design',
                     canPickMany: true,
                     isRequired: false,
-                    index: 7,
+                    index: 11,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - DIMENSIONS SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_dimensions',
+                    groupID: 'Dimensions',
+                    index: 12,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// WIDTH
                 PickerModel(
@@ -811,7 +1095,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 8,
+                    index: 13,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// LENGTH
@@ -821,7 +1106,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 9,
+                    index: 14,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// HEIGHT
@@ -831,7 +1117,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 10,
+                    index: 15,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// THICKNESS
@@ -841,7 +1128,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 11,
+                    index: 16,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// DIAMETER
@@ -851,7 +1139,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 12,
+                    index: 17,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// RADIUS
@@ -861,10 +1150,19 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
-                    index: 13,
+                    index: 18,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
                 /// - SIZE SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_size',
+                    groupID: 'Size',
+                    index: 19,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// FOOTPRINT
                 PickerModel(
@@ -873,7 +1171,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_areaMeasureUnit',
-                    index: 14,
+                    index: 20,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// VOLUME
@@ -883,7 +1182,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_volumeMeasurementUnit',
-                    index: 15,
+                    index: 21,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// WIGHT
@@ -893,7 +1193,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_weightMeasurementUnit',
-                    index: 16,
+                    index: 22,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// SIZE
@@ -902,10 +1203,19 @@ class RawPickers {
                     groupID: 'Size',
                     canPickMany: false,
                     isRequired: false,
-                    index: 17,
+                    index: 23,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
-                /// - SIZE SPECIFICATIONS
+                /// - QUANTITY SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_quantity',
+                    groupID: 'Quantity',
+                    index: 24,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// QUANTITY
                 PickerModel(
@@ -913,10 +1223,19 @@ class RawPickers {
                     groupID: 'Quantity',
                     canPickMany: false,
                     isRequired: false,
-                    index: 18,
+                    index: 25,
+                    isHeadline: false,
                 ),
                 // ----------------------------
                 /// - ELECTRIC SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_electricity',
+                    groupID: 'Electricity',
+                    index: 26,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// WATTAGE
                 PickerModel(
@@ -924,16 +1243,18 @@ class RawPickers {
                     groupID: 'Electricity',
                     canPickMany: false,
                     isRequired: false,
-                    index: 19,
+                    index: 27,
+                    isHeadline: false,
                 ),
                 // -------------
-                /// WATTAGE
+                /// VOLTAGE
                 PickerModel(
                     chainID: 'phid_s_voltage',
                     groupID: 'Electricity',
                     canPickMany: false,
                     isRequired: false,
-                    index: 20,
+                    index: 28,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// WATTAGE
@@ -942,26 +1263,34 @@ class RawPickers {
                     groupID: 'Electricity',
                     canPickMany: false,
                     isRequired: false,
-                    index: 21,
+                    index: 29,
+                    isHeadline: false,
                 ),
                 // ----------------------------
-                /// - AVAILABILITY SPECIFICATIONS
+                /// - LOGISTICS SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_logistics',
+                    groupID: 'Logistics',
+                    index: 30,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
-                /// WATTAGE
+                /// AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_inStock',
-                    groupID: 'Availability',
+                    groupID: 'Logistics',
                     canPickMany: false,
                     isRequired: false,
-                    index: 22,
+                    index: 31,
+                    isHeadline: false,
                 ),
-                // ----------------------------
-                /// - DELIVERY SPECIFICATIONS
                 // ----------------------------
                 /// DELIVERY AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_deliveryAvailable',
-                    groupID: 'Availability',
+                    groupID: 'Logistics',
                     canPickMany: false,
                     isRequired: false,
                     blockers: <PickersBlocker>[
@@ -970,20 +1299,30 @@ class RawPickers {
                             pickersIDsToBlock: <String>['phid_s_deliveryMinDuration'],
                         ),
                     ],
-                    index: 23,
+                    index: 32,
+                    isHeadline: false,
                 ),
                 // -------------
                 /// DELIVERY AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_deliveryMinDuration',
-                    groupID: 'Availability',
+                    groupID: 'Logistics',
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_deliveryDurationUnit',
-                    index: 24,
+                    index: 33,
+                    isHeadline: false,
                 ),
                 // ----------------------------
                 /// - MANUFACTURER SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_manufacturer',
+                    groupID: 'Manufacturer Info',
+                    index: 34,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// MADE IN
                 PickerModel(
@@ -991,10 +1330,19 @@ class RawPickers {
                     groupID: 'Manufacturer Info',
                     canPickMany: false,
                     isRequired: false,
-                    index: 25,
+                    index: 35,
+                    isHeadline: false,
                 ),
                 // ----------------------------
                 /// - WARRANTY SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_warranty',
+                    groupID: 'Warranty',
+                    index: 36,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// WARRANTY DURATION
                 PickerModel(
@@ -1003,7 +1351,8 @@ class RawPickers {
                     canPickMany: false,
                     isRequired: false,
                     unitChainID: 'phid_s_warrantyDurationUnit',
-                    index: 26,
+                    index: 37,
+                    isHeadline: false,
                 ),
                 // ----------------------------
             ],
@@ -1020,6 +1369,14 @@ class RawPickers {
             'pickers': const <PickerModel>[
                 // ------------------------------------------------------------
                 /// - TYPE SPECIFICATIONS
+
+                PickerModel(
+                    chainID: 'headline_equipment_type',
+                    groupID: 'Type',
+                    index: 0,
+                    isHeadline: true,
+                ),
+
                 // ----------------------------
                 /// TYPE
                 PickerModel(
@@ -1033,7 +1390,8 @@ class RawPickers {
                         //     specsListsIDsToDeactivate: <String>['xxxxxxxxxx',]
                         // ),
                     ],
-                    index: 0,
+                    index: 1,
+                    isHeadline: false,
                 ),
                 // ------------------------------------------------------------
 
