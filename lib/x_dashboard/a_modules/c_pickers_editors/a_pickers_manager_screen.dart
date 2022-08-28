@@ -13,7 +13,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/a_pickers_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/b_pickers_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +101,8 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   @override
   Widget build(BuildContext context) {
 
+    const FlyerType _flyerType = FlyerType.equipment;
+
     final double _screenWidth = Scale.superScreenWidth(context);
     blog('c');
     return DashBoardLayout(
@@ -184,22 +186,28 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         /// COMPOSE PICKERS
         WideButton(
-          verse:  'COMPOSE : first pickers for ( ${FlyerType.project} )',
+          verse:  'COMPOSE : first all pickers',
           translate: false,
-          isActive: false,
+          // isActive: true,
           onTap: () async {
 
-            PickerModel.blogPickers(RawPickers.getPickersByFlyerType(FlyerType.project));
+
+            PickerModel.blogPickers(RawPickers.getPickersByFlyerType(_flyerType));
 
             final bool _continue = await Dialogs.confirmProceed(context: context);
 
             if (_continue == true){
 
-              await PickerProtocols.composeFlyerTypePickers(
-                context: context,
-                pickers: RawPickers.getPickersByFlyerType(FlyerType.project),
-                flyerType: FlyerType.project,
-              );
+              for (final FlyerType type in FlyerTyper.flyerTypesList){
+
+                await PickerProtocols.composeFlyerTypePickers(
+                  context: context,
+                  pickers: RawPickers.getPickersByFlyerType(type),
+                  flyerType: type,
+                );
+
+              }
+
 
             }
 

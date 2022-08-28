@@ -156,7 +156,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       _refinedSpecsPickers = ValueNotifier<List<PickerModel>>(_theRefinedPickers);
       // ------------------------------
       final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
-        specsPickers: _theRefinedPickers,
+        pickers: _theRefinedPickers,
       );
       _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
       // ------------------------------
