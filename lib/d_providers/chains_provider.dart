@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
-import 'package:bldrs/c_protocols/spec_picker_protocols/picker_protocols.dart';
+import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
