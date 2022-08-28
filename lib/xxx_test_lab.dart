@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -13,13 +14,13 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -53,35 +54,21 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final Chain _chainS = await ChainProtocols.fetchBigChainK(context);
+    final List<PickerModel> _pickers = RawPickers.getPickersByFlyerType(FlyerType.property);
 
-    _chainS.blogChain();
+    for (int i = 0; i < _pickers.length; i++){
 
+      final PickerModel picker = _pickers[i];
+      final String _x = i == picker.index ? 'o--' : 'xxx--'; // will show if some index is wrong
 
-    // _chainS.blogChain();
+      final String _index = Numeric.uniformizeIndexDigits(
+          index: i,
+          listLength: _pickers.length,
+      );
 
-    // final Chain _son = Chain.getChainFromChainsByID(
-    //     chainID: 'phid_s_propertyForm',
-    //     chains: _chainS.sons,
-    // );
-    //
-    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    // _son.blogChain();
-    // blog('////---------~~~~~~~x~~~~~~~~~~~~~~xx~~~~~~~x~~~~~~~~~~~~~x~~~~~~~~x~~~~~~~~~~~');
-    // blog(_son.sons);
-    //
-    // final bool _isDataCreator = Chain.checkSonsAreDataCreator(_son.sons);
-    // final bool _isPhids = Chain.checkSonsArePhidsss(_son.sons);
-    // final bool _isOfType = Chain.checkSonsAreDataCreatorOfType(
-    //   sons: _son.sons,
-    //   dataCreator: DataCreator.integerSlider,
-    // );
-    //
-    // blog('is data creator : $_isDataCreator');
-    // blog('is Phids : $_isPhids');
-    // blog('is Of Type : $_isOfType');
-    //
-    // blog('////---------~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~~~~~~~xxx~~~~~~~~~~~~x~~~~~~~');
+      blog('$_x - $_index : ${picker.chainID} : ${picker.unitChainID}');
+
+    }
 
   }
 
