@@ -9,12 +9,14 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/x_pickers_editor_controller.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/z_components/picker_editor.dart';
+import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
 
 class SpecPickerEditorScreen extends StatefulWidget {
@@ -191,7 +193,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
             }
 
             return ReorderableListView.builder(
-                itemCount: refinedPickers.length,
+                itemCount: refinedPickers.length + 1,
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(
                   top: Stratosphere.bigAppBarStratosphere,
@@ -231,44 +233,68 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                 itemBuilder: (BuildContext ctx, int index) {
 
-                  final PickerModel _picker = refinedPickers[index];
+                  final bool _isAddButton = index == refinedPickers.length;
 
-                    /// GROUP HEADLINE
-                  if (_picker.isHeadline == true){
-                    return Align(
-                      key: ValueKey<String>(_picker.chainID),
-                      alignment: Alignment.centerLeft,
-                      child: DreamBox(
-                        height: 40,
-                        verse:  '$index : ${_picker.groupID}',
-                        translateVerse: false,
-                        secondLine: _picker.chainID,
-                        translateSecondLine: false,
-                        verseCasing: VerseCasing.upperCase,
-                        margins: 10,
-                        verseScaleFactor: 0.65,
-                        verseItalic: true,
-                        bubble: false,
-                        color: Colorz.yellow125,
-                        verseCentered: false,
-                        // onTap: () => onUpdateGroupID(
-                        //   context: context,
-                        //   tempPickers: _tempPickers,
-                        //   oldGroupID: _groupID,
-                        // ),
+                  /// ADD BUTTON
+                  if (_isAddButton == true){
+
+                    blog('faak');
+
+                    return WideButton(
+                      key: const ValueKey<String>('add_button'),
+                      verse: 'Add',
+                      translate: false,
+                      onTap: () => onAddNewPickers(
+                        context: context,
+                        tempPickers: _tempPickers,
                       ),
                     );
                   }
 
-                  /// PICKER TILE
+                  /// HEADLINE - PICKERS
                   else {
-                    return PickerEditingTile(
-                      key: ValueKey<String>(_picker.chainID),
-                      picker: _picker,
-                      tempPickers: _tempPickers,
-                      flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),
-                    );
+
+                    final PickerModel _picker = refinedPickers[index];
+
+                    /// GROUP HEADLINE
+                    if (_picker.isHeadline == true){
+                      return Align(
+                        key: ValueKey<String>(_picker.chainID),
+                        alignment: Alignment.centerLeft,
+                        child: DreamBox(
+                          height: 40,
+                          verse:  '$index : ${xPhrase(context, _picker.groupID)}',
+                          translateVerse: false,
+                          secondLine: _picker.chainID,
+                          translateSecondLine: false,
+                          verseCasing: VerseCasing.upperCase,
+                          margins: 10,
+                          verseScaleFactor: 0.65,
+                          verseItalic: true,
+                          bubble: false,
+                          color: Colorz.yellow125,
+                          verseCentered: false,
+                          onTap: () => onHeadlineTap(
+                            context: context,
+                            tempPickers: _tempPickers,
+                            picker: _picker,
+                          ),
+                        ),
+                      );
+                    }
+
+                    /// PICKER TILE
+                    else {
+                      return PickerEditingTile(
+                        key: ValueKey<String>(_picker.chainID),
+                        picker: _picker,
+                        tempPickers: _tempPickers,
+                        flyerZone: ZoneProvider.proGetCurrentZone(context: context, listen: true),
+                      );
+                    }
+
                   }
+
 
                 }
             );
