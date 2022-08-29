@@ -711,7 +711,7 @@ class SpecModel {
 
       for (final String phid in phids){
 
-        final String _pickerChainID = getPickerChainIDOfPhid(
+        final String _pickerChainID = PickerModel.getPickerChainIDOfPhid(
           context: context,
           phid: phid,
         );

@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/line_bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -56,7 +57,7 @@ class PickerEditingTile extends StatelessWidget {
                       translateHeadline: false,
                     ),
                   ),
-                  onTap: () => onUpdateGroupID(
+                  onTap: () => onChangeGroupIDForAllItsPickers(
                       context: context,
                       oldGroupID: picker.groupID,
                       tempPickers: tempPickers
@@ -253,6 +254,51 @@ class PickerEditingTile extends StatelessWidget {
                     ),
                   ),
 
+                /// DELETE - SWITCH HEADLINE
+                SizedBox(
+                  width: _clearWidth,
+                  height: 50,
+                  // color: Colorz.bloodTest,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+
+                      /// DELETE
+                      DreamBox(
+                        height: 40,
+                        verse: '##switch\nHeadline',
+                        verseMaxLines: 2,
+                        verseScaleFactor: 0.5,
+                        translateVerse: true,
+                        verseItalic: true,
+                        verseCasing: VerseCasing.upperCase,
+                        onTap: () => switchHeadline(
+                          context: context,
+                          tempPickers: tempPickers,
+                          picker: picker,
+                        ),
+                        margins: 5,
+                      ),
+
+                      /// DELETE
+                      DreamBox(
+                        height: 40,
+                        verse: 'phid_delete',
+                        verseScaleFactor: 0.5,
+                        translateVerse: true,
+                        verseItalic: true,
+                        verseCasing: VerseCasing.upperCase,
+                        onTap: () => onDeletePicker(
+                          context: context,
+                          tempPickers: tempPickers,
+                          picker: picker,
+                        ),
+                        margins: 5,
+                      ),
+
+                    ],
+                  ),
+                ),
 
               ],
             ),
