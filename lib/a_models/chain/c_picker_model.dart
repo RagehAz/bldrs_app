@@ -221,8 +221,8 @@ class PickerModel {
 
   /// CHECKERS
 
-// -------------------------------------
-  ///
+// -----------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPickersContainPicker({
     @required PickerModel picker,
     @required List<PickerModel> pickers,
@@ -233,9 +233,6 @@ class PickerModel {
       for (int i = 0; i < pickers.length; i++) {
 
         final PickerModel _picker = pickers[i];
-
-        // blog('pickersContainPicker : (${pickers.length}) pickers and the index is ( $i ) for picker :-');
-        // _picker.blogSpecPicker();
 
         if (_picker?.chainID == picker.chainID) {
           _contains = true;
@@ -797,6 +794,80 @@ class PickerModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// FINDERS
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String getPickerChainIDOfPhid({
+    @required String phid,
+    @required BuildContext context,
+  }){
+
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final Chain _bigChainK = _chainsProvider.bigChainK;
+    final Chain _bigChainS = _chainsProvider.bigChainS;
+
+    final String _rooChainID = Chain.getRootChainIDOfPhid(
+      allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
+      phid: phid,
+    );
+
+    return _rooChainID;
+  }
+// -------------------------------------
+  /// FIND PICKERS BY PHIDS
+  /*
+  static PickerModel _findPickerByPhid({
+    @required BuildContext context,
+    @required String phid,
+    @required List<PickerModel> allPickers,
+  }){
+
+    final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
+      pickers: allPickers,
+      chainIDOrUnitChainID: getPickerChainIDOfPhid(
+        context: context,
+        phid: phid,
+      ),
+    );
+
+    return _picker;
+  }
+   */
+// -------------------------------------
+  /// FIND PICKER BY PHID
+  /*
+  static List<PickerModel> _findPickersByPhids({
+    @required BuildContext context,
+    @required List<String> phids,
+    @required List<PickerModel> allPickers,
+  }){
+
+    final List<PickerModel> _pickers = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allPickers) == true){
+
+      for (final String phid in phids){
+
+        final PickerModel _picker = _findPickerByPhid(
+          context: context,
+          phid: phid,
+          allPickers: allPickers,
+        );
+
+        if (_picker != null){
+          _pickers.add(_picker);
+        }
+
+      }
+
+    }
+
+    return _pickers;
+  }
+   */
+// -------------------------------------
+
   /// OVERRIDES
 
 // ----------------------------------------
@@ -833,67 +904,4 @@ class PickerModel {
   range.hashCode ^
   blockers.hashCode;
 // -----------------------------------------------------------------------------
-}
-
-String getPickerChainIDOfPhid({
-  @required String phid,
-  @required BuildContext context,
-}){
-
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  final Chain _bigChainK = _chainsProvider.bigChainK;
-  final Chain _bigChainS = _chainsProvider.bigChainS;
-
-  final String _rooChainID = Chain.getRootChainIDOfPhid(
-    allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
-    phid: phid,
-  );
-
-  return _rooChainID;
-}
-
-PickerModel findPickerByPhid({
-  @required BuildContext context,
-  @required String phid,
-  @required List<PickerModel> allPickers,
-}){
-
-  final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
-    pickers: allPickers,
-    chainIDOrUnitChainID: getPickerChainIDOfPhid(
-      context: context,
-      phid: phid,
-    ),
-  );
-
-  return _picker;
-}
-
-List<PickerModel> findPickersByPhids({
-  @required BuildContext context,
-  @required List<String> phids,
-  @required List<PickerModel> allPickers,
-}){
-
-  final List<PickerModel> _pickers = <PickerModel>[];
-
-  if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allPickers) == true){
-
-    for (final String phid in phids){
-
-      final PickerModel _picker = findPickerByPhid(
-        context: context,
-        phid: phid,
-        allPickers: allPickers,
-      );
-
-      if (_picker != null){
-        _pickers.add(_picker);
-      }
-
-    }
-
-  }
-
-  return _pickers;
 }

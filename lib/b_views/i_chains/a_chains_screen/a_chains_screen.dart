@@ -333,7 +333,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
                     selectedSpecs: _selectedSpecs,
                     picker: PickerModel.getPickerByChainIDOrUnitChainID(
                       pickers: _allSpecPickers,
-                      chainIDOrUnitChainID: getPickerChainIDOfPhid(
+                      chainIDOrUnitChainID: PickerModel.getPickerChainIDOfPhid(
                         context: context,
                         phid: phid,
                       ),
