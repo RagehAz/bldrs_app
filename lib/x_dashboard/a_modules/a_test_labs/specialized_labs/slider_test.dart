@@ -82,6 +82,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             const Stratosphere(),
 
             TextFieldBubble(
+              appBarType: AppBarType.basic,
               titleVerse:  'Set Min value',
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
@@ -98,6 +99,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             ),
 
             TextFieldBubble(
+              appBarType: AppBarType.basic,
               titleVerse:  'Set Max value',
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
@@ -114,6 +116,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
             ),
 
             TextFieldBubble(
+              appBarType: AppBarType.basic,
               titleVerse:  'Set divisions',
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,

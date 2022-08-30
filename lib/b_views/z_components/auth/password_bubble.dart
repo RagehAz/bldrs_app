@@ -1,9 +1,11 @@
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:flutter/material.dart';
 
 class PasswordBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PasswordBubbles({
+    @required this.appBarType,
     @required this.passwordController,
     @required this.showPasswordOnly,
     @required this.passwordValidator,
@@ -23,6 +25,7 @@ class PasswordBubbles extends StatelessWidget {
   final TextEditingController passwordConfirmationController;
   final String Function() passwordConfirmationValidator;
   final bool isTheSuperKeyboardField;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,7 @@ class PasswordBubbles extends StatelessWidget {
 
         /// PASSWORD
         TextFieldBubble(
+          appBarType: appBarType,
           bubbleWidth: boxWidth,
           isFormField: true,
           key: const ValueKey<String>('password'),
@@ -55,6 +59,7 @@ class PasswordBubbles extends StatelessWidget {
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
           TextFieldBubble(
+            appBarType: appBarType,
             isFormField: true,
             key: const ValueKey<String>('confirm'),
             textController: passwordConfirmationController,

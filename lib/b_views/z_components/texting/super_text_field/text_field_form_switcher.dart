@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -51,6 +53,8 @@ class TextFormFieldSwitcher extends StatelessWidget {
 
     @required this.readOnly,
 
+    @required this.appBarType,
+
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -96,6 +100,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final Function onEditingComplete;
   final String Function(String) validator;
   final bool readOnly;
+  final AppBarType appBarType;
 // -----------------------------------------------------------------------------
   static TextInputType _getKeyboardType({
     @required TextInputAction textInputAction,
@@ -145,7 +150,10 @@ class TextFormFieldSwitcher extends StatelessWidget {
       counterIsOn: counterIsOn,
     );
 // -----------------------------------------------------------------------------
-    const EdgeInsets _scrollPadding = EdgeInsets.only(bottom: 50);
+    final EdgeInsets _scrollPadding = EdgeInsets.only(
+      bottom: 50 + MediaQuery.of(context).viewInsets.bottom,
+      top: BldrsAppBar.height(context, appBarType),
+    );
 // -----------------------------------------------------------------------------
     final int _maxLines = obscured == true ? 1 : maxLines;
 // -----------------------------------------------------------------------------
@@ -177,6 +185,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         /// scrolling
         scrollPhysics: const BouncingScrollPhysics(),
         scrollPadding: _scrollPadding,
+        enableInteractiveSelection: true,
 
         /// text
         textDirection: textDirection,

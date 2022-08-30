@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -22,6 +22,7 @@ class PhraseCreatorPage extends StatelessWidget {
     @required this.arController,
     @required this.tempMixedPhrases,
     @required this.pageController,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class PhraseCreatorPage extends StatelessWidget {
   final TextEditingController arController;
   final ValueNotifier<List<Phrase>> tempMixedPhrases;
   final PageController pageController;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ID
           TextFieldBubble(
+            appBarType: appBarType,
             titleVerse:  'Key',
             hintText:  'Phrase key',
             textController: idController,
@@ -81,6 +84,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ENGLISH
           TextFieldBubble(
+            appBarType: appBarType,
             titleVerse:  'English',
             hintText:  'English phrase',
             textController: enController,
@@ -92,6 +96,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
           /// ARABIC
           TextFieldBubble(
+            appBarType: appBarType,
             titleVerse:  'عربي',
             hintText:  'مصطلح عربي',
             textController: arController,
@@ -134,10 +139,7 @@ class PhraseCreatorPage extends StatelessWidget {
             ),
           ),
 
-          if (Keyboard.keyboardIsOn(context) == true)
-            const Horizon(
-              heightFactor: 5,
-            ),
+          const Horizon(),
 
         ],
       ),

@@ -199,6 +199,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       ),
       layoutWidget: UserEditorScreenView(
+        appBarType: AppBarType.basic,
         formKey: _formKey,
         fileModel: _picture,
         canPickImage: _canPickImage,

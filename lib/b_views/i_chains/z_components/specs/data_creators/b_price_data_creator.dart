@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_data_
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/xxx_data_creators_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 class PriceDataCreator extends StatefulWidget {
@@ -19,6 +20,7 @@ class PriceDataCreator extends StatefulWidget {
     @required this.onExportSpecs,
     @required this.dataCreatorType,
     @required this.onlyUseCityChains,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +32,7 @@ class PriceDataCreator extends StatefulWidget {
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final DataCreator dataCreatorType;
   final bool onlyUseCityChains;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
@@ -85,6 +88,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
+          appBarType: widget.appBarType,
           hasUnit: true,
           hintText: '##Add price',
           validator: () => currencyFieldValidator(

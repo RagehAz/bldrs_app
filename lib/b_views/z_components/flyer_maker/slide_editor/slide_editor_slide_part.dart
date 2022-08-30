@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transf
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -27,6 +28,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.isTransforming,
     @required this.matrix,
     @required this.filterModel,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +38,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<bool> isTransforming;
   final ValueNotifier<Matrix4> matrix;
   final ValueNotifier<ImageFilterModel> filterModel;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
@@ -141,6 +144,8 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 ),
                                 alignment: Alignment.topCenter,
                                 child: SuperTextField(
+                                  appBarType: appBarType,
+                                  globalKey: null,
                                   titleVerse: '##Flyer Slide Headline',
                                   // key: ValueKey<String>('slide$slideIndex'),
                                   hintVerse: '##T i t l e',

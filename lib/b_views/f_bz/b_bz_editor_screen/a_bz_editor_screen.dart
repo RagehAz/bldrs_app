@@ -245,6 +245,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         bzZone: _selectedBzZone,
         userModel: _userModel,
         bzContacts: _bzContacts,
+        appBarType: AppBarType.basic,
       ),
     );
   }

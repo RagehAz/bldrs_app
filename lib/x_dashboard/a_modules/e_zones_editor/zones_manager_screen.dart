@@ -174,6 +174,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
 
                   /// COUNTRY PAGE
                   CountryEditorPage(
+                    appBarType: AppBarType.basic,
                     country: zone.countryModel,
                     screenHeight: _screenHeight,
                     onCityTap: () => goToCitySelectionScreen(
