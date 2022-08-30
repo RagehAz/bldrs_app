@@ -152,7 +152,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         context: context,
         draggable: true,
         numberOfWidgets: _buttons.length,
-        title: 'Fuck this',
+        title: 'All note screen show button dialog',
         builder: (_, PhraseProvider phrasePro){
 
           return _buttons;

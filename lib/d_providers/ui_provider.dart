@@ -174,8 +174,10 @@ class UiProvider extends ChangeNotifier {
   void setKeyboard({
     @required KeyboardModel model,
     @required bool notify,
+    @required String invoker,
   }){
 
+    // blog('UiProvider : setting keyboard to : ${model?.titleVerse} by $invoker');
     _keyboardModel = model;
 
     if (notify == true){
@@ -380,7 +382,7 @@ class UiProvider extends ChangeNotifier {
     /// _loading
     _uiProvider.triggerLoading(callerName: 'WipeOut', notify: false, setLoadingTo: false);
     /// _keyboardModel
-    _uiProvider.setKeyboard(model: null, notify: false);
+    _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
     /// _keyboardIsOn
     _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
     /// _textFieldsObscured

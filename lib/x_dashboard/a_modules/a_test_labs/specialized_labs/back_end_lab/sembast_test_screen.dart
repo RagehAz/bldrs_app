@@ -236,7 +236,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     return DashBoardLayout(
       pageTitle: 'Sembast test',
       onBldrsTap: () {
-        blog('fuck this bobo');
+        blog('SembastReaderTestScreen on bldrs tap');
       },
       listWidgets: <Widget>[
 

@@ -49,6 +49,8 @@ class TextFormFieldSwitcher extends StatelessWidget {
     @required this.onEditingComplete,
     @required this.validator,
 
+    @required this.readOnly,
+
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -93,6 +95,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   final String Function(String) validator;
+  final bool readOnly;
 // -----------------------------------------------------------------------------
   static TextInputType _getKeyboardType({
     @required TextInputAction textInputAction,
@@ -106,7 +109,11 @@ class TextFormFieldSwitcher extends StatelessWidget {
     return _textInputType;
   }
 // -----------------------------------------------------------------------------
-  Widget counterBuilder(BuildContext context, {int currentLength, bool isFocused, int maxLength}){
+  Widget counterBuilder(BuildContext context, {
+    int currentLength,
+    bool isFocused,
+    int maxLength,
+  }){
     return SuperTextField.textFieldCounter(
       currentLength: currentLength,
       maxLength: maxLength,
@@ -213,6 +220,27 @@ class TextFormFieldSwitcher extends StatelessWidget {
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
         autocorrect: false,
 
+        // initialValue: ,
+        // restorationId: ,
+        // autofillHints: ,
+        // cursorHeight: ,
+        // cursorWidth: ,
+        // enableIMEPersonalizedLearning: ,
+        // enableInteractiveSelection: ,
+        // enableSuggestions: ,
+        // expands: ,
+        // inputFormatters: [],
+        // mouseCursor: ,
+        // obscuringCharacter: ,
+        // readOnly: ,
+        // selectionControls: ,
+        // showCursor: ,
+        // smartDashesType: ,
+        // smartQuotesType: ,
+        // strutStyle: ,
+        // textCapitalization: ,
+        // toolbarOptions: ,
+
       );
     }
 
@@ -267,6 +295,33 @@ class TextFormFieldSwitcher extends StatelessWidget {
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD
         autocorrect: false,
+
+        // toolbarOptions: ,
+        // textCapitalization: ,
+        // strutStyle: ,
+        // smartQuotesType: ,
+        // smartDashesType: ,
+        // showCursor: ,
+        // selectionControls: ,
+        // readOnly: ,
+        // obscuringCharacter: ,
+        // mouseCursor: ,
+        // inputFormatters: [],
+        // expands: ,
+        // enableSuggestions: ,
+        // enableInteractiveSelection: ,
+        // enableIMEPersonalizedLearning: ,
+        // cursorWidth: ,
+        // cursorHeight: ,
+        // autofillHints: ,
+        // restorationId: ,
+        // clipBehavior: ,
+        // dragStartBehavior: ,
+        // onAppPrivateCommand: ,
+        // scribbleEnabled: ,
+        // selectionHeightStyle: ,
+        // selectionWidthStyle: ,
+
       );
     }
 

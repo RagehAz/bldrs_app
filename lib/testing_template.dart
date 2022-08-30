@@ -69,10 +69,10 @@ class _TestingTemplateState extends State<TestingTemplate> {
 
         WideButton(
           translate: false,
-          verse:  'Fuck this',
+          verse:  '~~~~~~~~~test~~~~~~~~~~',
           onTap: () async {
 
-            blog('fuck this');
+            blog('~~~~~~~~~test~~~~~~~~~~ onTap');
 
           },
         ),

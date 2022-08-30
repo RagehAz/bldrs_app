@@ -1,14 +1,12 @@
-import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class KeyboardFieldWidgetTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -23,7 +21,8 @@ class KeyboardFieldWidgetTest extends StatefulWidget {
 
 class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
 // -------------------------------------
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controllerA = TextEditingController();
+  final TextEditingController _controllerB = TextEditingController();
 // -------------------------------------
   @override
   void initState() {
@@ -33,7 +32,8 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
 // -------------------------------------
   @override
   void dispose() {
-    _controller.dispose();
+    _controllerA.dispose();
+    _controllerB.dispose();
     super.dispose();
   }
 // -------------------------------------
@@ -94,22 +94,33 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
   }
    */
 // -------------------------------------
+  final FocusNode _firstNode = FocusNode();
+  final FocusNode _secondNode = FocusNode(
+    // canRequestFocus: true,
+    // descendantsAreFocusable: true,
+    // descendantsAreTraversable: true,
+    onKey: (FocusNode node, RawKeyEvent event){
+      blog('node : ${node.toStringShort()}');
+      blog('event : ${event.character}');
+      const KeyEventResult _keyEventResult = KeyEventResult.handled;
+      return _keyEventResult;
+    }
+  );
+
   @override
   Widget build(BuildContext context) {
 
     final double _keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    blog('above scaffold : _keyboardHeight : $_keyboardHeight');
+    // blog('above scaffold : _keyboardHeight : $_keyboardHeight');
 
     // unawaited(_saveKeyboardHeight(
     //   keyboardHeight: _keyboardHeight,
     //   textInputType: _keyboardType,
     // ));
 
-    return Scaffold(
-
-      backgroundColor: Colorz.skyDarkBlue,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+    return MainLayout(
+      skyType: SkyType.black,
+      layoutWidget: Stack(
         children: <Widget>[
 
           ListView(
@@ -118,34 +129,14 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
               const Stratosphere(),
 
               SuperTextField(
-                titleVerse:  'Test',
+                focusNode: _firstNode,
+                isFloatingField: true,
+                titleVerse:  'AAA',
                 width: 200,
                 fieldColor: Colorz.bloodTest,
-                textController: _controller,
-                // textInputAction: TextInputAction.done,
+                textController: _controllerA,
+                textInputAction: TextInputAction.next,
                 textInputType: Keyboard.textInputTypes[_index],
-                onTap: () async {
-
-                  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-
-                  final KeyboardModel model = KeyboardModel(
-                    titleVerse:  'Hey There !',
-                    hintVerse: null,
-                    controller: _controller,
-                    maxLines: 5,
-                    maxLength: 100,
-                    textInputType: Keyboard.textInputTypes[_index],
-                    focusNode: FocusNode(),
-                  );
-
-                  _uiProvider.setKeyboard(
-                    model: model,
-                    notify: true,
-                  );
-
-                  // await _closeAndChangeKeyboard();
-
-                },
               ),
 
               SuperVerse(
@@ -155,6 +146,17 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 maxLines: 3,
                 centered: false,
                 weight: VerseWeight.thin,
+              ),
+
+              SuperTextField(
+                focusNode: _secondNode,
+                isFloatingField: true,
+                titleVerse: 'BBB',
+                width: 200,
+                fieldColor: Colorz.bloodTest,
+                textController: _controllerB,
+                textInputAction: TextInputAction.next,
+                textInputType: Keyboard.textInputTypes[_index],
               ),
 
             ],
@@ -169,11 +171,9 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
           //   ),
           // ),
 
+
         ],
       ),
-
-      bottomSheet: const KeyboardFloatingField(),
-
     );
 
   }

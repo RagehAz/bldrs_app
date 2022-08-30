@@ -81,7 +81,7 @@ class _EmailTestScreenState extends State<EmailTestScreen> {
 
             const String fromEmail = 'rageh-@hotmail.com';
             final String senderName = 'Rageh El Azzazi ${DateTime.now()}';
-            const String subject = 'Fuck this test';
+            const String subject = 'email test screen subject';
             const String body = 'hey sexy baby lady you sexy boudy';
             const List<String> receiversEmails = <String>[
               'rageh-@hotmail.com',
