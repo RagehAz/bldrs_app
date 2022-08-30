@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -45,7 +46,9 @@ class AuthorSearchScreenView extends StatelessWidget {
         ValueListenableBuilder(
             valueListenable: isSearching,
             child: Bubble(
-              title: 'Share invitation Link',
+              headerViewModel: const BubbleHeaderVM(
+                headlineVerse: 'phid_share_invitation_link',
+              ),
               width: Bubble.defaultWidth(context),
               margins: Scale.superPadding(
                 context: context,

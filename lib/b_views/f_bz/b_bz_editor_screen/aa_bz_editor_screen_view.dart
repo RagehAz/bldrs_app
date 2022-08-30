@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_butto
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
@@ -290,11 +291,13 @@ class BzEditorScreenView extends StatelessWidget {
                           min: 0.35,
                           absorbPointer: Mapper.checkCanLoopList(bzTypes) == false,
                           child: Bubble(
+                            headerViewModel: const BubbleHeaderVM(
+                              headlineVerse: 'phid_scope_of_services',
+                            ),
                             width: Bubble.bubbleWidth(
                               context: context,
                               stretchy: false,
                             ),
-                            title: '##Scope of services',
                             columnChildren: <Widget>[
 
                               const BubbleBulletPoints(

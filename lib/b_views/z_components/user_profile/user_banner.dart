@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
@@ -95,7 +96,8 @@ class UserBanner extends StatelessWidget {
     final bool _itIsMe = userModel?.id == AuthFireOps.superUserID();
 
     return Bubble(
-      centered: true,
+      headerViewModel: const BubbleHeaderVM(),
+      childrenCentered: true,
       onBubbleTap: _onTap,
       columnChildren: <Widget>[
 

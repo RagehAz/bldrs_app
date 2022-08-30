@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/notes/note_attachment.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card_buttons.dart';
@@ -82,8 +83,11 @@ class NoteCard extends StatelessWidget {
       redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
       child: Bubble(
+        headerViewModel: const BubbleHeaderVM(
+          centered: true,
+        ),
         width: _bubbleWidth,
-        centered: true,
+        childrenCentered: true,
         margins: const EdgeInsets.symmetric(
             horizontal: Ratioz.appBarMargin,
             vertical: Ratioz.appBarMargin,

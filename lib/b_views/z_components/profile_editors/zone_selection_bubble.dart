@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -324,8 +325,10 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             builder: (_, ZoneModel zone, Widget bulletPoints){
 
               return Bubble(
-                  title: widget.titleVerse,
-                  redDot: true,
+                  headerViewModel: BubbleHeaderVM(
+                    headlineVerse: widget.titleVerse,
+                    redDot: true,
+                  ),
                   columnChildren: <Widget>[
 
                     if (Mapper.checkCanLoopList(widget.bulletPoints))

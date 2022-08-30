@@ -231,7 +231,7 @@ class PickerEditingTile extends StatelessWidget {
                                       viewModel: BubbleHeaderVM(
                                         headlineVerse: _blocker.value.toString(),
                                         headerWidth: _clearWidth,
-                                        translateHeadline: true,
+                                        // translateHeadline: true,
                                       ),
                                     ),
 
