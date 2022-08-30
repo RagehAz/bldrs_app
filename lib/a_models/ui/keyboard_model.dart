@@ -40,7 +40,8 @@ class KeyboardModel {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   final bool isFloatingField;
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   KeyboardModel copyWith({
     String titleVerse,
     String hintVerse,
@@ -101,6 +102,45 @@ class KeyboardModel {
       // onEditingComplete: null,
       isFloatingField: false,
     );
+  }
+// -----------------------------------------------------------------------------
+
+/// WIPE OUT
+
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkKeyboardsAreIdentical({
+    @required KeyboardModel modelA,
+    @required KeyboardModel modelB,
+  }){
+    bool _areIdentical = false;
+
+    if (modelA == null && modelB == null){
+      _areIdentical = true;
+    }
+    else if (
+    modelA.titleVerse == modelB.titleVerse &&
+    modelA.hintVerse == modelB.hintVerse &&
+    modelA.controller == modelB.controller &&
+    modelA.minLines == modelB.minLines &&
+    modelA.maxLines == modelB.maxLines &&
+    modelA.maxLength == modelB.maxLength &&
+    modelA.textInputAction == modelB.textInputAction &&
+    modelA.textInputType == modelB.textInputType &&
+    modelA.focusNode == modelB.focusNode &&
+    modelA.canObscure == modelB.canObscure &&
+    modelA.counterIsOn == modelB.counterIsOn &&
+    modelA.isFormField == modelB.isFormField &&
+    modelA.onChanged == modelB.onChanged &&
+    modelA.onSubmitted == modelB.onSubmitted &&
+    modelA.onSavedForForm == modelB.onSavedForForm &&
+    modelA.onEditingComplete == modelB.onEditingComplete &&
+    modelA.isFloatingField == modelB.isFloatingField
+    ){
+      _areIdentical = true;
+    }
+
+    return _areIdentical;
   }
 // -----------------------------------------------------------------------------
 }

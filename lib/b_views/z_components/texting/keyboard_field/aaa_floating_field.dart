@@ -31,7 +31,7 @@ class FloatingField extends StatelessWidget {
       hintText: model?.hintVerse,
       autoFocus: true,
       focusNode: model?.focusNode,
-      isFloatingField: true,
+      isFloatingField: model?.isFloatingField,
       canObscure: model?.canObscure,
       onSubmitted: model?.onSubmitted,
       onSavedForForm: model?.onSavedForForm,

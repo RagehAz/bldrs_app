@@ -9,6 +9,7 @@ import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,10 @@ class KeyboardFloatingBubble extends StatelessWidget {
                     Selector<UiProvider, KeyboardModel>(
                       selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
                       shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                        return old?.titleVerse != newModel?.titleVerse;
+                        return KeyboardModel.checkKeyboardsAreIdentical(
+                            modelA: old,
+                            modelB: newModel,
+                        ) == false;
                       },
                       builder: (_, KeyboardModel model, Widget child){
 
@@ -88,11 +92,12 @@ class KeyboardFloatingBubble extends StatelessWidget {
               Selector<UiProvider, KeyboardModel>(
                 selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
                 shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-                  return old?.titleVerse != newModel?.titleVerse;
+                  return KeyboardModel.checkKeyboardsAreIdentical(
+                    modelA: old,
+                    modelB: newModel,
+                  ) == false;
                 },
                 builder: (_, KeyboardModel model, Widget child){
-
-                  // blog('rebuilding field : ${model.title} : ${model.controller.hashCode} : ${model.controller.text}');
 
                   return FloatingField(
                     model: model,

@@ -262,11 +262,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                       icon: _file,
                       iconSizeFactor: 1,
                       verseScaleFactor: 0.6,
-                      // onTap: () async {
-                      //
-                      //   blog('fuck this');
-                      //
-                      // },
+
                     ),
 
                     /// TAMAM : uInt8List
@@ -302,7 +298,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                       //   //   uiImage = _uiImage;
                       //   // });
                       //   //
-                      //   // blog('fuck this');
+                      //   // blog('getUiImageFromUint8List image test screen');
                       //
                       // },
                     ),
