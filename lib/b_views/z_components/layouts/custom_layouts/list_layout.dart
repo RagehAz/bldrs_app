@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/zone/continent_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/unfinished_max_bounce_navigator.dart';
@@ -87,10 +88,11 @@ class ListLayout extends StatelessWidget {
           SizedBox(
             width: _screenWidth,
             height: _bubbleHeight,
-            // color: Colorz.YellowAir,
             child: Bubble(
-              // title: 'Countries',
-              centered: true,
+              headerViewModel: const BubbleHeaderVM(
+                centered: true,
+              ),
+              childrenCentered: true,
               width: Bubble.clearWidth(context),
               columnChildren: <Widget>[
                 SizedBox(

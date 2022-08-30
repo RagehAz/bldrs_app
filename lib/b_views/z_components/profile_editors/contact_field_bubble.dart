@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -13,8 +14,8 @@ import 'package:flutter/material.dart';
 class ContactFieldBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ContactFieldBubble({
-    @required this.title,
     @required this.appBarType,
+    @required this.headerViewModel,
     this.hintText = '...',
     this.textController,
     this.textOnChanged,
@@ -27,18 +28,16 @@ class ContactFieldBubble extends StatefulWidget {
     this.translateBulletPoints = true,
     this.fieldIsRequired = false,
     this.loading = false,
-    this.actionBtIcon,
-    this.actionBtFunction,
     this.horusOnTapDown,
     this.horusOnTapUp,
     this.horusOnTapCancel,
-    this.leadingIcon,
+    this.fieldLeadingIcon,
     this.keyboardTextInputType = TextInputType.url,
     this.canPaste = true,
+
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
   final String hintText;
   final TextEditingController textController;
   final Function textOnChanged;
@@ -51,15 +50,14 @@ class ContactFieldBubble extends StatefulWidget {
   final bool translateBulletPoints;
   final bool fieldIsRequired;
   final bool loading;
-  final String actionBtIcon;
-  final Function actionBtFunction;
   final Function horusOnTapDown;
   final Function horusOnTapUp;
   final Function horusOnTapCancel;
-  final String leadingIcon;
+  final String fieldLeadingIcon;
   final TextInputType keyboardTextInputType;
   final bool canPaste;
   final AppBarType appBarType;
+  final BubbleHeaderVM headerViewModel;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
@@ -130,8 +128,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     final double bubbleClearWidth = Bubble.clearWidth(context);
     const double _spacer = 5;
     /// LEADING ICON SIZE
-    final double leadingIconSize = widget.leadingIcon == null ? 0 : _textFieldHeight;
-    final double leadingAndFieldSpacing = widget.leadingIcon == null ? 0 : _spacer;
+    final double leadingIconSize = widget.fieldLeadingIcon == null ? 0 : _textFieldHeight;
+    final double leadingAndFieldSpacing = widget.fieldLeadingIcon == null ? 0 : _spacer;
     /// PASTE BUTTON SIZE
     final double _pasteButtonHeight = _textFieldHeight;
     final double _pasteButtonWidth = widget.canPaste == true ? 50 : 0;
@@ -146,11 +144,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     // ---------------------------
 
     return Bubble(
+      headerViewModel: widget.headerViewModel,
       width: _bubbleWidth,
-        title: widget.title,
-        redDot: widget.fieldIsRequired,
-        actionBtIcon: widget.actionBtIcon, // widget.actionBtColor
-        actionBtFunction: widget.actionBtFunction,
         columnChildren: <Widget>[
 
           /// TEXT FIELD ROW
@@ -160,19 +155,19 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
             children: <Widget>[
 
               /// LEADING ICON
-              if (widget.leadingIcon != null)
+              if (widget.fieldLeadingIcon != null)
                 DreamBox(
                   height: 35,
                   width: 35,
-                  icon: widget.leadingIcon,
-                  iconSizeFactor: widget.leadingIcon == Iconz.comWebsite ||
-                      widget.leadingIcon == Iconz.comEmail ||
-                      widget.leadingIcon == Iconz.comPhone
+                  icon: widget.fieldLeadingIcon,
+                  iconSizeFactor: widget.fieldLeadingIcon == Iconz.comWebsite ||
+                      widget.fieldLeadingIcon == Iconz.comEmail ||
+                      widget.fieldLeadingIcon == Iconz.comPhone
                       ? 0.6 : 1,
                 ),
 
               /// SPACER
-              if (widget.leadingIcon != null)
+              if (widget.fieldLeadingIcon != null)
                 const SizedBox(width: _spacer,),
 
               /// TEXT FIELD

@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -81,8 +82,10 @@ class AddImagePicBubble extends StatelessWidget {
     );
 
     return Bubble(
-        title: titleVerse,
-        redDot: redDot,
+        headerViewModel: BubbleHeaderVM(
+          headlineVerse: titleVerse,
+          redDot: redDot,
+        ),
         columnChildren: <Widget>[
 
           /// GALLERY & DELETE LAYER
@@ -233,5 +236,6 @@ class AddImagePicBubble extends StatelessWidget {
 
         ]
     );
+
   }
 }

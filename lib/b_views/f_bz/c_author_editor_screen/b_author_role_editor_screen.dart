@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -155,64 +156,66 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
       columnChildren: <Widget>[
 
         Bubble(
-            centered: true,
-            margins: Scale.superMargins(
-              margins: 20
-            ),
-            columnChildren: <Widget>[
-
-              /// PADDING
-              const SizedBox(
-                width: 20,
-                height: 20,
-              ),
-
-              /// USER PIC
-              Center(
-                child: AuthorPic(
-                  width: 100,
-                  authorPic: widget.authorModel.pic,
-                ),
-              ),
-
-              /// USER NAME
-              SuperVerse(
-                verse: widget.authorModel.name,
-                shadow: true,
-                size: 4,
-                margin: 5,
-                maxLines: 2,
-                labelColor: Colorz.white10,
-              ),
-
-              /// JOB TITLE
-              SuperVerse(
-                italic: true,
-                weight: VerseWeight.thin,
-                verse: AuthorCard.getAuthorTitleLine(
-                  title: widget.authorModel.title,
-                  companyName: _bzModel.name,
-                ),
-              ),
-
-              /// AUTHOR ROLE
-              SuperVerse(
-                italic: true,
-                weight: VerseWeight.thin,
-                verse: AuthorModel.translateRole(
-                  context: context,
-                  role: widget.authorModel.role,
-                ),
-              ),
-
-              /// PADDING
-              const SizedBox(
-                width: 20,
-                height: 20,
-              ),
-
-            ],
+          headerViewModel: const BubbleHeaderVM(
+              centered: true
           ),
+          margins: Scale.superMargins(
+              margins: 20
+          ),
+          columnChildren: <Widget>[
+
+            /// PADDING
+            const SizedBox(
+              width: 20,
+              height: 20,
+            ),
+
+            /// USER PIC
+            Center(
+              child: AuthorPic(
+                width: 100,
+                authorPic: widget.authorModel.pic,
+              ),
+            ),
+
+            /// USER NAME
+            SuperVerse(
+              verse: widget.authorModel.name,
+              shadow: true,
+              size: 4,
+              margin: 5,
+              maxLines: 2,
+              labelColor: Colorz.white10,
+            ),
+
+            /// JOB TITLE
+            SuperVerse(
+              italic: true,
+              weight: VerseWeight.thin,
+              verse: AuthorCard.getAuthorTitleLine(
+                title: widget.authorModel.title,
+                companyName: _bzModel.name,
+              ),
+            ),
+
+            /// AUTHOR ROLE
+            SuperVerse(
+              italic: true,
+              weight: VerseWeight.thin,
+              verse: AuthorModel.translateRole(
+                context: context,
+                role: widget.authorModel.role,
+              ),
+            ),
+
+            /// PADDING
+            const SizedBox(
+              width: 20,
+              height: 20,
+            ),
+
+          ],
+        ),
 
         ValueListenableBuilder<AuthorRole>(
             valueListenable: _authorRole,

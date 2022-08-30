@@ -132,7 +132,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
     //   textInputType: _keyboardType,
     // ));
 
-    const AppBarType _appBarType = AppBarType.basic;
+    const AppBarType _appBarType = AppBarType.search;
 
     return MainLayout(
       appBarType: _appBarType,
@@ -149,7 +149,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                 const Stratosphere(),
 
                 TextFieldBubble(
-                  appBarType: AppBarType.basic,
+                  appBarType: _appBarType,
                   globalKey: globalKey,
                   focusNode: _nodeA,
                   titleVerse:  'AAA',

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,10 @@ class GenderBubble extends StatelessWidget {
     final double _buttonWidth = buttonWidth(context);
 
     return Bubble(
-      title: 'Gender',
-      redDot: true,
+      headerViewModel: const BubbleHeaderVM(
+        headlineVerse: 'phid_gender',
+        redDot: true,
+      ),
       width: Bubble.defaultWidth(context),
       columnChildren: <Widget>[
 

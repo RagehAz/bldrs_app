@@ -15,14 +15,17 @@ class BubbleHeaderVM {
     this.leadingIconSizeFactor = 1,
     this.leadingIconBoxColor,
     this.leadingIconIsBubble = false,
+    this.onLeadingIconTap,
     this.hasSwitch = false,
     this.hasMoreButton = false,
     this.headlineVerse,
-    this.translateHeadline,
+    this.translateHeadline = true,
     this.headlineColor = Colorz.white255,
-    this.switchIsOn,
+    this.switchIsOn = false,
     this.onSwitchTap,
     this.onMoreButtonTap,
+    this.redDot = false,
+    this.centered = false,
   });
   /// --------------------------------------------------------------------------
   final double headerWidth;
@@ -30,14 +33,17 @@ class BubbleHeaderVM {
   final double leadingIconSizeFactor;
   final Color leadingIconBoxColor;
   final bool leadingIconIsBubble;
+  final Function onLeadingIconTap;
   final bool hasSwitch;
   final bool hasMoreButton;
   final String headlineVerse;
   final bool translateHeadline;
   final Color headlineColor;
+  final bool centered;
   final bool switchIsOn;
   final ValueChanged<bool> onSwitchTap;
   final Function onMoreButtonTap;
+  final bool redDot;
 /// --------------------------------------------------------------------------
   BubbleHeaderVM copyWith({
     double headerWidth,
@@ -53,6 +59,7 @@ class BubbleHeaderVM {
     bool switchIsOn,
     ValueChanged<bool> onSwitchTap,
     Function onMoreButtonTap,
+    bool redDot,
   }){
     return BubbleHeaderVM(
       headerWidth: headerWidth ?? this.headerWidth,
@@ -68,6 +75,7 @@ class BubbleHeaderVM {
       switchIsOn: switchIsOn ?? this.switchIsOn,
       onSwitchTap: onSwitchTap ?? this.onSwitchTap,
       onMoreButtonTap: onMoreButtonTap ?? this.onMoreButtonTap,
+      redDot: redDot ?? this.redDot,
     );
   }
 /// --------------------------------------------------------------------------
@@ -85,6 +93,22 @@ class BubbleHeader extends StatelessWidget {
   static const double iconBoxSize = 30;
   static const double switcherButtonWidth = 50;
   static const double moreButtonSize = iconBoxSize;
+
+  static double getHeight(){
+    return iconBoxSize;
+  }
+
+  /*
+
+  // -----------------------------------------------------------------------------
+    final double _actionBtSize = Bubble._getTitleHeight(context);
+// -----------------------------------------------------------------------------
+    final double _actionBtCorner = _actionBtSize * 0.4;
+// -----------------------------------------------------------------------------
+
+
+   */
+
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -104,57 +128,76 @@ class BubbleHeader extends StatelessWidget {
     /// HEADLINE
     final double _headlineWidth = _bubbleWidth - _leadingIconWidth - _switcherWidth - _moreButtonWidth;
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+    if (
+    viewModel.headlineVerse == null
+        &&
+        viewModel.leadingIcon == null
+        &&
+        viewModel.switchIsOn == false
+        &&
+        viewModel.hasMoreButton == false
+    ){
+      return const SizedBox();
+    }
 
-        /// --- LEADING ICON
-        if (_hasIcon == true)
-          DreamBox(
-            width: iconBoxSize,
-            height: iconBoxSize,
-            icon: viewModel.leadingIcon,
-            // iconColor: Colorz.Green255,
-            iconSizeFactor: viewModel.leadingIconSizeFactor,
-            color: viewModel.leadingIconBoxColor,
-            margins: EdgeInsets.zero,
-            bubble: viewModel.leadingIconIsBubble,
-          ),
+    else {
+      return Container(
+        color: Colorz.yellow255,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
 
-        /// --- HEADLINE
-        Container(
-          width: _headlineWidth,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: SuperVerse(
-            verse: viewModel.headlineVerse,
-            translate: viewModel.translateHeadline,
-            color: viewModel.headlineColor,
-            maxLines: 2,
-            centered: false,
-          ),
+            /// --- LEADING ICON
+            if (_hasIcon == true)
+              DreamBox(
+                width: iconBoxSize,
+                height: iconBoxSize,
+                icon: viewModel.leadingIcon,
+                // iconColor: Colorz.Green255,
+                iconSizeFactor: viewModel.leadingIconSizeFactor,
+                color: viewModel.leadingIconBoxColor,
+                margins: EdgeInsets.zero,
+                bubble: viewModel.leadingIconIsBubble,
+                onTap: viewModel.onLeadingIconTap,
+              ),
+
+            /// --- HEADLINE
+            Container(
+              width: _headlineWidth,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SuperVerse(
+                verse: viewModel.headlineVerse,
+                translate: viewModel.translateHeadline,
+                color: viewModel.headlineColor,
+                maxLines: 2,
+                centered: viewModel.centered,
+                redDot: viewModel.redDot,
+              ),
+            ),
+
+            const Expander(),
+
+            if (viewModel.hasSwitch == true)
+              BubbleSwitcher(
+                width: _switcherWidth,
+                height: iconBoxSize,
+                switchIsOn: viewModel.switchIsOn,
+                onSwitch: viewModel.onSwitchTap,
+              ),
+
+            if (viewModel.hasMoreButton == true)
+              DreamBox(
+                height: moreButtonSize,
+                width: moreButtonSize,
+                icon: Iconz.more,
+                iconSizeFactor: 0.6,
+                onTap: viewModel.onMoreButtonTap,
+              ),
+
+          ],
         ),
-
-        const Expander(),
-
-        if (viewModel.hasSwitch == true)
-          BubbleSwitcher(
-            width: _switcherWidth,
-            height: iconBoxSize,
-            switchIsOn: viewModel.switchIsOn,
-            onSwitch: viewModel.onSwitchTap,
-          ),
-
-        if (viewModel.hasMoreButton == true)
-          DreamBox(
-            height: moreButtonSize,
-            width: moreButtonSize,
-            icon: Iconz.more,
-            iconSizeFactor: 0.6,
-            onTap: viewModel.onMoreButtonTap,
-          ),
-
-      ],
-    );
+      );
+    }
 
   }
 }
