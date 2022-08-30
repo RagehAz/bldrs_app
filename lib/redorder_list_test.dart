@@ -82,10 +82,10 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
 
         WideButton(
           translate: false,
-          verse:  'Fuck this',
+          verse:  'ReOrderListTest wide button',
           onTap: () async {
 
-            blog('fuck this');
+            blog('ReOrderListTest wide button on tap');
 
           },
         ),

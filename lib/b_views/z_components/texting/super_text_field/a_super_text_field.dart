@@ -3,10 +3,8 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -526,7 +524,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     if (widget.isFloatingField != null){
 
       final bool _keyboardIs = Keyboard.keyboardIsOn(context);
-      blog('keyboard : $_keyboardIs : _controller : ${_controller.hashCode}');
+      blog('tapping keyboard : $_keyboardIs : _controller : ${_controller.hashCode} : widget.isFloatingField : ${widget.isFloatingField}');
 
       final KeyboardModel model = KeyboardModel(
         titleVerse: widget.titleVerse,
@@ -548,24 +546,25 @@ class _SuperTextFieldState extends State<SuperTextField> {
         isFloatingField: widget.isFloatingField,
       );
 
-      FocusManager.instance.primaryFocus?.unfocus();
-      FocusManager.instance.primaryFocus?.requestFocus();
+      // FocusManager.instance.primaryFocus?.unfocus();
+      // FocusManager.instance.primaryFocus?.requestFocus();
 
       final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
       _uiProvider.setKeyboard(
         model: model,
         notify: false,
+        invoker: 'SuperTextField : _onTap()',
       );
       _uiProvider.setKeyboardIsOn(
           setTo: true,
           notify: true,
       );
 
-      if (widget.onTap != null){
-        widget.onTap();
-      }
+    }
 
+    if (widget.onTap != null){
+      widget.onTap();
     }
 
   }
@@ -581,8 +580,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
+    blog('rebuilding field : ${widget.titleVerse} : ${widget.textController.hashCode}');
+
     /// NORMAL TEXT FIELD
-    if (widget.isFloatingField == false){
+    // if (widget.isFloatingField == false){
       return SuperTextFieldBox(
         width: widget.width,
         margins: widget.margins,
@@ -598,17 +599,17 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 detectedDirection: textDirection,
               );
 
-              return Consumer<UiProvider>(
-                // selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-                builder: (_, UiProvider uiPro, Widget child){
-
-                  final TextEditingController _textController = _controller; //uiPro.keyboardModel?.controller ?? _controller;
-                  final bool _isObscured = uiPro.textFieldsObscured;
+              return Selector<UiProvider, bool>(
+                selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+                shouldRebuild: (bool oldVal, bool newVal){
+                  return oldVal != newVal;
+                },
+                builder: (_, bool _isObscured, Widget child){
 
                   return TextFormFieldSwitcher(
                     /// main
                     isFormField: widget.isFormField,
-                    controller: _textController,
+                    controller: _controller,
                     hintText: widget.hintVerse,
                     autoFocus: widget.autofocus,
                     focusNode: _focusNode,
@@ -647,6 +648,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
                     onSavedForForm: widget.onSavedForForm,
                     onEditingComplete: widget.onEditingComplete,
                     validator: _validator,
+                    readOnly: widget.isFloatingField,
+                    // readOnly: widget.isFloatingField,
                   );
 
                 },
@@ -658,81 +661,81 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 
     /// FLOATING TEXT FIELD
-    else {
-      return GestureDetector(
-        onTap: () => _onTap(context),
-        child: Container(
-          width: widget.width,
-          // height: SuperTextField.getFieldHeight(
-          //   context: context,
-          //   minLines: widget.minLines ?? 1,
-          //   scaleFactor: widget.textSizeFactor,
-          //   textSize: widget.textSize,
-          //   withBottomMargin: false,
-          //   withCounter: widget.counterIsOn,
-          // ),
-          decoration: BoxDecoration(
-            color: widget.fieldColor,
-            borderRadius: Borderers.superBorderAll(context, widget.corners)
-          ),
-          margin: widget.margins,
-          child: ValueListenableBuilder(
-            valueListenable: _textValue,
-            builder: (_, String value, Widget child){
+    // else {
+    //   return GestureDetector(
+    //     onTap: () => _onTap(context),
+    //     child: Container(
+    //       width: widget.width,
+    //       // height: SuperTextField.getFieldHeight(
+    //       //   context: context,
+    //       //   minLines: widget.minLines ?? 1,
+    //       //   scaleFactor: widget.textSizeFactor,
+    //       //   textSize: widget.textSize,
+    //       //   withBottomMargin: false,
+    //       //   withCounter: widget.counterIsOn,
+    //       // ),
+    //       decoration: BoxDecoration(
+    //         color: widget.fieldColor,
+    //         borderRadius: Borderers.superBorderAll(context, widget.corners)
+    //       ),
+    //       margin: widget.margins,
+    //       child: ValueListenableBuilder(
+    //         valueListenable: _textValue,
+    //         builder: (_, String value, Widget child){
+    //
+    //           final bool _textIsEmpty = value.isEmpty;
+    //           final String _value = _textIsEmpty == true ? widget.hintVerse ?? '' : value;
+    //
+    //           if (widget.canObscure == true){
+    //             return Selector<UiProvider, bool>(
+    //                 selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+    //                 builder: (_, bool obscured, Widget child){
+    //
+    //                   final String _text = obscured == true ?
+    //                   TextMod.obscureText(
+    //                     text: _value,
+    //                   )
+    //                       :
+    //                   _value;
+    //
+    //                   blog('text is : $_text');
+    //
+    //                   return SuperVerse(
+    //                     verse: _text,
+    //                     size: widget.textSize,
+    //                     centered: widget.centered,
+    //                     margin: const EdgeInsets.all(7),
+    //                     maxLines: widget.maxLines,
+    //                     color: widget.textColor,
+    //                     weight: widget.textWeight,
+    //                     italic: widget.textItalic,
+    //                     shadow: widget.textShadow,
+    //                     scaleFactor: widget.textSizeFactor,
+    //                   );
+    //
+    //                 });
+    //           }
+    //
+    //           else {
+    //             return SuperVerse(
+    //             verse: _value,
+    //             size: widget.textSize,
+    //             centered: widget.centered,
+    //             margin: const EdgeInsets.all(7),
+    //             maxLines: widget.maxLines,
+    //             color: _textIsEmpty == true ? Colorz.grey80 : widget.textColor,
+    //             weight: _textIsEmpty == true ? VerseWeight.thin : widget.textWeight,
+    //             italic: widget.textItalic,
+    //             shadow: widget.textShadow,
+    //             scaleFactor: widget.textSizeFactor,
+    //           );
+    //           }
+    //
+    //         },
+    //       ),
+    //     ),
+    //   );
+    // }
 
-              final bool _textIsEmpty = value.isEmpty;
-              final String _value = _textIsEmpty == true ? widget.hintVerse ?? '' : value;
-
-              if (widget.canObscure == true){
-                return Selector<UiProvider, bool>(
-                    selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-                    builder: (_, bool obscured, Widget child){
-
-                      final String _text = obscured == true ?
-                      TextMod.obscureText(
-                        text: _value,
-                      )
-                          :
-                      _value;
-
-                      blog('text is : $_text');
-
-                      return SuperVerse(
-                        verse: _text,
-                        size: widget.textSize,
-                        centered: widget.centered,
-                        margin: const EdgeInsets.all(7),
-                        maxLines: widget.maxLines,
-                        color: widget.textColor,
-                        weight: widget.textWeight,
-                        italic: widget.textItalic,
-                        shadow: widget.textShadow,
-                        scaleFactor: widget.textSizeFactor,
-                      );
-
-                    });
-              }
-
-              else {
-                return SuperVerse(
-                verse: _value,
-                size: widget.textSize,
-                centered: widget.centered,
-                margin: const EdgeInsets.all(7),
-                maxLines: widget.maxLines,
-                color: _textIsEmpty == true ? Colorz.grey80 : widget.textColor,
-                weight: _textIsEmpty == true ? VerseWeight.thin : widget.textWeight,
-                italic: widget.textItalic,
-                shadow: widget.textShadow,
-                scaleFactor: widget.textSizeFactor,
-              );
-              }
-
-            },
-          ),
-        ),
-      );
-    }
-
-  }
+  // }
 }

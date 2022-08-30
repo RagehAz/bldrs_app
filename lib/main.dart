@@ -205,6 +205,10 @@ class _BldrsAppState extends State<BldrsApp> {
               theme:
               ThemeData(
                 canvasColor: Colorz.nothing,
+                textSelectionTheme: const TextSelectionThemeData(
+                  selectionHandleColor: Colorz.yellow255,
+                  selectionColor: Colorz.white50,
+                ),
               ),
 
               /// LOCALE

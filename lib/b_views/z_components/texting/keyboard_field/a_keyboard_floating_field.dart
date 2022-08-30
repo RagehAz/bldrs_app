@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/aa_keyboard_floating_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_field/aaa_floating_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -76,16 +77,19 @@ class KeyboardFloatingField extends StatelessWidget {
 
           return Selector<UiProvider, KeyboardModel>(
             selector: (_, UiProvider uiPro) => uiPro.keyboardModel,
-            shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
-              return old?.titleVerse != newModel?.titleVerse;
-            },
+            // // shouldRebuild: (KeyboardModel old, KeyboardModel newModel){
+            //   // return old?.titleVerse != newModel?.titleVerse;
+            // // },
             builder: (_, KeyboardModel model, Widget child){
 
-              if (model == null){
+              if (model == null || model.isFloatingField == false){
                 return const SizedBox();
               }
 
               else {
+
+                // blog('model.isFloatingField : ${model.isFloatingField}');
+
                 return WidgetFader(
                   fadeType: FadeType.fadeIn,
                   duration: const Duration(milliseconds: 500),

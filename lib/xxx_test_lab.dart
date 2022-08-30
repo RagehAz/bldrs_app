@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
@@ -54,21 +55,45 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    final List<PickerModel> _pickers = RawPickers.getPickersByFlyerType(FlyerType.property);
-
-    for (int i = 0; i < _pickers.length; i++){
-
-      final PickerModel picker = _pickers[i];
-      final String _x = i == picker.index ? 'o--' : 'xxx--'; // will show if some index is wrong
-
-      final String _index = Numeric.uniformizeIndexDigits(
-          index: i,
-          listLength: _pickers.length,
-      );
-
-      blog('$_x - $_index : ${picker.chainID} : ${picker.unitChainID}');
-
+    void bitch(String text){
+      blog('wtf : $text');
     }
+
+    final KeyboardModel _a = KeyboardModel(
+      titleVerse: 'fok yo',
+      controller: TextEditingController(text: 'bitch'),
+      onSubmitted: (String text){
+        blog('fuck : $text');
+      },
+      isFloatingField: false,
+      canObscure: false,
+      counterIsOn: false,
+      focusNode: FocusNode(),
+      hintVerse: 'bitch please',
+      isFormField: false,
+      maxLength: 20,
+      maxLines: 2,
+      minLines: 3,
+      onChanged: (String text){
+        blog('boitc : $text');
+      },
+      onEditingComplete: (){
+        blog('bobo');
+      },
+      onSavedForForm: bitch,
+      textInputAction: TextInputAction.done,
+      textInputType: TextInputType.text,
+    );
+
+
+    final bool _areIdentical = KeyboardModel.checkKeyboardsAreIdentical(
+        modelA: _a,
+        modelB: _a.copyWith(
+            onSavedForForm: bitch,
+        ),
+    );
+
+    blog('areIdentical = $_areIdentical');
 
   }
 
