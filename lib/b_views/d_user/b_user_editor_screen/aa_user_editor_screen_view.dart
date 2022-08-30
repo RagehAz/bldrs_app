@@ -2,16 +2,16 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
 
 class UserEditorScreenView extends StatelessWidget {
@@ -26,6 +26,7 @@ class UserEditorScreenView extends StatelessWidget {
     @required this.companyController,
     @required this.zone,
     @required this.contacts,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,11 +39,12 @@ class UserEditorScreenView extends StatelessWidget {
   final TextEditingController companyController;
   final ValueNotifier<ZoneModel> zone;
   final List<ContactModel> contacts;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
+    // final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
 
     return Form(
       key: formKey,
@@ -69,6 +71,7 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// NAME
           TextFieldBubble(
+            appBarType: appBarType,
             isFormField: true,
             textController: nameController,
             key: const Key('name'),
@@ -93,6 +96,7 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// JOB TITLE
           TextFieldBubble(
+            appBarType: appBarType,
             isFormField: true,
             key: const Key('title'),
             textController: titleController,
@@ -108,6 +112,7 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// COMPANY NAME
           TextFieldBubble(
+            appBarType: appBarType,
             isFormField: true,
             textController: companyController,
             key: const Key('company'),
@@ -141,15 +146,16 @@ class UserEditorScreenView extends StatelessWidget {
           ContactsEditorsBubbles(
             contacts: contacts,
             contactsOwnerType: ContactsOwnerType.user,
+            appBarType: appBarType,
           ),
 
           const Horizon(),
 
-          if (_keyboardIsOn == true)
-            const SizedBox(
-              width: 20,
-              height: 150,
-            ),
+          // if (_keyboardIsOn == true)
+          //   const SizedBox(
+          //     width: 20,
+          //     height: 150,
+          //   ),
 
         ],
       ),

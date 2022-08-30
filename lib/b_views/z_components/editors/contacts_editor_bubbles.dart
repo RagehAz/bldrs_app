@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +9,13 @@ class ContactsEditorsBubbles extends StatelessWidget {
   const ContactsEditorsBubbles({
     @required this.contacts,
     @required this.contactsOwnerType,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<ContactModel> contacts;
   final ContactsOwnerType contactsOwnerType;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
           else {
 
             return ContactFieldBubble(
+              appBarType: appBarType,
               isFormField: true,
               fieldIsRequired: ContactModel.checkContactIsRequired(
                 contactType: _contactType,

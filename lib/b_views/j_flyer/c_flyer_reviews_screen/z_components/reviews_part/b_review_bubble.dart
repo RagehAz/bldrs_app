@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/ba_review_user_image_balloon.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/bb_review_text_balloon.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
@@ -17,6 +18,7 @@ class ReviewBubble extends StatelessWidget {
     @required this.pageWidth,
     @required this.flyerModel,
     @required this.paginatorNotifiers,
+    @required this.appBarType,
     this.reviewModel,
     this.reviewTextController,
     Key key
@@ -28,6 +30,7 @@ class ReviewBubble extends StatelessWidget {
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
   final PaginatorNotifiers paginatorNotifiers;
+  final AppBarType appBarType;
   // --------------------------------------------------------------------------
 
   /// USER BALLOON
@@ -90,6 +93,7 @@ class ReviewBubble extends StatelessWidget {
 
                 /// REVIEW BALLOON PART
                 ReviewTextBalloon(
+                  appBarType: appBarType,
                   isCreatorMode: isCreatorMode,
                   userModel: _userModel,
                   reviewModel: reviewModel,
@@ -97,6 +101,7 @@ class ReviewBubble extends StatelessWidget {
                   reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
                   paginatorNotifiers: paginatorNotifiers,
+                  globalKey: null,
                 ),
 
                 /// RIGHT SPACING

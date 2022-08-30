@@ -172,6 +172,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             /// NAME
             TextFieldBubble(
+              appBarType: AppBarType.basic,
               isFormField: true,
               textController: _nameController,
               titleVerse: '##Author Name',
@@ -199,6 +200,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             /// TITLE
             TextFieldBubble(
+              appBarType: AppBarType.basic,
               isFormField: true,
               textController: _titleController,
               titleVerse: '##Job Title',
@@ -225,6 +227,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
             ContactsEditorsBubbles(
               contacts: _contacts,
               contactsOwnerType: ContactsOwnerType.author,
+              appBarType: AppBarType.basic,
             ),
 
             /// TASK : DELETE ME

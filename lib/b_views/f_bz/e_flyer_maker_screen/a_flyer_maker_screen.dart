@@ -185,6 +185,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       ],
       onBack: () => onCancelFlyerCreation(context),
       layoutWidget: FlyerMakerScreenView(
+        appBarType: AppBarType.basic,
         formKey: _formKey,
         scrollController: _scrollController,
         headlineController: _headlineController,

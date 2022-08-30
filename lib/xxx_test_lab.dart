@@ -1,8 +1,6 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -21,7 +19,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -66,13 +63,13 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         blog('fuck : $text');
       },
       isFloatingField: false,
-      canObscure: false,
-      counterIsOn: false,
+      // canObscure: false,
+      // counterIsOn: false,
       focusNode: FocusNode(),
       hintVerse: 'bitch please',
-      isFormField: false,
+      // isFormField: false,
       maxLength: 20,
-      maxLines: 2,
+      // maxLines: 2,
       minLines: 3,
       onChanged: (String text){
         blog('boitc : $text');
@@ -81,8 +78,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
         blog('bobo');
       },
       onSavedForForm: bitch,
-      textInputAction: TextInputAction.done,
-      textInputType: TextInputType.text,
+      // textInputAction: TextInputAction.done,
+      // textInputType: TextInputType.text,
     );
 
 
@@ -459,6 +456,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                           Form(
                             key: _formKey,
                             child: SuperTextField(
+                              appBarType: AppBarType.basic,
+                              globalKey: null,
                               titleVerse:  'test Lab',
                               isFormField: true,
                               width: _fieldWidth,

@@ -1,10 +1,12 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -23,17 +25,41 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
 // -------------------------------------
   final TextEditingController _controllerA = TextEditingController();
   final TextEditingController _controllerB = TextEditingController();
+  final TextEditingController _controllerC = TextEditingController();
+  final TextEditingController _controllerD = TextEditingController();
+  final FocusNode _nodeA = FocusNode();
+  final FocusNode _nodeB = FocusNode(
+    // canRequestFocus: true,
+    // descendantsAreFocusable: true,
+    // descendantsAreTraversable: true,
+      onKey: (FocusNode node, RawKeyEvent event){
+        blog('node : ${node.toStringShort()}');
+        blog('event : ${event.character}');
+        const KeyEventResult _keyEventResult = KeyEventResult.handled;
+        return _keyEventResult;
+      }
+  );
+  final FocusNode _nodeC = FocusNode();
+  final FocusNode _nodeD = FocusNode();
 // -------------------------------------
   @override
   void initState() {
     super.initState();
     // _keyboardType = textInputTypes[_index];
+
+
   }
 // -------------------------------------
   @override
   void dispose() {
     _controllerA.dispose();
     _controllerB.dispose();
+    _controllerC.dispose();
+    _nodeA.dispose();
+    _nodeB.dispose();
+    _nodeC.dispose();
+    _nodeD.dispose();
+
     super.dispose();
   }
 // -------------------------------------
@@ -94,19 +120,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
   }
    */
 // -------------------------------------
-  final FocusNode _firstNode = FocusNode();
-  final FocusNode _secondNode = FocusNode(
-    // canRequestFocus: true,
-    // descendantsAreFocusable: true,
-    // descendantsAreTraversable: true,
-    onKey: (FocusNode node, RawKeyEvent event){
-      blog('node : ${node.toStringShort()}');
-      blog('event : ${event.character}');
-      const KeyEventResult _keyEventResult = KeyEventResult.handled;
-      return _keyEventResult;
-    }
-  );
-
+  final GlobalKey globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
 
@@ -118,58 +132,111 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
     //   textInputType: _keyboardType,
     // ));
 
+    const AppBarType _appBarType = AppBarType.basic;
+
     return MainLayout(
+      appBarType: _appBarType,
       skyType: SkyType.black,
       layoutWidget: Stack(
         children: <Widget>[
 
-          ListView(
-            children: <Widget>[
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: <Widget>[
 
-              const Stratosphere(),
+                const Stratosphere(),
 
-              SuperTextField(
-                focusNode: _firstNode,
-                isFloatingField: true,
-                titleVerse:  'AAA',
-                width: 200,
-                fieldColor: Colorz.bloodTest,
-                textController: _controllerA,
-                textInputAction: TextInputAction.next,
-                textInputType: Keyboard.textInputTypes[_index],
-              ),
+                TextFieldBubble(
+                  appBarType: AppBarType.basic,
+                  globalKey: globalKey,
+                  focusNode: _nodeA,
+                  titleVerse:  'AAA',
+                  textController: _controllerA,
+                  // isFloatingField: false,
+                  bubbleColor: Colorz.bloodTest,
+                  keyboardTextInputAction: TextInputAction.next,
+                  keyboardTextInputType: Keyboard.textInputTypes[_index],
+                ),
 
-              SuperVerse(
-                verse:  '$_index : keyboardHeight is : $_keyboardHeight\ntype : ${Keyboard.cipherTextInputType(Keyboard.textInputTypes[_index])}',
-                labelColor: Colorz.black255,
-                size: 3,
-                maxLines: 3,
-                centered: false,
-                weight: VerseWeight.thin,
-              ),
+                SuperVerse(
+                  verse:  '$_index : keyboardHeight is : $_keyboardHeight\ntype : ${Keyboard.cipherTextInputType(Keyboard.textInputTypes[_index])}',
+                  labelColor: Colorz.black255,
+                  size: 3,
+                  maxLines: 3,
+                  centered: false,
+                  weight: VerseWeight.thin,
+                ),
 
-              SuperTextField(
-                focusNode: _secondNode,
-                isFloatingField: true,
-                titleVerse: 'BBB',
-                width: 200,
-                fieldColor: Colorz.bloodTest,
-                textController: _controllerB,
-                textInputAction: TextInputAction.next,
-                textInputType: Keyboard.textInputTypes[_index],
-              ),
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: 80,
+                  color: Colorz.white20,
+                ),
 
-            ],
+                TextFieldBubble(
+                  appBarType: _appBarType,
+                  globalKey: globalKey,
+                  focusNode: _nodeB,
+                  textController: _controllerB,
+                  titleVerse: 'BBB',
+                  // isFloatingField: false,
+                  bubbleColor: Colorz.bloodTest,
+                  keyboardTextInputAction: TextInputAction.next,
+                  keyboardTextInputType: Keyboard.textInputTypes[_index],
+                ),
+
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: 80,
+                  color: Colorz.white20,
+                ),
+
+                TextFieldBubble(
+                  appBarType: _appBarType,
+                  globalKey: globalKey,
+                  focusNode: _nodeC,
+                  textController: _controllerC,
+                  titleVerse: 'CCC',
+                  // isFloatingField: false,
+                  bubbleColor: Colorz.bloodTest,
+                  keyboardTextInputAction: TextInputAction.next,
+                  keyboardTextInputType: Keyboard.textInputTypes[_index],
+                ),
+
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: 80,
+                  color: Colorz.white20,
+                ),
+
+                TextFieldBubble(
+                  appBarType: _appBarType,
+                  globalKey: globalKey,
+                  focusNode: _nodeD,
+                  textController: _controllerD,
+                  titleVerse: 'DDD',
+                  // isFloatingField: false,
+                  bubbleColor: Colorz.bloodTest,
+                  keyboardTextInputAction: TextInputAction.next,
+                  keyboardTextInputType: Keyboard.textInputTypes[_index],
+                ),
+
+                Container(
+                  width: Scale.superScreenWidth(context),
+                  height: 80,
+                  color: Colorz.white20,
+                ),
+
+                Container(
+                    color: Colorz.bloodTest,
+                    child: const Horizon()
+                ),
+
+              ],
+            ),
           ),
-
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Container(
-          //     width: superScreenWidth(context),
-          //     height: _keyboardHeight,
-          //     color: Colorz.bloodTest,
-          //   ),
-          // ),
 
 
         ],

@@ -22,12 +22,14 @@ class CountryEditorPage extends StatefulWidget {
     @required this.country,
     @required this.screenHeight,
     @required this.onCityTap,
+    @required this.appBarType,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final CountryModel country;
   final double screenHeight;
   final Function onCityTap;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _CountryEditorPageState createState() => _CountryEditorPageState();
@@ -209,6 +211,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// ENGLISH NAME
               TextFieldBubble(
+                appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
                 titleVerse:  'English Name',
                 textController: _enNameController,
@@ -226,6 +229,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
               /// ARABIC NAME
               TextFieldBubble(
+                appBarType: widget.appBarType,
                 bubbleWidth: _clearWidth,
                 titleVerse:  'Arabic Name',
                 textController: _arNameController,

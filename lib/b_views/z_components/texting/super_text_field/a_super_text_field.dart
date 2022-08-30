@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -14,6 +15,8 @@ import 'package:provider/provider.dart';
 class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperTextField({
+    @required this.appBarType,
+    @required this.globalKey,
     @required this.width,
     @required this.textController,
     @required this.titleVerse,
@@ -113,6 +116,8 @@ class SuperTextField extends StatefulWidget {
 
   final bool isFloatingField;
   final bool canObscure;
+  final GlobalKey globalKey;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
@@ -320,6 +325,13 @@ class _SuperTextFieldState extends State<SuperTextField> {
     _controller = _initializeTextController();
     _focusNode = widget.focusNode ?? FocusNode();
 
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus == true){
+        final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
+        object?.showOnScreen();
+      }
+    });
+
     _scrollController = widget.scrollController ?? ScrollController();
     // _textLength = ValueNotifier(_controller.text.length);
     // _errors = ValueNotifier<List<String>>(_initializeErrors());
@@ -521,6 +533,11 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     // FocusManager.instance.rootScope.requestFocus();
 
+    if (widget.globalKey != null){
+      final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
+      object?.showOnScreen();
+    }
+
     if (widget.isFloatingField != null){
 
       final bool _keyboardIs = Keyboard.keyboardIsOn(context);
@@ -607,6 +624,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                 builder: (_, bool _isObscured, Widget child){
 
                   return TextFormFieldSwitcher(
+                    appBarType: widget.appBarType,
                     /// main
                     isFormField: widget.isFormField,
                     controller: _controller,

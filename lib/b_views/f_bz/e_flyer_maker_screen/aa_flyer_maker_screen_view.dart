@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/b_draft_shelf.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/pdf_selection_bubble.dart';
@@ -37,6 +38,7 @@ class FlyerMakerScreenView extends StatelessWidget {
     @required this.loading,
     @required this.isEditingFlyer,
     @required this.originalFlyer,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -47,6 +49,7 @@ class FlyerMakerScreenView extends StatelessWidget {
   final ValueNotifier<bool> loading;
   final bool isEditingFlyer;
   final FlyerModel originalFlyer;
+  final AppBarType appBarType;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -123,6 +126,7 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER HEADLINE
                           TextFieldBubble(
+                            appBarType: appBarType,
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
                             textController: headlineController,
@@ -145,6 +149,7 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
+                            appBarType: appBarType,
                             key: const ValueKey<String>('bz_scope_bubble'),
                             textController: _draft.descriptionController,
                             titleVerse: '##Flyer Description',
@@ -240,6 +245,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                           const DotSeparator(),
 
                           PDFSelectionBubble(
+                            appBarType: appBarType,
                             formKey: formKey,
                             existingPDF: _draft.pdf,
                             onChangePDF: (FileModel pdf){

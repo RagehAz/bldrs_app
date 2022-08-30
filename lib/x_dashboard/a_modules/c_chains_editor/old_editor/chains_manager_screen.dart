@@ -307,6 +307,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                 ),
 
                 ChainEditorPage(
+                  appBarType: AppBarType.search,
                   screenHeight: _screenHeight,
                   textController: _textController,
                   path: _selectedPath,

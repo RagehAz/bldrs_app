@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/a_phids_data_creator.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/b_price_data_creator.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/c_number_data_creator.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/no_result_found.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -24,6 +25,7 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.onAddSpecs,
     @required this.onKeyboardSubmitted,
     @required this.isMultipleSelectionMode,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +38,7 @@ class DataCreatorSplitter extends StatelessWidget {
   final ValueChanged<List<SpecModel>> onAddSpecs;
   final Function onKeyboardSubmitted;
   final bool isMultipleSelectionMode;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
 
   @override
@@ -133,6 +136,7 @@ class DataCreatorSplitter extends StatelessWidget {
         onKeyboardSubmitted: onKeyboardSubmitted,
         onExportSpecs: onAddSpecs,
         onlyUseCityChains: onlyUseCityChains,
+        appBarType: appBarType,
       );
 
     }
@@ -157,6 +161,7 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
       return NumberDataCreator(
+        appBarType: appBarType,
         dataCreatorType: _dataCreatorType,
         initialValue: _valueSpec,
         initialUnit: _unitSpec?.value,

@@ -88,6 +88,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
           /// SLIDE
           SlideEditorSlidePart(
+            appBarType: AppBarType.non,
             height: _slideZoneHeight,
             tempSlide: _tempSlide,
             matrix: _matrix,
