@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/keywords/add_keywords_button.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -50,7 +51,9 @@ class KeywordsBubble extends StatelessWidget {
       bubbleColor: bubbleColor,
       margins: margins,
       corners: corners,
-      title: title,
+      headerViewModel: BubbleHeaderVM(
+        headlineVerse: title,
+      ),
       width: bubbleWidth,
       onBubbleTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[

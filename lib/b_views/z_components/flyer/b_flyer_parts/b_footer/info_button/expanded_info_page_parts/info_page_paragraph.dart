@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class InfoPageParagraph extends StatelessWidget {
     return Center(
       key: const ValueKey<String>('InfoPageParagraph'),
       child: Bubble(
+        headerViewModel: const BubbleHeaderVM(),
         width: pageWidth,
         // padding: const EdgeInsets.symmetric(horizontal: 5),
         columnChildren: <Widget>[

@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_butto
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
@@ -106,8 +107,10 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// SHELVES
                           Bubble(
+                            headerViewModel: const BubbleHeaderVM(
+                              headlineVerse: 'phid_flyer_slides',
+                            ),
                             width: Bubble.bubbleWidth(context: context, stretchy: false),
-                            title: 'Flyer Slides',
                             columnChildren: <Widget>[
 
                               SlidesShelf(
@@ -204,8 +207,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                             min: 0.35,
                             absorbPointer: _draft.flyerType == null,
                             child: Bubble(
+                              headerViewModel: const BubbleHeaderVM(
+                                headlineVerse: 'phid_specifications',
+                              ),
                               width: Bubble.bubbleWidth(context: context, stretchy: false),
-                              title: 'Specifications',
                               columnChildren: <Widget>[
 
                                 BubbleBulletPoints(
@@ -284,8 +289,10 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// SHOW FLYER AUTHOR
                           Bubble(
+                            headerViewModel: const BubbleHeaderVM(
+                              headlineVerse: 'phid_show_author_on_flyer',
+                            ),
                             width: Bubble.bubbleWidth(context: context, stretchy: false),
-                            title: 'Show Flyer author on Flyer',
                             columnChildren: const <Widget>[],
                           ),
 

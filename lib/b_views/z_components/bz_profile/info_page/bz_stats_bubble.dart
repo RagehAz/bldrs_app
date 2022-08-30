@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/stats_line.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -97,7 +98,9 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
           final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel.id);
 
           return Bubble(
-              title: '##Stats',
+            headerViewModel: const BubbleHeaderVM(
+              headlineVerse: 'phid_stats',
+            ),
               columnChildren: <Widget>[
 
                 /// FOLLOWERS

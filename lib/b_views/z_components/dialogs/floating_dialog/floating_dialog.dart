@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -52,10 +53,12 @@ class _FloatingDialogState extends State<FloatingDialog> {
         shadowIsOn: false);
 
     return Bubble(
-      // actionBtIcon: widget.actionBtIcon,
+        headerViewModel: BubbleHeaderVM(
+          headlineVerse: widget.title,
+          redDot: widget.fieldIsRequired,
+        ),
+        // actionBtIcon: widget.actionBtIcon,
       // actionBtFunction: widget.actionBtFunction,
-      title: widget.title,
-      redDot: widget.fieldIsRequired,
       columnChildren: <Widget>[
         Container(
           width: Bubble.clearWidth(context),

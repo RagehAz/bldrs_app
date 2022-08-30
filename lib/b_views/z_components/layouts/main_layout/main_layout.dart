@@ -178,7 +178,7 @@ class MainLayout extends StatelessWidget {
                   key: scaffoldKey ?? const ValueKey<String>('mainScaffold'),
 
                   /// INSETS
-                  resizeToAvoidBottomInset: true, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
+                  resizeToAvoidBottomInset: false, /// if false : prevents keyboard from pushing pyramids up / bottom sheet
                   // resizeToAvoidBottomPadding: false,
 
                   /// BACK GROUND COLOR

@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -157,12 +158,14 @@ class TextFieldBubble extends StatelessWidget {
     );
 
     return Bubble(
+      headerViewModel: BubbleHeaderVM(
+        headlineVerse: titleVerse,
+        redDot: fieldIsRequired,
+        leadingIcon: actionBtIcon,
+        onLeadingIconTap: actionBtFunction,
+      ),
         width: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
         bubbleColor: bubbleColor,
-        title: titleVerse,
-        redDot: fieldIsRequired,
-        actionBtIcon: actionBtIcon,
-        actionBtFunction: actionBtFunction,
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 

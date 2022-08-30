@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,9 @@ class SelectedPhidsBar extends StatelessWidget {
 
     return Bubble(
       width: _screenWidth,
-      title: _screenTitle,
+      headerViewModel: BubbleHeaderVM(
+        headlineVerse: _screenTitle,
+      ),
       columnChildren: <Widget>[
 
         SizedBox(

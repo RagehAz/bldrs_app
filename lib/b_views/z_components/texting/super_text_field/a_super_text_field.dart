@@ -327,8 +327,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     _focusNode.addListener(() {
       if (_focusNode.hasFocus == true){
-        final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
-        object?.showOnScreen();
+        if (widget.globalKey != null){
+          final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
+          object?.showOnScreen();
+        }
       }
     });
 
