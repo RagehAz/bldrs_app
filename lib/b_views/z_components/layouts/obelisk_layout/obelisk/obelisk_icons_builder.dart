@@ -49,6 +49,7 @@ class ObeliskIconsBuilder extends StatelessWidget{
 
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
 
               ...List.generate(navModels.length, (index){

@@ -37,7 +37,7 @@ class AppSettingsScreen extends StatelessWidget {
           SettingsWideButton(
             verse: 'phid_about_bldrsnet',
             onTap: () => onAboutBldrsTap(context),
-            icon: Iconz.language,
+            icon: Iconz.bldrsNameSquare,
           ),
 
           /// FEEDBACK

@@ -10,6 +10,7 @@ class Iconz {
 // -----------------------------------------------------------------------------
   /// artworks
   static const String bldrsNameEn = '$_artworkPath/aw_bldrs_name_en.svg' ;
+  static const String bldrsNameSquare = '$_artworkPath/aw_bldrs_name_square.svg' ;
   static const String bldrsAppIcon = '$_artworkPath/aw_bldrs_app_icon.png' ;
   static const String bldrsNameSingleLine = '$_artworkPath/aw_bldrs_name_single_line.svg' ;
   static const String whiteGradient = '$_artworkPath/white_gradient.svg';
