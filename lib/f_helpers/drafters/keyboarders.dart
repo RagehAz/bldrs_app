@@ -38,7 +38,8 @@ class Keyboard {
         );
         _uiProvider.setKeyboard(
             model: null,
-            notify: true
+            notify: true,
+          invoker: 'initializeKeyboardListener',
         );
       }
 
