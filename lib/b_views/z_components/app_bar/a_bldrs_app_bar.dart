@@ -101,7 +101,6 @@ class BldrsAppBar extends StatelessWidget {
 
     }
 
-
     return _isOn;
   }
 // -----------------------------------------------------------------------------
@@ -248,6 +247,7 @@ class BldrsAppBar extends StatelessWidget {
                         width: _titleWidth,
                         pageTitle: pageTitle,
                         backButtonIsOn: _backButtonIsOn,
+                        appBarRowWidgets: appBarRowWidgets,
                       ),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// SCROLLER WIDGETS

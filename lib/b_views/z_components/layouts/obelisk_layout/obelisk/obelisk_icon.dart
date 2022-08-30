@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/notes/note_red_dot.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:flutter/material.dart';
@@ -93,22 +94,29 @@ class ObeliskIcon extends StatelessWidget {
           /// SEPARATOR
           else {
 
-            final double rightShrinkage = NoteRedDotWrapper.getShrinkageDX(
-                childWidth: Obelisk.circleWidth,
-                isNano: false
-            );
+            // final double rightShrinkage = NoteRedDotWrapper.getShrinkageDX(
+            //     childWidth: Obelisk.circleWidth,
+            //     isNano: false
+            // );
 
             return AbsorbPointer(
-              child: Container(
+              child: SizedBox(
                 width: Obelisk.circleWidth,
                 height: SeparatorLine.standardThickness + 10,
                 // color: Colorz.bloodTest,
-                padding: EdgeInsets.only(right: rightShrinkage),
-                alignment: Alignment.center,
-                child: const Padding(
-                  padding: EdgeInsets.only(bottom: 5, top: 5),
-                  child: SeparatorLine(
-                    width: Obelisk.circleWidth * 0.4,
+                // padding: EdgeInsets.only(right: rightShrinkage),
+                // alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5, top: 5),
+                  child: Transform.scale(
+                    scale: NoteRedDotWrapper.getShrinkageScale(
+                      isNano: false,
+                      childWidth: Obelisk.circleWidth,
+                    ),
+                    alignment: Aligners.superBottomAlignment(context),
+                    child: const SeparatorLine(
+                      width: Obelisk.circleWidth * 0.4,
+                    ),
                   ),
                 ),
               ),
