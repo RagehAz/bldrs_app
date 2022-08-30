@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
@@ -58,21 +59,23 @@ class ContactsEditorsBubbles extends StatelessWidget {
           else {
 
             return ContactFieldBubble(
+              headerViewModel: BubbleHeaderVM(
+                headlineVerse: ContactModel.translateContactType(
+                  context: context,
+                  contactType: _contactType,
+                ),
+                leadingIcon: ContactModel.concludeContactIcon(_contactType),
+              ),
               appBarType: appBarType,
               isFormField: true,
               fieldIsRequired: ContactModel.checkContactIsRequired(
                 contactType: _contactType,
                 ownerType: ContactsOwnerType.author,
               ),
-              title: ContactModel.translateContactType(
-                context: context,
-                contactType: _contactType,
-              ),
               textController: ContactModel.getControllerFromContacts(
                 contacts: contacts,
                 contactType: _contactType,
               ),
-              leadingIcon: ContactModel.concludeContactIcon(_contactType),
               keyboardTextInputAction: TextInputAction.next,
               keyboardTextInputType: ContactModel.concludeContactTextInputType(
                 contactType: _contactType,

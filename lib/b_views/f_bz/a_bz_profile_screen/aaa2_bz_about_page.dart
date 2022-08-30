@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
@@ -69,7 +70,9 @@ class BzAboutPage extends StatelessWidget {
         /// SCOPE
         if (Mapper.checkCanLoopList(_bzModel.scope) == true)
           Bubble(
-            title: '##Scope of services',
+            headerViewModel: const BubbleHeaderVM(
+              headlineVerse: 'phid_scope_of_services',
+            ),
             columnChildren: <Widget>[
 
               PhidsViewer(

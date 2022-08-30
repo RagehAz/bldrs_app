@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
@@ -100,6 +101,7 @@ class AuthorCard extends StatelessWidget {
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
 
     return Bubble(
+      headerViewModel: const BubbleHeaderVM(),
       width: _bubbleWidth,
       corners: bubbleCornerValue(),
       margins: Scale.superInsets(context: context, bottom: 10, enLeft: 10, enRight: 10),

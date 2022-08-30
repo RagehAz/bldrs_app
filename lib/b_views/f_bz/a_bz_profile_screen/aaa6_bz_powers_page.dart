@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -26,7 +27,9 @@ class BzPowersPage extends StatelessWidget {
       children: <Widget>[
 
         Bubble(
-          title: 'Get More Slides',
+          headerViewModel: const BubbleHeaderVM(
+            headlineVerse: 'phid_get_more_slides',
+          ),
           columnChildren: <Widget>[
 
             SuperVerse(
@@ -38,49 +41,63 @@ class BzPowersPage extends StatelessWidget {
         const DotSeparator(),
 
         const Bubble(
-          title: 'Get More Ankhs',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_get_more_ankhs',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         const Bubble(
-          title: 'Get Premium Account',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_get_premium_account',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         const Bubble(
-          title: 'Get Super Account',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_get_super_account',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         const Bubble(
-          title: 'Boost a flyer',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_boost_flyer',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         const Bubble(
-          title: 'Create an Advertisement',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_create_ad',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         const Bubble(
-          title: 'Sponsor Bldrs.net in your city',
+          headerViewModel: BubbleHeaderVM(
+            headlineVerse: 'phid_sponsor_bldrs_in_ur_city',
+          ),
           columnChildren: <Widget>[],
         ),
 
         const DotSeparator(),
 
         Bubble(
-          title: '##Get Bldrs.net marketing materials',
+          headerViewModel: const BubbleHeaderVM(
+            headlineVerse: 'phid_get_marketing_material',
+          ),
           columnChildren: <Widget>[
 
             SuperVerse.dotVerse(

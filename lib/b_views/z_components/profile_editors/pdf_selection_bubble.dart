@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -108,7 +109,9 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
           return Bubble(
             width: Bubble.bubbleWidth(context: context, stretchy: false),
-            title: 'PDF Attachment',
+            headerViewModel: const BubbleHeaderVM(
+              headlineVerse: 'phid_pdf_attachment',
+            ),
             bubbleColor: Colorizer.errorize(
                 errorIsOn: _sizeLimitReached,
                 defaultColor: Colorz.white10,

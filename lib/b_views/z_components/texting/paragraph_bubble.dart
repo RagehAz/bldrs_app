@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_lines_analyzer.dart';
@@ -101,14 +102,16 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return Bubble(
+      headerViewModel: BubbleHeaderVM(
+        headlineVerse: widget.title,
+        leadingIcon: widget.actionBtIcon,
+      ),
         key: widget.key,
         width: widget.bubbleWidth,
         margins: widget.margins,
         corners: widget.corners,
-        title: widget.title,
-        centered: widget.centered,
+        childrenCentered: widget.centered,
         bubbleColor: widget.bubbleColor,
-        actionBtIcon: widget.actionBtIcon,
         onBubbleTap: widget.editMode == true || _canExpand == true ?
         _onParagraphTap
             :
