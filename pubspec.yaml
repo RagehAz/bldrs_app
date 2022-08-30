@@ -112,8 +112,6 @@ flutter:
   assets:
     - assets/
     - assets/aw/
-    - assets/dum/
-    - assets/dum/xx/
     - assets/icons/
     - assets/icons/keywords/
     - assets/icons/specs/

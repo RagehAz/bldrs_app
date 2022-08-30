@@ -127,18 +127,16 @@ class NoteRedDotWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _scale = getShrinkageScale(
-      isNano: isNano,
-      childWidth: childWidth,
-    );
-
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
 
         if (shrinkChild == true)
           Transform.scale(
-            scale: _scale,
+            scale: getShrinkageScale(
+              isNano: isNano,
+              childWidth: childWidth,
+            ),
             alignment: Aligners.superBottomAlignment(context),
             child: child,
           ),
