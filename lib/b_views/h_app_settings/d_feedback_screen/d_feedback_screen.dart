@@ -148,6 +148,7 @@ class _FeedBackState extends State<FeedBack> {
           ),
 
           TextFieldBubble(
+            appBarType: AppBarType.basic,
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
             titleVerse: '##Feedback',

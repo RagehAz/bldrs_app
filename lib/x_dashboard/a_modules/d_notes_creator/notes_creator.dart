@@ -215,6 +215,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// TITLE
                 TextFieldBubble(
+                  appBarType: AppBarType.basic,
                   titleVerse:  'Note Title',
                   isFormField: true,
                   textController: _titleController,
@@ -240,6 +241,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                 /// BODY
                 TextFieldBubble(
+                  appBarType: AppBarType.basic,
                   titleVerse:  'Note Body',
                   isFormField: true,
                   textController: _bodyController,

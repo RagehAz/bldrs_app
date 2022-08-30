@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -16,6 +17,7 @@ class SearchBar extends StatefulWidget {
   const SearchBar({
     @required this.onSearchSubmit,
     @required this.searchIconIsOn,
+    @required this.appBarType,
     this.searchController,
     this.onSearchChanged,
     this.boxWidth,
@@ -33,6 +35,7 @@ class SearchBar extends StatefulWidget {
   final String hintText;
   final double height;
   final Function onSearchCancelled;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -143,6 +146,8 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH TEXT FIELD
           SuperTextField(
+            appBarType: widget.appBarType,
+            globalKey: null,
             titleVerse: xPhrase(context, 'phid_search'),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {

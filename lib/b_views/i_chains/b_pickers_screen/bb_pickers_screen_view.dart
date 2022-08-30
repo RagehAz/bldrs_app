@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/bbb_data_creator_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -23,6 +24,7 @@ class PickersScreenView extends StatelessWidget {
     @required this.zone,
     @required this.onAddSpecs,
     @required this.onKeyboardSubmitted,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -36,6 +38,7 @@ class PickersScreenView extends StatelessWidget {
   final ZoneModel zone;
   final ValueChanged<List<SpecModel>> onAddSpecs;
   final Function onKeyboardSubmitted;
+  final AppBarType appBarType;
 // --------------------------------------------------------------------------
   double _getListZoneHeight(){
 
@@ -97,6 +100,7 @@ class PickersScreenView extends StatelessWidget {
           builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
 
             return DataCreatorSplitter(
+              appBarType: appBarType,
               height: _listZoneHeight,
               picker: picker,
               onlyUseCityChains: onlyUseCityChains,

@@ -123,6 +123,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       skyType: SkyType.black,
       appBarType: AppBarType.non,
       layoutWidget: EmailAuthScreenView(
+        appBarType: AppBarType.non,
         formKey: _formKey,
         emailController: _emailController,
         passwordController: _passwordController,

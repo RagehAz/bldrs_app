@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -22,6 +23,7 @@ class PDFSelectionBubble extends StatefulWidget {
     @required this.onDeletePDF,
     @required this.existingPDF,
     @required this.formKey,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +31,7 @@ class PDFSelectionBubble extends StatefulWidget {
   final Function onDeletePDF;
   final FileModel existingPDF;
   final GlobalKey<FormState> formKey;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();
@@ -159,6 +162,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                 if (_fileExists == true || _urlExists == true)
               SuperTextField(
+                appBarType: widget.appBarType,
+                globalKey: null,
                 width: Bubble.clearWidth(context),
                 titleVerse: '##File Name',
                 maxLines: 1,

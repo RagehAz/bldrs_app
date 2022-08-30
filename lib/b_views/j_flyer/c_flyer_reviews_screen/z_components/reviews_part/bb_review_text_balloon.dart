@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/c_review_text_column.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/d_review_bubble_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
@@ -31,6 +32,8 @@ class ReviewTextBalloon extends StatelessWidget {
     @required this.flyerModel,
     @required this.reviewTextController,
     @required this.paginatorNotifiers,
+    @required this.globalKey,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +44,8 @@ class ReviewTextBalloon extends StatelessWidget {
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
   final PaginatorNotifiers paginatorNotifiers;
+  final GlobalKey globalKey;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -80,6 +85,8 @@ class ReviewTextBalloon extends StatelessWidget {
               /// TEXT FIELD
               if (isCreatorMode == true)
                   SuperTextField(
+                    appBarType: appBarType,
+                    globalKey: globalKey,
                     titleVerse: '##Edit Review',
                     width: _textBubbleWidth,
                     textController: reviewTextController,

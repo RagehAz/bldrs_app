@@ -300,6 +300,7 @@ class BldrsAppBar extends StatelessWidget {
                     onSearchChanged: onSearchChanged,
                     hintText: searchHint,
                     onSearchCancelled: onSearchCancelled,
+                    appBarType: appBarType,
                   ),
 
               ],

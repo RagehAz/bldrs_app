@@ -112,7 +112,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
           Container(
             key: const ValueKey<String>('layoutWidget'),
             width: Scale.superScreenWidth(context),
-            height: Scale.superScreenHeight(context),
+            // height: Scale.superScreenHeight(context),
             alignment: Alignment.topCenter,
             child: layoutWidget,
           ),

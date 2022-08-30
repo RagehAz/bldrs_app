@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -17,6 +18,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     @required this.selectedUnitID,
     @required this.onUnitSelectorButtonTap,
     @required this.hintText,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +31,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   final ValueNotifier<String> selectedUnitID;
   final Function onUnitSelectorButtonTap;
   final String hintText;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,8 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
         Form(
           key: formKey,
           child: SuperTextField(
+            appBarType: appBarType,
+            globalKey: null,
             titleVerse: '##Number',
             isFormField: true,
             autofocus: true,

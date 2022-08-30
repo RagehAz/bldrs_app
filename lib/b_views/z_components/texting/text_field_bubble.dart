@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
@@ -15,6 +16,8 @@ import 'package:provider/provider.dart';
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextFieldBubble({
+    @required this.appBarType,
+    this.globalKey,
     this.titleVerse,
     this.bubbleWidth,
     this.hintText = '...',
@@ -90,6 +93,8 @@ class TextFieldBubble extends StatelessWidget {
   final FocusNode focusNode;
   final bool isFloatingField;
   final Function onFieldTap;
+  final GlobalKey globalKey;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
@@ -186,6 +191,8 @@ class TextFieldBubble extends StatelessWidget {
 
                   /// TEXT FIELD
                   SuperTextField(
+                    appBarType: appBarType,
+                    globalKey: globalKey,
                     titleVerse: titleVerse,
                     width: fieldWidth,
                     isFormField: isFormField,
