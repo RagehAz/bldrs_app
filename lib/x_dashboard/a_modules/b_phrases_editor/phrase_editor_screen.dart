@@ -198,6 +198,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
                 /// PHRASE EDITOR PAGE
                 PhraseCreatorPage(
+                  appBarType: AppBarType.search,
                   idController: _idController,
                   enController: _englishController,
                   arController: _arabicController,

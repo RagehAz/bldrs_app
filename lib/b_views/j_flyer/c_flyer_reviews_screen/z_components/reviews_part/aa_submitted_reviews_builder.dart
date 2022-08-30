@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/b_review_bubble.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.reviewTextController,
     @required this.flyerModel,
     @required this.paginatorNotifiers,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +27,7 @@ class ReviewsBuilder extends StatelessWidget {
   final TextEditingController reviewTextController;
   final FlyerModel flyerModel;
   final PaginatorNotifiers paginatorNotifiers;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -48,6 +51,7 @@ class ReviewsBuilder extends StatelessWidget {
         /// REVIEW CREATOR
         if (index == 0){
           return ReviewBubble(
+            appBarType: appBarType,
             flyerModel: flyerModel,
             pageWidth: pageWidth,
             reviewTextController: reviewTextController,
@@ -60,6 +64,7 @@ class ReviewsBuilder extends StatelessWidget {
         else {
 
           return ReviewBubble(
+            appBarType: appBarType,
             flyerModel: flyerModel,
             pageWidth : pageWidth,
             reviewModel: reviews[index - 1],

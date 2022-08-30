@@ -25,6 +25,7 @@ class ChainEditorPage extends StatelessWidget {
     @required this.path,
     @required this.onUpdateNode,
     @required this.allChains,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class ChainEditorPage extends StatelessWidget {
   final ValueNotifier<String> path;
   final Function onUpdateNode;
   final List<Chain> allChains;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class ChainEditorPage extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: path,
         child: TextFieldBubble(
+          appBarType: appBarType,
           titleVerse:  'ID',
           textController: textController,
         ),

@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -13,6 +14,7 @@ class ContactFieldBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ContactFieldBubble({
     @required this.title,
+    @required this.appBarType,
     this.hintText = '...',
     this.textController,
     this.textOnChanged,
@@ -57,7 +59,7 @@ class ContactFieldBubble extends StatefulWidget {
   final String leadingIcon;
   final TextInputType keyboardTextInputType;
   final bool canPaste;
-
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
@@ -175,6 +177,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
+                appBarType: widget.appBarType,
+                globalKey: null,
                 titleVerse: '##Contact',
                 width: fieldWidth,
                 isFormField: widget.isFormField,

@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
@@ -24,6 +25,7 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.onSignin,
     @required this.onSignup,
     @required this.isSigningIn,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,7 +39,8 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;
-  final ValueNotifier<bool> isSigningIn; /// p
+  final ValueNotifier<bool> isSigningIn;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     @required bool signingIn,
@@ -90,6 +93,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// ENTER E-MAIL
               TextFieldBubble(
+                appBarType: appBarType,
                 isFormField: true,
                 key: const ValueKey<String>('email'),
                 textController: emailController,
@@ -104,6 +108,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// PASSWORD - CONFIRMATION
               PasswordBubbles(
+                appBarType: appBarType,
                 passwordController: passwordController,
                 showPasswordOnly: _isSigningIn,
                 passwordValidator: passwordValidator,

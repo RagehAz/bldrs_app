@@ -84,6 +84,7 @@ class PickerScreen extends StatelessWidget {
         ),
       ),
       layoutWidget: PickersScreenView(
+        appBarType: AppBarType.basic,
         picker: specPicker,
         selectedSpecs: selectedSpecs,
         screenHeight: _screenHeight,

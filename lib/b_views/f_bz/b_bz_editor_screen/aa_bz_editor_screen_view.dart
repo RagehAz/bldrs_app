@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
@@ -20,9 +22,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -47,6 +47,7 @@ class BzEditorScreenView extends StatelessWidget {
     @required this.bzZone,
     @required this.userModel,
     @required this.bzContacts,
+    @required this.appBarType,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -65,6 +66,7 @@ class BzEditorScreenView extends StatelessWidget {
   final ValueNotifier<ZoneModel> bzZone;
   final UserModel userModel;
   final ValueNotifier<List<ContactModel>> bzContacts;
+  final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -244,6 +246,7 @@ class BzEditorScreenView extends StatelessWidget {
                   'phid_companyName';
 
                   return TextFieldBubble(
+                    appBarType: appBarType,
                     isFormField: true,
                     key: const Key('bzName'),
                     textController: bzNameTextController,
@@ -337,6 +340,7 @@ class BzEditorScreenView extends StatelessWidget {
 
               /// --- BZ ABOUT
               TextFieldBubble(
+                appBarType: appBarType,
                 key: const ValueKey<String>('bz_about_bubble'),
                 textController: bzAboutTextController,
                 titleVerse: 'phid_about',
@@ -376,6 +380,7 @@ class BzEditorScreenView extends StatelessWidget {
                   builder: (_, List<ContactModel> contacts, Widget child){
 
                     return ContactsEditorsBubbles(
+                      appBarType: appBarType,
                       contacts: contacts,
                       contactsOwnerType: ContactsOwnerType.bz,
                     );
@@ -386,12 +391,6 @@ class BzEditorScreenView extends StatelessWidget {
               const DotSeparator(),
 
               const Horizon(),
-
-              if (Keyboard.keyboardIsOn(context))
-                const SizedBox(
-                  width: 20,
-                  height: 150,
-                ),
 
             ],
           );

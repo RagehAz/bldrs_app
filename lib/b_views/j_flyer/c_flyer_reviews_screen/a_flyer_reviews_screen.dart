@@ -25,6 +25,7 @@ class FlyerReviewsScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       layoutWidget: FlyerReviewsScreenView(
+        appBarType: AppBarType.basic,
         flyerModel: flyerModel,
         screenHeight: _screenHeight,
       ),

@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
@@ -216,6 +217,7 @@ class Dialogs {
 
       },
       child: PasswordBubbles(
+        appBarType: AppBarType.non,
         boxWidth: CenterDialog.clearWidth(context),
         passwordController: _password,
         showPasswordOnly: true,
@@ -276,6 +278,7 @@ class Dialogs {
           children: <Widget>[
 
             TextFieldBubble(
+              appBarType: AppBarType.non,
               isFloatingField: _keyboardModel.isFloatingField,
               titleVerse: _keyboardModel.titleVerse,
               textController: _keyboardModel.controller,
