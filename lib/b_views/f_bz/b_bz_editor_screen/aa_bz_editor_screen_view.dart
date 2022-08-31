@@ -1,9 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
@@ -34,44 +32,34 @@ class BzEditorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzEditorScreenView({
     @required this.formKey,
+    @required this.tempBz,
     @required this.missingFields,
     @required this.selectedBzSection,
-    @required this.selectedBzTypes,
     @required this.inactiveBzTypes,
     @required this.inactiveBzForms,
-    @required this.selectedBzForm,
     @required this.selectedScopes,
-    @required this.bzLogo,
     @required this.bzNameTextController,
     @required this.bzAboutTextController,
-    @required this.selectedBzZone,
-    @required this.bzZone,
-    @required this.userModel,
-    @required this.bzContacts,
     @required this.appBarType,
     @required this.nameNode,
     @required this.aboutNode,
+    @required this.canPickImage,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
+  final ValueNotifier<BzModel> tempBz;
   final ValueNotifier<List<AlertModel>> missingFields;
   final ValueNotifier<BzSection> selectedBzSection;
-  final ValueNotifier<List<BzType>> selectedBzTypes;
   final ValueNotifier<List<BzType>> inactiveBzTypes;
   final ValueNotifier<List<BzForm>> inactiveBzForms;
-  final ValueNotifier<BzForm> selectedBzForm;
   final ValueNotifier<List<SpecModel>> selectedScopes;
-  final ValueNotifier<FileModel> bzLogo;
   final TextEditingController bzNameTextController;
   final TextEditingController bzAboutTextController;
-  final ValueNotifier<ZoneModel> selectedBzZone;
-  final ValueNotifier<ZoneModel> bzZone;
-  final UserModel userModel;
-  final ValueNotifier<List<ContactModel>> bzContacts;
   final AppBarType appBarType;
   final FocusNode nameNode;
   final FocusNode aboutNode;
+  final ValueNotifier<bool> canPickImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -84,79 +72,80 @@ class BzEditorScreenView extends StatelessWidget {
 
           // final List<String> _missingFieldsKeys = MapModel.getKeysFromMapModels(missingFields);
 
-          return ListView(
-            physics: const BouncingScrollPhysics(),
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            children: <Widget>[
+          return ValueListenableBuilder(
+              valueListenable: tempBz,
+              builder: (_, BzModel bzModel, Widget child){
 
-              const Stratosphere(),
+                final String _companyNameBubbleTitle = bzModel.bzForm == BzForm.individual ?
+                'phid_business_entity_name'
+                    :
+                'phid_companyName';
 
-              /// --- SECTION SELECTION
-              ValueListenableBuilder(
-                  key: const ValueKey<String>('section_selection_bubble'),
-                  valueListenable: selectedBzSection,
-                  builder: (_, BzSection selectedSection, Widget child){
+                return ListView(
+                  physics: const BouncingScrollPhysics(),
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                  children: <Widget>[
 
-                    final String _selectedButton = BzModel.translateBzSection(
-                      context: context,
-                      bzSection: selectedSection,
-                    );
+                    const Stratosphere(),
 
-                    final List<String> _allSections = BzModel.translateBzSections(
-                      context: context,
-                      bzSections: BzModel.bzSectionsList,
-                    );
+                    /// --- SECTION SELECTION
+                    ValueListenableBuilder(
+                        key: const ValueKey<String>('section_selection_bubble'),
+                        valueListenable: selectedBzSection,
+                        builder: (_, BzSection selectedSection, Widget child){
 
-                    return MultipleChoiceBubble(
-                      title: 'phid_sections',
-                      buttonsList: _allSections,
-                      selectedButtons: <String>[_selectedButton],
-                      isInError: false,
-                      onButtonTap: (int index) => onSelectBzSection(
-                        context: context,
-                        index: index,
-                        selectedBzTypes: selectedBzTypes,
-                        selectedBzSection: selectedBzSection,
-                        inactiveBzTypes: inactiveBzTypes,
-                        inactiveBzForms: inactiveBzForms,
-                        selectedBzForm: selectedBzForm,
-                        selectedScopes: selectedScopes,
-                      ),
-                    );
+                          final String _selectedButton = BzModel.translateBzSection(
+                            context: context,
+                            bzSection: selectedSection,
+                          );
 
-                  }
-              ),
+                          final List<String> _allSections = BzModel.translateBzSections(
+                            context: context,
+                            bzSections: BzModel.bzSectionsList,
+                          );
 
-              /// --- BZ TYPE SELECTION
-              ValueListenableBuilder(
-                  key: const ValueKey<String>('bzType_selection_bubble'),
-                  valueListenable: selectedBzTypes,
-                  builder: (_, List<BzType> selectedTypes, Widget child){
+                          return MultipleChoiceBubble(
+                            title: 'phid_sections',
+                            buttonsList: _allSections,
+                            selectedButtons: <String>[_selectedButton],
+                            isInError: false,
+                            onButtonTap: (int index) => onSelectBzSection(
+                              context: context,
+                              index: index,
+                              tempBz: tempBz,
+                              selectedBzSection: selectedBzSection,
+                              inactiveBzTypes: inactiveBzTypes,
+                              inactiveBzForms: inactiveBzForms,
+                              selectedScopes: selectedScopes,
+                            ),
+                          );
 
-                    final List<String> _selectedButtons = BzModel.translateBzTypes(
-                      context: context,
-                      bzTypes: selectedTypes,
-                      pluralTranslation: false,
-                    );
+                        }
+                    ),
 
-                    final List<String> _allButtons = BzModel.translateBzTypes(
-                      context: context,
-                      bzTypes: BzModel.bzTypesList,
-                      pluralTranslation: false,
-                    );
-
-                    return ValueListenableBuilder(
+                    /// --- BZ TYPE SELECTION
+                    ValueListenableBuilder(
                         valueListenable: inactiveBzTypes,
                         builder: (_, List<BzType> inactiveTypes, Widget child){
 
+                          final List<String> _allButtons = BzModel.translateBzTypes(
+                            context: context,
+                            bzTypes: BzModel.bzTypesList,
+                            pluralTranslation: false,
+                          );
                           final List<String> _inactiveButtons = BzModel.translateBzTypes(
                             context: context,
                             bzTypes: inactiveTypes,
                             pluralTranslation: false,
                           );
+                          final List<String> _selectedButtons = BzModel.translateBzTypes(
+                            context: context,
+                            bzTypes: bzModel.bzTypes,
+                            pluralTranslation: false,
+                          );
 
                           return MultipleChoiceBubble(
-                            title: '##Business Entity type',
+                            title: 'phid_bz_entity_type',
                             buttonsList: _allButtons,
                             selectedButtons: _selectedButtons,
                             inactiveButtons: _inactiveButtons,
@@ -164,40 +153,31 @@ class BzEditorScreenView extends StatelessWidget {
                             onButtonTap: (int index) => onSelectBzType(
                               context: context,
                               index: index,
-                              selectedBzForm: selectedBzForm,
+                              tempBz: tempBz,
                               inactiveBzForms: inactiveBzForms,
                               inactiveBzTypes: inactiveBzTypes,
                               selectedBzSection: selectedBzSection,
-                              selectedBzTypes: selectedBzTypes,
                               selectedScopes: selectedScopes,
                             ),
                           );
 
                         }
-                    );
+                    ),
 
-                  }
-              ),
-
-              /// --- BZ FORM SELECTION
-              ValueListenableBuilder(
-                  key: const ValueKey<String>('bzForm_selection_bubble'),
-                  valueListenable: selectedBzForm,
-                  builder: (_, BzForm selectedForm, Widget child){
-
-                    final List<String> _buttonsList = BzModel.translateBzForms(
-                      context: context,
-                      bzForms: BzModel.bzFormsList,
-                    );
-
-                    final String _selectedButton = BzModel.translateBzForm(
-                      context: context,
-                      bzForm: selectedForm,
-                    );
-
-                    return ValueListenableBuilder(
+                    /// --- BZ FORM SELECTION
+                    ValueListenableBuilder(
                       valueListenable: inactiveBzForms,
                       builder: (_, List<BzForm> inactiveBzForms, Widget child){
+
+                        final List<String> _buttonsList = BzModel.translateBzForms(
+                          context: context,
+                          bzForms: BzModel.bzFormsList,
+                        );
+
+                        final String _selectedButton = BzModel.translateBzForm(
+                          context: context,
+                          bzForm: bzModel.bzForm,
+                        );
 
                         final List<String> _inactiveButtons = BzModel.translateBzForms(
                           context: context,
@@ -213,106 +193,86 @@ class BzEditorScreenView extends StatelessWidget {
                           isInError: false,
                           onButtonTap: (int index) => onSelectBzForm(
                             index: index,
-                            selectedBzForm: selectedBzForm,
+                            tempBz: tempBz,
                           ),
                         );
 
                       },
-                    );
+                    ),
 
-                  }
-              ),
+                    const DotSeparator(),
 
-              const DotSeparator(),
+                    /// --- ADD LOGO
+                    AddImagePicBubble(
+                      key: const ValueKey<String>('add_logo_bubble'),
+                      fileModel: bzModel.logo,
+                      titleVerse: 'phid_businessLogo',
+                      redDot: true,
+                      bubbleType: BubbleType.bzLogo,
+                      onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
+                        context: context,
+                        tempBz: tempBz,
+                        imagePickerType: imagePickerType,
+                        canPickImage: canPickImage,
+                      ),
+                    ),
 
-              /// --- ADD LOGO
-              OldAddImagePicBubble(
-                key: const ValueKey<String>('add_logo_bubble'),
-                fileModel: bzLogo,
-                titleVerse: 'phid_businessLogo',
-                redDot: true,
-                bubbleType: BubbleType.bzLogo,
-                onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
-                  context: context,
-                  bzLogo: bzLogo,
-                  imagePickerType: imagePickerType,
-                ),
-              ),
+                    /// --- BZ NAME
+                    TextFieldBubble(
+                      globalKey: formKey,
+                      focusNode: nameNode,
+                      appBarType: appBarType,
+                      isFormField: true,
+                      key: const Key('bzName'),
+                      textController: bzNameTextController,
+                      titleVerse: _companyNameBubbleTitle,
+                      counterIsOn: true,
+                      maxLength: 72,
+                      maxLines: 2,
+                      keyboardTextInputType: TextInputType.name,
+                      keyboardTextInputAction: TextInputAction.next,
+                      fieldIsRequired: true,
+                      validator: (){
 
-              /// --- BZ NAME
-              ValueListenableBuilder(
-                key: const ValueKey<String>('bz_name_bubble'),
-                valueListenable: selectedBzForm,
-                builder: (_, BzForm selectedBzForm, Widget child){
+                        if (Stringer.checkStringIsEmpty(bzNameTextController.text) == true){
+                          return '##Business Entity name can not be empty';
+                        }
+                        else if (bzNameTextController.text.length <= 3){
+                          return '##Business Entity name should be more than 3 characters';
+                        }
+                        else {
+                          return null;
+                        }
 
-                  final String _title =
-                  selectedBzForm == BzForm.individual ?
-                  'phid_business_entity_name'
-                      :
-                  'phid_companyName';
+                      },
+                    ),
 
-                  return TextFieldBubble(
-                    globalKey: formKey,
-                    focusNode: nameNode,
-                    appBarType: appBarType,
-                    isFormField: true,
-                    key: const Key('bzName'),
-                    textController: bzNameTextController,
-                    titleVerse: _title,
-                    counterIsOn: true,
-                    maxLength: 72,
-                    maxLines: 2,
-                    keyboardTextInputType: TextInputType.name,
-                    keyboardTextInputAction: TextInputAction.next,
-                    fieldIsRequired: true,
-                    validator: (){
+                    /// --- BZ ABOUT
+                    TextFieldBubble(
+                      globalKey: formKey,
+                      focusNode: aboutNode,
+                      appBarType: appBarType,
+                      key: const ValueKey<String>('bz_about_bubble'),
+                      textController: bzAboutTextController,
+                      titleVerse: 'phid_about',
+                      counterIsOn: true,
+                      maxLength: 1000,
+                      maxLines: 20,
+                      keyboardTextInputType: TextInputType.multiline,
+                      validator: (){return null;},
+                    ),
 
-                      if (Stringer.checkStringIsEmpty(bzNameTextController.text) == true){
-                        return '##Business Entity name can not be empty';
-                      }
-                      else if (bzNameTextController.text.length <= 3){
-                        return '##Business Entity name should be more than 3 characters';
-                      }
-                      else {
-                        return null;
-                      }
-
-                    },
-                  );
-
-                },
-              ),
-
-              /// --- BZ ABOUT
-              TextFieldBubble(
-                globalKey: formKey,
-                focusNode: aboutNode,
-                appBarType: appBarType,
-                key: const ValueKey<String>('bz_about_bubble'),
-                textController: bzAboutTextController,
-                titleVerse: 'phid_about',
-                counterIsOn: true,
-                maxLength: 1000,
-                maxLines: 20,
-                keyboardTextInputType: TextInputType.multiline,
-                validator: (){return null;},
-              ),
-
-              /// SCOPES SELECTOR
-              ValueListenableBuilder(
-                  valueListenable: selectedBzTypes,
-                  builder: (_, List<BzType> bzTypes, Widget child){
-
-                    return ValueListenableBuilder(
+                    /// SCOPES SELECTOR
+                    ValueListenableBuilder(
                       valueListenable: selectedScopes,
                       builder: (_, List<SpecModel> selectedSpecs, Widget child){
 
                         final List<String> _phids = SpecModel.getSpecsIDs(selectedSpecs);
 
                         return WidgetFader(
-                          fadeType: Mapper.checkCanLoopList(bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+                          fadeType: Mapper.checkCanLoopList(bzModel.bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                           min: 0.35,
-                          absorbPointer: Mapper.checkCanLoopList(bzTypes) == false,
+                          absorbPointer: Mapper.checkCanLoopList(bzModel.bzTypes) == false,
                           child: Bubble(
                             headerViewModel: const BubbleHeaderVM(
                               headlineVerse: 'phid_scope_of_services',
@@ -350,8 +310,7 @@ class BzEditorScreenView extends StatelessWidget {
                                 onTap: () => onAddScopesTap(
                                   context: context,
                                   selectedScopes: selectedScopes,
-                                  selectedBzTypes: selectedBzTypes,
-                                  bzZone: bzZone,
+                                  tempBz: tempBz,
                                 ),
                               ),
 
@@ -359,54 +318,39 @@ class BzEditorScreenView extends StatelessWidget {
                           ),
                         );
                       },
-                    );
+                    ),
 
-                  }
-              ),
+                    const DotSeparator(),
 
-              const DotSeparator(),
-
-              /// --- BZ ZONE
-              ValueListenableBuilder(
-                  key: const ValueKey<String>('bz_zone_bubble'),
-                  valueListenable: selectedBzZone,
-                  builder: (_, ZoneModel bzZone, Widget child){
-
-                    return ZoneSelectionBubble(
-                      titleVerse: '##Headquarters zone', //Wordz.hqCity(context),
-                      currentZone: bzZone,
+                    /// --- BZ ZONE
+                    ZoneSelectionBubble(
+                      titleVerse: 'phid_hqCity',
+                      currentZone: bzModel.zone,
                       onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                         zoneModel: zone,
-                        bzZone: selectedBzZone,
+                        tempBz: tempBz,
                       ),
-                    );
+                    ),
 
-                  }
-              ),
+                    /// --- BZ POSITION
+                    //
 
-              /// --- BZ POSITION
-              //
-
-              /// --- BZ CONTACTS
-              ValueListenableBuilder(
-                  valueListenable: bzContacts,
-                  builder: (_, List<ContactModel> contacts, Widget child){
-
-                    return ContactsEditorsBubbles(
+                    /// --- BZ CONTACTS
+                    ContactsEditorsBubbles(
                       globalKey: formKey,
                       appBarType: appBarType,
-                      contacts: contacts,
+                      contacts: bzModel.contacts,
                       contactsOwnerType: ContactsOwnerType.bz,
-                    );
+                    ),
 
-                  },
-              ),
+                    const DotSeparator(),
 
-              const DotSeparator(),
+                    const Horizon(),
 
-              const Horizon(),
+                  ],
+                );
 
-            ],
+              }
           );
 
         },

@@ -1,21 +1,15 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/aa_bz_editor_screen_view.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
-import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-/// PLAN : SAVE CURRENT STATES IN LDB IN CASE USER DIDN'T FINISH IN ONE SESSION
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzEditorScreen({
@@ -29,18 +23,33 @@ class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _BzEditorScreenState createState() => _BzEditorScreenState();
-  /// --------------------------------------------------------------------------
+/// --------------------------------------------------------------------------
 }
 
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  UserModel _userModel;
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
+  // --------------------
+  final ValueNotifier<BzModel> _tempBz = ValueNotifier<BzModel>(null);
+  final ValueNotifier<BzModel> _initialBzModel = ValueNotifier<BzModel>(null);
+  // --------------------
+  final TextEditingController _nameController = TextEditingController();
+  final FocusNode _nameNode = FocusNode();
+  // --------------------
+  final TextEditingController _aboutController = TextEditingController();
+  final FocusNode _aboutNode = FocusNode();
+  // --------------------
+  final ValueNotifier<List<SpecModel>> _selectedScopes = ValueNotifier([]);
+  // --------------------
+  final ValueNotifier<BzSection> _selectedBzSection = ValueNotifier<BzSection>(null);
+  final ValueNotifier<List<BzType>> _inactiveBzTypes = ValueNotifier<List<BzType>>(null);
+  final ValueNotifier<List<BzForm>> _inactiveBzForms = ValueNotifier<List<BzForm>>(null);
+  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
 // -----------
-  /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -49,156 +58,77 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'BzEditorScreen',);
+      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-   */
-// -----------------------------------------------------------------------------
+// -----------------------------------
   @override
   void initState() {
     super.initState();
 
-    _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
-    );
-
-    _initializeBzModelVariables();
-    _initializeHelperVariables();
-
-    _blogCurrentStates();
-  }
-// -----------------------------------------------------------------------------
-  void _blogCurrentStates(){
-    blog('at START : ------------------------------------------ >');
-    blog('_selectedBzSection : ${_selectedBzSection.value}');
-    blog('_selectedBzTypes : ${_selectedBzTypes.value}');
-    blog('_selectedBzForm : ${_selectedBzForm.value}');
-    blog('_inactiveBzTypes : ${_inactiveBzTypes.value}');
-    blog('_inactiveBzForms : ${_inactiveBzForms.value}');
-    blog('at END : ------------------------------------------ EH EL KALAM>');
-  }
-// -----------------------------------------------------------------------------
-
-  /// LOCAL BZ MODEL VARIABLES
-
-  // -------------------------
-  BzModel _initialBzModel;
-  // -------------------------
-  /// String _bzID; // NOT REQUIRED HERE
-  ValueNotifier<List<BzType>> _selectedBzTypes;
-  ValueNotifier<BzForm> _selectedBzForm;
-  /// DateTime _createdAt; // NOT REQUIRED HERE
-  /// BzAccountType _accountType // NOT REQUIRED HERE
-  // -------------------------
-  TextEditingController _bzNameTextController;
-  FocusNode _nameNode;
-  TextEditingController _bzAboutTextController;
-  FocusNode _aboutNode;
-  ValueNotifier<FileModel> _bzLogo;
-  ValueNotifier<ZoneModel> _selectedBzZone;
-  ValueNotifier<List<SpecModel>> _selectedScopes;
-  ValueNotifier<GeoPoint> _bzPosition;
-  ValueNotifier<List<ContactModel>> _bzContacts;
-  /// List<AuthorModel> _bzAuthors; // NOT REQUIRED HERE
-  /// bool _bzShowsTeam; // NOT REQUIRED HERE
-  // -------------------------
-  /// bool _bzIsVerified; // NOT REQUIRED HERE
-  /// bool _bzState; // NOT REQUIRED HERE
-  /// FOLLOWERS / SAVES / SHARES / SLIDES / VIEWS / CALLS : NOT REQUIRED HERE
-  /// FLYERS IDS / TOTAL FLYERS : NOT REQUIRED HERE
-  // -------------------------
-  void _initializeBzModelVariables(){
-    // -------------------------
-    _initialBzModel = widget.firstTimer == true ?
-    BzModel.convertFireUserDataIntoInitialBzModel(_userModel)
-        :
-    widget.bzModel;
-    // -------------------------
-    final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(
+    initializeLocalVariables(
       context: context,
-      phids: _initialBzModel.scope,
+      tempBz: _tempBz,
+      oldBzModel: widget.bzModel,
+      initialBzModel: _initialBzModel,
+      firstTimer: widget.firstTimer,
+      nameController: _nameController,
+      aboutController: _aboutController,
+      inactiveBzForms: _inactiveBzForms,
+      inactiveBzTypes: _inactiveBzTypes,
+      selectedBzSection: _selectedBzSection,
+      selectedScopes: _selectedScopes,
     );
 
-    // -------------------------
-    _selectedBzTypes = ValueNotifier(_initialBzModel.bzTypes);
-    _selectedBzForm = ValueNotifier(_initialBzModel.bzForm);
-    _bzNameTextController = TextEditingController(text: _initialBzModel.name);
-    _nameNode = FocusNode();
-    _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
-    _aboutNode = FocusNode();
-    _bzLogo = ValueNotifier(FileModel(
-      url: _initialBzModel.logo,
-      fileName: _initialBzModel.id,
-      size: null,
-    ));
-    _selectedScopes = ValueNotifier(_specs);
-    _selectedBzZone = ValueNotifier(_initialBzModel.zone);
-    _bzPosition = ValueNotifier(_initialBzModel.position);
-    // -------------------------
-    final List<ContactModel> _initialContacts = ContactModel.initializeContactsForEditing(
-      countryID: _initialBzModel.zone.countryID,
-      contacts: _initialBzModel.contacts,
-    );
-    _bzContacts = ValueNotifier(_initialContacts);
-    // -------------------------
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
 
-  /// HELPER VARIABLES
-  
-// -------------------------------------
-  ValueNotifier<BzSection> _selectedBzSection;
-  ValueNotifier<List<BzType>> _inactiveBzTypes;
-  ValueNotifier<List<BzForm>> _inactiveBzForms;
-  final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
-// -------------------------------------
-  void _initializeHelperVariables(){
-    final BzSection _concludedBzSection = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
-    final List<BzType> _concludedInactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
-      bzSection: _concludedBzSection,
-      initialBzTypes: _initialBzModel.bzTypes,
-    );
-    final List<BzForm> _concludedInactiveBzForms = BzModel.concludeInactiveBzFormsByBzTypes(_concludedInactiveBzTypes);
-    _selectedBzSection  = ValueNotifier(_concludedBzSection);
-    _inactiveBzTypes = ValueNotifier(_concludedInactiveBzTypes);
-    _inactiveBzForms = ValueNotifier(_concludedInactiveBzForms);
+      _triggerLoading(setTo: true).then((_) async {
+// -----------------------------------------------------------------
+        await prepareBzZoneAndPicForEditing(
+          context: context,
+          tempBz: _tempBz,
+        );
+// -----------------------------------------------------------------
+        await _triggerLoading(setTo: false);
+      });
+
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
   /// TAMAM
   @override
   void dispose() {
+    _canPickImage.dispose();
 
-    _disposeTextControllers();
+    _nameController.dispose();
+    _nameNode.dispose();
 
-    _missingFields.dispose();
-    _loading.dispose();
-    _selectedBzTypes.dispose();
-    _selectedBzForm.dispose();
-    _bzLogo.dispose();
-    _selectedBzZone.dispose();
+    _aboutController.dispose();
+    _aboutNode.dispose();
+
     _selectedScopes.dispose();
-    _bzPosition.dispose();
+
     _selectedBzSection.dispose();
     _inactiveBzTypes.dispose();
     _inactiveBzForms.dispose();
-    _bzNameTextController.dispose();
-    _nameNode.dispose();
-    _bzAboutTextController.dispose();
-    _aboutNode.dispose();
+    _missingFields.dispose();
 
-    ContactModel.disposeContactsControllers(_bzContacts.value);
-    _bzContacts.dispose();
+    _loading.dispose();
+
+    ContactModel.disposeContactsControllers(_tempBz.value.contacts);
+    _tempBz.dispose();
+    _initialBzModel.dispose();
 
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  void _disposeTextControllers(){
-    // TextChecker.disposeControllerIfPossible(_bzNameTextController);
-    // TextChecker.disposeControllerIfPossible(_bzAboutTextController);
-  }
-// -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 
@@ -213,48 +143,37 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       pageTitleVerse: widget.firstTimer == true ?
       'phid_createBzAccount'
           :
-      'phid_edit_bz_info', // createBzAccount
+      'phid_edit_bz_info',
       // appBarBackButton: true,
       confirmButtonModel: ConfirmButtonModel(
-          firstLine: '##Confirm',
-          secondLine: widget.firstTimer == true ? '##Create new business profile' : '##Update business profile',
+          firstLine: 'phid_confirm',
+          secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',
           onTap: () => onBzEditsConfirmTap(
             context: context,
             formKey: _formKey,
             missingFields: _missingFields,
-            selectedBzTypes: _selectedBzTypes,
             selectedScopes: _selectedScopes,
-            bzZone: _selectedBzZone,
-            bzLogo: _bzLogo,
-            selectedBzForm: _selectedBzForm,
-            bzAboutTextController: _bzAboutTextController,
-            bzContacts: _bzContacts,
-            bzNameTextController: _bzNameTextController,
-            bzPosition: _bzPosition,
+            bzAboutTextController: _aboutController,
+            bzNameTextController: _nameController,
             initialBzModel: _initialBzModel,
-            userModel: _userModel,
             firstTimer: widget.firstTimer,
+            tempBz: _tempBz,
           )
-      )                ,
+      ),
       layoutWidget: BzEditorScreenView(
+        tempBz: _tempBz,
         formKey: _formKey,
         missingFields: _missingFields,
         selectedBzSection: _selectedBzSection,
-        selectedBzTypes: _selectedBzTypes,
         inactiveBzTypes: _inactiveBzTypes,
         inactiveBzForms: _inactiveBzForms,
-        selectedBzForm: _selectedBzForm,
         selectedScopes: _selectedScopes,
-        bzLogo: _bzLogo,
-        bzNameTextController: _bzNameTextController,
-        bzAboutTextController: _bzAboutTextController,
-        selectedBzZone: _selectedBzZone,
-        bzZone: _selectedBzZone,
-        userModel: _userModel,
-        bzContacts: _bzContacts,
+        bzNameTextController: _nameController,
+        bzAboutTextController: _aboutController,
         appBarType: AppBarType.basic,
         nameNode: _nameNode,
         aboutNode: _aboutNode,
+        canPickImage: _canPickImage,
       ),
     );
   }

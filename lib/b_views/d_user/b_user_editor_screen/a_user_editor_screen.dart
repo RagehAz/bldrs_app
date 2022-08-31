@@ -82,7 +82,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-        await prepareZoneAndPicForEditing(
+        await prepareUserZoneAndPicForEditing(
           context: context,
           tempUser: _tempUser,
         );
