@@ -424,6 +424,14 @@ class UserModel {
     }
   }
 // -----------------------------------
+  static String genderIcon(Gender gender){
+    switch (gender) {
+      case Gender.female:   return Iconz.female;    break;
+      case Gender.male:     return Iconz.male;      break;
+      default:              return null;
+    }
+  }
+// -----------------------------------
   static const List<Gender> gendersList = <Gender>[
     Gender.male,
     Gender.female,

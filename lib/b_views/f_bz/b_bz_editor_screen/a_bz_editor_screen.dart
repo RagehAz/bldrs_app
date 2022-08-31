@@ -92,10 +92,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   /// BzAccountType _accountType // NOT REQUIRED HERE
   // -------------------------
   TextEditingController _bzNameTextController;
+  FocusNode _nameNode;
+  TextEditingController _bzAboutTextController;
+  FocusNode _aboutNode;
   ValueNotifier<FileModel> _bzLogo;
   ValueNotifier<ZoneModel> _selectedBzZone;
   ValueNotifier<List<SpecModel>> _selectedScopes;
-  TextEditingController _bzAboutTextController;
   ValueNotifier<GeoPoint> _bzPosition;
   ValueNotifier<List<ContactModel>> _bzContacts;
   /// List<AuthorModel> _bzAuthors; // NOT REQUIRED HERE
@@ -122,6 +124,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _selectedBzTypes = ValueNotifier(_initialBzModel.bzTypes);
     _selectedBzForm = ValueNotifier(_initialBzModel.bzForm);
     _bzNameTextController = TextEditingController(text: _initialBzModel.name);
+    _nameNode = FocusNode();
+    _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
+    _aboutNode = FocusNode();
     _bzLogo = ValueNotifier(FileModel(
       url: _initialBzModel.logo,
       fileName: _initialBzModel.id,
@@ -129,7 +134,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     ));
     _selectedScopes = ValueNotifier(_specs);
     _selectedBzZone = ValueNotifier(_initialBzModel.zone);
-    _bzAboutTextController = TextEditingController(text: _initialBzModel.about);
     _bzPosition = ValueNotifier(_initialBzModel.position);
     // -------------------------
     final List<ContactModel> _initialContacts = ContactModel.initializeContactsForEditing(
@@ -179,7 +183,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _inactiveBzTypes.dispose();
     _inactiveBzForms.dispose();
     _bzNameTextController.dispose();
+    _nameNode.dispose();
     _bzAboutTextController.dispose();
+    _aboutNode.dispose();
 
     ContactModel.disposeContactsControllers(_bzContacts.value);
     _bzContacts.dispose();
@@ -192,6 +198,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     // TextChecker.disposeControllerIfPossible(_bzAboutTextController);
   }
 // -----------------------------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
 
@@ -246,6 +253,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         userModel: _userModel,
         bzContacts: _bzContacts,
         appBarType: AppBarType.basic,
+        nameNode: _nameNode,
+        aboutNode: _aboutNode,
       ),
     );
   }

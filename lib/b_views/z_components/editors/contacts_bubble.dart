@@ -34,8 +34,9 @@ class ContactsBubble extends StatelessWidget {
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
       child: Bubble(
-        headerViewModel: const BubbleHeaderVM(
+        headerViewModel: BubbleHeaderVM(
           headlineVerse: 'phid_contacts',
+          headerWidth: Bubble.clearWidth(context) - 20,
         ),
         columnChildren: <Widget>[
 

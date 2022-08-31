@@ -40,6 +40,8 @@ class FlyerMakerScreenView extends StatelessWidget {
     @required this.isEditingFlyer,
     @required this.originalFlyer,
     @required this.appBarType,
+    @required this.headlineNode,
+    @required this.descriptionNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -51,6 +53,8 @@ class FlyerMakerScreenView extends StatelessWidget {
   final bool isEditingFlyer;
   final FlyerModel originalFlyer;
   final AppBarType appBarType;
+  final FocusNode headlineNode;
+  final FocusNode descriptionNode;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -101,6 +105,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                       controller: scrollController,
                       child: ListView(
                         controller: scrollController,
+                        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
                         children: <Widget>[
@@ -129,6 +134,8 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER HEADLINE
                           TextFieldBubble(
+                            globalKey: formKey,
+                            focusNode: headlineNode,
                             appBarType: appBarType,
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
@@ -152,6 +159,8 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
+                            globalKey: formKey,
+                            focusNode: descriptionNode,
                             appBarType: appBarType,
                             key: const ValueKey<String>('bz_scope_bubble'),
                             textController: _draft.descriptionController,

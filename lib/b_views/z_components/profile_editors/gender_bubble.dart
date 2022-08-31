@@ -39,7 +39,7 @@ class GenderBubble extends StatelessWidget {
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
-        headlineVerse: 'phid_gender',
+        // headlineVerse: 'phid_gender',
         redDot: true,
       ),
       width: Bubble.defaultWidth(context),
@@ -58,6 +58,7 @@ class GenderBubble extends StatelessWidget {
 
                     final Gender _gender = UserModel.gendersList[index];
                     final String _genderString = UserModel.translateGender(_gender);
+                    final String _genderIcon = UserModel.genderIcon(_gender);
 
                     final bool _isSelected = _gender == _selectedGender;
 
@@ -72,12 +73,16 @@ class GenderBubble extends StatelessWidget {
                     Colorz.white255;
 
                     return DreamBox(
+                      icon: _genderIcon,
+                      iconSizeFactor: 0.6,
+                      iconColor: _verseColor,
                       height: 50,
                       width: _buttonWidth,
                       color: _buttonColor,
                       verse: _genderString,
                       verseColor: _verseColor,
-                      verseScaleFactor: 0.8,
+                      verseScaleFactor: 1.2,
+                      verseCentered: false,
                       onTap: () => onTap(_gender),
                     );
 

@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserEditorScreenView extends StatelessWidget {
@@ -27,6 +28,9 @@ class UserEditorScreenView extends StatelessWidget {
     @required this.zone,
     @required this.contacts,
     @required this.appBarType,
+    @required this.nameNode,
+    @required this.jobNode,
+    @required this.companyNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -40,6 +44,9 @@ class UserEditorScreenView extends StatelessWidget {
   final ValueNotifier<ZoneModel> zone;
   final List<ContactModel> contacts;
   final AppBarType appBarType;
+  final FocusNode nameNode;
+  final FocusNode jobNode;
+  final FocusNode companyNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -51,6 +58,7 @@ class UserEditorScreenView extends StatelessWidget {
       child: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.zero,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: <Widget>[
 
           const Stratosphere(),
@@ -69,12 +77,24 @@ class UserEditorScreenView extends StatelessWidget {
             ),
           ),
 
+          /// GENDER
+          GenderBubble(
+            selectedGender: genderNotifier,
+            onTap: (Gender gender) => onChangeGender(
+              selectedGender: gender,
+              genderNotifier: genderNotifier,
+            ),
+          ),
+
+
           /// NAME
           TextFieldBubble(
+            key: const Key('name'),
+            globalKey: formKey,
+            focusNode: nameNode,
             appBarType: appBarType,
             isFormField: true,
             textController: nameController,
-            key: const Key('name'),
             titleVerse: 'phid_name',
             keyboardTextInputType: TextInputType.name,
             keyboardTextInputAction: TextInputAction.next,
@@ -85,17 +105,10 @@ class UserEditorScreenView extends StatelessWidget {
             null,
           ),
 
-          /// GENDER
-          GenderBubble(
-            selectedGender: genderNotifier,
-            onTap: (Gender gender) => onChangeGender(
-              selectedGender: gender,
-              genderNotifier: genderNotifier,
-            ),
-          ),
-
           /// JOB TITLE
           TextFieldBubble(
+            globalKey: formKey,
+            focusNode: jobNode,
             appBarType: appBarType,
             isFormField: true,
             key: const Key('title'),
@@ -112,6 +125,8 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// COMPANY NAME
           TextFieldBubble(
+            globalKey: formKey,
+            focusNode: companyNode,
             appBarType: appBarType,
             isFormField: true,
             textController: companyController,
@@ -144,18 +159,13 @@ class UserEditorScreenView extends StatelessWidget {
 
           /// CONTACTS
           ContactsEditorsBubbles(
+            globalKey: formKey,
             contacts: contacts,
             contactsOwnerType: ContactsOwnerType.user,
             appBarType: appBarType,
           ),
 
           const Horizon(),
-
-          // if (_keyboardIsOn == true)
-          //   const SizedBox(
-          //     width: 20,
-          //     height: 150,
-          //   ),
 
         ],
       ),

@@ -49,6 +49,8 @@ class BzEditorScreenView extends StatelessWidget {
     @required this.userModel,
     @required this.bzContacts,
     @required this.appBarType,
+    @required this.nameNode,
+    @required this.aboutNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -68,6 +70,8 @@ class BzEditorScreenView extends StatelessWidget {
   final UserModel userModel;
   final ValueNotifier<List<ContactModel>> bzContacts;
   final AppBarType appBarType;
+  final FocusNode nameNode;
+  final FocusNode aboutNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -82,6 +86,7 @@ class BzEditorScreenView extends StatelessWidget {
 
           return ListView(
             physics: const BouncingScrollPhysics(),
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             children: <Widget>[
 
               const Stratosphere(),
@@ -247,6 +252,8 @@ class BzEditorScreenView extends StatelessWidget {
                   'phid_companyName';
 
                   return TextFieldBubble(
+                    globalKey: formKey,
+                    focusNode: nameNode,
                     appBarType: appBarType,
                     isFormField: true,
                     key: const Key('bzName'),
@@ -256,6 +263,7 @@ class BzEditorScreenView extends StatelessWidget {
                     maxLength: 72,
                     maxLines: 2,
                     keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
                     validator: (){
 
@@ -273,6 +281,21 @@ class BzEditorScreenView extends StatelessWidget {
                   );
 
                 },
+              ),
+
+              /// --- BZ ABOUT
+              TextFieldBubble(
+                globalKey: formKey,
+                focusNode: aboutNode,
+                appBarType: appBarType,
+                key: const ValueKey<String>('bz_about_bubble'),
+                textController: bzAboutTextController,
+                titleVerse: 'phid_about',
+                counterIsOn: true,
+                maxLength: 1000,
+                maxLines: 20,
+                keyboardTextInputType: TextInputType.multiline,
+                validator: (){return null;},
               ),
 
               /// SCOPES SELECTOR
@@ -341,19 +364,6 @@ class BzEditorScreenView extends StatelessWidget {
                   }
               ),
 
-              /// --- BZ ABOUT
-              TextFieldBubble(
-                appBarType: appBarType,
-                key: const ValueKey<String>('bz_about_bubble'),
-                textController: bzAboutTextController,
-                titleVerse: 'phid_about',
-                counterIsOn: true,
-                maxLength: 1000,
-                maxLines: 20,
-                keyboardTextInputType: TextInputType.multiline,
-                validator: (){return null;},
-              ),
-
               const DotSeparator(),
 
               /// --- BZ ZONE
@@ -383,6 +393,7 @@ class BzEditorScreenView extends StatelessWidget {
                   builder: (_, List<ContactModel> contacts, Widget child){
 
                     return ContactsEditorsBubbles(
+                      globalKey: formKey,
                       appBarType: appBarType,
                       contacts: contacts,
                       contactsOwnerType: ContactsOwnerType.bz,

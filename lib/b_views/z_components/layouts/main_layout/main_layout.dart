@@ -51,6 +51,7 @@ class MainLayout extends StatelessWidget {
     this.onPyramidTap,
     this.onSearchCancelled,
     this.confirmButtonModel,
+    this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -76,6 +77,7 @@ class MainLayout extends StatelessWidget {
   final Function onPyramidTap;
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -190,6 +192,7 @@ class MainLayout extends StatelessWidget {
                   /// BODY CONTENT
                   body: MainLayoutStackWidgets(
                     key: const ValueKey<String>('mainStack'),
+                    globalKey: globalKey,
                     alignment: Alignment.topCenter,
                     skyType: skyType,
                     appBarType: appBarType,

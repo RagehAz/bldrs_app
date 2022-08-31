@@ -93,6 +93,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -166,7 +168,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 if (_fileExists == true || _urlExists == true)
               SuperTextField(
                 appBarType: widget.appBarType,
-                globalKey: null,
+                globalKey: globalKey,
                 width: Bubble.clearWidth(context),
                 titleVerse: '##File Name',
                 maxLines: 1,
