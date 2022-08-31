@@ -34,13 +34,13 @@ class Keyboard {
         FocusManager.instance.primaryFocus?.unfocus();
         _uiProvider.setKeyboardIsOn(
             setTo: false,
-            notify: false
-        );
-        _uiProvider.setKeyboard(
-            model: null,
             notify: true,
-          invoker: 'initializeKeyboardListener',
         );
+        // _uiProvider.setKeyboard(
+        //     model: null,
+        //     notify: true,
+        //   invoker: 'initializeKeyboardListener',
+        // );
       }
 
       else {

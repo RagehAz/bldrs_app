@@ -16,6 +16,7 @@ class ContactFieldBubble extends StatefulWidget {
   const ContactFieldBubble({
     @required this.appBarType,
     @required this.headerViewModel,
+    @required this.globalKey,
     this.hintText = '...',
     this.textController,
     this.textOnChanged,
@@ -58,6 +59,7 @@ class ContactFieldBubble extends StatefulWidget {
   final bool canPaste;
   final AppBarType appBarType;
   final BubbleHeaderVM headerViewModel;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
@@ -173,7 +175,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
               /// TEXT FIELD
               SuperTextField(
                 appBarType: widget.appBarType,
-                globalKey: null,
+                globalKey: widget.globalKey,
                 titleVerse: '##Contact',
                 width: fieldWidth,
                 isFormField: widget.isFormField,

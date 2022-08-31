@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/keyboard_field/a_keyboard_floating_field.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -186,8 +185,8 @@ class MainLayout extends StatelessWidget {
                   /// BACK GROUND COLOR
                   backgroundColor: _backgroundColor,
 
-                  /// KEYBOARD
-                  bottomSheet: const KeyboardFloatingField(),
+                  /// BOTTOM SHEET
+                  // bottomSheet: const KeyboardFloatingField(), /// removed it
 
                   /// BODY CONTENT
                   body: MainLayoutStackWidgets(
