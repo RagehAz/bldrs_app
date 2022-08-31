@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
@@ -545,36 +544,36 @@ class _SuperTextFieldState extends State<SuperTextField> {
       final bool _keyboardIs = Keyboard.keyboardIsOn(context);
       blog('tapping keyboard : $_keyboardIs : _controller : ${_controller.hashCode} : widget.isFloatingField : ${widget.isFloatingField}');
 
-      final KeyboardModel model = KeyboardModel(
-        titleVerse: widget.titleVerse,
-        hintVerse: widget.hintVerse,
-        controller: _controller,
-        minLines: widget.minLines ?? 1,
-        maxLines: widget.maxLines ?? 1,
-        maxLength: widget.maxLength ?? 100,
-        textInputAction: widget.textInputAction,
-        textInputType: widget.textInputType,
-        focusNode: _focusNode,
-        canObscure: widget.canObscure,
-        counterIsOn: widget.counterIsOn,
-        isFormField: widget.isFormField,
-        onChanged: widget.onChanged,
-        onEditingComplete: widget.onEditingComplete,
-        onSavedForForm: widget.onSavedForForm,
-        onSubmitted: widget.onSubmitted,
-        isFloatingField: widget.isFloatingField,
-      );
+      // final KeyboardModel model = KeyboardModel(
+      //   titleVerse: widget.titleVerse,
+      //   hintVerse: widget.hintVerse,
+      //   controller: _controller,
+      //   minLines: widget.minLines ?? 1,
+      //   maxLines: widget.maxLines ?? 1,
+      //   maxLength: widget.maxLength ?? 100,
+      //   textInputAction: widget.textInputAction,
+      //   textInputType: widget.textInputType,
+      //   focusNode: _focusNode,
+      //   canObscure: widget.canObscure,
+      //   counterIsOn: widget.counterIsOn,
+      //   isFormField: widget.isFormField,
+      //   onChanged: widget.onChanged,
+      //   onEditingComplete: widget.onEditingComplete,
+      //   onSavedForForm: widget.onSavedForForm,
+      //   onSubmitted: widget.onSubmitted,
+      //   isFloatingField: widget.isFloatingField,
+      // );
 
       // FocusManager.instance.primaryFocus?.unfocus();
       // FocusManager.instance.primaryFocus?.requestFocus();
 
       final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 
-      _uiProvider.setKeyboard(
-        model: model,
-        notify: false,
-        invoker: 'SuperTextField : _onTap()',
-      );
+      // _uiProvider.setKeyboard(
+      //   model: model,
+      //   notify: false,
+      //   invoker: 'SuperTextField : _onTap()',
+      // );
       _uiProvider.setKeyboardIsOn(
           setTo: true,
           notify: true,
