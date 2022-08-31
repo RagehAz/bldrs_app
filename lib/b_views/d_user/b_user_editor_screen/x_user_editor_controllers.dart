@@ -11,12 +11,60 @@ import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
+import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
 
+/// INITIALIZATION
+
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+void initializeLocalVariables({
+  @required BuildContext context,
+  @required UserModel oldUserModel,
+  @required ValueNotifier<UserModel> tempUser,
+  @required TextEditingController nameController,
+  @required TextEditingController titleController,
+  @required TextEditingController companyController,
+}){
+
+  final UserModel _initialModel = UserModel.initializeModelForEditing(
+    context: context,
+    userModel: oldUserModel,
+  );
+
+  tempUser.value = _initialModel;
+
+  nameController.text      = _initialModel.name;
+  companyController.text   = _initialModel.company;
+  titleController.text     = _initialModel.title;
+
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> prepareZoneAndPicForEditing({
+  @required BuildContext context,
+  @required ValueNotifier<UserModel> tempUser,
+}) async {
+
+  if (
+      tempUser.value.zone == null
+      ||
+      tempUser.value.zone.countryID == null
+  ){
+
+    tempUser.value = tempUser.value.copyWith(
+      zone: await ZoneFireOps.superGetZoneByIP(context),
+      pic: await FileModel.completeModel(tempUser.value.pic),
+    );
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// EDITORS
@@ -98,6 +146,7 @@ void onUserZoneChanged({
 
 }
 // ----------------------------------------
+/// PLAN : CHANGE USER POSITION
 /*
   // void _changePosition(GeoPoint geoPoint){
   //   setState(() => _currentPosition = geoPoint );
@@ -152,10 +201,10 @@ Future<void> confirmEdits({
     final bool _shouldReAuthenticate =
         forceReAuthentication == true
             &&
-        ContactModel.checkEmailChanged(
-          oldContacts: oldUserModel.contacts,
-          newContacts: newUserModel.contacts,
-        ) == true;
+            ContactModel.checkEmailChanged(
+              oldContacts: oldUserModel.contacts,
+              newContacts: newUserModel.contacts,
+            ) == true;
 
     if (_shouldReAuthenticate == true){
       _continueOps = await reAuthenticateUser(
@@ -176,31 +225,31 @@ Future<void> confirmEdits({
 
     if (_continueOps == true){
 
-        final UserModel _uploadedUserModel = await _updateUserModel(
-          context: context,
-          newUserModel: newUserModel,
-          loading: loading,
-          oldUserModel: oldUserModel,
+      final UserModel _uploadedUserModel = await _updateUserModel(
+        context: context,
+        newUserModel: newUserModel,
+        loading: loading,
+        oldUserModel: oldUserModel,
+      );
+
+      if (_uploadedUserModel != null){
+
+        final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
+        final AuthModel _authModel = _originalAuthModel.copyWith(
+          userModel: _uploadedUserModel,
         );
 
-        if (_uploadedUserModel != null){
+        await setUserAndAuthModelsAndCompleteUserZoneLocally(
+          context: context,
+          authModel: _authModel,
+          notify: true,
+        );
 
-          final AuthModel _originalAuthModel = await AuthLDBOps.readAuthModel();
-          final AuthModel _authModel = _originalAuthModel.copyWith(
-            userModel: _uploadedUserModel,
-          );
+      }
 
-          await setUserAndAuthModelsAndCompleteUserZoneLocally(
-            context: context,
-            authModel: _authModel,
-            notify: true,
-          );
+      blog('confirmEdits : finished updating the user Model');
 
-        }
-
-        blog('confirmEdits : finished updating the user Model');
-
-        onFinish();
+      onFinish();
 
     }
 
@@ -257,81 +306,3 @@ Future<UserModel> _updateUserModel({
   return _uploadedUserModel;
 }
 // -----------------------------------------------------------------------------
-
-/// DEPRECATED
-
-// ---------------------------------------
-/*
-/// @deprecated ---> TESTED : WORKS PERFECT
-void oldOnZoneChanged({
-  @required ZoneModel selectedZone,
-  @required ValueNotifier<ZoneModel> zoneNotifier,
-}) {
-
-  zoneNotifier.value = selectedZone;
-  selectedZone.blogZone(methodName: 'onZoneChanged');
-
-}
- */
-// ---------------------------------------
-/*
-/// @deprecated ---> TESTED : WORKS PERFECT
-void oldOnChangeGender({
-  @required Gender selectedGender,
-  @required ValueNotifier<Gender> genderNotifier,
-}){
-  genderNotifier.value = selectedGender;
-}
- */
-// ---------------------------------------
-/*
-/// @deprecated ---> TESTED : WORKS PERFECT
-Future<void> oldTakeUserPicture({
-  @required BuildContext context,
-  @required ValueNotifier<bool> canPickImage,
-  @required ValueNotifier<FileModel> fileModel,
-  @required ImagePickerType imagePickerType,
-}) async {
-
-  if (canPickImage.value == true) {
-
-    canPickImage.value = false;
-
-    FileModel _imageFileModel;
-
-    if(imagePickerType == ImagePickerType.galleryImage){
-      _imageFileModel = await Imagers.pickAndCropSingleImage(
-        context: context,
-        cropAfterPick: true,
-        isFlyerRatio: false,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-    else if (imagePickerType == ImagePickerType.cameraImage){
-      _imageFileModel = await Imagers.shootAndCropCameraImage(
-        context: context,
-        cropAfterPick: true,
-        isFlyerRatio: false,
-        resizeToWidth: Standards.userPictureWidthPixels,
-      );
-    }
-
-    /// IF DID NOT PIC ANY IMAGE
-    if (_imageFileModel == null) {
-      blog('takeUserPicture : did not take user picture');
-      // picture.value = null;
-      canPickImage.value = true;
-    }
-
-    /// IF PICKED AN IMAGE
-    else {
-      blog('takeUserPicture : we got the pic in : ${_imageFileModel?.file}');
-      fileModel.value = _imageFileModel;
-      canPickImage.value = true;
-    }
-
-  }
-
-}
- */
-// ---------------------------------------
