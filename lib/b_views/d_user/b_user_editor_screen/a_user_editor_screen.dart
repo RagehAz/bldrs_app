@@ -50,8 +50,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   GeoPoint _currentPosition;
   // --------------------
   final TextEditingController _nameController = TextEditingController();
+  final FocusNode _nameNode = FocusNode();
+
   final TextEditingController _titleController = TextEditingController();
+  final FocusNode _jobNode = FocusNode();
+
   final TextEditingController _companyController = TextEditingController();
+  final FocusNode _companyNode = FocusNode();
+
   List<ContactModel> _contacts;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -128,6 +134,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _picture.dispose();
     _gender.dispose();
     _zone.dispose();
+    _nameNode.dispose();
+    _companyNode.dispose();
+    _jobNode.dispose();
     ContactModel.disposeContactsControllers(_contacts);
     super.dispose();
   }
@@ -209,6 +218,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         companyController: _companyController,
         zone: _zone,
         contacts: _contacts,
+        nameNode: _nameNode,
+        jobNode: _jobNode,
+        companyNode: _companyNode,
       ),
     );
 

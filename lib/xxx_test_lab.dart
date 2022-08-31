@@ -43,6 +43,8 @@ class TestLab extends StatefulWidget {
 /// --------------------------------------------------------------------------
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+// -----------------------------------------------------------------------------
 
   /// FAST TEST
 
@@ -457,7 +459,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                             key: _formKey,
                             child: SuperTextField(
                               appBarType: AppBarType.basic,
-                              globalKey: null,
+                              globalKey: globalKey,
                               titleVerse:  'test Lab',
                               isFormField: true,
                               width: _fieldWidth,

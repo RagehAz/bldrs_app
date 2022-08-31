@@ -180,6 +180,8 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
     }
   }
 // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -204,6 +206,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               Container(
                 color: Colorz.white10,
                 child: SearchBar(
+                  globalKey: globalKey,
                     appBarType: AppBarType.basic,
                   // onSearchChanged: (String val) async {blog(val);},
                     onSearchSubmit: (String val) async {

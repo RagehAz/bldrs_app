@@ -29,6 +29,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     @required this.matrix,
     @required this.filterModel,
     @required this.appBarType,
+    @required this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -39,6 +40,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<Matrix4> matrix;
   final ValueNotifier<ImageFilterModel> filterModel;
   final AppBarType appBarType;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
@@ -145,7 +147,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 alignment: Alignment.topCenter,
                                 child: SuperTextField(
                                   appBarType: appBarType,
-                                  globalKey: null,
+                                  globalKey: globalKey,
                                   titleVerse: '##Flyer Slide Headline',
                                   // key: ValueKey<String>('slide$slideIndex'),
                                   hintVerse: '##T i t l e',

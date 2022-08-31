@@ -18,6 +18,7 @@ class SearchBar extends StatefulWidget {
     @required this.onSearchSubmit,
     @required this.searchIconIsOn,
     @required this.appBarType,
+    @required this.globalKey,
     this.searchController,
     this.onSearchChanged,
     this.boxWidth,
@@ -36,6 +37,7 @@ class SearchBar extends StatefulWidget {
   final double height;
   final Function onSearchCancelled;
   final AppBarType appBarType;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -77,6 +79,8 @@ class _SearchBarState extends State<SearchBar> {
 
   }
 
+// -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -147,7 +151,7 @@ class _SearchBarState extends State<SearchBar> {
           /// SEARCH TEXT FIELD
           SuperTextField(
             appBarType: widget.appBarType,
-            globalKey: null,
+            globalKey: globalKey,
             titleVerse: xPhrase(context, 'phid_search'),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {

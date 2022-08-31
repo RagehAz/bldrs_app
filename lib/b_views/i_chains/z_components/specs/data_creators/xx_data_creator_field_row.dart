@@ -63,7 +63,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
           key: formKey,
           child: SuperTextField(
             appBarType: appBarType,
-            globalKey: null,
+            globalKey: formKey,
             titleVerse: '##Number',
             isFormField: true,
             autofocus: true,
