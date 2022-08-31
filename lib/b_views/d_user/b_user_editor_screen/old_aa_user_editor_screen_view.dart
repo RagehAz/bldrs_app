@@ -15,9 +15,9 @@ import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UserEditorScreenView extends StatelessWidget {
+class OLDUserEditorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const UserEditorScreenView({
+  const OLDUserEditorScreenView({
     @required this.formKey,
     @required this.fileModel,
     @required this.canPickImage,
@@ -85,6 +85,7 @@ class UserEditorScreenView extends StatelessWidget {
               genderNotifier: genderNotifier,
             ),
           ),
+
 
           /// NAME
           TextFieldBubble(

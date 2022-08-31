@@ -17,9 +17,9 @@ import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class OLDEditProfileScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const EditProfileScreen({
+  const OLDEditProfileScreen({
     @required this.userModel,
     @required this.onFinish,
     @required this.canGoBack,
@@ -33,25 +33,32 @@ class EditProfileScreen extends StatefulWidget {
   final bool reAuthBeforeConfirm;
   /// --------------------------------------------------------------------------
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
-/// --------------------------------------------------------------------------
+  _OLDEditProfileScreenState createState() => _OLDEditProfileScreenState();
+  /// --------------------------------------------------------------------------
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> {
+class _OLDEditProfileScreenState extends State<OLDEditProfileScreen> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<UserModel> _tempUser = ValueNotifier(null);
+  final ValueNotifier<FileModel> _picture = ValueNotifier(null);
+  final ValueNotifier<Gender> _gender = ValueNotifier(null);
+  final ValueNotifier<ZoneModel> _zone = ValueNotifier(null);
+  // --------------------
+  // String _currentLanguageCode;
+  GeoPoint _currentPosition;
   // --------------------
   final TextEditingController _nameController = TextEditingController();
   final FocusNode _nameNode = FocusNode();
-  // --------------------
+
   final TextEditingController _titleController = TextEditingController();
   final FocusNode _jobNode = FocusNode();
-  // --------------------
+
   final TextEditingController _companyController = TextEditingController();
   final FocusNode _companyNode = FocusNode();
+
+  List<ContactModel> _contacts;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -69,17 +76,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   void _initializeLocalVariables(){
-
-    final UserModel _initialModel = UserModel.initializeModelForEditing(
-      context: context,
-      userModel: widget.userModel,
+    _picture.value            = FileModel(url: widget.userModel?.pic, fileName: null, size: null);
+    _gender.value             = widget.userModel?.gender;
+    _zone.value               = widget.userModel?.zone ?? ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
     );
 
-    _tempUser.value = _initialModel;
+    // _currentLanguageCode      = Wordz.languageCode(context);
 
-    _nameController.text      = _initialModel.name;
-    _companyController.text   = _initialModel.company;
-    _titleController.text     = _initialModel.title;
+    _nameController.text      = widget.userModel?.name;
+    _companyController.text   = widget.userModel?.company;
+    _titleController.text     = widget.userModel?.title;
+
+    _contacts = ContactModel.initializeContactsForEditing(
+      countryID: _zone.value.countryID,
+      contacts: widget.userModel?.contacts,
+    );
 
   }
 // -----------------------------------
@@ -96,12 +109,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-        if (_tempUser.value.zone == null || _tempUser.value.zone.countryID == null){
-          _tempUser.value = _tempUser.value.copyWith(
-            zone: await ZoneFireOps.superGetZoneByIP(context),
-            pic: await FileModel.completeModel(_tempUser.value.pic),
-          );
-        }
+      if (widget.userModel?.zone == null){
+        final ZoneModel _superZone = await ZoneFireOps.superGetZoneByIP(context);
+        _zone.value = _superZone;
+        _picture.value = await FileModel.completeModel(_picture.value);
+      }
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -114,19 +126,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   /// tamam
   @override
   void dispose() {
+    _nameController.dispose();
+    _titleController.dispose();
+    _companyController.dispose();
     _loading.dispose();
     _canPickImage.dispose();
-
-    _nameController.dispose();
+    _picture.dispose();
+    _gender.dispose();
+    _zone.dispose();
     _nameNode.dispose();
-    _titleController.dispose();
-    _jobNode.dispose();
-    _companyController.dispose();
     _companyNode.dispose();
-
-    ContactModel.disposeContactsControllers(_tempUser.value.contacts);
-    _tempUser.dispose();
-
+    _jobNode.dispose();
+    ContactModel.disposeContactsControllers(_contacts);
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -135,17 +146,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
 // -----------------------------------
   UserModel _createUserModelFromLocalVariables(){
-
-    return UserModel.bakeEditorVariablesToUpload(
-      context: context,
-      existingModel: widget.userModel,
-      tempUser: _tempUser.value.copyWith(
-        name: _nameController.text,
-        title: _titleController.text,
-        company: _companyController.text,
+    return UserModel(
+      // -------------------------
+      id: widget.userModel.id,
+      createdAt: widget.userModel.createdAt,
+      status: widget.userModel.status,
+      // -------------------------
+      name: _nameController.text,
+      trigram: Stringer.createTrigram(input: _nameController.text),
+      pic: _picture.value.file ?? _picture.value.url ?? widget.userModel.pic,
+      title: _titleController.text,
+      company: _companyController.text,
+      gender: _gender.value,
+      zone: _zone.value,
+      language: Words.languageCode(context),
+      location: _currentPosition,
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: _contacts,
+        countryID: _zone.value.countryID,
       ),
+      // -------------------------
+      myBzzIDs: widget.userModel.myBzzIDs,
+      // -------------------------
+      isAdmin: widget.userModel.isAdmin,
+      emailIsVerified: widget.userModel.emailIsVerified,
+      authBy: widget.userModel.authBy,
+      fcmToken: widget.userModel.fcmToken,
+      followedBzzIDs: widget.userModel.followedBzzIDs,
+      savedFlyersIDs: widget.userModel.savedFlyersIDs,
+      appState: widget.userModel.appState,
     );
-
   }
 // -----------------------------------------------------------------------------
   @override
@@ -177,7 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
 
       ),
-      layoutWidget: UserEditorScreenView(
+      layoutWidget: OLDUserEditorScreenView(
         appBarType: AppBarType.basic,
         formKey: _formKey,
         fileModel: _picture,
