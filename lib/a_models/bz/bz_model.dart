@@ -178,6 +178,51 @@ class BzModel{
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
 }
+// ------------------------------------------
+  BzModel nullifyField({
+    @required BzModel bzModel,
+    bool id = false,
+    bool bzTypes = false,
+    bool bzForm = false,
+    bool createdAt = false,
+    bool accountType = false,
+    bool name = false,
+    bool trigram = false,
+    bool logo = false,
+    bool scope = false,
+    bool zone = false,
+    bool about = false,
+    bool position = false,
+    bool contacts = false,
+    bool authors = false,
+    bool showsTeam = false,
+    bool isVerified = false,
+    bool bzState = false,
+    bool flyersIDs = false,
+    bool docSnapshot = false,
+  }){
+    return BzModel(
+      id : id == true ? null : bzModel.id,
+      bzTypes : bzTypes == true ? [] : bzModel.bzTypes,
+      bzForm : bzForm == true ? null : bzModel.bzForm,
+      createdAt : createdAt == true ? null : bzModel.createdAt,
+      accountType : accountType == true ? null : bzModel.accountType,
+      name : name == true ? null : bzModel.name,
+      trigram : trigram == true ? [] : bzModel.trigram,
+      logo : logo == true ? null : bzModel.logo,
+      scope : scope == true ? [] : bzModel.scope,
+      zone : zone == true ? null : bzModel.zone,
+      about : about == true ? null : bzModel.about,
+      position : position == true ? null : bzModel.position,
+      contacts : contacts == true ? [] : bzModel.contacts,
+      authors : authors == true ? [] : bzModel.authors,
+      showsTeam : showsTeam == true ? null : bzModel.showsTeam,
+      isVerified : isVerified == true ? null : bzModel.isVerified,
+      bzState : bzState == true ? null : bzModel.bzState,
+      flyersIDs : flyersIDs == true ? [] : bzModel.flyersIDs,
+      docSnapshot : docSnapshot == true ? null : bzModel.docSnapshot,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// CYPHERS

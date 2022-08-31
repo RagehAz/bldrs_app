@@ -106,6 +106,24 @@ class FileModel {
 
     return _model;
   }
+// --------------------------------------
+  static dynamic bakeFileForUpload({
+    @required dynamic newFile,
+    @required dynamic existingPic,
+  }){
+
+    dynamic _pic;
+
+    if (newFile is FileModel){
+      final FileModel _fileModel = newFile;
+      _pic = _fileModel.file ?? _fileModel.url;
+    }
+    else {
+      _pic = existingPic;
+    }
+
+    return _pic;
+  }
 // -----------------------------------------------------------------------------
 
 /// CIPHER
