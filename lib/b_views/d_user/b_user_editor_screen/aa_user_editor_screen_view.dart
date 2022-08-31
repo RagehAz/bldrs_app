@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -19,154 +18,146 @@ class UserEditorScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreenView({
     @required this.formKey,
-    @required this.fileModel,
     @required this.canPickImage,
     @required this.nameController,
-    @required this.genderNotifier,
     @required this.titleController,
     @required this.companyController,
-    @required this.zone,
-    @required this.contacts,
     @required this.appBarType,
     @required this.nameNode,
     @required this.jobNode,
     @required this.companyNode,
+    @required this.tempUser,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
-  final ValueNotifier<FileModel> fileModel;
   final ValueNotifier<bool> canPickImage;
   final TextEditingController nameController;
-  final ValueNotifier<Gender> genderNotifier;
   final TextEditingController titleController;
   final TextEditingController companyController;
-  final ValueNotifier<ZoneModel> zone;
-  final List<ContactModel> contacts;
   final AppBarType appBarType;
   final FocusNode nameNode;
   final FocusNode jobNode;
   final FocusNode companyNode;
+  final ValueNotifier<UserModel> tempUser;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    // final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
-
     return Form(
       key: formKey,
-      child: ListView(
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        children: <Widget>[
+      child: ValueListenableBuilder(
+        valueListenable: tempUser,
+        builder: (_, UserModel userModel, Widget child){
 
-          const Stratosphere(),
+          return ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            children: <Widget>[
 
-          /// PICTURE
-          OLDAddImagePicBubble(
-            titleVerse: '##Picture',
-            redDot: true,
-            fileModel: fileModel,
-            bubbleType: BubbleType.userPic,
-            onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
-              context: context,
-              canPickImage: canPickImage,
-              fileModel: fileModel,
-              imagePickerType: imagePickerType,
-            ),
-          ),
+              const Stratosphere(),
 
-          /// GENDER
-          OLDGenderBubble(
-            selectedGender: genderNotifier,
-            onTap: (Gender gender) => onChangeGender(
-              selectedGender: gender,
-              genderNotifier: genderNotifier,
-            ),
-          ),
+              /// PICTURE
+              AddImagePicBubble(
+                titleVerse: 'phid_picture',
+                redDot: true,
+                fileModel: userModel.pic,
+                bubbleType: BubbleType.userPic,
+                onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
+                  context: context,
+                  canPickImage: canPickImage,
+                  userNotifier: tempUser,
+                  imagePickerType: imagePickerType,
+                ),
+              ),
 
-          /// NAME
-          TextFieldBubble(
-            key: const Key('name'),
-            globalKey: formKey,
-            focusNode: nameNode,
-            appBarType: appBarType,
-            isFormField: true,
-            textController: nameController,
-            titleVerse: 'phid_name',
-            keyboardTextInputType: TextInputType.name,
-            keyboardTextInputAction: TextInputAction.next,
-            fieldIsRequired: true,
-            validator: () => nameController.text.isEmpty ?
-            'phid_enterName'
-                :
-            null,
-          ),
+              /// GENDER
+              GenderBubble(
+                selectedGender: userModel.gender,
+                onTap: (Gender gender) => onChangeGender(
+                  selectedGender: gender,
+                  userNotifier: tempUser,
+                ),
+              ),
 
-          /// JOB TITLE
-          TextFieldBubble(
-            globalKey: formKey,
-            focusNode: jobNode,
-            appBarType: appBarType,
-            isFormField: true,
-            key: const Key('title'),
-            textController: titleController,
-            titleVerse: 'phid_jobTitle',
-            keyboardTextInputType: TextInputType.name,
-            keyboardTextInputAction: TextInputAction.next,
-            fieldIsRequired: true,
-            validator: () => titleController.text.isEmpty ?
-            'phid_enterJobTitle'
-                :
-            null,
-          ),
+              /// NAME
+              TextFieldBubble(
+                key: const Key('name'),
+                globalKey: formKey,
+                focusNode: nameNode,
+                appBarType: appBarType,
+                isFormField: true,
+                textController: nameController,
+                titleVerse: 'phid_name',
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => nameController.text.isEmpty ?
+                'phid_enterName'
+                    :
+                null,
+              ),
 
-          /// COMPANY NAME
-          TextFieldBubble(
-            globalKey: formKey,
-            focusNode: companyNode,
-            appBarType: appBarType,
-            isFormField: true,
-            textController: companyController,
-            key: const Key('company'),
-            titleVerse: 'phid_companyName',
-            keyboardTextInputType: TextInputType.name,
-            keyboardTextInputAction: TextInputAction.next,
-            fieldIsRequired: true,
-            validator: () => companyController.text.isEmpty ?
-            'phid_enterCompanyName'
-                :
-            null,
-          ),
+              /// JOB TITLE
+              TextFieldBubble(
+                globalKey: formKey,
+                focusNode: jobNode,
+                appBarType: appBarType,
+                isFormField: true,
+                key: const Key('title'),
+                textController: titleController,
+                titleVerse: 'phid_jobTitle',
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => titleController.text.isEmpty ?
+                'phid_enterJobTitle'
+                    :
+                null,
+              ),
 
-          /// ZONE
-          ValueListenableBuilder(
-              valueListenable: zone,
-              builder: (_, ZoneModel _zoneModel, Widget child){
+              /// COMPANY NAME
+              TextFieldBubble(
+                globalKey: formKey,
+                focusNode: companyNode,
+                appBarType: appBarType,
+                isFormField: true,
+                textController: companyController,
+                key: const Key('company'),
+                titleVerse: 'phid_companyName',
+                keyboardTextInputType: TextInputType.name,
+                keyboardTextInputAction: TextInputAction.next,
+                fieldIsRequired: true,
+                validator: () => companyController.text.isEmpty ?
+                'phid_enterCompanyName'
+                    :
+                null,
+              ),
 
-                return ZoneSelectionBubble(
-                  currentZone: _zoneModel,
-                  onZoneChanged: (ZoneModel zoneModel) => onZoneChanged(
-                    selectedZone: zoneModel,
-                    zoneNotifier: zone,
-                  ),
-                );
+              /// ZONE
+              ZoneSelectionBubble(
+                currentZone: userModel.zone,
+                onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
+                  selectedZone: zoneModel,
+                  userNotifier: tempUser,
+                ),
+              ),
 
-              }
-          ),
+              /// CONTACTS
+              ContactsEditorsBubbles(
+                globalKey: formKey,
+                contacts: userModel.contacts,
+                contactsOwnerType: ContactsOwnerType.user,
+                appBarType: appBarType,
+              ),
 
-          /// CONTACTS
-          ContactsEditorsBubbles(
-            globalKey: formKey,
-            contacts: contacts,
-            contactsOwnerType: ContactsOwnerType.user,
-            appBarType: appBarType,
-          ),
+              const Horizon(),
 
-          const Horizon(),
+            ],
+          );
 
-        ],
+        },
       ),
     );
   }

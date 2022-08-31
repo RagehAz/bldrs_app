@@ -218,7 +218,7 @@ class Dialogs {
       },
       child: PasswordBubbles(
         appBarType: AppBarType.non,
-        boxWidth: CenterDialog.clearWidth(context),
+        boxWidth: CenterDialog.clearWidth(context) - 20,
         passwordController: _password,
         showPasswordOnly: true,
         passwordValidator: () => passwordValidation(
