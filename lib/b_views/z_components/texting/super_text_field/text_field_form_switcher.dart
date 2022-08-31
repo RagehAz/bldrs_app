@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
@@ -153,7 +154,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
 // -----------------------------------------------------------------------------
     final EdgeInsets _scrollPadding = EdgeInsets.only(
       bottom: 50 + MediaQuery.of(context).viewInsets.bottom,
-      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight(),
+      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue(),
     );
 // -----------------------------------------------------------------------------
     final int _maxLines = obscured == true ? 1 : maxLines;

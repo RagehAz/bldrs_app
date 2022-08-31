@@ -11,12 +11,14 @@ class ContactsEditorsBubbles extends StatelessWidget {
     @required this.contacts,
     @required this.contactsOwnerType,
     @required this.appBarType,
+    @required this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<ContactModel> contacts;
   final ContactsOwnerType contactsOwnerType;
   final AppBarType appBarType;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -59,12 +61,14 @@ class ContactsEditorsBubbles extends StatelessWidget {
           else {
 
             return ContactFieldBubble(
+              globalKey: globalKey,
               headerViewModel: BubbleHeaderVM(
                 headlineVerse: ContactModel.translateContactType(
                   context: context,
                   contactType: _contactType,
                 ),
                 leadingIcon: ContactModel.concludeContactIcon(_contactType),
+                leadingIconSizeFactor: 0.7
               ),
               appBarType: appBarType,
               isFormField: true,

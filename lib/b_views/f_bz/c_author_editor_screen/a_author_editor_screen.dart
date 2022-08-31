@@ -37,7 +37,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   ValueNotifier<AuthorModel> _author;
   ValueNotifier<FileModel> _authorPicFile;
   TextEditingController _nameController;
+  FocusNode _nameNode;
   TextEditingController _titleController;
+  FocusNode _titleNode;
   List<ContactModel> _contacts;
 // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -77,7 +79,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     );
     _authorPicFile = ValueNotifier(_initialImageFile);
     _nameController = TextEditingController(text: _theAuthor.name);
+    _nameNode = FocusNode();
     _titleController = TextEditingController(text: _theAuthor.title);
+    _titleNode = FocusNode();
 
     _contacts = ContactModel.initializeContactsForEditing(
       contacts: _theAuthor.contacts,
@@ -110,14 +114,15 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _author.dispose();
     _loading.dispose();
     _nameController.dispose();
+    _nameNode.dispose();
     _titleController.dispose();
+    _titleNode.dispose();
 
     ContactModel.disposeContactsControllers(_contacts);
 
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 
@@ -148,6 +153,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: Stratosphere.stratosphereSandwich,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: <Widget>[
 
             /// --- AUTHOR IMAGE
@@ -172,6 +178,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             /// NAME
             TextFieldBubble(
+              globalKey: _formKey,
+              focusNode: _nameNode,
               appBarType: AppBarType.basic,
               isFormField: true,
               textController: _nameController,
@@ -179,6 +187,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
+              keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
               bulletPoints: const <String>[
                 '##This will only change your name inside this Business account',
@@ -200,6 +209,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             /// TITLE
             TextFieldBubble(
+              globalKey: _formKey,
+              focusNode: _titleNode,
               appBarType: AppBarType.basic,
               isFormField: true,
               textController: _titleController,
@@ -207,6 +218,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               counterIsOn: true,
               maxLength: 72,
               keyboardTextInputType: TextInputType.name,
+              keyboardTextInputAction: TextInputAction.next,
               fieldIsRequired: true,
               validator: (){
 
@@ -225,6 +237,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             /// CONTACTS
             ContactsEditorsBubbles(
+              globalKey: _formKey,
               contacts: _contacts,
               contactsOwnerType: ContactsOwnerType.author,
               appBarType: AppBarType.basic,

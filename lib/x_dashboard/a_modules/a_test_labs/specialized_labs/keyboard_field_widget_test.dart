@@ -146,7 +146,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
               // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: <Widget>[
 
-                const Stratosphere(),
+                const Stratosphere(bigAppBar: true),
 
                 TextFieldBubble(
                   appBarType: _appBarType,

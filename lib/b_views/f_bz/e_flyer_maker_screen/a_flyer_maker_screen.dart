@@ -31,6 +31,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   TextEditingController _headlineController;
+  FocusNode _headlineNode;
+  FocusNode _descriptionNode;
   ValueNotifier<DraftFlyerModel> _draftFlyer;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isEditingFlyer;
@@ -42,6 +44,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     _isEditingFlyer = widget.flyerToEdit != null;
 
     _headlineController = TextEditingController(text: widget.flyerToEdit?.headline);
+    _headlineNode = FocusNode();
+    _descriptionNode = FocusNode();
 
     _draftFlyer = initializeDraft(
       context: context,
@@ -107,6 +111,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     _draftFlyer.dispose();
     _loading.dispose();
     _headlineController.dispose();
+    _headlineNode.dispose();
+    _descriptionNode.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -193,6 +199,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         loading: _loading,
         isEditingFlyer: _isEditingFlyer,
         originalFlyer: widget.flyerToEdit,
+        headlineNode: _headlineNode,
+        descriptionNode: _descriptionNode,
       ),
     );
 

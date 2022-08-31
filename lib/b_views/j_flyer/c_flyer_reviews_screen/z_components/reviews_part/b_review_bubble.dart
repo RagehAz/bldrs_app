@@ -19,6 +19,7 @@ class ReviewBubble extends StatelessWidget {
     @required this.flyerModel,
     @required this.paginatorNotifiers,
     @required this.appBarType,
+    @required this.globalKey,
     this.reviewModel,
     this.reviewTextController,
     Key key
@@ -31,6 +32,7 @@ class ReviewBubble extends StatelessWidget {
   final FlyerModel flyerModel;
   final PaginatorNotifiers paginatorNotifiers;
   final AppBarType appBarType;
+  final GlobalKey globalKey;
   // --------------------------------------------------------------------------
 
   /// USER BALLOON
@@ -101,7 +103,7 @@ class ReviewBubble extends StatelessWidget {
                   reviewTextController: reviewTextController,
                   flyerModel: flyerModel,
                   paginatorNotifiers: paginatorNotifiers,
-                  globalKey: null,
+                  globalKey: globalKey,
                 ),
 
                 /// RIGHT SPACING
