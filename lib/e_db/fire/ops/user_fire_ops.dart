@@ -239,6 +239,7 @@ class UserFireOps {
     @required UserModel oldUserModel,
     @required UserModel newUserModel,
   }) async {
+
     // ----------
     /// UPDATE USER OPS
     /// A - if user pic changed
@@ -278,7 +279,7 @@ class UserFireOps {
       _finalUserModel = await updateUserEmailIfChanged(
         context: context,
         oldUserModel: oldUserModel,
-        newUserModel: newUserModel,
+        newUserModel: _finalUserModel,
       );
 
       await Fire.updateDoc(

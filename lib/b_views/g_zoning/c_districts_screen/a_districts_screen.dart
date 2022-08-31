@@ -101,7 +101,6 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     _isSearching.dispose();
     _cityDistricts.dispose();
     _foundDistricts.dispose();
-    _cityDistricts.dispose();
     _loading.dispose();
     super.dispose();
   }
