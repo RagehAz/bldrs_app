@@ -535,10 +535,10 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     // FocusManager.instance.rootScope.requestFocus();
 
-    if (widget.globalKey != null){
-      final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
-      object?.showOnScreen();
-    }
+    // if (widget.globalKey != null){
+    //   final RenderObject object = widget.globalKey.currentContext?.findRenderObject();
+    //   object?.showOnScreen();
+    // }
 
     if (widget.isFloatingField != null){
 

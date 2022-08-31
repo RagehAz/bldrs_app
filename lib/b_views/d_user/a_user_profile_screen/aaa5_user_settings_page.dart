@@ -23,7 +23,7 @@ class UserSettingsPage extends StatelessWidget {
 
         /// INVITE BZZ
         SettingsWideButton(
-          verse: '##Invite Businesses you know',
+          verse: 'phid_invite_bzz_you_know',
           icon: Iconz.bz,
           color: Colorz.yellow255,
           verseColor: Colorz.black255,

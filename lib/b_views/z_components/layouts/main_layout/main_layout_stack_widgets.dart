@@ -36,6 +36,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.canGoBack,
     @required this.onSearchCancelled,
     @required this.confirmButtonModel,
+    @required this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -62,6 +63,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
@@ -120,6 +122,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
         /// --- APP BAR
         if (appBarType != AppBarType.non)
           BldrsAppBar(
+            globalKey: globalKey,
             key: const ValueKey<String>('appBar'),
             appBarType: appBarType,
             appBarRowWidgets: appBarRowWidgets,

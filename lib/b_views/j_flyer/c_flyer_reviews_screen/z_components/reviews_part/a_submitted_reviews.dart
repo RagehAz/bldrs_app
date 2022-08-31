@@ -96,6 +96,8 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     );
   }
 // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -119,6 +121,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
             reviewTextController: _reviewTextController,
             reviewsMaps: maps,
             paginatorNotifiers: _paginatorNotifiers,
+            globalKey: globalKey,
           );
 
         },

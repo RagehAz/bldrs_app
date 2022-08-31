@@ -168,6 +168,8 @@ class Iconz {
   static const String sphinx = '$_iconsPath/gi_sphinx.svg';
   static const String keywords = '$_iconsPath/gi_keywords.svg';
   static const String paste = '$_iconsPath/gi_paste.svg';
+  static const String male = '$_iconsPath/gi_male.svg';
+  static const String female = '$_iconsPath/gi_female.svg';
 // -----------------------------------------------------------------------------
   /// PYRAMIDS
   static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg' ;

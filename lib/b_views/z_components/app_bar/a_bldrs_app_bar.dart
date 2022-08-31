@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
+    @required this.globalKey,
     this.appBarType,
     this.onBack,
     this.pageTitle,
@@ -49,6 +50,7 @@ class BldrsAppBar extends StatelessWidget {
   final String searchHint;
   final bool canGoBack;
   final Function onSearchCancelled;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}) {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
@@ -301,6 +303,7 @@ class BldrsAppBar extends StatelessWidget {
                     hintText: searchHint,
                     onSearchCancelled: onSearchCancelled,
                     appBarType: appBarType,
+                    globalKey: globalKey,
                   ),
 
               ],

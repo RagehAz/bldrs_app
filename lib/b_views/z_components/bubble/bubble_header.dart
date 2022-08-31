@@ -93,9 +93,10 @@ class BubbleHeader extends StatelessWidget {
   static const double iconBoxSize = 30;
   static const double switcherButtonWidth = 50;
   static const double moreButtonSize = iconBoxSize;
+  static const double verseBottomMargin = 5;
 
   static double getHeight(){
-    return iconBoxSize;
+    return iconBoxSize + verseBottomMargin; // verse bottom margin
   }
 
   /*
@@ -141,61 +142,59 @@ class BubbleHeader extends StatelessWidget {
     }
 
     else {
-      return Container(
-        color: Colorz.yellow255,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+      return Row(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
 
-            /// --- LEADING ICON
-            if (_hasIcon == true)
-              DreamBox(
-                width: iconBoxSize,
-                height: iconBoxSize,
-                icon: viewModel.leadingIcon,
-                // iconColor: Colorz.Green255,
-                iconSizeFactor: viewModel.leadingIconSizeFactor,
-                color: viewModel.leadingIconBoxColor,
-                margins: EdgeInsets.zero,
-                bubble: viewModel.leadingIconIsBubble,
-                onTap: viewModel.onLeadingIconTap,
-              ),
-
-            /// --- HEADLINE
-            Container(
-              width: _headlineWidth,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SuperVerse(
-                verse: viewModel.headlineVerse,
-                translate: viewModel.translateHeadline,
-                color: viewModel.headlineColor,
-                maxLines: 2,
-                centered: viewModel.centered,
-                redDot: viewModel.redDot,
-              ),
+          /// --- LEADING ICON
+          if (_hasIcon == true)
+            DreamBox(
+              width: iconBoxSize,
+              height: iconBoxSize,
+              icon: viewModel.leadingIcon,
+              // iconColor: Colorz.Green255,
+              iconSizeFactor: viewModel.leadingIconSizeFactor,
+              color: viewModel.leadingIconBoxColor,
+              margins: EdgeInsets.zero,
+              bubble: viewModel.leadingIconIsBubble,
+              onTap: viewModel.onLeadingIconTap,
             ),
 
-            const Expander(),
+          /// --- HEADLINE
+          Container(
+            width: _headlineWidth,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SuperVerse(
+              verse: viewModel.headlineVerse,
+              translate: viewModel.translateHeadline,
+              color: viewModel.headlineColor,
+              maxLines: 2,
+              centered: viewModel.centered,
+              redDot: viewModel.redDot,
+              margin: const EdgeInsets.only(bottom: verseBottomMargin),
+            ),
+          ),
 
-            if (viewModel.hasSwitch == true)
-              BubbleSwitcher(
-                width: _switcherWidth,
-                height: iconBoxSize,
-                switchIsOn: viewModel.switchIsOn,
-                onSwitch: viewModel.onSwitchTap,
-              ),
+          const Expander(),
 
-            if (viewModel.hasMoreButton == true)
-              DreamBox(
-                height: moreButtonSize,
-                width: moreButtonSize,
-                icon: Iconz.more,
-                iconSizeFactor: 0.6,
-                onTap: viewModel.onMoreButtonTap,
-              ),
+          if (viewModel.hasSwitch == true)
+            BubbleSwitcher(
+              width: _switcherWidth,
+              height: iconBoxSize,
+              switchIsOn: viewModel.switchIsOn,
+              onSwitch: viewModel.onSwitchTap,
+            ),
 
-          ],
-        ),
+          if (viewModel.hasMoreButton == true)
+            DreamBox(
+              height: moreButtonSize,
+              width: moreButtonSize,
+              icon: Iconz.more,
+              iconSizeFactor: 0.6,
+              onTap: viewModel.onMoreButtonTap,
+            ),
+
+        ],
       );
     }
 

@@ -71,6 +71,8 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -88,6 +90,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
           /// SLIDE
           SlideEditorSlidePart(
+            globalKey: globalKey,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             tempSlide: _tempSlide,

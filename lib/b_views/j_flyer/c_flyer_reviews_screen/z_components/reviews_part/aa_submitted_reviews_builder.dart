@@ -17,6 +17,7 @@ class ReviewsBuilder extends StatelessWidget {
     @required this.flyerModel,
     @required this.paginatorNotifiers,
     @required this.appBarType,
+    @required this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class ReviewsBuilder extends StatelessWidget {
   final FlyerModel flyerModel;
   final PaginatorNotifiers paginatorNotifiers;
   final AppBarType appBarType;
+  final GlobalKey globalKey;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,7 @@ class ReviewsBuilder extends StatelessWidget {
             reviewTextController: reviewTextController,
             isCreatorMode: true,
             paginatorNotifiers: paginatorNotifiers,
+            globalKey: globalKey,
           );
         }
 
@@ -64,6 +67,7 @@ class ReviewsBuilder extends StatelessWidget {
         else {
 
           return ReviewBubble(
+            globalKey: globalKey,
             appBarType: appBarType,
             flyerModel: flyerModel,
             pageWidth : pageWidth,
