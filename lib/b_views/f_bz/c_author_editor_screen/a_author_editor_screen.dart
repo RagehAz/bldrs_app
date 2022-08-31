@@ -161,7 +161,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               valueListenable: _author,
               builder: (_, AuthorModel author, Widget child){
 
-                return OLDAddImagePicBubble(
+                return OldAddImagePicBubble(
                   fileModel: _authorPicFile,
                   titleVerse: '##Author picture',
                   redDot: true,

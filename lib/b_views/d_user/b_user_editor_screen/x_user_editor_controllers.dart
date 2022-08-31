@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 Future<void> takeUserPicture({
   @required BuildContext context,
   @required ValueNotifier<bool> canPickImage,
-  @required ValueNotifier<FileModel> fileModel,
+  @required ValueNotifier<UserModel> userNotifier,
   @required ImagePickerType imagePickerType,
 }) async {
 
@@ -63,7 +63,10 @@ Future<void> takeUserPicture({
     /// IF PICKED AN IMAGE
     else {
       blog('takeUserPicture : we got the pic in : ${_imageFileModel?.file}');
-      fileModel.value = _imageFileModel;
+      userNotifier.value = userNotifier.value.copyWith(
+        pic: _imageFileModel,
+      );
+
       canPickImage.value = true;
     }
 
@@ -74,19 +77,24 @@ Future<void> takeUserPicture({
 /// TESTED : WORKS PERFECT
 void onChangeGender({
   @required Gender selectedGender,
-  @required ValueNotifier<Gender> genderNotifier,
+  @required ValueNotifier<UserModel> userNotifier,
 }){
-  genderNotifier.value = selectedGender;
+  userNotifier.value = userNotifier.value.copyWith(
+    gender: selectedGender,
+  );
 }
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
-void onZoneChanged({
+void onUserZoneChanged({
   @required ZoneModel selectedZone,
-  @required ValueNotifier<ZoneModel> zoneNotifier,
+  @required ValueNotifier<UserModel> userNotifier,
 }) {
 
-  zoneNotifier.value = selectedZone;
-  selectedZone.blogZone(methodName: 'onZoneChanged');
+  final UserModel _updated = userNotifier.value.copyWith(
+    zone: selectedZone,
+  );
+
+  userNotifier.value = _updated;
 
 }
 // ----------------------------------------
@@ -104,12 +112,25 @@ void onZoneChanged({
 Future<void> confirmEdits({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
-  @required UserModel newUserModel,
   @required UserModel oldUserModel,
+  @required ValueNotifier<UserModel> tempUser,
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
   @required bool forceReAuthentication,
+  @required TextEditingController nameController,
+  @required TextEditingController titleController,
+  @required TextEditingController companyController,
 }) async {
+
+  final UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
+    context: context,
+    existingModel: oldUserModel,
+    tempUser: tempUser.value.copyWith(
+      name: nameController.text,
+      title: titleController.text,
+      company: companyController.text,
+    ),
+  );
 
   final bool _canContinue = _inputsAreValid(
     formKey: formKey,
@@ -144,19 +165,16 @@ Future<void> confirmEdits({
         confirmButtonText: 'Continue',
       );
     }
+    else {
+      _continueOps = await CenterDialog.showCenterDialog(
+        context: context,
+        titleVerse: '',
+        bodyVerse: '##Are you sure you want to continue ?',
+        boolDialog: true,
+      );
+    }
 
     if (_continueOps == true){
-
-      // /// B1 - ASK FOR CONFIRMATION
-      // _continueOps = await CenterDialog.showCenterDialog(
-      //   context: context,
-      //   title: '',
-      //   body: 'Are you sure you want to continue ?',
-      //   boolDialog: true,
-      // );
-
-      // /// B2 - IF USER CONFIRMS
-      // if (_continueOps == true) {
 
         final UserModel _uploadedUserModel = await _updateUserModel(
           context: context,
@@ -183,8 +201,6 @@ Future<void> confirmEdits({
         blog('confirmEdits : finished updating the user Model');
 
         onFinish();
-
-      // }
 
     }
 
@@ -240,4 +256,82 @@ Future<UserModel> _updateUserModel({
 
   return _uploadedUserModel;
 }
-// ---------------------------------
+// -----------------------------------------------------------------------------
+
+/// DEPRECATED
+
+// ---------------------------------------
+/*
+/// @deprecated ---> TESTED : WORKS PERFECT
+void oldOnZoneChanged({
+  @required ZoneModel selectedZone,
+  @required ValueNotifier<ZoneModel> zoneNotifier,
+}) {
+
+  zoneNotifier.value = selectedZone;
+  selectedZone.blogZone(methodName: 'onZoneChanged');
+
+}
+ */
+// ---------------------------------------
+/*
+/// @deprecated ---> TESTED : WORKS PERFECT
+void oldOnChangeGender({
+  @required Gender selectedGender,
+  @required ValueNotifier<Gender> genderNotifier,
+}){
+  genderNotifier.value = selectedGender;
+}
+ */
+// ---------------------------------------
+/*
+/// @deprecated ---> TESTED : WORKS PERFECT
+Future<void> oldTakeUserPicture({
+  @required BuildContext context,
+  @required ValueNotifier<bool> canPickImage,
+  @required ValueNotifier<FileModel> fileModel,
+  @required ImagePickerType imagePickerType,
+}) async {
+
+  if (canPickImage.value == true) {
+
+    canPickImage.value = false;
+
+    FileModel _imageFileModel;
+
+    if(imagePickerType == ImagePickerType.galleryImage){
+      _imageFileModel = await Imagers.pickAndCropSingleImage(
+        context: context,
+        cropAfterPick: true,
+        isFlyerRatio: false,
+        resizeToWidth: Standards.userPictureWidthPixels,
+      );
+    }
+    else if (imagePickerType == ImagePickerType.cameraImage){
+      _imageFileModel = await Imagers.shootAndCropCameraImage(
+        context: context,
+        cropAfterPick: true,
+        isFlyerRatio: false,
+        resizeToWidth: Standards.userPictureWidthPixels,
+      );
+    }
+
+    /// IF DID NOT PIC ANY IMAGE
+    if (_imageFileModel == null) {
+      blog('takeUserPicture : did not take user picture');
+      // picture.value = null;
+      canPickImage.value = true;
+    }
+
+    /// IF PICKED AN IMAGE
+    else {
+      blog('takeUserPicture : we got the pic in : ${_imageFileModel?.file}');
+      fileModel.value = _imageFileModel;
+      canPickImage.value = true;
+    }
+
+  }
+
+}
+ */
+// ---------------------------------------
