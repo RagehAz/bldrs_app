@@ -201,7 +201,7 @@ class UserModel {
       status: userModel.status,
       name: userModel.name,
       trigram: userModel.trigram,
-      pic: FileModel(url: userModel?.pic, fileName: null, size: null),
+      pic: FileModel(url: userModel?.pic, fileName: userModel?.id, size: null),
       title: userModel.title,
       company: userModel.company,
       gender: userModel.gender,
@@ -229,17 +229,6 @@ class UserModel {
     @required UserModel tempUser,
 }){
 
-    dynamic _pic;
-    if (tempUser.pic is FileModel){
-      final FileModel _fileModel = tempUser.pic;
-      _pic = _fileModel.file ?? _fileModel.url;
-    }
-    else {
-      _pic = existingModel.pic;
-    }
-
-    blog('bakeEditorVariablesToUpload : pic is : $_pic');
-
     return UserModel(
       // -------------------------
       id: existingModel.id,
@@ -248,7 +237,10 @@ class UserModel {
       // -------------------------
       name: tempUser.name,
       trigram: Stringer.createTrigram(input: tempUser.name),
-      pic: _pic,
+      pic: FileModel.bakeFileForUpload(
+        newFile: tempUser.pic,
+        existingPic: existingModel.pic,
+      ),
       title: tempUser.title,
       company: tempUser.company,
       gender: tempUser.gender,

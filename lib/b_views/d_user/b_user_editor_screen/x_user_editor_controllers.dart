@@ -46,23 +46,23 @@ void initializeLocalVariables({
 }
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> prepareZoneAndPicForEditing({
+Future<void> prepareUserZoneAndPicForEditing({
   @required BuildContext context,
   @required ValueNotifier<UserModel> tempUser,
 }) async {
 
-  if (
-      tempUser.value.zone == null
-      ||
-      tempUser.value.zone.countryID == null
-  ){
+  UserModel _userModel = tempUser.value.copyWith(
+    pic: await FileModel.completeModel(tempUser.value.pic),
+  );
 
-    tempUser.value = tempUser.value.copyWith(
+  if (_userModel.zone == null || _userModel.zone.countryID == null){
+
+    _userModel = _userModel.copyWith(
       zone: await ZoneFireOps.superGetZoneByIP(context),
-      pic: await FileModel.completeModel(tempUser.value.pic),
     );
 
   }
+
 
 }
 // -----------------------------------------------------------------------------
