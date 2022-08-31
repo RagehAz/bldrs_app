@@ -1,9 +1,13 @@
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -14,6 +18,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +137,7 @@ class UserModel {
       appState: AppState.initialState(),
     );
   }
-// -----------------------------------------------------------------------------
+// -----------------------------------
   static Future<UserModel> createInitialUserModelFromUser({
     @required BuildContext context,
     @required User user,
@@ -178,6 +183,94 @@ class UserModel {
     _userModel.blogUserModel(methodName: 'createInitialUserModelFromUser');
 
     return _userModel;
+  }
+// -----------------------------------
+  static UserModel initializeModelForEditing({
+    @required BuildContext context,
+    @required UserModel userModel,
+  }){
+
+    final ZoneModel _zone = userModel.zone ?? ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: false,
+    );
+
+    return UserModel(
+      id: userModel.id,
+      authBy: userModel.authBy,
+      createdAt: userModel.createdAt,
+      status: userModel.status,
+      name: userModel.name,
+      trigram: userModel.trigram,
+      pic: FileModel(url: userModel?.pic, fileName: null, size: null),
+      title: userModel.title,
+      company: userModel.company,
+      gender: userModel.gender,
+      zone: _zone,
+      language: userModel.language ?? PhraseProvider.proGetCurrentLangCode(context: context, listen: false),
+      location: userModel.location,
+      contacts: ContactModel.initializeContactsForEditing(
+        countryID: _zone.countryID,
+        contacts: userModel?.contacts,
+      ),
+      myBzzIDs: userModel.myBzzIDs,
+      emailIsVerified: userModel.emailIsVerified,
+      isAdmin: userModel.isAdmin,
+      fcmToken: userModel.fcmToken,
+      savedFlyersIDs: userModel.savedFlyersIDs,
+      followedBzzIDs: userModel.followedBzzIDs,
+      appState: userModel.appState,
+    );
+
+  }
+
+  static UserModel bakeEditorVariablesToUpload({
+    @required BuildContext context,
+    @required UserModel existingModel,
+    @required UserModel tempUser,
+}){
+
+    dynamic _pic;
+    if (tempUser.pic is FileModel){
+      final FileModel _fileModel = tempUser.pic;
+      _pic = _fileModel.file ?? _fileModel.url;
+    }
+    else {
+      _pic = existingModel.pic;
+    }
+
+
+    return UserModel(
+      // -------------------------
+      id: existingModel.id,
+      createdAt: existingModel.createdAt,
+      status: existingModel.status,
+      // -------------------------
+      name: tempUser.name,
+      trigram: Stringer.createTrigram(input: tempUser.name),
+      pic: _pic,
+      title: tempUser.title,
+      company: tempUser.company,
+      gender: tempUser.gender,
+      zone: tempUser.zone,
+      language: Words.languageCode(context),
+      location: tempUser.location,
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: tempUser.contacts,
+        countryID: tempUser.zone.countryID,
+      ),
+      // -------------------------
+      myBzzIDs: existingModel.myBzzIDs,
+      // -------------------------
+      isAdmin: existingModel.isAdmin,
+      emailIsVerified: existingModel.emailIsVerified,
+      authBy: existingModel.authBy,
+      fcmToken: existingModel.fcmToken,
+      followedBzzIDs: existingModel.followedBzzIDs,
+      savedFlyersIDs: existingModel.savedFlyersIDs,
+      appState: existingModel.appState,
+    );
+
   }
 // -----------------------------------------------------------------------------
 
