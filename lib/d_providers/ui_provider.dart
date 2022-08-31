@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -160,8 +159,23 @@ class UiProvider extends ChangeNotifier {
   /// --- KEYBOARD MODEL
 
 // -------------------------------------
-  KeyboardModel _keyboardModel;
-  KeyboardModel get keyboardModel => _keyboardModel;
+//   KeyboardModel _keyboardModel;
+  // KeyboardModel get keyboardModel => _keyboardModel;
+//   void setKeyboard({
+//     @required KeyboardModel model,
+//     @required bool notify,
+//     @required String invoker,
+//   }){
+//
+//     // blog('UiProvider : setting keyboard to : ${model?.titleVerse} by $invoker');
+//     _keyboardModel = model;
+//
+//     if (notify == true){
+//       notifyListeners();
+//     }
+//
+//   }
+
   bool _keyboardIsOn = false;
   bool get keyboardIsOn => _keyboardIsOn;
 // -------------------------------------
@@ -171,20 +185,6 @@ class UiProvider extends ChangeNotifier {
     return _keyboardIsOn;
   }
 // -------------------------------------
-  void setKeyboard({
-    @required KeyboardModel model,
-    @required bool notify,
-    @required String invoker,
-  }){
-
-    // blog('UiProvider : setting keyboard to : ${model?.titleVerse} by $invoker');
-    _keyboardModel = model;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
 // -------------------------------------
   void setKeyboardIsOn({
     @required bool setTo,
@@ -382,7 +382,7 @@ class UiProvider extends ChangeNotifier {
     /// _loading
     _uiProvider.triggerLoading(callerName: 'WipeOut', notify: false, setLoadingTo: false);
     /// _keyboardModel
-    _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
+    // _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
     /// _keyboardIsOn
     _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
     /// _textFieldsObscured
