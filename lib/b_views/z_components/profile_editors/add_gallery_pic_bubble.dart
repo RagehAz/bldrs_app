@@ -22,9 +22,9 @@ enum BubbleType {
   none,
 }
 
-class AddImagePicBubble extends StatelessWidget {
+class OLDAddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const AddImagePicBubble({
+  const OLDAddImagePicBubble({
     @required this.fileModel,
     @required this.onAddPicture,
     @required this.titleVerse,

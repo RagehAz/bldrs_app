@@ -598,7 +598,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   @override
   Widget build(BuildContext context) {
 
-    blog('rebuilding field : ${widget.titleVerse} : ${widget.textController.hashCode}');
+    // blog('rebuilding field : ${widget.titleVerse} : ${widget.textController.hashCode}');
 
     /// NORMAL TEXT FIELD
     // if (widget.isFloatingField == false){

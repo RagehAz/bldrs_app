@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class GenderBubble extends StatelessWidget {
+class OLDGenderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const GenderBubble({
+  const OLDGenderBubble({
     @required this.selectedGender,
     @required this.onTap,
     Key key
