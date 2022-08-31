@@ -3,18 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/old_aa_user_editor_screen_view.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/aa_user_editor_screen_view.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -130,24 +125,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-
-  /// CREATE USER MODEL FROM LOCAL VARIABLES
-
-// -----------------------------------
-  UserModel _createUserModelFromLocalVariables(){
-
-    return UserModel.bakeEditorVariablesToUpload(
-      context: context,
-      existingModel: widget.userModel,
-      tempUser: _tempUser.value.copyWith(
-        name: _nameController.text,
-        title: _titleController.text,
-        company: _companyController.text,
-      ),
-    );
-
-  }
-// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -157,8 +134,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse: 'phid_updateProfile',
+      pageTitleVerse: 'phid_update_profile',
       loading: _loading,
+
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_updateProfile',
         onSkipTap: (){
@@ -169,25 +147,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         onTap: () => confirmEdits(
           context: context,
           formKey: _formKey,
-          newUserModel: _createUserModelFromLocalVariables(),
+          tempUser: _tempUser,
           oldUserModel: widget.userModel,
           onFinish: widget.onFinish,
           loading: _loading,
           forceReAuthentication: widget.reAuthBeforeConfirm,
+          companyController: _companyController,
+          nameController: _nameController,
+          titleController: _titleController,
         ),
 
       ),
       layoutWidget: UserEditorScreenView(
         appBarType: AppBarType.basic,
         formKey: _formKey,
-        fileModel: _picture,
         canPickImage: _canPickImage,
         nameController: _nameController,
-        genderNotifier: _gender,
+        tempUser: _tempUser,
         titleController: _titleController,
         companyController: _companyController,
-        zone: _zone,
-        contacts: _contacts,
         nameNode: _nameNode,
         jobNode: _jobNode,
         companyNode: _companyNode,

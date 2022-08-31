@@ -78,8 +78,9 @@ class UserBalloon extends StatelessWidget {
             alignment: Aligners.superInverseTopAlignment(context),
             child: DreamBox(
               height: size * 0.4,
+              width: size * 0.5,
               verse: 'phid_edit',
-              verseScaleFactor: 0.7,
+              verseScaleFactor: 0.5,
               color: Colorz.red255,
               onTap: onTap,
             ),
