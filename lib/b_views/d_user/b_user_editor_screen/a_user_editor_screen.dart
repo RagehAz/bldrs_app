@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/aa_user_editor_screen_view.dart';
@@ -8,7 +6,6 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controll
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -62,26 +59,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-// -----------------------------------------------------------------------------
-  void _initializeLocalVariables(){
-
-    final UserModel _initialModel = UserModel.initializeModelForEditing(
-      context: context,
-      userModel: widget.userModel,
-    );
-
-    _tempUser.value = _initialModel;
-
-    _nameController.text      = _initialModel.name;
-    _companyController.text   = _initialModel.company;
-    _titleController.text     = _initialModel.title;
-
-  }
 // -----------------------------------
   @override
   void initState() {
     super.initState();
-    _initializeLocalVariables();
+
+    initializeLocalVariables(
+      context: context,
+      oldUserModel: widget.userModel,
+      tempUser: _tempUser,
+      titleController: _titleController,
+      nameController: _nameController,
+      companyController: _companyController,
+    );
+
   }
 // -----------------------------------
   bool _isInit = true;
@@ -91,12 +82,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-        if (_tempUser.value.zone == null || _tempUser.value.zone.countryID == null){
-          _tempUser.value = _tempUser.value.copyWith(
-            zone: await ZoneFireOps.superGetZoneByIP(context),
-            pic: await FileModel.completeModel(_tempUser.value.pic),
-          );
-        }
+        await prepareZoneAndPicForEditing(
+          context: context,
+          tempUser: _tempUser,
+        );
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
       });
