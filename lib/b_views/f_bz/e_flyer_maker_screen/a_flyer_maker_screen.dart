@@ -1,12 +1,11 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/aa_flyer_maker_screen_view.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreen extends StatefulWidget {
@@ -29,12 +28,12 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   @override
   bool get wantKeepAlive => true;
 // -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  TextEditingController _headlineController;
-  FocusNode _headlineNode;
-  FocusNode _descriptionNode;
-  ValueNotifier<DraftFlyerModel> _draftFlyer;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
+  // --------------------
+  final ValueNotifier<DraftFlyerModel> _draftFlyer = ValueNotifier(null);
+  // --------------------
+  final ScrollController _scrollController = ScrollController();
   bool _isEditingFlyer;
 // -----------------------------------------------------------------------------
   @override
@@ -43,12 +42,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     _isEditingFlyer = widget.flyerToEdit != null;
 
-    _headlineController = TextEditingController(text: widget.flyerToEdit?.headline);
-    _headlineNode = FocusNode();
-    _descriptionNode = FocusNode();
-
-    _draftFlyer = initializeDraft(
+    initializeFlyerMakerLocalVariables(
       context: context,
+      draftFlyer: _draftFlyer,
+      oldFlyer: widget.flyerToEdit,
+      mounted: mounted,
     );
 
   }
@@ -76,18 +74,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
 
-        blog('FlyerMakerScreen : didChangeDependencies');
-
         if (mounted == true){
-          await initializeExistingFlyerDraft(
+          await prepareMutableSlidesForEditing(
             flyerToEdit: widget.flyerToEdit,
             draft: _draftFlyer,
-          );
-        }
-
-        if (mounted == true){
-          _headlineController = initializeHeadlineController(
-            draftFlyer: _draftFlyer,
           );
         }
 
@@ -104,15 +94,16 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   /// TAMAM
   @override
   void dispose(){
-    _scrollController.dispose();
+    _canPickImage.dispose();
+
     DraftFlyerModel.disposeDraftControllers(
         draft: _draftFlyer.value
     );
     _draftFlyer.dispose();
+
+    _scrollController.dispose();
     _loading.dispose();
-    _headlineController.dispose();
-    _headlineNode.dispose();
-    _descriptionNode.dispose();
+
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -120,16 +111,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
-
-    // const bool _canPublish =
-    // DraftFlyerModel.checkCanPublishDraft(
-    //   draft: _draft,
-    //   headlineController: _headlineController,
-    // )
-    // true
-    // ;
-
-
+// ----------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
       pageTitleVerse: widget.flyerToEdit == null ? 'phid_createFlyer' : '##Edit Flyer',
@@ -194,13 +176,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         appBarType: AppBarType.basic,
         formKey: _formKey,
         scrollController: _scrollController,
-        headlineController: _headlineController,
         draft: _draftFlyer,
         loading: _loading,
         isEditingFlyer: _isEditingFlyer,
         originalFlyer: widget.flyerToEdit,
-        headlineNode: _headlineNode,
-        descriptionNode: _descriptionNode,
       ),
     );
 

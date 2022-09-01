@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
@@ -10,7 +9,6 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.da
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -39,57 +37,29 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // ----------------------------------
-Future<DraftFlyerModel> initializeDraftFlyerModel({
-  @required FlyerModel existingFlyer,
-  @required BzModel bzModel,
-}) async {
-  DraftFlyerModel _draft;
-
-  if (existingFlyer == null){
-
-    _draft = DraftFlyerModel.createNewDraft(
-      bzModel: bzModel,
-      authorID: AuthFireOps.superUserID(),
-    );
-
-  }
-
-  else {
-
-    _draft = await DraftFlyerModel.createDraftFromFlyer(existingFlyer);
-
-  }
-
-  return _draft;
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-TextEditingController initializeHeadlineController({
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
-}){
-
-  final TextEditingController _controller = TextEditingController(text: draftFlyer.value?.headlineController?.text);
-
-  _controller.addListener(() {
-
-    blog('text controller : ${_controller.text}');
-
-    if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
-
-      draftFlyer.value = DraftFlyerModel.updateHeadline(
-        controller : _controller,
-        draft: draftFlyer.value,
-      );
-
-    blog('headline is : ${draftFlyer?.value?.mutableSlides?.first?.headline?.text}');
-
-    }
-
-
-  });
-
-  return _controller;
-}
+// Future<DraftFlyerModel> initializeDraftFlyerModel({
+//   @required FlyerModel existingFlyer,
+//   @required BzModel bzModel,
+// }) async {
+//   DraftFlyerModel _draft;
+//
+//   if (existingFlyer == null){
+//
+//     _draft = DraftFlyerModel.createNewDraft(
+//       bzModel: bzModel,
+//       authorID: AuthFireOps.superUserID(),
+//     );
+//
+//   }
+//
+//   else {
+//
+//     _draft = await DraftFlyerModel.createDraftFromFlyer(existingFlyer);
+//
+//   }
+//
+//   return _draft;
+// }
 // -----------------------------------------------------------------------------
 
 /// EDITING
@@ -124,7 +94,6 @@ Future<void> onAddNewSlides({
   @required BzModel bzModel,
   @required bool mounted,
   @required ScrollController scrollController,
-  @required TextEditingController headlineController,
   @required double flyerWidth,
   @required bool isEditingFlyer,
 }) async {
@@ -149,7 +118,6 @@ Future<void> onAddNewSlides({
         context: context,
         mounted: mounted,
         bzModel: bzModel,
-        headlineController: headlineController,
         scrollController: scrollController,
         draftFlyer: draftFlyer,
         flyerWidth: flyerWidth,
@@ -161,7 +129,6 @@ Future<void> onAddNewSlides({
         context: context,
         mounted: mounted,
         bzModel: bzModel,
-        headlineController: headlineController,
         scrollController: scrollController,
         draftFlyer: draftFlyer,
         flyerWidth: flyerWidth,
@@ -182,7 +149,6 @@ Future<void> _addImagesForNewFlyer({
   @required bool mounted,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required ScrollController scrollController,
-  @required TextEditingController headlineController,
   @required double flyerWidth,
   @required ImagePickerType imagePickerType,
 }) async {
@@ -238,7 +204,7 @@ Future<void> _addImagesForNewFlyer({
         context: context,
         files: _pickedFiles,
         existingSlides: draftFlyer.value.mutableSlides,
-        headlineController: headlineController,
+        headlineController: draftFlyer.value.headlineController,
       );
 
       final List<MutableSlide> _combinedSlides = <MutableSlide>[...draftFlyer.value.mutableSlides, ... _newMutableSlides];
@@ -280,7 +246,6 @@ Future<void> _addImagesForExistingFlyer({
   @required bool mounted,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
   @required ScrollController scrollController,
-  @required TextEditingController headlineController,
   @required double flyerWidth,
 }) async {
 
@@ -423,7 +388,6 @@ Future<void> onMoreTap({
 void onFlyerHeadlineChanged({
   @required String val,
   @required GlobalKey<FormState> formKey,
-  @required TextEditingController controller,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }){
   formKey.currentState.validate();
@@ -431,7 +395,6 @@ void onFlyerHeadlineChanged({
   if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
     draftFlyer.value = DraftFlyerModel.updateHeadline(
       draft: draftFlyer.value,
-      controller: controller,
     );
   }
 

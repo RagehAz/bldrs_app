@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
+import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
@@ -24,33 +25,77 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // ----------------------------------
-/// TESTED : WORKS PERFECT
-ValueNotifier<DraftFlyerModel> initializeDraft({
+///
+void initializeFlyerMakerLocalVariables({
   @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required FlyerModel oldFlyer,
+  @required bool mounted,
 }){
 
   final BzModel _activeBZ = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: false,
+    context: context,
+    listen: false,
   );
 
-  final DraftFlyerModel _draft = DraftFlyerModel.createNewDraft(
+  final DraftFlyerModel _draft = DraftFlyerModel.initializeDraftForEditing(
+    oldFlyer: oldFlyer,
     bzModel: _activeBZ,
-    authorID: AuthFireOps.superUserID(),
+    currentAuthorID: AuthFireOps.superUserID(),
   );
 
-  return ValueNotifier(_draft);
+  draftFlyer.value = _draft;
+
+  _listenToHeadlineController(
+    draftFlyer: draftFlyer,
+    mounted: mounted,
+  );
+
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeExistingFlyerDraft({
+void _listenToHeadlineController({
+  @required ValueNotifier<DraftFlyerModel> draftFlyer,
+  @required bool mounted
+}){
+
+  draftFlyer.value.headlineController.addListener(() {
+
+    blog('text controller : ${draftFlyer.value.headlineController.text}');
+
+    if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
+
+      setNotifier(
+        notifier: draftFlyer,
+        mounted: mounted,
+        value: DraftFlyerModel.updateHeadline(
+          draft: draftFlyer.value,
+        ),
+      );
+
+      blog('headline is : ${draftFlyer?.value?.mutableSlides?.first?.headline?.text}');
+
+    }
+
+
+  });
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> prepareMutableSlidesForEditing({
   @required FlyerModel flyerToEdit,
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
   /// ON CREATING A NEW DRAFT
   if (flyerToEdit != null){
-    draft.value = await DraftFlyerModel.createDraftFromFlyer(flyerToEdit);
+    draft.value = draft.value.copyWith(
+      mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
+        slides: flyerToEdit.slides,
+        flyerID: flyerToEdit.id,
+      ),
+    );
   }
 
 }
@@ -275,11 +320,9 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyerModel> draft,
-  @required TextEditingController headlineController,
 }){
 
   draft.value = DraftFlyerModel.updateHeadline(
-    controller : headlineController,
     draft: draft.value,
   );
 
@@ -422,7 +465,7 @@ Future<void> onPublishNewFlyerTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Flyer Has been Published',
+      firstLine: 'phid_flyer_has_been_published',
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
@@ -468,7 +511,7 @@ Future<void> onPublishFlyerUpdatesTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Flyer Has been Updated',
+      firstLine: 'phid_flyer_has_been_updated',
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
