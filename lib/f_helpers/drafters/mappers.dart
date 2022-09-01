@@ -781,7 +781,7 @@ class Mapper {
     if (list1 == null && list2 == null){
       _listsAreIdentical = true;
     }
-    else if (list1.isEmpty && list2.isEmpty){
+    else if (list1?.isEmpty == true && list2?.isEmpty == true){
       _listsAreIdentical = true;
     }
 

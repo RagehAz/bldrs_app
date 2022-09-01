@@ -1,15 +1,14 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_components/author_role_button.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/author_label.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_author_editor_screen_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -32,7 +31,7 @@ class AuthorRoleEditorScreen extends StatefulWidget {
 
 class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
-  ValueNotifier<AuthorRole> _authorRole;
+  ValueNotifier<AuthorRole> _tempRole;
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -54,8 +53,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   @override
   void initState() {
     super.initState();
-
-    _authorRole = ValueNotifier(widget.authorModel.role);
+    _tempRole = ValueNotifier(widget.authorModel.role);
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -76,71 +74,21 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   @override
   void dispose() {
 
+    _tempRole.dispose();
     _loading.dispose();
-    _authorRole.dispose();
 
     super.dispose();
   }
 // -----------------------------------------------------------------------------
   Future<void> _setAuthorRole(AuthorRole role) async {
 
-    final bool _canChangeRole = await _checkCanChangeRole(role);
+    await setAuthorRole(
+      context: context,
+      oldAuthor: widget.authorModel,
+      selectedRole: role,
+      tempRole: _tempRole,
+    );
 
-    if (_canChangeRole == true){
-
-      _authorRole.value = role;
-
-      await onChangeAuthorRoleOps(
-        context: context,
-        authorRole: _authorRole,
-        author: widget.authorModel,
-
-      );
-
-    }
-
-  }
-// -----------------------------------------------------------------------------
-  Future<bool> _checkCanChangeRole(AuthorRole role) async {
-    bool _canChange = false;
-
-    /// IF AUTHOR IS ALREADY THE CREATOR
-    if (widget.authorModel.role == AuthorRole.creator){
-
-      /// WHEN CHOOSING SOMETHING OTHER THAN CREATOR
-      if (role != AuthorRole.creator){
-
-        await CenterDialog.showCenterDialog(
-          context: context,
-          titleVerse: '##Can Not Demote Account creator',
-          bodyVerse: '##the Author Role of ${widget.authorModel.name} can not be changed.',
-        );
-
-      }
-
-    }
-
-    /// IF AUTHOR IS NOT THE CREATOR
-    else {
-
-      /// WHEN CHOOSING CREATOR
-      if (role == AuthorRole.creator){
-
-        await CenterDialog.showCenterDialog(
-          context: context,
-          titleVerse: '##Only one account creator is allowed',
-        );
-
-      }
-
-      /// WHEN CHOOSING OTHER THAN CREATOR
-      else {
-        _canChange = true;
-      }
-
-    }
-
-    return _canChange;
   }
 // -----------------------------------------------------------------------------
   @override
@@ -218,27 +166,27 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
         ),
 
         ValueListenableBuilder<AuthorRole>(
-            valueListenable: _authorRole,
+            valueListenable: _tempRole,
             builder: (_, AuthorRole role, Widget child){
 
               return Column(
                 children: <Widget>[
 
-                  FuckingButtonAuthorShit(
+                  AuthorRoleButton(
                     verse: '##Account Creator',
                     isOn: role == AuthorRole.creator,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.creator),
                   ),
 
-                  FuckingButtonAuthorShit(
+                  AuthorRoleButton(
                     verse: '##Team member',
                     isOn: role == AuthorRole.teamMember,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.teamMember),
                   ),
 
-                  FuckingButtonAuthorShit(
+                  AuthorRoleButton(
                     verse: '##Account Moderator',
                     isOn: role == AuthorRole.moderator,
                     icon: Iconz.bz,
@@ -252,51 +200,8 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
         ),
 
 
-
-
       ],
     );
 
   }
-}
-
-class FuckingButtonAuthorShit extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const FuckingButtonAuthorShit({
-    @required this.verse,
-    @required this.isOn,
-    @required this.icon,
-    this.onTap,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final String verse;
-  final Function onTap;
-  final bool isOn;
-  final String icon;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    return DreamBox(
-      height: 50,
-      width: 300,
-      verse: isOn == true ? verse.toUpperCase() : verse,
-      icon: icon,
-      iconSizeFactor: 0.6,
-      verseScaleFactor: 1.5,
-      color: isOn == true ? Colorz.yellow255 : Colorz.nothing,
-      iconColor: isOn == true ? Colorz.black255 : Colorz.white255,
-      verseColor: isOn == true ? Colorz.black255 : Colorz.white255,
-      verseShadow: false,
-      verseWeight: isOn == true ? VerseWeight.black : VerseWeight.thin,
-      verseItalic: true,
-      margins: Scale.superInsets(
-          context: context,
-          bottom: 10,
-      ),
-      onTap: onTap,
-    );
-  }
-
 }
