@@ -89,7 +89,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
       _triggerLoading(setTo: true).then((_) async {
 // -----------------------------------------------------------------
-        await prepareBzZoneAndPicForEditing(
+        await prepareBzZoneAndLogoForEditing(
           context: context,
           tempBz: _tempBz,
         );
@@ -134,17 +134,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     return MainLayout(
       key: const ValueKey<String>('BzEditorScreen'),
-      // loading: _loading,
+      loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: widget.firstTimer == true ?
-      'phid_createBzAccount'
-          :
-      'phid_edit_bz_info',
-      // appBarBackButton: true,
+      pageTitleVerse: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',
       confirmButtonModel: ConfirmButtonModel(
           firstLine: 'phid_confirm',
           secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',

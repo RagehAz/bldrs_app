@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubbl
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_author_editor_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
@@ -28,19 +27,21 @@ class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AuthorEditorScreenState createState() => _AuthorEditorScreenState();
-  /// --------------------------------------------------------------------------
+/// --------------------------------------------------------------------------
 }
 
 class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  ValueNotifier<AuthorModel> _author;
-  ValueNotifier<FileModel> _authorPicFile;
-  TextEditingController _nameController;
-  FocusNode _nameNode;
-  TextEditingController _titleController;
-  FocusNode _titleNode;
-  List<ContactModel> _contacts;
+  final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
+  // --------------------
+  final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
+  // --------------------
+  final TextEditingController _nameController = TextEditingController();
+  final FocusNode _nameNode = FocusNode();
+  // --------------------
+  final TextEditingController _titleController = TextEditingController();
+  final FocusNode _titleNode = FocusNode();
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -61,31 +62,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void initState() {
     super.initState();
 
-    blog('starting AuthorEditorScreen : with ${widget.author.userID}');
-
-    final AuthorModel _theAuthor = widget.author;
-    _theAuthor.blogAuthor(
-      methodName: 'initState',
-    );
-
-    _author = ValueNotifier(_theAuthor);
-    final FileModel _initialImageFile = FileModel(
-      url: _theAuthor.pic,
-      fileName: AuthorModel.generateAuthorPicID(
-          authorID: _theAuthor.userID,
-          bzID: widget.bzModel.id,
-      ),
-      size: null,
-    );
-    _authorPicFile = ValueNotifier(_initialImageFile);
-    _nameController = TextEditingController(text: _theAuthor.name);
-    _nameNode = FocusNode();
-    _titleController = TextEditingController(text: _theAuthor.title);
-    _titleNode = FocusNode();
-
-    _contacts = ContactModel.initializeContactsForEditing(
-      contacts: _theAuthor.contacts,
-      countryID: widget.bzModel.zone.countryID,
+    initializeAuthorEditorLocalVariables(
+      tempAuthor: _tempAuthor,
+      nameController: _nameController,
+      titleController: _titleController,
+      oldAuthor: widget.author,
+      bzModel: widget.bzModel,
     );
 
   }
@@ -97,7 +79,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
       _triggerLoading().then((_) async {
 
-        _authorPicFile.value = await FileModel.completeModel(_authorPicFile.value);
+        await prepareAuthorPicForEditing(
+          context: context,
+          tempAuthor: _tempAuthor,
+        );
 
         await _triggerLoading();
       });
@@ -110,15 +95,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// TAMAM
   @override
   void dispose() {
+    _canPickImage.dispose();
 
-    _author.dispose();
-    _loading.dispose();
     _nameController.dispose();
     _nameNode.dispose();
+
     _titleController.dispose();
     _titleNode.dispose();
 
-    ContactModel.disposeContactsControllers(_contacts);
+    _loading.dispose();
+
+    ContactModel.disposeContactsControllers(_tempAuthor.value.contacts);
+    _tempAuthor.dispose();
 
     super.dispose();
   }
@@ -128,152 +116,122 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
     return MainLayout(
       key: const ValueKey<String>('AuthorEditorScreen'),
-      // loading: _loading,
+      loading: _loading,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: '##Edit Author Details',
-      // appBarBackButton: true,
+      pageTitleVerse: 'phid_edit_author_details',
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: '##Confirm',
-        secondLine: '##Update Author Details',
+        firstLine: 'phid_confirm',
+        secondLine: 'phid_update_author_details',
         onTap: () => onConfirmAuthorUpdates(
           context: context,
-          author: _author,
+          tempAuthor: _tempAuthor,
           titleController: _titleController,
-          contacts: _contacts,
           nameController: _nameController,
           bzModel: widget.bzModel,
+          oldAuthor: widget.author,
         ),
       ),
       layoutWidget: Form(
         key: _formKey,
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: Stratosphere.stratosphereSandwich,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          children: <Widget>[
+        child: ValueListenableBuilder(
+          valueListenable: _tempAuthor,
+          builder: (_, AuthorModel tempAuthor, Widget child){
 
-            /// --- AUTHOR IMAGE
-            ValueListenableBuilder(
-              valueListenable: _author,
-              builder: (_, AuthorModel author, Widget child){
+            return ListView(
+              physics: const BouncingScrollPhysics(),
+              padding: Stratosphere.stratosphereSandwich,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: <Widget>[
 
-                return OldAddImagePicBubble(
-                  fileModel: _authorPicFile,
-                  titleVerse: '##Author picture',
+                /// --- AUTHOR IMAGE
+                AddImagePicBubble(
+                  fileModel: tempAuthor.pic,
+                  titleVerse: 'phid_author_picture',
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
                   onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
                     context: context,
-                    author: _author,
+                    author: _tempAuthor,
                     imagePickerType: imagePickerType,
+                    canPickImage: _canPickImage,
                   ),
-                );
+                ),
 
-              },
-            ),
+                /// NAME
+                TextFieldBubble(
+                  globalKey: _formKey,
+                  focusNode: _nameNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  textController: _nameController,
+                  titleVerse: 'phid_author_name',
+                  counterIsOn: true,
+                  maxLength: 72,
+                  keyboardTextInputType: TextInputType.name,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  bulletPoints: const <String>[
+                    '##This will only change your name inside this Business account',
+                  ],
+                  validator: (){
 
-            /// NAME
-            TextFieldBubble(
-              globalKey: _formKey,
-              focusNode: _nameNode,
-              appBarType: AppBarType.basic,
-              isFormField: true,
-              textController: _nameController,
-              titleVerse: '##Author Name',
-              counterIsOn: true,
-              maxLength: 72,
-              keyboardTextInputType: TextInputType.name,
-              keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: true,
-              bulletPoints: const <String>[
-                '##This will only change your name inside this Business account',
+                    if (Stringer.checkStringIsEmpty(_nameController.text) == true){
+                      return '##Author name can not be empty';
+                    }
+                    else if (_nameController.text.length <= 3){
+                      return '##Author name should be more than 3 characters';
+                    }
+                    else {
+                      return null;
+                    }
+
+                  },
+                ),
+
+                /// TITLE
+                TextFieldBubble(
+                  globalKey: _formKey,
+                  focusNode: _titleNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  textController: _titleController,
+                  titleVerse: 'phid_job_title',
+                  counterIsOn: true,
+                  maxLength: 72,
+                  keyboardTextInputType: TextInputType.name,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  validator: (){
+
+                    if (Stringer.checkStringIsEmpty(_titleController.text) == true){
+                      return '##Author name can not be empty';
+                    }
+                    else if (_titleController.text.length <= 3){
+                      return '##Author name should be more than 3 characters';
+                    }
+                    else {
+                      return null;
+                    }
+
+                  },
+                ),
+
+                /// CONTACTS
+                ContactsEditorsBubbles(
+                  globalKey: _formKey,
+                  contacts: tempAuthor.contacts,
+                  contactsOwnerType: ContactsOwnerType.author,
+                  appBarType: AppBarType.basic,
+                ),
+
               ],
-              validator: (){
+            );
 
-                if (Stringer.checkStringIsEmpty(_nameController.text) == true){
-                  return '##Author name can not be empty';
-                }
-                else if (_nameController.text.length <= 3){
-                  return '##Author name should be more than 3 characters';
-                }
-                else {
-                  return null;
-                }
-
-              },
-            ),
-
-            /// TITLE
-            TextFieldBubble(
-              globalKey: _formKey,
-              focusNode: _titleNode,
-              appBarType: AppBarType.basic,
-              isFormField: true,
-              textController: _titleController,
-              titleVerse: '##Job Title',
-              counterIsOn: true,
-              maxLength: 72,
-              keyboardTextInputType: TextInputType.name,
-              keyboardTextInputAction: TextInputAction.next,
-              fieldIsRequired: true,
-              validator: (){
-
-                if (Stringer.checkStringIsEmpty(_titleController.text) == true){
-                  return '##Author name can not be empty';
-                }
-                else if (_titleController.text.length <= 3){
-                  return '##Author name should be more than 3 characters';
-                }
-                else {
-                  return null;
-                }
-
-              },
-            ),
-
-            /// CONTACTS
-            ContactsEditorsBubbles(
-              globalKey: _formKey,
-              contacts: _contacts,
-              contactsOwnerType: ContactsOwnerType.author,
-              appBarType: AppBarType.basic,
-            ),
-
-            /// TASK : DELETE ME
-            // ...List.generate(ContactModel.contactTypesList.length, (index){
-            //
-            //   final ContactType _contactType = ContactModel.contactTypesList[index];
-            //
-            //   final String _title = ContactModel.translateContactType(
-            //     context: context,
-            //     contactType: _contactType,
-            //   );
-            //   final bool _isRequired = ContactModel.checkContactIsRequired(
-            //     contactType: _contactType,
-            //     ownerType: ContactsOwnerType.author,
-            //   );
-            //
-            //   final TextInputType _textInputType = ContactModel.concludeContactTextInputType(
-            //     contactType: _contactType,
-            //   );
-            //
-            //   return ContactFieldBubble(
-            //     isFormField: true,
-            //     textController: _generatedContactsControllers[index],
-            //     title: _title,
-            //     leadingIcon: ContactModel.getContactIcon(_contactType),
-            //     keyboardTextInputAction: TextInputAction.next,
-            //     fieldIsRequired: _isRequired,
-            //     keyboardTextInputType: _textInputType,
-            //   );
-            //
-            // }),
-
-          ],
+          },
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -47,6 +48,62 @@ class AuthorModel {
   final AuthorRole role;
   final List<ContactModel> contacts;
   final List<String> flyersIDs;
+// -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static AuthorModel initializeModelForEditing({
+    @required AuthorModel oldAuthor,
+    @required BzModel bzModel,
+  }){
+
+    final AuthorModel _tempAuthor = oldAuthor.copyWith(
+        pic: FileModel(
+          url: oldAuthor.pic,
+          fileName: AuthorModel.generateAuthorPicID(
+            authorID: oldAuthor.userID,
+            bzID: bzModel.id,
+          ),
+          size: null,
+        ),
+        contacts: ContactModel.initializeContactsForEditing(
+          contacts: oldAuthor.contacts,
+          countryID: bzModel.zone.countryID,
+        )
+    );
+
+    return _tempAuthor;
+  }
+// ----------------------------------
+
+  static AuthorModel bakeEditorVariablesToUpload({
+    @required AuthorModel tempAuthor,
+    @required AuthorModel oldAuthor,
+    @required BzModel bzModel,
+    @required TextEditingController nameController,
+    @required TextEditingController titleController,
+  }){
+
+    final AuthorModel _author = AuthorModel(
+      userID: tempAuthor.userID,
+      role: tempAuthor.role,
+      flyersIDs: tempAuthor.flyersIDs,
+      name: nameController.text,
+      title: titleController.text,
+      pic: FileModel.bakeFileForUpload(
+        newFile: tempAuthor.pic,
+        existingPic: oldAuthor.pic,
+      ),
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: tempAuthor.contacts,
+        countryID: bzModel.zone.countryID,
+      ),
+    );
+
+    return _author;
+  }
 // -----------------------------------------------------------------------------
 
   /// CREATORS

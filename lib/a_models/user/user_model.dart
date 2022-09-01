@@ -99,17 +99,20 @@ class UserModel {
   final List<String> followedBzzIDs;
   final AppState appState;
   final DocumentSnapshot docSnapshot;
-
 // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
 // -----------------------------------
-  /// create user object based on firebase user
+  /// TAMAM : WORKS PERFECT
   static UserModel initializeUserModelStreamFromUser() {
+
+  /// NOTE : create user object based on firebase user
     final User _user = AuthFireOps.superFirebaseUser();
 
-    return _user == null ? null :
+    return _user == null ?
+    null
+        :
     UserModel(
       id: _user.uid,
       authBy: null,
@@ -135,8 +138,10 @@ class UserModel {
       followedBzzIDs: <String>[],
       appState: AppState.initialState(),
     );
+
   }
 // -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static Future<UserModel> createInitialUserModelFromUser({
     @required BuildContext context,
     @required User user,
@@ -184,6 +189,7 @@ class UserModel {
     return _userModel;
   }
 // -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static UserModel initializeModelForEditing({
     @required BuildContext context,
     @required UserModel userModel,
@@ -222,27 +228,31 @@ class UserModel {
     );
 
   }
-
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
   static UserModel bakeEditorVariablesToUpload({
     @required BuildContext context,
-    @required UserModel existingModel,
+    @required UserModel oldUser,
     @required UserModel tempUser,
-}){
+    @required TextEditingController nameController,
+    @required TextEditingController titleController,
+    @required TextEditingController companyController,
+  }){
 
     return UserModel(
       // -------------------------
-      id: existingModel.id,
-      createdAt: existingModel.createdAt,
-      status: existingModel.status,
+      id: oldUser.id,
+      createdAt: oldUser.createdAt,
+      status: oldUser.status,
       // -------------------------
-      name: tempUser.name,
-      trigram: Stringer.createTrigram(input: tempUser.name),
+      name: nameController.text,
+      trigram: Stringer.createTrigram(input: nameController.text),
       pic: FileModel.bakeFileForUpload(
         newFile: tempUser.pic,
-        existingPic: existingModel.pic,
+        existingPic: oldUser.pic,
       ),
-      title: tempUser.title,
-      company: tempUser.company,
+      title: titleController.text,
+      company: companyController.text,
       gender: tempUser.gender,
       zone: tempUser.zone,
       language: Words.languageCode(context),
@@ -252,15 +262,15 @@ class UserModel {
         countryID: tempUser.zone.countryID,
       ),
       // -------------------------
-      myBzzIDs: existingModel.myBzzIDs,
+      myBzzIDs: oldUser.myBzzIDs,
       // -------------------------
-      isAdmin: existingModel.isAdmin,
-      emailIsVerified: existingModel.emailIsVerified,
-      authBy: existingModel.authBy,
-      fcmToken: existingModel.fcmToken,
-      followedBzzIDs: existingModel.followedBzzIDs,
-      savedFlyersIDs: existingModel.savedFlyersIDs,
-      appState: existingModel.appState,
+      isAdmin: oldUser.isAdmin,
+      emailIsVerified: oldUser.emailIsVerified,
+      authBy: oldUser.authBy,
+      fcmToken: oldUser.fcmToken,
+      followedBzzIDs: oldUser.followedBzzIDs,
+      savedFlyersIDs: oldUser.savedFlyersIDs,
+      appState: oldUser.appState,
     );
 
   }
