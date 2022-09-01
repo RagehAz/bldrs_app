@@ -146,6 +146,35 @@ class DraftFlyerModel{
 
     return _draft;
   }
+
+  static FlyerModel bakeDraftToUpload({
+    @required DraftFlyerModel draft,
+    PublishState overridePublishState,
+}){
+
+    return FlyerModel(
+      id: draft.id,
+      headline: draft.headlineController.text,
+      trigram: Stringer.createTrigram(input: draft.headlineController.text),
+      description: draft.descriptionController.text,
+      flyerType: draft.flyerType,
+      publishState: overridePublishState ?? draft.publishState,
+      auditState: draft.auditState,
+      keywordsIDs: draft.keywordsIDs,
+      showsAuthor: draft.showsAuthor,
+      zone: draft.zone,
+      authorID: draft.authorID,
+      bzID: draft.bzID,
+      position: draft.position,
+      slides: SlideModel.getSlidesFromMutableSlides(draft.mutableSlides),
+      specs: draft.specs,
+      times: draft.times,
+      priceTagIsOn: draft.priceTagIsOn,
+      score: draft.score,
+      pdf: draft.pdf,
+
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// CREATORS
@@ -196,6 +225,7 @@ class DraftFlyerModel{
     pdf: pdf ?? this.pdf,
   );
 // -------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   FlyerModel toFlyerModel(){
     return FlyerModel(
@@ -221,6 +251,7 @@ class DraftFlyerModel{
 
     );
   }
+  */
 // -------------------------------------
   /*
 //   /// TESTED : WORKS PERFECT
