@@ -23,7 +23,9 @@ class DraftFlyerModel{
   const DraftFlyerModel({
     @required this.id,
     @required this.headlineController,
+    @required this.headlineNode,
     @required this.descriptionController,
+    @required this.descriptionNode,
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
@@ -43,7 +45,9 @@ class DraftFlyerModel{
   /// --------------------------------------------------------------------------
   final String id;
   final TextEditingController headlineController;
+  final FocusNode headlineNode;
   final TextEditingController descriptionController;
+  final FocusNode descriptionNode;
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
@@ -61,13 +65,98 @@ class DraftFlyerModel{
   final FileModel pdf;
 // -----------------------------------------------------------------------------
 
+  /// INITIALIZATION
+
+// -----------------------------------
+  static DraftFlyerModel initializeDraftForEditing({
+    @required FlyerModel oldFlyer,
+    @required BzModel bzModel,
+    @required String currentAuthorID,
+  }){
+
+    DraftFlyerModel _draft;
+
+    /// IS CREATING NEW FLYER
+    if (oldFlyer == null){
+
+      final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
+        bzTypes: bzModel.bzTypes,
+      );
+
+      final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
+      _possibleFlyerType.first
+          :
+      null;
+
+      _draft = DraftFlyerModel(
+        id: Numeric.createUniqueID().toString(),
+        headlineController: TextEditingController(),
+        headlineNode: FocusNode(),
+        descriptionController: TextEditingController(),
+        descriptionNode: FocusNode(),
+        flyerType: _flyerType,
+        publishState: PublishState.draft,
+        auditState: null,
+        keywordsIDs: const <String>[],
+        showsAuthor: FlyerModel.canShowFlyerAuthor(
+          bzModel: bzModel,
+          flyerModel: null,
+        ),
+        zone: bzModel.zone,
+        authorID: currentAuthorID,
+        bzID: bzModel.id,
+        position: null,
+        mutableSlides: const <MutableSlide>[],
+        specs: const <SpecModel>[],
+        times: const <PublishTime>[],
+        priceTagIsOn: false,
+        score: 0,
+        pdf: null,
+      );
+
+    }
+
+    /// IS EDITING EXISTING FLYER
+    else {
+
+      _draft = DraftFlyerModel(
+        id: oldFlyer.id,
+        headlineController: TextEditingController(text: oldFlyer.headline),
+        headlineNode: FocusNode(),
+        descriptionController: TextEditingController(text: oldFlyer.description),
+        descriptionNode: FocusNode(),
+        flyerType: oldFlyer.flyerType,
+        publishState: oldFlyer.publishState,
+        auditState: oldFlyer.auditState,
+        keywordsIDs: oldFlyer.keywordsIDs,
+        showsAuthor: oldFlyer.showsAuthor,
+        zone: oldFlyer.zone,
+        authorID: oldFlyer.authorID,
+        bzID: oldFlyer.bzID,
+        position: oldFlyer.position,
+        mutableSlides: const [],
+        specs: oldFlyer.specs,
+        times: oldFlyer.times,
+        priceTagIsOn: oldFlyer.priceTagIsOn,
+        score: oldFlyer.score,
+        pdf: oldFlyer.pdf,
+      );
+
+    }
+
+    return _draft;
+  }
+// -----------------------------------------------------------------------------
+
   /// CREATORS
 
 // -------------------------------------
   DraftFlyerModel copyWith({
     String id,
     TextEditingController headlineController,
+    FocusNode headlineNode,
     TextEditingController descriptionController,
+    FocusNode descriptionNode,
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
@@ -87,7 +176,9 @@ class DraftFlyerModel{
   }) => DraftFlyerModel(
     id: id ?? this.id,
     headlineController: headlineController ?? this.headlineController,
+    headlineNode: headlineNode ?? this.headlineNode,
     descriptionController: descriptionController ?? this.descriptionController,
+    descriptionNode: descriptionNode ?? this.descriptionNode,
     flyerType: flyerType ?? this.flyerType,
     publishState: publishState ?? this.publishState,
     auditState: auditState ?? this.auditState,
@@ -131,84 +222,90 @@ class DraftFlyerModel{
     );
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static DraftFlyerModel createNewDraft({
-    @required BzModel bzModel,
-    @required String authorID,
-}){
-
-    final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-      bzTypes: bzModel.bzTypes,
-    );
-
-    final FlyerType _flyerType =
-    _possibleFlyerType.length == 1 ?
-    _possibleFlyerType.first
-        :
-    null;
-
-    final DraftFlyerModel _draft = DraftFlyerModel(
-      id: Numeric.createUniqueID().toString(),
-      headlineController: TextEditingController(),
-      descriptionController: TextEditingController(),
-      flyerType: _flyerType,
-      publishState: PublishState.draft,
-      auditState: null,
-      keywordsIDs: const <String>[],
-      showsAuthor: FlyerModel.canShowFlyerAuthor(
-          bzModel: bzModel,
-          flyerModel: null,
-      ),
-      zone: bzModel.zone,
-      authorID: authorID,
-      bzID: bzModel.id,
-      position: null,
-      mutableSlides: const <MutableSlide>[],
-      specs: const <SpecModel>[],
-      times: const <PublishTime>[],
-      priceTagIsOn: false,
-      score: 0,
-      pdf: null,
-    );
-
-    return _draft;
-  }
+  /*
+//   /// TESTED : WORKS PERFECT
+//   static DraftFlyerModel createNewDraft({
+//     @required BzModel bzModel,
+//     @required String authorID,
+// }){
+//
+//     final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
+//       bzTypes: bzModel.bzTypes,
+//     );
+//
+//     final FlyerType _flyerType =
+//     _possibleFlyerType.length == 1 ?
+//     _possibleFlyerType.first
+//         :
+//     null;
+//
+//     final DraftFlyerModel _draft = DraftFlyerModel(
+//       id: Numeric.createUniqueID().toString(),
+//       headlineController: TextEditingController(),
+//       headlineNode: FocusNode(),
+//       descriptionController: TextEditingController(),
+//       descriptionNode: FocusNode(),
+//       flyerType: _flyerType,
+//       publishState: PublishState.draft,
+//       auditState: null,
+//       keywordsIDs: const <String>[],
+//       showsAuthor: FlyerModel.canShowFlyerAuthor(
+//           bzModel: bzModel,
+//           flyerModel: null,
+//       ),
+//       zone: bzModel.zone,
+//       authorID: authorID,
+//       bzID: bzModel.id,
+//       position: null,
+//       mutableSlides: const <MutableSlide>[],
+//       specs: const <SpecModel>[],
+//       times: const <PublishTime>[],
+//       priceTagIsOn: false,
+//       score: 0,
+//       pdf: null,
+//     );
+//
+//     return _draft;
+//   }
 // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Future<DraftFlyerModel> createDraftFromFlyer(FlyerModel flyerModel) async {
-
-    DraftFlyerModel _draft;
-
-    if (flyerModel != null){
-
-      _draft = DraftFlyerModel(
-        id: flyerModel.id,
-        headlineController: TextEditingController(text: flyerModel.headline),
-        descriptionController: TextEditingController(text: flyerModel.description),
-        flyerType: flyerModel.flyerType,
-        publishState: flyerModel.publishState,
-        auditState: flyerModel.auditState,
-        keywordsIDs: flyerModel.keywordsIDs,
-        showsAuthor: flyerModel.showsAuthor,
-        zone: flyerModel.zone,
-        authorID: flyerModel.authorID,
-        bzID: flyerModel.bzID,
-        position: flyerModel.position,
-        mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
-          slides: flyerModel.slides,
-          flyerID: flyerModel.id,
-        ),
-        specs: flyerModel.specs,
-        times: flyerModel.times,
-        priceTagIsOn: flyerModel.priceTagIsOn,
-        score: flyerModel.score,
-        pdf: flyerModel.pdf,
-      );
-
-    }
-
-    return _draft;
-  }
+//   /// TESTED : WORKS PERFECT
+//   static Future<DraftFlyerModel> createDraftFromFlyer(FlyerModel flyerModel) async {
+//
+//     DraftFlyerModel _draft;
+//
+//     if (flyerModel != null){
+//
+//       _draft = DraftFlyerModel(
+//         id: flyerModel.id,
+//         headlineController: TextEditingController(text: flyerModel.headline),
+//         headlineNode: FocusNode(),
+//         descriptionController: TextEditingController(text: flyerModel.description),
+//         descriptionNode: FocusNode(),
+//         flyerType: flyerModel.flyerType,
+//         publishState: flyerModel.publishState,
+//         auditState: flyerModel.auditState,
+//         keywordsIDs: flyerModel.keywordsIDs,
+//         showsAuthor: flyerModel.showsAuthor,
+//         zone: flyerModel.zone,
+//         authorID: flyerModel.authorID,
+//         bzID: flyerModel.bzID,
+//         position: flyerModel.position,
+//         mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
+//           slides: flyerModel.slides,
+//           flyerID: flyerModel.id,
+//         ),
+//         specs: flyerModel.specs,
+//         times: flyerModel.times,
+//         priceTagIsOn: flyerModel.priceTagIsOn,
+//         score: flyerModel.score,
+//         pdf: flyerModel.pdf,
+//       );
+//
+//     }
+//
+//     return _draft;
+//   }
+   */
 // -----------------------------------------------------------------------------
 
 /// DISPOSING
@@ -224,6 +321,8 @@ class DraftFlyerModel{
     MutableSlide.disposeMutableSlidesTextControllers(
         mutableSlides: draft.mutableSlides,
     );
+    draft.headlineNode.dispose();
+    draft.descriptionNode.dispose();
 
   }
 // -----------------------------------------------------------------------------
@@ -280,7 +379,6 @@ class DraftFlyerModel{
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static DraftFlyerModel updateHeadline({
-    @required TextEditingController controller,
     @required DraftFlyerModel draft,
 }){
 
@@ -291,7 +389,7 @@ class DraftFlyerModel{
       if (Mapper.checkCanLoopList(_draft.mutableSlides) == true){
 
         final MutableSlide _newSlide = _draft.mutableSlides.first.copyWith(
-          headline: controller,
+          headline: draft.headlineController,
         );
 
         final List<MutableSlide> _newSlides = MutableSlide.replaceSlide(
@@ -301,7 +399,7 @@ class DraftFlyerModel{
 
         _draft = draft.copyWith(
           mutableSlides: _newSlides,
-          headlineController: controller,
+          headlineController: draft.headlineController,
         );
       }
 
@@ -331,6 +429,8 @@ class DraftFlyerModel{
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
       pdf: null,
+      descriptionNode: draft.descriptionNode,
+      headlineNode: draft.headlineNode,
     );
   }
 // -----------------------------------------------------------------------------

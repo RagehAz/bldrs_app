@@ -20,15 +20,13 @@ class SlidesShelf extends StatefulWidget {
     @required this.shelfNumber,
     @required this.bzModel,
     @required this.draft,
-    @required this.headlineController,
     @required this.isEditingFlyer,
     Key key,
 }) : super(key: key);
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
-  final ValueNotifier<DraftFlyerModel> draft; /// p
-  final TextEditingController headlineController;
+  final ValueNotifier<DraftFlyerModel> draft;
   final bool isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
@@ -140,7 +138,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 bzModel: widget.bzModel,
                 mounted: mounted,
                 scrollController: _scrollController,
-                headlineController: widget.headlineController,
                 flyerWidth: ShelfSlide.flyerBoxWidth,
                 isEditingFlyer: widget.isEditingFlyer,
                 imagePickerType: imagePickerType,

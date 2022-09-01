@@ -326,14 +326,14 @@ Future<void> onBzEditsConfirmTap({
   @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required TextEditingController bzNameTextController,
   @required TextEditingController bzAboutTextController,
-  @required ValueNotifier<BzModel> initialBzModel,
+  @required BzModel oldBz,
   @required bool firstTimer,
   @required ValueNotifier<BzModel> tempBz,
 }) async {
 
   final BzModel _newBzModel = BzModel.backEditorVariablesToUpload(
     selectedScopes: selectedScopes,
-    oldBzModel: initialBzModel.value,
+    oldBzModel: oldBz,
     bzNameController: bzNameTextController,
     bzAboutController: bzAboutTextController,
     tempBz: tempBz,
@@ -374,7 +374,7 @@ Future<void> onBzEditsConfirmTap({
         await BzProtocols.renovateBz(
           context: context,
           newBzModel: _newBzModel,
-          oldBzModel: initialBzModel.value,
+          oldBzModel: oldBz,
           showWaitDialog: true,
           navigateToBzInfoPageOnEnd: true,
         );

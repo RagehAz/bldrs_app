@@ -192,39 +192,39 @@ class UserModel {
   /// TAMAM : WORKS PERFECT
   static UserModel initializeModelForEditing({
     @required BuildContext context,
-    @required UserModel userModel,
+    @required UserModel oldUser,
   }){
 
-    final ZoneModel _zone = userModel.zone ?? ZoneProvider.proGetCurrentZone(
+    final ZoneModel _zone = oldUser.zone ?? ZoneProvider.proGetCurrentZone(
       context: context,
       listen: false,
     );
 
     return UserModel(
-      id: userModel.id,
-      authBy: userModel.authBy,
-      createdAt: userModel.createdAt,
-      status: userModel.status,
-      name: userModel.name,
-      trigram: userModel.trigram,
-      pic: FileModel(url: userModel?.pic, fileName: userModel?.id, size: null),
-      title: userModel.title,
-      company: userModel.company,
-      gender: userModel.gender,
+      id: oldUser.id,
+      authBy: oldUser.authBy,
+      createdAt: oldUser.createdAt,
+      status: oldUser.status,
+      name: oldUser.name,
+      trigram: oldUser.trigram,
+      pic: FileModel(url: oldUser?.pic, fileName: oldUser?.id, size: null),
+      title: oldUser.title,
+      company: oldUser.company,
+      gender: oldUser.gender,
       zone: _zone,
-      language: userModel.language ?? PhraseProvider.proGetCurrentLangCode(context: context, listen: false),
-      location: userModel.location,
+      language: oldUser.language ?? PhraseProvider.proGetCurrentLangCode(context: context, listen: false),
+      location: oldUser.location,
       contacts: ContactModel.initializeContactsForEditing(
         countryID: _zone.countryID,
-        contacts: userModel?.contacts,
+        contacts: oldUser?.contacts,
       ),
-      myBzzIDs: userModel.myBzzIDs,
-      emailIsVerified: userModel.emailIsVerified,
-      isAdmin: userModel.isAdmin,
-      fcmToken: userModel.fcmToken,
-      savedFlyersIDs: userModel.savedFlyersIDs,
-      followedBzzIDs: userModel.followedBzzIDs,
-      appState: userModel.appState,
+      myBzzIDs: oldUser.myBzzIDs,
+      emailIsVerified: oldUser.emailIsVerified,
+      isAdmin: oldUser.isAdmin,
+      fcmToken: oldUser.fcmToken,
+      savedFlyersIDs: oldUser.savedFlyersIDs,
+      followedBzzIDs: oldUser.followedBzzIDs,
+      appState: oldUser.appState,
     );
 
   }

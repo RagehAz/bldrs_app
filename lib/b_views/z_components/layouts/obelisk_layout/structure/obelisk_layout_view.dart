@@ -14,6 +14,17 @@ class ObeliskLayoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    /*
+        return PageView.builder(
+      physics: const BouncingScrollPhysics(),
+      controller: tabController,
+      itemBuilder: (_, index){
+        return children[index % children.length];
+      },
+    );
+     */
+
+
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,
