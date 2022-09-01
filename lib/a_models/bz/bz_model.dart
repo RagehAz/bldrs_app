@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -132,9 +134,75 @@ class BzModel{
   final DocumentSnapshot<Object> docSnapshot;
 // -----------------------------------------------------------------------------
 
+  /// INITIALIZATION
+
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel initializeModelForEditing({
+    @required BzModel oldBzModel,
+    @required bool firstTimer,
+    @required UserModel userModel,
+  }){
+
+    final BzModel _initialBzModel = firstTimer == true ?
+    BzModel.convertFireUserDataIntoInitialBzModel(userModel)
+        :
+    oldBzModel;
+
+    return _initialBzModel.copyWith(
+      logo: FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
+      contacts: ContactModel.initializeContactsForEditing(
+        countryID: _initialBzModel.zone.countryID,
+        contacts: _initialBzModel.contacts,
+      ),
+    );
+
+  }
+// -----------------------------------
+  /// TESTED : WORKS PERFECT
+  static BzModel backEditorVariablesToUpload({
+    @required ValueNotifier<List<SpecModel>> selectedScopes,
+    @required BzModel oldBzModel,
+    @required TextEditingController bzNameController,
+    @required TextEditingController bzAboutController,
+    @required ValueNotifier<BzModel> tempBz,
+  }){
+
+    final BzModel _bzModel = BzModel(
+      id: oldBzModel.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
+      bzTypes: tempBz.value.bzTypes,
+      bzForm: tempBz.value.bzForm,
+      createdAt: oldBzModel.createdAt, /// WILL BE OVERRIDDEN
+      accountType: oldBzModel.accountType, /// NEVER CHANGED
+      name: bzNameController.text,
+      trigram: Stringer.createTrigram(input: bzNameController.text),
+      logo: FileModel.bakeFileForUpload(
+        newFile: tempBz.value.logo,
+        existingPic: oldBzModel.logo,
+      ),
+      scope: SpecModel.getSpecsIDs(selectedScopes.value),
+      zone: tempBz.value.zone,
+      about: bzAboutController.text,
+      position: tempBz.value.position,
+      contacts: ContactModel.bakeContactsAfterEditing(
+        contacts: tempBz.value.contacts,
+        countryID: tempBz.value.zone.countryID,
+      ),
+      authors: oldBzModel.authors, /// NEVER CHANGED
+      showsTeam: oldBzModel.showsTeam, /// NEVER CHANGED
+      isVerified: oldBzModel.isVerified, /// NEVER CHANGED
+      bzState: oldBzModel.bzState, /// NEVER CHANGED
+      flyersIDs: oldBzModel.flyersIDs, /// NEVER CHANGED
+    );
+
+    return _bzModel;
+  }
+// -----------------------------------------------------------------------------
+
   /// CLONING
 
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   BzModel copyWith({
     String id,
     List<BzType> bzTypes,
@@ -179,6 +247,7 @@ class BzModel{
     );
 }
 // ------------------------------------------
+  /// TESTED : WORKS PERFECT
   BzModel nullifyField({
     @required BzModel bzModel,
     bool id = false,

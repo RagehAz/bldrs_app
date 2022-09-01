@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -41,6 +40,7 @@ Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
 /// AUTHOR OPTIONS
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAuthorOptionsTap({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -179,6 +179,7 @@ Future<void> onAuthorOptionsTap({
 /// PRE DELETE AUTHOR
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onDeleteAuthorFromBz({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -240,6 +241,7 @@ Future<void> onDeleteAuthorFromBz({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotRemoveAuthorDialog({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -258,6 +260,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 /// DELETE AUTHOR WHO HAS FLYERS
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _removeAuthorWhoHasFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -343,6 +346,7 @@ Future<void> _removeAuthorWhoHasFlyers({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _showDeleteAllAuthorFlyers({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -414,6 +418,7 @@ Future<void> _removeAuthorWhoHasNoFlyers({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _showAuthorRemovalConfirmationDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -433,6 +438,7 @@ Future<void> _showAuthorRemovalConfirmationDialog({
 /// EDIT AUTHOR
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onEditAuthor({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -449,6 +455,7 @@ Future<void> _onEditAuthor({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotEditAuthorDialog({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -466,6 +473,7 @@ Future<void> _onShowCanNotEditAuthorDialog({
 /// AUTHOR ROLES
 
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onChangeAuthorRole({
   @required BuildContext context,
   @required AuthorModel authorModel,
@@ -487,6 +495,7 @@ Future<void> _onChangeAuthorRole({
 
 }
 // -------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotChangeAuthorRoleDialog({
   @required BuildContext context,
   @required AuthorModel authorModel,
