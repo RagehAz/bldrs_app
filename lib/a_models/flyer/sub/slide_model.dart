@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -583,7 +584,10 @@ class SlideModel {
     if (mSlide != null) {
       _slideModel = SlideModel(
         slideIndex: mSlide.slideIndex,
-        pic: mSlide.picURL ?? mSlide.picFileModel,
+        pic: FileModel.bakeFileForUpload(
+          newFile: mSlide.picFileModel,
+          existingPic: mSlide.picURL,
+        ),
         headline: mSlide.headline.text,
         description: mSlide.description.text,
         picFit: mSlide.picFit,

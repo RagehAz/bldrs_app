@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -25,7 +26,7 @@ import 'package:flutter/material.dart';
 /// INITIALIZATION
 
 // ----------------------------------
-///
+/// TESTED : WORKS PERFECT
 void initializeFlyerMakerLocalVariables({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
@@ -97,6 +98,417 @@ Future<void> prepareMutableSlidesForEditing({
       ),
     );
   }
+
+}
+
+// -----------------------------------------------------------------------------
+
+/// CANCEL FLYER EDITING
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onCancelFlyerCreation(BuildContext context) async {
+
+  final bool result = await CenterDialog.showCenterDialog(
+    context: context,
+    boolDialog: true,
+    titleVerse:  '##Cancel Flyer',
+    bodyVerse:  '##All progress in this flyer will be lost',
+    confirmButtonVerse:  '##Yes Cancel',
+  );
+
+  if (result == true){
+    Nav.goBack(
+      context: context,
+      invoker: 'onCancelFlyerCreation',
+    );
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// FLYER EDITING
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+void onUpdateFlyerHeadline({
+  @required ValueNotifier<DraftFlyerModel> draft,
+}){
+
+  draft.value = DraftFlyerModel.updateHeadline(
+    draft: draft.value,
+  );
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSelectFlyerType({
+  @required BuildContext context,
+  @required int index,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
+
+  if (draft.value.flyerType != _selectedFlyerType){
+
+  bool _canUpdate = true;
+
+    /// SOME SPECS ARE SELECTED
+    if (Mapper.checkCanLoopList(draft.value.specs) == true){
+
+      _canUpdate = await CenterDialog.showCenterDialog(
+        context: context,
+        titleVerse:  '##Delete selected Specifications ?',
+        bodyVerse:  '##All selected specifications will be deleted\nDo you wish to continue ?',
+        boolDialog: true,
+      );
+
+    }
+
+    if (_canUpdate == true){
+      draft.value = draft.value.copyWith(
+        flyerType: _selectedFlyerType,
+        specs: <SpecModel>[],
+      );
+
+    }
+
+  }
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onAddSpecsTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  final String _flyerTypeString = FlyerTyper.translateFlyerType(
+    context: context,
+    flyerType: draft.value.flyerType,
+    pluralTranslation: false,
+  );
+
+  final dynamic _result = await Nav.goToNewScreen(
+      context: context,
+      screen: ChainsScreen(
+        pageTitleVerse:  '##$_flyerTypeString Specifications',
+        selectedSpecs: draft.value.specs,
+        isMultipleSelectionMode: true,
+        onlyUseCityChains: false,
+        flyerTypesChainFilters: [draft.value.flyerType],
+        zone: draft.value.zone,
+      )
+  );
+
+  final List<SpecModel> _receivedSpecs = _result;
+
+  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
+
+    SpecModel.blogSpecs(_receivedSpecs);
+
+    draft.value = draft.value.copyWith(
+      specs: _receivedSpecs,
+    );
+
+  }
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onZoneChanged({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ZoneModel zone,
+}) async {
+
+  draft.value = draft.value.copyWith(
+    zone: zone,
+  );
+
+}
+// -----------------------------------------------------------------------------
+
+/// VALIDATORS
+
+// ----------------------------------
+String flyerHeadlineValidator({
+  @required TextEditingController headlineController,
+}){
+
+  final bool _isEmpty = headlineController.text.trim() == '';
+  final bool _isShort = headlineController.text.length < Standards.flyerHeadlineMinLength;
+
+  if (_isEmpty){
+    return "Can not publish a flyer without a title as it's used in the search engine";
+  }
+  else if (_isShort){
+    return 'Flyer title can not be less than 10 characters';
+  }
+  else {
+    return null;
+  }
+}
+// -----------------------------------------------------------------------------
+
+/// PUBLISHING FLYER
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> onConfirmPublishFlyerButtonTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel oldFlyer,
+  @required GlobalKey<FormState> formKey,
+}) async {
+
+  if (oldFlyer != null){
+    await _onPublishFlyerUpdatesTap(
+      context: context,
+      draft: draft,
+      formKey: formKey,
+      originalFlyer: oldFlyer,
+    );
+  }
+
+  else {
+    await _onPublishNewFlyerTap(
+      context: context,
+      draft: draft,
+      formKey: formKey,
+      originalFlyer: oldFlyer,
+    );
+  }
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onPublishNewFlyerTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required GlobalKey<FormState> formKey,
+  @required FlyerModel originalFlyer,
+}) async {
+
+  final bool _canContinue = await _preFlyerUpdateCheck(
+    context: context,
+    draft: draft,
+    originalFlyer: originalFlyer,
+    formKey: formKey,
+  );
+
+  if (_canContinue == true){
+
+    await _publishFlyerOps(
+      context: context,
+      draft: draft,
+    );
+
+    Nav.goBack(
+      context: context,
+      invoker: 'onPublishNewFlyerTap',
+    );
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'phid_flyer_has_been_published',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _onPublishFlyerUpdatesTap({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required GlobalKey<FormState> formKey,
+  @required FlyerModel originalFlyer,
+}) async {
+
+  final bool _canContinue = await _preFlyerUpdateCheck(
+    context: context,
+    draft: draft,
+    originalFlyer: originalFlyer,
+    formKey: formKey,
+  );
+
+  if (_canContinue == true){
+
+    await _updateFlyerOps(
+      context: context,
+      draft: draft,
+      oldFlyer: originalFlyer,
+    );
+
+    Nav.goBack(
+      context: context,
+      invoker: 'onPublishFlyerUpdatesTap',
+    );
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: 'phid_flyer_has_been_updated',
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// PRE-PUBLISH CHECKUPS
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<bool> _preFlyerUpdateCheck({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel originalFlyer,
+  @required GlobalKey<FormState> formKey,
+}) async {
+
+  final FlyerModel flyerFromDraft = DraftFlyerModel.bakeDraftToUpload(
+    draft: draft.value,
+  );
+
+  final bool _areIdentical = FlyerModel.checkFlyersAreIdentical(
+    flyer1: originalFlyer,
+    flyer2: flyerFromDraft,
+  );
+
+  bool _canContinue;
+
+  if (_areIdentical == true){
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse:  '##Flyer was not changed',
+    );
+
+    _canContinue = false;
+
+  }
+
+  else {
+    if (draft.value.mutableSlides.isEmpty){
+
+      await CenterDialog.showCenterDialog(
+        context: context,
+        titleVerse:  '##Add Images',
+        bodyVerse:  '##Add at least one image to the flyer',
+      );
+
+    }
+
+    else {
+
+      final bool _isValid = formKey.currentState.validate();
+      blog('_publishFlyerOps : fields are valid : $_isValid');
+
+      if (_isValid == false){
+
+        if (draft.value.headlineController.text.length < 10){
+          TopDialog.showUnawaitedTopDialog(
+            context: context,
+            firstLine: 'Flyer headline can not be less than 10 characters long',
+          );
+        }
+
+      }
+
+      else {
+        _canContinue = true;
+      }
+
+    }
+
+  }
+
+  if (_canContinue == true){
+
+    _canContinue = await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: 'phid_confirm_upload_flyer',
+    );
+
+  }
+
+  return _canContinue;
+}
+// -----------------------------------------------------------------------------
+
+/// PUBLISHING
+
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _publishFlyerOps({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}) async {
+
+  unawaited(WaitDialog.showWaitDialog(
+        context: context,
+        loadingVerse: '##Uploading flyer',
+      ));
+
+  final FlyerModel _flyerToPublish = DraftFlyerModel.bakeDraftToUpload(
+    draft: draft.value,
+    overridePublishState: PublishState.published,
+  );
+
+  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+  );
+
+  await FlyerProtocols.composeFlyer(
+    context: context,
+    flyerModel: _flyerToPublish,
+    bzModel: _bzModel,
+  );
+
+  WaitDialog.closeWaitDialog(context);
+
+}
+// ----------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> _updateFlyerOps({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel oldFlyer,
+}) async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse: '##Uploading flyer',
+    ));
+
+    final FlyerModel _flyerToUpdate = DraftFlyerModel.bakeDraftToUpload(
+      draft: draft.value,
+    );
+
+    final BzModel _bzModel = await BzProtocols.fetchBz(
+        context: context,
+        bzID: oldFlyer.bzID,
+    );
+
+    await FlyerProtocols.renovateFlyer(
+      context: context,
+      newFlyer: _flyerToUpdate,
+      oldFlyer: oldFlyer,
+      bzModel: _bzModel,
+      sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
+      updateFlyerLocally: _bzModel.authors.length == 1,
+      resetActiveBz: _bzModel.authors.length == 1,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
 
 }
 // -----------------------------------------------------------------------------
@@ -288,388 +700,4 @@ Future<void> _scrollToBottom({
 
 }
 */
-// -----------------------------------------------------------------------------
-
-/// CANCEL FLYER EDITING
-
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onCancelFlyerCreation(BuildContext context) async {
-
-  final bool result = await CenterDialog.showCenterDialog(
-    context: context,
-    boolDialog: true,
-    titleVerse:  '##Cancel Flyer',
-    bodyVerse:  '##All progress in this flyer will be lost',
-    confirmButtonVerse:  '##Yes Cancel',
-  );
-
-  if (result == true){
-    Nav.goBack(
-      context: context,
-      invoker: 'onCancelFlyerCreation',
-    );
-  }
-
-}
-// -----------------------------------------------------------------------------
-
-/// FLYER EDITING
-
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-void onUpdateFlyerHeadline({
-  @required ValueNotifier<DraftFlyerModel> draft,
-}){
-
-  draft.value = DraftFlyerModel.updateHeadline(
-    draft: draft.value,
-  );
-
-}
-// ----------------------------------
-String flyerHeadlineValidator({
-  @required TextEditingController headlineController,
-}){
-
-  final bool _isEmpty = headlineController.text.trim() == '';
-  final bool _isShort = headlineController.text.length < Standards.flyerHeadlineMinLength;
-
-  if (_isEmpty){
-    return "Can not publish a flyer without a title as it's used in the search engine";
-  }
-  else if (_isShort){
-    return 'Flyer title can not be less than 10 characters';
-  }
-  else {
-    return null;
-  }
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onSelectFlyerType({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
-
-  if (draft.value.flyerType != _selectedFlyerType){
-
-  bool _canUpdate = true;
-
-    /// SOME SPECS ARE SELECTED
-    if (Mapper.checkCanLoopList(draft.value.specs) == true){
-
-      _canUpdate = await CenterDialog.showCenterDialog(
-        context: context,
-        titleVerse:  '##Delete selected Specifications ?',
-        bodyVerse:  '##All selected specifications will be deleted\nDo you wish to continue ?',
-        boolDialog: true,
-      );
-
-    }
-
-    if (_canUpdate == true){
-      draft.value = draft.value.copyWith(
-        flyerType: _selectedFlyerType,
-        specs: <SpecModel>[],
-      );
-
-    }
-
-  }
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onAddSpecsTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  final String _flyerTypeString = FlyerTyper.translateFlyerType(
-    context: context,
-    flyerType: draft.value.flyerType,
-    pluralTranslation: false,
-  );
-
-  final dynamic _result = await Nav.goToNewScreen(
-      context: context,
-      screen: ChainsScreen(
-        pageTitleVerse:  '##$_flyerTypeString Specifications',
-        selectedSpecs: draft.value.specs,
-        isMultipleSelectionMode: true,
-        onlyUseCityChains: false,
-        flyerTypesChainFilters: [draft.value.flyerType],
-        zone: draft.value.zone,
-      )
-  );
-
-  final List<SpecModel> _receivedSpecs = _result;
-
-  if (Mapper.checkCanLoopList(_receivedSpecs) == true){
-
-    SpecModel.blogSpecs(_receivedSpecs);
-
-    draft.value = draft.value.copyWith(
-      specs: _receivedSpecs,
-    );
-
-  }
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onZoneChanged({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-  @required ZoneModel zone,
-}) async {
-
-  draft.value = draft.value.copyWith(
-    zone: zone,
-  );
-
-}
-// -----------------------------------------------------------------------------
-
-/// PUBLISHING FLYER
-
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onPublishNewFlyerTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-  @required GlobalKey<FormState> formKey,
-}) async {
-
-  final bool _canContinue = await _prePublishFlyerCheck(
-    context: context,
-    draft: draft,
-    formKey: formKey,
-  );
-
-  if (_canContinue == true){
-
-    await _publishFlyerOps(
-      context: context,
-      draft: draft,
-    );
-
-    Nav.goBack(
-      context: context,
-      invoker: 'onPublishNewFlyerTap',
-    );
-
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'phid_flyer_has_been_published',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    );
-
-  }
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> onPublishFlyerUpdatesTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-  @required GlobalKey<FormState> formKey,
-  @required FlyerModel originalFlyer,
-}) async {
-
-  bool _canContinue = await _prePublishFlyerCheck(
-    context: context,
-    draft: draft,
-    formKey: formKey,
-  );
-
-  _canContinue = await _preFlyerUpdateCheck(
-    context: context,
-    draft: draft,
-    originalFlyer: originalFlyer,
-  );
-
-  if (_canContinue == true){
-
-    blog('cool you can go fuck yourself now');
-
-    await _updateFlyerOps(
-      context: context,
-      draft: draft,
-      oldFlyer: originalFlyer,
-    );
-
-    Nav.goBack(
-      context: context,
-      invoker: 'onPublishFlyerUpdatesTap',
-    );
-
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'phid_flyer_has_been_updated',
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    );
-
-
-  }
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<bool> _preFlyerUpdateCheck({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-  @required FlyerModel originalFlyer,
-}) async {
-
-  final FlyerModel flyerFromDraft = draft.value.toFlyerModel();
-
-  final bool _areIdentical = FlyerModel.checkFlyersAreIdentical(
-    flyer1: originalFlyer,
-    flyer2: flyerFromDraft,
-  );
-
-  bool _canContinue;
-
-  if (_areIdentical == true){
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse:  '##Flyer was not changed',
-    );
-
-    _canContinue = false;
-
-  }
-  else {
-    _canContinue = true;
-  }
-
-  return _canContinue;
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<bool> _prePublishFlyerCheck({
-  @required BuildContext context,
-  @required GlobalKey<FormState> formKey,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  bool _canContinue = false;
-
-
-  if (draft.value.mutableSlides.isEmpty){
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse:  '##Add Images',
-      bodyVerse:  '##Add at least one image to the flyer',
-    );
-
-  }
-
-  else {
-
-    final bool _isValid = formKey.currentState.validate();
-    blog('_publishFlyerOps : fields are valid : $_isValid');
-
-    if (_isValid == false){
-
-      if (draft.value.headlineController.text.length < 10){
-        TopDialog.showUnawaitedTopDialog(
-          context: context,
-          firstLine: 'Flyer headline can not be less than 10 characters long',
-        );
-      }
-
-    }
-
-    else {
-      _canContinue = true;
-    }
-
-  }
-
-  return _canContinue;
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> _publishFlyerOps({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-}) async {
-
-  unawaited(WaitDialog.showWaitDialog(
-        context: context,
-        loadingVerse: '##Uploading flyer',
-      ));
-
-  final FlyerModel _flyerToPublish = draft.value.toFlyerModel().copyWith(
-    publishState: PublishState.published,
-  );
-
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: false,
-  );
-
-  await FlyerProtocols.composeFlyer(
-    context: context,
-    flyerModel: _flyerToPublish,
-    bzModel: _bzModel,
-  );
-
-  WaitDialog.closeWaitDialog(context);
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> _updateFlyerOps({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyerModel> draft,
-  @required FlyerModel oldFlyer,
-}) async {
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse:  '##Update Flyer ?',
-    boolDialog: true,
-    confirmButtonVerse:  '##Update',
-  );
-
-  if (_result == true){
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingVerse: '##Uploading flyer',
-    ));
-
-    final FlyerModel _flyerToUpdate = draft.value.toFlyerModel();
-
-    final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
-        bzID: oldFlyer.bzID,
-    );
-
-    await FlyerProtocols.renovateFlyer(
-      context: context,
-      newFlyer: _flyerToUpdate,
-      oldFlyer: oldFlyer,
-      bzModel: _bzModel,
-      sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
-      updateFlyerLocally: _bzModel.authors.length == 1,
-      resetActiveBz: _bzModel.authors.length == 1,
-    );
-
-    WaitDialog.closeWaitDialog(context);
-
-  }
-
-}
 // -----------------------------------------------------------------------------
