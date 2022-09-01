@@ -64,7 +64,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
 
-    initializeLocalVariables(
+    initializeUserEditorLocalVariables(
       context: context,
       oldUserModel: widget.userModel,
       tempUser: _tempUser,
@@ -125,7 +125,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: 'phid_update_profile',
       loading: _loading,
-
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_updateProfile',
         onSkipTap: (){

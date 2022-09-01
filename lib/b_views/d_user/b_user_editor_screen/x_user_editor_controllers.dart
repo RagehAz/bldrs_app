@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
-void initializeLocalVariables({
+void initializeUserEditorLocalVariables({
   @required BuildContext context,
   @required UserModel oldUserModel,
   @required ValueNotifier<UserModel> tempUser,
@@ -173,12 +173,11 @@ Future<void> confirmEdits({
 
   final UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
     context: context,
-    existingModel: oldUserModel,
-    tempUser: tempUser.value.copyWith(
-      name: nameController.text,
-      title: titleController.text,
-      company: companyController.text,
-    ),
+    oldUser: oldUserModel,
+    tempUser: tempUser.value,
+    titleController: titleController,
+    nameController: nameController,
+    companyController: companyController,
   );
 
   final bool _canContinue = _inputsAreValid(

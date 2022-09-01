@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
-import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
@@ -18,13 +18,13 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
 
-// ---------------------------------------
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 void initializeLocalVariables({
   @required BuildContext context,
   @required BzModel oldBzModel,
@@ -44,18 +44,13 @@ void initializeLocalVariables({
     listen: false,
   );
   // -------------------------
-  final BzModel _initialBzModel = firstTimer == true ?
-  BzModel.convertFireUserDataIntoInitialBzModel(_userModel)
-      :
-  oldBzModel;
-  // -------------------------
-  tempBz.value = _initialBzModel.copyWith(
-    logo: FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
-    contacts: ContactModel.initializeContactsForEditing(
-      countryID: _initialBzModel.zone.countryID,
-      contacts: _initialBzModel.contacts,
-    ),
+  final BzModel _initialBzModel = BzModel.initializeModelForEditing(
+      oldBzModel: oldBzModel,
+      firstTimer: firstTimer,
+      userModel: _userModel,
   );
+  // -------------------------
+  tempBz.value = _initialBzModel;
   // -------------------------
   nameController.text = _initialBzModel.name;
   aboutController.text = _initialBzModel.about;
@@ -74,9 +69,9 @@ void initializeLocalVariables({
   inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
   // -------------------------
 }
-// ---------------------------------------
-///
-Future<void> prepareBzZoneAndPicForEditing({
+// ---------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> prepareBzZoneAndLogoForEditing({
   @required BuildContext context,
   @required ValueNotifier<BzModel> tempBz,
 }) async {
@@ -99,8 +94,8 @@ Future<void> prepareBzZoneAndPicForEditing({
 
   /// BZ MODEL EDITORS
 
-// ----------------------------------
-
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectBzSection({
   @required BuildContext context,
   @required int index,
@@ -142,8 +137,8 @@ Future<void> onSelectBzSection({
   }
 
 }
-// ----------------------------------
-
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectBzType({
   @required BuildContext context,
   @required int index,
@@ -198,8 +193,8 @@ Future<void> onSelectBzType({
   }
 
 }
-// ----------------------------------
-
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 void onSelectBzForm({
   @required int index,
   @required ValueNotifier<BzModel> tempBz,
@@ -210,8 +205,8 @@ void onSelectBzForm({
   );
 
 }
-// ----------------------------------
-///
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> takeBzLogo({
   @required BuildContext context,
   @required ValueNotifier<BzModel> tempBz,
@@ -260,8 +255,8 @@ Future<void> takeBzLogo({
   }
 
 }
-// ----------------------------------
-
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 void onBzZoneChanged({
   @required ZoneModel zoneModel,
   @required ValueNotifier<BzModel> tempBz,
@@ -270,8 +265,8 @@ void onBzZoneChanged({
     zone: zoneModel,
   );
 }
-// ----------------------------------
-
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onAddScopesTap({
   @required BuildContext context,
   @required ValueNotifier<BzModel> tempBz,
@@ -303,7 +298,8 @@ Future<void> onAddScopesTap({
 
 /// DIALOGS
 
-// ----------------------------------
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<bool> _resetScopeDialog(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -321,7 +317,8 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
 
 /// VALIDATION - UPLOADING - CONFIRMATION
 
-// ----------------------------------
+// ---------------------------------
+/// TESTED : WORKS PERFECT
 Future<void> onBzEditsConfirmTap({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -334,11 +331,11 @@ Future<void> onBzEditsConfirmTap({
   @required ValueNotifier<BzModel> tempBz,
 }) async {
 
-  final BzModel _newBzModel = newCreateBzModelFromLocalVariables(
+  final BzModel _newBzModel = BzModel.backEditorVariablesToUpload(
     selectedScopes: selectedScopes,
     oldBzModel: initialBzModel.value,
-    bzNameTextController: bzNameTextController,
-    bzAboutTextController: bzAboutTextController,
+    bzNameController: bzNameTextController,
+    bzAboutController: bzAboutTextController,
     tempBz: tempBz,
   );
 
@@ -447,328 +444,4 @@ bool _errorIsOn({
   return _isError;
 
  */
-// ----------------------------------
-
-BzModel newCreateBzModelFromLocalVariables({
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required BzModel oldBzModel,
-  @required TextEditingController bzNameTextController,
-  @required TextEditingController bzAboutTextController,
-  @required ValueNotifier<BzModel> tempBz,
-}){
-
-  final BzModel _bzModel = BzModel(
-    id: oldBzModel.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
-    bzTypes: tempBz.value.bzTypes,
-    bzForm: tempBz.value.bzForm,
-    createdAt: oldBzModel.createdAt, /// WILL BE OVERRIDDEN
-    accountType: oldBzModel.accountType, /// NEVER CHANGED
-    name: bzNameTextController.text,
-    trigram: Stringer.createTrigram(input: bzNameTextController.text),
-    logo: FileModel.bakeFileForUpload(
-      newFile: tempBz.value.logo,
-      existingPic: oldBzModel.logo,
-    ),
-    scope: SpecModel.getSpecsIDs(selectedScopes.value),
-    zone: tempBz.value.zone,
-    about: bzAboutTextController.text,
-    position: tempBz.value.position,
-    contacts: ContactModel.bakeContactsAfterEditing(
-      contacts: tempBz.value.contacts,
-      countryID: tempBz.value.zone.countryID,
-    ),
-    authors: oldBzModel.authors, /// NEVER CHANGED
-    showsTeam: oldBzModel.showsTeam, /// NEVER CHANGED
-    isVerified: oldBzModel.isVerified, /// NEVER CHANGED
-    bzState: oldBzModel.bzState, /// NEVER CHANGED
-    flyersIDs: oldBzModel.flyersIDs, /// NEVER CHANGED
-  );
-
-  return _bzModel;
-}
-// -----------------------------------------------------------------------------
-
-  /// DEPRECATED
-
-// ----------------------------------
-/// DEPRECATED
-Future<void> oldOnSelectBzSection({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<BzSection> selectedBzSection,
-  @required ValueNotifier<List<BzType>> inactiveBzTypes,
-  @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<BzForm> selectedBzForm,
-  @required ValueNotifier<List<BzForm>> inactiveBzForms,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-}) async {
-
-  bool _canContinue = true;
-
-  if (Mapper.checkCanLoopList(selectedScopes.value) == true){
-    _canContinue = await _resetScopeDialog(context);
-  }
-
-  if (_canContinue == true){
-
-    final BzSection _selectedSection = BzModel.bzSectionsList[index];
-    final List<BzType> _generatedInactiveBzTypes = BzModel.concludeDeactivatedBzTypesBySection(
-      bzSection: _selectedSection,
-    );
-
-    selectedBzSection.value = _selectedSection;
-    inactiveBzTypes.value = _generatedInactiveBzTypes;
-    selectedBzTypes.value = <BzType>[];
-    selectedBzForm.value = null;
-    inactiveBzForms.value = null;
-    selectedScopes.value = <SpecModel>[];
-
-  }
-
-}
-// ----------------------------------
-/// DEPRECATED
-Future<void> oldOnSelectBzType({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<BzType>> inactiveBzTypes,
-  @required ValueNotifier<BzSection> selectedBzSection,
-  @required ValueNotifier<List<BzForm>> inactiveBzForms,
-  @required ValueNotifier<BzForm> selectedBzForm,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-}) async {
-
-  bool _canContinue = true;
-
-  if (Mapper.checkCanLoopList(selectedScopes.value) == true){
-    _canContinue = await _resetScopeDialog(context);
-  }
-
-  if (_canContinue == true){
-
-    final BzType _selectedBzType = BzModel.bzTypesList[index];
-
-    /// UPDATE SELECTED BZ TYPES
-    selectedBzTypes.value = BzModel.addOrRemoveBzTypeToBzzTypes(
-      selectedBzTypes: selectedBzTypes.value,
-      newSelectedBzType: _selectedBzType,
-    );
-
-    /// INACTIVE OTHER BZ TYPES
-    inactiveBzTypes.value = BzModel.concludeDeactivatedBzTypesBasedOnSelectedBzTypes(
-      newSelectedType: _selectedBzType,
-      selectedBzTypes: selectedBzTypes.value,
-      selectedBzSection: selectedBzSection.value,
-    );
-
-    /// INACTIVATE BZ FORMS
-    inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(selectedBzTypes.value);
-
-    /// UN SELECT BZ FORM
-    selectedBzForm.value = null;
-
-    /// BZ SCOPE
-    selectedScopes.value = <SpecModel>[];
-
-  }
-
-}
-// ----------------------------------
-/// DEPRECATED
-void oldOnSelectBzForm({
-  @required int index,
-  @required ValueNotifier<BzForm> selectedBzForm,
-}){
-
-  selectedBzForm.value = BzModel.bzFormsList[index];
-
-}
-// ----------------------------------
-/// DEPRECATED
-Future<void> oldTakeBzLogo({
-  @required BuildContext context,
-  @required ValueNotifier<FileModel> bzLogo,
-  @required ImagePickerType imagePickerType,
-}) async {
-
-  FileModel _imageFileModel;
-
-  if(imagePickerType == ImagePickerType.galleryImage){
-    _imageFileModel = await Imagers.pickAndCropSingleImage(
-      context: context,
-      cropAfterPick: true,
-      isFlyerRatio: false,
-      resizeToWidth: Standards.logoWidthPixels,
-    );
-  }
-  else if (imagePickerType == ImagePickerType.cameraImage){
-    _imageFileModel = await Imagers.shootAndCropCameraImage(
-      context: context,
-      cropAfterPick: true,
-      isFlyerRatio: false,
-      resizeToWidth: Standards.logoWidthPixels,
-    );
-  }
-
-  if (_imageFileModel != null){
-    bzLogo.value = _imageFileModel;
-  }
-
-}
-// ----------------------------------
-/// DEPRECATED
-void oldOnBzZoneChanged({
-  @required ZoneModel zoneModel,
-  @required ValueNotifier<ZoneModel> bzZone,
-}){
-  bzZone.value = zoneModel;
-}
-// ----------------------------------
-/// DEPRECATED
-Future<void> oldOnAddScopesTap({
-  @required BuildContext context,
-  @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required ValueNotifier<ZoneModel> bzZone,
-}) async {
-
-  Keyboard.closeKeyboard(context);
-
-  final List<SpecModel> _result = await Nav.goToNewScreen(
-    context: context,
-    transitionType: Nav.superHorizontalTransition(context),
-    screen: ChainsScreen(
-      flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: selectedBzTypes.value),
-      onlyUseCityChains: false,
-      isMultipleSelectionMode: true,
-      pageTitleVerse: '##Select keywords',
-      selectedSpecs: selectedScopes.value,
-      onlyChainKSelection: true,
-      zone: bzZone.value,
-    ),
-  );
-
-  if (_result != null){
-    selectedScopes.value = _result;
-  }
-
-}
-// ----------------------------------
-/// DEPRECATED
-Future<void> oldOnBzEditsConfirmTap({
-  @required BuildContext context,
-  @required GlobalKey<FormState> formKey,
-  @required ValueNotifier<List<AlertModel>> missingFields,
-  @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required ValueNotifier<BzForm> selectedBzForm,
-  @required TextEditingController bzNameTextController,
-  @required ValueNotifier<dynamic> bzLogo,
-  @required ValueNotifier<ZoneModel> bzZone,
-  @required TextEditingController bzAboutTextController,
-  @required ValueNotifier<GeoPoint> bzPosition,
-  @required ValueNotifier<List<ContactModel>> bzContacts,
-  @required BzModel initialBzModel,
-  @required bool firstTimer,
-  @required UserModel userModel,
-}) async {
-
-  final BzModel _newBzModel = oldCreateBzModelFromLocalVariables(
-    selectedBzTypes: selectedBzTypes,
-    selectedScopes: selectedScopes,
-    selectedBzForm: selectedBzForm,
-    initialBzModel: initialBzModel,
-    bzNameTextController: bzNameTextController,
-    bzLogo: bzLogo,
-    bzZone: bzZone,
-    bzAboutTextController: bzAboutTextController,
-    bzPosition: bzPosition,
-    bzContacts: bzContacts,
-  );
-
-  /// ONLY VALIDATION TO INPUTS
-  final bool _inputsAreValid = await _validateInputs(
-    context: context,
-    bzModel: _newBzModel,
-    formKey: formKey,
-    missingFields: missingFields,
-  );
-
-  if (_inputsAreValid == true){
-
-    /// REQUEST CONFIRMATION
-    final bool _canContinue = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse:  '',
-      bodyVerse:  '##Are you sure you want to continue ?',
-      boolDialog: true,
-    );
-
-    if (_canContinue == true){
-
-      if (firstTimer == true){
-        await BzProtocols.composeBz(
-          context: context,
-          newBzModel: _newBzModel,
-          userModel: userModel,
-        );
-      }
-
-      else {
-        await BzProtocols.renovateBz(
-          context: context,
-          newBzModel: _newBzModel,
-          oldBzModel: initialBzModel,
-          showWaitDialog: true,
-          navigateToBzInfoPageOnEnd: true,
-        );
-      }
-
-    }
-
-  }
-
-}
-// ----------------------------------
-/// DEPRECATED
-BzModel oldCreateBzModelFromLocalVariables({
-  @required ValueNotifier<List<BzType>> selectedBzTypes,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required ValueNotifier<BzForm> selectedBzForm,
-  @required BzModel initialBzModel,
-  @required TextEditingController bzNameTextController,
-  @required ValueNotifier<FileModel> bzLogo,
-  @required ValueNotifier<ZoneModel> bzZone,
-  @required TextEditingController bzAboutTextController,
-  @required ValueNotifier<GeoPoint> bzPosition,
-  @required ValueNotifier<List<ContactModel>> bzContacts,
-}){
-
-  final BzModel _bzModel = BzModel(
-    id: initialBzModel.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
-    bzTypes: selectedBzTypes.value,
-    bzForm: selectedBzForm.value,
-    createdAt: initialBzModel.createdAt, /// WILL BE OVERRIDDEN
-    accountType: initialBzModel.accountType, /// NEVER CHANGED
-    name: bzNameTextController.text,
-    trigram: Stringer.createTrigram(input: bzNameTextController.text),
-    logo: bzLogo.value.file, /// WILL CHECK DATA TYPE
-    scope: SpecModel.getSpecsIDs(selectedScopes.value),
-    zone: bzZone.value,
-    about: bzAboutTextController.text,
-    position: bzPosition.value,
-    contacts: ContactModel.bakeContactsAfterEditing(
-      contacts: bzContacts.value,
-      countryID: initialBzModel.zone.countryID,
-    ),
-    authors: initialBzModel.authors, /// NEVER CHANGED
-    showsTeam: initialBzModel.showsTeam, /// NEVER CHANGED
-    isVerified: initialBzModel.isVerified, /// NEVER CHANGED
-    bzState: initialBzModel.bzState, /// NEVER CHANGED
-    flyersIDs: initialBzModel.flyersIDs, /// NEVER CHANGED
-  );
-
-  return _bzModel;
-}
-// -----------------------------------------------------------------------------
+// ---------------------------------
