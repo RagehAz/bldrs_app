@@ -34,7 +34,7 @@ void initializeUserEditorLocalVariables({
 
   final UserModel _initialModel = UserModel.initializeModelForEditing(
     context: context,
-    userModel: oldUserModel,
+    oldUser: oldUserModel,
   );
 
   tempUser.value = _initialModel;

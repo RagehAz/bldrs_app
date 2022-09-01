@@ -35,26 +35,20 @@ class FlyerMakerScreenView extends StatelessWidget {
     @required this.formKey,
     @required this.scrollController,
     @required this.draft,
-    @required this.headlineController,
     @required this.loading,
     @required this.isEditingFlyer,
     @required this.originalFlyer,
     @required this.appBarType,
-    @required this.headlineNode,
-    @required this.descriptionNode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
   final ScrollController scrollController;
   final ValueNotifier<DraftFlyerModel> draft;
-  final TextEditingController headlineController;
   final ValueNotifier<bool> loading;
   final bool isEditingFlyer;
   final FlyerModel originalFlyer;
   final AppBarType appBarType;
-  final FocusNode headlineNode;
-  final FocusNode descriptionNode;
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -123,7 +117,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                                 bzModel: _bzModel,
                                 shelfNumber: 1,
                                 draft: draft,
-                                headlineController: headlineController,
                                 isEditingFlyer: isEditingFlyer,
                               ),
 
@@ -135,11 +128,11 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// FLYER HEADLINE
                           TextFieldBubble(
                             globalKey: formKey,
-                            focusNode: headlineNode,
+                            focusNode: _draft.headlineNode,
                             appBarType: appBarType,
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
-                            textController: headlineController,
+                            textController: _draft.headlineController,
                             titleVerse: '##Flyer Headline',
                             fieldIsRequired: true,
                             counterIsOn: true,
@@ -149,10 +142,9 @@ class FlyerMakerScreenView extends StatelessWidget {
                             // fieldIsRequired: false,
                             textOnChanged: (String text) => onUpdateFlyerHeadline(
                               draft: draft,
-                              headlineController: headlineController,
                             ),
                             validator: () => flyerHeadlineValidator(
-                              headlineController: headlineController,
+                              headlineController: _draft.headlineController,
                             ),
                             // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
                           ),
@@ -160,7 +152,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
                             globalKey: formKey,
-                            focusNode: descriptionNode,
+                            focusNode: _draft.headlineNode,
                             appBarType: appBarType,
                             key: const ValueKey<String>('bz_scope_bubble'),
                             textController: _draft.descriptionController,
