@@ -151,7 +151,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
             selectedScopes: _selectedScopes,
             bzAboutTextController: _aboutController,
             bzNameTextController: _nameController,
-            initialBzModel: _initialBzModel,
+            oldBz: widget.bzModel,
             firstTimer: widget.firstTimer,
             tempBz: _tempBz,
           )
