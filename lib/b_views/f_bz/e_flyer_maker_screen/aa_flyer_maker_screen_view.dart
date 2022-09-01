@@ -133,7 +133,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
                             textController: _draft.headlineController,
-                            titleVerse: '##Flyer Headline',
+                            titleVerse: 'phid_flyer_headline',
                             fieldIsRequired: true,
                             counterIsOn: true,
                             maxLength: 50,
@@ -152,11 +152,11 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
                             globalKey: formKey,
-                            focusNode: _draft.headlineNode,
+                            focusNode: _draft.descriptionNode,
                             appBarType: appBarType,
                             key: const ValueKey<String>('bz_scope_bubble'),
                             textController: _draft.descriptionController,
-                            titleVerse: '##Flyer Description',
+                            titleVerse: 'phid_flyer_description',
                             counterIsOn: true,
                             maxLength: 1000,
                             maxLines: 7,

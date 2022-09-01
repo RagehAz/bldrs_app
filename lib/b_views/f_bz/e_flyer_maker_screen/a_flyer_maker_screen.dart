@@ -123,26 +123,12 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       confirmButtonModel: ConfirmButtonModel(
           // isDeactivated: !_canPublish,
           firstLine: _isEditingFlyer == true ? '##Update Flyer' : 'phid_publish',
-          onTap: () async {
-
-            if (_isEditingFlyer == true){
-              await onPublishFlyerUpdatesTap(
-                context: context,
-                draft: _draftFlyer,
-                formKey: _formKey,
-                originalFlyer: widget.flyerToEdit,
-              );
-            }
-
-            else {
-              await onPublishNewFlyerTap(
-                context: context,
-                draft: _draftFlyer,
-                formKey: _formKey,
-              );
-            }
-
-          }
+          onTap: () => onConfirmPublishFlyerButtonTap(
+            context: context,
+            formKey: _formKey,
+            oldFlyer: widget.flyerToEdit,
+            draft: _draftFlyer,
+          )
       ),
       appBarRowWidgets: <Widget>[
 
@@ -154,9 +140,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
             FlyerModel.checkFlyersAreIdentical(
                 flyer1: widget.flyerToEdit,
-                flyer2: _draftFlyer.value.toFlyerModel(),
+                flyer2: DraftFlyerModel.bakeDraftToUpload(
+                  draft: _draftFlyer.value,
+                ),
             );
-
 
           },
         ),
