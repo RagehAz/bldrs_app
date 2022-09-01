@@ -356,7 +356,7 @@ class MutableSlide {
 
     if (Mapper.checkCanLoopList(mutableSlides)) {
       for (final MutableSlide mSlide in mutableSlides) {
-        TextChecker.disposeControllerIfPossible(mSlide?.headline);
+        // TextChecker.disposeControllerIfPossible(mSlide?.headline);
         TextChecker.disposeControllerIfPossible(mSlide?.description);
       }
     }

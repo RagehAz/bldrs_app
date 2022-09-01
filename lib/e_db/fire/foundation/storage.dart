@@ -386,7 +386,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     ValueChanged<FileModel> onFinished,
   }) async {
 
-    FileModel _pdf = pdf.copyWith();
+    FileModel _pdf = pdf?.copyWith();
 
     if (pdf != null && (pdf.file != null || pdf.url != null)){
 
