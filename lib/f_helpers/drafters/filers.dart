@@ -318,34 +318,40 @@ class Filers {
 // ---------------------
   /// TESTED : WORKS PERFECT
   static Future<File> getFileFromURL(String fileURL) async {
-    blog('getFileFromURL : START');
-    /// generate random number.
-    final Random _rng = Random();
-    blog('getFileFromURL : _rng : $_rng');
+    File _file;
 
-    /// get temporary directory of device.
-    final Directory _tempDir = await getTemporaryDirectory();
-    blog('getFileFromURL : _tempDir : $_tempDir');
+    if (fileURL != null){
+      blog('getFileFromURL : START');
+      /// generate random number.
+      final Random _rng = Random();
+      blog('getFileFromURL : _rng : $_rng');
 
-    /// get temporary path from temporary directory.
-    final String _tempPath = _tempDir.path;
-    blog('getFileFromURL : _tempPath : $_tempPath');
+      /// get temporary directory of device.
+      final Directory _tempDir = await getTemporaryDirectory();
+      blog('getFileFromURL : _tempDir : $_tempDir');
 
-    /// create a new file in temporary path with random file name.
-    final File _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
-    blog('getFileFromURL : _file : $_file');
+      /// get temporary path from temporary directory.
+      final String _tempPath = _tempDir.path;
+      blog('getFileFromURL : _tempPath : $_tempPath');
 
-    /// call http.get method and pass imageUrl into it to get response.
-    final Uri _imageUri = Uri.parse(fileURL);
-    final http.Response _response = await http.get(_imageUri);
-    blog('getFileFromURL : _response : $_response');
+      /// create a new file in temporary path with random file name.
+      _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
+      blog('getFileFromURL : _file : $_file');
 
-    /// write bodyBytes received in response to file.
-    await _file.writeAsBytes(_response.bodyBytes);
-    blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
+      /// call http.get method and pass imageUrl into it to get response.
+      final Uri _imageUri = Uri.parse(fileURL);
+      final http.Response _response = await http.get(_imageUri);
+      blog('getFileFromURL : _response : $_response');
 
-    /// now return the file which is created with random name in
-    /// temporary directory and image bytes from response is written to // that file.
+      /// write bodyBytes received in response to file.
+      await _file.writeAsBytes(_response.bodyBytes);
+      blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
+
+      /// now return the file which is created with random name in
+      /// temporary directory and image bytes from response is written to // that file.
+
+    }
+
     return _file;
   }
 // ---------------------------------------

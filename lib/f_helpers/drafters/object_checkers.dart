@@ -35,7 +35,7 @@ class ObjectChecker {
     null;
   }
 // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
+  /// BUG : /data/user/0/com.bldrs.net/cache66 IS CONSIDERED URL
   static bool objectIsURL(dynamic file) {
     bool _validURL;
 

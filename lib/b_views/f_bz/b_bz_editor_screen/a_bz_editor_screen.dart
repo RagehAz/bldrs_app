@@ -32,7 +32,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<BzModel> _tempBz = ValueNotifier<BzModel>(null);
-  final ValueNotifier<BzModel> _initialBzModel = ValueNotifier<BzModel>(null);
+  // final ValueNotifier<BzModel> _initialBzModel = ValueNotifier<BzModel>(null);
   // --------------------
   final TextEditingController _nameController = TextEditingController();
   final FocusNode _nameNode = FocusNode();
@@ -70,7 +70,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       context: context,
       tempBz: _tempBz,
       oldBzModel: widget.bzModel,
-      initialBzModel: _initialBzModel,
       firstTimer: widget.firstTimer,
       nameController: _nameController,
       aboutController: _aboutController,
@@ -79,6 +78,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       selectedBzSection: _selectedBzSection,
       selectedScopes: _selectedScopes,
     );
+
+    _tempBz.addListener(() {
+      _saveSession();
+    });
+    _nameController.addListener(() {
+      _saveSession();
+    });
+    _aboutController.addListener(() {
+      _saveSession();
+    });
+    _selectedScopes.addListener(() {
+      _saveSession();
+    });
 
   }
 // -----------------------------------
@@ -92,6 +104,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         await prepareBzZoneAndLogoForEditing(
           context: context,
           tempBz: _tempBz,
+        );
+// -------------------------------
+        await loadBzEditorLastSession(
+          context: context,
+          nameController: _nameController,
+          tempBz: _tempBz,
+          selectedScopes: _selectedScopes,
+          selectedBzSection: _selectedBzSection,
+          inactiveBzTypes: _inactiveBzTypes,
+          inactiveBzForms: _inactiveBzForms,
+          aboutController: _aboutController,
+          firstTimer: widget.firstTimer,
+          oldBz: widget.bzModel,
         );
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
@@ -124,9 +149,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     ContactModel.disposeContactsControllers(_tempBz.value.contacts);
     _tempBz.dispose();
-    _initialBzModel.dispose();
+    // _initialBzModel.dispose();
 
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _saveSession() async {
+    await saveBzEditorSession(
+        tempBz: _tempBz,
+        nameController: _nameController,
+        aboutController: _aboutController,
+        selectedScopes: _selectedScopes,
+        oldBz: widget.bzModel,
+    );
   }
 // -----------------------------------------------------------------------------
   @override

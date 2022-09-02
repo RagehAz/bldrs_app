@@ -10,8 +10,10 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -28,7 +30,6 @@ import 'package:flutter/material.dart';
 void initializeLocalVariables({
   @required BuildContext context,
   @required BzModel oldBzModel,
-  @required ValueNotifier<BzModel> initialBzModel,
   @required ValueNotifier<BzModel> tempBz,
   @required bool firstTimer,
   @required TextEditingController nameController,
@@ -50,8 +51,6 @@ void initializeLocalVariables({
       userModel: _userModel,
   );
   // -------------------------
-  tempBz.value = _initialBzModel;
-  // -------------------------
   nameController.text = _initialBzModel.name;
   aboutController.text = _initialBzModel.about;
   // -------------------------
@@ -65,8 +64,10 @@ void initializeLocalVariables({
     bzSection: selectedBzSection.value,
     initialBzTypes: _initialBzModel.bzTypes,
   );
-  initialBzModel.value = _initialBzModel;
+  // initialBzModel.value = _initialBzModel;
   inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
+  // -------------------------
+  tempBz.value = _initialBzModel;
   // -------------------------
 }
 // ---------------------------------
@@ -88,6 +89,114 @@ Future<void> prepareBzZoneAndLogoForEditing({
 
 
   tempBz.value = _bzModel;
+
+}
+// -----------------------------------------------------------------------------
+
+/// LAST SESSION
+
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> loadBzEditorLastSession({
+  @required BuildContext context,
+  @required ValueNotifier<BzModel> tempBz,
+  @required bool firstTimer,
+  @required TextEditingController nameController,
+  @required TextEditingController aboutController,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
+  @required ValueNotifier<BzSection> selectedBzSection,
+  @required ValueNotifier<List<BzType>> inactiveBzTypes,
+  @required ValueNotifier<List<BzForm>> inactiveBzForms,
+  @required BzModel oldBz,
+}) async {
+
+  final BzModel _lastSessionBz = await BzLDBOps.loadEditorSession(
+    bzID: oldBz.id,
+  );
+
+  if (_lastSessionBz != null){
+
+    final bool _continue = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: 'phid_load_last_session_data_q',
+      bodyVerse: 'phid_want_to_load_last_session_q',
+      boolDialog: true,
+    );
+
+    if (_continue == true){
+      // -------------------------
+      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+      );
+      // -------------------------
+      final BzModel _initialBzModel = BzModel.initializeModelForEditing(
+        oldBzModel: _lastSessionBz,
+        firstTimer: false,
+        userModel: _userModel,
+      );
+      // -------------------------
+      nameController.text = _initialBzModel.name;
+      aboutController.text = _initialBzModel.about;
+      // -------------------------
+      selectedScopes.value = SpecModel.generateSpecsByPhids(
+        context: context,
+        phids: _initialBzModel.scope,
+      );
+      // -------------------------
+      selectedBzSection.value   = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
+      inactiveBzTypes.value  = BzModel.concludeDeactivatedBzTypesBySection(
+        bzSection: selectedBzSection.value,
+        initialBzTypes: _initialBzModel.bzTypes,
+      );
+      inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      final FileModel _logo = await FileModel.initializePicForEditing(
+        pic: _initialBzModel.logo,
+        fileName: _initialBzModel.id,
+      );
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: _initialBzModel.zone,
+      );
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      tempBz.value = _initialBzModel.copyWith(
+        logo: _logo,
+        zone: _zone,
+      );
+
+    }
+
+  }
+
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> saveBzEditorSession({
+  @required ValueNotifier<BzModel> tempBz,
+  @required TextEditingController nameController,
+  @required TextEditingController aboutController,
+  @required ValueNotifier<List<SpecModel>> selectedScopes,
+  @required BzModel oldBz,
+}) async {
+
+  BzModel newBz = BzModel.backEditorVariablesToUpload(
+    tempBz: tempBz,
+    aboutController: aboutController,
+    nameController: nameController,
+    oldBz: oldBz,
+    selectedScopes: selectedScopes,
+  );
+
+  /// USER PICTURE
+  newBz = newBz.copyWith(
+    logo: FileModel.bakeFileForLDB(newBz.logo),
+  );
+
+  await BzLDBOps.saveEditorSession(
+      bzModel: newBz
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -333,9 +442,9 @@ Future<void> onBzEditsConfirmTap({
 
   final BzModel _newBzModel = BzModel.backEditorVariablesToUpload(
     selectedScopes: selectedScopes,
-    oldBzModel: oldBz,
-    bzNameController: bzNameTextController,
-    bzAboutController: bzAboutTextController,
+    oldBz: oldBz,
+    nameController: bzNameTextController,
+    aboutController: bzAboutTextController,
     tempBz: tempBz,
   );
 
