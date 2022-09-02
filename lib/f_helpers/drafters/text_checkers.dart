@@ -14,6 +14,7 @@ class TextChecker {
   /// LANGUAGE CHECK
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool textIsEnglish(String val) {
     final RegExp exp = RegExp('[a-zA-Z]', multiLine: true, unicode: true);
     bool textIsEnglish;
@@ -335,7 +336,8 @@ class TextChecker {
 
     return _itContainsIt;
   }
-  // -------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool textStartsWith({
     @required String text,
     @required String startsWith, // http

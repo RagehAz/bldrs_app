@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -30,11 +29,15 @@ class DistrictModel{
   final bool isPublic;
   final List<Phrase> phrases; // was not changed in firebase sub docs,, kessa ba2a
 // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// CYPHERS
 
 // -------------------------------------
-  Map<String, Object> toMap({@required bool toJSON}){
+  /// TESTED : WORKS PERFECT
+  Map<String, Object> toMap({
+    @required bool toJSON,
+  }){
     return <String, Object>{
       'countryID' : countryID,
       'cityID' : cityID,
@@ -48,7 +51,8 @@ class DistrictModel{
 
     };
   }
-// -----------------------------------------------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static Map<String,dynamic> cipherDistricts({
     @required List<DistrictModel> districts,
     @required bool toJSON,
@@ -68,8 +72,9 @@ class DistrictModel{
 
     return _districtsMap;
   }
-// -----------------------------------------------------------------------------
-  static DistrictModel decipherDistrictMap(Map<String, dynamic> map){
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static DistrictModel decipherDistrict(Map<String, dynamic> map){
     return DistrictModel(
       countryID : map['countryID'],
       cityID : map['cityID'],
@@ -83,8 +88,9 @@ class DistrictModel{
 
     );
   }
-// -----------------------------------------------------------------------------
-  static List<DistrictModel> decipherDistrictsMap(Map<String, dynamic> map){
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static List<DistrictModel> decipherDistricts(Map<String, dynamic> map){
 
     final List<DistrictModel> _districts = <DistrictModel>[];
 
@@ -95,7 +101,7 @@ class DistrictModel{
 
       for (int i = 0; i<_keys.length; i++){
 
-        final DistrictModel _district = decipherDistrictMap(_values[i]);
+        final DistrictModel _district = decipherDistrict(_values[i]);
 
         _districts.add(_district);
 
@@ -110,6 +116,7 @@ class DistrictModel{
   /// GETTERS
 
 // -------------------------------------
+  /*
   static List<MapModel> getDistrictsNamesMapModels({
     @required BuildContext context,
     @required List<DistrictModel> districts
@@ -141,6 +148,7 @@ class DistrictModel{
 
     return MapModel.sortValuesAlphabetically(_districtsMapModels);
   }
+   */
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static DistrictModel getDistrictFromDistricts({
@@ -362,6 +370,7 @@ class DistrictModel{
   /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkDistrictsAreIdentical(DistrictModel district1, DistrictModel district2){
     bool _identical = false;
 
@@ -390,6 +399,7 @@ class DistrictModel{
     return _identical;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkDistrictsListsAreIdentical(List<DistrictModel> districts1, List<DistrictModel> districts2){
 
       bool _listsAreIdentical = false;
