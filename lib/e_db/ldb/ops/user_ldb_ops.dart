@@ -128,7 +128,7 @@ class UserLDBOps {
 /// EDITOR SESSION
 
 // ---------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> saveEditorSession({
     @required UserModel userModel,
   }) async {
@@ -143,8 +143,8 @@ class UserLDBOps {
     }
 
   }
-  // ---------------------------------
-  ///
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<UserModel> loadEditorSession({
     @required String userID,
   }) async {
@@ -167,11 +167,12 @@ class UserLDBOps {
     return _user;
   }
 // ---------------------------------
-  ///
-  static Future<void> wipeEditorSession() async {
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeEditorSession(String userID) async {
 
-    await LDBOps.deleteAllMapsAtOnce(
-      docName: LDBDoc.userEditor,
+    await LDBOps.deleteMap(
+        objectID: userID,
+        docName: LDBDoc.userEditor,
     );
 
   }

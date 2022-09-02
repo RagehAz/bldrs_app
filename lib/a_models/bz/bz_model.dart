@@ -162,37 +162,37 @@ class BzModel{
   /// TESTED : WORKS PERFECT
   static BzModel backEditorVariablesToUpload({
     @required ValueNotifier<List<SpecModel>> selectedScopes,
-    @required BzModel oldBzModel,
-    @required TextEditingController bzNameController,
-    @required TextEditingController bzAboutController,
+    @required BzModel oldBz,
+    @required TextEditingController nameController,
+    @required TextEditingController aboutController,
     @required ValueNotifier<BzModel> tempBz,
   }){
 
     final BzModel _bzModel = BzModel(
-      id: oldBzModel.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
+      id: oldBz.id, /// WILL BE OVERRIDDEN IN CREATE BZ OPS
       bzTypes: tempBz.value.bzTypes,
       bzForm: tempBz.value.bzForm,
-      createdAt: oldBzModel.createdAt, /// WILL BE OVERRIDDEN
-      accountType: oldBzModel.accountType, /// NEVER CHANGED
-      name: bzNameController.text,
-      trigram: Stringer.createTrigram(input: bzNameController.text),
+      createdAt: oldBz.createdAt, /// WILL BE OVERRIDDEN
+      accountType: oldBz.accountType, /// NEVER CHANGED
+      name: nameController.text,
+      trigram: Stringer.createTrigram(input: nameController.text),
       logo: FileModel.bakeFileForUpload(
         newFile: tempBz.value.logo,
-        existingPic: oldBzModel.logo,
+        existingPic: oldBz.logo,
       ),
       scope: SpecModel.getSpecsIDs(selectedScopes.value),
       zone: tempBz.value.zone,
-      about: bzAboutController.text,
+      about: aboutController.text,
       position: tempBz.value.position,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: tempBz.value.contacts,
         countryID: tempBz.value.zone.countryID,
       ),
-      authors: oldBzModel.authors, /// NEVER CHANGED
-      showsTeam: oldBzModel.showsTeam, /// NEVER CHANGED
-      isVerified: oldBzModel.isVerified, /// NEVER CHANGED
-      bzState: oldBzModel.bzState, /// NEVER CHANGED
-      flyersIDs: oldBzModel.flyersIDs, /// NEVER CHANGED
+      authors: oldBz.authors, /// NEVER CHANGED
+      showsTeam: oldBz.showsTeam, /// NEVER CHANGED
+      isVerified: oldBz.isVerified, /// NEVER CHANGED
+      bzState: oldBz.bzState, /// NEVER CHANGED
+      flyersIDs: oldBz.flyersIDs, /// NEVER CHANGED
     );
 
     return _bzModel;
