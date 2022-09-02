@@ -333,30 +333,30 @@ class Filers {
         showErrorDialog: false,
         invoker: 'getFileFromURL',
       );
-      blog('getFileFromURL : _response : $_response');
+      // blog('getFileFromURL : _response : $_response');
 
       if (_response != null){
 
         /// generate random number.
         final Random _rng = Random();
-        blog('getFileFromURL : _rng : $_rng');
+        // blog('getFileFromURL : _rng : $_rng');
 
         /// get temporary directory of device.
         final Directory _tempDir = await getTemporaryDirectory();
-        blog('getFileFromURL : _tempDir : $_tempDir');
+        // blog('getFileFromURL : _tempDir : $_tempDir');
 
         /// get temporary path from temporary directory.
         final String _tempPath = _tempDir.path;
-        blog('getFileFromURL : _tempPath : $_tempPath');
+        // blog('getFileFromURL : _tempPath : $_tempPath');
 
         /// create a new file in temporary path with random file name.
         _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
-        blog('getFileFromURL : _file : $_file');
+        // blog('getFileFromURL : _file : $_file');
 
 
         /// write bodyBytes received in response to file.
         await _file.writeAsBytes(_response.bodyBytes);
-        blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
+        // blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
 
         /// now return the file which is created with random name in
         /// temporary directory and image bytes from response is written to // that file.

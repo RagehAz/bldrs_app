@@ -299,7 +299,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                           file: _file,
                           fileName: _fileName,
                           size: Filers.getFileSize(_file),
-                          url: null,
+                          // url: null,
                         );
 
                         widget.onChangePDF(_pdf.value);

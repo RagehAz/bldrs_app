@@ -96,6 +96,16 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     super.dispose();
   }
   // --------------------------------------------------------------------------
+  @override
+  void didUpdateWidget(covariant ContactFieldBubble oldWidget) {
+    // if (oldWidget.textController?.text != widget.textController?.text){
+      setState(() {
+        _textController = widget.textController;
+      });
+    // }
+    super.didUpdateWidget(oldWidget);
+  }
+  // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {
     final String value = await FlutterClipboard.paste();
 

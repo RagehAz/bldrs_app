@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -541,8 +540,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     if (widget.isFloatingField != null){
 
-      final bool _keyboardIs = Keyboard.keyboardIsOn(context);
-      blog('tapping keyboard : $_keyboardIs : _controller : ${_controller.hashCode} : widget.isFloatingField : ${widget.isFloatingField}');
+      // final bool _keyboardIs = Keyboard.keyboardIsOn(context);
+      // blog('tapping keyboard : $_keyboardIs : _controller : ${_controller.hashCode} : widget.isFloatingField : ${widget.isFloatingField}');
 
       // final KeyboardModel model = KeyboardModel(
       //   titleVerse: widget.titleVerse,

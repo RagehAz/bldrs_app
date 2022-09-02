@@ -22,6 +22,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // -------------------------------
     const List<ContactType> _types = <ContactType>[
       ContactType.phone,
@@ -54,11 +55,16 @@ class ContactsEditorsBubbles extends StatelessWidget {
             ownerType: contactsOwnerType,
           );
 
-          if (_isBlocked == true){
+          if (_isBlocked == true || _contactType == null){
             return const SizedBox();
           }
 
           else {
+
+            final TextEditingController _controller = ContactModel.getControllerFromContacts(
+              contacts: contacts,
+              contactType: _contactType,
+            );
 
             return ContactFieldBubble(
               globalKey: globalKey,
@@ -76,10 +82,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
                 contactType: _contactType,
                 ownerType: ContactsOwnerType.author,
               ),
-              textController: ContactModel.getControllerFromContacts(
-                contacts: contacts,
-                contactType: _contactType,
-              ),
+              textController: _controller,
               keyboardTextInputAction: TextInputAction.next,
               keyboardTextInputType: ContactModel.concludeContactTextInputType(
                 contactType: _contactType,
