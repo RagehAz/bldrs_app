@@ -294,8 +294,8 @@ class TextChecker {
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool stringContainsSubString({
-    String string,
-    String subString,
+    @required String string,
+    @required String subString,
   }) {
     bool _itContainsIt = false;
 
@@ -312,8 +312,8 @@ class TextChecker {
   // -------------------------------------
   /// TESTED : WORKS PERFECT
   static bool stringContainsSubStringRegExp({
-    String string,
-    String subString,
+    @required String string,
+    @required String subString,
     bool caseSensitive = false,
     // bool multiLine = false
   }) {
@@ -334,6 +334,28 @@ class TextChecker {
     }
 
     return _itContainsIt;
+  }
+  // -------------------------------------
+  static bool textStartsWith({
+    @required String text,
+    @required String startsWith, // http
+  }){
+    bool _output = false;
+
+    if (Stringer.checkStringIsEmpty(text) == false && Stringer.checkStringIsEmpty(startsWith) == false){
+
+      final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
+          input: text,
+          numberOfChars: startsWith.length,
+      );
+
+      if (_cutText == startsWith){
+        _output = true;
+      }
+
+    }
+
+    return _output;
   }
 // -----------------------------------------------------------------------------
 

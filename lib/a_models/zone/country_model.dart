@@ -271,11 +271,11 @@ class CountryModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool countriesIDsAreTheSame(CountryModel countryA, CountryModel countryB) {
+  static bool countriesIDsAreTheSame(CountryModel country1, CountryModel country2) {
     bool _areTheSame = false;
 
-    if (countryA != null && countryB != null) {
-      if (countryA.id == countryB.id) {
+    if (country1 != null && country2 != null) {
+      if (country1.id == country2.id) {
         _areTheSame = true;
       }
     }
@@ -284,33 +284,33 @@ class CountryModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool countriesAreIdentical(CountryModel countryA, CountryModel countryB) {
+  static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
     bool _areTheSame = false;
 
-    if (countryA != null && countryB != null) {
+    if (country1 != null && country2 != null) {
       if (
-      countryA.id == countryB.id
+      country1.id == country2.id
       &&
-      countryA.continent == countryB.continent
+      country1.continent == country2.continent
       &&
-      countryA.region == countryB.region
+      country1.region == country2.region
       &&
-      countryA.currency == countryB.currency
+      country1.currency == country2.currency
       &&
-      countryA.language == countryB.language
+      country1.language == country2.language
       &&
-      Phrase.phrasesListsAreIdentical(
-          phrases1: countryA.phrases,
-          phrases2: countryB.phrases,
+      Phrase.checkPhrasesListsAreIdentical(
+          phrases1: country1.phrases,
+          phrases2: country2.phrases,
       ) == true
       &&
-      countryA.isActivated == countryB.isActivated
+      country1.isActivated == country2.isActivated
       &&
-      countryA.isGlobal == countryB.isGlobal
+      country1.isGlobal == country2.isGlobal
       &&
       Mapper.checkListsAreIdentical(
-          list1: countryA.citiesIDs,
-          list2: countryB.citiesIDs
+          list1: country1.citiesIDs,
+          list2: country2.citiesIDs
       ) == true
       ) {
         _areTheSame = true;
