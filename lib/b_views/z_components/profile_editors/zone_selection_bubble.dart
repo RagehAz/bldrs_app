@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -44,8 +43,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 //   final ValueNotifier<CityModel> _selectedCity = ValueNotifier(null);/// tamam disposed
 //   final ValueNotifier<DistrictModel> _selectedDistrict = ValueNotifier(null);/// tamam disposed
 // ------------------------------------------
-  ValueNotifier<ZoneModel> _selectedZone;
-  ZoneProvider _zoneProvider;
+  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -65,9 +63,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   @override
   void initState() {
     super.initState();
-    _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final ZoneModel _initialZone = widget.currentZone ?? _zoneProvider.currentZone;
-    _selectedZone = ValueNotifier<ZoneModel>(_initialZone);
+
+    final ZoneModel _initialZone = widget.currentZone ?? ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: false,
+    );
+
+    _selectedZone.value = _initialZone;
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
@@ -95,6 +98,23 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     // _selectedCity.dispose();
     // _selectedDistrict.dispose();
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  @override
+  void didUpdateWidget(covariant ZoneSelectionBubble oldWidget) {
+
+    if (ZoneModel.checkZonesIDsAreIdentical(
+        zone1: oldWidget.currentZone,
+        zone2: widget.currentZone,
+    ) == false){
+
+      widget.currentZone.blogZone(methodName: 'didUpdateWidget');
+
+      _selectedZone.value = widget.currentZone;
+
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 // -----------------------------------------------------------------------------
   Future<void> _initializeBubbleZone() async {
@@ -323,6 +343,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
           return ValueListenableBuilder(
             valueListenable: _selectedZone,
             builder: (_, ZoneModel zone, Widget bulletPoints){
+
+              zone.blogZone(methodName: 'koooooooooooooookk');
 
               return Bubble(
                   headerViewModel: BubbleHeaderVM(

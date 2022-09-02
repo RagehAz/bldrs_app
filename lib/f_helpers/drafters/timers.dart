@@ -1079,6 +1079,8 @@ String generateStringsList_index_hh_i_mm_i_ss({
   /// TESTED : WORKS PERFECT
   static Future<DateTime> getInternetUTCTime() async {
 
+    DateTime _dateTime;
+
     const String url = 'http://worldtimeapi.org/api/ip';
 
     final Uri _uri = Uri.parse(url);
@@ -1087,23 +1089,34 @@ String generateStringsList_index_hh_i_mm_i_ss({
       _uri,
     );
 
-    final String _json = _response.body;
+    if (_response.statusCode == 200){
 
-    final Map<String, dynamic> _map = json.decode(_json);
+      final String _json = _response.body;
 
-    // Mapper.blogMap(_map);
+      final Map<String, dynamic> _map = json.decode(_json);
 
-    final String _utcDateTimeString = _map['utc_datetime'];
+      // Mapper.blogMap(_map);
 
-    final DateTime _utcTime = Timers.decipherTime(
-      time: _utcDateTimeString,
-      fromJSON: true,
-    );
+      final String _utcDateTimeString = _map['utc_datetime'];
 
-    final DateTime _dateTime = Timers.offsetTime(
-      time: _utcTime,
-      offset: _map['utc_offset'],
-    );
+      final DateTime _utcTime = Timers.decipherTime(
+        time: _utcDateTimeString,
+        fromJSON: true,
+      );
+
+      _dateTime = Timers.offsetTime(
+        time: _utcTime,
+        offset: _map['utc_offset'],
+      );
+
+    }
+
+    else {
+
+      blog('getInternetUTCTime : $_response');
+
+      _dateTime = DateTime.now();
+    }
 
     return _dateTime;
   }

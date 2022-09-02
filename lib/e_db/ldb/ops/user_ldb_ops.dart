@@ -109,61 +109,6 @@ class UserLDBOps {
     }
 
   }
-// ---------------------------------
-  /// DEPRECATED
-  /*
-
-
-  static Future<void> addBzIDToMyBzzIDs({
-    @required String bzIDToAdd,
-    @required UserModel userModel,
-  }) async {
-
-    final UserModel _updatedUserModel = userModel.copyWith(
-      myBzzIDs: <String>[bzIDToAdd, ...userModel.myBzzIDs],
-    );
-
-    await LDBOps.insertMap(
-        docName: LDBDoc.users,
-        input: _updatedUserModel.toMap(toJSON: true),
-    );
-
-  }
-   */
-// ---------------------------------
-  /// DEPRECATED
-  /*
-  static Future<void> removeBzIDFromMyBzIDs({
-    @required String bzIDToRemove,
-    @required UserModel userModel,
-  }) async {
-
-    // final String _myUserID = superUserID();
-    //
-    // final UserModel _userModel = await readUserOps(
-    //   userID: _myUserID,
-    // );
-
-    if (userModel != null){
-
-      final List<String> _myBzzIDs = Stringer.removeStringsFromStrings(
-        removeFrom: userModel.myBzzIDs,
-        removeThis: <String>[bzIDToRemove],
-      );
-
-      final UserModel _updatedModel = userModel.copyWith(
-        myBzzIDs: _myBzzIDs,
-      );
-
-      await LDBOps.insertMap(
-        docName: LDBDoc.users,
-        input: _updatedModel.toMap(toJSON: true),
-      );
-
-    }
-
-  }
- */
 // -----------------------------------------------------------------------------
 
   /// DELETE
@@ -179,4 +124,57 @@ class UserLDBOps {
 
   }
 // -----------------------------------------------------------------------------
+
+/// EDITOR SESSION
+
+// ---------------------------------
+  ///
+  static Future<void> saveEditorSession({
+    @required UserModel userModel,
+  }) async {
+
+    if (userModel != null){
+
+      await LDBOps.insertMap(
+        docName: LDBDoc.userEditor,
+        input: userModel.toMap(toJSON: true),
+      );
+
+    }
+
+  }
+  // ---------------------------------
+  ///
+  static Future<UserModel> loadEditorSession({
+    @required String userID,
+  }) async {
+    UserModel _user;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: <String>[userID],
+      docName: LDBDoc.userEditor,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      _user = UserModel.decipherUser(
+        map: _maps.first,
+        fromJSON: true,
+      );
+
+    }
+
+    return _user;
+  }
+// ---------------------------------
+  ///
+  static Future<void> wipeEditorSession() async {
+
+    await LDBOps.deleteAllMapsAtOnce(
+      docName: LDBDoc.userEditor,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
 }

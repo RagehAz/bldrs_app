@@ -200,6 +200,7 @@ class UserModel {
       listen: false,
     );
 
+
     return UserModel(
       id: oldUser.id,
       authBy: oldUser.authBy,
@@ -327,6 +328,55 @@ class UserModel {
       appState: appState ?? this.appState,
     );
 }
+// -----------------------------------
+  /// TAMAM : WORKS PERFECT
+  UserModel nullifyField({
+    bool id = false,
+    bool authBy = false,
+    bool createdAt = false,
+    bool status = false,
+    bool name = false,
+    bool trigram = false,
+    bool pic = false,
+    bool title = false,
+    bool company = false,
+    bool gender = false,
+    bool zone = false,
+    bool language = false,
+    bool location = false,
+    bool contacts = false,
+    bool myBzzIDs = false,
+    bool emailIsVerified = false,
+    bool isAdmin = false,
+    bool fcmToken = false,
+    bool savedFlyersIDs = false,
+    bool followedBzzIDs = false,
+    bool appState = false,
+  }){
+    return UserModel(
+      id : id == true ? null : this.id,
+      authBy : authBy == true ? null : this.authBy,
+      createdAt : createdAt == true ? null : this.createdAt,
+      status : status == true ? null : this.status,
+      name : name == true ? null : this.name,
+      trigram : trigram == true ? const [] : this.trigram,
+      pic : pic == true ? null : this.pic,
+      title : title == true ? null : this.title,
+      company : company == true ? null : this.company,
+      gender : gender == true ? null : this.gender,
+      zone : zone == true ? null : this.zone,
+      language : language == true ? null : this.language,
+      location : location == true ? null : this.location,
+      contacts : contacts == true ? const [] : this.contacts,
+      myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
+      emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
+      isAdmin : isAdmin == true ? null : this.isAdmin,
+      fcmToken : fcmToken == true ? null : this.fcmToken,
+      savedFlyersIDs : savedFlyersIDs == true ? const [] : this.savedFlyersIDs,
+      followedBzzIDs : followedBzzIDs == true ? const [] : this.followedBzzIDs,
+      appState : appState == true ? null : this.appState,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// USER MODEL CYPHERS
