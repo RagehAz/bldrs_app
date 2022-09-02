@@ -471,6 +471,8 @@ Future<void> onBzEditsConfirmTap({
         );
       }
 
+      await BzLDBOps.wipeEditorSession(_newBzModel.id);
+
     }
 
   }

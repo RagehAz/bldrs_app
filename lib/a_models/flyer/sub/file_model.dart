@@ -82,6 +82,7 @@ class FileModel {
     return _models;
   }
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<FileModel> createModelByUrl({
     @required String url,
     @required String fileName,
@@ -107,7 +108,7 @@ class FileModel {
     return _model;
   }
 // --------------------------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<FileModel> initializePicForEditing({
     @required dynamic pic,
     @required String fileName,
@@ -139,7 +140,7 @@ class FileModel {
 
   }
 // --------------------------------------
-
+  /// TESTED : WORKS PERFECT
   static dynamic bakeFileForUpload({
     @required dynamic newFile,
     @required dynamic existingPic,
@@ -158,6 +159,7 @@ class FileModel {
     return _pic;
   }
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   static String bakeFileForLDB(dynamic pic){
     String _pic;
 
@@ -216,7 +218,8 @@ class FileModel {
 
   /// GETTERS
 
-// ------------------------------------------
+// --------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<File> getFilesFromModels(List<FileModel> files){
     final List<File> _files = <File>[];
 
@@ -230,7 +233,8 @@ class FileModel {
 
     return _files;
   }
-// ------------------------------------------
+// --------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getNamesFromModels(List<FileModel> files){
     final List<String> _names = <String>[];
 

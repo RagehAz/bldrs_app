@@ -918,7 +918,7 @@ class Phrase {
     return _include;
   }
 // -------------------------------------
-  /// TASK : TEST THIS
+  /// TESTED : WORKS PERFECT
   static bool checkPhrasesAreIdentical({
     @required Phrase phrase1,
     @required Phrase phrase2,
@@ -947,7 +947,7 @@ class Phrase {
     return _areIdentical;
   }
 // -------------------------------------
-  /// TASK : TEST THIS
+  /// TESTED : WORKS PERFECT
   static bool checkPhrasesListsAreIdentical({
     @required List<Phrase> phrases1,
     @required List<Phrase> phrases2,
@@ -1006,6 +1006,7 @@ class Phrase {
     return _listsAreIdentical;
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool isKeywordPhid(String phid){
     final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: phid,
@@ -1014,6 +1015,7 @@ class Phrase {
     return _phidK == 'phid_k_';
   }
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool isSpecPhid(String phid){
     final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: phid,
@@ -1021,12 +1023,12 @@ class Phrase {
     );
     return _phids == 'phid_s_';
   }
-
 // -----------------------------------------------------------------------------
 
   /// SORTING
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<Phrase> sortNamesAlphabetically(List<Phrase> phrases){
 
     if (Mapper.checkCanLoopList(phrases)){
