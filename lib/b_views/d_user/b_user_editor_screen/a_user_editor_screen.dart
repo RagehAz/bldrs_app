@@ -82,7 +82,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (_isInit) {
 
       _triggerLoading(setTo: true).then((_) async {
-// -----------------------------------------------------------------
+        // -------------------------------
         await prepareUserZoneAndPicForEditing(
           context: context,
           tempUser: _tempUser,
@@ -99,7 +99,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         );
         // -----------------------------
         _createStateListeners();
-// -----------------------------------------------------------------
+        // -----------------------------
         await _triggerLoading(setTo: false);
       });
 
@@ -123,6 +123,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     ContactModel.disposeContactsControllers(_tempUser.value.contacts);
     _tempUser.dispose();
+    _lastTempUser.dispose();
 
     super.dispose();
   }
@@ -140,11 +141,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   }
 // -----------------------------------------------------------------------------
+  final ValueNotifier<UserModel> _lastTempUser = ValueNotifier(null);
   void _saveSession(){
     unawaited(saveUserEditorSession(
         context: context,
         oldUserModel: widget.userModel,
         tempUser: _tempUser,
+        lastTempUser: _lastTempUser,
         nameController: _nameController,
         titleController: _titleController,
         companyController: _companyController
@@ -209,6 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         jobNode: _jobNode,
         companyNode: _companyNode,
       ),
+
     );
 
   }

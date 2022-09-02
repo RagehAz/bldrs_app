@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
@@ -37,8 +39,12 @@ void initializeLocalVariables({
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
 }){
   // -------------------------
-  final BzModel _initialBzModel = oldBzModel.nullifyField(
-    logo: true,
+  final BzModel _initialBzModel = oldBzModel.copyWith(
+    logo: FileModel(url: oldBzModel.logo, fileName: oldBzModel.id,),
+    contacts: ContactModel.initializeContactsForEditing(
+      contacts: oldBzModel.contacts,
+      countryID: oldBzModel.zone.countryID,
+    ),
   );
   // -------------------------
   nameController.text = _initialBzModel.name;
@@ -100,7 +106,7 @@ Future<void> loadBzEditorLastSession({
   @required BzModel oldBz,
 }) async {
 
-  final BzModel _lastSessionBz = await BzLDBOps.loadEditorSession(
+  final BzModel _lastSessionBz = await BzLDBOps.loadBzEditorSession(
     bzID: oldBz.id,
   );
 
@@ -153,6 +159,7 @@ Future<void> loadBzEditorLastSession({
 /// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession({
   @required ValueNotifier<BzModel> tempBz,
+  @required ValueNotifier<BzModel> lastTempBz,
   @required TextEditingController nameController,
   @required TextEditingController aboutController,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
@@ -172,9 +179,15 @@ Future<void> saveBzEditorSession({
     logo: FileModel.bakeFileForLDB(newBz.logo),
   );
 
-  await BzLDBOps.saveEditorSession(
-      bzModel: newBz
-  );
+  if (BzModel.checkBzzAreIdentical(bz1: lastTempBz.value, bz2: newBz) == false){
+
+    await BzLDBOps.saveBzEditorSession(
+        bzModel: newBz
+    );
+
+    lastTempBz.value = newBz;
+
+  }
 
 }
 // -----------------------------------------------------------------------------
@@ -471,7 +484,7 @@ Future<void> onBzEditsConfirmTap({
         );
       }
 
-      await BzLDBOps.wipeEditorSession(_newBzModel.id);
+      await BzLDBOps.deleteBzEditorSession(_newBzModel.id);
 
     }
 
