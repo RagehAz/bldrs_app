@@ -37,7 +37,8 @@ class ZoneModel {
 
   /// INITIALIZATION
 
-// -----------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<ZoneModel> initializeZoneForEditing({
     @required BuildContext context,
     @required ZoneModel zoneModel,
@@ -58,7 +59,8 @@ class ZoneModel {
 
   /// CLONING
 
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   ZoneModel copyWith({
     String countryID,
     String cityID,
@@ -86,7 +88,8 @@ class ZoneModel {
 
   /// CYPHERS
 
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'countryID': countryID,
@@ -94,7 +97,8 @@ class ZoneModel {
       'districtID': districtID,
     };
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
     final ZoneModel _zone = map == null ? null :
     ZoneModel(
@@ -105,11 +109,13 @@ class ZoneModel {
 
     return _zone;
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   String cipherToString() {
     return '$countryID/$cityID/$districtID';
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneString(String zoneString) {
     final String _countryID = decipherZoneStringToCountryID(zoneString);
     final String _cityID = decipherZoneStringToCityID(zoneString);
@@ -121,18 +127,21 @@ class ZoneModel {
       districtID: _districtID,
     );
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCountryID(String zoneString) {
     final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCityID(String zoneString) {
     final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
     final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
     return _cityID;
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static String decipherZoneStringToDistrictID(String zoneString) {
     final String _districtID =
     TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
@@ -142,8 +151,8 @@ class ZoneModel {
 
   /// CHECKERS
 
-// -------------------------------------
-
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkZonesAreIdentical({
     @required ZoneModel zone1,
     @required ZoneModel zone2,
@@ -153,6 +162,7 @@ class ZoneModel {
     if (zone1 == null && zone2 == null){
       _identical = true;
     }
+
     else if (zone1 != null && zone2 != null){
 
       if (
@@ -247,7 +257,8 @@ class ZoneModel {
 
   /// BLOGGING
 
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   void blogZone({String methodName = 'ZONE - PRINT'}) {
     blog('$methodName ------------------------------- START');
 
@@ -257,13 +268,15 @@ class ZoneModel {
 
     blog('$methodName ------------------------------- END');
   }
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   void blogZoneIDs({String methodName = 'ZONE-IDs BLOG : '}){
 
     blog('$methodName [ $districtID - $cityID - $countryID ]');
 
   }
-
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static void blogZonesDifferences({
   @required ZoneModel zone1,
     @required ZoneModel zone2,
@@ -315,7 +328,8 @@ class ZoneModel {
 
   /// DUMMIES
 
-// -------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static ZoneModel dummyZone() {
     return const ZoneModel(
       countryID: 'egy',
@@ -417,7 +431,8 @@ class ZoneModel {
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   @override
   bool operator == (Object other){
 

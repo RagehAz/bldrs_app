@@ -58,7 +58,8 @@ class Rest {
 
   /// READ
 
-// ----------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<http.Response> get({
     @required BuildContext context,
     @required String rawLink,
@@ -180,7 +181,8 @@ class Rest {
 
   /// ERROR HANDLING
 
-// ----------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<http.Response> _checkUpResponse({
     @required BuildContext context,
     @required http.Response response,
@@ -217,7 +219,8 @@ class Rest {
 
     return _output;
   }
-// ----------------------------------------
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _onHttpError({
     @required BuildContext context,
     @required String error,
