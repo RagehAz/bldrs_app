@@ -565,4 +565,47 @@ class Imagers {
   }
    */
 // -----------------------------------------------------------------
+  static String cipherPic({
+    @required dynamic pic,
+    @required bool toJSON,
+  }){
+    String _output;
+
+    if (pic != null){
+
+      /// TO JSON
+      if (toJSON == true){
+
+        /// PIC IS URL
+        if (ObjectChecker.objectIsURL(pic) == true){
+          _output = pic;
+        }
+        /// PIC IS FILE MODEL
+        else if (pic is FileModel){
+          final FileModel fileModel = pic;
+          _output = fileModel?.file?.path ?? fileModel?.url;
+        }
+        else if (ObjectChecker.objectIsFile(pic) == true){
+          final File _file = pic;
+          _output = _file.path;
+        }
+
+      }
+
+      /// TO FIRE STORE
+      else {
+
+      }
+
+    }
+
+    return _output;
+  }
+
+  static dynamic decipherPic({
+    @required String pic,
+    @required bool fromJSON,
+  }){
+
+  }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/aa_user_editor_screen_view.dart';
@@ -6,7 +7,7 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controll
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -73,6 +74,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       companyController: _companyController,
     );
 
+    _tempUser.addListener(() {
+      _saveSession();
+    });
+    _nameController.addListener(() {
+      _saveSession();
+    });
+    _titleController.addListener(() {
+      _saveSession();
+    });
+    _companyController.addListener(() {
+      _saveSession();
+    });
+
   }
 // -----------------------------------
   bool _isInit = true;
@@ -85,6 +99,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         await prepareUserZoneAndPicForEditing(
           context: context,
           tempUser: _tempUser,
+        );
+// -----------------------------
+        await loadLastSession(
+            context: context,
+            oldUser: widget.userModel,
+            tempUser: _tempUser,
+            nameController: _nameController,
+            titleController: _titleController,
+            companyController: _companyController,
         );
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
@@ -112,6 +135,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _tempUser.dispose();
 
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  Future<void> _saveSession() async {
+    await saveSession(
+        context: context,
+        oldUserModel: widget.userModel,
+        tempUser: _tempUser,
+        nameController: _nameController,
+        titleController: _titleController,
+        companyController: _companyController
+    );
   }
 // -----------------------------------------------------------------------------
   @override
