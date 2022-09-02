@@ -42,6 +42,12 @@ class LDBOps {
       case LDBDoc.authModel: return 'uid';
       case LDBDoc.notes: return 'id';
       case LDBDoc.pickers: return 'id';
+
+      case LDBDoc.userEditor: return 'id';
+      case LDBDoc.bzEditor: return 'id';
+      case LDBDoc.authorEditor: return 'id';
+      case LDBDoc.flyerMaker: return 'id';
+
       case 'test': return 'id';
       default: return null;
     }

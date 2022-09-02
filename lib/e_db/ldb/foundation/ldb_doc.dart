@@ -32,6 +32,11 @@ class LDBDoc {
   static const String appControls = 'appControls';
   static const String authModel = 'authModel';
 
+  static const String userEditor = 'userEditor';
+  static const String bzEditor = 'bzEditor';
+  static const String authorEditor = 'authorEditor';
+  static const String flyerMaker = 'flyerMaker';
+
   static const List<String> allDocs = <String>[
     follows,
     calls,
@@ -58,6 +63,11 @@ class LDBDoc {
     appState,
     appControls,
     authModel,
+
+    userEditor,
+    bzEditor,
+    authorEditor,
+    flyerMaker,
   ];
 
 }
