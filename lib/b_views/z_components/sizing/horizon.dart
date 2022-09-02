@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +22,6 @@ class Horizon extends StatelessWidget {
     Ratioz.horizon * heightFactor + MediaQuery.of(context).viewInsets.bottom
         :
     Ratioz.horizon * heightFactor;
-
-    blog('Horizon : height :$height');
 
     return SizedBox(
       width: Scale.superScreenWidth(context),

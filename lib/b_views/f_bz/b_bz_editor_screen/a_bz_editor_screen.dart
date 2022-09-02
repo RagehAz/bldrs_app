@@ -80,18 +80,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       selectedScopes: _selectedScopes,
     );
 
-    _tempBz.addListener(() {
-      _saveSession();
-    });
-    _nameController.addListener(() {
-      _saveSession();
-    });
-    _aboutController.addListener(() {
-      _saveSession();
-    });
-    _selectedScopes.addListener(() {
-      _saveSession();
-    });
 
   }
 // -----------------------------------
@@ -101,14 +89,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     if (_isInit) {
 
       _triggerLoading(setTo: true).then((_) async {
-// -----------------------------------------------------------------
+        // -------------------------------
         await prepareBzForEditing(
           context: context,
           tempBz: _tempBz,
           oldBz: widget.bzModel,
           firstTimer: widget.firstTimer,
         );
-// -------------------------------
+        // -------------------------------
         await loadBzEditorLastSession(
           context: context,
           nameController: _nameController,
@@ -121,7 +109,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
           firstTimer: widget.firstTimer,
           oldBz: widget.bzModel,
         );
-// -----------------------------------------------------------------
+        // -------------------------------
+        _createStateListeners();
+        // -------------------------------
         await _triggerLoading(setTo: false);
       });
 
@@ -152,14 +142,30 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     ContactModel.disposeContactsControllers(_tempBz.value.contacts);
     _tempBz.dispose();
-    // _initialBzModel.dispose();
+    _lastTempBz.dispose();
 
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  void _createStateListeners(){
+
+    _tempBz.addListener(() => _saveSession());
+    _nameController.addListener(() => _saveSession());
+    _aboutController.addListener(() => _saveSession());
+    _selectedScopes.addListener(() => _saveSession());
+    _selectedScopes.addListener(() => _saveSession());
+    ContactModel.createListenersToControllers(
+      contacts: _tempBz.value.contacts,
+      listener: () => _saveSession(),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  final ValueNotifier<BzModel> _lastTempBz = ValueNotifier(null);
   Future<void> _saveSession() async {
     await saveBzEditorSession(
         tempBz: _tempBz,
+        lastTempBz: _lastTempBz,
         nameController: _nameController,
         aboutController: _aboutController,
         selectedScopes: _selectedScopes,
@@ -179,16 +185,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',
-      appBarRowWidgets: [
-        AppBarButton(
-          verse: 'blog',
-          onTap: (){
-
-            _tempBz.value.zone.blogZoneIDs();
-
-          },
-        ),
-      ],
+      // appBarRowWidgets: [
+      //   AppBarButton(
+      //     verse: 'blog',
+      //     onTap: (){
+      //
+      //       _tempBz.value.zone.blogZoneIDs();
+      //
+      //     },
+      //   ),
+      // ],
       confirmButtonModel: ConfirmButtonModel(
           firstLine: 'phid_confirm',
           secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',

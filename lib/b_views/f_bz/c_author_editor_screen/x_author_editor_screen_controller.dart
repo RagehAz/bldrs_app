@@ -1,13 +1,14 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -18,37 +19,142 @@ import 'package:flutter/material.dart';
 
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
-  void initializeAuthorEditorLocalVariables({
-    @required AuthorModel oldAuthor,
-    @required ValueNotifier<AuthorModel> tempAuthor,
-    @required TextEditingController nameController,
-    @required TextEditingController titleController,
-    @required BzModel bzModel,
+void initializeAuthorEditorLocalVariables({
+  @required AuthorModel oldAuthor,
+  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required TextEditingController nameController,
+  @required TextEditingController titleController,
+  @required BzModel bzModel,
 }){
 
-    final AuthorModel _tempAuthor = AuthorModel.initializeModelForEditing(
-      oldAuthor: oldAuthor,
-      bzModel: bzModel,
-    );
+  final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
+    pic: FileModel(url: oldAuthor.pic, fileName: AuthorModel.generateAuthorPicID(
+      authorID: oldAuthor.userID,
+      bzID: bzModel.id,
+    )),
+    contacts: ContactModel.initializeContactsForEditing(
+      contacts: oldAuthor.contacts,
+      countryID: bzModel.zone.countryID,
+    ),
+  );
 
-    tempAuthor.value = _tempAuthor;
+  tempAuthor.value = _tempAuthor;
 
-    nameController.text = tempAuthor.value.name;
-    titleController.text = tempAuthor.value.title;
+  nameController.text = tempAuthor.value.name;
+  titleController.text = tempAuthor.value.title;
 
-  }
+
+  ///   old and works
+  // final AuthorModel _tempAuthor = AuthorModel.initializeModelForEditing(
+  //   oldAuthor: oldAuthor,
+  //   bzModel: bzModel,
+  // );
+  //
+  // tempAuthor.value = _tempAuthor;
+  //
+  // nameController.text = tempAuthor.value.name;
+  // titleController.text = tempAuthor.value.title;
+
+}
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareAuthorPicForEditing({
   @required BuildContext context,
   @required ValueNotifier<AuthorModel> tempAuthor,
+  @required AuthorModel oldAuthor,
+  @required BzModel bzModel,
 }) async {
 
-  final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
-    pic: await FileModel.completeModel(tempAuthor.value.pic),
+  final AuthorModel _tempAuthor = await AuthorModel.initializeModelForEditing(
+    oldAuthor: oldAuthor,
+    bzModel: bzModel,
+  );
+  tempAuthor.value = _tempAuthor;
+
+  ///   old and works
+  // final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
+  //   pic: await FileModel.completeModel(tempAuthor.value.pic),
+  // );
+  //
+  // tempAuthor.value = _tempAuthor;
+
+}
+// -----------------------------------------------------------------------------
+
+/// LAST SESSION
+
+// ---------------------------------------
+Future<void> loadAuthorEditorSession({
+  @required BuildContext context,
+  @required AuthorModel oldAuthor,
+  @required BzModel bzModel,
+  @required TextEditingController nameController,
+  @required TextEditingController titleController,
+  @required ValueNotifier<AuthorModel> tempAuthor,
+}) async {
+
+  final AuthorModel _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
+    authorID: oldAuthor.userID,
   );
 
-  tempAuthor.value = _tempAuthor;
+  if (_lastSessionAuthor != null){
+
+    final bool _continue = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: 'phid_load_last_session_data_q',
+      bodyVerse: 'phid_want_to_load_last_session_q',
+      boolDialog: true,
+    );
+
+    if (_continue == true){
+      // -------------------------
+      final AuthorModel _initialAuthor = await AuthorModel.initializeModelForEditing(
+        oldAuthor: oldAuthor,
+        bzModel: bzModel,
+      );
+      // -------------------------
+      nameController.text = _initialAuthor.name;
+      titleController.text = _initialAuthor.title;
+      // -------------------------
+      tempAuthor.value = _initialAuthor;
+      // -------------------------
+    }
+
+  }
+
+}
+// ---------------------------------------
+Future<void> saveAuthorEditorSession({
+  @required BuildContext context,
+  @required AuthorModel oldAuthor,
+  @required BzModel bzModel,
+  @required TextEditingController nameController,
+  @required TextEditingController titleController,
+  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required ValueNotifier<AuthorModel> lastTempAuthor,
+}) async {
+
+  AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
+    bzModel: bzModel,
+    oldAuthor: oldAuthor,
+    tempAuthor: tempAuthor.value,
+    titleController: titleController,
+    nameController: nameController,
+  );
+
+  newAuthor = newAuthor.copyWith(
+    pic: FileModel.bakeFileForLDB(newAuthor.pic),
+  );
+
+  if (AuthorModel.checkAuthorsAreIdentical(author1: newAuthor, author2: lastTempAuthor.value) == false){
+
+    await BzLDBOps.saveAuthorEditorSession(
+        authorModel: newAuthor,
+    );
+
+    lastTempAuthor.value = newAuthor;
+  }
+
 
 }
 // -----------------------------------------------------------------------------
@@ -166,6 +272,7 @@ Future<void> onConfirmAuthorUpdates({
       newAuthorModel: _author,
     );
 
+    await BzLDBOps.deleteAuthorEditorSession(oldAuthor.userID);
 
     WaitDialog.closeWaitDialog(context);
 

@@ -648,7 +648,11 @@ class UserModel {
   }){
     bool _identical = false;
 
-    if (user1 != null && user2 != null){
+    if (user1 == null && user2 == null){
+      _identical = true;
+    }
+
+    else if (user1 != null && user2 != null){
 
       if (
       user1.id == user2.id &&
@@ -661,7 +665,7 @@ class UserModel {
       user1.title == user2.title &&
       user1.company == user2.company &&
       user1.gender == user2.gender &&
-      ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
+      ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
       user1.language == user2.language &&
       Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
       ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&

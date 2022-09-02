@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
@@ -123,11 +124,11 @@ class BzLDBOps {
   }
 // -----------------------------------------------------------------------------
 
-  /// EDITOR SESSION
+  /// BZ EDITOR SESSION
 
-// ---------------------------------
-  ///
-  static Future<void> saveEditorSession({
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> saveBzEditorSession({
     @required BzModel bzModel,
   }) async {
 
@@ -141,9 +142,9 @@ class BzLDBOps {
     }
 
   }
-  // ---------------------------------
-  ///
-  static Future<BzModel> loadEditorSession({
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel> loadBzEditorSession({
     @required String bzID,
   }) async {
     BzModel _bz;
@@ -164,15 +165,62 @@ class BzLDBOps {
 
     return _bz;
   }
-// ---------------------------------
-  ///
-  static Future<void> wipeEditorSession(String bzID) async {
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteBzEditorSession(String bzID) async {
 
     await LDBOps.deleteMap(
       objectID: bzID,
       docName: LDBDoc.bzEditor,
     );
 
+  }
+// -----------------------------------------------------------------------------
+
+  /// AUTHOR EDITOR SESSION
+
+// ---------------------------------
+
+  static Future<void> saveAuthorEditorSession({
+    @required AuthorModel authorModel,
+  }) async {
+
+    if (authorModel != null){
+
+      await LDBOps.insertMap(
+        docName: LDBDoc.authorEditor,
+        input: authorModel.toMap(),
+      );
+
+    }
+
+  }
+// ---------------------------------
+
+  static Future<AuthorModel> loadAuthorEditorSession({
+    @required String authorID,
+  }) async {
+    AuthorModel _author;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: <String>[authorID],
+      docName: LDBDoc.authorEditor,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      _author = AuthorModel.decipherAuthor(_maps.first);
+    }
+
+    return _author;
+  }
+// ---------------------------------
+
+  static Future<void> deleteAuthorEditorSession(String authorID) async {
+
+    await LDBOps.deleteMap(
+      objectID: authorID,
+      docName: LDBDoc.authorEditor,
+    );
   }
 // -----------------------------------------------------------------------------
 }
