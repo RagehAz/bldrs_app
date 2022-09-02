@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -78,12 +80,25 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     if (_isInit && mounted) {
 
       _triggerLoading().then((_) async {
-
+        // -------------------------------
         await prepareAuthorPicForEditing(
           context: context,
           tempAuthor: _tempAuthor,
+          bzModel: widget.bzModel,
+          oldAuthor: widget.author,
         );
-
+        // -------------------------------
+        await loadAuthorEditorSession(
+          context: context,
+          oldAuthor: widget.author,
+          bzModel: widget.bzModel,
+          nameController: _nameController,
+          titleController: _titleController,
+          tempAuthor: _tempAuthor,
+        );
+        // -------------------------------
+        _createStateListeners();
+        // -------------------------------
         await _triggerLoading();
       });
 
@@ -107,8 +122,34 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
     ContactModel.disposeContactsControllers(_tempAuthor.value.contacts);
     _tempAuthor.dispose();
+    _lastTempAuthor.dispose();
 
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  void _createStateListeners(){
+
+    _tempAuthor.addListener(() => _saveSession());
+    _nameController.addListener(() => _saveSession());
+    _titleController.addListener(() => _saveSession());
+    ContactModel.createListenersToControllers(
+      contacts: _tempAuthor.value.contacts,
+      listener: () => _saveSession(),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  final ValueNotifier<AuthorModel> _lastTempAuthor = ValueNotifier(null);
+  void _saveSession(){
+    unawaited(saveAuthorEditorSession(
+      context: context,
+      tempAuthor: _tempAuthor,
+      lastTempAuthor: _lastTempAuthor,
+      titleController: _titleController,
+      nameController: _nameController,
+      bzModel: widget.bzModel,
+      oldAuthor: widget.author,
+    ));
   }
 // -----------------------------------------------------------------------------
   @override

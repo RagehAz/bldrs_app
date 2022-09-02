@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
@@ -10,7 +9,6 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
@@ -83,7 +81,6 @@ Future<void> loadUserEditorLastSession({
     userID: oldUser.id,
   );
 
-
   if (_lastSessionUser != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
@@ -104,19 +101,7 @@ Future<void> loadUserEditorLastSession({
       companyController.text   = _initialModel.company;
       titleController.text     = _initialModel.title;
 
-      // final FileModel _pic = await FileModel.initializePicForEditing(
-      //   pic: _lastSessionUser.pic,
-      //   fileName: tempUser.value.id,
-      // );
-      final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: _lastSessionUser.zone,
-      );
-
-      tempUser.value = _initialModel.copyWith(
-        // pic: _pic,
-        zone: _zone,
-      );
+      tempUser.value = _initialModel;
 
     }
 
@@ -129,6 +114,7 @@ Future<void> saveUserEditorSession({
   @required BuildContext context,
   @required UserModel oldUserModel,
   @required ValueNotifier<UserModel> tempUser,
+  @required ValueNotifier<UserModel> lastTempUser,
   @required TextEditingController nameController,
   @required TextEditingController titleController,
   @required TextEditingController companyController,
@@ -148,11 +134,15 @@ Future<void> saveUserEditorSession({
     pic: FileModel.bakeFileForLDB(newUserModel.pic),
   );
 
-  await UserLDBOps.saveEditorSession(
-      userModel: newUserModel
-  );
+  if (UserModel.checkUsersAreIdentical(user1: newUserModel, user2: lastTempUser.value) == false){
 
-  // await TopDialog.showSuccessDialog(context: context, firstLine: 'Session Saved');
+    await UserLDBOps.saveEditorSession(
+        userModel: newUserModel
+    );
+
+    lastTempUser.value = newUserModel;
+  }
+
 }
 // -----------------------------------------------------------------------------
 

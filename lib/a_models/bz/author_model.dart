@@ -54,24 +54,23 @@ class AuthorModel {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel initializeModelForEditing({
+  static Future<AuthorModel> initializeModelForEditing({
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
-  }){
+  }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
-        pic: FileModel(
-          url: oldAuthor.pic,
-          fileName: AuthorModel.generateAuthorPicID(
-            authorID: oldAuthor.userID,
-            bzID: bzModel.id,
-          ),
-          // size: null,
+        pic: await FileModel.initializePicForEditing(
+            pic: oldAuthor.pic,
+            fileName:  AuthorModel.generateAuthorPicID(
+              authorID: oldAuthor.userID,
+              bzID: bzModel.id,
+            ),
         ),
         contacts: ContactModel.initializeContactsForEditing(
           contacts: oldAuthor.contacts,
           countryID: bzModel.zone.countryID,
-        )
+        ),
     );
 
     return _tempAuthor;
