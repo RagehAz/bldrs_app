@@ -99,6 +99,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         await prepareUserZoneAndPicForEditing(
           context: context,
           tempUser: _tempUser,
+          oldUser: widget.userModel,
         );
 // -----------------------------
         await loadUserEditorLastSession(

@@ -322,7 +322,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             valueListenable: _selectedZone,
             builder: (_, ZoneModel zone, Widget bulletPoints){
 
-              zone.blogZone(methodName: 'koooooooooooooookk');
+              // zone.blogZone(methodName: 'koooooooooooooookk');
 
               return Bubble(
                   headerViewModel: BubbleHeaderVM(

@@ -119,6 +119,37 @@ class ZoneModel {
   /// CHECKERS
 
 // -------------------------------------
+
+  static bool checkZonesAreIdentical({
+    @required ZoneModel zone1,
+    @required ZoneModel zone2,
+  }){
+    bool _identical = false;
+
+    if (zone1 == null && zone2 == null){
+      _identical = true;
+    }
+    else if (zone1 != null && zone2 != null){
+
+      if (
+      zone1.countryID == zone2.countryID &&
+      zone1.cityID == zone2.cityID &&
+      zone1.districtID == zone2.districtID &&
+      zone1.countryName == zone2.countryName &&
+      zone1.cityName == zone2.cityName &&
+      zone1.districtName == zone2.districtName &&
+      CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
+      CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
+      zone1.flag == zone2.flag
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesIDsAreIdentical({
     @required ZoneModel zone1,
@@ -298,5 +329,44 @@ class ZoneModel {
 
     return _line;
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is ZoneModel){
+      _areIdentical = checkZonesAreIdentical(
+        zone1: this,
+        zone2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      countryID.hashCode ^
+      cityID.hashCode ^
+      districtID.hashCode ^
+      countryName.hashCode ^
+      cityName.hashCode ^
+      districtName.hashCode ^
+      countryModel.hashCode ^
+      cityModel.hashCode ^
+      flag.hashCode;
 // -----------------------------------------------------------------------------
 }

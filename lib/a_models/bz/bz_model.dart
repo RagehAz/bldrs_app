@@ -138,11 +138,11 @@ class BzModel{
 
 // -----------------------------------
   /// TESTED : WORKS PERFECT
-  static BzModel initializeModelForEditing({
+  static Future <BzModel> initializeModelForEditing({
     @required BzModel oldBzModel,
     @required bool firstTimer,
     @required UserModel userModel,
-  }){
+  }) async {
 
     final BzModel _initialBzModel = firstTimer == true ?
     BzModel.convertFireUserDataIntoInitialBzModel(userModel)
@@ -150,7 +150,7 @@ class BzModel{
     oldBzModel;
 
     return _initialBzModel.copyWith(
-      logo: FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
+      logo: await FileModel.initializePicForEditing(pic: _initialBzModel.logo, fileName: oldBzModel.id),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
       contacts: ContactModel.initializeContactsForEditing(
         countryID: _initialBzModel.zone.countryID,
         contacts: _initialBzModel.contacts,
@@ -224,6 +224,7 @@ class BzModel{
     List<String> flyersIDs,
     DocumentSnapshot<Object> docSnapshot,
   }){
+
     return BzModel(
       id : id ?? this.id,
       bzTypes : bzTypes ?? this.bzTypes,
@@ -249,7 +250,6 @@ class BzModel{
 // ------------------------------------------
   /// TESTED : WORKS PERFECT
   BzModel nullifyField({
-    @required BzModel bzModel,
     bool id = false,
     bool bzTypes = false,
     bool bzForm = false,
@@ -271,25 +271,25 @@ class BzModel{
     bool docSnapshot = false,
   }){
     return BzModel(
-      id : id == true ? null : bzModel.id,
-      bzTypes : bzTypes == true ? [] : bzModel.bzTypes,
-      bzForm : bzForm == true ? null : bzModel.bzForm,
-      createdAt : createdAt == true ? null : bzModel.createdAt,
-      accountType : accountType == true ? null : bzModel.accountType,
-      name : name == true ? null : bzModel.name,
-      trigram : trigram == true ? [] : bzModel.trigram,
-      logo : logo == true ? null : bzModel.logo,
-      scope : scope == true ? [] : bzModel.scope,
-      zone : zone == true ? null : bzModel.zone,
-      about : about == true ? null : bzModel.about,
-      position : position == true ? null : bzModel.position,
-      contacts : contacts == true ? [] : bzModel.contacts,
-      authors : authors == true ? [] : bzModel.authors,
-      showsTeam : showsTeam == true ? null : bzModel.showsTeam,
-      isVerified : isVerified == true ? null : bzModel.isVerified,
-      bzState : bzState == true ? null : bzModel.bzState,
-      flyersIDs : flyersIDs == true ? [] : bzModel.flyersIDs,
-      docSnapshot : docSnapshot == true ? null : bzModel.docSnapshot,
+      id : id == true ? null : this.id,
+      bzTypes : bzTypes == true ? [] : this.bzTypes,
+      bzForm : bzForm == true ? null : this.bzForm,
+      createdAt : createdAt == true ? null : this.createdAt,
+      accountType : accountType == true ? null : this.accountType,
+      name : name == true ? null : this.name,
+      trigram : trigram == true ? [] : this.trigram,
+      logo : logo == true ? null : this.logo,
+      scope : scope == true ? [] : this.scope,
+      zone : zone == true ? null : this.zone,
+      about : about == true ? null : this.about,
+      position : position == true ? null : this.position,
+      contacts : contacts == true ? [] : this.contacts,
+      authors : authors == true ? [] : this.authors,
+      showsTeam : showsTeam == true ? null : this.showsTeam,
+      isVerified : isVerified == true ? null : this.isVerified,
+      bzState : bzState == true ? null : this.bzState,
+      flyersIDs : flyersIDs == true ? [] : this.flyersIDs,
+      docSnapshot : docSnapshot == true ? null : this.docSnapshot,
     );
   }
 // -----------------------------------------------------------------------------
@@ -1486,7 +1486,6 @@ class BzModel{
     blog('mame : $name');
     blog('logo : $logo');
     blog('scope : $scope');
-    blog('zone : $zone');
     blog('about : $about');
     blog('position : $position');
     blog('contacts : $contacts');
@@ -1494,6 +1493,7 @@ class BzModel{
     blog('isVerified : $isVerified');
     blog('bzState : $bzState');
     blog('flyersIDs : $flyersIDs');
+    zone?.blogZone(methodName: 'BZ MODEL ($id)');
     AuthorModel.blogAuthors(authors: authors, methodName: 'BZ MODEL ($id)');
 
     blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
