@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
@@ -10,9 +9,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -71,31 +68,18 @@ Future<void> prepareBzForEditing({
   @required bool firstTimer,
   @required BzModel oldBz,
 }) async {
-  // -------------------------
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+
+  final BzModel _bzModel = await BzModel.initializeModelForEditing(
     context: context,
-    listen: false,
-  );
-  // -------------------------
-  BzModel _bzModel = await BzModel.initializeModelForEditing(
     oldBzModel: oldBz,
     firstTimer: firstTimer,
-    userModel: _userModel,
+    userModel: UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    ),
   );
 
-  // BzModel _bzModel = tempBz.value.copyWith(
-  //   logo: await FileModel.completeModel(tempBz.value.logo),
-  // );
-
-  if (_bzModel.zone == null || _bzModel.zone.countryID == null){
-    _bzModel = _bzModel.copyWith(
-      zone: await ZoneFireOps.superGetZoneByIP(context),
-    );
-  }
-
-
   tempBz.value = _bzModel;
-
 }
 // -----------------------------------------------------------------------------
 
@@ -137,6 +121,7 @@ Future<void> loadBzEditorLastSession({
       );
       // -------------------------
       final BzModel _initialBzModel = await BzModel.initializeModelForEditing(
+        context: context,
         oldBzModel: _lastSessionBz,
         firstTimer: false,
         userModel: _userModel,
@@ -157,20 +142,7 @@ Future<void> loadBzEditorLastSession({
       );
       inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      // final FileModel _logo = await FileModel.initializePicForEditing(
-      //   pic: _initialBzModel.logo,
-      //   fileName: _initialBzModel.id,
-      // );
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: _initialBzModel.zone,
-      );
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      tempBz.value = _initialBzModel.copyWith(
-        // logo: _logo,
-        zone: _zone,
-      );
+      tempBz.value = _initialBzModel;
 
     }
 
@@ -379,17 +351,9 @@ void onBzZoneChanged({
   @required ValueNotifier<BzModel> tempBz,
 }){
 
-  zoneModel.blogZone(methodName: 'onBzZoneChanged before');
-
-  // tempBz.value = tempBz.value.copyWith(
-  //   zone: zoneModel,
-  // );
-
-  tempBz.value = tempBz.value.nullifyField(
-    zone: true,
+  tempBz.value = tempBz.value.copyWith(
+    zone: zoneModel,
   );
-
-  tempBz.value.zone.blogZone(methodName: 'onBzZoneChanged after');
 
 }
 // ---------------------------------

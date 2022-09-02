@@ -1,6 +1,9 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -30,6 +33,27 @@ class ZoneModel {
   final CountryModel countryModel;
   final CityModel cityModel;
   final String flag;
+// -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+// -----------------------------------
+  static Future<ZoneModel> initializeZoneForEditing({
+    @required BuildContext context,
+    @required ZoneModel zoneModel,
+  }) async {
+
+    final ZoneModel _zone = zoneModel ?? ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: false,
+    ) ?? await ZoneFireOps.superGetZoneByIP(context);
+
+    return ZoneProtocols.completeZoneModel(
+      context: context,
+      incompleteZoneModel: _zone,
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -147,6 +171,13 @@ class ZoneModel {
 
     }
 
+    if (_identical == false){
+      blogZonesDifferences(
+          zone1: zone1,
+          zone2: zone2,
+      );
+    }
+
     return _identical;
   }
 // -------------------------------------
@@ -231,6 +262,54 @@ class ZoneModel {
 
     blog('$methodName [ $districtID - $cityID - $countryID ]');
 
+  }
+
+  static void blogZonesDifferences({
+  @required ZoneModel zone1,
+    @required ZoneModel zone2,
+}){
+
+    blog('blogZonesDifferences ---------- START');
+
+    if (zone1 == null){
+      blog('blogBzzDifferences : zone1 = null');
+    }
+    if (zone2 == null){
+      blog('blogBzzDifferences : zone2 = null');
+    }
+    if (zone1 != null && zone2 != null){
+
+      if (zone1.countryID != zone2.countryID){
+        blog('countryIDs are not Identical');
+      }
+      if (zone1.cityID != zone2.cityID){
+        blog('cityIDs are not Identical');
+      }
+      if (zone1.districtID != zone2.districtID){
+        blog('districtIDs are not Identical');
+      }
+      if (zone1.countryName != zone2.countryName){
+        blog('countryNames are not Identical');
+      }
+      if (zone1.cityName != zone2.cityName){
+        blog('cityNames are not Identical');
+      }
+      if (zone1.districtName != zone2.districtName){
+        blog('districtNames are not Identical');
+      }
+      if (CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == false){
+        blog('countryModels are not Identical');
+      }
+      if (CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == false){
+        blog('cityModels are not Identical');
+      }
+      if (zone1.flag != zone2.flag){
+        blog('flags are not Identical');
+      }
+
+    }
+
+    blog('blogZonesDifferences ---------- END');
   }
 // -----------------------------------------------------------------------------
 

@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,24 +25,6 @@ abstract class RealHttp{
     @required String docName,
   }){
     return Uri.parse('https://bldrsnet.firebaseio.com/$collName/$docName.json');
-  }
-// -----------------------------------------------------------------------------
-
-  /// ERROR HANDLING
-
-// ----------------------------------------
-  static Future<void> onHttpError({
-    @required BuildContext context,
-    @required String error,
-  }) async {
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: '##Something went wrong',
-      bodyVerse: error,
-      color: Colorz.red255,
-    );
-
   }
 // -----------------------------------------------------------------------------
 
@@ -78,9 +58,9 @@ abstract class RealHttp{
           },
         onError: (String error) async {
 
-          await onHttpError(
-              context: context,
-              error: error,
+          await Dialogs.errorDialog(
+            context: context,
+            bodyVerse: error,
           );
 
         }
@@ -138,9 +118,9 @@ abstract class RealHttp{
 
         onError: (error) async {
 
-          await onHttpError(
+          await Dialogs.errorDialog(
             context: context,
-            error: error,
+            bodyVerse: error,
           );
 
         }
@@ -182,9 +162,9 @@ abstract class RealHttp{
         },
         onError: (String error) async {
 
-          await onHttpError(
+          await Dialogs.errorDialog(
             context: context,
-            error: error,
+            bodyVerse: error,
           );
 
         }
@@ -212,9 +192,9 @@ abstract class RealHttp{
       // to be able to handle failed scenarios to see wether to keep or delete
       // the doc locally on providers or ldbs
 
-      await onHttpError(
+      await Dialogs.errorDialog(
         context: context,
-        error: _response.body,
+        bodyVerse: _response.body,
       );
 
       // throw HttpException('Could not delete Business');

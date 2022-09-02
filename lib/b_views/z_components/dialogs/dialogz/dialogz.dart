@@ -134,7 +134,8 @@ class Dialogs {
       bodyVerse: _errorReply,
     );
   }
-// ---------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> tryAgainDialog(BuildContext context) async {
 
     await CenterDialog.showCenterDialog(
@@ -144,11 +145,28 @@ class Dialogs {
     );
 
   }
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> errorDialog({
+    @required BuildContext context,
+    String titleVerse,
+    String bodyVerse,
+  }) async {
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: titleVerse ?? 'phid_something_went_wrong',
+      bodyVerse: bodyVerse,
+      color: Colorz.red255,
+    );
+
+  }
 // -----------------------------------------------------------------------------
 
   /// ZONE DIALOGS
 
-// ---------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<CityModel> confirmCityDialog({
     @required BuildContext context,
     @required List<CityModel> cities,
