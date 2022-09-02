@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/e_db/real/foundation/real_http.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -881,9 +880,9 @@ class Real {
         },
         onError: (String error) async {
 
-          await RealHttp.onHttpError(
-              context: context,
-              error: error,
+          await Dialogs.errorDialog(
+            context: context,
+            bodyVerse: error,
           );
 
         }
