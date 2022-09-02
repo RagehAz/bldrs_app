@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class BzLDBOps {
@@ -120,5 +121,58 @@ class BzLDBOps {
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
 
   }
-// -------------------------------
+// -----------------------------------------------------------------------------
+
+  /// EDITOR SESSION
+
+// ---------------------------------
+  ///
+  static Future<void> saveEditorSession({
+    @required BzModel bzModel,
+  }) async {
+
+    if (bzModel != null){
+
+      await LDBOps.insertMap(
+        docName: LDBDoc.bzEditor,
+        input: bzModel.toMap(toJSON: true),
+      );
+
+    }
+
+  }
+  // ---------------------------------
+  ///
+  static Future<BzModel> loadEditorSession({
+    @required String bzID,
+  }) async {
+    BzModel _bz;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: <String>[bzID],
+      docName: LDBDoc.bzEditor,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      _bz = BzModel.decipherBz(
+        map: _maps.first,
+        fromJSON: true,
+      );
+
+    }
+
+    return _bz;
+  }
+// ---------------------------------
+  ///
+  static Future<void> wipeEditorSession(String bzID) async {
+
+    await LDBOps.deleteMap(
+      objectID: bzID,
+      docName: LDBDoc.bzEditor,
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }

@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 void initializeUserEditorLocalVariables({
   @required BuildContext context,
-  @required UserModel oldUserModel,
+  @required UserModel oldUser,
   @required ValueNotifier<UserModel> tempUser,
   @required TextEditingController nameController,
   @required TextEditingController titleController,
@@ -38,7 +38,7 @@ void initializeUserEditorLocalVariables({
 
   final UserModel _initialModel = UserModel.initializeModelForEditing(
     context: context,
-    oldUser: oldUserModel,
+    oldUser: oldUser,
   );
 
   tempUser.value = _initialModel;
@@ -74,7 +74,8 @@ Future<void> prepareUserZoneAndPicForEditing({
 /// LAST SESSION
 
 // ---------------------------------------
-Future<void> loadLastSession({
+/// TESTED : WORKS PERFECT
+Future<void> loadUserEditorLastSession({
   @required BuildContext context,
   @required UserModel oldUser,
   @required ValueNotifier<UserModel> tempUser,
@@ -128,7 +129,8 @@ Future<void> loadLastSession({
 
 }
 // ---------------------------------------
-Future<void> saveSession({
+/// TESTED : WORKS PERFECT
+Future<void> saveUserEditorSession({
   @required BuildContext context,
   @required UserModel oldUserModel,
   @required ValueNotifier<UserModel> tempUser,
@@ -147,17 +149,8 @@ Future<void> saveSession({
   );
 
   /// USER PICTURE
-  String _pic;
-  if (ObjectChecker.objectIsURL(newUserModel.pic) == true){
-    _pic = newUserModel.pic;
-  }
-  else if (ObjectChecker.objectIsFile(newUserModel.pic) == true){
-    final File _file = newUserModel.pic;
-    _pic = _file.path;
-  }
-
   newUserModel = newUserModel.copyWith(
-    pic: _pic,
+    pic: FileModel.bakeFileForLDB(newUserModel.pic),
   );
 
   await UserLDBOps.saveEditorSession(
@@ -166,7 +159,6 @@ Future<void> saveSession({
 
   // await TopDialog.showSuccessDialog(context: context, firstLine: 'Session Saved');
 }
-
 // -----------------------------------------------------------------------------
 
 /// EDITORS
@@ -350,7 +342,7 @@ Future<void> confirmEdits({
 
       blog('confirmEdits : finished updating the user Model');
 
-      await UserLDBOps.wipeEditorSession();
+      await UserLDBOps.wipeEditorSession(_uploadedUserModel.id);
 
       onFinish();
 

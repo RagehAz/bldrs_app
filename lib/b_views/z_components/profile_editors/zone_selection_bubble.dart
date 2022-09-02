@@ -38,10 +38,6 @@ class ZoneSelectionBubble extends StatefulWidget {
 }
 
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
-// -----------------------------------------------------------------------------
-//   final ValueNotifier<CountryModel> _selectedCountry = ValueNotifier(null); /// tamam disposed
-//   final ValueNotifier<CityModel> _selectedCity = ValueNotifier(null);/// tamam disposed
-//   final ValueNotifier<DistrictModel> _selectedDistrict = ValueNotifier(null);/// tamam disposed
 // ------------------------------------------
   final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
 // -----------------------------------------------------------------------------
@@ -94,9 +90,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   void dispose(){
     _loading.dispose();
     _selectedZone.dispose();
-    // _selectedCountry.dispose();
-    // _selectedCity.dispose();
-    // _selectedDistrict.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
@@ -123,21 +116,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       context: context,
       incompleteZoneModel: _selectedZone.value,
     );
-
-    // _selectedCountry.value = _selectedZone?.countryModel ?? await _zoneProvider.fetchCountryByID(
-    //   context: context,
-    //   countryID: _selectedZone.countryID,
-    // );
-    //
-    // _selectedCity.value = _selectedZone?.cityModel ?? await _zoneProvider.fetchCityByID(
-    //   context: context,
-    //   cityID: _selectedZone.cityID,
-    // );
-    //
-    // _selectedDistrict.value = DistrictModel.getDistrictFromDistricts(
-    //   districts: _selectedCity.value?.districts,
-    //   districtID: _selectedZone.districtID,
-    // );
 
   }
 // -----------------------------------------------------------------------------

@@ -155,6 +155,24 @@ class FileModel {
 
     return _pic;
   }
+// --------------------------------------
+  static String bakeFileForLDB(dynamic pic){
+    String _pic;
+
+    if (ObjectChecker.objectIsURL(pic) == true){
+      _pic = pic;
+    }
+    else if (ObjectChecker.objectIsFile(pic) == true){
+      final File _file = pic;
+      _pic = _file.path;
+    }
+    else if (pic is FileModel){
+      final FileModel _fileModel = pic;
+      _pic = _fileModel?.file?.path ?? _fileModel?.url;
+    }
+
+    return _pic;
+  }
 // -----------------------------------------------------------------------------
 
 /// CIPHER
@@ -417,6 +435,7 @@ class FileModel {
 
         /// MISSING FILE
         if (_output.file == null){
+            blog('this bitch ass link is : ${_output.url}');
           _output = _output.copyWith(
             file: await Filers.getFileFromURL(_output.url),
           );
