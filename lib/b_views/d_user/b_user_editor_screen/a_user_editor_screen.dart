@@ -67,7 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     initializeUserEditorLocalVariables(
       context: context,
-      oldUserModel: widget.userModel,
+      oldUser: widget.userModel,
       tempUser: _tempUser,
       titleController: _titleController,
       nameController: _nameController,
@@ -101,7 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           tempUser: _tempUser,
         );
 // -----------------------------
-        await loadLastSession(
+        await loadUserEditorLastSession(
             context: context,
             oldUser: widget.userModel,
             tempUser: _tempUser,
@@ -138,7 +138,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 // -----------------------------------------------------------------------------
   Future<void> _saveSession() async {
-    await saveSession(
+    await saveUserEditorSession(
         context: context,
         oldUserModel: widget.userModel,
         tempUser: _tempUser,
