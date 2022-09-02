@@ -66,7 +66,7 @@ class AuthorModel {
             authorID: oldAuthor.userID,
             bzID: bzModel.id,
           ),
-          size: null,
+          // size: null,
         ),
         contacts: ContactModel.initializeContactsForEditing(
           contacts: oldAuthor.contacts,
@@ -130,6 +130,7 @@ class AuthorModel {
     );
   }
 // ----------------------------------
+
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
     @required bool isCreator,
@@ -146,6 +147,7 @@ class AuthorModel {
     return _author;
   }
 // ----------------------------------
+
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
 

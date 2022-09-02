@@ -47,7 +47,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final FocusNode _companyNode = FocusNode();
 // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -74,19 +74,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       companyController: _companyController,
     );
 
-    _tempUser.addListener(() {
-      _saveSession();
-    });
-    _nameController.addListener(() {
-      _saveSession();
-    });
-    _titleController.addListener(() {
-      _saveSession();
-    });
-    _companyController.addListener(() {
-      _saveSession();
-    });
-
   }
 // -----------------------------------
   bool _isInit = true;
@@ -101,7 +88,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           tempUser: _tempUser,
           oldUser: widget.userModel,
         );
-// -----------------------------
+        // -----------------------------
         await loadUserEditorLastSession(
             context: context,
             oldUser: widget.userModel,
@@ -110,6 +97,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             titleController: _titleController,
             companyController: _companyController,
         );
+        // -----------------------------
+        _createStateListeners();
 // -----------------------------------------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -138,15 +127,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  Future<void> _saveSession() async {
-    await saveUserEditorSession(
+  void _createStateListeners(){
+
+    _tempUser.addListener(() => _saveSession());
+    _nameController.addListener(() => _saveSession());
+    _titleController.addListener(() => _saveSession());
+    _companyController.addListener(() => _saveSession());
+    ContactModel.createListenersToControllers(
+      contacts: _tempUser.value.contacts,
+      listener: () => _saveSession(),
+    );
+
+  }
+// -----------------------------------------------------------------------------
+  void _saveSession(){
+    unawaited(saveUserEditorSession(
         context: context,
         oldUserModel: widget.userModel,
         tempUser: _tempUser,
         nameController: _nameController,
         titleController: _titleController,
         companyController: _companyController
-    );
+    ));
   }
 // -----------------------------------------------------------------------------
   @override
@@ -160,6 +162,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: 'phid_update_profile',
       loading: _loading,
+      // appBarRowWidgets: [
+      //
+      //   AppBarButton(
+      //     verse: 'blogh',
+      //     onTap: (){
+      //
+      //       final TextEditingController _cont = _tempUser.value.contacts[1].controller;
+      //
+      //       blog(_cont.text);
+      //
+      //     },
+      //   ),
+      //
+      // ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_updateProfile',
         onSkipTap: (){

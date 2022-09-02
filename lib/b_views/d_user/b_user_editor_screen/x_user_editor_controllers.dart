@@ -33,8 +33,12 @@ void initializeUserEditorLocalVariables({
   @required TextEditingController companyController,
 }){
 
-  final UserModel _initialModel = oldUser.nullifyField(
-    pic: true,
+  final UserModel _initialModel = oldUser.copyWith(
+    pic: FileModel(url: oldUser.pic, fileName: oldUser.id,),
+    contacts: ContactModel.initializeContactsForEditing(
+        contacts: oldUser.contacts,
+        countryID: oldUser.zone.countryID,
+    ),
   );
 
   tempUser.value = _initialModel;
