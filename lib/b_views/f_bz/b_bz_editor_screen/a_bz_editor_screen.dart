@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/aa_bz_editor_screen_view.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -82,18 +80,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       selectedScopes: _selectedScopes,
     );
 
-    // _tempBz.addListener(() {
-    //   _saveSession();
-    // });
-    // _nameController.addListener(() {
-    //   _saveSession();
-    // });
-    // _aboutController.addListener(() {
-    //   _saveSession();
-    // });
-    // _selectedScopes.addListener(() {
-    //   _saveSession();
-    // });
+    _tempBz.addListener(() {
+      _saveSession();
+    });
+    _nameController.addListener(() {
+      _saveSession();
+    });
+    _aboutController.addListener(() {
+      _saveSession();
+    });
+    _selectedScopes.addListener(() {
+      _saveSession();
+    });
 
   }
 // -----------------------------------
@@ -185,16 +183,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         AppBarButton(
           verse: 'blog',
           onTap: (){
-
-            final BzModel _newBzModel = _tempBz.value.copyWith(
-              zone: const ZoneModel(
-                countryID: 'xxx',
-                cityID: 'fuck you',
-              ),
-            );
-
-
-            _tempBz.value = _newBzModel;
 
             _tempBz.value.zone.blogZoneIDs();
 

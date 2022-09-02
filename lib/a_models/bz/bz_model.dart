@@ -139,6 +139,7 @@ class BzModel{
 // -----------------------------------
   /// TESTED : WORKS PERFECT
   static Future <BzModel> initializeModelForEditing({
+    @required BuildContext context,
     @required BzModel oldBzModel,
     @required bool firstTimer,
     @required UserModel userModel,
@@ -155,6 +156,7 @@ class BzModel{
         countryID: _initialBzModel.zone.countryID,
         contacts: _initialBzModel.contacts,
       ),
+      zone: await ZoneModel.initializeZoneForEditing(context: context, zoneModel: _initialBzModel.zone),
     );
 
   }
@@ -1655,27 +1657,30 @@ class BzModel{
   }){
     bool _areIdentical = false;
 
-    if (bz1 != null && bz2 != null){
+    if (bz1 == null && bz2 == null){
+      _areIdentical = true;
+    }
+    else if (bz1 != null && bz2 != null){
 
       if (
           bz1.id == bz2.id &&
-          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) &&
+          Mapper.checkListsAreIdentical(list1: bz1.bzTypes, list2: bz2.bzTypes) == true &&
           bz1.bzForm == bz2.bzForm &&
-          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: bz1.createdAt, time2: bz2.createdAt) == true &&
           bz1.accountType == bz2.accountType &&
           bz1.name == bz2.name &&
-          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) &&
+          Mapper.checkListsAreIdentical(list1: bz1.trigram, list2: bz2.trigram) == true &&
           bz1.logo == bz2.logo &&
-          Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) &&
-          ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz1.zone) &&
+          Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == true &&
+          ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz2.zone) == true &&
           bz1.about == bz2.about &&
           bz1.position == bz2.position &&
-          ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) &&
-          AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: bz1.contacts, contacts2: bz2.contacts) == true &&
+          AuthorModel.checkAuthorsListsAreIdentical(authors1: bz1.authors, authors2: bz2.authors) == true &&
           bz1.showsTeam == bz2.showsTeam &&
           bz1.isVerified == bz2.isVerified &&
           bz1.bzState == bz2.bzState &&
-          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs)
+          Mapper.checkListsAreIdentical(list1: bz1.flyersIDs, list2: bz2.flyersIDs) == true
       ){
         _areIdentical = true;
       }
@@ -1736,7 +1741,7 @@ class BzModel{
       if (Mapper.checkListsAreIdentical(list1: bz1.scope, list2: bz2.scope) == false){
         blog('scopes are not identical');
       }
-      if (ZoneModel.checkZonesIDsAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
+      if (ZoneModel.checkZonesAreIdentical(zone1: bz1.zone, zone2: bz1.zone) == false){
         blog('zones are not identical');
       }
       if (bz1.about != bz2.about){

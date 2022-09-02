@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/e_db/rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -322,33 +323,46 @@ class Filers {
 
     if (fileURL != null){
       blog('getFileFromURL : START');
-      /// generate random number.
-      final Random _rng = Random();
-      blog('getFileFromURL : _rng : $_rng');
-
-      /// get temporary directory of device.
-      final Directory _tempDir = await getTemporaryDirectory();
-      blog('getFileFromURL : _tempDir : $_tempDir');
-
-      /// get temporary path from temporary directory.
-      final String _tempPath = _tempDir.path;
-      blog('getFileFromURL : _tempPath : $_tempPath');
-
-      /// create a new file in temporary path with random file name.
-      _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
-      blog('getFileFromURL : _file : $_file');
 
       /// call http.get method and pass imageUrl into it to get response.
-      final Uri _imageUri = Uri.parse(fileURL);
-      final http.Response _response = await http.get(_imageUri);
+      // final Uri _imageUri = Uri.parse(fileURL);
+      // final http.Response _response = await http.get(_imageUri);
+      final http.Response _response = await Rest.get(
+        context: null,
+        rawLink: fileURL,
+        showErrorDialog: false,
+        invoker: 'getFileFromURL',
+      );
       blog('getFileFromURL : _response : $_response');
 
-      /// write bodyBytes received in response to file.
-      await _file.writeAsBytes(_response.bodyBytes);
-      blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
+      if (_response != null){
 
-      /// now return the file which is created with random name in
-      /// temporary directory and image bytes from response is written to // that file.
+        /// generate random number.
+        final Random _rng = Random();
+        blog('getFileFromURL : _rng : $_rng');
+
+        /// get temporary directory of device.
+        final Directory _tempDir = await getTemporaryDirectory();
+        blog('getFileFromURL : _tempDir : $_tempDir');
+
+        /// get temporary path from temporary directory.
+        final String _tempPath = _tempDir.path;
+        blog('getFileFromURL : _tempPath : $_tempPath');
+
+        /// create a new file in temporary path with random file name.
+        _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
+        blog('getFileFromURL : _file : $_file');
+
+
+        /// write bodyBytes received in response to file.
+        await _file.writeAsBytes(_response.bodyBytes);
+        blog('getFileFromURL : BYTES WRITTEN ON FILE --------- END');
+
+        /// now return the file which is created with random name in
+        /// temporary directory and image bytes from response is written to // that file.
+
+      }
+
 
     }
 

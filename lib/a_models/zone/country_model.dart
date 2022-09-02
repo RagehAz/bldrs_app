@@ -285,9 +285,12 @@ class CountryModel {
 // -------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
-    bool _areTheSame = false;
+    bool _identical = false;
 
-    if (country1 != null && country2 != null) {
+    if (country1 == null && country2 == null){
+      _identical = true;
+    }
+    else if (country1 != null && country2 != null) {
       if (
       country1.id == country2.id
       &&
@@ -313,11 +316,11 @@ class CountryModel {
           list2: country2.citiesIDs
       ) == true
       ) {
-        _areTheSame = true;
+        _identical = true;
       }
     }
 
-    return _areTheSame;
+    return _identical;
   }
 // -----------------------------------------------------------------------------
 

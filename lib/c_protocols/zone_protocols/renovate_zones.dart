@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,7 @@ class RenovateZoneProtocols {
       }
 
       /// COUNTRY NAME
-      if (incompleteZoneModel.countryName == null || incompleteZoneModel.countryName == '...'){
+      if (Stringer.checkStringIsEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
         final String _countryName = CountryModel.getTranslatedCountryName(
@@ -63,7 +64,7 @@ class RenovateZoneProtocols {
       }
 
       /// CITY NAME
-      if (incompleteZoneModel.cityName == null || incompleteZoneModel.cityName == '...'){
+      if (Stringer.checkStringIsEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
         // superPhrase(context, _zone.cityID);
         final String _cityName = CityModel.getTranslatedCityNameFromCity(
@@ -76,7 +77,7 @@ class RenovateZoneProtocols {
       }
 
       /// DISTRICT NAME
-      if (incompleteZoneModel.districtName == null || incompleteZoneModel.districtName == '...'){
+      if (Stringer.checkStringIsEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
         final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
           context: context,
           city: _output.cityModel,
@@ -87,7 +88,8 @@ class RenovateZoneProtocols {
         );
       }
 
-      if (incompleteZoneModel.flag == null || incompleteZoneModel.flag == Iconz.dvBlankSVG){
+      /// FLAG
+      if (Stringer.checkStringIsEmpty(incompleteZoneModel.flag) == true || incompleteZoneModel.flag == Iconz.dvBlankSVG){
         _output = _output.copyWith(
           flag: Flag.getFlagIcon(incompleteZoneModel.countryID),
         );

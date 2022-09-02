@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -195,11 +194,10 @@ class UserModel {
     @required UserModel oldUser,
   }) async {
 
-    final ZoneModel _zone = oldUser.zone ?? ZoneProvider.proGetCurrentZone(
-      context: context,
-      listen: false,
+    final ZoneModel _zone = await ZoneModel.initializeZoneForEditing(
+        context: context,
+        zoneModel: oldUser.zone,
     );
-
 
     return UserModel(
       id: oldUser.id,

@@ -492,18 +492,22 @@ class CityModel {
     }
     else {
 
-      if (
-      city1.countryID == city2.countryID &&
-      city1.cityID == city2.cityID &&
-      DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
-      city1.population == city2.population &&
-      city1.isActivated == city2.isActivated &&
-      city1.isPublic == city2.isPublic &&
-      Atlas.checkPointsAreIdentical(point1: city1.position, point2: city2.position) == true &&
-      city1.state == city2.state &&
-      Phrase.checkPhrasesListsAreIdentical(phrases1: city1.phrases, phrases2: city2.phrases)
-      ){
-        _identical = true;
+      if (city1 != null && city2 != null){
+
+        if (
+            city1.countryID == city2.countryID &&
+            city1.cityID == city2.cityID &&
+            DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
+            city1.population == city2.population &&
+            city1.isActivated == city2.isActivated &&
+            city1.isPublic == city2.isPublic &&
+            Atlas.checkPointsAreIdentical(point1: city1.position, point2: city2.position) == true &&
+            city1.state == city2.state &&
+            Phrase.checkPhrasesListsAreIdentical(phrases1: city1.phrases, phrases2: city2.phrases)
+        ){
+          _identical = true;
+        }
+
       }
 
     }
