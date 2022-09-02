@@ -142,7 +142,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                 valueListenable: _tempMixedPhrases,
                 builder: (_, List<Phrase> _temp, Widget child){
 
-                  final bool _areIdentical = Phrase.phrasesListsAreIdentical(
+                  final bool _areIdentical = Phrase.checkPhrasesListsAreIdentical(
                       phrases1: _initial,
                       phrases2: _temp,
                   );

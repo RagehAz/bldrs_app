@@ -190,10 +190,10 @@ class UserModel {
   }
 // -----------------------------------
   /// TAMAM : WORKS PERFECT
-  static UserModel initializeModelForEditing({
+  static Future<UserModel> initializeModelForEditing({
     @required BuildContext context,
     @required UserModel oldUser,
-  }){
+  }) async {
 
     final ZoneModel _zone = oldUser.zone ?? ZoneProvider.proGetCurrentZone(
       context: context,
@@ -208,7 +208,7 @@ class UserModel {
       status: oldUser.status,
       name: oldUser.name,
       trigram: oldUser.trigram,
-      pic: FileModel(url: oldUser?.pic, fileName: oldUser?.id, size: null),
+      pic: await FileModel.initializePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
       title: oldUser.title,
       company: oldUser.company,
       gender: oldUser.gender,

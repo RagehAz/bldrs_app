@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -35,20 +36,37 @@ class ObjectChecker {
     null;
   }
 // -----------------------------------------------------------------------------
-  /// BUG : /data/user/0/com.bldrs.net/cache66 IS CONSIDERED URL
+  /// TESTED : WORKS PERFECT
   static bool objectIsURL(dynamic file) {
-    bool _validURL;
+    bool _isValidURL = false;
 
     if (file != null && file is String) {
-      _validURL = Uri.parse(file).isAbsolute;
+      _isValidURL = Uri.parse(file).isAbsolute;
+
+      if (_isValidURL == true){
+
+        final bool _startsWithHttp = TextChecker.textStartsWith(
+          text: file,
+          startsWith: 'http',
+        );
+        final bool _startsWithWWW = TextChecker.textStartsWith(
+          text: file,
+          startsWith: 'www',
+        );
+
+        if (_startsWithHttp == true || _startsWithWWW == true){
+          _isValidURL = true;
+        }
+
+      }
 
     }
 
     else {
-      _validURL = false;
+      _isValidURL = false;
     }
 
-    return _validURL;
+    return _isValidURL;
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
