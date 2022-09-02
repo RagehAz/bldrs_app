@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 class FileModel {
   /// --------------------------------------------------------------------------
   const FileModel({
-    @required this.url,
-    @required this.fileName,
-    @required this.size,
+    this.url,
+    this.fileName,
+    this.size,
     this.file,
 });
   /// --------------------------------------------------------------------------
@@ -51,7 +51,7 @@ class FileModel {
 
     if (file != null){
       _model = FileModel(
-          url: null,
+          // url: null,
           file: file,
           size: Filers.getFileSize(file),
           fileName: Filers.getFileNameFromFile(
@@ -399,6 +399,7 @@ class FileModel {
     return _shouldUpload;
   }
 // --------------------------------------
+  /// TESTED : WORKS PERFECT
   bool checkSizeLimitReached(){
 
     bool _bigger = false;

@@ -193,13 +193,18 @@ class ContactModel {
         existingContact: _existingContact,
         countryID: countryID,
       );
-      
+
+      final TextEditingController _controller = _existingContact?.controller ?? TextEditingController();
+      _controller.text = _initialValue;
+
       final ContactModel _contact = ContactModel(
         value: _initialValue, 
         type: type,
-        controller: TextEditingController(text: _initialValue),
+        controller: _controller,
       );
-      
+
+      _contact.blogContact(methodName: 'initializeContactsForEditing');
+
       _output.add(_contact);
       
     }
@@ -237,6 +242,28 @@ class ContactModel {
     }
     
     return _output;
+  }
+// ----------------------------------
+  /// TESTED : WORKS PERFECT
+  static void createListenersToControllers({
+    @required List<ContactModel> contacts,
+    @required Function listener,
+  }){
+
+    if (Mapper.checkCanLoopList(contacts) == true){
+
+      for (final ContactModel contact in contacts){
+
+        if (contact.controller != null){
+          contact.controller.addListener((){
+            listener();
+          });
+        }
+
+      }
+
+    }
+
   }
 // -----------------------------------------------------------------------------
 
@@ -552,7 +579,7 @@ class ContactModel {
   void blogContact({
     String methodName = 'ContactModel',
   }){
-    blog('$methodName : $type : $value');
+    blog('$methodName : $type : $value : controller : ${controller?.text}');
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
