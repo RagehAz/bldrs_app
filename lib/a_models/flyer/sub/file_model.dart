@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -107,6 +107,37 @@ class FileModel {
     return _model;
   }
 // --------------------------------------
+
+  static Future<FileModel> initializePicForEditing({
+    @required dynamic pic,
+    @required String fileName,
+  }) async {
+
+    FileModel _fileModel;
+
+    if (ObjectChecker.objectIsURL(pic) == true){
+      _fileModel = await createModelByUrl(
+        url: pic,
+        fileName: fileName,
+      );
+    }
+    else if (ObjectChecker.objectIsFile(pic) == true){
+      _fileModel = createModelByNewFile(pic);
+    }
+    else if (pic is FileModel){
+      _fileModel = pic;
+    }
+    else if (pic is String){
+      final String path = pic;
+      final File _file = File(path);
+      _fileModel = createModelByNewFile(_file);
+    }
+
+    return completeModel(_fileModel);
+
+  }
+// --------------------------------------
+
   static dynamic bakeFileForUpload({
     @required dynamic newFile,
     @required dynamic existingPic,
