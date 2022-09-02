@@ -34,7 +34,9 @@ void initializeUserEditorLocalVariables({
   @required TextEditingController companyController,
 }){
 
-  final UserModel _initialModel = oldUser;
+  final UserModel _initialModel = oldUser.nullifyField(
+    pic: true,
+  );
 
   tempUser.value = _initialModel;
 

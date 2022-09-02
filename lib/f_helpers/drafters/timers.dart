@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/e_db/rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -1083,13 +1084,19 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     const String url = 'http://worldtimeapi.org/api/ip';
 
-    final Uri _uri = Uri.parse(url);
+    // final Uri _uri = Uri.parse(url);
+    // final http.Response _response = await http.get(
+    //   _uri,
+    // );
 
-    final http.Response _response = await http.get(
-      _uri,
+    final http.Response _response = await Rest.get(
+      rawLink: url,
+      context: null,
+      showErrorDialog: false,
+      invoker: 'getInternetUTCTime',
     );
 
-    if (_response.statusCode == 200){
+    if (_response != null){
 
       final String _json = _response.body;
 
@@ -1112,9 +1119,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
     }
 
     else {
-
-      blog('getInternetUTCTime : $_response');
-
       _dateTime = DateTime.now();
     }
 
