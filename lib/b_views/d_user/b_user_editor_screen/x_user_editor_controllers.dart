@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
-import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -53,22 +52,10 @@ Future<void> prepareUserZoneAndPicForEditing({
   @required UserModel oldUser,
 }) async {
 
-  UserModel _userModel = await UserModel.initializeModelForEditing(
+  final UserModel _userModel = await UserModel.initializeModelForEditing(
     context: context,
     oldUser: oldUser,
   );
-
-  // UserModel _userModel = tempUser.value.copyWith(
-  //   pic: await FileModel.completeModel(tempUser.value.pic),
-  // );
-
-  if (_userModel.zone == null || _userModel.zone.countryID == null){
-
-    _userModel = _userModel.copyWith(
-      zone: await ZoneFireOps.superGetZoneByIP(context),
-    );
-
-  }
 
   tempUser.value = _userModel;
 

@@ -95,7 +95,7 @@ class CityModel {
       _city = CityModel(
         countryID: map['countryID'],
         cityID: map['cityID'],
-        districts: DistrictModel.decipherDistrictsMap(map['districts']),
+        districts: DistrictModel.decipherDistricts(map['districts']),
         population: map['population'],
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
@@ -481,9 +481,10 @@ class CityModel {
   }
 // -----------------------------------------------------------------------------
 
-  /// MODIFIERS
+  /// CHECKERS
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkCitiesAreIdentical(CityModel city1, CityModel city2){
     bool _identical = false;
 
