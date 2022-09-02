@@ -462,38 +462,29 @@ class Imagers {
   /// CHECKERS
 
 // ---------------------------------------
-  /// not tested
+  /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
     @required dynamic pic1,
     @required dynamic pic2,
   }){
     bool _identical = false;
 
-    if (pic1 != null && pic2 != null){
+    if (pic1 == null && pic2 == null){
+      _identical = true;
+    }
+    else if (pic1 != null && pic2 != null){
 
       if (pic1.runtimeType == pic2.runtimeType){
 
-        final bool _isURL = ObjectChecker.objectIsURL(pic1);
-        final bool _isFile = ObjectChecker.objectIsFile(pic1);
-        // final bool _isAsset = ObjectChecker.objectIsAsset(pic1);
-
-        if (_isURL == true){
-          final String _a = pic1;
-          final String _b = pic2;
-          _identical = _a == _b;
+        if (pic1 is String){
+          _identical = pic1 == pic2;
         }
-
-        else if (_isFile == true){
-          final File _a = pic1;
-          final File _b = pic2;
-          _identical = _a.path == _b.path; // TASK : NEED CONFIRMATION
+        else if (ObjectChecker.objectIsFile(pic1) == true){
+          _identical = Filers.checkFilesAreIdentical(file1: pic1, file2: pic2);
         }
-
-        // else if (_isAsset == true){
-        //   final Asset _a = pic1;
-        //   final Asset _b = pic2;
-        //   _identical = _a.identifier == _b.identifier; // TASK : NEED CONFIRMATION
-        // }
+        else if (pic1 is FileModel){
+          _identical = FileModel.checkFileModelsAreIdentical(model1: pic1, model2: pic2);
+        }
 
       }
 
@@ -501,7 +492,8 @@ class Imagers {
 
     return _identical;
   }
-// -------------------------------------
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool picturesURLsAreIdentical({
     @required List<String> urls1,
     @required List<String> urls2,
