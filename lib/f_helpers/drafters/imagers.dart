@@ -248,7 +248,7 @@ class Imagers {
           size: Filers.getFileSize(_file),
           fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
           file: _file,
-          url: null,
+          // url: null,
         );
 
         _output.add(_fileModel);
@@ -372,7 +372,7 @@ class Imagers {
       size: Filers.getFileSize(_file),
       fileName: Filers.getFileNameFromFile(file: _file, withExtension: false),
       file: _file,
-      url: null,
+      // url: null,
     );
 
     return _fileModel;
