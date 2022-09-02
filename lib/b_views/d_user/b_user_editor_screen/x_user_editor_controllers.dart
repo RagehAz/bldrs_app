@@ -1,23 +1,21 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +34,7 @@ void initializeUserEditorLocalVariables({
   @required TextEditingController companyController,
 }){
 
-  final UserModel _initialModel = UserModel.initializeModelForEditing(
-    context: context,
-    oldUser: oldUser,
-  );
+  final UserModel _initialModel = oldUser;
 
   tempUser.value = _initialModel;
 
@@ -53,11 +48,17 @@ void initializeUserEditorLocalVariables({
 Future<void> prepareUserZoneAndPicForEditing({
   @required BuildContext context,
   @required ValueNotifier<UserModel> tempUser,
+  @required UserModel oldUser,
 }) async {
 
-  UserModel _userModel = tempUser.value.copyWith(
-    pic: await FileModel.completeModel(tempUser.value.pic),
+  UserModel _userModel = await UserModel.initializeModelForEditing(
+    context: context,
+    oldUser: oldUser,
   );
+
+  // UserModel _userModel = tempUser.value.copyWith(
+  //   pic: await FileModel.completeModel(tempUser.value.pic),
+  // );
 
   if (_userModel.zone == null || _userModel.zone.countryID == null){
 
@@ -67,6 +68,7 @@ Future<void> prepareUserZoneAndPicForEditing({
 
   }
 
+  tempUser.value = _userModel;
 
 }
 // -----------------------------------------------------------------------------
@@ -100,7 +102,7 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      final UserModel _initialModel = UserModel.initializeModelForEditing(
+      final UserModel _initialModel = await UserModel.initializeModelForEditing(
         context: context,
         oldUser: _lastSessionUser,
       );
@@ -109,17 +111,17 @@ Future<void> loadUserEditorLastSession({
       companyController.text   = _initialModel.company;
       titleController.text     = _initialModel.title;
 
-      final FileModel _pic = await FileModel.initializePicForEditing(
-        pic: _lastSessionUser.pic,
-        fileName: tempUser.value.id,
-      );
+      // final FileModel _pic = await FileModel.initializePicForEditing(
+      //   pic: _lastSessionUser.pic,
+      //   fileName: tempUser.value.id,
+      // );
       final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
         context: context,
         incompleteZoneModel: _lastSessionUser.zone,
       );
 
       tempUser.value = _initialModel.copyWith(
-        pic: _pic,
+        // pic: _pic,
         zone: _zone,
       );
 

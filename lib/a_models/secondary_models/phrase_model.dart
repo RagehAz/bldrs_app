@@ -948,14 +948,21 @@ class Phrase {
   }
 // -------------------------------------
   /// TASK : TEST THIS
-  static bool phrasesListsAreIdentical({
+  static bool checkPhrasesListsAreIdentical({
     @required List<Phrase> phrases1,
     @required List<Phrase> phrases2,
   }){
 
     bool _listsAreIdentical = false;
 
-    if (Mapper.checkCanLoopList(phrases1) && Mapper.checkCanLoopList(phrases2)){
+    if (phrases1 == null && phrases2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (phrases1?.isEmpty == true && phrases2?.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+
+    else if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
 
       if (phrases1.length == phrases2.length){
 

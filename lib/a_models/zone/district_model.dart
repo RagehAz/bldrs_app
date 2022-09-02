@@ -358,4 +358,73 @@ class DistrictModel{
     return _output;
   }
 // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// -------------------------------------
+  static bool checkDistrictsAreIdentical(DistrictModel district1, DistrictModel district2){
+    bool _identical = false;
+
+    if (district1 == null && district2 == null){
+      _identical = true;
+    }
+    else {
+
+      if (district1 != null && district2 != null){
+
+        if (
+        district1.countryID == district2.countryID &&
+        district1.cityID == district2.cityID &&
+        district1.districtID == district2.districtID &&
+        district1.isActivated == district2.isActivated &&
+        district1.isPublic == district2.isPublic &&
+        Phrase.checkPhrasesListsAreIdentical(phrases1: district1.phrases, phrases2: district2.phrases) == true
+        ){
+          _identical = true;
+        }
+
+      }
+
+    }
+
+    return _identical;
+  }
+// -------------------------------------
+  static bool checkDistrictsListsAreIdentical(List<DistrictModel> districts1, List<DistrictModel> districts2){
+
+      bool _listsAreIdentical = false;
+
+      if (districts1 == null && districts2 == null){
+        _listsAreIdentical = true;
+      }
+      else if (districts1?.isEmpty == true && districts2?.isEmpty == true){
+        _listsAreIdentical = true;
+      }
+
+      else if (Mapper.checkCanLoopList(districts1) == true && Mapper.checkCanLoopList(districts2) == true){
+
+        if (districts1.length != districts2.length) {
+          _listsAreIdentical = false;
+        }
+
+        else {
+          for (int i = 0; i < districts1.length; i++) {
+
+            if (checkDistrictsAreIdentical(districts1[i], districts2[i]) == false) {
+              _listsAreIdentical = false;
+              break;
+            }
+
+            else {
+              _listsAreIdentical = true;
+            }
+
+          }
+        }
+
+      }
+
+      return _listsAreIdentical;
+  }
+// -------------------------------------
 }

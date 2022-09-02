@@ -206,7 +206,7 @@ class _FilePicSplitter extends StatelessWidget {
       picWidth: picWidth,
     );
 
-    final dynamic pic = fileModel.file ?? fileModel.url;
+    final dynamic pic = fileModel?.file ?? fileModel?.url;
 
     if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
       return BzLogo(

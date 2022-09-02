@@ -40,15 +40,8 @@ void initializeLocalVariables({
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
 }){
   // -------------------------
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
-    listen: false,
-  );
-  // -------------------------
-  final BzModel _initialBzModel = BzModel.initializeModelForEditing(
-      oldBzModel: oldBzModel,
-      firstTimer: firstTimer,
-      userModel: _userModel,
+  final BzModel _initialBzModel = oldBzModel.nullifyField(
+    logo: true,
   );
   // -------------------------
   nameController.text = _initialBzModel.name;
@@ -72,14 +65,27 @@ void initializeLocalVariables({
 }
 // ---------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> prepareBzZoneAndLogoForEditing({
+Future<void> prepareBzForEditing({
   @required BuildContext context,
   @required ValueNotifier<BzModel> tempBz,
+  @required bool firstTimer,
+  @required BzModel oldBz,
 }) async {
-
-  BzModel _bzModel = tempBz.value.copyWith(
-    logo: await FileModel.completeModel(tempBz.value.logo),
+  // -------------------------
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
   );
+  // -------------------------
+  BzModel _bzModel = await BzModel.initializeModelForEditing(
+    oldBzModel: oldBz,
+    firstTimer: firstTimer,
+    userModel: _userModel,
+  );
+
+  // BzModel _bzModel = tempBz.value.copyWith(
+  //   logo: await FileModel.completeModel(tempBz.value.logo),
+  // );
 
   if (_bzModel.zone == null || _bzModel.zone.countryID == null){
     _bzModel = _bzModel.copyWith(
@@ -130,7 +136,7 @@ Future<void> loadBzEditorLastSession({
         listen: false,
       );
       // -------------------------
-      final BzModel _initialBzModel = BzModel.initializeModelForEditing(
+      final BzModel _initialBzModel = await BzModel.initializeModelForEditing(
         oldBzModel: _lastSessionBz,
         firstTimer: false,
         userModel: _userModel,
@@ -151,10 +157,10 @@ Future<void> loadBzEditorLastSession({
       );
       inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      final FileModel _logo = await FileModel.initializePicForEditing(
-        pic: _initialBzModel.logo,
-        fileName: _initialBzModel.id,
-      );
+      // final FileModel _logo = await FileModel.initializePicForEditing(
+      //   pic: _initialBzModel.logo,
+      //   fileName: _initialBzModel.id,
+      // );
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
         context: context,
@@ -162,7 +168,7 @@ Future<void> loadBzEditorLastSession({
       );
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       tempBz.value = _initialBzModel.copyWith(
-        logo: _logo,
+        // logo: _logo,
         zone: _zone,
       );
 
@@ -235,9 +241,10 @@ Future<void> onSelectBzSection({
     selectedScopes.value = <SpecModel>[];
 
     final BzModel _updatedBzModel = tempBz.value.nullifyField(
-      bzModel: tempBz.value.copyWith(
-        bzTypes: <BzType>[],
-      ),
+      // bzModel: tempBz.value.copyWith(
+      //   bzTypes: <BzType>[],
+      // ),
+      bzTypes: true,
       bzForm: true,
       scope: true,
     );
@@ -288,16 +295,17 @@ Future<void> onSelectBzType({
     selectedScopes.value = <SpecModel>[];
 
     final BzModel _updatedBzModel = tempBz.value.nullifyField(
-      bzModel: tempBz.value.copyWith(
-        /// UPDATE SELECTED BZ TYPES
-        bzTypes: _newBzTypes,
-      ),
       /// UN SELECT BZ FORM
       bzForm: true,
       /// BZ SCOPE
       scope: true,
     );
-    tempBz.value = _updatedBzModel;
+
+    tempBz.value = _updatedBzModel.copyWith(
+      /// UPDATE SELECTED BZ TYPES
+      bzTypes: _newBzTypes,
+
+    );
 
   }
 
@@ -370,9 +378,19 @@ void onBzZoneChanged({
   @required ZoneModel zoneModel,
   @required ValueNotifier<BzModel> tempBz,
 }){
-  tempBz.value = tempBz.value.copyWith(
-    zone: zoneModel,
+
+  zoneModel.blogZone(methodName: 'onBzZoneChanged before');
+
+  // tempBz.value = tempBz.value.copyWith(
+  //   zone: zoneModel,
+  // );
+
+  tempBz.value = tempBz.value.nullifyField(
+    zone: true,
   );
+
+  tempBz.value.zone.blogZone(methodName: 'onBzZoneChanged after');
+
 }
 // ---------------------------------
 /// TESTED : WORKS PERFECT
