@@ -780,6 +780,53 @@ class CountryModel {
 
     return _countriesPhrases;
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is CountryModel){
+      _areIdentical = checkCountriesAreIdentical(
+        this,
+        other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode^
+  region.hashCode^
+  continent.hashCode^
+  isActivated.hashCode^
+  isGlobal.hashCode^
+  citiesIDs.hashCode^
+  language.hashCode^
+  currency.hashCode^
+  phrases.hashCode^
+  iso2.hashCode^
+  phoneCode.hashCode^
+  capital.hashCode^
+  langCodes.hashCode^
+  areaSqKm.hashCode^
+  internetUsers.hashCode^
+  gdp.hashCode;
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 @immutable

@@ -263,7 +263,7 @@ class PickerModel {
           picker1.isRequired == picker2.isRequired &&
           picker1.unitChainID == picker2.unitChainID &&
 
-          PickersBlocker.checkBlockerssListsAreIdentical(
+          PickersBlocker.checkBlockersListsAreIdentical(
               blockers1: picker1.blockers,
               blockers2: picker2.blockers
           ) == true &&

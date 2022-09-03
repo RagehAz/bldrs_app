@@ -133,7 +133,7 @@ class PickersBlocker {
   }
 // -------------------------------------
   ///
-  static bool checkBlockerssListsAreIdentical({
+  static bool checkBlockersListsAreIdentical({
     @required List<PickersBlocker> blockers1,
     @required List<PickersBlocker> blockers2,
   }){
@@ -177,5 +177,35 @@ class PickersBlocker {
 
     return _listsAreIdentical;
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is PickersBlocker){
+      _areIdentical = checkBlockersAreIdentical(
+        blocker1: this,
+        blocker2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode => value.hashCode^ pickersIDsToBlock.hashCode;
 // -----------------------------------------------------------------------------
 }

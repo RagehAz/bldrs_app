@@ -1462,5 +1462,39 @@ class Phrase {
 
     return _specsPhraseIDs;
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is Phrase){
+      _areIdentical = checkPhrasesAreIdentical(
+        phrase1: this,
+        phrase2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  value.hashCode^
+  id.hashCode^
+  langCode.hashCode^
+  trigram.hashCode;
+// -----------------------------------------------------------------------------
 }

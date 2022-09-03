@@ -22,7 +22,12 @@ class FeedbackModel {
   final String feedback;
   final ModelType modelType;
   final String modelID;
-  /// --------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
@@ -33,9 +38,9 @@ class FeedbackModel {
       'modelID' : modelID,
     };
   }
-
-// -----------------------------------------------------------------------------
-  static FeedbackModel decipherFeedbackMap(Map<String, dynamic> map) {
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static FeedbackModel decipherFeedback(Map<String, dynamic> map) {
     return FeedbackModel(
       id: map['id'],
       userID: map['userID'],
@@ -45,19 +50,90 @@ class FeedbackModel {
       modelID: map['modelID'],
     );
   }
-
-// -----------------------------------------------------------------------------
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps) {
 
     final List<FeedbackModel> _feedbacks = <FeedbackModel>[];
 
     if (Mapper.checkCanLoopList(maps)) {
       for (final Map<String, dynamic> map in maps) {
-        _feedbacks.add(FeedbackModel.decipherFeedbackMap(map));
+        _feedbacks.add(FeedbackModel.decipherFeedback(map));
       }
     }
 
     return _feedbacks;
   }
+// -----------------------------------------------------------------------------
+
+/// CHECKERS
+
+// ----------------------------------------
+  static bool checkFeedbacksAreIdentical({
+  @required FeedbackModel feedback1,
+    @required FeedbackModel feedback2,
+}){
+    bool _areIdentical = false;
+
+    if (feedback1 == null && feedback2 == null){
+      _areIdentical = true;
+    }
+    else if (feedback1 != null && feedback2 != null){
+
+      if (
+          feedback1.id == feedback2.id &&
+          feedback1.userID == feedback2.userID &&
+          feedback1.feedback == feedback2.feedback &&
+          feedback1.modelType == feedback2.modelType &&
+          feedback1.modelID == feedback2.modelID &&
+          Timers.checkTimesAreIdentical(
+              accuracy: TimeAccuracy.second,
+              time1: feedback1.timeStamp,
+              time2: feedback2.timeStamp
+          ) == true
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FeedbackModel){
+      _areIdentical = checkFeedbacksAreIdentical(
+        feedback1: this,
+        feedback2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+     id.hashCode^
+     userID.hashCode^
+     timeStamp.hashCode^
+     feedback.hashCode^
+     modelType.hashCode^
+     modelID.hashCode;
 // -----------------------------------------------------------------------------
 }

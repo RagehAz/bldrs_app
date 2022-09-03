@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class PublishTime {
   /// --------------------------------------------------------------------------
   const PublishTime({
@@ -319,7 +320,39 @@ class PublishTime {
 
     return _output;
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is PublishTime){
+      _areIdentical = checkTimesAreIdentical(
+        time1: this,
+        time2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      state.hashCode^
+      time.hashCode;
+// -----------------------------------------------------------------------------
 }
 
 /*

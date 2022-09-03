@@ -436,5 +436,41 @@ class DistrictModel{
 
       return _listsAreIdentical;
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is DistrictModel){
+      _areIdentical = checkDistrictsAreIdentical(
+        this,
+        other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      countryID.hashCode^
+      cityID.hashCode^
+      districtID.hashCode^
+      isActivated.hashCode^
+      isPublic.hashCode^
+      phrases.hashCode;
+// -----------------------------------------------------------------------------
 }

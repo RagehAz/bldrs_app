@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@immutable
 class KeyboardModel {
 // -----------------------------------------------------------------------------
   const KeyboardModel({
@@ -142,5 +143,52 @@ class KeyboardModel {
 
     return _areIdentical;
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is KeyboardModel){
+      _areIdentical = checkKeyboardsAreIdentical(
+        modelA: this,
+        modelB: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  controller.hashCode^
+  titleVerse.hashCode^
+  hintVerse.hashCode^
+  minLines.hashCode^
+  maxLines.hashCode^
+  maxLength.hashCode^
+  textInputAction.hashCode^
+  textInputType .hashCode^
+  focusNode.hashCode^
+  canObscure.hashCode^
+  counterIsOn.hashCode^
+  isFormField.hashCode^
+  onChanged.hashCode^
+  onSubmitted.hashCode^
+  onSavedForForm.hashCode^
+  onEditingComplete.hashCode^
+  isFloatingField.hashCode;
 // -----------------------------------------------------------------------------
 }

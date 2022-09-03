@@ -37,20 +37,20 @@ class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool objectIsURL(dynamic file) {
+  static bool objectIsURL(dynamic object) {
     bool _isValidURL = false;
 
-    if (file != null && file is String) {
-      _isValidURL = Uri.parse(file).isAbsolute;
+    if (object != null && object is String) {
+      _isValidURL = Uri.parse(object).isAbsolute;
 
       if (_isValidURL == true){
 
         final bool _startsWithHttp = TextChecker.textStartsWith(
-          text: file,
+          text: object,
           startsWith: 'http',
         );
         final bool _startsWithWWW = TextChecker.textStartsWith(
-          text: file,
+          text: object,
           startsWith: 'www',
         );
 

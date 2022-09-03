@@ -516,4 +516,43 @@ class CityModel {
     return _identical;
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is CityModel){
+      _areIdentical = checkCitiesAreIdentical(
+        this,
+        other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+    countryID.hashCode^
+    cityID.hashCode^
+    districts.hashCode^
+    population.hashCode^
+    isActivated.hashCode^
+    isPublic.hashCode^
+    position.hashCode^
+    state.hashCode^
+    phrases.hashCode;
+// -----------------------------------------------------------------------------
 }
