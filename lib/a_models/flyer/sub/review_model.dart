@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
+@immutable
 class ReviewModel {
   /// --------------------------------------------------------------------------
   const ReviewModel({
@@ -329,5 +330,45 @@ class ReviewModel {
 
     return _areIdentical;
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is ReviewModel){
+      _areIdentical = checkReviewsAreIdentical(
+        review1: this,
+        review2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode^
+  text.hashCode^
+  userID.hashCode^
+  time.hashCode^
+  flyerID.hashCode^
+  replyAuthorID.hashCode^
+  reply.hashCode^
+  replyTime.hashCode^
+  agrees.hashCode^
+  docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }

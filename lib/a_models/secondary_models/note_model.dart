@@ -1288,6 +1288,57 @@ class NoteModel {
 
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is NoteModel){
+      _areIdentical = checkNotesAreIdentical(
+        note1: this,
+        note2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode^
+  senderID.hashCode^
+  senderImageURL.hashCode^
+  noteSenderType.hashCode^
+  receiverID.hashCode^
+  receiverType.hashCode^
+  title.hashCode^
+  body.hashCode^
+  metaData.hashCode^
+  sentTime.hashCode^
+  attachment.hashCode^
+  attachmentType.hashCode^
+  seen.hashCode^
+  seenTime.hashCode^
+  sendFCM.hashCode^
+  noteType.hashCode^
+  response.hashCode^
+  responseTime.hashCode^
+  buttons.hashCode^
+  token.hashCode^
+  docSnapshot.hashCode;
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 

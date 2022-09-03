@@ -91,6 +91,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         await prepareBzForEditing(
+          mounted: mounted,
           context: context,
           tempBz: _tempBz,
           oldBz: widget.bzModel,
@@ -98,16 +99,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         );
         // -------------------------------
         await loadBzEditorLastSession(
+          mounted: mounted,
           context: context,
-          nameController: _nameController,
           tempBz: _tempBz,
+          oldBz: widget.bzModel,
+          firstTimer: widget.firstTimer,
+          nameController: _nameController,
+          aboutController: _aboutController,
           selectedScopes: _selectedScopes,
           selectedBzSection: _selectedBzSection,
           inactiveBzTypes: _inactiveBzTypes,
           inactiveBzForms: _inactiveBzForms,
-          aboutController: _aboutController,
-          firstTimer: widget.firstTimer,
-          oldBz: widget.bzModel,
         );
         // -------------------------------
         _createStateListeners();

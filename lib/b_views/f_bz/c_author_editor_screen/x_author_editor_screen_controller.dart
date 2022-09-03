@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -27,7 +28,7 @@ void initializeAuthorEditorLocalVariables({
   @required BzModel bzModel,
 }){
 
-  final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
+  final AuthorModel _initialAuthor = oldAuthor.copyWith(
     pic: FileModel(url: oldAuthor.pic, fileName: AuthorModel.generateAuthorPicID(
       authorID: oldAuthor.userID,
       bzID: bzModel.id,
@@ -38,19 +39,18 @@ void initializeAuthorEditorLocalVariables({
     ),
   );
 
-  tempAuthor.value = _tempAuthor;
+  nameController.text = _initialAuthor.name;
+  titleController.text = _initialAuthor.title;
 
-  nameController.text = tempAuthor.value.name;
-  titleController.text = tempAuthor.value.title;
-
+  tempAuthor.value = _initialAuthor;
 
   ///   old and works
-  // final AuthorModel _tempAuthor = AuthorModel.initializeModelForEditing(
+  // final AuthorModel _initialAuthor = AuthorModel.initializeModelForEditing(
   //   oldAuthor: oldAuthor,
   //   bzModel: bzModel,
   // );
   //
-  // tempAuthor.value = _tempAuthor;
+  // tempAuthor.value = _initialAuthor;
   //
   // nameController.text = tempAuthor.value.name;
   // titleController.text = tempAuthor.value.title;
@@ -63,13 +63,18 @@ Future<void> prepareAuthorPicForEditing({
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
+  @required bool mounted,
 }) async {
 
   final AuthorModel _tempAuthor = await AuthorModel.initializeModelForEditing(
     oldAuthor: oldAuthor,
     bzModel: bzModel,
   );
-  tempAuthor.value = _tempAuthor;
+  setNotifier(
+      notifier: tempAuthor,
+      mounted: mounted,
+      value: _tempAuthor,
+  );
 
   ///   old and works
   // final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
@@ -86,11 +91,12 @@ Future<void> prepareAuthorPicForEditing({
 // ---------------------------------------
 Future<void> loadAuthorEditorSession({
   @required BuildContext context,
+  @required bool mounted,
+  @required ValueNotifier<AuthorModel> tempAuthor,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
   @required TextEditingController nameController,
   @required TextEditingController titleController,
-  @required ValueNotifier<AuthorModel> tempAuthor,
 }) async {
 
   final AuthorModel _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
@@ -109,14 +115,18 @@ Future<void> loadAuthorEditorSession({
     if (_continue == true){
       // -------------------------
       final AuthorModel _initialAuthor = await AuthorModel.initializeModelForEditing(
-        oldAuthor: oldAuthor,
+        oldAuthor: _lastSessionAuthor,
         bzModel: bzModel,
       );
       // -------------------------
       nameController.text = _initialAuthor.name;
       titleController.text = _initialAuthor.title;
       // -------------------------
-      tempAuthor.value = _initialAuthor;
+      setNotifier(
+          notifier: tempAuthor,
+          mounted: mounted,
+          value: _initialAuthor,
+      );
       // -------------------------
     }
 
@@ -132,6 +142,7 @@ Future<void> saveAuthorEditorSession({
   @required TextEditingController titleController,
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required ValueNotifier<AuthorModel> lastTempAuthor,
+  @required bool mounted,
 }) async {
 
   AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
@@ -146,13 +157,22 @@ Future<void> saveAuthorEditorSession({
     pic: FileModel.bakeFileForLDB(newAuthor.pic),
   );
 
+  blog('saveAuthorEditorSession : LISTENENNING AND CHECKING');
+
   if (AuthorModel.checkAuthorsAreIdentical(author1: newAuthor, author2: lastTempAuthor.value) == false){
+
+    blog('saveAuthorEditorSession : SHOULD SAVE NOW');
 
     await BzLDBOps.saveAuthorEditorSession(
         authorModel: newAuthor,
     );
 
-    lastTempAuthor.value = newAuthor;
+    setNotifier(
+        notifier: lastTempAuthor,
+        mounted: mounted,
+        value: newAuthor,
+    );
+
   }
 
 

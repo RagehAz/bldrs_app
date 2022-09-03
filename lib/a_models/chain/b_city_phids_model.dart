@@ -6,6 +6,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class CityPhidsModel {
 /// --------------------------------------------------------------------------
   const CityPhidsModel({
@@ -209,5 +210,67 @@ class CityPhidsModel {
 
     return _refined;
   }
+// -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+// --------------------------------
+  static bool checkCityPhidsAreIdentical({
+    @required CityPhidsModel cityPhids1,
+    @required CityPhidsModel cityPhids2,
+  }){
+    bool _identical = false;
+
+    if (cityPhids1 == null && cityPhids2 == null){
+      _identical = true;
+    }
+    else if (cityPhids1 != null && cityPhids2 != null){
+
+      if (
+      cityPhids1.cityID == cityPhids2.cityID &&
+      MapModel.checkMapModelsListsAreIdentical(
+        models1: cityPhids1.phidsMapModels,
+        models2: cityPhids2.phidsMapModels,
+      ) == true
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is CityPhidsModel){
+      _areIdentical = checkCityPhidsAreIdentical(
+        cityPhids1: this,
+        cityPhids2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      cityID.hashCode^
+      phidsMapModels.hashCode;
 // -----------------------------------------------------------------------------
 }

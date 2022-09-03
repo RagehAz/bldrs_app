@@ -318,10 +318,10 @@ class Filers {
   /// URL
 // ---------------------
   /// TESTED : WORKS PERFECT
-  static Future<File> getFileFromURL(String fileURL) async {
+  static Future<File> getFileFromURL(String url) async {
     File _file;
 
-    if (fileURL != null){
+    if (ObjectChecker.objectIsURL(url) == true){
       blog('getFileFromURL : START');
 
       /// call http.get method and pass imageUrl into it to get response.
@@ -329,7 +329,7 @@ class Filers {
       // final http.Response _response = await http.get(_imageUri);
       final http.Response _response = await Rest.get(
         context: null,
-        rawLink: fileURL,
+        rawLink: url,
         showErrorDialog: false,
         invoker: 'getFileFromURL',
       );
