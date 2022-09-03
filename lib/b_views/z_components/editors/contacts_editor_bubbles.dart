@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 class ContactsEditorsBubbles extends StatelessWidget {
@@ -66,29 +67,37 @@ class ContactsEditorsBubbles extends StatelessWidget {
               contactType: _contactType,
             );
 
-            return ContactFieldBubble(
-              globalKey: globalKey,
-              headerViewModel: BubbleHeaderVM(
-                headlineVerse: ContactModel.translateContactType(
-                  context: context,
+            blog('ContactsEditorsBubbles : _contactType : $_contactType : _controller: ${_controller?.hashCode} : ${_controller?.text}');
+
+            if (_controller == null){
+              return const SizedBox();
+            }
+            else {
+              return ContactFieldBubble(
+                globalKey: globalKey,
+                headerViewModel: BubbleHeaderVM(
+                    headlineVerse: ContactModel.translateContactType(
+                      context: context,
+                      contactType: _contactType,
+                    ),
+                    leadingIcon: ContactModel.concludeContactIcon(_contactType),
+                    leadingIconSizeFactor: 0.7
+                ),
+                appBarType: appBarType,
+                isFormField: true,
+                fieldIsRequired: ContactModel.checkContactIsRequired(
+                  contactType: _contactType,
+                  ownerType: ContactsOwnerType.author,
+                ),
+                textController: _controller,
+                keyboardTextInputAction: TextInputAction.next,
+                keyboardTextInputType: ContactModel.concludeContactTextInputType(
                   contactType: _contactType,
                 ),
-                leadingIcon: ContactModel.concludeContactIcon(_contactType),
-                leadingIconSizeFactor: 0.7
-              ),
-              appBarType: appBarType,
-              isFormField: true,
-              fieldIsRequired: ContactModel.checkContactIsRequired(
-                contactType: _contactType,
-                ownerType: ContactsOwnerType.author,
-              ),
-              textController: _controller,
-              keyboardTextInputAction: TextInputAction.next,
-              keyboardTextInputType: ContactModel.concludeContactTextInputType(
-                contactType: _contactType,
-              ),
 
-            );
+              );
+            }
+
 
           }
 

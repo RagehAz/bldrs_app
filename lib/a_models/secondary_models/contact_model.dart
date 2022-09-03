@@ -191,6 +191,7 @@ class ContactModel {
       
       final String _initialValue = _initializeContactValue(
         existingContact: _existingContact,
+        type: type,
         countryID: countryID,
       );
 
@@ -215,32 +216,30 @@ class ContactModel {
   /// TESTED : WORKS PERFECT
   static String _initializeContactValue({
     @required ContactModel existingContact,
+    @required ContactType type,
     @required String countryID,
   }){
     String _output = '';
     
-    if (existingContact != null){
 
       /// IF PHONE
-      if (existingContact.type == ContactType.phone){
+      if (type == ContactType.phone){
         _output = TextMod.initializePhoneNumber(
           countryID : countryID,
-          number : existingContact.value,
+          number : existingContact?.value,
         );
       }
       /// IF WEB LINK
-      else if (checkIsWebLink(existingContact.type) == true){
+      else if (checkIsWebLink(type) == true){
         _output = TextMod.initializeWebLink(
-            url: existingContact.value,
+            url: existingContact?.value,
         );
       }
       /// OTHERWISE
       else {
-        _output = existingContact.value;
+        _output = existingContact?.value;
       }
 
-    }
-    
     return _output;
   }
 // ----------------------------------
@@ -255,7 +254,9 @@ class ContactModel {
       for (final ContactModel contact in contacts){
 
         if (contact.controller != null){
+          blog('createListenersToControllers : creating listener to ${contact.type} : _controller: ${contact.controller.hashCode} : ${contact.controller.text}');
           contact.controller.addListener((){
+            blog('createListenersToControllers :  IS CHANGING TO : ${contact.controller.text}');
             listener();
           });
         }
@@ -780,7 +781,8 @@ class ContactModel {
 
       if (
       contact1.value == contact2.value &&
-          contact1.type == contact2.type
+          contact1.type == contact2.type &&
+          contact1?.controller?.text == contact2?.controller?.text
       ){
         _areIdentical = true;
       }
@@ -903,5 +905,38 @@ class ContactModel {
       default: return false;
     }
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is ContactModel){
+      _areIdentical = checkContactsAreIdentical(
+        contact1: this,
+        contact2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  value.hashCode^
+  type.hashCode^
+  controller.hashCode;
 // -----------------------------------------------------------------------------
 }

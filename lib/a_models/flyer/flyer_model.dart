@@ -943,10 +943,58 @@ class FlyerModel {
 
     return _owners;
   }
+// -----------------------------------------------------------------------------
 
+  /// OVERRIDES
 
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FlyerModel){
+      _areIdentical = checkFlyersAreIdentical(
+        flyer1: this,
+        flyer2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode^
+  headline.hashCode^
+  trigram.hashCode^
+  description.hashCode^
+  flyerType.hashCode^
+  publishState.hashCode^
+  auditState.hashCode^
+  keywordsIDs.hashCode^
+  zone.hashCode^
+  authorID.hashCode^
+  bzID.hashCode^
+  position.hashCode^
+  slides.hashCode^
+  specs.hashCode^
+  times.hashCode^
+  priceTagIsOn.hashCode^
+  showsAuthor.hashCode^
+  score.hashCode^
+  pdf.hashCode^
+  docSnapshot.hashCode;
+// -----------------------------------------------------------------------------
 }
-
 /// ---------------------
 
 /*

@@ -788,8 +788,14 @@ class AuthorModel {
       author1.pic == author2.pic &&
       author1.title == author2.title &&
       author1.role == author2.role &&
-      Mapper.checkListsAreIdentical(list1: author1.flyersIDs, list2: author2.flyersIDs) &&
-      ContactModel.checkContactsListsAreIdentical(contacts1: author1.contacts, contacts2: author2.contacts)
+      Mapper.checkListsAreIdentical(
+          list1: author1.flyersIDs,
+          list2: author2.flyersIDs,
+      ) == true &&
+      ContactModel.checkContactsListsAreIdentical(
+          contacts1: author1.contacts,
+          contacts2: author2.contacts,
+      ) == true
 
       ){
         _areIdentical = true;
@@ -1173,5 +1179,42 @@ class AuthorModel {
     }
 
   }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is AuthorModel){
+      _areIdentical = checkAuthorsAreIdentical(
+        author1: this,
+        author2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      userID.hashCode^
+      name.hashCode^
+      pic.hashCode^
+      title.hashCode^
+      role.hashCode^
+      contacts.hashCode^
+      flyersIDs.hashCode;
 // -----------------------------------------------------------------------------
 }

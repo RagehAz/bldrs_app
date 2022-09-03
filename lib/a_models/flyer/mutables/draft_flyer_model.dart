@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -197,7 +198,6 @@ class DraftFlyerModel{
     GeoPoint position,
     List<MutableSlide> mutableSlides,
     List<SpecModel> specs,
-    TextEditingController info,
     List<PublishTime> times,
     bool priceTagIsOn,
     int score,
@@ -534,5 +534,97 @@ class DraftFlyerModel{
 
     return _canPublish;
   }
+// -------------------------------------
+  static bool checkDraftsAreIdentical({
+    @required DraftFlyerModel draft1,
+    @required DraftFlyerModel draft2,
+  }){
+    bool _areIdentical = false;
+
+    if (draft1 == null && draft2 == null){
+      _areIdentical = true;
+    }
+    else if (draft1 != null && draft2 != null){
+
+      if (
+      draft1.id == draft2.id &&
+      TextChecker.textControllersAreIdentical(controller1: draft1.headlineController, controller2: draft2.headlineController) == true &&
+      // FocusNode headlineNode,
+      TextChecker.textControllersAreIdentical(controller1: draft1.descriptionController, controller2: draft2.descriptionController) == true &&
+      // FocusNode descriptionNode,
+      draft1.flyerType == draft2.flyerType &&
+      draft1.publishState == draft2.publishState &&
+      draft1.auditState == draft2.auditState &&
+      Mapper.checkListsAreIdentical(list1: draft1.keywordsIDs, list2: draft2.keywordsIDs) == true &&
+      draft1.showsAuthor == draft2.showsAuthor &&
+      ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
+      draft1.authorID == draft2.authorID &&
+      draft1.bzID == draft2.bzID &&
+      Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&
+      MutableSlide.checkSlidesListsAreIdentical(slides1: draft1.mutableSlides, slides2: draft2.mutableSlides) == true &&
+      SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
+      PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
+      draft1.priceTagIsOn == draft2.priceTagIsOn &&
+      draft1.score == draft2.score &&
+      FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true
+
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is DraftFlyerModel){
+      _areIdentical = checkDraftsAreIdentical(
+        draft1: this,
+        draft2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      id.hashCode^
+      headlineController.hashCode^
+      headlineNode.hashCode^
+      descriptionController.hashCode^
+      descriptionNode.hashCode^
+      flyerType.hashCode^
+      publishState.hashCode^
+      auditState.hashCode^
+      keywordsIDs.hashCode^
+      showsAuthor.hashCode^
+      zone.hashCode^
+      authorID.hashCode^
+      bzID.hashCode^
+      position.hashCode^
+      mutableSlides.hashCode^
+      specs.hashCode^
+      times.hashCode^
+      priceTagIsOn.hashCode^
+      score.hashCode^
+      pdf.hashCode;
 // -----------------------------------------------------------------------------
 }

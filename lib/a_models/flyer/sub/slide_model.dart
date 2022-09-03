@@ -647,4 +647,44 @@ class SlideModel {
     );
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is SlideModel){
+      _areIdentical = checkSlidesAreIdentical(
+        slide1: this,
+        slide2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      description.hashCode^
+      picFit.hashCode^
+      imageSize.hashCode^
+      midColor.hashCode^
+      matrix.hashCode^
+      filterID.hashCode^
+      slideIndex.hashCode^
+      pic.hashCode^
+      headline.hashCode^
+      flyerID.hashCode;
+// -----------------------------------------------------------------------------
 }

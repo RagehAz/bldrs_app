@@ -315,7 +315,39 @@ class ImageSize {
     return _fits;
   }
    */
-// -----------------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is ImageSize){
+      _areIdentical = checkSizesAreIdentical(
+        sizeA: this,
+        sizeB: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      width.hashCode^
+      height.hashCode;
+// -----------------------------------------------------------------------------
 }
 
 /*

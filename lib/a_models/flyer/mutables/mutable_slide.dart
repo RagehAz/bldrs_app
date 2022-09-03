@@ -494,6 +494,51 @@ class MutableSlide {
     }
     return _identical;
   }
+// -------------------------------------
+  static bool checkSlidesListsAreIdentical({
+    @required List<MutableSlide> slides1,
+    @required List<MutableSlide> slides2,
+}){
+    bool _listsAreIdentical = false;
+
+    if (slides1 == null && slides2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (slides1.isEmpty == true && slides2.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+    else if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
+
+      if (slides1.length != slides2.length){
+        _listsAreIdentical = false;
+      }
+      else {
+
+        for (int i = 0; i < slides1.length; i++){
+
+          final MutableSlide _slide1 = slides1[i];
+          final MutableSlide _slide2 = slides2[i];
+
+          final bool _areIdentical = checkSlidesAreIdentical(
+            slide1: _slide1,
+            slide2: _slide2,
+          );
+
+          if (_areIdentical == false){
+            _listsAreIdentical = false;
+            break;
+          }
+
+          _listsAreIdentical = true;
+
+        }
+
+      }
+
+    }
+
+    return _listsAreIdentical;
+  }
 // -----------------------------------------------------------------------------
 
   /// OVERRIDES
@@ -524,26 +569,16 @@ class MutableSlide {
 // ----------------------------------------
   @override
   int get hashCode =>
-      picFileModel.hashCode
-      ^
-      headline.hashCode
-      ^
-      midColor.hashCode
-      ^
-      opacity.hashCode
-      ^
-      slideIndex.hashCode
-      ^
-      picURL.hashCode
-      ^
-      description.hashCode
-      ^
-      picFit.hashCode
-      ^
-      imageSize.hashCode
-      ^
-      matrix.hashCode
-      ^
+      picFileModel.hashCode ^
+      headline.hashCode ^
+      midColor.hashCode ^
+      opacity.hashCode ^
+      slideIndex.hashCode ^
+      picURL.hashCode ^
+      description.hashCode ^
+      picFit.hashCode ^
+      imageSize.hashCode ^
+      matrix.hashCode ^
       filter.hashCode;
 // -----------------------------------------------------------------------------
 }

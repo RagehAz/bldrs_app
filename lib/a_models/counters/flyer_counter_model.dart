@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 
 /// ON FLYER CREATION => CLOUD FUNCTION = > CREATE FLYER COUNTER OBJECT ON DB
 /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
+@immutable
 class FlyerCounterModel {
   /// -----------------------------------------------------------------------------
   const FlyerCounterModel({
@@ -22,7 +23,7 @@ class FlyerCounterModel {
 
   /// INITIALIZATION
 
-  // ----------------------------------
+// ----------------------------------
   /// TESTED : WORKS PERFECT
   static FlyerCounterModel createInitialModel(String flyerID){
     return FlyerCounterModel(
@@ -33,7 +34,7 @@ class FlyerCounterModel {
         reviews: 0,
     );
   }
-  // ----------------------------------
+// ----------------------------------
   /// TESTED : WORKS PERFECT
   FlyerCounterModel copyWith({
     String flyerID,
@@ -56,7 +57,7 @@ class FlyerCounterModel {
 
   /// CYPHERS
 
-  // ----------------------------------
+// ----------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
@@ -67,7 +68,7 @@ class FlyerCounterModel {
       'reviews' : reviews,
     };
   }
-  // ----------------------------------
+// ----------------------------------
   /// TESTED : WORKS PERFECT
   static FlyerCounterModel decipherCounterMap(Map<String, dynamic> map){
 
@@ -85,8 +86,11 @@ class FlyerCounterModel {
 
     return _model;
   }
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
+  /// BLOGGING
+
+// ----------------------------------
   void blogCounter(){
 
     blog(
@@ -98,5 +102,70 @@ class FlyerCounterModel {
     );
 
   }
+// -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+// ----------------------------------------
+  static bool checkFlyerCounterModelsAreIdentical({
+    @required FlyerCounterModel counter1,
+    @required FlyerCounterModel counter2,
+  }){
+    bool _areIdentical = false;
+
+    if (counter1 == null && counter2 == null){
+      _areIdentical = true;
+    }
+    else if (counter1 != null && counter2 != null){
+
+      if (
+      counter1.flyerID == counter2.flyerID &&
+      counter1.saves == counter2.saves &&
+      counter1.shares == counter2.shares &&
+      counter1.views == counter2.views &&
+      counter1.reviews == counter2.reviews
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FlyerCounterModel){
+      _areIdentical = checkFlyerCounterModelsAreIdentical(
+        counter1: this,
+        counter2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      flyerID.hashCode^
+      saves.hashCode^
+      shares.hashCode^
+      views.hashCode^
+      reviews.hashCode;
+// -----------------------------------------------------------------------------
 }

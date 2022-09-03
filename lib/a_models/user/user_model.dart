@@ -49,6 +49,7 @@ enum UserTab {
   settings,
 }
 // --------------------
+@immutable
 class UserModel {
   /// --------------------------------------------------------------------------
   const UserModel({
@@ -126,15 +127,15 @@ class UserModel {
       zone: null,
       language: 'en',
       location: const GeoPoint(0, 0),
-      contacts: <ContactModel>[],
+      contacts: const <ContactModel>[],
       // -------------------------
-      myBzzIDs: <String>[],
+      myBzzIDs: const <String>[],
       emailIsVerified: _user.emailVerified,
       isAdmin: false,
       fcmToken: null,
       company: null,
-      savedFlyersIDs: <String>[],
-      followedBzzIDs: <String>[],
+      savedFlyersIDs: const <String>[],
+      followedBzzIDs: const <String>[],
       appState: AppState.initialState(),
     );
 
@@ -170,13 +171,13 @@ class UserModel {
       location: null,
       contacts: ContactModel.generateContactsFromFirebaseUser(user),
       // -------------------------
-      myBzzIDs: <String>[],
+      myBzzIDs: const <String>[],
       emailIsVerified: user.emailVerified,
       isAdmin: false,
       company: null,
       fcmToken: null,
-      savedFlyersIDs: <String>[],
-      followedBzzIDs: <String>[],
+      savedFlyersIDs: const <String>[],
+      followedBzzIDs: const <String>[],
       appState: await GeneralProvider.fetchGlobalAppState(
         context: context,
         assignToUser: true,
@@ -1149,7 +1150,7 @@ class UserModel {
       createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
       status: UserStatus.normal,
       name: 'Donald duck',
-      trigram: <String>[],
+      trigram: const <String>[],
       pic: Iconz.dvRageh,
       title: 'CEO',
       company: 'Bldrs.LLC',
@@ -1158,12 +1159,12 @@ class UserModel {
       language: 'en',
       location: Atlas.dummyLocation(),
       contacts: ContactModel.dummyContacts(),
-      myBzzIDs: <String>[],
+      myBzzIDs: const <String>[],
       emailIsVerified: true,
       isAdmin: true,
       fcmToken: null,
-      savedFlyersIDs: <String>[],
-      followedBzzIDs: <String>[],
+      savedFlyersIDs: const <String>[],
+      followedBzzIDs: const <String>[],
       appState: AppState.dummyAppState(),
     );
 
@@ -1313,6 +1314,58 @@ class UserModel {
     final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
     return _index;
   }
-// -----------------------------------
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is UserModel){
+      _areIdentical = checkUsersAreIdentical(
+        user1: this,
+        user2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+  id.hashCode^
+  authBy.hashCode^
+  createdAt.hashCode^
+  status.hashCode^
+  name.hashCode^
+  trigram.hashCode^
+  pic.hashCode^
+  title.hashCode^
+  company.hashCode^
+  gender.hashCode^
+  zone.hashCode^
+  language.hashCode^
+  location.hashCode^
+  contacts.hashCode^
+  myBzzIDs.hashCode^
+  emailIsVerified.hashCode^
+  isAdmin.hashCode^
+  fcmToken.hashCode^
+  savedFlyersIDs.hashCode^
+  followedBzzIDs.hashCode^
+  appState.hashCode^
+  docSnapshot.hashCode;
+// -----------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

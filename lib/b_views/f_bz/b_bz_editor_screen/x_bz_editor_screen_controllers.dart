@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -73,6 +74,7 @@ Future<void> prepareBzForEditing({
   @required ValueNotifier<BzModel> tempBz,
   @required bool firstTimer,
   @required BzModel oldBz,
+  @required bool mounted,
 }) async {
 
   final BzModel _bzModel = await BzModel.initializeModelForEditing(
@@ -85,7 +87,11 @@ Future<void> prepareBzForEditing({
     ),
   );
 
-  tempBz.value = _bzModel;
+  setNotifier(
+      notifier: tempBz,
+      mounted: mounted,
+      value: _bzModel,
+  );
 }
 // -----------------------------------------------------------------------------
 
@@ -94,8 +100,10 @@ Future<void> prepareBzForEditing({
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
+  @required bool mounted,
   @required BuildContext context,
   @required ValueNotifier<BzModel> tempBz,
+  @required BzModel oldBz,
   @required bool firstTimer,
   @required TextEditingController nameController,
   @required TextEditingController aboutController,
@@ -103,7 +111,6 @@ Future<void> loadBzEditorLastSession({
   @required ValueNotifier<BzSection> selectedBzSection,
   @required ValueNotifier<List<BzType>> inactiveBzTypes,
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
-  @required BzModel oldBz,
 }) async {
 
   final BzModel _lastSessionBz = await BzLDBOps.loadBzEditorSession(
@@ -148,7 +155,11 @@ Future<void> loadBzEditorLastSession({
       );
       inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      tempBz.value = _initialBzModel;
+      setNotifier(
+          notifier: tempBz,
+          mounted: mounted,
+          value: _initialBzModel,
+      );
 
     }
 
