@@ -187,6 +187,29 @@ class TextChecker {
 
     return _controllerIsEmpty;
   }
+// -------------------------------------
+  static bool textControllersAreIdentical({
+    @required TextEditingController controller1,
+    @required TextEditingController controller2,
+  }){
+    bool _areIdentical = false;
+
+    if (controller1 == null && controller2 == null){
+      _areIdentical = true;
+    }
+    else if (controller1 != null && controller2 != null){
+
+      if (
+      controller1.text == controller2.text &&
+      controller1.hashCode == controller2.hashCode
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
 // -----------------------------------------------------------------------------
 
   /// TEXT CONTROLLER DISPOSERS

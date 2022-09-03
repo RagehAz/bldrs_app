@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -79,16 +80,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
+      _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         await prepareAuthorPicForEditing(
+          mounted: mounted,
           context: context,
           tempAuthor: _tempAuthor,
-          bzModel: widget.bzModel,
           oldAuthor: widget.author,
+          bzModel: widget.bzModel,
         );
         // -------------------------------
         await loadAuthorEditorSession(
+          mounted: mounted,
           context: context,
           oldAuthor: widget.author,
           bzModel: widget.bzModel,
@@ -99,7 +102,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         // -------------------------------
         _createStateListeners();
         // -------------------------------
-        await _triggerLoading();
+        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
@@ -149,6 +152,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       nameController: _nameController,
       bzModel: widget.bzModel,
       oldAuthor: widget.author,
+      mounted: mounted,
     ));
   }
 // -----------------------------------------------------------------------------
@@ -184,9 +188,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
             return ListView(
               physics: const BouncingScrollPhysics(),
-              padding: Stratosphere.stratosphereSandwich,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: <Widget>[
+
+                const Stratosphere(),
 
                 /// --- AUTHOR IMAGE
                 AddImagePicBubble(
@@ -268,6 +273,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   contactsOwnerType: ContactsOwnerType.author,
                   appBarType: AppBarType.basic,
                 ),
+
+                const Horizon(),
 
               ],
             );

@@ -32,26 +32,6 @@ class MapModel{
   }
 // -----------------------------------------------------------------------------
 
-  /// OVERRIDES
-
-// ----------------------------------------
-  @override
-  String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-// ----------------------------------------
-  @override
-  bool operator == (Object other){
-
-    if (identical(this, other)) {
-      return true;
-    }
-
-    return other is MapModel && other.key == key && other.value == value;
-  }
-// ----------------------------------------
-  @override
-  int get hashCode => key.hashCode ^ value.hashCode;
-// -----------------------------------------------------------------------------
-
   /// CYPHERS
 
 // ----------------------------------------
@@ -402,4 +382,68 @@ class MapModel{
     return _include;
   }
 // ----------------------------------------
+  static bool checkMapModelsListsAreIdentical({
+    @required List<MapModel> models1,
+    @required List<MapModel> models2,
+  }){
+    bool _output = false;
+
+    if (models1 == null && models2 == null){
+      _output = true;
+    }
+    else if (models1.isEmpty && models2.isEmpty){
+      _output = true;
+    }
+    else if (models1 != null && models2 != null){
+
+      if (models1.length != models2.length){
+        _output = false;
+      }
+
+      else {
+
+        for (int i = 0; i < models1.length; i++){
+
+          final bool _areIdentical =  models1[i] == models2[i];
+
+          if (_areIdentical == false){
+            _output = false;
+            break;
+          }
+
+          else {
+            _output = true;
+          }
+
+        }
+
+      }
+
+
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  @override
+  String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return other is MapModel && other.key == key && other.value == value;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode => key.hashCode ^ value.hashCode;
+// -----------------------------------------------------------------------------
+
 }

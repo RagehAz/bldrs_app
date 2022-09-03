@@ -227,4 +227,42 @@ class AppState {
     return _identical;
   }
 // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is AppState){
+      _areIdentical = checkAppStatesAreIdentical(
+        appState1: this,
+        appState2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      keywordsChainVersion.hashCode^
+      specsChainVersion.hashCode^
+      specPickersVersion.hashCode^
+      phrasesVersion.hashCode^
+      appVersion.hashCode^
+      ldbVersion.hashCode^
+      appControlsVersion.hashCode^
+      id.hashCode;
+// -----------------------------------------------------------------------------
 }

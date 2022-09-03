@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@immutable
 class BzCounterModel {
   /// -----------------------------------------------------------------------------
   const BzCounterModel({
@@ -25,7 +26,7 @@ class BzCounterModel {
 
   /// INITIALIZATION
 
-  // ----------------------------------
+// ----------------------------------------
   /// TESTED : WORKS PERFECT
   static BzCounterModel createInitialModel(String bzID){
     return BzCounterModel(
@@ -39,7 +40,7 @@ class BzCounterModel {
         allReviews: 0,
     );
   }
-  // ----------------------------------
+// ----------------------------------------
   /// TESTED : WORKS PERFECT
   BzCounterModel copyWith({
     String bzID,
@@ -68,7 +69,7 @@ class BzCounterModel {
 
   /// CYPHERS
 
-  // ----------------------------------
+// ----------------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
@@ -82,7 +83,7 @@ class BzCounterModel {
       'allReviews': allReviews,
     };
   }
-  // ----------------------------------
+// ----------------------------------------
   /// TESTED : WORKS PERFECT
   static BzCounterModel decipherCounterMap(Map<String, dynamic> map){
 
@@ -103,6 +104,76 @@ class BzCounterModel {
 
     return _model;
   }
-// ----------------------------------------
+// -----------------------------------------------------------------------------
 
+  /// CHECKERS
+
+// ----------------------------------------
+  static bool checkBzCounterModelsAreIdentical({
+    @required BzCounterModel counter1,
+    @required BzCounterModel counter2,
+  }){
+    bool _areIdentical = false;
+
+    if (counter1 == null && counter2 == null){
+      _areIdentical = true;
+    }
+    else if (counter1 != null && counter2 != null){
+
+      if (
+      counter1.bzID == counter2.bzID &&
+      counter1.follows == counter2.follows &&
+      counter1.calls == counter2.calls &&
+      counter1.allSaves == counter2.allSaves &&
+      counter1.allShares == counter2.allShares &&
+      counter1.allSlides == counter2.allSlides &&
+      counter1.allViews == counter2.allViews &&
+      counter1.allReviews == counter2.allReviews
+      ){
+        _areIdentical = true;
+      }
+
+    }
+
+    return _areIdentical;
+  }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is BzCounterModel){
+      _areIdentical = checkBzCounterModelsAreIdentical(
+        counter1: this,
+        counter2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      bzID.hashCode^
+      follows.hashCode^
+      calls.hashCode^
+      allSaves.hashCode^
+      allShares.hashCode^
+      allSlides.hashCode^
+      allViews.hashCode^
+      allReviews.hashCode;
+// -----------------------------------------------------------------------------
 }

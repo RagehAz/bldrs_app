@@ -8,6 +8,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class FileModel {
   /// --------------------------------------------------------------------------
   const FileModel({
@@ -485,5 +486,39 @@ class FileModel {
 void blogFileModel(){
     blog('blogFileModel : fileName : $fileName : size : $size : urlExists : ${url != null} : fileExists : ${file != null}');
 }
+// -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is FileModel){
+      _areIdentical = checkFileModelsAreIdentical(
+        model1: this,
+        model2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+// ----------------------------------------
+  @override
+  int get hashCode =>
+      url.hashCode^
+      fileName.hashCode^
+      size.hashCode^
+      file.hashCode;
 // -----------------------------------------------------------------------------
 }

@@ -811,4 +811,45 @@ class RecordModel {
   }
 // -----------------------------------------------------------------------------
 
+  /// OVERRIDES
+
+// ----------------------------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+// ----------------------------------------
+  /*
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is RecordModel){
+      _areIdentical = checkBzCounterModelsAreIdentical(
+        counter1: this,
+        counter2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+   */
+// ----------------------------------------
+  /*
+  @override
+  int get hashCode =>
+      bzID.hashCode^
+      follows.hashCode^
+      calls.hashCode^
+      allSaves.hashCode^
+      allShares.hashCode^
+      allSlides.hashCode^
+      allViews.hashCode^
+      allReviews.hashCode;
+   */
+// -----------------------------------------------------------------------------
 }

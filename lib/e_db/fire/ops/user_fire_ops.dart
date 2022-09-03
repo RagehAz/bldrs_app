@@ -105,8 +105,8 @@ class UserFireOps {
       isAdmin: userModel.isAdmin,
       emailIsVerified: userModel.emailIsVerified,
       fcmToken: userModel.fcmToken,
-      followedBzzIDs: <String>[],
-      savedFlyersIDs: <String>[],
+      followedBzzIDs: const <String>[],
+      savedFlyersIDs: const <String>[],
       appState: userModel.appState,
     );
 
