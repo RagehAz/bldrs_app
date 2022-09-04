@@ -17,7 +17,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -221,7 +221,7 @@ class ReviewTextBalloon extends StatelessWidget {
         ),
 
         /// BZ REPLY BUBBLE
-        if (isCreatorMode == false && Stringer.checkStringIsNotEmpty(reviewModel?.reply) == true)
+        if (isCreatorMode == false && TextCheck.isEmpty(reviewModel?.reply) == false)
         BzReplyBubble(
           boxWidth: _textBubbleWidth,
           reviewModel: reviewModel,

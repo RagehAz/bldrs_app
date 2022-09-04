@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -29,27 +30,21 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 void initializeLocalVariables({
   @required BuildContext context,
-  @required BzModel oldBzModel,
+  @required BzModel oldBz,
   @required ValueNotifier<BzModel> tempBz,
   @required bool firstTimer,
-  @required TextEditingController nameController,
-  @required TextEditingController aboutController,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required ValueNotifier<BzSection> selectedBzSection,
   @required ValueNotifier<List<BzType>> inactiveBzTypes,
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
 }){
   // -------------------------
-  final BzModel _initialBzModel = oldBzModel.copyWith(
-    logo: FileModel(url: oldBzModel.logo, fileName: oldBzModel.id,),
-    contacts: ContactModel.initializeContactsForEditing(
-      contacts: oldBzModel.contacts,
-      countryID: oldBzModel.zone.countryID,
+  final BzModel _initialBzModel = oldBz.copyWith(
+    logo: FileModel.initializePicForEditing(
+      pic: oldBz.logo,
+      fileName: oldBz.id,
     ),
   );
-  // -------------------------
-  nameController.text = _initialBzModel.name;
-  aboutController.text = _initialBzModel.about;
   // -------------------------
   selectedScopes.value = SpecModel.generateSpecsByPhids(
     context: context,
@@ -100,17 +95,9 @@ Future<void> prepareBzForEditing({
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
-  @required bool mounted,
   @required BuildContext context,
-  @required ValueNotifier<BzModel> tempBz,
   @required BzModel oldBz,
   @required bool firstTimer,
-  @required TextEditingController nameController,
-  @required TextEditingController aboutController,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required ValueNotifier<BzSection> selectedBzSection,
-  @required ValueNotifier<List<BzType>> inactiveBzTypes,
-  @required ValueNotifier<List<BzForm>> inactiveBzForms,
 }) async {
 
   final BzModel _lastSessionBz = await BzLDBOps.loadBzEditorSession(
@@ -139,26 +126,14 @@ Future<void> loadBzEditorLastSession({
         firstTimer: false,
         userModel: _userModel,
       );
-      // -------------------------
-      nameController.text = _initialBzModel.name;
-      aboutController.text = _initialBzModel.about;
-      // -------------------------
-      selectedScopes.value = SpecModel.generateSpecsByPhids(
+      await Nav.replaceScreen(
         context: context,
-        phids: _initialBzModel.scope,
-      );
-      // -------------------------
-      selectedBzSection.value   = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
-      inactiveBzTypes.value  = BzModel.concludeDeactivatedBzTypesBySection(
-        bzSection: selectedBzSection.value,
-        initialBzTypes: _initialBzModel.bzTypes,
-      );
-      inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      setNotifier(
-          notifier: tempBz,
-          mounted: mounted,
-          value: _initialBzModel,
+        screen: BzEditorScreen(
+          bzModel: _initialBzModel,
+          firstTimer: firstTimer,
+          checkLastSession: false,
+          validateOnStartup: true,
+        ),
       );
 
     }
@@ -171,16 +146,13 @@ Future<void> loadBzEditorLastSession({
 Future<void> saveBzEditorSession({
   @required ValueNotifier<BzModel> tempBz,
   @required ValueNotifier<BzModel> lastTempBz,
-  @required TextEditingController nameController,
-  @required TextEditingController aboutController,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required BzModel oldBz,
+  @required bool mounted,
 }) async {
 
   BzModel newBz = BzModel.backEditorVariablesToUpload(
     tempBz: tempBz,
-    aboutController: aboutController,
-    nameController: nameController,
     oldBz: oldBz,
     selectedScopes: selectedScopes,
   );
@@ -196,7 +168,11 @@ Future<void> saveBzEditorSession({
         bzModel: newBz
     );
 
-    lastTempBz.value = newBz;
+    setNotifier(
+        notifier: lastTempBz,
+        mounted: mounted,
+        value: newBz,
+        );
 
   }
 
@@ -370,6 +346,49 @@ Future<void> takeBzLogo({
 }
 // ---------------------------------
 /// TESTED : WORKS PERFECT
+void onBzNameChanged({
+  @required ValueNotifier<BzModel> tempBz,
+  @required String text,
+}){
+
+  tempBz.value = tempBz.value.copyWith(
+    name: text,
+  );
+
+}
+// ---------------------------------
+/// TESTED : WORKS PERFECT
+void onBzAboutChanged({
+  @required ValueNotifier<BzModel> tempBz,
+  @required String text,
+}) {
+  tempBz.value = tempBz.value.copyWith(
+    about: text,
+  );
+}
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  void onBzContactChanged({
+    @required ValueNotifier<BzModel> tempBz,
+    @required ContactType contactType,
+    @required String value,
+  }){
+
+    final List<ContactModel> _contacts = ContactModel.replaceContact(
+      contacts: tempBz.value.contacts,
+      contactToReplace: ContactModel(
+        value: value,
+        type: contactType,
+      ),
+    );
+
+    tempBz.value = tempBz.value.copyWith(
+      contacts: _contacts,
+    );
+
+  }
+// ----------------------------------------
+/// TESTED : WORKS PERFECT
 void onBzZoneChanged({
   @required ZoneModel zoneModel,
   @required ValueNotifier<BzModel> tempBz,
@@ -439,8 +458,6 @@ Future<void> onBzEditsConfirmTap({
   @required GlobalKey<FormState> formKey,
   @required ValueNotifier<List<AlertModel>> missingFields,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
-  @required TextEditingController bzNameTextController,
-  @required TextEditingController bzAboutTextController,
   @required BzModel oldBz,
   @required bool firstTimer,
   @required ValueNotifier<BzModel> tempBz,
@@ -449,8 +466,6 @@ Future<void> onBzEditsConfirmTap({
   final BzModel _newBzModel = BzModel.backEditorVariablesToUpload(
     selectedScopes: selectedScopes,
     oldBz: oldBz,
-    nameController: bzNameTextController,
-    aboutController: bzAboutTextController,
     tempBz: tempBz,
   );
 

@@ -176,7 +176,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearchCountry(String val) async {
 
-    TextChecker.triggerIsSearchingNotifier(
+    TextCheck.triggerIsSearchingNotifier(
         text: val,
         isSearching: _isSearching
     );
@@ -193,7 +193,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
       _foundCountries.value = await _searchCountriesPhrasesByName(
         context: context,
-        lingoCode: TextChecker.concludeEnglishOrArabicLang(val),
+        lingoCode: TextCheck.concludeEnglishOrArabicLang(val),
         countryName: val,
       );
 

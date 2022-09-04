@@ -32,7 +32,10 @@ void initializeUserEditorLocalVariables({
 }){
 
   final UserModel _initialModel = oldUser.copyWith(
-    pic: oldUser.pic is FileModel ? oldUser.pic : FileModel(url: oldUser.pic, fileName: oldUser.id,),
+    pic: FileModel.initializePicForEditing(
+      pic: oldUser.pic,
+      fileName: oldUser.id,
+    ),
   );
 
   tempUser.value = _initialModel;
@@ -40,7 +43,7 @@ void initializeUserEditorLocalVariables({
 }
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> prepareUserZoneAndPicForEditing({
+Future<void> prepareUserForEditing({
   @required BuildContext context,
   @required ValueNotifier<UserModel> tempUser,
   @required UserModel oldUser,
@@ -214,8 +217,8 @@ void onChangeGender({
     gender: selectedGender,
   );
 }
-// ---------------------------------------
-///
+// -------------------------------
+/// TESTED : WORKS PERFECT
 void onUserNameChanged({
   @required ValueNotifier<UserModel> tempUser,
   @required String text,
@@ -226,8 +229,8 @@ void onUserNameChanged({
   );
 
 }
-// ---------------------------------------
-///
+// -------------------------------
+/// TESTED : WORKS PERFECT
 void onUserJobTitleChanged({
   @required ValueNotifier<UserModel> tempUser,
   @required String text,
@@ -238,8 +241,8 @@ void onUserJobTitleChanged({
   );
 
 }
-// ---------------------------------------
-///
+// -------------------------------
+/// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
   @required ValueNotifier<UserModel> tempUser,
   @required String text,
@@ -263,7 +266,8 @@ void onUserZoneChanged({
   tempUser.value = _updated;
 
 }
-// ---------------------------------------
+// -------------------------------
+/// TESTED : WORKS PERFECT
 void onUserContactChanged({
   @required ValueNotifier<UserModel> tempUser,
   @required ContactType contactType,
@@ -388,8 +392,6 @@ Future<void> confirmEdits({
   }
 
 }
-// ----------------------------------------
-
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<UserModel> _updateUserModel({

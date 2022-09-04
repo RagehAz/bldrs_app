@@ -9,7 +9,6 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -91,7 +90,7 @@ Future<void> onSearchChains({
 
   searchValue.value = text;
 
-  TextChecker.triggerIsSearchingNotifier(
+  TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
 
@@ -141,7 +140,7 @@ Future<void> onUpdateNode({
 
   Keyboard.closeKeyboard(context);
 
-  if (Stringer.checkStringIsEmpty(newPhid) == true){
+  if (TextCheck.isEmpty(newPhid) == true){
     blog('new phid value is empty man');
   }
 

@@ -27,7 +27,7 @@ Future<void> onChainsSearchChanged({
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
 
-  TextChecker.triggerIsSearchingNotifier(
+  TextCheck.triggerIsSearchingNotifier(
     text: text,
     isSearching: isSearching,
     onResume: () => onChainsSearchSubmitted(

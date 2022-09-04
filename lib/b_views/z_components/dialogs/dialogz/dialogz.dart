@@ -110,7 +110,7 @@ class Dialogs {
     String _errorReply;
 
     for (final Map<String, dynamic> map in _errors) {
-      final bool _mapContainsTheError = TextChecker.stringContainsSubString(
+      final bool _mapContainsTheError = TextCheck.stringContainsSubString(
         string: result,
         subString: map['error'],
       );

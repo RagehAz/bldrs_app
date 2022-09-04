@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x3_user_notes_page_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -120,7 +120,7 @@ class NoteCard extends StatelessWidget {
 
                     /// TITLE
                     SuperVerse(
-                      verse: Stringer.checkStringIsNotEmpty(noteModel?.title) == true ? noteModel?.title : 'Title',
+                      verse: TextCheck.isEmpty(noteModel?.title) == false ? noteModel?.title : '##Title',
                       maxLines: 5,
                       centered: false,
                     ),
@@ -141,7 +141,7 @@ class NoteCard extends StatelessWidget {
 
                     /// BODY
                     SuperVerse(
-                      verse: Stringer.checkStringIsNotEmpty(noteModel?.body) == true ? noteModel?.body : '...',
+                      verse: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
                       weight: VerseWeight.thin,
                       maxLines: 20,
                       centered: false,

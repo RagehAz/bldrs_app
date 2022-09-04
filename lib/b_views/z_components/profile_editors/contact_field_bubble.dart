@@ -35,7 +35,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.fieldLeadingIcon,
     this.keyboardTextInputType = TextInputType.url,
     this.canPaste = true,
-
+    this.focusNode,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -60,6 +60,7 @@ class ContactFieldBubble extends StatefulWidget {
   final AppBarType appBarType;
   final BubbleHeaderVM headerViewModel;
   final GlobalKey globalKey;
+  final FocusNode focusNode;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
@@ -90,7 +91,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   void dispose() {
 
     if (widget.textController == null){
-      _textController.dispose();
+      _textController?.dispose();
     }
 
     super.dispose();
@@ -184,6 +185,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
+                focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.globalKey,
                 titleVerse: '##Contact',

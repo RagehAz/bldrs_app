@@ -1,13 +1,12 @@
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
-class TextChecker {
+class TextCheck {
 // -----------------------------------------------------------------------------
 
-  const TextChecker();
+  const TextCheck();
 
 // -----------------------------------------------------------------------------
 
@@ -167,7 +166,7 @@ class TextChecker {
   static bool verseIsUpperCase(String text){
     bool _isUpperCase = false;
 
-    if (Stringer.checkStringIsEmpty(text) == false){
+    if (TextCheck.isEmpty(text) == false){
       if (text.toUpperCase() == text){
         _isUpperCase = true;
       }
@@ -275,6 +274,33 @@ class TextChecker {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
+  static bool isEmpty(String val) {
+    bool _isEmpty = true;
+
+    final String _string = val?.trim();
+
+    if (
+    _string == null
+        ||
+        _string == ''
+        ||
+        _string.isEmpty == true
+        ||
+        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
+        ||
+        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
+    ) {
+      _isEmpty = true;
+    }
+
+    else {
+      _isEmpty = false;
+    }
+
+    return _isEmpty;
+  }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool stringContainsSubString({
     @required String string,
     @required String subString,
@@ -325,7 +351,7 @@ class TextChecker {
   }){
     bool _output = false;
 
-    if (Stringer.checkStringIsEmpty(text) == false && Stringer.checkStringIsEmpty(startsWith) == false){
+    if (TextCheck.isEmpty(text) == false && TextCheck.isEmpty(startsWith) == false){
 
       final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: text,
@@ -351,7 +377,7 @@ class TextChecker {
   }){
     bool _isShorter = false;
 
-    if (Stringer.checkStringIsEmpty(text) == true){
+    if (TextCheck.isEmpty(text) == true){
       _isShorter = true;
     }
     else {
@@ -367,7 +393,7 @@ class TextChecker {
   }){
     bool _isShorter = false;
 
-    if (Stringer.checkStringIsEmpty(text) == true){
+    if (TextCheck.isEmpty(text) == true){
       _isShorter = true;
     }
     else {

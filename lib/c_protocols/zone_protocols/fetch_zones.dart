@@ -8,7 +8,7 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/zone_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -167,7 +167,7 @@ class FetchZoneProtocols {
 
     CityModel _city;
 
-    if (Stringer.checkStringIsNotEmpty(cityName) == true){
+    if (TextCheck.isEmpty(cityName) == false){
 
       /// A - trial 1 : search by generated cityID
       if (countryID != null){

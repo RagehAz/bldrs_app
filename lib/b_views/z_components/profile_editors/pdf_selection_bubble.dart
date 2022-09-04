@@ -187,12 +187,12 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 autoValidate: true,
                 validator: (){
 
-                  final bool _hasExtension = TextChecker.stringContainsSubString(
+                  final bool _hasExtension = TextCheck.stringContainsSubString(
                     string: _textController.text,
                     subString: '.pdf',
                   );
 
-                  final bool _hasDot = TextChecker.stringContainsSubString(
+                  final bool _hasDot = TextCheck.stringContainsSubString(
                     string: _textController.text,
                     subString: '.',
                   );

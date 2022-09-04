@@ -29,29 +29,6 @@ class Stringer {
 
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool checkStringIsEmpty(String val) {
-    bool _controllerIsEmpty;
-
-    if (
-    val == null || val == '' || val.isEmpty ||
-        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val) == '' ||
-        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(val) == null) {
-      _controllerIsEmpty = true;
-    }
-
-    else {
-      _controllerIsEmpty = false;
-    }
-
-    return _controllerIsEmpty;
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkStringIsNotEmpty(String val) {
-    return !checkStringIsEmpty(val);
-  }
-// -------------------------------------
-  /// TESTED : WORKS PERFECT
   static bool checkStringsContainString({
     @required List<String> strings,
     @required String string,

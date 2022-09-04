@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +58,9 @@ class UserBanner extends StatelessWidget {
     bool _can = false;
 
     if (
-    Stringer.checkStringIsNotEmpty(userModel?.title) == true
+    TextCheck.isEmpty(userModel?.title) == false
         ||
-        Stringer.checkStringIsNotEmpty(userModel?.company) == true
+        TextCheck.isEmpty(userModel?.company) == false
     ){
       _can = true;
     }

@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -713,9 +714,9 @@ class PickerModel {
 
       /// GROUP NAMES ARE GIVEN
       if (
-          Stringer.checkStringIsEmpty(oldGroupName) == false
+          TextCheck.isEmpty(oldGroupName) == false
           &&
-          Stringer.checkStringIsEmpty(newGroupName) == false
+          TextCheck.isEmpty(newGroupName) == false
       ){
 
         for (final PickerModel picker in pickers){

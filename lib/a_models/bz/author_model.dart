@@ -60,7 +60,7 @@ class AuthorModel {
   }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
-        pic: await FileModel.initializePicForEditing(
+        pic: await FileModel.preparePicForEditing(
             pic: oldAuthor.pic,
             fileName:  AuthorModel.generateAuthorPicID(
               authorID: oldAuthor.userID,

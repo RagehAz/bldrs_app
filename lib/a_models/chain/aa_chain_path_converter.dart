@@ -73,7 +73,7 @@ class ChainPathConverter {
 
     Chain _chain;
 
-    if (Stringer.checkStringIsNotEmpty(path)){
+    if (TextCheck.isEmpty(path) == false){
       final List<Chain> chains = createChainsFromPaths(
         paths: <String>[path],
       );
@@ -396,7 +396,7 @@ class ChainPathConverter {
 
     String _node;
 
-    if (Stringer.checkStringIsNotEmpty(path) == true){
+    if (TextCheck.isEmpty(path) == false){
 
       final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
       final List<String> _pathNodes = _cleanedPath.split('/');
@@ -477,7 +477,7 @@ class ChainPathConverter {
 
       for (final Chain sonChain in chains){
 
-        final String _parentID = Stringer.checkStringIsEmpty(parentID) ? '' : '$parentID/';
+        final String _parentID = TextCheck.isEmpty(parentID) ? '' : '$parentID/';
 
         final List<String> _paths = generateChainPaths(
           chain : sonChain,
@@ -534,7 +534,7 @@ class ChainPathConverter {
 
       for (final String path in paths){
 
-        final bool _containsSubString = TextChecker.stringContainsSubString(
+        final bool _containsSubString = TextCheck.stringContainsSubString(
           string: path,
           subString: phid,
         );
@@ -639,7 +639,7 @@ class ChainPathConverter {
 
     final List<String> _output = <String>[...paths];
 
-    if (_output != null && Stringer.checkStringIsNotEmpty(path) == true){
+    if (_output != null && TextCheck.isEmpty(path) == false){
 
       if (_output.contains(path) == false){
         _output.add(path);
@@ -655,7 +655,7 @@ class ChainPathConverter {
 
     List<String> _divisions = <String>[];
 
-    if (Stringer.checkStringIsNotEmpty(path) == true){
+    if (TextCheck.isEmpty(path) == false){
 
       // final String _cleaned = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
       _divisions = path.split('/').toList();
@@ -895,7 +895,7 @@ class ChainPathConverter {
 
     String _output = path.trim();
 
-    if (Stringer.checkStringIsNotEmpty(path) == true){
+    if (TextCheck.isEmpty(path) == false){
 
       /// REMOVE INITIAL SLASH IS EXISTS
       if (_output[0] == '/'){

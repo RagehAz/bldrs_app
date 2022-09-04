@@ -11,7 +11,7 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -640,7 +640,7 @@ List<SpecModel> _createSpecsForValueAndUnit({
   final List<SpecModel> _output = <SpecModel>[];
 
   /// when there is value
-  if (Stringer.checkStringIsNotEmpty(controller.text) == true){
+  if (TextCheck.isEmpty(controller.text) == false){
 
     /// CREATE SPEC FOR VALUE
     final SpecModel _valueSpec = SpecModel(
