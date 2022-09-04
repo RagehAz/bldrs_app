@@ -44,6 +44,7 @@ void initializeLocalVariables({
       pic: oldBz.logo,
       fileName: oldBz.id,
     ),
+
   );
   // -------------------------
   selectedScopes.value = SpecModel.generateSpecsByPhids(
@@ -74,7 +75,7 @@ Future<void> prepareBzForEditing({
 
   final BzModel _bzModel = await BzModel.initializeModelForEditing(
     context: context,
-    oldBzModel: oldBz,
+    oldBz: oldBz,
     firstTimer: firstTimer,
     userModel: UsersProvider.proGetMyUserModel(
       context: context,
@@ -122,7 +123,7 @@ Future<void> loadBzEditorLastSession({
       // -------------------------
       final BzModel _initialBzModel = await BzModel.initializeModelForEditing(
         context: context,
-        oldBzModel: _lastSessionBz,
+        oldBz: _lastSessionBz,
         firstTimer: false,
         userModel: _userModel,
       );
@@ -168,11 +169,11 @@ Future<void> saveBzEditorSession({
         bzModel: newBz
     );
 
-    setNotifier(
-        notifier: lastTempBz,
-        mounted: mounted,
-        value: newBz,
-        );
+    // setNotifier(
+    //     notifier: lastTempBz,
+    //     mounted: mounted,
+    //     value: newBz,
+    //     );
 
   }
 
@@ -374,7 +375,7 @@ void onBzAboutChanged({
     @required String value,
   }){
 
-    final List<ContactModel> _contacts = ContactModel.replaceContact(
+    final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
       contacts: tempBz.value.contacts,
       contactToReplace: ContactModel(
         value: value,

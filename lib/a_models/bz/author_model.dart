@@ -54,7 +54,7 @@ class AuthorModel {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<AuthorModel> initializeModelForEditing({
+  static Future<AuthorModel> prepareAuthorForEditing({
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
   }) async {
@@ -81,16 +81,9 @@ class AuthorModel {
     @required AuthorModel tempAuthor,
     @required AuthorModel oldAuthor,
     @required BzModel bzModel,
-    @required TextEditingController nameController,
-    @required TextEditingController titleController,
   }){
 
-    final AuthorModel _author = AuthorModel(
-      userID: tempAuthor.userID,
-      role: tempAuthor.role,
-      flyersIDs: tempAuthor.flyersIDs,
-      name: nameController.text,
-      title: titleController.text,
+    return tempAuthor.copyWith(
       pic: FileModel.bakeFileForUpload(
         newFile: tempAuthor.pic,
         existingPic: oldAuthor.pic,
@@ -101,7 +94,24 @@ class AuthorModel {
       ),
     );
 
-    return _author;
+    // final AuthorModel _author = AuthorModel(
+    //   userID: tempAuthor.userID,
+    //   role: tempAuthor.role,
+    //   flyersIDs: tempAuthor.flyersIDs,
+    //   name: nameController.text,
+    //   title: titleController.text,
+    //   pic: FileModel.bakeFileForUpload(
+    //     newFile: tempAuthor.pic,
+    //     existingPic: oldAuthor.pic,
+    //   ),
+    //   contacts: ContactModel.bakeContactsAfterEditing(
+    //     contacts: tempAuthor.contacts,
+    //     countryID: bzModel.zone.countryID,
+    //   ),
+    // );
+    //
+    // return _author;
+
   }
 // -----------------------------------------------------------------------------
 

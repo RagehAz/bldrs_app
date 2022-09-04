@@ -1,6 +1,6 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/bz/bz_validator.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -397,8 +397,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           tempBz: _tempBz,
                         ),
                         autoValidate: true,
-                        validator: () => BzValidator.nameValidator(
-                          bzModel: bzModel,
+                        validator: () => Formers.companyNameValidator(
+                          companyName: bzModel.name,
                         ),
                       ),
 
@@ -419,25 +419,26 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             tempBz: _tempBz,
                           ),
                           autoValidate: true,
-                          validator: () => BzValidator.aboutValidator(
-                            bzModel: bzModel,
+                          validator: () => Formers.bzAboutValidator(
+                            bzAbout: bzModel.about,
                           )
                       ),
 
                       const DotSeparator(),
 
                       /// PHONE
-                      TextFieldBubble(
+                      ContactFieldBubble(
                         key: const ValueKey<String>('phone'),
                         globalKey: _formKey,
                         focusNode: _phoneNode,
                         appBarType: AppBarType.basic,
                         isFormField: true,
-                        // textController: _companyController,
-                        titleVerse: 'phid_phone',
+                        headerViewModel: const BubbleHeaderVM(
+                          headlineVerse: 'phid_phone',
+                          redDot: true,
+                        ),
                         keyboardTextInputType: TextInputType.phone,
                         keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.phone,
                           countryID: bzModel.zone.countryID,
@@ -448,23 +449,26 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           value: text,
                           tempBz: _tempBz,
                         ),
+                        canPaste: false,
                         autoValidate: true,
-                        validator: () => BzValidator.phoneValidator(
-                          bzModel: bzModel,
+                        validator: () => Formers.phoneValidator(
+                          contacts: bzModel.contacts,
                         ),
                       ),
 
                       /// EMAIL
-                      TextFieldBubble(
+                      ContactFieldBubble(
                         key: const ValueKey<String>('email'),
                         globalKey: _formKey,
                         focusNode: _emailNode,
                         appBarType: AppBarType.basic,
                         isFormField: true,
-                        titleVerse: 'phid_email',
+                        headerViewModel: const BubbleHeaderVM(
+                          headlineVerse: 'phid_email',
+                          redDot: true,
+                        ),
                         keyboardTextInputType: TextInputType.emailAddress,
                         keyboardTextInputAction: TextInputAction.next,
-                        fieldIsRequired: true,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.email,
                           countryID: bzModel.zone.countryID,
@@ -475,23 +479,24 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           value: text,
                           tempBz: _tempBz,
                         ),
+                        canPaste: false,
                         autoValidate: true,
-                        validator: () => BzValidator.emailValidator(
-                          bzModel: bzModel,
+                        validator: () => Formers.emailValidator(
+                          contacts: bzModel.contacts,
                         ),
                       ),
 
-                      /// EMAIL
+                      /// WEBSITE
                       ContactFieldBubble(
                         key: const ValueKey<String>('website'),
+                        headerViewModel: const BubbleHeaderVM(
+                          headlineVerse: 'phid_website',
+                        ),
                         globalKey: _formKey,
                         focusNode: _websiteNode,
                         appBarType: AppBarType.basic,
                         isFormField: true,
-                        headerViewModel: const BubbleHeaderVM(
-                          headlineVerse: 'phid_website',
-                        ),
-                        keyboardTextInputType: TextInputType.emailAddress,
+                        // keyboardTextInputType: TextInputType.url,
                         keyboardTextInputAction: TextInputAction.done,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.website,
@@ -503,8 +508,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           value: text,
                           tempBz: _tempBz,
                         ),
-                        validator: () => BzValidator.websiteValidator(
-                          bzModel: bzModel,
+                        // canPaste: true,
+                        autoValidate: true,
+                        validator: () => Formers.websiteValidator(
+                          contacts: bzModel.contacts,
                         ),
                       ),
 
@@ -605,5 +612,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         ),
       ),
     );
+
   }
 }

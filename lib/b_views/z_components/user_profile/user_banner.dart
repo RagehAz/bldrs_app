@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/user/user_validators.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/zone_line.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -89,7 +89,7 @@ class UserBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _thereAreMissingFields = UserValidators.checkModelHasMissingFields(userModel);
+    final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(userModel);
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
 
     final Function _onTap = _thereAreMissingFields == false ?
