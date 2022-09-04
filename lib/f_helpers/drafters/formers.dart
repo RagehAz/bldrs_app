@@ -205,7 +205,7 @@ class Formers {
 
     final String _email = ContactModel.getValueFromContacts(
       contacts: contacts,
-      contactType: ContactType.phone,
+      contactType: ContactType.email,
     );
 
 
