@@ -195,13 +195,12 @@ class ContactModel {
         countryID: countryID,
       );
 
-      final TextEditingController _controller = _existingContact?.controller ?? TextEditingController();
-      _controller.text = _initialValue;
+      // final TextEditingController _controller = _existingContact?.controller ?? TextEditingController();
+      // _controller.text = _initialValue;
 
       final ContactModel _contact = ContactModel(
         value: _initialValue, 
         type: type,
-        controller: _controller,
       );
 
       _contact.blogContact(methodName: 'initializeContactsForEditing');
@@ -219,24 +218,18 @@ class ContactModel {
     @required ContactType type,
     @required String countryID,
   }){
-    String _value;
 
-    if (Mapper.checkCanLoopList(existingContacts) == true){
+    final ContactModel _existingContact = getContactFromContacts(
+      contacts: existingContacts,
+      type: type,
+    );
 
-      final ContactModel _existingContact = getContactFromContacts(
-          contacts: existingContacts,
-          type: type,
-      );
+    return _initializeContactValue(
+        existingContact: _existingContact,
+        type: type,
+        countryID: countryID
+    );
 
-      _value = _initializeContactValue(
-          existingContact: _existingContact,
-          type: type,
-          countryID: countryID
-      );
-
-    }
-
-    return _value;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -553,11 +546,13 @@ class ContactModel {
 
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> replaceContact({
+  static List<ContactModel> insertOrReplaceContact({
     @required List<ContactModel> contacts,
     @required ContactModel contactToReplace,
   }){
     List<ContactModel> _output = <ContactModel>[];
+
+    /// NOTE : REPLACES CONTACT OF THAT TYPE OR INSERTS NEW ONE
 
     if (Mapper.checkCanLoopList(contacts) == true && contactToReplace != null){
 
@@ -567,6 +562,9 @@ class ContactModel {
 
       if (_index != -1){
         _output.removeAt(_index);
+        _output.insert(_index, contactToReplace);
+      }
+      else{
         _output.insert(_index, contactToReplace);
       }
 

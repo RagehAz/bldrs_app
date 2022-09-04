@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -23,37 +24,20 @@ import 'package:flutter/material.dart';
 void initializeAuthorEditorLocalVariables({
   @required AuthorModel oldAuthor,
   @required ValueNotifier<AuthorModel> tempAuthor,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
   @required BzModel bzModel,
 }){
 
   final AuthorModel _initialAuthor = oldAuthor.copyWith(
-    pic: FileModel(url: oldAuthor.pic, fileName: AuthorModel.generateAuthorPicID(
-      authorID: oldAuthor.userID,
-      bzID: bzModel.id,
-    )),
-    contacts: ContactModel.initializeContactsForEditing(
-      contacts: oldAuthor.contacts,
-      countryID: bzModel.zone.countryID,
-    ),
+      pic: FileModel.initializePicForEditing(
+        pic: oldAuthor.pic,
+        fileName: AuthorModel.generateAuthorPicID(
+          authorID: oldAuthor.userID,
+          bzID: bzModel.id,
+        ),
+      )
   );
 
-  nameController.text = _initialAuthor.name;
-  titleController.text = _initialAuthor.title;
-
   tempAuthor.value = _initialAuthor;
-
-  ///   old and works
-  // final AuthorModel _initialAuthor = AuthorModel.initializeModelForEditing(
-  //   oldAuthor: oldAuthor,
-  //   bzModel: bzModel,
-  // );
-  //
-  // tempAuthor.value = _initialAuthor;
-  //
-  // nameController.text = tempAuthor.value.name;
-  // titleController.text = tempAuthor.value.title;
 
 }
 // ---------------------------------------
@@ -66,22 +50,16 @@ Future<void> prepareAuthorPicForEditing({
   @required bool mounted,
 }) async {
 
-  final AuthorModel _tempAuthor = await AuthorModel.initializeModelForEditing(
+  final AuthorModel _tempAuthor = await AuthorModel.prepareAuthorForEditing(
     oldAuthor: oldAuthor,
     bzModel: bzModel,
   );
+
   setNotifier(
       notifier: tempAuthor,
       mounted: mounted,
       value: _tempAuthor,
   );
-
-  ///   old and works
-  // final AuthorModel _tempAuthor = tempAuthor.value.copyWith(
-  //   pic: await FileModel.completeModel(tempAuthor.value.pic),
-  // );
-  //
-  // tempAuthor.value = _tempAuthor;
 
 }
 // -----------------------------------------------------------------------------
@@ -95,8 +73,6 @@ Future<void> loadAuthorEditorSession({
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
 }) async {
 
   final AuthorModel _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
@@ -114,18 +90,19 @@ Future<void> loadAuthorEditorSession({
 
     if (_continue == true){
       // -------------------------
-      final AuthorModel _initialAuthor = await AuthorModel.initializeModelForEditing(
+      final AuthorModel _initialAuthor = await AuthorModel.prepareAuthorForEditing(
         oldAuthor: _lastSessionAuthor,
         bzModel: bzModel,
       );
       // -------------------------
-      nameController.text = _initialAuthor.name;
-      titleController.text = _initialAuthor.title;
-      // -------------------------
-      setNotifier(
-          notifier: tempAuthor,
-          mounted: mounted,
-          value: _initialAuthor,
+      await Nav.replaceScreen(
+        context: context,
+        screen: AuthorEditorScreen(
+          bzModel: bzModel,
+          author: _initialAuthor,
+          checkLastSession: false,
+          validateOnStartup: true,
+        ),
       );
       // -------------------------
     }
@@ -138,8 +115,6 @@ Future<void> saveAuthorEditorSession({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
   @required BzModel bzModel,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
   @required ValueNotifier<AuthorModel> tempAuthor,
   @required ValueNotifier<AuthorModel> lastTempAuthor,
   @required bool mounted,
@@ -149,32 +124,30 @@ Future<void> saveAuthorEditorSession({
     bzModel: bzModel,
     oldAuthor: oldAuthor,
     tempAuthor: tempAuthor.value,
-    titleController: titleController,
-    nameController: nameController,
   );
 
   newAuthor = newAuthor.copyWith(
     pic: FileModel.bakeFileForLDB(newAuthor.pic),
   );
 
-  blog('saveAuthorEditorSession : LISTENENNING AND CHECKING');
+  final bool authorHasChanged = AuthorModel.checkAuthorsAreIdentical(
+    author1: newAuthor,
+    author2: lastTempAuthor.value,
+  ) == false;
 
-  if (AuthorModel.checkAuthorsAreIdentical(author1: newAuthor, author2: lastTempAuthor.value) == false){
-
-    blog('saveAuthorEditorSession : SHOULD SAVE NOW');
+  if (authorHasChanged == true){
 
     await BzLDBOps.saveAuthorEditorSession(
-        authorModel: newAuthor,
+      authorModel: newAuthor,
     );
 
-    setNotifier(
-        notifier: lastTempAuthor,
-        mounted: mounted,
-        value: newAuthor,
-    );
+    // setNotifier(
+    //   notifier: lastTempAuthor,
+    //   mounted: mounted,
+    //   value: newAuthor,
+    // );
 
   }
-
 
 }
 // -----------------------------------------------------------------------------
@@ -247,6 +220,51 @@ void onDeleteAuthorImage({
   );
 
 }
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+void onAuthorNameChanged({
+  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required String text,
+}){
+
+  tempAuthor.value = tempAuthor.value.copyWith(
+    name: text,
+  );
+
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+void onAuthorTitleChanged({
+  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required String text,
+}){
+  tempAuthor.value = tempAuthor.value.copyWith(
+    title: text,
+  );
+
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+void onAuthorContactChanged({
+  @required ValueNotifier<AuthorModel> tempAuthor,
+  @required ContactType contactType,
+  @required String value,
+}){
+
+  final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
+    contacts: tempAuthor.value.contacts,
+    contactToReplace: ContactModel(
+      value: value,
+      type: contactType,
+    ),
+  );
+
+  tempAuthor.value = tempAuthor.value.copyWith(
+    contacts: _contacts,
+  );
+
+
+}
 // -----------------------------------------------------------------------------
 
 /// CONFIRMATION OPS
@@ -257,8 +275,6 @@ Future<void> onConfirmAuthorUpdates({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
   @required ValueNotifier<AuthorModel> tempAuthor,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
   @required BzModel bzModel,
 }) async {
 
@@ -282,8 +298,6 @@ Future<void> onConfirmAuthorUpdates({
       bzModel: bzModel,
       oldAuthor: oldAuthor,
       tempAuthor: tempAuthor.value,
-      nameController: nameController,
-      titleController: titleController,
     );
 
     await AuthorProtocols.updateAuthorProtocol(
