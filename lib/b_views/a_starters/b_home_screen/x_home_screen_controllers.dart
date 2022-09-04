@@ -272,6 +272,8 @@ Future<void> _controlMissingFieldsCase({
         userModel: authModel.userModel,
         reAuthBeforeConfirm: false,
         canGoBack: true,
+        validateOnStartup: true,
+        // checkLastSession: true,
         onFinish: () async {
           Nav.goBack(
             context: context,

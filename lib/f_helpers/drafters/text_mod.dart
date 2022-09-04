@@ -2,7 +2,6 @@
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:clipboard/clipboard.dart';
@@ -328,7 +327,7 @@ class TextMod {
   static String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+    final bool _verseContainsChar = TextCheck.stringContainsSubString(
       string: verse,
       subString: specialCharacter,
     );
@@ -344,7 +343,7 @@ class TextMod {
   static String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+    final bool _verseContainsChar = TextCheck.stringContainsSubString(
       string: verse,
       subString: specialCharacter,
     );
@@ -367,7 +366,7 @@ class TextMod {
   static String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+    final bool _verseContainsChar = TextCheck.stringContainsSubString(
       string: verse,
       subString: specialCharacter,
     );
@@ -383,7 +382,7 @@ class TextMod {
   static String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextChecker.stringContainsSubString(
+    final bool _verseContainsChar = TextCheck.stringContainsSubString(
       string: verse,
       subString: specialCharacter,
     );
@@ -645,11 +644,11 @@ class TextMod {
     String initialNumber;
 
     /// NO NUMBER GIVEN
-    if (Stringer.checkStringIsEmpty(number) == true){
+    if (TextCheck.isEmpty(number) == true){
 
       final String _code = CountryModel.getCountryPhoneCode(countryID);
 
-      if (Stringer.checkStringIsEmpty(_code) == false){
+      if (TextCheck.isEmpty(_code) == false){
         initialNumber = _code;
       }
 
@@ -696,7 +695,7 @@ class TextMod {
     String _initialText;
 
     /// NO URL GIVEN
-    if (Stringer.checkStringIsEmpty(url) == true){
+    if (TextCheck.isEmpty(url) == true){
       _initialText = httpsCode;
     }
 
@@ -715,7 +714,7 @@ class TextMod {
     String _output;
 
     /// URL IS DEFINED
-    if (Stringer.checkStringIsEmpty(url) == false){
+    if (TextCheck.isEmpty(url) == false){
 
       if (httpsCode != url){
         _output = removeSpacesFromAString(url);

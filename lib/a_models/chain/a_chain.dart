@@ -1259,7 +1259,7 @@ class Chain {
 
         final String _path = _chainPaths[i];
 
-        final bool _pathContainOldPhid = TextChecker.stringContainsSubString(
+        final bool _pathContainOldPhid = TextCheck.stringContainsSubString(
           string: _path,
           subString: oldPhid,
         );

@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -348,7 +348,7 @@ class ContactModel {
           _endValue = _value;
         }
 
-        if (Stringer.checkStringIsEmpty(_endValue) == false){
+        if (TextCheck.isEmpty(_endValue) == false){
 
           final ContactModel _model = ContactModel(
             value: _endValue,
@@ -856,7 +856,7 @@ class ContactModel {
 
       if (contact.type != null){
 
-        if (Stringer.checkStringIsEmpty(contact.value) == false){
+        if (TextCheck.isEmpty(contact.value) == false){
           _isEmpty = false;
         }
 

@@ -482,7 +482,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               textInputAction: TextInputAction.newline,
                               validator: (){
 
-                                final bool _containsSubString = TextChecker.stringContainsSubString(
+                                final bool _containsSubString = TextCheck.stringContainsSubString(
                                     string: _textController.text,
                                     subString: 'a77a ',
                                 );

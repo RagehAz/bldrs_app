@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -703,11 +704,11 @@ class NoteModel {
         _missingFields.add('receiverID');
       }
 
-      if (Stringer.checkStringIsEmpty(note.title) == true){
+      if (TextCheck.isEmpty(note.title) == true){
         _missingFields.add('title');
       }
 
-      if (Stringer.checkStringIsEmpty(note.body) == true){
+      if (TextCheck.isEmpty(note.body) == true){
         _missingFields.add('body');
       }
 

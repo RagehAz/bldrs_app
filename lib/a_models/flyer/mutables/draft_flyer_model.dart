@@ -347,8 +347,8 @@ class DraftFlyerModel{
   @required DraftFlyerModel draft,
 }){
 
-    TextChecker.disposeControllerIfPossible(draft.headlineController);
-    TextChecker.disposeControllerIfPossible(draft.descriptionController);
+    TextCheck.disposeControllerIfPossible(draft.headlineController);
+    TextCheck.disposeControllerIfPossible(draft.descriptionController);
     MutableSlide.disposeMutableSlidesTextControllers(
         mutableSlides: draft.mutableSlides,
     );
@@ -548,9 +548,9 @@ class DraftFlyerModel{
 
       if (
       draft1.id == draft2.id &&
-      TextChecker.textControllersAreIdentical(controller1: draft1.headlineController, controller2: draft2.headlineController) == true &&
+      TextCheck.textControllersAreIdentical(controller1: draft1.headlineController, controller2: draft2.headlineController) == true &&
       // FocusNode headlineNode,
-      TextChecker.textControllersAreIdentical(controller1: draft1.descriptionController, controller2: draft2.descriptionController) == true &&
+      TextCheck.textControllersAreIdentical(controller1: draft1.descriptionController, controller2: draft2.descriptionController) == true &&
       // FocusNode descriptionNode,
       draft1.flyerType == draft2.flyerType &&
       draft1.publishState == draft2.publishState &&

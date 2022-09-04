@@ -2,7 +2,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -800,11 +799,11 @@ class Verse extends StatelessWidget {
     if (translate == true){
 
       /// ADJUST VALUE
-      if (Stringer.checkStringIsEmpty(_output) == false){
+      if (TextCheck.isEmpty(_output) == false){
 
         /// IS PHID
-        final bool _isPhid = TextChecker.checkVerseIsPhid(_output);
-        final bool _isCurrency = TextChecker.checkVerseIsCurrency(_output);
+        final bool _isPhid = TextCheck.checkVerseIsPhid(_output);
+        final bool _isCurrency = TextCheck.checkVerseIsCurrency(_output);
         if (_isPhid == true || _isCurrency == true){
 
           final String _foundXPhrase = xPhrase(context, verse);
@@ -825,7 +824,7 @@ class Verse extends StatelessWidget {
         else {
 
           /// IS TEMP
-          final bool _isTemp = TextChecker.checkVerseIsTemp(_output);
+          final bool _isTemp = TextCheck.checkVerseIsTemp(_output);
           if (_isTemp == true){
             _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
             _output = '##$_output';

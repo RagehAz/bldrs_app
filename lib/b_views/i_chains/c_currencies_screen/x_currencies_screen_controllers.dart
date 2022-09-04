@@ -22,7 +22,7 @@ void onSearchCurrencies({
   @required ValueNotifier<List<CurrencyModel>> foundCurrencies,
 }){
 
-  TextChecker.triggerIsSearchingNotifier(
+  TextCheck.triggerIsSearchingNotifier(
     text: searchController.text,
     isSearching: isSearching,
   );
@@ -47,7 +47,7 @@ void onSearchCurrencies({
       /// FILTER CURRENCIES FROM PHRASES
       final List<String> _filteredIDs = <String>[];
       for (final Phrase phrase in _phrases){
-        final bool _isCurrency = TextChecker.checkVerseIsCurrency(phrase.id);
+        final bool _isCurrency = TextCheck.checkVerseIsCurrency(phrase.id);
         if (_isCurrency == true){
           _filteredIDs.add(phrase.id);
         }

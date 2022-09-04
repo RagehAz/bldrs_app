@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -62,15 +60,15 @@ class Launcher {
     Uri _uri;
     bool _success = false;
 
-    if (Stringer.checkStringIsEmpty(link) == false){
+    if (TextCheck.isEmpty(link) == false){
 
       /// LINK SHOULD CONTAIN 'http://' to work
-      final bool _containsHttp = TextChecker.stringContainsSubString(
+      final bool _containsHttp = TextCheck.stringContainsSubString(
         string: link,
         subString: 'http://',
       );
 
-      final bool _containsHttps = TextChecker.stringContainsSubString(
+      final bool _containsHttps = TextCheck.stringContainsSubString(
         string: link,
         subString: 'https://',
       );
@@ -108,7 +106,7 @@ class Launcher {
     String emailBody,
   }) async {
 
-    if (Stringer.checkStringIsEmpty(email) == false){
+    if (TextCheck.isEmpty(email) == false){
 
       final String _emailSubject = emailSubject ?? _generateDefaultEmailSubject(context);
       final String _emailBody = emailBody ?? _generateDefaultEmailBody(context);
@@ -148,7 +146,7 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> _launchCall(String phoneNumber) async {
 
-    if (Stringer.checkStringIsEmpty(phoneNumber) == false){
+    if (TextCheck.isEmpty(phoneNumber) == false){
 
       final Uri _uri = Uri(
         path: phoneNumber,

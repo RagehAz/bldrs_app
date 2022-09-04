@@ -7,7 +7,6 @@ import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -25,7 +24,7 @@ void onPhrasesSearchChanged({
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
 }){
 
-  TextChecker.triggerIsSearchingNotifier(
+  TextCheck.triggerIsSearchingNotifier(
     text: searchController.text,
     isSearching: isSearching,
   );
@@ -276,9 +275,11 @@ Future<bool> _preEditCheck({
 
   /// INPUTS ARE INVALID
   if (
-      Stringer.checkStringIsEmpty(phid) == true ||
-      Stringer.checkStringIsEmpty(enValue) == true ||
-      Stringer.checkStringIsEmpty(arValue) == true
+      TextCheck.isEmpty(phid) == true
+          ||
+      TextCheck.isEmpty(enValue) == true
+          ||
+      TextCheck.isEmpty(arValue) == true
   ){
     await CenterDialog.showCenterDialog(
       context: context,

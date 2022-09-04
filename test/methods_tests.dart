@@ -343,7 +343,7 @@ void main() {
         '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.';
     const String _substring = '[firebase_auth/user-not-found]';
 
-    final bool _mapContainsTheError = TextChecker.stringContainsSubString(
+    final bool _mapContainsTheError = TextCheck.stringContainsSubString(
       string: _string,
       subString: _substring,
     );
@@ -358,7 +358,7 @@ void main() {
         'bibi';
     const String _substring = 'bibi';
 
-    final bool _stringContainsSubString = TextChecker.stringContainsSubStringRegExp(
+    final bool _stringContainsSubString = TextCheck.stringContainsSubStringRegExp(
       string: _string,
       subString: _substring,
       caseSensitive: true,
