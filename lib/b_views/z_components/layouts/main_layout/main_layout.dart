@@ -159,6 +159,7 @@ class MainLayout extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
+
           Keyboard.closeKeyboard(context);
 
         },
