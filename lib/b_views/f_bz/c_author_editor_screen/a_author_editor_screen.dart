@@ -2,19 +2,22 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/bz/target/author_validator.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/editors/contacts_editor_bubbles.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
@@ -22,11 +25,15 @@ class AuthorEditorScreen extends StatefulWidget {
   const AuthorEditorScreen({
     @required this.author,
     @required this.bzModel,
+    this.checkLastSession = true,
+    this.validateOnStartup = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AuthorModel author;
   final BzModel bzModel;
+  final bool checkLastSession;
+  final bool validateOnStartup;
   /// --------------------------------------------------------------------------
   @override
   _AuthorEditorScreenState createState() => _AuthorEditorScreenState();
@@ -39,12 +46,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
+  final ValueNotifier<AuthorModel> _lastTempAuthor = ValueNotifier(null);
   // --------------------
-  final TextEditingController _nameController = TextEditingController();
   final FocusNode _nameNode = FocusNode();
-  // --------------------
-  final TextEditingController _titleController = TextEditingController();
   final FocusNode _titleNode = FocusNode();
+  final FocusNode _phoneNode = FocusNode();
+  final FocusNode _emailNode = FocusNode();
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -67,8 +74,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
     initializeAuthorEditorLocalVariables(
       tempAuthor: _tempAuthor,
-      nameController: _nameController,
-      titleController: _titleController,
       oldAuthor: widget.author,
       bzModel: widget.bzModel,
     );
@@ -90,17 +95,32 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           bzModel: widget.bzModel,
         );
         // -------------------------------
-        await loadAuthorEditorSession(
-          mounted: mounted,
-          context: context,
-          oldAuthor: widget.author,
-          bzModel: widget.bzModel,
-          nameController: _nameController,
-          titleController: _titleController,
-          tempAuthor: _tempAuthor,
-        );
-        // -------------------------------
-        _createStateListeners();
+        if (widget.checkLastSession == true){
+          await loadAuthorEditorSession(
+            mounted: mounted,
+            context: context,
+            oldAuthor: widget.author,
+            bzModel: widget.bzModel,
+            tempAuthor: _tempAuthor,
+          );
+        }
+        // -----------------------------
+        if (widget.validateOnStartup == true){
+          Formers.validateForm(_formKey);
+        }
+        // -----------------------------
+        if (mounted == true){
+          _tempAuthor.addListener((){
+            saveAuthorEditorSession(
+              context: context,
+              tempAuthor: _tempAuthor,
+              lastTempAuthor: _lastTempAuthor,
+              bzModel: widget.bzModel,
+              oldAuthor: widget.author,
+              mounted: mounted,
+            );
+          });
+        }
         // -------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -115,45 +135,17 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   void dispose() {
     _canPickImage.dispose();
 
-    _nameController.dispose();
     _nameNode.dispose();
-
-    _titleController.dispose();
     _titleNode.dispose();
+    _phoneNode.dispose();
+    _emailNode.dispose();
 
     _loading.dispose();
 
-    ContactModel.disposeContactsControllers(_tempAuthor.value.contacts);
     _tempAuthor.dispose();
     _lastTempAuthor.dispose();
 
     super.dispose();
-  }
-// -----------------------------------------------------------------------------
-  void _createStateListeners(){
-
-    _tempAuthor.addListener(() => _saveSession());
-    _nameController.addListener(() => _saveSession());
-    _titleController.addListener(() => _saveSession());
-    ContactModel.createListenersToControllers(
-      contacts: _tempAuthor.value.contacts,
-      listener: () => _saveSession(),
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<AuthorModel> _lastTempAuthor = ValueNotifier(null);
-  void _saveSession(){
-    unawaited(saveAuthorEditorSession(
-      context: context,
-      tempAuthor: _tempAuthor,
-      lastTempAuthor: _lastTempAuthor,
-      titleController: _titleController,
-      nameController: _nameController,
-      bzModel: widget.bzModel,
-      oldAuthor: widget.author,
-      mounted: mounted,
-    ));
   }
 // -----------------------------------------------------------------------------
   @override
@@ -174,8 +166,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         onTap: () => onConfirmAuthorUpdates(
           context: context,
           tempAuthor: _tempAuthor,
-          titleController: _titleController,
-          nameController: _nameController,
           bzModel: widget.bzModel,
           oldAuthor: widget.author,
         ),
@@ -184,7 +174,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         key: _formKey,
         child: ValueListenableBuilder(
           valueListenable: _tempAuthor,
-          builder: (_, AuthorModel tempAuthor, Widget child){
+          builder: (_, AuthorModel authorModel, Widget child){
 
             return ListView(
               physics: const BouncingScrollPhysics(),
@@ -195,7 +185,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                 /// --- AUTHOR IMAGE
                 AddImagePicBubble(
-                  fileModel: tempAuthor.pic,
+                  fileModel: authorModel.pic,
                   titleVerse: 'phid_author_picture',
                   redDot: true,
                   bubbleType: BubbleType.authorPic,
@@ -209,11 +199,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
                 /// NAME
                 TextFieldBubble(
+                  key: const ValueKey<String>('name'),
                   globalKey: _formKey,
                   focusNode: _nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  textController: _nameController,
                   titleVerse: 'phid_author_name',
                   counterIsOn: true,
                   maxLength: 72,
@@ -223,19 +213,16 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   bulletPoints: const <String>[
                     '##This will only change your name inside this Business account',
                   ],
-                  validator: (){
+                  initialTextValue: authorModel.name,
+                  textOnChanged: (String text) => onAuthorNameChanged(
+                    tempAuthor: _tempAuthor,
+                    text: text,
+                  ),
+                  autoValidate: true,
+                  validator: () => Formers.personNameValidator(
+                    name: authorModel.name,
+                  ),
 
-                    if (TextCheck.isEmpty(_nameController.text) == true){
-                      return '##Author name can not be empty';
-                    }
-                    else if (_nameController.text.length <= 3){
-                      return '##Author name should be more than 3 characters';
-                    }
-                    else {
-                      return null;
-                    }
-
-                  },
                 ),
 
                 /// TITLE
@@ -244,35 +231,89 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   focusNode: _titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  textController: _titleController,
                   titleVerse: 'phid_job_title',
                   counterIsOn: true,
                   maxLength: 72,
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
-                  validator: (){
-
-                    if (TextCheck.isEmpty(_titleController.text) == true){
-                      return '##Author name can not be empty';
-                    }
-                    else if (_titleController.text.length <= 3){
-                      return '##Author name should be more than 3 characters';
-                    }
-                    else {
-                      return null;
-                    }
-
-                  },
+                  textOnChanged: (String text) => onAuthorTitleChanged(
+                    text: text,
+                    tempAuthor: _tempAuthor,
+                  ),
+                  initialTextValue: authorModel.title,
+                  autoValidate: true,
+                  validator: () => Formers.jobTitleValidator(
+                      jobTitle: authorModel.title,
+                  ),
                 ),
 
-                /// CONTACTS
-                ContactsEditorsBubbles(
+                const DotSeparator(),
+
+                /// PHONE
+                ContactFieldBubble(
+                  key: const ValueKey<String>('phone'),
                   globalKey: _formKey,
-                  contacts: tempAuthor.contacts,
-                  contactsOwnerType: ContactsOwnerType.author,
+                  focusNode: _phoneNode,
                   appBarType: AppBarType.basic,
+                  isFormField: true,
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: 'phid_phone',
+                    redDot: true,
+                  ),
+                  keyboardTextInputType: TextInputType.phone,
+                  keyboardTextInputAction: TextInputAction.next,
+                  initialTextValue: ContactModel.getInitialContactValue(
+                    type: ContactType.phone,
+                    countryID: widget.bzModel.zone.countryID,
+                    existingContacts: authorModel.contacts,
+                  ),
+                  textOnChanged: (String text) => onAuthorContactChanged(
+                    contactType: ContactType.phone,
+                    value: text,
+                    tempAuthor: _tempAuthor,
+                  ),
+                  autoValidate: true,
+                  validator: () => AuthorValidator.phoneValidator(authorModel),
                 ),
+
+                /// EMAIL
+                ContactFieldBubble(
+                  key: const ValueKey<String>('email'),
+                  globalKey: _formKey,
+                  focusNode: _emailNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: 'phid_email',
+                    redDot: true,
+                  ),
+                  keyboardTextInputType: TextInputType.emailAddress,
+                  keyboardTextInputAction: TextInputAction.done,
+                  initialTextValue: ContactModel.getInitialContactValue(
+                    type: ContactType.email,
+                    countryID: widget.bzModel.zone.countryID,
+                    existingContacts: authorModel.contacts,
+                  ),
+                  textOnChanged: (String text) => onAuthorContactChanged(
+                    contactType: ContactType.email,
+                    value: text,
+                    tempAuthor: _tempAuthor,
+                  ),
+                  canPaste: false,
+                  autoValidate: true,
+                  validator: () => AuthorValidator.emailValidator(authorModel),
+                ),
+
+                const DotSeparator(),
+
+                // /// CONTACTS
+                // ContactsEditorsBubbles(
+                //   globalKey: _formKey,
+                //   contacts: tempAuthor.contacts,
+                //   contactsOwnerType: ContactsOwnerType.author,
+                //   appBarType: AppBarType.basic,
+                // ),
 
                 const Horizon(),
 

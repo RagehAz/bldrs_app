@@ -1,13 +1,16 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/user/user_validators.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -94,6 +97,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           context: context,
           tempUser: _tempUser,
           oldUser: widget.userModel,
+          mounted: mounted,
         );
         // -----------------------------
         if (widget.checkLastSession == true){
@@ -231,8 +235,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     tempUser: _tempUser,
                   ),
                   autoValidate: true,
-                  validator: () => UserValidators.nameValidator(
-                    userModel: userModel,
+                  validator: () => Formers.personNameValidator(
+                    name: userModel.name,
                   ),
                 ),
 
@@ -254,8 +258,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                   ),
                   autoValidate: true,
-                  validator: () => UserValidators.jobTitleValidator(
-                    userModel: userModel,
+                  validator: () => Formers.jobTitleValidator(
+                    jobTitle: userModel.title,
                   ),
                 ),
 
@@ -276,24 +280,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                     tempUser: _tempUser,
                   ),
-
-                  validator: () => UserValidators.companyNameValidator(
-                    userModel: userModel,
+                  validator: () => Formers.companyNameValidator(
+                    companyName: userModel.company,
                   ),
                 ),
 
+                const DotSeparator(),
+
                 /// PHONE
-                TextFieldBubble(
+                ContactFieldBubble(
                   key: const ValueKey<String>('phone'),
                   globalKey: _formKey,
                   focusNode: _phoneNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  // textController: _companyController,
-                  titleVerse: 'phid_phone',
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: 'phid_phone',
+                    redDot: true,
+                  ),
                   keyboardTextInputType: TextInputType.phone,
                   keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.phone,
                     countryID: userModel.zone.countryID,
@@ -304,20 +310,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     value: text,
                     tempUser: _tempUser,
                   ),
-                  validator: () => UserValidators.phoneValidator(userModel),
+                  canPaste: false,
+                  autoValidate: true,
+                  validator: () => Formers.phoneValidator(
+                    contacts: userModel.contacts,
+                  ),
                 ),
 
                 /// EMAIL
-                TextFieldBubble(
+                ContactFieldBubble(
                   key: const ValueKey<String>('email'),
                   globalKey: _formKey,
                   focusNode: _emailNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: 'phid_email',
+                  headerViewModel: const BubbleHeaderVM(
+                    headlineVerse: 'phid_email',
+                    redDot: true,
+                  ),
                   keyboardTextInputType: TextInputType.emailAddress,
                   keyboardTextInputAction: TextInputAction.done,
-                  fieldIsRequired: true,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.email,
                     countryID: userModel.zone.countryID,
@@ -328,8 +340,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     value: text,
                     tempUser: _tempUser,
                   ),
-                  validator: () => UserValidators.emailValidator(userModel),
+                  canPaste: false,
+                  autoValidate: true,
+                  validator: () => Formers.emailValidator(
+                    contacts: userModel.contacts,
+                  ),
                 ),
+
+                const DotSeparator(),
 
                 /// ZONE
                 ZoneSelectionBubble(

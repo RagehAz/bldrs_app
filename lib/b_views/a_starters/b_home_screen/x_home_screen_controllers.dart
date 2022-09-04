@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/user/user_validators.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
@@ -34,6 +33,7 @@ import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -240,7 +240,7 @@ Future<void> checkIfUserIsMissingFields({
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-    final bool _thereAreMissingFields = UserValidators.checkModelHasMissingFields(_authModel?.userModel);
+    final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(_authModel?.userModel);
 
     /// MISSING FIELDS FOUND
     if (_thereAreMissingFields == true){
@@ -261,7 +261,7 @@ Future<void> _controlMissingFieldsCase({
   @required AuthModel authModel,
 }) async {
 
-  await UserValidators.showMissingFieldsDialog(
+  await Formers.showUserMissingFieldsDialog(
     context: context,
     userModel: authModel?.userModel,
   );
@@ -329,7 +329,7 @@ List<NavModel> generateMainNavModels({
       iconSizeFactor: userModel?.pic == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: AuthModel.userIsSignedIn() == true,
-      forceRedDot: userModel == null || UserValidators.checkModelHasMissingFields(userModel),
+      forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel),
     ),
 
     /// SAVED FLYERS
@@ -905,7 +905,7 @@ bool _checkNoteDotIsOn({
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-  final bool _thereAreMissingFields = UserValidators.checkModelHasMissingFields(_userModel);
+  final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(_userModel);
 
 
   bool _isOn = false;

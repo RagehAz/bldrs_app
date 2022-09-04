@@ -141,7 +141,7 @@ class BzModel{
   /// TESTED : WORKS PERFECT
   static Future <BzModel> initializeModelForEditing({
     @required BuildContext context,
-    @required BzModel oldBzModel,
+    @required BzModel oldBz,
     @required bool firstTimer,
     @required UserModel userModel,
   }) async {
@@ -149,17 +149,21 @@ class BzModel{
     final BzModel _initialBzModel = firstTimer == true ?
     BzModel.convertFireUserDataIntoInitialBzModel(userModel)
         :
-    oldBzModel;
+    oldBz;
 
     return _initialBzModel.copyWith(
       logo: await FileModel.preparePicForEditing(
           pic: _initialBzModel.logo,
-          fileName: oldBzModel.id
+          fileName: oldBz.id
       ),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
 
       zone: await ZoneModel.initializeZoneForEditing(
           context: context,
           zoneModel: _initialBzModel.zone,
+      ),
+      contacts: ContactModel.initializeContactsForEditing(
+          contacts: oldBz.contacts,
+          countryID: oldBz.zone.countryID,
       ),
     );
 

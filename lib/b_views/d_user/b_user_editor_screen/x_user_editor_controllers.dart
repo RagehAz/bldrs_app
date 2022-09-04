@@ -1,9 +1,9 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/user/user_validators.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
@@ -47,14 +47,19 @@ Future<void> prepareUserForEditing({
   @required BuildContext context,
   @required ValueNotifier<UserModel> tempUser,
   @required UserModel oldUser,
+  @required bool mounted,
 }) async {
 
-  final UserModel _userModel = await UserModel.initializeModelForEditing(
+  final UserModel _userModel = await UserModel.prepareUserForEditing(
     context: context,
     oldUser: oldUser,
   );
 
-  tempUser.value = _userModel;
+  setNotifier(
+    notifier: tempUser,
+    mounted: mounted,
+    value: _userModel,
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -86,14 +91,13 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      final UserModel _user = await UserModel.initializeModelForEditing(
+      final UserModel _user = await UserModel.prepareUserForEditing(
         context: context,
         oldUser: _lastSessionUser,
       );
 
       await Nav.replaceScreen(
           context: context,
-          // transitionType: PageTransitionType.fade,
           screen: EditProfileScreen(
             reAuthBeforeConfirm: reAuthBeforeConfirm,
             userModel: _user,
@@ -103,7 +107,6 @@ Future<void> loadUserEditorLastSession({
             validateOnStartup: true,
           ),
       );
-
 
     }
 
@@ -142,11 +145,11 @@ Future<void> saveUserEditorSession({
         userModel: newUserModel
     );
 
-    setNotifier(
-        notifier: lastTempUser,
-        mounted: mounted,
-        value: newUserModel,
-    );
+    // setNotifier(
+    //     notifier: lastTempUser,
+    //     mounted: mounted,
+    //     value: newUserModel,
+    // );
 
   }
 
@@ -274,7 +277,7 @@ void onUserContactChanged({
   @required String value,
 }){
 
-  final List<ContactModel> _contacts = ContactModel.replaceContact(
+  final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
       contacts: tempUser.value.contacts,
       contactToReplace: ContactModel(
         value: value,
@@ -320,7 +323,7 @@ Future<void> confirmEdits({
 
   /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
   if (_canContinue == false){
-    await UserValidators.showMissingFieldsDialog(
+    await Formers.showUserMissingFieldsDialog(
         context: context,
         userModel: newUserModel
     );
