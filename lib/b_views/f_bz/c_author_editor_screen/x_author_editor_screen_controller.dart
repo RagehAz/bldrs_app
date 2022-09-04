@@ -263,7 +263,6 @@ void onAuthorContactChanged({
     contacts: _contacts,
   );
 
-
 }
 // -----------------------------------------------------------------------------
 
@@ -315,7 +314,6 @@ Future<void> onConfirmAuthorUpdates({
       invoker: 'onConfirmAuthorUpdates',
     );
   }
-
 
 }
 // -----------------------------------------------------------------------------
