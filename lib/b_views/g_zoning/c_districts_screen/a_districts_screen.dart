@@ -128,7 +128,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 // -----------------------------------------------------------------------------
   Future<void> _onSearchDistrict(String inputText) async {
 
-    TextChecker.triggerIsSearchingNotifier(
+    TextCheck.triggerIsSearchingNotifier(
         text: inputText,
         isSearching: _isSearching
     );

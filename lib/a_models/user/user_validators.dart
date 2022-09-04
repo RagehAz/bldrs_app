@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -36,13 +37,14 @@ class UserValidators {
       return null;
     }
   }
-// ---------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static String nameValidator({
     @required UserModel userModel,
     FocusNode focusNode,
   }){
 
-    final bool _userNameIsShort = TextChecker.isShorterThan(
+    final bool _userNameIsShort = TextCheck.isShorterThan(
       text: userModel?.name?.trim(),
       length: Standards.minUserNameLength,
     );
@@ -62,13 +64,14 @@ class UserValidators {
       return null;
     }
   }
-// ---------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static String jobTitleValidator({
     @required UserModel userModel,
     FocusNode focusNode,
   }){
 
-    final bool _titleIsShort = TextChecker.isShorterThan(
+    final bool _titleIsShort = TextCheck.isShorterThan(
       text: userModel.title,
       length: Standards.minJobTitleLength,
     );
@@ -81,13 +84,14 @@ class UserValidators {
       return null;
     }
   }
-// ---------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static String companyNameValidator({
     @required UserModel userModel,
     FocusNode focusNode,
   }){
 
-    final bool _companyNameIsShort = TextChecker.isShorterThan(
+    final bool _companyNameIsShort = TextCheck.isShorterThan(
       text: userModel.company,
       length: Standards.minCompanyNameLength,
     );
@@ -103,11 +107,23 @@ class UserValidators {
   }
 // ---------------------------------------
   static String phoneValidator(UserModel userModel){
-    return null; /// TASK : VALIDATE PHONE NUMBER
+
+    final String phone = ContactModel.getValueFromContacts(
+        contacts: userModel.contacts,
+        contactType: ContactType.phone,
+    );
+
+    return Formers.validatePhone(phone);
   }
 // ---------------------------------------
   static String emailValidator(UserModel userModel){
-    return null; /// TASK : VALIDATE EMAIL FORMAT
+
+    final String email = ContactModel.getValueFromContacts(
+      contacts: userModel.contacts,
+      contactType: ContactType.email,
+    );
+
+    return Formers.validateEmail(email);
   }
 // ---------------------------------------
   static String countryValidator(UserModel userModel){
@@ -157,6 +173,7 @@ class UserValidators {
   /// CHECKERS
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkModelHasMissingFields(UserModel userModel){
     bool _thereAreMissingFields;
 

@@ -1,9 +1,10 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -109,8 +110,32 @@ class FileModel {
     return _model;
   }
 // --------------------------------------
+  static FileModel initializePicForEditing({
+    @required dynamic pic,
+    @required String fileName,
+  }){
+
+    FileModel _fileModel;
+
+    if (pic != null){
+
+      if (pic is FileModel){
+        _fileModel = pic;
+      }
+      else if (ObjectChecker.objectIsURL(pic) == true){
+        _fileModel = FileModel(url: pic, fileName: fileName,);
+      }
+      else if (ObjectChecker.objectIsFile(pic) == true){
+        _fileModel = FileModel(file: pic, fileName: fileName,);
+      }
+
+    }
+
+    return _fileModel;
+  }
+// --------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<FileModel> initializePicForEditing({
+  static Future<FileModel> preparePicForEditing({
     @required dynamic pic,
     @required String fileName,
   }) async {
@@ -462,7 +487,7 @@ class FileModel {
         }
 
         /// MISSING NAME
-        if (Stringer.checkStringIsEmpty(_output.fileName) == true){
+        if (TextCheck.isEmpty(_output.fileName) == true){
           _output = _output.copyWith(
             fileName: Filers.getFileNameFromFile(
               file: _output.file,
