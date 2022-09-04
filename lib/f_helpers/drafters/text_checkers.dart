@@ -11,6 +11,17 @@ class TextChecker {
 
 // -----------------------------------------------------------------------------
 
+  /// BAD WORDS
+
+// -------------------------------------
+  /// PLAN : DO THE BAD WORDS CHECKER IN V1.1
+  static bool containsBadWords({
+    @required String text
+  }){
+    return false;
+  }
+// -----------------------------------------------------------------------------
+
   /// LANGUAGE CHECK
 
 // -------------------------------------
@@ -258,64 +269,11 @@ class TextChecker {
 
     return _controllers;
   }
+// -----------------------------------------------------------------------------
+
+  /// CONTAINS
+
 // -------------------------------------
-/*
-/// createTextControllersAndOverrideOneString
-//   List<TextEditingController> createTextControllersAndOverrideOneString({int length, int indexToOverride, String overridingString}){
-//     List<TextEditingController> _controllers = [];
-//
-//     for (int i = 0; i < length; i++){
-//
-//       if (i == indexToOverride){
-//         _controllers.add(TextEditingController(text: overridingString));
-//       }
-//
-//       else {
-//         _controllers.add(TextEditingController());
-//       }
-//
-//     }
-//
-//     return _controllers;
-//   }
-// -----------------------------------------------------------------------------
- */
-
-
-// -----------------------------------------------------------------------------
-/*bool stringContainsPhraseIDKeyword({
-  String string,
-  String subString,
-  bool caseSensitive = false,
-  // bool multiLine = false
-}) {
-  bool _itContainsIt = false;
-
-  if (string != null && subString != null) {
-
-    final RegExp pattern = RegExp(r'phid_k',
-      caseSensitive: caseSensitive,
-      // multiLine: multiLine // mesh shaghal w mesh wa2to
-    );
-
-    // final Iterable matches = pattern.allMatches(string);
-
-    _itContainsIt = string.contains(pattern);
-
-    // Matcher containsSubstringNoCase(String substring) =>
-    //     predicate((String expected) => expected.contains(RegExp(substring, caseSensitive: false)));
-
-    // if (matches.isNotEmpty) {
-    //   _itContainsIt = true;
-    //   blog(matches);
-    // }
-
-  }
-
-  return _itContainsIt;
-}
- */
-// -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool stringContainsSubString({
     @required String string,
@@ -381,6 +339,42 @@ class TextChecker {
     }
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// LENGTH
+
+// -------------------------------------
+  static bool isShorterThanOrEqualTo({
+    @required String text,
+    @required int length,
+  }){
+    bool _isShorter = false;
+
+    if (Stringer.checkStringIsEmpty(text) == true){
+      _isShorter = true;
+    }
+    else {
+      _isShorter = text.length <= length;
+    }
+
+    return _isShorter;
+  }
+  // -------------------------------------
+  static bool isShorterThan({
+    @required String text,
+    @required int length,
+  }){
+    bool _isShorter = false;
+
+    if (Stringer.checkStringIsEmpty(text) == true){
+      _isShorter = true;
+    }
+    else {
+      _isShorter = text.length < length;
+    }
+
+    return _isShorter;
   }
 // -----------------------------------------------------------------------------
 
