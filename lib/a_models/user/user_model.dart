@@ -207,7 +207,7 @@ class UserModel {
       status: oldUser.status,
       name: oldUser.name,
       trigram: oldUser.trigram,
-      pic: await FileModel.initializePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
+      pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
       title: oldUser.title,
       company: oldUser.company,
       gender: oldUser.gender,

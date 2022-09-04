@@ -45,11 +45,11 @@ class ObjectChecker {
 
       if (_isValidURL == true){
 
-        final bool _startsWithHttp = TextChecker.textStartsWith(
+        final bool _startsWithHttp = TextCheck.textStartsWith(
           text: object,
           startsWith: 'http',
         );
-        final bool _startsWithWWW = TextChecker.textStartsWith(
+        final bool _startsWithWWW = TextCheck.textStartsWith(
           text: object,
           startsWith: 'www',
         );

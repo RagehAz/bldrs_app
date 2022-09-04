@@ -1,5 +1,4 @@
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -68,7 +67,7 @@ class TextDir {
 
     TextDirection _textDirection;
 
-    final bool controllerIsEmpty = TextChecker.textControllerIsEmpty(controller);
+    final bool controllerIsEmpty = TextCheck.textControllerIsEmpty(controller);
 
     if (!controllerIsEmpty) {
       final String _string = controller.text;
@@ -81,9 +80,9 @@ class TextDir {
 
       // print('_firstCharacter is ($_firstCharacter)');
 
-      if (TextChecker.textStartsInEnglish(_firstCharacter)) {
+      if (TextCheck.textStartsInEnglish(_firstCharacter)) {
         _textDirection = TextDirection.ltr;
-      } else if (TextChecker.textStartsInArabic(_firstCharacter)) {
+      } else if (TextCheck.textStartsInArabic(_firstCharacter)) {
         _textDirection = TextDirection.rtl;
       } else {
         _textDirection = null;
@@ -104,7 +103,7 @@ class TextDir {
     // bool _appIsLeftToRight = appIsLeftToRight(context);
     // TextDirection _defaultByLang = _appIsLeftToRight == true ? TextDirection.ltr : TextDirection.rtl;
 
-    final bool _controllerIsEmpty = Stringer.checkStringIsEmpty(val);
+    final bool _controllerIsEmpty = TextCheck.isEmpty(val);
 
     /// when val has a value
     if (!_controllerIsEmpty) {
@@ -116,9 +115,9 @@ class TextDir {
 
       // print('_firstCharacter is ($_firstCharacter)');
 
-      if (TextChecker.textStartsInEnglish(_firstCharacter)) {
+      if (TextCheck.textStartsInEnglish(_firstCharacter)) {
         _textDirection = TextDirection.ltr;
-      } else if (TextChecker.textStartsInArabic(_firstCharacter)) {
+      } else if (TextCheck.textStartsInArabic(_firstCharacter)) {
         _textDirection = TextDirection.rtl;
       } else {
         // _textDirection = _defaultByLang; // can not check app is left to right in initState of SuperTextField

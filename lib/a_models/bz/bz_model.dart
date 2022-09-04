@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -151,12 +152,15 @@ class BzModel{
     oldBzModel;
 
     return _initialBzModel.copyWith(
-      logo: await FileModel.initializePicForEditing(pic: _initialBzModel.logo, fileName: oldBzModel.id),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
-      contacts: ContactModel.initializeContactsForEditing(
-        countryID: _initialBzModel.zone.countryID,
-        contacts: _initialBzModel.contacts,
+      logo: await FileModel.preparePicForEditing(
+          pic: _initialBzModel.logo,
+          fileName: oldBzModel.id
+      ),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
+
+      zone: await ZoneModel.initializeZoneForEditing(
+          context: context,
+          zoneModel: _initialBzModel.zone,
       ),
-      zone: await ZoneModel.initializeZoneForEditing(context: context, zoneModel: _initialBzModel.zone),
     );
 
   }
@@ -165,8 +169,6 @@ class BzModel{
   static BzModel backEditorVariablesToUpload({
     @required ValueNotifier<List<SpecModel>> selectedScopes,
     @required BzModel oldBz,
-    @required TextEditingController nameController,
-    @required TextEditingController aboutController,
     @required ValueNotifier<BzModel> tempBz,
   }){
 
@@ -176,15 +178,15 @@ class BzModel{
       bzForm: tempBz.value.bzForm,
       createdAt: oldBz.createdAt, /// WILL BE OVERRIDDEN
       accountType: oldBz.accountType, /// NEVER CHANGED
-      name: nameController.text,
-      trigram: Stringer.createTrigram(input: nameController.text),
+      name: tempBz.value.name,
+      trigram: Stringer.createTrigram(input: tempBz.value.name),
       logo: FileModel.bakeFileForUpload(
         newFile: tempBz.value.logo,
         existingPic: oldBz.logo,
       ),
       scope: SpecModel.getSpecsIDs(selectedScopes.value),
       zone: tempBz.value.zone,
-      about: aboutController.text,
+      about: tempBz.value.about,
       position: tempBz.value.position,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: tempBz.value.contacts,
@@ -1929,7 +1931,7 @@ class BzModel{
       );
     }
 
-    if (Stringer.checkStringIsEmpty(bzModel?.name) == true){
+    if (TextCheck.isEmpty(bzModel?.name) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzName',
@@ -1959,7 +1961,7 @@ class BzModel{
       );
     }
 
-    if (Stringer.checkStringIsEmpty(bzModel?.zone?.countryID) == true){
+    if (TextCheck.isEmpty(bzModel?.zone?.countryID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCountry',
@@ -1969,7 +1971,7 @@ class BzModel{
       );
     }
 
-    if (Stringer.checkStringIsEmpty(bzModel?.zone?.cityID) == true){
+    if (TextCheck.isEmpty(bzModel?.zone?.cityID) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzCity',
@@ -1979,7 +1981,7 @@ class BzModel{
       );
     }
 
-    if (Stringer.checkStringIsEmpty(bzModel?.about) == true){
+    if (TextCheck.isEmpty(bzModel?.about) == true){
       _invalidFields.add(
           const AlertModel(
             alertID: 'bzAbout',

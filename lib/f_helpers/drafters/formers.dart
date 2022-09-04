@@ -1,5 +1,4 @@
-
-
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
 class Formers {
@@ -12,6 +11,7 @@ class Formers {
 /// FORM VALIDATION
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static bool validateForm(GlobalKey<FormState> formKey) {
     bool _inputsAreValid = true;
 
@@ -21,7 +21,8 @@ class Formers {
 
     return _inputsAreValid;
   }
-// -----------------------------------------------------------------------------
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static void focusOnNode(FocusNode node){
 
     if (node != null){
@@ -32,4 +33,31 @@ class Formers {
 
   }
 // -----------------------------------------------------------------------------
+
+/// GENERAL VALIDATORS
+
+// -------------------------------
+  static String validatePhone(String phone){
+
+
+    if (TextCheck.isEmpty(phone) == true){
+      return '##Phone number should not be empty';
+    }
+    else {
+      return null;
+    }
+
+  }
+// -------------------------------
+  static String validateEmail(String email){
+
+    if (TextCheck.isEmpty(email) == true){
+      return '##Add Email Address';
+    }
+    else {
+      return null;
+    }
+
+  }
+// -------------------------------
 }

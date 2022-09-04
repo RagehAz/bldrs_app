@@ -25,7 +25,7 @@ Future<void> onSearchBzz({
 
   blog('starting onSearchUsers : text : $text');
 
-  TextChecker.triggerIsSearchingNotifier(
+  TextCheck.triggerIsSearchingNotifier(
       text: text,
       isSearching: isSearching,
       onSwitchOff: (){

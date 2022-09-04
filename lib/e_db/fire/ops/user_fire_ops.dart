@@ -15,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -316,7 +317,7 @@ class UserFireOps {
         contactType: ContactType.email,
       );
 
-      if (Stringer.checkStringIsEmpty(_newEmail) == false){
+      if (TextCheck.isEmpty(_newEmail) == false){
 
         final bool _success = await AuthFireOps.updateUserEmail(
           context: context,

@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
@@ -225,7 +225,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   ],
                   validator: (){
 
-                    if (Stringer.checkStringIsEmpty(_nameController.text) == true){
+                    if (TextCheck.isEmpty(_nameController.text) == true){
                       return '##Author name can not be empty';
                     }
                     else if (_nameController.text.length <= 3){
@@ -253,7 +253,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   fieldIsRequired: true,
                   validator: (){
 
-                    if (Stringer.checkStringIsEmpty(_titleController.text) == true){
+                    if (TextCheck.isEmpty(_titleController.text) == true){
                       return '##Author name can not be empty';
                     }
                     else if (_titleController.text.length <= 3){

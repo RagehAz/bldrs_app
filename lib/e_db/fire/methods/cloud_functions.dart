@@ -75,7 +75,7 @@ static const String sendNotificationToDevice = 'sendNotificationToDevice';
         },
         onError: (String error) async {
 
-          final bool _unauthenticated = TextChecker.stringContainsSubString(
+          final bool _unauthenticated = TextCheck.stringContainsSubString(
             string: error,
             subString: '/unauthenticated]',
           );

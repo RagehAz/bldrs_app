@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +51,7 @@ class RenovateZoneProtocols {
       }
 
       /// COUNTRY NAME
-      if (Stringer.checkStringIsEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
+      if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
         final String _countryName = CountryModel.getTranslatedCountryName(
@@ -64,7 +64,7 @@ class RenovateZoneProtocols {
       }
 
       /// CITY NAME
-      if (Stringer.checkStringIsEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
+      if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
         // superPhrase(context, _zone.cityID);
         final String _cityName = CityModel.getTranslatedCityNameFromCity(
@@ -77,7 +77,7 @@ class RenovateZoneProtocols {
       }
 
       /// DISTRICT NAME
-      if (Stringer.checkStringIsEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
+      if (TextCheck.isEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
         final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
           context: context,
           city: _output.cityModel,
@@ -89,7 +89,7 @@ class RenovateZoneProtocols {
       }
 
       /// FLAG
-      if (Stringer.checkStringIsEmpty(incompleteZoneModel.flag) == true || incompleteZoneModel.flag == Iconz.dvBlankSVG){
+      if (TextCheck.isEmpty(incompleteZoneModel.flag) == true || incompleteZoneModel.flag == Iconz.dvBlankSVG){
         _output = _output.copyWith(
           flag: Flag.getFlagIcon(incompleteZoneModel.countryID),
         );

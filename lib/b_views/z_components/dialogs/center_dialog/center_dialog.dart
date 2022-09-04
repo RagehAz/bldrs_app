@@ -6,7 +6,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -238,7 +238,7 @@ class CenterDialog extends StatelessWidget {
                               ),
 
                               /// BODY
-                              if (Stringer.checkStringIsNotEmpty(bodyVerse) == true)
+                              if (TextCheck.isEmpty(bodyVerse) == false)
                               SizedBox(
                                 width: _dialogWidth,
                                 // height: _bodyZoneHeight,
