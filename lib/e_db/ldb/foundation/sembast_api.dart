@@ -90,7 +90,8 @@ class Sembast  {
 
     if (map != null){
       await _doc.add(_db, map);
-      blog('SEMBAST : _addMap : added to ($docName) : map has (${map.keys.length}) keys ');
+      final String _id = LDBOps.getPrimaryKey(docName);
+      blog('SEMBAST : _addMap : added to ($docName) : map has (${map.keys.length}) keys : (${map[_id]})');
     }
 
   }

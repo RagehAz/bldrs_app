@@ -186,7 +186,7 @@ class ContactModel {
       
       final ContactModel _existingContact = getContactFromContacts(
           contacts: contacts, 
-          contactType: type,
+          type: type,
       );
       
       final String _initialValue = _initializeContactValue(
@@ -211,6 +211,32 @@ class ContactModel {
     }
     
     return _output;
+  }
+// ----------------------------------
+
+  static String getInitialContactValue({
+    @required List<ContactModel> existingContacts,
+    @required ContactType type,
+    @required String countryID,
+  }){
+    String _value;
+
+    if (Mapper.checkCanLoopList(existingContacts) == true){
+
+      final ContactModel _existingContact = getContactFromContacts(
+          contacts: existingContacts,
+          type: type,
+      );
+
+      _value = _initializeContactValue(
+          existingContact: _existingContact,
+          type: type,
+          countryID: countryID
+      );
+
+    }
+
+    return _value;
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
@@ -302,24 +328,24 @@ class ContactModel {
 
         final ContactModel _contact = contacts[i];
         final ContactType _contactType = _contact.type;
-        final TextEditingController _controller = _contact.controller;
+        final String _value = _contact?.controller ?? _contact.value;
 
         String _endValue;
 
         /// IF PHONE
         if (_contactType == ContactType.phone){
           _endValue = TextMod.nullifyNumberIfOnlyCountryCode(
-            number: _controller.text,
+            number: _value,
             countryID: countryID,
           );
         }
         /// IF WEB LINK
         else if (checkIsWebLink(_contactType) == true){
-          _endValue = TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _controller.text);
+          _endValue = TextMod.nullifyUrlLinkIfOnlyHTTPS(url: _value);
         }
         /// OTHERWISE
         else {
-          _endValue = _controller.text;
+          _endValue = _value;
         }
 
         if (Stringer.checkStringIsEmpty(_endValue) == false){
@@ -374,10 +400,10 @@ class ContactModel {
   /// TESTED : WORKS PERFECT
   static ContactModel getContactFromContacts({
     @required List<ContactModel> contacts,
-    @required ContactType contactType,
+    @required ContactType type,
   }) {
     final ContactModel contact = contacts?.singleWhere(
-        (ContactModel x) => x.type == contactType,
+        (ContactModel x) => x.type == type,
         orElse: () => null);
     return contact;
   }
@@ -394,7 +420,7 @@ class ContactModel {
 
       _contactValue = getContactFromContacts(
         contacts: contacts,
-        contactType: contactType,
+        type: contactType,
       )?.value;
 
     }
@@ -414,7 +440,7 @@ class ContactModel {
 
       _controller = getContactFromContacts(
         contacts: contacts,
-        contactType: contactType,
+        type: contactType,
       )?.controller;
 
     }
@@ -439,7 +465,7 @@ class ContactModel {
 
         final ContactModel _contact = getContactFromContacts(
           contacts: contacts,
-          contactType: type,
+          type: type,
         );
 
         if (ContactModel.checkContactIsEmpty(_contact) == false) {
@@ -466,7 +492,7 @@ class ContactModel {
 
         final ContactModel _contact = getContactFromContacts(
           contacts: contacts,
-          contactType: type,
+          type: type,
         );
 
         if (ContactModel.checkContactIsEmpty(_contact) == false) {
@@ -801,12 +827,12 @@ class ContactModel {
 
     final ContactModel _oldModel = getContactFromContacts(
       contacts: oldContacts,
-      contactType: ContactType.email,
+      type: ContactType.email,
     );
 
     final ContactModel _newModel = getContactFromContacts(
       contacts: newContacts,
-      contactType: ContactType.email,
+      type: ContactType.email,
     );
 
     blog('checkEmailChanged : ${_oldModel.value} == ${_newModel.value} ?');

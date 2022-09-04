@@ -55,6 +55,7 @@ class TextFieldBubble extends StatelessWidget {
     this.focusNode,
     this.isFloatingField = false,
     this.onFieldTap,
+    this.autoValidate = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -96,6 +97,7 @@ class TextFieldBubble extends StatelessWidget {
   final Function onFieldTap;
   final GlobalKey globalKey;
   final AppBarType appBarType;
+  final bool autoValidate;
   /// --------------------------------------------------------------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
@@ -219,6 +221,7 @@ class TextFieldBubble extends StatelessWidget {
                     minLines: minLines,
                     onTap: onFieldTap,
                     canObscure: canObscure,
+                    autoValidate: autoValidate,
                   ),
 
                   /// SPACER

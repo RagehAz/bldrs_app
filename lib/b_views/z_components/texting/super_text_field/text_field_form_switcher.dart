@@ -225,7 +225,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         onEditingComplete: onEditingComplete,
         validator: validator,
 
-        autovalidateMode: autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+        autovalidateMode: autoValidate ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
 
         /// other stuff
         enabled: true, /// THIS DISABLES THE ABILITY TO OPEN THE KEYBOARD

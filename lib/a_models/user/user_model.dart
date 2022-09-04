@@ -214,10 +214,7 @@ class UserModel {
       zone: _zone,
       language: oldUser.language ?? PhraseProvider.proGetCurrentLangCode(context: context, listen: false),
       location: oldUser.location,
-      contacts: ContactModel.initializeContactsForEditing(
-        countryID: _zone.countryID,
-        contacts: oldUser?.contacts,
-      ),
+      contacts: oldUser?.contacts,
       myBzzIDs: oldUser.myBzzIDs,
       emailIsVerified: oldUser.emailIsVerified,
       isAdmin: oldUser.isAdmin,
@@ -234,9 +231,6 @@ class UserModel {
     @required BuildContext context,
     @required UserModel oldUser,
     @required UserModel tempUser,
-    @required TextEditingController nameController,
-    @required TextEditingController titleController,
-    @required TextEditingController companyController,
   }){
 
     return UserModel(
@@ -245,14 +239,14 @@ class UserModel {
       createdAt: oldUser.createdAt,
       status: oldUser.status,
       // -------------------------
-      name: nameController.text,
-      trigram: Stringer.createTrigram(input: nameController.text),
+      name: tempUser.name,
+      trigram: Stringer.createTrigram(input: tempUser.name),
       pic: FileModel.bakeFileForUpload(
         newFile: tempUser.pic,
         existingPic: oldUser.pic,
       ),
-      title: titleController.text,
-      company: companyController.text,
+      title: tempUser.title,
+      company: tempUser.company,
       gender: tempUser.gender,
       zone: tempUser.zone,
       language: Words.languageCode(context),
@@ -604,22 +598,6 @@ class UserModel {
     return _userIsAuthor;
   }
 // -----------------------------------
-  static bool checkMissingFields(UserModel userModel){
-    bool _thereAreMissingFields;
-
-    final List<String> _missingFields = UserModel.missingFields(userModel);
-
-    if (Mapper.checkCanLoopList(_missingFields) == true){
-      _thereAreMissingFields = true;
-    }
-
-    else {
-      _thereAreMissingFields = false;
-    }
-
-    return _thereAreMissingFields;
-  }
-// -----------------------------------
   static bool checkUsersContainUser({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
@@ -724,66 +702,7 @@ class UserModel {
   /// GETTERS
 
 // -----------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<String> missingFields(UserModel userModel) {
-    final List<String> _missingFields = <String>[];
-
-    /*
-    -> NOT required : status,
-    -> NOT required : location,
-    -> NOT required : contacts,
-    -> NOT required : myBzzIDs,
-    -> NOT required : savedFlyersIDs,
-    -> NOT required : followedBzzIDs,
-    ---------------------------------->
-    -> generated : id,
-    -> generated : authBy,
-    -> generated : createdAt,
-    -> generated : trigram,
-    -> generated : language,
-    -> generated : emailIsVerified,
-    -> generated : isAdmin,
-    -> generated : fcmToken,
-    ---------------------------------->
-    -> required : name,
-    -> required : pic,
-    -> required : title,
-    -> required : company,
-    -> required : gender,
-    -> required : zone,
-    ---------------------------------->
-    */
-
-    if (Stringer.checkStringIsEmpty(userModel?.name) == true) {
-      _missingFields.add('Name');
-    }
-
-    if (userModel?.pic == null) {
-      _missingFields.add('Picture');
-    }
-
-    if (Stringer.checkStringIsEmpty(userModel?.title) == true) {
-      _missingFields.add('Job Title');
-    }
-
-    if (Stringer.checkStringIsEmpty(userModel?.company) == true) {
-      _missingFields.add('Company');
-    }
-
-    if (userModel?.gender == null) {
-      _missingFields.add('Gender');
-    }
-
-    if (Stringer.checkStringIsEmpty(userModel?.zone?.countryID) == true) {
-      _missingFields.add('Country');
-    }
-
-    if (Stringer.checkStringIsEmpty(userModel?.zone?.cityID) == true) {
-      _missingFields.add('City');
-    }
-
-    return _missingFields;
-  }
+  ///
 // -----------------------------------------------------------------------------
 
   /// MODIFIERS
