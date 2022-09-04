@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
@@ -16,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -190,38 +188,21 @@ class UserModel {
   }
 // -----------------------------------
   /// TAMAM : WORKS PERFECT
-  static Future<UserModel> initializeModelForEditing({
+  static Future<UserModel> prepareUserForEditing({
     @required BuildContext context,
     @required UserModel oldUser,
   }) async {
 
-    final ZoneModel _zone = await ZoneModel.initializeZoneForEditing(
+    return oldUser.copyWith(
+      pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
+      zone: await ZoneModel.initializeZoneForEditing(
         context: context,
         zoneModel: oldUser.zone,
-    );
-
-    return UserModel(
-      id: oldUser.id,
-      authBy: oldUser.authBy,
-      createdAt: oldUser.createdAt,
-      status: oldUser.status,
-      name: oldUser.name,
-      trigram: oldUser.trigram,
-      pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
-      title: oldUser.title,
-      company: oldUser.company,
-      gender: oldUser.gender,
-      zone: _zone,
-      language: oldUser.language ?? PhraseProvider.proGetCurrentLangCode(context: context, listen: false),
-      location: oldUser.location,
-      contacts: oldUser?.contacts,
-      myBzzIDs: oldUser.myBzzIDs,
-      emailIsVerified: oldUser.emailIsVerified,
-      isAdmin: oldUser.isAdmin,
-      fcmToken: oldUser.fcmToken,
-      savedFlyersIDs: oldUser.savedFlyersIDs,
-      followedBzzIDs: oldUser.followedBzzIDs,
-      appState: oldUser.appState,
+      ),
+      contacts: ContactModel.initializeContactsForEditing(
+        contacts: oldUser.contacts,
+        countryID: oldUser.zone.countryID,
+      )
     );
 
   }
@@ -233,39 +214,51 @@ class UserModel {
     @required UserModel tempUser,
   }){
 
-    return UserModel(
-      // -------------------------
-      id: oldUser.id,
-      createdAt: oldUser.createdAt,
-      status: oldUser.status,
-      // -------------------------
-      name: tempUser.name,
+    return tempUser.copyWith(
       trigram: Stringer.createTrigram(input: tempUser.name),
       pic: FileModel.bakeFileForUpload(
         newFile: tempUser.pic,
         existingPic: oldUser.pic,
       ),
-      title: tempUser.title,
-      company: tempUser.company,
-      gender: tempUser.gender,
-      zone: tempUser.zone,
-      language: Words.languageCode(context),
-      location: tempUser.location,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: tempUser.contacts,
         countryID: tempUser.zone.countryID,
       ),
-      // -------------------------
-      myBzzIDs: oldUser.myBzzIDs,
-      // -------------------------
-      isAdmin: oldUser.isAdmin,
-      emailIsVerified: oldUser.emailIsVerified,
-      authBy: oldUser.authBy,
-      fcmToken: oldUser.fcmToken,
-      followedBzzIDs: oldUser.followedBzzIDs,
-      savedFlyersIDs: oldUser.savedFlyersIDs,
-      appState: oldUser.appState,
     );
+
+    // return UserModel(
+    //   // -------------------------
+    //   id: oldUser.id,
+    //   createdAt: oldUser.createdAt,
+    //   status: oldUser.status,
+    //   // -------------------------
+    //   name: tempUser.name,
+    //   trigram: Stringer.createTrigram(input: tempUser.name),
+    //   pic: FileModel.bakeFileForUpload(
+    //     newFile: tempUser.pic,
+    //     existingPic: oldUser.pic,
+    //   ),
+    //   title: tempUser.title,
+    //   company: tempUser.company,
+    //   gender: tempUser.gender,
+    //   zone: tempUser.zone,
+    //   language: Words.languageCode(context),
+    //   location: tempUser.location,
+    //   contacts: ContactModel.bakeContactsAfterEditing(
+    //     contacts: tempUser.contacts,
+    //     countryID: tempUser.zone.countryID,
+    //   ),
+    //   // -------------------------
+    //   myBzzIDs: oldUser.myBzzIDs,
+    //   // -------------------------
+    //   isAdmin: oldUser.isAdmin,
+    //   emailIsVerified: oldUser.emailIsVerified,
+    //   authBy: oldUser.authBy,
+    //   fcmToken: oldUser.fcmToken,
+    //   followedBzzIDs: oldUser.followedBzzIDs,
+    //   savedFlyersIDs: oldUser.savedFlyersIDs,
+    //   appState: oldUser.appState,
+    // );
 
   }
 // -----------------------------------------------------------------------------

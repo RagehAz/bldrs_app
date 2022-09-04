@@ -335,7 +335,7 @@ class UserFireOps {
               type: ContactType.email,
           );
 
-          final List<ContactModel> _contacts = ContactModel.replaceContact(
+          final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
             contacts: newUserModel.contacts,
             contactToReplace: _oldEmailContact,
           );

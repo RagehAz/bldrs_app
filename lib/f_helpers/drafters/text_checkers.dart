@@ -285,10 +285,10 @@ class TextCheck {
         _string == ''
         ||
         _string.isEmpty == true
-        ||
-        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
-        ||
-        TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
+        // ||
+        // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
+        // ||
+        // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
     ) {
       _isEmpty = true;
     }

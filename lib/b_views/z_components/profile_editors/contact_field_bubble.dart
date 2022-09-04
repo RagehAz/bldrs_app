@@ -36,6 +36,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.keyboardTextInputType = TextInputType.url,
     this.canPaste = true,
     this.focusNode,
+    this.autoValidate = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -61,6 +62,7 @@ class ContactFieldBubble extends StatefulWidget {
   final BubbleHeaderVM headerViewModel;
   final GlobalKey globalKey;
   final FocusNode focusNode;
+  final bool autoValidate;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
@@ -199,6 +201,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 onSavedForForm: widget.onSaved,
                 textInputAction: widget.keyboardTextInputAction,
                 validator: widget.validator,
+                autoValidate: widget.autoValidate,
                 textDirection: TextDirection.ltr,
 
               ),
