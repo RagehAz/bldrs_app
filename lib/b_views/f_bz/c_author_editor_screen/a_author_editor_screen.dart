@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/bz/target/author_validator.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -261,6 +260,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     headlineVerse: 'phid_phone',
                     redDot: true,
                   ),
+                  canPaste: false,
                   keyboardTextInputType: TextInputType.phone,
                   keyboardTextInputAction: TextInputAction.next,
                   initialTextValue: ContactModel.getInitialContactValue(
@@ -274,7 +274,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     tempAuthor: _tempAuthor,
                   ),
                   autoValidate: true,
-                  validator: () => AuthorValidator.phoneValidator(authorModel),
+                  validator: () => Formers.phoneValidator(
+                    contacts: authorModel.contacts,
+                  ),
                 ),
 
                 /// EMAIL
@@ -302,7 +304,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   ),
                   canPaste: false,
                   autoValidate: true,
-                  validator: () => AuthorValidator.emailValidator(authorModel),
+                  validator: () => Formers.emailValidator(
+                    contacts: authorModel.contacts,
+                  ),
                 ),
 
                 const DotSeparator(),
