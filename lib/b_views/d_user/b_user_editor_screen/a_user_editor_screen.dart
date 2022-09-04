@@ -1,13 +1,21 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/aa_user_editor_screen_view.dart';
+import 'package:bldrs/a_models/user/user_validators.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/gender_bubble.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -17,6 +25,8 @@ class EditProfileScreen extends StatefulWidget {
     @required this.onFinish,
     @required this.canGoBack,
     @required this.reAuthBeforeConfirm,
+    this.checkLastSession = true,
+    this.validateOnStartup = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +34,8 @@ class EditProfileScreen extends StatefulWidget {
   final Function onFinish;
   final bool canGoBack;
   final bool reAuthBeforeConfirm;
+  final bool checkLastSession;
+  final bool validateOnStartup;
   /// --------------------------------------------------------------------------
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -36,15 +48,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<UserModel> _tempUser = ValueNotifier(null);
+  final ValueNotifier<UserModel> _lastTempUser = ValueNotifier(null);
   // --------------------
-  final TextEditingController _nameController = TextEditingController();
   final FocusNode _nameNode = FocusNode();
-  // --------------------
-  final TextEditingController _titleController = TextEditingController();
-  final FocusNode _jobNode = FocusNode();
-  // --------------------
-  final TextEditingController _companyController = TextEditingController();
+  final FocusNode _titleNode = FocusNode();
   final FocusNode _companyNode = FocusNode();
+  final FocusNode _emailNode = FocusNode();
+  final FocusNode _phoneNode = FocusNode();
 // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -69,9 +79,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       oldUser: widget.userModel,
       tempUser: _tempUser,
-      titleController: _titleController,
-      nameController: _nameController,
-      companyController: _companyController,
     );
 
   }
@@ -89,16 +96,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           oldUser: widget.userModel,
         );
         // -----------------------------
-        await loadUserEditorLastSession(
+        if (widget.checkLastSession == true){
+          await loadUserEditorLastSession(
             context: context,
             oldUser: widget.userModel,
-            tempUser: _tempUser,
-            nameController: _nameController,
-            titleController: _titleController,
-            companyController: _companyController,
-        );
+            onFinish: widget.onFinish,
+            canGoBack: widget.canGoBack,
+            reAuthBeforeConfirm: widget.reAuthBeforeConfirm,
+          );
+        }
         // -----------------------------
-        _createStateListeners();
+        if (widget.validateOnStartup == true){
+          Formers.validateForm(_formKey);
+        }
+        // -----------------------------
+        if (mounted == true){
+          _tempUser.addListener((){
+            saveUserEditorSession(
+              context: context,
+              mounted: mounted,
+              oldUserModel: widget.userModel,
+              tempUser: _tempUser,
+              lastTempUser: _lastTempUser,
+            );
+          });
+        }
         // -----------------------------
         await _triggerLoading(setTo: false);
       });
@@ -114,44 +136,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _loading.dispose();
     _canPickImage.dispose();
 
-    _nameController.dispose();
     _nameNode.dispose();
-    _titleController.dispose();
-    _jobNode.dispose();
-    _companyController.dispose();
+    _titleNode.dispose();
     _companyNode.dispose();
+    _emailNode.dispose();
+    _phoneNode.dispose();
 
-    ContactModel.disposeContactsControllers(_tempUser.value.contacts);
     _tempUser.dispose();
     _lastTempUser.dispose();
 
     super.dispose();
-  }
-// -----------------------------------------------------------------------------
-  void _createStateListeners(){
-
-    _tempUser.addListener(() => _saveSession());
-    _nameController.addListener(() => _saveSession());
-    _titleController.addListener(() => _saveSession());
-    _companyController.addListener(() => _saveSession());
-    ContactModel.createListenersToControllers(
-      contacts: _tempUser.value.contacts,
-      listener: () => _saveSession(),
-    );
-
-  }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<UserModel> _lastTempUser = ValueNotifier(null);
-  void _saveSession(){
-    unawaited(saveUserEditorSession(
-        context: context,
-        oldUserModel: widget.userModel,
-        tempUser: _tempUser,
-        lastTempUser: _lastTempUser,
-        nameController: _nameController,
-        titleController: _titleController,
-        companyController: _companyController
-    ));
   }
 // -----------------------------------------------------------------------------
   @override
@@ -165,20 +159,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: 'phid_update_profile',
       loading: _loading,
-      // appBarRowWidgets: [
-      //
-      //   AppBarButton(
-      //     verse: 'blogh',
-      //     onTap: (){
-      //
-      //       final TextEditingController _cont = _tempUser.value.contacts[1].controller;
-      //
-      //       blog(_cont.text);
-      //
-      //     },
-      //   ),
-      //
-      // ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_updateProfile',
         onSkipTap: (){
@@ -194,23 +174,187 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           onFinish: widget.onFinish,
           loading: _loading,
           forceReAuthentication: widget.reAuthBeforeConfirm,
-          companyController: _companyController,
-          nameController: _nameController,
-          titleController: _titleController,
         ),
 
       ),
-      layoutWidget: UserEditorScreenView(
-        appBarType: AppBarType.basic,
-        formKey: _formKey,
-        canPickImage: _canPickImage,
-        nameController: _nameController,
-        tempUser: _tempUser,
-        titleController: _titleController,
-        companyController: _companyController,
-        nameNode: _nameNode,
-        jobNode: _jobNode,
-        companyNode: _companyNode,
+      layoutWidget: Form(
+        key: _formKey,
+        child: ValueListenableBuilder(
+          valueListenable: _tempUser,
+          builder: (_, UserModel userModel, Widget child){
+
+            return ListView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.zero,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              children: <Widget>[
+
+                const Stratosphere(),
+
+                /// PICTURE
+                AddImagePicBubble(
+                  titleVerse: 'phid_picture',
+                  redDot: true,
+                  fileModel: userModel.pic,
+                  bubbleType: BubbleType.userPic,
+                  onAddPicture: (ImagePickerType imagePickerType) => takeUserPicture(
+                    context: context,
+                    canPickImage: _canPickImage,
+                    userNotifier: _tempUser,
+                    imagePickerType: imagePickerType,
+                  ),
+                ),
+
+                /// GENDER
+                GenderBubble(
+                  selectedGender: userModel.gender,
+                  onTap: (Gender gender) => onChangeGender(
+                    selectedGender: gender,
+                    tempUser: _tempUser,
+                  ),
+                ),
+
+                /// NAME
+                TextFieldBubble(
+                  key: const ValueKey<String>('name'),
+                  globalKey: _formKey,
+                  focusNode: _nameNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  titleVerse: 'phid_name',
+                  keyboardTextInputType: TextInputType.name,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  initialTextValue: userModel.name,
+                  textOnChanged: (String text) => onUserNameChanged(
+                    text: text,
+                    tempUser: _tempUser,
+                  ),
+                  autoValidate: true,
+                  validator: () => UserValidators.nameValidator(
+                    userModel: userModel,
+                  ),
+                ),
+
+                /// JOB TITLE
+                TextFieldBubble(
+                  key: const ValueKey<String>('title'),
+                  globalKey: _formKey,
+
+                  focusNode: _titleNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  titleVerse: 'phid_jobTitle',
+                  keyboardTextInputType: TextInputType.name,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  initialTextValue: userModel.title,
+                  textOnChanged: (String text) => onUserJobTitleChanged(
+                    tempUser: _tempUser,
+                    text: text,
+                  ),
+                  autoValidate: true,
+                  validator: () => UserValidators.jobTitleValidator(
+                    userModel: userModel,
+                  ),
+                ),
+
+                /// COMPANY NAME
+                TextFieldBubble(
+                  key: const ValueKey<String>('company'),
+                  globalKey: _formKey,
+                  focusNode: _companyNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  titleVerse: 'phid_companyName',
+                  keyboardTextInputType: TextInputType.name,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  initialTextValue: userModel.company,
+                  autoValidate: true,
+                  textOnChanged: (String text) => onUserCompanyNameChanged(
+                    text: text,
+                    tempUser: _tempUser,
+                  ),
+
+                  validator: () => UserValidators.companyNameValidator(
+                    userModel: userModel,
+                  ),
+                ),
+
+                /// PHONE
+                TextFieldBubble(
+                  key: const ValueKey<String>('phone'),
+                  globalKey: _formKey,
+                  focusNode: _phoneNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  // textController: _companyController,
+                  titleVerse: 'phid_phone',
+                  keyboardTextInputType: TextInputType.phone,
+                  keyboardTextInputAction: TextInputAction.next,
+                  fieldIsRequired: true,
+                  initialTextValue: ContactModel.getInitialContactValue(
+                    type: ContactType.phone,
+                    countryID: userModel.zone.countryID,
+                    existingContacts: userModel.contacts,
+                  ),
+                  textOnChanged: (String text) => onUserContactChanged(
+                    contactType: ContactType.phone,
+                    value: text,
+                    tempUser: _tempUser,
+                  ),
+                  validator: () => UserValidators.phoneValidator(userModel),
+                ),
+
+                /// EMAIL
+                TextFieldBubble(
+                  key: const ValueKey<String>('email'),
+                  globalKey: _formKey,
+                  focusNode: _emailNode,
+                  appBarType: AppBarType.basic,
+                  isFormField: true,
+                  titleVerse: 'phid_email',
+                  keyboardTextInputType: TextInputType.emailAddress,
+                  keyboardTextInputAction: TextInputAction.done,
+                  fieldIsRequired: true,
+                  initialTextValue: ContactModel.getInitialContactValue(
+                    type: ContactType.email,
+                    countryID: userModel.zone.countryID,
+                    existingContacts: userModel.contacts,
+                  ),
+                  textOnChanged: (String text) => onUserContactChanged(
+                    contactType: ContactType.email,
+                    value: text,
+                    tempUser: _tempUser,
+                  ),
+                  validator: () => UserValidators.emailValidator(userModel),
+                ),
+
+                /// ZONE
+                ZoneSelectionBubble(
+                  currentZone: userModel.zone,
+                  onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
+                    selectedZone: zoneModel,
+                    tempUser: _tempUser,
+                  ),
+                ),
+
+                /// CONTACTS
+                // ContactsEditorsBubbles(
+                //   globalKey: formKey,
+                //   contacts: userModel.contacts,
+                //   contactsOwnerType: ContactsOwnerType.user,
+                //   appBarType: appBarType,
+                // ),
+
+                const Horizon(),
+
+              ],
+            );
+
+          },
+        ),
       ),
 
     );

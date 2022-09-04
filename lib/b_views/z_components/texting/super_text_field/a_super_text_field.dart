@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_f
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -314,7 +313,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
   TextEditingController _controller;
   ScrollController _scrollController;
   FocusNode _focusNode;
-  ValueNotifier<String> _textValue;
+  // ValueNotifier<String> _textValue;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -345,6 +344,16 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
   }
 // -----------------------------------------------------------------------------
+  @override
+  void didUpdateWidget(covariant SuperTextField oldWidget) {
+    // if (oldWidget.initialValue != widget.initialValue){
+    //   Future.delayed(Duration.zero, (){
+    //     _controller.text = widget.initialValue;
+    //   });
+    // }
+    super.didUpdateWidget(oldWidget);
+  }
+// -----------------------------------------------------------------------------
   /// TAMAM
   @override
   void dispose(){
@@ -361,7 +370,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       _focusNode.dispose();
     }
 
-    _textValue.dispose();
+    // _textValue.dispose();
 
     _textDirection.dispose();
 
@@ -373,16 +382,16 @@ class _SuperTextFieldState extends State<SuperTextField> {
     final TextEditingController _controller = widget.textController ??
         TextEditingController(text: widget.initialValue ?? '');
 
-    _textValue = ValueNotifier(_controller.text);
-    _controller.addListener(() {
-
-      setNotifier(
-          notifier: _textValue,
-          mounted: mounted,
-          value: _controller.text,
-      );
-
-    });
+    // _textValue = ValueNotifier(_controller.text);
+    // _controller.addListener(() {
+    //
+    //   setNotifier(
+    //       notifier: _textValue,
+    //       mounted: mounted,
+    //       value: _controller.text,
+    //   );
+    //
+    // });
 
     return _controller;
   }

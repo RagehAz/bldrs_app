@@ -3,17 +3,20 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/user/user_validators.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -26,24 +29,13 @@ void initializeUserEditorLocalVariables({
   @required BuildContext context,
   @required UserModel oldUser,
   @required ValueNotifier<UserModel> tempUser,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
-  @required TextEditingController companyController,
 }){
 
   final UserModel _initialModel = oldUser.copyWith(
-    pic: FileModel(url: oldUser.pic, fileName: oldUser.id,),
-    contacts: ContactModel.initializeContactsForEditing(
-        contacts: oldUser.contacts,
-        countryID: oldUser.zone.countryID,
-    ),
+    pic: oldUser.pic is FileModel ? oldUser.pic : FileModel(url: oldUser.pic, fileName: oldUser.id,),
   );
 
   tempUser.value = _initialModel;
-
-  nameController.text      = _initialModel.name;
-  companyController.text   = _initialModel.company;
-  titleController.text     = _initialModel.title;
 
 }
 // ---------------------------------------
@@ -71,10 +63,9 @@ Future<void> prepareUserZoneAndPicForEditing({
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
   @required UserModel oldUser,
-  @required ValueNotifier<UserModel> tempUser,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
-  @required TextEditingController companyController,
+  @required bool reAuthBeforeConfirm,
+  @required bool canGoBack,
+  @required Function onFinish,
 }) async {
 
   final UserModel _lastSessionUser = await UserLDBOps.loadEditorSession(
@@ -92,16 +83,24 @@ Future<void> loadUserEditorLastSession({
 
     if (_continue == true){
 
-      final UserModel _initialModel = await UserModel.initializeModelForEditing(
+      final UserModel _user = await UserModel.initializeModelForEditing(
         context: context,
         oldUser: _lastSessionUser,
       );
 
-      nameController.text      = _initialModel.name;
-      companyController.text   = _initialModel.company;
-      titleController.text     = _initialModel.title;
+      await Nav.replaceScreen(
+          context: context,
+          // transitionType: PageTransitionType.fade,
+          screen: EditProfileScreen(
+            reAuthBeforeConfirm: reAuthBeforeConfirm,
+            userModel: _user,
+            canGoBack: canGoBack,
+            onFinish: onFinish,
+            checkLastSession: false,
+            validateOnStartup: true,
+          ),
+      );
 
-      tempUser.value = _initialModel;
 
     }
 
@@ -115,18 +114,13 @@ Future<void> saveUserEditorSession({
   @required UserModel oldUserModel,
   @required ValueNotifier<UserModel> tempUser,
   @required ValueNotifier<UserModel> lastTempUser,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
-  @required TextEditingController companyController,
+  @required bool mounted,
 }) async {
 
   UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
     context: context,
     oldUser: oldUserModel,
     tempUser: tempUser.value,
-    titleController: titleController,
-    nameController: nameController,
-    companyController: companyController,
   );
 
   /// USER PICTURE
@@ -134,13 +128,23 @@ Future<void> saveUserEditorSession({
     pic: FileModel.bakeFileForLDB(newUserModel.pic),
   );
 
-  if (UserModel.checkUsersAreIdentical(user1: newUserModel, user2: lastTempUser.value) == false){
+  final bool _userHasChanged = UserModel.checkUsersAreIdentical(
+      user1: newUserModel,
+      user2: lastTempUser.value,
+  ) == false;
+
+  if (_userHasChanged == true){
 
     await UserLDBOps.saveEditorSession(
         userModel: newUserModel
     );
 
-    lastTempUser.value = newUserModel;
+    setNotifier(
+        notifier: lastTempUser,
+        mounted: mounted,
+        value: newUserModel,
+    );
+
   }
 
 }
@@ -204,24 +208,79 @@ Future<void> takeUserPicture({
 /// TESTED : WORKS PERFECT
 void onChangeGender({
   @required Gender selectedGender,
-  @required ValueNotifier<UserModel> userNotifier,
+  @required ValueNotifier<UserModel> tempUser,
 }){
-  userNotifier.value = userNotifier.value.copyWith(
+  tempUser.value = tempUser.value.copyWith(
     gender: selectedGender,
   );
 }
 // ---------------------------------------
+///
+void onUserNameChanged({
+  @required ValueNotifier<UserModel> tempUser,
+  @required String text,
+}){
+
+  tempUser.value = tempUser.value.copyWith(
+    name: text,
+  );
+
+}
+// ---------------------------------------
+///
+void onUserJobTitleChanged({
+  @required ValueNotifier<UserModel> tempUser,
+  @required String text,
+}){
+
+  tempUser.value = tempUser.value.copyWith(
+    title: text,
+  );
+
+}
+// ---------------------------------------
+///
+void onUserCompanyNameChanged({
+  @required ValueNotifier<UserModel> tempUser,
+  @required String text,
+}){
+  tempUser.value = tempUser.value.copyWith(
+    company: text,
+  );
+}
+
+// ---------------------------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
-  @required ValueNotifier<UserModel> userNotifier,
+  @required ValueNotifier<UserModel> tempUser,
 }) {
 
-  final UserModel _updated = userNotifier.value.copyWith(
+  final UserModel _updated = tempUser.value.copyWith(
     zone: selectedZone,
   );
 
-  userNotifier.value = _updated;
+  tempUser.value = _updated;
+
+}
+// ---------------------------------------
+void onUserContactChanged({
+  @required ValueNotifier<UserModel> tempUser,
+  @required ContactType contactType,
+  @required String value,
+}){
+
+  final List<ContactModel> _contacts = ContactModel.replaceContact(
+      contacts: tempUser.value.contacts,
+      contactToReplace: ContactModel(
+        value: value,
+        type: contactType,
+      ),
+  );
+
+  tempUser.value = tempUser.value.copyWith(
+    contacts: _contacts,
+  );
 
 }
 // ----------------------------------------
@@ -245,30 +304,23 @@ Future<void> confirmEdits({
   @required Function onFinish,
   @required ValueNotifier<bool> loading,
   @required bool forceReAuthentication,
-  @required TextEditingController nameController,
-  @required TextEditingController titleController,
-  @required TextEditingController companyController,
 }) async {
 
   final UserModel newUserModel = UserModel.bakeEditorVariablesToUpload(
     context: context,
     oldUser: oldUserModel,
     tempUser: tempUser.value,
-    titleController: titleController,
-    nameController: nameController,
-    companyController: companyController,
   );
 
-  final bool _canContinue = _inputsAreValid(
-    formKey: formKey,
-  );
+  final bool _canContinue = Formers.validateForm(formKey);
 
   /// A - IF ANY OF REQUIRED FIELDS IS NOT VALID
   if (_canContinue == false){
-    await showMissingFieldsDialog(
+    await UserValidators.showMissingFieldsDialog(
         context: context,
         userModel: newUserModel
     );
+
   }
 
   /// A - IF ALL REQUIRED FIELDS ARE VALID
@@ -337,21 +389,7 @@ Future<void> confirmEdits({
 
 }
 // ----------------------------------------
-bool _inputsAreValid({
-  @required GlobalKey<FormState> formKey,
-}) {
-  bool _inputsAreValid;
 
-  if (formKey.currentState?.validate() == true) {
-    _inputsAreValid = true;
-  }
-
-  else {
-    _inputsAreValid = false;
-  }
-
-  return _inputsAreValid;
-}
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<UserModel> _updateUserModel({

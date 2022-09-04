@@ -1,9 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/user/user_validators.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
@@ -13,7 +15,6 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
@@ -226,7 +227,6 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
   blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ END');
 
 }
-
 // -----------------------------------------------------------------------------
 
 /// USER MISSING FIELDS
@@ -236,12 +236,11 @@ Future<void> checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
   blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
-
   if (AuthFireOps.superUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-    final bool _thereAreMissingFields = UserModel.checkMissingFields(_authModel?.userModel);
+    final bool _thereAreMissingFields = UserValidators.checkModelHasMissingFields(_authModel?.userModel);
 
     /// MISSING FIELDS FOUND
     if (_thereAreMissingFields == true){
@@ -262,7 +261,7 @@ Future<void> _controlMissingFieldsCase({
   @required AuthModel authModel,
 }) async {
 
-  await showMissingFieldsDialog(
+  await UserValidators.showMissingFieldsDialog(
     context: context,
     userModel: authModel?.userModel,
   );
@@ -284,28 +283,7 @@ Future<void> _controlMissingFieldsCase({
   );
 
 }
-// ------------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> showMissingFieldsDialog({
-  @required BuildContext context,
-  @required UserModel userModel,
-}) async {
-
-  final List<String> _missingFields = UserModel.missingFields(userModel);
-  final String _missingFieldsString = Stringer.generateStringFromStrings(
-    strings: _missingFields,
-  );
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse:  '##Complete Your profile',
-    bodyVerse:  '##Required fields :\n'
-        '$_missingFieldsString',
-  );
-
-}
 // -----------------------------------------------------------------------------
-
 /// PYRAMIDS NAVIGATION
 
 // -------------------------------
@@ -349,7 +327,7 @@ List<NavModel> generateMainNavModels({
       iconSizeFactor: userModel?.pic == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: AuthModel.userIsSignedIn() == true,
-      forceRedDot: userModel == null || UserModel.checkMissingFields(userModel),
+      forceRedDot: userModel == null || UserValidators.checkModelHasMissingFields(userModel),
     ),
 
     /// SAVED FLYERS
@@ -925,7 +903,7 @@ bool _checkNoteDotIsOn({
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
 
-  final bool _thereAreMissingFields = UserModel.checkMissingFields(_userModel);
+  final bool _thereAreMissingFields = UserValidators.checkModelHasMissingFields(_userModel);
 
 
   bool _isOn = false;

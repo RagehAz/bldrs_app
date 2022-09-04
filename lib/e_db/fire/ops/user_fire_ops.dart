@@ -331,7 +331,7 @@ class UserFireOps {
           /// refactor the newUserModel with the old email
           final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
               contacts: oldUserModel.contacts,
-              contactType: ContactType.email,
+              type: ContactType.email,
           );
 
           final List<ContactModel> _contacts = ContactModel.replaceContact(
