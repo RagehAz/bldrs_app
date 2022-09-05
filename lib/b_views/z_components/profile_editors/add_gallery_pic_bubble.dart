@@ -6,6 +6,8 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
+import 'package:bldrs/b_views/z_components/layouts/snapper.dart';
+import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -31,6 +33,7 @@ class AddImagePicBubble extends StatelessWidget {
     @required this.redDot,
     this.bubbleType = BubbleType.none,
     this.width,
+    this.validator,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -40,6 +43,7 @@ class AddImagePicBubble extends StatelessWidget {
   final BubbleType bubbleType;
   final bool redDot;
   final double width;
+  final String Function() validator;
   /// --------------------------------------------------------------------------
   static BorderRadius getPicBorder ({
     @required BuildContext context,
@@ -150,7 +154,13 @@ class AddImagePicBubble extends StatelessWidget {
               ),
 
             ],
-          )
+          ),
+
+          if (validator != null)
+          SuperValidator(
+            width: width - 20,
+            validator: validator,
+          ),
 
         ]
     );

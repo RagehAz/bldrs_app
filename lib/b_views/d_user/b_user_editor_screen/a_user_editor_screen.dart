@@ -207,6 +207,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     userNotifier: _tempUser,
                     imagePickerType: imagePickerType,
                   ),
+                  validator: () => Formers.picValidator(pic: userModel.pic),
                 ),
 
                 /// GENDER
@@ -312,7 +313,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   canPaste: false,
                   autoValidate: true,
-                  validator: () => Formers.phoneValidator(
+                  validator: () => Formers.contactsPhoneValidator(
                     contacts: userModel.contacts,
                   ),
                 ),
@@ -342,7 +343,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   canPaste: false,
                   autoValidate: true,
-                  validator: () => Formers.emailValidator(
+                  validator: () => Formers.contactsEmailValidator(
                     contacts: userModel.contacts,
                   ),
                 ),

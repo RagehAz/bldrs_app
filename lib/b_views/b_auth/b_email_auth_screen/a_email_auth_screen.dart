@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/b_auth/b_email_auth_screen/aa_email_auth_screen_vi
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
 
@@ -46,26 +47,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   void _switchSignIn() {
     _formKey.currentState.reset();
     _isSigningIn.value = !_isSigningIn.value;
-  }
-// -----------------------------------------------------------------------------
-  String _validateEmail(){
-    return emailValidation(
-        val: _emailController.text,
-    );
-  }
-// -----------------------------------------------------------------------------
-  String _validatePassword(){
-    return passwordValidation(
-        password: _passwordController.text,
-    );
-  }
-// -----------------------------------------------------------------------------
-  String _validatePasswordConfirmation(){
-    return passwordConfirmationValidation(
-        context: context,
-        password: _passwordController.text,
-        passwordConfirmation: _passwordConfirmationController.text,
-    );
   }
 // -----------------------------------------------------------------------------
 //   bool _canSignIn = true;
@@ -128,9 +109,13 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         emailController: _emailController,
         passwordController: _passwordController,
         passwordConfirmationController: _passwordConfirmationController,
-        validateEmail: _validateEmail,
-        passwordValidator: _validatePassword,
-        passwordConfirmationValidator: _validatePasswordConfirmation,
+        emailValidator: () => Formers.emailValidator(email: _emailController.text),
+        passwordValidator: () => Formers.passwordValidator(password: _passwordController.text),
+        passwordConfirmationValidator: () => Formers.passwordConfirmationValidation(
+            context: context,
+            password: _passwordController.text,
+            passwordConfirmation: _passwordConfirmationController.text,
+        ),
         switchSignIn: _switchSignIn,
         onSignin: _onSignin,
         onSignup: _onSignup,
