@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
@@ -16,10 +17,10 @@ import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -47,39 +48,6 @@ void initializeFlyerMakerLocalVariables({
 
   draftFlyer.value = _draft;
 
-  _listenToHeadlineController(
-    draftFlyer: draftFlyer,
-    mounted: mounted,
-  );
-
-}
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-void _listenToHeadlineController({
-  @required ValueNotifier<DraftFlyerModel> draftFlyer,
-  @required bool mounted
-}){
-
-  draftFlyer.value.headlineController.addListener(() {
-
-    blog('text controller : ${draftFlyer.value.headlineController.text}');
-
-    if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
-
-      setNotifier(
-        notifier: draftFlyer,
-        mounted: mounted,
-        value: DraftFlyerModel.updateHeadline(
-          draft: draftFlyer.value,
-        ),
-      );
-
-      blog('headline is : ${draftFlyer?.value?.mutableSlides?.first?.headline?.text}');
-
-    }
-
-
-  });
 
 }
 // ----------------------------------
@@ -100,7 +68,84 @@ Future<void> prepareMutableSlidesForEditing({
   }
 
 }
+// -----------------------------------------------------------------------------
 
+/// LAST SESSION
+
+// ---------------------------------------
+Future<void> loadFlyerMakerLastSession({
+  @required BuildContext context,
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required FlyerModel oldFlyer,
+}) async {
+
+  final FlyerModel _lastSessionFlyer = await FlyerLDBOps.loadFlyerMakerSession(
+    flyerID: draft?.value?.id ?? 'newFlyer',
+  );
+
+  if (_lastSessionFlyer != null){
+
+    final bool _continue = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: 'phid_load_last_session_data_q',
+      bodyVerse: 'phid_want_to_load_last_session_q',
+      boolDialog: true,
+    );
+
+    if (_continue == true){
+      // -------------------------
+      final BzModel _activeBZ = BzzProvider.proGetActiveBzModel(
+        context: context,
+        listen: false,
+      );
+      // -------------------------
+      final DraftFlyerModel _draft = DraftFlyerModel.initializeDraftForEditing(
+        oldFlyer: _lastSessionFlyer,
+        bzModel: _activeBZ,
+        currentAuthorID: AuthFireOps.superUserID(),
+      );
+
+      draft.value = _draft;
+    }
+
+  }
+
+
+}
+// ---------------------------------------
+Future<void> saveFlyerMakerSession({
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required ValueNotifier<DraftFlyerModel> lastDraft,
+  @required bool mounted,
+
+}) async {
+
+
+  final bool _draftHasChanged = DraftFlyerModel.checkDraftsAreIdentical(
+      draft1: draft.value,
+      draft2: lastDraft.value,
+  ) == false;
+
+  /// => SHOULD BAKE ALL FILES IN MUTABLE SLIDES FOR LDB
+
+  blog('saveFlyerMakerSession : _draftHasChanged : $_draftHasChanged');
+
+  if (_draftHasChanged == true){
+
+    final FlyerModel flyerFromDraft = DraftFlyerModel.bakeDraftToUpload(
+      draft: draft.value,
+    );
+
+    await FlyerLDBOps.saveFlyerMakerSession(
+        flyerModel: flyerFromDraft,
+    );
+
+    lastDraft.value = draft.value;
+
+  }
+
+
+}
 // -----------------------------------------------------------------------------
 
 /// CANCEL FLYER EDITING
@@ -133,12 +178,22 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyerModel> draft,
+  @required String text,
 }){
 
   draft.value = DraftFlyerModel.updateHeadline(
     draft: draft.value,
+    newHeadline: text,
   );
 
+}
+void onUpdateFlyerDescription({
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required String text,
+}) {
+  draft.value = draft.value.copyWith(
+    description: text,
+  );
 }
 // ----------------------------------
 /// TESTED : WORKS PERFECT
@@ -227,28 +282,6 @@ Future<void> onZoneChanged({
     zone: zone,
   );
 
-}
-// -----------------------------------------------------------------------------
-
-/// VALIDATORS
-
-// ----------------------------------
-String flyerHeadlineValidator({
-  @required TextEditingController headlineController,
-}){
-
-  final bool _isEmpty = headlineController.text.trim() == '';
-  final bool _isShort = headlineController.text.length < Standards.flyerHeadlineMinLength;
-
-  if (_isEmpty){
-    return "Can not publish a flyer without a title as it's used in the search engine";
-  }
-  else if (_isShort){
-    return 'Flyer title can not be less than 10 characters';
-  }
-  else {
-    return null;
-  }
 }
 // -----------------------------------------------------------------------------
 
@@ -412,7 +445,7 @@ Future<bool> _preFlyerUpdateCheck({
 
       if (_isValid == false){
 
-        if (draft.value.headlineController.text.length < 10){
+        if (draft.value.headline.length < 10){
           TopDialog.showUnawaitedTopDialog(
             context: context,
             firstLine: 'Flyer headline can not be less than 10 characters long',

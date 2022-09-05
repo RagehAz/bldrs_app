@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -114,6 +115,15 @@ void onToggleFilter({
     filter: _bldrsFilters[_filterIndex],
   );
   currentFilter.value = _bldrsFilters[_filterIndex];
+}
+
+void onSlideHeadlineChanged({
+  @required ValueNotifier<MutableSlide> tempSlide,
+  @required String text,
+}){
+
+  blog('onSlideHeadlineChanged : this should put the text and update temp slide and temp flyer and shit gets nasty');
+
 }
 // -----------------------------------------------------------------------------
 

@@ -204,7 +204,7 @@ Future<void> _addImagesForNewFlyer({
         context: context,
         files: _pickedFiles,
         existingSlides: draftFlyer.value.mutableSlides,
-        headlineController: draftFlyer.value.headlineController,
+        headline: draftFlyer.value.headline,
       );
 
       final List<MutableSlide> _combinedSlides = <MutableSlide>[...draftFlyer.value.mutableSlides, ... _newMutableSlides];
@@ -386,17 +386,18 @@ Future<void> onMoreTap({
 // ----------------------------------
 /// TESTED : WORKS PERFECT
 void onFlyerHeadlineChanged({
-  @required String val,
+  @required String text,
   @required GlobalKey<FormState> formKey,
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
 }){
+
+  /// DO YOU NEED THIS ?
   formKey.currentState.validate();
 
-  if (Mapper.checkCanLoopList(draftFlyer.value.mutableSlides) == true){
     draftFlyer.value = DraftFlyerModel.updateHeadline(
       draft: draftFlyer.value,
+      newHeadline: text
     );
-  }
 
 }
 // ----------------------------------

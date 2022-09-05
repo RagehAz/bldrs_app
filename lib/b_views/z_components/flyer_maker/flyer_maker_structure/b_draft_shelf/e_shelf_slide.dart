@@ -187,7 +187,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                    verse: widget.mutableSlide.headline.text,
+                    verse: widget.mutableSlide.headline,
                   ),
 
               ],

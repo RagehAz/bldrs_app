@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
@@ -9,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -35,8 +35,8 @@ class MutableSlide {
   final FileModel picFileModel;
   final BoxFit picFit;
   final ImageSize imageSize;
-  final TextEditingController headline;
-  final TextEditingController description;
+  final String headline;
+  final String description;
   final Color midColor;
   final double opacity;
   final Matrix4 matrix;
@@ -48,8 +48,8 @@ class MutableSlide {
       String picURL,
       FileModel picFileModel,
       BoxFit picFit,
-      TextEditingController headline,
-      TextEditingController description,
+      String headline,
+      String description,
       ImageSize imageSize,
       Color midColor,
       double opacity,
@@ -81,8 +81,8 @@ class MutableSlide {
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
       picFileModel: null,
-      headline: TextEditingController(text: slide.headline),
-      description: TextEditingController(text: slide.description),
+      headline: slide.headline,
+      description: slide.description,
       imageSize: slide.imageSize,
       picFit: slide.picFit,
       midColor: slide.midColor,
@@ -133,8 +133,8 @@ class MutableSlide {
       slideIndex: slide.slideIndex,
       picURL: slide.pic,
       picFileModel: _file,
-      headline: TextEditingController(text: slide.headline),
-      description: TextEditingController(text: slide.description),
+      headline: slide.headline,
+      description: slide.description,
       // -------------------------
       imageSize: slide.imageSize,
       picFit: slide.picFit,
@@ -174,7 +174,7 @@ class MutableSlide {
     @required BuildContext context,
     @required List<File> files,
     @required List<MutableSlide> existingSlides,
-    @required TextEditingController headlineController,
+    @required String headline,
 }) async {
 
     final List<MutableSlide> _output = <MutableSlide>[];
@@ -213,7 +213,7 @@ class MutableSlide {
             context: context,
             file: _file,
             index: _newSlideIndex,
-            headline: _newSlideIndex  == 0 ? headlineController : null,
+            headline: _newSlideIndex  == 0 ? headline : null,
           );
 
           /// B2 - ADD THIS NEW SLIDE
@@ -232,7 +232,7 @@ class MutableSlide {
     @required BuildContext context,
     @required File file,
     @required int index,
-    @required TextEditingController headline,
+    @required String headline,
 }) async {
     MutableSlide _slide;
 
@@ -249,13 +249,13 @@ class MutableSlide {
 
       _slide = MutableSlide(
         picFileModel: FileModel.createModelByNewFile(file),
-        headline: headline ?? TextEditingController(),
+        headline: headline,
         imageSize: _imageSize,
         midColor: _midColor,
         opacity: 1,
         slideIndex: index,
         picURL: null,
-        description: TextEditingController(),
+        description: '',
         picFit: _fit,
         matrix: Matrix4.identity(),
         filter: ImageFilterModel.noFilter(),
@@ -347,23 +347,6 @@ class MutableSlide {
   }
 // -----------------------------------------------------------------------------
 
-  /// DISPOSING
-
-// -------------------------------------
-  static void disposeMutableSlidesTextControllers({
-    @required List<MutableSlide> mutableSlides,
-  }) {
-
-    if (Mapper.checkCanLoopList(mutableSlides)) {
-      for (final MutableSlide mSlide in mutableSlides) {
-        // TextChecker.disposeControllerIfPossible(mSlide?.headline);
-        TextCheck.disposeControllerIfPossible(mSlide?.description);
-      }
-    }
-
-  }
-// -----------------------------------------------------------------------------
-
 /// BLOGGING
 
 // -------------------------------------
@@ -371,8 +354,8 @@ class MutableSlide {
   void blogSlide(){
 
     blog('slideIndex : $slideIndex --------------------------------------- [m]');
-    blog('headline : ${headline.text}');
-    blog('description : ${description.text}');
+    blog('headline : $headline');
+    blog('description : $description');
     imageSize.blogSize();
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} : hasCustomMatrix : ${matrix != Matrix4.identity()}');
     blog('picFile : $picFileModel');
@@ -420,10 +403,10 @@ class MutableSlide {
     if (ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) == false){
       blog('MutableSlidesDifferences : imageSizes are not Identical');
     }
-    if (slide1.headline.text != slide2.headline.text){
+    if (slide1.headline != slide2.headline){
       blog('MutableSlidesDifferences : headlines are not Identical');
     }
-    if (slide1.description.text != slide2.description.text){
+    if (slide1.description != slide2.description){
       blog('MutableSlidesDifferences : descriptions are not Identical');
     }
     if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
@@ -474,8 +457,8 @@ class MutableSlide {
           FileModel.checkFileModelsAreIdentical(model1: slide1.picFileModel, model2: slide2.picFileModel) &&
           slide1.picFit == slide2.picFit &&
           ImageSize.checkSizesAreIdentical(sizeA: slide1.imageSize, sizeB: slide2.imageSize) &&
-          slide1.headline.text == slide2.headline.text &&
-          slide1.description.text == slide2.description.text &&
+          slide1.headline == slide2.headline &&
+          slide1.description == slide2.description &&
           Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) &&
           slide1.opacity == slide2.opacity &&
           Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) &&
@@ -618,3 +601,19 @@ class MutableSlide {
 
 
  */
+// -------------
+/*
+  static void disposeMutableSlidesTextControllers({
+    @required List<MutableSlide> mutableSlides,
+  }) {
+
+    if (Mapper.checkCanLoopList(mutableSlides)) {
+      for (final MutableSlide mSlide in mutableSlides) {
+        // TextChecker.disposeControllerIfPossible(mSlide?.headline);
+        TextCheck.disposeControllerIfPossible(mSlide?.description);
+      }
+    }
+
+  }
+
+   */

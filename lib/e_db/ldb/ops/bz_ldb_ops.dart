@@ -179,8 +179,8 @@ class BzLDBOps {
 
   /// AUTHOR EDITOR SESSION
 
-// ---------------------------------
-
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> saveAuthorEditorSession({
     @required AuthorModel authorModel,
   }) async {
@@ -195,8 +195,8 @@ class BzLDBOps {
     }
 
   }
-// ---------------------------------
-
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<AuthorModel> loadAuthorEditorSession({
     @required String authorID,
   }) async {
@@ -213,8 +213,8 @@ class BzLDBOps {
 
     return _author;
   }
-// ---------------------------------
-
+// -------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteAuthorEditorSession(String authorID) async {
 
     await LDBOps.deleteMap(
