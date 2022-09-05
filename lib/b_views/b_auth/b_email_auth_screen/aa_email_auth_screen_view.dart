@@ -18,7 +18,7 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.emailController,
     @required this.passwordController,
     @required this.passwordConfirmationController,
-    @required this.validateEmail,
+    @required this.emailValidator,
     @required this.passwordValidator,
     @required this.passwordConfirmationValidator,
     @required this.switchSignIn,
@@ -33,7 +33,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
-  final String Function() validateEmail;
+  final String Function() emailValidator;
   final String Function() passwordValidator;
   final String Function() passwordConfirmationValidator;
   final Function switchSignIn;
@@ -102,7 +102,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
                 titleVerse: 'phid_emailAddress',
-                validator: validateEmail,
+                validator: emailValidator,
                 hintText: 'rageh@bldrs.net',
               ),
 

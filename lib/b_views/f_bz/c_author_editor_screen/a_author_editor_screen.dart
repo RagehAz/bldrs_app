@@ -310,7 +310,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     autoValidate: true,
-                    validator: () => Formers.phoneValidator(
+                    validator: () => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
                     ),
                   ),
@@ -340,7 +340,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
                     canPaste: false,
                     autoValidate: true,
-                    validator: () => Formers.emailValidator(
+                    validator: () => Formers.contactsEmailValidator(
                       contacts: authorModel.contacts,
                     ),
                   ),
