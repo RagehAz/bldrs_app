@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/reviews_part/aa_submitted_reviews_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
@@ -6,6 +7,7 @@ import 'package:bldrs/b_views/z_components/streamers/fire/paginator_notifiers.da
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class SubmittedReviews extends StatefulWidget {
@@ -38,7 +40,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -47,10 +48,9 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'RealCollPaginator',);
+      blogLoading(loading: _loading.value, callerName: 'SubmittedReviews',);
     }
   }
-   */
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -59,16 +59,43 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     _paginatorNotifiers = PaginatorNotifiers.initialize();
     _controller = ScrollController();
 
+
   }
 // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
-
+      _triggerLoading(setTo: true).then((_) async {
+        // -----------------------------
+          await loadReviewEditorLastSession(
+            context: context,
+            reviewController: _reviewTextController,
+            flyerID: widget.flyerModel.id,
+          );
+        // -----------------------------
+        // if (widget.validateOnStartup == true){
+        //   Formers.validateForm(_formKey);
+        // }
+        // -----------------------------
+        _createStateListeners();
+        // -------------------------------
+        await _triggerLoading(setTo: false);
+      });
       _isInit = false;
     }
     super.didChangeDependencies();
+  }
+// -----------------------------------------------------------------------------
+  void _createStateListeners(){
+    _reviewTextController.addListener(() async {
+
+      await saveReviewEditorSession(
+        flyerID: widget.flyerModel.id,
+        reviewController: _reviewTextController,
+      );
+
+    });
   }
 // -----------------------------------------------------------------------------
   /// TAMAM

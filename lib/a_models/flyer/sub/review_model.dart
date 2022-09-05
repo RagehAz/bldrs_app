@@ -259,6 +259,13 @@ class ReviewModel {
       agrees: 454545,
     );
   }
+// ---------------------------------------
+  static String createTempReviewID({
+    @required String flyerID,
+    @required String userID,
+  }){
+    return '${flyerID}_$userID';
+  }
 // -----------------------------------------------------------------------------
 
 /// BLOGGING

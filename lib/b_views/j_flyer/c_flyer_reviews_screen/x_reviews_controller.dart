@@ -9,14 +9,75 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 // void _onShowReviewOptions(ReviewModel reviewModel){
 //   blog('_onShowReviewOptions : $reviewModel');
-// }
-///
+// -----------------------------------------------------------------------------
+
+/// LAST SESSION
+
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> loadReviewEditorLastSession({
+  @required BuildContext context,
+  @required TextEditingController reviewController,
+  @required String flyerID,
+}) async {
+
+  final ReviewModel _lastSessionReview = await FlyerLDBOps.loadReviewSession(
+    reviewID: ReviewModel.createTempReviewID(
+      flyerID: flyerID,
+      userID: AuthFireOps.superUserID(),
+    ),
+  );
+
+  if (_lastSessionReview != null){
+
+    // final bool _continue = await CenterDialog.showCenterDialog(
+    //   context: context,
+    //   titleVerse: 'phid_load_last_session_data_q',
+    //   bodyVerse: 'phid_want_to_load_last_session_q',
+    //   boolDialog: true,
+    // );
+    //
+    // if (_continue == true){
+
+      reviewController.text = _lastSessionReview.text;
+
+    // }
+
+  }
+
+}
+// ---------------------------------------
+/// TESTED : WORKS PERFECT
+Future<void> saveReviewEditorSession({
+  @required TextEditingController reviewController,
+  @required String flyerID,
+}) async {
+
+    await FlyerLDBOps.saveReviewSession(
+      review: ReviewModel(
+          id: ReviewModel.createTempReviewID(
+            flyerID: flyerID,
+            userID: AuthFireOps.superUserID(),
+          ),
+          text: reviewController.text,
+          userID: AuthFireOps.superUserID(),
+          time: DateTime.now(),
+          flyerID: flyerID,
+          replyAuthorID: null,
+          reply: null,
+          replyTime: null,
+          agrees: null
+      ),
+    );
+
+}
 // -----------------------------------------------------------------------------
 
 /// CREATE NEW REVIEW
@@ -35,6 +96,13 @@ Future<void> onSubmitReview({
     text: textController.text,
     flyerID: flyerModel.id,
     bzID: flyerModel.bzID,
+  );
+
+  await FlyerLDBOps.deleteReviewSession(
+      reviewID: ReviewModel.createTempReviewID(
+          flyerID: _uploadedReview.flyerID,
+          userID: _uploadedReview.userID,
+      ),
   );
 
   textController.text = '';
