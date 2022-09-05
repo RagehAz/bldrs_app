@@ -438,6 +438,22 @@ class FileModel {
 
     return _bigger;
   }
+// --------------------------------------
+  static bool checkModelIsEmpty(FileModel model){
+    bool _isEmpty = true;
+
+    if (model != null){
+
+      _isEmpty = TextCheck.isEmpty(model.url);
+
+      if (_isEmpty == true){
+        _isEmpty = model.file == null;
+      }
+
+    }
+
+    return _isEmpty;
+  }
 // -----------------------------------------------------------------------------
 
   /// PDF STORAGE NAME

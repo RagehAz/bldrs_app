@@ -163,6 +163,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBarType: AppBarType.basic,
       pageTitleVerse: 'phid_update_profile',
       loading: _loading,
+      appBarRowWidgets: [
+        AppBarButton(
+          verse: 'validate',
+          onTap: (){
+            Formers.validateForm(_formKey);
+          },
+        ),
+        AppBarButton(
+          verse: 'pi5',
+          onTap: (){
+            _tempUser.value = _tempUser.value.copyWith(
+              zone: _tempUser.value.zone.nullifyField(
+                cityID: true,
+              ),
+            );
+          },
+        ),
+      ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_updateProfile',
         onSkipTap: (){
@@ -208,11 +226,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     imagePickerType: imagePickerType,
                   ),
                   validator: () => Formers.picValidator(pic: userModel.pic),
+                  formKey: _formKey,
                 ),
 
                 /// GENDER
                 GenderBubble(
-                  selectedGender: userModel.gender,
+                  userModel: userModel,
                   onTap: (Gender gender) => onChangeGender(
                     selectedGender: gender,
                     tempUser: _tempUser,
@@ -303,7 +322,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.next,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.phone,
-                    countryID: userModel.zone.countryID,
+                    countryID: userModel?.zone?.countryID,
                     existingContacts: userModel.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
@@ -333,7 +352,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.done,
                   initialTextValue: ContactModel.getInitialContactValue(
                     type: ContactType.email,
-                    countryID: userModel.zone.countryID,
+                    countryID: userModel?.zone?.countryID,
                     existingContacts: userModel.contacts,
                   ),
                   textOnChanged: (String text) => onUserContactChanged(
@@ -356,6 +375,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
                     selectedZone: zoneModel,
                     tempUser: _tempUser,
+                  ),
+                  // selectCountryAndCityOnly: true,
+                  // selectCountryIDOnly: false,
+                  validator: () => Formers.zoneValidator(
+                    zoneModel: userModel.zone,
+                    selectCountryAndCityOnly: true,
+                    selectCountryIDOnly: false,
                   ),
                 ),
 

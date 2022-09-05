@@ -8,11 +8,13 @@ class SuperValidator extends StatelessWidget {
   const SuperValidator({
     @required this.width,
     @required this.validator,
+    @required this.autoValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double width;
   final String Function() validator;
+  final bool autoValidate;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SuperValidator extends StatelessWidget {
       child: TextFormField(
 
         /// VALIDATION
-        autovalidateMode: AutovalidateMode.disabled,
+        autovalidateMode: autoValidate == true ? AutovalidateMode.always : AutovalidateMode.disabled,
         validator: (String text) => validator(),
 
         /// SPAN SPACING
@@ -33,7 +35,7 @@ class SuperValidator extends StatelessWidget {
 
         /// DISABLE TEXT FIELD
         readOnly: true,
-        enabled: false,
+        enabled: true,
 
         /// BOX STYLING => COLLAPSE BOX HEIGHT TO ZERO + MAKE BORDER TRANSPARENT
         decoration: InputDecoration(

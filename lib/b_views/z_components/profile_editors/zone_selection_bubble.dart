@@ -7,12 +7,15 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_button.dart';
+import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class ZoneSelectionBubble extends StatefulWidget {
@@ -23,6 +26,10 @@ class ZoneSelectionBubble extends StatefulWidget {
     this.titleVerse = 'Preferred Location',
     this.bulletPoints,
     this.translateBullets = true,
+    this.validator,
+    this.autoValidate = true,
+    this.selectCountryAndCityOnly = true,
+    this.selectCountryIDOnly = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +38,10 @@ class ZoneSelectionBubble extends StatefulWidget {
   final String titleVerse;
   final List<String> bulletPoints;
   final bool translateBullets;
+  final String Function() validator;
+  final bool autoValidate;
+  final bool selectCountryAndCityOnly;
+  final bool selectCountryIDOnly;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -75,10 +86,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     if (_isInit && mounted) {
 
       _triggerLoading(setTo: true).then((_) async {
-// -----------------------------------------------------------------
-        await _initializeBubbleZone();
-// -----------------------------------------------------------------
+        // ----------------------------------
+        _selectedZone.value = await ZoneProtocols.completeZoneModel(
+          context: context,
+          incompleteZoneModel: _selectedZone.value,
+        );
+        // ----------------------------------
         await _triggerLoading(setTo: false);
+        // ----------------------------------
       });
 
     }
@@ -96,27 +111,17 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   @override
   void didUpdateWidget(covariant ZoneSelectionBubble oldWidget) {
 
-    if (ZoneModel.checkZonesIDsAreIdentical(
-        zone1: oldWidget.currentZone,
-        zone2: widget.currentZone,
-    ) == false){
-
-      widget.currentZone.blogZone(methodName: 'didUpdateWidget');
-
+    if (
+    ZoneModel.checkZonesIDsAreIdentical(
+      zone1: oldWidget.currentZone,
+      zone2: widget.currentZone,
+    ) == false
+    ){
+      // widget.currentZone.blogZone(methodName: 'didUpdateWidget');
       _selectedZone.value = widget.currentZone;
-
     }
 
     super.didUpdateWidget(oldWidget);
-  }
-// -----------------------------------------------------------------------------
-  Future<void> _initializeBubbleZone() async {
-
-    _selectedZone.value = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: _selectedZone.value,
-    );
-
   }
 // -----------------------------------------------------------------------------
   Future<void> _onCountryButtonTap({
@@ -127,7 +132,10 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
-      screen: const CountriesScreen(),
+      screen: CountriesScreen(
+        selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+        selectCountryIDOnly: widget.selectCountryIDOnly,
+      ),
     );
 
     if (_zone == null){
@@ -148,39 +156,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// ----------------------------------------
-  /*
-  Future<void> _onSelectCountry(String countryID) async {
-
-    // _loading.value = true;
-    // _selectedCity.value = null;
-    // _selectedDistrict.value = null;
-
-    _selectedZone.value =  await ZoneProvider.proFetchCompleteZoneModel(
-      context: context,
-      incompleteZoneModel: ZoneModel(
-        countryID: countryID,
-      ),
-    );
-
-    widget.onZoneChanged(_selectedZone.value);
-    Nav.goBack(context);
-
-    _selectedCountry.value = await _zoneProvider.fetchCountryByID(
-      context: context,
-      countryID: countryID,
-    );
-
-    // _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
-    //   context: context,
-    //   citiesIDs: _selectedCountry.value?.citiesIDs,
-    // );
-
-    // _isLoadingCities.value = false;
-
-    await _onShowCitiesTap(context: context);
-  }
-   */
 // -----------------------------------------------------------------------------
   Future<void> _onCityButtonTap({
     @required BuildContext context
@@ -194,6 +169,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
           context: context,
           screen: CitiesScreen(
             country: _selectedZone.value.countryModel,
+            selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
           )
       );
 
@@ -220,36 +196,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// ----------------------------------------
-  /*
-  Future<void> _onSelectCity(String cityID) async {
-
-    // _isLoadingDistricts.value = true;
-
-    // _selectedDistrict.value = null;
-
-    // _selectedZone = ZoneModel(
-    //   countryID: _selectedZone.countryID,
-    //   cityID: cityID,
-    //   // districtID: null,
-    // );
-
-    // widget.onZoneChanged(_selectedZone);
-    // Nav.goBack(context);
-
-    // _selectedCity.value = await _zoneProvider.fetchCityByID(
-    //     context: context,
-    //     cityID: cityID
-    // );
-
-    // _isLoadingDistricts.value = false;
-
-    // if (Mapper.checkCanLoopList(_selectedCity.value?.districts) == true){
-    //   await _onShowDistricts(context: context);
-    // }
-
-  }
-   */
 // -----------------------------------------------------------------------------
   Future<void> _onDistrictButtonTap({
     @required BuildContext context,
@@ -289,27 +235,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// ----------------------------------------
-  /*
-  void _onSelectDistrict(String districtID) {
-
-    // final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
-    //     districts: _selectedCity.value.districts,
-    //     districtID: districtID
-    // );
-
-    // _selectedDistrict.value = _district;
-
-    // _selectedZone = _selectedZone.copyWith(
-    //   districtID: districtID,
-    // );
-
-    // widget.onZoneChanged(_selectedZone);
-    //
-    // Nav.goBack(context);
-
-  }
-   */
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -322,9 +247,12 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             valueListenable: _selectedZone,
             builder: (_, ZoneModel zone, Widget bulletPoints){
 
-              // zone.blogZone(methodName: 'koooooooooooooookk');
-
               return Bubble(
+                  bubbleColor: Colorizer.ValidatorColor(
+                    validator: widget.validator,
+                    defaultColor: Colorz.white10,
+                    canErrorize: true,
+                  ),
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse,
                     redDot: true,
@@ -360,6 +288,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                         loading: loading,
                       ),
 
+                    if (widget.validator != null)
+                    SuperValidator(
+                      width: Bubble.clearWidth(context),
+                      validator: widget.validator,
+                      autoValidate: widget.autoValidate,
+                    ),
+
                   ]
               );
 
@@ -373,4 +308,90 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         });
 
   }
+// -----------------------------------------------------------------------------
 }
+// ----------------------------------------
+/*
+  Future<void> _onSelectCountry(String countryID) async {
+
+    // _loading.value = true;
+    // _selectedCity.value = null;
+    // _selectedDistrict.value = null;
+
+    _selectedZone.value =  await ZoneProvider.proFetchCompleteZoneModel(
+      context: context,
+      incompleteZoneModel: ZoneModel(
+        countryID: countryID,
+      ),
+    );
+
+    widget.onZoneChanged(_selectedZone.value);
+    Nav.goBack(context);
+
+    _selectedCountry.value = await _zoneProvider.fetchCountryByID(
+      context: context,
+      countryID: countryID,
+    );
+
+    // _selectedCountryCities.value = await _zoneProvider.fetchCitiesByIDs(
+    //   context: context,
+    //   citiesIDs: _selectedCountry.value?.citiesIDs,
+    // );
+
+    // _isLoadingCities.value = false;
+
+    await _onShowCitiesTap(context: context);
+  }
+   */
+// ----------------------------------------
+/*
+  Future<void> _onSelectCity(String cityID) async {
+
+    // _isLoadingDistricts.value = true;
+
+    // _selectedDistrict.value = null;
+
+    // _selectedZone = ZoneModel(
+    //   countryID: _selectedZone.countryID,
+    //   cityID: cityID,
+    //   // districtID: null,
+    // );
+
+    // widget.onZoneChanged(_selectedZone);
+    // Nav.goBack(context);
+
+    // _selectedCity.value = await _zoneProvider.fetchCityByID(
+    //     context: context,
+    //     cityID: cityID
+    // );
+
+    // _isLoadingDistricts.value = false;
+
+    // if (Mapper.checkCanLoopList(_selectedCity.value?.districts) == true){
+    //   await _onShowDistricts(context: context);
+    // }
+
+  }
+   */
+// ----------------------------------------
+/*
+  void _onSelectDistrict(String districtID) {
+
+    // final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
+    //     districts: _selectedCity.value.districts,
+    //     districtID: districtID
+    // );
+
+    // _selectedDistrict.value = _district;
+
+    // _selectedZone = _selectedZone.copyWith(
+    //   districtID: districtID,
+    // );
+
+    // widget.onZoneChanged(_selectedZone);
+    //
+    // Nav.goBack(context);
+
+  }
+   */
+// ----------------------------------------
