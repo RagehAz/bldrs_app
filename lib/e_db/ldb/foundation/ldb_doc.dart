@@ -36,6 +36,7 @@ class LDBDoc {
   static const String bzEditor = 'bzEditor';
   static const String authorEditor = 'authorEditor';
   static const String flyerMaker = 'flyerMaker';
+  static const String reviewEditor = 'reviewEditor';
 
   static const List<String> allDocs = <String>[
     follows,
@@ -68,6 +69,7 @@ class LDBDoc {
     bzEditor,
     authorEditor,
     flyerMaker,
+    reviewEditor,
   ];
 
 }

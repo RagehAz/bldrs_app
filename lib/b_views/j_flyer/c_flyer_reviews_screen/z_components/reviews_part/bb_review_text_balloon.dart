@@ -90,11 +90,11 @@ class ReviewTextBalloon extends StatelessWidget {
                     titleVerse: '##Edit Review',
                     width: _textBubbleWidth,
                     textController: reviewTextController,
-                    maxLines: 8,
+                    maxLines: 5,
                     textInputType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
                     maxLength: 1000,
-                    minLines: 4,
+                    // minLines: 1,
                     textSize: 3,
                     margins: const EdgeInsets.all(5),
                     // onTap: onEditReview,
@@ -132,6 +132,7 @@ class ReviewTextBalloon extends StatelessWidget {
                 SeparatorLine(
                   width: _clearWidth,
                   color: Colorz.white50,
+                  withMargins: true,
                 ),
 
               /// ( REPLY - AGREE ) BUTTONS
