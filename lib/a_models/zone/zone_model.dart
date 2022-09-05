@@ -84,6 +84,31 @@ class ZoneModel {
       flag: flag ?? this.flag,
     );
   }
+// ---------------------------------
+  /// TESTED : WORKS PERFECT
+  ZoneModel nullifyField({
+    bool countryID = false,
+    bool cityID = false,
+    bool districtID = false,
+    bool countryName = false,
+    bool cityName = false,
+    bool districtName = false,
+    bool countryModel = false,
+    bool cityModel = false,
+    bool flag = false,
+  }){
+    return ZoneModel(
+      countryID: countryID == true ? null : this.countryID,
+      cityID: cityID == true ? null : this.cityID,
+      districtID: districtID == true ? null : this.districtID,
+      countryName: countryName == true ? null : this.countryName,
+      cityName: cityName == true ? null : this.cityName,
+      districtName: districtName == true ? null : this.districtName,
+      countryModel: countryModel == true ? null : this.countryModel,
+      cityModel: cityModel == true ? null : this.cityModel,
+      flag: flag == true ? null : this.flag,
+    );
+  }
 // -----------------------------------------------------------------------------
 
   /// CYPHERS

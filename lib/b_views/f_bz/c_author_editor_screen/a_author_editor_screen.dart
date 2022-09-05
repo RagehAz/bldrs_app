@@ -16,11 +16,9 @@ import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
@@ -355,6 +353,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   //   appBarType: AppBarType.basic,
                   // ),
 
+                  /// SNAPPER VALIDATION TEST
+                  /*
                   Snapper(
                       snapKey: _fuckingKey,
                       child: SuperValidator(
@@ -364,6 +364,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         },
                       ),
                   ),
+                   */
 
                   const Horizon(),
 

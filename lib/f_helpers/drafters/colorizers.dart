@@ -219,11 +219,26 @@ class Colorizer {
     @required bool canErrorize,
   }){
     Color _color = defaultColor;
+
     /// if condition is true => error is on
     if (errorIsOn == true && canErrorize == true){
       _color = Colorz.errorColor;
     }
     return _color;
+  }
+// ---------------------------------------
+  static Color ValidatorColor({
+    @required String Function() validator,
+    @required Color defaultColor,
+    @required bool canErrorize,
+}){
+
+    return errorize(
+        errorIsOn: validator() != null,
+        defaultColor: defaultColor,
+        canErrorize: canErrorize,
+    );
+
   }
 // -----------------------------------------------------------------------------
 }
