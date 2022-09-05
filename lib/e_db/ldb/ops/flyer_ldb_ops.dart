@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -121,6 +122,7 @@ class FlyerLDBOps {
 /// FLYER MAKER SESSION
 
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> saveFlyerMakerSession({
     @required FlyerModel flyerModel,
   }) async {
@@ -136,6 +138,7 @@ class FlyerLDBOps {
 
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> loadFlyerMakerSession({
     @required String flyerID,
   }) async {
@@ -156,6 +159,7 @@ class FlyerLDBOps {
     return _flyer;
   }
 // ----------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerMakerSession({
     @required String flyerID,
   }) async {
@@ -163,6 +167,60 @@ class FlyerLDBOps {
     await LDBOps.deleteMap(
       objectID: flyerID,
       docName: LDBDoc.flyerMaker,
+    );
+
+  }
+// -----------------------------------------------------------------------------
+
+/// FLYER REVIEW SESSION
+
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> saveReviewSession({
+  @required ReviewModel review,
+}) async {
+
+    if (review != null){
+
+      await LDBOps.insertMap(
+          docName: LDBDoc.reviewEditor,
+          input: review.toMap(toJSON: true, includeID: true),
+      );
+
+    }
+
+  }
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<ReviewModel> loadReviewSession({
+    @required String reviewID,
+  }) async {
+    ReviewModel _review;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: <String>[reviewID],
+      docName: LDBDoc.reviewEditor,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      _review = ReviewModel.decipherReview(
+        map: _maps.first,
+        fromJSON: true,
+        reviewID: reviewID,
+      );
+    }
+
+    return _review;
+  }
+// ----------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteReviewSession({
+    @required String reviewID,
+  }) async {
+
+    await LDBOps.deleteMap(
+      objectID: reviewID,
+      docName: LDBDoc.reviewEditor,
     );
 
   }

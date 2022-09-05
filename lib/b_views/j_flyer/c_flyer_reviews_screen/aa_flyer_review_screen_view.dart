@@ -27,7 +27,7 @@ class FlyerReviewsScreenView extends StatelessWidget {
 
     final double _screenWidth = Scale.superScreenWidth(context);
     const double _slidesShelfHeight = 120;
-    const double _separatorHeight = 5;
+    const double _separatorHeight = SeparatorLine.getTotalHeight;
     final double _reviewsBoxHeight = screenHeight - Ratioz.stratosphere - _separatorHeight - _slidesShelfHeight;
 
     return Column(

@@ -22,31 +22,38 @@ class FlyerSlidesShelf extends StatelessWidget {
     final double _flyerBoxHeight = shelfHeight;
     final double _flyerBoxWidth = FlyerBox.widthByHeight(context, _flyerBoxHeight);
 
-    return SizedBox(
-      width: _screenWidth,
-      height: shelfHeight,
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: flyerModel.slides.length,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          itemBuilder: (_, index){
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Container(
+        height: shelfHeight,
+        constraints: BoxConstraints(
+          minWidth: _screenWidth + 10,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 
-            return Container(
-              margin: Scale.superInsets(context: context, enRight: 5),
-              alignment: Alignment.center,
-              child: SingleSlide(
-                flyerBoxWidth: _flyerBoxWidth,
-                flyerBoxHeight: _flyerBoxHeight,
-                slideModel: flyerModel.slides[index],
-                tinyMode: false,
-                onSlideNextTap: null,
-                onSlideBackTap: null,
-                onDoubleTap: null,
-              ),
-            );
+            ...List.generate(flyerModel.slides.length, (index){
 
-          }
+              return Container(
+                margin: Scale.superInsets(context: context, enRight: 5),
+                alignment: Alignment.center,
+                child: SingleSlide(
+                  flyerBoxWidth: _flyerBoxWidth,
+                  flyerBoxHeight: _flyerBoxHeight,
+                  slideModel: flyerModel.slides[index],
+                  tinyMode: false,
+                  onSlideNextTap: null,
+                  onSlideBackTap: null,
+                  onDoubleTap: null,
+                ),
+              );
+
+            }),
+
+          ],
+        ),
       ),
     );
 
