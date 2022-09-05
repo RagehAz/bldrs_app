@@ -30,6 +30,7 @@ class AddImagePicBubble extends StatelessWidget {
     @required this.titleVerse,
     @required this.redDot,
     this.bubbleType = BubbleType.none,
+    this.width,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +39,7 @@ class AddImagePicBubble extends StatelessWidget {
   final String titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
+  final double width;
   /// --------------------------------------------------------------------------
   static BorderRadius getPicBorder ({
     @required BuildContext context,
@@ -76,7 +78,9 @@ class AddImagePicBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
+      width: width,
         headerViewModel: BubbleHeaderVM(
+          headerWidth: width - 20,
           headlineVerse: titleVerse,
           redDot: redDot,
         ),

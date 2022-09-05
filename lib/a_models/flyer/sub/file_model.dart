@@ -142,7 +142,7 @@ class FileModel {
 
     FileModel _fileModel;
 
-    blog('initializePicForEditing : pic : $pic : pic.runtimeType : ${pic.runtimeType}');
+    // blog('initializePicForEditing : pic : $pic : pic.runtimeType : ${pic.runtimeType}');
 
     if (ObjectChecker.objectIsURL(pic) == true){
       _fileModel = await createModelByUrl(
