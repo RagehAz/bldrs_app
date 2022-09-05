@@ -18,8 +18,8 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
-import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -239,7 +239,7 @@ class Dialogs {
         boxWidth: CenterDialog.clearWidth(context) - 20,
         passwordController: _password,
         showPasswordOnly: true,
-        passwordValidator: () => passwordValidation(
+        passwordValidator: () => Formers.passwordValidator(
           password: _password.text,
         ),
         passwordConfirmationController: null,
