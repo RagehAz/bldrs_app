@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/c_footer_shadow.dart';
@@ -160,8 +161,11 @@ class SlideEditorSlidePart extends StatelessWidget {
                                   textSize: SlideHeadline.headlineSize,
                                   textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
                                   centered: true,
-                                  textController: _slide.headline,
-                                  onChanged: (String val){},
+                                  autoValidate: true,
+                                  onChanged: (String text) => onSlideHeadlineChanged(
+                                    tempSlide: tempSlide,
+                                    text: text,
+                                  ),
                                   textWeight: VerseWeight.bold,
                                   textShadow: true,
                                   // autofocus: false,

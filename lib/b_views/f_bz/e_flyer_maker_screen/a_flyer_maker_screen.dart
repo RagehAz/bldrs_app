@@ -6,16 +6,19 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerMakerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerMakerScreen({
     this.flyerToEdit,
+    this.validateOnStartup = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerToEdit;
+  final bool validateOnStartup;
   /// --------------------------------------------------------------------------
   @override
   _FlyerMakerScreenState createState() => _FlyerMakerScreenState();
@@ -32,6 +35,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<DraftFlyerModel> _draftFlyer = ValueNotifier(null);
+  final ValueNotifier<DraftFlyerModel> _lastDraft = ValueNotifier(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   bool _isEditingFlyer;
@@ -73,17 +77,26 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-
+        await loadFlyerMakerLastSession(
+          context: context,
+          oldFlyer: widget.flyerToEdit,
+          draft: _draftFlyer,
+        );
+        // -----------------------------
         if (mounted == true){
           await prepareMutableSlidesForEditing(
             flyerToEdit: widget.flyerToEdit,
             draft: _draftFlyer,
           );
         }
-
+        // -----------------------------
+        if (widget.validateOnStartup == true){
+          Formers.validateForm(_formKey);
+        }
+        // -----------------------------
+        _createStateListeners();
         // -------------------------------
         await _triggerLoading(setTo: false);
-
       });
 
     }
@@ -96,7 +109,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
   void dispose(){
     _canPickImage.dispose();
 
-    DraftFlyerModel.disposeDraftControllers(
+    DraftFlyerModel.disposeDraftNodes(
         draft: _draftFlyer.value
     );
     _draftFlyer.dispose();
@@ -105,6 +118,23 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     _loading.dispose();
 
     super.dispose();
+  }
+// -----------------------------------------------------------------------------
+  void _createStateListeners(){
+    if (mounted == true){
+
+      _draftFlyer.addListener(() => _saveSession());
+
+    }
+  }
+
+// -----------------------------------------------------------------------------
+  Future<void> _saveSession() async {
+    await saveFlyerMakerSession(
+      draft: _draftFlyer,
+      lastDraft: _lastDraft,
+      mounted: mounted,
+    );
   }
 // -----------------------------------------------------------------------------
   @override
@@ -158,7 +188,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
 
       ],
-      onBack: () => onCancelFlyerCreation(context),
+      // onBack: () => onCancelFlyerCreation(context),
       layoutWidget: FlyerMakerScreenView(
         appBarType: AppBarType.basic,
         formKey: _formKey,

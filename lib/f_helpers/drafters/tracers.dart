@@ -108,7 +108,10 @@ void setNotifier({
 
   if (mounted == true){
     // blog('setNotifier : setting to ${value.toString()}');
-    notifier.value = value;
+    if (value != notifier.value){
+      notifier.value = value;
+    }
+
   }
 
 }

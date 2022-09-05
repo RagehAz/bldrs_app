@@ -251,6 +251,30 @@ class Formers {
     return _message;
 
   }
+// -------------------------------
+  ///
+  static String paragraphValidator({
+    @required String text,
+    FocusNode focusNode,
+  }){
+    String _message;
+
+    final bool _containsBadLang = TextCheck.containsBadWords(
+      text: text,
+    );
+
+    /// BAD LANG
+    if (_containsBadLang == true){
+      _message = '##Company name can not contain bad words';
+    }
+
+    /// FOCUS ON FIELD
+    if (_message != null){
+      Formers.focusOnNode(focusNode);
+    }
+
+    return _message;
+  }
 // -----------------------------------------------------------------------------
 
   /// USER VALIDATORS
@@ -408,6 +432,28 @@ class Formers {
     }
 
     return _output;
+  }
+// -----------------------------------------------------------------------------
+
+  /// FLYER VALIDATORS
+
+// -------------------------------
+  static String flyerHeadlineValidator({
+    @required String headline,
+  }){
+
+    final bool _isEmpty = headline.trim() == '';
+    final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
+
+    if (_isEmpty == true){
+      return "Can not publish a flyer without a title as it's used in the search engine";
+    }
+    else if (_isShort == true){
+      return 'Flyer title can not be less than 10 characters';
+    }
+    else {
+      return null;
+    }
   }
 // -----------------------------------------------------------------------------
 }
