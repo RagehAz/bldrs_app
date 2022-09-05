@@ -5,6 +5,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class Formers {
@@ -40,7 +41,72 @@ class Formers {
   }
 // -----------------------------------------------------------------------------
 
-/// GENERAL VALIDATORS
+  /// AUTH VALIDATORS
+
+// -------------------------------
+  static String emailValidator({
+    @required String email,
+  }) {
+
+    String _output;
+
+    if (TextCheck.isEmpty(email) == true) {
+      _output = 'phid_enterEmail';
+    }
+
+    else {
+
+      if (EmailValidator.validate(email) == false){
+        _output = 'phid_emailInvalid';
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------
+  static String passwordValidator({
+    @required String password,
+  }){
+
+    String _output;
+
+    if (password.isEmpty == true){
+      _output = 'phid_enterPassword';
+    }
+
+    else if (password.length < 6){
+      _output = 'phid_min6CharError';
+    }
+
+    return _output;
+  }
+// -------------------------------
+  static String passwordConfirmationValidation({
+    @required BuildContext context,
+    @required String password,
+    @required String passwordConfirmation,
+  }){
+
+    String _output;
+
+    if (passwordConfirmation.isEmpty || password.isEmpty){
+      _output = 'phid_confirmPassword';
+    }
+
+    else if (passwordConfirmation != password){
+      _output = 'phid_passwordMismatch';
+    }
+
+    else if (password.length < 6){
+      _output = 'phid_min6CharError';
+    }
+
+    return _output;
+  }
+// -----------------------------------------------------------------------------
+
+/// GENERAL FIELDS VALIDATORS
 
 // -------------------------------
   static String picValidator({
@@ -50,32 +116,7 @@ class Formers {
     String _message;
 
     if (pic == null){
-      _message = '## You should add a picture for your self';
-    }
-
-    return _message;
-  }
-// -------------------------------
-  static String countryValidator({
-    @required String countryID
-  }){
-    String _message;
-
-    if (countryID == null){
-      _message = '##Select at which country you are';
-    }
-
-    return _message;
-  }
-// ---------------------------------------
-  static String cityValidator({
-  @required String cityID,
-}){
-
-    String _message;
-
-    if (cityID == null){
-      _message = '##Select at which city you are';
+      _message = '##Add an Image';
     }
 
     return _message;
@@ -171,9 +212,42 @@ class Formers {
 
     return _message;
   }
+// -----------------------------------------------------------------------------
+
+  /// ZONE VALIDATORS
+
+// -------------------------------
+  static String countryValidator({
+    @required String countryID
+  }){
+    String _message;
+
+    if (countryID == null){
+      _message = '##Select at which country you are';
+    }
+
+    return _message;
+  }
+// ---------------------------------------
+  static String cityValidator({
+  @required String cityID,
+}){
+
+    String _message;
+
+    if (cityID == null){
+      _message = '##Select at which city you are';
+    }
+
+    return _message;
+  }
+// -----------------------------------------------------------------------------
+
+  /// CONTACTS VALIDATORS
+
 // -------------------------------
   /// TESTED : WORKS PERFECT
-  static String phoneValidator({
+  static String contactsPhoneValidator({
     @required List<ContactModel> contacts,
     FocusNode focusNode,
   }){
@@ -198,7 +272,7 @@ class Formers {
   }
 // -------------------------------
   /// TESTED : WORKS PERFECT
-  static String emailValidator({
+  static String contactsEmailValidator({
     @required List<ContactModel> contacts,
     FocusNode focusNode,
   }){
@@ -209,11 +283,7 @@ class Formers {
     );
 
 
-    String _message;
-
-    if (TextCheck.isEmpty(_email) == true){
-      _message = '##Add Email Address';
-    }
+    final String _message = emailValidator(email: _email);
 
     /// FOCUS ON FIELD
     if (_message != null){
@@ -225,7 +295,7 @@ class Formers {
   }
 // -------------------------------
   ///
-  static String websiteValidator({
+  static String contactsWebsiteValidator({
     @required List<ContactModel> contacts,
     FocusNode focusNode,
   }){
@@ -277,23 +347,6 @@ class Formers {
   }
 // -----------------------------------------------------------------------------
 
-  /// USER VALIDATORS
-
-// -------------------------------
-  static String genderValidator({
-    @required UserModel userModel,
-  }){
-
-    String _message;
-
-    if (userModel?.gender == null){
-      _message = '## Select a gender';
-    }
-
-    return _message;
-  }
-// -----------------------------------------------------------------------------
-
 /// BZ VALIDATORS
 
 // -------------------------------
@@ -315,6 +368,45 @@ class Formers {
     /// FOCUS ON FIELD
     if (_message != null){
       Formers.focusOnNode(focusNode);
+    }
+
+    return _message;
+  }
+// -----------------------------------------------------------------------------
+
+  /// FLYER VALIDATORS
+
+// -------------------------------
+  static String flyerHeadlineValidator({
+    @required String headline,
+  }){
+
+    final bool _isEmpty = headline.trim() == '';
+    final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
+
+    if (_isEmpty == true){
+      return "Can not publish a flyer without a title as it's used in the search engine";
+    }
+    else if (_isShort == true){
+      return 'Flyer title can not be less than 10 characters';
+    }
+    else {
+      return null;
+    }
+  }
+// -----------------------------------------------------------------------------
+
+  /// USER VALIDATORS
+
+// -------------------------------
+  static String genderValidator({
+    @required UserModel userModel,
+  }){
+
+    String _message;
+
+    if (userModel?.gender == null){
+      _message = '## Select a gender';
     }
 
     return _message;
@@ -432,28 +524,6 @@ class Formers {
     }
 
     return _output;
-  }
-// -----------------------------------------------------------------------------
-
-  /// FLYER VALIDATORS
-
-// -------------------------------
-  static String flyerHeadlineValidator({
-    @required String headline,
-  }){
-
-    final bool _isEmpty = headline.trim() == '';
-    final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
-
-    if (_isEmpty == true){
-      return "Can not publish a flyer without a title as it's used in the search engine";
-    }
-    else if (_isShort == true){
-      return 'Flyer title can not be less than 10 characters';
-    }
-    else {
-      return null;
-    }
   }
 // -----------------------------------------------------------------------------
 }

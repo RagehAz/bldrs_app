@@ -450,7 +450,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         canPaste: false,
                         autoValidate: true,
-                        validator: () => Formers.phoneValidator(
+                        validator: () => Formers.contactsPhoneValidator(
                           contacts: bzModel.contacts,
                         ),
                       ),
@@ -480,7 +480,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         canPaste: false,
                         autoValidate: true,
-                        validator: () => Formers.emailValidator(
+                        validator: () => Formers.contactsEmailValidator(
                           contacts: bzModel.contacts,
                         ),
                       ),
@@ -509,7 +509,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         // canPaste: true,
                         autoValidate: true,
-                        validator: () => Formers.websiteValidator(
+                        validator: () => Formers.contactsWebsiteValidator(
                           contacts: bzModel.contacts,
                         ),
                       ),
