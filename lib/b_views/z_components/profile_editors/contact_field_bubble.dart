@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:clipboard/clipboard.dart';
@@ -159,7 +160,12 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     // ---------------------------
 
     return Bubble(
-      headerViewModel: widget.headerViewModel,
+        bubbleColor: Colorizer.ValidatorColor(
+          validator: widget.validator,
+          defaultColor: Colorz.white10,
+          canErrorize: true,
+        ),
+        headerViewModel: widget.headerViewModel,
       width: _bubbleWidth,
         columnChildren: <Widget>[
 

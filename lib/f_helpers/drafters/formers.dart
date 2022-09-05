@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -115,7 +117,7 @@ class Formers {
 
     String _message;
 
-    if (pic == null){
+    if (Imagers.checkPicIsEmpty(pic) == true){
       _message = '##Add an Image';
     }
 
@@ -217,26 +219,43 @@ class Formers {
   /// ZONE VALIDATORS
 
 // -------------------------------
-  static String countryValidator({
-    @required String countryID
+  static String zoneValidator({
+    @required ZoneModel zoneModel,
+    @required bool selectCountryAndCityOnly,
+    @required bool selectCountryIDOnly,
   }){
     String _message;
 
-    if (countryID == null){
-      _message = '##Select at which country you are';
+    if (zoneModel == null){
+      _message = 'phid_select_a_zone';
     }
+    else {
 
-    return _message;
-  }
-// ---------------------------------------
-  static String cityValidator({
-  @required String cityID,
-}){
+      final String _countryID = zoneModel.countryID;
+      final String _cityID = zoneModel.cityID;
+      final String _districtID = zoneModel.districtID;
 
-    String _message;
+      /// ONLY SELECTING COUNTRY ID
+      if (selectCountryIDOnly == true){
+        if (_countryID == null){
+          _message = '##Select at which country you are';
+        }
+      }
 
-    if (cityID == null){
-      _message = '##Select at which city you are';
+      /// ONLY SELECTING COUNTRY ID + CITY ID
+      else if (selectCountryAndCityOnly == true){
+        if (_countryID == null || _cityID == null){
+          _message = 'phid_select_country_and_city';
+        }
+      }
+
+      /// SELECTING ALL IDS (COUNTRY ID + CITY ID + DISTRICT ID)
+      else {
+        if (_countryID == null || _cityID == null || _districtID == null){
+          _message = 'phid_select_country_city_and_district';
+        }
+      }
+
     }
 
     return _message;
@@ -500,12 +519,12 @@ class Formers {
       _missingFields.add('phid_company_name');
     }
 
-    if (Formers.countryValidator(countryID: userModel?.zone?.countryID) != null) {
-      _missingFields.add('phid_country');
-    }
-
-    if (Formers.cityValidator(cityID: userModel?.zone?.countryID) != null) {
-      _missingFields.add('phid_city');
+    if (Formers.zoneValidator(
+        zoneModel: userModel?.zone,
+        selectCountryAndCityOnly: true,
+        selectCountryIDOnly: false
+    ) != null) {
+      _missingFields.add('phid_zone');
     }
 
     return _missingFields;

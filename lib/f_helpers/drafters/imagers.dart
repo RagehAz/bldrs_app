@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -522,6 +524,36 @@ class Imagers {
     }
 
     return _areIdentical;
+  }
+
+  static bool checkPicIsEmpty(dynamic pic){
+    bool _isEmpty = true;
+
+    if (pic != null){
+
+      if (ObjectChecker.objectIsURL(pic) == true){
+        _isEmpty = TextCheck.isEmpty(pic);
+      }
+
+      else if (pic is File){
+        final File _file = pic;
+        _isEmpty = TextCheck.isEmpty(_file.path);
+      }
+
+      else if (pic is FileModel){
+        _isEmpty = FileModel.checkModelIsEmpty(pic);
+      }
+      else if (pic is String){
+        _isEmpty = TextCheck.isEmpty(pic);
+      }
+      else if (ObjectChecker.objectIsUint8List(pic) == true){
+        final Uint8List _uInts = pic;
+        _isEmpty = _uInts.isEmpty;
+      }
+
+    }
+
+    return _isEmpty;
   }
 // -----------------------------------------------------------------
 
