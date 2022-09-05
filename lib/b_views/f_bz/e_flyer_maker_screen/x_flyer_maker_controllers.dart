@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
@@ -64,6 +65,10 @@ Future<void> prepareMutableSlidesForEditing({
         slides: flyerToEdit.slides,
         flyerID: flyerToEdit.id,
       ),
+      pdf: await FileModel.preparePicForEditing(
+          pic: flyerToEdit.pdf,
+          fileName: flyerToEdit.pdf?.fileName,
+      ),
     );
   }
 
@@ -105,7 +110,16 @@ Future<void> loadFlyerMakerLastSession({
         currentAuthorID: AuthFireOps.superUserID(),
       );
 
-      draft.value = _draft;
+      draft.value = _draft.copyWith(
+        mutableSlides: await MutableSlide.createMutableSlidesFromSlides(
+          slides: _lastSessionFlyer.slides,
+          flyerID: _lastSessionFlyer.id,
+        ),
+        pdf: await FileModel.preparePicForEditing(
+          pic: _lastSessionFlyer.pdf,
+          fileName: _lastSessionFlyer.pdf?.fileName,
+        ),
+      );
     }
 
   }
@@ -117,7 +131,6 @@ Future<void> saveFlyerMakerSession({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required ValueNotifier<DraftFlyerModel> lastDraft,
   @required bool mounted,
-
 }) async {
 
 
@@ -132,8 +145,10 @@ Future<void> saveFlyerMakerSession({
 
   if (_draftHasChanged == true){
 
-    final FlyerModel flyerFromDraft = DraftFlyerModel.bakeDraftToUpload(
+    final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
       draft: draft.value,
+      toLDB: true,
+
     );
 
     await FlyerLDBOps.saveFlyerMakerSession(
@@ -338,6 +353,8 @@ Future<void> _onPublishNewFlyerTap({
       draft: draft,
     );
 
+    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
+
     Nav.goBack(
       context: context,
       invoker: 'onPublishNewFlyerTap',
@@ -377,6 +394,8 @@ Future<void> _onPublishFlyerUpdatesTap({
       oldFlyer: originalFlyer,
     );
 
+    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
+
     Nav.goBack(
       context: context,
       invoker: 'onPublishFlyerUpdatesTap',
@@ -405,8 +424,10 @@ Future<bool> _preFlyerUpdateCheck({
   @required GlobalKey<FormState> formKey,
 }) async {
 
-  final FlyerModel flyerFromDraft = DraftFlyerModel.bakeDraftToUpload(
+  final FlyerModel flyerFromDraft = await DraftFlyerModel.bakeDraftToUpload(
     draft: draft.value,
+    toLDB: false,
+
   );
 
   final bool _areIdentical = FlyerModel.checkFlyersAreIdentical(
@@ -489,9 +510,10 @@ Future<void> _publishFlyerOps({
         loadingVerse: '##Uploading flyer',
       ));
 
-  final FlyerModel _flyerToPublish = DraftFlyerModel.bakeDraftToUpload(
+  final FlyerModel _flyerToPublish = await DraftFlyerModel.bakeDraftToUpload(
     draft: draft.value,
     overridePublishState: PublishState.published,
+    toLDB: false,
   );
 
   final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
@@ -521,8 +543,9 @@ Future<void> _updateFlyerOps({
       loadingVerse: '##Uploading flyer',
     ));
 
-    final FlyerModel _flyerToUpdate = DraftFlyerModel.bakeDraftToUpload(
+    final FlyerModel _flyerToUpdate = await DraftFlyerModel.bakeDraftToUpload(
       draft: draft.value,
+      toLDB: false,
     );
 
     final BzModel _bzModel = await BzProtocols.fetchBz(

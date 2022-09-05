@@ -456,64 +456,67 @@ class FlyerModel {
     if (flyer2 == null){
       blog('flyer2 == null');
     }
-    if (flyer1.id != flyer2.id){
-      blog('flyers ids are not identical');
-    }
-    if (flyer1.headline != flyer2.headline){
-      blog('flyers headlines are not identical');
-    }
-    if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
-      blog('flyers trigrams are not identical');
-    }
-    if (flyer1.description != flyer2.description){
-      blog('flyers descriptions are not identical');
-    }
-    if (flyer1.flyerType != flyer2.flyerType){
-      blog('flyers flyersTypes are not identical');
-    }
-    if (flyer1.publishState != flyer2.publishState){
-      blog('flyers publishStates are not identical');
-    }
-    if (flyer1.auditState != flyer2.auditState){
-      blog('flyers auditStates are not identical');
-    }
-    if (Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == false){
-      blog('flyers keywordsIDs are not identical');
-    }
-    if (flyer1.showsAuthor != flyer2.showsAuthor){
-      blog('flyers showsAuthor are not identical');
-    }
-    if (ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == false){
-      blog('flyers zones are not identical');
-    }
-    if (flyer1.authorID != flyer2.authorID){
-      blog('flyers authorsIDs are not identical');
-    }
-    if (flyer1.bzID != flyer2.bzID){
-      blog('flyers bzzIDs are not identical');
-    }
-    if (Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == false){
-      blog('flyers positions are not identical');
-    }
-    if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
-      blog('flyers slides are not identical');
-    }
-    if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
-      blog('flyers specs are not identical');
-    }
-    if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
-      blog('flyers times are not identical');
-    }
-    if (flyer1.priceTagIsOn != flyer2.priceTagIsOn){
-      blog('flyers priceTagIsOn are not identical');
-    }
-    if (flyer1.score != flyer2.score){
-      blog('flyers scores are not identical');
-    }
-    if (FileModel.checkFileModelsAreIdentical(model1: flyer1.pdf, model2: flyer2.pdf) == false){
-      blog('flyers pdfs are not identical');
-    }
+    if (flyer1 != null && flyer2 != null){
 
+      if (flyer1.id != flyer2.id){
+        blog('flyers ids are not identical');
+      }
+      if (flyer1.headline != flyer2.headline){
+        blog('flyers headlines are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == false){
+        blog('flyers trigrams are not identical');
+      }
+      if (flyer1.description != flyer2.description){
+        blog('flyers descriptions are not identical');
+      }
+      if (flyer1.flyerType != flyer2.flyerType){
+        blog('flyers flyersTypes are not identical');
+      }
+      if (flyer1.publishState != flyer2.publishState){
+        blog('flyers publishStates are not identical');
+      }
+      if (flyer1.auditState != flyer2.auditState){
+        blog('flyers auditStates are not identical');
+      }
+      if (Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == false){
+        blog('flyers keywordsIDs are not identical');
+      }
+      if (flyer1.showsAuthor != flyer2.showsAuthor){
+        blog('flyers showsAuthor are not identical');
+      }
+      if (ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == false){
+        blog('flyers zones are not identical');
+      }
+      if (flyer1.authorID != flyer2.authorID){
+        blog('flyers authorsIDs are not identical');
+      }
+      if (flyer1.bzID != flyer2.bzID){
+        blog('flyers bzzIDs are not identical');
+      }
+      if (Atlas.checkPointsAreIdentical(point1: flyer1.position, point2: flyer2.position) == false){
+        blog('flyers positions are not identical');
+      }
+      if (SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == false){
+        blog('flyers slides are not identical');
+      }
+      if (SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == false){
+        blog('flyers specs are not identical');
+      }
+      if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
+        blog('flyers times are not identical');
+      }
+      if (flyer1.priceTagIsOn != flyer2.priceTagIsOn){
+        blog('flyers priceTagIsOn are not identical');
+      }
+      if (flyer1.score != flyer2.score){
+        blog('flyers scores are not identical');
+      }
+      if (FileModel.checkFileModelsAreIdentical(model1: flyer1.pdf, model2: flyer2.pdf) == false){
+        blog('flyers pdfs are not identical');
+      }
+
+    }
 
   }
 // -----------------------------------------------------------------------------
