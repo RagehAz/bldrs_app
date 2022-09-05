@@ -77,7 +77,7 @@ class DataCreatorSplitter extends StatelessWidget {
     blog('DataCreatorSplitter - BUILDING');
     picker.blogPicker();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    _valueChain.blogChain();
+    _valueChain?.blogChain();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     _unitChain?.blogChain();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');

@@ -145,11 +145,14 @@ class DraftFlyerModel{
 
     return _draft;
   }
-
-  static FlyerModel bakeDraftToUpload({
+// -----------------------------------
+  static Future<FlyerModel> bakeDraftToUpload({
     @required DraftFlyerModel draft,
+    @required bool toLDB,
     PublishState overridePublishState,
-}){
+}) async {
+
+
 
     return FlyerModel(
       id: draft.id,
@@ -165,12 +168,15 @@ class DraftFlyerModel{
       authorID: draft.authorID,
       bzID: draft.bzID,
       position: draft.position,
-      slides: SlideModel.getSlidesFromMutableSlides(draft.mutableSlides),
+      slides: SlideModel.getSlidesFromMutableSlides(
+          mSlides: draft.mutableSlides,
+          forLDB: toLDB,
+        ),
       specs: draft.specs,
       times: draft.times,
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
-      pdf: draft.pdf,
+      pdf: toLDB == true ? FileModel.bakeFileForLDB(draft.pdf) : draft.pdf,
 
     );
   }

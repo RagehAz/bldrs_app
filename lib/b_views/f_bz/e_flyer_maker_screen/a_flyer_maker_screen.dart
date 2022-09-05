@@ -166,12 +166,13 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
         AppBarButton(
           verse: '##Identical',
-          onTap: (){
+          onTap: () async {
 
             FlyerModel.checkFlyersAreIdentical(
                 flyer1: widget.flyerToEdit,
-                flyer2: DraftFlyerModel.bakeDraftToUpload(
+                flyer2: await DraftFlyerModel.bakeDraftToUpload(
                   draft: _draftFlyer.value,
+                  toLDB: false,
                 ),
             );
 
