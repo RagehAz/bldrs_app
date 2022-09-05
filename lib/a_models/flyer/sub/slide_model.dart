@@ -578,13 +578,19 @@ class SlideModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static SlideModel getSlideFromMutableSlide(MutableSlide mSlide) {
+  static SlideModel getSlideFromMutableSlide({
+    @required MutableSlide mSlide,
+    @required bool forLDB,
+}) {
     SlideModel _slideModel;
 
     if (mSlide != null) {
       _slideModel = SlideModel(
         slideIndex: mSlide.slideIndex,
-        pic: FileModel.bakeFileForUpload(
+        pic: forLDB == true ?
+        FileModel.bakeFileForLDB(mSlide.picFileModel)
+        :
+        FileModel.bakeFileForUpload(
           newFile: mSlide.picFileModel,
           existingPic: mSlide.picURL,
         ),
@@ -601,12 +607,18 @@ class SlideModel {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static List<SlideModel> getSlidesFromMutableSlides(List<MutableSlide> mSlides) {
+  static List<SlideModel> getSlidesFromMutableSlides({
+    @required List<MutableSlide> mSlides,
+    @required bool forLDB,
+  }) {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (Mapper.checkCanLoopList(mSlides)) {
       for (final MutableSlide mSlide in mSlides) {
-        _slides.add(getSlideFromMutableSlide(mSlide));
+        _slides.add(getSlideFromMutableSlide(
+          mSlide: mSlide,
+          forLDB: forLDB,
+        ));
       }
     }
 

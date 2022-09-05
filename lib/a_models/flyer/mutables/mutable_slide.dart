@@ -121,8 +121,8 @@ class MutableSlide {
     @required String flyerID,
   }) async {
 
-    final FileModel _file = await FileModel.createModelByUrl(
-      url: slide.pic,
+    final FileModel _file = await FileModel.preparePicForEditing(
+      pic: slide.pic,
       fileName: SlideModel.generateSlideID(
           flyerID: flyerID,
           slideIndex: slide.slideIndex,

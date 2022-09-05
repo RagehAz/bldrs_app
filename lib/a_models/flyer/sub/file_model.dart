@@ -214,6 +214,7 @@ class FileModel {
       'url' : url,
       'fileName' : fileName,
       'size' : size,
+      'file' : file?.path,
     };
   }
 // --------------------------------------
@@ -226,6 +227,7 @@ class FileModel {
           url: map['url'],
           fileName: map['fileName'],
           size: map['size'],
+          file: map['file'] == null ? null : File(map['file']),
       );
     }
 
