@@ -203,7 +203,7 @@ class ContactModel {
         type: type,
       );
 
-      _contact.blogContact(methodName: 'initializeContactsForEditing');
+      // _contact.blogContact(methodName: 'initializeContactsForEditing');
 
       _output.add(_contact);
       
