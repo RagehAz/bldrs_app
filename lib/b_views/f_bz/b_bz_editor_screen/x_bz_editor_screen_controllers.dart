@@ -28,11 +28,10 @@ import 'package:flutter/material.dart';
 
 // ---------------------------------
 /// TESTED : WORKS PERFECT
-void initializeLocalVariables({
+void initializeBzEditorLocalVariables({
   @required BuildContext context,
   @required BzModel oldBz,
   @required ValueNotifier<BzModel> tempBz,
-  @required bool firstTimer,
   @required ValueNotifier<List<SpecModel>> selectedScopes,
   @required ValueNotifier<BzSection> selectedBzSection,
   @required ValueNotifier<List<BzType>> inactiveBzTypes,

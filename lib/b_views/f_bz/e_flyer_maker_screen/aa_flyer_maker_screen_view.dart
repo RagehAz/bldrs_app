@@ -23,6 +23,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -132,7 +133,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                             appBarType: appBarType,
                             key: const ValueKey<String>('flyer_headline_text_field'),
                             isFormField: true,
-                            textController: _draft.headlineController,
                             titleVerse: 'phid_flyer_headline',
                             fieldIsRequired: true,
                             counterIsOn: true,
@@ -142,26 +142,37 @@ class FlyerMakerScreenView extends StatelessWidget {
                             // fieldIsRequired: false,
                             textOnChanged: (String text) => onUpdateFlyerHeadline(
                               draft: draft,
+                              text: text,
                             ),
-                            validator: () => flyerHeadlineValidator(
-                              headlineController: _draft.headlineController,
+                            autoValidate: true,
+                            initialTextValue: _draft.headline,
+                            validator: () => Formers.flyerHeadlineValidator(
+                              headline: _draft.headline,
                             ),
                             // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
                           ),
 
                           /// FLYER DESCRIPTION
                           TextFieldBubble(
+                            key: const ValueKey<String>('bz_scope_bubble'),
                             globalKey: formKey,
                             focusNode: _draft.descriptionNode,
                             appBarType: appBarType,
-                            key: const ValueKey<String>('bz_scope_bubble'),
-                            textController: _draft.descriptionController,
                             titleVerse: 'phid_flyer_description',
                             counterIsOn: true,
                             maxLength: 1000,
                             maxLines: 7,
                             keyboardTextInputType: TextInputType.multiline,
                             // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
+                            autoValidate: true,
+                            initialTextValue: _draft.description,
+                            validator: () => Formers.paragraphValidator(
+                              text: _draft.description,
+                            ),
+                            textOnChanged: (String text) => onUpdateFlyerDescription(
+                              draft: draft,
+                              text: text,
+                            ),
                           ),
 
                           const DotSeparator(),
