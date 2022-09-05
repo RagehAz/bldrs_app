@@ -47,6 +47,7 @@ class LDBOps {
       case LDBDoc.bzEditor: return 'id';
       case LDBDoc.authorEditor: return 'userID';
       case LDBDoc.flyerMaker: return 'id';
+      case LDBDoc.reviewEditor: return 'id';
 
       case 'test': return 'id';
       default: return null;
