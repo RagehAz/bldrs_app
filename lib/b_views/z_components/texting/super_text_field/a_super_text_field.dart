@@ -1,3 +1,6 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text_field_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/text_field_form_switcher.dart';
@@ -304,6 +307,20 @@ class SuperTextField extends StatefulWidget {
     );
 
     return _inputDecoration;
+  }
+// -----------------------------------------------------------------------------
+  static EdgeInsets getFieldScrollPadding({
+    @required BuildContext context,
+    @required AppBarType appBarType,
+
+}){
+
+    final EdgeInsets _scrollPadding = EdgeInsets.only(
+      bottom: 50 + MediaQuery.of(context).viewInsets.bottom,
+      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue(),
+    );
+
+    return _scrollPadding;
   }
 // -----------------------------------------------------------------------------
 }

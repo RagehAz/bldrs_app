@@ -4,19 +4,23 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/snapper.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:flutter/material.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
@@ -144,9 +148,17 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _tempAuthor.dispose();
     _lastTempAuthor.dispose();
 
+    // _fuckingNode.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 // -----------------------------------------------------------------------------
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _fuckingKey = GlobalKey();
+
+  bool errorOn = true;
+  String _message;
+
   @override
   Widget build(BuildContext context) {
 
@@ -159,6 +171,26 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: 'phid_edit_author_details',
+      appBarRowWidgets: [
+
+        AppBarButton(
+          verse: 'Validate',
+          onTap: (){
+
+            Formers.validateForm(_formKey);
+            Snapper.snapToWidget(snapKey: _fuckingKey);
+
+            setState(() {
+              errorOn = !errorOn;
+              _message = errorOn == true ? 'Fuck you bitch ass whore fucker' : null;
+            });
+
+            blog('errorOn : $errorOn : $_message');
+
+          },
+        ),
+
+      ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_confirm',
         secondLine: 'phid_update_author_details',
@@ -175,153 +207,168 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           valueListenable: _tempAuthor,
           builder: (_, AuthorModel authorModel, Widget child){
 
-            return ListView(
+            return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              children: <Widget>[
+              controller: _scrollController,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
 
-                const Stratosphere(),
+                  const Stratosphere(),
 
-                /// --- AUTHOR IMAGE
-                AddImagePicBubble(
-                  fileModel: authorModel.pic,
-                  titleVerse: 'phid_author_picture',
-                  redDot: true,
-                  bubbleType: BubbleType.authorPic,
-                  onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
-                    context: context,
-                    author: _tempAuthor,
-                    imagePickerType: imagePickerType,
-                    canPickImage: _canPickImage,
-                  ),
-                ),
-
-                /// NAME
-                TextFieldBubble(
-                  key: const ValueKey<String>('name'),
-                  globalKey: _formKey,
-                  focusNode: _nameNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  titleVerse: 'phid_author_name',
-                  counterIsOn: true,
-                  maxLength: 72,
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  bulletPoints: const <String>[
-                    '##This will only change your name inside this Business account',
-                  ],
-                  initialTextValue: authorModel.name,
-                  textOnChanged: (String text) => onAuthorNameChanged(
-                    tempAuthor: _tempAuthor,
-                    text: text,
-                  ),
-                  autoValidate: true,
-                  validator: () => Formers.personNameValidator(
-                    name: authorModel.name,
-                  ),
-
-                ),
-
-                /// TITLE
-                TextFieldBubble(
-                  globalKey: _formKey,
-                  focusNode: _titleNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  titleVerse: 'phid_job_title',
-                  counterIsOn: true,
-                  maxLength: 72,
-                  keyboardTextInputType: TextInputType.name,
-                  keyboardTextInputAction: TextInputAction.next,
-                  fieldIsRequired: true,
-                  textOnChanged: (String text) => onAuthorTitleChanged(
-                    text: text,
-                    tempAuthor: _tempAuthor,
-                  ),
-                  initialTextValue: authorModel.title,
-                  autoValidate: true,
-                  validator: () => Formers.jobTitleValidator(
-                      jobTitle: authorModel.title,
-                  ),
-                ),
-
-                const DotSeparator(),
-
-                /// PHONE
-                ContactFieldBubble(
-                  key: const ValueKey<String>('phone'),
-                  globalKey: _formKey,
-                  focusNode: _phoneNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: 'phid_phone',
+                  /// --- AUTHOR IMAGE
+                  AddImagePicBubble(
+                    width: BldrsAppBar.width(context),
+                    fileModel: authorModel.pic,
+                    titleVerse: 'phid_author_picture',
                     redDot: true,
+                    bubbleType: BubbleType.authorPic,
+                    onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
+                      context: context,
+                      author: _tempAuthor,
+                      imagePickerType: imagePickerType,
+                      canPickImage: _canPickImage,
+                    ),
                   ),
-                  canPaste: false,
-                  keyboardTextInputType: TextInputType.phone,
-                  keyboardTextInputAction: TextInputAction.next,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.phone,
-                    countryID: widget.bzModel.zone.countryID,
-                    existingContacts: authorModel.contacts,
-                  ),
-                  textOnChanged: (String text) => onAuthorContactChanged(
-                    contactType: ContactType.phone,
-                    value: text,
-                    tempAuthor: _tempAuthor,
-                  ),
-                  autoValidate: true,
-                  validator: () => Formers.phoneValidator(
-                    contacts: authorModel.contacts,
-                  ),
-                ),
 
-                /// EMAIL
-                ContactFieldBubble(
-                  key: const ValueKey<String>('email'),
-                  globalKey: _formKey,
-                  focusNode: _emailNode,
-                  appBarType: AppBarType.basic,
-                  isFormField: true,
-                  headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: 'phid_email',
-                    redDot: true,
-                  ),
-                  keyboardTextInputType: TextInputType.emailAddress,
-                  keyboardTextInputAction: TextInputAction.done,
-                  initialTextValue: ContactModel.getInitialContactValue(
-                    type: ContactType.email,
-                    countryID: widget.bzModel.zone.countryID,
-                    existingContacts: authorModel.contacts,
-                  ),
-                  textOnChanged: (String text) => onAuthorContactChanged(
-                    contactType: ContactType.email,
-                    value: text,
-                    tempAuthor: _tempAuthor,
-                  ),
-                  canPaste: false,
-                  autoValidate: true,
-                  validator: () => Formers.emailValidator(
-                    contacts: authorModel.contacts,
-                  ),
-                ),
+                  /// NAME
+                  TextFieldBubble(
+                    key: const ValueKey<String>('name'),
+                    globalKey: _formKey,
+                    focusNode: _nameNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    titleVerse: 'phid_author_name',
+                    counterIsOn: true,
+                    maxLength: 72,
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    bulletPoints: const <String>[
+                      '##This will only change your name inside this Business account',
+                    ],
+                    initialTextValue: authorModel.name,
+                    textOnChanged: (String text) => onAuthorNameChanged(
+                      tempAuthor: _tempAuthor,
+                      text: text,
+                    ),
+                    autoValidate: true,
+                    validator: () => Formers.personNameValidator(
+                      name: authorModel.name,
+                    ),
 
-                const DotSeparator(),
+                  ),
 
-                // /// CONTACTS
-                // ContactsEditorsBubbles(
-                //   globalKey: _formKey,
-                //   contacts: tempAuthor.contacts,
-                //   contactsOwnerType: ContactsOwnerType.author,
-                //   appBarType: AppBarType.basic,
-                // ),
+                  /// TITLE
+                  TextFieldBubble(
+                    globalKey: _formKey,
+                    focusNode: _titleNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    titleVerse: 'phid_job_title',
+                    counterIsOn: true,
+                    maxLength: 72,
+                    keyboardTextInputType: TextInputType.name,
+                    keyboardTextInputAction: TextInputAction.next,
+                    fieldIsRequired: true,
+                    textOnChanged: (String text) => onAuthorTitleChanged(
+                      text: text,
+                      tempAuthor: _tempAuthor,
+                    ),
+                    initialTextValue: authorModel.title,
+                    autoValidate: true,
+                    validator: () => Formers.jobTitleValidator(
+                        jobTitle: authorModel.title,
+                    ),
+                  ),
 
-                const Horizon(),
+                  const DotSeparator(),
 
-              ],
+                  /// PHONE
+                  ContactFieldBubble(
+                    key: const ValueKey<String>('phone'),
+                    globalKey: _formKey,
+                    focusNode: _phoneNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: 'phid_phone',
+                      redDot: true,
+                    ),
+                    canPaste: false,
+                    keyboardTextInputType: TextInputType.phone,
+                    keyboardTextInputAction: TextInputAction.next,
+                    initialTextValue: ContactModel.getInitialContactValue(
+                      type: ContactType.phone,
+                      countryID: widget.bzModel.zone.countryID,
+                      existingContacts: authorModel.contacts,
+                    ),
+                    textOnChanged: (String text) => onAuthorContactChanged(
+                      contactType: ContactType.phone,
+                      value: text,
+                      tempAuthor: _tempAuthor,
+                    ),
+                    autoValidate: true,
+                    validator: () => Formers.phoneValidator(
+                      contacts: authorModel.contacts,
+                    ),
+                  ),
+
+                  /// EMAIL
+                  ContactFieldBubble(
+                    key: const ValueKey<String>('email'),
+                    globalKey: _formKey,
+                    focusNode: _emailNode,
+                    appBarType: AppBarType.basic,
+                    isFormField: true,
+                    headerViewModel: const BubbleHeaderVM(
+                      headlineVerse: 'phid_email',
+                      redDot: true,
+                    ),
+                    keyboardTextInputType: TextInputType.emailAddress,
+                    keyboardTextInputAction: TextInputAction.done,
+                    initialTextValue: ContactModel.getInitialContactValue(
+                      type: ContactType.email,
+                      countryID: widget.bzModel.zone.countryID,
+                      existingContacts: authorModel.contacts,
+                    ),
+                    textOnChanged: (String text) => onAuthorContactChanged(
+                      contactType: ContactType.email,
+                      value: text,
+                      tempAuthor: _tempAuthor,
+                    ),
+                    canPaste: false,
+                    autoValidate: true,
+                    validator: () => Formers.emailValidator(
+                      contacts: authorModel.contacts,
+                    ),
+                  ),
+
+                  const DotSeparator(),
+
+                  // /// CONTACTS
+                  // ContactsEditorsBubbles(
+                  //   globalKey: _formKey,
+                  //   contacts: tempAuthor.contacts,
+                  //   contactsOwnerType: ContactsOwnerType.author,
+                  //   appBarType: AppBarType.basic,
+                  // ),
+
+                  Snapper(
+                      snapKey: _fuckingKey,
+                      child: SuperValidator(
+                        width: Scale.superScreenWidth(context) - 20,
+                        validator: (){
+                          return _message;
+                        },
+                      ),
+                  ),
+
+                  const Horizon(),
+
+                ],
+              ),
             );
 
           },
