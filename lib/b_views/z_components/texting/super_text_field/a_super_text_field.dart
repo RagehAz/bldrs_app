@@ -18,8 +18,8 @@ class SuperTextField extends StatefulWidget {
     @required this.appBarType,
     @required this.globalKey,
     @required this.width,
-    @required this.textController,
     @required this.titleVerse,
+    this.textController,
 
     /// main
     this.isFormField,

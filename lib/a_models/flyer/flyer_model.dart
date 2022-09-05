@@ -151,8 +151,8 @@ class FlyerModel {
   }){
     return <String, dynamic>{
       'id' : id,
-      'headline' : slides[0].headline,
-      'trigram' : Stringer.createTrigram(input: slides[0].headline),
+      'headline' : headline,
+      'trigram' : Stringer.createTrigram(input: headline),
       'description' : description,
       // -------------------------
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),

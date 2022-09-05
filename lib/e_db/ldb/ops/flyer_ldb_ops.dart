@@ -117,4 +117,54 @@ class FlyerLDBOps {
 
   }
 // -----------------------------------------------------------------------------
+
+/// FLYER MAKER SESSION
+
+// ----------------------------------------
+  static Future<void> saveFlyerMakerSession({
+    @required FlyerModel flyerModel,
+  }) async {
+
+    if (flyerModel != null){
+
+      await LDBOps.insertMap(
+        docName: LDBDoc.flyerMaker,
+        input: flyerModel.toMap(toJSON: true),
+      );
+
+    }
+
+  }
+// ----------------------------------------
+  static Future<FlyerModel> loadFlyerMakerSession({
+    @required String flyerID,
+  }) async {
+    FlyerModel _flyer;
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: <String>[flyerID],
+      docName: LDBDoc.flyerMaker,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      _flyer = FlyerModel.decipherFlyer(
+        map: _maps.first,
+        fromJSON: true,
+      );
+    }
+
+    return _flyer;
+  }
+// ----------------------------------------
+  static Future<void> deleteFlyerMakerSession({
+    @required String flyerID,
+  }) async {
+
+    await LDBOps.deleteMap(
+      objectID: flyerID,
+      docName: LDBDoc.flyerMaker,
+    );
+
+  }
+// -----------------------------------------------------------------------------
 }

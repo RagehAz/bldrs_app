@@ -93,11 +93,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   void initState() {
     super.initState();
 
-    initializeLocalVariables(
+    initializeBzEditorLocalVariables(
       context: context,
       tempBz: _tempBz,
       oldBz: widget.bzModel,
-      firstTimer: widget.firstTimer,
       inactiveBzForms: _inactiveBzForms,
       inactiveBzTypes: _inactiveBzTypes,
       selectedBzSection: _selectedBzSection,
