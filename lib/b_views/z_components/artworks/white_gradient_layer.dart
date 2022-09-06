@@ -19,13 +19,13 @@ class GradientLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _gradient =
-        isWhite == true ?
-        Iconz.whiteGradient
-            :
-        Iconz.blackGradient;
-
+    isWhite == true ?
+    Iconz.whiteGradient
+        :
+    Iconz.blackGradient;
+    // --------------------
     return SizedBox(
       width: width,
       height: height,
@@ -38,5 +38,7 @@ class GradientLayer extends StatelessWidget {
         iconColor: color,
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

@@ -59,36 +59,37 @@ class UserBalloon extends StatelessWidget {
 
           /// IS AUTHOR ICON
           if (UserModel.checkUserIsAuthor(userModel) == true)
-          Align(
-            alignment: Aligners.superInverseBottomAlignment(context),
-            child: DreamBox(
-              height: size * 0.4,
-              width: size * 0.4,
-              icon: Iconz.bz,
-              iconSizeFactor: 0.8,
-              bubble: false,
-              color: Colorz.black125,
-              corners: size * 0.2,
+            Align(
+              alignment: Aligners.superInverseBottomAlignment(context),
+              child: DreamBox(
+                height: size * 0.4,
+                width: size * 0.4,
+                icon: Iconz.bz,
+                iconSizeFactor: 0.8,
+                bubble: false,
+                color: Colorz.black125,
+                corners: size * 0.2,
+              ),
             ),
-          ),
 
           /// EDIT BUTTON
           if (showEditButton == true)
-          Align(
-            alignment: Aligners.superInverseTopAlignment(context),
-            child: DreamBox(
-              height: size * 0.4,
-              width: size * 0.5,
-              verse: 'phid_edit',
-              verseScaleFactor: 0.5,
-              color: Colorz.red255,
-              onTap: onTap,
+            Align(
+              alignment: Aligners.superInverseTopAlignment(context),
+              child: DreamBox(
+                height: size * 0.4,
+                width: size * 0.5,
+                verse: 'phid_edit',
+                verseScaleFactor: 0.5,
+                color: Colorz.red255,
+                onTap: onTap,
+              ),
             ),
-          ),
 
         ],
       ),
     );
 
   }
+/// --------------------------------------------------------------------------
 }

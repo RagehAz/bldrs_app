@@ -57,12 +57,12 @@ class BldrsAppBar extends StatelessWidget {
     final double _abWidth = _boxWidth - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double clearWidth(BuildContext context, {double boxWidth}){
     final double _appBarWidth = width(context, boxWidth: boxWidth);
     return _appBarWidth - (2 * Ratioz.appBarPadding);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double height(BuildContext context, AppBarType appBarType) {
     final double _abHeight = appBarType == AppBarType.search ?
     Ratioz.appBarBigHeight
@@ -70,7 +70,7 @@ class BldrsAppBar extends StatelessWidget {
     Ratioz.appBarSmallHeight;
     return _abHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double scrollWidth(BuildContext context) {
     final double _appBarScrollWidth = Scale.superScreenWidth(context) -
         (Ratioz.appBarMargin * 2) -
@@ -79,7 +79,7 @@ class BldrsAppBar extends StatelessWidget {
         Ratioz.appBarPadding;
     return _appBarScrollWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   bool _backButtonIsOnCheck() {
     bool _isOn = false;
 
@@ -105,7 +105,7 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _searchButtonIsOnCheck() {
     bool _isOn;
 
@@ -127,7 +127,7 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _sectionButtonIsOnCheck() {
     bool _isOn;
 
@@ -153,7 +153,7 @@ class BldrsAppBar extends StatelessWidget {
 
     return _isOn;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _scrollableCheck() {
     bool _scrollable;
 
@@ -165,10 +165,10 @@ class BldrsAppBar extends StatelessWidget {
 
     return _scrollable;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _abWidth = width(context);
     final double _abClearWidth = clearWidth(context);
@@ -177,17 +177,17 @@ class BldrsAppBar extends StatelessWidget {
     final bool _backButtonIsOn = _backButtonIsOnCheck();
     final bool _searchButtonIsOn = _searchButtonIsOnCheck();
     final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _backButtonWidth = _backButtonIsOn == true ? 50 : 0;
-// -----------------------------------------------------------------------------
+    // --------------------
     final bool _scrollable = _scrollableCheck();
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _titleWidth =
         _abClearWidth
-        - _backButtonWidth
-        - AppBarTitle.getTitleHorizontalMargin(backButtonIsOn: _backButtonIsOn)
-        - 60; // bel7ob keda
-// -----------------------------------------------------------------------------
+            - _backButtonWidth
+            - AppBarTitle.getTitleHorizontalMargin(backButtonIsOn: _backButtonIsOn)
+            - 60;
+    // --------------------
     return Container(
       width: _abWidth,
       height: _abHeight,
@@ -286,8 +286,8 @@ class BldrsAppBar extends StatelessWidget {
                     /// SEARCH BUTTON SPACER SPACER
                     if (_searchButtonIsOn == true)
                       const SizedBox(
-                      width: Ratioz.appBarPadding,
-                    ),
+                        width: Ratioz.appBarPadding,
+                      ),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
 
                   ],
@@ -320,5 +320,7 @@ class BldrsAppBar extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
