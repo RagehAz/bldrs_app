@@ -26,10 +26,10 @@ class PropertySearchCriteria extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     final double _screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     const double _pageMargin = Ratioz.appBarMargin * 2;
-
     const double _abPadding = Ratioz.appBarMargin;
     // double abHeight = _screenWidth * 0.25;
 
@@ -40,22 +40,19 @@ class PropertySearchCriteria extends StatelessWidget {
     //
     // double propertyStatusBtWidth = (_screenWidth - (2 * _pageMargin) - (8 * _abPadding)) / 3;
     // double propertyStatusBtHeight = 40;
-
     final double _boxWidth = _screenWidth - (_abPadding * 6);
     const double _boxHeight = 100;
     const bool _bubble = true;
-
+    // --------------------
     final Alignment defaultAlignment = Words.textDirection(context) == 'ltr'
         ? Alignment.centerLeft
         : Alignment.centerRight;
-
+    // --------------------
     const double corners = Ratioz.boxCorner12;
-
     // - ROW OF BUTTONS
     // double buttonSpacing = _abPadding;
     // double buttonsZoneWidth = (_screenWidth-(_pageMargin*4));
     // double contractTypeBtWidth = (buttonsZoneWidth - (2*buttonSpacing) - buttonSpacing)/2;
-
     const Map<String, Object> propertyUseMap = <String, Object>{
       'Title': 'Use of property',
       'Strings': <String>[
@@ -91,7 +88,6 @@ class PropertySearchCriteria extends StatelessWidget {
         false
       ],
     };
-
     const Map<String, Object> propertyTypeMap = <String, Object>{
       'Title': 'Type of property',
       'Strings': <String>[
@@ -139,29 +135,27 @@ class PropertySearchCriteria extends StatelessWidget {
         false,
       ],
     };
-
+    // Map<String, Object> propertyUse = {
+    //   'Strings' : [],
+    //   'Triggers' : [],
+    // };
     const Map<String, Object> contractTypeMap = <String, Object>{
       'Title': 'Contract type of property',
       'Strings': <String>['For Sale', 'For Rent'],
       'Triggers': <bool>[false, false],
     };
-
-    // Map<String, Object> propertyUse = {
-    //   'Strings' : [],
-    //   'Triggers' : [],
-    // };
-
+    // --------------------
     return Container(
       width: _boxWidth,
       decoration: BoxDecoration(
-          color: Colorz.white10,
-          borderRadius: BorderRadius.circular(corners),
-          boxShadow: const <BoxShadow>[
-            CustomBoxShadow(
-                color: _bubble == true ? Colorz.black200 : Colorz.nothing,
-                blurRadius: _boxHeight * 0.15,
-                style: BlurStyle.outer),
-          ],
+        color: Colorz.white10,
+        borderRadius: BorderRadius.circular(corners),
+        boxShadow: const <BoxShadow>[
+          CustomBoxShadow(
+              color: _bubble == true ? Colorz.black200 : Colorz.nothing,
+              blurRadius: _boxHeight * 0.15,
+              style: BlurStyle.outer),
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(corners),
@@ -175,15 +169,15 @@ class PropertySearchCriteria extends StatelessWidget {
                 width: _boxWidth,
                 height: _boxHeight * 0.27,
                 decoration: BoxDecoration(
-                    // color: Colorz.White,
-                    borderRadius:
-                        BorderRadius.circular(corners - (_boxHeight * 0.8)),
-                    boxShadow: <BoxShadow>[
-                      CustomBoxShadow(
-                          color: Colorz.white50,
-                          offset: Offset(0, _boxWidth * -0.01),
-                          blurRadius: _boxHeight * 0.2),
-                    ],
+                  // color: Colorz.White,
+                  borderRadius:
+                  BorderRadius.circular(corners - (_boxHeight * 0.8)),
+                  boxShadow: <BoxShadow>[
+                    CustomBoxShadow(
+                        color: Colorz.white50,
+                        offset: Offset(0, _boxWidth * -0.01),
+                        blurRadius: _boxHeight * 0.2),
+                  ],
                 ),
               ),
             ),
@@ -215,8 +209,8 @@ class PropertySearchCriteria extends StatelessWidget {
                   alignment: defaultAlignment,
                   child: const Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: _pageMargin,
-                        vertical: _pageMargin * 0.5,
+                      horizontal: _pageMargin,
+                      vertical: _pageMargin * 0.5,
                     ),
                     child: SuperVerse(
                       verse: '##Select your default property search criteria !',
@@ -279,5 +273,7 @@ class PropertySearchCriteria extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

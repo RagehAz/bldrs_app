@@ -19,17 +19,16 @@ class StatusBubble extends StatelessWidget {
     this.openEnumLister,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<Map<String, Object>> status;
   final UserStatus userStatus;
   final Function switchUserStatus;
   final UserStatus currentUserStatus;
   final Function openEnumLister;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double screenWidth = Scale.superScreenWidth(context);
     // double screenHeight = MediaQuery.of(context).size.height;
     const double pageMargin = Ratioz.appBarMargin * 2;
@@ -109,5 +108,7 @@ class StatusBubble extends StatelessWidget {
 
       ],
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

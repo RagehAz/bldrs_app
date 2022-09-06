@@ -45,17 +45,26 @@ class ParagraphBubble extends StatefulWidget {
 }
 
 class _ParagraphBubbleState extends State<ParagraphBubble> {
+  // -----------------------------------------------------------------------------
   int _maxLines;
   bool _isMax = false;
   bool _canExpand;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _maxLines = widget.maxLines;
     _canExpand = widget.paragraph.length > 100;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  @override
+  void didUpdateWidget(covariant ParagraphBubble oldWidget) {
+    if (widget.editMode != oldWidget.editMode) {
+      setState(() {});
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+  // -----------------------------------------------------------------------------
   void _onParagraphTap() {
     if (widget.editMode == true) {
       widget.onParagraphTap();
@@ -77,15 +86,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
       }
     }
   }
-// -----------------------------------------------------------------------------
-  @override
-  void didUpdateWidget(covariant ParagraphBubble oldWidget) {
-    if (widget.editMode != oldWidget.editMode) {
-      setState(() {});
-    }
-    super.didUpdateWidget(oldWidget);
-  }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     blog('B---> ParagraphBubble : edit mode : ${widget.editMode}');
@@ -102,10 +103,10 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return Bubble(
-      headerViewModel: BubbleHeaderVM(
-        headlineVerse: widget.title,
-        leadingIcon: widget.actionBtIcon,
-      ),
+        headerViewModel: BubbleHeaderVM(
+          headlineVerse: widget.title,
+          leadingIcon: widget.actionBtIcon,
+        ),
         key: widget.key,
         screenWidth: widget.bubbleWidth,
         margins: widget.margins,
@@ -155,4 +156,5 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         ]
     );
   }
+  // -----------------------------------------------------------------------------
 }
