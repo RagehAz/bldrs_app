@@ -18,20 +18,20 @@ class CurrencyModel {
   final List<String> countriesIDs;
   final String symbol;
   final int digits;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STANDARDS
 
-// ----------------------------
+  // --------------------
   static const String usaCurrencyID = 'currency_USD';
   static const String usaCountryID = 'usa';
   static const String euroCurrencyID = 'currency_EUR';
   static const String euroCountryID = 'euz';
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   CurrencyModel copyWith({
     String id,
@@ -46,10 +46,11 @@ class CurrencyModel {
       digits: digits ?? this.digits,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
   /// CYPHERS
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -59,7 +60,7 @@ class CurrencyModel {
       'digits': digits,
     };
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel decipherCurrency(Map<String, dynamic> map) {
     CurrencyModel _currency;
@@ -75,7 +76,7 @@ class CurrencyModel {
 
     return _currency;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies) {
     Map<String, dynamic> _map = <String, dynamic>{};
@@ -92,7 +93,7 @@ class CurrencyModel {
 
     return _map;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> decipherCurrencies(Map<String, dynamic> map) {
     final List<CurrencyModel> _currencies = <CurrencyModel>[];
@@ -110,16 +111,16 @@ class CurrencyModel {
 
     return _currencies;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogCurrency() {
     blog('$id ( $symbol ) : ( digits : $digits ) : countries : $countriesIDs');
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogCurrencies(List<CurrencyModel> currencies){
 
@@ -136,11 +137,11 @@ class CurrencyModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ----------------------------
+  // --------------------
   static bool currenciesContainCurrency({
     @required List<CurrencyModel> currencies,
     @required String currencyCode,
@@ -158,11 +159,11 @@ class CurrencyModel {
 
     return _contains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel getCurrencyFromCurrenciesByCountryID({
     @required List<CurrencyModel> currencies,
@@ -173,7 +174,7 @@ class CurrencyModel {
     if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
 
       final CurrencyModel _currencyFound = currencies.firstWhere(
-          (CurrencyModel curr) => Stringer.checkStringsContainString(
+              (CurrencyModel curr) => Stringer.checkStringsContainString(
               strings: curr.countriesIDs, string: countryID),
           orElse: () => null);
 
@@ -184,7 +185,7 @@ class CurrencyModel {
 
     return _currency;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getCurrenciesIDs(List<CurrencyModel> currencies){
     final List<String> _ids = <String>[];
@@ -199,7 +200,7 @@ class CurrencyModel {
 
     return _ids;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel getCurrencyByID({
     @required List<CurrencyModel> allCurrencies,
@@ -218,11 +219,11 @@ class CurrencyModel {
 
     return _currency;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// MODIFIERS
+  /// MODIFIERS
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> removeCurrencies({
     @required List<CurrencyModel> currencies,
@@ -245,5 +246,5 @@ class CurrencyModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

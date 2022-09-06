@@ -33,11 +33,13 @@ class CityModel {
   final GeoPoint position;
   final List<Phrase> phrases;
   final String state; // only for USA
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
@@ -62,7 +64,7 @@ class CityModel {
       ),
     };
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherCities({
     @required List<CityModel> cities,
@@ -83,7 +85,7 @@ class CityModel {
 
     return _citiesMap;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CityModel decipherCityMap({
     @required Map<String, dynamic> map,
@@ -100,8 +102,8 @@ class CityModel {
         isActivated: map['isActivated'],
         isPublic: map['isPublic'],
         position: Atlas.decipherGeoPoint(
-            point: map['position'],
-            fromJSON: fromJSON,
+          point: map['position'],
+          fromJSON: fromJSON,
         ),
         phrases: CountryModel.decipherZonePhrases(
             phrasesMap: map['phrases'],
@@ -112,7 +114,7 @@ class CityModel {
 
     return _city;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> decipherCitiesMaps({
     @required List<Map<String, dynamic>> maps,
@@ -124,16 +126,16 @@ class CityModel {
       for (final Map<String, dynamic> map in maps) {
         _cities.add(
             decipherCityMap(
-                map: map,
-                fromJSON: fromJSON,
+              map: map,
+              fromJSON: fromJSON,
             )
         );
       }
     }
     return _cities;
   }
-// -------------------------------------
-/// -----------------------------------------------------------------------------
+  // --------------------
+  /*
 //   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
 //     final List<CityModel> _cities = <CityModel>[];
 //
@@ -157,12 +159,13 @@ class CityModel {
 //
 //     return _cities;
 //   }
-/// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+
+   */
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   static List<String> getTranslatedCitiesNamesFromCities({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -179,7 +182,7 @@ class CityModel {
     // return TextMod.sortAlphabetically(_citiesNames);
     return null;
   }
-// -------------------------------------
+  // --------------------
   static List<MapModel> getCitiesNamesMapModels({
     @required BuildContext context,
     @required List<CityModel> cities,
@@ -207,7 +210,7 @@ class CityModel {
 
     return MapModel.sortValuesAlphabetically(_citiesMapModels);
   }
-// -------------------------------------
+  // --------------------
   static CityModel getCityFromCities({
     @required List<CityModel> cities,
     @required String cityID,
@@ -219,7 +222,7 @@ class CityModel {
     }
     return _city;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getTranslatedCityNameFromCity({
     @required BuildContext context,
@@ -242,7 +245,7 @@ class CityModel {
 
     return _cityName;
   }
-// -------------------------------------
+  // --------------------
   static List<String> getCitiesIDsFromCities({
     @required List<CityModel> cities,
   }) {
@@ -257,7 +260,7 @@ class CityModel {
 
     return _citiesIDs;
   }
-// -------------------------------------
+  // --------------------
   static String translateCityNameWithCurrentLingoIfPossible(BuildContext context, CityModel cityModel) {
     // final String _nameInCurrentLanguage = Phrase.getPhraseByCurrentLangFromPhrases(
     //     context: context,
@@ -267,7 +270,7 @@ class CityModel {
     // return _nameInCurrentLanguage ?? cityModel?.cityID;
     return null;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> _getCitiesFromPhrases({
     @required List<Phrase> phrases,
@@ -298,11 +301,11 @@ class CityModel {
 
     return _foundCities;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   void blogCity() {
     blog('CITY - PRINT --------------------------------------- START');
 
@@ -317,7 +320,7 @@ class CityModel {
 
     blog('CITY - PRINT --------------------------------------- END');
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogCities(List<CityModel> cities){
 
@@ -332,11 +335,11 @@ class CityModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAR2A3A
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String createCityID({
     @required String countryID,
@@ -351,11 +354,11 @@ class CityModel {
 
     return _cityID;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> searchCitiesByName({
     @required BuildContext context,
@@ -399,11 +402,11 @@ class CityModel {
 
     return _foundCities;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-// -------------------------------------
+  // --------------------
   static List<CityModel> sortCitiesPerNearestToCity({
     @required CityModel city,
     @required List<CityModel> cities,
@@ -426,7 +429,7 @@ class CityModel {
 
     return cities;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesAlphabetically({
     @required List<CityModel> cities,
@@ -457,11 +460,11 @@ class CityModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -------------------------------------
+  // --------------------
   static List<CityModel> addCityToCities({
     @required List<CityModel> cities,
     @required CityModel city,
@@ -479,11 +482,11 @@ class CityModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCitiesAreIdentical(CityModel city1, CityModel city2){
     bool _identical = false;
@@ -496,7 +499,7 @@ class CityModel {
       if (city1 != null && city2 != null){
 
         if (
-            city1.countryID == city2.countryID &&
+        city1.countryID == city2.countryID &&
             city1.cityID == city2.cityID &&
             DistrictModel.checkDistrictsListsAreIdentical(city1.districts, city2.districts) == true &&
             city1.population == city2.population &&
@@ -515,16 +518,16 @@ class CityModel {
 
     return _identical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -542,17 +545,17 @@ class CityModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-    countryID.hashCode^
-    cityID.hashCode^
-    districts.hashCode^
-    population.hashCode^
-    isActivated.hashCode^
-    isPublic.hashCode^
-    position.hashCode^
-    state.hashCode^
-    phrases.hashCode;
-// -----------------------------------------------------------------------------
+      countryID.hashCode^
+      cityID.hashCode^
+      districts.hashCode^
+      population.hashCode^
+      isActivated.hashCode^
+      isPublic.hashCode^
+      position.hashCode^
+      state.hashCode^
+      phrases.hashCode;
+  // -----------------------------------------------------------------------------
 }

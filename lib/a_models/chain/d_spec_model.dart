@@ -5,25 +5,25 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 class SpecModel {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTRUCTOR
 
-// ------------------------------------------
+  // --------------------
   const SpecModel({
     @required this.pickerChainID,
     @required this.value,
   });
-// ------------------------------------------
+  // --------------------
   /// specID is the specPicker's chain id , and the key of firebase map
   final String pickerChainID;
   /// string, int, double, List<String>, List<double>, list<dynamic>
   final dynamic value;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     /// shall be saved like this inside flyerModel
@@ -49,7 +49,7 @@ class SpecModel {
       pickerChainID: value,
     };
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherSpecs(List<SpecModel> specs) {
     Map<String, dynamic> _map = <String, dynamic>{};
@@ -93,7 +93,7 @@ class SpecModel {
 
     return _map;
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> decipherSpecs(Map<String, dynamic> map) {
     final List<SpecModel> _specs = <SpecModel>[];
@@ -130,18 +130,18 @@ class SpecModel {
 
     return _specs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// ------------------------------------------
+  // --------------------
   SpecModel clone() {
     return SpecModel(
       pickerChainID: pickerChainID,
       value: value,
     );
   }
-// ------------------------------------------
+  // --------------------
   static List<SpecModel> cloneSpecs(List<SpecModel> specs) {
     final List<SpecModel> _specs = <SpecModel>[];
 
@@ -153,11 +153,11 @@ class SpecModel {
 
     return _specs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
     bool _areIdentical = false;
@@ -175,7 +175,7 @@ class SpecModel {
 
     return _areIdentical;
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
 
@@ -218,7 +218,7 @@ class SpecModel {
 
     return _listsAreIdentical;
   }
-// --------------------------------
+  // --------------------
   static bool checkSpecsContainThisSpec({
     @required List<SpecModel> specs,
     @required SpecModel spec,
@@ -258,7 +258,7 @@ class SpecModel {
 
     return _contains;
   }
-// --------------------------------
+  // --------------------
   static bool checkSpecsContainOfSamePickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -279,7 +279,7 @@ class SpecModel {
 
     return _contains;
   }
-// --------------------------------
+  // --------------------
   static bool specsContainsNewSale(List<SpecModel> specs) {
     const SpecModel _newSaleSpec = SpecModel(
       pickerChainID: 'propertyContractType',
@@ -293,9 +293,7 @@ class SpecModel {
 
     return _containsNewSale;
   }
-// --------------------------------
-
-// --------------------------------
+  // --------------------
   static bool checkSpecIsFromChainK({
     @required SpecModel spec,
   }){
@@ -307,11 +305,11 @@ class SpecModel {
 
     return _isFromKeywords;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
@@ -325,16 +323,16 @@ class SpecModel {
 
     ];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogSpec() {
     blog('BLOGGING SPEC : specsListID : ( $pickerChainID ) : value : ( ${value.toString()} )');
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSpecs(List<SpecModel> specs) {
     blog('SPECS-PRINT -------------------------------------------------- START');
@@ -350,31 +348,31 @@ class SpecModel {
 
     blog('SPECS-PRINT -------------------------------------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// --------------------------------
+  // --------------------
   static List<SpecModel> getSpecsRelatedToPicker({
     @required List<SpecModel> specs,
     @required PickerModel picker,
-}){
+  }){
     List<SpecModel> _result = <SpecModel>[];
 
     if (Mapper.checkCanLoopList(specs) == true && picker != null) {
       _result = specs
           .where(
             (SpecModel spec) =>
-            spec.pickerChainID == picker.chainID
-                ||
-                spec.pickerChainID == picker.unitChainID,
+        spec.pickerChainID == picker.chainID
+            ||
+            spec.pickerChainID == picker.unitChainID,
       )
           .toList();
     }
 
     return _result;
   }
-// --------------------------------
+  // --------------------
   static List<SpecModel> getSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
@@ -385,17 +383,17 @@ class SpecModel {
       _result = specs
           .where(
             (SpecModel spec) => spec.pickerChainID == pickerChainID,
-          )
+      )
           .toList();
     }
 
     return _result;
   }
-// --------------------------------
+  // --------------------
   static SpecModel getFirstSpecFromSpecsByPickerChainID({
     @required List<SpecModel> specs,
     @required String pickerChainID,
-}){
+  }){
     SpecModel _result;
 
     if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
@@ -408,7 +406,7 @@ class SpecModel {
 
     return _result;
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDs(List<SpecModel> specs){
     final List<String> _output = <String>[];
@@ -425,19 +423,19 @@ class SpecModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> putSpecsInSpecs({
     @required List<SpecModel> parentSpecs,
     @required List<SpecModel> inputSpecs,
     @required bool canPickMany,
   }) {
-  /// This considers if the specPicker can or can't pick many spec of same list,
-  /// then adds if absent and updates or ignores if exists accordingly
+    /// This considers if the specPicker can or can't pick many spec of same list,
+    /// then adds if absent and updates or ignores if exists accordingly
     ///
     final List<SpecModel> _specs = <SpecModel>[];
 
@@ -465,14 +463,14 @@ class SpecModel {
         /// B - CAN NOT PICK MANY " of this list ID"
         else {
           final bool _specsContainOfSamePickerChainID = checkSpecsContainOfSamePickerChainID(
-              specs: _specs,
-              pickerChainID: inputSpec.pickerChainID,
+            specs: _specs,
+            pickerChainID: inputSpec.pickerChainID,
           );
 
           /// B1 - LIST ID IS ALREADY THERE in [_specs] => REPLACE
           if (_specsContainOfSamePickerChainID == true) {
             final int _specOfSameListIDIndex = _specs.indexWhere(
-                (SpecModel sp) => sp.pickerChainID == inputSpec.pickerChainID);
+                    (SpecModel sp) => sp.pickerChainID == inputSpec.pickerChainID);
             _specs[_specOfSameListIDIndex] = inputSpec;
           }
 
@@ -497,7 +495,7 @@ class SpecModel {
 
     return SpecModel.cleanSpecs(_specs);
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> cleanSpecs(List<SpecModel> specs) {
     final List<SpecModel> _output = <SpecModel>[];
@@ -517,12 +515,12 @@ class SpecModel {
 
     return _output;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> removeSpecFromSpecs({
-  @required List<SpecModel> specs,
-  @required SpecModel spec,
-}){
+    @required List<SpecModel> specs,
+    @required SpecModel spec,
+  }){
 
     List<SpecModel> _output = <SpecModel>[];
 
@@ -536,12 +534,12 @@ class SpecModel {
     return _output;
 
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> removeSpecsFromSpecs({
     @required List<SpecModel> sourceSpecs,
     @required List<SpecModel> specsToRemove,
-}){
+  }){
 
     blog('removeSpecsFromSpecs : removing : ${specsToRemove.length}');
 
@@ -550,7 +548,7 @@ class SpecModel {
     if (
     Mapper.checkCanLoopList(_output) == true
         &&
-    Mapper.checkCanLoopList(specsToRemove) == true
+        Mapper.checkCanLoopList(specsToRemove) == true
     ){
 
       blog('removeSpecsFromSpecs : can remove them');
@@ -572,9 +570,8 @@ class SpecModel {
     SpecModel.blogSpecs(_output);
 
     return _output;
-}
-// -----------------------------------------------------------------------------
-
+  }
+  // --------------------
   static List<SpecModel> generateSpecsByPhids({
     @required BuildContext context,
     @required List<String> phids,
@@ -593,12 +590,12 @@ class SpecModel {
         if (_pickerChainID != null){
 
 
-        final SpecModel _spec = SpecModel(
-            pickerChainID: _pickerChainID,
-            value: phid
-        );
+          final SpecModel _spec = SpecModel(
+              pickerChainID: _pickerChainID,
+              value: phid
+          );
 
-        _specs.add(_spec);
+          _specs.add(_spec);
 
         }
       }
@@ -607,13 +604,12 @@ class SpecModel {
 
     return _specs;
   }
-
-
+  // -----------------------------------------------------------------------------
 }
 
 /*
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   static String cipherSpecType(SpecType specType){
 //     switch (specType) {
 //       // case SpecType.width         : return 'width'        ; break;
@@ -630,7 +626,7 @@ class SpecModel {
 //         return null;
 //     }
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
 //   static SpecType decipherSpecType(String input) {
 //     switch (input) {
 //       // case 'width':return SpecType.width;break;
@@ -647,7 +643,7 @@ class SpecModel {
 //         return null;
 //     }
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
 //   static String getDataTypeOfSpecType({SpecType specType}){
 //     switch (specType) {
 //       // case SpecType.width         : return 'double'     ; break;
@@ -664,7 +660,7 @@ class SpecModel {
 //         return null;
 //     }
 //   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   static dynamic assignValueDataTypeAccordingToSpecType({@required SpecType specType, @required String specValueString}){
 //     final String _dataType = getDataTypeOfSpecType(specType: specType);
 //     dynamic _output;
@@ -692,7 +688,6 @@ class SpecModel {
 //
 //     return _output;
 //   }
-// -----------------------------------------------------------------------------
   // -----------------------------------------------------------------------------
 //   static String cipherSpecValue(Spec spec){
 //     final String _dataType = getDataTypeOfSpecType(specType: spec.specType);
@@ -718,7 +713,7 @@ class SpecModel {
 //     return _output;
 //
 //   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 
  */

@@ -10,7 +10,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
+
 @immutable
 class CountryModel {
   /// --------------------------------------------------------------------------
@@ -57,11 +57,11 @@ class CountryModel {
   final int areaSqKm;
   final int internetUsers;
   final double gdp;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   CountryModel copyWith({
     String id,
     String region,
@@ -99,11 +99,11 @@ class CountryModel {
       gdp: gdp ?? this.gdp,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> toMap({
     @required bool includePhrasesTrigrams,
   }) {
@@ -129,7 +129,7 @@ class CountryModel {
       'gdp' : gdp,
     };
   }
-// -------------------------------------
+  // --------------------
   static CountryModel decipherCountryMap({
     @required Map<String, dynamic> map,
   }) {
@@ -163,7 +163,7 @@ class CountryModel {
 
     return _countryModel;
   }
-// -------------------------------------
+  // --------------------
   static List<CountryModel> decipherCountriesMaps({
     @required List<Map<String, dynamic>> maps,
   }) {
@@ -181,11 +181,11 @@ class CountryModel {
 
     return _countries;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COUNTRY PHRASES CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// phrases contain mixed languages phrases in one list
   static Map<String, dynamic> cipherZonePhrases({
     @required List<Phrase> phrases,
@@ -198,13 +198,13 @@ class CountryModel {
       for (final Phrase phrase in phrases){
 
         _output = Mapper.insertPairInMap(
-            map: _output,
-            key: phrase.langCode,
-            value: phrase.toMap(
-              includeID: false,
-              includeTrigram: includeTrigram,
-              // includeLangCode: false,
-            ),
+          map: _output,
+          key: phrase.langCode,
+          value: phrase.toMap(
+            includeID: false,
+            includeTrigram: includeTrigram,
+            // includeLangCode: false,
+          ),
         );
 
       }
@@ -213,7 +213,7 @@ class CountryModel {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static List<Phrase> decipherZonePhrases({
     @required Map<String, dynamic> phrasesMap,
     @required String zoneID,
@@ -234,7 +234,7 @@ class CountryModel {
             langCode: key,
             value: phrasesMap[key]['value'],
             trigram: Stringer.createTrigram(
-                input: TextMod.fixCountryName(phrasesMap[key]['value']),
+              input: TextMod.fixCountryName(phrasesMap[key]['value']),
             ),
           );
 
@@ -249,11 +249,11 @@ class CountryModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   static bool countriesIDsIncludeCountryID({
     @required List<String> countriesIDs,
     @required String countryID,
@@ -269,7 +269,7 @@ class CountryModel {
 
     return _includes;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool countriesIDsAreTheSame(CountryModel country1, CountryModel country2) {
     bool _areTheSame = false;
@@ -282,7 +282,7 @@ class CountryModel {
 
     return _areTheSame;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
     bool _identical = false;
@@ -293,28 +293,28 @@ class CountryModel {
     else if (country1 != null && country2 != null) {
       if (
       country1.id == country2.id
-      &&
-      country1.continent == country2.continent
-      &&
-      country1.region == country2.region
-      &&
-      country1.currency == country2.currency
-      &&
-      country1.language == country2.language
-      &&
-      Phrase.checkPhrasesListsAreIdentical(
-          phrases1: country1.phrases,
-          phrases2: country2.phrases,
-      ) == true
-      &&
-      country1.isActivated == country2.isActivated
-      &&
-      country1.isGlobal == country2.isGlobal
-      &&
-      Mapper.checkListsAreIdentical(
-          list1: country1.citiesIDs,
-          list2: country2.citiesIDs
-      ) == true
+          &&
+          country1.continent == country2.continent
+          &&
+          country1.region == country2.region
+          &&
+          country1.currency == country2.currency
+          &&
+          country1.language == country2.language
+          &&
+          Phrase.checkPhrasesListsAreIdentical(
+            phrases1: country1.phrases,
+            phrases2: country2.phrases,
+          ) == true
+          &&
+          country1.isActivated == country2.isActivated
+          &&
+          country1.isGlobal == country2.isGlobal
+          &&
+          Mapper.checkListsAreIdentical(
+              list1: country1.citiesIDs,
+              list2: country2.citiesIDs
+          ) == true
       ) {
         _identical = true;
       }
@@ -322,11 +322,11 @@ class CountryModel {
 
     return _identical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getTranslatedCountryName({
     @required BuildContext context,
@@ -341,7 +341,7 @@ class CountryModel {
 
     return _countryName;
   }
-// -------------------------------------
+  // --------------------
   static List<String> getCountriesIDsOfContinent(Continent continent) {
     final List<String> _countriesIDs = <String>[];
 
@@ -351,7 +351,7 @@ class CountryModel {
 
     return _countriesIDs;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllCountriesIDs() {
     final List<String> _ids = <String>[];
@@ -362,7 +362,7 @@ class CountryModel {
 
     return _ids;
   }
-// -------------------------------------
+  // --------------------
   static String getCountryPhoneCode(String countryID) {
 
     const Map<String , dynamic> _phoneCodes =  <String, dynamic>{
@@ -622,7 +622,7 @@ class CountryModel {
 
     return _code;
   }
-// -------------------------------------
+  // --------------------
   static List<MapModel> getAllCountriesNamesMapModels(BuildContext context) {
 
     final List<MapModel> _mapModels = <MapModel>[];
@@ -632,8 +632,8 @@ class CountryModel {
     for (final String id in _allCountriesIDs) {
 
       final String _countryName = getTranslatedCountryName(
-          context: context,
-          countryID: id,
+        context: context,
+        countryID: id,
       );
 
       _mapModels.add(
@@ -647,7 +647,7 @@ class CountryModel {
 
     return _mapModels;
   }
-// -------------------------------------
+  // --------------------
   static List<String> getAllCountriesIDsSortedByName(BuildContext context){
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
@@ -657,8 +657,8 @@ class CountryModel {
     for (final String id in _allCountriesIDs){
 
       final String _countryName = getTranslatedCountryName(
-          context: context,
-          countryID: id,
+        context: context,
+        countryID: id,
       );
 
       final Phrase _phrase = Phrase(
@@ -683,11 +683,11 @@ class CountryModel {
 
     return _sortedCountriesIDs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   void blogCountry({String methodName = 'PRINTING COUNTRY'}) {
     blog('$methodName ------------------------------------------- START');
 
@@ -711,7 +711,7 @@ class CountryModel {
 
     blog('$methodName ------------------------------------------- END');
   }
-// -------------------------------------
+  // --------------------
   static void blogCountries(List<CountryModel> countries){
 
     if (Mapper.checkCanLoopList(countries) == true){
@@ -725,16 +725,16 @@ class CountryModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COUNTRY PHRASE CREATION
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> _createCountriesPhrasesByLangCode({
     @required String langCode,
     @required List<String> countriesIDs,
-}) async {
+  }) async {
 
     final List<Phrase> _output = <Phrase>[];
     final Map<String, String> _jsonMap = await Localizer.getJSONLangMap(
@@ -757,7 +757,7 @@ class CountryModel {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> createMixedCountriesPhrases({
     @required List<String> langCodes,
@@ -780,16 +780,16 @@ class CountryModel {
 
     return _countriesPhrases;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -807,28 +807,28 @@ class CountryModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  id.hashCode^
-  region.hashCode^
-  continent.hashCode^
-  isActivated.hashCode^
-  isGlobal.hashCode^
-  citiesIDs.hashCode^
-  language.hashCode^
-  currency.hashCode^
-  phrases.hashCode^
-  iso2.hashCode^
-  phoneCode.hashCode^
-  capital.hashCode^
-  langCodes.hashCode^
-  areaSqKm.hashCode^
-  internetUsers.hashCode^
-  gdp.hashCode;
-// -----------------------------------------------------------------------------
+      id.hashCode^
+      region.hashCode^
+      continent.hashCode^
+      isActivated.hashCode^
+      isGlobal.hashCode^
+      citiesIDs.hashCode^
+      language.hashCode^
+      currency.hashCode^
+      phrases.hashCode^
+      iso2.hashCode^
+      phoneCode.hashCode^
+      capital.hashCode^
+      langCodes.hashCode^
+      areaSqKm.hashCode^
+      internetUsers.hashCode^
+      gdp.hashCode;
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
+
 @immutable
 class AmericanState extends CountryModel {
   /// --------------------------------------------------------------------------
@@ -836,11 +836,8 @@ class AmericanState extends CountryModel {
     @required this.state,
     @required this.cities,
   });
-
   /// --------------------------------------------------------------------------
   final String state;
   final List<CityModel> cities;
-
   /// --------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 
 /// ON FLYER CREATION => CLOUD FUNCTION = > CREATE FLYER COUNTER OBJECT ON DB
 /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
+
 @immutable
 class FlyerCounterModel {
   /// -----------------------------------------------------------------------------
@@ -12,29 +13,29 @@ class FlyerCounterModel {
     @required this.shares,
     @required this.views,
     @required this.reviews,
-});
-/// -----------------------------------------------------------------------------
+  });
+  /// -----------------------------------------------------------------------------
   final String flyerID;
   final int saves;
   final int shares;
   final int views;
   final int reviews;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerCounterModel createInitialModel(String flyerID){
     return FlyerCounterModel(
-        flyerID: flyerID,
-        saves: 0,
-        shares: 0,
-        views: 0,
-        reviews: 0,
+      flyerID: flyerID,
+      saves: 0,
+      shares: 0,
+      views: 0,
+      reviews: 0,
     );
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   FlyerCounterModel copyWith({
     String flyerID,
@@ -45,19 +46,19 @@ class FlyerCounterModel {
   }){
 
     return FlyerCounterModel(
-        flyerID: flyerID ?? this.flyerID,
-        saves: saves ?? this.saves,
-        shares: shares ?? this.shares,
-        views: views ?? this.views,
-        reviews: reviews ?? this.reviews,
+      flyerID: flyerID ?? this.flyerID,
+      saves: saves ?? this.saves,
+      shares: shares ?? this.shares,
+      views: views ?? this.views,
+      reviews: reviews ?? this.reviews,
     );
 
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
@@ -68,7 +69,7 @@ class FlyerCounterModel {
       'reviews' : reviews,
     };
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerCounterModel decipherCounterMap(Map<String, dynamic> map){
 
@@ -76,37 +77,37 @@ class FlyerCounterModel {
 
     if (map != null){
       _model = FlyerCounterModel(
-          flyerID: map['flyerID'],
-          saves: map['saves'],
-          shares: map['shares'],
-          views: map['views'],
-          reviews: map['reviews'],
+        flyerID: map['flyerID'],
+        saves: map['saves'],
+        shares: map['shares'],
+        views: map['views'],
+        reviews: map['reviews'],
       );
     }
 
     return _model;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ----------------------------------
+  // --------------------
   void blogCounter(){
 
     blog(
-    'FlyerCounterModel : flyerID: $flyerID - '
-    'saves: $saves - '
-    'shares: $shares - '
-    'views: $views - '
-    'reviews: $reviews -'
+        'FlyerCounterModel : flyerID: $flyerID - '
+            'saves: $saves - '
+            'shares: $shares - '
+            'views: $views - '
+            'reviews: $reviews -'
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ----------------------------------------
+  // --------------------
   static bool checkFlyerCounterModelsAreIdentical({
     @required FlyerCounterModel counter1,
     @required FlyerCounterModel counter2,
@@ -120,10 +121,10 @@ class FlyerCounterModel {
 
       if (
       counter1.flyerID == counter2.flyerID &&
-      counter1.saves == counter2.saves &&
-      counter1.shares == counter2.shares &&
-      counter1.views == counter2.views &&
-      counter1.reviews == counter2.reviews
+          counter1.saves == counter2.saves &&
+          counter1.shares == counter2.shares &&
+          counter1.views == counter2.views &&
+          counter1.reviews == counter2.reviews
       ){
         _areIdentical = true;
       }
@@ -132,16 +133,16 @@ class FlyerCounterModel {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -159,7 +160,7 @@ class FlyerCounterModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       flyerID.hashCode^

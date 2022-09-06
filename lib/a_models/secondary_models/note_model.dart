@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-// -----------------------------------------------------------------------------
+
 enum NoteType {
   /// WHEN BZ AUTHOR SENDS INVITATION TO A USER TO BECOME AN AUTHOR OF THE BZ
   authorship,
@@ -18,14 +18,14 @@ enum NoteType {
   /// WHEN A MASTER AUTHOR DELETES BZ, A NOTE IS SENT TO ALL AUTHORS
   bzDeletion,
 }
-// ------------------------
+
 enum NoteAttachmentType {
   non,
   flyersIDs,
   bzID,
   imageURL,
 }
-// ------------------------
+
 enum NoteSenderType {
   bldrs,
   user,
@@ -33,19 +33,25 @@ enum NoteSenderType {
   bz,
   country,
 }
-// ------------------------
+
 enum NoteReceiverType {
   user,
   bz,
 }
-// ------------------------
+
 enum NoteResponse{
   accepted, /// when receiver accepted
   declined, /// when receiver declines invitation
   pending, /// when receiver has not yet responded
   cancelled, /// when sender cancels invitation
 }
-// -----------------------------------------------------------------------------
+
+enum DuplicatesAlgorithm {
+  keepSecond,
+  keepBoth,
+  keepFirst,
+}
+
 @immutable
 class NoteModel {
   /// --------------------------------------------------------------------------
@@ -98,7 +104,7 @@ class NoteModel {
 
   /// CONSTANTS
 
-  // -------------------------------------
+  // --------------------
   static const String bldrsLogoURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/usersPics%2FrBjNU5WybKgJXaiBnlcBnfFaQSq1.jpg?alt=media&token=54a23d82-5642-4086-82b3-b4c1cb885b64';
   static const String notiSound = 'default';
   static const String notiStatus = 'done';
@@ -121,7 +127,7 @@ class NoteModel {
 
   /// CLONING
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   NoteModel copyWith({
     String id,
@@ -170,9 +176,9 @@ class NoteModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// MODEL CYPHERS
+  /// CYPHERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
@@ -199,7 +205,7 @@ class NoteModel {
       'token': token,
     };
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> _cipherNotificationField(){
     return <String, dynamic>{
@@ -210,7 +216,7 @@ class NoteModel {
       'data': metaData,
     };
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherNotesModels({
     @required List<NoteModel> notes,
@@ -228,8 +234,8 @@ class NoteModel {
     }
 
     return _maps;
-}
-  // -------------------------------------
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel decipherNote({
     @required dynamic map,
@@ -282,7 +288,7 @@ class NoteModel {
 
     return _noti;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _decipherNotificationField({
     @required dynamic map,
@@ -310,7 +316,7 @@ class NoteModel {
 
     return _field;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _decipherNotificationData(dynamic map){
     Map<String, dynamic> _output;
@@ -325,7 +331,7 @@ class NoteModel {
     }
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> decipherNotes({
     @required List<Map<String, dynamic>> maps,
@@ -347,7 +353,7 @@ class NoteModel {
 
     return _notesModels;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> getNotesModelsFromSnapshot(DocumentSnapshot<Object> doc) {
     final Object _maps = doc.data();
     final List<NoteModel> _notiModels = decipherNotes(
@@ -360,7 +366,7 @@ class NoteModel {
 
   /// NOTE TYPE CYPHERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherNoteType(NoteType noteType){
     switch(noteType){
@@ -371,7 +377,7 @@ class NoteModel {
       default : return null;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteType decipherNoteType(String noteType){
     switch(noteType){
@@ -382,7 +388,7 @@ class NoteModel {
       default: return null;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteType> noteTypesList = <NoteType>[
     NoteType.announcement,
@@ -394,7 +400,7 @@ class NoteModel {
 
   /// ATTACHMENT TYPE CYPHERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static dynamic decipherNoteAttachment({
     @required NoteAttachmentType attachmentType,
@@ -424,7 +430,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteAttachmentType decipherNoteAttachmentType(String attachmentType) {
     switch (attachmentType) {
@@ -435,7 +441,7 @@ class NoteModel {
       default:          return NoteAttachmentType.non;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherNoteAttachmentType(NoteAttachmentType attachmentType) {
     switch (attachmentType) {
@@ -446,7 +452,7 @@ class NoteModel {
       default:return 'non';
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteAttachmentType> noteAttachmentTypesList = <NoteAttachmentType>[
     NoteAttachmentType.non,
@@ -458,7 +464,7 @@ class NoteModel {
 
   /// NOTE SENDER TYPE CYPHERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherNoteSenderType(NoteSenderType type){
     switch (type) {
@@ -470,19 +476,19 @@ class NoteModel {
       default:return 'non';
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteSenderType decipherNoteSenderType(String type){
     switch (type) {
       case 'bldrs':   return NoteSenderType.bldrs;    break;
       case 'user':    return NoteSenderType.user;     break;
-      // case 'author':  return NoteSenderType.author;   break;
+    // case 'author':  return NoteSenderType.author;   break;
       case 'bz':      return NoteSenderType.bz;       break;
       case 'country': return NoteSenderType.country;  break;
       default:        return null;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteSenderType> noteSenderTypesList = <NoteSenderType>[
     NoteSenderType.bz,
@@ -495,7 +501,7 @@ class NoteModel {
 
   /// NOTE SENDER TYPE CYPHERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherNoteReceiverType(NoteReceiverType type){
     switch (type) {
@@ -504,7 +510,7 @@ class NoteModel {
       default: return null;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteReceiverType decipherNoteReceiverType(String type){
     switch (type) {
@@ -513,7 +519,7 @@ class NoteModel {
       default:        return null;
     }
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const List<NoteReceiverType> noteReceiverTypesList = <NoteReceiverType>[
     NoteReceiverType.bz,
@@ -523,7 +529,7 @@ class NoteModel {
 
   /// RESPONSE CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherResponse(NoteResponse response){
     switch (response){
@@ -534,7 +540,7 @@ class NoteModel {
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteResponse decipherResponse(String response){
     switch (response){
@@ -545,7 +551,7 @@ class NoteModel {
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   static NoteResponse getNoteResponseByPhid(String phid){
     switch (phid){
       case 'phid_accept':     return NoteResponse.accepted;   break;
@@ -555,7 +561,7 @@ class NoteModel {
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   static String getPhidByResponse(NoteResponse response){
     switch (response){
       case NoteResponse.accepted:   return 'phid_accept'; break;
@@ -565,7 +571,7 @@ class NoteModel {
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   static List<String> generateAcceptDeclineButtons(){
     final String accept = getPhidByResponse(NoteResponse.accepted);
     final String decline = getPhidByResponse(NoteResponse.declined);
@@ -575,7 +581,7 @@ class NoteModel {
 
   /// BLOGGING
 
-  // -------------------------------------
+  // --------------------
   void blogNoteModel({
     String methodName,
   }) {
@@ -604,7 +610,7 @@ class NoteModel {
 
     blog('BLOGGING NoteModel : $methodName -------------------------------- END -- ');
   }
-  // -------------------------------------
+  // --------------------
   static void blogNotes({
     @required List<NoteModel> notes,
     String methodName,
@@ -631,7 +637,7 @@ class NoteModel {
 
   /// GETTERS
 
-  // -------------------------------------
+  // --------------------
   static List<String> getReceiversIDs({
     @required List<NoteModel> notes,
   }){
@@ -648,7 +654,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   static NoteModel getFirstNoteByRecieverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -667,7 +673,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   static int getNumberOfUnseenNotes(List<NoteModel> notes){
     int _count;
     if (Mapper.checkCanLoopList(notes) == true){
@@ -676,7 +682,7 @@ class NoteModel {
     }
     return _count;
   }
-  // -------------------------------------
+  // --------------------
   static List<String> getMissingNoteFields({
     @required NoteModel note,
     /// if consider all fields is false, this will get only fields required to send a note
@@ -769,7 +775,7 @@ class NoteModel {
 
     return _missingFields;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> getUnseenNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -791,7 +797,7 @@ class NoteModel {
 
     return _notes;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> getNotesByReceiverID({
     @required List<NoteModel> notes,
     @required String receiverID,
@@ -813,7 +819,7 @@ class NoteModel {
 
     return _notes;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> getOnlyUnseenNotes({
     @required List<NoteModel> notes,
   }){
@@ -833,7 +839,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesFromNotesByNoteType({
     @required List<NoteModel> notes,
@@ -859,7 +865,7 @@ class NoteModel {
 
   /// CHECKERS
 
-  // -------------------------------------
+  // --------------------
   static bool checkThereAreUnSeenNotes(List<NoteModel> notes){
     bool _thereAreUnseenNotes = false;
 
@@ -878,11 +884,11 @@ class NoteModel {
 
     return _thereAreUnseenNotes;
   }
-  // -------------------------------------
+  // --------------------
   static bool checkIsUnSeen(NoteModel note){
     return note?.seen == false;
   }
-  // -------------------------------------
+  // --------------------
   static bool checkCanSendNote(NoteModel noteModel){
     bool _canSend = false;
 
@@ -915,7 +921,7 @@ class NoteModel {
 
     return _canSend;
   }
-  // -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesAreIdentical({
     @required NoteModel note1,
@@ -952,7 +958,7 @@ class NoteModel {
 
     return _areIdentical;
   }
-  // -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesListsAreIdentical({
     @required List<NoteModel> notes1,
@@ -989,7 +995,7 @@ class NoteModel {
 
     return _areIdentical;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesContainNote({
     @required List<NoteModel> notes,
@@ -1015,7 +1021,7 @@ class NoteModel {
 
   /// MODIFIERS
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNoteFromNotes({
     @required List<NoteModel> notes,
@@ -1044,7 +1050,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({
     @required List<NoteModel> notesToRemove,
@@ -1068,7 +1074,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNoteIntoNotes({
     @required List<NoteModel> notesToGet,
@@ -1114,7 +1120,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
     @required List<NoteModel> notesToGet,
@@ -1139,14 +1145,14 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> orderNotesBySentTime(List<NoteModel> notes){
     if (Mapper.checkCanLoopList(notes) == true){
       notes.sort((NoteModel a, NoteModel b) => b.sentTime.compareTo(a.sentTime));
     }
     return notes;
   }
-  // -------------------------------------
+  // --------------------
   static Map<String, List<NoteModel>> updateNoteInBzzNotesMap({
     @required NoteModel note,
     @required Map<String, List<NoteModel>> bzzNotesMap,
@@ -1163,8 +1169,8 @@ class NoteModel {
         final List<NoteModel> _bzNotes = bzzNotesMap[bzID];
 
         final bool _noteFound = checkNotesContainNote(
-            notes: _bzNotes,
-            noteID: note.id,
+          notes: _bzNotes,
+          noteID: note.id,
         );
 
         if (_noteFound == true){
@@ -1186,7 +1192,7 @@ class NoteModel {
 
     return _output ?? bzzNotesMap;
   }
-  // -------------------------------------
+  // --------------------
   static List<NoteModel> replaceNoteInNotes({
     @required List<NoteModel> notes,
     @required NoteModel noteToReplace,
@@ -1208,7 +1214,7 @@ class NoteModel {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   static Map<String, List<NoteModel>> removeNoteFromBzzNotesMap({
     @required String noteID,
     @required Map<String, List<NoteModel>> bzzNotesMap
@@ -1224,15 +1230,15 @@ class NoteModel {
         final List<NoteModel> _bzNotes = bzzNotesMap[bzID];
 
         final bool _noteFound = checkNotesContainNote(
-            notes: _bzNotes,
-            noteID: noteID,
+          notes: _bzNotes,
+          noteID: noteID,
         );
 
         if (_noteFound == true){
 
           final List<NoteModel> _updatedList = removeNoteFromNotes(
-              notes: _bzNotes,
-              noteID: noteID,
+            notes: _bzNotes,
+            noteID: noteID,
           );
 
           _output = bzzNotesMap;
@@ -1251,7 +1257,7 @@ class NoteModel {
 
   /// DUMMIES
 
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel dummyNote(){
     return NoteModel(
@@ -1277,7 +1283,7 @@ class NoteModel {
       token: null,
     );
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> dummyNotes(){
 
@@ -1292,12 +1298,12 @@ class NoteModel {
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -1315,36 +1321,29 @@ class NoteModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  id.hashCode^
-  senderID.hashCode^
-  senderImageURL.hashCode^
-  noteSenderType.hashCode^
-  receiverID.hashCode^
-  receiverType.hashCode^
-  title.hashCode^
-  body.hashCode^
-  metaData.hashCode^
-  sentTime.hashCode^
-  attachment.hashCode^
-  attachmentType.hashCode^
-  seen.hashCode^
-  seenTime.hashCode^
-  sendFCM.hashCode^
-  noteType.hashCode^
-  response.hashCode^
-  responseTime.hashCode^
-  buttons.hashCode^
-  token.hashCode^
-  docSnapshot.hashCode;
-// -----------------------------------------------------------------------------
-}
-// -----------------------------------------------------------------------------
-
-enum DuplicatesAlgorithm {
-  keepSecond,
-  keepBoth,
-  keepFirst,
+      id.hashCode^
+      senderID.hashCode^
+      senderImageURL.hashCode^
+      noteSenderType.hashCode^
+      receiverID.hashCode^
+      receiverType.hashCode^
+      title.hashCode^
+      body.hashCode^
+      metaData.hashCode^
+      sentTime.hashCode^
+      attachment.hashCode^
+      attachmentType.hashCode^
+      seen.hashCode^
+      seenTime.hashCode^
+      sendFCM.hashCode^
+      noteType.hashCode^
+      response.hashCode^
+      responseTime.hashCode^
+      buttons.hashCode^
+      token.hashCode^
+      docSnapshot.hashCode;
+  // -----------------------------------------------------------------------------
 }

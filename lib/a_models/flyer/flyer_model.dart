@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-/// ---------------------
+
 enum PublishState{
   draft,
   published,
@@ -28,7 +28,7 @@ enum AuditState{
   verified,
   suspended,
 }
-/// ---------------------
+
 @immutable
 class FlyerModel {
   /// --------------------------------------------------------------------------
@@ -37,24 +37,18 @@ class FlyerModel {
     @required this.headline,
     @required this.trigram,
     @required this.description,
-    // -------------------------
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
     @required this.keywordsIDs,
     @required this.zone,
-    // -------------------------
     @required this.authorID,
     @required this.bzID,
-    // -------------------------
     @required this.position,
-    // -------------------------
     @required this.slides,
-    // -------------------------
     @required this.specs,
     @required this.times,
     @required this.priceTagIsOn,
-    // -------------------------
     @required this.showsAuthor,
     @required this.score,
     @required this.pdf,
@@ -65,32 +59,27 @@ class FlyerModel {
   final String headline;
   final List<String> trigram;
   final String description;
-  // -------------------------
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
   final List<String> keywordsIDs;
   final bool showsAuthor;
   final ZoneModel zone;
-  // -------------------------
   final String authorID;
   final String bzID;
-  // -------------------------
   final GeoPoint position;
-  // -------------------------
   final List<SlideModel> slides; // TASK : only 10 max slides per flyer
-  // -------------------------
   final List<SpecModel> specs;
   final List<PublishTime> times;
   final bool priceTagIsOn;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final FileModel pdf;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// --------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   FlyerModel copyWith({
     String id,
@@ -140,11 +129,11 @@ class FlyerModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER CYPHERS
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
@@ -176,7 +165,7 @@ class FlyerModel {
       'pdf' : pdf?.toMap(),
     };
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, Object>> cipherFlyers({
     @required List<FlyerModel> flyers,
@@ -198,7 +187,7 @@ class FlyerModel {
 
     return _maps;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel decipherFlyer({
     @required dynamic map,
@@ -237,7 +226,7 @@ class FlyerModel {
     }
     return _flyerModel;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> decipherFlyers({
     @required List<Map<String, dynamic>> maps,
@@ -258,11 +247,11 @@ class FlyerModel {
 
     return _flyersList;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER INITIALIZERS
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot<Object> doc){
     final Object _map = doc.data();
@@ -272,7 +261,7 @@ class FlyerModel {
     );
     return _flyerModel;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
@@ -288,7 +277,7 @@ class FlyerModel {
 
     return _controllers;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
@@ -304,11 +293,11 @@ class FlyerModel {
 
     return _controllers;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PUBLISH STATE CYPHERS
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherPublishState (PublishState x){
     switch (x){
@@ -319,7 +308,7 @@ class FlyerModel {
       default : return null;
     }
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static PublishState decipherFlyerState (String x){
     switch (x){
@@ -330,7 +319,7 @@ class FlyerModel {
       default : return   null;
     }
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const List<PublishState> publishStates = <PublishState>[
     PublishState.draft,
@@ -338,7 +327,7 @@ class FlyerModel {
     PublishState.unpublished,
     PublishState.deleted,
   ];
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translatePublishState({
     @required BuildContext context,
@@ -352,11 +341,11 @@ class FlyerModel {
       default : return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// AUDIT STATE CYPHERS
 
-// ------------------------------------------
+  // --------------------
   static String cipherAuditState(AuditState auditState){
     switch(auditState){
       case AuditState.verified:     return 'verified';    break;
@@ -364,7 +353,7 @@ class FlyerModel {
       default: return null;
     }
   }
-// ------------------------------------------
+  // --------------------
   static AuditState decipherAuditState(String state){
     switch(state){
       case 'verified':  return AuditState.verified;   break;
@@ -372,12 +361,12 @@ class FlyerModel {
       default: return null;
     }
   }
-// ------------------------------------------
+  // --------------------
   static const List<AuditState> auditStates = <AuditState>[
     AuditState.verified,
     AuditState.suspended,
   ];
-// ------------------------------------------
+  // --------------------
   static String translateAuditState({
     @required BuildContext context,
     @required AuditState state,
@@ -388,11 +377,11 @@ class FlyerModel {
       default : return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER BLOGGING
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlyer({
     @required String methodName,
@@ -426,7 +415,7 @@ class FlyerModel {
 
     blog('FLYER-PRINT in ( $methodName ) --------------------------------------------------END');
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyers({
     @required List<FlyerModel> flyers,
@@ -444,7 +433,7 @@ class FlyerModel {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   static void blogFlyersDifferences({
     @required FlyerModel flyer1,
     @required FlyerModel flyer2,
@@ -519,11 +508,11 @@ class FlyerModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER DUMMIES
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel dummyFlyer(){
     return FlyerModel(
@@ -552,7 +541,7 @@ class FlyerModel {
       pdf: null,
     );
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> dummyFlyers(){
     return <FlyerModel>[
@@ -562,11 +551,11 @@ class FlyerModel {
       dummyFlyer(),
     ];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER COUNTERS
 
-// ------------------------------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static int getTotalSaves(FlyerModel flyer){
@@ -582,7 +571,7 @@ class FlyerModel {
     return _totalSaves;
   }
    */
-// ------------------------------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static int getTotalShares(FlyerModel flyer){
@@ -598,7 +587,7 @@ class FlyerModel {
     return _totalShares;
   }
    */
-// ------------------------------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static int getTotalViews(FlyerModel flyer){
@@ -614,7 +603,7 @@ class FlyerModel {
     return _totalViews;
   }
    */
-// ------------------------------------------
+  // --------------------
   /// TASK : why ?
   static int getNumberOfFlyersFromBzzModels(List<BzModel> bzzModels){
     int _totalFlyers = 0;
@@ -625,7 +614,7 @@ class FlyerModel {
 
     return _totalFlyers;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : ...
   static int getNumberOfFlyersSlides(List<FlyerModel> flyers){
     int _count = 0;
@@ -642,11 +631,11 @@ class FlyerModel {
 
     return _count;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER SEARCHES
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel getFlyerFromFlyersByID({
     @required List<FlyerModel> flyers,
@@ -660,7 +649,7 @@ class FlyerModel {
 
     return _flyer;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
     final List<String> _flyerIDs = <String>[];
@@ -675,7 +664,7 @@ class FlyerModel {
 
     return _flyerIDs;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
     @required List<FlyerModel> flyers,
@@ -701,7 +690,7 @@ class FlyerModel {
 
     return _filteredFlyers;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> getFlyersFromFlyersByAuthorID({
     @required List<FlyerModel> flyers,
@@ -724,7 +713,7 @@ class FlyerModel {
 
     return _authorFlyers;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool flyersContainThisID({
     @required String flyerID,
@@ -747,7 +736,7 @@ class FlyerModel {
 
     return _hasTheID;
   }
-// ------------------------------------------
+  // --------------------
   static List<FlyerModel> replaceFlyerInFlyers({
     @required List<FlyerModel> flyers,
     @required FlyerModel flyerToReplace,
@@ -784,16 +773,16 @@ class FlyerModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER EDITORS
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> removeFlyerFromFlyersByID({
     @required List<FlyerModel> flyers,
     @required String flyerIDToRemove,
-}){
+  }){
     final List<FlyerModel> _output = <FlyerModel>[...flyers];
 
     if (Mapper.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
@@ -802,7 +791,7 @@ class FlyerModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
 //   static FlyerModel replaceSlides({
 //     @required FlyerModel flyer,
@@ -830,11 +819,11 @@ class FlyerModel {
 //       );
 //   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER CHECKERS
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool canShowFlyerAuthor({
     @required BzModel bzModel,
@@ -850,7 +839,7 @@ class FlyerModel {
     }
     return _canShow;
   }
-// ------------------------------------------
+  // --------------------
   static bool checkFlyersAreIdentical({
     @required FlyerModel flyer1,
     @required FlyerModel flyer2,
@@ -864,7 +853,7 @@ class FlyerModel {
     else if (flyer1 != null && flyer2 != null){
 
       if (
-          flyer1.id == flyer2.id &&
+      flyer1.id == flyer2.id &&
           flyer1.headline == flyer2.headline &&
           Mapper.checkListsAreIdentical(list1: flyer1.trigram, list2: flyer2.trigram) == true &&
           flyer1.description == flyer2.description &&
@@ -882,7 +871,7 @@ class FlyerModel {
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
           flyer1.pdf == flyer2.pdf
-          // && flyer1.score == flyer2.score
+      // && flyer1.score == flyer2.score
       ){
         _areIdentical = true;
       }
@@ -902,11 +891,11 @@ class FlyerModel {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ------------------------------------------
+  // --------------------
   String getShortHeadline({int numberOfCharacters = 10}){
     final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: headline,
@@ -914,7 +903,7 @@ class FlyerModel {
     );
     return _shortHeadline;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
     @required BuildContext context,
@@ -925,8 +914,8 @@ class FlyerModel {
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-          context: context,
-          bzID: bzID,
+        context: context,
+        bzID: bzID,
       );
 
       if (_bzModel != null){
@@ -936,8 +925,8 @@ class FlyerModel {
         _owners.add(_creator.userID);
 
         _owners = Stringer.addStringToListIfDoesNotContainIt(
-            strings: _owners,
-            stringToAdd: AuthFireOps.superUserID(),
+          strings: _owners,
+          stringToAdd: AuthFireOps.superUserID(),
         );
 
       }
@@ -946,16 +935,16 @@ class FlyerModel {
 
     return _owners;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -973,32 +962,31 @@ class FlyerModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  id.hashCode^
-  headline.hashCode^
-  trigram.hashCode^
-  description.hashCode^
-  flyerType.hashCode^
-  publishState.hashCode^
-  auditState.hashCode^
-  keywordsIDs.hashCode^
-  zone.hashCode^
-  authorID.hashCode^
-  bzID.hashCode^
-  position.hashCode^
-  slides.hashCode^
-  specs.hashCode^
-  times.hashCode^
-  priceTagIsOn.hashCode^
-  showsAuthor.hashCode^
-  score.hashCode^
-  pdf.hashCode^
-  docSnapshot.hashCode;
+      id.hashCode^
+      headline.hashCode^
+      trigram.hashCode^
+      description.hashCode^
+      flyerType.hashCode^
+      publishState.hashCode^
+      auditState.hashCode^
+      keywordsIDs.hashCode^
+      zone.hashCode^
+      authorID.hashCode^
+      bzID.hashCode^
+      position.hashCode^
+      slides.hashCode^
+      specs.hashCode^
+      times.hashCode^
+      priceTagIsOn.hashCode^
+      showsAuthor.hashCode^
+      score.hashCode^
+      pdf.hashCode^
+      docSnapshot.hashCode;
 // -----------------------------------------------------------------------------
 }
-/// ---------------------
 
 /*
 

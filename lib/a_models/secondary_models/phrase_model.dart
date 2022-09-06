@@ -21,11 +21,11 @@ class Phrase {
   final String langCode; /// language code
   final String value; /// name in this language
   final List<String> trigram;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Phrase copyWith({
     String id,
@@ -40,11 +40,11 @@ class Phrase {
       trigram: trigram ?? this.trigram,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPhrasesToReal(List<Phrase> phrases){
 
@@ -56,9 +56,9 @@ class Phrase {
       for (final Phrase phrase in phrases){
 
         _map = Mapper.insertPairInMap(
-            map: _map,
-            key: phrase.id,
-            value: phrase.value,
+          map: _map,
+          key: phrase.id,
+          value: phrase.value,
         );
 
       }
@@ -67,7 +67,7 @@ class Phrase {
 
     return _map;
   }
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesFromReal({
     @required String langCode,
@@ -89,7 +89,7 @@ class Phrase {
           Stringer.createTrigram(
             input: map[key],
             // removeSpaces: false,
-            )
+          )
               :
           null;
 
@@ -110,7 +110,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool includeID,
@@ -166,7 +166,7 @@ class Phrase {
 
     return _map;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : used to upload to firebase
   static Map<String, dynamic> cipherOneLangPhrasesToMap({
     @required List<Phrase> phrases,
@@ -197,7 +197,7 @@ class Phrase {
 
     return _phrasesMap;
   }
-// -------------------------------------
+  // --------------------
   /// used to store in LDB
   static List<Map<String, dynamic>> cipherOneLangPhrasesToMaps({
     @required List<Phrase> phrases,
@@ -227,7 +227,7 @@ class Phrase {
 
     return _maps;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase decipherPhrase({
     @required String id,
@@ -250,7 +250,7 @@ class Phrase {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherOneLangPhrasesMap({
     @required Map<String, dynamic> map,
@@ -280,7 +280,7 @@ class Phrase {
 
     return _phrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherOneLangPhrasesMaps({
     @required List<Map<String, dynamic>> maps,
@@ -310,7 +310,7 @@ class Phrase {
 
     return _phrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrases({
     @required List<Map<String, dynamic>> maps,
@@ -336,7 +336,7 @@ class Phrase {
 
     return _phrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMixedLangPhrases({
     @required List<Phrase> phrases,
@@ -370,11 +370,11 @@ class Phrase {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STREAMING
 
-// -------------------------------------
+  // --------------------
   static List<Phrase> getPhrasesFromStream({
     @required DocumentSnapshot<Object> doc,
     @required String langCode,
@@ -393,16 +393,16 @@ class Phrase {
 
     return _models;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogPhrase(){
     blog('PHRASE : langCode : $langCode : id : $id : $value : trigram(${trigram.length})');
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPhrases(List<Phrase> phrases){
 
@@ -427,11 +427,11 @@ class Phrase {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _getLingCodesFromPhrases(List<Phrase> phrases){
 
@@ -447,7 +447,7 @@ class Phrase {
 
     return _langCodes;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getPhrasesIDs(List<Phrase> phrases){
 
@@ -468,13 +468,13 @@ class Phrase {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCHERS
 
-// -------------------------------------
+  // --------------------
   /// BY ID
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByID({
     @required List<Phrase> phrases,
@@ -494,7 +494,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByIDs({
     @required List<Phrase> phrases,
@@ -521,9 +521,9 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// BY ID + LANG
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase searchPhraseByIDAndLangCode({
     @required List<Phrase> phrases,
@@ -543,14 +543,14 @@ class Phrase {
 
       if (langCode == null){
         _phrase = searchFirstPhraseByLang(
-            phrases: _phrasesByID,
-            langCode: 'en',
+          phrases: _phrasesByID,
+          langCode: 'en',
         );
       }
       else {
         _phrase = searchFirstPhraseByLang(
-            phrases: _phrasesByID,
-            langCode: langCode,
+          phrases: _phrasesByID,
+          langCode: langCode,
         );
       }
 
@@ -585,9 +585,9 @@ class Phrase {
 
     return _phrase;
   }
-// -------------------------------------
+  // --------------------
   /// BY LANG
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByLang({
     @required List<Phrase> phrases,
@@ -601,7 +601,7 @@ class Phrase {
 
     return _output;
   }
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase searchFirstPhraseByCurrentLang({
     @required BuildContext context,
@@ -627,7 +627,7 @@ class Phrase {
 
     return _phrase;
   }
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase searchFirstPhraseByLang({
     @required List<Phrase> phrases,
@@ -648,9 +648,9 @@ class Phrase {
 
     return _phrase;
   }
-// -------------------------------------
+  // --------------------
   /// BY VALUE / TRIGRAM ( SEARCH )
-// -----------------
+  // --------------------
   static Phrase searchPhraseByIdenticalValue({
     @required List<Phrase> phrases,
     @required String value,
@@ -672,7 +672,7 @@ class Phrase {
 
     return _phrase;
   }
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesRegExp({
     @required List<Phrase> phrases,
@@ -721,7 +721,7 @@ class Phrase {
 
     return cleanIdenticalPhrases(_result);
   }
-// -----------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesTrigrams({
     @required List<Phrase> sourcePhrases,
@@ -747,11 +747,11 @@ class Phrase {
 
     return _foundPhrases;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SYMMETRY
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrase({
     @required Phrase phrase,
@@ -782,7 +782,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrases({
     @required List<Phrase> phrasesToSymmetrize,
@@ -809,11 +809,11 @@ class Phrase {
 
     return cleanIdenticalPhrases(_output);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeIdenticalPhrase({
     @required List<Phrase> phrases,
@@ -843,7 +843,7 @@ class Phrase {
 
     return _include;
   }
-// -------------------------------------
+  // --------------------
   /// loops phrases for any phrase of this lang code
   static bool checkPhrasesIncludeValueForThisLanguage({
     @required List<Phrase> phrases,
@@ -872,7 +872,7 @@ class Phrase {
 
     return _phraseInclude;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeThisID({
     @required List<Phrase> phrases,
@@ -895,7 +895,7 @@ class Phrase {
 
     return _include;
   }
-// -------------------------------------
+  // --------------------
   static bool checkPhrasesIncludeThisValue({
     @required List<Phrase> phrases,
     @required String value,
@@ -917,7 +917,7 @@ class Phrase {
 
     return _include;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesAreIdentical({
     @required Phrase phrase1,
@@ -946,7 +946,7 @@ class Phrase {
 
     return _areIdentical;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesListsAreIdentical({
     @required List<Phrase> phrases1,
@@ -1005,7 +1005,7 @@ class Phrase {
 
     return _listsAreIdentical;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool isKeywordPhid(String phid){
     final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -1014,7 +1014,7 @@ class Phrase {
     );
     return _phidK == 'phid_k_';
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool isSpecPhid(String phid){
     final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -1023,11 +1023,11 @@ class Phrase {
     );
     return _phids == 'phid_s_';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortNamesAlphabetically(List<Phrase> phrases){
 
@@ -1037,7 +1037,7 @@ class Phrase {
 
     return phrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByID({
     @required List<Phrase> phrases,
@@ -1049,11 +1049,11 @@ class Phrase {
 
     return phrases;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INSERT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrase({
     @required List<Phrase> phrases,
@@ -1120,7 +1120,7 @@ class Phrase {
     /// }
 
   }
-// -------------------------------------
+  // --------------------
   /// TASK :DOES NOT WORK GOOD THIS BITCH
   static List<Phrase> insertPhrases({
     @required List<Phrase> insertIn,
@@ -1151,7 +1151,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TASK :DOES NOT WORK GOOD THIS BITCH
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
     @required List<Phrase> insertIn,
@@ -1184,7 +1184,7 @@ class Phrase {
 
     return cleanIdenticalPhrases(_output);
   }
-// -------------------------------------
+  // --------------------
   /// TASK :DOES NOT WORK GOOD THIS BITCH
   static List<Phrase> _addLangCodeToPhrases({
     @required String langCode,
@@ -1211,7 +1211,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TASK :DOES NOT WORK GOOD THIS BITCH
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
     @required List<Phrase> insertIn,
@@ -1248,11 +1248,11 @@ class Phrase {
     return _output;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLEANING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> cleanIdenticalPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
@@ -1279,7 +1279,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> cleanDuplicateIDs({
     @required List<Phrase> phrases,
@@ -1305,7 +1305,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> removeTrigramsFromPhrases(List<Phrase> phrases){
     final List<Phrase> _output = <Phrase>[];
@@ -1328,11 +1328,11 @@ class Phrase {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> deletePhidFromPhrases({
     @required List<Phrase> phrases,
@@ -1365,7 +1365,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> onlyIncludeIDAndValue({
     @required List<Phrase> phrases,
@@ -1389,7 +1389,7 @@ class Phrase {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _getTrigramIfIncluded({
     @required bool includeTrigram,
@@ -1413,11 +1413,11 @@ class Phrase {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// KEYWORDS AND SPECS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromPhrases({
     @required List<Phrase> allPhrases,
@@ -1440,7 +1440,7 @@ class Phrase {
 
     return _keywordsPhrasesIDs;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDsFromPhrases({
     @required List<Phrase> allPhrases,
@@ -1462,16 +1462,16 @@ class Phrase {
 
     return _specsPhraseIDs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -1489,12 +1489,12 @@ class Phrase {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  value.hashCode^
-  id.hashCode^
-  langCode.hashCode^
-  trigram.hashCode;
-// -----------------------------------------------------------------------------
+      value.hashCode^
+      id.hashCode^
+      langCode.hashCode^
+      trigram.hashCode;
+  // -----------------------------------------------------------------------------
 }

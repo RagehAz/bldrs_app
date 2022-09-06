@@ -14,6 +14,7 @@ class HttpException implements Exception {
     return message;
     // return super.toString(); // instance of HttpException
   }
+  /// --------------------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT

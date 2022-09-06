@@ -33,11 +33,11 @@ class ZoneModel {
   final CountryModel countryModel;
   final CityModel cityModel;
   final String flag;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> initializeZoneForEditing({
     @required BuildContext context,
@@ -55,11 +55,11 @@ class ZoneModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   ZoneModel copyWith({
     String countryID,
@@ -84,7 +84,7 @@ class ZoneModel {
       flag: flag ?? this.flag,
     );
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   ZoneModel nullifyField({
     bool countryID = false,
@@ -109,11 +109,11 @@ class ZoneModel {
       flag: flag == true ? null : this.flag,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -122,7 +122,7 @@ class ZoneModel {
       'districtID': districtID,
     };
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
     final ZoneModel _zone = map == null ? null :
@@ -134,12 +134,12 @@ class ZoneModel {
 
     return _zone;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   String cipherToString() {
     return '$countryID/$cityID/$districtID';
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneString(String zoneString) {
     final String _countryID = decipherZoneStringToCountryID(zoneString);
@@ -152,31 +152,31 @@ class ZoneModel {
       districtID: _districtID,
     );
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCountryID(String zoneString) {
     final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
     return _countryID;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToCityID(String zoneString) {
     final String _cityAndDistrict = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
     final String _cityID = TextMod.removeTextAfterLastSpecialCharacter(_cityAndDistrict, '/');
     return _cityID;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String decipherZoneStringToDistrictID(String zoneString) {
     final String _districtID =
     TextMod.removeTextBeforeLastSpecialCharacter(zoneString, '/');
     return _districtID;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesAreIdentical({
     @required ZoneModel zone1,
@@ -192,14 +192,14 @@ class ZoneModel {
 
       if (
       zone1.countryID == zone2.countryID &&
-      zone1.cityID == zone2.cityID &&
-      zone1.districtID == zone2.districtID &&
-      zone1.countryName == zone2.countryName &&
-      zone1.cityName == zone2.cityName &&
-      zone1.districtName == zone2.districtName &&
-      CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
-      CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
-      zone1.flag == zone2.flag
+          zone1.cityID == zone2.cityID &&
+          zone1.districtID == zone2.districtID &&
+          zone1.countryName == zone2.countryName &&
+          zone1.cityName == zone2.cityName &&
+          zone1.districtName == zone2.districtName &&
+          CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
+          CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
+          zone1.flag == zone2.flag
       ){
         _identical = true;
       }
@@ -208,14 +208,14 @@ class ZoneModel {
 
     if (_identical == false){
       blogZonesDifferences(
-          zone1: zone1,
-          zone2: zone2,
+        zone1: zone1,
+        zone2: zone2,
       );
     }
 
     return _identical;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesIDsAreIdentical({
     @required ZoneModel zone1,
@@ -257,13 +257,13 @@ class ZoneModel {
 
     return _zonesAreIdentical;
   }
-// -------------------------------------
+  // --------------------
   bool isNotEmpty() {
     final bool _isEmpty = TextCheck.isEmpty(countryID) == false;
     final bool _isNotEmpty = !_isEmpty;
     return _isNotEmpty;
   }
-// -------------------------------------
+  // --------------------
   static bool zoneHasAllIDs(ZoneModel zone) {
     final bool _hasAllIDs = zone != null &&
         zone.countryID != null &&
@@ -271,18 +271,18 @@ class ZoneModel {
         zone.districtID != null;
     return _hasAllIDs;
   }
-// -------------------------------------
+  // --------------------
   static bool checkZoneHasCountryAndCityIDs(ZoneModel zone){
     final bool _has = zone != null &&
         zone.countryID != null &&
         zone.cityID != null;
     return _has;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogZone({String methodName = 'ZONE - PRINT'}) {
     blog('$methodName ------------------------------- START');
@@ -293,19 +293,19 @@ class ZoneModel {
 
     blog('$methodName ------------------------------- END');
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogZoneIDs({String methodName = 'ZONE-IDs BLOG : '}){
 
     blog('$methodName [ $districtID - $cityID - $countryID ]');
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogZonesDifferences({
-  @required ZoneModel zone1,
+    @required ZoneModel zone1,
     @required ZoneModel zone2,
-}){
+  }){
 
     blog('blogZonesDifferences ---------- START');
 
@@ -349,11 +349,11 @@ class ZoneModel {
 
     blog('blogZonesDifferences ---------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel dummyZone() {
     return const ZoneModel(
@@ -362,11 +362,11 @@ class ZoneModel {
       districtID: 'el_rehab',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STRING GENERATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateZoneString ({
     @required BuildContext context,
@@ -414,7 +414,7 @@ class ZoneModel {
 
     return _verse;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateObeliskString({
     @required BuildContext context,
@@ -447,16 +447,16 @@ class ZoneModel {
 
     return _line;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   @override
   bool operator == (Object other){
@@ -475,7 +475,7 @@ class ZoneModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       countryID.hashCode ^
@@ -487,5 +487,5 @@ class ZoneModel {
       countryModel.hashCode ^
       cityModel.hashCode ^
       flag.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

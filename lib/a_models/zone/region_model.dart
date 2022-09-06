@@ -14,7 +14,11 @@ class Region {
   final String continent;
   final String name;
   final List<String> countriesIDs;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CYPHERS
+
+  // --------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'continent': continent,
@@ -22,7 +26,7 @@ class Region {
       'countriesIDs': countriesIDs,
     };
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Region decipherRegion(Map<String, dynamic> map) {
     return Region(
       name: map['name'],
@@ -30,8 +34,7 @@ class Region {
       countriesIDs: Stringer.getStringsFromDynamics(dynamics: map['countriesIDs']),
     );
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static Map<String, dynamic> cipherRegions(List<Region> regions) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
@@ -47,8 +50,7 @@ class Region {
 
     return _map;
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static List<Region> decipherRegions(Map<String, dynamic> map) {
     final List<Region> _regions = <Region>[];
 
@@ -62,10 +64,15 @@ class Region {
 
     return _regions;
   }
+  // -----------------------------------------------------------------------------
 
-// -----------------------------------------------------------------------------
-  static bool regionsIncludeRegion(
-      {@required List<Region> regions, @required String name}) {
+  /// CHECKERS
+
+  // --------------------
+  static bool regionsIncludeRegion({
+    @required List<Region> regions,
+    @required String name,
+  }) {
     bool _includes = false;
 
     for (final Region region in regions) {
@@ -77,4 +84,5 @@ class Region {
 
     return _includes;
   }
+  // -----------------------------------------------------------------------------
 }
