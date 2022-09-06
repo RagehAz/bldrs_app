@@ -60,11 +60,11 @@ class BzAboutPage extends StatelessWidget {
 
         /// BZ CONTACT
         if (showContacts == true && Mapper.checkCanLoopList(_bzModel?.contacts) == true)
-        ContactsBubble(
-          contacts: _bzModel?.contacts,
-          location: _bzModel?.position,
-          canLaunchOnTap: true,
-        ),
+          ContactsBubble(
+            contacts: _bzModel?.contacts,
+            location: _bzModel?.position,
+            canLaunchOnTap: true,
+          ),
 
 
         /// SCOPE
@@ -88,9 +88,9 @@ class BzAboutPage extends StatelessWidget {
           const DotSeparator(),
 
         /// STATS
-          BzStatsBubble(
-            bzModel: _bzModel,
-          ),
+        BzStatsBubble(
+          bzModel: _bzModel,
+        ),
 
         /// FLYERS GALLERY TITLE
         if (showGallery == true)
@@ -117,4 +117,5 @@ class BzAboutPage extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

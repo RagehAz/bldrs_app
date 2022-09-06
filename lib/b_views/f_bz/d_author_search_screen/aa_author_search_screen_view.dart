@@ -34,10 +34,10 @@ class AuthorSearchScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: true);
     final List<String> _pendingInvitations = _bzzProvider.pendingAuthorsIDs;
-
+    // --------------------
     return ListView(
       children: <Widget>[
 
@@ -151,6 +151,7 @@ class AuthorSearchScreenView extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+// --------------------
 }

@@ -22,7 +22,7 @@ class SlidesShelf extends StatefulWidget {
     @required this.draft,
     @required this.isEditingFlyer,
     Key key,
-}) : super(key: key);
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
@@ -77,10 +77,10 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   void didChangeDependencies() {
     if (_isInit) {
 
-        // _triggerLoading(setTo: true).then((_) async {
-        //
-        //   await _triggerLoading(setTo: false);
-        // });
+      // _triggerLoading(setTo: true).then((_) async {
+      //
+      //   await _triggerLoading(setTo: false);
+      // });
 
     }
     _isInit = false;
@@ -89,6 +89,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
     // --------------------

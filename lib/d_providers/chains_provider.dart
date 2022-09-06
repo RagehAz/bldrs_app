@@ -43,18 +43,18 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// BIG CHAIN K
       _fetchSetBigChainK(
-          context: context,
-          notify: false,
+        context: context,
+        notify: false,
       ),
       /// BIG CHAIN S
       _fetchSetBigChainS(
-          context: context,
-          notify: false,
+        context: context,
+        notify: false,
       ),
       /// ALL PICKERS
       fetchSetAllPickers(
-          context: context,
-          notify: false,
+        context: context,
+        notify: false,
       ),
       /// CITY PHID COUNTERS
       _readSetCityPhidsModel(
@@ -67,20 +67,20 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// CITY CHAIN K
       _refineSetCityChainK(
-          bigChainK: _bigChainK,
-          notify: false,
+        bigChainK: _bigChainK,
+        notify: false,
       ),
       /// BIG CHAIN K PHRASES
       _generateSetBigChainKPhrases(
-          context: context,
-          bigChainK: _bigChainK,
-          notify: false,
+        context: context,
+        bigChainK: _bigChainK,
+        notify: false,
       ),
       /// BIG CHAIN S PHRASES
       _generateSetBigChainSPhrases(
-          context: context,
-          bigChainS: _bigChainS,
-          notify: false,
+        context: context,
+        bigChainS: _bigChainS,
+        notify: false,
       ),
     ]);
     // --------------------
@@ -240,7 +240,7 @@ class ChainsProvider extends ChangeNotifier {
       notify: false,
     );
     // --------------------
-      /// BIG CHAIN S PHRASES
+    /// BIG CHAIN S PHRASES
     await _generateSetBigChainSPhrases(
       context: context,
       bigChainS: bigChainS,
@@ -292,7 +292,7 @@ class ChainsProvider extends ChangeNotifier {
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
-}){
+  }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     _chainsProvider.wipeOutChainsPro(
       context: context,
@@ -430,7 +430,6 @@ class ChainsProvider extends ChangeNotifier {
     }
 
   }
-
 // -----------------------------------------------------------------------------
 
   /// CITY CHAIN K ( city's keywords chain according to City Phid Counters )
@@ -804,7 +803,7 @@ class ChainsProvider extends ChangeNotifier {
     bool includeChainSInSearch = true,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  // ---------------------------
+    // ---------------------------
     final Chain _chain = _chainsProvider.findChainByID(
       chainID: chainID,
       includeChainSInSearch: includeChainSInSearch,
