@@ -44,6 +44,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         SuperVerse(
@@ -62,5 +63,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
         ),
       ],
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

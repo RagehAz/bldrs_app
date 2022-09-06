@@ -29,25 +29,25 @@ class AuthorPicInBzPage extends StatelessWidget {
 
     // Nav.goToNewScreen(context, AddAuthorScreen(tinyBz: tinyBz));
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _authorImageHeight = width;
     final double _authorImageCorners = cornerOverride ??
         getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     final BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,
         enBottomRight: _authorImageCorners,
         enTopRight: _authorImageCorners);
-// -----------------------------------------------------------------------------
+    // --------------------
     return Center(
       child: Container(
         height: _authorImageHeight,
@@ -64,50 +64,52 @@ class AuthorPicInBzPage extends StatelessWidget {
             null
         ),
         child: ClipRRect(
-            borderRadius: _authorPicBorders,
-            child: isAddAuthorButton == true ?
+          borderRadius: _authorPicBorders,
+          child: isAddAuthorButton == true ?
 
-            /// WHEN IS ADD AUTHOR BUTTON
-            GestureDetector(
-              onTap: () => _tapAddAuthor(context),
-              child: SizedBox(
-                width: width,
-                height: _authorImageHeight,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+          /// WHEN IS ADD AUTHOR BUTTON
+          GestureDetector(
+            onTap: () => _tapAddAuthor(context),
+            child: SizedBox(
+              width: width,
+              height: _authorImageHeight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
 
-                    DreamBox(
-                      width: width * 0.35,
-                      height: _authorImageHeight * 0.35,
-                      icon: Iconz.plus,
-                      bubble: false,
-                      onTap: () => _tapAddAuthor(context),
-                    ),
+                  DreamBox(
+                    width: width * 0.35,
+                    height: _authorImageHeight * 0.35,
+                    icon: Iconz.plus,
+                    bubble: false,
+                    onTap: () => _tapAddAuthor(context),
+                  ),
 
-                    const SuperVerse(
-                      verse: '##Add new Author',
-                      size: 0,
-                      maxLines: 2,
-                    ),
+                  const SuperVerse(
+                    verse: '##Add new Author',
+                    size: 0,
+                    maxLines: 2,
+                  ),
 
-                  ],
-                ),
+                ],
               ),
-            )
-
-                :
-
-            /// WHEN IS NORMAL AUTHOR BUTTON
-            SuperImage(
-                width: width,
-                height: width,
-                pic: authorPic
             ),
+          )
+
+              :
+
+          /// WHEN IS NORMAL AUTHOR BUTTON
+          SuperImage(
+              width: width,
+              height: width,
+              pic: authorPic
+          ),
 
         ),
 
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
