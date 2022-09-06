@@ -19,12 +19,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 
 /// FLYER OPTIONS
 
-// -------------------------------
+// --------------------
 Future<void> onFlyerBzOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -92,7 +91,7 @@ Future<void> onFlyerBzOptionsTap({
 
 /// FLYER EDITING
 
-// -------------------------------
+// --------------------
 Future<void> _onEditFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -117,7 +116,7 @@ Future<void> _onEditFlyerButtonTap({
 
 /// FLYER DELETION
 
-// -------------------------------
+// --------------------
 Future<void> _onCanNotDeleteFlyerDialog({
   @required BuildContext context,
 }) async {
@@ -128,7 +127,7 @@ Future<void> _onCanNotDeleteFlyerDialog({
   );
 
 }
-
+// --------------------
 Future<void> _onDeleteFlyerButtonTap({
   @required BuildContext context,
   @required FlyerModel flyer,
@@ -178,7 +177,7 @@ Future<void> _onDeleteFlyerButtonTap({
   }
 
 }
-// -------------------------------
+// --------------------
 Future<bool> _preFlyerDeleteCheckups({
   @required BuildContext context,
   @required FlyerModel flyer,

@@ -23,17 +23,18 @@ class PDFScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _PDFScreenState createState() => _PDFScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PDFScreenState extends State<PDFScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<Uint8List> _uInt8List = ValueNotifier(null);
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(ProgressBarModel.emptyModel());
   final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -45,12 +46,12 @@ class _PDFScreenState extends State<PDFScreen> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -69,7 +70,7 @@ class _PDFScreenState extends State<PDFScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -79,8 +80,7 @@ class _PDFScreenState extends State<PDFScreen> {
     _pdfController.dispose();
     super.dispose();
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -209,5 +209,5 @@ class _PDFScreenState extends State<PDFScreen> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

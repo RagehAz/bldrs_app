@@ -25,15 +25,14 @@ class BzAuthorsPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<BzAuthorsPage> createState() => _BzAuthorsPageState();
-/// --------------------------------------------------------------------------
-
+  /// --------------------------------------------------------------------------
 }
 
 class _BzAuthorsPageState extends State<BzAuthorsPage> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -47,12 +46,12 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
     }
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -73,24 +72,23 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
-
     _bzModel.blogBz(methodName: 'BzAuthorsPage');
-
+    // --------------------
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel) => true, /// FUCKING WORKS PERFECT
@@ -101,8 +99,8 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
         final bool _canSendAuthorships = AuthorModel.checkAuthorAbility(
           ability: AuthorAbility.canSendAuthorships,
           theDoer: AuthorModel.getAuthorFromBzByAuthorID(
-              bz: bzModel,
-              authorID: AuthFireOps.superUserID(),
+            bz: bzModel,
+            authorID: AuthFireOps.superUserID(),
           ),
           theDoneWith: null,
         );
@@ -160,8 +158,7 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
 
       },
     );
-
-
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

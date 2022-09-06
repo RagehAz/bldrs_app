@@ -41,6 +41,7 @@ class AuthorRoleButton extends StatelessWidget {
       ),
       onTap: onTap,
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

@@ -23,38 +23,30 @@ class SlideEditorScreen extends StatefulWidget {
 }
 
 class _SlideEditorScreenState extends State<SlideEditorScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+  // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
-  // ------------------------------------
+  // --------------------
   ValueNotifier<MutableSlide> _tempSlide;
   ValueNotifier<Matrix4> _matrix;
   ValueNotifier<ImageFilterModel> _filterModel;
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
-// ------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     initializeTempSlide();
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _tempSlide.dispose();
-    _isTransforming.dispose();
-    _matrix.dispose();
-    _filterModel.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   void initializeTempSlide(){
 
     /// INITIALIZE TEMP SLIDE
     final MutableSlide _initialSlide = widget.slide.copyWith(
       filter: widget.slide?.filter ?? _allFilters[0],
       matrix: initializeMatrix(
-          slide: widget.slide,
+        slide: widget.slide,
       ),
     );
     _tempSlide = ValueNotifier<MutableSlide>(_initialSlide);
@@ -70,16 +62,24 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     });
 
   }
-// -----------------------------------------------------------------------------
-  final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _tempSlide.dispose();
+    _isTransforming.dispose();
+    _matrix.dispose();
+    _filterModel.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
     final double _controlPanelHeight = SlideEditorControlPanel.getControlPanelHeight(context, _screenHeight);
-
+    // --------------------
     return MainLayout(
       skyType: SkyType.non,
       sectionButtonIsOn: false,
@@ -134,5 +134,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
