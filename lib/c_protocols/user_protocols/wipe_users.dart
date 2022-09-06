@@ -17,11 +17,11 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class WipeUserProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const WipeUserProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> wipeMyUserModel({
     @required BuildContext context,
     @required bool showWaitDialog,
@@ -72,7 +72,7 @@ class WipeUserProtocols {
     blog('WipeUserProtocols.wipeMyUserModel : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteNonAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -100,7 +100,7 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteNonAuthorUserProtocol : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteAuthorUserProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -131,7 +131,7 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteAuthorUserProtocol : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteAllMyAuthorImages({
     @required BuildContext context,
     @required UserModel userModel,
@@ -155,7 +155,7 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteAllMyAuthorImages : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteBzzICreatedProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -178,10 +178,10 @@ class WipeUserProtocols {
       for (final BzModel bzModel in _myBzzICreated){
 
         await BzProtocols.wipeBz(
-          context: context,
-          bzModel: bzModel,
-          showWaitDialog: true,
-          includeMyselfInBzDeletionNote: false
+            context: context,
+            bzModel: bzModel,
+            showWaitDialog: true,
+            includeMyselfInBzDeletionNote: false
         );
 
         await BzProtocols.deleteLocally(
@@ -197,7 +197,7 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteBzzICreatedProtocol : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _exitBzzIDidNotCreateProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -240,7 +240,7 @@ class WipeUserProtocols {
     blog('UserProtocol._exitBzzIDidNotCreateProtocol : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteMyUserLocallyProtocol({
     @required BuildContext context,
     @required UserModel userModel,
@@ -258,5 +258,5 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteMyUserLocallyProtocol : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

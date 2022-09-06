@@ -11,11 +11,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class ComposeNoteProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ComposeNoteProtocols();
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
@@ -64,7 +64,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendAuthorshipInvitationNote : END');
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
@@ -109,7 +109,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendAuthorshipAcceptanceNote : END');
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
     @required BuildContext context,
@@ -155,7 +155,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendAuthorRoleChangeNote : END');
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
@@ -234,7 +234,7 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendAuthorDeletionNotes : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
@@ -251,8 +251,8 @@ class ComposeNoteProtocols {
       List<AuthorModel> _authors = <AuthorModel>[...bzModel.authors];
       if (includeMyself == false){
         _authors = AuthorModel.removeAuthorFromAuthors(
-            authors: _authors,
-            authorIDToRemove: AuthFireOps.superUserID(),
+          authors: _authors,
+          authorIDToRemove: AuthFireOps.superUserID(),
         );
       }
 
@@ -309,7 +309,7 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
     @required BuildContext context,
@@ -350,7 +350,7 @@ class ComposeNoteProtocols {
     blog('ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz : END');
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
@@ -393,5 +393,5 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendNoBzContactAvailableNote : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

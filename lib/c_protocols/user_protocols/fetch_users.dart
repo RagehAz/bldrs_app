@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchUserProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FetchUserProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> fetchUser({
     @required BuildContext context,
@@ -48,7 +48,7 @@ class FetchUserProtocols {
 
     return _userModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> fetchUsers({
     @required BuildContext context,
@@ -80,5 +80,5 @@ class FetchUserProtocols {
     blog('FetchUserProtocols.fetchUsers : END');
     return _userModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

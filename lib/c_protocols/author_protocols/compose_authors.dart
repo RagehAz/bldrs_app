@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
@@ -15,11 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ComposeAuthorProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ComposeAuthorProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> addMeAsNewAuthorToABzProtocol({
     @required BuildContext context,

@@ -9,16 +9,16 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class RenovateZoneProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateZoneProtocols();
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> completeZoneModel({
     @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
-}) async {
+  }) async {
 
     /// incomplete zone model is what only has (countryID - cityID - districtID)
     /// complete zone model is that has all IDs  Models and Names initialized
@@ -99,5 +99,5 @@ class RenovateZoneProtocols {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

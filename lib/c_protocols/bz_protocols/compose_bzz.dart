@@ -15,11 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ComposeBzProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ComposeBzProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> compose({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -89,7 +89,7 @@ class ComposeBzProtocols {
 
     blog('ComposeBzProtocol.compose : END');
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> _addMyNewCreatedBzLocally({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -113,29 +113,29 @@ class ComposeBzProtocols {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> _addBzIdToMyUserModelAndRenovate({
     @required BuildContext context,
     @required String bzID,
-}) async {
+  }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     final UserModel _updated = UserModel.addBzIDToUserBzz(
-        userModel: _myUserModel,
-        bzIDToAdd: bzID,
+      userModel: _myUserModel,
+      bzIDToAdd: bzID,
     );
 
     await UserProtocols.renovateMyUserModel(
-        context: context,
-        newUserModel: _updated,
+      context: context,
+      newUserModel: _updated,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> _failureDialog(BuildContext context) async {
 
     /// FAILURE DIALOG
@@ -146,5 +146,5 @@ class ComposeBzProtocols {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

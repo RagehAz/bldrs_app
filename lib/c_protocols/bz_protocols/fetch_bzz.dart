@@ -8,11 +8,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchBzProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FetchBzProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<BzModel> fetchBz({
     @required BuildContext context,
     @required String bzID
@@ -32,7 +32,7 @@ class FetchBzProtocols {
       if (_bz != null) {
         // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in FIREBASE and inserted in LDB');
         await BzLDBOps.insertBz(
-            bzModel: _bz,
+          bzModel: _bz,
         );
       }
 
@@ -44,7 +44,7 @@ class FetchBzProtocols {
 
     return _bz;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<BzModel> fetchBzByFlyerID({
     @required BuildContext context,
     @required String flyerID,
@@ -54,8 +54,8 @@ class FetchBzProtocols {
     if (flyerID != null){
 
       final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
-          context: context,
-          flyerID: flyerID,
+        context: context,
+        flyerID: flyerID,
       );
 
       if (_flyerModel != null){
@@ -66,7 +66,7 @@ class FetchBzProtocols {
 
     return _bzModel;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
@@ -93,5 +93,5 @@ class FetchBzProtocols {
     blog('FetchBzProtocol.fetchBzz : END');
     return _bzz;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

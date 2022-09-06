@@ -8,33 +8,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const UserProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// COMPOSE
+  /// COMPOSE
 
-// ----------------------------------
+  // --------------------
   static Future<AuthModel> composeUser({
     @required BuildContext context,
     @required bool authSucceeds,
     @required String authError,
     @required UserCredential userCredential,
     @required AuthType authType,
-}) => ComposeUserProtocols.compose(
+  }) => ComposeUserProtocols.compose(
     context: context,
     authSucceeds: authSucceeds,
     authError: authError,
     userCredential: userCredential,
     authType: authType,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> fetchUser({
     @required BuildContext context,
@@ -43,7 +43,7 @@ class UserProtocols {
     context: context,
     userID: userID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> fetchUsers({
     @required BuildContext context,
@@ -52,11 +52,11 @@ class UserProtocols {
     context: context,
     usersIDs: usersIDs,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateMyUserModel({
     @required BuildContext context,
@@ -65,7 +65,7 @@ class UserProtocols {
     context: context,
     newUserModel: newUserModel,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required UserModel newUserModel,
@@ -74,7 +74,7 @@ class UserProtocols {
       newUserModel: newUserModel,
       context: context
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
     @required BuildContext context,
@@ -85,7 +85,7 @@ class UserProtocols {
     followIsOn: followIsOn,
     bzID: bzID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
     @required BuildContext context,
@@ -100,11 +100,11 @@ class UserProtocols {
     bzID: bzID,
     slideIndex: slideIndex,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeUser({
     @required BuildContext context,
@@ -113,5 +113,5 @@ class UserProtocols {
     context: context,
     showWaitDialog: showWaitDialog,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

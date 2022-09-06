@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/compose_bzz.dart';
@@ -9,15 +7,15 @@ import 'package:bldrs/c_protocols/bz_protocols/wipe_bzz.dart';
 import 'package:flutter/material.dart';
 
 class BzProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const BzProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// COMPOSE
+  /// COMPOSE
 
-// ----------------------------------
+  // --------------------
   static Future<void> composeBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -27,11 +25,11 @@ class BzProtocols {
     newBzModel: newBzModel,
     userModel: userModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// ----------------------------------
+  // --------------------
   static Future<BzModel> fetchBz({
     @required BuildContext context,
     @required String bzID
@@ -39,7 +37,7 @@ class BzProtocols {
     context: context,
     bzID: bzID,
   );
-// ----------------------------------
+  // --------------------
   static Future<BzModel> fetchBzByFlyerID({
     @required BuildContext context,
     @required String flyerID,
@@ -47,7 +45,7 @@ class BzProtocols {
     context: context,
     flyerID: flyerID,
   );
-// ----------------------------------
+  // --------------------
   static Future<List<BzModel>> fetchBzz({
     @required BuildContext context,
     @required List<String> bzzIDs
@@ -55,11 +53,11 @@ class BzProtocols {
     context: context,
     bzzIDs: bzzIDs,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   static Future<BzModel> renovateBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -73,17 +71,17 @@ class BzProtocols {
     showWaitDialog: showWaitDialog,
     navigateToBzInfoPageOnEnd: navigateToBzInfoPageOnEnd,
   );
-// ----------------------------------
+  // --------------------
   static Future<void> updateBzLocally({
     @required BuildContext context,
     @required BzModel newBzModel,
     @required BzModel oldBzModel,
-}) => RenovateBzProtocols.updateBzLocally(
+  }) => RenovateBzProtocols.updateBzLocally(
     context: context,
     newBzModel: newBzModel,
     oldBzModel: oldBzModel,
   );
-// ----------------------------------
+  // --------------------
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -91,11 +89,11 @@ class BzProtocols {
       context: context,
       bzModel: bzModel
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
+  // --------------------
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -107,7 +105,7 @@ class BzProtocols {
     showWaitDialog: showWaitDialog,
     includeMyselfInBzDeletionNote: includeMyselfInBzDeletionNote,
   );
-// ----------------------------------
+  // --------------------
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
@@ -117,6 +115,5 @@ class BzProtocols {
     bzID: bzID,
     invoker: invoker,
   );
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
