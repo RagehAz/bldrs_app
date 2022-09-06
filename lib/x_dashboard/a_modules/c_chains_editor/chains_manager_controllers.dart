@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 /// SYNCING
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
@@ -48,7 +48,7 @@ Future<void> onSyncChain({
 
   blog('onSyncChain : ---------------- END');
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preSyncCheckups({
   @required BuildContext context,
@@ -89,7 +89,7 @@ Future<bool> _preSyncCheckups({
 
   return _continue;
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _updateChain({
   @required BuildContext context,
@@ -144,7 +144,7 @@ Future<void> _updateChain({
 
   /// SELECTION
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPhidTap({
   @required BuildContext context,
@@ -209,7 +209,7 @@ Future<void> onPhidTap({
 
   /// MODIFIERS
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewPath ({
   @required BuildContext context,
@@ -242,7 +242,7 @@ Future<void> onAddNewPath ({
 
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
   Future<void> onDeleteThePhid ({
     @required BuildContext context,
@@ -281,7 +281,7 @@ Future<void> onAddNewPath ({
     }
 
   }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditPhid({
   @required BuildContext context,
@@ -330,7 +330,7 @@ Future<void> onEditPhid({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<String> _pathKeyboardDialog({
   @required BuildContext context,
@@ -369,4 +369,4 @@ Future<String> _pathKeyboardDialog({
 
   return _typedPath;
 }
-// ----------------------------------
+// -----------------------------------------------------------------------------

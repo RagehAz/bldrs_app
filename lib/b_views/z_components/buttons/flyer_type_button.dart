@@ -24,11 +24,11 @@ class FlyerTypeButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final Color _buttonColor = isSelected == true ? Colorz.yellow255 : null;
     final Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
     final Color _verseColor = isSelected == true ? Colorz.black255 : Colorz.white255;
-
+    // --------------------
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 4,
@@ -44,5 +44,7 @@ class FlyerTypeButton extends StatelessWidget {
       margins: const EdgeInsets.symmetric(vertical: 5),
       onTap: onTap, //() => _onSetSection(index),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

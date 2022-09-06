@@ -35,5 +35,7 @@ class LineBubble extends StatelessWidget {
         child: child,
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

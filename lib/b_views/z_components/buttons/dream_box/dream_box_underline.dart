@@ -28,17 +28,20 @@ class DreamBoxUnderLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     final double _iconBoxHeight = width ?? 0;
     final double _underLineHeight = height ?? 0 - _iconBoxHeight;
-    final double _underLineTopMargin = underLine == null
-        ? 0
-        : ObjectCheck.objectIsSVG(icon)
-            ? (width - (_underLineHeight * 0.1)) * 1
-            : // (width - ((width - _graphicWidth)/2)) * 0.0 :
-            width;
+    // --------------------
+    final double _underLineTopMargin =
+    underLine == null ? 0
+        :
+    ObjectCheck.objectIsSVG(icon) ? (width - (_underLineHeight * 0.1)) * 1
+        : // (width - ((width - _graphicWidth)/2)) * 0.0 :
+    width;
+    // --------------------
     final double _underlineHeightXXX =
         underLine == null ? 0 : height - _underLineTopMargin;
-
+    // --------------------
     return Container(
       width: underLine == null ? height : width,
       height: underLine == null ? height : height,
@@ -71,5 +74,7 @@ class DreamBoxUnderLine extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

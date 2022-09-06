@@ -17,12 +17,12 @@ class WideCityButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _cityNameValue = CityModel.getTranslatedCityNameFromCity(
         context: context,
         city: city,
     );
-
+    // --------------------
     return DreamBox(
       height: 40,
       width: Bubble.clearWidth(context) - 10,
@@ -35,6 +35,7 @@ class WideCityButton extends StatelessWidget {
       // textDirection: superTextDirection(context),
       onTap: () => onTap(city.cityID),
     );
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
