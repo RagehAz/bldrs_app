@@ -44,7 +44,7 @@ class BubbleHeaderVM {
   final ValueChanged<bool> onSwitchTap;
   final Function onMoreButtonTap;
   final bool redDot;
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   BubbleHeaderVM copyWith({
     double headerWidth,
     String leadingIcon,
@@ -78,7 +78,7 @@ class BubbleHeaderVM {
       redDot: redDot ?? this.redDot,
     );
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class BubbleHeader extends StatelessWidget {
@@ -89,16 +89,16 @@ class BubbleHeader extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BubbleHeaderVM viewModel;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const double iconBoxSize = 30;
   static const double switcherButtonWidth = 50;
   static const double moreButtonSize = iconBoxSize;
   static const double verseBottomMargin = 5;
-
+  // --------------------
   static double getHeight(){
     return iconBoxSize + verseBottomMargin; // verse bottom margin
   }
-
+  // --------------------
   /*
 
   // -----------------------------------------------------------------------------
@@ -109,26 +109,25 @@ class BubbleHeader extends StatelessWidget {
 
 
    */
-
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bubbleWidth = viewModel.headerWidth ?? Bubble.clearWidth(context);
-
+    // --------------------
     /// LEADING ICON
     final bool _hasIcon = viewModel.leadingIcon != null;
     final double _leadingIconWidth = _hasIcon == true ? iconBoxSize : 0;
-
+    // --------------------
     /// SWITCHER
     final double _switcherWidth = viewModel.hasSwitch == true ? switcherButtonWidth : 0;
-
+    // --------------------
     /// MORE BUTTON
     final double _moreButtonWidth = viewModel.hasMoreButton == true ? moreButtonSize : 0;
-
+    // --------------------
     /// HEADLINE
     final double _headlineWidth = _bubbleWidth - _leadingIconWidth - _switcherWidth - _moreButtonWidth;
-
+    // --------------------
     if (
     viewModel.headlineVerse == null
         &&
@@ -140,7 +139,7 @@ class BubbleHeader extends StatelessWidget {
     ){
       return const SizedBox();
     }
-
+    // --------------------
     else {
       return Row(
         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -197,6 +196,7 @@ class BubbleHeader extends StatelessWidget {
         ],
       );
     }
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

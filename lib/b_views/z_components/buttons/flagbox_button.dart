@@ -23,10 +23,10 @@ class FlagBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _flagIcon = Flag.getFlagIcon(countryID);
     final BorderRadius _borderRadius = Borderers.superBorderAll(context, corners ?? size * 0.3);
-
+    // --------------------
     return DreamBox(
       width: size,
       height: size,
@@ -34,6 +34,7 @@ class FlagBox extends StatelessWidget {
       onTap: onTap,
       corners: _borderRadius,
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
