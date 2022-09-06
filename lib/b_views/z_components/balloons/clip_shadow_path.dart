@@ -28,6 +28,7 @@ class ClipShadowPath extends StatelessWidget {
       ),
     );
   }
+  /// --------------------------------------------------------------------------
 }
 
 class _ClipShadowPainter extends CustomPainter {
@@ -46,9 +47,10 @@ class _ClipShadowPainter extends CustomPainter {
     final dynamic clipPath = clipper.getClip(size).shift(shadow.offset);
     canvas.drawPath(clipPath, paint);
   }
-
+  /// --------------------------------------------------------------------------
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     return true;
   }
+  /// --------------------------------------------------------------------------
 }

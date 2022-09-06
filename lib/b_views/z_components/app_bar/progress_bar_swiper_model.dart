@@ -13,11 +13,11 @@ class ProgressBarModel {
   final SwipeDirection swipeDirection;
   final int index;
   final int numberOfStrips;
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   /// CLONING
 
-// -----------------------------
+  // --------------------
   ProgressBarModel copyWith({
     SwipeDirection swipeDirection,
     int index,
@@ -29,11 +29,11 @@ class ProgressBarModel {
       numberOfStrips: numberOfStrips ?? this.numberOfStrips,
     );
   }
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   /// DUMMY
 
-// -----------------------------
+  // --------------------
   static ProgressBarModel emptyModel(){
     return const ProgressBarModel(
       index: 0,
@@ -41,11 +41,11 @@ class ProgressBarModel {
       swipeDirection: SwipeDirection.freeze,
     );
   }
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
-/// SETTERS
+  /// SETTERS
 
-// -----------------------------
+  // --------------------
   static void updateProgressBarNotifierOnIndexChanged({
     @required BuildContext context,
     @required ValueNotifier<ProgressBarModel> progressBarModel,
@@ -76,5 +76,5 @@ class ProgressBarModel {
     );
 
   }
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }

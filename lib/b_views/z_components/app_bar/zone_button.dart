@@ -20,42 +20,42 @@ class ZoneButton extends StatelessWidget {
   final Function onTap;
   final bool isOn;
   final ZoneModel zoneOverride;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ZoneModel _buttonZone(BuildContext context){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final ZoneModel _currentZone = _zoneProvider.currentZone;
     return zoneOverride ?? _currentZone;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------
+    // --------------------
     final ZoneModel _currentZone = _buttonZone(context);
-// ------------------------------
+    // --------------------
     final String _countryName = _currentZone.countryName;
     final String _countryFlag = _currentZone?.flag;
     final String _cityName = _currentZone.cityName;
     final String _districtName = _currentZone.districtName;
-// ------------------------------
+    // --------------------
     final String _countryAndCityNames = TextDir.appIsLeftToRight(context) ?
     '$_cityName - $_countryName'
         :
     '$_countryName - $_cityName';
-// ------------------------------
+    // --------------------
     final String _firstRow = _currentZone == null ? ' '
         :
     _currentZone?.districtID == null ? _countryName
         :
     _countryAndCityNames;
-// ------------------------------
+    // --------------------
     final String _secondRow = _currentZone == null ? ' '
         :
     _currentZone?.districtID == null ? _cityName
         :
     _districtName;
-// ------------------------------
+    // --------------------
     const double _flagHorizontalMargins = 2;
-// ------------------------------
+    // --------------------
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -66,7 +66,7 @@ class ZoneButton extends StatelessWidget {
         margin: const EdgeInsets.all(Ratioz.appBarMargin * 0.5),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
-                Radius.circular(Ratioz.appBarButtonCorner),
+              Radius.circular(Ratioz.appBarButtonCorner),
             ),
             color: isOn ? Colorz.yellow255 : Colorz.white10),
         child: Row(
@@ -131,4 +131,5 @@ class ZoneButton extends StatelessWidget {
       ),
     );
   }
+  // -----------------------------------------------------------------------------
 }

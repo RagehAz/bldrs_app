@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_speaking_
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_thinking_balloon.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_paths/path_of_zero_cornered_balloon.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 enum BalloonType{
   circle,
   thinking,
@@ -15,6 +15,10 @@ enum BalloonType{
   roundCornered,
 }
 // -----------------------------------------------------------------------------
+
+/// BALALEEN
+
+// --------------------
 CustomClipper<Path> getBalloonClipPath(BalloonType type) {
 
   switch (type){
@@ -29,7 +33,7 @@ CustomClipper<Path> getBalloonClipPath(BalloonType type) {
   }
 
 }
-// -----------------------------------------------------------------------------
+// --------------------
 BalloonType concludeBalloonByUserStatus(UserStatus userStatus) {
 
   final BalloonType userBalloon =

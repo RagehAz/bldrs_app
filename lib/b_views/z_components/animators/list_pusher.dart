@@ -22,16 +22,16 @@ class ListPusher extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<ListPusher> createState() => _ListPusherState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   AnimationController _animationController;
   CurvedAnimation _curvedAnimation;
   Duration _duration;
   Animation<double> _heightTween;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -51,7 +51,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -59,7 +59,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
     _curvedAnimation.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _animate() async {
 
     if (widget.expand == true){
@@ -72,21 +72,21 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------
+    // --------------------
     final double _width = widget.width ?? Scale.superScreenWidth(context);
-// -----------------------------------
+    // --------------------
     _animationController.reset();
-// ------------
+    // --------------------
     _heightTween = Tween<double>(
       begin: widget.expand == true ? 0 : 1,
       end: widget.expand == true ? 1 : 0,
     ).animate(_curvedAnimation);
-// ------------
+    // --------------------
     _animate();
-// -----------------------------------
+    // --------------------
     return AnimatedBuilder(
         animation: _animationController.view,
         builder: (_, Widget child){
@@ -103,6 +103,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
 
         }
         );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

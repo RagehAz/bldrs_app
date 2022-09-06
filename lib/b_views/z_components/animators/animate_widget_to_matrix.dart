@@ -17,7 +17,7 @@ class AnimateWidgetToMatrix extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AnimateWidgetToMatrixState createState() => _AnimateWidgetToMatrixState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with TickerProviderStateMixin {
@@ -36,12 +36,12 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
     );
 
     _curvedAnimation = CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOutCirc,
+      parent: _animationController,
+      curve: Curves.easeInOutCirc,
     );
 
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -52,8 +52,6 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // blog('REBUILDING ANIMATED WIDGET TO MATRIX');
 
     if (widget.matrix == null){
       return widget.child;
@@ -93,4 +91,5 @@ class _AnimateWidgetToMatrixState extends State<AnimateWidgetToMatrix> with Tick
     }
 
   }
+  // --------------------------------------------------------------------------
 }

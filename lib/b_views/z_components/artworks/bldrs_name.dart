@@ -20,5 +20,5 @@ class BldrsName extends StatelessWidget {
       child: WebsafeSvg.asset(Iconz.bldrsNameEn),
     );
   }
-
+/// --------------------------------------------------------------------------
 }
