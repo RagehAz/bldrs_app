@@ -22,17 +22,17 @@ class BzStatsBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<BzStatsBubble> createState() => _BzStatsBubbleState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _BzStatsBubbleState extends State<BzStatsBubble> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<BzCounterModel> _bzCounter;
   BzModel _bzModel;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -44,7 +44,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
       blogLoading(loading: _loading.value, callerName: 'OldLogoScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -56,7 +56,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
     _bzCounter = ValueNotifier<BzCounterModel>(null);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -79,7 +79,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -87,7 +87,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
     _bzCounter.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -164,4 +164,5 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
 
   }
+  // -----------------------------------------------------------------------------
 }

@@ -25,7 +25,7 @@ class BzLogoBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double _boxAspectRatio = 1.25;
   static const double _nameHeightRatio = _boxAspectRatio - 1;
-// -----------------------------------------------------------------------------
+  // --------------------
   static double boxHeight({
     @required double width,
     @required bool showName,
@@ -38,19 +38,18 @@ class BzLogoBox extends StatelessWidget {
 
     return _height;
   }
-// -----------------------------------------------------------------------------
-
+  // --------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _boxHeight = boxHeight(
       width: width,
       showName: showName,
     );
-
+    // --------------------
     final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logo;
     final String _bzName = bzModel == null ? '...' : bzModel.name;
-
+    // --------------------
     return SizedBox(
       width: width,
       height: _boxHeight,
@@ -81,5 +80,8 @@ class BzLogoBox extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
+
   }
+  // -----------------------------------------------------------------------------
 }

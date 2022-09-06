@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x4_bz_notes_page_controll
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_button.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -21,19 +20,16 @@ class PendingSentAuthorshipNotesStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _PendingSentAuthorshipNotesStreamerState createState() => _PendingSentAuthorshipNotesStreamerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorshipNotesStreamer> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
-    blog('a77a ba2a');
-
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void deactivate() {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
@@ -43,7 +39,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     );
     super.deactivate();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   /// TAMAM
   @override
@@ -51,7 +47,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     super.dispose();
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _onStreamDataChanged(List<Map<String, dynamic>> maps){
 
     // blog('PendingSentAuthorshipNotesStreamer : data changed');
@@ -75,7 +71,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -192,5 +188,5 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
     // );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
