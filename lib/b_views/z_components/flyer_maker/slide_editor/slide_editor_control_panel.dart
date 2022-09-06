@@ -27,19 +27,19 @@ class SlideEditorControlPanel extends StatelessWidget {
     final double _controlPanelHeight = screenHeight - _slideZoneHeight;
     return _controlPanelHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getButtonSize(BuildContext context, double controlPanelHeight){
     final double _buttonSize = controlPanelHeight * 0.6;
     return _buttonSize;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _controlPanelHeight = height;
     final double _buttonSize = getButtonSize(context, _controlPanelHeight);
-
+    // --------------------
     return SizedBox(
       width: _screenWidth,
       height: _controlPanelHeight,
@@ -85,5 +85,7 @@ class SlideEditorControlPanel extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

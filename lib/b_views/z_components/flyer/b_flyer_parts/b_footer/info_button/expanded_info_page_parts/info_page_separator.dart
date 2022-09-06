@@ -19,4 +19,5 @@ class InfoPageSeparator extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10),
     );
   }
+/// --------------------------------------------------------------------------
 }

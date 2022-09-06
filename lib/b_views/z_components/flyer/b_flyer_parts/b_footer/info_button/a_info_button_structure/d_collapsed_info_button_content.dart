@@ -23,7 +23,7 @@ class CollapsedInfoButtonContent extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final double _width = tinyMode ?
     InfoButtonStarter.tinyWidth(
       context: context,
@@ -34,7 +34,7 @@ class CollapsedInfoButtonContent extends StatelessWidget {
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-// ------------------------------------------------------------------
+    // --------------------
     final double _height = tinyMode ?
     InfoButtonStarter.tinyHeight(
         context: context,
@@ -45,9 +45,9 @@ class CollapsedInfoButtonContent extends StatelessWidget {
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
-// ------------------------------------------------------------------
+    // --------------------
     final double _paddingValue = _height * 0.1;
-// ------------------------------------------------------------------
+    // --------------------
     if (infoButtonType == InfoButtonType.info){
       return InfoGraphic(
         flyerBoxWidth: flyerBoxWidth,
@@ -91,6 +91,6 @@ class CollapsedInfoButtonContent extends StatelessWidget {
     else {
       return const SizedBox();
     }
-
+    // --------------------
   }
 }

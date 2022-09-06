@@ -19,14 +19,14 @@ class FooterBox extends StatelessWidget {
   final double flyerBoxWidth;
   final PageController footerPageController;
   final List<Widget> footerPageViewChildren;
-  final ValueNotifier<bool> infoButtonExpanded; /// p
-  final ValueNotifier<bool> reviewButtonIsExpanded; /// p
+  final ValueNotifier<bool> infoButtonExpanded;
+  final ValueNotifier<bool> reviewButtonIsExpanded;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
   static double boxCornersValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static BorderRadius corners({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -43,7 +43,7 @@ class FooterBox extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double collapsedHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -67,13 +67,13 @@ class FooterBox extends StatelessWidget {
 
     return _flyerFooterHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double expandedInfoHeight({
     @required double flyerBoxWidth,
   }){
     return flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double expandedReviewHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -86,8 +86,7 @@ class FooterBox extends StatelessWidget {
 
     return _expandedReviewHeight;
   }
-// -----------------------------------------------------------------------------
-
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -141,5 +140,7 @@ class FooterBox extends StatelessWidget {
       ),
 
     );
+
   }
+/// --------------------------------------------------------------------------
 }

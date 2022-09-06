@@ -24,7 +24,7 @@ class HeaderLabelsTree extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
- final bool tinyMode;
+  final bool tinyMode;
   final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
@@ -75,4 +75,5 @@ class HeaderLabelsTree extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

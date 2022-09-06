@@ -13,7 +13,6 @@ class ZoomablePicture extends StatefulWidget {
     this.transformationController,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final Widget child;
   final bool isOn;
@@ -24,15 +23,14 @@ class ZoomablePicture extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ZoomablePictureState createState() => _ZoomablePictureState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   TransformationController _transformationController;
   AnimationController _zoomAnimationController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -48,7 +46,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       }
     });
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -56,7 +54,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _zoomAnimationController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _resetZoom() async {
     final Animation<Matrix4> _reset = Matrix4Tween(
       begin: _transformationController.value,
@@ -70,7 +68,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
     _zoomAnimationController.reset();
     await _zoomAnimationController.forward();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onDoubleTap() async {
     await _resetZoom();
     Nav.goBack(
@@ -78,9 +76,10 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
       invoker: '_onDoubleTap',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () async {
 
@@ -130,6 +129,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
 
 
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

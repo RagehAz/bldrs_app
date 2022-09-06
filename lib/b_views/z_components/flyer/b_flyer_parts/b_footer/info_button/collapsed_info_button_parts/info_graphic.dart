@@ -21,18 +21,19 @@ class InfoGraphic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final double _size = InfoButtonStarter.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
-// ------------------------------------------------------------------
+    // --------------------
+    /*
 //     final double _width = InfoButtonStarter.collapsedWidth(
 //         context: context,
 //         flyerBoxWidth: flyerBoxWidth
 //     );
-// ------------------------------------------------------------------
-
+     */
+    // --------------------
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,
       infoButtonType: InfoButtonType.info,
@@ -78,6 +79,7 @@ class InfoGraphic extends StatelessWidget {
       // ),
 
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

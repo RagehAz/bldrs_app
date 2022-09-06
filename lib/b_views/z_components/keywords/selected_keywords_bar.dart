@@ -25,7 +25,7 @@ class SelectedPhidsBar extends StatelessWidget {
   static double getChildrenHeight(BuildContext context){
     return PhidButton.getHeight() + (Ratioz.appBarMargin * 2);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBubbleHeight({
     @required BuildContext context,
     @required bool includeMargins,
@@ -35,12 +35,12 @@ class SelectedPhidsBar extends StatelessWidget {
     final double _marginsHeight = includeMargins ? Ratioz.appBarMargin * 2 : 0;
     return _bubbleHeightWithoutChildren + _childrenHeight + _marginsHeight;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     final String _screenTitle = selectedPhids.isEmpty ?
     'Select keywords'
         :
@@ -48,7 +48,7 @@ class SelectedPhidsBar extends StatelessWidget {
     '1 Selected keyword'
         :
     '${selectedPhids.length} Selected keywords';
-
+    // --------------------
     return Bubble(
       screenWidth: _screenWidth,
       headerViewModel: BubbleHeaderVM(
@@ -94,6 +94,7 @@ class SelectedPhidsBar extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

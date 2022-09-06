@@ -13,7 +13,6 @@ class BzPgVerse extends StatelessWidget {
     this.maxLines = 1,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String verse;
@@ -38,6 +37,7 @@ class BzPgVerse extends StatelessWidget {
       ),
     );
   }
+/// --------------------------------------------------------------------------
 }
 
 class BzAboutVerse extends StatefulWidget {
@@ -59,15 +59,15 @@ class BzAboutVerse extends StatefulWidget {
 }
 
 class _BzAboutVerseState extends State<BzAboutVerse> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   int aboutMaxLines = 3;
-// -----------------------------------------------------------------------------
+  // --------------------
   void _expandMaxLines() {
     setState(() {
       aboutMaxLines == 3 ? aboutMaxLines = 100 : aboutMaxLines = 3;
     });
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -100,4 +100,5 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

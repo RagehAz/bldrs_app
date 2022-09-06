@@ -26,8 +26,7 @@ class HeaderBox extends StatelessWidget {
   static double getHeaderLabelWidth(double flyerBoxWidth) {
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -85,4 +84,5 @@ class HeaderBox extends StatelessWidget {
     }
 
   }
+  // -----------------------------------------------------------------------------
 }

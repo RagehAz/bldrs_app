@@ -62,7 +62,7 @@ class PageBubble extends StatelessWidget {
 
     return margins;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double height({
     @required AppBarType appBarType,
     @required BuildContext context,
@@ -87,26 +87,26 @@ class PageBubble extends StatelessWidget {
 
     return height;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double width(BuildContext context, {double override}){
     return override ?? BldrsAppBar.width(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double clearWidth(BuildContext context){
     return PageBubble.width(context) - (Ratioz.appBarMargin * 2);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     final BorderRadius _borders = corners == null ?
     Borderers.superBorderAll(context, Ratioz.appBarCorner)
     :
     Borderers.superBorder(context: context, corners: corners)
     ;
-
+    // --------------------
     return Container(
         key: const ValueKey<String>('PageBubble'),
         width: _screenWidth,
@@ -136,5 +136,7 @@ class PageBubble extends StatelessWidget {
           ),
         )
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

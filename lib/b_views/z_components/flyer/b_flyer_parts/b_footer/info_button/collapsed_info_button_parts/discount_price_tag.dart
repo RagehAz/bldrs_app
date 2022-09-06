@@ -29,12 +29,13 @@ class DiscountPriceTag extends StatelessWidget {
   final double paddingValue;
   final ValueNotifier<bool> buttonIsExpanded; /// p
   /// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
-// ------------------------------------------------------------------
+    // --------------------
     const double _currentPrice = 14019.50;
     final String _currency = _currentCountry?.currency;
     const double _oldPrice = 17800;
@@ -43,193 +44,193 @@ class DiscountPriceTag extends StatelessWidget {
       currentPrice: _currentPrice,
     );
     const String _off = 'OFF';
-// ------------------------------------------------------------------
+    // --------------------
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
     final Alignment _superCenterAlignment = Aligners.superCenterAlignment(context);
     const double _separatorLineWidth = 1;
     final double _priceWidth = width - height - _separatorLineWidth - paddingValue;
-// ------------------------------------------------------------------
-// ------------------------------------------------------------------
-
+    // --------------------
     return CollapsedInfoButtonBox(
-        flyerBoxWidth: flyerBoxWidth,
-        infoButtonType: InfoButtonType.discount,
-        tinyMode: tinyMode,
-        horizontalListViewChildren: <Widget>[
+      flyerBoxWidth: flyerBoxWidth,
+      infoButtonType: InfoButtonType.discount,
+      tinyMode: tinyMode,
+      horizontalListViewChildren: <Widget>[
 
-          /// DISCOUNT PERCENTAGE
-          ValueListenableBuilder<bool>(
-              valueListenable: buttonIsExpanded,
-              builder: (_, bool _buttonExpanded, Widget child){
+        /// DISCOUNT PERCENTAGE
+        ValueListenableBuilder<bool>(
+            valueListenable: buttonIsExpanded,
+            builder: (_, bool _buttonExpanded, Widget child){
 
-                final double _percentagePosition =
-                tinyMode ? height * 0.05
-                    :
-                _buttonExpanded ? height * 0.02
-                    :
-                height * 0.1;
+              final double _percentagePosition =
+              tinyMode ? height * 0.05
+                  :
+              _buttonExpanded ? height * 0.02
+                  :
+              height * 0.1;
 
-                return SizedBox(
-                  width: tinyMode ? height * 1.2 : height,
-                  height: height,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
+              return SizedBox(
+                width: tinyMode ? height * 1.2 : height,
+                height: height,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
 
-                      /// PERCENTAGE
-                      Positioned(
-                        top: _percentagePosition,
-                        child: Container(
-                          width: height,
-                          padding: EdgeInsets.symmetric(horizontal: height * 0.05),
-                          child: SuperVerse(
-                            verse:  '${ _discountPercentage.toString()}%',
-                            weight: VerseWeight.black,
-                            color: Colorz.red255,
-                          ),
-                        ),
-                      ),
-
-                      /// OFF
-                      Positioned(
-                        bottom: _percentagePosition,
-                        child: const SuperVerse(
-                          verse: _off,
+                    /// PERCENTAGE
+                    Positioned(
+                      top: _percentagePosition,
+                      child: Container(
+                        width: height,
+                        padding: EdgeInsets.symmetric(horizontal: height * 0.05),
+                        child: SuperVerse(
+                          verse:  '${ _discountPercentage.toString()}%',
                           weight: VerseWeight.black,
-                          scaleFactor: 0.8,
                           color: Colorz.red255,
                         ),
                       ),
+                    ),
 
-                    ],
-                  ),
-                );
+                    /// OFF
+                    Positioned(
+                      bottom: _percentagePosition,
+                      child: const SuperVerse(
+                        verse: _off,
+                        weight: VerseWeight.black,
+                        scaleFactor: 0.8,
+                        color: Colorz.red255,
+                      ),
+                    ),
 
-              }
-          ),
+                  ],
+                ),
+              );
+
+            }
+        ),
 
 
 
-          /// SEPARATOR LINE
-          Container(
+        /// SEPARATOR LINE
+        Container(
+          width: _separatorLineWidth,
+          height: height,
+          alignment: Alignment.center,
+          child: Container(
             width: _separatorLineWidth,
-            height: height,
-            alignment: Alignment.center,
-            child: Container(
-              width: _separatorLineWidth,
-              height: height * 0.6,
-              color: Colorz.white125,
-            ),
+            height: height * 0.6,
+            color: Colorz.white125,
           ),
+        ),
 
-          /// PRICES
-          ValueListenableBuilder(
-              valueListenable: buttonIsExpanded,
-              builder: (_, bool _buttonExpanded, Widget child){
-                // -------------------------------------------
-                final double _pricePosition =
-                tinyMode ? height * 0.1
-                    :
-                _buttonExpanded ? height * 0.05
-                    :
-                height * 0.1;
-                // -------------------------------------------
-                final double _oldPriceSizeFactor =
-                tinyMode ? _flyerSizeFactor * 0.7
-                    :
-                _buttonExpanded ? _flyerSizeFactor * 0.35
-                    :
-                _flyerSizeFactor * 0.35;
-                // -------------------------------------------
-                final double _currentPriceSizeFactor =
-                tinyMode ? _flyerSizeFactor * 1.2
-                    :
-                _buttonExpanded ? _flyerSizeFactor * 0.6
-                    :
-                _flyerSizeFactor * 0.6;
-                // -------------------------------------------
-                return Container(
-                  width: _priceWidth,
-                  // padding: EdgeInsets.symmetric(horizontal: height * 0.1),
+        /// PRICES
+        ValueListenableBuilder(
+            valueListenable: buttonIsExpanded,
+            builder: (_, bool _buttonExpanded, Widget child){
+              // -------------------------------------------
+              final double _pricePosition =
+              tinyMode ? height * 0.1
+                  :
+              _buttonExpanded ? height * 0.05
+                  :
+              height * 0.1;
+              // -------------------------------------------
+              final double _oldPriceSizeFactor =
+              tinyMode ? _flyerSizeFactor * 0.7
+                  :
+              _buttonExpanded ? _flyerSizeFactor * 0.35
+                  :
+              _flyerSizeFactor * 0.35;
+              // -------------------------------------------
+              final double _currentPriceSizeFactor =
+              tinyMode ? _flyerSizeFactor * 1.2
+                  :
+              _buttonExpanded ? _flyerSizeFactor * 0.6
+                  :
+              _flyerSizeFactor * 0.6;
+              // -------------------------------------------
+              return Container(
+                width: _priceWidth,
+                // padding: EdgeInsets.symmetric(horizontal: height * 0.1),
+                alignment: _superCenterAlignment,
+                child: Stack(
                   alignment: _superCenterAlignment,
-                  child: Stack(
-                    alignment: _superCenterAlignment,
-                    children: <Widget>[
+                  children: <Widget>[
 
-                      /// OLD PRICE
-                      Positioned(
-                        top: _pricePosition,
-                        child: Container(
-                          width: _priceWidth,
-                          padding: _paddings,
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
+                    /// OLD PRICE
+                    Positioned(
+                      top: _pricePosition,
+                      child: Container(
+                        width: _priceWidth,
+                        padding: _paddings,
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
 
-                              /// OLD PRICE
-                              SuperVerse.priceVerse(
-                                  context: context,
-                                  // currency: _currency,
-                                  price: _oldPrice,
-                                  scaleFactor: _oldPriceSizeFactor,
-                                  strikethrough: true,
-                                  color: Colorz.grey255,
-                                  isBold: false
+                            /// OLD PRICE
+                            SuperVerse.priceVerse(
+                                context: context,
+                                // currency: _currency,
+                                price: _oldPrice,
+                                scaleFactor: _oldPriceSizeFactor,
+                                strikethrough: true,
+                                color: Colorz.grey255,
+                                isBold: false
+                            ),
+
+                            /// CURRENCY
+                            Padding(
+                              padding: _paddings,
+                              child: SuperVerse(
+                                verse: _currency,
+                                size: 6,
+                                scaleFactor: _oldPriceSizeFactor,
+                                weight: VerseWeight.thin,
+                                italic: true,
                               ),
+                            ),
 
-                              /// CURRENCY
-                              Padding(
-                                padding: _paddings,
-                                child: SuperVerse(
-                                  verse: _currency,
-                                  size: 6,
-                                  scaleFactor: _oldPriceSizeFactor,
-                                  weight: VerseWeight.thin,
-                                  italic: true,
-                                ),
-                              ),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                            ],
+                    /// CURRENT PRICE
+                    Positioned(
+                      bottom: _pricePosition,
+                      child: Container(
+                        width: _priceWidth,
+                        height: height * 0.5,
+                        alignment: _superCenterAlignment,
+                        padding: _paddings,
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: SuperVerse.priceVerse(
+                            context: context,
+                            // currency: _currency,
+                            price: _currentPrice,
+                            scaleFactor: _currentPriceSizeFactor,
+                            color: Colorz.yellow255,
                           ),
                         ),
                       ),
+                    )
 
-                      /// CURRENT PRICE
-                      Positioned(
-                        bottom: _pricePosition,
-                        child: Container(
-                          width: _priceWidth,
-                          height: height * 0.5,
-                          alignment: _superCenterAlignment,
-                          padding: _paddings,
-                          child: FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: SuperVerse.priceVerse(
-                              context: context,
-                              // currency: _currency,
-                              price: _currentPrice,
-                              scaleFactor: _currentPriceSizeFactor,
-                              color: Colorz.yellow255,
-                            ),
-                          ),
-                        ),
-                      )
+                  ],
+                ),
+              );
 
-                    ],
-                  ),
-                );
+            }
+        ),
 
-              }
-          ),
+        /// FAKE END PADDING
+        SizedBox(
+          width: paddingValue,
+          height: height,
+        ),
 
-          /// FAKE END PADDING
-          SizedBox(
-            width: paddingValue,
-            height: height,
-          ),
-
-        ],
+      ],
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

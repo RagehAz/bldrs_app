@@ -31,21 +31,20 @@ class FiltersSelectorControlPanel extends StatelessWidget {
   final ValueNotifier<MutableSlide> slide;
   final ValueNotifier<double> opacity;
   final Function onOpacityChanged;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _controlPanelHeight = height;
-
+    // --------------------
     final double _sliderZoneHeight = _controlPanelHeight * 0.15;
     final double _buttonsZoneHeight = _controlPanelHeight - _sliderZoneHeight;
-
+    // --------------------
     final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _buttonsZoneHeight);
     final double _boxHeight = SlideEditorButton.getBoxHeight(buttonSize: _buttonSize);
     final double _boxWidth = FlyerBox.widthByHeight(context, _boxHeight);
-
-
+    // --------------------
     return SizedBox(
       width: _screenWidth,
       height: _controlPanelHeight,
@@ -107,19 +106,19 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                           ),
 
                         if (isBackButton == false)
-                        ValueListenableBuilder(
-                            valueListenable: slide,
-                            builder: (_, MutableSlide _slide, Widget child){
+                          ValueListenableBuilder(
+                              valueListenable: slide,
+                              builder: (_, MutableSlide _slide, Widget child){
 
-                              return SuperFilteredImage(
-                                filterModel: _filter,
-                                width: _boxWidth,
-                                height: _boxHeight,
-                                imageFile: _slide.picFileModel.file,
-                                // boxFit: BoxFit.cover,
-                              );
+                                return SuperFilteredImage(
+                                  filterModel: _filter,
+                                  width: _boxWidth,
+                                  height: _boxHeight,
+                                  imageFile: _slide.picFileModel.file,
+                                  // boxFit: BoxFit.cover,
+                                );
 
-                            }),
+                              }),
 
                         if (isBackButton == false)
                           Align(
@@ -143,5 +142,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

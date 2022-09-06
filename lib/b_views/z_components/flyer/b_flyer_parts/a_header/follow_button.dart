@@ -18,16 +18,15 @@ class FollowBT extends StatelessWidget {
     @required this.followIsOn,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Function onFollowTap;
   final Function tappingUnfollow;
-  final ValueNotifier<bool> followIsOn; /// p
+  final ValueNotifier<bool> followIsOn;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double screenWidth = Scale.superScreenWidth(context);
     final double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
     final double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
@@ -35,7 +34,7 @@ class FollowBT extends StatelessWidget {
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
     const String followText = 'phid_follow';
-// -----------------------------------------------------------------------------
+    // --------------------
     return GestureDetector(
       onTap: onFollowTap,
       child: ValueListenableBuilder(
@@ -115,5 +114,7 @@ class FollowBT extends StatelessWidget {
 
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

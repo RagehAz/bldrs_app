@@ -16,7 +16,7 @@ class BzPgFields extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+
     return BlackBox(
       width: flyerBoxWidth,
       child: Column(
@@ -52,5 +52,7 @@ class BzPgFields extends StatelessWidget {
         ],
       ),
     );
+
   }
+/// --------------------------------------------------------------------------
 }

@@ -44,4 +44,5 @@ class RemainingSlidesCounter extends StatelessWidget {
       },
     );
   }
+/// --------------------------------------------------------------------------
 }

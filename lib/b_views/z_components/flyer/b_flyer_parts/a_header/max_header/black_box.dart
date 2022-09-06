@@ -16,11 +16,11 @@ class BlackBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const Color bzPageBGColor = Colorz.black80;
     final double _bzPageDividers = width * 0.005;
     final double _margins = width * 0.05;
-
+    // --------------------
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -34,6 +34,7 @@ class BlackBox extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

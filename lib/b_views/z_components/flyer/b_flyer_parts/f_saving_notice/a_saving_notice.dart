@@ -29,9 +29,9 @@ class SavingNotice extends StatefulWidget {
 }
 
 class _SavingNoticeState extends State<SavingNotice> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   CurvedAnimation _curvedAnimation;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -43,14 +43,14 @@ class _SavingNoticeState extends State<SavingNotice> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _curvedAnimation.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -154,5 +154,7 @@ class _SavingNoticeState extends State<SavingNotice> {
 
         }
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

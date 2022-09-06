@@ -24,7 +24,7 @@ class FollowAndCallBTs extends StatelessWidget {
   static double getPaddings({double flyerBoxWidth}) {
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxHeight({
     @required double flyerBoxWidth,
     @required bool headerIsExpanded,
@@ -37,24 +37,28 @@ class FollowAndCallBTs extends StatelessWidget {
     final double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxWidth({double flyerBoxWidth}) {
     return (flyerBoxWidth * Ratioz.xxflyerFollowBtWidth) - 1;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-    final double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
+    final double _paddings = getPaddings(
+        flyerBoxWidth: flyerBoxWidth,
+    );
+    // --------------------
     /// --- FOLLOWERS & GALLERY
     final double followGalleryHeight = getBoxHeight(
         flyerBoxWidth: flyerBoxWidth,
-        headerIsExpanded: headerIsExpanded
+        headerIsExpanded: headerIsExpanded,
     );
-// -----------------------------------------------------------------------------
-    final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
+    final double followGalleryWidth = getBoxWidth(
+        flyerBoxWidth: flyerBoxWidth,
+    );
+    // --------------------
     return SizedBox(
       height: followGalleryHeight,
       width: followGalleryWidth,
@@ -84,5 +88,7 @@ class FollowAndCallBTs extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

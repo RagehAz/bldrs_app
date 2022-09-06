@@ -20,12 +20,13 @@ class ReportButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final String _verse =
-    modelType == ModelType.flyer ? 'Report Flyer' :
-        modelType == ModelType.bz ? 'Report Business Account' :
-        'Report';
-
+    // --------------------
+    final String _verse = modelType == ModelType.flyer ? 'Report Flyer'
+        :
+    modelType == ModelType.bz ? 'Report Business Account'
+        :
+    'Report';
+    // --------------------
     return DreamBox(
       height: 35,
       verse: _verse,
@@ -39,5 +40,7 @@ class ReportButton extends StatelessWidget {
       onTap: onTap,
 
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

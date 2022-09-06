@@ -42,26 +42,26 @@ class SlideEditorSlidePart extends StatelessWidget {
   final ValueNotifier<ImageFilterModel> filterModel;
   final AppBarType appBarType;
   final GlobalKey globalKey;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static double getSlideZoneHeight(BuildContext context, double screenHeight){
     final double _slideZoneHeight = screenHeight * 0.85;
     return _slideZoneHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
     final double _flyerBoxWidth = FlyerBox.widthByHeight(context, _flyerBoxHeight);
     return _flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
     final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
-
+    // --------------------
     return GestureDetector(
       key: const ValueKey<String>('SlideEditorSlidePart'),
       onTap: onSlideTap,
@@ -211,6 +211,7 @@ class SlideEditorSlidePart extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

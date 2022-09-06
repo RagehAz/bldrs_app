@@ -26,18 +26,18 @@ class InstallmentsPriceTag extends StatelessWidget {
   final double width;
   final double height;
   final double paddingValue;
-  final ValueNotifier<bool> buttonIsExpanded; /// p
+  final ValueNotifier<bool> buttonIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
     const double _currentPrice = 100000000;
     final String _currency = _currentCountry?.currency;
-// ------------------------------------------------------------------
+    // --------------------
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-// ------------------------------------------------------------------
+    // --------------------
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,
       infoButtonType: InfoButtonType.installments,
@@ -127,5 +127,7 @@ class InstallmentsPriceTag extends StatelessWidget {
 
         ],
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

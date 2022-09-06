@@ -19,7 +19,7 @@ class FlyerBox extends StatelessWidget {
   /// internal parts of the flyer
   final List<Widget> stackWidgets;
   final Color boxColor;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER SIZES
 
@@ -73,7 +73,7 @@ class FlyerBox extends StatelessWidget {
 
     return _tinyMode;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER CORNERS
 
@@ -97,7 +97,7 @@ class FlyerBox extends StatelessWidget {
         enBottomRight: _flyerBottomCorners,
         enTopRight: _flyerTopCorners);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// HEADER SIZES
 
@@ -145,7 +145,7 @@ class FlyerBox extends StatelessWidget {
     final double _flyerBoxHeight = height(context, flyerBoxWidth);
     return _headerBoxHeight + (_flyerBoxHeight * Ratioz.xxProgressBarHeightRatio);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// HEADER CORNERS
 
@@ -184,7 +184,7 @@ class FlyerBox extends StatelessWidget {
     );
     return headerStripCorners;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LOGO SIZE
 
@@ -202,7 +202,7 @@ class FlyerBox extends StatelessWidget {
 
     return _logoWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LOGO CORNER
 
@@ -233,13 +233,13 @@ class FlyerBox extends StatelessWidget {
 
     return _logoCorners;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _flyerZoneHeight = FlyerBox.height(context, flyerBoxWidth);
     final BorderRadius _flyerBorders = corners(context, flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     return SizedBox( /// to prevent forced center alignment
       width: flyerBoxWidth,
       height: _flyerZoneHeight,
@@ -269,6 +269,7 @@ class FlyerBox extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

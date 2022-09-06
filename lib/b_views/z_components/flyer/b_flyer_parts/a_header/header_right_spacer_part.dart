@@ -23,4 +23,5 @@ class HeaderRightSpacerPart extends StatelessWidget {
       ),
     );
   }
+/// --------------------------------------------------------------------------
 }

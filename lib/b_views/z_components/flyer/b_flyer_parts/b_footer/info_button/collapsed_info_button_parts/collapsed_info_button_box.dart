@@ -19,33 +19,35 @@ class CollapsedInfoButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final double _width = tinyMode ?
     InfoButtonStarter.tinyWidth(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
     )
-    :
+        :
     InfoButtonStarter.collapsedWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth
     );
-// ------------------------------------------------------------------
+    // --------------------
     final double _height = tinyMode ?
     InfoButtonStarter.tinyHeight(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
     )
-    :
+        :
     InfoButtonStarter.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
-// ------------------------------------------------------------------
-//     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-//     final double _paddingsValue = _height * 0.25;
+    // --------------------
+    /*
+    // final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    // final double _paddingsValue = _height * 0.25;
     // final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: _paddingsValue);
-// ------------------------------------------------------------------
+     */
+    // --------------------
     return Container(
       key: const ValueKey<String>('normal_price_tag'),
       width: _width,
@@ -59,5 +61,7 @@ class CollapsedInfoButtonBox extends StatelessWidget {
         children: horizontalListViewChildren,
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

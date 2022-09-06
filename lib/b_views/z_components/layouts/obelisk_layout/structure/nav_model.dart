@@ -3,6 +3,16 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
+enum MainNavModel {
+  signIn,
+  questions,
+  profile,
+  savedFlyers,
+  bz,
+  zone,
+  settings,
+}
+
 class NavModel {
   /// --------------------------------------------------------------------------
   const NavModel({
@@ -29,11 +39,11 @@ class NavModel {
   final bool canShow;
   final bool forceRedDot;
   final bool translateTitle;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   static List<Widget> getScreens(List<NavModel> navModels){
 
     final List<Widget> _output = <Widget>[];
@@ -44,7 +54,7 @@ class NavModel {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static String getTitleFromNavModels({
     @required List<NavModel> navModels,
     @required int index,
@@ -54,7 +64,7 @@ class NavModel {
 
 
   }
-// -------------------------------------
+  // --------------------
   static int getNumberOfButtons(List<NavModel> navModels){
 
     int _count = 0;
@@ -69,7 +79,7 @@ class NavModel {
 
     return _count;
   }
-// -------------------------------------
+  // --------------------
   static String getMainNavIDString({
     @required MainNavModel navID,
     String bzID,
@@ -85,12 +95,12 @@ class NavModel {
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   static String getUserTabNavID(UserTab userTab){
     final String _tabID = UserModel.getUserTabID(userTab);
     return 'user_$_tabID';
   }
-// -------------------------------------
+  // --------------------
   static String getBzTabNavID({
     @required BzTab bzTab,
     @required String bzID,
@@ -98,11 +108,11 @@ class NavModel {
     final String _tabID = BzModel.getBzTabID(bzTab: bzTab);
     return 'bz_${bzID}_$_tabID';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// GENERATOR
+  /// GENERATOR
 
-// -------------------------------------
+  // --------------------
   static List<String> generateSuperBzNavIDs({
     @required String bzID,
   }){
@@ -127,7 +137,7 @@ class NavModel {
 
     return <String>[_mainNavModel, ..._bzTabsNavModelsIDs];
   }
-// -------------------------------------
+  // --------------------
   static List<String> generateMainNavModelsIDs({
     @required List<String> myBzzIDs,
   }){
@@ -157,7 +167,7 @@ class NavModel {
 
     return _mainNavModelsIDs;
   }
-// -------------------------------------
+  // --------------------
   static List<String> generateUserTabsNavModelsIDs(){
 
     final List<String> _userTabsNavModelsIDs = <String>[];
@@ -169,7 +179,7 @@ class NavModel {
 
     return _userTabsNavModelsIDs;
   }
-// -------------------------------------
+  // --------------------
   static List<String> generateBzTabsNavModelsIDs({
     @required String bzID,
   }){
@@ -190,7 +200,7 @@ class NavModel {
 
     return _bzTabsNavModelsIDs;
   }
-// -------------------------------------
+  // --------------------
   static List<String> generateAllBzzTabsNavModelsIDs({
     @required List<String> myBzzIDs,
   }){
@@ -211,7 +221,7 @@ class NavModel {
 
     return _allBzzTabsNavModelsIDs;
   }
-// -------------------------------------
+  // --------------------
   static List<String> generateAllNavModelsIDs({
     @required List<String> myBzzIDs,
   }){
@@ -236,7 +246,7 @@ class NavModel {
 
     return _allNavModelsIDs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const List<MainNavModel> mainNavModels = <MainNavModel>[
     MainNavModel.signIn,
     MainNavModel.questions,
@@ -246,11 +256,11 @@ class NavModel {
     MainNavModel.zone,
     MainNavModel.settings,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// OBELISK NUMBERS
+  /// OBELISK NUMBERS
 
-// -------------------------------------
+  // --------------------
   static int updateObeliskNumber({
     @required int oldNumber,
     @required int change,
@@ -303,15 +313,5 @@ class NavModel {
 
     return  _output;
   }
-// -----------------------------------------------------------------------------
-}
-
-enum MainNavModel {
-  signIn,
-  questions,
-  profile,
-  savedFlyers,
-  bz,
-  zone,
-  settings,
+  // -----------------------------------------------------------------------------
 }

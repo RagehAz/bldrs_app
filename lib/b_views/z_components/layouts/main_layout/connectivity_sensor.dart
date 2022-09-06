@@ -30,11 +30,11 @@ class ConnectivitySensor extends StatefulWidget {
 }
 
 class _ConnectivitySensorState extends State<ConnectivitySensor> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<bool> _isConnected;
   StreamSubscription<ConnectivityResult> subscription;
   GeneralProvider  _generalProvider;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -57,14 +57,14 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         });
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _isConnected.dispose();
     subscription.cancel();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> initConnectivity() async {
 
     final bool _connected = await DeviceChecker.checkConnectivity(
@@ -80,7 +80,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onConnectivityChanged(bool isConnected) async {
 
     if (mounted == true){
@@ -121,7 +121,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
