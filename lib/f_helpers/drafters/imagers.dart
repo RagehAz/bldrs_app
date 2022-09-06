@@ -481,7 +481,7 @@ class Imagers {
         if (pic1 is String){
           _identical = pic1 == pic2;
         }
-        else if (ObjectChecker.objectIsFile(pic1) == true){
+        else if (ObjectCheck.objectIsFile(pic1) == true){
           _identical = Filers.checkFilesAreIdentical(file1: pic1, file2: pic2);
         }
         else if (pic1 is FileModel){
@@ -525,13 +525,14 @@ class Imagers {
 
     return _areIdentical;
   }
-
+// ---------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPicIsEmpty(dynamic pic){
     bool _isEmpty = true;
 
     if (pic != null){
 
-      if (ObjectChecker.objectIsURL(pic) == true){
+      if (ObjectCheck.isAbsoluteURL(pic) == true){
         _isEmpty = TextCheck.isEmpty(pic);
       }
 
@@ -546,7 +547,7 @@ class Imagers {
       else if (pic is String){
         _isEmpty = TextCheck.isEmpty(pic);
       }
-      else if (ObjectChecker.objectIsUint8List(pic) == true){
+      else if (ObjectCheck.objectIsUint8List(pic) == true){
         final Uint8List _uInts = pic;
         _isEmpty = _uInts.isEmpty;
       }
@@ -601,7 +602,7 @@ class Imagers {
       if (toJSON == true){
 
         /// PIC IS URL
-        if (ObjectChecker.objectIsURL(pic) == true){
+        if (ObjectCheck.isAbsoluteURL(pic) == true){
           _output = pic;
         }
         /// PIC IS FILE MODEL
@@ -609,7 +610,7 @@ class Imagers {
           final FileModel fileModel = pic;
           _output = fileModel?.file?.path ?? fileModel?.url;
         }
-        else if (ObjectChecker.objectIsFile(pic) == true){
+        else if (ObjectCheck.objectIsFile(pic) == true){
           final File _file = pic;
           _output = _file.path;
         }

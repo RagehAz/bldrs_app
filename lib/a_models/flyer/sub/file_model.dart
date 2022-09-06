@@ -122,10 +122,10 @@ class FileModel {
       if (pic is FileModel){
         _fileModel = pic;
       }
-      else if (ObjectChecker.objectIsURL(pic) == true){
+      else if (ObjectCheck.isAbsoluteURL(pic) == true){
         _fileModel = FileModel(url: pic, fileName: fileName,);
       }
-      else if (ObjectChecker.objectIsFile(pic) == true){
+      else if (ObjectCheck.objectIsFile(pic) == true){
         _fileModel = FileModel(file: pic, fileName: fileName,);
       }
 
@@ -144,13 +144,13 @@ class FileModel {
 
     // blog('initializePicForEditing : pic : $pic : pic.runtimeType : ${pic.runtimeType}');
 
-    if (ObjectChecker.objectIsURL(pic) == true){
+    if (ObjectCheck.isAbsoluteURL(pic) == true){
       _fileModel = await createModelByUrl(
         url: pic,
         fileName: fileName,
       );
     }
-    else if (ObjectChecker.objectIsFile(pic) == true){
+    else if (ObjectCheck.objectIsFile(pic) == true){
       _fileModel = createModelByNewFile(pic);
     }
     else if (pic is FileModel){
@@ -189,10 +189,10 @@ class FileModel {
   static String bakeFileForLDB(dynamic pic){
     String _pic;
 
-    if (ObjectChecker.objectIsURL(pic) == true){
+    if (ObjectCheck.isAbsoluteURL(pic) == true){
       _pic = pic;
     }
-    else if (ObjectChecker.objectIsFile(pic) == true){
+    else if (ObjectCheck.objectIsFile(pic) == true){
       final File _file = pic;
       _pic = _file.path;
     }

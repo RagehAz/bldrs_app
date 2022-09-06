@@ -127,7 +127,7 @@ class BzFireOps {
     String _bzLogoURL;
 
     /// IF ITS A FILE : UPLOAD
-    if (logo != null && ObjectChecker.objectIsFile(logo) == true) {
+    if (logo != null && ObjectCheck.objectIsFile(logo) == true) {
 
       _bzLogoURL = await Storage.createStoragePicAndGetURL(
         context: context,
@@ -140,7 +140,7 @@ class BzFireOps {
     }
 
     /// IF ITS A URL : CREATE FILE TO COPY IMAGE THEN UPLOAD
-    else if (ObjectChecker.objectIsURL(logo) == true){
+    else if (ObjectCheck.isAbsoluteURL(logo) == true){
 
       final File _fileFromURL = await Storage.getImageFileByURL(
           context: context,
@@ -179,7 +179,7 @@ class BzFireOps {
     if (
     draftBz.authors[0].pic == null
         ||
-    ObjectChecker.objectIsURL(draftBz.authors[0].pic) == true
+    ObjectCheck.isAbsoluteURL(draftBz.authors[0].pic) == true
     ){
       _authorPicURL = userModel.pic;
     }
@@ -366,7 +366,7 @@ class BzFireOps {
     if (newBzModel?.logo != null){
 
       /// IF NEW LOGO IS URL
-      if (ObjectChecker.objectIsURL(newBzModel?.logo) == true) {
+      if (ObjectCheck.isAbsoluteURL(newBzModel?.logo) == true) {
 
         /// IF URL IS CHANGED
         if (newBzModel?.logo != oldBzModel.logo){
@@ -376,7 +376,7 @@ class BzFireOps {
       }
 
       /// IF NEW LOGO IS FILE
-      else if (ObjectChecker.objectIsFile(newBzModel?.logo) == true){
+      else if (ObjectCheck.objectIsFile(newBzModel?.logo) == true){
 
         _bzLogoURL = await Storage.updateExistingPic(
           context: context,

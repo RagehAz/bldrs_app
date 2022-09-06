@@ -311,7 +311,7 @@ class MutableSlide {
     /// A - search for first slide where its picture of object type asset
     final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere(
         (MutableSlide slide) =>
-            ObjectChecker.objectIsFile(slide.picURL) == true,
+            ObjectCheck.objectIsFile(slide.picURL) == true,
         orElse: () => null);
 
     /// B - when found

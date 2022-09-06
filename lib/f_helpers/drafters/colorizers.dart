@@ -233,8 +233,13 @@ class Colorizer {
     @required bool canErrorize,
 }){
 
+    bool _errorIsOn = false;
+    if (validator != null){
+      _errorIsOn = validator() != null;
+    }
+
     return errorize(
-        errorIsOn: validator() != null,
+        errorIsOn: _errorIsOn,
         defaultColor: defaultColor,
         canErrorize: canErrorize,
     );

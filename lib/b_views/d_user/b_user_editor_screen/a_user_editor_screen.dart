@@ -334,6 +334,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   autoValidate: true,
                   validator: () => Formers.contactsPhoneValidator(
                     contacts: userModel.contacts,
+                    zoneModel: userModel?.zone,
                   ),
                 ),
 

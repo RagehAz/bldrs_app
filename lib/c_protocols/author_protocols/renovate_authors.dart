@@ -28,7 +28,7 @@ class RenovateAuthorProtocols {
       context: context,
       newBzModel: _updatedBzModel,
       oldBzModel: oldBzModel,
-      authorPicFile: ObjectChecker.objectIsFile(newAuthorModel.pic) == true ? newAuthorModel.pic : null,
+      authorPicFile: ObjectCheck.objectIsFile(newAuthorModel.pic) == true ? newAuthorModel.pic : null,
     );
 
     /// no need to do that as stream listener does it

@@ -205,7 +205,7 @@ class Filers {
   }) async {
 
     File _file;
-    final String _asset = ObjectChecker.objectIsSVG(localAsset) ? Iconz.bldrsAppIcon : localAsset;
+    final String _asset = ObjectCheck.objectIsSVG(localAsset) ? Iconz.bldrsAppIcon : localAsset;
 
     await tryAndCatch(
         context: context,
@@ -321,7 +321,7 @@ class Filers {
   static Future<File> getFileFromURL(String url) async {
     File _file;
 
-    if (ObjectChecker.objectIsURL(url) == true){
+    if (ObjectCheck.isAbsoluteURL(url) == true){
       blog('getFileFromURL : START');
 
       /// call http.get method and pass imageUrl into it to get response.
@@ -390,16 +390,16 @@ class Filers {
     File _file;
 
     if (pic != null) {
-      if (ObjectChecker.objectIsFile(pic) == true) {
+      if (ObjectCheck.objectIsFile(pic) == true) {
         _file = pic;
       }
       // else if (ObjectChecker.objectIsAsset(pic) == true) {
       //   _file = await getFileFromPickerAsset(pic);
       // }
-      else if (ObjectChecker.objectIsURL(pic) == true) {
+      else if (ObjectCheck.isAbsoluteURL(pic) == true) {
         _file = await getFileFromURL(pic);
       }
-      else if (ObjectChecker.objectIsJPGorPNG(pic) == true) {
+      else if (ObjectCheck.objectIsJPGorPNG(pic) == true) {
         // _file = await getFile
       }
     }

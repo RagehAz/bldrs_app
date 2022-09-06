@@ -89,7 +89,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
                   contactType: _contactType,
                   ownerType: ContactsOwnerType.author,
                 ),
-                textController: _controller,
+                // textController: _controller,
                 keyboardTextInputAction: TextInputAction.next,
                 keyboardTextInputType: ContactModel.concludeContactTextInputType(
                   contactType: _contactType,
