@@ -32,14 +32,14 @@ class UserTileButton extends StatelessWidget {
   static const double inviteButtonWidth = 80;
   static const double boxPadding = Ratioz.appBarMargin;
   static const double buttonHeight = boxHeight - (2 * boxPadding);
-  // -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxWidth({
     @required BuildContext context,
     double boxWidthOverride,
   }){
     return boxWidthOverride ?? Scale.superScreenWidth(context);
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static double getUserButtonWidth({
     @required BuildContext context,
     @required bool inviteButtonIsOn,
@@ -66,13 +66,13 @@ class UserTileButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _userButtonWidth = getUserButtonWidth(
-        context: context,
-        inviteButtonIsOn: sideButton?.isNotEmpty == true,
-        boxWidth: boxWidth,
+      context: context,
+      inviteButtonIsOn: sideButton?.isNotEmpty == true,
+      boxWidth: boxWidth,
     );
-
+    // --------------------
     return SizedBox(
       width: boxWidth,
       height: boxHeight,
@@ -98,26 +98,27 @@ class UserTileButton extends StatelessWidget {
           if (sideButton?.isNotEmpty == true)
             const SizedBox(width: boxPadding,),
 
-            if (sideButton?.isNotEmpty == true)
-          DreamBox(
-            width: inviteButtonWidth,
-            height: buttonHeight,
-            verse: sideButton,
-            verseScaleFactor: 0.7,
-            verseMaxLines: 2,
-            onTap: onSideButtonTap,
-            isDeactivated: sideButtonDeactivated,
-          ),
+          if (sideButton?.isNotEmpty == true)
+            DreamBox(
+              width: inviteButtonWidth,
+              height: buttonHeight,
+              verse: sideButton,
+              verseScaleFactor: 0.7,
+              verseMaxLines: 2,
+              onTap: onSideButtonTap,
+              isDeactivated: sideButtonDeactivated,
+            ),
 
         ],
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
 
 class FutureUserTileButton extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const FutureUserTileButton({
     @required this.boxWidth,
     @required this.userID,
@@ -136,6 +137,7 @@ class FutureUserTileButton extends StatelessWidget {
   final Function onSideButtonTap;
   final bool bubble;
   final Color color;
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -163,7 +165,8 @@ class FutureUserTileButton extends StatelessWidget {
           }
 
         }
-        );
+    );
 
   }
+  /// --------------------------------------------------------------------------
 }

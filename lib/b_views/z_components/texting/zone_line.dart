@@ -21,14 +21,14 @@ class ZoneLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _zoneString = ZoneModel.generateZoneString(
       context: context,
       zoneModel: zoneModel,
       showCity: showCity,
       showDistrict: showDistrict,
     );
-
+    // --------------------
     return Container(
       height: 35,
       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -58,5 +58,7 @@ class ZoneLine extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

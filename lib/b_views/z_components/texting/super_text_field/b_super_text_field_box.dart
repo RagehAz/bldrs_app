@@ -17,7 +17,6 @@ class SuperTextFieldBox extends StatelessWidget {
   final dynamic margins;
   final double corners;
   /// --------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
 
@@ -33,4 +32,5 @@ class SuperTextFieldBox extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

@@ -55,4 +55,5 @@ class TextLinesAnalyzer extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }
