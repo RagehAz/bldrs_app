@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
 
-// -----------------------------------------------------------------------------
 @immutable
 class FCMToken {
   /// --------------------------------------------------------------------------
@@ -15,11 +14,11 @@ class FCMToken {
   final String token;
   final DateTime createdAt;
   final String platform;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }) {
@@ -29,7 +28,7 @@ class FCMToken {
       'platform': platform,
     };
   }
-// -------------------------------------
+  // --------------------
   static FCMToken decipherFCMToken({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -45,13 +44,13 @@ class FCMToken {
     }
     return _token;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   void blogToken(){
     blog('Token : platform $platform : createdAt : $createdAt : token : $token');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

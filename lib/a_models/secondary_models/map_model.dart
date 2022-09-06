@@ -10,19 +10,19 @@ class MapModel{
   const MapModel({
     @required this.key,
     @required this.value,
-});
+  });
   /// --------------------------------------------------------------------------
   final String key;
   final dynamic value;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// ----------------------------------------
+  // --------------------
   MapModel copyWith({
     String key,
     dynamic value,
-}){
+  }){
 
     return MapModel(
       key: key ?? this.key,
@@ -30,20 +30,20 @@ class MapModel{
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return
       <String, dynamic>{
-          'key': key,
-          'value': value,
-        };
+        'key': key,
+        'value': value,
+      };
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMapModels(List<MapModel> maps){
     Map<String, dynamic> _bigMap = {};
@@ -64,7 +64,7 @@ class MapModel{
 
     return _bigMap;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static MapModel decipherMapModel(Map<String, dynamic> map){
     MapModel model;
@@ -74,7 +74,7 @@ class MapModel{
 
     return model;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> decipherMapModels(Map<String, dynamic> bigMap, {
     bool loopingAlgorithm = true
@@ -124,15 +124,15 @@ class MapModel{
 
     return _mapModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// ----------------------------------------
+  // --------------------
   void blogMapModel(){
     blog('< $key : ${value.toString()} >');
   }
-// ----------------------------------------
+  // --------------------
   static void blogMapModels({
     @required List<MapModel> mapModels,
     String methodName = 'MapModels',
@@ -145,20 +145,20 @@ class MapModel{
     }
     blog('$methodName ------------------------------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-// ----------------------------------------
+  // --------------------
   static List<MapModel> sortValuesAlphabetically(List<MapModel> mapModels){
     mapModels.sort((MapModel a, MapModel b) => a?.value?.compareTo(b?.value));
     return mapModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<dynamic> getValuesFromMapModels(List<MapModel> mapModels){
     final List<dynamic> _values = <dynamic>[];
@@ -179,7 +179,7 @@ class MapModel{
 
     return _values;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeysFromMapModels(List<MapModel> mapModels){
     final List<String> _values = <String>[];
@@ -198,7 +198,7 @@ class MapModel{
 
     return _values;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static MapModel getModelByKey({
     @required List<MapModel> models,
@@ -212,7 +212,7 @@ class MapModel{
 
     return _model;
   }
-// ----------------------------------------
+  // --------------------
   static List<MapModel> getModelsByKeys({
     @required List<MapModel> allModels,
     @required List<String> keys,
@@ -239,11 +239,11 @@ class MapModel{
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// MODIFIERS
+  /// MODIFIERS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> replaceMapModel({
     @required List<MapModel> mapModels,
@@ -265,7 +265,7 @@ class MapModel{
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   static List<MapModel> insertMapModel({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
@@ -297,7 +297,7 @@ class MapModel{
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   static List<MapModel> removeMapModel({
     @required List<MapModel> mapModels,
     @required String key,
@@ -317,7 +317,7 @@ class MapModel{
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   static List<MapModel> removeMapsWithThisValue({
     @required List<MapModel> mapModels,
     @required dynamic value,
@@ -331,11 +331,11 @@ class MapModel{
     return _output;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CHECKERS
+  /// CHECKERS
 
-// ----------------------------------------
+  // --------------------
   static bool checkMapExists({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
@@ -359,7 +359,7 @@ class MapModel{
 
     return _exists;
   }
-// ----------------------------------------
+  // --------------------
   static bool checkMapsIncludeThisKey({
     @required List<MapModel> mapModels,
     @required String key,
@@ -381,7 +381,7 @@ class MapModel{
 
     return _include;
   }
-// ----------------------------------------
+  // --------------------
   static bool checkMapModelsListsAreIdentical({
     @required List<MapModel> models1,
     @required List<MapModel> models2,
@@ -424,14 +424,14 @@ class MapModel{
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   @override
   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -441,9 +441,8 @@ class MapModel{
 
     return other is MapModel && other.key == key && other.value == value;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode => key.hashCode ^ value.hashCode;
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }

@@ -11,13 +11,13 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
+
 enum AuthorRole {
   creator,
   moderator,
   teamMember,
 }
-// -----------------------------------------------------------------------------
+
 enum AuthorAbility {
   canChangeOthersRoles,
   canChangeSelfRole,
@@ -27,7 +27,7 @@ enum AuthorAbility {
   canSendAuthorships,
   canRemoveSelf,
 }
-// -----------------------------------------------------------------------------
+
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
@@ -48,11 +48,11 @@ class AuthorModel {
   final AuthorRole role;
   final List<ContactModel> contacts;
   final List<String> flyersIDs;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel> prepareAuthorForEditing({
     @required AuthorModel oldAuthor,
@@ -60,22 +60,22 @@ class AuthorModel {
   }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
-        pic: await FileModel.preparePicForEditing(
-            pic: oldAuthor.pic,
-            fileName:  AuthorModel.generateAuthorPicID(
-              authorID: oldAuthor.userID,
-              bzID: bzModel.id,
-            ),
+      pic: await FileModel.preparePicForEditing(
+        pic: oldAuthor.pic,
+        fileName:  AuthorModel.generateAuthorPicID(
+          authorID: oldAuthor.userID,
+          bzID: bzModel.id,
         ),
-        contacts: ContactModel.initializeContactsForEditing(
-          contacts: oldAuthor.contacts,
-          countryID: bzModel.zone.countryID,
-        ),
+      ),
+      contacts: ContactModel.initializeContactsForEditing(
+        contacts: oldAuthor.contacts,
+        countryID: bzModel.zone.countryID,
+      ),
     );
 
     return _tempAuthor;
   }
-// ----------------------------------
+  // --------------------
 
   static AuthorModel bakeEditorVariablesToUpload({
     @required AuthorModel tempAuthor,
@@ -113,11 +113,11 @@ class AuthorModel {
     // return _author;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   AuthorModel copyWith({
     String userID,
@@ -127,7 +127,7 @@ class AuthorModel {
     AuthorRole role,
     List<ContactModel> contacts,
     List<String> flyersIDs,
-}){
+  }){
     return AuthorModel(
       userID: userID ?? this.userID,
       name: name ?? this.name,
@@ -138,7 +138,7 @@ class AuthorModel {
       flyersIDs: flyersIDs ?? this.flyersIDs,
     );
   }
-// ----------------------------------
+  // --------------------
 
   static AuthorModel createAuthorFromUserModel({
     @required UserModel userModel,
@@ -155,7 +155,7 @@ class AuthorModel {
     );
     return _author;
   }
-// ----------------------------------
+  // --------------------
 
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
@@ -168,11 +168,11 @@ class AuthorModel {
 
     return _allAuthors;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -185,7 +185,7 @@ class AuthorModel {
       'flyersIDs': flyersIDs,
     };
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel decipherAuthor(Map<String, dynamic> map) {
     return AuthorModel(
@@ -198,7 +198,7 @@ class AuthorModel {
       flyersIDs: Stringer.getStringsFromDynamics(dynamics: map['flyersIDs']),
     );
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherAuthors(List<AuthorModel> authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
@@ -215,7 +215,7 @@ class AuthorModel {
 
     return _map;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps) {
     final List<AuthorModel> _authors = <AuthorModel>[];
@@ -235,7 +235,7 @@ class AuthorModel {
 
     return _authors;
   }
-// ----------------------------------
+  // --------------------
   static String cipherAuthorRole(AuthorRole role){
     switch (role){
       case AuthorRole.creator: return 'creator'; break;
@@ -244,7 +244,7 @@ class AuthorModel {
       default: return null;
     }
   }
-// ----------------------------------
+  // --------------------
   static AuthorRole decipherAuthorRole(String role){
     switch (role){
       case 'creator'     : return AuthorRole.creator   ; break;
@@ -253,11 +253,11 @@ class AuthorModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ----------------------------------
+  // --------------------
 
   static AuthorModel getAuthorWhosePicIsFile({
     @required List<AuthorModel> authors,
@@ -275,7 +275,7 @@ class AuthorModel {
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
   static List<String> getAuthorPicOwnersIDs({
     @required BzModel bzModel,
     @required AuthorModel authorModel,
@@ -292,15 +292,15 @@ class AuthorModel {
       _ownersIDs.add(_creatorAuthor.userID);
 
       _ownersIDs = Stringer.addStringToListIfDoesNotContainIt(
-          strings: _ownersIDs,
-          stringToAdd: authorModel.userID,
+        strings: _ownersIDs,
+        stringToAdd: authorModel.userID,
       );
 
     }
 
     return _ownersIDs;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int getAuthorGalleryCountFromBzModel({
     @required BzModel bzModel,
@@ -323,18 +323,18 @@ class AuthorModel {
 
     return _authorGalleryCount;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromBzByAuthorID({
     @required BzModel bz,
     @required String authorID,
   }) {
     final AuthorModel author = bz?.authors?.singleWhere(
-        (AuthorModel au) => au?.userID == authorID,
+            (AuthorModel au) => au?.userID == authorID,
         orElse: () => null);
     return author;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int getAuthorIndexByAuthorID({
     @required List<AuthorModel> authors,
@@ -346,7 +346,7 @@ class AuthorModel {
 
     return _currentAuthorIndex;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorsIDsFromAuthors({
     @required List<AuthorModel> authors,
@@ -359,7 +359,7 @@ class AuthorModel {
 
     return _authorsIDs;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromAuthorsByID({
     @required List<AuthorModel> authors,
@@ -380,7 +380,7 @@ class AuthorModel {
 
     return _author;
   }
-// ----------------------------------
+  // --------------------
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs({
     @required List<AuthorModel> allAuthors,
     @required List<String> authorsIDs,
@@ -401,7 +401,7 @@ class AuthorModel {
 
     return _bzAuthors;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getCreatorAuthorFromBz(BzModel bzModel) {
 
@@ -412,7 +412,7 @@ class AuthorModel {
 
     return _masterAuthor;
   }
-// ----------------------------------
+  // --------------------
   static List<String> getAuthorsNames({
     @required List<AuthorModel> authors
   }){
@@ -428,7 +428,7 @@ class AuthorModel {
 
     return _names;
   }
-// ----------------------------------
+  // --------------------
   static AuthorModel getFlyerAuthor({
     @required List<AuthorModel> authors,
     @required String flyerID,
@@ -441,8 +441,8 @@ class AuthorModel {
       _author = authors.firstWhere((AuthorModel authorModel){
 
         final bool _found = Stringer.checkStringsContainString(
-            strings: authorModel.flyersIDs,
-            string: flyerID,
+          strings: authorModel.flyersIDs,
+          string: flyerID,
         );
 
         return _found;
@@ -452,11 +452,11 @@ class AuthorModel {
 
     return _author;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel replaceAuthorModelInBzModel({
     @required BzModel bzModel,
@@ -474,7 +474,7 @@ class AuthorModel {
 
     return _updatedBzModel;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> replaceAuthorModelInAuthorsListByID({
     @required List<AuthorModel> authors,
@@ -488,8 +488,8 @@ class AuthorModel {
     }
 
     final int _index = getAuthorIndexByAuthorID(
-        authors: _output,
-        authorID: authorToReplace.userID,
+      authors: _output,
+      authorID: authorToReplace.userID,
     );
 
     if (_index != -1){
@@ -500,7 +500,7 @@ class AuthorModel {
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
 
   static List<String> replaceAuthorIDInAuthorsIDsList({
     @required List<AuthorModel> originalAuthors,
@@ -516,8 +516,8 @@ class AuthorModel {
     // blog('getAuthorsIDsFromAuthors : _originalAuthorsIDs : $_originalAuthorsIDs');
 
     final int _indexOfOldAuthor = getAuthorIndexByAuthorID(
-        authors: originalAuthors,
-        authorID: oldAuthor.userID,
+      authors: originalAuthors,
+      authorID: oldAuthor.userID,
     );
 
     if (_indexOfOldAuthor != -1) {
@@ -528,7 +528,7 @@ class AuthorModel {
 
     return _modifiedAuthorsIDsList;
   }
-// ----------------------------------
+  // --------------------
   static List<AuthorModel> addNewUserToAuthors({
     @required List<AuthorModel> authors,
     @required UserModel newUserModel,
@@ -549,7 +549,7 @@ class AuthorModel {
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeAuthorFromAuthors({
     @required List<AuthorModel> authors,
@@ -575,22 +575,22 @@ class AuthorModel {
 
     return _output ?? authors;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> addFlyerIDToAuthor({
     @required String flyerID,
     @required String authorID,
     @required List<AuthorModel> authors,
-}){
+  }){
 
     List<AuthorModel> _output = authors;
 
     if (
     Mapper.checkCanLoopList(authors) == true
-    &&
-    flyerID != null
-    &&
-    authorID != null
+        &&
+        flyerID != null
+        &&
+        authorID != null
     ){
 
       // blog('addFlyerIDToAuthor : flyerID $flyerID : authorID $authorID : authors count : ${authors.length}');
@@ -617,16 +617,16 @@ class AuthorModel {
 
 
       _output = replaceAuthorModelInAuthorsListByID(
-          authors: authors,
-          authorToReplace: _updatedAuthor,
+        authors: authors,
+        authorToReplace: _updatedAuthor,
       );
 
 
     }
 
     return _output;
-}
-// ----------------------------------
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeFlyerIDFromAuthor({
     @required String flyerID,
@@ -654,8 +654,8 @@ class AuthorModel {
       blog('removeFlyerIDToAuthor : author flyers was : ${_author.flyersIDs}');
 
       final List<String> _updatedFlyersIDs = Stringer.removeStringsFromStrings(
-          removeFrom: _author.flyersIDs,
-          removeThis: <String>[flyerID],
+        removeFrom: _author.flyersIDs,
+        removeThis: <String>[flyerID],
       );
 
       blog('removeFlyerIDToAuthor : author flyers is : $_updatedFlyersIDs');
@@ -670,8 +670,8 @@ class AuthorModel {
       );
 
       final bool _authorsAreIdentical = AuthorModel.checkAuthorsListsAreIdentical(
-          authors1: authors,
-          authors2: _output,
+        authors1: authors,
+        authors2: _output,
       );
 
       blog('removeFlyerIDToAuthor : author are identical : $_authorsAreIdentical');
@@ -681,7 +681,7 @@ class AuthorModel {
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
   static List<AuthorModel> removeFlyerIDFromAuthors({
     @required String flyerID,
     @required List<AuthorModel> authors,
@@ -710,11 +710,11 @@ class AuthorModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKER
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsCreatorAuthor({
     @required String userID,
@@ -724,8 +724,8 @@ class AuthorModel {
     bool _isCreator = false;
 
     final AuthorModel _author = getAuthorFromBzByAuthorID(
-        authorID: userID,
-        bz: bzModel,
+      authorID: userID,
+      bz: bzModel,
     );
 
     if (_author != null){
@@ -734,7 +734,7 @@ class AuthorModel {
 
     return _isCreator;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsListsAreIdentical({
     @required List<AuthorModel> authors1,
@@ -781,7 +781,7 @@ class AuthorModel {
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsAreIdentical({
     @required AuthorModel author1,
@@ -794,18 +794,18 @@ class AuthorModel {
       if (
 
       author1.userID == author2.userID &&
-      author1.name == author2.name &&
-      author1.pic == author2.pic &&
-      author1.title == author2.title &&
-      author1.role == author2.role &&
-      Mapper.checkListsAreIdentical(
-          list1: author1.flyersIDs,
-          list2: author2.flyersIDs,
-      ) == true &&
-      ContactModel.checkContactsListsAreIdentical(
-          contacts1: author1.contacts,
-          contacts2: author2.contacts,
-      ) == true
+          author1.name == author2.name &&
+          author1.pic == author2.pic &&
+          author1.title == author2.title &&
+          author1.role == author2.role &&
+          Mapper.checkListsAreIdentical(
+            list1: author1.flyersIDs,
+            list2: author2.flyersIDs,
+          ) == true &&
+          ContactModel.checkContactsListsAreIdentical(
+            contacts1: author1.contacts,
+            contacts2: author2.contacts,
+          ) == true
 
       ){
         _areIdentical = true;
@@ -815,7 +815,7 @@ class AuthorModel {
 
     return _areIdentical;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsContainUserID({
     @required List<AuthorModel> authors,
@@ -838,7 +838,7 @@ class AuthorModel {
 
     return _contains;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasFlyers({
     @required AuthorModel author,
@@ -853,7 +853,7 @@ class AuthorModel {
 
     return _hasFlyers;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImCreatorInThisBz({
     @required BzModel bzModel,
@@ -863,8 +863,8 @@ class AuthorModel {
     if (bzModel != null){
 
       final AuthorModel _myAuthorModel = getAuthorFromBzByAuthorID(
-          bz: bzModel,
-          authorID: AuthFireOps.superUserID(),
+        bz: bzModel,
+        authorID: AuthFireOps.superUserID(),
       );
 
       if (_myAuthorModel != null){
@@ -875,23 +875,23 @@ class AuthorModel {
 
     return _imCreator;
   }
-// ----------------------------------
+  // --------------------
   static bool checkImAuthorInBzOfThisFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
   }){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     return Stringer.checkStringsContainString(
-        strings: _myUserModel.myBzzIDs,
-        string: flyerModel.bzID,
+      strings: _myUserModel.myBzzIDs,
+      string: flyerModel.bzID,
     );
   }
-// ----------------------------------
+  // --------------------
   static Future<bool> checkUserImageIsAuthorImage({
     @required  BuildContext context,
     @required AuthorModel authorModel,
@@ -909,7 +909,7 @@ class AuthorModel {
 
     return _areIdentical;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorCanDeleteFlyer({
     @required String myID,
@@ -929,8 +929,8 @@ class AuthorModel {
       else {
 
         final bool _iHaveHigherRankThanFlyerAuthor = checkAuthorHasHigherRank(
-            theDoer: getAuthorFromBzByAuthorID(bz: bzModel, authorID: myID),
-            theDoneWith: getAuthorFromBzByAuthorID(bz: bzModel, authorID: flyer.authorID),
+          theDoer: getAuthorFromBzByAuthorID(bz: bzModel, authorID: myID),
+          theDoneWith: getAuthorFromBzByAuthorID(bz: bzModel, authorID: flyer.authorID),
         );
 
         if (_iHaveHigherRankThanFlyerAuthor == true){
@@ -943,11 +943,11 @@ class AuthorModel {
 
     return _canDelete;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateAuthorPicID({
     @required String authorID,
@@ -956,7 +956,7 @@ class AuthorModel {
     final String _authorPicID = '$authorID---$bzID';
     return _authorPicID;
   }
-// ----------------------------------
+  // --------------------
   /*
   static String generateMasterAuthorsNamesString({
     @required BuildContext context,
@@ -988,11 +988,11 @@ class AuthorModel {
     return _string;
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel dummyAuthor() {
     return AuthorModel(
@@ -1005,7 +1005,7 @@ class AuthorModel {
       flyersIDs: const <String>[],
     );
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> dummyAuthors() {
     return <AuthorModel>[
@@ -1015,11 +1015,11 @@ class AuthorModel {
       dummyAuthor(),
     ];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogAuthor({
     String methodName = 'Blogging Author',
@@ -1038,12 +1038,12 @@ class AuthorModel {
 
     blog('$_methodName : PRINTING BZ MODEL ---------------- END -- ');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogAuthors({
     @required List<AuthorModel> authors,
     String methodName,
-}){
+  }){
 
     if (Mapper.checkCanLoopList(authors) == true){
 
@@ -1059,11 +1059,11 @@ class AuthorModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSLATION
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translateRole({
     @required BuildContext context,
@@ -1076,11 +1076,11 @@ class AuthorModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// AUTHOR ROLES
+  /// AUTHOR ROLES
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorAbility({
     @required AuthorModel theDoer,
@@ -1099,7 +1099,7 @@ class AuthorModel {
     );
 
     switch (theDoer.role){
-      /// CREATOR -------------
+    /// CREATOR -------------
       case AuthorRole.creator:
         switch (ability) {
           case AuthorAbility.canChangeOthersRoles :     return true; break;
@@ -1137,7 +1137,7 @@ class AuthorModel {
     }
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasHigherRank({
     @required AuthorModel theDoer, // the current user doing stuff
@@ -1157,7 +1157,7 @@ class AuthorModel {
 
     return _hasHigherRank;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasSameRank({
     @required AuthorModel theDoer, // the current user doing stuff
@@ -1177,7 +1177,7 @@ class AuthorModel {
 
     return _hasHigherRank;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int getRoleRank(AuthorRole role){
 
@@ -1189,16 +1189,16 @@ class AuthorModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -1216,7 +1216,7 @@ class AuthorModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       userID.hashCode^

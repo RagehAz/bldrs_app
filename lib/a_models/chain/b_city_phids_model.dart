@@ -8,25 +8,25 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CityPhidsModel {
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   const CityPhidsModel({
     @required this.cityID,
     @required this.phidsMapModels,
-});
+  });
   /// --------------------------------------------------------------------------
   final String cityID;
   final List<MapModel> phidsMapModels;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CYPHERS
+  /// CYPHERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     final Map<String, dynamic> _map = MapModel.cipherMapModels(phidsMapModels);
     return _map;
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CityPhidsModel decipherCityPhids({
     @required Map<String, dynamic> map,
@@ -44,15 +44,15 @@ class CityPhidsModel {
 
     return _cityPhids;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATOR
+  /// CREATOR
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> createPhidsMapModelsFromSpecs({
-  @required List<SpecModel> specs,
-}){
+    @required List<SpecModel> specs,
+  }){
     List<MapModel> _maps = <MapModel>[];
 
     if (Mapper.checkCanLoopList(specs) == true){
@@ -104,7 +104,7 @@ class CityPhidsModel {
 
     return _maps;
   }
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CityPhidsModel createCityPhidModelFromFlyer({
     @required FlyerModel flyerModel,
@@ -114,21 +114,21 @@ class CityPhidsModel {
     if (flyerModel != null){
 
       _cityChain = CityPhidsModel(
-          cityID: flyerModel.zone.cityID,
-          phidsMapModels: createPhidsMapModelsFromSpecs(
-            specs: flyerModel.specs,
-          ),
+        cityID: flyerModel.zone.cityID,
+        phidsMapModels: createPhidsMapModelsFromSpecs(
+          specs: flyerModel.specs,
+        ),
       );
 
     }
 
     return _cityChain;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogCityPhidsModel({
     String methodName = '',
@@ -138,11 +138,11 @@ class CityPhidsModel {
       methodName: 'blogCityPhidsModel : $methodName : ($cityID)',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getPhidsFromCityPhidsModel({
     @required CityPhidsModel cityPhidsModel,
@@ -158,11 +158,11 @@ class CityPhidsModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CityPhidsModel _cleanZeroValuesPhids(CityPhidsModel cityPhidsModel){
 
@@ -210,11 +210,11 @@ class CityPhidsModel {
 
     return _refined;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// --------------------------------
+  // --------------------
   static bool checkCityPhidsAreIdentical({
     @required CityPhidsModel cityPhids1,
     @required CityPhidsModel cityPhids2,
@@ -228,10 +228,10 @@ class CityPhidsModel {
 
       if (
       cityPhids1.cityID == cityPhids2.cityID &&
-      MapModel.checkMapModelsListsAreIdentical(
-        models1: cityPhids1.phidsMapModels,
-        models2: cityPhids2.phidsMapModels,
-      ) == true
+          MapModel.checkMapModelsListsAreIdentical(
+            models1: cityPhids1.phidsMapModels,
+            models2: cityPhids2.phidsMapModels,
+          ) == true
       ){
         _identical = true;
       }
@@ -240,16 +240,16 @@ class CityPhidsModel {
 
     return _identical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -267,7 +267,7 @@ class CityPhidsModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       cityID.hashCode^

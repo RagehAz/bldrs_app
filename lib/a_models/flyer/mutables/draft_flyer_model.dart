@@ -62,11 +62,11 @@ class DraftFlyerModel{
   final bool priceTagIsOn;
   final int score;
   final FileModel pdf;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   static DraftFlyerModel initializeDraftForEditing({
     @required FlyerModel oldFlyer,
     @required BzModel bzModel,
@@ -145,12 +145,12 @@ class DraftFlyerModel{
 
     return _draft;
   }
-// -----------------------------------
+  // --------------------
   static Future<FlyerModel> bakeDraftToUpload({
     @required DraftFlyerModel draft,
     @required bool toLDB,
     PublishState overridePublishState,
-}) async {
+  }) async {
 
 
 
@@ -169,9 +169,9 @@ class DraftFlyerModel{
       bzID: draft.bzID,
       position: draft.position,
       slides: SlideModel.getSlidesFromMutableSlides(
-          mSlides: draft.mutableSlides,
-          forLDB: toLDB,
-        ),
+        mSlides: draft.mutableSlides,
+        forLDB: toLDB,
+      ),
       specs: draft.specs,
       times: draft.times,
       priceTagIsOn: draft.priceTagIsOn,
@@ -180,11 +180,11 @@ class DraftFlyerModel{
 
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// -------------------------------------
+  // --------------------
   DraftFlyerModel copyWith({
     String id,
     String headline,
@@ -228,30 +228,30 @@ class DraftFlyerModel{
     score: score ?? this.score,
     pdf: pdf ?? this.pdf,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DISPOSING
+  /// DISPOSING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void disposeDraftNodes({
-  @required DraftFlyerModel draft,
-}){
+    @required DraftFlyerModel draft,
+  }){
 
 
     draft.headlineNode.dispose();
     draft.descriptionNode.dispose();
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// GENERATORS
+  /// GENERATORS
 
-// -------------------------------------
+  // --------------------
   static String _generateStateTimeString({
     @required BuildContext context,
     @required PublishTime publishTime,
-}){
+  }){
 
     final String _timeString = Timers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
       context: context,
@@ -264,13 +264,13 @@ class DraftFlyerModel{
 
     return '$_stateString @ $_timeString';
   }
-// -------------------------------------
+  // --------------------
   static String generateShelfTitle({
     @required BuildContext context,
     @required PublishState publishState,
     @required List<PublishTime> times,
     @required int shelfNumber,
-}){
+  }){
 
     final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
       state: publishState,
@@ -289,17 +289,17 @@ class DraftFlyerModel{
 
     return _shelfTitle;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DraftFlyerModel updateHeadline({
     @required String newHeadline,
     @required DraftFlyerModel draft,
-}){
+  }){
 
     DraftFlyerModel _draft = draft;
 
@@ -326,7 +326,7 @@ class DraftFlyerModel{
 
     return _draft;
   }
-// -------------------------------------
+  // --------------------
 
   static DraftFlyerModel removePDF(DraftFlyerModel draft){
     return DraftFlyerModel(
@@ -352,22 +352,22 @@ class DraftFlyerModel{
       headlineNode: draft.headlineNode,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   static String getFirstSlideHeadline(DraftFlyerModel draft){
     return Mapper.checkCanLoopList(draft?.mutableSlides) == true ?
     draft.mutableSlides[0].headline
         :
     null;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogDraft(){
 
@@ -395,7 +395,7 @@ class DraftFlyerModel{
 
     blog('BLOGGING DRAFT FLYER MODEL ---------------------------------------- END');
   }
-// -------------------------------------
+  // --------------------
   static void _blogDraftsDifferences({
     @required DraftFlyerModel draft1,
     @required DraftFlyerModel draft2,
@@ -477,11 +477,11 @@ class DraftFlyerModel{
     blog('_blogDraftsDifferences : ------------------------ END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanPublishDraft({
     @required DraftFlyerModel draft,
@@ -493,8 +493,8 @@ class DraftFlyerModel{
 
       if (
       draft.mutableSlides.isNotEmpty == true
-      &&
-      headlineController.text.length >= Standards.flyerHeadlineMinLength
+          &&
+          headlineController.text.length >= Standards.flyerHeadlineMinLength
       ){
 
         _canPublish = true;
@@ -504,7 +504,7 @@ class DraftFlyerModel{
 
     return _canPublish;
   }
-// -------------------------------------
+  // --------------------
   static bool checkDraftsAreIdentical({
     @required DraftFlyerModel draft1,
     @required DraftFlyerModel draft2,
@@ -518,25 +518,25 @@ class DraftFlyerModel{
 
       if (
       draft1.id == draft2.id &&
-      draft1.headline == draft2.headline &&
-      // FocusNode headlineNode,
-      draft1.description == draft2.description &&
-      // FocusNode descriptionNode,
-      draft1.flyerType == draft2.flyerType &&
-      draft1.publishState == draft2.publishState &&
-      draft1.auditState == draft2.auditState &&
-      Mapper.checkListsAreIdentical(list1: draft1.keywordsIDs, list2: draft2.keywordsIDs) == true &&
-      draft1.showsAuthor == draft2.showsAuthor &&
-      ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
-      draft1.authorID == draft2.authorID &&
-      draft1.bzID == draft2.bzID &&
-      Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&
-      MutableSlide.checkSlidesListsAreIdentical(slides1: draft1.mutableSlides, slides2: draft2.mutableSlides) == true &&
-      SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
-      PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
-      draft1.priceTagIsOn == draft2.priceTagIsOn &&
-      draft1.score == draft2.score &&
-      FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true
+          draft1.headline == draft2.headline &&
+          // FocusNode headlineNode,
+          draft1.description == draft2.description &&
+          // FocusNode descriptionNode,
+          draft1.flyerType == draft2.flyerType &&
+          draft1.publishState == draft2.publishState &&
+          draft1.auditState == draft2.auditState &&
+          Mapper.checkListsAreIdentical(list1: draft1.keywordsIDs, list2: draft2.keywordsIDs) == true &&
+          draft1.showsAuthor == draft2.showsAuthor &&
+          ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
+          draft1.authorID == draft2.authorID &&
+          draft1.bzID == draft2.bzID &&
+          Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) == true &&
+          MutableSlide.checkSlidesListsAreIdentical(slides1: draft1.mutableSlides, slides2: draft2.mutableSlides) == true &&
+          SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
+          PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
+          draft1.priceTagIsOn == draft2.priceTagIsOn &&
+          draft1.score == draft2.score &&
+          FileModel.checkFileModelsAreIdentical(model1: draft1.pdf, model2: draft2.pdf) == true
 
       ){
         _areIdentical = true;
@@ -553,7 +553,7 @@ class DraftFlyerModel{
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
@@ -605,7 +605,7 @@ class DraftFlyerModel{
       pdf.hashCode;
 // -----------------------------------------------------------------------------
 }
-// -------------------------------------
+// --------------------
 /*
   /// TESTED : WORKS PERFECT
   FlyerModel toFlyerModel(){
@@ -633,7 +633,7 @@ class DraftFlyerModel{
     );
   }
   */
-// -------------------------------------
+// --------------------
 /*
 //   /// TESTED : WORKS PERFECT
 //   static DraftFlyerModel createNewDraft({
@@ -679,7 +679,7 @@ class DraftFlyerModel{
 //
 //     return _draft;
 //   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<DraftFlyerModel> createDraftFromFlyer(FlyerModel flyerModel) async {
 //
@@ -718,4 +718,4 @@ class DraftFlyerModel{
 //     return _draft;
 //   }
    */
-// -------------------------------------
+// --------------------

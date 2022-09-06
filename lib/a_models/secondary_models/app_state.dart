@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
 @immutable
 class AppState {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const AppState({
     @required this.keywordsChainVersion,
     @required this.specsChainVersion,
@@ -20,7 +20,7 @@ class AppState {
     @required this.id,
 
   });
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// chains
   final double keywordsChainVersion;
   final double specsChainVersion;
@@ -35,11 +35,11 @@ class AppState {
   final double appControlsVersion;
 
   final String id; /// either global or user
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   AppState copyWith({
     double keywordsChainVersion,
@@ -50,7 +50,7 @@ class AppState {
     double ldbVersion,
     double appControlsVersion,
     String id,
-}){
+  }){
     return AppState(
       id: id ?? this.id,
       keywordsChainVersion: keywordsChainVersion ?? this.keywordsChainVersion,
@@ -63,12 +63,12 @@ class AppState {
       ldbVersion: ldbVersion?? this.ldbVersion,
       appControlsVersion: appControlsVersion ?? this.appControlsVersion,
     );
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AppState initialState() {
     return const AppState(
@@ -82,11 +82,11 @@ class AppState {
       appControlsVersion: null,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -100,7 +100,7 @@ class AppState {
       'appControlsVersion': appControlsVersion,
     };
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AppState fromMap(Map<String, dynamic> map) {
 
@@ -122,36 +122,36 @@ class AppState {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool appStatesAreIdentical({
     @required AppState stateA,
     @required AppState stateB,
-}){
+  }){
     bool _areIdentical = false;
 
     if (stateA != null && stateB != null){
 
       if (
       stateA.id == stateB.id
-      &&
-      stateA.appVersion == stateB.appVersion
-      &&
+          &&
+          stateA.appVersion == stateB.appVersion
+          &&
           stateA.keywordsChainVersion == stateB.keywordsChainVersion
-      &&
+          &&
           stateA.ldbVersion == stateB.ldbVersion
-      &&
+          &&
           stateA.phrasesVersion == stateB.phrasesVersion
-      &&
+          &&
           stateA.specPickersVersion == stateB.specPickersVersion
-      &&
+          &&
           stateA.specsChainVersion == stateB.specsChainVersion
-      &&
-        stateA.appControlsVersion == stateB.appControlsVersion
+          &&
+          stateA.appControlsVersion == stateB.appControlsVersion
       ){
         _areIdentical = true;
       }
@@ -160,11 +160,11 @@ class AppState {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AppState dummyAppState(){
     return const AppState(
@@ -178,11 +178,11 @@ class AppState {
       appControlsVersion: 0,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogAppState(){
     blog('AppState is : -------------------- START');
@@ -196,21 +196,21 @@ class AppState {
     blog('appControlsVersion : $appControlsVersion');
     blog('AppState ------------------------ END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------------
+  // --------------------
   static bool checkAppStatesAreIdentical({
     @required AppState appState1,
     @required AppState appState2,
-}){
+  }){
     bool _identical = false;
 
     if (appState1 != null && appState2 != null){
 
       if (
-          appState1.keywordsChainVersion == appState2.keywordsChainVersion &&
+      appState1.keywordsChainVersion == appState2.keywordsChainVersion &&
           appState1.specsChainVersion == appState2.specsChainVersion &&
           appState1.specPickersVersion == appState2.specPickersVersion &&
           appState1.phrasesVersion == appState2.phrasesVersion &&
@@ -226,16 +226,16 @@ class AppState {
 
     return _identical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -253,7 +253,7 @@ class AppState {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       keywordsChainVersion.hashCode^
@@ -264,5 +264,5 @@ class AppState {
       ldbVersion.hashCode^
       appControlsVersion.hashCode^
       id.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

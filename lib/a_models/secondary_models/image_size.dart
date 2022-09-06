@@ -18,18 +18,18 @@ class ImageSize {
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'width': width,
       'height': height,
     };
   }
-// -------------------------------------
+  // --------------------
   static ImageSize decipherImageSize(Map<String, dynamic> map) {
     ImageSize _imageSize;
     if (map != null) {
@@ -44,11 +44,11 @@ class ImageSize {
     }
     return _imageSize;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   double getAspectRatio(){
 
     /*
@@ -59,7 +59,7 @@ class ImageSize {
 
     return height / width;
   }
-// -------------------------------------
+  // --------------------
   /*
   static ImageSize getImageSizeFromAsset(Asset asset) {
     ImageSize _imageSize;
@@ -73,7 +73,7 @@ class ImageSize {
     return _imageSize;
   }
    */
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ImageSize> superImageSize(dynamic image) async {
     ImageSize _imageSize;
@@ -133,19 +133,19 @@ class ImageSize {
 
     return _imageSize;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   void blogSize({String methodName = 'ImageSize'}) {
     blog('blogSize : $methodName : image size: W [ $width ] x H [ $height ]');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BOX FIT
 
-// -------------------------------------
+  // --------------------
   static int cipherBoxFit(BoxFit boxFit) {
     switch (boxFit) {
       case BoxFit.fitHeight:
@@ -173,7 +173,7 @@ class ImageSize {
         return 3;
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static BoxFit decipherBoxFit(int boxFit) {
     switch (boxFit) {
       case 1:   return BoxFit.fitHeight;
@@ -186,11 +186,11 @@ class ImageSize {
       default:  return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONCLUDERS
 
-// -------------------------------------
+  // --------------------
   static double concludeHeightByGraphicSizes({
     @required double width,
     @required double graphicWidth,
@@ -199,11 +199,11 @@ class ImageSize {
     /// height / width = graphicHeight / graphicWidth
     return (graphicHeight * width) / graphicWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   static bool checkSizesAreIdentical({
     @required ImageSize sizeA,
     @required ImageSize sizeB,
@@ -215,7 +215,7 @@ class ImageSize {
       _identical = true;
     }
     else if (
-        sizeA.width == sizeB.width &&
+    sizeA.width == sizeB.width &&
         sizeA.height == sizeB.height
     ){
       _identical = true;
@@ -227,14 +227,14 @@ class ImageSize {
 
   /// BOX FIT
 
-// ---------------------------------------
+  // --------------------
   /*
   static BoxFit concludeBoxFitOld(Asset asset) {
     final BoxFit _fit = asset.isPortrait ? BoxFit.fitHeight : BoxFit.fitWidth;
     return _fit;
   }
    */
-// ---------------------------------------
+  // --------------------
   static BoxFit concludeBoxFit({
     @required double picWidth,
     @required double picHeight,
@@ -265,7 +265,7 @@ class ImageSize {
 
     return _boxFit;
   }
-// ---------------------------------------
+  // --------------------
   /*
   BoxFit concludeBoxFitForAsset({
     @required Asset asset,
@@ -287,7 +287,7 @@ class ImageSize {
     );
   }
    */
-// ---------------------------------------
+  // --------------------
   /*
   List<BoxFit> concludeBoxesFitsForAssets({
     @required List<Asset> assets,
@@ -315,16 +315,16 @@ class ImageSize {
     return _fits;
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -342,43 +342,10 @@ class ImageSize {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       width.hashCode^
       height.hashCode;
 // -----------------------------------------------------------------------------
 }
-
-/*
-  static String sqlCipherImageSize(ImageSize size) {
-    String _string;
-
-    if (size != null && size.width != null && size.height != null) {
-      _string = '${size.width}#${size.height}';
-    }
-
-    return _string;
-  }
-// -----------------------------------------------------------------------------
-  static ImageSize sqlDecipherImageSize(String sqlImageSize) {
-    ImageSize _imageSize;
-
-    if (sqlImageSize != null) {
-      final String _widthString =
-      TextMod.removeTextAfterFirstSpecialCharacter(sqlImageSize, '#');
-      final double _width = Numeric.transformStringToDouble(_widthString);
-
-      final String _heightString =
-      TextMod.removeTextBeforeFirstSpecialCharacter(sqlImageSize, '#');
-      final double _height = Numeric.transformStringToDouble(_heightString);
-
-      _imageSize = ImageSize(
-        width: _width,
-        height: _height,
-      );
-    }
-
-    return _imageSize;
-  }
- */
