@@ -28,7 +28,7 @@ class SuperTextField extends StatefulWidget {
     this.autofocus = false,
     this.focusNode,
     this.counterIsOn = false,
-    this.autoValidate = false,
+    this.autoValidate = true,
 
     /// box
     this.margins,

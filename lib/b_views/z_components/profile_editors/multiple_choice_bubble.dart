@@ -2,7 +2,9 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,9 @@ class MultipleChoiceBubble extends StatelessWidget {
     this.bulletPoints,
     this.translateBullets = true,
     this.inactiveButtons,
+    this.validator,
+    this.autoValidate = true,
+    this.isRequired = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,26 +34,37 @@ class MultipleChoiceBubble extends StatelessWidget {
   final List<String> inactiveButtons;
   final bool isInError;
   final bool translateBullets;
+  final String Function() validator;
+  final bool autoValidate;
+  final bool isRequired;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
+
     return Bubble(
-      headerViewModel: const BubbleHeaderVM(),
+        width: _bubbleWidth,
+        bubbleColor: Colorizer.ValidatorColor(
+          validator: validator,
+          defaultColor: Colorz.white10,
+          canErrorize: true,
+        ),
+        headerViewModel: BubbleHeaderVM(
+          headlineVerse: title,
+          redDot: isRequired,
+          headerWidth: _bubbleWidth - 20,
+        ),
         columnChildren: <Widget>[
 
-          SuperVerse(
-            verse: title,
-            margin: 5,
-            redDot: true,
-          ),
-
+          /// BULLET POINTS
           if (bulletPoints != null)
             BubbleBulletPoints(
               bulletPoints: bulletPoints,
               translateBullets: translateBullets,
             ),
 
+          /// BUTTONS
           Wrap(
               runAlignment: WrapAlignment.center,
               children: List<Widget>.generate(buttonsList.length, (int index) {
@@ -56,8 +72,8 @@ class MultipleChoiceBubble extends StatelessWidget {
                 final String _button = buttonsList[index];
 
                 final bool _isSelected = Stringer.checkStringsContainString(
-                    strings: selectedButtons,
-                    string: _button,
+                  strings: selectedButtons,
+                  string: _button,
                 );
 
                 final bool _isInactive = Stringer.checkStringsContainString(
@@ -73,7 +89,6 @@ class MultipleChoiceBubble extends StatelessWidget {
                   Colorz.yellow255
                       :
                   Colorz.white10,
-
                   verseColor: _isSelected == true ?
                   Colorz.black230
                       :
@@ -91,7 +106,16 @@ class MultipleChoiceBubble extends StatelessWidget {
               )
           ),
 
+          /// VALIDATOR
+          if (validator != null)
+            SuperValidator(
+              width: Bubble.clearWidth(context) - 20,
+              validator: validator,
+              autoValidate: autoValidate,
+            ),
+
         ]
     );
+
   }
 }

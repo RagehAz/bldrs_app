@@ -161,7 +161,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                   textSize: SlideHeadline.headlineSize,
                                   textSizeFactor: _flyerBoxWidth * SlideHeadline.headlineScaleFactor,
                                   centered: true,
-                                  autoValidate: true,
+                                  // autoValidate: true,
                                   onChanged: (String text) => onSlideHeadlineChanged(
                                     tempSlide: tempSlide,
                                     text: text,
