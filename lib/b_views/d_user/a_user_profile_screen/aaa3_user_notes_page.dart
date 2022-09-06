@@ -20,20 +20,22 @@ class UserNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<UserNotesPage> createState() => _UserNotesPageState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _UserNotesPageState extends State<UserNotesPage> {
+  // -----------------------------------------------------------------------------
+  /*
   // with AutomaticKeepAliveClientMixin<UserNotesPage>
   // @override
   // bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
-  // Stream<List<NoteModel>> _receivedNotesStream;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -45,13 +47,13 @@ class _UserNotesPageState extends State<UserNotesPage> {
       blogLoading(loading: _loading.value, callerName: 'UserNotesPage',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -73,7 +75,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -85,9 +87,9 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
-// -----------------------------------
+  // --------------------
   void _markAllUserUnseenNotesAsSeen(){
 
     /// COLLECT NOTES TO MARK FIRST
@@ -99,9 +101,9 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     /// MARK ON FIREBASE
     unawaited(NoteFireOps.markNotesAsSeen(
-          context: context,
-          notes: _notesToMark
-      ));
+        context: context,
+        notes: _notesToMark
+    ));
 
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
@@ -116,25 +118,25 @@ class _UserNotesPageState extends State<UserNotesPage> {
     }
 
   }
-// -----------------------------------
-   void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
+  // --------------------
+  void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
 
-     /// DECIPHER NEW MAPS TO NOTES
-     final List<NoteModel> _newNotes = NoteModel.decipherNotes(
-       maps: newMaps,
-       fromJSON: false,
-     );
+    /// DECIPHER NEW MAPS TO NOTES
+    final List<NoteModel> _newNotes = NoteModel.decipherNotes(
+      maps: newMaps,
+      fromJSON: false,
+    );
 
-     /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
-     _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
-       notesToGet: _localNotesToMarkUnseen,
-       notesToInsert: _newNotes,
-       duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
-     );
+    /// ADD NEW NOTES TO LOCAL NOTES NEEDS TO MARK AS SEEN
+    _localNotesToMarkUnseen = NoteModel.insertNotesInNotes(
+      notesToGet: _localNotesToMarkUnseen,
+      notesToInsert: _newNotes,
+      duplicatesAlgorithm: DuplicatesAlgorithm.keepSecond,
+    );
 
-   }
-// -----------------------------------
-    List<NoteModel> _combinePaginatorMapsWithProviderNotes({
+  }
+  // --------------------
+  List<NoteModel> _combinePaginatorMapsWithProviderNotes({
     @required List<Map<String, dynamic>> paginatedMaps,
     @required List<NoteModel> providerNotes,
   }){
@@ -160,7 +162,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     return _ordered;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
@@ -183,7 +185,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
           return FireCollPaginator(
               scrollController: _scrollController,
               queryModel: userReceivedNotesPaginationQueryParameters(
-                onDataChanged: _onPaginatorDataChanged
+                  onDataChanged: _onPaginatorDataChanged
               ),
               builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
@@ -217,9 +219,10 @@ class _UserNotesPageState extends State<UserNotesPage> {
                 );
 
               }
-              );
+          );
 
         });
 
   }
+// -----------------------------------------------------------------------------
 }
