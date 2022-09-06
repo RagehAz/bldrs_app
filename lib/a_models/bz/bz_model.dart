@@ -194,7 +194,7 @@ class BzModel{
       position: tempBz.value.position,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: tempBz.value.contacts,
-        countryID: tempBz.value.zone.countryID,
+        countryID: tempBz.value.zone?.countryID,
       ),
       authors: oldBz.authors, /// NEVER CHANGED
       showsTeam: oldBz.showsTeam, /// NEVER CHANGED

@@ -272,6 +272,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     ),
 
                     /// City BUTTON
+                    if (
+                    widget.selectCountryAndCityOnly == true
+                    ||
+                    widget.selectCountryIDOnly == false
+                    )
                     ZoneSelectionButton(
                       title: 'City',
                       verse: zone.cityName,
@@ -280,7 +285,13 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     ),
 
                     /// DISTRICT BUTTON
-                    if (Mapper.checkCanLoopList(zone?.cityModel?.districts) == true)
+                    if (
+                    widget.selectCountryAndCityOnly == false
+                    &&
+                    widget.selectCountryIDOnly == false
+                    &&
+                    Mapper.checkCanLoopList(zone?.cityModel?.districts) == true
+                    )
                       ZoneSelectionButton(
                         title: 'District',
                         verse: zone.districtName,
@@ -290,7 +301,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                     if (widget.validator != null)
                     SuperValidator(
-                      width: Bubble.clearWidth(context),
+                      width: Bubble.clearWidth(context) - 20,
                       validator: widget.validator,
                       autoValidate: widget.autoValidate,
                     ),
