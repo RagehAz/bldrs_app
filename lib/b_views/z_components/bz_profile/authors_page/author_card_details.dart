@@ -22,7 +22,7 @@ class AuthorCardDetail extends StatelessWidget {
   final bool bubble;
   /// --------------------------------------------------------------------------
   static const double height = 30;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -43,4 +43,5 @@ class AuthorCardDetail extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

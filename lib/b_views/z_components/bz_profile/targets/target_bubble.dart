@@ -21,14 +21,13 @@ class TargetCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bubbleClearWidth = Bubble.clearWidth(context) - 10;
     // final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
     // const double _titleBoxHeight = 30;
-
     final TargetProgress _progress = target.progress;
     final bool _targetReached = _progress.current == _progress.objective;
-
+    // --------------------
     return Container(
       width: _bubbleClearWidth,
       decoration: BoxDecoration(
@@ -122,5 +121,7 @@ class TargetCard extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

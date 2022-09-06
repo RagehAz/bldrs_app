@@ -21,7 +21,7 @@ class TargetsBubble extends StatelessWidget {
 
     return _allTargets;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onClaimTap({
     @required BuildContext context,
     @required TargetModel target
@@ -31,9 +31,10 @@ class TargetsBubble extends StatelessWidget {
       target: target,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
+
     final List<TargetModel> _allTargets = getAllTargets();
 
     return Padding(
@@ -71,6 +72,7 @@ class TargetsBubble extends StatelessWidget {
         ],
       ),
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }
