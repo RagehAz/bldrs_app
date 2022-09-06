@@ -10,7 +10,7 @@ class Blurer {
 /// CHECKERS
 
 // ---------------------------------------
-  /*
+/*
   static bool slideBlurIsOn({
     @required dynamic pic,
     @required ImageSize imageSize,

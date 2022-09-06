@@ -64,10 +64,8 @@ class DreamBox extends StatelessWidget {
     this.verseHighlightColor = Colorz.bloodTest,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final dynamic icon;
-
   /// works as a verseSizeFactor as well
   final double iconSizeFactor;
   final Color color;
@@ -128,7 +126,7 @@ class DreamBox extends StatelessWidget {
 
     return _iconColor;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double graphicWidth({
     dynamic icon,
     double height,
@@ -152,7 +150,7 @@ class DreamBox extends StatelessWidget {
 
     return _graphicWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double iconMargin({
     dynamic icon,
     double height,
@@ -162,8 +160,11 @@ class DreamBox extends StatelessWidget {
 
     return verse == null || icon == null ? 0 : (height - graphicWidth) / 2;
   }
-// -----------------------------------------------------------------------------
-  static Color boxColor({bool blackAndWhite, Color color}) {
+  // --------------------
+  static Color boxColor({
+    bool blackAndWhite,
+    Color color
+  }) {
     return (blackAndWhite == true && color != Colorz.nothing) ?
     Colorz.grey80
         :
@@ -172,29 +173,33 @@ class DreamBox extends StatelessWidget {
         :
     color;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-//     double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
-// -----------------------------------------------------------------------------
+    // --------------------
+    /// double _verseIconSpacing = verse != null ? height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
+    // --------------------
     final double _graphicWidth = graphicWidth(
       icon: icon,
       height: height,
       iconSizeFactor: iconSizeFactor,
       loading: loading,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _iconMargin = iconMargin(
       height: height,
       icon: icon,
       verse: verse,
       graphicWidth: _graphicWidth,
     );
-// -----------------------------------------------------------------------------
-//  double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
+    // --------------------
     final int _verseSize = iconSizeFactor == 1 ? 4 : 4;
-// -----------------------------------------------------------------------------
+    // --------------------
+    /*
+     //  double _verseWidth = width != null ? width - (_iconMargin * 2) - _graphicWidth - ((_verseIconSpacing * 2) + _iconMargin) : width;
+     */
+    // --------------------
+    /*
 //     BorderRadius _getIconCornerByRadius(){
 //       BorderRadius _IconCornerAsBorderRadius;
 //       double _iconCorners;
@@ -226,23 +231,27 @@ class DreamBox extends StatelessWidget {
 //
 //       return _IconCornerAsBorderRadius;
 //     }
+
+     */
+    // --------------------
     final BorderRadius _iconCorners = Borderers.getCornersAsBorderRadius(context, corners);
-// -----------------------------------------------------------------------------
+    // --------------------
     final Color _boxColor = boxColor(
       color: color,
       blackAndWhite: greyscale,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final Color _iconColor = getIconColor(
       inActiveMode: isDeactivated,
       blackAndWhite: greyscale,
       colorOverride: iconColor,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
-// -----------------------------------------------------------------------------
+    // --------------------
     final EdgeInsets _boxMargins = Scale.superMargins(margins: margins);
-// -----------------------------------------------------------------------------
+    // --------------------
+    /*
 //     CrossAxisAlignment _versesCrossAlignment =
 //     icon == null && textDirection == null && secondLine == null ? CrossAxisAlignment.center
 //         :
@@ -251,7 +260,8 @@ class DreamBox extends StatelessWidget {
 //     (icon != null && secondLine != null) || (verseCentered == false) ? CrossAxisAlignment.start
 //         :
 //     CrossAxisAlignment.center; // verseCentered
-// -----------------------------------------------------------------------------
+     */
+    // --------------------
     /// underline should only available if dreambox is portrait && verse is null && secondVerse is null
     // double _iconBoxHeight = width ?? 0;
     // double _underLineHeight = height?? 0 - _iconBoxHeight;
@@ -261,7 +271,7 @@ class DreamBox extends StatelessWidget {
     // double _underlineHeight = underLine == null ? 0 : height - _underLineTopMargin;
 // -----------------------------------------------------------------------------
     final BorderRadius _cornersAsBorderRadius = Borderers.getCornersAsBorderRadius(context, corners);
-// -----------------------------------------------------------------------------
+    // --------------------
     return TheBoxOfDreamBox(
       key: const ValueKey<String>('Dream_box_the_box'),
       inActiveMode: isDeactivated,
@@ -285,109 +295,110 @@ class DreamBox extends StatelessWidget {
         /// --- DREAM CHILD
         if (subChild != null)
           Container(
-              height: height,
-              width: width,
-              decoration: BoxDecoration(
-                borderRadius: _cornersAsBorderRadius,
-              ),
-              alignment: childAlignment,
-              child: subChild,
-            ),
-
-          /// ICON - VERSE - SECOND LINE
-          DreamBoxIconVerseSecondLine(
-            key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
-            verse: verse,
-            verseCasing: verseCasing,
-            translate: translateVerse,
-            textDirection: _textDirection,
-            icon: icon,
-            loading: loading,
-            underLine: underLine,
             height: height,
             width: width,
-            iconCorners: _iconCorners,
-            iconMargin: _iconMargin,
-            greyscale: greyscale,
-            bubble: bubble,
-            iconColor: _iconColor,
-            iconSizeFactor: iconSizeFactor,
-            verseScaleFactor: verseScaleFactor,
-            verseCentered: verseCentered,
-            secondLine: secondLine,
-            translateSecondLine: translateSecondLine,
-            verseSize: _verseSize,
-            verseWeight: verseWeight,
-            inActiveMode: isDeactivated,
-            verseColor: verseColor,
-            verseShadow: verseShadow,
-            verseMaxLines: verseMaxLines,
-            secondVerseMaxLines: secondVerseMaxLines,
-            verseItalic: verseItalic,
-            redDot: redDot,
-            secondLineScaleFactor: secondLineScaleFactor,
-            secondLineColor: secondLineColor,
-            centered: verseCentered,
-            backgroundColor: iconBackgroundColor,
-            highlight: verseHighlight,
-            highlightColor: verseHighlightColor,
+            decoration: BoxDecoration(
+              borderRadius: _cornersAsBorderRadius,
+            ),
+            alignment: childAlignment,
+            child: subChild,
           ),
 
-          /// --- BOX HIGHLIGHT
-          if (bubble == true)
-          // GradientLayer(
-          //   width: size.hasBoundedWidth ? 100 : SuperVerse.,
-          //   height: size.maxHeight,
-          //   isWhite: true,
-          // ),
+        /// ICON - VERSE - SECOND LINE
+        DreamBoxIconVerseSecondLine(
+          key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
+          verse: verse,
+          verseCasing: verseCasing,
+          translate: translateVerse,
+          textDirection: _textDirection,
+          icon: icon,
+          loading: loading,
+          underLine: underLine,
+          height: height,
+          width: width,
+          iconCorners: _iconCorners,
+          iconMargin: _iconMargin,
+          greyscale: greyscale,
+          bubble: bubble,
+          iconColor: _iconColor,
+          iconSizeFactor: iconSizeFactor,
+          verseScaleFactor: verseScaleFactor,
+          verseCentered: verseCentered,
+          secondLine: secondLine,
+          translateSecondLine: translateSecondLine,
+          verseSize: _verseSize,
+          verseWeight: verseWeight,
+          inActiveMode: isDeactivated,
+          verseColor: verseColor,
+          verseShadow: verseShadow,
+          verseMaxLines: verseMaxLines,
+          secondVerseMaxLines: secondVerseMaxLines,
+          verseItalic: verseItalic,
+          redDot: redDot,
+          secondLineScaleFactor: secondLineScaleFactor,
+          secondLineColor: secondLineColor,
+          centered: verseCentered,
+          backgroundColor: iconBackgroundColor,
+          highlight: verseHighlight,
+          highlightColor: verseHighlightColor,
+        ),
 
-            DreamBoxHighlight(
-                key: const ValueKey<String>('DreamBoxHighlight'),
-                width: width,
-                height: height,
-                corners: corners
-            ),
+        /// --- BOX HIGHLIGHT
+        if (bubble == true)
+        // GradientLayer(
+        //   width: size.hasBoundedWidth ? 100 : SuperVerse.,
+        //   height: size.maxHeight,
+        //   isWhite: true,
+        // ),
 
-          /// --- BOX GRADIENT
-          if (bubble == true)
-            DreamBoxGradient(
-              key: const ValueKey<String>('DreamBoxGradient'),
+          DreamBoxHighlight(
+              key: const ValueKey<String>('DreamBoxHighlight'),
               width: width,
               height: height,
-              corners: _cornersAsBorderRadius,
-            ),
+              corners: corners
+          ),
 
-          /// --- UNDERLINE
-          if (underLine != null)
-            DreamBoxUnderLine(
-              key: const ValueKey<String>('DreamBoxUnderLine'),
-              width: width,
-              height: height,
-              underLine: underLine,
-              icon: icon,
-              scaleFactor: verseScaleFactor * 0.45,
-              underLineShadowIsOn: underLineShadowIsOn,
-              underLineColor: underLineColor,
-              verseSize: _verseSize,
-            ),
+        /// --- BOX GRADIENT
+        if (bubble == true)
+          DreamBoxGradient(
+            key: const ValueKey<String>('DreamBoxGradient'),
+            width: width,
+            height: height,
+            corners: _cornersAsBorderRadius,
+          ),
 
-          /// --- RIPPLE & TAP LAYER
-          if (onTap != null || onDeactivatedTap != null)
-            DreamBoxTapLayer(
-                key: const ValueKey<String>('DreamBoxTapLayer'),
-                width: width,
-                height: height,
-                splashColor: splashColor,
-                onTap: onTap,
-                onTapUp: onTapUp,
-                onTapDown: onTapDown,
-                onTapCancel: onTapCancel,
-                deactivated: isDeactivated,
-                onDeactivatedTap: onDeactivatedTap,
-            ),
+        /// --- UNDERLINE
+        if (underLine != null)
+          DreamBoxUnderLine(
+            key: const ValueKey<String>('DreamBoxUnderLine'),
+            width: width,
+            height: height,
+            underLine: underLine,
+            icon: icon,
+            scaleFactor: verseScaleFactor * 0.45,
+            underLineShadowIsOn: underLineShadowIsOn,
+            underLineColor: underLineColor,
+            verseSize: _verseSize,
+          ),
 
-        ],
+        /// --- RIPPLE & TAP LAYER
+        if (onTap != null || onDeactivatedTap != null)
+          DreamBoxTapLayer(
+            key: const ValueKey<String>('DreamBoxTapLayer'),
+            width: width,
+            height: height,
+            splashColor: splashColor,
+            onTap: onTap,
+            onTapUp: onTapUp,
+            onTapDown: onTapDown,
+            onTapCancel: onTapCancel,
+            deactivated: isDeactivated,
+            onDeactivatedTap: onDeactivatedTap,
+          ),
+
+      ],
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

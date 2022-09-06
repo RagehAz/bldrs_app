@@ -21,13 +21,13 @@ class BubbleSwitcher extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static const double switcherWidth = 50;
   static const double switcherHeight = 35;
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _BubbleSwitcherState extends State<BubbleSwitcher> {
-// ----------------------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<bool> _isOn;
-// ----------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
     _isOn = ValueNotifier<bool>(widget.switchIsOn);
 
   }
-// ----------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -46,7 +46,7 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
 
     super.dispose();
   }
-// ----------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -80,4 +80,5 @@ class _BubbleSwitcherState extends State<BubbleSwitcher> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

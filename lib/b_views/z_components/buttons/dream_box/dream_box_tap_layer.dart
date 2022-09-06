@@ -50,7 +50,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -78,4 +78,5 @@ class DreamBoxTapLayer extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

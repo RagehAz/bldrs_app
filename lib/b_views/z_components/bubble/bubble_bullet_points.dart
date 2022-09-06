@@ -24,6 +24,7 @@ class BubbleBulletPoints extends StatelessWidget {
     if (Mapper.checkCanLoopList(bulletPoints) == false){
       return const SizedBox();
     }
+
     else {
 
       final double _bubbleWidth = bubbleWidth ?? Bubble.clearWidth(context);
@@ -57,10 +58,11 @@ class BubbleBulletPoints extends StatelessWidget {
             color: Colorz.blue125,
             margin: const EdgeInsets.symmetric(vertical: 10),
           ),
-          
+
         ],
       );
     }
 
   }
+/// --------------------------------------------------------------------------
 }

@@ -7,7 +7,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-
 class Bubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Bubble({
@@ -32,21 +31,21 @@ class Bubble extends StatelessWidget {
   final Function onBubbleTap;
   final dynamic margins;
   final dynamic corners;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
     final double _bubbleWidth = defaultWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     const double _bubblePaddings = Ratioz.appBarMargin * 2;
     final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double defaultWidth(BuildContext context, {double bubbleWidthOverride}) {
     final double _screenWidth = bubbleWidthOverride ?? Scale.superScreenWidth(context);
     const double _bubbleMargins = Ratioz.appBarMargin * 2;
     final double _bubbleWidth = _screenWidth - _bubbleMargins;
     return _bubbleWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double bubbleWidth({
     @required BuildContext context,
     double bubbleWidthOverride,
@@ -55,7 +54,7 @@ class Bubble extends StatelessWidget {
     final double _bubbleWidth = stretchy == true ? null : clearWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     return _bubbleWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double _getTitleHeight(BuildContext context){
     const int _titleVerseSize = 2;
     return SuperVerse.superVerseRealHeight(
@@ -65,44 +64,44 @@ class Bubble extends StatelessWidget {
       hasLabelBox: false,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getHeightWithoutChildren(BuildContext context){
     final double _titleHeight = _getTitleHeight(context);
     final double _heights = (_pageMargin * 3) + _titleHeight;
 
     return _heights;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static const double cornersValue = Ratioz.appBarCorner;
   static const double _pageMargin = Ratioz.appBarMargin;
-// -----------------------------------------------------------------------------
+  // --------------------
   static const double clearCornersValue = Ratioz.appBarCorner - Ratioz.appBarMargin;
-// -----------------------------------------------------------------------------
+  // --------------------
   static BorderRadius borders(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     return Borderers.superBorder(
-        context: context,
-        corners: cornersValue,
+      context: context,
+      corners: cornersValue,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static BorderRadius clearBorders(
-    BuildContext context,
-  ) {
+      BuildContext context,
+      ) {
     return Borderers.superBorder(
-        context: context,
-        corners: clearCornersValue,
+      context: context,
+      corners: clearCornersValue,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double paddingValue(){
     return _pageMargin;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final EdgeInsets _bubbleMargins = margins == null && stretchy == true ?
     Scale.superMargins(margins: 0)
         :
@@ -113,23 +112,23 @@ class Bubble extends StatelessWidget {
     Scale.superMargins(margins: margins)
         :
     Scale.superMargins(margins: margins);
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _bubbleWidth = screenWidth ??
         bubbleWidth(
           context: context,
           stretchy: stretchy,
         );
-// -----------------------------------------------------------------------------
+    // --------------------
     final BorderRadius _corners = corners == null ?
     borders(context)
         :
     Borderers.superBorder(context: context, corners: corners);
-// -----------------------------------------------------------------------------
+    // --------------------
     final Alignment _alignment = childrenCentered == true ?
     Alignment.center
         :
     Aligners.superCenterAlignment(context);
-// -----------------------------------------------------------------------------
+    // --------------------
     final Widget _bubbleContents = _BubbleContents(
       width: screenWidth,
       childrenCentered: childrenCentered,
@@ -137,7 +136,7 @@ class Bubble extends StatelessWidget {
       columnChildren: columnChildren,
       headerViewModel: headerViewModel,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     return Container(
       key: key,
       width: _bubbleWidth,
@@ -152,7 +151,7 @@ class Bubble extends StatelessWidget {
 
       _bubbleContents
 
-      :
+          :
 
       Material(
         color: Colorz.nothing,
@@ -165,11 +164,12 @@ class Bubble extends StatelessWidget {
       ),
 
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
 
 class _BubbleContents extends StatelessWidget {
-
   /// --------------------------------------------------------------------------
   const _BubbleContents({
     @required this.columnChildren,
@@ -204,81 +204,83 @@ class _BubbleContents extends StatelessWidget {
         CrossAxisAlignment.start,
         children: <Widget>[
 
-            // Container(
-            //   width: Bubble.clearWidth(context),
-            //   alignment: Alignment.topCenter,
-            //   child: Row(
-            //     mainAxisAlignment: centered == true ?
-            //     MainAxisAlignment.start
-            //         :
-            //     MainAxisAlignment.spaceBetween,
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     mainAxisSize: centered == true ?
-            //     MainAxisSize.min
-            //         :
-            //     MainAxisSize.max,
-            //     children: <Widget>[
-            //
-            //       /// --- ACTION BUTTON
-            //       if (centered == true && actionBtIcon != null)
-            //         SizedBox(
-            //           height: _actionBtSize,
-            //           width: _actionBtSize,
-            //         ),
-            //
-            //       /// --- EXPANDER
-            //       if (centered == true) const Expander(),
-            //
-            //       /// --- LEADING BUTTON
-            //       if (leadingIcon != null)
-            //         DreamBox(
-            //           height: _actionBtSize,
-            //           width: _actionBtSize,
-            //           corners: _actionBtCorner,
-            //           // color: actionBtColor,
-            //           icon: leadingIcon,
-            //           iconColor: leadingIconColor,
-            //           iconSizeFactor: leadingAndActionButtonsSizeFactor,
-            //           onTap: actionBtFunction,
-            //           bubble: false,
-            //         ),
-            //
-            //       /// --- BUBBLE TITLE
-            //       if (title != null)
-            //         BubbleTitle(
-            //           title: title,
-            //           centered: centered,
-            //           redDot: redDot,
-            //           titleColor: titleColor,
-            //         ),
-            //
-            //       /// --- EXPANDER
-            //       // if (centered == true)
-            //       const Expander(),
-            //
-            //       /// --- ACTION BUTTON
-            //       if (actionBtIcon != null)
-            //         DreamBox(
-            //           height: _actionBtSize * 1.25,
-            //           width: _actionBtSize * 1.25,
-            //           corners: _actionBtCorner,
-            //           // color: actionBtColor,
-            //           icon: actionBtIcon,
-            //           iconSizeFactor: leadingAndActionButtonsSizeFactor,
-            //           onTap: actionBtFunction,
-            //         ),
-            //
-            //     ],
-            //   ),
-            // ),
-            BubbleHeader(
-              viewModel: headerViewModel,
-            ),
+          // Container(
+          //   width: Bubble.clearWidth(context),
+          //   alignment: Alignment.topCenter,
+          //   child: Row(
+          //     mainAxisAlignment: centered == true ?
+          //     MainAxisAlignment.start
+          //         :
+          //     MainAxisAlignment.spaceBetween,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     mainAxisSize: centered == true ?
+          //     MainAxisSize.min
+          //         :
+          //     MainAxisSize.max,
+          //     children: <Widget>[
+          //
+          //       /// --- ACTION BUTTON
+          //       if (centered == true && actionBtIcon != null)
+          //         SizedBox(
+          //           height: _actionBtSize,
+          //           width: _actionBtSize,
+          //         ),
+          //
+          //       /// --- EXPANDER
+          //       if (centered == true) const Expander(),
+          //
+          //       /// --- LEADING BUTTON
+          //       if (leadingIcon != null)
+          //         DreamBox(
+          //           height: _actionBtSize,
+          //           width: _actionBtSize,
+          //           corners: _actionBtCorner,
+          //           // color: actionBtColor,
+          //           icon: leadingIcon,
+          //           iconColor: leadingIconColor,
+          //           iconSizeFactor: leadingAndActionButtonsSizeFactor,
+          //           onTap: actionBtFunction,
+          //           bubble: false,
+          //         ),
+          //
+          //       /// --- BUBBLE TITLE
+          //       if (title != null)
+          //         BubbleTitle(
+          //           title: title,
+          //           centered: centered,
+          //           redDot: redDot,
+          //           titleColor: titleColor,
+          //         ),
+          //
+          //       /// --- EXPANDER
+          //       // if (centered == true)
+          //       const Expander(),
+          //
+          //       /// --- ACTION BUTTON
+          //       if (actionBtIcon != null)
+          //         DreamBox(
+          //           height: _actionBtSize * 1.25,
+          //           width: _actionBtSize * 1.25,
+          //           corners: _actionBtCorner,
+          //           // color: actionBtColor,
+          //           icon: actionBtIcon,
+          //           iconSizeFactor: leadingAndActionButtonsSizeFactor,
+          //           onTap: actionBtFunction,
+          //         ),
+          //
+          //     ],
+          //   ),
+          // ),
+          BubbleHeader(
+            viewModel: headerViewModel,
+          ),
 
           ...columnChildren,
 
         ],
       ),
     );
+
   }
+/// --------------------------------------------------------------------------
 }

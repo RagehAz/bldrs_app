@@ -19,7 +19,7 @@ class ConfirmButtonModel{
   final String secondLine;
   final bool isDeactivated;
   final Function onSkipTap;
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class ConfirmButton extends StatelessWidget {
@@ -35,9 +35,8 @@ class ConfirmButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _width = confirmButtonModel.firstLine.length > 20 ? 200 : null;
-
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
@@ -55,11 +54,11 @@ class ConfirmButton extends StatelessWidget {
       margins: const EdgeInsets.all(10),
       onTap: confirmButtonModel.onTap,
     );
-
+    // --------------------
     if (positionedAlignment == null){
       return _button;
     }
-
+    // --------------------
     else if (confirmButtonModel.onSkipTap == null){
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
@@ -67,7 +66,7 @@ class ConfirmButton extends StatelessWidget {
         child: _button,
       );
     }
-
+    // --------------------
     else {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
@@ -78,20 +77,20 @@ class ConfirmButton extends StatelessWidget {
             _button,
 
             ConfirmButton(
-                confirmButtonModel: ConfirmButtonModel(
-                  firstLine: 'Skip',
-                  onTap: confirmButtonModel.onSkipTap,
-                  // secondLine: null,
-                  // isDeactivated: false,
-                  // onSkipTap: null,
-                ),
+              confirmButtonModel: ConfirmButtonModel(
+                firstLine: 'Skip',
+                onTap: confirmButtonModel.onSkipTap,
+                // secondLine: null,
+                // isDeactivated: false,
+                // onSkipTap: null,
+              ),
             )
 
           ],
         ),
       );
     }
-
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
