@@ -72,7 +72,7 @@ class SingleSlide extends StatelessWidget {
       stackChildren: <Widget>[
 
         /// --- IMAGE NETWORK
-        if (ObjectChecker.objectIsURL(slideModel.pic))
+        if (ObjectCheck.isAbsoluteURL(slideModel.pic))
           SlideImagePart(
             key: const ValueKey<String>('SingleSlideImagePart'),
             flyerBoxWidth: flyerBoxWidth,

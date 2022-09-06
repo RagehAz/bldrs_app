@@ -163,7 +163,7 @@ class SuperImage extends StatelessWidget {
               child:
 
               /// JPG OR PNG
-              ObjectChecker.objectIsJPGorPNG(pic) ?
+              ObjectCheck.objectIsJPGorPNG(pic) ?
               LocalAssetChecker(
                 key: const ValueKey<String>('SuperImage_png_or_jpg'),
                 asset: pic,
@@ -181,7 +181,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// SVG
-              ObjectChecker.objectIsSVG(pic) ?
+              ObjectCheck.objectIsSVG(pic) ?
               LocalAssetChecker(
                 key: const ValueKey<String>('SuperImage_svg'),
                 asset: pic,
@@ -197,7 +197,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// URL
-              ObjectChecker.objectIsURL(pic) ?
+              ObjectCheck.isAbsoluteURL(pic) ?
               Image.network(
                 pic,
                 key: const ValueKey<String>('SuperImage_url'),
@@ -212,7 +212,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// FILE
-              ObjectChecker.objectIsFile(pic) ?
+              ObjectCheck.objectIsFile(pic) ?
               Image.file(
                 pic,
                 key: const ValueKey<String>('SuperImage_file'),
@@ -226,7 +226,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// UINT8LIST
-              ObjectChecker.objectIsUint8List(pic) ?
+              ObjectCheck.objectIsUint8List(pic) ?
               Image.memory(
                 pic,
                 key: const ValueKey<String>('SuperImage_uInt8List'),
@@ -240,7 +240,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// BASE64
-              ObjectChecker.isBase64(pic) ?
+              ObjectCheck.isBase64(pic) ?
               Image.memory(
                 base64Decode(pic),
                 key: const ValueKey<String>('SuperImage_base64'),
@@ -254,7 +254,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// UI.IMAGE
-              ObjectChecker.objectIsUiImage(pic) ?
+              ObjectCheck.objectIsUiImage(pic) ?
               FutureBuilder(
                 key: const ValueKey<String>('SuperImage_uiImage'),
                 future: Floaters.getUint8ListFromUiImage(pic),
@@ -264,7 +264,7 @@ class SuperImage extends StatelessWidget {
                   :
 
               /// IMG.IMAGE
-              ObjectChecker.objectIsImgImage(pic) ?
+              ObjectCheck.objectIsImgImage(pic) ?
               Image.memory(
                 Floaters.getUint8ListFromImgImage(pic),
                 key: const ValueKey<String>('SuperImage_imgImage'),

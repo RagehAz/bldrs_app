@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,12 @@ class TextCheck {
 // -----------------------------------------------------------------------------
 
   const TextCheck();
+// -----------------------------------------------------------------------------
 
+  /// REG EXP
+
+// -------------------------------------
+  static const String urlPattern = r'((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?';
 // -----------------------------------------------------------------------------
 
   /// BAD WORDS
@@ -345,7 +351,7 @@ class TextCheck {
   }
 // -------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool textStartsWith({
+  static bool textStartsExactlyWith({
     @required String text,
     @required String startsWith, // http
   }){
@@ -366,11 +372,42 @@ class TextCheck {
 
     return _output;
   }
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool textStartsWithAny({
+    @required String text,
+    @required List<String> listThatMightIncludeText, // http
+  }){
+    bool _output = false;
+
+    if (TextCheck.isEmpty(text) == false && Mapper.checkCanLoopList(listThatMightIncludeText) == true){
+
+      for (final String startWith in listThatMightIncludeText){
+
+        final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
+          input: text,
+          numberOfChars: startWith.length,
+        );
+
+        if (_cutText == startWith){
+          _output = true;
+          break;
+        }
+
+
+      }
+
+
+    }
+
+    return _output;
+  }
 // -----------------------------------------------------------------------------
 
   /// LENGTH
 
 // -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool isShorterThanOrEqualTo({
     @required String text,
     @required int length,
@@ -386,7 +423,8 @@ class TextCheck {
 
     return _isShorter;
   }
-  // -------------------------------------
+// -------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool isShorterThan({
     @required String text,
     @required int length,

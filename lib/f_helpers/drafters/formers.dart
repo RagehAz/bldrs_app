@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -46,6 +48,7 @@ class Formers {
   /// AUTH VALIDATORS
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static String emailValidator({
     @required String email,
   }) {
@@ -67,6 +70,7 @@ class Formers {
     return _output;
   }
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static String passwordValidator({
     @required String password,
   }){
@@ -84,6 +88,7 @@ class Formers {
     return _output;
   }
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static String passwordConfirmationValidation({
     @required BuildContext context,
     @required String password,
@@ -111,6 +116,7 @@ class Formers {
 /// GENERAL FIELDS VALIDATORS
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static String picValidator({
     @required dynamic pic
   }){
@@ -219,6 +225,7 @@ class Formers {
   /// ZONE VALIDATORS
 
 // -------------------------------
+  /// TESTED : WORKS PERFECT
   static String zoneValidator({
     @required ZoneModel zoneModel,
     @required bool selectCountryAndCityOnly,
@@ -268,6 +275,7 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String contactsPhoneValidator({
     @required List<ContactModel> contacts,
+    @required ZoneModel zoneModel,
     FocusNode focusNode,
   }){
 
@@ -280,6 +288,23 @@ class Formers {
 
     if (TextCheck.isEmpty(_phone) == true){
       _message = '##Phone number should not be empty';
+    }
+    else {
+
+      if (zoneModel != null && zoneModel.countryID != null){
+
+        final String _code = CountryModel.getCountryPhoneCode(zoneModel.countryID);
+        final bool _startsWithCode = TextCheck.textStartsExactlyWith(
+          text: _phone,
+          startsWith: _code,
+        );
+
+        if (_startsWithCode == false){
+          _message = '##Phone numbers in ${zoneModel.countryName} should start with\n( $_code )';
+        }
+
+      }
+
     }
 
     /// FOCUS ON FIELD
@@ -313,23 +338,27 @@ class Formers {
 
   }
 // -------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String contactsWebsiteValidator({
     @required List<ContactModel> contacts,
     FocusNode focusNode,
   }){
 
-    // final String _website = ContactModel.getValueFromContacts(
-    //   contacts: contacts,
-    //   contactType: ContactType.website,
-    // );
-
     String _message;
 
-    const bool _webSiteFormatIsValid = true;
+    final String _website = ContactModel.getValueFromContacts(
+      contacts: contacts,
+      contactType: ContactType.website,
+    );
 
-    if (_webSiteFormatIsValid == true){
-      _message = '##Website is not correct';
+    if (TextCheck.isEmpty(_website) == false){
+
+      final bool _isURLFormat = ObjectCheck.isURLFormat(_website) == true;
+
+      if (_isURLFormat == false){
+        _message = 'phid_url_format_is_incorrect';
+      }
+
     }
 
     /// FOCUS ON FIELD

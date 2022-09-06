@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -19,7 +20,7 @@ class ContactFieldBubble extends StatefulWidget {
     @required this.headerViewModel,
     @required this.globalKey,
     this.hintText = '...',
-    this.textController,
+    // this.textController,
     this.textOnChanged,
     this.isFormField,
     this.onSaved,
@@ -42,7 +43,7 @@ class ContactFieldBubble extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String hintText;
-  final TextEditingController textController;
+  // final TextEditingController textController;
   final Function textOnChanged;
   final bool isFormField;
   final Function onSaved;
@@ -80,12 +81,12 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   void initState() {
     super.initState();
 
-    if (widget.textController == null){
+    // if (widget.textController == null){
       _textController = TextEditingController(text: widget.initialTextValue);
-    }
-    else {
-      _textController = widget.textController;
-    }
+    // }
+    // else {
+    //   _textController = widget.textController;
+    // }
 
   }
   // --------------------------------------------------------------------------
@@ -93,19 +94,20 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   @override
   void dispose() {
 
-    if (widget.textController == null){
+    // if (widget.textController == null){
       _textController?.dispose();
-    }
+    // }
 
     super.dispose();
   }
   // --------------------------------------------------------------------------
   @override
   void didUpdateWidget(covariant ContactFieldBubble oldWidget) {
-    // if (oldWidget.textController?.text != widget.textController?.text){
-      setState(() {
-        _textController = widget.textController;
-      });
+    // if (oldWidget.initialTextValue != widget.initialTextValue){
+    //   setState(() {
+    //     _textController = widget.textController;
+    //   });
+    // _textController.text = widget.initialTextValue;
     // }
     super.didUpdateWidget(oldWidget);
   }
@@ -113,7 +115,11 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   Future<void> _pasteFunction() async {
     final String value = await FlutterClipboard.paste();
 
-    _textController.text = value;
+    blog(value);
+
+    // if (_textController != null){
+      _textController.text = value;
+    // }
 
     if (widget.textOnChanged != null){
       widget.textOnChanged(value);
@@ -193,6 +199,8 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
               /// TEXT FIELD
               SuperTextField(
+                textController: _textController,
+
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.globalKey,
@@ -202,7 +210,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 initialValue: paste == '' ? widget.initialTextValue : null,
                 hintVerse: widget.hintText,
                 textInputType: widget.keyboardTextInputType,
-                textController: _textController,
                 onChanged: widget.textOnChanged,
                 onSavedForForm: widget.onSaved,
                 textInputAction: widget.keyboardTextInputAction,

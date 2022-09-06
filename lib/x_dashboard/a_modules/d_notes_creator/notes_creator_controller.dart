@@ -824,7 +824,7 @@ Future<void> _modifyAttachmentIfFile({
   @required ValueNotifier<NoteModel> note,
 }) async {
 
-  if (note != null && ObjectChecker.objectIsFile(note.value.attachment) == true){
+  if (note != null && ObjectCheck.objectIsFile(note.value.attachment) == true){
 
       final String _id = '${Numeric.createUniqueID()}';
 

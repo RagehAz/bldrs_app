@@ -267,7 +267,7 @@ class AuthorModel {
     if (Mapper.checkCanLoopList(authors) == true){
 
       _output = authors.firstWhere(
-              (element) => ObjectChecker.objectIsFile(element.pic) == true,
+              (element) => ObjectCheck.objectIsFile(element.pic) == true,
           orElse: () => null
       );
 

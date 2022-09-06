@@ -58,7 +58,7 @@ class UserFireOps {
 
     /// check if user pic is file to upload or URL from facebook to keep
     String _userPicURL;
-    if (ObjectChecker.objectIsFile(userModel.pic) == true) {
+    if (ObjectCheck.objectIsFile(userModel.pic) == true) {
       _userPicURL = await Storage.createStoragePicAndGetURL(
         context: context,
         inputFile: userModel.pic,
@@ -70,7 +70,7 @@ class UserFireOps {
 
     /// TASK : TRANSFORM FACEBOOK PICS TO LOCAL PICS U KNO
     /// if from google or facebook url pics
-    else if (ObjectChecker.objectIsURL(userModel.pic) == true) {
+    else if (ObjectCheck.isAbsoluteURL(userModel.pic) == true) {
       /// TASK : this facebook / google image thing is not tested
       if (authBy == AuthType.facebook || authBy == AuthType.google) {
         final File _picFile = await Filers.getFileFromURL(userModel.pic);
@@ -251,7 +251,7 @@ class UserFireOps {
 
     /// A - if user pic changed
     String _userPicURL;
-    if (ObjectChecker.objectIsFile(newUserModel.pic) == true) {
+    if (ObjectCheck.objectIsFile(newUserModel.pic) == true) {
 
       /// A1 - update pic to fireStorage/usersPics/userID and get new URL
       _userPicURL = await Storage.createOrUpdatePic(

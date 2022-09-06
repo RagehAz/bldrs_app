@@ -452,6 +452,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         autoValidate: true,
                         validator: () => Formers.contactsPhoneValidator(
                           contacts: bzModel.contacts,
+                          zoneModel: bzModel.zone,
                         ),
                       ),
 
