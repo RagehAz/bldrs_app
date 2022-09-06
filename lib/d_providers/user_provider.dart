@@ -11,17 +11,17 @@ import 'package:provider/provider.dart';
 
 // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 class UsersProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MY USER MODEL
 
-// -------------------------------------
+  // --------------------
   UserModel _myUserModel;
   AuthModel _myAuthModel;
-// -------------------------------------
+  // --------------------
   UserModel get myUserModel => _myUserModel;
   AuthModel get myAuthModel => _myAuthModel;
-// -------------------------------------
+  // --------------------
   static AuthModel proGetAuthModel({
     @required BuildContext context,
     @required bool listen,
@@ -29,7 +29,7 @@ class UsersProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myAuthModel;
   }
-// -------------------------------------
+  // --------------------
   Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
 
@@ -38,13 +38,13 @@ class UsersProvider extends ChangeNotifier {
     if (_myUserID != null) {
 
       _userModel = await UserProtocols.fetchUser(
-          context: context,
-          userID: _myUserID,
+        context: context,
+        userID: _myUserID,
       );
 
       final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
-          context: context,
-          incompleteZoneModel: _userModel.zone,
+        context: context,
+        incompleteZoneModel: _userModel.zone,
       );
 
       _userModel = _userModel.copyWith(
@@ -59,7 +59,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void setMyUserModelAndAuthModel({
     @required UserModel userModel,
     @required bool notify,
@@ -78,7 +78,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _setAuthModel({
     @required AuthModel setTo,
     @required bool notify,
@@ -91,7 +91,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void clearMyUserModelAndAuthModel({
     @required bool notify,
   }){
@@ -104,7 +104,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /*
   /// DEPRECATED
 
@@ -130,7 +130,7 @@ class UsersProvider extends ChangeNotifier {
   }
 
    */
-  // -------------------------------------
+  // --------------------
   void removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
     @required bool notify,
@@ -141,8 +141,8 @@ class UsersProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(_myUserModel.myBzzIDs)) {
 
       _myUserModel = UserModel.removeBzIDFromMyBzzIDs(
-          bzIDToRemove: bzIDToRemove,
-          userModel: _myUserModel,
+        bzIDToRemove: bzIDToRemove,
+        userModel: _myUserModel,
       );
 
       _myAuthModel = _myAuthModel.copyWith(
@@ -156,7 +156,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void proUpdateUserAndAuthModels({
     @required BuildContext context,
@@ -166,31 +166,31 @@ class UsersProvider extends ChangeNotifier {
 
     // SchedulerBinding.instance.addPostFrameCallback((_) {
 
-      final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-      _usersProvider.setMyUserModelAndAuthModel(
-        userModel: userModel,
-        notify: notify,
-      );
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    _usersProvider.setMyUserModelAndAuthModel(
+      userModel: userModel,
+      notify: notify,
+    );
 
     // });
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MY DEVICE CONTACTS
 
-// -------------------------------------
+  // --------------------
   /*
   List<Contact> _myDeviceContacts = <Contact>[];
   List<String> _selectedDeviceContacts = <String>[];
   List<Contact> _searchedDeviceContacts = <Contact>[];
   bool _isSearchingDeviceContacts = false;
-// -------------------------------------
+  // --------------------
   List<Contact> get myDeviceContacts => _myDeviceContacts;
   List<String> get selectedDeviceContacts => _selectedDeviceContacts;
   List<Contact> get searchedDeviceContacts => _searchedDeviceContacts;
   bool get isSearchingDeviceContacts => _isSearchingDeviceContacts;
-// -------------------------------------
+  // --------------------
   void setMyDeviceContacts({
     @required List<Contact> contacts,
     @required bool notify,
@@ -202,7 +202,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   bool canSearchContacts(){
     bool _canSearch = false;
 
@@ -214,7 +214,7 @@ class UsersProvider extends ChangeNotifier {
     }
     return _canSearch;
   }
-// -------------------------------------
+  // --------------------
   void selectDeviceContact(String contactString){
 
     final bool _alreadySelected = Mapper.checkStringsContainString(
@@ -231,7 +231,7 @@ class UsersProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-// -------------------------------------
+  // --------------------
   void _setSelectedDeviceContacts({
     @required List<String> contacts,
     @required bool notify,
@@ -244,7 +244,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   bool deviceContactIsSelected(String contactString){
 
     final bool _alreadySelected = Mapper.checkStringsContainString(
@@ -254,7 +254,7 @@ class UsersProvider extends ChangeNotifier {
 
     return _alreadySelected;
   }
-// -------------------------------------
+  // --------------------
   void searchDeviceContacts(String searchString){
 
     List<Contact> _foundContacts = <Contact>[];
@@ -304,7 +304,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _serSearchedDeviceContacts({
     @required List<Contact> setTo,
     @required bool notify,
@@ -317,7 +317,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _triggerIsSearchingDeviceContacts({
     @required String searchString,
     @required bool notify,
@@ -360,7 +360,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _setIsSearchingDeviceContacts({
     @required bool setTo,
     @required bool notify,
@@ -371,11 +371,11 @@ class UsersProvider extends ChangeNotifier {
     }
   }
   */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PRO FETCHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
     @required BuildContext context,
@@ -384,11 +384,11 @@ class UsersProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myUserModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -398,8 +398,8 @@ class UsersProvider extends ChangeNotifier {
 
     /// _myUserModel
     _usersProvider.setMyUserModelAndAuthModel(
-        userModel: null,
-        notify: false,
+      userModel: null,
+      notify: false,
     );
     /// _myAuthModel
     _usersProvider._setAuthModel(
@@ -432,5 +432,5 @@ class UsersProvider extends ChangeNotifier {
     // );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

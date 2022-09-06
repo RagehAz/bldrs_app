@@ -20,11 +20,11 @@ class UiProvider extends ChangeNotifier {
 
   /// --- LOCAL ASSETS
 
-// -------------------------------------
+  // --------------------
   List<String> _localAssetsPaths = <String>[];
-// -------------------------------------
+  // --------------------
   List<String> get localAssetsPaths => _localAssetsPaths;
-// -------------------------------------
+  // --------------------
   Future<void> getSetLocalAssetsPaths({
     @required bool notify,
   }) async {
@@ -36,7 +36,7 @@ class UiProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void _setLocalAssetPaths({
     @required List<String> paths,
     @required bool notify,
@@ -50,27 +50,27 @@ class UiProvider extends ChangeNotifier {
 
 
   }
-// -------------------------------------
+  // --------------------
   static List<String> proGetLocalAssetsPaths(BuildContext context){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     return _uiProvider.localAssetsPaths;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- AFTER HOME ROUTE
 
-// -------------------------------------
+  // --------------------
   RouteSettings _afterHomeRoute;
   RouteSettings get afterHomeRoute => _afterHomeRoute;
-// -------------------------------------
+  // --------------------
   static RouteSettings proGetAfterHomeRoute({
     @required BuildContext context,
     @required bool listen,
-}){
+  }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.afterHomeRoute;
   }
-// -------------------------------------
+  // --------------------
   static void proClearAfterHomeRoute({
     @required BuildContext context,
     @required bool notify,
@@ -83,7 +83,7 @@ class UiProvider extends ChangeNotifier {
     );
     blog('proClearAfterHomeRoute : now : ${_uiProvider._afterHomeRoute}');
   }
-// -------------------------------------
+  // --------------------
   void setAfterHomeRoute({
     @required RouteSettings settings,
     @required bool notify,
@@ -96,15 +96,15 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- LOADING
 
-// -------------------------------------
+  // --------------------
   bool _loading = false;
-// -------------------------------------
+  // --------------------
   bool get isLoading => _loading;
-// -------------------------------------
+  // --------------------
   void triggerLoading({
     @required String callerName,
     @required bool notify,
@@ -139,7 +139,7 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// --- LOADING SELECTOR TEMPLATE
   /*
 
@@ -154,11 +154,11 @@ class UiProvider extends ChangeNotifier {
             }
 
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- KEYBOARD MODEL
 
-// -------------------------------------
+  // --------------------
 //   KeyboardModel _keyboardModel;
   // KeyboardModel get keyboardModel => _keyboardModel;
 //   void setKeyboard({
@@ -178,14 +178,14 @@ class UiProvider extends ChangeNotifier {
 
   bool _keyboardIsOn = false;
   bool get keyboardIsOn => _keyboardIsOn;
-// -------------------------------------
+  // --------------------
   static bool proGetKeyboardIsOn (BuildContext context) {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     return _keyboardIsOn;
   }
-// -------------------------------------
-// -------------------------------------
+  // --------------------
+  // --------------------
   void setKeyboardIsOn({
     @required bool setTo,
     @required bool notify,
@@ -202,11 +202,11 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- TEXT FIELD OBSCURED
 
-// -------------------------------------
+  // --------------------
   void startController(Function controllerMethod) {
 
     _start().then((_) async {
@@ -216,17 +216,17 @@ class UiProvider extends ChangeNotifier {
     });
 
   }
-// -------------------------------------
+  // --------------------
   Future<void> _start() async {}
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- TEXT FIELD OBSCURED
 
-// -------------------------------------
+  // --------------------
   bool _textFieldsObscured = true;
-// -------------------------------------
+  // --------------------
   bool get textFieldsObscured => _textFieldsObscured;
-// -------------------------------------
+  // --------------------
   void triggerTextFieldsObscured({
     @required bool notify,
     bool setObscuredTo
@@ -249,16 +249,15 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- SAVED FLYERS TAB CURRENT FLYER TYPE
 
-// -------------------------------------
+  // --------------------
   FlyerType _currentSavedFlyerTypeTab = FlyerType.all;
-// -------------------------------------
+  // --------------------
   FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
-// -------------------------------------
+  // --------------------
   void setCurrentFlyerTypeTab({
     @required FlyerType flyerType,
     @required bool notify,
@@ -271,15 +270,15 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- MY BZ SCREEN CURRENT TAB
 
-// -------------------------------------
+  // --------------------
   BzTab _currentBzTab = BzTab.flyers;
-// -------------------------------------
+  // --------------------
   BzTab get currentBzTab => _currentBzTab;
-// -------------------------------------
+  // --------------------
   void setCurrentBzTab({
     @required BzTab bzTab,
     @required bool notify,
@@ -291,15 +290,15 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- USER SCREEN CURRENT TAB
 
-// -------------------------------------
+  // --------------------
   UserTab _currentUserTab = UserTab.profile;
-// -------------------------------------
+  // --------------------
   UserTab get currentUserTab => _currentUserTab;
-// -------------------------------------
+  // --------------------
   void setCurrentUserTab({
     @required UserTab userTab,
     @required bool notify,
@@ -311,15 +310,15 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// --- FLYER TWEEN
+  /// --- FLYER TWEEN
 
-// -------------------------------------
+  // --------------------
   double _flyerWidthFactor = 1;
-// -------------------------------------
+  // --------------------
   double get flyerWidthFactor => _flyerWidthFactor;
-// -------------------------------------
+  // --------------------
   void calculateSetFlyerWidthFactor({
     @required double tween,
     @required bool notify,
@@ -342,7 +341,7 @@ class UiProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void _setFlyerWidthSizeFactor({
     @required double widthFactor,
     @required bool notify,
@@ -355,7 +354,7 @@ class UiProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   double _flyerWidthSizeFactor({
     @required double tween,
     @required double minFactor,
@@ -365,11 +364,11 @@ class UiProvider extends ChangeNotifier {
     final double _flyerWidthSizeFactor = minFactor + (tween * (maxFactor - minFactor));
     return _flyerWidthSizeFactor;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -397,7 +396,7 @@ class UiProvider extends ChangeNotifier {
     _uiProvider._setFlyerWidthSizeFactor(widthFactor: 1,notify: true);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 void triggerUILoading({

@@ -11,15 +11,15 @@ import 'package:provider/provider.dart';
 
 // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
 class NotesProvider extends ChangeNotifier {
-// ---------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
   /// OBELISK NOTES NUMBERS
 
-// -------------------------------------
+  // --------------------
   /// MapModel(key: navModelID, value: numberOfNotes)
   List<MapModel> _obeliskNotesNumbers = <MapModel>[];
   List<MapModel> get obeliskNotesNumber => _obeliskNotesNumbers;
-// -------------------------------------
+  // --------------------
   void generateSetInitialObeliskNumbers({
     @required BuildContext context,
     @required bool notify,
@@ -28,7 +28,7 @@ class NotesProvider extends ChangeNotifier {
     final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(context: context, listen: false);
 
     final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
-        myBzzIDs: BzModel.getBzzIDsFromBzz(_bzzModels),
+      myBzzIDs: BzModel.getBzzIDsFromBzz(_bzzModels),
     );
 
     final List<MapModel> _initialList = <MapModel>[];
@@ -40,26 +40,26 @@ class NotesProvider extends ChangeNotifier {
       _initialList.add(_mapModel);
     }
 
-      _obeliskNotesNumbers = _initialList;
+    _obeliskNotesNumbers = _initialList;
 
-      if (notify == true){
-        notifyListeners();
-      }
+    if (notify == true){
+      notifyListeners();
+    }
 
   }
-// -------------------------------------
+  // --------------------
   int getObeliskNumber({
     @required String navModelID,
   }){
 
     final MapModel _mapModel = _obeliskNotesNumbers.firstWhere(
-            (m) => m.key == navModelID,
-        orElse: ()=> null,
+          (m) => m.key == navModelID,
+      orElse: ()=> null,
     );
 
     return _mapModel?.value;
   }
-// -------------------------------------
+  // --------------------
   void setObeliskNumberAndRebuild({
     @required BuildContext context,
     @required String caller,
@@ -100,7 +100,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void removeAllObeliskNoteNumbersRelatedToBzID({
     @required String bzID,
     @required bool notify,
@@ -119,7 +119,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _calculateAndSetMainUserProfileNumber({
     @required BuildContext context,
     @required bool notify,
@@ -157,15 +157,15 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void _calculateAndSetAllMainBzzProfilesNumbers({
     @required BuildContext context,
     @required bool notify,
   }){
 
     final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
-        context: context,
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     final List<String> _bzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
@@ -191,7 +191,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _calculateAndSetMainBzProfileNumber({
     @required BuildContext context,
     @required String bzID,
@@ -237,7 +237,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void wipeObeliskNumbers({@required bool notify}){
 
     _obeliskNotesNumbers = <MapModel>[];
@@ -247,14 +247,14 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PYRAMID IS FLASHING
 
-// -------------------------------------
+  // --------------------
   bool _isFlashing = false;
   bool get isFlashing => _isFlashing;
-// -------------------------------------
+  // --------------------
   void setIsFlashing({
     @required bool setTo,
     @required bool notify,
@@ -273,26 +273,26 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   static void proSetIsFlashing({
     @required BuildContext context,
     @required bool setTo,
     @required bool notify,
-}){
+  }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
     _notesProvider.setIsFlashing(
       setTo: setTo,
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER RECEIVED UNSEEN NOTES
 
-// -------------------------------------
+  // --------------------
   List<NoteModel> _userNotes = <NoteModel>[];
   List<NoteModel> get userNotes => _userNotes;
-// -------------------------------------
+  // --------------------
   void setUserNotesAndRebuild({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -311,7 +311,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   static List<NoteModel> proGetUserUnseenNotes({
     @required BuildContext context,
     @required bool listen,
@@ -319,11 +319,11 @@ class NotesProvider extends ChangeNotifier {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
     return _notesProvider.userNotes;
   }
-// -------------------------------------
+  // --------------------
   void updateNoteInUserNotes({
     @required NoteModel note,
     @required bool notify,
-}){
+  }){
 
     _userNotes = NoteModel.replaceNoteInNotes(
         notes: _userNotes,
@@ -335,15 +335,15 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void deleteNoteInUserNotes({
     @required String noteID,
     @required bool notify,
   }){
 
     _userNotes = NoteModel.removeNoteFromNotes(
-        notes: _userNotes,
-        noteID: noteID,
+      notes: _userNotes,
+      noteID: noteID,
     );
 
     if (notify == true){
@@ -351,7 +351,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void wipeUserNotes({
     @required bool notify
   }){
@@ -362,15 +362,15 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ALL BZZ RECEIVED UNSEEN NOTES
 
-// -------------------------------------
+  // --------------------
   /// only the received notes
   Map<String, List<NoteModel>> _myBzzNotes = {}; // {bzID : <NoteModel>[Note, Note, Note..]}
   Map<String, List<NoteModel>> get myBzzNotes => _myBzzNotes;
-// -------------------------------------
+  // --------------------
   void setBzNotesAndRebuildObelisk({
     @required BuildContext context,
     @required String bzID,
@@ -393,7 +393,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void removeNotesFromBzzNotes({
     @required List<NoteModel> notes,
     @required String bzID,
@@ -416,7 +416,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   static void proRemoveNotesFromBzzNotes({
     @required BuildContext context,
     @required List<NoteModel> notes,
@@ -430,7 +430,7 @@ class NotesProvider extends ChangeNotifier {
       notes: notes,
     );
   }
-// -------------------------------------
+  // --------------------
   void removeAllNotesOfThisBzFromAllBzzNotes({
     @required String bzID,
     @required bool notify,
@@ -443,15 +443,15 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void updateNoteInMyBzzNotes({
     @required NoteModel note,
     @required bool notify,
   }){
 
     _myBzzNotes = NoteModel.updateNoteInBzzNotesMap(
-        note: note,
-        bzzNotesMap: _myBzzNotes,
+      note: note,
+      bzzNotesMap: _myBzzNotes,
     );
 
     if (notify == true){
@@ -459,7 +459,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void deleteNoteInBzzNotes({
     @required String noteID,
     @required bool notify,
@@ -475,7 +475,7 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void wipeAllBzzNotes({
     @required bool notify,
   }){
@@ -487,11 +487,11 @@ class NotesProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PRO NOTES OPS
 
-// -------------------------------------
+  // --------------------
   static void proUpdateNoteEverywhereIfExists({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -511,7 +511,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   static void proDeleteNoteEverywhereIfExists({
     @required BuildContext context,
     @required String noteID,
@@ -531,7 +531,7 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   static void proAuthorResignationNotesRemovalOps({
     @required BuildContext context,
     @required String bzIDResigned,
@@ -548,11 +548,11 @@ class NotesProvider extends ChangeNotifier {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -573,5 +573,5 @@ class NotesProvider extends ChangeNotifier {
     _notesProvider.wipeAllBzzNotes(notify: true);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

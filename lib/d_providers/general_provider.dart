@@ -23,11 +23,11 @@ import 'package:provider/provider.dart';
 
 // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 class GeneralProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// APP STATE
 
-  // -------------------------------------
+  // --------------------
   static Future<AppState> fetchGlobalAppState({
     @required BuildContext context,
     @required bool assignToUser,
@@ -36,7 +36,7 @@ class GeneralProvider extends ChangeNotifier {
     AppState _appState;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-        docName: LDBDoc.appState,
+      docName: LDBDoc.appState,
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -55,8 +55,8 @@ class GeneralProvider extends ChangeNotifier {
 
       if (_appState != null){
         await LDBOps.insertMap(
-            docName: LDBDoc.appState,
-            input: _appStateMap,
+          docName: LDBDoc.appState,
+          input: _appStateMap,
         );
       }
 
@@ -71,11 +71,11 @@ class GeneralProvider extends ChangeNotifier {
 
     return _appState;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// APP CONTROLS
 
-  // -------------------------------------
+  // --------------------
   static Future<AppControlsModel> fetchAppControls({
     @required BuildContext context,
   }) async {
@@ -83,7 +83,7 @@ class GeneralProvider extends ChangeNotifier {
     AppControlsModel _model;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-        docName: LDBDoc.appControls,
+      docName: LDBDoc.appControls,
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -96,8 +96,8 @@ class GeneralProvider extends ChangeNotifier {
 
       if (_model != null){
         await LDBOps.insertMap(
-            docName: LDBDoc.appControls,
-            input: _model.toMap(),
+          docName: LDBDoc.appControls,
+          input: _model.toMap(),
         );
       }
 
@@ -105,18 +105,18 @@ class GeneralProvider extends ChangeNotifier {
 
     return _model;
   }
-  // -------------------------------------
+  // --------------------
   AppControlsModel _appControls;
-  // -------------------------------------
+  // --------------------
   AppControlsModel get appControls => _appControls;
-  // -------------------------------------
+  // --------------------
   Future<void> fetchSetAppControls({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
     final AppControlsModel _controls = await fetchAppControls(
-        context: context,
+      context: context,
     );
 
     setAppControls(
@@ -125,7 +125,7 @@ class GeneralProvider extends ChangeNotifier {
     );
 
   }
-  // -------------------------------------
+  // --------------------
   void setAppControls({
     @required AppControlsModel setTo,
     @required bool notify,
@@ -139,7 +139,7 @@ class GeneralProvider extends ChangeNotifier {
 
 
   }
-  // -------------------------------------
+  // --------------------
   static AppControlsModel proGerAppControls(BuildContext context, {bool listen = true}){
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: listen);
     return _generalProvider.appControls;
@@ -148,16 +148,16 @@ class GeneralProvider extends ChangeNotifier {
 
   /// CONNECTIVITY
 
-  // -------------------------------------
+  // --------------------
   bool _isConnected = false;
-  // -------------------------------------
+  // --------------------
   bool get isConnected => _isConnected;
-  // -------------------------------------
+  // --------------------
   Future<void> getSetConnectivity({
     @required BuildContext context,
     @required bool mounted,
     @required bool notify,
-}) async {
+  }) async {
 
     if (mounted == true){
 
@@ -172,7 +172,7 @@ class GeneralProvider extends ChangeNotifier {
     }
 
   }
-  // -------------------------------------
+  // --------------------
   void setConnectivity({
     @required bool isConnected,
     @required bool notify,
@@ -180,32 +180,32 @@ class GeneralProvider extends ChangeNotifier {
 
     _isConnected = isConnected;
 
-      if(notify == true){
-        notifyListeners();
-      }
+    if(notify == true){
+      notifyListeners();
+    }
 
   }
   // -----------------------------------------------------------------------------
 
   /// ONLINE SECTIONS
 
-  // -------------------------------------
+  // --------------------
   final List<BzSection> _onlineSections = <BzSection>[
     BzSection.realestate,
     BzSection.construction,
     BzSection.supplies,
   ];
-  // -------------------------------------
+  // --------------------
   List<BzSection> get onlineSections => _onlineSections;
-  // -------------------------------------
+  // --------------------
   bool sectionIsOnline(BzSection section){
     return _onlineSections.contains(section) == true;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -221,16 +221,16 @@ class GeneralProvider extends ChangeNotifier {
 
     /// _isConnected
     _generalProvider.setConnectivity(
-        isConnected: false,
-        notify: notify,
+      isConnected: false,
+      notify: notify,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CONTROLLING ALL PROVIDERS
+  /// CONTROLLING ALL PROVIDERS
 
-// -------------------------------------
+  // --------------------
   static void wipeOutAllProviders(BuildContext context){
 
     /// PhraseProvider
@@ -259,7 +259,7 @@ class GeneralProvider extends ChangeNotifier {
     // QuestionsProvider.wipeOut(context: context, notify: true);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 List<String> getActiveCountriesIDs(BuildContext context){

@@ -18,11 +18,11 @@ import 'package:provider/provider.dart';
 
 // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 class ChainsProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> initializeAllChains({
     @required BuildContext context,
@@ -97,7 +97,7 @@ class ChainsProvider extends ChangeNotifier {
     }
     // --------------------
   }
-// -------------------------------------
+  // --------------------
   Future<void> reInitializeAllChains(BuildContext context) async {
     // --------------------
     /// DELETE LDB CHAINS
@@ -130,7 +130,7 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> reInitializeCityChains(BuildContext context) async {
     // --------------------
@@ -164,11 +164,11 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATES
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> updateBigChainKOps({
     @required BuildContext context,
@@ -218,7 +218,7 @@ class ChainsProvider extends ChangeNotifier {
     }
     // --------------------
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> updateBigChainSOps({
     @required BuildContext context,
@@ -253,11 +253,11 @@ class ChainsProvider extends ChangeNotifier {
     }
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void wipeOutChainsPro({
     @required BuildContext context,
@@ -287,7 +287,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
     @required BuildContext context,
@@ -299,14 +299,14 @@ class ChainsProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BIG CHAIN-K (main keywords chain)
 
-// -------------------------------------
+  // --------------------
   Chain _bigChainK;
   Chain get bigChainK => _bigChainK;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proGetBigChainK({
     @required BuildContext context,
@@ -324,7 +324,7 @@ class ChainsProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetBigChainK({
     @required BuildContext context,
@@ -339,7 +339,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainK({
     @required Chain chain,
@@ -350,15 +350,15 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BIG CHAIN S - (main specs chain)
 
-// -------------------------------------
+  // --------------------
   Chain _bigChainS;
-// -------------------------------------
+  // --------------------
   Chain get bigChainS => _bigChainS;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proGetBigChainS({
     @required BuildContext context,
@@ -367,7 +367,7 @@ class ChainsProvider extends ChangeNotifier {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.bigChainS;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetBigChainS({
     @required BuildContext context,
@@ -382,7 +382,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainS({
     @required Chain bigChainS,
@@ -393,14 +393,14 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CITY PHID COUNTERS
 
-// -------------------------------------
+  // --------------------
   CityPhidsModel _cityPhidsModel;
   CityPhidsModel get cityPhidsModel => _cityPhidsModel;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _readSetCityPhidsModel({
     @required BuildContext context,
@@ -417,7 +417,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setCityPhidModels({
     @required CityPhidsModel cityPhidsModel,
@@ -430,14 +430,14 @@ class ChainsProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CITY CHAIN K ( city's keywords chain according to City Phid Counters )
 
-// -------------------------------------
+  // --------------------
   Chain _cityChainK;
   Chain get cityChainK => _cityChainK;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _refineSetCityChainK({
     @required bool notify,
@@ -455,7 +455,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setCityChainK({
     @required bool notify,
@@ -466,14 +466,14 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BIG CHAIN K PHRASES
 
-// -------------------------------------
+  // --------------------
   List<Phrase> _bigChainKPhrases = <Phrase>[];
   List<Phrase> get bigChainKPhrases => _bigChainKPhrases;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetBigChainKPhrases({
     @required BuildContext context,
@@ -492,7 +492,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainKPhrases({
     @required List<Phrase> phrases,
@@ -503,14 +503,14 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BIG CHAIN S PHRASES
 
-// -------------------------------------
+  // --------------------
   List<Phrase> _bigChainSPhrases = <Phrase>[];
   List<Phrase> get bigChainSPhrases => _bigChainSPhrases;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetBigChainSPhrases({
     @required BuildContext context,
@@ -529,7 +529,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainSPhrases({
     @required List<Phrase> phrases,
@@ -540,15 +540,15 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// City Chain K Phrases
 
-// -------------------------------------
+  // --------------------
   /// must include trigrams and both languages (en, ar) for search engines
   List<Phrase> _cityChainKPhrases = <Phrase>[];
   List<Phrase> get cityChainKPhrases => _cityChainKPhrases;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetCityChainKPhrases({
     @required BuildContext context,
@@ -567,7 +567,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setCityChainKPhrases({
     @required List<Phrase> phrases,
@@ -578,29 +578,29 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// HOME WALL FLYER TYPE AND PHID
 
-// -------------------------------------
+  // --------------------
   FlyerType _wallFlyerType;
   String _wallPhid;
-// -------------------------------------
+  // --------------------
   FlyerType get wallFlyerType => _wallFlyerType ?? FlyerType.design;
   String get wallPhid => _wallPhid;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType proGetHomeWallFlyerType(BuildContext context){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.wallFlyerType;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetHomeWallPhid(BuildContext context){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     return _chainsProvider.wallPhid;
   }
-// -------------------------------------
+  // --------------------
 
   Future<void> changeHomeWallFlyerType({
     @required BuildContext context,
@@ -624,7 +624,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setWallFlyerAndPhid({
     @required FlyerType flyerType,
@@ -637,7 +637,7 @@ class ChainsProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearWallFlyerTypeAndPhid({
     @required bool notify,
@@ -648,14 +648,14 @@ class ChainsProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ALL PICKER
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> _allPickers = {};
   Map<String, dynamic> get allPickers => _allPickers;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerType({
     @required BuildContext context,
@@ -666,7 +666,7 @@ class ChainsProvider extends ChangeNotifier {
     final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
     return  _chainsProvider.allPickers[_pickersKey];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerTypes({
     @required BuildContext context,
@@ -693,7 +693,7 @@ class ChainsProvider extends ChangeNotifier {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetAllPickers({
     @required BuildContext context,
@@ -735,7 +735,7 @@ class ChainsProvider extends ChangeNotifier {
     ]);
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void setFlyerTypePickers({
     @required BuildContext context,
@@ -794,7 +794,7 @@ class ChainsProvider extends ChangeNotifier {
     // ---------------------------
     return _chain;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proFindChainByID({
     @required BuildContext context,
@@ -812,7 +812,7 @@ class ChainsProvider extends ChangeNotifier {
 
     return _chain;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   List<Chain> getChainKAndChainS({
     @required BuildContext context,
@@ -825,7 +825,7 @@ class ChainsProvider extends ChangeNotifier {
     );
     return <Chain>[_keywordsChain, _bigChainS];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Chain getChainKByFlyerType({
     @required FlyerType flyerType,
@@ -844,7 +844,7 @@ class ChainsProvider extends ChangeNotifier {
 
     return _chain;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   String getPhidIcon({
     @required BuildContext context,
@@ -869,7 +869,7 @@ class ChainsProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetPhidIcon({
     @required BuildContext context,
