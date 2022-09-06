@@ -44,7 +44,7 @@ class UserProfileBanners extends StatelessWidget {
 
     return _string;
   }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -72,4 +72,5 @@ class UserProfileBanners extends StatelessWidget {
       ],
     );
   }
+// -----------------------------------------------------------------------------
 }

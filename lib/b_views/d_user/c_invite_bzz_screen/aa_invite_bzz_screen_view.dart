@@ -27,9 +27,11 @@ List<String> getNamesFromDeviceContacts(List<Contact> deviceContacts){
  */
 
 class InviteBusinessesScreenView extends StatelessWidget {
-// -----------------------------------------------------------------------------
-  const InviteBusinessesScreenView({Key key}) : super(key: key);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  const InviteBusinessesScreenView({
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
   /*
   bool _contactIsSelected({
     @required BuildContext context,
@@ -50,8 +52,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
     _usersProvider.selectDeviceContact(contactString);
   }
    */
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -168,4 +169,5 @@ class InviteBusinessesScreenView extends StatelessWidget {
     //
     // }
   }
+  // -----------------------------------------------------------------------------
 }

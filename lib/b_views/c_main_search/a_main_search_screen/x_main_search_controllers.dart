@@ -19,7 +19,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// -------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/// INITIALIZATION
+
+// --------------------
 Future<void> initializeSearchScreen(BuildContext context) async {
 
   _setIsLoading(context, true);
@@ -33,7 +37,11 @@ Future<void> initializeSearchScreen(BuildContext context) async {
 
   _setIsLoading(context, false);
 }
-// -------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/// SUBMIT - CHANGE
+
+// --------------------
 Future<void> controlOnSearchSubmit({
   @required BuildContext context,
   @required String searchText,
@@ -95,7 +103,7 @@ Future<void> controlOnSearchSubmit({
   _setIsSearching(context, true);
 
 }
-// -------------------------------------------------------
+// --------------------
 void controlOnSearchChange({
   @required BuildContext context,
   @required String searchText,
@@ -120,7 +128,7 @@ void controlOnSearchChange({
   }
 
 }
-// -------------------------------------------------------
+// --------------------
 Future<void> onSearchRecordTap({
   @required BuildContext context,
   @required RecordModel record,
@@ -140,7 +148,11 @@ Future<void> onSearchRecordTap({
   }
 
 }
-// -------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/// SEARCHERS
+
+// --------------------
 /// TAMAM
 Future<List<SearchResult>> _searchKeywords({
   @required BuildContext context,
@@ -181,7 +193,7 @@ Future<List<SearchResult>> _searchKeywords({
 
   return _results;
 }
-// -------------------------------------------------------
+// --------------------
 /// TAMAM
 Future<List<SearchResult>> _searchBzz({
   @required BuildContext context,
@@ -219,7 +231,7 @@ Future<List<SearchResult>> _searchBzz({
 
   return _results;
 }
-// -------------------------------------------------------
+// --------------------
 Future<List<SearchResult>> _searchAuthors({
   @required BuildContext context,
   @required String searchText,
@@ -271,7 +283,7 @@ Future<List<SearchResult>> _searchAuthors({
 
   return _results;
 }
-// -------------------------------------------------------
+// --------------------
 /// TAMAM
 Future<List<SearchResult>> _searchFlyersByTitle({
   @required BuildContext context,
@@ -300,7 +312,11 @@ Future<List<SearchResult>> _searchFlyersByTitle({
 
   return _results;
 }
-// -------------------------------------------------------
+// -----------------------------------------------------------------------------
+
+/// RESULT
+
+// --------------------
 Future<void> _handleSearchResult({
   @required BuildContext context,
   @required List<SearchResult> allResults,
@@ -332,7 +348,7 @@ Future<void> _handleSearchResult({
   }
 
 }
-// -----------------------------------------------------------------------------
+// --------------------
 Future<void> _createFireSearchRecord({
   @required BuildContext context,
   @required String searchText,
@@ -359,6 +375,10 @@ Future<void> _createFireSearchRecord({
 
 }
 // -----------------------------------------------------------------------------
+
+/// SETTERS
+
+// --------------------
 void _setIsLoading(BuildContext context, bool isLoading){
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   _uiProvider.triggerLoading(
@@ -367,7 +387,7 @@ void _setIsLoading(BuildContext context, bool isLoading){
     notify: true,
   );
 }
-// -----------------------------------------------------------------------------
+// --------------------
 void _setIsSearching(BuildContext context, bool isSearching){
   final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 

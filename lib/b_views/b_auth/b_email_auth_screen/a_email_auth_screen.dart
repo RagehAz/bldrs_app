@@ -134,6 +134,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       ),
 
     );
+
   }
   // -----------------------------------------------------------------------------
 }

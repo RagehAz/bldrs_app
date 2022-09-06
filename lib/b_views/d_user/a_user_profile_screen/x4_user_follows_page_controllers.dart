@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 /// AUTO UPDATE MY FOLLOWED BZ IDS
 
-// ---------------------------------
+// --------------------
 Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
   @required BuildContext context,
   @required String bzID,
@@ -16,18 +16,18 @@ Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : START');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
+    context: context,
+    listen: false,
   );
 
   final UserModel _myUpdatedModel = UserModel.removeBzIDFromMyFollows(
-      userModel: _userModel,
-      bzIDToUnFollow: bzID,
+    userModel: _userModel,
+    bzIDToUnFollow: bzID,
   );
 
   await UserProtocols.renovateMyUserModel(
-      context: context,
-      newUserModel: _myUpdatedModel,
+    context: context,
+    newUserModel: _myUpdatedModel,
   );
 
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : END');

@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 
 /// INITIALIZATION
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void initializeUserEditorLocalVariables({
   @required BuildContext context,
@@ -41,7 +41,7 @@ void initializeUserEditorLocalVariables({
   tempUser.value = _initialModel;
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareUserForEditing({
   @required BuildContext context,
@@ -66,7 +66,7 @@ Future<void> prepareUserForEditing({
 
 /// LAST SESSION
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadUserEditorLastSession({
   @required BuildContext context,
@@ -97,15 +97,15 @@ Future<void> loadUserEditorLastSession({
       );
 
       await Nav.replaceScreen(
-          context: context,
-          screen: EditProfileScreen(
-            reAuthBeforeConfirm: reAuthBeforeConfirm,
-            userModel: _user,
-            canGoBack: canGoBack,
-            onFinish: onFinish,
-            checkLastSession: false,
-            validateOnStartup: true,
-          ),
+        context: context,
+        screen: EditProfileScreen(
+          reAuthBeforeConfirm: reAuthBeforeConfirm,
+          userModel: _user,
+          canGoBack: canGoBack,
+          onFinish: onFinish,
+          checkLastSession: false,
+          validateOnStartup: true,
+        ),
       );
 
     }
@@ -113,7 +113,7 @@ Future<void> loadUserEditorLastSession({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveUserEditorSession({
   @required BuildContext context,
@@ -135,8 +135,8 @@ Future<void> saveUserEditorSession({
   );
 
   final bool _userHasChanged = UserModel.checkUsersAreIdentical(
-      user1: newUserModel,
-      user2: lastTempUser.value,
+    user1: newUserModel,
+    user2: lastTempUser.value,
   ) == false;
 
   if (_userHasChanged == true){
@@ -158,7 +158,7 @@ Future<void> saveUserEditorSession({
 
 /// EDITORS
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
   @required BuildContext context,
@@ -210,7 +210,7 @@ Future<void> takeUserPicture({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onChangeGender({
   @required Gender selectedGender,
@@ -220,7 +220,7 @@ void onChangeGender({
     gender: selectedGender,
   );
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUserNameChanged({
   @required ValueNotifier<UserModel> tempUser,
@@ -232,7 +232,7 @@ void onUserNameChanged({
   );
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUserJobTitleChanged({
   @required ValueNotifier<UserModel> tempUser,
@@ -244,7 +244,7 @@ void onUserJobTitleChanged({
   );
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
   @required ValueNotifier<UserModel> tempUser,
@@ -255,7 +255,7 @@ void onUserCompanyNameChanged({
   );
 }
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
   @required ZoneModel selectedZone,
@@ -269,7 +269,7 @@ void onUserZoneChanged({
   tempUser.value = _updated;
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUserContactChanged({
   @required ValueNotifier<UserModel> tempUser,
@@ -278,11 +278,11 @@ void onUserContactChanged({
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-      contacts: tempUser.value.contacts,
-      contactToReplace: ContactModel(
-        value: value,
-        type: contactType,
-      ),
+    contacts: tempUser.value.contacts,
+    contactToReplace: ContactModel(
+      value: value,
+      type: contactType,
+    ),
   );
 
   tempUser.value = tempUser.value.copyWith(
@@ -290,7 +290,7 @@ void onUserContactChanged({
   );
 
 }
-// ----------------------------------------
+// --------------------
 /// PLAN : CHANGE USER POSITION
 /*
   // void _changePosition(GeoPoint geoPoint){
@@ -301,7 +301,7 @@ void onUserContactChanged({
 
 /// CONFIRMATION OPS
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
   @required BuildContext context,
@@ -395,7 +395,7 @@ Future<void> confirmEdits({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<UserModel> _updateUserModel({
   @required BuildContext context,
