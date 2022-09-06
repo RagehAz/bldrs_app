@@ -4,13 +4,11 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/layouts/snapper.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/contact_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -106,9 +104,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           );
         }
         // -----------------------------
-        if (widget.validateOnStartup == true){
+        // if (widget.validateOnStartup == true){
           Formers.validateForm(_formKey);
-        }
+        // }
         // -----------------------------
         if (mounted == true){
           _tempAuthor.addListener((){
@@ -152,10 +150,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   }
 // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-  final GlobalKey _fuckingKey = GlobalKey();
-
-  bool errorOn = true;
-  String _message;
+  // final GlobalKey _fuckingKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -176,14 +171,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           onTap: (){
 
             Formers.validateForm(_formKey);
-            Snapper.snapToWidget(snapKey: _fuckingKey);
-
-            setState(() {
-              errorOn = !errorOn;
-              _message = errorOn == true ? 'Fuck you bitch ass whore fucker' : null;
-            });
-
-            blog('errorOn : $errorOn : $_message');
+            // Snapper.snapToWidget(snapKey: _fuckingKey);
 
           },
         ),
@@ -216,17 +204,19 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   const Stratosphere(),
 
                   /// --- AUTHOR IMAGE
-                  AddImagePicBubble(
-                    width: BldrsAppBar.width(context),
-                    fileModel: authorModel.pic,
-                    titleVerse: 'phid_author_picture',
-                    redDot: true,
-                    bubbleType: BubbleType.authorPic,
-                    onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
-                      context: context,
-                      author: _tempAuthor,
-                      imagePickerType: imagePickerType,
-                      canPickImage: _canPickImage,
+                  Center(
+                    child: AddImagePicBubble(
+                      // width: BldrsAppBar.width(context),
+                      fileModel: authorModel.pic,
+                      titleVerse: 'phid_author_picture',
+                      redDot: true,
+                      bubbleType: BubbleType.authorPic,
+                      onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
+                        context: context,
+                        author: _tempAuthor,
+                        imagePickerType: imagePickerType,
+                        canPickImage: _canPickImage,
+                      ),
                     ),
                   ),
 
@@ -275,7 +265,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     initialTextValue: authorModel.title,
-                    // autoValidate: true,
                     validator: () => Formers.jobTitleValidator(
                         jobTitle: authorModel.title,
                     ),
@@ -307,7 +296,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       value: text,
                       tempAuthor: _tempAuthor,
                     ),
-                    // autoValidate: true,
                     validator: () => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
                       zoneModel: widget.bzModel.zone,
@@ -338,7 +326,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     canPaste: false,
-                    // autoValidate: true,
                     validator: () => Formers.contactsEmailValidator(
                       contacts: authorModel.contacts,
                     ),

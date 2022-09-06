@@ -563,7 +563,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               headerViewModel: const BubbleHeaderVM(
                                 headlineVerse: 'phid_scope_of_services',
                               ),
-                              width: Bubble.bubbleWidth(
+                              screenWidth: Bubble.bubbleWidth(
                                 context: context,
                                 stretchy: false,
                               ),
