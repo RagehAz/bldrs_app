@@ -29,59 +29,63 @@ class StaticStrips extends StatelessWidget {
   static double boxWidth(double flyerBoxWidth) {
     return flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double boxHeight(double flyerBoxWidth) {
     final double _boxHeight = flyerBoxWidth * Ratioz.xxProgressBarHeightRatio;
     return _boxHeight;
   }
-// -----------------------------------------------------------------------------
-  static EdgeInsets boxMargins({EdgeInsets margins, double flyerBoxWidth}) {
+  // --------------------
+  static EdgeInsets boxMargins({
+    EdgeInsets margins,
+    double flyerBoxWidth,
+  }) {
     final EdgeInsets _boxMargins = margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
     return _boxMargins;
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static double stripsTotalLength(double flyerBoxWidth) {
     final double _stripsTotalLength = flyerBoxWidth * 0.895;
     return _stripsTotalLength;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double stripThickness(double flyerBoxWidth) {
     final double _thickness = flyerBoxWidth * 0.007;
     return _thickness;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double stripCornerValue(double flyerBoxWidth) {
     final double _thickness = stripThickness(flyerBoxWidth);
     final double _stripCorner = _thickness * 0.5;
     return _stripCorner;
   }
-// -----------------------------------------------------------------------------
-  static BorderRadius stripBorders({BuildContext context, double flyerBoxWidth}) {
+  // --------------------
+  static BorderRadius stripBorders({
+    BuildContext context,
+    double flyerBoxWidth,
+  }) {
     final double _stripCorner = stripCornerValue(flyerBoxWidth);
     final BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
     return _borders;
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static double stripsOneSideMargin(double flyerBoxWidth) {
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
     final double _allStripsOneSideMargin = (flyerBoxWidth - _stripsTotalLength) / 2;
     return _allStripsOneSideMargin;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double oneStripLength({double flyerBoxWidth, int numberOfStrips}) {
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
     final int _numberOfStrips = numberOfStrips ?? 0;
     final double _oneStripLength = _stripsTotalLength / _numberOfStrips;
     return _oneStripLength;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static const Color stripOffColor = Colorz.white10;
   static const Color stripFadedColor = Colorz.white80;
   static const Color stripOnColor = Colorz.white200;
   static const Color stripLoadingColor = Colorz.yellow200;
-// -------------------------------------------------------
+  // --------------------
   static Color stripColor({
     bool isWhite,
     int numberOfSlides,
@@ -97,7 +101,7 @@ class StaticStrips extends StatelessWidget {
 
     return _stripColor;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool canBuildStrips(int numberOfStrips) {
     bool _canBuild = false;
 
@@ -109,7 +113,7 @@ class StaticStrips extends StatelessWidget {
 
     return _canBuild;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
     int _numberOfStrips;
@@ -184,11 +188,12 @@ class StaticStrips extends StatelessWidget {
 
     return _numberOfStrips;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
+    /*
     // print('========= BUILDING PROGRESS BAR FOR ||| index : $slideIndex, numberOfSlides : $numberOfStrips, slidingNext $swipeDirection');
-
     // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
     // double _aStripThickness = flyerBoxWidth * 0.007;
     // double _aStripOnePadding = _aStripThickness / 2;
@@ -197,17 +202,18 @@ class StaticStrips extends StatelessWidget {
     // Color _currentStripColor = numberOfSlides == 0 ? Colorz. White10 : Colorz.White200;
     // double _boxWidth = boxWidth(flyerBoxWidth);
     // double _boxHeight = boxHeight(flyerBoxWidth);
-// -----------------------------------------------------------------------------
-//     EdgeInsets _boxMargins = boxMargins(margins: margins, flyerBoxWidth: flyerBoxWidth);
+     */
+    // --------------------
     final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
+    // EdgeInsets _boxMargins = boxMargins(margins: margins, flyerBoxWidth: flyerBoxWidth);
     // double _allStripsOneSideMargin = stripsOneSideMargin(flyerBoxWidth);
     final double _aStripLength = oneStripLength(
-        flyerBoxWidth: flyerBoxWidth,
-        numberOfStrips: numberOfStrips,
+      flyerBoxWidth: flyerBoxWidth,
+      numberOfStrips: numberOfStrips,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     Tween<double> _tween() {
       Tween<double> _tween;
 
@@ -228,9 +234,9 @@ class StaticStrips extends StatelessWidget {
 
       return _tween;
     }
-// -----------------------------------------------------------------------------
+    // --------------------
     final int _numberOfStrips = _getNumberOfWhiteStrips();
-// -----------------------------------------------------------------------------
+    // --------------------
     return _tinyMode == true || barIsOn == false ? Container() :
     numberOfStrips == 1 ?
     ProgressBox(
@@ -290,34 +296,36 @@ class StaticStrips extends StatelessWidget {
 
                     ...List<Widget>.generate(_numberOfStrips,
                             (int index) {
-                      // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
-                              return
-                                /// IF ITS LAST STRIP
-                                // index == slideIndex ?
-                                index + 1 == _numberOfStrips ?
-                                StaticStrip(
-                                  flyerBoxWidth: flyerBoxWidth,
-                                  stripWidth: _tweenVal,
-                                  numberOfSlides: numberOfStrips,
-                                  isWhite: true,
-                                )
-                                    :
-                                /// IF STATIC STRIPS
-                                StaticStrip(
-                                  flyerBoxWidth: flyerBoxWidth,
-                                  stripWidth: _aStripLength,
-                                  numberOfSlides: numberOfStrips,
-                                  isWhite: true,
-                                );
-                    }
+                          // print('numberOfSlides : $numberOfSlides ,currentSlide : $currentSlide, index : $index, _numberOfWhiteStrips() : ${_numberOfWhiteStrips()}' );
+                          return
+                            /// IF ITS LAST STRIP
+                            // index == slideIndex ?
+                            index + 1 == _numberOfStrips ?
+                            StaticStrip(
+                              flyerBoxWidth: flyerBoxWidth,
+                              stripWidth: _tweenVal,
+                              numberOfSlides: numberOfStrips,
+                              isWhite: true,
+                            )
+                                :
+                            /// IF STATIC STRIPS
+                            StaticStrip(
+                              flyerBoxWidth: flyerBoxWidth,
+                              stripWidth: _aStripLength,
+                              numberOfSlides: numberOfStrips,
+                              isWhite: true,
+                            );
+                        }
                     ),
 
                   ],
                 );
-              },
+            },
           ),
 
         ]
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

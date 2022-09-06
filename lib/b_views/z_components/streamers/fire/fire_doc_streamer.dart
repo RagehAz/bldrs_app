@@ -76,15 +76,15 @@ class FireDocStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FireDocStreamerState createState() => _FireDocStreamerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FireDocStreamerState extends State<FireDocStreamer> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Stream<DocumentSnapshot<Object>> _stream;
   ValueNotifier<Map<String, dynamic>> _oldMap;
   StreamSubscription _sub;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -116,7 +116,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -125,7 +125,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
       _sub.cancel();
       super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -155,5 +155,5 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

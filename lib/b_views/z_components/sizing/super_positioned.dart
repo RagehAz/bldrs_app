@@ -19,11 +19,11 @@ class SuperPositioned extends StatelessWidget {
   static double _getLeft({
     @required Alignment enAlignment,
     @required double horizontalOffset,
-}){
+  }){
     double _output;
 
     if (
-        enAlignment == Alignment.topLeft
+    enAlignment == Alignment.topLeft
         ||
         enAlignment == Alignment.centerLeft
         ||
@@ -34,15 +34,15 @@ class SuperPositioned extends StatelessWidget {
 
     return  _output;
   }
-// -------------------------------------
+  // --------------------
   static double _getRight({
     @required Alignment enAlignment,
     @required double horizontalOffset,
-}){
+  }){
     double _output;
 
     if (
-        enAlignment == Alignment.topRight
+    enAlignment == Alignment.topRight
         ||
         enAlignment == Alignment.centerRight
         ||
@@ -53,15 +53,15 @@ class SuperPositioned extends StatelessWidget {
 
     return  _output;
   }
-// -------------------------------------
+  // --------------------
   static double _getTop({
     @required Alignment enAlignment,
     @required double verticalOffset,
-}){
+  }){
     double _output;
 
     if (
-        enAlignment == Alignment.topLeft
+    enAlignment == Alignment.topLeft
         ||
         enAlignment == Alignment.topCenter
         ||
@@ -71,16 +71,16 @@ class SuperPositioned extends StatelessWidget {
     }
 
     return  _output;
-}
-// -------------------------------------
+  }
+  // --------------------
   static double _getBottom({
     @required Alignment enAlignment,
     @required double verticalOffset,
-}){
+  }){
     double _output;
 
     if (
-        enAlignment == Alignment.bottomLeft
+    enAlignment == Alignment.bottomLeft
         ||
         enAlignment == Alignment.bottomCenter
         ||
@@ -90,8 +90,8 @@ class SuperPositioned extends StatelessWidget {
     }
 
     return  _output;
-}
-// -------------------------------------
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -124,5 +124,5 @@ class SuperPositioned extends StatelessWidget {
     }
 
   }
-
+// -----------------------------------------------------------------------------
 }

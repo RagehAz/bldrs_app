@@ -16,18 +16,18 @@ class Horizon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double height =
     considerKeyboard == true ?
     Ratioz.horizon * heightFactor + MediaQuery.of(context).viewInsets.bottom
         :
     Ratioz.horizon * heightFactor;
-
+    // --------------------
     return SizedBox(
       width: Scale.superScreenWidth(context),
       height: height,
     );
-
+    // --------------------
   }
-
+/// --------------------------------------------------------------------------
 }

@@ -1,11 +1,10 @@
-
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PaginatorNotifiers {
-  /// --------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
   const PaginatorNotifiers({
     @required this.paginatorMaps,
     @required this.replaceMap,
@@ -13,17 +12,17 @@ class PaginatorNotifiers {
     @required this.deleteMap,
     @required this.startAfter,
   });
-  /// --------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
   final ValueNotifier<List<Map<String, dynamic>>> paginatorMaps;
   final ValueNotifier<Map<String, dynamic>> replaceMap;
   final ValueNotifier<Map<String, dynamic>> addMap;
   final ValueNotifier<Map<String, dynamic>> deleteMap;
   final ValueNotifier<QueryDocumentSnapshot> startAfter;
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ------------------------------
+  // --------------------
   static PaginatorNotifiers initialize(){
 
     return PaginatorNotifiers(
@@ -35,11 +34,11 @@ class PaginatorNotifiers {
     );
 
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DISPOSING
+  /// DISPOSING
 
-// ------------------------------
+  // --------------------
   void dispose(){
     paginatorMaps.dispose();
     replaceMap.dispose();
@@ -47,11 +46,11 @@ class PaginatorNotifiers {
     deleteMap.dispose();
     startAfter.dispose();
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// LISTENING
+  /// LISTENING
 
-// ------------------------------
+  // --------------------
   void activateListeners({
     @required bool addAtEnd,
     @required bool mounted,
@@ -76,12 +75,12 @@ class PaginatorNotifiers {
     );
 
   }
-// ------------------------------
+  // --------------------
   /// ADD MAP
 // --------------------
   void _listenToPaginatorMapsChanges({
-  @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
-}){
+    @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
+  }){
 
     if (onDataChanged != null){
 
@@ -92,7 +91,7 @@ class PaginatorNotifiers {
     }
 
   }
-// ------------------------------
+  // --------------------
   /// ADD MAP
 // --------------------
   void _listenToAddMap({
@@ -103,8 +102,8 @@ class PaginatorNotifiers {
       addMap.addListener(() {
 
         addMapToPaginatorMaps(
-            addAtEnd: addAtEnd,
-            mounted: mounted,
+          addAtEnd: addAtEnd,
+          mounted: mounted,
         );
 
       });
@@ -138,12 +137,12 @@ class PaginatorNotifiers {
     }
 
   }
-// ------------------------------
+  // --------------------
   /// REPLACE MAP
 // --------------------
   void _listenToReplaceMap({
     @required bool mounted,
-}){
+  }){
 
     if (replaceMap != null){
 
@@ -164,25 +163,25 @@ class PaginatorNotifiers {
     @required bool mounted,
   }){
 
-  if (replaceMap.value != null){
+    if (replaceMap.value != null){
 
-    final List<Map<String, dynamic>> _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
-      baseMaps: paginatorMaps.value,
-      mapToReplace: replaceMap.value,
-    );
+      final List<Map<String, dynamic>> _updatedMaps = Mapper.replaceMapInMapsWithSameIDField(
+        baseMaps: paginatorMaps.value,
+        mapToReplace: replaceMap.value,
+      );
 
-    setNotifier(
-      notifier: paginatorMaps,
-      mounted: mounted,
-      value: _updatedMaps,
-    );
+      setNotifier(
+        notifier: paginatorMaps,
+        mounted: mounted,
+        value: _updatedMaps,
+      );
 
-    startAfter.value = paginatorMaps.value.last['docSnapshot'];
+      startAfter.value = paginatorMaps.value.last['docSnapshot'];
+
+    }
 
   }
-
-}
-// ------------------------------
+  // --------------------
   /// DELETE MAP
 // --------------------
   void _listenToDeleteMap({
@@ -226,7 +225,7 @@ class PaginatorNotifiers {
 
 
   }
-// --------------------------------------------------------------------------
+// --------------------
   static void addMapsToLocalMaps({
     @required ValueNotifier<List<Map<String, dynamic>>> paginatorMaps,
     @required ValueNotifier<QueryDocumentSnapshot> startAfter,
@@ -256,5 +255,5 @@ class PaginatorNotifiers {
     }
 
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

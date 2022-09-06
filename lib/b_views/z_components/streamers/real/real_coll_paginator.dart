@@ -24,19 +24,18 @@ class RealCollPaginator extends StatefulWidget {
   @override
   _RealCollPaginatorState createState() => _RealCollPaginatorState();
 /// --------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
 }
 
 class _RealCollPaginatorState extends State<RealCollPaginator> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _maps;
   ScrollController _controller;
   Map<String, dynamic> _startAfter;
   bool _canPaginate = true;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -48,7 +47,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       blogLoading(loading: _loading.value, callerName: 'RealCollPaginator',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -79,7 +78,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     });
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -92,7 +91,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
@@ -103,7 +102,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _readMore() async {
     _loading.value = true;
 
@@ -127,7 +126,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
 
     _loading.value = false;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -139,4 +138,5 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }
