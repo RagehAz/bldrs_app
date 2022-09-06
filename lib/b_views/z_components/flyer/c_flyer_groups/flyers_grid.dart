@@ -52,33 +52,33 @@ class FlyersGrid extends StatelessWidget {
   static double getGridWidth({
     @required BuildContext context,
     @required double givenGridWidth,
-}){
+  }){
     return givenGridWidth ?? Scale.superScreenWidth(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getGridHeight({
     @required BuildContext context,
     @required double givenGridHeight,
-}){
+  }){
     return givenGridHeight ?? Scale.superScreenHeight(context);
-}
-// -----------------------------------------------------------------------------
+  }
+  // --------------------
   static const double _spacingRatio = 0.03;
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getVerticalScrollFlyerBoxWidth({
     @required double gridZoneWidth,
     @required int numberOfColumns,
   }){
     final double _flyerBoxWidth =
         gridZoneWidth /
-        (
-            numberOfColumns
-            + (numberOfColumns * _spacingRatio)
-            + _spacingRatio
-        );
+            (
+                numberOfColumns
+                    + (numberOfColumns * _spacingRatio)
+                    + _spacingRatio
+            );
     return _flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getHorizontalScrollFlyerBoxWidth({
     @required BuildContext context,
     @required double gridZoneHeight,
@@ -98,13 +98,13 @@ class FlyersGrid extends StatelessWidget {
 
     return _flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getGridSpacingValue({
     @required double flyerBoxWidth,
   }){
     return flyerBoxWidth * _spacingRatio;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static EdgeInsets getGridPadding({
     @required BuildContext context,
     @required double gridSpacingValue,
@@ -121,20 +121,20 @@ class FlyersGrid extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getFlyerMinWidthFactor({
     @required double gridFlyerWidth,
     @required double gridZoneWidth,
   }){
     return gridFlyerWidth / gridZoneWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static int getNumberOfGridSlots({
     @required int flyersCount,
     @required bool addFlyerButtonIsOn,
     @required bool isLoadingGrid,
     @required int numberOfColumnsOrRows,
-}){
+  }){
     int _slotsCount = flyersCount;
 
     if (isLoadingGrid == true){
@@ -150,7 +150,7 @@ class FlyersGrid extends StatelessWidget {
 
     return _slotsCount;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double calculateFlyerBoxWidth({
     BuildContext context,
     int flyersLength
@@ -162,14 +162,14 @@ class FlyersGrid extends StatelessWidget {
         (_gridWidth - ((_numberOfColumns - 1) * Ratioz.appBarMargin)) / _numberOfColumns;
     return _flyerBoxWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static int gridColumnCount(int flyersLength) {
     final int _gridColumnsCount = flyersLength > 12 ? 3 :
     flyersLength > 6 ?
     2 : 2;
     return _gridColumnsCount;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool showLoadingGridInstead({
     @required bool isLoadingGrid,
     @required List<FlyerModel> flyers,
@@ -185,16 +185,16 @@ class FlyersGrid extends StatelessWidget {
 
     return _showLoadingGrid;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
-// ----------------------------------------------------------
+    // --------------------
     assert((){
       final bool _canBuild =
           flyers != null
-          ||
-          paginationFlyersIDs != null
-          || isLoadingGrid == true;
+              ||
+              paginationFlyersIDs != null
+              || isLoadingGrid == true;
 
       if (_canBuild == false){
         throw FlutterError('FlyersGrid Widget should have either flyers or paginationFlyersIDs initialized');
@@ -202,55 +202,55 @@ class FlyersGrid extends StatelessWidget {
 
       return _canBuild;
     }(), 'fuck you');
-// ----------------------------------------------------------
+    // --------------------
     final bool _isVertical = scrollDirection == Axis.vertical;
     final bool _showLoadingGrid = showLoadingGridInstead(
       flyers : flyers,
       paginationFlyersIDs: paginationFlyersIDs,
       isLoadingGrid: isLoadingGrid,
     );
-// ----------------------------------------------------------
+    // --------------------
     final double _gridZoneWidth = getGridWidth(
       context: context,
       givenGridWidth: gridWidth,
     );
-// ----------------------------------------------------------
+    // --------------------
     final double _gridZoneHeight = getGridHeight(
-        context: context,
-        givenGridHeight: gridHeight,
+      context: context,
+      givenGridHeight: gridHeight,
     );
-// ----------------------------------------------------------
+    // --------------------
     final double _flyerBoxWidth = scrollDirection == Axis.vertical ?
     getVerticalScrollFlyerBoxWidth(
       numberOfColumns: numberOfColumnsOrRows,
       gridZoneWidth: _gridZoneWidth,
     )
-    :
-        getHorizontalScrollFlyerBoxWidth(
-          context: context,
-          numberOfRows: numberOfColumnsOrRows,
-          gridZoneHeight: _gridZoneHeight,
-        )
+        :
+    getHorizontalScrollFlyerBoxWidth(
+      context: context,
+      numberOfRows: numberOfColumnsOrRows,
+      gridZoneHeight: _gridZoneHeight,
+    )
     ;
-// ----------------------------------------------------------
+    // --------------------
     final double _gridSpacingValue = getGridSpacingValue(
       flyerBoxWidth: _flyerBoxWidth,
     );
-// ----------------------------------------------------------
+    // --------------------
     final EdgeInsets _gridPadding = getGridPadding(
       context: context,
       topPaddingValue: topPadding,
       gridSpacingValue: _gridSpacingValue,
       isVertical: _isVertical,
     );
-// ----------------------------------------------------------
-/*
+    // --------------------
+    /*
     final double _minWidthFactor =  getFlyerMinWidthFactor(
       gridFlyerWidth: _flyerBoxWidth,
       gridZoneWidth: _gridZoneWidth,
     );
  */
-// ----------------------------------------------------------
+    // ----------------------------------------------------------
     final int _flyersCount = paginationFlyersIDs?.length ?? flyers?.length ?? 0;
     final int _numberOfItems = getNumberOfGridSlots(
       flyersCount: _flyersCount,
@@ -258,11 +258,7 @@ class FlyersGrid extends StatelessWidget {
       isLoadingGrid: isLoadingGrid,
       numberOfColumnsOrRows: numberOfColumnsOrRows,
     );
-// ----------------------------------------------------------
-
-    ///
-    // blog('BUILDING THE FUCKING FLYERS GRID : _flyersCount : $_flyersCount : paginationFlyersIDs : ${paginationFlyersIDs?.length} : flyers?.length ${flyers?.length}');
-
+    // --------------------
     return SizedBox(
       key: const ValueKey<String>('Stack_of_flyers_grid'),
       width: _gridZoneWidth,
@@ -395,5 +391,7 @@ class FlyersGrid extends StatelessWidget {
       ),
 
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

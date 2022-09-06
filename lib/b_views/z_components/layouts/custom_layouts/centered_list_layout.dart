@@ -36,27 +36,28 @@ class CenteredListLayout extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }
 
 class FloatingCenteredList extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const FloatingCenteredList({
     @required this.columnChildren,
     this.crossAxisAlignment,
     this.mainAxisAlignment,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
@@ -77,6 +78,7 @@ class FloatingCenteredList extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

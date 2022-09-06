@@ -21,9 +21,9 @@ class SeparatorLine extends StatelessWidget {
   final bool withMargins;
   /// --------------------------------------------------------------------------
   static const double standardThickness = 0.75;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static const standardVerticalMarginValue = Ratioz.appBarMargin;
-  // --------------------------------------------------------------------------
+  // --------------------
   static const double getTotalHeight = standardThickness + (2 * standardVerticalMarginValue);
   // --------------------------------------------------------------------------
   @override
@@ -46,4 +46,5 @@ class SeparatorLine extends StatelessWidget {
       ),
     );
   }
+// --------------------------------------------------------------------------
 }

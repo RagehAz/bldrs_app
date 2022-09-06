@@ -45,13 +45,16 @@ class SingleSlide extends StatelessWidget {
     return _slideTitleSize;
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
+    /*
 //     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
 //     blog('${slideModel.slideIndex} : single slide title is : ${slideModel?.headline} and tinyMode is : $_tinyMode');
-// -----------------------------------------------------------------------------
+   */
+    // --------------------
+    /*
 //     double _blurImageScale = 1.5;
     // -----------------------------o
     // bool _blurLayerIsActive = true;
@@ -61,8 +64,8 @@ class SingleSlide extends StatelessWidget {
     //   flyerBoxWidth: flyerBoxWidth,
     //   imageSize: imageSize,
     // );
-
-// -----------------------------------------------------------------------------
+   */
+    // --------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,
@@ -103,6 +106,7 @@ class SingleSlide extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

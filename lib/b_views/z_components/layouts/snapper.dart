@@ -27,7 +27,7 @@ class Snapper extends StatelessWidget {
     }
 
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   /*
     // _scrollController?.position?.ensureVisible(
     //   _formKey.currentContext.findRenderObject(),
@@ -37,7 +37,7 @@ class Snapper extends StatelessWidget {
     /// --------------------
     // Scrollable.ensureVisible(_fuckingKey.currentContext);
    */
-  // --------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -47,4 +47,5 @@ class Snapper extends StatelessWidget {
     );
 
   }
+// --------------------
 }

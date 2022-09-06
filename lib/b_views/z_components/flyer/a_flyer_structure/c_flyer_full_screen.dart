@@ -38,7 +38,7 @@ class FlyerFullScreen extends StatelessWidget {
     );
     // currentSlideIndex.value = 0;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -69,5 +69,7 @@ class FlyerFullScreen extends StatelessWidget {
 
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

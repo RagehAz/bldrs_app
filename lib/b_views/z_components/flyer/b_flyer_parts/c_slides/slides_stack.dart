@@ -37,7 +37,7 @@ class SlidesStack extends StatelessWidget {
   final Function onDoubleTap;
   final String heroTag;
   final FlightDirection flightDirection;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -57,5 +57,7 @@ class SlidesStack extends StatelessWidget {
       heroTag: heroTag,
       flightDirection: flightDirection,
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

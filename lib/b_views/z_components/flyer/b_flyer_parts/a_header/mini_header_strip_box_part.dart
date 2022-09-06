@@ -52,4 +52,5 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

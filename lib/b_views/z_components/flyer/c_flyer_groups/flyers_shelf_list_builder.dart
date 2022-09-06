@@ -29,22 +29,22 @@ class FlyersShelfListBuilder extends StatefulWidget {
 }
 
 class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ScrollController _controller = ScrollController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _controller.addListener(listenToScrolling);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void listenToScrolling() {
     if (_controller.position.atEdge) {
       blog('at edge');
@@ -61,7 +61,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _absorbingFlyerTap() {
     bool _absorbing;
 
@@ -73,14 +73,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     return _absorbing;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final List<FlyerModel> _flyers = widget.flyers;
     final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
-
-
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
@@ -119,80 +117,81 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
         return
 
-            // --- works
-            // ChangeNotifierProvider.value(
-            //   value: _flyers[_x],
-            //   child: ChangeNotifierProvider.value(
-            //     value: _tinyBzz[_x],
-            //     // child:
-            //     // Flyer(
-            //     //   flyerSizeFactor: flyerSizeFactor,
-            //     //   slidingIsOn: _slidingIsOn,
-            //     //   tappingFlyerZone: (){
-            //     //     openFlyer(context, _flyers[_x].flyerID);
-            //     //     // _slidingIsOff = false;
-            //     //     },
-            //     // ),
+          // --- works
+          // ChangeNotifierProvider.value(
+          //   value: _flyers[_x],
+          //   child: ChangeNotifierProvider.value(
+          //     value: _tinyBzz[_x],
+          //     // child:
+          //     // Flyer(
+          //     //   flyerSizeFactor: flyerSizeFactor,
+          //     //   slidingIsOn: _slidingIsOn,
+          //     //   tappingFlyerZone: (){
+          //     //     openFlyer(context, _flyers[_x].flyerID);
+          //     //     // _slidingIsOff = false;
+          //     //     },
+          //     // ),
 
-            ///
+          ///
 
-            //     // FlyerZone(
-            //     //   flyerSizeFactor: flyerSizeFactor,
-            //     //   stackWidgets: <Widget>[
-            //     //
-            //     //     MiniHeader(
-            //     //
-            //     //     )
-            //     //
-            //     //     SingleSlide(
-            //     //         flyerBoxWidth: superFlyerBoxWidth(context, flyerSizeFactor),
-            //     //
-            //     //     ),
-            //     //
-            //     //   ],
-            //     // ),
-            //
-            //   ),
-            // )
+          //     // FlyerZone(
+          //     //   flyerSizeFactor: flyerSizeFactor,
+          //     //   stackWidgets: <Widget>[
+          //     //
+          //     //     MiniHeader(
+          //     //
+          //     //     )
+          //     //
+          //     //     SingleSlide(
+          //     //         flyerBoxWidth: superFlyerBoxWidth(context, flyerSizeFactor),
+          //     //
+          //     //     ),
+          //     //
+          //     //   ],
+          //     // ),
+          //
+          //   ),
+          // )
 
-            ///
+          ///
 
-            // TinyFlyerWidget(
-            //   superFlyer: _superFlyer,
-            //   // flyerSizeFactor: widget.flyerSizeFactor,
-            //   // tinyFlyer: _flyers[_x],
-            //   // onTap: (tinyFlyer){
-            //   //
-            //   //   if (widget.flyerOnTap == null){
-            //   //     Nav().openFlyer(context, tinyFlyer.flyerID);
-            //   //   }
-            //   //
-            //   //   else {
-            //   //     widget.flyerOnTap(tinyFlyer);
-            //   //   }
-            //   //
-            //   // },
-            // );
+          // TinyFlyerWidget(
+          //   superFlyer: _superFlyer,
+          //   // flyerSizeFactor: widget.flyerSizeFactor,
+          //   // tinyFlyer: _flyers[_x],
+          //   // onTap: (tinyFlyer){
+          //   //
+          //   //   if (widget.flyerOnTap == null){
+          //   //     Nav().openFlyer(context, tinyFlyer.flyerID);
+          //   //   }
+          //   //
+          //   //   else {
+          //   //     widget.flyerOnTap(tinyFlyer);
+          //   //   }
+          //   //
+          //   // },
+          // );
 
-            ///
-            GestureDetector(
-              onTap: widget.flyerOnTap == null ?
-              null
-                  :
-                  () {widget.flyerOnTap(_flyers[_x]);},
+          ///
+          GestureDetector(
+            onTap: widget.flyerOnTap == null ?
+            null
+                :
+                () {widget.flyerOnTap(_flyers[_x]);},
 
-              child: AbsorbPointer(
-                absorbing: _absorbingFlyerTap(),
-                child: FlyerStarter(
-                  minWidthFactor: widget.flyerSizeFactor,
-                  flyerModel: _flyers[_x],
-                  heroTag: widget.shelfTitle,
-                ),
-
+            child: AbsorbPointer(
+              absorbing: _absorbingFlyerTap(),
+              child: FlyerStarter(
+                minWidthFactor: widget.flyerSizeFactor,
+                flyerModel: _flyers[_x],
+                heroTag: widget.shelfTitle,
               ),
-            );
-        },
-    );
-  }
 
+            ),
+          );
+      },
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

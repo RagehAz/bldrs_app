@@ -22,23 +22,23 @@ class InfoPageMainDetails extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _flyerTypeString = FlyerTyper.translateFlyerType(
       context: context,
       flyerType: flyerModel.flyerType,
       pluralTranslation: false,
     );
-
+    // --------------------
     final DateTime _from = PublishTime.getPublishTimeFromTimes(
         times: flyerModel.times,
         state: PublishState.published
     )?.time;
-
+    // --------------------
     final String _timeDifferance = Timers.calculateSuperTimeDifferenceString(
         from: _from,
         to: DateTime.now(),
     );
-
+    // --------------------
     return Column(
       key: const ValueKey<String>('InfoPageMainDetails'),
       children: <Widget>[
@@ -68,5 +68,7 @@ class InfoPageMainDetails extends StatelessWidget {
 
       ],
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

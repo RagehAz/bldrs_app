@@ -7,7 +7,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-
 class AbstractMiniHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AbstractMiniHeader({
@@ -21,23 +20,23 @@ class AbstractMiniHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _stripHeight = FlyerBox.headerStripHeight(
       headerIsExpanded: false,
       flyerBoxWidth: flyerBoxWidth,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final BorderRadius _stripBorders = FlyerBox.superHeaderStripCorners(
       context: context,
       bzPageIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _logoSize = FlyerBox.logoWidth(
-        bzPageIsOn: false,
-        flyerBoxWidth: flyerBoxWidth,
+      bzPageIsOn: false,
+      flyerBoxWidth: flyerBoxWidth,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     return Container(
       height: _stripHeight,
       width: flyerBoxWidth,
@@ -63,5 +62,7 @@ class AbstractMiniHeader extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

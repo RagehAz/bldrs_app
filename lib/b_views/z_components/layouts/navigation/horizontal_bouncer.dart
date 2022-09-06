@@ -25,27 +25,27 @@ class HorizontalBouncer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
-// -----------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<bool> _canNavigate;
   int _numberOfTimesBack = 0;
-// -----------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _canNavigate = ValueNotifier(widget.canNavigate);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _canNavigate.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void navigate() {
 
     if (_canNavigate.value == true){
@@ -60,7 +60,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
       _canNavigate.value = false;
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _canSlideOnSwipe({
     @required ScrollUpdateNotification details,
     @required double boxDistance,
@@ -88,7 +88,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
 
     return _canSlide;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -120,5 +120,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
 
         }
     );
+
   }
+// -----------------------------------------------------------------------------
 }

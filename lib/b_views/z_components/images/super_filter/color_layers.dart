@@ -1,13 +1,13 @@
 import 'dart:math';
 
 class ColorFilterLayer {
-
+  // -----------------------------------------------------------------------------
   /// | R' |   | a00 a01 a02 a03 a04 |   | R |
   /// | G' |   | a10 a11 a22 a33 a44 |   | G |
   /// | B' | = | a20 a21 a22 a33 a44 | * | B |
   /// | A' |   | a30 a31 a22 a33 a44 |   | A |
   /// | 1  |   |  0   0   0   0   1  |   | 1 |
-
+  // --------------------------------
   /// RGBA colorOverlay(RGBA color, num red, num green, num blue, num scale) {
   ///   return new RGBA(
   ///     red: (color.red - (color.red - red) * scale),
@@ -16,9 +16,9 @@ class ColorFilterLayer {
   ///     alpha: color.alpha,
   ///   );
   /// }
-
+  // -----------------------------------------------------------------------------
   const ColorFilterLayer();
-
+  // -----------------------------------------------------------------------------
   /// color(1 - scale) - color * scale
   static List<double> colorOverlay(double red, double green, double blue, double scale) {
     return <double>[
@@ -28,7 +28,7 @@ class ColorFilterLayer {
       0, 0, 0, 1, 0
     ];
   }
-
+  // -----------------------------------------------------------------------------
   static List<double> rgbScale(double r, double g, double b) {
     return <double>[
       r, 0, 0, 0, 0,
@@ -37,7 +37,7 @@ class ColorFilterLayer {
       0, 0, 0, 1, 0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   static List<double> addictiveColor(double r, double g, double b) {
     return <double>[
       1, 0, 0, 0, r,
@@ -46,7 +46,7 @@ class ColorFilterLayer {
       0, 0, 0, 1, 0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   /// (0.2126 * color.red + 0.7152 * color.green + 0.0722 * color.blue)
   static List<double> grayscale() {
     return <double>[
@@ -56,7 +56,7 @@ class ColorFilterLayer {
       0,      0,      0,      1, 0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   static List<double> sepia(double value) {
     // red: ((r * (1 - (0.607 * adj))) + (g * .769 * adj) + (b * .189 * adj)),
     // green: ((r * .349 * adj) + (g * (1 - (0.314 * adj))) + (b * .168 * adj)),
@@ -69,7 +69,7 @@ class ColorFilterLayer {
       0,                      0,                      0,                      1, 0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   /// Invert the colors
   static List<double> invert() {
     return <double>[
@@ -79,7 +79,7 @@ class ColorFilterLayer {
       0, 0, 0, 1, 0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   /// Brightness adjustment
   static List<double> brightness(double value) {
 
@@ -109,7 +109,7 @@ class ColorFilterLayer {
       0, 0, 0, 1, 0
     ]).map((i) => i).toList();
   }
-
+  // -----------------------------------------------------------------------------
   /// Contrast adjustment
   static List<double> contrast(double value) {
     // RGBA contrast(RGBA color, num adj) {
@@ -132,7 +132,7 @@ class ColorFilterLayer {
       0,      0,      0,      1,  0,
     ];
   }
-
+  // -----------------------------------------------------------------------------
   /// Hue adjustment
   static List<double> hue(double value) {
 
@@ -176,7 +176,7 @@ class ColorFilterLayer {
       0,
     ]).map((i) => i).toList();
   }
-
+  // -----------------------------------------------------------------------------
   /// Saturation adjustment
   static List<double> saturation(double value) {
 
@@ -224,5 +224,5 @@ class ColorFilterLayer {
       0,
     ]).map((i) => i).toList();
   }
-
+  // -----------------------------------------------------------------------------
 }

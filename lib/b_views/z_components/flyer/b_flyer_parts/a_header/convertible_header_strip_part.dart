@@ -137,4 +137,5 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

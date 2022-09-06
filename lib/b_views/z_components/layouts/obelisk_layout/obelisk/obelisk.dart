@@ -22,10 +22,10 @@ class Obelisk extends StatelessWidget {
   final ValueChanged<int> onRowTap;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final List<NavModel> navModels;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static const double circleWidth = 40;
   static const boxWidth = circleWidth + (2 * Ratioz.appBarPadding);
-// -------------------------------------
+  // --------------------
   static double getBoxMaxHeight({
     @required bool isBig,
     @required int numberOfButtons,
@@ -38,7 +38,7 @@ class Obelisk extends StatelessWidget {
 
     return _height + 30;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -82,4 +82,5 @@ class Obelisk extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

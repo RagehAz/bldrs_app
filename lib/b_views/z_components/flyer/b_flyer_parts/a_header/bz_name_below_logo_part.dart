@@ -46,4 +46,5 @@ class LinesBelowLogoPart extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

@@ -58,9 +58,10 @@ class SlideImagePart extends StatelessWidget {
 
     return _isLoading ? _widget : image;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return ZoomablePicture(
       isOn: !tinyMode,
       // onTap: (){blog('image of single slide is tapped');},
@@ -90,5 +91,7 @@ class SlideImagePart extends StatelessWidget {
         ],
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

@@ -40,7 +40,7 @@ class AuthorLabel extends StatelessWidget {
     //     :
     // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getAuthorLabelBoxWidth({
     @required double flyerBoxWidth,
     @required bool labelIsOn,
@@ -55,17 +55,17 @@ class AuthorLabel extends StatelessWidget {
     return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getAuthorImageCorners({
-  @required double flyerBoxWidth,
-}){
+    @required double flyerBoxWidth,
+  }){
     return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
-}
-// -----------------------------------------------------------------------------
+  }
+  // --------------------
   static BorderRadius getAuthorImageBorders({
     @required BuildContext context,
     @required double flyerBoxWidth,
-}){
+  }){
 
     final double _authorImageCorners = getAuthorImageCorners(
       flyerBoxWidth: flyerBoxWidth,
@@ -79,28 +79,29 @@ class AuthorLabel extends StatelessWidget {
         enTopRight: _authorImageCorners
     );
 
-}
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
     final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _authorLabelBoxHeight = getAuthorLabelBoxHeight(
       flyerBoxWidth: flyerBoxWidth,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _authorLabelBoxWidth = getAuthorLabelBoxWidth(
       flyerBoxWidth: flyerBoxWidth,
       labelIsOn: labelIsOn,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     /// --- FOLLOWERS COUNTER
     const int _followersCount = 0;
     final int _bzGalleryCount = bzModel?.flyersIDs?.length;
-
+    // --------------------
     final String _galleryCountCalibrated = Numeric.formatNumToCounterCaliber(context, _bzGalleryCount);
     final String _followersCounter =
     (authorGalleryCount == 0 && _followersCount == 0)
@@ -117,16 +118,18 @@ class AuthorLabel extends StatelessWidget {
         '${xPhrase( context, 'phid_followers')} . '
         '$_galleryCountCalibrated '
         '${xPhrase( context, 'phid_flyers')}';
-// -----------------------------------------------------------------------------
-//     final double _authorImageCorners = getAuthorImageCorners(
-//       flyerBoxWidth: flyerBoxWidth,
-//     );
-// -----------------------------------------------------------------------------
+    // --------------------
+    /*
+        // final double _authorImageCorners = getAuthorImageCorners(
+        //   flyerBoxWidth: flyerBoxWidth,
+        // );
+     */
+    // --------------------
     final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
-        bz: bzModel,
-        authorID: authorID,
+      bz: bzModel,
+      authorID: authorID,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     return GestureDetector(
       onTap: showLabel == true ? () => onTap(authorID) : null,
       child: Container(
@@ -195,7 +198,9 @@ class AuthorLabel extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
 
 class AuthorPic extends StatelessWidget {
@@ -205,7 +210,6 @@ class AuthorPic extends StatelessWidget {
     this.authorPic,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final dynamic authorPic;
@@ -213,7 +217,7 @@ class AuthorPic extends StatelessWidget {
   static double getCornerValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
@@ -256,4 +260,5 @@ class AuthorPic extends StatelessWidget {
       ),
     );
   }
+  // -----------------------------------------------------------------------------
 }

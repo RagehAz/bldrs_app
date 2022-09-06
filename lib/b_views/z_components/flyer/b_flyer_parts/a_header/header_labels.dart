@@ -20,21 +20,21 @@ class HeaderLabels extends StatelessWidget {
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
   final String authorID;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
   }
-  /// --------------------------------------------------------------------------
+  // --------------------
   static double getHeaderLabelHeight(double flyerBoxWidth){
     return flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
   }
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
     final double labelsHeight = getHeaderLabelHeight(flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     return SizedBox(
         width: labelsWidth,
         height: labelsHeight,
@@ -70,5 +70,7 @@ class HeaderLabels extends StatelessWidget {
 
           ],
         ));
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
