@@ -50,7 +50,7 @@ class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _BzEditorScreenState createState() => _BzEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
