@@ -184,7 +184,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 },
                 isFormField: true,
                 isFloatingField: true,
-                autoValidate: true,
+                // autoValidate: true,
                 validator: (){
 
                   final bool _hasExtension = TextCheck.stringContainsSubString(

@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -463,6 +464,7 @@ Future<void> onBzEditsConfirmTap({
   @required ValueNotifier<BzModel> tempBz,
 }) async {
 
+
   final BzModel _newBzModel = BzModel.backEditorVariablesToUpload(
     selectedScopes: selectedScopes,
     oldBz: oldBz,
@@ -527,7 +529,8 @@ Future<bool> _validateInputs({
 
   Keyboard.closeKeyboard(context);
 
-  final bool _inputsAreValid = formKey.currentState.validate();
+  final bool _inputsAreValid = Formers.validateForm(formKey);
+
   final List<AlertModel> _missingFieldsFound = BzModel.requiredFields(bzModel);
 
   if (_inputsAreValid == false){

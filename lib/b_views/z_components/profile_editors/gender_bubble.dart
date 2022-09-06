@@ -99,7 +99,7 @@ class GenderBubble extends StatelessWidget {
         SuperValidator(
           width: Bubble.clearWidth(context),
           validator: () => Formers.genderValidator(userModel: userModel),
-          autoValidate: true,
+          // autoValidate: true,
         ),
 
       ],

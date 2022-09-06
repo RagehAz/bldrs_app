@@ -200,16 +200,24 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',
-      // appBarRowWidgets: [
-      //   AppBarButton(
-      //     verse: 'blog',
-      //     onTap: (){
-      //
-      //       _tempBz.value.zone.blogZoneIDs();
-      //
-      //     },
-      //   ),
-      // ],
+      appBarRowWidgets: [
+        AppBarButton(
+          verse: 'BOM',
+          onTap: (){
+
+            Formers.validateForm(_formKey);
+
+            // _tempBz.value = _tempBz.value.nullifyField(
+            //   zone: true,
+            // );
+
+            // _tempBz.value = _tempBz.value.copyWith(
+            //   bz: [],
+            // );
+
+          },
+        ),
+      ],
       confirmButtonModel: ConfirmButtonModel(
           firstLine: 'phid_confirm',
           secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',
@@ -247,7 +255,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                       const Stratosphere(),
 
-                      /// --- SECTION SELECTION
+                      /// --- SECTION
                       ValueListenableBuilder(
                           key: const ValueKey<String>('section_selection_bubble'),
                           valueListenable: _selectedBzSection,
@@ -277,12 +285,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 inactiveBzForms: _inactiveBzForms,
                                 selectedScopes: _selectedScopes,
                               ),
+                              bulletPoints: const <String>[
+                                'phid_select_only_one_section',
+                                'phid_bz_section_selection_info',
+                              ],
+                              validator: () => Formers.bzSectionValidator(
+                                  selectedSection: selectedSection,
+                              ),
                             );
 
                           }
                       ),
 
-                      /// --- BZ TYPE SELECTION
+                      /// --- BZ TYPE
                       ValueListenableBuilder(
                           valueListenable: _inactiveBzTypes,
                           builder: (_, List<BzType> inactiveTypes, Widget child){
@@ -318,12 +333,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 selectedBzSection: _selectedBzSection,
                                 selectedScopes: _selectedScopes,
                               ),
+                              bulletPoints: const <String>[
+                                'phid_select_bz_type',
+                              ],
+                              validator: () => Formers.bzTypeValidator(
+                                selectedTypes: bzModel.bzTypes,
+                              ),
+
                             );
 
                           }
                       ),
 
-                      /// --- BZ FORM SELECTION
+                      /// --- BZ FORM
                       ValueListenableBuilder(
                         valueListenable: _inactiveBzForms,
                         builder: (_, List<BzForm> inactiveBzForms, Widget child){
@@ -354,6 +376,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               index: index,
                               tempBz: _tempBz,
                             ),
+                            bulletPoints: const <String>[
+                              'phid_bz_form_pro_description',
+                              'phid_bz_form_company_description',
+                            ],
+                            validator: () => Formers.bzFormValidator(
+                              bzForm: bzModel.bzForm,
+                            ),
                           );
 
                         },
@@ -374,6 +403,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           imagePickerType: imagePickerType,
                           canPickImage: _canPickImage,
                         ),
+                        // autoValidate: true,
+                        validator: () => Formers.picValidator(pic: bzModel.logo),
                       ),
 
                       /// --- BZ NAME
@@ -382,7 +413,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         focusNode: _nameNode,
                         appBarType: AppBarType.basic,
                         isFormField: true,
-                        key: const Key('bzName'),
+                        key: const ValueKey('bzName'),
                         titleVerse: _companyNameBubbleTitle,
                         counterIsOn: true,
                         maxLength: 72,
@@ -395,7 +426,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           text: text,
                           tempBz: _tempBz,
                         ),
-                        autoValidate: true,
+                        // autoValidate: true,
                         validator: () => Formers.companyNameValidator(
                           companyName: bzModel.name,
                         ),
@@ -417,7 +448,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             text: text,
                             tempBz: _tempBz,
                           ),
-                          autoValidate: true,
+                          // autoValidate: true,
                           validator: () => Formers.bzAboutValidator(
                             bzAbout: bzModel.about,
                           )
@@ -440,7 +471,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.next,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.phone,
-                          countryID: bzModel.zone.countryID,
+                          countryID: bzModel.zone?.countryID,
                           existingContacts: bzModel.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
@@ -449,7 +480,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           tempBz: _tempBz,
                         ),
                         canPaste: false,
-                        autoValidate: true,
+                        // autoValidate: true,
                         validator: () => Formers.contactsPhoneValidator(
                           contacts: bzModel.contacts,
                           zoneModel: bzModel.zone,
@@ -471,7 +502,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.next,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.email,
-                          countryID: bzModel.zone.countryID,
+                          countryID: bzModel.zone?.countryID,
                           existingContacts: bzModel.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
@@ -480,7 +511,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           tempBz: _tempBz,
                         ),
                         canPaste: false,
-                        autoValidate: true,
+                        // autoValidate: true,
                         validator: () => Formers.contactsEmailValidator(
                           contacts: bzModel.contacts,
                         ),
@@ -500,7 +531,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.done,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.website,
-                          countryID: bzModel.zone.countryID,
+                          countryID: bzModel.zone?.countryID,
                           existingContacts: bzModel.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
@@ -509,7 +540,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           tempBz: _tempBz,
                         ),
                         // canPaste: true,
-                        autoValidate: true,
+                        // autoValidate: true,
                         validator: () => Formers.contactsWebsiteValidator(
                           contacts: bzModel.contacts,
                         ),
@@ -584,6 +615,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                           zoneModel: zone,
                           tempBz: _tempBz,
+                        ),
+                        // selectCountryAndCityOnly: true,
+                        // selectCountryIDOnly: false,
+                        validator: () => Formers.zoneValidator(
+                            zoneModel: bzModel.zone,
+                            selectCountryAndCityOnly: true,
+                            selectCountryIDOnly: false,
                         ),
                       ),
 

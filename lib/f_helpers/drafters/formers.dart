@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
@@ -171,21 +172,29 @@ class Formers {
 
     String _message;
 
-    final bool _companyNameIsShort = TextCheck.isShorterThan(
-      text: companyName,
-      length: Standards.minCompanyNameLength,
-    );
-    final bool _containsBadLang = TextCheck.containsBadWords(
-      text: companyName,
-    );
 
-    /// SHORT NAME
-    if (_companyNameIsShort == true){
-      _message = '##Company Name should not be less than ${Standards.minCompanyNameLength} characters';
+    if (TextCheck.isEmpty(companyName) == true){
+      _message = '##Add company name';
     }
-    /// BAD LANG
-    else if (_containsBadLang == true){
-      _message = '##Company name can not contain bad words';
+    else {
+
+      final bool _companyNameIsShort = TextCheck.isShorterThan(
+        text: companyName,
+        length: Standards.minCompanyNameLength,
+      );
+      final bool _containsBadLang = TextCheck.containsBadWords(
+        text: companyName,
+      );
+
+      /// SHORT NAME
+      if (_companyNameIsShort == true){
+        _message = '##Company Name should not be less than ${Standards.minCompanyNameLength} characters';
+      }
+      /// BAD LANG
+      else if (_containsBadLang == true){
+        _message = '##Company name can not contain bad words';
+      }
+
     }
 
     /// FOCUS ON FIELD
@@ -353,10 +362,14 @@ class Formers {
 
     if (TextCheck.isEmpty(_website) == false){
 
-      final bool _isURLFormat = ObjectCheck.isURLFormat(_website) == true;
+      if (_website != 'https://'){
 
-      if (_isURLFormat == false){
-        _message = 'phid_url_format_is_incorrect';
+        final bool _isURLFormat = ObjectCheck.isURLFormat(_website) == true;
+
+        if (_isURLFormat == false){
+          _message = 'phid_url_format_is_incorrect';
+        }
+
       }
 
     }
@@ -397,6 +410,45 @@ class Formers {
 
 /// BZ VALIDATORS
 
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static String bzSectionValidator({
+  @required BzSection selectedSection,
+}){
+    String _message;
+
+    if (selectedSection == null){
+      _message = '#Select One Field of business';
+    }
+
+    return _message;
+  }
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static String bzTypeValidator({
+  @required List<BzType> selectedTypes,
+}){
+    String _message;
+
+    if (Mapper.checkCanLoopList(selectedTypes) == false){
+      _message = '#Select at least one Business type';
+    }
+
+    return _message;
+  }
+// -------------------------------
+  /// TESTED : WORKS PERFECT
+  static String bzFormValidator({
+  @required BzForm bzForm,
+  }){
+    String _message;
+
+    if (bzForm == null){
+      _message = '#Select either the business represents and individual profession or a whole company';
+    }
+
+    return _message;
+  }
 // -------------------------------
   static String bzAboutValidator({
     @required String bzAbout,

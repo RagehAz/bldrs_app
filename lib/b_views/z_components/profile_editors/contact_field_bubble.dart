@@ -38,7 +38,7 @@ class ContactFieldBubble extends StatefulWidget {
     this.keyboardTextInputType = TextInputType.url,
     this.canPaste = true,
     this.focusNode,
-    this.autoValidate = false,
+    this.autoValidate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -175,6 +175,13 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
       width: _bubbleWidth,
         columnChildren: <Widget>[
 
+          /// BULLET POINTS
+          if (widget.bulletPoints != null)
+            BubbleBulletPoints(
+              bulletPoints: widget.bulletPoints,
+              translateBullets: widget.translateBulletPoints,
+            ),
+
           /// TEXT FIELD ROW
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,13 +244,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
             ],
           ),
-
-          /// BUBBLE COMMENTS
-          if (widget.bulletPoints != null)
-            BubbleBulletPoints(
-              bulletPoints: widget.bulletPoints,
-              translateBullets: widget.translateBulletPoints,
-            ),
 
         ]
     );
