@@ -3,21 +3,21 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class AlertModel {
-/// ----------------------------------------------------------------------------
+  /// ----------------------------------------------------------------------------
   const AlertModel({
     @required this.alertID,
     @required this.titlePhraseID,
     @required this.messagePhraseID,
-});
-/// ----------------------------------------------------------------------------
+  });
+  /// ----------------------------------------------------------------------------
   final String alertID;
   final String titlePhraseID;
   final String messagePhraseID;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CYPHERS
+  /// CYPHERS
 
-// ------------------------------
+  // --------------------
   Map<String, dynamic> toMap(){
     return {
       'alertID' : alertID,
@@ -25,7 +25,7 @@ class AlertModel {
       'messagePhraseID' :  messagePhraseID,
     };
   }
-// ------------------------------
+  // --------------------
   static List<Map<String, dynamic>> cipherAlertModels(List<AlertModel> alertModels){
 
     final List<Map <String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -43,7 +43,7 @@ class AlertModel {
 
     return _maps;
   }
-// ------------------------------
+  // --------------------
   static AlertModel decipherAlert(Map<String, dynamic> map){
     return AlertModel(
       alertID: map['alertID'],
@@ -51,7 +51,7 @@ class AlertModel {
       messagePhraseID: map['messagePhraseID'],
     );
   }
-// ------------------------------
+  // --------------------
   static List<AlertModel> decipherAlerts(List<Map<String, dynamic>> maps){
 
     final List<AlertModel> _alerts = <AlertModel>[];
@@ -69,11 +69,11 @@ class AlertModel {
 
     return _alerts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ------------------------------
+  // --------------------
   static List<String> getAlertsIDs(List<AlertModel> alerts){
     final List<String> _ids = <String>[];
 
@@ -87,7 +87,8 @@ class AlertModel {
 
     return _ids;
   }
-// ------------------------------
+  // --------------------
+  /*
 //   static List<Phrase> getTranslatedAlertsTitles({
 //   @required BuildContext context,
 //     @required List<>
@@ -110,7 +111,9 @@ class AlertModel {
 //
 //     return _outputs;
 //   }
-// ------------------------------
+ */
+  // --------------------
+  /*
 //   static String getAlertsTitlesString(List<AlertModel> alerts){
 //
 //     String _string;
@@ -125,4 +128,6 @@ class AlertModel {
 //     }
 //
 //   }
+ */
+  // -----------------------------------------------------------------------------
 }

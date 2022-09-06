@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class PickersBlocker {
-/// -----------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
   const PickersBlocker({
     @required this.value,
     @required this.pickersIDsToBlock,
@@ -14,11 +14,11 @@ class PickersBlocker {
   final dynamic value;
   /// 2. these below pickers Ids will be deactivated
   final List<String> pickersIDsToBlock;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   PickersBlocker copyWith({
     dynamic value,
@@ -29,7 +29,7 @@ class PickersBlocker {
       pickersIDsToBlock: pickersIDsToBlock ?? this.pickersIDsToBlock,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHER
 
@@ -44,18 +44,18 @@ class PickersBlocker {
 // -----------------------------
   /// TESTED : WORKS PERFECT
   static PickersBlocker _decipherBlocker(Map<String, dynamic> map){
-      PickersBlocker _blocker;
+    PickersBlocker _blocker;
 
-      if (map != null){
-        _blocker = PickersBlocker(
-            value: map['value'],
-            pickersIDsToBlock: Stringer.getStringsFromDynamics(
-                dynamics: map['pickersIDsToBlock'],
-            ),
-        );
-      }
+    if (map != null){
+      _blocker = PickersBlocker(
+        value: map['value'],
+        pickersIDsToBlock: Stringer.getStringsFromDynamics(
+          dynamics: map['pickersIDsToBlock'],
+        ),
+      );
+    }
 
-      return _blocker;
+    return _blocker;
   }
 // -----------------------------
   /// TESTED : WORKS PERFECT
@@ -84,7 +84,7 @@ class PickersBlocker {
       for (final Object _linkedHashMap in maps){
 
         final Map<String, dynamic> map = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-            internalHashLinkedMapObjectObject: _linkedHashMap,
+          internalHashLinkedMapObjectObject: _linkedHashMap,
         );
 
         final PickersBlocker _blocker = _decipherBlocker(map);
@@ -97,11 +97,11 @@ class PickersBlocker {
 
     return _blockers;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   ///
   static bool checkBlockersAreIdentical({
     @required PickersBlocker blocker1,
@@ -116,7 +116,7 @@ class PickersBlocker {
 
       if (
 
-          blocker1.value == blocker2.value &&
+      blocker1.value == blocker2.value &&
 
           Mapper.checkListsAreIdentical(
             list1: blocker1.pickersIDsToBlock,
@@ -131,7 +131,7 @@ class PickersBlocker {
 
     return _areIdentical;
   }
-// -------------------------------------
+  // --------------------
   ///
   static bool checkBlockersListsAreIdentical({
     @required List<PickersBlocker> blockers1,
@@ -177,16 +177,16 @@ class PickersBlocker {
 
     return _listsAreIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -204,8 +204,8 @@ class PickersBlocker {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode => value.hashCode^ pickersIDsToBlock.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

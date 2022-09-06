@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/trinity.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
+
 @immutable
 class MutableSlide {
   /// --------------------------------------------------------------------------
@@ -29,7 +29,7 @@ class MutableSlide {
     @required this.matrix,
     @required this.filter,
   });
-// -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   final int slideIndex;
   final String picURL;
   final FileModel picFileModel;
@@ -41,21 +41,21 @@ class MutableSlide {
   final double opacity;
   final Matrix4 matrix;
   final ImageFilterModel filter;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   MutableSlide copyWith({
-      int slideIndex,
-      String picURL,
-      FileModel picFileModel,
-      BoxFit picFit,
-      String headline,
-      String description,
-      ImageSize imageSize,
-      Color midColor,
-      double opacity,
-      Matrix4 matrix,
-      ImageFilterModel filter,
-}){
+    int slideIndex,
+    String picURL,
+    FileModel picFileModel,
+    BoxFit picFit,
+    String headline,
+    String description,
+    ImageSize imageSize,
+    Color midColor,
+    double opacity,
+    Matrix4 matrix,
+    ImageFilterModel filter,
+  }){
     return MutableSlide(
       picFileModel: picFileModel ?? this.picFileModel,
       headline: headline ?? this.headline,
@@ -70,11 +70,11 @@ class MutableSlide {
       filter: filter ?? this.filter,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// VIEW MUTABLE SLIDES CREATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static MutableSlide createViewMutableSlideFromSlide(SlideModel slide) {
     return MutableSlide(
@@ -91,7 +91,7 @@ class MutableSlide {
       filter: ImageFilterModel.getFilterByID(slide.filterID),
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<MutableSlide> getViewMutableSlidesFromSlides({
     @required List<SlideModel> slides,
@@ -110,11 +110,11 @@ class MutableSlide {
 
     return _slides;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MUTABLE SLIDES CREATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<MutableSlide> createMutableSlideFromSlide({
     @required SlideModel slide,
@@ -124,8 +124,8 @@ class MutableSlide {
     final FileModel _file = await FileModel.preparePicForEditing(
       pic: slide.pic,
       fileName: SlideModel.generateSlideID(
-          flyerID: flyerID,
-          slideIndex: slide.slideIndex,
+        flyerID: flyerID,
+        slideIndex: slide.slideIndex,
       ),
     );
 
@@ -145,7 +145,7 @@ class MutableSlide {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<MutableSlide>> createMutableSlidesFromSlides({
     @required List<SlideModel> slides,
@@ -168,14 +168,14 @@ class MutableSlide {
 
     return _slides;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<MutableSlide>> createMutableSlidesByFiles({
     @required BuildContext context,
     @required List<File> files,
     @required List<MutableSlide> existingSlides,
     @required String headline,
-}) async {
+  }) async {
 
     final List<MutableSlide> _output = <MutableSlide>[];
 
@@ -208,16 +208,16 @@ class MutableSlide {
 
         final int _newSlideIndex = i + existingSlides.length;
 
-          /// B1 - CREATE NEW SLIDE
-          final MutableSlide _newSlide = await createNewMutableSlideByFile(
-            context: context,
-            file: _file,
-            index: _newSlideIndex,
-            headline: _newSlideIndex  == 0 ? headline : null,
-          );
+        /// B1 - CREATE NEW SLIDE
+        final MutableSlide _newSlide = await createNewMutableSlideByFile(
+          context: context,
+          file: _file,
+          index: _newSlideIndex,
+          headline: _newSlideIndex  == 0 ? headline : null,
+        );
 
-          /// B2 - ADD THIS NEW SLIDE
-          _output.add(_newSlide);
+        /// B2 - ADD THIS NEW SLIDE
+        _output.add(_newSlide);
         // }
 
       }
@@ -226,24 +226,24 @@ class MutableSlide {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// RE-TEST REQUIRED
   static Future<MutableSlide> createNewMutableSlideByFile({
     @required BuildContext context,
     @required File file,
     @required int index,
     @required String headline,
-}) async {
+  }) async {
     MutableSlide _slide;
 
     if (file != null){
 
       final ImageSize _imageSize = await ImageSize.superImageSize(file);
       final BoxFit _fit = ImageSize.concludeBoxFit(
-          picWidth: _imageSize.width,
-          picHeight: _imageSize.width,
-          viewWidth: FlyerBox.width(context, 1),
-          viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
+        picWidth: _imageSize.width,
+        picHeight: _imageSize.width,
+        viewWidth: FlyerBox.width(context, 1),
+        viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
       );
       final Color _midColor = await Colorizer.getAverageColor(file);
 
@@ -264,12 +264,12 @@ class MutableSlide {
     }
 
     return _slide;
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   /// RE-TEST REQUIRED
   static List<File> getFilesFromMutableSlides({
     @required List<MutableSlide> mutableSlides,
@@ -285,11 +285,11 @@ class MutableSlide {
 
     return _files;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INDEXES
 
-// -------------------------------------
+  // --------------------
   static int getFileTrueIndexFromMutableSlides({
     @required List<MutableSlide> mutableSlides,
     @required int slideIndex,
@@ -310,8 +310,8 @@ class MutableSlide {
 
     /// A - search for first slide where its picture of object type asset
     final MutableSlide _firstSlideWithAssetPicture = mutableSlides.firstWhere(
-        (MutableSlide slide) =>
-            ObjectCheck.objectIsFile(slide.picURL) == true,
+            (MutableSlide slide) =>
+        ObjectCheck.objectIsFile(slide.picURL) == true,
         orElse: () => null);
 
     /// B - when found
@@ -327,7 +327,7 @@ class MutableSlide {
     /// B - when not found, return null
     return _trueIndex;
   }
-// -------------------------------------
+  // --------------------
   /// RETEST REQUIRED
   static int getMutableSlideIndexThatContainsThisFile({
     @required List<MutableSlide> mSlides,
@@ -345,11 +345,11 @@ class MutableSlide {
 
     return _assetIndexInAssets;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogSlide(){
 
@@ -362,7 +362,7 @@ class MutableSlide {
     blog('picURL : $picURL');
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlides(List<MutableSlide> slides){
 
@@ -374,7 +374,7 @@ class MutableSlide {
 
     blog('BLOGGING SLIDES -------- END');
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMutableSlidesDifferences({
     @required MutableSlide slide1,
@@ -423,27 +423,27 @@ class MutableSlide {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<MutableSlide> replaceSlide({
     @required List<MutableSlide> slides,
     @required MutableSlide slide,
-}){
+  }){
 
     slides.removeAt(slide.slideIndex);
     slides.insert(slide.slideIndex, slide);
     // slides[1].blogSlide();
     return slides;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CHECKERS
+  /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   static bool checkSlidesAreIdentical({
     @required MutableSlide slide1,
     @required MutableSlide slide2,
@@ -452,7 +452,7 @@ class MutableSlide {
     if (slide1 != null && slide2 != null){
 
       if (
-          slide1.slideIndex == slide2.slideIndex &&
+      slide1.slideIndex == slide2.slideIndex &&
           slide1.picURL == slide2.picURL &&
           FileModel.checkFileModelsAreIdentical(model1: slide1.picFileModel, model2: slide2.picFileModel) &&
           slide1.picFit == slide2.picFit &&
@@ -477,11 +477,11 @@ class MutableSlide {
     }
     return _identical;
   }
-// -------------------------------------
+  // --------------------
   static bool checkSlidesListsAreIdentical({
     @required List<MutableSlide> slides1,
     @required List<MutableSlide> slides2,
-}){
+  }){
     bool _listsAreIdentical = false;
 
     if (slides1 == null && slides2 == null){
@@ -522,16 +522,16 @@ class MutableSlide {
 
     return _listsAreIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -549,7 +549,7 @@ class MutableSlide {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       picFileModel.hashCode ^
@@ -563,9 +563,10 @@ class MutableSlide {
       imageSize.hashCode ^
       matrix.hashCode ^
       filter.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
+// -------------
 /*
   /// delete this ,, maybe
 //  static MutableSlide createMutableSlideFromFile({
@@ -617,3 +618,4 @@ class MutableSlide {
   }
 
    */
+// -------------

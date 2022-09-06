@@ -73,11 +73,11 @@ class RecordModel {
   final dynamic recordDetails;
   final DocumentSnapshot<Object> docSnapshot;
   final FieldValue serverTimeStamp;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
@@ -95,7 +95,7 @@ class RecordModel {
       // 'docSnapshot' : docSnapshot,
     };
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel decipherRecord({
     @required Map<String, dynamic> map,
@@ -110,8 +110,8 @@ class RecordModel {
         userID: map['userID'],
         recordID: map['id'],
         timeStamp: Timers.decipherTime(
-            time: map['timeStamp'],
-            fromJSON: fromJSON,
+          time: map['timeStamp'],
+          fromJSON: fromJSON,
         ),
         modelType: decipherModelType(map['modelType']),
         modelID: map['modelID'],
@@ -125,7 +125,7 @@ class RecordModel {
 
     return _record;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherRecords({
     @required List<RecordModel> records,
@@ -147,7 +147,7 @@ class RecordModel {
 
     return _maps;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<RecordModel> decipherRecords({
     @required List<Map<String, dynamic>> maps,
@@ -160,8 +160,8 @@ class RecordModel {
       for (final Map<String, dynamic> map in maps){
 
         final RecordModel _record = decipherRecord(
-            map: map,
-            fromJSON: fromJSON,
+          map: map,
+          fromJSON: fromJSON,
         );
         _records.add(_record);
 
@@ -171,11 +171,11 @@ class RecordModel {
 
     return _records;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RECORD TYPE CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherRecordType(RecordType recordType) {
     switch (recordType) {
@@ -199,7 +199,7 @@ class RecordModel {
       default:return null;
     }
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordType decipherRecordType(String type) {
     switch (type) {
@@ -223,11 +223,11 @@ class RecordModel {
       default:return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODEL TYPE CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherModelType(ModelType modelType){
     switch (modelType){
@@ -235,12 +235,12 @@ class RecordModel {
       case ModelType.bz:        return 'bz';        break;
       case ModelType.question:  return 'question';  break;
       case ModelType.answer:    return 'answer';    break;
-      // case ModelType.review:    return 'review';    break;
+    // case ModelType.review:    return 'review';    break;
       case ModelType.user:      return 'user';      break;
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ModelType decipherModelType(String modelType){
     switch (modelType){
@@ -248,12 +248,12 @@ class RecordModel {
       case 'bz':        return ModelType.bz;        break;
       case 'question':  return ModelType.question;  break;
       case 'answer':    return ModelType.answer;    break;
-      // case 'review':    return ModelType.review;    break;
+    // case 'review':    return ModelType.review;    break;
       case 'user':      return ModelType.user;      break;
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ModelType getModelTypeByRecordType(RecordType recordType){
 
@@ -279,11 +279,11 @@ class RecordModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RECORD DETAILS CYPHERS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
     switch (recordDetailsType){
@@ -295,7 +295,7 @@ class RecordModel {
       default: return null;
     }
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
     switch (recordDetailsType){
@@ -307,11 +307,11 @@ class RecordModel {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ---------------------------------
+  // --------------------
   static List<RecordModel> insertRecordToRecords({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -328,11 +328,11 @@ class RecordModel {
 
     return records;
   }
-// ---------------------------------
+  // --------------------
   static List<RecordModel> insertRecordsToRecords({
     @required List<RecordModel> originalRecords,
     @required List<RecordModel> addRecords,
-}){
+  }){
 
     List<RecordModel> _output = <RecordModel>[];
 
@@ -346,11 +346,11 @@ class RecordModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ---------------------------------
+  // --------------------
   static bool recordsContainRecord({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -373,11 +373,11 @@ class RecordModel {
 
     return _contains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BZ RECORD CREATORS
+  /// BZ RECORD CREATORS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createFollowRecord({
     @required String userID,
@@ -397,7 +397,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createUnfollowRecord({
     @required String userID,
@@ -417,7 +417,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createCallRecord({
     @required String userID,
@@ -438,11 +438,11 @@ class RecordModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER RECORD CREATORS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createShareRecord({
     @required String userID,
@@ -462,7 +462,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createViewRecord({
     @required String userID,
     @required String flyerID,
@@ -487,33 +487,33 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static String createIndexAndDurationString({
     @required int index,
     @required int durationSeconds,
   }){
 
     final String _index = Numeric.formatNumberWithinDigits(
-        num: index,
-        digits: 3,
+      num: index,
+      digits: 3,
     );
 
     return '${_index}_$durationSeconds';
 
   }
-// ---------------------------------
+  // --------------------
   /*
   static int getIndexFromIndexDurationString(String string){
     final String _index = removeTextAfterLastSpecialCharacter(string, '_');
     return Numeric.transformStringToInt(_index);
   }
-// ---------------------------------
+  // --------------------
   static int getDurationFromIndexDurationString(String string){
     final String _duration = removeTextBeforeLastSpecialCharacter(string, '_');
     return Numeric.transformStringToInt(_duration);
   }
    */
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createSaveRecord({
     @required String userID,
@@ -534,7 +534,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createUnSaveRecord({
     @required String userID,
@@ -554,7 +554,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
 
   static RecordModel createCreateReviewRecord({
     @required String userID,
@@ -574,7 +574,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
 
   static RecordModel createEditReviewRecord({
     @required String userID,
@@ -594,7 +594,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
 
   static RecordModel createDeleteReviewRecord({
     @required String userID,
@@ -613,11 +613,11 @@ class RecordModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// QUESTION RECORD CREATORS
 
-// ---------------------------------
+  // --------------------
   static RecordModel createCreateQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -635,7 +635,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createEditQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -653,7 +653,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createDeleteQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -671,7 +671,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createCreateAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -690,7 +690,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createEditAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -709,7 +709,7 @@ class RecordModel {
     );
 
   }
-// ---------------------------------
+  // --------------------
   static RecordModel createDeleteAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -728,11 +728,11 @@ class RecordModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCH RECORD CREATORS
 
-// ---------------------------------
+  // --------------------
   static RecordModel createSearchRecord({
     @required String userID,
     @required String searchText,
@@ -751,11 +751,11 @@ class RecordModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMY RECORD
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel dummyRecord(){
 
@@ -774,11 +774,11 @@ class RecordModel {
 
     return _recordModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLOG
+  /// BLOG
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogRecord(){
     blog('BLOG RECORD : START');
@@ -790,7 +790,7 @@ class RecordModel {
     blog('docSnapshot : $docSnapshot');
     blog('BLOG RECORD : END');
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRecords({
     @required List<RecordModel> records,
@@ -809,17 +809,17 @@ class RecordModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-  /// OVERRIDES
+/// OVERRIDES
 
-// ----------------------------------------
-  /*
+  // --------------------
+/*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
-  /*
+  // --------------------
+/*
   @override
   bool operator == (Object other){
 
@@ -838,8 +838,8 @@ class RecordModel {
     return _areIdentical;
   }
    */
-// ----------------------------------------
-  /*
+  // --------------------
+/*
   @override
   int get hashCode =>
       bzID.hashCode^
@@ -851,5 +851,5 @@ class RecordModel {
       allViews.hashCode^
       allReviews.hashCode;
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

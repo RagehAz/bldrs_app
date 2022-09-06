@@ -43,11 +43,11 @@ class PickerModel {
   final String unitChainID;
   final int index;
   final bool isHeadline;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   PickerModel copyWith({
     String chainID,
@@ -72,15 +72,15 @@ class PickerModel {
       isHeadline: isHeadline ?? this.isHeadline,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PICKER CYPHERS
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> _toMap({
-  bool includeChainID = false,
-}){
+    bool includeChainID = false,
+  }){
 
     Map<String, dynamic> _output = {
       'groupID': groupID,
@@ -95,15 +95,15 @@ class PickerModel {
 
     if (includeChainID == true){
       _output = Mapper.insertPairInMap(
-          map: _output,
-          key: 'chainID',
-          value: chainID,
+        map: _output,
+        key: 'chainID',
+        value: chainID,
       );
     }
 
     return _output;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static PickerModel decipherPicker({
     @required Map<String, dynamic> map,
@@ -127,7 +127,7 @@ class PickerModel {
 
     return _picker;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPickers(List<PickerModel> pickers){
     Map<String, dynamic> _output;
@@ -138,11 +138,11 @@ class PickerModel {
       for (final PickerModel picker in pickers){
 
         _output = Mapper.insertPairInMap(
-            map: _output,
-            key: picker.chainID,
-            value: picker._toMap(
-                // includeChainID: false
-            ),
+          map: _output,
+          key: picker.chainID,
+          value: picker._toMap(
+            // includeChainID: false
+          ),
         );
 
       }
@@ -151,7 +151,7 @@ class PickerModel {
 
     return _output;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> decipherPickers(Map<String, dynamic> bigMap){
     final List<PickerModel> _output = <PickerModel>[];
@@ -167,7 +167,7 @@ class PickerModel {
         for (final String chainID in _keys){
 
           final Map<String, dynamic> _pickerMap = Mapper.getMapFromInternalHashLinkedMapObjectObject(
-              internalHashLinkedMapObjectObject: bigMap[chainID],
+            internalHashLinkedMapObjectObject: bigMap[chainID],
           );
 
           final PickerModel _model = decipherPicker(
@@ -184,11 +184,11 @@ class PickerModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RANGE CYPHERS
 
-// -------------------------------------
+  // --------------------
   static List<String> cipherRange(List<String> range){
     List<String> _output;
 
@@ -204,25 +204,25 @@ class PickerModel {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static List<dynamic> decipherRange(List<dynamic> dynamics){
     List<dynamic> _output;
 
     if (Mapper.checkCanLoopList(dynamics) == true){
 
       _output = Stringer.getStringsFromDynamics(
-          dynamics: dynamics,
+        dynamics: dynamics,
       );
 
     }
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersContainPicker({
     @required PickerModel picker,
@@ -244,7 +244,7 @@ class PickerModel {
 
     return _contains;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersAreIdentical({
     @required PickerModel picker1,
@@ -258,7 +258,7 @@ class PickerModel {
     else if (picker1 != null && picker2 != null){
 
       if (
-          picker1.groupID == picker2.groupID &&
+      picker1.groupID == picker2.groupID &&
           picker1.chainID == picker2.chainID &&
           picker1.canPickMany == picker2.canPickMany &&
           picker1.isRequired == picker2.isRequired &&
@@ -270,8 +270,8 @@ class PickerModel {
           ) == true &&
 
           Mapper.checkListsAreIdentical(
-              list1: picker1.range,
-              list2: picker2.range,
+            list1: picker1.range,
+            list2: picker2.range,
           ) == true
 
       ){
@@ -282,7 +282,7 @@ class PickerModel {
 
     return _areIdentical;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersListsAreIdentical({
     @required List<PickerModel> pickers1,
@@ -328,11 +328,11 @@ class PickerModel {
 
     return _listsAreIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogPicker() {
     blog('SPEC-PICKER-PRINT --------------------------------------------------START');
@@ -349,7 +349,7 @@ class PickerModel {
 
     blog('SPEC-PICKER-PRINT --------------------------------------------------END');
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPickers(List<PickerModel> pickers) {
 
@@ -364,7 +364,8 @@ class PickerModel {
       blog('pickers are empty');
     }
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogIndexes(List<PickerModel> pickers){
     blog('blogIndexes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~start');
 
@@ -382,11 +383,11 @@ class PickerModel {
 
     blog('blogIndexes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~end');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersForChainK({
     @required BuildContext context,
@@ -428,7 +429,7 @@ class PickerModel {
 
     return _pickers;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
     @required BuildContext context,
@@ -469,12 +470,12 @@ class PickerModel {
 
     return _pickers;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createAllChainKPickers({
     @required BuildContext context,
-  @required bool canPickMany,
-}){
+    @required bool canPickMany,
+  }){
 
     return  <PickerModel>[
 
@@ -482,8 +483,8 @@ class PickerModel {
       PickerModel(
         chainID: Chain.propertyChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
-            context: context,
-            chainKSonID: Chain.propertyChainID,
+          context: context,
+          chainKSonID: Chain.propertyChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -546,16 +547,16 @@ class PickerModel {
     ];
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static  String getPickersIDByFlyerType(FlyerType flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static PickerModel getPickerByChainIDOrUnitChainID({
     @required List<PickerModel> pickers,
@@ -581,7 +582,7 @@ class PickerModel {
 
     return _specPicker;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
     @required List<PickerModel> pickers,
@@ -592,14 +593,14 @@ class PickerModel {
     if (Mapper.checkCanLoopList(pickers)) {
       for (final PickerModel picker in pickers) {
         if (picker.groupID == groupID) {
-              _output.add(picker);
+          _output.add(picker);
         }
       }
     }
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getGroupsIDs({
     @required List<PickerModel> pickers,
@@ -615,11 +616,11 @@ class PickerModel {
 
     return _groups;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> applyBlockersAndSort({
     @required List<PickerModel> sourcePickers,
@@ -663,7 +664,7 @@ class PickerModel {
 
     return sortPickersByIndexes(_pickers);
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replacePicker({
     @required List<PickerModel> sourcePickers,
@@ -699,13 +700,13 @@ class PickerModel {
 
     return _output;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replaceAGroupID({
     @required List<PickerModel> pickers,
     @required String oldGroupName,
     @required String newGroupName,
-}){
+  }){
     List<PickerModel> _output = <PickerModel>[];
 
     if (Mapper.checkCanLoopList(pickers) == true){
@@ -714,7 +715,7 @@ class PickerModel {
 
       /// GROUP NAMES ARE GIVEN
       if (
-          TextCheck.isEmpty(oldGroupName) == false
+      TextCheck.isEmpty(oldGroupName) == false
           &&
           TextCheck.isEmpty(newGroupName) == false
       ){
@@ -743,12 +744,11 @@ class PickerModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> sortPickersByIndexes(List<PickerModel> pickers){
 
@@ -770,7 +770,7 @@ class PickerModel {
 
     return _output; // _correctIndexes(_output);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> correctModelsIndexes(List<PickerModel> pickers){
     final List<PickerModel> _output = <PickerModel>[];
@@ -793,11 +793,11 @@ class PickerModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FINDERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getPickerChainIDOfPhid({
     @required String phid,
@@ -815,7 +815,7 @@ class PickerModel {
 
     return _rooChainID;
   }
-// -------------------------------------
+  // --------------------
   /// FIND PICKERS BY PHIDS
   /*
   static PickerModel _findPickerByPhid({
@@ -835,7 +835,7 @@ class PickerModel {
     return _picker;
   }
    */
-// -------------------------------------
+  // --------------------
   /// FIND PICKER BY PHID
   /*
   static List<PickerModel> _findPickersByPhids({
@@ -867,16 +867,16 @@ class PickerModel {
     return _pickers;
   }
    */
-// -------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -894,15 +894,15 @@ class PickerModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  chainID.hashCode ^
-  groupID.hashCode ^
-  canPickMany.hashCode ^
-  isRequired.hashCode ^
-  unitChainID.hashCode ^
-  range.hashCode ^
-  blockers.hashCode;
-// -----------------------------------------------------------------------------
+      chainID.hashCode ^
+      groupID.hashCode ^
+      canPickMany.hashCode ^
+      isRequired.hashCode ^
+      unitChainID.hashCode ^
+      range.hashCode ^
+      blockers.hashCode;
+  // -----------------------------------------------------------------------------
 }

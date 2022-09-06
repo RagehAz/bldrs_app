@@ -19,7 +19,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
 enum UserStatus {
   normal,
   searching,
@@ -33,12 +32,12 @@ enum UserStatus {
   Recon
    */
 }
-// --------------------
+
 enum Gender {
   male,
   female,
 }
-// --------------------
+
 enum UserTab {
   profile,
   status,
@@ -46,7 +45,7 @@ enum UserTab {
   following,
   settings,
 }
-// --------------------
+
 @immutable
 class UserModel {
   /// --------------------------------------------------------------------------
@@ -97,15 +96,15 @@ class UserModel {
   final List<String> followedBzzIDs;
   final AppState appState;
   final DocumentSnapshot docSnapshot;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static UserModel initializeUserModelStreamFromUser() {
 
-  /// NOTE : create user object based on firebase user
+    /// NOTE : create user object based on firebase user
     final User _user = AuthFireOps.superFirebaseUser();
 
     return _user == null ?
@@ -138,7 +137,7 @@ class UserModel {
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<UserModel> createInitialUserModelFromUser({
     @required BuildContext context,
@@ -186,7 +185,7 @@ class UserModel {
 
     return _userModel;
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<UserModel> prepareUserForEditing({
     @required BuildContext context,
@@ -194,19 +193,19 @@ class UserModel {
   }) async {
 
     return oldUser.copyWith(
-      pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
-      zone: await ZoneModel.initializeZoneForEditing(
-        context: context,
-        zoneModel: oldUser.zone,
-      ),
-      contacts: ContactModel.initializeContactsForEditing(
-        contacts: oldUser.contacts,
-        countryID: oldUser.zone.countryID,
-      )
+        pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
+        zone: await ZoneModel.initializeZoneForEditing(
+          context: context,
+          zoneModel: oldUser.zone,
+        ),
+        contacts: ContactModel.initializeContactsForEditing(
+          contacts: oldUser.contacts,
+          countryID: oldUser.zone.countryID,
+        )
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static UserModel bakeEditorVariablesToUpload({
     @required BuildContext context,
@@ -261,35 +260,35 @@ class UserModel {
     // );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
-    UserModel copyWith({
-      String id,
-      AuthType authBy,
-      DateTime createdAt,
-      UserStatus status,
-      String name,
-      List<String> trigram,
-      dynamic pic,
-      String title,
-      String company,
-      Gender gender,
-      ZoneModel zone,
-      String language,
-      GeoPoint location,
-      List<ContactModel> contacts,
-      List<String> myBzzIDs,
-      bool emailIsVerified,
-      bool isAdmin,
-      FCMToken fcmToken,
-      List<String> savedFlyersIDs,
-      List<String> followedBzzIDs,
-      AppState appState,
-}){
+  UserModel copyWith({
+    String id,
+    AuthType authBy,
+    DateTime createdAt,
+    UserStatus status,
+    String name,
+    List<String> trigram,
+    dynamic pic,
+    String title,
+    String company,
+    Gender gender,
+    ZoneModel zone,
+    String language,
+    GeoPoint location,
+    List<ContactModel> contacts,
+    List<String> myBzzIDs,
+    bool emailIsVerified,
+    bool isAdmin,
+    FCMToken fcmToken,
+    List<String> savedFlyersIDs,
+    List<String> followedBzzIDs,
+    AppState appState,
+  }){
     return UserModel(
       id: id ?? this.id,
       authBy: authBy ?? this.authBy,
@@ -313,8 +312,8 @@ class UserModel {
       followedBzzIDs: followedBzzIDs ?? this.followedBzzIDs,
       appState: appState ?? this.appState,
     );
-}
-// -----------------------------------
+  }
+  // --------------------
   /// TAMAM : WORKS PERFECT
   UserModel nullifyField({
     bool id = false,
@@ -363,11 +362,11 @@ class UserModel {
       appState : appState == true ? null : this.appState,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER MODEL CYPHERS
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
@@ -398,7 +397,7 @@ class UserModel {
       'appState' : appState.toMap(),
     };
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static List<Map<String, dynamic>> cipherUsers({
     @required List<UserModel> users,
@@ -420,7 +419,7 @@ class UserModel {
 
     return _maps;
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static UserModel decipherUser({
     @required Map<String, dynamic> map,
@@ -428,50 +427,50 @@ class UserModel {
   }) {
     return map == null ? null :
     UserModel(
-      id: map['id'],
-      authBy: AuthModel.decipherAuthBy(map['authBy']),
-      createdAt:
-      Timers.decipherTime(
-          time: map['createdAt'],
-          fromJSON: fromJSON
-      ),
-      status: decipherUserStatus(map['status']),
-      // -------------------------
-      name: map['name'],
-      trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
-      pic: map['pic'],
-      title: map['title'],
-      company: map['company'],
-      gender: decipherGender(map['gender']),
-      zone: ZoneModel.decipherZoneMap(map['zone']),
-      language: map['language'] ?? 'en',
-      location: Atlas.decipherGeoPoint(
-          point: map['location'],
-          fromJSON: fromJSON
-      ),
-      contacts: ContactModel.decipherContacts(map['contacts']),
-      // -------------------------
-      myBzzIDs: Stringer.getStringsFromDynamics(
+        id: map['id'],
+        authBy: AuthModel.decipherAuthBy(map['authBy']),
+        createdAt:
+        Timers.decipherTime(
+            time: map['createdAt'],
+            fromJSON: fromJSON
+        ),
+        status: decipherUserStatus(map['status']),
+        // -------------------------
+        name: map['name'],
+        trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
+        pic: map['pic'],
+        title: map['title'],
+        company: map['company'],
+        gender: decipherGender(map['gender']),
+        zone: ZoneModel.decipherZoneMap(map['zone']),
+        language: map['language'] ?? 'en',
+        location: Atlas.decipherGeoPoint(
+            point: map['location'],
+            fromJSON: fromJSON
+        ),
+        contacts: ContactModel.decipherContacts(map['contacts']),
+        // -------------------------
+        myBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['myBzzIDs'],
-      ),
-      emailIsVerified: map['emailIsVerified'],
-      isAdmin: map['isAdmin'],
-      fcmToken: FCMToken.decipherFCMToken(
+        ),
+        emailIsVerified: map['emailIsVerified'],
+        isAdmin: map['isAdmin'],
+        fcmToken: FCMToken.decipherFCMToken(
           map: map['fcmToken'],
           fromJSON: fromJSON,
-      ),
-      savedFlyersIDs: Stringer.getStringsFromDynamics(
+        ),
+        savedFlyersIDs: Stringer.getStringsFromDynamics(
           dynamics: map['savedFlyersIDs'],
-      ),
-      followedBzzIDs: Stringer.getStringsFromDynamics(
+        ),
+        followedBzzIDs: Stringer.getStringsFromDynamics(
           dynamics: map['followedBzzIDs'],
-      ),
-      appState: AppState.fromMap(map['appState']),
-      docSnapshot: map['docSnapshot']
+        ),
+        appState: AppState.fromMap(map['appState']),
+        docSnapshot: map['docSnapshot']
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static List<UserModel> decipherUsers({
     @required List<Map<String, dynamic>> maps,
@@ -491,11 +490,11 @@ class UserModel {
 
     return _users;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER STATUS CYPHERS
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static UserStatus decipherUserStatus(String status) {
     switch (status) {
@@ -510,7 +509,7 @@ class UserModel {
       default :           return null;
     }
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static String cipherUserStatus(UserStatus status) {
     switch (status) {
@@ -526,11 +525,11 @@ class UserModel {
         return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENDER
 
-// -----------------------------------
+  // --------------------
   static Gender decipherGender(String gender) {
     switch (gender) {
       case 'female' :   return Gender.female; break;
@@ -538,7 +537,7 @@ class UserModel {
       default:return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static String cipherGender(Gender gender) {
     switch (gender) {
       case Gender.female:   return 'female';    break;
@@ -546,7 +545,7 @@ class UserModel {
       default:              return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static String translateGender(Gender gender) {
     switch (gender) {
       case Gender.female:   return 'Female';    break;
@@ -554,7 +553,7 @@ class UserModel {
       default:              return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static String genderIcon(Gender gender){
     switch (gender) {
       case Gender.female:   return Iconz.female;    break;
@@ -562,24 +561,24 @@ class UserModel {
       default:              return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static const List<Gender> gendersList = <Gender>[
     Gender.male,
     Gender.female,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
-// -----------------------------------
+  // --------------------
   static String generateUserJobLine(UserModel userModel){
     return userModel == null ? null : '${userModel?.title} @ ${userModel?.company}';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static bool checkUserIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
@@ -590,7 +589,7 @@ class UserModel {
 
     return _userIsAuthor;
   }
-// -----------------------------------
+  // --------------------
   static bool checkUsersContainUser({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
@@ -612,7 +611,7 @@ class UserModel {
 
     return _contains;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUsersAreIdentical({
     @required UserModel user1,
@@ -628,25 +627,25 @@ class UserModel {
 
       if (
       user1.id == user2.id &&
-      user1.authBy == user2.authBy &&
-      Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
-      user1.status == user2.status &&
-      user1.name == user2.name &&
-      Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
-      Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
-      user1.title == user2.title &&
-      user1.company == user2.company &&
-      user1.gender == user2.gender &&
-      ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
-      user1.language == user2.language &&
-      Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
-      ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
-      Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
-      user1.emailIsVerified == user2.emailIsVerified &&
-      user1.isAdmin == user2.isAdmin &&
-      Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
-      Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
-      AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState)
+          user1.authBy == user2.authBy &&
+          Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
+          user1.status == user2.status &&
+          user1.name == user2.name &&
+          Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
+          Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
+          user1.title == user2.title &&
+          user1.company == user2.company &&
+          user1.gender == user2.gender &&
+          ZoneModel.checkZonesAreIdentical(zone1: user1.zone, zone2: user2.zone) &&
+          user1.language == user2.language &&
+          Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) &&
+          ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) &&
+          Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) &&
+          user1.emailIsVerified == user2.emailIsVerified &&
+          user1.isAdmin == user2.isAdmin &&
+          Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) &&
+          Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) &&
+          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState)
       // FCMToken fcmToken;
       // DocumentSnapshot docSnapshot;
 
@@ -666,7 +665,7 @@ class UserModel {
 
     return _identical;
   }
-// -----------------------------------
+  // --------------------
   static bool checkUserFollowsBz({
     @required UserModel userModel,
     @required String bzID,
@@ -678,7 +677,7 @@ class UserModel {
     );
 
   }
-// -----------------------------------
+  // --------------------
   static bool checkFlyerIsSaved({
     @required UserModel userModel,
     @required String flyerID,
@@ -690,17 +689,17 @@ class UserModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -----------------------------------
+  // --------------------
   ///
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -----------------------------------
+  // --------------------
   static List<UserModel> addOrRemoveUserToUsers({
     @required List<UserModel> usersModels,
     @required UserModel userModel,
@@ -725,7 +724,7 @@ class UserModel {
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   static List<UserModel> addUniqueUserToUsers({
     @required List<UserModel> usersToGet,
     @required UserModel userToAdd,
@@ -736,8 +735,8 @@ class UserModel {
     if (userToAdd != null){
 
       final bool _contains = checkUsersContainUser(
-          usersModels: _output,
-          userModel: userToAdd,
+        usersModels: _output,
+        userModel: userToAdd,
       );
 
       if (_contains == false){
@@ -748,7 +747,7 @@ class UserModel {
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   static List<UserModel> addUniqueUsersToUsers({
     @required List<UserModel> usersToGet,
     @required List<UserModel> usersToAdd,
@@ -771,7 +770,7 @@ class UserModel {
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserBzz({
     @required UserModel userModel,
@@ -789,7 +788,7 @@ class UserModel {
 
     return _updatedUserModel;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserFollows({
     @required UserModel userModel,
@@ -807,12 +806,12 @@ class UserModel {
 
     return _updatedUserModel;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addFlyerIDToSavedFlyersIDs({
     @required UserModel userModel,
     @required String flyerIDToAdd,
-}){
+  }){
 
     final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
       strings: userModel.savedFlyersIDs,
@@ -825,7 +824,7 @@ class UserModel {
 
     return _updatedUserModel;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
@@ -848,7 +847,7 @@ class UserModel {
 
     return _userModel;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromMyFollows({
     @required UserModel userModel,
@@ -871,7 +870,7 @@ class UserModel {
 
     return _userModel;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeFlyerIDFromSavedFlyersIDs({
     @required UserModel userModel,
@@ -894,11 +893,11 @@ class UserModel {
 
     return _userModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -----------------------------------
+  // --------------------
   void blogUserModel({
     String methodName = 'BLOGGING USER MODEL',
   }) {
@@ -932,7 +931,7 @@ class UserModel {
 
     blog('$methodName : ---------------- END -- ');
   }
-// -----------------------------------
+  // --------------------
   static void blogUsersModels({
     @required List<UserModel> usersModels,
     String methodName,
@@ -950,7 +949,7 @@ class UserModel {
     }
 
   }
-// -----------------------------------
+  // --------------------
   static void blogUsersDifferences({
     @required UserModel user1,
     @required UserModel user2,
@@ -966,94 +965,94 @@ class UserModel {
 
     if (user1 != null && user2 != null){
 
-          if (user1.id != user2.id){
-            blog('blogUserDifferences : [id] are not identical');
-          }
+      if (user1.id != user2.id){
+        blog('blogUserDifferences : [id] are not identical');
+      }
 
-          if (user1.authBy != user2.authBy){
-            blog('blogUserDifferences : [authBy] are not identical');
-          }
+      if (user1.authBy != user2.authBy){
+        blog('blogUserDifferences : [authBy] are not identical');
+      }
 
-          if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
-            blog('blogUserDifferences : [createdAt] are not identical');
-          }
+      if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
+        blog('blogUserDifferences : [createdAt] are not identical');
+      }
 
-          if (user1.status != user2.status){
-            blog('blogUserDifferences : [status] are not identical');
-          }
+      if (user1.status != user2.status){
+        blog('blogUserDifferences : [status] are not identical');
+      }
 
-          if (user1.name != user2.name){
-            blog('blogUserDifferences : [name] are not identical');
-          }
+      if (user1.name != user2.name){
+        blog('blogUserDifferences : [name] are not identical');
+      }
 
-          if (Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == false){
-            blog('blogUserDifferences : [trigram] are not identical');
-          }
+      if (Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) == false){
+        blog('blogUserDifferences : [trigram] are not identical');
+      }
 
-          if (Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) == false){
-            blog('blogUserDifferences : [pic] are not identical');
-          }
+      if (Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) == false){
+        blog('blogUserDifferences : [pic] are not identical');
+      }
 
-          if (user1.title != user2.title){
-            blog('blogUserDifferences : [title] are not identical');
-          }
+      if (user1.title != user2.title){
+        blog('blogUserDifferences : [title] are not identical');
+      }
 
-          if (user1.company != user2.company){
-            blog('blogUserDifferences : [company] are not identical');
-          }
+      if (user1.company != user2.company){
+        blog('blogUserDifferences : [company] are not identical');
+      }
 
-          if (user1.gender != user2.gender){
-            blog('blogUserDifferences : [gender] are not identical');
-          }
+      if (user1.gender != user2.gender){
+        blog('blogUserDifferences : [gender] are not identical');
+      }
 
-          if (ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) == false){
-            blog('blogUserDifferences : [zone] are not identical');
-          }
+      if (ZoneModel.checkZonesIDsAreIdentical(zone1: user1.zone, zone2: user2.zone) == false){
+        blog('blogUserDifferences : [zone] are not identical');
+      }
 
-          if (user1.language != user2.language){
-            blog('blogUserDifferences : [language] are not identical');
-          }
+      if (user1.language != user2.language){
+        blog('blogUserDifferences : [language] are not identical');
+      }
 
-          if (Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == false){
-            blog('blogUserDifferences : [location] are not identical');
-          }
+      if (Atlas.checkPointsAreIdentical(point1: user1.location, point2: user2.location) == false){
+        blog('blogUserDifferences : [location] are not identical');
+      }
 
-          if (ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == false){
-            blog('blogUserDifferences : [contacts] are not identical');
-          }
+      if (ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == false){
+        blog('blogUserDifferences : [contacts] are not identical');
+      }
 
-          if (Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
-            blog('blogUserDifferences : [myBzzIDs] are not identical');
-          }
+      if (Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == false){
+        blog('blogUserDifferences : [myBzzIDs] are not identical');
+      }
 
-          if (user1.emailIsVerified != user2.emailIsVerified){
-            blog('blogUserDifferences : [emailIsVerified] are not identical');
-          }
+      if (user1.emailIsVerified != user2.emailIsVerified){
+        blog('blogUserDifferences : [emailIsVerified] are not identical');
+      }
 
-          if (user1.isAdmin != user2.isAdmin){
-            blog('blogUserDifferences : [isAdmin] are not identical');
-          }
+      if (user1.isAdmin != user2.isAdmin){
+        blog('blogUserDifferences : [isAdmin] are not identical');
+      }
 
-          if (Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
-            blog('blogUserDifferences : [savedFlyersIDs] are not identical');
-          }
+      if (Mapper.checkListsAreIdentical(list1: user1.savedFlyersIDs, list2: user2.savedFlyersIDs) == false){
+        blog('blogUserDifferences : [savedFlyersIDs] are not identical');
+      }
 
-          if (Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
-            blog('blogUserDifferences : [followedBzzIDs] are not identical');
-          }
+      if (Mapper.checkListsAreIdentical(list1: user1.followedBzzIDs, list2: user2.followedBzzIDs) == false){
+        blog('blogUserDifferences : [followedBzzIDs] are not identical');
+      }
 
-          if (AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == false){
-            blog('blogUserDifferences : [appState] are not identical');
-          }
+      if (AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == false){
+        blog('blogUserDifferences : [appState] are not identical');
+      }
 
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// -----------------------------------
+  // --------------------
   static UserModel dummyUserModel(BuildContext context){
 
     final UserModel _userModel = UserModel(
@@ -1082,7 +1081,7 @@ class UserModel {
 
     return _userModel;
   }
-// -----------------------------------
+  // --------------------
   static List<UserModel> dummyUsers({
     int numberOfUsers
   }) {
@@ -1141,7 +1140,7 @@ class UserModel {
 
     return _users;
   }
-// -----------------------------------
+  // --------------------
   static Future<UserModel> futureDummyUserModel(BuildContext context) async {
 
     final UserModel _user = await UserFireOps.readUser(
@@ -1151,11 +1150,11 @@ class UserModel {
 
     return _user;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER STATUSES
 
-// -----------------------------------
+  // --------------------
   static const List<UserStatus> userStatuses = <UserStatus>[
     UserStatus.normal,
     UserStatus.searching,
@@ -1166,11 +1165,11 @@ class UserModel {
     UserStatus.bzAuthor,
     UserStatus.deactivated,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER TABS
 
-// -----------------------------------
+  // --------------------
   static const List<UserTab> userProfileTabsList = <UserTab>[
     UserTab.profile,
     UserTab.status,
@@ -1178,7 +1177,7 @@ class UserModel {
     UserTab.following,
     UserTab.settings,
   ];
-// -----------------------------------
+  // --------------------
   static String getUserTabIcon(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return Iconz.normalUser   ; break;
@@ -1189,7 +1188,7 @@ class UserModel {
       default : return null;
     }
   }
-// -----------------------------------
+  // --------------------
   /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
   static String getUserTabID(UserTab userTab){
     /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
@@ -1202,7 +1201,7 @@ class UserModel {
       default: return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static String _userTabPhraseID(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return  'phid_profile'       ; break;
@@ -1213,7 +1212,7 @@ class UserModel {
       default: return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static String translateUserTab({
     @required BuildContext context,
     @required UserTab userTab,
@@ -1221,21 +1220,21 @@ class UserModel {
     final String _tabPhraseID = _userTabPhraseID(userTab);
     return _tabPhraseID;
   }
-// -----------------------------------
+  // --------------------
   static int getUserTabIndex(UserTab userTab){
     final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
     return _index;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -1253,31 +1252,30 @@ class UserModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  id.hashCode^
-  authBy.hashCode^
-  createdAt.hashCode^
-  status.hashCode^
-  name.hashCode^
-  trigram.hashCode^
-  pic.hashCode^
-  title.hashCode^
-  company.hashCode^
-  gender.hashCode^
-  zone.hashCode^
-  language.hashCode^
-  location.hashCode^
-  contacts.hashCode^
-  myBzzIDs.hashCode^
-  emailIsVerified.hashCode^
-  isAdmin.hashCode^
-  fcmToken.hashCode^
-  savedFlyersIDs.hashCode^
-  followedBzzIDs.hashCode^
-  appState.hashCode^
-  docSnapshot.hashCode;
-// -----------------------------------------------------------------------------
+      id.hashCode^
+      authBy.hashCode^
+      createdAt.hashCode^
+      status.hashCode^
+      name.hashCode^
+      trigram.hashCode^
+      pic.hashCode^
+      title.hashCode^
+      company.hashCode^
+      gender.hashCode^
+      zone.hashCode^
+      language.hashCode^
+      location.hashCode^
+      contacts.hashCode^
+      myBzzIDs.hashCode^
+      emailIsVerified.hashCode^
+      isAdmin.hashCode^
+      fcmToken.hashCode^
+      savedFlyersIDs.hashCode^
+      followedBzzIDs.hashCode^
+      appState.hashCode^
+      docSnapshot.hashCode;
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

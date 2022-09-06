@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class KeyboardModel {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const KeyboardModel({
     @required this.controller,
     @required this.titleVerse,
@@ -21,8 +21,8 @@ class KeyboardModel {
     this.onSavedForForm,
     this.onEditingComplete,
     this.isFloatingField = true,
-}): assert(controller != null, 'KeyboardModel controller should NEVER be null');
-// -----------------------------------------------------------------------------
+  }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
+  // -----------------------------------------------------------------------------
   final String titleVerse;
   final String hintVerse;
   final TextEditingController controller;
@@ -41,7 +41,11 @@ class KeyboardModel {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   final bool isFloatingField;
-// -------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CLONING
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   KeyboardModel copyWith({
     String titleVerse,
@@ -61,7 +65,7 @@ class KeyboardModel {
     ValueChanged<String> onSavedForForm,
     Function onEditingComplete,
     bool isFloatingField,
-}){
+  }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
       hintVerse: hintVerse ?? this.hintVerse,
@@ -82,7 +86,11 @@ class KeyboardModel {
       isFloatingField: isFloatingField ?? this.isFloatingField,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// STANDARD
+
+  // --------------------
   static KeyboardModel standardModel(){
     return KeyboardModel(
       titleVerse: null,
@@ -104,11 +112,11 @@ class KeyboardModel {
       isFloatingField: false,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE OUT
+  /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkKeyboardsAreIdentical({
     @required KeyboardModel modelA,
@@ -121,38 +129,38 @@ class KeyboardModel {
     }
     else if (
     modelA.titleVerse == modelB.titleVerse &&
-    modelA.hintVerse == modelB.hintVerse &&
-    modelA.controller == modelB.controller &&
-    modelA.minLines == modelB.minLines &&
-    modelA.maxLines == modelB.maxLines &&
-    modelA.maxLength == modelB.maxLength &&
-    modelA.textInputAction == modelB.textInputAction &&
-    modelA.textInputType == modelB.textInputType &&
-    modelA.focusNode == modelB.focusNode &&
-    modelA.canObscure == modelB.canObscure &&
-    modelA.counterIsOn == modelB.counterIsOn &&
-    modelA.isFormField == modelB.isFormField &&
-    modelA.onChanged == modelB.onChanged &&
-    modelA.onSubmitted == modelB.onSubmitted &&
-    modelA.onSavedForForm == modelB.onSavedForForm &&
-    modelA.onEditingComplete == modelB.onEditingComplete &&
-    modelA.isFloatingField == modelB.isFloatingField
+        modelA.hintVerse == modelB.hintVerse &&
+        modelA.controller == modelB.controller &&
+        modelA.minLines == modelB.minLines &&
+        modelA.maxLines == modelB.maxLines &&
+        modelA.maxLength == modelB.maxLength &&
+        modelA.textInputAction == modelB.textInputAction &&
+        modelA.textInputType == modelB.textInputType &&
+        modelA.focusNode == modelB.focusNode &&
+        modelA.canObscure == modelB.canObscure &&
+        modelA.counterIsOn == modelB.counterIsOn &&
+        modelA.isFormField == modelB.isFormField &&
+        modelA.onChanged == modelB.onChanged &&
+        modelA.onSubmitted == modelB.onSubmitted &&
+        modelA.onSavedForForm == modelB.onSavedForForm &&
+        modelA.onEditingComplete == modelB.onEditingComplete &&
+        modelA.isFloatingField == modelB.isFloatingField
     ){
       _areIdentical = true;
     }
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -170,25 +178,25 @@ class KeyboardModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  controller.hashCode^
-  titleVerse.hashCode^
-  hintVerse.hashCode^
-  minLines.hashCode^
-  maxLines.hashCode^
-  maxLength.hashCode^
-  textInputAction.hashCode^
-  textInputType .hashCode^
-  focusNode.hashCode^
-  canObscure.hashCode^
-  counterIsOn.hashCode^
-  isFormField.hashCode^
-  onChanged.hashCode^
-  onSubmitted.hashCode^
-  onSavedForForm.hashCode^
-  onEditingComplete.hashCode^
-  isFloatingField.hashCode;
-// -----------------------------------------------------------------------------
+      controller.hashCode^
+      titleVerse.hashCode^
+      hintVerse.hashCode^
+      minLines.hashCode^
+      maxLines.hashCode^
+      maxLength.hashCode^
+      textInputAction.hashCode^
+      textInputType .hashCode^
+      focusNode.hashCode^
+      canObscure.hashCode^
+      counterIsOn.hashCode^
+      isFormField.hashCode^
+      onChanged.hashCode^
+      onSubmitted.hashCode^
+      onSavedForForm.hashCode^
+      onEditingComplete.hashCode^
+      isFloatingField.hashCode;
+  // -----------------------------------------------------------------------------
 }

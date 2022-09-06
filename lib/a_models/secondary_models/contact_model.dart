@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// -----------------------------------------------------------------------------
+
 enum ContactType {
   phone,
   email,
@@ -20,13 +20,13 @@ enum ContactType {
   tiktok,
   twitter,
 }
-// -----------------------------------------------------------------------------
+
 enum ContactsOwnerType {
   bz,
   author,
   user,
 }
-// -----------------------------------------------------------------------------
+
 @immutable
 class ContactModel {
   /// --------------------------------------------------------------------------
@@ -39,11 +39,11 @@ class ContactModel {
   final String value;
   final ContactType type;
   final TextEditingController controller;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STANDARDS
 
-// ----------------------------------
+  // --------------------
   static const List<ContactType> contactTypesList = <ContactType>[
     ContactType.phone,
     ContactType.email,
@@ -56,11 +56,11 @@ class ContactModel {
     ContactType.tiktok,
     ContactType.twitter,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> generateContactsFromFirebaseUser(User user) {
     final List<ContactModel> _userContacts = <ContactModel>[];
@@ -79,11 +79,11 @@ class ContactModel {
 
     return _userContacts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : toMap();
   /*
   Map<String, Object> _toMap() {
@@ -93,7 +93,7 @@ class ContactModel {
     };
   }
    */
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
     Map<String, Object> _map = <String, Object>{};
@@ -112,7 +112,7 @@ class ContactModel {
 
     return _map;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> decipherContacts(Map<String, dynamic> maps) {
     final List<ContactModel> _contacts = <ContactModel>[];
@@ -136,7 +136,7 @@ class ContactModel {
 
     return _contacts;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ContactType _decipherContactType(String contactType) {
     switch (contactType) {
@@ -153,7 +153,7 @@ class ContactModel {
       default:          return null;
     }
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _cipherContactType(ContactType contactType) {
     switch (contactType) {
@@ -170,25 +170,25 @@ class ContactModel {
       default:  return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// EDITING INITIALIZERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> initializeContactsForEditing({
     @required List<ContactModel> contacts,
     @required String countryID,
   }){
     final List<ContactModel> _output = <ContactModel>[];
-    
+
     for (final ContactType type in contactTypesList){
-      
+
       final ContactModel _existingContact = getContactFromContacts(
-          contacts: contacts, 
-          type: type,
+        contacts: contacts,
+        type: type,
       );
-      
+
       final String _initialValue = _initializeContactValue(
         existingContact: _existingContact,
         type: type,
@@ -199,19 +199,19 @@ class ContactModel {
       // _controller.text = _initialValue;
 
       final ContactModel _contact = ContactModel(
-        value: _initialValue, 
+        value: _initialValue,
         type: type,
       );
 
       // _contact.blogContact(methodName: 'initializeContactsForEditing');
 
       _output.add(_contact);
-      
+
     }
-    
+
     return _output;
   }
-// ----------------------------------
+  // --------------------
 
   static String getInitialContactValue({
     @required List<ContactModel> existingContacts,
@@ -231,7 +231,7 @@ class ContactModel {
     );
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _initializeContactValue({
     @required ContactModel existingContact,
@@ -239,29 +239,29 @@ class ContactModel {
     @required String countryID,
   }){
     String _output = '';
-    
 
-      /// IF PHONE
-      if (type == ContactType.phone){
-        _output = TextMod.initializePhoneNumber(
-          countryID : countryID,
-          number : existingContact?.value,
-        );
-      }
-      /// IF WEB LINK
-      else if (checkIsWebLink(type) == true){
-        _output = TextMod.initializeWebLink(
-            url: existingContact?.value,
-        );
-      }
-      /// OTHERWISE
-      else {
-        _output = existingContact?.value;
-      }
+
+    /// IF PHONE
+    if (type == ContactType.phone){
+      _output = TextMod.initializePhoneNumber(
+        countryID : countryID,
+        number : existingContact?.value,
+      );
+    }
+    /// IF WEB LINK
+    else if (checkIsWebLink(type) == true){
+      _output = TextMod.initializeWebLink(
+        url: existingContact?.value,
+      );
+    }
+    /// OTHERWISE
+    else {
+      _output = existingContact?.value;
+    }
 
     return _output;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void createListenersToControllers({
     @required List<ContactModel> contacts,
@@ -285,11 +285,11 @@ class ContactModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// EDITING DISPOSING
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void disposeContactsControllers(List<ContactModel> contacts){
     if (Mapper.checkCanLoopList(contacts) == true){
@@ -302,11 +302,11 @@ class ContactModel {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// EDITING FINISHING
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> bakeContactsAfterEditing({
     @required List<ContactModel> contacts,
@@ -358,11 +358,11 @@ class ContactModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSLATION
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translateContactType({
     @required BuildContext context,
@@ -385,22 +385,22 @@ class ContactModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ContactModel getContactFromContacts({
     @required List<ContactModel> contacts,
     @required ContactType type,
   }) {
     final ContactModel contact = contacts?.singleWhere(
-        (ContactModel x) => x.type == type,
+            (ContactModel x) => x.type == type,
         orElse: () => null);
     return contact;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getValueFromContacts({
     @required List<ContactModel> contacts,
@@ -420,7 +420,7 @@ class ContactModel {
 
     return _contactValue;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static TextEditingController getControllerFromContacts({
     @required List<ContactModel> contacts,
@@ -440,11 +440,11 @@ class ContactModel {
 
     return _controller;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FILTERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> filterContactsWhichShouldViewValue(List<ContactModel> contacts) {
 
@@ -471,7 +471,7 @@ class ContactModel {
 
     return _contacts;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> filterSocialMediaContacts(List<ContactModel> contacts) {
 
@@ -498,11 +498,11 @@ class ContactModel {
 
     return _contacts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONCLUDERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String concludeContactIcon(ContactType contactType) {
     switch (contactType) {
@@ -519,7 +519,7 @@ class ContactModel {
       default: return null;
     }
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static TextInputType concludeContactTextInputType({
     @required ContactType contactType,
@@ -540,11 +540,11 @@ class ContactModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> insertOrReplaceContact({
     @required List<ContactModel> contacts,
@@ -572,11 +572,11 @@ class ContactModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DUMMIES
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> dummyContacts(){
 
@@ -595,18 +595,18 @@ class ContactModel {
     ];
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogContact({
     String methodName = 'ContactModel',
   }){
     blog('$methodName : $type : $value : controller : ${controller?.text}');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogContacts({
     @required List<ContactModel> contacts,
@@ -624,11 +624,11 @@ class ContactModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTACT OWNER : REQUIRED - BLOCKED
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsRequired({
     @required ContactType contactType,
@@ -686,7 +686,7 @@ class ContactModel {
       }
     }
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsBlocked({
     @required ContactType contactType,
@@ -744,11 +744,11 @@ class ContactModel {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// changes CHECKERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsListsAreIdentical({
     @required List<ContactModel> contacts1,
@@ -793,7 +793,7 @@ class ContactModel {
 
     return _identical;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsAreIdentical({
     @required ContactModel contact1,
@@ -815,7 +815,7 @@ class ContactModel {
 
     return _areIdentical;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkEmailChanged({
     @required List<ContactModel> oldContacts,
@@ -841,11 +841,11 @@ class ContactModel {
 
     return _changed;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// type CHECKERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsEmpty(ContactModel contact){
     bool _isEmpty = true;
@@ -864,7 +864,7 @@ class ContactModel {
 
     return _isEmpty;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsSocialMedia(ContactType type){
 
@@ -887,7 +887,7 @@ class ContactModel {
 
     }
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsWebLink(ContactType type){
     switch (type) {
@@ -908,7 +908,7 @@ class ContactModel {
       default: return false;
     }
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldViewValue(ContactType type){
     switch (type) {
@@ -929,16 +929,16 @@ class ContactModel {
       default: return false;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -956,11 +956,11 @@ class ContactModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-  value.hashCode^
-  type.hashCode^
-  controller.hashCode;
-// -----------------------------------------------------------------------------
+      value.hashCode^
+      type.hashCode^
+      controller.hashCode;
+  // -----------------------------------------------------------------------------
 }
