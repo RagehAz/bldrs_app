@@ -19,11 +19,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 // -----------------------------------------------------------------------------
-// Google Cloud Platform
-// Bldrs
-// Google Map for Android - IOS
-// AuthorPic key 1
-// AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
+/// Google Cloud Platform
+/// Bldrs
+/// Google Map for Android - IOS
+/// AuthorPic key 1
+/// AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI
 // -----------------------------------------------------------------------------
 class GoogleMapScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -33,21 +33,18 @@ class GoogleMapScreen extends StatefulWidget {
     this.isSelecting = false,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final GeoPoint geoPoint;
   final bool isSelecting;
   final double flyerBoxWidth;
-
   /// --------------------------------------------------------------------------
   @override
   _GoogleMapScreenState createState() => _GoogleMapScreenState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   LatLng _pickedLocation;
   BitmapDescriptor customMarker;
   int markerWidth = 125;
@@ -59,7 +56,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   CameraPosition _initialCameraPosition;
   bool isLoading = false;
   GoogleMapController mapController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -67,14 +64,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     getUserLocation();
     confirmButtonIsActive = true;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     mapController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> getUserLocation() async {
     setState(() {
       isLoading = true;
@@ -101,7 +98,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     blog('CurrentLocation: $currentLocation');
     await missingFunction();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> initialize() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -120,11 +117,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     }
     blog('location permission is $_permissionGranted');
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _selectLocation(LatLng position) {
     setState(() {
       _pickedLocation = position;
@@ -132,7 +129,7 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     });
     blog('The fucking position is $position');
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
     final ByteData data = await rootBundle.load(path);
     final ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
@@ -141,38 +138,39 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         .buffer
         .asUint8List();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> missingFunction() async {
     blog('missing function starts');
     final Uint8List markerIcon =
-        await getBytesFromAsset(Iconz.flyerPinPNG, markerWidth);
+    await getBytesFromAsset(Iconz.flyerPinPNG, markerWidth);
     customMarker = BitmapDescriptor.fromBytes(markerIcon);
     blog('missing function ends ${customMarker.toString()}');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final Set<Marker> theMarkers = _pickedLocation == null ? null
-        : <Marker>{
-            Marker(
-              markerId: const MarkerId('m1'),
-              position: _pickedLocation,
-              icon: customMarker,
-              // infoWindow: InfoWindow(
-              //   title: 'title',
-              //   snippet: 'snippet',
-              //   onTap: (){blog('pin taps aho');},
-              //   // anchor: const Offset(0,0),
-              // ),
-            )
-          };
-
-    // LatLng userCurrentLocation = LatLng(_initialPosition?.latitude ?? 0, _initialPosition?.longitude ?? 0);
-
+    // --------------------
+    final Set<Marker> theMarkers =
+    _pickedLocation == null ? null
+        :
+    <Marker>{
+      Marker(
+        markerId: const MarkerId('m1'),
+        position: _pickedLocation,
+        icon: customMarker,
+        // infoWindow: InfoWindow(
+        //   title: 'title',
+        //   snippet: 'snippet',
+        //   onTap: (){blog('pin taps aho');},
+        //   // anchor: const Offset(0,0),
+        // ),
+      )
+    };
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
+    // LatLng userCurrentLocation = LatLng(_initialPosition?.latitude ?? 0, _initialPosition?.longitude ?? 0);
     final double _screenHeight = Scale.superScreenHeight(context);
-
+    // --------------------
     return MainLayout(
       skyType: SkyType.black,
       layoutWidget: Stack(
@@ -183,19 +181,19 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
             height: _screenHeight,
             child: isLoading
                 ? Loading(
-                    loading: isLoading,
-                  )
+              loading: isLoading,
+            )
                 : GoogleMap(
-                    mapType: MapType.hybrid,
-                    myLocationEnabled: true,
-                    buildingsEnabled: false,
-                    mapToolbarEnabled: false,
-                    initialCameraPosition: _initialCameraPosition,
-                    onMapCreated: _onMapCreated,
-                    //(GoogleMapController googleMapController){setState(() {blog('map has been created');});},
-                    markers: theMarkers,
-                    onTap: widget.isSelecting ? _selectLocation : null,
-                  ),
+              mapType: MapType.hybrid,
+              myLocationEnabled: true,
+              buildingsEnabled: false,
+              mapToolbarEnabled: false,
+              initialCameraPosition: _initialCameraPosition,
+              onMapCreated: _onMapCreated,
+              //(GoogleMapController googleMapController){setState(() {blog('map has been created');});},
+              markers: theMarkers,
+              onTap: widget.isSelecting ? _selectLocation : null,
+            ),
           ),
 
           // FlyerZone(
@@ -271,19 +269,20 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                     : Colorz.white255,
                 onTap: _pickedLocation == null
                     ? () {
-                        setState(() {
-                          confirmButtonIsActive = false;
-                        });
-                      }
+                  setState(() {
+                    confirmButtonIsActive = false;
+                  });
+                }
                     : () {
-                        Navigator.of(context).pop(_pickedLocation);
-                        blog('a77a ba2a');
-                      },
+                  Navigator.of(context).pop(_pickedLocation);
+                  blog('a77a ba2a');
+                },
               ),
             ),
         ],
       ),
     );
+    // --------------------
   }
 // -----------------------------------------------------------------------------
 }

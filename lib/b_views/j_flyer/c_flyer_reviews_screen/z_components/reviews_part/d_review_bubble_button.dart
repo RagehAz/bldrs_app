@@ -42,7 +42,7 @@ class ReviewBubbleButton extends StatelessWidget {
 
     return _output;
   }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -64,4 +64,5 @@ class ReviewBubbleButton extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

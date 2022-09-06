@@ -17,11 +17,11 @@ class FlyerSlidesShelf extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _flyerBoxHeight = shelfHeight;
     final double _flyerBoxWidth = FlyerBox.widthByHeight(context, _flyerBoxHeight);
-
+    // --------------------
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -56,6 +56,7 @@ class FlyerSlidesShelf extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
