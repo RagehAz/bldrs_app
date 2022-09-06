@@ -45,12 +45,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// INITIALIZATION
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> initializeHomeScreen(BuildContext context) async {
 
   await checkIfUserIsMissingFields(
@@ -83,13 +83,14 @@ Future<void> initializeHomeScreen(BuildContext context) async {
             context: context,
             notify: true
         ),
-  ]);
+      ]);
 
   /// I - KEYWORDS
   unawaited(_initializeAllChains(context));
 
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeUserZone(BuildContext context) async {
   blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
@@ -111,7 +112,8 @@ Future<void> _initializeUserZone(BuildContext context) async {
   }
   blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeCurrentZone(BuildContext context) async {
   blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
@@ -125,9 +127,9 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
   if (_myUserModel?.zone != null && AuthModel.userIsSignedIn() == true){
 
     await zoneProvider.fetchSetCurrentCompleteZone(
-        context: context,
-        zone: _myUserModel.zone,
-        notify: true,
+      context: context,
+      zone: _myUserModel.zone,
+      notify: true,
     );
 
   }
@@ -147,7 +149,8 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
 
   blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeSponsors({
   @required BuildContext context,
   @required bool notify,
@@ -160,7 +163,8 @@ Future<void> _initializeSponsors({
   );
   blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeAllChains(BuildContext context) async {
   blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
@@ -170,7 +174,8 @@ Future<void> _initializeAllChains(BuildContext context) async {
   );
   blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
@@ -185,7 +190,8 @@ Future<void> _initializeUserBzz({
   }
   blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
@@ -200,7 +206,8 @@ Future<void> _initializeUserFollowedBzz({
   }
   blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ END');
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _initializePromotedFlyers(BuildContext context) async {
   blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ START');
 
@@ -231,7 +238,8 @@ Future<void> _initializePromotedFlyers(BuildContext context) async {
 
 /// USER MISSING FIELDS
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
@@ -255,7 +263,8 @@ Future<void> checkIfUserIsMissingFields({
   }
   blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ END');
 }
-// ---------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _controlMissingFieldsCase({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -286,9 +295,11 @@ Future<void> _controlMissingFieldsCase({
 
 }
 // -----------------------------------------------------------------------------
+
 /// PYRAMIDS NAVIGATION
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 List<NavModel> generateMainNavModels({
   @required BuildContext context,
   @required List<BzModel> bzzModels,
@@ -353,8 +364,8 @@ List<NavModel> generateMainNavModels({
 
       return NavModel(
           id: NavModel.getMainNavIDString(
-              navID: MainNavModel.bz,
-              bzID: _bzModel.id,
+            navID: MainNavModel.bz,
+            bzID: _bzModel.id,
           ),
           title: _bzModel.name,
           translateTitle: false,
@@ -407,7 +418,8 @@ List<NavModel> generateMainNavModels({
 
   ];
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onNavigate({
   @required int index,
   @required List<NavModel> models,
@@ -446,7 +458,8 @@ Future<void> onNavigate({
 
 /// FLYERS PAGINATION
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 bool initializeFlyersPagination({
   @required BuildContext context,
   @required ScrollController scrollController,
@@ -478,7 +491,8 @@ bool initializeFlyersPagination({
 
   return _canPaginate;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> readMoreFlyers(BuildContext context) async {
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   await _flyersProvider.paginateWallFlyers(
@@ -486,7 +500,8 @@ Future<void> readMoreFlyers(BuildContext context) async {
     listenToZoneChange: false,
   );
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onRefreshHomeWall(BuildContext context) async {
   // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
@@ -506,7 +521,7 @@ Future<void> onRefreshHomeWall(BuildContext context) async {
 
 /// FLYERS INTERACTIONS
 
-// -------------------------------
+// --------------------
 /*
 Future<void> onFlyerTap({
   @required BuildContext context,
@@ -530,19 +545,21 @@ Future<void> onFlyerTap({
 
 /// OBELISK
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 void initializeObeliskNumbers(BuildContext context){
   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   _notesProvider.generateSetInitialObeliskNumbers(
-      context: context,
-      notify: false,
+    context: context,
+    notify: false,
   );
 }
 // -----------------------------------------------------------------------------
 
 /// USER NOTES STREAM
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 StreamSubscription initializeUserNotes(BuildContext context){
 
   StreamSubscription _sub;
@@ -554,7 +571,7 @@ StreamSubscription initializeUserNotes(BuildContext context){
 
     /// TASK : STREAM NEEDS TO BE CLOSED WHEN DELETING USER
     final Stream<QuerySnapshot<Object>> _stream = _userUnseenReceivedNotesStream(
-      context: context
+        context: context
     );
 
     final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = _getCipheredProUserUnseenReceivedNotes(
@@ -575,9 +592,9 @@ StreamSubscription initializeUserNotes(BuildContext context){
         );
 
         _notesProvider.setUserNotesAndRebuild(
-            context: context,
-            notes: _notes,
-            notify: true,
+          context: context,
+          notes: _notes,
+          notify: true,
         );
 
         final bool _noteDotIsOn = _checkNoteDotIsOn(
@@ -604,7 +621,8 @@ StreamSubscription initializeUserNotes(BuildContext context){
 
   return _sub;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes({
   @required BuildContext context,
 }){
@@ -620,7 +638,8 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProUserUnseenReceivedNotes
 
   return _oldMaps;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
   @required BuildContext context,
 }){
@@ -654,7 +673,8 @@ Stream<QuerySnapshot<Object>> _userUnseenReceivedNotesStream({
   );
 
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _checkForBzDeletionNoteAndProceed({
   @required BuildContext context,
   @required List<NoteModel> notes,
@@ -663,8 +683,8 @@ Future<void> _checkForBzDeletionNoteAndProceed({
   blog('_checkForBzDeletionNoteAndProceed : start');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
+    context: context,
+    listen: false,
   );
 
   if (UserModel.checkUserIsAuthor(_userModel) == true){
@@ -686,8 +706,8 @@ Future<void> _checkForBzDeletionNoteAndProceed({
         final String _bzID = note.attachment;
 
         final bool _bzIDisInMyBzzIDs = Stringer.checkStringsContainString(
-            strings: _userModel.myBzzIDs,
-            string: _bzID,
+          strings: _userModel.myBzzIDs,
+          string: _bzID,
         );
 
         if (_bzIDisInMyBzzIDs == true){
@@ -708,7 +728,8 @@ Future<void> _checkForBzDeletionNoteAndProceed({
 
 /// BZZ NOTES STREAMS
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
@@ -737,7 +758,8 @@ List<StreamSubscription> initializeMyBzzNotes(BuildContext context){
 
   return _subs;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
   @required String bzID,
 }){
@@ -765,12 +787,13 @@ Stream<QuerySnapshot<Object>> _bzUnseenReceivedNotesStream({
         onDataChanged: (List<Map<String, dynamic>> maps){
           blog('_bzUnseenReceivedNotesStream : onDataChanged : ${maps.length} maps');
         }
-        ),
+    ),
   );
 
   return _stream;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes ({
   @required BuildContext context,
   @required String bzID,
@@ -789,7 +812,8 @@ ValueNotifier<List<Map<String, dynamic>>> _getCipheredProBzUnseenReceivedNotes (
 
   return _oldMaps;
 }
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 StreamSubscription initializeBzNotesStream({
   @required BuildContext context,
   @required String bzID,
@@ -849,7 +873,7 @@ StreamSubscription initializeBzNotesStream({
 
   return _streamSubscription;
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
   @required BuildContext context,
@@ -897,7 +921,8 @@ Future<void> _bzCheckLocalFlyerUpdatesNotesAndProceed({
 
 /// NOTES CHECKERS
 
-// -------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 bool _checkNoteDotIsOn({
   @required BuildContext context,
   @required List<NoteModel> notes,
@@ -923,7 +948,7 @@ bool _checkNoteDotIsOn({
 
   return _isOn;
 }
-// -------------------------------
+// --------------------
 /*
 // int _getNotesCount({
 //   @required bool thereAreMissingFields,

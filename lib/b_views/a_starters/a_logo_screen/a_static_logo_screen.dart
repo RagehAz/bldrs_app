@@ -23,15 +23,14 @@ class StaticLogoScreen extends StatefulWidget {
 }
 
 class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProviderStateMixin {
-// -----------------------------------------------------------------------------
-  // final String error;
-  // final bool loading;
+  // -----------------------------------------------------------------------------
   AnimationController _scaleController;
+  // final String error;
   static const int _fadeCycleDuration = 800;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -40,10 +39,10 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'OldLogoScreen',);
+      blogLoading(loading: _loading.value, callerName: 'StaticLogoScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -55,15 +54,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
 
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _scaleController.dispose();
-    _loading.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -88,12 +79,20 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _scaleController.dispose();
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     _scaleController.repeat(reverse: true, min: 0.97, max: 1);
-
+    // --------------------
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
@@ -105,5 +104,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
         scaleController: _scaleController,
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

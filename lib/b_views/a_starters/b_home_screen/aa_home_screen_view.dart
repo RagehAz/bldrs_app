@@ -18,14 +18,14 @@ class UserHomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _UserHomeScreenState createState() => _UserHomeScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
-/// --------------------------------------------------------------------------
+
 class _UserHomeScreenState extends State<UserHomeScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   bool _canPaginate = true;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -37,7 +37,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -47,23 +47,23 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
       _uiProvider.startController(
               () async {
 
-                await readMoreFlyers(context);
-                _canPaginate = true;
+            await readMoreFlyers(context);
+            _canPaginate = true;
 
-              }
-              );
+          }
+      );
     }
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -71,7 +71,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     final List<FlyerModel> _wallFlyers = _flyersProvider.wallFlyers;
 
     if (Mapper.checkCanLoopList(_wallFlyers) == false){
-
       return const Center(
         child: SuperVerse(
           verse: '##No Flyers To Show',
@@ -81,7 +80,6 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
           shadow: true,
         ),
       );
-
     }
 
     else {
@@ -99,4 +97,5 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     }
 
   }
+// -----------------------------------------------------------------------------
 }

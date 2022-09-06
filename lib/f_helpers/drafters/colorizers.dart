@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as Image;
 
 class Colorizer {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Colorizer();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   static Color decipherColor(String colorString) {
     Color _color;
 
@@ -50,7 +50,7 @@ class Colorizer {
 
     return _color;
   }
-// -------------------------------------
+  // --------------------
   static String cipherColor(Color color) {
     final Color _color = color ?? Colorz.nothing;
 
@@ -62,12 +62,11 @@ class Colorizer {
     final String _string = '$_alpha*$_r*$_g*$_b';
     return _string;
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 
   /// CREATOR
 
-// -------------------------------------
+  // --------------------
   static Color createRandomColor(){
     final int _red = Numeric.createRandomIndex(listLength: 256);
     final int _green = Numeric.createRandomIndex(listLength: 256);
@@ -76,17 +75,17 @@ class Colorizer {
     final Color _color = Color.fromARGB(_alpha, _red, _green, _blue);
     return _color;
   }
-// -------------------------------------
+  // --------------------
   static Color createRandomColorFromBldrsPalette() {
     const List<Color> _bldrsColors = Colorz.allColorz;
     final int _randomIndex = Numeric.createRandomIndex(listLength: _bldrsColors.length);
     return _bldrsColors[_randomIndex];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   static bool checkColorIsBlack(Color color) {
     bool _isBlack = false;
 
@@ -101,7 +100,7 @@ class Colorizer {
 
     return _isBlack;
   }
-// -------------------------------------
+  // --------------------
   static bool checkColorsAreIdentical(Color color1, Color color2) {
     bool _areIdentical = false;
 
@@ -114,11 +113,11 @@ class Colorizer {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// AVERAGE COLOR
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Color> getAverageColor(dynamic pic) async {
 
@@ -147,11 +146,11 @@ class Colorizer {
 
     return _averageColor;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLUR
 
-// -------------------------------------
+  // --------------------
   static ui.ImageFilter superBlur({
     @required bool trigger,
   }) {
@@ -164,11 +163,11 @@ class Colorizer {
 
     return blur;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GRADIENTS
 
-// -------------------------------------
+  // --------------------
   static Gradient superSlideGradient() {
     const Gradient slideGradient = LinearGradient(
         begin: Alignment.topCenter,
@@ -177,7 +176,7 @@ class Colorizer {
         stops: <double>[0, 0.90]);
     return slideGradient;
   }
-// -------------------------------------
+  // --------------------
   static Gradient superHeaderStripGradient(Color color) {
     final Gradient headerStripGradient = LinearGradient(
         begin: Alignment.topCenter,
@@ -186,7 +185,7 @@ class Colorizer {
         stops: const <double>[0.3, 1]);
     return headerStripGradient;
   }
-// -------------------------------------
+  // --------------------
   static Gradient superFollowBTGradient() {
     const Gradient followBTGradient = LinearGradient(
         begin: Alignment.topCenter,
@@ -195,11 +194,11 @@ class Colorizer {
         stops: <double>[0, 0.5]);
     return followBTGradient;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DESATURATION
 
-// -------------------------------------
+  // --------------------
   static ColorFilter desaturationColorFilter({
     @required bool isItBlackAndWhite,
   }) {
@@ -212,7 +211,7 @@ class Colorizer {
     final Color imageSaturationColor = isItBlackAndWhite == true ? Colorz.grey255 : Colorz.nothing;
     return ColorFilter.mode(imageSaturationColor, BlendMode.saturation);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Color errorize({
     @required bool errorIsOn,
     @required Color defaultColor,
@@ -226,12 +225,12 @@ class Colorizer {
     }
     return _color;
   }
-// ---------------------------------------
+  // --------------------
   static Color ValidatorColor({
     @required String Function() validator,
     Color defaultColor = Colorz.white10,
     bool canErrorize = true,
-}){
+  }){
 
     bool _errorIsOn = false;
     if (validator != null){
@@ -239,9 +238,9 @@ class Colorizer {
     }
 
     return errorize(
-        errorIsOn: _errorIsOn,
-        defaultColor: defaultColor,
-        canErrorize: canErrorize,
+      errorIsOn: _errorIsOn,
+      defaultColor: defaultColor,
+      canErrorize: canErrorize,
     );
 
   }

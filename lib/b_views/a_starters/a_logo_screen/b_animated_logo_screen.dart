@@ -27,14 +27,14 @@ class AnimatedLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<AnimatedLogoScreen> createState() => _AnimatedLogoScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -46,21 +46,21 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       blogLoading(loading: _loading.value, callerName: 'AnimatedLogoScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<Map<String, dynamic>> _linesMap;
-// -----------------------------------------------------------------------------
+  // --------------------
   static const double _trackLength = 8775; // milli seconds
-// ---------------------------------------
+  // --------------------
   double _toRatio(double milliSecond){
     return milliSecond / _trackLength;
   }
-// ---------------------------------------
+  // --------------------
   Map<String, dynamic> _beat({
     @required double start, // in milliseconds
     @required double duration,// in milliseconds
     @required String verse,
     Color color = Colorz.white255,
-}){
+  }){
     return {
       'first' : _toRatio(start),
       'second' : _toRatio(start + duration),
@@ -68,7 +68,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       'color' : color,
     };
   }
-// ---------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -91,26 +91,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     _initializeAnimationControllers();
 
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-
-    _loading.dispose();
-    // _sloganAniController.dispose();
-    _sloganCurvedAnimation.dispose();
-    _logoAniController.dispose();
-    _logoCurvedAnimation.dispose();
-
-    if (Mapper.checkCanLoopList(_linesControllers) == true){
-      for (final CurvedAnimation cont in _linesControllers){
-        cont.dispose();
-      }
-    }
-
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -131,10 +112,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
           ]);
 
-            await Nav.pushNamedAndRemoveAllBelow(
-              context: context,
-              goToRoute: Routez.home,
-            );
+          await Nav.pushNamedAndRemoveAllBelow(
+            context: context,
+            goToRoute: Routez.home,
+          );
 
         });
 
@@ -146,17 +127,36 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+
+    _loading.dispose();
+    // _sloganAniController.dispose();
+    _sloganCurvedAnimation.dispose();
+    _logoAniController.dispose();
+    _logoCurvedAnimation.dispose();
+
+    if (Mapper.checkCanLoopList(_linesControllers) == true){
+      for (final CurvedAnimation cont in _linesControllers){
+        cont.dispose();
+      }
+    }
+
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
   AnimationController _logoAniController;
   CurvedAnimation _logoCurvedAnimation;
   CurvedAnimation _sloganCurvedAnimation;
   List<CurvedAnimation> _linesControllers;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ----------------------------------------
+  // --------------------
   void _initializeAnimationControllers(){
 
     /// LOGO CONTROLLERS
@@ -178,7 +178,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
     _linesControllers = _initializedLinesAnimations();
   }
-// ----------------------------------------
+  // --------------------
   List<CurvedAnimation> _initializedLinesAnimations(){
 
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
@@ -192,11 +192,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
     return _animations;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ANIMATION SEQUENCES
 
-// ----------------------------------------
+  // --------------------
   Future<void> _startAnimationSequence() async {
     // _isPlaying.value = true;
     // _restartControllers();
@@ -204,23 +204,22 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     await _animateLogoLine();
     // _isPlaying.value = false;
   }
-// ----------------------------------------
+  // --------------------
   Future<void> _animateLogoLine() async {
     await _logoAniController.forward(from: 0);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RESTARTING ( FOR TESTING ONLY)
 
-// ----------------------------------------
+  // --------------------
   /*
   void _restartControllers(){
     _logoAniController.value = 0;
   }
   final ValueNotifier<bool> _isPlaying = ValueNotifier(false);
    */
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -411,6 +410,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       ),
     );
   }
+  // -----------------------------------------------------------------------------
 }
 
 /// TASK : NEED TO PUT THESE STATEMENTS FOR BZZ
@@ -422,7 +422,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 ///  ...
 
 class AnimatedLine extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const AnimatedLine({
     @required this.curvedAnimation,
     @required this.tween,
@@ -430,17 +430,17 @@ class AnimatedLine extends StatelessWidget {
     @required this.verseColor,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final CurvedAnimation curvedAnimation;
   final Tween<double> tween;
   final String verse;
   final Color verseColor;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     return AnimatedBuilder(
       animation: curvedAnimation,
       builder: (BuildContext context, Widget child) {
@@ -489,5 +489,7 @@ class AnimatedLine extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
