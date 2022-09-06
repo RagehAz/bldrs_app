@@ -29,16 +29,17 @@ class FireCollPaginator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FireCollPaginatorState createState() => _FireCollPaginatorState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   bool _isPaginating = false;
-// -----------------------------------------------------------------------------
+  PaginatorNotifiers _paginatorNotifiers;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -50,9 +51,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       // blogLoading(loading: _loading.value, callerName: 'FireCollPaginator',);
     }
   }
-// -----------------------------------------------------------------------------
-  PaginatorNotifiers _paginatorNotifiers;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -70,7 +69,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -86,7 +85,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -102,11 +101,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   ScrollController _controller;
   void listenToScroll(){
 
@@ -138,11 +137,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     });
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READING
 
-// -----------------------------------
+  // --------------------
   bool _canKeepReading = true;
   Future<void> _readMore() async {
 
@@ -194,7 +193,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
