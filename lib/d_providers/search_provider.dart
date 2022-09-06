@@ -10,21 +10,21 @@ import 'package:provider/provider.dart';
 
 // final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 class SearchProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// --- IS SEARCHING
 
-// -------------------------------------
+  // --------------------
   bool _isSearchingCountry = false;
   bool _isSearchingCity = false;
   bool _isSearchingDistrict = false;
   bool _isSearchingFlyersAndBzz = false;
-// -------------------------------------
+  // --------------------
   bool get isSearchingCountry => _isSearchingCountry;
   bool get isSearchingCity => _isSearchingCity;
   bool get isSearchingDistrict => _isSearchingDistrict;
   bool get isSearchingFlyersAndBzz => _isSearchingFlyersAndBzz;
-// -------------------------------------
+  // --------------------
   void triggerIsSearching({
     @required SearchingModel searchingModel,
     @required bool setIsSearchingTo,
@@ -52,7 +52,7 @@ class SearchProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void triggerIsSearchingAfterMaxTextLength({
     @required String text,
@@ -91,10 +91,10 @@ class SearchProvider extends ChangeNotifier {
 
     /// CAUTION : [triggerIsSearching] method has notifyListeners();
   }
-// -------------------------------------
+  // --------------------
   void closeAllZoneSearches({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
 
     _isSearchingCountry = false;
     _isSearchingCity = false;
@@ -105,7 +105,7 @@ class SearchProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void closeAllSearches({
     @required bool notify,
   }){
@@ -117,17 +117,17 @@ class SearchProvider extends ChangeNotifier {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCH RESULT
 
-// -------------------------------------
+  // --------------------
   List<SearchResult> _searchResult = <SearchResult>[];
-// -------------------------------------
+  // --------------------
   List<SearchResult> get searchResult {
     return [..._searchResult];
   }
-// -------------------------------------
+  // --------------------
   void setSearchResult ({
     @required List<SearchResult> result,
     @required bool notify,
@@ -140,26 +140,26 @@ class SearchProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void clearSearchResult({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     setSearchResult(
       result: <SearchResult>[],
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCH RECORDS
 
-// -------------------------------------
+  // --------------------
   List<RecordModel> _searchRecords = <RecordModel>[];
-// -------------------------------------
+  // --------------------
   List<RecordModel> get searchRecords {
     return <RecordModel>[... _searchRecords];
   }
-// -------------------------------------
+  // --------------------
   Future<List<RecordModel>> _paginateSearchRecords(BuildContext context) async{
 
     // List<RecordModel> _searchRecords = <RecordModel>[];
@@ -225,7 +225,7 @@ class SearchProvider extends ChangeNotifier {
 
     return _records;
   }
-// -------------------------------------
+  // --------------------
   Future<void> paginateSetSearchRecords({
     @required BuildContext context,
     @required bool notify,
@@ -236,7 +236,7 @@ class SearchProvider extends ChangeNotifier {
     _searchRecords = _updatedList;
     notifyListeners();
   }
-// -------------------------------------
+  // --------------------
   void addToSearchRecords({
     @required RecordModel record,
     @required bool notify,
@@ -250,7 +250,7 @@ class SearchProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void deleteASearchRecord({
     @required RecordModel record,
     @required bool notify,
@@ -266,20 +266,20 @@ class SearchProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void clearSearchRecords({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _searchRecords = <RecordModel>[];
     if (notify == true){
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -297,5 +297,5 @@ class SearchProvider extends ChangeNotifier {
     _searchProvider.clearSearchRecords(notify: notify);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
