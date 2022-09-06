@@ -63,4 +63,5 @@ class UserSettingsPage extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

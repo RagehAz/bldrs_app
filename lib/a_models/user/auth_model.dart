@@ -188,7 +188,7 @@ class AuthModel {
 
   /// CREATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel create({
     UserModel userModel,
@@ -289,7 +289,7 @@ class AuthModel {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   AuthModel copyWith({
     UserModel userModel,
@@ -642,7 +642,7 @@ class AuthModel {
       default: return null;
     }
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHER USER INFO
 

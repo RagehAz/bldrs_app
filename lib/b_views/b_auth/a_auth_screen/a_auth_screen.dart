@@ -14,10 +14,10 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -31,7 +31,12 @@ class _AuthScreenState extends State<AuthScreen> {
     }
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+  }
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -48,19 +53,14 @@ class _AuthScreenState extends State<AuthScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-  }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -71,4 +71,5 @@ class _AuthScreenState extends State<AuthScreen> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

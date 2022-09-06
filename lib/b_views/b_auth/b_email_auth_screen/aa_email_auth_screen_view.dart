@@ -45,7 +45,7 @@ class EmailAuthScreenView extends StatelessWidget {
   void _onSubmitted({
     @required bool signingIn,
     @required bool isOnConfirmPassword,
-}){
+  }){
 
     blog('_onSubmitted : trying to submit');
 
@@ -67,14 +67,14 @@ class EmailAuthScreenView extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
     const double _buttonHeight = 50;
     const double _verseScaleFactor = 0.7;
-
+    // --------------------
     return Form(
       key: formKey,
       child: ValueListenableBuilder(
@@ -211,6 +211,7 @@ class EmailAuthScreenView extends StatelessWidget {
         },
       ),
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

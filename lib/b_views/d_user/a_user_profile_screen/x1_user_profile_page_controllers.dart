@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-// ---------------------------------
+// -----------------------------------------------------------------------------
 
 /// OLD USER PROFILE TABS
 
-// ---------------------------------
+// --------------------
 /*
 /// USER SCREEN TABS
 
@@ -63,15 +63,15 @@ void onChangeUserScreenTabIndex({
 
 }
  */
-// ---------------------------------
+// -----------------------------------------------------------------------------
 
 /// USER PROFILE PAGE
 
-// ---------------------------------
+// --------------------
 void onUserPicTap(){
   blog('user pic tapped');
 }
-// ---------------------------------
+// --------------------
 Future<void> onUserContactTap({
   @required BuildContext context,
   @required ContactModel contact,
@@ -83,7 +83,7 @@ Future<void> onUserContactTap({
   );
 
 }
-// ---------------------------------
+// --------------------
 Future<void> onUserLocationTap(GeoPoint geoPoint) async {
 
   Atlas.blogGeoPoint(

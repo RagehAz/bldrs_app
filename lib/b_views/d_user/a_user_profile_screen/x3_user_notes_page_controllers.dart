@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 
 /// BZ NOTE PAGINATION QUERY PARAMETERS
 
-// ------------------------------------------
+// --------------------
 FireQueryModel userReceivedNotesPaginationQueryParameters({
   @required ValueChanged<List<Map<String, dynamic>>> onDataChanged,
 }){
@@ -46,44 +46,44 @@ FireQueryModel userReceivedNotesPaginationQueryParameters({
 
 /// NOTE OPTIONS
 
-// ------------------------------------------
+// --------------------
 Future<void> onShowNoteOptions({
   @required BuildContext context,
   @required NoteModel noteModel,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-    context: context,
-    draggable: true,
-    numberOfWidgets: 1,
-    title: '##Options',
-    buttonHeight: 50,
-    builder: (_, PhraseProvider pro){
+      context: context,
+      draggable: true,
+      numberOfWidgets: 1,
+      title: '##Options',
+      buttonHeight: 50,
+      builder: (_, PhraseProvider pro){
 
-      return <Widget>[
+        return <Widget>[
 
-        BottomDialog.wideButton(
-          context: context,
-          verse: '##Delete',
-          height: 50,
-          onTap: () async {
-
-            await NoteProtocols.wipeNote(
+          BottomDialog.wideButton(
               context: context,
-              noteModel: noteModel,
-            );
+              verse: '##Delete',
+              height: 50,
+              onTap: () async {
 
-            Nav.goBack(
-              context: context,
-              invoker: 'onShowNoteOptions',
-            );
+                await NoteProtocols.wipeNote(
+                  context: context,
+                  noteModel: noteModel,
+                );
 
-          }
-        ),
+                Nav.goBack(
+                  context: context,
+                  invoker: 'onShowNoteOptions',
+                );
 
-      ];
+              }
+          ),
 
-    }
+        ];
+
+      }
   );
 
 }
@@ -91,7 +91,7 @@ Future<void> onShowNoteOptions({
 
 /// MARKING NOTES AS SEEN
 
-// ------------------------------------------
+// --------------------
 /*
 // void decrementUserObelisksNotesNumber({
 //   @required NotesProvider notesProvider,
@@ -146,7 +146,7 @@ Future<void> onShowNoteOptions({
 
 /// NOTE RESPONSES
 
-// ------------------------------------------
+// --------------------
 Future<void> onNoteButtonTap({
   @required BuildContext context,
   @required NoteResponse response,
@@ -175,7 +175,7 @@ Future<void> onNoteButtonTap({
 
 /// AUTHORSHIP NOTE RESPONSES
 
-// ------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> respondToAuthorshipNote({
   @required BuildContext context,
@@ -213,7 +213,7 @@ Future<void> respondToAuthorshipNote({
   }
 
 }
-// ------------------------------------------
+// -----------------------------------------------------------------------------
 
 /// ACCEPT AUTHORSHIP INVITATION
 
@@ -280,7 +280,7 @@ Future<void> _acceptAuthorshipInvitation({
   }
 
 }
-// ------------------------------------------
+// -----------------------------------------------------------------------------
 
 /// DECLINE AUTHORSHIP INVITATION
 
@@ -332,4 +332,4 @@ Future<void> _modifyNoteResponse({
 
 }
  */
-// ------------------------------------------
+// -----------------------------------------------------------------------------

@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 
 /// INVITE BZZ
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onInviteBusinessesTap(BuildContext context) async {
   // await Nav.goToNewScreen(
@@ -35,7 +35,7 @@ Future<void> onInviteBusinessesTap(BuildContext context) async {
 
 /// EDIT
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditProfileTap(BuildContext context) async {
 
@@ -62,7 +62,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
 
 /// DELETION OPS
 
-// ---------------------------------
+// --------------------
 Future<void> onDeleteMyAccount(BuildContext context) async {
   blog('on delete user tap aho');
 
@@ -97,7 +97,7 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
   }
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
@@ -181,7 +181,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
   return _canDeleteAndExitMyBzz;
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> reAuthenticateUser({
   @required BuildContext context,
@@ -248,7 +248,7 @@ Future<bool> reAuthenticateUser({
 
   return _canContinue;
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkPassword({
   @required BuildContext context,

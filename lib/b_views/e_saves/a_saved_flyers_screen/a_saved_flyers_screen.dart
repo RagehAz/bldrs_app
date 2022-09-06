@@ -16,28 +16,31 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
+/// --------------------------------------------------------------------------
 }
 
-// with AutomaticKeepAliveClientMixin<SavedFlyersScreen>
 class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
-  // @override
-  // bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+  /*
+   with AutomaticKeepAliveClientMixin<SavedFlyersScreen>
+   @override
+   bool get wantKeepAlive => true;
+   */
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _passSelectedFlyersBack(){
 
     /// shall pass selected flyers through flyers provider
@@ -48,7 +51,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
@@ -70,4 +73,5 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

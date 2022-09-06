@@ -12,7 +12,7 @@ class UserStatusPage extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   ///
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _switchUserStatus(UserStatus type) {
     // setState(() {
     //   _currentUserStatus = type;
@@ -21,7 +21,7 @@ class UserStatusPage extends StatelessWidget {
     blog('type is $type');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const List<Map<String, dynamic>> _status = <Map<String, dynamic>>[
     <String, dynamic>{
       'title': 'Property Status',
@@ -54,7 +54,7 @@ class UserStatusPage extends StatelessWidget {
       ],
     },
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -80,4 +80,5 @@ class UserStatusPage extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

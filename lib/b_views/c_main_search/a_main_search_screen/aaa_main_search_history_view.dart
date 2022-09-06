@@ -11,28 +11,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchHistoryView extends StatelessWidget {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const SearchHistoryView({
     @required this.scrollController,
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ScrollController scrollController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
     final List<RecordModel> _searchRecords = _searchProvider.searchRecords;
-
+    // --------------------
     _searchRecords.sort((RecordModel a, RecordModel b){
       final DateTime _timeA = a.timeStamp;
       final DateTime _timeB = b.timeStamp;
       return _timeB.compareTo(_timeA);
     });
-
-    // _searchRecords.reversed;
-
+    // --------------------
     return ListView.builder(
         itemCount: _searchRecords.length,
         shrinkWrap: true,
@@ -93,6 +91,7 @@ class SearchHistoryView extends StatelessWidget {
             ;
 
         });
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }
