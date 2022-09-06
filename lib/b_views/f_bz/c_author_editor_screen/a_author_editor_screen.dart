@@ -40,21 +40,33 @@ class AuthorEditorScreen extends StatefulWidget {
 }
 
 class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // --------------------
+  bool _canValidate = false;
+  void _switchOnValidation(){
+    if (_canValidate != true){
+      setState(() {
+        _canValidate = true;
+      });
+    }
+  }
+  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<AuthorModel> _tempAuthor = ValueNotifier(null);
   final ValueNotifier<AuthorModel> _lastTempAuthor = ValueNotifier(null);
   // --------------------
+  final ScrollController _scrollController = ScrollController();
+  // --------------------
   final FocusNode _nameNode = FocusNode();
   final FocusNode _titleNode = FocusNode();
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _emailNode = FocusNode();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -66,7 +78,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'AuthorEditorScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -78,7 +90,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -104,12 +116,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
           );
         }
         // -----------------------------
-        // if (widget.validateOnStartup == true){
+        if (widget.validateOnStartup == true){
+          _switchOnValidation();
           Formers.validateForm(_formKey);
-        // }
+        }
         // -----------------------------
         if (mounted == true){
           _tempAuthor.addListener((){
+            _switchOnValidation();
             saveAuthorEditorSession(
               context: context,
               tempAuthor: _tempAuthor,
@@ -128,7 +142,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -148,10 +162,20 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  // final GlobalKey _fuckingKey = GlobalKey();
+  // -----------------------------------------------------------------------------
+  Future<void> _onConfirmTap() async {
 
+    _switchOnValidation();
+
+    await onConfirmAuthorUpdates(
+      context: context,
+      tempAuthor: _tempAuthor,
+      bzModel: widget.bzModel,
+      oldAuthor: widget.author,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -180,12 +204,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       confirmButtonModel: ConfirmButtonModel(
         firstLine: 'phid_confirm',
         secondLine: 'phid_update_author_details',
-        onTap: () => onConfirmAuthorUpdates(
-          context: context,
-          tempAuthor: _tempAuthor,
-          bzModel: widget.bzModel,
-          oldAuthor: widget.author,
-        ),
+        onTap: () => _onConfirmTap(),
       ),
       layoutWidget: Form(
         key: _formKey,
@@ -244,6 +263,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     // autoValidate: true,
                     validator: () => Formers.personNameValidator(
                       name: authorModel.name,
+                      canValidate: _canValidate
                     ),
 
                   ),
@@ -267,6 +287,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     initialTextValue: authorModel.title,
                     validator: () => Formers.jobTitleValidator(
                         jobTitle: authorModel.title,
+                        canValidate: _canValidate
                     ),
                   ),
 
@@ -297,8 +318,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     validator: () => Formers.contactsPhoneValidator(
-                      contacts: authorModel.contacts,
-                      zoneModel: widget.bzModel.zone,
+                        contacts: authorModel.contacts,
+                        zoneModel: widget.bzModel.zone,
+                        canValidate: _canValidate
                     ),
                   ),
 
@@ -327,7 +349,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
                     canPaste: false,
                     validator: () => Formers.contactsEmailValidator(
-                      contacts: authorModel.contacts,
+                        contacts: authorModel.contacts,
+                        canValidate: _canValidate
                     ),
                   ),
 
@@ -366,4 +389,5 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

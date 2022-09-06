@@ -54,8 +54,18 @@ class BzEditorScreen extends StatefulWidget {
 }
 
 class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // --------------------
+  bool _canValidate = false;
+  void _switchOnValidation(){
+    if (_canValidate != true){
+      setState(() {
+        _canValidate = true;
+      });
+    }
+  }
+  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<BzModel> _tempBz = ValueNotifier<BzModel>(null);
@@ -73,10 +83,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   final ValueNotifier<List<BzType>> _inactiveBzTypes = ValueNotifier<List<BzType>>(null);
   final ValueNotifier<List<BzForm>> _inactiveBzForms = ValueNotifier<List<BzForm>>(null);
   final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -88,7 +98,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-// -----------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -103,9 +113,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       selectedScopes: _selectedScopes,
     );
 
-
   }
-// -----------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -130,10 +139,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         }
         // -----------------------------
         if (widget.validateOnStartup == true){
+          _switchOnValidation();
           Formers.validateForm(_formKey);
         }
         // -----------------------------
-        _createStateListeners();
+        if (mounted == true){
+          _tempBz.addListener(() => _saveSession());
+          _selectedScopes.addListener(() => _saveSession());
+        }
         // -------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -142,7 +155,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -168,17 +181,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  void _createStateListeners(){
-
-    if (mounted == true){
-      _tempBz.addListener(() => _saveSession());
-      _selectedScopes.addListener(() => _saveSession());
-    }
-
-  }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _saveSession() async {
+    _switchOnValidation();
     await saveBzEditorSession(
         tempBz: _tempBz,
         lastTempBz: _lastTempBz,
@@ -187,7 +192,23 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         mounted: mounted,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  Future<void> _onConfirmTap() async {
+
+    _switchOnValidation();
+
+    await onBzEditsConfirmTap(
+      context: context,
+      formKey: _formKey,
+      missingFields: _missingFields,
+      selectedScopes: _selectedScopes,
+      oldBz: widget.bzModel,
+      firstTimer: widget.firstTimer,
+      tempBz: _tempBz,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -221,15 +242,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       confirmButtonModel: ConfirmButtonModel(
           firstLine: 'phid_confirm',
           secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',
-          onTap: () => onBzEditsConfirmTap(
-            context: context,
-            formKey: _formKey,
-            missingFields: _missingFields,
-            selectedScopes: _selectedScopes,
-            oldBz: widget.bzModel,
-            firstTimer: widget.firstTimer,
-            tempBz: _tempBz,
-          )
+          onTap: () => _onConfirmTap(),
       ),
       layoutWidget: Form(
         key: _formKey,
@@ -243,7 +256,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                 valueListenable: _tempBz,
                 builder: (_, BzModel bzModel, Widget child){
 
-                  final String _companyNameBubbleTitle = bzModel.bzForm == BzForm.individual ?
+                  final String _companyNameBubbleTitle = bzModel?.bzForm == BzForm.individual ?
                   'phid_business_entity_name'
                       :
                   'phid_companyName';
@@ -275,7 +288,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               title: 'phid_sections',
                               buttonsList: _allSections,
                               selectedButtons: <String>[_selectedButton],
-                              isInError: false,
                               onButtonTap: (int index) => onSelectBzSection(
                                 context: context,
                                 index: index,
@@ -290,7 +302,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 'phid_bz_section_selection_info',
                               ],
                               validator: () => Formers.bzSectionValidator(
-                                  selectedSection: selectedSection,
+                                selectedSection: selectedSection,
+                                canValidate: _canValidate
                               ),
                             );
 
@@ -314,7 +327,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             );
                             final List<String> _selectedButtons = BzModel.translateBzTypes(
                               context: context,
-                              bzTypes: bzModel.bzTypes,
+                              bzTypes: bzModel?.bzTypes,
                               pluralTranslation: false,
                             );
 
@@ -323,7 +336,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               buttonsList: _allButtons,
                               selectedButtons: _selectedButtons,
                               inactiveButtons: _inactiveButtons,
-                              isInError: false,
                               onButtonTap: (int index) => onSelectBzType(
                                 context: context,
                                 index: index,
@@ -337,9 +349,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 'phid_select_bz_type',
                               ],
                               validator: () => Formers.bzTypeValidator(
-                                selectedTypes: bzModel.bzTypes,
+                                  selectedTypes: bzModel?.bzTypes,
+                                  canValidate: _canValidate
                               ),
-
                             );
 
                           }
@@ -357,7 +369,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                           final String _selectedButton = BzModel.translateBzForm(
                             context: context,
-                            bzForm: bzModel.bzForm,
+                            bzForm: bzModel?.bzForm,
                           );
 
                           final List<String> _inactiveButtons = BzModel.translateBzForms(
@@ -371,7 +383,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             buttonsList: _buttonsList,
                             selectedButtons: <String>[_selectedButton],
                             inactiveButtons: _inactiveButtons,
-                            isInError: false,
                             onButtonTap: (int index) => onSelectBzForm(
                               index: index,
                               tempBz: _tempBz,
@@ -381,7 +392,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               'phid_bz_form_company_description',
                             ],
                             validator: () => Formers.bzFormValidator(
-                              bzForm: bzModel.bzForm,
+                              bzForm: bzModel?.bzForm,
+                              canValidate: _canValidate,
                             ),
                           );
 
@@ -393,7 +405,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       /// --- ADD LOGO
                       AddImagePicBubble(
                         key: const ValueKey<String>('add_logo_bubble'),
-                        fileModel: bzModel.logo,
+                        fileModel: bzModel?.logo,
                         titleVerse: 'phid_businessLogo',
                         redDot: true,
                         bubbleType: BubbleType.bzLogo,
@@ -404,7 +416,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           canPickImage: _canPickImage,
                         ),
                         // autoValidate: true,
-                        validator: () => Formers.picValidator(pic: bzModel.logo),
+                        validator: () => Formers.picValidator(
+                          pic: bzModel?.logo,
+                          canValidate: _canValidate,
+                        ),
                       ),
 
                       /// --- BZ NAME
@@ -421,14 +436,15 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputType: TextInputType.name,
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: true,
-                        initialTextValue: bzModel.name,
+                        initialTextValue: bzModel?.name,
                         textOnChanged: (String text) => onBzNameChanged(
                           text: text,
                           tempBz: _tempBz,
                         ),
                         // autoValidate: true,
                         validator: () => Formers.companyNameValidator(
-                          companyName: bzModel.name,
+                          companyName: bzModel?.name,
+                          canValidate: _canValidate,
                         ),
                       ),
 
@@ -443,15 +459,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           maxLength: 1000,
                           maxLines: 20,
                           keyboardTextInputType: TextInputType.multiline,
-                          initialTextValue: bzModel.about,
+                          initialTextValue: bzModel?.about,
                           textOnChanged: (String text) => onBzAboutChanged(
                             text: text,
                             tempBz: _tempBz,
                           ),
                           // autoValidate: true,
                           validator: () => Formers.bzAboutValidator(
-                            bzAbout: bzModel.about,
-                          )
+                            bzAbout: bzModel?.about,
+                            canValidate: _canValidate,
+                          ),
                       ),
 
                       const DotSeparator(),
@@ -471,8 +488,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.next,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.phone,
-                          countryID: bzModel.zone?.countryID,
-                          existingContacts: bzModel.contacts,
+                          countryID: bzModel?.zone?.countryID,
+                          existingContacts: bzModel?.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
                           contactType: ContactType.phone,
@@ -482,8 +499,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         canPaste: false,
                         // autoValidate: true,
                         validator: () => Formers.contactsPhoneValidator(
-                          contacts: bzModel.contacts,
-                          zoneModel: bzModel.zone,
+                          contacts: bzModel?.contacts,
+                          zoneModel: bzModel?.zone,
+                          canValidate: _canValidate,
                         ),
                       ),
 
@@ -502,8 +520,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.next,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.email,
-                          countryID: bzModel.zone?.countryID,
-                          existingContacts: bzModel.contacts,
+                          countryID: bzModel?.zone?.countryID,
+                          existingContacts: bzModel?.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
                           contactType: ContactType.email,
@@ -513,7 +531,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         canPaste: false,
                         // autoValidate: true,
                         validator: () => Formers.contactsEmailValidator(
-                          contacts: bzModel.contacts,
+                          contacts: bzModel?.contacts,
+                          canValidate: _canValidate,
                         ),
                       ),
 
@@ -531,8 +550,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputAction: TextInputAction.done,
                         initialTextValue: ContactModel.getInitialContactValue(
                           type: ContactType.website,
-                          countryID: bzModel.zone?.countryID,
-                          existingContacts: bzModel.contacts,
+                          countryID: bzModel?.zone?.countryID,
+                          existingContacts: bzModel?.contacts,
                         ),
                         textOnChanged: (String text) => onBzContactChanged(
                           contactType: ContactType.website,
@@ -542,7 +561,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         // canPaste: true,
                         // autoValidate: true,
                         validator: () => Formers.contactsWebsiteValidator(
-                          contacts: bzModel.contacts,
+                          contacts: bzModel?.contacts,
+                          canValidate: _canValidate,
                         ),
                       ),
 
@@ -556,9 +576,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           final List<String> _phids = SpecModel.getSpecsIDs(selectedSpecs);
 
                           return WidgetFader(
-                            fadeType: Mapper.checkCanLoopList(bzModel.bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+                            fadeType: Mapper.checkCanLoopList(bzModel?.bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                             min: 0.35,
-                            absorbPointer: Mapper.checkCanLoopList(bzModel.bzTypes) == false,
+                            absorbPointer: Mapper.checkCanLoopList(bzModel?.bzTypes) == false,
                             child: Bubble(
                               headerViewModel: const BubbleHeaderVM(
                                 headlineVerse: 'phid_scope_of_services',
@@ -611,7 +631,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       /// --- BZ ZONE
                       ZoneSelectionBubble(
                         titleVerse: 'phid_hqCity',
-                        currentZone: bzModel.zone,
+                        currentZone: bzModel?.zone,
                         onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                           zoneModel: zone,
                           tempBz: _tempBz,
@@ -619,9 +639,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         // selectCountryAndCityOnly: true,
                         // selectCountryIDOnly: false,
                         validator: () => Formers.zoneValidator(
-                            zoneModel: bzModel.zone,
-                            selectCountryAndCityOnly: true,
-                            selectCountryIDOnly: false,
+                          zoneModel: bzModel?.zone,
+                          selectCountryAndCityOnly: true,
+                          selectCountryIDOnly: false,
+                          canValidate: _canValidate,
                         ),
                       ),
 
@@ -652,4 +673,5 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

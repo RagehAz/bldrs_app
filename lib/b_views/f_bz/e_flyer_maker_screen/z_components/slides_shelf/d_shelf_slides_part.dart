@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/add_flyer_slides_button.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/add_flyer_slides_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
@@ -28,8 +28,8 @@ class ShelfSlidesPart extends StatelessWidget {
   final DraftFlyerModel draft;
   final ValueChanged<MutableSlide> onSlideTap;
   final ValueChanged<ImagePickerType> onAddSlides;
-  final ValueNotifier<bool> loading; /// p
-  final bool isEditingFlyer;
+  final ValueNotifier<bool> loading;
+  final ValueNotifier<bool> isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -78,10 +78,22 @@ class ShelfSlidesPart extends StatelessWidget {
                 }),
 
                 /// ADD SLIDE BUTTON
-                if (isLoading == false && isEditingFlyer == false)
-                  AddSlidesButton(
-                    onTap: onAddSlides,
-                  ),
+                ValueListenableBuilder(
+                  valueListenable: isEditingFlyer,
+                  builder: (_, bool isEditing, Widget child){
+
+                    if (isLoading == false && isEditing == false){
+                      return AddSlidesButton(
+                        onTap: onAddSlides,
+                      );
+                    }
+
+                    else {
+                      return const SizedBox();
+                    }
+
+                  },
+                ),
 
                 /// LOADING WIDGET
                 if (isLoading == true)

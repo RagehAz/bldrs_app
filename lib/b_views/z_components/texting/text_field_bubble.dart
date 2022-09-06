@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -111,7 +112,7 @@ class TextFieldBubble extends StatelessWidget {
     1;
     return _sizeFactor;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double getFieldWidth({
     @required String leadingIcon,
     @required bool showUnObscure,
@@ -139,10 +140,10 @@ class TextFieldBubble extends StatelessWidget {
 
     return fieldWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // ---------------------------------------
     final double fieldHeight = SuperTextField.getFieldHeight(
       context: context,
       minLines: 1,
@@ -159,12 +160,13 @@ class TextFieldBubble extends StatelessWidget {
       leadingIcon: leadingIcon,
       showUnObscure: canObscure,
     );
+    // ---------------------------------------
+    blog('fuck this : ${validator()}');
 
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
           defaultColor: bubbleColor,
-          canErrorize: true,
         ),
         headerViewModel: BubbleHeaderVM(
         headlineVerse: titleVerse,
@@ -296,6 +298,7 @@ class TextFieldBubble extends StatelessWidget {
 
         ]
     );
+    // ---------------------------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
