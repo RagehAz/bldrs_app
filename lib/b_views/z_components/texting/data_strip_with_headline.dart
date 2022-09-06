@@ -35,11 +35,11 @@ class DataStripWithHeadline extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _rowWidth = width ?? BottomDialog.clearWidth(context) - DataStrip.verticalMargin * 2;
     final bool _valueIsPercentage = isPercent == true && dataValue is double;
     final String _valueString = _valueIsPercentage == true ? '$dataValue %' : dataValue.toString();
-
+    // --------------------
     return Center(
       child: Container(
         height: rowHeight,
@@ -81,7 +81,9 @@ class DataStripWithHeadline extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
 
 class DataStripKey extends StatelessWidget {
@@ -101,6 +103,7 @@ class DataStripKey extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: height,
       width: width,
@@ -115,12 +118,13 @@ class DataStripKey extends StatelessWidget {
         onTap: onTap,
       ),
     );
-  }
 
+  }
+  /// --------------------------------------------------------------------------
 }
 
 class DataStripValue extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const DataStripValue({
     @required this.onTap,
     @required this.width,
@@ -133,7 +137,7 @@ class DataStripValue extends StatelessWidget {
     this.highlightText,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Function onTap;
   final double width;
   final double height;
@@ -143,9 +147,10 @@ class DataStripValue extends StatelessWidget {
   final String valueString;
   final double horizontalMargin;
   final ValueNotifier<String> highlightText;
-
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -186,5 +191,7 @@ class DataStripValue extends StatelessWidget {
         ),
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

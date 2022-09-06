@@ -121,7 +121,7 @@ class SuperTextField extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SuperTextFieldState createState() => _SuperTextFieldState();
-// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   /// TESTED : ACCEPTED
   static double getFieldHeight({
     @required BuildContext context,
@@ -130,7 +130,7 @@ class SuperTextField extends StatefulWidget {
     @required double scaleFactor,
     @required bool withBottomMargin,
     @required bool withCounter,
-}){
+  }){
 
     final _textHeight = SuperVerse.superVerseRealHeight(
       context: context,
@@ -160,7 +160,7 @@ class SuperTextField extends StatefulWidget {
 
     return _concludedHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static TextStyle createHintStyle({
     @required BuildContext context,
     @required int textSize,
@@ -169,17 +169,17 @@ class SuperTextField extends StatefulWidget {
   }) {
 
     return SuperVerse.createStyle(
-        context: context,
-        color: Colorz.white80,
-        weight: VerseWeight.thin,
-        italic: textItalic,
-        size: textSize,
-        scaleFactor: textSizeFactor * 0.8,
-        shadowIsOn: false,
+      context: context,
+      color: Colorz.white80,
+      weight: VerseWeight.thin,
+      italic: textItalic,
+      size: textSize,
+      scaleFactor: textSizeFactor * 0.8,
+      shadowIsOn: false,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static TextStyle createErrorStyle({
     @required BuildContext context,
     @required int textSize,
@@ -196,7 +196,7 @@ class SuperTextField extends StatefulWidget {
       shadowIsOn: false,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static OutlineInputBorder createOutlineBorder({
     @required Color borderColor,
     @required double corners,
@@ -210,12 +210,12 @@ class SuperTextField extends StatefulWidget {
       gapPadding: 0,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Widget textFieldCounter({
     @required int currentLength,
     @required int maxLength,
     @required Color fieldColor,
-}){
+  }){
     return SuperVerse(
       verse:  '$currentLength / $maxLength',
       weight: VerseWeight.thin,
@@ -225,7 +225,7 @@ class SuperTextField extends StatefulWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static InputDecoration createDecoration({
     @required BuildContext context,
     @required int textSize,
@@ -235,7 +235,7 @@ class SuperTextField extends StatefulWidget {
     @required double corners,
     @required Color fieldColor,
     @required bool counterIsOn,
-}){
+  }){
 
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
 
@@ -243,21 +243,21 @@ class SuperTextField extends StatefulWidget {
       hintText: hintText,
       hintMaxLines: 1,
       hintStyle: createHintStyle(
-          context: context,
-          textSize: textSize,
-          textSizeFactor: textSizeFactor,
-          textItalic: textItalic,
+        context: context,
+        textSize: textSize,
+        textSizeFactor: textSizeFactor,
+        textItalic: textItalic,
       ),
       alignLabelWithHint: true,
       contentPadding: EdgeInsets.all(_textFieldPadding),
 
       focusedBorder: createOutlineBorder(
-          borderColor: Colorz.yellow80,
-          corners: corners,
+        borderColor: Colorz.yellow80,
+        corners: corners,
       ),
       enabledBorder: createOutlineBorder(
-          borderColor: Colorz.nothing,
-          corners: corners,
+        borderColor: Colorz.nothing,
+        corners: corners,
       ),
 
       errorStyle: createErrorStyle(
@@ -283,8 +283,8 @@ class SuperTextField extends StatefulWidget {
           corners: corners
       ),
       disabledBorder: createOutlineBorder(
-          borderColor: Colorz.grey255,
-          corners: corners,
+        borderColor: Colorz.grey255,
+        corners: corners,
       ),
 
       counter: counterIsOn == true ? null : const Offstage(),
@@ -308,12 +308,12 @@ class SuperTextField extends StatefulWidget {
 
     return _inputDecoration;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static EdgeInsets getFieldScrollPadding({
     @required BuildContext context,
     @required AppBarType appBarType,
 
-}){
+  }){
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
       bottom: 50 + MediaQuery.of(context).viewInsets.bottom,
@@ -329,8 +329,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
 // -----------------------------------------------------------------------------
   TextEditingController _controller;
   ScrollController _scrollController;
-  FocusNode _focusNode;
   // ValueNotifier<String> _textValue;
+  FocusNode _focusNode;
 // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -360,7 +360,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     _textDirection = ValueNotifier(_initialTextDirection);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void didUpdateWidget(covariant SuperTextField oldWidget) {
     // if (oldWidget.initialValue != widget.initialValue){
@@ -370,7 +370,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     // }
     super.didUpdateWidget(oldWidget);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose(){
@@ -412,7 +412,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     return _controller;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
 //   ValueNotifier<List<String>> _errors;
 //   String _lastValidatorError;
@@ -513,7 +513,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 //
 //   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onTextChanged(String val) {
 
     if (val != null) {
@@ -532,7 +532,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// --- TEXT DIRECTION BLOCK
   ValueNotifier<TextDirection> _textDirection;
   void _changeTextDirection(String val) {
@@ -543,7 +543,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       context: context,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   String _validator(String val){
 
     if (widget.validator == null){
@@ -554,7 +554,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onTap(BuildContext context){
 
     // FocusManager.instance.rootScope.requestFocus();
@@ -600,8 +600,8 @@ class _SuperTextFieldState extends State<SuperTextField> {
       //   invoker: 'SuperTextField : _onTap()',
       // );
       _uiProvider.setKeyboardIsOn(
-          setTo: true,
-          notify: true,
+        setTo: true,
+        notify: true,
       );
 
     }
@@ -611,7 +611,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _checkCanObscure(bool proObscured){
     bool _can = false;
     if (widget.canObscure == true){
@@ -627,159 +627,163 @@ class _SuperTextFieldState extends State<SuperTextField> {
 
     /// NORMAL TEXT FIELD
     // if (widget.isFloatingField == false){
-      return SuperTextFieldBox(
-        width: widget.width,
-        margins: widget.margins,
-        corners: widget.corners,
-        child: ValueListenableBuilder(
-            key: const ValueKey<String>('The_super_text_field'),
-            valueListenable: _textDirection,
-            builder: (_, TextDirection textDirection, Widget child){
+    return SuperTextFieldBox(
+      width: widget.width,
+      margins: widget.margins,
+      corners: widget.corners,
+      child: ValueListenableBuilder(
+          key: const ValueKey<String>('The_super_text_field'),
+          valueListenable: _textDirection,
+          builder: (_, TextDirection textDirection, Widget child){
 
-              final TextDirection _concludedTextDirection = TextDir.concludeTextDirection(
-                context: context,
-                definedDirection: widget.textDirection,
-                detectedDirection: textDirection,
-              );
+            final TextDirection _concludedTextDirection = TextDir.concludeTextDirection(
+              context: context,
+              definedDirection: widget.textDirection,
+              detectedDirection: textDirection,
+            );
 
-              return Selector<UiProvider, bool>(
-                selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-                shouldRebuild: (bool oldVal, bool newVal){
-                  return oldVal != newVal;
-                },
-                builder: (_, bool _isObscured, Widget child){
+            return Selector<UiProvider, bool>(
+              selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+              shouldRebuild: (bool oldVal, bool newVal){
+                return oldVal != newVal;
+              },
+              builder: (_, bool _isObscured, Widget child){
 
-                  return TextFormFieldSwitcher(
-                    appBarType: widget.appBarType,
-                    /// main
-                    isFormField: widget.isFormField,
-                    controller: _controller,
-                    hintText: widget.hintVerse,
-                    autoFocus: widget.autofocus,
-                    focusNode: _focusNode,
-                    counterIsOn: widget.counterIsOn,
-                    autoValidate: widget.autoValidate,
+                return TextFormFieldSwitcher(
+                  appBarType: widget.appBarType,
+                  /// main
+                  isFormField: widget.isFormField,
+                  controller: _controller,
+                  hintText: widget.hintVerse,
+                  autoFocus: widget.autofocus,
+                  focusNode: _focusNode,
+                  counterIsOn: widget.counterIsOn,
+                  autoValidate: widget.autoValidate,
 
-                    /// box
-                    corners: widget.corners,
+                  /// box
+                  corners: widget.corners,
 
-                    /// keyboard
-                    textInputAction: widget.textInputAction,
-                    textInputType: widget.textInputType,
+                  /// keyboard
+                  textInputAction: widget.textInputAction,
+                  textInputType: widget.textInputType,
 
-                    /// text
-                    textDirection: _concludedTextDirection,
-                    obscured: _checkCanObscure(_isObscured),
-                    minLines: widget.minLines,
-                    maxLines: widget.maxLines,
-                    maxLength: widget.maxLength,
-                    scrollController: _scrollController,
+                  /// text
+                  textDirection: _concludedTextDirection,
+                  obscured: _checkCanObscure(_isObscured),
+                  minLines: widget.minLines,
+                  maxLines: widget.maxLines,
+                  maxLength: widget.maxLength,
+                  scrollController: _scrollController,
 
-                    /// styling
-                    centered: widget.centered,
-                    textShadow: widget.textShadow,
-                    textWeight: widget.textWeight,
-                    textSize: widget.textSize,
-                    textSizeFactor: widget.textSizeFactor,
-                    textItalic: widget.textItalic,
-                    textColor: widget.textColor,
-                    fieldColor: widget.fieldColor,
+                  /// styling
+                  centered: widget.centered,
+                  textShadow: widget.textShadow,
+                  textWeight: widget.textWeight,
+                  textSize: widget.textSize,
+                  textSizeFactor: widget.textSizeFactor,
+                  textItalic: widget.textItalic,
+                  textColor: widget.textColor,
+                  fieldColor: widget.fieldColor,
 
-                    /// functions
-                    onTap: () => _onTap(context),
-                    onChanged: _onTextChanged,
-                    onSubmitted: widget.onSubmitted,
-                    onSavedForForm: widget.onSavedForForm,
-                    onEditingComplete: widget.onEditingComplete,
-                    validator: _validator,
-                    readOnly: widget.isFloatingField,
-                    // readOnly: widget.isFloatingField,
-                  );
+                  /// functions
+                  onTap: () => _onTap(context),
+                  onChanged: _onTextChanged,
+                  onSubmitted: widget.onSubmitted,
+                  onSavedForForm: widget.onSavedForForm,
+                  onEditingComplete: widget.onEditingComplete,
+                  validator: _validator,
+                  readOnly: widget.isFloatingField,
+                  // readOnly: widget.isFloatingField,
+                );
 
-                },
-              );
+              },
+            );
 
-            }
-        ),
-      );
-    }
+          }
+      ),
+    );
 
-    /// FLOATING TEXT FIELD
-    // else {
-    //   return GestureDetector(
-    //     onTap: () => _onTap(context),
-    //     child: Container(
-    //       width: widget.width,
-    //       // height: SuperTextField.getFieldHeight(
-    //       //   context: context,
-    //       //   minLines: widget.minLines ?? 1,
-    //       //   scaleFactor: widget.textSizeFactor,
-    //       //   textSize: widget.textSize,
-    //       //   withBottomMargin: false,
-    //       //   withCounter: widget.counterIsOn,
-    //       // ),
-    //       decoration: BoxDecoration(
-    //         color: widget.fieldColor,
-    //         borderRadius: Borderers.superBorderAll(context, widget.corners)
-    //       ),
-    //       margin: widget.margins,
-    //       child: ValueListenableBuilder(
-    //         valueListenable: _textValue,
-    //         builder: (_, String value, Widget child){
-    //
-    //           final bool _textIsEmpty = value.isEmpty;
-    //           final String _value = _textIsEmpty == true ? widget.hintVerse ?? '' : value;
-    //
-    //           if (widget.canObscure == true){
-    //             return Selector<UiProvider, bool>(
-    //                 selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
-    //                 builder: (_, bool obscured, Widget child){
-    //
-    //                   final String _text = obscured == true ?
-    //                   TextMod.obscureText(
-    //                     text: _value,
-    //                   )
-    //                       :
-    //                   _value;
-    //
-    //                   blog('text is : $_text');
-    //
-    //                   return SuperVerse(
-    //                     verse: _text,
-    //                     size: widget.textSize,
-    //                     centered: widget.centered,
-    //                     margin: const EdgeInsets.all(7),
-    //                     maxLines: widget.maxLines,
-    //                     color: widget.textColor,
-    //                     weight: widget.textWeight,
-    //                     italic: widget.textItalic,
-    //                     shadow: widget.textShadow,
-    //                     scaleFactor: widget.textSizeFactor,
-    //                   );
-    //
-    //                 });
-    //           }
-    //
-    //           else {
-    //             return SuperVerse(
-    //             verse: _value,
-    //             size: widget.textSize,
-    //             centered: widget.centered,
-    //             margin: const EdgeInsets.all(7),
-    //             maxLines: widget.maxLines,
-    //             color: _textIsEmpty == true ? Colorz.grey80 : widget.textColor,
-    //             weight: _textIsEmpty == true ? VerseWeight.thin : widget.textWeight,
-    //             italic: widget.textItalic,
-    //             shadow: widget.textShadow,
-    //             scaleFactor: widget.textSizeFactor,
-    //           );
-    //           }
-    //
-    //         },
-    //       ),
-    //     ),
-    //   );
-    // }
+  }
+// -----------------------------------------------------------------------------
+/*
+/// FLOATING TEXT FIELD
+// else {
+//   return GestureDetector(
+//     onTap: () => _onTap(context),
+//     child: Container(
+//       width: widget.width,
+//       // height: SuperTextField.getFieldHeight(
+//       //   context: context,
+//       //   minLines: widget.minLines ?? 1,
+//       //   scaleFactor: widget.textSizeFactor,
+//       //   textSize: widget.textSize,
+//       //   withBottomMargin: false,
+//       //   withCounter: widget.counterIsOn,
+//       // ),
+//       decoration: BoxDecoration(
+//         color: widget.fieldColor,
+//         borderRadius: Borderers.superBorderAll(context, widget.corners)
+//       ),
+//       margin: widget.margins,
+//       child: ValueListenableBuilder(
+//         valueListenable: _textValue,
+//         builder: (_, String value, Widget child){
+//
+//           final bool _textIsEmpty = value.isEmpty;
+//           final String _value = _textIsEmpty == true ? widget.hintVerse ?? '' : value;
+//
+//           if (widget.canObscure == true){
+//             return Selector<UiProvider, bool>(
+//                 selector: (_, UiProvider uiPro) => uiPro.textFieldsObscured,
+//                 builder: (_, bool obscured, Widget child){
+//
+//                   final String _text = obscured == true ?
+//                   TextMod.obscureText(
+//                     text: _value,
+//                   )
+//                       :
+//                   _value;
+//
+//                   blog('text is : $_text');
+//
+//                   return SuperVerse(
+//                     verse: _text,
+//                     size: widget.textSize,
+//                     centered: widget.centered,
+//                     margin: const EdgeInsets.all(7),
+//                     maxLines: widget.maxLines,
+//                     color: widget.textColor,
+//                     weight: widget.textWeight,
+//                     italic: widget.textItalic,
+//                     shadow: widget.textShadow,
+//                     scaleFactor: widget.textSizeFactor,
+//                   );
+//
+//                 });
+//           }
+//
+//           else {
+//             return SuperVerse(
+//             verse: _value,
+//             size: widget.textSize,
+//             centered: widget.centered,
+//             margin: const EdgeInsets.all(7),
+//             maxLines: widget.maxLines,
+//             color: _textIsEmpty == true ? Colorz.grey80 : widget.textColor,
+//             weight: _textIsEmpty == true ? VerseWeight.thin : widget.textWeight,
+//             italic: widget.textItalic,
+//             shadow: widget.textShadow,
+//             scaleFactor: widget.textSizeFactor,
+//           );
+//           }
+//
+//         },
+//       ),
+//     ),
+//   );
+// }
 
-  // }
+// }
+ */
+// -----------------------------------------------------------------------------
 }

@@ -48,7 +48,7 @@ class TileBubble extends StatelessWidget {
     final double _bubbleWidth = bubbleWidthOverride ?? BldrsAppBar.width(context);
     return _bubbleWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double childWidth({
     @required BuildContext context,
     double bubbleWidthOverride,
@@ -61,7 +61,7 @@ class TileBubble extends StatelessWidget {
 
     return _bubbleWidth - iconBoxWidth - (2 * Ratioz.appBarMargin);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -163,5 +163,7 @@ class TileBubble extends StatelessWidget {
 
       ],
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

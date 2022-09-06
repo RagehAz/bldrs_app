@@ -16,6 +16,15 @@ enum VerseWeight {
   thin,
 }
 
+enum VerseCasing {
+  non,
+  upperCase,
+  lowerCase,
+  // Proper,
+  // upperCamelCase,
+  // lowerCamelCase,
+}
+
 /// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -77,7 +86,7 @@ class SuperVerse extends StatelessWidget {
       centered: false,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Widget priceVerse({
     @required BuildContext context,
     @required double price,
@@ -104,20 +113,20 @@ class SuperVerse extends StatelessWidget {
         ),
 
         if (currency != null)
-        SuperVerse(
-          verse: currency,
-          weight: isBold ? VerseWeight.black : VerseWeight.thin,
-          color: color,
-          italic: true,
-          size: 3,
-          margin: scaleFactor * 3,
-          scaleFactor: scaleFactor,
-        ),
+          SuperVerse(
+            verse: currency,
+            weight: isBold ? VerseWeight.black : VerseWeight.thin,
+            color: color,
+            italic: true,
+            size: 3,
+            margin: scaleFactor * 3,
+            scaleFactor: scaleFactor,
+          ),
 
       ],
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static TextStyle createStyle({
     @required BuildContext context,
     Color color = Colorz.white255,
@@ -181,11 +190,13 @@ class SuperVerse extends StatelessWidget {
         ]
     );
   }
-// -----------------------------------------------------------------------------
-  static dynamic getTextAlign({@required bool centered}) {
+  // --------------------
+  static dynamic getTextAlign({
+    @required bool centered,
+  }) {
     return centered == true ? TextAlign.center : TextAlign.start;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double verseLabelHeight(int verseSize, double screenHeight) {
     return (verseSize == 0) ?
     screenHeight * Ratioz.fontSize0 * 1.42 // -- 8 -- A77A
@@ -216,7 +227,7 @@ class SuperVerse extends StatelessWidget {
         :
     screenHeight * Ratioz.fontSize1 * 1.42;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseSizeValue(
       BuildContext context,
       int verseSize,
@@ -269,7 +280,7 @@ class SuperVerse extends StatelessWidget {
 
     return _verseSizeValue;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static FontWeight superVerseWeight(VerseWeight weight) {
     final FontWeight _verseWeight =
     weight == VerseWeight.thin ? FontWeight.w100
@@ -283,7 +294,7 @@ class SuperVerse extends StatelessWidget {
     FontWeight.w100;
     return _verseWeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static String superVerseFont(BuildContext context, VerseWeight weight) {
     final String _verseFont =
     weight == VerseWeight.thin ? Words.bodyFont(context)
@@ -297,9 +308,8 @@ class SuperVerse extends StatelessWidget {
     Words.bodyFont(context);
     return _verseFont;
   }
-// -----------------------------------------------------------------------------
-  static double superVerseLetterSpacing(
-      VerseWeight weight, double verseSizeValue) {
+  // --------------------
+  static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
     final double _verseLetterSpacing =
     weight == VerseWeight.thin ? verseSizeValue * 0.035
         :
@@ -312,17 +322,17 @@ class SuperVerse extends StatelessWidget {
     verseSizeValue * 0;
     return _verseLetterSpacing;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseWordSpacing(double verseSize) {
     final double _verseWordSpacing =
-        // weight == VerseWeight.thin ? verseSize * 0.1 :
-        // weight == VerseWeight.regular ? verseSize * 0.1 :
-        // weight == VerseWeight.bold ? verseSize * 0.1 :
-        // weight == VerseWeight.black ? verseSize * 0.1 :
-        verseSize * 0;
+    // weight == VerseWeight.thin ? verseSize * 0.1 :
+    // weight == VerseWeight.regular ? verseSize * 0.1 :
+    // weight == VerseWeight.bold ? verseSize * 0.1 :
+    // weight == VerseWeight.black ? verseSize * 0.1 :
+    verseSize * 0;
     return _verseWordSpacing;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseXOffset(VerseWeight weight, double verseSize) {
     final double _shadowXOffset =
     weight == VerseWeight.thin ? verseSize * -0.07
@@ -336,11 +346,11 @@ class SuperVerse extends StatelessWidget {
     verseSize * -0.06;
     return _shadowXOffset;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseLabelCornerValue(
-    BuildContext context,
-    int size,
-  ) {
+      BuildContext context,
+      int size,
+      ) {
     final double _screenHeight = Scale.superScreenHeight(context);
     const double _labelCornerRatio = 0.4;
     final double _labelCornerValues =
@@ -375,7 +385,7 @@ class SuperVerse extends StatelessWidget {
         ;
     return _labelCornerValues;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseSidePaddingValues(BuildContext context, int size) {
     final double _screenHeight = Scale.superScreenHeight(context);
     const double _sidePaddingRatio = 0.45;
@@ -409,7 +419,7 @@ class SuperVerse extends StatelessWidget {
         ;
     return _sidePaddingValues;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : ACCEPTED
   static double superVerseRealHeight({
     @required BuildContext context,
@@ -417,7 +427,7 @@ class SuperVerse extends StatelessWidget {
     @required double sizeFactor,
     @required bool hasLabelBox,
   }) {
-  /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
+    /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
     final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
     final double _verseHeight =
@@ -427,7 +437,7 @@ class SuperVerse extends StatelessWidget {
 
     return _verseHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double superVerseLabelMargin({
     @required BuildContext context,
     @required int verseSize,
@@ -439,18 +449,18 @@ class SuperVerse extends StatelessWidget {
     final double _superVerseLabelMargin = _sidePaddings * 0.25;
     return _superVerseLabelMargin;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static TextStyle superVerseDefaultStyle(BuildContext context) {
     return SuperVerse.createStyle(
-        context: context,
-        // color: Colorz.white255,
-        weight: VerseWeight.thin,
-        // italic: true,
-        // size: 2,
-        // shadow: true
+      context: context,
+      // color: Colorz.white255,
+      weight: VerseWeight.thin,
+      // italic: true,
+      // size: 2,
+      // shadow: true
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -471,51 +481,52 @@ class SuperVerse extends StatelessWidget {
       final double _dotSize = verseSizeValue * 0.3;
 
       return SuperVerseBox(
-          onTap: onTap,
-          margin: margin,
-          centered: centered,
-          leadingDot: leadingDot,
-          redDot: redDot,
-          children: <Widget>[
+        onTap: onTap,
+        margin: margin,
+        centered: centered,
+        leadingDot: leadingDot,
+        redDot: redDot,
+        children: <Widget>[
 
-            if (leadingDot == true)
-              LeadingDot(
-                dotSize: _dotSize,
-                color: color,
-              ),
-
-            Verse(
-              verse: verse,
-              maxLines: maxLines,
+          if (leadingDot == true)
+            LeadingDot(
+              dotSize: _dotSize,
               color: color,
-              centered: centered,
-              scaleFactor: scaleFactor,
-              size: size,
-              italic: italic,
-              labelColor: labelColor,
-              weight: weight,
-              shadow: shadow,
-              shadowColor: shadowColor,
-              highlight: highlight,
-              highlightColor: highlightColor,
-              strikeThrough: strikeThrough,
-              verseCasing: verseCasing,
-              translate: translate,
             ),
 
-            if (redDot == true)
-              RedDot(
-                labelHeight: _labelHeight,
-                labelColor: labelColor,
-                dotSize: _dotSize,
-              ),
+          Verse(
+            verse: verse,
+            maxLines: maxLines,
+            color: color,
+            centered: centered,
+            scaleFactor: scaleFactor,
+            size: size,
+            italic: italic,
+            labelColor: labelColor,
+            weight: weight,
+            shadow: shadow,
+            shadowColor: shadowColor,
+            highlight: highlight,
+            highlightColor: highlightColor,
+            strikeThrough: strikeThrough,
+            verseCasing: verseCasing,
+            translate: translate,
+          ),
 
-          ],
+          if (redDot == true)
+            RedDot(
+              labelHeight: _labelHeight,
+              labelColor: labelColor,
+              dotSize: _dotSize,
+            ),
+
+        ],
       );
 
     }
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class SuperVerseBox extends StatelessWidget {
@@ -545,7 +556,7 @@ class SuperVerseBox extends StatelessWidget {
         :
     MainAxisAlignment.start;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static CrossAxisAlignment _getCrossAxisAlignment({
     @required bool redDot,
     @required bool leadingDot,
@@ -559,7 +570,7 @@ class SuperVerseBox extends StatelessWidget {
           :
       CrossAxisAlignment.center;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -583,6 +594,7 @@ class SuperVerseBox extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class LeadingDot extends StatelessWidget {
@@ -599,7 +611,7 @@ class LeadingDot extends StatelessWidget {
   static Widget dot({
     @required double dotSize,
     @required Color color,
-}){
+  }){
     return Container(
       width: dotSize,
       height: dotSize,
@@ -609,7 +621,7 @@ class LeadingDot extends StatelessWidget {
       ),
     );
   }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -624,6 +636,7 @@ class LeadingDot extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class RedDot extends StatelessWidget {
@@ -641,6 +654,7 @@ class RedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       key: const ValueKey<String>('the_red_dot'),
       height: labelHeight,
@@ -662,16 +676,9 @@ class RedDot extends StatelessWidget {
         ),
       ),
     );
-  }
-}
 
-enum VerseCasing {
-  non,
-  upperCase,
-  lowerCase,
-  // Proper,
-  // upperCamelCase,
-  // lowerCamelCase,
+  }
+  // -----------------------------------------------------------------------------
 }
 
 class Verse extends StatelessWidget {
@@ -767,7 +774,7 @@ class Verse extends StatelessWidget {
 
     }
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String convertVerseCase({
     @required String verse,
@@ -778,14 +785,14 @@ class Verse extends StatelessWidget {
       case VerseCasing.non:             return verse;                   break;
       case VerseCasing.lowerCase:       return verse.toLowerCase();     break;
       case VerseCasing.upperCase:       return verse.toUpperCase();     break;
-      // case VerseCasing.Proper:          return properVerse(verse);      break;
-      // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
-      // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
+    // case VerseCasing.Proper:          return properVerse(verse);      break;
+    // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
+    // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
       default: return verse;
     }
 
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String xFuckingSuperVerse({
     @required BuildContext context,
@@ -844,18 +851,18 @@ class Verse extends StatelessWidget {
     /// ADJUST CASING
     return convertVerseCase(verse: _output, verseCasing: verseCasing);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------
+    // --------------------
     final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
     final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-// ------------------------------------
+    // --------------------
     final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
     final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-// ------------------------------------
+    // --------------------
     final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
-// ------------------------------------
+    // --------------------
     final TextStyle _style = SuperVerse.createStyle(
       context: context,
       color: color,
@@ -866,14 +873,14 @@ class Verse extends StatelessWidget {
       scaleFactor: scaleFactor,
       strikeThrough: strikeThrough,
     );
-// ------------------------------------
+    // --------------------
     final String _verse = xFuckingSuperVerse(
       context: context,
       verse: verse,
       verseCasing: verseCasing,
       translate: translate,
     );
-// ------------------------------------
+    // --------------------
     return Flexible(
       key: const ValueKey<String>('a_verse'),
       child: Container(
@@ -946,6 +953,7 @@ class Verse extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

@@ -32,7 +32,7 @@ class DataStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
   static const double height = 50;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> onStripTap({
     @required BuildContext context,
     @required dynamic dataValue,
@@ -50,7 +50,7 @@ class DataStrip extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -133,4 +133,5 @@ class DataStrip extends StatelessWidget {
     }
 
   }
+  // -----------------------------------------------------------------------------
 }

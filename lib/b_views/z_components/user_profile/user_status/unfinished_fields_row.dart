@@ -19,18 +19,17 @@ class FieldsRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     final double _screenWidth = MediaQuery.of(context).size.width;
-
     const double _boxHeight = 35;
-
+    // --------------------
     /// - ROW OF BUTTONS
     const double _buttonSpacing = Ratioz.appBarMargin * 2;
-    final double _buttonsZoneWidth = _screenWidth - (Ratioz.appBarMargin * 12);
-
     // int numberOfButtons = 2;
     // double rowButtonWidth = (_buttonsZoneWidth - (numberOfButtons * _buttonSpacing) - _buttonSpacing) / numberOfButtons;
     // double rowButtonHeight = 40;
-
+    final double _buttonsZoneWidth = _screenWidth - (Ratioz.appBarMargin * 12);
+    // --------------------
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -84,5 +83,7 @@ class FieldsRow extends StatelessWidget {
         ),
       ],
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
