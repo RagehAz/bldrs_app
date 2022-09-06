@@ -18,40 +18,40 @@ class CropperFooter extends StatelessWidget {
     @required this.screenHeight,
     Key key
   }) : super(key: key);
-  /// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<int> currentImageIndex;
   final Function onCropImages;
   final List<File> files;
   final ValueChanged<int> onImageTap;
   final double aspectRatio;
   final double screenHeight;
-  /// -----------------------------------------------------------------------------
+  // --------------------
   static const double imagesSpacing = 5;
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getMiniImageHeight(){
     final double _imagesFooterHeight = CroppingScreen.getFooterHeight();
     return _imagesFooterHeight - (imagesSpacing * 2);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getMiniImagesWidth({
-  @required double aspectRatio,
-}){
+    @required double aspectRatio,
+  }){
     final double _miniImageHeight = getMiniImageHeight();
     final double _miniImageWidth = _miniImageHeight * aspectRatio;
     return _miniImageWidth;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _imagesFooterHeight = CroppingScreen.getFooterHeight();
-
+    // --------------------
     final double _miniImageHeight = getMiniImageHeight();
     final double _miniImageWidth = getMiniImagesWidth(
       aspectRatio: aspectRatio,
     );
-
+    // --------------------
     return Container(
       width: _screenWidth,
       height: _imagesFooterHeight,
@@ -118,6 +118,7 @@ class CropperFooter extends StatelessWidget {
       ),
 
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

@@ -29,22 +29,23 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Dialogs();
-// -----------------------------------------------------------------------------
+
+  // -----------------------------------------------------------------------------
 
   /// CLOSE
 
-// ---------------------------------
+  // --------------------
   static void closDialog(BuildContext context){
     Nav.goBack(context: context, invoker: 'closeDialog');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ERRORS DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
   static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
 
@@ -134,7 +135,7 @@ class Dialogs {
       bodyVerse: _errorReply,
     );
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> tryAgainDialog(BuildContext context) async {
 
@@ -145,7 +146,7 @@ class Dialogs {
     );
 
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> errorDialog({
     @required BuildContext context,
@@ -161,11 +162,11 @@ class Dialogs {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ZONE DIALOGS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> confirmCityDialog({
     @required BuildContext context,
@@ -214,11 +215,11 @@ class Dialogs {
 
     return _city;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT FIELD DIALOGS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> showPasswordDialog(BuildContext context) async {
 
@@ -252,7 +253,7 @@ class Dialogs {
 
     return _password.text;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> keyboardDialog({
     @required BuildContext context,
@@ -274,11 +275,11 @@ class Dialogs {
 
     void _onConfirmTap (String text){
 
-        Keyboard.closeKeyboard(context);
-        Nav.goBack(
-          context: context,
-          invoker: 'keyboardDialog',
-        );
+      Keyboard.closeKeyboard(context);
+      Nav.goBack(
+        context: context,
+        invoker: 'keyboardDialog',
+      );
       if (_keyboardModel.onSubmitted != null){
         _keyboardModel.onSubmitted(_keyboardModel.controller.text);
       }
@@ -332,11 +333,11 @@ class Dialogs {
 
     return _keyboardModel.controller.text;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONFIRMATION DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> confirmProceed({
     @required BuildContext context,
@@ -353,7 +354,7 @@ class Dialogs {
 
     return _result;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
     @required BuildContext context,
@@ -381,13 +382,11 @@ class Dialogs {
     return _result;
 
   }
-
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USERS DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> userDialog({
     @required BuildContext context,
@@ -412,11 +411,11 @@ class Dialogs {
 
     return _result;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZZ DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzBannerDialog({
     @required BuildContext context,
@@ -445,7 +444,7 @@ class Dialogs {
     return _result;
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzzBannersDialog({
     @required BuildContext context,
@@ -493,11 +492,11 @@ class Dialogs {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// AUTHORS DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> bzContactsDialog({
     @required BuildContext context,
@@ -541,11 +540,11 @@ class Dialogs {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYERS DIALOGS
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyersDialog({
     @required BuildContext context,
@@ -587,7 +586,7 @@ class Dialogs {
 
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyerDialog({
     @required BuildContext context,
@@ -623,6 +622,5 @@ class Dialogs {
     return _result;
 
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }

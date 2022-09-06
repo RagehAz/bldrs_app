@@ -25,12 +25,12 @@ class ContactsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const double _abPadding = Ratioz.appBarPadding;
     const double _contactBoxHeight = 35;
     final List<ContactModel> _contactsWithStrings = ContactModel.filterContactsWhichShouldViewValue(contacts);
     final List<ContactModel> _socialMediaContacts = ContactModel.filterSocialMediaContacts(contacts);
-
+    // --------------------
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
       child: Bubble(
@@ -94,12 +94,12 @@ class ContactsBubble extends StatelessWidget {
 
               /// USER LOCATION
               if (location != null)
-              DreamBox(
-                height: _contactBoxHeight,
-                icon: Iconz.comMap,
-                margins: const EdgeInsets.all(_abPadding),
-                onTap: () => onUserLocationTap(location),
-              ),
+                DreamBox(
+                  height: _contactBoxHeight,
+                  icon: Iconz.comMap,
+                  margins: const EdgeInsets.all(_abPadding),
+                  onTap: () => onUserLocationTap(location),
+                ),
 
             ],
           ),
@@ -107,5 +107,7 @@ class ContactsBubble extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
