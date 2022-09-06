@@ -44,12 +44,14 @@ class FlyerSlides extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<FlyerSlides> createState() => _FlyerSlidesState();
+/// --------------------------------------------------------------------------
 }
 
 class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClientMixin<FlyerSlides>{
+  // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _canNavigateOnBounce(){
     bool _canNavigate;
 
@@ -62,7 +64,7 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
 
     return _canNavigate;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -140,4 +142,5 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
     }
 
   }
+// -----------------------------------------------------------------------------
 }

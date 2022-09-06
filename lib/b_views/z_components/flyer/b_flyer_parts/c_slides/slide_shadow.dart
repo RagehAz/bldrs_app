@@ -32,5 +32,7 @@ class SlideShadow extends StatelessWidget {
         height: _height,
       ),
     );
+
   }
+/// --------------------------------------------------------------------------
 }

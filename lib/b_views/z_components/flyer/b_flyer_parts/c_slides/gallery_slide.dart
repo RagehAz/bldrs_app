@@ -30,14 +30,14 @@ class GallerySlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<GallerySlide> createState() => _GallerySlideState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _GallerySlideState extends State<GallerySlide> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------------------------------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
 
     if (setTo != null){
@@ -54,10 +54,10 @@ class _GallerySlideState extends State<GallerySlide> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
   bool _canPaginate;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -66,7 +66,7 @@ class _GallerySlideState extends State<GallerySlide> {
     _scrollController.addListener(_addScrollListener);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -82,7 +82,7 @@ class _GallerySlideState extends State<GallerySlide> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -91,33 +91,33 @@ class _GallerySlideState extends State<GallerySlide> {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _addScrollListener() async {
-  final double _maxScroll = _scrollController.position.maxScrollExtent;
-  final double _currentScroll = _scrollController.position.pixels;
-  // final double _screenHeight = Scale.superScreenHeight(context);
-  const double _paginationHeightLight = Ratioz.horizon * 3;
+    final double _maxScroll = _scrollController.position.maxScrollExtent;
+    final double _currentScroll = _scrollController.position.pixels;
+    // final double _screenHeight = Scale.superScreenHeight(context);
+    const double _paginationHeightLight = Ratioz.horizon * 3;
 
-  if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
 
-    // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
+      // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
-    _canPaginate = false;
+      _canPaginate = false;
 
-    await _fetchMoreFlyers();
+      await _fetchMoreFlyers();
 
-    _canPaginate = true;
+      _canPaginate = true;
+
+    }
 
   }
-
-}
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ FLYERS
 
-// --------------------------------------------
+  // --------------------
   final ValueNotifier<List<FlyerModel>> _loadedFlyers = ValueNotifier(<FlyerModel>[]);
-// --------------------------------------------
+  // --------------------
   Future<void> _fetchMoreFlyers() async {
 
     unawaited(_triggerLoading(setTo: true));
@@ -134,11 +134,11 @@ class _GallerySlideState extends State<GallerySlide> {
 
     unawaited(_triggerLoading(setTo: true));
   }
-// --------------------------------------------
+  // --------------------
   void _addToBzFlyers(List<FlyerModel> flyers){
     _loadedFlyers.value = <FlyerModel>[..._loadedFlyers.value, ...flyers];
   }
-// --------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -181,4 +181,5 @@ class _GallerySlideState extends State<GallerySlide> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

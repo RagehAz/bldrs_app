@@ -15,6 +15,7 @@ class InfoPageHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: pageWidth,
       alignment: Aligners.superCenterAlignment(context),
@@ -27,5 +28,7 @@ class InfoPageHeadline extends StatelessWidget {
         leadingDot: true,
       ),
     );
+
   }
+/// --------------------------------------------------------------------------
 }

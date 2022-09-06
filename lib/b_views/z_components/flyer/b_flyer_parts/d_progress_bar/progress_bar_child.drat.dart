@@ -29,7 +29,7 @@ class ProgressBarChild extends StatelessWidget {
 
     return _isLoading;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -61,5 +61,5 @@ class ProgressBarChild extends StatelessWidget {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

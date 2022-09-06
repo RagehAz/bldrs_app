@@ -33,13 +33,13 @@ class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   TabController _tabController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -49,7 +49,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     _initializeTabs();
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _isExpanded.dispose();
@@ -58,14 +58,14 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     _pageTitle.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TABS
 
-// -------------------------------------
+  // --------------------
   /// PROGRESS BAR MODEL : ( INDEX - SWIPE DIRECTION - NUMBER OF SLIDES )
   ValueNotifier<ProgressBarModel> _progressBarModel;
-// -------------------------------------
+  // --------------------
   void _initializeTabs(){
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
@@ -107,7 +107,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void onChangeTabIndexWhileAnimation({
     @required BuildContext context,
     @required TabController tabController,
@@ -135,7 +135,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> onRowTap(int index) async {
 
     blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitle.value}');
@@ -159,20 +159,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     // _tabController.animateTo(index);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PYRAMID EXPANSION
 
-// -------------------------------------
+  // --------------------
   ValueNotifier<bool> _isExpanded;
-// -------------------------------------
+  // --------------------
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// PAGE TITLE
   ValueNotifier<String> _pageTitle;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -225,4 +225,5 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     );
 
   }
+// -----------------------------------------------------------------------------
 }

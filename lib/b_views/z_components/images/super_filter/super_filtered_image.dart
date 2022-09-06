@@ -31,11 +31,11 @@ class SuperFilteredImage extends StatefulWidget {
   final BoxFit boxFit;
   final ValueNotifier<double> opacity;
   final double scale;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<File> processImage({
     @required File input,
     @required ImageFilterModel filterModel,
-}) async {
+  }) async {
 
     if (filterModel != null && Mapper.checkCanLoopList(filterModel.matrixes) == true){
 
@@ -78,7 +78,7 @@ class SuperFilteredImage extends StatefulWidget {
       return input;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Widget _createTree({
     @required Widget child,
     @required List<List<double>> matrixes,
@@ -96,17 +96,17 @@ class SuperFilteredImage extends StatefulWidget {
 
     return tree;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   State<SuperFilteredImage> createState() => _SuperFilteredImageState();
 // -----------------------------------------------------------------------------
 }
 
 class _SuperFilteredImageState extends State<SuperFilteredImage> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -118,21 +118,20 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
       blogLoading(loading: _loading.value, callerName: 'SuperFilteredImage',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _file = widget.imageFile;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose(){
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   File _file;
-// --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -156,13 +155,13 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void didUpdateWidget(covariant SuperFilteredImage oldWidget) {
 
     final bool _filesAreIdentical = Filers.checkFilesAreIdentical(
-        file1: widget.imageFile,
-        file2: oldWidget.imageFile,
+      file1: widget.imageFile,
+      file2: oldWidget.imageFile,
     );
 
     if (_filesAreIdentical == false) {
@@ -172,7 +171,7 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     }
     super.didUpdateWidget(oldWidget);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -246,4 +245,5 @@ class _SuperFilteredImageState extends State<SuperFilteredImage> {
     }
 
   }
+// -----------------------------------------------------------------------------
 }

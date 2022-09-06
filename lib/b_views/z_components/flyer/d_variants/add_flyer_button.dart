@@ -33,10 +33,10 @@ class AddFlyerButton extends StatelessWidget {
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
       final dynamic _result = await Nav.goToNewScreen(
-          context: context,
-          screen: const FlyerMakerScreen(
-            validateOnStartup: false,
-          ),
+        context: context,
+        screen: const FlyerMakerScreen(
+          validateOnStartup: false,
+        ),
       );
 
       if (_result.runtimeType == FlyerModel) {
@@ -47,14 +47,14 @@ class AddFlyerButton extends StatelessWidget {
       }
     });
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    
+    // --------------------
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _bzModel = _bzzProvider.myActiveBz;
-
+    // --------------------
     return GestureDetector(
       onTap: () => _goToFlyerMaker(
         context: context,
@@ -77,7 +77,7 @@ class AddFlyerButton extends StatelessWidget {
               /// --- FAKE HEADER FOOTPRINT
               SizedBox(
                 height: FlyerBox.headerBoxHeight(
-                    // bzPageIsOn: false,
+                  // bzPageIsOn: false,
                     flyerBoxWidth: flyerBoxWidth
                 ),
               ),
@@ -110,5 +110,7 @@ class AddFlyerButton extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

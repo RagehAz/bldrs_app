@@ -34,15 +34,15 @@ class BzLogo extends StatelessWidget {
   static double cornersValue(double logoWidth) {
     return logoWidth * Ratioz.bzLogoCorner;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double logoRoundCorners = cornersValue(width);
-// -----------------------------------------------------------------------------
+    // --------------------
     final double logoZeroCorner =
-        tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
-// -----------------------------------------------------------------------------
+    tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
+    // --------------------
     final BorderRadius bzLogoCorners = corners ??
         Borderers.superBorderOnly(
             context: context,
@@ -51,8 +51,7 @@ class BzLogo extends StatelessWidget {
             enBottomRight: logoZeroCorner,
             enTopRight: logoRoundCorners
         );
-// -----------------------------------------------------------------------------
-
+    // --------------------
     return GestureDetector(
       key: const ValueKey<String>('bz_logo'),
       onTap: onTap,
@@ -95,5 +94,7 @@ class BzLogo extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

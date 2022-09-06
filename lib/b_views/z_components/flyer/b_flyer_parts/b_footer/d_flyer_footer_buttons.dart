@@ -40,7 +40,7 @@ class FlyerFooterButtons extends StatelessWidget {
     }
     return _canShow;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -128,5 +128,7 @@ class FlyerFooterButtons extends StatelessWidget {
         },
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

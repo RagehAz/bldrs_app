@@ -39,24 +39,24 @@ class MaxHeader extends StatelessWidget {
 
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final List<String> _bzScope = bzModel != null ? bzModel.scope : <String>[];
-// -----------------------------------------------------------------------------
+    // --------------------
     final List<AuthorModel> _bzAuthors =
     bzModel != null ? bzModel?.authors : <AuthorModel>[];
-// -----------------------------------------------------------------------------
+    // --------------------
     final List<String> _bzTeamIDs = <String>[];
-// -----------------------------------------------------------------------------
+    // --------------------
     if (Mapper.checkCanLoopList(_bzAuthors)) {
       for (final AuthorModel author in _bzAuthors) {
         _bzTeamIDs.add(author.userID);
       }
 
     }
-// -----------------------------------------------------------------------------
+    // --------------------
     return SizedBox(
       key: const ValueKey<String>('Max_Header'),
       width: flyerBoxWidth,
@@ -185,8 +185,9 @@ class MaxHeader extends StatelessWidget {
         },
       ),
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }
 
 class MaxHeaderBottomPadding extends StatelessWidget {
@@ -217,4 +218,5 @@ class MaxHeaderBottomPadding extends StatelessWidget {
       ),
     );
   }
+  /// --------------------------------------------------------------------------
 }

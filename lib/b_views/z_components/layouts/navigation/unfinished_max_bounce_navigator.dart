@@ -4,7 +4,6 @@ import 'package:bldrs/f_helpers/drafters/scrollers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
 /// GoHomeOnMaxBounce
 class OldMaxBounceNavigator extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -29,13 +28,13 @@ class OldMaxBounceNavigator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _OldMaxBounceNavigatorState createState() => _OldMaxBounceNavigatorState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
+  // -----------------------------------------------------------------------------
   bool _canNavigate = true;
-// -----------------------------------------------------------------------------
+  // --------------------
   void navigate() {
     setState(() {
       _canNavigate = false;
@@ -57,7 +56,7 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
       // });
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _goesBackOnlyCheck() {
     bool _goesBack;
 
@@ -69,7 +68,7 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
 
     return _goesBack;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -114,4 +113,5 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
     }
 
   }
+// -----------------------------------------------------------------------------
 }

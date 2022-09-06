@@ -15,6 +15,7 @@ class FooterButtonSpacer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
 
       width: FooterButton.buttonMargin(
@@ -30,5 +31,7 @@ class FooterButtonSpacer extends StatelessWidget {
       ),
 
     );
+
   }
+/// --------------------------------------------------------------------------
 }

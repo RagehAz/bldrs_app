@@ -10,12 +10,10 @@ class ProgressBox extends StatelessWidget {
     this.margins,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final List<Widget> stripsStack;
   final EdgeInsets margins;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -45,4 +43,5 @@ class ProgressBox extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

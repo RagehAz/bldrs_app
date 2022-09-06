@@ -56,7 +56,7 @@ class FlyerHeader extends StatefulWidget {
 }
 
 class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ColorTween _backgroundColorTween;
   BorderRadiusTween _headerCornerTween;
   BorderRadiusTween _logoCornersTween;
@@ -68,7 +68,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   Animation<double> _headerMiddleSpacerWidthTween;
   Animation<double> _followCallButtonsScaleTween;
   CurvedAnimation _animation;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -89,7 +89,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: 1.5,
     ).animate(widget.headerAnimationController);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
 //   bool _isInit = true;
   @override
@@ -106,18 +106,17 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     super.didChangeDependencies();
   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _animation.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// BACK GROUND COLOR
 
@@ -128,7 +127,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       Colorz.blackSemi230
           :
       widget.flyerModel.slides[0].midColor;
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// HEADER CORNERS
 
@@ -142,7 +141,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     _headerCornerTween
       ..begin = _headerMinCorners
       ..end = FlyerBox.corners(context, widget.flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// LOGO CORNER
 
@@ -166,7 +165,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
           context: context,
           flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
       );
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// LOGO SIZE
 
@@ -175,7 +174,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       begin: 1,
       end: _logoScaleRatio,
     ).animate(widget.headerAnimationController);
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// SIDE SPACERS
 
@@ -196,7 +195,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: (widget.flyerBoxWidth * 0.2) - _followCallBoxWidthEnd - _followCallPaddingEnd,
       controller: widget.headerAnimationController,
     );
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// HEADER HEIGHT
 
@@ -209,7 +208,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       begin: _minHeaderHeight,
       end: FlyerBox.height(context, widget.flyerBoxWidth),
     ).animate(widget.headerAnimationController);
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     /// HEADER LABELS SIZES
 
@@ -224,7 +223,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: _followCallPaddingEnd,
       controller: widget.headerAnimationController,
     );
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
     return AnimatedBuilder(
       key: const ValueKey<String>('FlyerHeader_AnimationBuilder'),
@@ -336,5 +335,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       },
 
     );
+
   }
+// -----------------------------------------------------------------------------
 }

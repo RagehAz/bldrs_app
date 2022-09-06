@@ -38,13 +38,14 @@ class FlyerStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FlyerStarterState createState() => _FlyerStarterState();
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerStarterState extends State<FlyerStarter> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------------------------------
+  // --------------------
   Future<void> _triggerLoading({
     @required setTo,
   }) async {
@@ -56,18 +57,18 @@ class _FlyerStarterState extends State<FlyerStarter> {
     //   callerName: 'FlyerStarter',
     // );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FLYER BZ MODEL
   final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
-// -----------------------------------------------------------------------------
+  // --------------------
   /// FLYER ZONE
   final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
-// -----------------------------------------------------------------------------
+  // --------------------
   FlyerModel _flyerModel;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// CURRENT SLIDE INDEX
   ValueNotifier<ProgressBarModel> _progressBarModel;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -75,14 +76,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
     _flyerModel = widget.flyerModel;
 
     final bool _isSaved = UserModel.checkFlyerIsSaved(
-        userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
-        flyerID: _flyerModel.id,
+      userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
+      flyerID: _flyerModel.id,
     );
 
     _flyerIsSaved = ValueNotifier(_isSaved);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -157,9 +158,9 @@ class _FlyerStarterState extends State<FlyerStarter> {
           );
 
           final ProgressBarModel _initialProgModel = ProgressBarModel(
-              swipeDirection: SwipeDirection.next,
-              index: _startingIndex,
-              numberOfStrips: _numberOfSlides,
+            swipeDirection: SwipeDirection.next,
+            index: _startingIndex,
+            numberOfStrips: _numberOfSlides,
           );
           _progressBarModel = ValueNotifier(_initialProgModel);
 
@@ -174,7 +175,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -185,7 +186,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     _flyerIsSaved?.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _openFullScreenFlyer() async {
 
     _flyerModel.blogFlyer(methodName: '_openFullScreenFlyer');
@@ -211,7 +212,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   ValueNotifier<bool> _flyerIsSaved;
   Future<void> onTriggerSave() async {
 
@@ -225,7 +226,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -287,5 +288,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
         }
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

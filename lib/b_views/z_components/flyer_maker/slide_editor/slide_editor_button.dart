@@ -19,18 +19,18 @@ class SlideEditorButton extends StatelessWidget {
   final Function onTap;
   /// --------------------------------------------------------------------------
   static double getVerseZoneHeight({
-  @required double buttonSize,
-}){
+    @required double buttonSize,
+  }){
     return buttonSize * 0.4;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxHeight({
-  @required double buttonSize,
-}){
+    @required double buttonSize,
+  }){
     final double _verseZoneHeight = getVerseZoneHeight(buttonSize: buttonSize);
     return buttonSize + _verseZoneHeight;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -66,5 +66,7 @@ class SlideEditorButton extends StatelessWidget {
         ],
       ),
     );
+
   }
+// -----------------------------------------------------------------------------
 }

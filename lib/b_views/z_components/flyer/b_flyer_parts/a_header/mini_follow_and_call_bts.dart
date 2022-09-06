@@ -30,7 +30,7 @@ class OldFollowAndCallBTs extends StatelessWidget {
   static double getPaddings({double flyerBoxWidth}) {
     return flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxHeight({double flyerBoxWidth, bool bzPageIsOn}) {
     final double _headerMainHeight = FlyerBox.headerStripHeight(
         headerIsExpanded: bzPageIsOn,
@@ -40,24 +40,24 @@ class OldFollowAndCallBTs extends StatelessWidget {
     final double _followGalleryHeight = _headerMainHeight - (2 * _headerMainPadding);
     return _followGalleryHeight;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBoxWidth({double flyerBoxWidth}) {
     return (flyerBoxWidth * Ratioz.xxflyerFollowBtWidth) - 1;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _paddings = getPaddings(flyerBoxWidth: flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     /// --- FOLLOWERS & GALLERY
     final double followGalleryHeight = getBoxHeight(
         flyerBoxWidth: flyerBoxWidth,
         bzPageIsOn: headerIsExpanded
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final double followGalleryWidth = getBoxWidth(flyerBoxWidth: flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
     return SizedBox(
       height: followGalleryHeight,
       width: followGalleryWidth,
@@ -87,7 +87,9 @@ class OldFollowAndCallBTs extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
 
 class OldFollowBT extends StatelessWidget {
@@ -107,29 +109,21 @@ class OldFollowBT extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // === === === === === === === === === === === === === === === === === ===
+    // --------------------
     final double screenWidth = Scale.superScreenWidth(context);
     // const bool versesShadow = false;
     /// --- FOLLOW BUTTON
     final Color followBTColor = followOn == true ? Colorz.yellow255 : Colorz.white20;
     final double followBTHeight = flyerBoxWidth * Ratioz.xxfollowBTHeight;
     final double followBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
-    // === === === === === === === === === === === === === === === === === ===
+    // --------------------
     /// --- FOLLOW ICON
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
     const String followText = 'phid_follow';
     final Color followTextColor = followOn == true ? Colorz.black230 : Colorz.white255;
-    // === === === === === === === === === === === === === === === === === ===
-    // void followTap() {
-    //   onFollowTap();
-    // }
-    // === === === === === === === === === === === === === === === === === ===
-    // void unFollowTap() {
-    //   tappingUnfollow();
-    // }
-    // === === === === === === === === === === === === === === === === === ===
+    // --------------------
     return GestureDetector(
             onTap: onFollowTap,
             child: Container(
@@ -191,7 +185,9 @@ class OldFollowBT extends StatelessWidget {
               ),
             ),
           );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
 
 class OldCallBT extends StatelessWidget {
@@ -207,25 +203,27 @@ class OldCallBT extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
-//     const bool _versesShadow = false;
-//     final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
-// -----------------------------------------------------------------------------
+    // --------------------
+    /*
+       //     const bool _versesShadow = false;
+       //     final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
+          */
+    // --------------------
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;
     final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
     final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
-// -----------------------------------------------------------------------------
+    // --------------------
     /// call ICON
     const String _callIcon = Iconz.comPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
-// -----------------------------------------------------------------------------
+    // --------------------
     final BorderRadius _corners = Borderers.superFollowOrCallCorners(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         gettingFollowCorner: false
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     return GestureDetector(
       onTap: onCallTap,
       child: Container(
@@ -281,5 +279,7 @@ class OldCallBT extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

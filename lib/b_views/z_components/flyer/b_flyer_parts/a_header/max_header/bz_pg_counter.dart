@@ -24,13 +24,12 @@ class BzPgCounter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double iconBoxHeight = flyerBoxWidth * 0.08;
     final double iconHeight = iconBoxHeight * iconSizeFactor;
     final double bzPageStripSideMargin = flyerBoxWidth * 0.05;
-
     final double iconMargin = iconBoxHeight - iconHeight;
-
+    // --------------------
     return BlackBox(
       width: flyerBoxWidth,
       child: Padding(
@@ -70,5 +69,7 @@ class BzPgCounter extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
