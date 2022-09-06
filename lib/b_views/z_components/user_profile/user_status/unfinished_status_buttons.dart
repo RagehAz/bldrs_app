@@ -22,15 +22,14 @@ class StatusButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     final double _screenWidth = MediaQuery.of(context).size.width;
     final double _screenHeight = MediaQuery.of(context).size.height;
     const double _pageMargin = Ratioz.appBarMargin * 2;
-
     const double _abPadding = Ratioz.appBarMargin;
     // double abHeight = _screenWidth * 0.25;
     // double profilePicHeight = abHeight;
     // double abButtonsHeight = abHeight - (2 * abPadding);
-
     final int _numberOfButtons =
         (status[stateIndex]['buttons'] as List<Map<String, Object>>).length;
     const double _buttonSpacing = _abPadding;
@@ -39,11 +38,9 @@ class StatusButtons extends StatelessWidget {
             (_numberOfButtons * _buttonSpacing) -
             _buttonSpacing) /
         _numberOfButtons;
-
-    final double _propertyStatusBtHeight = _screenHeight * 0.12;
-
     // Alignment defaultAlignment = getTranslated(context, 'Text_Direction') == 'ltr' ? Alignment.centerLeft : Alignment.centerRight;
-
+    final double _propertyStatusBtHeight = _screenHeight * 0.12;
+    // --------------------
     return Padding(
       padding: const EdgeInsets.only(bottom: _abPadding),
       child: Column(
@@ -100,5 +97,7 @@ class StatusButtons extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

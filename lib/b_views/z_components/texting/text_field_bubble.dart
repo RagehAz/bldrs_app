@@ -112,7 +112,7 @@ class TextFieldBubble extends StatelessWidget {
     1;
     return _sizeFactor;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static double getFieldWidth({
     @required String leadingIcon,
     @required bool showUnObscure,
@@ -143,7 +143,7 @@ class TextFieldBubble extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // ---------------------------------------
+    // --------------------
     final double fieldHeight = SuperTextField.getFieldHeight(
       context: context,
       minLines: 1,
@@ -160,9 +160,9 @@ class TextFieldBubble extends StatelessWidget {
       leadingIcon: leadingIcon,
       showUnObscure: canObscure,
     );
-    // ---------------------------------------
+    // --------------------
     blog('fuck this : ${validator()}');
-
+    // --------------------
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
@@ -298,7 +298,7 @@ class TextFieldBubble extends StatelessWidget {
 
         ]
     );
-    // ---------------------------------------
+    // --------------------
   }
   // -----------------------------------------------------------------------------
 }

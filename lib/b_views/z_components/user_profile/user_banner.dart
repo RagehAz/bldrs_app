@@ -51,7 +51,7 @@ class UserBanner extends StatelessWidget {
 
     return _string;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static bool canShowTitleCompanyLine({
     @required UserModel userModel,
   }){
@@ -67,7 +67,7 @@ class UserBanner extends StatelessWidget {
 
     return _can;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static String getBzzString({
     @required UserModel userModel,
   }){
@@ -85,18 +85,18 @@ class UserBanner extends StatelessWidget {
       return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(userModel);
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
-
+    // --------------------
     final Function _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap(context);
-
+    // --------------------
     final bool _itIsMe = userModel?.id == AuthFireOps.superUserID();
-
+    // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
       childrenCentered: true,
@@ -173,6 +173,7 @@ class UserBanner extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

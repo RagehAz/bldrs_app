@@ -127,17 +127,17 @@ class TextFormFieldSwitcher extends StatelessWidget {
 // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final TextStyle _style = SuperVerse.createStyle(
-        context: context,
-        weight: textWeight,
-        color: textColor,
-        italic: textItalic,
-        size: textSize,
-        scaleFactor: textSizeFactor,
-        shadowIsOn: textShadow,
+      context: context,
+      weight: textWeight,
+      color: textColor,
+      italic: textItalic,
+      size: textSize,
+      scaleFactor: textSizeFactor,
+      shadowIsOn: textShadow,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final InputDecoration _inputDecoration = SuperTextField.createDecoration(
       context: context,
       textSize: textSize,
@@ -148,29 +148,29 @@ class TextFormFieldSwitcher extends StatelessWidget {
       fieldColor: fieldColor,
       counterIsOn: counterIsOn,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final EdgeInsets _scrollPadding = SuperTextField.getFieldScrollPadding(
-        context: context,
-        appBarType: appBarType,
+      context: context,
+      appBarType: appBarType,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final int _maxLines = obscured == true ? 1 : maxLines;
-// -----------------------------------------------------------------------------
+    // --------------------
     const Color _cursorColor = Colorz.yellow255;
-// -----------------------------------------------------------------------------
+    // --------------------
     const MaxLengthEnforcement _maxLengthEnforced =
     // counterIsOn == true ?
     // MaxLengthEnforcement.enforced
     //     :
     MaxLengthEnforcement.none;
-// -----------------------------------------------------------------------------
+    // --------------------
     final TextAlign _textAlign = centered == true ?
     TextAlign.center
         :
     TextAlign.start;
-// -----------------------------------------------------------------------------
+    // --------------------
     const TextAlignVertical _textAlignVertical = TextAlignVertical.center;
-// -----------------------------------------------------------------------------
+    // --------------------
 
     /// WHEN TEXT FORM FIELD
     if (isFormField == true){
@@ -334,4 +334,5 @@ class TextFormFieldSwitcher extends StatelessWidget {
     }
 
   }
+// -----------------------------------------------------------------------------
 }
