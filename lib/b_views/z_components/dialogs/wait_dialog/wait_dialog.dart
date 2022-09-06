@@ -16,7 +16,7 @@ class WaitDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final bool canManuallyGoBack;
   final String loadingPhrase;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showWaitDialog({
     @required BuildContext context,
@@ -33,7 +33,7 @@ class WaitDialog extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void closeWaitDialog(BuildContext context) {
     Nav.goBack(
@@ -41,13 +41,13 @@ class WaitDialog extends StatelessWidget {
       invoker: 'closeWaitDialog',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     return WillPopScope(
       onWillPop: () async {
         return !canManuallyGoBack;
@@ -107,5 +107,7 @@ class WaitDialog extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

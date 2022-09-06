@@ -33,19 +33,19 @@ class CroppingScreen extends StatefulWidget {
   static double getFooterHeight(){
     return Ratioz.horizon;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double getImagesZoneHeight({
-  @required double screenHeight,
-}){
+    @required double screenHeight,
+  }){
     final double _imagesFooterHeight = CroppingScreen.getFooterHeight();
     final double _imageSpaceHeight = screenHeight - Ratioz.stratosphere - _imagesFooterHeight;
     return _imageSpaceHeight;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 class _CroppingScreenState extends State<CroppingScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<List<Uint8List>> _imagesData = ValueNotifier(null);
   final ValueNotifier<List<Uint8List>> _croppedImages = ValueNotifier(null);
   final ValueNotifier<int> _currentImageIndex = ValueNotifier(0);
@@ -76,7 +76,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -88,8 +88,8 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
       /// CHECK IF STATUSES ARE ALL READY
       final bool _allImagesCropped = Mapper.checkListsAreIdentical(
-          list1: _statuses.value,
-          list2: List.filled(widget.fileModels.length, CropStatus.ready),
+        list1: _statuses.value,
+        list2: List.filled(widget.fileModels.length, CropStatus.ready),
       );
 
       if (_allImagesCropped == true && _canGoBack == true){
@@ -118,7 +118,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     });
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -133,7 +133,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     }
     _isInit = false;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -146,7 +146,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _initializeControllers(){
 
     for (int i = 0; i < _files.length; i++){
@@ -158,7 +158,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     _statuses = ValueNotifier(_statusesList);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _cropImages() async {
 
     await _triggerLoading(setTo: true);
@@ -169,7 +169,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -243,5 +243,5 @@ class _CroppingScreenState extends State<CroppingScreen> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

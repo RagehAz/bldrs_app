@@ -38,4 +38,5 @@ class DialogButton extends StatelessWidget {
       onTap: onTap,
     );
   }
+  /// --------------------------------------------------------------------------
 }

@@ -45,7 +45,7 @@ class CropperPages extends StatelessWidget {
       statuses.value = _list;
     }
   }
-// -----------------------------------------------------------------------------
+  /// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -132,4 +132,5 @@ class CropperPages extends StatelessWidget {
     );
 
   }
+  /// -----------------------------------------------------------------------------
 }
