@@ -19,9 +19,10 @@ class SlideHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const headlineScaleFactor = 0.004;
   static const headlineSize = 4;
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
+
     // print('slide title verse is : $verse');
 
     final double _headlineTopMargin = flyerBoxWidth * 0.3;
@@ -49,4 +50,5 @@ class SlideHeadline extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

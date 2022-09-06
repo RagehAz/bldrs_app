@@ -33,21 +33,14 @@ class FlyerSelectionStack extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
     final BorderRadius _corners = FlyerBox.corners(context, flyerBoxWidth);
     final double _checkIconSize = FlyerBox.bottomCornerValue(flyerBoxWidth) * 2;
     final bool _isSelectionMode = onSelectFlyer != null;
-
-    // final double _footerHeight = FooterBox.collapsedHeight(
-    //   context: context,
-    //   flyerBoxWidth: flyerBoxWidth,
-    //   tinyMode: true,
-    // );
-
-// ----------------------------------------------------------
+    // --------------------
     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-// ----------------------------------------------------------
+    // --------------------
 
     if (flyerModel == null){
       return const SizedBox();
@@ -199,7 +192,6 @@ class FlyerSelectionStack extends StatelessWidget {
       );
     }
 
-
   }
-
+/// --------------------------------------------------------------------------
 }

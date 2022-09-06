@@ -102,4 +102,5 @@ class SlideTransformer extends StatelessWidget {
     );
 
   }
+/// --------------------------------------------------------------------------
 }

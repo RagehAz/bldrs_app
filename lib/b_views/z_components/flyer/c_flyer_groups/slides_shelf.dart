@@ -20,25 +20,24 @@ class SlidesShelf extends StatelessWidget {
     @required this.shelfHeight,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String title;
   final List<dynamic> pics;
   final Function onImageTap;
   final Function onAddButtonOnTap;
   final double shelfHeight;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     const double _stackTitleHeight = 85;
     const double _flyerNumberTagZoneHeight = 15;
-
+    // --------------------
     final double _stackZoneHeight = shelfHeight - _stackTitleHeight;
     final double _flyerZoneHeight = _stackZoneHeight -
         _flyerNumberTagZoneHeight -
         (Ratioz.appBarPadding * 5);
-
+    // --------------------
     final double _flyerSizeFactor = FlyerBox.sizeFactorByHeight(context, _flyerZoneHeight);
     final double _flyerZoneWidth = FlyerBox.width(context, _flyerSizeFactor);
     final BorderRadius _flyerBorderRadius = FlyerBox.corners(context, _flyerZoneWidth);
@@ -46,11 +45,9 @@ class SlidesShelf extends StatelessWidget {
       borderRadius: _flyerBorderRadius,
       color: Colorz.white10,
     );
-
     final double _titleZoneHeight = _flyerZoneWidth * 0.5;
-
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     return SizedBox(
       width: _screenWidth,
       height: _stackZoneHeight + _titleZoneHeight,
@@ -80,7 +77,7 @@ class SlidesShelf extends StatelessWidget {
               itemExtent: _flyerZoneWidth + Ratioz.appBarPadding * 1.5,
               physics: const BouncingScrollPhysics(),
               padding:
-                  const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+              const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               itemBuilder: (BuildContext ctx, int index) {
                 final dynamic _pic = pics[index];
 
@@ -105,11 +102,11 @@ class SlidesShelf extends StatelessWidget {
                         alignment: Aligners.superCenterAlignment(context),
                         child: index < pics.length
                             ? SuperVerse(
-                                verse:  '${index + 1}',
-                                size: 1,
-                                color: Colorz.white200,
-                                labelColor: Colorz.white10,
-                              )
+                          verse:  '${index + 1}',
+                          size: 1,
+                          color: Colorz.white200,
+                          labelColor: Colorz.white10,
+                        )
                             : Container(),
                       ),
 
@@ -126,61 +123,61 @@ class SlidesShelf extends StatelessWidget {
                           child: index < pics.length
                               ?
 
-                              /// IMAGE
-                              GestureDetector(
-                                  onTap: () => onImageTap(index),
-                                  child: SizedBox(
+                          /// IMAGE
+                          GestureDetector(
+                            onTap: () => onImageTap(index),
+                            child: SizedBox(
+                              width: _flyerZoneWidth,
+                              height: _flyerZoneHeight,
+                              child: ClipRRect(
+                                borderRadius: _flyerBorderRadius,
+                                child: SuperImage(
+                                    pic: _pic,
                                     width: _flyerZoneWidth,
-                                    height: _flyerZoneHeight,
-                                    child: ClipRRect(
-                                      borderRadius: _flyerBorderRadius,
-                                      child: SuperImage(
-                                          pic: _pic,
-                                          width: _flyerZoneWidth,
-                                          height: _flyerZoneHeight),
-                                    ),
-                                  ),
-                                )
+                                    height: _flyerZoneHeight),
+                              ),
+                            ),
+                          )
                               :
 
-                              /// ADD IMAGE BUTTON
-                              GestureDetector(
-                                  onTap: () => onAddButtonOnTap(_pic),
-                                  child: Container(
-                                    width: _flyerZoneWidth,
-                                    height: _flyerZoneHeight,
-                                    decoration: _flyerDecoration,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        /// PLUS ICON
-                                        DreamBox(
-                                          height: _flyerZoneWidth * 0.5,
-                                          width: _flyerZoneWidth * 0.5,
-                                          icon: Iconz.plus,
+                          /// ADD IMAGE BUTTON
+                          GestureDetector(
+                            onTap: () => onAddButtonOnTap(_pic),
+                            child: Container(
+                              width: _flyerZoneWidth,
+                              height: _flyerZoneHeight,
+                              decoration: _flyerDecoration,
+                              child: Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.center,
+                                children: <Widget>[
+                                  /// PLUS ICON
+                                  DreamBox(
+                                    height: _flyerZoneWidth * 0.5,
+                                    width: _flyerZoneWidth * 0.5,
+                                    icon: Iconz.plus,
 
-                                          iconColor: Colorz.white20,
-                                          bubble:
-                                              false, //() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
-                                        ),
+                                    iconColor: Colorz.white20,
+                                    bubble:
+                                    false, //() => _getMultiGalleryImages(flyerZoneWidth: _flyerZoneWidth),
+                                  ),
 
-                                        SizedBox(
-                                          height: _flyerZoneWidth * 0.05,
-                                        ),
+                                  SizedBox(
+                                    height: _flyerZoneWidth * 0.05,
+                                  ),
 
-                                        SizedBox(
-                                          width: _flyerZoneWidth * 0.95,
-                                          child: const SuperVerse(
-                                            verse: '##Add Photos',
-                                            color: Colorz.white20,
-                                            maxLines: 2,
-                                          ),
-                                        ),
-                                      ],
+                                  SizedBox(
+                                    width: _flyerZoneWidth * 0.95,
+                                    child: const SuperVerse(
+                                      verse: '##Add Photos',
+                                      color: Colorz.white20,
+                                      maxLines: 2,
                                     ),
                                   ),
-                                )),
+                                ],
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                 );
@@ -190,5 +187,7 @@ class SlidesShelf extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

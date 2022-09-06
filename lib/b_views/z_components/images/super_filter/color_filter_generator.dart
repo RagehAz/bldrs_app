@@ -16,15 +16,15 @@ class ImageFilterModel {
   final String id;
   final List<List<double>> matrixes;
   final double opacity;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MATRIX BUILDER
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : Build matrix of current filter
   static List<double> combineMatrixes({
-  @required List<List<double>> matrixes,
-}) {
+    @required List<List<double>> matrixes,
+  }) {
 
     List<double> _colorMatrix;
 
@@ -70,7 +70,7 @@ class ImageFilterModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT :
   static List<double> getStandardMatrix(){
     return <double>[
@@ -80,32 +80,32 @@ class ImageFilterModel {
       0, 0, 0, 1, 0,
     ];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// Create new filter from this filter with given opacity
   ImageFilterModel addOpacity(double value) {
     return ImageFilterModel(
         id: id,
         matrixes: <List<double>>[
-      ...matrixes,
-      [
-        value, 0, 0, 0, 0,
-        0, value, 0, 0, 0,
-        0, 0, value, 0, 0,
-        0, 0, 0, 1, 0,
-      ],
-    ]
+          ...matrixes,
+          [
+            value, 0, 0, 0, 0,
+            0, value, 0, 0, 0,
+            0, 0, value, 0, 0,
+            0, 0, 0, 1, 0,
+          ],
+        ]
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLDRS IMAGE FILTERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ImageFilterModel noFilter(){
     return bldrsImageFilters[0];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ImageFilterModel getFilterByID(String id){
     ImageFilterModel _filter = noFilter();
@@ -114,7 +114,7 @@ class ImageFilterModel {
     }
     return _filter;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ImageFilterModel> bldrsImageFilters = <ImageFilterModel>[
     /// NORMAL
@@ -177,11 +177,11 @@ class ImageFilterModel {
       ],
     ),
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkColorMatrixesAreIdentical({
     @required List<List<double>> matrix1,
@@ -206,8 +206,8 @@ class ImageFilterModel {
           final List<double> _list2 = matrix2[i];
 
           final bool _listsAreIdentical = Mapper.checkListsAreIdentical(
-              list1: _list1,
-              list2: _list2,
+            list1: _list1,
+            list2: _list2,
           );
 
           if (_listsAreIdentical == true){
@@ -228,7 +228,7 @@ class ImageFilterModel {
 
     return _identical;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFiltersAreIdentical({
     @required ImageFilterModel filter1,
@@ -244,7 +244,7 @@ class ImageFilterModel {
     else if (filter1 != null && filter2 != null){
 
       if (
-          filter1.id == filter2.id &&
+      filter1.id == filter2.id &&
           checkColorMatrixesAreIdentical(matrix1: filter1.matrixes, matrix2: filter2.matrixes) &&
           filter1.opacity == filter2.opacity
       ){
@@ -263,18 +263,18 @@ class ImageFilterModel {
     return _identical;
   }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-    /// BLOG
+  /// BLOG
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogFilter(){
     blog('ImageFilterModel : id : $id');
     blog('ImageFilterModel : matrixes : $matrixes');
     blog('ImageFilterModel : opacity : $opacity');
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFiltersDifferences({
     @required ImageFilterModel filter1,
@@ -298,5 +298,5 @@ class ImageFilterModel {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

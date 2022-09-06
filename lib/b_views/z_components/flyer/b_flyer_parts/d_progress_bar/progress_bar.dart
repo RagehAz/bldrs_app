@@ -15,8 +15,8 @@ class ProgressBar extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
-  final ValueNotifier<double> progressBarOpacity; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ValueNotifier<double> progressBarOpacity;
   final bool loading;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
@@ -46,5 +46,7 @@ class ProgressBar extends StatelessWidget {
 
       ),
     );
+
   }
+/// --------------------------------------------------------------------------
 }

@@ -17,7 +17,7 @@ class SlideBox extends StatelessWidget {
   final bool tinyMode;
   final Color slideMidColor;
   final List<Widget> stackChildren;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   bool _canTapSlide(){
     bool _canTap = false;
 
@@ -27,7 +27,7 @@ class SlideBox extends StatelessWidget {
 
     return _canTap;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -66,4 +66,5 @@ class SlideBox extends StatelessWidget {
     );
     
   }
+// -----------------------------------------------------------------------------
 }

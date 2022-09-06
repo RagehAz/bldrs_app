@@ -27,15 +27,15 @@ class NormalPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ------------------------------------------------------------------
+    // --------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
     const double _currentPrice = 10000000;
     final String _currency = _currentCountry?.currency;
-// ------------------------------------------------------------------
+    // --------------------
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-// ------------------------------------------------------------------
+    // --------------------
     return CollapsedInfoButtonBox(
         flyerBoxWidth: flyerBoxWidth,
         infoButtonType: InfoButtonType.price,
@@ -62,5 +62,7 @@ class NormalPriceTag extends StatelessWidget {
 
         ],
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

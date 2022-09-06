@@ -40,12 +40,12 @@ class KeywordsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     /// the keyword bottom bubble corner when set in flyer info page
     final double _bottomPadding = (bubbleWidth * Ratioz.xxflyerBottomCorners) -
         Ratioz.appBarPadding -
         Ratioz.appBarMargin;
-
+    // --------------------
     return Bubble(
       key: key,
       bubbleColor: bubbleColor,
@@ -93,5 +93,7 @@ class KeywordsBubble extends StatelessWidget {
 
       ],
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

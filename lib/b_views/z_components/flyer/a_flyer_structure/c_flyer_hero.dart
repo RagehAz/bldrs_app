@@ -42,8 +42,8 @@ class FlyerHero extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final String _heroTag = createHeroTag(
-        heroTag: heroTag,
-        flyerID: flyerModel.id,
+      heroTag: heroTag,
+      flyerID: flyerModel.id,
     );
     final double _factor = isFullScreen ?  1 : minWidthFactor;
     final double _flyerBoxWidth = FlyerBox.width(context, _factor);
@@ -90,4 +90,5 @@ class FlyerHero extends StatelessWidget {
 
     );
   }
+  /// --------------------------------------------------------------------------
 }

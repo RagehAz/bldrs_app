@@ -28,7 +28,7 @@ class FooterButton extends StatelessWidget {
   final bool isOn;
   final bool canTap;
   final int count;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static double buttonMargin({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -41,7 +41,7 @@ class FooterButton extends StatelessWidget {
 
     return _footerBTMargins;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double buttonRadius({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -57,7 +57,7 @@ class FooterButton extends StatelessWidget {
     final double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
     return _footerBTRadius;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double buttonSize({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -71,7 +71,7 @@ class FooterButton extends StatelessWidget {
 
     return _footerBTRadius * 2;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Color buttonColor({
     @required bool buttonIsOn,
   }) {
@@ -82,7 +82,7 @@ class FooterButton extends StatelessWidget {
 
     return _color;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static String generateButtonText({
     @required BuildContext context,
     @required String verse,
@@ -105,25 +105,25 @@ class FooterButton extends StatelessWidget {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _saveBTRadius = buttonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
       tinyMode: !canTap,
     );
-
+    // --------------------
     final double _buttonSize = buttonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
       tinyMode: !canTap,
     );
-
+    // --------------------
     final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
     final Color _splashColor = isOn ? Colorz.black255 : Colorz.yellow255;
-
+    // --------------------
     return SizedBox(
       key: const ValueKey<String>('Footer_button'),
       width: _buttonSize,
@@ -178,5 +178,7 @@ class FooterButton extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

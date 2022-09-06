@@ -13,7 +13,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<ImageFilterModel> filterModel; /// p
+  final ValueNotifier<ImageFilterModel> filterModel;
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -52,6 +52,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
 
         }
     );
-  }
 
+  }
+/// --------------------------------------------------------------------------
 }

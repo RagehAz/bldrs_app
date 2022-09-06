@@ -38,4 +38,5 @@ class InfoPageParagraph extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }

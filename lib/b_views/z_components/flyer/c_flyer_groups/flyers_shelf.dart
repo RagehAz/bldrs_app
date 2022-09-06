@@ -30,7 +30,7 @@ class FlyersShelf extends StatelessWidget {
   static const double spacing = Ratioz.appBarMargin;
   static const double titleIconWidth = Ratioz.appBarButtonSize;
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double shelfHeight({BuildContext context, double flyerSizeFactor}) {
 
     final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
@@ -41,22 +41,21 @@ class FlyersShelf extends StatelessWidget {
     final double _height = spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
     return _height;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
-// -----------------------------------------------------------------------------
+    // bool _slidingIsOn = false;
     final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
-        context: context,
-        flyerSizeFactor: flyerSizeFactor,
+      context: context,
+      flyerSizeFactor: flyerSizeFactor,
     );
-// -----------------------------------------------------------------------------
-//     bool _slidingIsOn = false;
+    // --------------------
     const double _titleIconMargin = 0;
     const double _titleIconWidthWithMargin = titleIconWidth + _titleIconMargin;
-// -----------------------------------------------------------------------------
+    // --------------------
     return Container(
       width: _screenWidth,
       // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
@@ -149,5 +148,7 @@ class FlyersShelf extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

@@ -23,35 +23,34 @@ class BzLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool versesShadow = false;
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _headerMainHeight = FlyerBox.headerStripHeight(
         headerIsExpanded: headerIsExpanded,
         flyerBoxWidth: flyerBoxWidth
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     /// B.DATA
     final double _businessDataHeight = flyerShowsAuthor == true ?
     _headerMainHeight * 0.4
         :
     _headerMainHeight * 0.7; //0.0475;
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
-// -----------------------------------------------------------------------------
+    // --------------------
     /// B.LOCALE
     final String _businessLocale = ZoneModel.generateZoneString(
       context: context,
       zoneModel: bzModel.zone,
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     final int _bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
     final int _maxLines = flyerShowsAuthor == true ? 1 : 2;
-// -----------------------------------------------------------------------------
-
+    // --------------------
     return SizedBox(
       height: _businessDataHeight,
       width: _businessDataWidth,
@@ -91,5 +90,7 @@ class BzLabel extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

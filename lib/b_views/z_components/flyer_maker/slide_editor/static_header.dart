@@ -40,29 +40,29 @@ class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+    // --------------------
     final bool flyerShowsAuthor = authorImage != null;
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _headerMainHeight = FlyerBox.headerStripHeight(
         headerIsExpanded: false,
         flyerBoxWidth: flyerBoxWidth
     );
-// -----------------------------------------------------------------------------
+    // --------------------
     /// B.DATA
     final double _businessDataHeight = flyerShowsAuthor == true ?
     _headerMainHeight * 0.4
         :
-    _headerMainHeight * 0.7; //0.0475;
-// -----------------------------------------------------------------------------
+    _headerMainHeight * 0.7; /// 0.0475;
+    // --------------------
     final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
-// -----------------------------------------------------------------------------
+    // --------------------
     final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
     final int _bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
     final int _maxLines = flyerShowsAuthor == true ? 1 : 2;
-// -----------------------------------------------------------------------------
+    // --------------------
     return Opacity(
       key: const ValueKey<String>('StaticHeader'),
       opacity: opacity,
@@ -227,6 +227,7 @@ class StaticHeader extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
-
+/// --------------------------------------------------------------------------
 }

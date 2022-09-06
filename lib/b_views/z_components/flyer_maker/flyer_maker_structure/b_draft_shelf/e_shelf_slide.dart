@@ -30,19 +30,19 @@ class ShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
     final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   State<ShelfSlide> createState() => _ShelfSlideState();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 class _ShelfSlideState extends State<ShelfSlide> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _animateSlide = ValueNotifier(true);
   void _onReAnimate(){
 
@@ -51,19 +51,18 @@ class _ShelfSlideState extends State<ShelfSlide> {
     _animateSlide.value = false;
     _animateSlide.value = true;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TAMAM
   @override
   void dispose() {
     _animateSlide.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _flyerBoxHeight = FlyerBox.height(context, ShelfSlide.flyerBoxWidth);
-
     blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFileModel?.file?.path}');
 
     return Container(
@@ -86,7 +85,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
             child: widget.number == null ?
             const SizedBox()
                 :
-                SuperVerse(
+            SuperVerse(
               verse:  '${widget.number}',
               size: 1,
               // color: Colorz.white255,
@@ -109,45 +108,45 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
                 /// BACK GROUND COVER PIC
                 if (widget.mutableSlide != null)
-                SuperFilteredImage(
-                  width: ShelfSlide.flyerBoxWidth,
-                  height: _flyerBoxHeight,
-                  imageFile: widget.mutableSlide.picFileModel.file,
-                  filterModel: widget.mutableSlide.filter,
-                ),
+                  SuperFilteredImage(
+                    width: ShelfSlide.flyerBoxWidth,
+                    height: _flyerBoxHeight,
+                    imageFile: widget.mutableSlide.picFileModel.file,
+                    filterModel: widget.mutableSlide.filter,
+                  ),
 
                 /// BLUR LAYER
                 if (widget.mutableSlide != null)
-                BlurLayer(
-                  key: const ValueKey<String>('blur_layer'),
-                  width: ShelfSlide.flyerBoxWidth,
-                  height: _flyerBoxHeight,
-                  blurIsOn: true,
-                  blur: 20,
-                  borders: FlyerBox.corners(context, ShelfSlide.flyerBoxWidth),
-                ),
+                  BlurLayer(
+                    key: const ValueKey<String>('blur_layer'),
+                    width: ShelfSlide.flyerBoxWidth,
+                    height: _flyerBoxHeight,
+                    blurIsOn: true,
+                    blur: 20,
+                    borders: FlyerBox.corners(context, ShelfSlide.flyerBoxWidth),
+                  ),
 
                 /// IMAGE
                 if (widget.mutableSlide != null)
                   ValueListenableBuilder(
-                      valueListenable: _animateSlide,
-                      builder: (_, bool _animate, Widget child){
+                    valueListenable: _animateSlide,
+                    builder: (_, bool _animate, Widget child){
 
-                        if (_animate == true){
-                          return AnimateWidgetToMatrix(
-                            matrix: Trinity.renderSlideMatrix(
-                                matrix: widget.mutableSlide.matrix,
-                                flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                                flyerBoxHeight: _flyerBoxHeight
-                            ),
-                            child: child,
-                          );
-                        }
-                        else {
-                          return child;
-                        }
+                      if (_animate == true){
+                        return AnimateWidgetToMatrix(
+                          matrix: Trinity.renderSlideMatrix(
+                              matrix: widget.mutableSlide.matrix,
+                              flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                              flyerBoxHeight: _flyerBoxHeight
+                          ),
+                          child: child,
+                        );
+                      }
+                      else {
+                        return child;
+                      }
 
-                      },
+                    },
                     child: SuperFilteredImage(
                       width: ShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
@@ -160,15 +159,15 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 /// SLIDE SHADOW
                 if (widget.mutableSlide != null)
                   const SlideShadow(
-                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                ),
+                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                  ),
 
                 /// BOTTOM SHADOW
                 if (widget.mutableSlide != null)
-                const FooterShadow(
-                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                  tinyMode: false,
-                ),
+                  const FooterShadow(
+                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    tinyMode: false,
+                  ),
 
                 // /// STATIC FOOTER
                 // if (widget.mutableSlide != null)
@@ -178,10 +177,10 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
                 /// STATIC HEADER
                 if (widget.mutableSlide != null)
-                const StaticHeader(
-                  flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                  opacity: 0.5,
-                ),
+                  const StaticHeader(
+                    flyerBoxWidth: ShelfSlide.flyerBoxWidth,
+                    opacity: 0.5,
+                  ),
 
                 /// HEADLINE
                 if (widget.mutableSlide != null)
@@ -202,4 +201,5 @@ class _ShelfSlideState extends State<ShelfSlide> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

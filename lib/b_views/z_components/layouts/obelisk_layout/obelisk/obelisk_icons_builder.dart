@@ -25,23 +25,23 @@ class ObeliskIconsBuilder extends StatelessWidget{
     return ValueListenableBuilder(
       key: const ValueKey<String>('ObeliskIconsBuilder'),
       valueListenable: isExpanded,
-        builder: (_, bool isBig, Widget xChild){
+      builder: (_, bool isBig, Widget xChild){
 
         // return Container();
 
-          return AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            curve: isBig == true ? Curves.ease : Curves.easeInExpo,
-            width: isBig == true ? Obelisk.circleWidth : 0,
-            height: Obelisk.getBoxMaxHeight(
-              isBig: true,
-              numberOfButtons: NavModel.getNumberOfButtons(navModels),
-            ),
-            alignment: Alignment.bottomLeft,
-            child: xChild,
-          );
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          curve: isBig == true ? Curves.ease : Curves.easeInExpo,
+          width: isBig == true ? Obelisk.circleWidth : 0,
+          height: Obelisk.getBoxMaxHeight(
+            isBig: true,
+            numberOfButtons: NavModel.getNumberOfButtons(navModels),
+          ),
+          alignment: Alignment.bottomLeft,
+          child: xChild,
+        );
 
-        },
+      },
 
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -70,4 +70,5 @@ class ObeliskIconsBuilder extends StatelessWidget{
     );
 
   }
+/// --------------------------------------------------------------------------
 }

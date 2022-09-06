@@ -40,7 +40,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
               ),
             )
         );
-        },
+      },
 
       child: CollapsedInfoButtonContent(
         infoButtonType: infoButtonType,
@@ -50,5 +50,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
       ),
 
     );
+
   }
+/// --------------------------------------------------------------------------
 }

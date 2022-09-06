@@ -43,7 +43,7 @@ class SuperImage extends StatelessWidget {
   final bool greyscale;
   /// --------------------------------------------------------------------------
   static const bool _gaplessPlayback = true;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static DecorationImage decorationImage({
     @required String picture,
     BoxFit boxFit
@@ -59,7 +59,7 @@ class SuperImage extends StatelessWidget {
 
     return picture == '' ? null : _image;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Widget _errorBuilder (BuildContext ctx, Object error, StackTrace stackTrace) {
     blog('SUPER IMAGE ERROR : ${pic.runtimeType} : error : $error');
     return Container(
@@ -73,7 +73,7 @@ class SuperImage extends StatelessWidget {
       ),
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Widget _loadingBuilder(BuildContext context , Widget child, ImageChunkEvent imageChunkEvent){
 
     // blog('SUPER IMAGE LOADING BUILDER : imageChunkEvent.cumulativeBytesLoaded : ${imageChunkEvent?.cumulativeBytesLoaded} / ${imageChunkEvent?.expectedTotalBytes}');
@@ -101,7 +101,7 @@ class SuperImage extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Widget _futureImageBuilder (BuildContext ctx, AsyncSnapshot<Uint8List> snapshot){
 
     return _FutureImage(
@@ -113,7 +113,7 @@ class SuperImage extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -294,6 +294,7 @@ class SuperImage extends StatelessWidget {
     }
 
   }
+// -----------------------------------------------------------------------------
 }
 
 class _FutureImage extends StatelessWidget {
@@ -338,6 +339,7 @@ class _FutureImage extends StatelessWidget {
     }
 
   }
+/// --------------------------------------------------------------------------
 }
 
 class InfiniteLoadingBox extends StatelessWidget {
@@ -378,5 +380,7 @@ class InfiniteLoadingBox extends StatelessWidget {
 
       },
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

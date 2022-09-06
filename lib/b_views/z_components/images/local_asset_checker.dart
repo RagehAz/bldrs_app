@@ -15,7 +15,7 @@ class LocalAssetChecker extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<LocalAssetChecker> createState() => _LocalAssetCheckerState();
-// ---------------------------------------
+  // ---------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> localAssetExists(dynamic asset) async {
     bool _isFound = false;
@@ -42,14 +42,14 @@ class LocalAssetChecker extends StatefulWidget {
 
     return _isFound;
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _LocalAssetCheckerState extends State<LocalAssetChecker> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -61,14 +61,14 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
       // blogLoading(loading: _loading.value, callerName: 'LocalAssetChecker',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _exists = ValueNotifier(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -89,7 +89,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -97,7 +97,7 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
     _exists.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -129,4 +129,5 @@ class _LocalAssetCheckerState extends State<LocalAssetChecker> {
     }
 
   }
+// -----------------------------------------------------------------------------
 }

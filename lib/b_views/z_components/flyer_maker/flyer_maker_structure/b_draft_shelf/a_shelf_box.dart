@@ -17,11 +17,11 @@ class ShelfBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const Duration animationDuration = Ratioz.duration150ms;
   static const Curve animationCurve  = Curves.easeOut;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double height(BuildContext context){
     return ShelfSlide.shelfSlideZoneHeight(context);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -30,10 +30,10 @@ class ShelfBox extends StatelessWidget {
         valueListenable: shelfUI,
 
         child: Container(
-            width: Scale.superScreenWidth(context),
-            height: ShelfSlide.shelfSlideZoneHeight(context),
-            color: Colorz.white10,
-            child: child,
+          width: Scale.superScreenWidth(context),
+          height: ShelfSlide.shelfSlideZoneHeight(context),
+          color: Colorz.white10,
+          child: child,
         ),
 
         builder: (_, ShelfUI shelfUI, Widget kid){
@@ -55,30 +55,31 @@ class ShelfBox extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
 
 class ShelfUI {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ShelfUI({
     @required this.height,
     @required this.opacity,
     @required this.index,
-});
-// -----------------------------------------------------------------------------
+  });
+  // -----------------------------------------------------------------------------
   double height;
   double opacity;
   int index;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ShelfUI copyWith({
     double height,
     double opacity,
     int index,
-}){
+  }){
     return ShelfUI(
       height: height ?? this.height,
       opacity: opacity ?? this.opacity,
       index: index ?? this.index,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -62,7 +62,7 @@ class InfoPageSpecs extends StatelessWidget {
 
     return _pickers;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   String _generateTranslateSpecsString({
     @required BuildContext context,
@@ -120,7 +120,7 @@ class InfoPageSpecs extends StatelessWidget {
     return _output == null || _output == '' ? null : _output;
   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -197,5 +197,7 @@ class InfoPageSpecs extends StatelessWidget {
             }
         )
     );
+
   }
+// -----------------------------------------------------------------------------
 }

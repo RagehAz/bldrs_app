@@ -40,102 +40,103 @@ class InfoPageTree extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _cornerValue = InfoButtonStarter.expandedCornerValue(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
     );
 
     return FooterPageBox(
-        width: InfoButtonStarter.expandedWidth(
-            context: context,
-            flyerBoxWidth: flyerBoxWidth,
-        ),
-        height: InfoButtonStarter.expandedHeight(
-            flyerBoxWidth: flyerBoxWidth,
-        ),
-        borders: Borderers.superBorderAll(context, _cornerValue),
-        alignment: Alignment.center,
-        scrollerIsOn: false,
-        child: ValueListenableBuilder(
-          valueListenable: buttonIsExpanded,
-          builder: (_, bool _buttonIsExpanded, Widget child){
+      width: InfoButtonStarter.expandedWidth(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      ),
+      height: InfoButtonStarter.expandedHeight(
+        flyerBoxWidth: flyerBoxWidth,
+      ),
+      borders: Borderers.superBorderAll(context, _cornerValue),
+      alignment: Alignment.center,
+      scrollerIsOn: false,
+      child: ValueListenableBuilder(
+        valueListenable: buttonIsExpanded,
+        builder: (_, bool _buttonIsExpanded, Widget child){
 
-            return ListView(
-              controller: infoPageVerticalController,
-              // shrinkWrap: false,
-              physics: _buttonIsExpanded == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero, /// ENTA EBN WES5A
-              children: <Widget>[
+          return ListView(
+            controller: infoPageVerticalController,
+            // shrinkWrap: false,
+            physics: _buttonIsExpanded == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero, /// ENTA EBN WES5A
+            children: <Widget>[
 
-                // Column(
-                //   // mainAxisAlignment: MainAxisAlignment.start,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: <Widget>[
-                //
-                //
-                //   ],
-                // )
+              // Column(
+              //   // mainAxisAlignment: MainAxisAlignment.start,
+              //   crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: <Widget>[
+              //
+              //
+              //   ],
+              // )
 
-                /// COLLAPSED INFO BUTTON TREE
-                Align(
-                  alignment: Aligners.superCenterAlignment(context),
-                  child: Container(
-                    width: InfoButtonStarter.getWidth(
-                        context: context,
-                        flyerBoxWidth: flyerBoxWidth,
-                        tinyMode: tinyMode,
-                        isExpanded: _buttonIsExpanded,
-                        infoButtonType: infoButtonType
-                    ),
-                    height: tinyMode ?
-                    InfoButtonStarter.tinyHeight(
-                        context: context,
-                        flyerBoxWidth: flyerBoxWidth
-                    )
-                    :
-                    InfoButtonStarter.collapsedHeight(
+              /// COLLAPSED INFO BUTTON TREE
+              Align(
+                alignment: Aligners.superCenterAlignment(context),
+                child: Container(
+                  width: InfoButtonStarter.getWidth(
                       context: context,
                       flyerBoxWidth: flyerBoxWidth,
-                      // tinyMode: tinyMode,
-                      // isExpanded: _buttonIsExpanded,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: InfoButtonStarter.getBorders(
-                        context: context,
-                        flyerBoxWidth: flyerBoxWidth,
-                        tinyMode: tinyMode,
-                        isExpanded: _buttonIsExpanded,
-                      ),
-                      // color: Colorz.blue255,
-                    ),
-                    child: CollapsedInfoButtonTree(
-                      flyerBoxWidth: flyerBoxWidth,
-                      buttonIsExpanded: buttonIsExpanded,
-                      infoButtonType: infoButtonType,
                       tinyMode: tinyMode,
+                      isExpanded: _buttonIsExpanded,
+                      infoButtonType: infoButtonType
+                  ),
+                  height: tinyMode ?
+                  InfoButtonStarter.tinyHeight(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth
+                  )
+                      :
+                  InfoButtonStarter.collapsedHeight(
+                    context: context,
+                    flyerBoxWidth: flyerBoxWidth,
+                    // tinyMode: tinyMode,
+                    // isExpanded: _buttonIsExpanded,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: InfoButtonStarter.getBorders(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth,
+                      tinyMode: tinyMode,
+                      isExpanded: _buttonIsExpanded,
                     ),
+                    // color: Colorz.blue255,
+                  ),
+                  child: CollapsedInfoButtonTree(
+                    flyerBoxWidth: flyerBoxWidth,
+                    buttonIsExpanded: buttonIsExpanded,
+                    infoButtonType: infoButtonType,
+                    tinyMode: tinyMode,
                   ),
                 ),
+              ),
 
-                /// EXPANDED INFO PAGE TREE
-                if (tinyMode == false && inFlight == false)
-                  ExpandedInfoPageTree(
-                    buttonIsExpanded: buttonIsExpanded,
-                    flyerBoxWidth: flyerBoxWidth,
-                    flyerModel: flyerModel,
-                    flyerZone: flyerZone,
-                    flyerCounter: flyerCounter,
-                  ),
+              /// EXPANDED INFO PAGE TREE
+              if (tinyMode == false && inFlight == false)
+                ExpandedInfoPageTree(
+                  buttonIsExpanded: buttonIsExpanded,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flyerModel: flyerModel,
+                  flyerZone: flyerZone,
+                  flyerCounter: flyerCounter,
+                ),
 
 
-              ],
+            ],
 
-            );
+          );
 
-          },
+        },
 
-          child: Container(),
-        ),
+        child: Container(),
+      ),
     );
 
   }
+/// --------------------------------------------------------------------------
 }

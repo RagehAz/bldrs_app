@@ -93,7 +93,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -103,11 +103,11 @@ class MainLayoutStackWidgets extends StatelessWidget {
       children: <Widget>[
 
         if (skyType != SkyType.non)
-        Sky(
-          key: const ValueKey<String>('sky'),
-          skyType: skyType,
-          gradientIsOn: pyramidsAreOn,
-        ),
+          Sky(
+            key: const ValueKey<String>('sky'),
+            skyType: skyType,
+            gradientIsOn: pyramidsAreOn,
+          ),
 
         /// --- LAYOUT WIDGET
         if (layoutWidget != null)
@@ -174,4 +174,5 @@ class MainLayoutStackWidgets extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

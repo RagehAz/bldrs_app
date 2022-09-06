@@ -82,16 +82,16 @@ class MainLayout extends StatelessWidget {
     width: 5,
     height: 5,
   );
-// -----------------------------------------------------------------------------
+  // --------------------
   static const Widget spacer10 = SizedBox(
     width: 10,
     height: 10,
   );
-// -----------------------------------------------------------------------------
+  // --------------------
   static double clearHeight(BuildContext context) {
     return Scale.superScreenHeight(context) - Ratioz.stratosphere - (2 * Ratioz.appBarMargin);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double clearLayoutHeight({
     @required BuildContext context,
     AppBarType appBarType = AppBarType.basic,
@@ -103,8 +103,7 @@ class MainLayout extends StatelessWidget {
     return _screenHeight - _appBarHeight;
 
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static Color _mainLayoutBackGroundColor(SkyType skyType){
 
     final Color _backgroundColor =
@@ -118,7 +117,7 @@ class MainLayout extends StatelessWidget {
 
     return _backgroundColor;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onBack(BuildContext context){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -142,9 +141,9 @@ class MainLayout extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// final static GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -225,5 +224,7 @@ class MainLayout extends StatelessWidget {
         ),
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }
