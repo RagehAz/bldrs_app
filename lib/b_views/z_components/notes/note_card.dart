@@ -86,7 +86,7 @@ class NoteCard extends StatelessWidget {
         headerViewModel: const BubbleHeaderVM(
           centered: true,
         ),
-        width: _bubbleWidth,
+        screenWidth: _bubbleWidth,
         childrenCentered: true,
         margins: const EdgeInsets.symmetric(
             horizontal: Ratioz.appBarMargin,

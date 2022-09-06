@@ -172,7 +172,7 @@ class TextFieldBubble extends StatelessWidget {
         leadingIcon: actionBtIcon,
         onLeadingIconTap: actionBtFunction,
       ),
-        width: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
+        screenWidth: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 
