@@ -110,7 +110,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
-            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: 'phid_pdf_attachment',
             ),

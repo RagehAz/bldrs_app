@@ -49,7 +49,7 @@ class AuthorSearchScreenView extends StatelessWidget {
               headerViewModel: const BubbleHeaderVM(
                 headlineVerse: 'phid_share_invitation_link',
               ),
-              width: Bubble.defaultWidth(context),
+              screenWidth: Bubble.defaultWidth(context),
               margins: Scale.superPadding(
                 context: context,
                 enLeft: Ratioz.appBarMargin,

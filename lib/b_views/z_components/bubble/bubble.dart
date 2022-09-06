@@ -16,7 +16,7 @@ class Bubble extends StatelessWidget {
     this.childrenCentered = false,
     this.bubbleColor = Colorz.white10,
     this.stretchy = false,
-    this.width,
+    this.screenWidth,
     this.onBubbleTap,
     this.margins,
     this.corners,
@@ -28,7 +28,7 @@ class Bubble extends StatelessWidget {
   final bool childrenCentered;
   final Color bubbleColor;
   final bool stretchy;
-  final double width;
+  final double screenWidth;
   final Function onBubbleTap;
   final dynamic margins;
   final dynamic corners;
@@ -114,7 +114,7 @@ class Bubble extends StatelessWidget {
         :
     Scale.superMargins(margins: margins);
 // -----------------------------------------------------------------------------
-    final double _bubbleWidth = width ??
+    final double _bubbleWidth = screenWidth ??
         bubbleWidth(
           context: context,
           stretchy: stretchy,
@@ -131,7 +131,7 @@ class Bubble extends StatelessWidget {
     Aligners.superCenterAlignment(context);
 // -----------------------------------------------------------------------------
     final Widget _bubbleContents = _BubbleContents(
-      width: width,
+      width: screenWidth,
       childrenCentered: childrenCentered,
       stretchy: stretchy,
       columnChildren: columnChildren,

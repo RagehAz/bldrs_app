@@ -44,7 +44,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     final double _bubbleWidth = Bubble.bubbleWidth(context: context);
 
     return Bubble(
-        width: _bubbleWidth,
+        screenWidth: _bubbleWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
           defaultColor: Colorz.white10,

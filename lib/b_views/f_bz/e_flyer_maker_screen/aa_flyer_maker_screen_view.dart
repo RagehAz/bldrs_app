@@ -110,7 +110,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             headerViewModel: const BubbleHeaderVM(
                               headlineVerse: 'phid_flyer_slides',
                             ),
-                            width: Bubble.bubbleWidth(context: context, stretchy: false),
+                            screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
                             columnChildren: <Widget>[
 
                               SlidesShelf(
@@ -222,7 +222,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               headerViewModel: const BubbleHeaderVM(
                                 headlineVerse: 'phid_specifications',
                               ),
-                              width: Bubble.bubbleWidth(context: context, stretchy: false),
+                              screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
                               columnChildren: <Widget>[
 
                                 BubbleBulletPoints(
@@ -304,7 +304,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             headerViewModel: const BubbleHeaderVM(
                               headlineVerse: 'phid_show_author_on_flyer',
                             ),
-                            width: Bubble.bubbleWidth(context: context, stretchy: false),
+                            screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
                             columnChildren: const <Widget>[],
                           ),
 
