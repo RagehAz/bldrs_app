@@ -119,6 +119,7 @@ class Iconz {
   static const String check = '$_iconsPath/gi_check.svg' ;
   static const String xLarge = '$_iconsPath/gi_big_x.svg' ;
   static const String terms = '$_iconsPath/gi_terms.svg' ;
+  static const String form = '$_iconsPath/gi_form.svg' ;
   static const String achievement = '$_iconsPath/gi_achievements.svg' ;
   static const String advertise = '$_iconsPath/gi_advertise.svg' ;
   static const String marketing = '$_iconsPath/gi_marketing.svg' ;
