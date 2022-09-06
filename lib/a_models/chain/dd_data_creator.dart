@@ -1,4 +1,4 @@
-
+// -----------------------------------------------------------------------------
 enum DataCreator{
 
   // fromList,
@@ -14,7 +14,7 @@ enum DataCreator{
   country,
 
 }
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------
 bool isDoubleDataCreator(DataCreator creator){
 
   switch (creator){
@@ -25,7 +25,7 @@ bool isDoubleDataCreator(DataCreator creator){
     default : return false;
   }
 }
-// ------------------------------------------------------------
+// --------------------
 bool isIntDataCreator(DataCreator creator){
 
   switch (creator){
@@ -36,7 +36,7 @@ bool isIntDataCreator(DataCreator creator){
     default : return false;
   }
 }
-// ------------------------------------------------------------
+// --------------------
 /// NOT USED
 /*
 bool isBoolDataCreator(DataCreator creator){
@@ -49,7 +49,7 @@ bool isBoolDataCreator(DataCreator creator){
 }
 
  */
-// ------------------------------------------------------------
+// --------------------
 /// NOT USED
 /*
 bool isCountryDataCreator(DataCreator creator){
@@ -59,4 +59,4 @@ bool isCountryDataCreator(DataCreator creator){
   }
 }
 */
-// ------------------------------------------------------------
+// -----------------------------------------------------------------------------

@@ -17,7 +17,7 @@ class Flag {
 
     if (countryID != null) {
       final Flag _flag = allFlags.singleWhere(
-          (Flag flag) => flag.countryID == countryID,
+              (Flag flag) => flag.countryID == countryID,
           orElse: () => null);
       _flagIcon = _flag?.icon;
     }
@@ -1290,18 +1290,16 @@ class CountryIso {
     @required this.countryID,
     @required this.iso,
   });
-
   /// --------------------------------------------------------------------------
   final String countryID;
   final String iso;
-
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static String getCountryIDByIso(String iso) {
 
     final CountryIso _countryIso = _allCountriesIsoCodes.firstWhere(
-        (CountryIso countryIso) => countryIso.iso == iso?.toLowerCase(),
-        orElse: () => null,
+          (CountryIso countryIso) => countryIso.iso == iso?.toLowerCase(),
+      orElse: () => null,
     );
 
     if (_countryIso == null) {
@@ -1313,7 +1311,7 @@ class CountryIso {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   static const List<CountryIso> _allCountriesIsoCodes = <CountryIso>[
     CountryIso(
       countryID: 'afg',

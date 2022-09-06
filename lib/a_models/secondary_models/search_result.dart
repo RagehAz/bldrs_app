@@ -1,6 +1,12 @@
-
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:flutter/foundation.dart';
+
+enum SearchSource {
+  bzz,
+  authors,
+  flyerTitles,
+  keywords,
+}
 
 @immutable
 class SearchResult {
@@ -11,19 +17,10 @@ class SearchResult {
     @required this.icon,
     @required this.flyers,
   });
-
   /// --------------------------------------------------------------------------
   final String title;
   // final SearchSource source;
   final String icon;
   final List<FlyerModel> flyers;
-
-/// --------------------------------------------------------------------------
-}
-
-enum SearchSource {
-  bzz,
-  authors,
-  flyerTitles,
-  keywords,
+  /// --------------------------------------------------------------------------
 }

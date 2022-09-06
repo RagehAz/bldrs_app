@@ -15,11 +15,11 @@ class BigMac {
   final double localPrice;
   final String currency;
   final double toDollarRate;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'countryID': countryID,
@@ -28,7 +28,7 @@ class BigMac {
       'toDollarRate': toDollarRate,
     };
   }
-// -------------------------------------
+  // --------------------
   static BigMac decipherBigMac(Map<String, dynamic> map) {
     BigMac _bigMac;
 
@@ -43,7 +43,7 @@ class BigMac {
 
     return _bigMac;
   }
-// -------------------------------------
+  // --------------------
   static List<BigMac> decipherBigMacs(List<Map<String, dynamic>> maps) {
     /// after this should recieve one big map of maps
 
@@ -57,7 +57,7 @@ class BigMac {
 
     return _bigMacs;
   }
-// -------------------------------------
+  // --------------------
   static Map<String, dynamic> cipherBigMacs(List<BigMac> bigMacs) {
     Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
@@ -73,11 +73,11 @@ class BigMac {
 
     return _bigMacsMap;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   static List<String> getCountriesIDsFromBigMacs(List<BigMac> bigMacs) {
     final List<String> _countriesIDs = <String>[];
 
@@ -89,35 +89,7 @@ class BigMac {
 
     return _countriesIDs;
   }
-// -----------------------------------------------------------------------------
-
-  /// BLAH
-
-// -------------------------------------
-  static const double proAccountPriceEGY = 3000; // 5 peacocks
-// -----------------------------------------------------------------------------
-  static double proAccountPriceInLocalCurrencyByISO3(String iso3) {
-    final double _bigMacsCountToBuyProAccount = bigMacsCountToBuyProAccount();
-
-    final BigMac _bigMac = getBigMacByISO3(iso3);
-
-    final double _localBigMacPriceInLocalCurrency = _bigMac.localPrice;
-
-    final double _proAccountPriceInLocalCurrency =
-        _localBigMacPriceInLocalCurrency * _bigMacsCountToBuyProAccount;
-
-    return _proAccountPriceInLocalCurrency;
-  }
-// -----------------------------------------------------------------------------
-  /// how many big macs can 5000 EGP buy
-  static double bigMacsCountToBuyProAccount() {
-    const double _proAccountPriceEGY = proAccountPriceEGY;
-    final double _bigMacPriceEGY = getBigMacByISO3('egy').localPrice;
-
-    final double _count = _proAccountPriceEGY / _bigMacPriceEGY;
-    return _count;
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getBigMacDollarPriceByISO3(String iso3) {
     double _bigMacLocalPriceInUSD = 0;
 
@@ -134,20 +106,12 @@ class BigMac {
 
     return _bigMacLocalPriceInUSD;
   }
-// -----------------------------------------------------------------------------
-  static double localPriceToDollar({
-    double localPrice,
-    double toDollarRate,
-  }) {
-    final double _priceInDollar = localPrice / toDollarRate;
-    return _priceInDollar;
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   static BigMac getBigMacByISO3(String iso3) {
     return bigMacs().singleWhere((BigMac bigMac) => bigMac.countryID == iso3,
         orElse: () => null);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static List<BigMac> getBigMacsOrdered() {
     final List<BigMac> _macs = <BigMac>[];
 
@@ -162,7 +126,56 @@ class BigMac {
 
     return _macs;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  static String getCurrencyByCountryIdFromBigMacs({
+    @required String countryID,
+    List<BigMac> bigMacs,
+  }) {
+
+    final BigMac _bigMacOfThisCountry = bigMacs.singleWhere(
+            (BigMac bigMac) => bigMac.countryID == countryID,
+        orElse: () => null);
+
+    final String _currency = _bigMacOfThisCountry?.currency;
+    return _currency;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OTHERS
+
+  // --------------------
+  static const double proAccountPriceEGY = 3000; // 5 peacocks
+  // --------------------
+  static double proAccountPriceInLocalCurrencyByISO3(String iso3) {
+    final double _bigMacsCountToBuyProAccount = bigMacsCountToBuyProAccount();
+
+    final BigMac _bigMac = getBigMacByISO3(iso3);
+
+    final double _localBigMacPriceInLocalCurrency = _bigMac.localPrice;
+
+    final double _proAccountPriceInLocalCurrency =
+        _localBigMacPriceInLocalCurrency * _bigMacsCountToBuyProAccount;
+
+    return _proAccountPriceInLocalCurrency;
+  }
+  // --------------------
+  /// how many big macs can 5000 EGP buy
+  static double bigMacsCountToBuyProAccount() {
+    const double _proAccountPriceEGY = proAccountPriceEGY;
+    final double _bigMacPriceEGY = getBigMacByISO3('egy').localPrice;
+
+    final double _count = _proAccountPriceEGY / _bigMacPriceEGY;
+    return _count;
+  }
+  // --------------------
+  static double localPriceToDollar({
+    double localPrice,
+    double toDollarRate,
+  }) {
+    final double _priceInDollar = localPrice / toDollarRate;
+    return _priceInDollar;
+  }
+  // --------------------
   static List<BigMac> bigMacs() {
     final List<BigMac> _bigMacs = <BigMac>[
       const BigMac(
@@ -446,20 +459,7 @@ class BigMac {
 
     return _bigMacs;
   }
-// -----------------------------------------------------------------------------
-  static String getCurrencyByCountryIdFromBigMacs({
-    @required String countryID,
-    List<BigMac> bigMacs,
-  }) {
-
-    final BigMac _bigMacOfThisCountry = bigMacs.singleWhere(
-        (BigMac bigMac) => bigMac.countryID == countryID,
-        orElse: () => null);
-
-    final String _currency = _bigMacOfThisCountry?.currency;
-    return _currency;
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   static List<String> euroCountries() {
     return <String>[
       'Germany',
@@ -509,4 +509,5 @@ class BigMac {
       'Åland Islands',
     ];
   }
+  // -----------------------------------------------------------------------------
 }

@@ -1,6 +1,0 @@
-//
-//
-// enum BldrsAccountType {
-//   bz,
-//   user,
-// }

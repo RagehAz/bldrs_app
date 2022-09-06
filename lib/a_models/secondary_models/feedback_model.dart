@@ -3,7 +3,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:flutter/foundation.dart';
 
-// -----------------------------------------------------------------------------
 @immutable
 class FeedbackModel {
   /// --------------------------------------------------------------------------
@@ -22,11 +21,11 @@ class FeedbackModel {
   final String feedback;
   final ModelType modelType;
   final String modelID;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -38,7 +37,7 @@ class FeedbackModel {
       'modelID' : modelID,
     };
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FeedbackModel decipherFeedback(Map<String, dynamic> map) {
     return FeedbackModel(
@@ -50,7 +49,7 @@ class FeedbackModel {
       modelID: map['modelID'],
     );
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FeedbackModel> decipherFeedbacks(List<Map<String, dynamic>> maps) {
 
@@ -64,15 +63,15 @@ class FeedbackModel {
 
     return _feedbacks;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CHECKERS
+  /// CHECKERS
 
-// ----------------------------------------
+  // --------------------
   static bool checkFeedbacksAreIdentical({
-  @required FeedbackModel feedback1,
+    @required FeedbackModel feedback1,
     @required FeedbackModel feedback2,
-}){
+  }){
     bool _areIdentical = false;
 
     if (feedback1 == null && feedback2 == null){
@@ -81,7 +80,7 @@ class FeedbackModel {
     else if (feedback1 != null && feedback2 != null){
 
       if (
-          feedback1.id == feedback2.id &&
+      feedback1.id == feedback2.id &&
           feedback1.userID == feedback2.userID &&
           feedback1.feedback == feedback2.feedback &&
           feedback1.modelType == feedback2.modelType &&
@@ -99,16 +98,16 @@ class FeedbackModel {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -126,14 +125,14 @@ class FeedbackModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
-     id.hashCode^
-     userID.hashCode^
-     timeStamp.hashCode^
-     feedback.hashCode^
-     modelType.hashCode^
-     modelID.hashCode;
-// -----------------------------------------------------------------------------
+      id.hashCode^
+      userID.hashCode^
+      timeStamp.hashCode^
+      feedback.hashCode^
+      modelType.hashCode^
+      modelID.hashCode;
+  // -----------------------------------------------------------------------------
 }

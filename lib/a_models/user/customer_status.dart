@@ -27,7 +27,7 @@ class CustomerStatus {
     @required this.specs,
     @required this.zoneModel,
     @required this.location,
-});
+  });
   /// --------------------------------------------------------------------------
   final BldrPhase bldrPhase;
   final List<BzType> neededBzz;
@@ -35,11 +35,11 @@ class CustomerStatus {
   final List<String> specs;
   final ZoneModel zoneModel;
   final GeoPoint location;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CLONING
+  /// CLONING
 
-// -----------------------------------
+  // --------------------
   CustomerStatus copyWith({
     BldrPhase bldrPhase,
     List<BzType> neededBzz,
@@ -47,7 +47,7 @@ class CustomerStatus {
     List<String> specs,
     ZoneModel zoneModel,
     GeoPoint location,
-}){
+  }){
     return CustomerStatus(
       bldrPhase: bldrPhase ?? this.bldrPhase,
       neededBzz: neededBzz ?? this.neededBzz,
@@ -57,11 +57,11 @@ class CustomerStatus {
       location: location ?? this.location,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CYPHERS
+  /// CYPHERS
 
-// -----------------------------------
+  // --------------------
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -77,7 +77,7 @@ class CustomerStatus {
       )
     };
   }
-// -----------------------------------
+  // --------------------
   static CustomerStatus decipherCustomerStatus(Map<String, dynamic> map){
 
     CustomerStatus _status;
@@ -90,19 +90,19 @@ class CustomerStatus {
         specs: Stringer.getStringsFromDynamics(dynamics: map['specs']),
         zoneModel: ZoneModel.decipherZoneMap(map['zoneModel']),
         location: Atlas.decipherGeoPoint(
-            point: map['location'],
-            fromJSON: false,
+          point: map['location'],
+          fromJSON: false,
         ),
       );
     }
 
     return _status;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLDR PHASE CYPHERS
+  /// BLDR PHASE CYPHERS
 
-// -----------------------------------
+  // --------------------
   static String cipherBldrPhase(BldrPhase phase){
     switch (phase){
       case BldrPhase.searchingProperties: return 'searchingProperties';     break;
@@ -114,7 +114,7 @@ class CustomerStatus {
       default: return null;
     }
   }
-// -----------------------------------
+  // --------------------
   static BldrPhase decipherBldrPhase(String phase){
     switch (phase){
       case 'searchingProperties':   return BldrPhase.searchingProperties; break;
@@ -126,11 +126,11 @@ class CustomerStatus {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLOGGING
+  /// BLOGGING
 
-// -----------------------------------
+  // --------------------
   void blogCustomerStatus({
     String methodName = 'CUSTOMER STATUS BLOG',
   }){
@@ -145,7 +145,7 @@ class CustomerStatus {
 
     blog('$methodName ---------------------------- END');
   }
-// -----------------------------------
+  // --------------------
   static void blogCustomerStatuses({
     @required List<CustomerStatus> statuses,
     String methodName,
@@ -165,5 +165,5 @@ class CustomerStatus {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

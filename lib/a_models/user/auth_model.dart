@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-// -----------------------------------------------------------------------------
 enum AuthType {
   emailSignIn,
   emailRegister,
@@ -17,7 +16,7 @@ enum AuthType {
   google,
   apple,
 }
-// -----------------------------------------------------------------------------
+
 @immutable
 class AuthModel {
   /// --------------------------------------------------------------------------
@@ -185,7 +184,7 @@ class AuthModel {
   /// googleSignInAuthentication
   final String googleSignInAuthenticationIdToken;
   final String googleSignInAuthenticationAccessToken;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
@@ -424,11 +423,11 @@ class AuthModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHER
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
@@ -517,7 +516,7 @@ class AuthModel {
 
     };
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel decipherAuthModel({
     @required Map<String, dynamic> map,
@@ -618,9 +617,9 @@ class AuthModel {
 
     return _model;
   }
-// -------------------------------------
+  // --------------------
   /// CYPHER AUTH BY
-// ------------------
+  // --------------------
   static AuthType decipherAuthBy(String authBy) {
     switch (authBy) {
       case 'emailRegister':     return AuthType.emailRegister;    break;
@@ -631,7 +630,7 @@ class AuthModel {
       default: return null;
     }
   }
-// ------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherAuthBy(AuthType authBy) {
     switch (authBy) {
@@ -643,11 +642,11 @@ class AuthModel {
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
 
   /// CYPHER USER INFO
 
-// ------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, String>> cipherUserInfos(List<UserInfo> userInfos){
 
@@ -666,7 +665,7 @@ class AuthModel {
 
     return _maps;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, String> cipherUserInfo(UserInfo userInfo){
     Map<String, String> _map;
@@ -687,7 +686,7 @@ class AuthModel {
 
     return _map;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserInfo> decipherUserInfos(dynamic maps){
 
@@ -710,7 +709,7 @@ class AuthModel {
 
     return _userInfos;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static UserInfo decipherUserInfo(Map<String, String> map){
     UserInfo _userInfo;
@@ -721,7 +720,7 @@ class AuthModel {
 
     return _userInfo;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, String>> _fixTheImmutableMapsThing(dynamic maps){
 
@@ -746,11 +745,11 @@ class AuthModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogAuthModel({String methodName = 'AUTH MODEL'}){
 
@@ -822,11 +821,11 @@ class AuthModel {
     blog('String                : googleSignInAuthenticationAccessToken : $googleSignInAuthenticationAccessToken');
     blog('BLOGGING AUTH MODEL   : $methodName -------------------------------------------------------');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool userIsSignedIn() {
     bool _userIsSignedIn = false;
@@ -841,11 +840,11 @@ class AuthModel {
 
     return _userIsSignedIn;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TESTING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel testModel(BuildContext context){
 
@@ -930,6 +929,5 @@ class AuthModel {
     return _model;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

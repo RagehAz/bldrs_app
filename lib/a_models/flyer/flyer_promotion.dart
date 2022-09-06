@@ -5,38 +5,38 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class FlyerPromotion {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const FlyerPromotion({
     @required this.cityID,
     @required this.flyerID,
     @required this.from,
     @required this.to,
     @required this.districtsIDs,
-});
-// -----------------------------------------------------------------------------
+  });
+  // -----------------------------------------------------------------------------
   final String cityID;
   final String flyerID;
   final DateTime from;
   final DateTime to;
   final List<String> districtsIDs;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ------------------------------------------
+  // --------------------
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
     return
-        {
-          'cityID' : cityID,
-          'flyerID' : flyerID,
-          'from' : Timers.cipherTime(time: from, toJSON: toJSON),
-          'to' : Timers.cipherTime(time: to, toJSON: toJSON),
-          'districtsIDs' : districtsIDs,
-        };
+      {
+        'cityID' : cityID,
+        'flyerID' : flyerID,
+        'from' : Timers.cipherTime(time: from, toJSON: toJSON),
+        'to' : Timers.cipherTime(time: to, toJSON: toJSON),
+        'districtsIDs' : districtsIDs,
+      };
   }
-// ------------------------------------------
+  // --------------------
   static FlyerPromotion decipherFlyerPromotion({
     @required Map<String, dynamic> map,
     bool fromJSON = false,
@@ -48,18 +48,18 @@ class FlyerPromotion {
 
       return
         _promotion = FlyerPromotion(
-              cityID: map['cityID'],
-              flyerID: map['flyerID'],
-              from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
-              to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
-              districtsIDs: Stringer.getStringsFromDynamics(dynamics: map['districtsIDs']),
-          );
+          cityID: map['cityID'],
+          flyerID: map['flyerID'],
+          from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
+          to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
+          districtsIDs: Stringer.getStringsFromDynamics(dynamics: map['districtsIDs']),
+        );
 
     }
 
     return _promotion;
   }
-// ------------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> cipherFlyersPromotions({
     @required List<FlyerPromotion> flyersPromotions,
     @required bool toJSON,
@@ -78,7 +78,7 @@ class FlyerPromotion {
 
     return _maps;
   }
-// ------------------------------------------
+  // --------------------
   static List<FlyerPromotion> decipherFlyersPromotions({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -97,11 +97,11 @@ class FlyerPromotion {
 
     return _promotions;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// ------------------------------------------
+  // --------------------
   static List<String> getFlyersIDsFromFlyersPromotions({
     @required List<FlyerPromotion> promotions
   }){
@@ -120,8 +120,7 @@ class FlyerPromotion {
 
     return _flyersIDs;
   }
-// -----------------------------------------------------------------------------
-/// TASK : CREATE OVERRIDE HERE
+// --------------------
   /*
 
   /// OVERRIDES

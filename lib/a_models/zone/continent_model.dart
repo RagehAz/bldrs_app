@@ -19,11 +19,11 @@ class Continent {
   final List<Region> regions;
   final List<String> activatedCountriesIDs;
   final List<String> globalCountriesIDs;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -----------------------------------
+  // --------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
@@ -32,7 +32,7 @@ class Continent {
       'globalCountriesIDs': globalCountriesIDs,
     };
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Continent decipherContinent(Map<String, dynamic> map) {
     return Continent(
       name: map['name'],
@@ -41,7 +41,7 @@ class Continent {
       globalCountriesIDs: Stringer.getStringsFromDynamics(dynamics: map['globalCountriesIDs']),
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Map<String, dynamic> cipherContinents(List<Continent> continents) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
@@ -57,7 +57,7 @@ class Continent {
 
     return _map;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static List<Continent> decipherContinents(Map<String, dynamic> map) {
     final List<Continent> _continents = <Continent>[];
 
@@ -75,11 +75,11 @@ class Continent {
 
     return _continents;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------------
+  // --------------------
   static bool checkContinentsIncludeContinent({
     @required List<Continent> continents,
     @required String name,
@@ -95,7 +95,7 @@ class Continent {
 
     return _includes;
   }
-// -----------------------------------
+  // --------------------
   static bool checkIconIsContinent(String icon) {
     bool _iconIsContinent;
 
@@ -114,23 +114,23 @@ class Continent {
 
     return _iconIsContinent;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -----------------------------------
+  // --------------------
   static Continent getContinentFromContinents({
     @required List<Continent> continents,
     @required String name,
   }) {
 
     final Continent cont = continents.firstWhere(
-        (Continent continent) => continent.name == name,
+            (Continent continent) => continent.name == name,
         orElse: () => null);
 
     return cont;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Continent getContinentFromContinentsByCountryID({
     @required List<Continent> continents,
     @required String countryID,
@@ -168,7 +168,7 @@ class Continent {
 
     return _cont;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static String getContinentIcon(Continent continent) {
     final String _name = continent.name;
 
@@ -182,11 +182,11 @@ class Continent {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LISTS
 
-// -----------------------------------
+  // --------------------
   static const List<Map<String, dynamic>> continentsMaps = <Map<String, dynamic>>[
     <String, dynamic>{
       'name': 'Africa',
@@ -213,11 +213,11 @@ class Continent {
       'icon': Iconz.contSouthAmerica,
     },
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -----------------------------------
+  // --------------------
   void blogContinent({
     String methodName = 'CONTINENT - BLOG',
   }) {
@@ -230,5 +230,5 @@ class Continent {
 
     blog('$methodName ------------------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

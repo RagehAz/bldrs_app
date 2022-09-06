@@ -6,7 +6,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
 @immutable
 class DistrictModel{
   /// --------------------------------------------------------------------------
@@ -27,13 +26,12 @@ class DistrictModel{
   /// automatic switch when flyers reach 'city publishing-target ~ 1000 flyers'
   /// then all flyers will be visible to users not only between bzz
   final bool isPublic;
-  final List<Phrase> phrases; // was not changed in firebase sub docs,, kessa ba2a
-// -----------------------------------------------------------------------------
-// -----------------------------------------------------------------------------
+  final List<Phrase> phrases; /// was not changed in firebase sub docs,, kessa ba2a
+    // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
     @required bool toJSON,
@@ -51,7 +49,7 @@ class DistrictModel{
 
     };
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String,dynamic> cipherDistricts({
     @required List<DistrictModel> districts,
@@ -72,7 +70,7 @@ class DistrictModel{
 
     return _districtsMap;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DistrictModel decipherDistrict(Map<String, dynamic> map){
     return DistrictModel(
@@ -82,13 +80,13 @@ class DistrictModel{
       isActivated : map['isActivated'],
       isPublic : map['isPublic'],
       phrases: CountryModel.decipherZonePhrases(
-          phrasesMap: map['phrases'],
-          zoneID: map['districtID'],
+        phrasesMap: map['phrases'],
+        zoneID: map['districtID'],
       ),
 
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<DistrictModel> decipherDistricts(Map<String, dynamic> map){
 
@@ -111,11 +109,11 @@ class DistrictModel{
 
     return _districts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   /*
   static List<MapModel> getDistrictsNamesMapModels({
     @required BuildContext context,
@@ -149,7 +147,7 @@ class DistrictModel{
     return MapModel.sortValuesAlphabetically(_districtsMapModels);
   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DistrictModel getDistrictFromDistricts({
     @required List<DistrictModel> districts,
@@ -166,11 +164,11 @@ class DistrictModel{
     }
     return _district;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PHRASES
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getTranslatedDistrictNameFromCity({
     @required BuildContext context,
@@ -182,13 +180,13 @@ class DistrictModel{
     if (city != null && districtID != null){
 
       final DistrictModel _district = DistrictModel.getDistrictFromDistricts(
-          districts: city.districts,
-          districtID: districtID,
+        districts: city.districts,
+        districtID: districtID,
       );
 
       final Phrase _phrase = Phrase.searchFirstPhraseByCurrentLang(
-          context: context,
-          phrases: _district?.phrases,
+        context: context,
+        phrases: _district?.phrases,
       );
 
       if (_phrase != null){
@@ -199,16 +197,16 @@ class DistrictModel{
 
     return _districtName;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getTranslatedDistrictNameFromDistrict({
     @required BuildContext context,
     @required DistrictModel district,
-}){
+  }){
 
     final Phrase _districtName = Phrase.searchFirstPhraseByCurrentLang(
-        context: context,
-        phrases: district?.phrases,
+      context: context,
+      phrases: district?.phrases,
     );
 
     final String _nameString = _districtName?.value;
@@ -216,7 +214,7 @@ class DistrictModel{
     return _nameString;
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<DistrictModel> searchDistrictsByCurrentLingoName({
     @required BuildContext context,
@@ -258,7 +256,7 @@ class DistrictModel{
 
     return _foundDistricts;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<DistrictModel> _getDistrictsFromNames({
     @required List<Phrase> names,
@@ -289,11 +287,11 @@ class DistrictModel{
 
     return _foundDistricts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLOGGERS
+  /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogDistrict(){
 
@@ -308,7 +306,7 @@ class DistrictModel{
     Phrase.blogPhrases(phrases);
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDistricts(List<DistrictModel> districts){
 
@@ -330,11 +328,11 @@ class DistrictModel{
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<DistrictModel> sortDistrictsAlphabetically({
     @required BuildContext context,
@@ -365,11 +363,11 @@ class DistrictModel{
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDistrictsAreIdentical(DistrictModel district1, DistrictModel district2){
     bool _identical = false;
@@ -383,11 +381,11 @@ class DistrictModel{
 
         if (
         district1.countryID == district2.countryID &&
-        district1.cityID == district2.cityID &&
-        district1.districtID == district2.districtID &&
-        district1.isActivated == district2.isActivated &&
-        district1.isPublic == district2.isPublic &&
-        Phrase.checkPhrasesListsAreIdentical(phrases1: district1.phrases, phrases2: district2.phrases) == true
+            district1.cityID == district2.cityID &&
+            district1.districtID == district2.districtID &&
+            district1.isActivated == district2.isActivated &&
+            district1.isPublic == district2.isPublic &&
+            Phrase.checkPhrasesListsAreIdentical(phrases1: district1.phrases, phrases2: district2.phrases) == true
         ){
           _identical = true;
         }
@@ -398,54 +396,54 @@ class DistrictModel{
 
     return _identical;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDistrictsListsAreIdentical(List<DistrictModel> districts1, List<DistrictModel> districts2){
 
-      bool _listsAreIdentical = false;
+    bool _listsAreIdentical = false;
 
-      if (districts1 == null && districts2 == null){
-        _listsAreIdentical = true;
+    if (districts1 == null && districts2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (districts1?.isEmpty == true && districts2?.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+
+    else if (Mapper.checkCanLoopList(districts1) == true && Mapper.checkCanLoopList(districts2) == true){
+
+      if (districts1.length != districts2.length) {
+        _listsAreIdentical = false;
       }
-      else if (districts1?.isEmpty == true && districts2?.isEmpty == true){
-        _listsAreIdentical = true;
-      }
 
-      else if (Mapper.checkCanLoopList(districts1) == true && Mapper.checkCanLoopList(districts2) == true){
+      else {
+        for (int i = 0; i < districts1.length; i++) {
 
-        if (districts1.length != districts2.length) {
-          _listsAreIdentical = false;
-        }
-
-        else {
-          for (int i = 0; i < districts1.length; i++) {
-
-            if (checkDistrictsAreIdentical(districts1[i], districts2[i]) == false) {
-              _listsAreIdentical = false;
-              break;
-            }
-
-            else {
-              _listsAreIdentical = true;
-            }
-
+          if (checkDistrictsAreIdentical(districts1[i], districts2[i]) == false) {
+            _listsAreIdentical = false;
+            break;
           }
-        }
 
+          else {
+            _listsAreIdentical = true;
+          }
+
+        }
       }
 
-      return _listsAreIdentical;
+    }
+
+    return _listsAreIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -463,7 +461,7 @@ class DistrictModel{
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       countryID.hashCode^
@@ -472,5 +470,5 @@ class DistrictModel{
       isActivated.hashCode^
       isPublic.hashCode^
       phrases.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

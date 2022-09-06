@@ -22,25 +22,25 @@ class BzCounterModel {
   final int allSlides;
   final int allViews;
   final int allReviews;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static BzCounterModel createInitialModel(String bzID){
     return BzCounterModel(
-        bzID:  bzID,
-        follows: 0,
-        calls: 0,
-        allSaves: 0,
-        allShares: 0,
-        allSlides: 0,
-        allViews: 0,
-        allReviews: 0,
+      bzID:  bzID,
+      follows: 0,
+      calls: 0,
+      allSaves: 0,
+      allShares: 0,
+      allSlides: 0,
+      allViews: 0,
+      allReviews: 0,
     );
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   BzCounterModel copyWith({
     String bzID,
@@ -65,11 +65,11 @@ class BzCounterModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
@@ -83,7 +83,7 @@ class BzCounterModel {
       'allReviews': allReviews,
     };
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static BzCounterModel decipherCounterMap(Map<String, dynamic> map){
 
@@ -104,11 +104,11 @@ class BzCounterModel {
 
     return _model;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ----------------------------------------
+  // --------------------
   static bool checkBzCounterModelsAreIdentical({
     @required BzCounterModel counter1,
     @required BzCounterModel counter2,
@@ -122,13 +122,13 @@ class BzCounterModel {
 
       if (
       counter1.bzID == counter2.bzID &&
-      counter1.follows == counter2.follows &&
-      counter1.calls == counter2.calls &&
-      counter1.allSaves == counter2.allSaves &&
-      counter1.allShares == counter2.allShares &&
-      counter1.allSlides == counter2.allSlides &&
-      counter1.allViews == counter2.allViews &&
-      counter1.allReviews == counter2.allReviews
+          counter1.follows == counter2.follows &&
+          counter1.calls == counter2.calls &&
+          counter1.allSaves == counter2.allSaves &&
+          counter1.allShares == counter2.allShares &&
+          counter1.allSlides == counter2.allSlides &&
+          counter1.allViews == counter2.allViews &&
+          counter1.allReviews == counter2.allReviews
       ){
         _areIdentical = true;
       }
@@ -137,16 +137,16 @@ class BzCounterModel {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -164,7 +164,7 @@ class BzCounterModel {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       bzID.hashCode^
