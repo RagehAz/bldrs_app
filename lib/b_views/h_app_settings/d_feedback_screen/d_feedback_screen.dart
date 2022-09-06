@@ -26,14 +26,16 @@ class FeedBack extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FeedBackState createState() => _FeedBackState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FeedBackState extends State<FeedBack> {
+  // -----------------------------------------------------------------------------
   TextEditingController _feedbackController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
+  // --------------------
   Future<void> _triggerLoading({Function function}) async {
     if (function == null) {
       setState(() {
@@ -50,32 +52,31 @@ class _FeedBackState extends State<FeedBack> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _feedbackController = TextEditingController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _feedbackController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _uploadFeedBack() async {
     unawaited(_triggerLoading());
 
     /// upload text to firebase
     final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
-        context: context,
-        feedback: FeedbackModel(
-          userID: AuthFireOps.superUserID(),
-          timeStamp: DateTime.now(),
-          feedback: _feedbackController.text,
-        ),
+      context: context,
+      feedback: FeedbackModel(
+        userID: AuthFireOps.superUserID(),
+        timeStamp: DateTime.now(),
+        feedback: _feedbackController.text,
+      ),
     );
 
     unawaited(_triggerLoading());
@@ -100,7 +101,7 @@ class _FeedBackState extends State<FeedBack> {
       invoker: 'FeedbackScreen',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -175,5 +176,7 @@ class _FeedBackState extends State<FeedBack> {
         ],
       ),
     );
+
   }
+// -----------------------------------------------------------------------------
 }

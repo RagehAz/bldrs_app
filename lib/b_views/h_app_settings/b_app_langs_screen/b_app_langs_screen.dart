@@ -18,23 +18,22 @@ class AppLangsScreen extends StatelessWidget {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     await _phraseProvider.changeAppLang(
-        context: context,
-        langCode: langCode,
+      context: context,
+      langCode: langCode,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const List<Lang> _languagesModels = Lang.allLanguages;
     final List<MapModel> _languageMaps = Lang.getLingoNamesMapModels(_languagesModels);
-
+    // --------------------
     return CenteredListLayout(
       columnChildren: <Widget>[
 
         const DotSeparator(color: Colorz.yellow80,),
-
 
         ...List.generate(_languageMaps.length, (index){
 
@@ -51,6 +50,7 @@ class AppLangsScreen extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

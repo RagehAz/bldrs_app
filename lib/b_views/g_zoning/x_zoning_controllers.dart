@@ -12,52 +12,52 @@ import 'package:provider/provider.dart';
 
 /// SET CURRENT ZONE
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
-  Future<void> setCurrentZone({
-    @required BuildContext context,
-    @required ZoneModel zone,
-  }) async {
+Future<void> setCurrentZone({
+  @required BuildContext context,
+  @required ZoneModel zone,
+}) async {
 
-    if (zone != null && zone.countryID != null){
+  if (zone != null && zone.countryID != null){
 
-      unawaited(WaitDialog.showWaitDialog(
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse: '##Loading, please wait',
+    ));
+
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    /// SET ZONE
+    zoneProvider.setCurrentZone(
+      zone: zone,
+      notify: false,
+    );
+    /// SET CURRENCY
+    zoneProvider.getSetCurrentCurrency(
+      context: context,
+      zone: zone,
+      notify: true,
+    );
+
+    /// SET CHAINS
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    await _chainsProvider.reInitializeCityChains(context);
+
+    WaitDialog.closeWaitDialog(context);
+
+    Nav.goBackToHomeScreen(
         context: context,
-        loadingVerse: '##Loading, please wait',
-      ));
-
-      final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-      /// SET ZONE
-      zoneProvider.setCurrentZone(
-        zone: zone,
-        notify: false,
-      );
-      /// SET CURRENCY
-      zoneProvider.getSetCurrentCurrency(
-        context: context,
-        zone: zone,
-        notify: true,
-      );
-
-      /// SET CHAINS
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      await _chainsProvider.reInitializeCityChains(context);
-
-      WaitDialog.closeWaitDialog(context);
-
-      Nav.goBackToHomeScreen(
-          context: context,
-          invoker: 'SelectCountryScreen._onCountryTap'
-      );
-
-    }
+        invoker: 'SelectCountryScreen._onCountryTap'
+    );
 
   }
+
+}
 // -----------------------------------------------------------------------------
 
 /// MAIN ZONING NAVIGATORS
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 
@@ -70,16 +70,16 @@ Future<ZoneModel> controlSelectCountryOnly(BuildContext context) async {
 
   return _zone;
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<ZoneModel> controlSelectCountryAndCityOnly(BuildContext context) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
-      context: context,
-      screen: const CountriesScreen(
-        selectCountryAndCityOnly: true,
+    context: context,
+    screen: const CountriesScreen(
+      selectCountryAndCityOnly: true,
 
-      ),
+    ),
 
   );
 
@@ -94,7 +94,7 @@ Future<ZoneModel> controlSelectZone(BuildContext context) async {
 
 /// COUNTRY CONTROLLERS
 
-// -------------------------------------
+// --------------------
 /*
 Future<void> controlCountryOnTap({
   @required BuildContext context,
@@ -194,7 +194,7 @@ Future<void> controlCountryOnTap({
   }
 
 }
-// -------------------------------------
+// --------------------
 Future<void> controlCountrySearch({
   @required BuildContext context,
   @required String searchText,
@@ -244,7 +244,7 @@ Future<void> controlCountrySearch({
   }
 
 }
-// -------------------------------------
+// --------------------
 void controlCountryScreenOnBack(BuildContext context,){
 
   Nav.goBack(context);
@@ -299,7 +299,7 @@ void controlCountryScreenOnBack(BuildContext context,){
 
 /// CITY CONTROLLERS
 
-// -------------------------------------
+// --------------------
 /*
 Future<void> initializeSelectCityScreen({
   @required BuildContext context,
@@ -328,7 +328,7 @@ Future<void> initializeSelectCityScreen({
   );
 
 }
-// -------------------------------------
+// --------------------
 Future<void> controlCityOnTap({
   @required BuildContext context,
   @required bool selectCountryAndCityOnly,
@@ -443,7 +443,7 @@ Future<void> controlCityOnTap({
 
 
 }
-// -------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> controlCitySearch({
   @required BuildContext context,
@@ -473,7 +473,7 @@ Future<void> controlCitySearch({
   }
 
 }
-// -------------------------------------
+// --------------------
 void controlCityScreenOnBack(BuildContext context){
 
   Nav.goBack(context);
@@ -516,7 +516,7 @@ void controlCityScreenOnBack(BuildContext context){
 
 /// DISTRICT CONTROLLERS
 
-// -------------------------------------
+// --------------------
 /*
 Future<void> initializeSelectDistrictScreen({
   @required BuildContext context,
@@ -544,7 +544,7 @@ Future<void> initializeSelectDistrictScreen({
   );
 
 }
-// -------------------------------------
+// --------------------
 Future<void> controlDistrictOnTap({
   @required BuildContext context,
   @required String districtID,
@@ -602,7 +602,7 @@ Future<void> controlDistrictOnTap({
   Nav.goBackToHomeScreen(context);
 
 }
-// -------------------------------------
+// --------------------
 Future<void> controlDistrictSearch({
   @required BuildContext context,
   @required String searchText,
@@ -632,7 +632,7 @@ Future<void> controlDistrictSearch({
 
 
 }
-// -------------------------------------
+// --------------------
 void controlDistrictScreenOnBack(BuildContext context){
 
   Nav.goBack(context);

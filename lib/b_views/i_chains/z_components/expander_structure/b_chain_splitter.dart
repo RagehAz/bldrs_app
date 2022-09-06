@@ -39,17 +39,17 @@ class ChainSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _width = width ?? BldrsAppBar.width(context);
-
+    // --------------------
     /// IF SON IS A PHID
     if (chainOrChainsOrSonOrSons is String) {
 
       final String _phid = chainOrChainsOrSonOrSons;
 
       final bool _isSelected = Stringer.checkStringsContainString(
-          strings: selectedPhids,
-          string: _phid,
+        strings: selectedPhids,
+        string: _phid,
       );
 
       final Color _color = _isSelected == true ? Colorz.blue125 : Colorz.white20;
@@ -71,7 +71,7 @@ class ChainSplitter extends StatelessWidget {
       );
 
     }
-
+    // --------------------
     /// IF SONS IS List<String>
     else if (chainOrChainsOrSonOrSons is List<String>){
       return ChainSonsBuilder(
@@ -86,7 +86,7 @@ class ChainSplitter extends StatelessWidget {
         onAddToPath: onAddToPath,
       );
     }
-
+    // --------------------
     /// IF SON IS CHAIN
     else if (chainOrChainsOrSonOrSons is Chain) {
 
@@ -112,7 +112,7 @@ class ChainSplitter extends StatelessWidget {
       );
 
     }
-
+    // --------------------
     /// IF SONS IS List<Chain>
     else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
 
@@ -128,11 +128,12 @@ class ChainSplitter extends StatelessWidget {
         onAddToPath: onAddToPath,
       );
     }
-
+    // --------------------
     /// OTHERWISE
     else {
       return const BldrsName(size: 40);
     }
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

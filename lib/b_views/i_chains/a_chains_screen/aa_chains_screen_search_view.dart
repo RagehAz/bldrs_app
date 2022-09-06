@@ -54,12 +54,12 @@ class ChainsScreenSearchView extends StatelessWidget {
                 builder: (_, List<SpecModel> _selectedSpecs, Widget child){
 
                   return ChainSplitter(
-                      chainOrChainsOrSonOrSons: _foundChains,
-                      width: PageBubble.clearWidth(context) + 20,
-                      selectedPhids: SpecModel.getSpecsIDs(_selectedSpecs),
-                      initiallyExpanded: true,
-                      onSelectPhid: onSelectPhid,
-                      searchText: searchText,
+                    chainOrChainsOrSonOrSons: _foundChains,
+                    width: PageBubble.clearWidth(context) + 20,
+                    selectedPhids: SpecModel.getSpecsIDs(_selectedSpecs),
+                    initiallyExpanded: true,
+                    onSelectPhid: onSelectPhid,
+                    searchText: searchText,
                   );
 
                 },
@@ -71,4 +71,5 @@ class ChainsScreenSearchView extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

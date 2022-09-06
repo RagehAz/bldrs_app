@@ -41,12 +41,12 @@ class NumberDataCreator extends StatefulWidget {
 }
 
 class _NumberDataCreatorState extends State<NumberDataCreator> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<dynamic> _specValue = ValueNotifier(null);
   final ValueNotifier<String> _selectedUnitID = ValueNotifier(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -63,7 +63,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -72,13 +72,13 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     _selectedUnitID.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bubbleWidth = BldrsAppBar.width(context);
     final String _hintText = widget.picker.chainID;
-
+    // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: 'phid_add_with_dots', // 'Add ...'
@@ -134,6 +134,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
 
       ],
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

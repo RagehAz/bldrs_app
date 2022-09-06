@@ -35,7 +35,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------
+    // --------------------
     /// HEIGHT
     const int _textSize = 4;
     final double _buttonHeight = SuperTextField.getFieldHeight(
@@ -46,13 +46,13 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
       withBottomMargin: false,
       withCounter: false,
     );
-// -----------------------------------------------------------
+    // --------------------
     /// WIDTH
     final double _clearWidth = Bubble.clearWidth(context);
     final double _unitButtonSpacer = hasUnit == true ? Ratioz.appBarMargin : 0;
     final double _unitButtonWidth = hasUnit == true ? 80 : 0;
     final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer;
-// -----------------------------------------------------------
+    // --------------------
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,9 +85,9 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 
         /// UNIT BUTTON SPACER
         if (hasUnit == true)
-        const SizedBox(
+          const SizedBox(
             width: Ratioz.appBarMargin,
-        ),
+          ),
 
         /// UNIT SELECTOR BUTTON
         if (hasUnit == true)
@@ -110,6 +110,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

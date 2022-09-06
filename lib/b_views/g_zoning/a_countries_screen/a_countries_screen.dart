@@ -34,17 +34,17 @@ class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _CountriesScreenState extends State<CountriesScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -56,13 +56,13 @@ class _CountriesScreenState extends State<CountriesScreen> {
       blogLoading(loading: _loading.value, callerName: 'SelectCountryScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -71,7 +71,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     _loading.dispose();
     super.dispose();
   }
-// ------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onCountryTap(String countryID) async {
 
     if (mounted == true){
@@ -162,9 +162,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
         }
         else {
           Nav.goBack(
-              invoker: '_onCountryTap',
-              context: context,
-              passedData: _zoneWithCityAndDistrict,
+            invoker: '_onCountryTap',
+            context: context,
+            passedData: _zoneWithCityAndDistrict,
           );
         }
 
@@ -173,7 +173,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onSearchCountry(String val) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -203,7 +203,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     }
 
   }
-// -------------------------------------
+  // --------------------
   Future<List<Phrase>> _searchCountriesPhrasesByName({
     @required BuildContext context,
     @required String countryName,
@@ -227,7 +227,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     return _cleaned;
   }
-// -------------------------------------
+  // --------------------
   void _onBack(){
 
     Nav.goBack(
@@ -272,8 +272,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
             else {
 
               return CountriesScreenBrowseView(
-                  onCountryTap: (String countryID) => _onCountryTap(countryID),
-                );
+                onCountryTap: (String countryID) => _onCountryTap(countryID),
+              );
 
             }
 
@@ -284,5 +284,5 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

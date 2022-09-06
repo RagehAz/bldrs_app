@@ -23,24 +23,27 @@ class CurrenciesScreen extends StatefulWidget {
     this.countryIDCurrencyOverride,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final String countryIDCurrencyOverride;
   /// --------------------------------------------------------------------------
   @override
   _CurrenciesScreenState createState() => _CurrenciesScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _CurrenciesScreenState extends State<CurrenciesScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final TextEditingController _searchController = TextEditingController();
+  // --------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  // --------------------
   final ValueNotifier<List<CurrencyModel>> _foundCurrencies = ValueNotifier([]);
+  // --------------------
   final ValueNotifier<bool> _showAllCurrencies = ValueNotifier<bool>(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -52,12 +55,12 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -74,7 +77,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// XXXX
   @override
   void dispose() {
@@ -84,7 +87,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     _showAllCurrencies.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _onSearch(String text){
     onSearchCurrencies(
       context: context,
@@ -93,7 +96,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       foundCurrencies: _foundCurrencies,
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   double _getScrollableHeight(double screenHeight){
     return PageBubble.height(
       appBarType: AppBarType.search,
@@ -104,27 +107,26 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
         - SeparatorLine.getTotalHeight * 3
         - CurrencyButton.standardHeight * 3;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final double _scrollableHeight = _getScrollableHeight(_screenHeight);
-
+    // --------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
     final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
-
+    // --------------------
     final CurrencyModel _currencyOverride = ZoneProvider.proGetCurrencyByCountryID(
       context: context,
       countryID: widget.countryIDCurrencyOverride,
       listen: false,
     );
-
     final CurrencyModel _currentCurrency = _currencyOverride ?? _zoneProvider.currentCurrency;
-
+    // --------------------
     blog('_currentCurrency : ${_currentCurrency.id}');
     _currentCurrency.blogCurrency();
-
+    // --------------------
     return MainLayout(
       pageTitleVerse: '##Select Currency',
       searchHintVerse: '##Search Currencies',
@@ -187,30 +189,30 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
           /// BROWSING
           else {
             return PageBubble(
-                screenHeightWithoutSafeArea: _screenHeight,
-                appBarType: AppBarType.search,
-                color: Colorz.white20,
-                child: ListView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Ratioz.appBarPadding,
-                  ),
-                  children: <Widget>[
+              screenHeightWithoutSafeArea: _screenHeight,
+              appBarType: AppBarType.search,
+              color: Colorz.white20,
+              child: ListView(
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                  vertical: Ratioz.appBarPadding,
+                ),
+                children: <Widget>[
 
-                    /// CURRENT CURRENCY
-                    CurrencyButton(
-                      currency: _currentCurrency,
-                      countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone.countryID,
-                      onTap: (CurrencyModel currency) => onSelectCurrency(
-                        context: context,
-                        currency: currency,
-                      ),
+                  /// CURRENT CURRENCY
+                  CurrencyButton(
+                    currency: _currentCurrency,
+                    countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone.countryID,
+                    onTap: (CurrencyModel currency) => onSelectCurrency(
+                      context: context,
+                      currency: currency,
                     ),
+                  ),
 
-                    const SeparatorLine(withMargins: true,),
+                  const SeparatorLine(withMargins: true,),
 
-                    /// USA DOLLAR
-                    if (_currentCurrency?.id != CurrencyModel.usaCurrencyID)
+                  /// USA DOLLAR
+                  if (_currentCurrency?.id != CurrencyModel.usaCurrencyID)
                     CurrencyButton(
                       currency: CurrencyModel.getCurrencyByID(
                         allCurrencies: _allCurrencies,
@@ -223,102 +225,102 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                       ),
                     ),
 
-                    /// EURO
-                    if (_currentCurrency?.id != CurrencyModel.euroCurrencyID)
-                      CurrencyButton(
-                        currency: CurrencyModel.getCurrencyByID(
-                          allCurrencies: _allCurrencies,
-                          currencyID: CurrencyModel.euroCurrencyID,
-                        ),
-                        countryID: CurrencyModel.euroCountryID,
-                        onTap: (CurrencyModel currency) => onSelectCurrency(
-                          context: context,
-                          currency: currency,
-                        ),
+                  /// EURO
+                  if (_currentCurrency?.id != CurrencyModel.euroCurrencyID)
+                    CurrencyButton(
+                      currency: CurrencyModel.getCurrencyByID(
+                        allCurrencies: _allCurrencies,
+                        currencyID: CurrencyModel.euroCurrencyID,
                       ),
-
-                    const SeparatorLine(withMargins: true,),
-
-                    /// REMAINING CURRENCIES
-                    ValueListenableBuilder(
-                        valueListenable: _showAllCurrencies,
-                        builder: (_, bool showAll, Widget child){
-
-                          if (showAll == true){
-
-                            final List<CurrencyModel> _remainingCurrencies = CurrencyModel.removeCurrencies(
-                              currencies: _allCurrencies,
-                              removeIDs: <String>[
-                                _currentCurrency?.id,
-                                CurrencyModel.usaCurrencyID,
-                                CurrencyModel.euroCurrencyID,
-                              ],
-                            );
-
-                            return CurrencyListBuilder(
-                              width: PageBubble.clearWidth(context),
-                              height: _scrollableHeight,
-                              currencies: _remainingCurrencies,
-                              onCurrencyTap: (CurrencyModel currency) => onSelectCurrency(
-                                context: context,
-                                currency: currency,
-                              ),
-                            );
-
-                            // return Center(
-                            //   child: SizedBox(
-                            //     width: PageBubble.clearWidth(context),
-                            //     height: _scrollableHeight,
-                            //     child: ListView.builder(
-                            //       itemCount: _remainingCurrencies.length,
-                            //       padding: const EdgeInsets.symmetric(vertical: 10),
-                            //       physics: const BouncingScrollPhysics(),
-                            //       itemBuilder: (_, index){
-                            //
-                            //         final CurrencyModel _currency = _remainingCurrencies[index];
-                            //
-                            //         return CurrencyButton(
-                            //           width: PageBubble.clearWidth(context) - 20,
-                            //           currency: _currency,
-                            //           countryID: _currency.countriesIDs.first,
-                            //           onTap: () => onSelectCurrency(
-                            //             context: context,
-                            //             currency: _currentCurrency,
-                            //           ),
-                            //         );
-                            //
-                            //       },
-                            //     ),
-                            //   ),
-                            // );
-
-                        }
-
-                          else {
-                            return WideButton(
-                              width: PageBubble.clearWidth(context) - 20,
-                              verse: '##Show all currencies',
-                              translate: true,
-                              onTap: (){
-                                _showAllCurrencies.value = !_showAllCurrencies.value;
-                              },
-                            );
-                          }
-
-                        }
+                      countryID: CurrencyModel.euroCountryID,
+                      onTap: (CurrencyModel currency) => onSelectCurrency(
+                        context: context,
+                        currency: currency,
+                      ),
                     ),
 
-                    const SeparatorLine(withMargins: true,),
+                  const SeparatorLine(withMargins: true,),
 
-                  ],
-                ),
+                  /// REMAINING CURRENCIES
+                  ValueListenableBuilder(
+                      valueListenable: _showAllCurrencies,
+                      builder: (_, bool showAll, Widget child){
+
+                        if (showAll == true){
+
+                          final List<CurrencyModel> _remainingCurrencies = CurrencyModel.removeCurrencies(
+                            currencies: _allCurrencies,
+                            removeIDs: <String>[
+                              _currentCurrency?.id,
+                              CurrencyModel.usaCurrencyID,
+                              CurrencyModel.euroCurrencyID,
+                            ],
+                          );
+
+                          return CurrencyListBuilder(
+                            width: PageBubble.clearWidth(context),
+                            height: _scrollableHeight,
+                            currencies: _remainingCurrencies,
+                            onCurrencyTap: (CurrencyModel currency) => onSelectCurrency(
+                              context: context,
+                              currency: currency,
+                            ),
+                          );
+
+                          // return Center(
+                          //   child: SizedBox(
+                          //     width: PageBubble.clearWidth(context),
+                          //     height: _scrollableHeight,
+                          //     child: ListView.builder(
+                          //       itemCount: _remainingCurrencies.length,
+                          //       padding: const EdgeInsets.symmetric(vertical: 10),
+                          //       physics: const BouncingScrollPhysics(),
+                          //       itemBuilder: (_, index){
+                          //
+                          //         final CurrencyModel _currency = _remainingCurrencies[index];
+                          //
+                          //         return CurrencyButton(
+                          //           width: PageBubble.clearWidth(context) - 20,
+                          //           currency: _currency,
+                          //           countryID: _currency.countriesIDs.first,
+                          //           onTap: () => onSelectCurrency(
+                          //             context: context,
+                          //             currency: _currentCurrency,
+                          //           ),
+                          //         );
+                          //
+                          //       },
+                          //     ),
+                          //   ),
+                          // );
+
+                        }
+
+                        else {
+                          return WideButton(
+                            width: PageBubble.clearWidth(context) - 20,
+                            verse: '##Show all currencies',
+                            translate: true,
+                            onTap: (){
+                              _showAllCurrencies.value = !_showAllCurrencies.value;
+                            },
+                          );
+                        }
+
+                      }
+                  ),
+
+                  const SeparatorLine(withMargins: true,),
+
+                ],
+              ),
             );
           }
 
         },
       ),
     );
-
+    // --------------------
   }
-
+// -----------------------------------------------------------------------------
 }
