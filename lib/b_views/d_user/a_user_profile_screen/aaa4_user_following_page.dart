@@ -18,23 +18,23 @@ class UserFollowingPage extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final UserModel userModel = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
-
     final List<String> _followedBzzIds = userModel.followedBzzIDs;
-
+    // --------------------
+    /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
       return const SuperVerse(
-          verse: '##Fuck you',
+        verse: '##Fuck you',
       );
     }
-
+    // --------------------
+    /// NO FOLLOWS THERE
     else {
 
       return ListView.builder(
@@ -93,6 +93,7 @@ class UserFollowingPage extends StatelessWidget {
       );
 
     }
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

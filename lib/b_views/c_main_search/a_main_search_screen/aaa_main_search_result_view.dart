@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchResultView extends StatelessWidget {
-
-  const SearchResultView({Key key}) : super(key: key);
-
+  // -----------------------------------------------------------------------------
+  const SearchResultView({
+    Key key
+  }) : super(key: key);
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -47,4 +49,5 @@ class SearchResultView extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

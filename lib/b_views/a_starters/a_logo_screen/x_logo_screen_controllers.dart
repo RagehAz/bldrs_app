@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';

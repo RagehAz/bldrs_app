@@ -20,13 +20,13 @@ class UserProfileScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final UserModel _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
     _user?.blogUserModel(methodName: 'UserProfileScreen');
-
+    // --------------------
     return ObeliskLayout(
       initiallyExpanded: true,
       canGoBack: true,
@@ -80,6 +80,7 @@ class UserProfileScreen extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

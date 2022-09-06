@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 
 /// AUTHENTICATORS
 
-// ------------------------------------------------------
+// --------------------
 Future<void> authByGoogle(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -36,7 +36,7 @@ Future<void> authByGoogle(BuildContext context) async {
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> authByFacebook(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -52,7 +52,7 @@ Future<void> authByFacebook(BuildContext context) async {
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> authByApple(BuildContext context) async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -68,7 +68,7 @@ Future<void> authByApple(BuildContext context) async {
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> authByEmailSignIn({
   @required BuildContext context,
   @required String email,
@@ -112,7 +112,7 @@ Future<void> authByEmailSignIn({
   }
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> authByEmailRegister({
   @required BuildContext context,
   @required String email,
@@ -164,7 +164,7 @@ Future<void> authByEmailRegister({
 
 /// CONTROLLING AUTH RESULT
 
-// ------------------------------------------------------
+// --------------------
 Future<void> _controlAuthResult({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -190,7 +190,7 @@ Future<void> _controlAuthResult({
   }
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> _controlAuthFailure({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -205,7 +205,7 @@ Future<void> _controlAuthFailure({
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 /*
 Future<void> setUserAndAuthModelsLocallyAndOnLDB({
   @required BuildContext context,
@@ -248,7 +248,7 @@ Future<void> setUserAndAuthModelsLocallyAndOnLDB({
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> _controlMissingFieldsCase({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -273,7 +273,7 @@ Future<void> _controlMissingFieldsCase({
   );
 
 }
-// ------------------------------------------------------
+// --------------------
 Future<void> showMissingFieldsDialog({
   @required BuildContext context,
   @required UserModel userModel,
@@ -294,7 +294,7 @@ Future<void> showMissingFieldsDialog({
 
 }
 */
-// ------------------------------------------------------
+// --------------------
 Future<void> _goToLogoScreen(BuildContext context) async {
   await Nav.goBackToLogoScreen(
       context: context,
@@ -305,7 +305,7 @@ Future<void> _goToLogoScreen(BuildContext context) async {
 
 /// EMAIL AUTH VALIDATION
 
-// -------------------------------------
+// --------------------
 bool _prepareForEmailAuthOps({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,

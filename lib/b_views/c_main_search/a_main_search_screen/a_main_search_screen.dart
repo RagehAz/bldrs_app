@@ -21,14 +21,14 @@ class MainSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _MainSearchScreenState createState() => _MainSearchScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _MainSearchScreenState extends State<MainSearchScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final TextEditingController _searchController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState(){
     super.initState();
@@ -56,7 +56,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     });
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -77,7 +77,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -85,7 +85,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onSearchSubmit(String searchText) async {
 
     await controlOnSearchSubmit(
@@ -96,7 +96,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onSearchChanged(String searchText){
 
     controlOnSearchChange(
@@ -105,7 +105,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   String _getSearchHintText(BuildContext context){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
@@ -119,19 +119,22 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     final String _hintText = 'Search flyers in $_cityName, $_countryName';
     return _hintText;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: true);
+    // --------------------
+    /*
     // final List<RecordModel> _records = _searchProvider.searchRecords;
 
     // final String _verse =
     //     _uiProvider.isLoading ? 'loading' :
     //     _searchProvider.isSearchingFlyersAndBzz ? 'searching' :
     //             'default';
-
+     */
+    // --------------------
     return MainLayout(
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
@@ -167,5 +170,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
       ),
 
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
