@@ -11,14 +11,14 @@ class TestingTemplate extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _TestingTemplateState createState() => _TestingTemplateState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _TestingTemplateState extends State<TestingTemplate> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -30,12 +30,12 @@ class _TestingTemplateState extends State<TestingTemplate> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -52,17 +52,17 @@ class _TestingTemplateState extends State<TestingTemplate> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// XXXX
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     return DashBoardLayout(
       loading: _loading,
       listWidgets: <Widget>[
@@ -79,7 +79,7 @@ class _TestingTemplateState extends State<TestingTemplate> {
 
       ],
     );
-
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

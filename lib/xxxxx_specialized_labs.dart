@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.d
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/redorder_list_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/redorder_list_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/super_rage7.dart';

@@ -28,8 +28,9 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
-
+  // -----------------------------------------------------------------------------
   /// TASK : In optimization : study this : https://pub.dev/packages/keframe
+  /*
   // debugPrintMarkNeedsPaintStacks = false;
   // debugProfilePaintsEnabled = false;
   // debugProfileBuildsEnabled = false;
@@ -37,16 +38,17 @@ Future<void> main() async {
   // debugPaintLayerBordersEnabled = false;
   // debugRepaintRainbowEnabled = false;
   // debugPrintLayouts = true;
-
+  */
+  // --------------------
   /// insures awaiting async methods below to finish then continue
   WidgetsFlutterBinding.ensureInitialized();
-
+  // --------------------
   await Firebase.initializeApp();
-
+  // --------------------
   await Notifications.preInitializeNotifications();
-
+  /// --------------------------------------------------------------------------
   runApp(const BldrsApp());
-
+  /// --------------------------------------------------------------------------
 }
 
 class BldrsApp extends StatefulWidget {
@@ -62,31 +64,33 @@ class BldrsApp extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _BldrsAppState createState() => _BldrsAppState();
+/// --------------------------------------------------------------------------
 }
 
 class _BldrsAppState extends State<BldrsApp> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<String> _fireError = ValueNotifier<String>(null); /// tamam disposed
-// -----------------------------------------------------------------------------
-  /// --- FUTURE LOADING BLOCK
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------------------------------
-  Future<void> _triggerLoading() async {
-    _loading.value = !_loading.value;
-
-    if (_loading.value == true) {
-      blog('main : LOADING --------------------------------------');
-    } else {
-      blog('main : LOADING COMPLETE -----------------------------');
+  // --------------------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -111,13 +115,14 @@ class _BldrsAppState extends State<BldrsApp> {
 
         /// END
         await _triggerLoading();
+
       });
     }
 
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
@@ -125,17 +130,15 @@ class _BldrsAppState extends State<BldrsApp> {
     _fireError.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null); /// tamam disposed
-// -----------------------------------
+  // --------------------
   void _setLocale(Locale locale) {
     _locale.value = locale;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // blog('building Bldrs with _locale : ${_locale.value}');
 
     if (_locale == null || _fireError.value != null) {
       return ValueListenableBuilder<bool>(
@@ -236,5 +239,7 @@ class _BldrsAppState extends State<BldrsApp> {
         ),
       );
     }
+
   }
+  // -----------------------------------------------------------------------------
 }
