@@ -68,15 +68,14 @@ class ContactFieldBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldBubbleState createState() => _ContactFieldBubbleState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _ContactFieldBubbleState extends State<ContactFieldBubble> {
-  // --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   String paste = '';
   TextEditingController _textController;
-  // --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -89,7 +88,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     // }
 
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -100,7 +99,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
     super.dispose();
   }
-  // --------------------------------------------------------------------------
+  // --------------------
   @override
   void didUpdateWidget(covariant ContactFieldBubble oldWidget) {
     // if (oldWidget.initialTextValue != widget.initialTextValue){
@@ -134,7 +133,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // ---------------------------
+    // --------------------
     /// TEXT FIELD HEIGHT
     final double _textFieldHeight = SuperTextField.getFieldHeight(
         context: context,
@@ -144,7 +143,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
         withBottomMargin: false,
         withCounter: false,
     );
-    // ---------------------------
+    // --------------------
     /// CLEAR WIDTH - SPACING
     final double _bubbleWidth = BldrsAppBar.width(context,);
     final double bubbleClearWidth = Bubble.clearWidth(context);
@@ -163,8 +162,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
         - leadingAndFieldSpacing
         - _pasteButtonWidth
         - _pasteButtonSpacer;
-    // ---------------------------
-
+    // --------------------
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
           validator: widget.validator,
@@ -245,6 +243,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
         ]
     );
-
+    // --------------------
   }
+// --------------------------------------------------------------------------
 }
