@@ -315,7 +315,7 @@ static img.Image decodeToImgImage({
   static Future<String> getBase64FromFileOrURL(dynamic image) async {
     File _file;
 
-    final bool _isFile = ObjectChecker.objectIsFile(image);
+    final bool _isFile = ObjectCheck.objectIsFile(image);
     // bool _isString = ObjectChecker.objectIsString(image);
 
     if (_isFile == true) {

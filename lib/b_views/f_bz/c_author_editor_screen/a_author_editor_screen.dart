@@ -310,6 +310,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     autoValidate: true,
                     validator: () => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
+                      zoneModel: widget.bzModel.zone,
                     ),
                   ),
 
