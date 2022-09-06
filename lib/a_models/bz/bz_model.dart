@@ -133,11 +133,11 @@ class BzModel{
   final BzState bzState;
   final List<String> flyersIDs;
   final DocumentSnapshot<Object> docSnapshot;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static Future <BzModel> initializeModelForEditing({
     @required BuildContext context,
@@ -168,7 +168,7 @@ class BzModel{
     );
 
   }
-// -----------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel backEditorVariablesToUpload({
     @required ValueNotifier<List<SpecModel>> selectedScopes,
@@ -205,11 +205,11 @@ class BzModel{
 
     return _bzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   BzModel copyWith({
     String id,
@@ -255,7 +255,7 @@ class BzModel{
       docSnapshot: docSnapshot ?? this.docSnapshot,
     );
 }
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   BzModel nullifyField({
     bool id = false,
@@ -300,11 +300,11 @@ class BzModel{
       docSnapshot : docSnapshot == true ? null : this.docSnapshot,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------
+  // -------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
@@ -334,7 +334,7 @@ class BzModel{
       'flyersIDs': flyersIDs,
     };
   }
-// -------------------------------
+  // -------------------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherBzz({
     @required List<BzModel> bzz,
@@ -355,7 +355,7 @@ class BzModel{
 
     return _maps;
   }
-// -------------------------------
+  // -------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel decipherBz({
     @required dynamic map,
@@ -394,7 +394,7 @@ class BzModel{
 
     return _bzModel;
   }
-// -------------------------------
+  // -------------------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> decipherBzz({
     @required List<Map<String, dynamic>> maps,
@@ -411,11 +411,11 @@ class BzModel{
 
     return _bzList;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ CONVERTERS
 
-// ------------------------------------------
+  // -----------------------------------
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
     return BzModel(
       id: 'newBz',
@@ -460,7 +460,7 @@ class BzModel{
       bzTypes: null,
     );
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
 
     final DocumentSnapshot<Object> _docSnap = doc.data();
@@ -479,11 +479,11 @@ class BzModel{
 
     return _bzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel removeFlyerIDFromBzAndAuthor({
     @required BzModel bzModel,
@@ -508,7 +508,7 @@ class BzModel{
 
     return _updatedBzModel;
   }
-// ------------------------------------------
+  // -----------------------------------
   /*
   static BzModel removeFlyersIDs({
     @required List<String> flyersIDs,
@@ -536,7 +536,7 @@ class BzModel{
 
   }
    */
-// ------------------------------------------
+  // -----------------------------------
   static List<BzModel> addOrRemoveBzToBzz({
     @required List<BzModel> bzzModels,
     @required BzModel bzModel,
@@ -561,7 +561,7 @@ class BzModel{
 
     return _output;
   }
-// -----------------------------------
+  // -----------------------------------
   static BzModel replaceAuthor({
     @required AuthorModel updatedAuthor,
     @required BzModel bzModel,
@@ -583,7 +583,7 @@ class BzModel{
 
     return _output;
   }
-// -----------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel removeAuthor({
     @required BzModel bzModel,
@@ -613,7 +613,7 @@ class BzModel{
 
     return _output ?? bzModel;
   }
-// -----------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static BzModel addNewUserAsAuthor({
     @required BzModel oldBzModel,
@@ -631,11 +631,11 @@ class BzModel{
 
     return _newBzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE CYPHERS
 
-// ------------------------------------------
+  // -----------------------------------
   static String cipherBzType(BzType x) {
     switch (x) {
       case BzType.developer       :  return 'developer'     ; break;
@@ -648,7 +648,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<String> cipherBzTypes(List<BzType> bzTypes){
     final List<String> _bzTypes = <String>[];
 
@@ -663,7 +663,7 @@ class BzModel{
 
     return _bzTypes;
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzType decipherBzType(String x) {
     switch (x) {
       case 'developer'      : return BzType.developer;      break;
@@ -676,7 +676,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> decipherBzTypes(List<dynamic> bzTypes){
     final List<BzType> _bzTypes = <BzType>[];
 
@@ -693,11 +693,11 @@ class BzModel{
 
     return _bzTypes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE GETTERS
 
-// ------------------------------------------
+  // -----------------------------------
   static const List<BzType> bzTypesList = <BzType>[
     BzType.developer,
     BzType.broker,
@@ -707,7 +707,7 @@ class BzModel{
     BzType.manufacturer,
     BzType.supplier,
   ];
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> getBzTypesListWithoutOneType(BzType removeThisType){
     const List<BzType> _allTypes = bzTypesList;
     final List<BzType> _output = <BzType>[];
@@ -720,7 +720,7 @@ class BzModel{
 
     return _output;
   }
-// ------------------------------------------
+  // -----------------------------------
   static String getBzTypeIconOff(BzType bzType) {
 
     final String icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
@@ -741,7 +741,7 @@ class BzModel{
 
     return icon;
   }
-// ------------------------------------------
+  // -----------------------------------
   static String getBzTypeIconOn(BzType bzType) {
 
     final String icon =
@@ -763,11 +763,11 @@ class BzModel{
 
     return icon;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE CHECKERS
 
-// ------------------------------------------
+  // -----------------------------------
   static bool checkBzTypesContainThisType({
     @required BzType bzType,
     @required List<BzType> bzTypes,
@@ -784,11 +784,11 @@ class BzModel{
 
     return _contains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE TRANSLATIONS
 
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static String translateBzType({
     @required BuildContext context,
@@ -842,7 +842,7 @@ class BzModel{
     }
 
   }
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> translateBzTypes({
     @required BuildContext context,
@@ -869,7 +869,7 @@ class BzModel{
 
     return _strings;
   }
-// ------------------------------------------
+  // -----------------------------------
   static String translateBzTypesIntoString({
     @required BuildContext context,
     @required List<BzType> bzTypes,
@@ -935,11 +935,11 @@ class BzModel{
 
     return _askHint;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE CONCLUDERS
 
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> concludeBzTypeByBzSection(BzSection bzSection){
 
     List<BzType> _bzTypes = <BzType>[];
@@ -961,7 +961,7 @@ class BzModel{
 
     return _bzTypes;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> concludeDeactivatedBzTypesBySection({
     @required BzSection bzSection,
     List<BzType> initialBzTypes,
@@ -998,7 +998,7 @@ class BzModel{
 
     return _bzTypes;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> concludeMixableBzTypes({
     @required BzType bzType,
 }){
@@ -1054,7 +1054,7 @@ class BzModel{
 
     return _mixableTypes;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> concludeDeactivatedBzTypesBySelectedType({
   @required BzType selectedBzType,
 }){
@@ -1073,7 +1073,7 @@ class BzModel{
 
     return _inactiveTypes;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> concludeDeactivatedBzTypesBasedOnSelectedBzTypes({
     @required BzType newSelectedType,
     @required List<BzType> selectedBzTypes,
@@ -1099,11 +1099,11 @@ class BzModel{
 
     return _inactiveBzTypes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE MODIFIERS
 
-// ------------------------------------------
+  // -----------------------------------
   static List<BzType> addOrRemoveBzTypeToBzzTypes({
     @required BzType newSelectedBzType,
     @required List<BzType> selectedBzTypes,
@@ -1126,11 +1126,11 @@ class BzModel{
 
     return _outputTypes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ ACCOUNT TYPE
 
-// ------------------------------------------
+  // -----------------------------------
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
       case BzAccountType.normal:  return 'normal';  break;
@@ -1139,7 +1139,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
       case 'normal'   : return BzAccountType.normal   ; break; // 1
@@ -1148,17 +1148,17 @@ class BzModel{
       default:return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
     BzAccountType.normal,
     BzAccountType.premium,
     BzAccountType.sphinx,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ FORM
 
-// ------------------------------------------
+  // -----------------------------------
   static String cipherBzForm(BzForm x) {
     switch (x) {
       case BzForm.individual  : return 'individual' ; break;
@@ -1166,7 +1166,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzForm decipherBzForm(String x) {
     switch (x) {
       case 'individual' :  return BzForm.individual ; break; // 1
@@ -1174,11 +1174,11 @@ class BzModel{
       default:  return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ FORM TRANSLATION
 
-// ------------------------------------------
+  // -----------------------------------
   static String translateBzForm({
     @required BuildContext context,
     @required BzForm bzForm,
@@ -1197,7 +1197,7 @@ class BzModel{
     }
 
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<String> translateBzForms({
     @required BuildContext context,
     @required List<BzForm> bzForms,
@@ -1218,11 +1218,11 @@ class BzModel{
 
     return _strings;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ FORM CHECKERS
 
-// ------------------------------------------
+  // -----------------------------------
   static bool bzFormsContainThisForm({
     @required List<BzForm> bzForms,
     @required BzForm bzForm,
@@ -1239,11 +1239,11 @@ class BzModel{
 
     return _contains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ FORM CHECKERS
 
-// ------------------------------------------
+  // -----------------------------------
   static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType> selectedBzTypes){
 
     /// INITIAL LIST OF ALL BZ FORMS
@@ -1278,7 +1278,7 @@ class BzModel{
 
     return _bzForms;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzForm> concludeBzFormsByBzType(BzType selectedBzType){
 
     List<BzForm> _bzForm = <BzForm>[];
@@ -1324,16 +1324,16 @@ class BzModel{
 
     return _bzForm;
   }
-// ------------------------------------------
+  // -----------------------------------
   static const List<BzForm> bzFormsList = <BzForm>[
     BzForm.individual,
     BzForm.company,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ STATE
 
-// ------------------------------------------
+  // -----------------------------------
   static String cipherBzState(BzState state) {
     switch (state) {
       case BzState.online       : return 'online'     ; break;
@@ -1344,7 +1344,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzState decipherBzState(String state) {
     switch (state) {
       case 'online'       : return BzState.online       ; break;
@@ -1355,7 +1355,7 @@ class BzModel{
       default:  return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static const List<BzState> bzStatesList = <BzState>[
     BzState.online,
     BzState.offline,
@@ -1363,11 +1363,11 @@ class BzModel{
     BzState.deleted,
     BzState.banned,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ SECTION
 
-// ------------------------------------------
+  // -----------------------------------
   static String translateBzSection({
     @required BuildContext context,
     @required BzSection bzSection,
@@ -1383,7 +1383,7 @@ class BzModel{
 
     return _translation;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<String> translateBzSections({
     @required BuildContext context,
     @required List<BzSection> bzSections,
@@ -1404,7 +1404,7 @@ class BzModel{
 
     return _strings;
   }
-// ------------------------------------------
+  // -----------------------------------
   static BzSection concludeBzSectionByBzTypes(List<BzType> selectedBzTypes){
 
     BzType _bzType;
@@ -1428,17 +1428,17 @@ class BzModel{
     }
 
   }
-// ------------------------------------------
+  // -----------------------------------
   static  const List<BzSection> bzSectionsList = <BzSection>[
     BzSection.realestate,
     BzSection.construction,
     BzSection.supplies,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ DUMMIES
 
-// ------------------------------------------
+  // -----------------------------------
   static BzModel dummyBz(String bzID) {
     final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
 
@@ -1465,7 +1465,7 @@ class BzModel{
       showsTeam: true,
     );
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzModel> dummyBzz({int length = 4}){
 
     final List<BzModel> _dummies = <BzModel>[];
@@ -1476,11 +1476,11 @@ class BzModel{
 
     return _dummies;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ BLOGGING
 
-// ------------------------------------------
+  // -----------------------------------
   void blogBz({String methodName = 'blogBzModel'}) {
     final String _methodName = methodName ?? 'BZ';
 
@@ -1506,7 +1506,7 @@ class BzModel{
 
     blog('$_methodName : blogING BZ MODEL -------------------------------- END -- ');
   }
-// ------------------------------------------
+  // -----------------------------------
   static void blogBzz({
     @required List<BzModel> bzz,
     String methodName,
@@ -1521,11 +1521,11 @@ class BzModel{
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ GETTERS
 
-// ------------------------------------------
+  // -----------------------------------
   static BzModel getBzFromBzzByBzID({
     @required List<BzModel> bzz,
     @required String bzID,
@@ -1536,7 +1536,7 @@ class BzModel{
     return _bz;
 
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<String> getBzzIDsFromBzz(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
@@ -1548,7 +1548,7 @@ class BzModel{
 
     return _ids;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzModel> getBzzFromBzzByBzType({
     @required List<BzModel> bzz,
     @required BzType bzType,
@@ -1574,7 +1574,7 @@ class BzModel{
 
     return _output;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<String> getBzTeamIDs(BzModel bzModel) {
     final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _bzTeamIDs = <String>[];
@@ -1587,7 +1587,7 @@ class BzModel{
 
     return _bzTeamIDs;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzModel> getBzzByCreatorID({
     @required List<BzModel> bzzModels,
     @required String creatorID,
@@ -1610,7 +1610,7 @@ class BzModel{
 
     return _bzzModels;
   }
-// ------------------------------------------
+  // -----------------------------------
   static List<BzModel> getBzzIDidNotCreate({
     @required List<BzModel> bzzModels,
     @required String userID,
@@ -1633,11 +1633,11 @@ class BzModel{
 
     return _bzzModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ CHECKERS
 
-// ------------------------------------------
+  // -----------------------------------
   static bool checkBzzContainThisBz({
     @required List<BzModel> bzz,
     @required BzModel bzModel,
@@ -1655,7 +1655,7 @@ class BzModel{
 
     return _contains;
   }
-// ------------------------------------------
+  // -----------------------------------
   /// TESTED : WORKS GOOD ISA
   static bool checkBzzAreIdentical({
     @required BzModel bz1,
@@ -1702,7 +1702,7 @@ class BzModel{
 
     return _areIdentical;
   }
-// ------------------------------------------
+  // -----------------------------------
   static void blogBzzDifferences({
     @required BzModel bz1,
     @required BzModel bz2,
@@ -1780,7 +1780,7 @@ class BzModel{
     blog('ending blogBzzDifferences checkup');
 
   }
-// ------------------------------------------
+  // -----------------------------------
   static bool checkBzHasContacts({
     @required BzModel bzModel,
   }){
@@ -1808,16 +1808,16 @@ class BzModel{
 
     return _hasContacts;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TABS
 
-// ------------------------------------------
+  // -----------------------------------
   static int getBzTabIndex(BzTab bzTab){
     final int _index = bzTabsList.indexWhere((tab) => tab == bzTab);
     return _index;
   }
-// ------------------------------------------
+  // -----------------------------------
   static const List<BzTab> bzTabsList = <BzTab>[
     BzTab.flyers,
     BzTab.about,
@@ -1828,7 +1828,7 @@ class BzModel{
     BzTab.network,
     BzTab.settings,
   ];
-// // ------------------------------------------
+  // -----------------------------------
   /*
 //   /// CAUTION : THESE TITLES CAN NOT BE TRANSLATED DUE TO THEIR USE IN WIDGET KEYS
 //   static const List<String> bzPagesTabsTitlesInEnglishOnly = <String>[
@@ -1842,7 +1842,7 @@ class BzModel{
 //     'settings',
 //   ];
    */
-// ------------------------------------------
+  // -----------------------------------
   static String getBzTabID({
     @required BzTab bzTab,
   }){
@@ -1858,7 +1858,7 @@ class BzModel{
       default : return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static String translateBzTab({
     @required BzTab bzTab,
     @required BuildContext context,
@@ -1875,7 +1875,7 @@ class BzModel{
       default : return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static String getBzTabIcon(BzTab bzTab){
     switch(bzTab){
       case BzTab.flyers   : return Iconz.flyerGrid  ; break;
@@ -1889,7 +1889,7 @@ class BzModel{
       default : return null;
     }
   }
-// ------------------------------------------
+  // -----------------------------------
   static String getTabTitle({
     @required int index,
     @required BuildContext context,
@@ -1901,11 +1901,11 @@ class BzModel{
     );
     return _tabTitle;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ VALIDATION
 
-// ------------------------------------------
+  // -----------------------------------
   static List<AlertModel> requiredFields(BzModel bzModel){
     final List<AlertModel> _invalidFields = <AlertModel>[];
 
@@ -1997,16 +1997,16 @@ class BzModel{
 
     return _invalidFields;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // -----------------------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // -----------------------------------
   @override
   bool operator == (Object other){
 
@@ -2024,7 +2024,7 @@ class BzModel{
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // -----------------------------------
   @override
   int get hashCode =>
   id.hashCode ^
@@ -2046,5 +2046,6 @@ class BzModel{
   bzState.hashCode ^
   flyersIDs.hashCode ^
   docSnapshot.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
+/// ---------------------
