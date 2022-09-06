@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
@@ -7,11 +5,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class RenovateNoteProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateNoteProtocols();
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> modifyNoteResponse({
     @required BuildContext context,
@@ -38,5 +36,5 @@ class RenovateNoteProtocols {
 
     blog('RenovateNoteProtocols.modifyNoteResponse : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

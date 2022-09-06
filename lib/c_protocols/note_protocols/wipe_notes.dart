@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/d_providers/notes_provider.dart';
 import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
@@ -7,15 +5,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class WipeNoteProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const WipeNoteProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> cancelSentAuthorshipInvitation({
     @required BuildContext context,
@@ -37,7 +35,7 @@ class WipeNoteProtocols {
     blog('NoteProtocol.cancelSentAuthorshipInvitation : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> wipeNote({
     @required BuildContext context,
     @required NoteModel noteModel,
@@ -60,11 +58,11 @@ class WipeNoteProtocols {
 
     blog('NoteProtocol.deleteNoteEverywhereProtocol : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SUPER DELETE ALL NOTES
 
-// ----------------------------------
+  // --------------------
   /// VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
   static Future<void> deleteAllBzReceivedNotes({
     @required BuildContext context,
@@ -82,19 +80,19 @@ class WipeNoteProtocols {
     blog('NoteProtocol.deleteAllBzReceivedNotes : END');
 
   }
-// ----------------------------------
+  // --------------------
   static Future<void> wipeBzSentAuthorshipNotes({
     @required BuildContext context,
     @required String bzID,
   }) async {
 
     await NoteFireOps.deleteAllSentAuthorshipNotes(
-        context: context,
-        senderID: bzID,
+      context: context,
+      senderID: bzID,
     );
 
   }
-// ----------------------------------
+  // --------------------
   /// VERY DANGEROUS : SHOULD BE BY A CLOUD FUNCTION
   static Future<void> wipeUserReceivedNotes({
     @required BuildContext context,
@@ -112,5 +110,5 @@ class WipeNoteProtocols {
     blog('NoteProtocol.deleteAllUserReceivedNotes : END');
 
   }
-// ----------------------------------
+// -----------------------------------------------------------------------------
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/compose_authors.dart';
@@ -8,49 +6,49 @@ import 'package:bldrs/c_protocols/author_protocols/wipe_authors.dart';
 import 'package:flutter/material.dart';
 
 class AuthorProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const AuthorProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// COMPOSE
+  /// COMPOSE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> addMeAsNewAuthorToABzProtocol({
     @required BuildContext context,
     @required BzModel oldBzModel,
-}) => ComposeAuthorProtocols.addMeAsNewAuthorToABzProtocol(
+  }) => ComposeAuthorProtocols.addMeAsNewAuthorToABzProtocol(
     context: context,
     oldBzModel: oldBzModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// ----------------------------------
+  // --------------------
   ///
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateAuthorProtocol({
     @required BuildContext context,
     @required BzModel oldBzModel,
     @required AuthorModel newAuthorModel,
   }) => RenovateAuthorProtocols.updateAuthorProtocol(
-      context: context,
-      oldBzModel: oldBzModel,
-      newAuthorModel: newAuthorModel,
+    context: context,
+    oldBzModel: oldBzModel,
+    newAuthorModel: newAuthorModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteMyAuthorPicProtocol({
     @required BuildContext context,
@@ -59,7 +57,7 @@ class AuthorProtocols {
       context: context,
       bzID: bzID
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> removeMeFromBzProtocol({
     @required BuildContext context,
@@ -69,7 +67,7 @@ class AuthorProtocols {
       context: context,
       streamedBzModelWithoutMyID: streamedBzModelWithoutMyID
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> removeFlyerlessAuthorProtocol({
     @required BuildContext context,
@@ -80,7 +78,7 @@ class AuthorProtocols {
     bzModel: bzModel,
     author: author,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> authorBzExitAfterBzDeletionProtocol({
     @required BuildContext context,
@@ -89,5 +87,5 @@ class AuthorProtocols {
     context: context,
     bzID: bzID,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
