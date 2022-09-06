@@ -15,11 +15,11 @@ class ReviewBubbleBox extends StatelessWidget {
   final Widget child;
   /// --------------------------------------------------------------------------
   static double clearWidth({
-  @required double balloonWidth,
-}){
+    @required double balloonWidth,
+  }){
     return balloonWidth - (ReviewBubble.spacer * 2);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -40,6 +40,7 @@ class ReviewBubbleBox extends StatelessWidget {
       alignment: Aligners.superTopAlignment(context),
       child: child,
     );
-  }
 
+  }
+// -----------------------------------------------------------------------------
 }

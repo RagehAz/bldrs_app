@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 
 /// FLYER DATA COMPLETION
 
-// ----------------------------------
+// --------------------
 Future<BzModel> getFlyerBzModel({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -35,7 +35,7 @@ Future<BzModel> getFlyerBzModel({
 
   return _bzModel;
 }
-// ----------------------------------
+// --------------------
 Future<CountryModel> getFlyerBzCountry({
   @required BuildContext context,
   @required String countryID,
@@ -48,7 +48,7 @@ Future<CountryModel> getFlyerBzCountry({
 
   return _country;
 }
-// ----------------------------------
+// --------------------
 Future<CityModel> getFlyerBzCity({
   @required BuildContext context,
   @required String cityID,
@@ -61,7 +61,7 @@ Future<CityModel> getFlyerBzCity({
 
   return _city;
 }
-// ----------------------------------
+// --------------------
 ZoneModel getZoneModel({
   @required BuildContext context,
   @required String countryID,
@@ -99,7 +99,7 @@ ZoneModel getZoneModel({
 
 /// SLIDES INDEXING
 
-// ----------------------------------
+// --------------------
 int getNumberOfSlides({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -122,7 +122,7 @@ int getNumberOfSlides({
 
   return _numberOfSlides;
 }
-// ----------------------------------
+// --------------------
 int getPossibleStartingIndex({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -156,7 +156,7 @@ int getPossibleStartingIndex({
 
 /// HERO
 
-// ----------------------------------
+// --------------------
 String createHeroTag({
   @required String heroTag,
   @required String flyerID
@@ -173,7 +173,7 @@ String createHeroTag({
 
   return _heroTag;
 }
-// ----------------------------------
+// --------------------
 List<String> splitHeroTagIntoFlyersIDs({
   @required String heroTag,
 }){
@@ -187,7 +187,7 @@ List<String> splitHeroTagIntoFlyersIDs({
 
   return _output;
 }
-// ----------------------------------
+// --------------------
 Widget flyerFlightShuttle({
   @required BuildContext flightContext,
   @required Animation<double> animation, // 0 to 1
@@ -265,7 +265,7 @@ Widget flyerFlightShuttle({
       }
   );
 }
-// ----------------------------------
+// --------------------
 FlightDirection getFlightDirection(String direction){
 
   switch(direction){
@@ -279,7 +279,7 @@ FlightDirection getFlightDirection(String direction){
 
 /// GALLERY
 
-// ----------------------------------
+// --------------------
 bool canShowGalleryPage({
   @required BzModel bzModel,
   @required String heroTag,
@@ -321,7 +321,7 @@ bool canShowGalleryPage({
 
   return _canShowGallery;
 }
-// ----------------------------------
+// --------------------
 /// GETS ONLY THE NEXT UNLOADED NUMBER OF FLYERS IDS
 List<String> getNextFlyersIDs({
   @required List<String> allFlyersIDs,
@@ -387,7 +387,7 @@ List<String> getNextFlyersIDs({
 
   return _nextFlyersIDs;
 }
-// ----------------------------------
+// --------------------
 Future<List<FlyerModel>> fetchMoreFlyers({
   @required BuildContext context,
   @required List<FlyerModel> loadedFlyers,
@@ -417,7 +417,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
 
 /// SIZING
 
-// ----------------------------------
+// --------------------
 double flyerWidthSizeFactor({
   @required double tween,
   /// min flyer width factor * screen width = minimum flyer width
@@ -430,7 +430,7 @@ double flyerWidthSizeFactor({
       minWidthFactor + (tween * (maxWidthFactor - minWidthFactor));
   return _flyerWidthSizeFactor;
 }
-// -----------------------------------------------------------------------------
+// --------------------
 Future<void> recordFlyerView({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -444,3 +444,4 @@ Future<void> recordFlyerView({
   );
 
 }
+// -----------------------------------------------------------------------------

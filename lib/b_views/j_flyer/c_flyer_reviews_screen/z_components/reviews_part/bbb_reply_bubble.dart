@@ -32,16 +32,16 @@ class BzReplyBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const double _logoWidth = ReviewBubble.userBalloonSize;
-
+    // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
       context: context,
       flyerModel: flyerModel,
     );
-
+    // --------------------
     final double _balloonWidth = boxWidth - _logoWidth - ReviewBubble.spacer * 0.5;
-
+    // --------------------
     return SizedBox(
       width: boxWidth,
       child: FutureBuilder(
@@ -93,17 +93,17 @@ class BzReplyBubble extends StatelessWidget {
                           children: <Widget>[
 
                             /// MORE BUTTON
-                              ReviewBubbleButton(
-                                count: null,
-                                isOn: false,
-                                verse: null,
-                                icon: Iconz.more,
-                                onTap: () => onReplyOptions(
-                                  context: context,
-                                  reviewModel: reviewModel,
-                                  replaceMapNotifier: paginatorNotifiers.replaceMap,
-                                ),
+                            ReviewBubbleButton(
+                              count: null,
+                              isOn: false,
+                              verse: null,
+                              icon: Iconz.more,
+                              onTap: () => onReplyOptions(
+                                context: context,
+                                reviewModel: reviewModel,
+                                replaceMapNotifier: paginatorNotifiers.replaceMap,
                               ),
+                            ),
 
                           ],
                         ),
@@ -120,6 +120,7 @@ class BzReplyBubble extends StatelessWidget {
         },
       ),
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 /// SAVE
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSaveFlyer({
   @required BuildContext context,
@@ -35,7 +35,7 @@ Future<void> onSaveFlyer({
 
 /// REVIEW
 
-// ----------------------------------
+// --------------------
 Future<void> onReviewButtonTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -53,7 +53,7 @@ Future<void> onReviewButtonTap({
 
 /// SHARE
 
-// ----------------------------------
+// --------------------
 Future<void> onShareFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -85,4 +85,4 @@ Future<void> onShareFlyer({
 
 /// REPORT
 
-// ----------------------------------
+// --------------------

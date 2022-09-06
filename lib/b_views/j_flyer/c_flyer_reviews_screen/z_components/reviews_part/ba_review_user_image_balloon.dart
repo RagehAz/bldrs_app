@@ -31,6 +31,7 @@ class ReviewUserImageBalloon extends StatelessWidget {
         shadowIsOn: false,
       ),
     );
-  }
 
+  }
+  /// --------------------------------------------------------------------------
 }

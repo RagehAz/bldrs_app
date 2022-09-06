@@ -33,12 +33,12 @@ class ReviewsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final List<ReviewModel> reviews = ReviewModel.decipherReviews(
       maps: reviewsMaps,
       fromJSON: false,
     );
-
+    // --------------------
     return ListView.builder(
       key: const ValueKey<String>('ReviewsBuilder'),
       controller: scrollController,
@@ -81,6 +81,7 @@ class ReviewsBuilder extends StatelessWidget {
 
       },
     );
-
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
