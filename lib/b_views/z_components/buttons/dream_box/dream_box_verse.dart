@@ -105,7 +105,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _versesCrossAlignment;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double verseWidth({
     double width,
     double iconMargin,
@@ -121,7 +121,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     width;
     return _verseWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double verseIconSpacing({
     double height,
     String verse,
@@ -134,7 +134,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _verseIconSpacing;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _verseShadowIsOn() {
     bool _isOn;
 
@@ -148,7 +148,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _isOn;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _verseIsCentered() {
     bool _centered;
 
@@ -163,7 +163,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _centered;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _secondLineShadowIsOn() {
     bool _isOn;
 
@@ -175,53 +175,52 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
     return _isOn;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ---------------------------------------------------------
+    // --------------------
     final TextDirection _textDirection = textDirection ?? TextDir.textDirectionAsPerAppDirection(context);
-// ---------------------------------------------------------
-//     final double _svgGraphicWidth = height * iconSizeFactor;
+    // --------------------
     final double _jpgGraphicWidth = height * iconSizeFactor;
-// ---------------------------------------------------------
+    // --------------------
     final double _graphicWidth = DreamBox.graphicWidth(
       icon: icon,
       height: height,
       loading: loading,
       iconSizeFactor: iconSizeFactor,
     );
-// ---------------------------------------------------------
+    // --------------------
     final double _verseIconSpacing = verseIconSpacing(
       iconSizeFactor: iconSizeFactor,
       height: height,
       verse: verse,
       verseScaleFactor: verseScaleFactor,
     );
-// ---------------------------------------------------------
+    // --------------------
     final double _verseWidth = verseWidth(
       graphicWidth: _graphicWidth,
       width: width,
       iconMargin: iconMargin,
       verseIconSpacing: _verseIconSpacing,
     );
-// ---------------------------------------------------------
+    // --------------------
     final CrossAxisAlignment _versesCrossAlignment = versesCrossAlignment(
       icon: icon,
       secondLine: secondLine,
       textDirection: textDirection,
       verseCentered: verseCentered,
-    ); // verseCentered
-// ---------------------------------------------------------
+    );
+    // --------------------
     final MainAxisAlignment _mainAxisAlignment = centered == true ?
     MainAxisAlignment.center
         :
     MainAxisAlignment.start;
-// ---------------------------------------------------------
+    // --------------------
     final Alignment _verseAlignment = centered == true ?
     Alignment.center
         :
     Aligners.superCenterAlignment(context);
-// ---------------------------------------------------------
+    // --------------------
     return Row(
       mainAxisAlignment: _mainAxisAlignment,
       textDirection: _textDirection,
@@ -376,5 +375,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
       ],
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

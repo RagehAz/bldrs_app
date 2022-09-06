@@ -16,6 +16,7 @@ class DreamBoxGradient extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: height,
       width: width,
@@ -29,5 +30,7 @@ class DreamBoxGradient extends StatelessWidget {
             stops: <double>[0.5, 0.95]),
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

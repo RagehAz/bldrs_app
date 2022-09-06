@@ -38,18 +38,17 @@ class MainButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeight(context);
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     final double _buttonCorner = _screenHeight * Ratioz.mainButtonCornerRatioToScreenHeight;
     final double _buttonZoneHeight = _screenHeight * 0.08;
     final double _buttonZonePaddings = _screenHeight * 0.01;
-
+    // --------------------
     final double _buttonWidth = stretched == true ? _screenWidth : _screenHeight * 22 * 0.017;
-
     final double _buttonHeight = _buttonZoneHeight * 0.85;
-
+    // --------------------
     /// BUTTON FOOTPRINT
     return Container(
       key: const ValueKey<String>('Main_button'),
@@ -78,7 +77,7 @@ class MainButton extends StatelessWidget {
 
               await Future.delayed( const Duration(milliseconds: 200),
 
-                  () => onTap()
+                      () => onTap()
 
               );
 
@@ -116,7 +115,7 @@ class MainButton extends StatelessWidget {
                 width: _buttonWidth * 0.9,
                 height: _buttonHeight * 0.22,
                 decoration: BoxDecoration(
-                    // color: Colorz.White,
+                  // color: Colorz.White,
                     borderRadius: BorderRadius.circular(_buttonCorner -
                         (_buttonHeight - (_buttonHeight * 0.22))),
                     boxShadow: <BoxShadow>[
@@ -146,7 +145,7 @@ class MainButton extends StatelessWidget {
               /// BUTTON COMPONENTS
               if (icon == '')
 
-                /// --- WHEN BUTTON DOES NOT HAVE AN ICON
+              /// --- WHEN BUTTON DOES NOT HAVE AN ICON
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -165,7 +164,7 @@ class MainButton extends StatelessWidget {
 
               if (icon != '')
 
-                /// --- WHEN BUTTON HAS AN ICON
+              /// --- WHEN BUTTON HAS AN ICON
                 Padding(
                   padding: EdgeInsets.only(
                       left: _buttonZonePaddings,
@@ -231,5 +230,7 @@ class MainButton extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
