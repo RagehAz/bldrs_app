@@ -33,35 +33,35 @@ class ReviewBubble extends StatelessWidget {
   final PaginatorNotifiers paginatorNotifiers;
   final AppBarType appBarType;
   final GlobalKey globalKey;
-  // --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER BALLOON
 
-// ---------------------------------
+  // --------------------
   static const double userBalloonSize = 50;
-// ---------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SPACING
 
-// ---------------------------------
+  // --------------------
   static const double spacer = Ratioz.appBarMargin;
-// ---------------------------------------------------
+  // -----------------------------------------------------------------------------
 
     /// TEXT BUBBLE SIZING
 
-// ---------------------------------
+  // --------------------
   static double getTextBubbleWidth({
     @required double pageWidth,
   }){
     return pageWidth - (3 * spacer) - userBalloonSize;
   }
-// ---------------------------------
+  // --------------------
   static BorderRadius textBubbleCorners({
     @required BuildContext context,
   }){
     return Borderers.superBorderAll(context, Ratioz.appBarCorner);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -115,5 +115,7 @@ class ReviewBubble extends StatelessWidget {
         },
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class SlideFullScreen extends StatelessWidget {
@@ -14,19 +13,16 @@ class SlideFullScreen extends StatelessWidget {
     @required this.imageSize,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final dynamic image;
   final ImageSize imageSize;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    blog('Building full screen with width : ${imageSize.width} : height : ${imageSize.height} ');
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
-
+    // --------------------
     return MainLayout(
       pageTitleVerse: '##Create flyers',
       pyramidsAreOn: true,
@@ -57,5 +53,7 @@ class SlideFullScreen extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

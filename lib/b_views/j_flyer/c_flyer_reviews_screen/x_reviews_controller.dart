@@ -13,9 +13,6 @@ import 'package:bldrs/e_db/ldb/ops/flyer_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
-
-// void _onShowReviewOptions(ReviewModel reviewModel){
-//   blog('_onShowReviewOptions : $reviewModel');
 // -----------------------------------------------------------------------------
 
 /// LAST SESSION
@@ -46,7 +43,7 @@ Future<void> loadReviewEditorLastSession({
     //
     // if (_continue == true){
 
-      reviewController.text = _lastSessionReview.text;
+    reviewController.text = _lastSessionReview.text;
 
     // }
 
@@ -60,29 +57,29 @@ Future<void> saveReviewEditorSession({
   @required String flyerID,
 }) async {
 
-    await FlyerLDBOps.saveReviewSession(
-      review: ReviewModel(
-          id: ReviewModel.createTempReviewID(
-            flyerID: flyerID,
-            userID: AuthFireOps.superUserID(),
-          ),
-          text: reviewController.text,
-          userID: AuthFireOps.superUserID(),
-          time: DateTime.now(),
+  await FlyerLDBOps.saveReviewSession(
+    review: ReviewModel(
+        id: ReviewModel.createTempReviewID(
           flyerID: flyerID,
-          replyAuthorID: null,
-          reply: null,
-          replyTime: null,
-          agrees: null
-      ),
-    );
+          userID: AuthFireOps.superUserID(),
+        ),
+        text: reviewController.text,
+        userID: AuthFireOps.superUserID(),
+        time: DateTime.now(),
+        flyerID: flyerID,
+        replyAuthorID: null,
+        reply: null,
+        replyTime: null,
+        agrees: null
+    ),
+  );
 
 }
 // -----------------------------------------------------------------------------
 
 /// CREATE NEW REVIEW
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSubmitReview({
   @required BuildContext context,
@@ -99,10 +96,10 @@ Future<void> onSubmitReview({
   );
 
   await FlyerLDBOps.deleteReviewSession(
-      reviewID: ReviewModel.createTempReviewID(
-          flyerID: _uploadedReview.flyerID,
-          userID: _uploadedReview.userID,
-      ),
+    reviewID: ReviewModel.createTempReviewID(
+      flyerID: _uploadedReview.flyerID,
+      userID: _uploadedReview.userID,
+    ),
   );
 
   textController.text = '';
@@ -115,7 +112,7 @@ Future<void> onSubmitReview({
 
 /// AGREE
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
   @required BuildContext context,
@@ -144,7 +141,7 @@ Future<void> onReviewAgree({
 
 /// REVIEW OPTIONS
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewOptions({
   @required BuildContext context,
@@ -213,7 +210,7 @@ Future<void> onReviewOptions({
   );
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReview({
   @required BuildContext context,
@@ -237,7 +234,7 @@ Future<void> _onEditReview({
 
         _isConfirmed = true;
 
-        },
+      },
     ),
 
   );
@@ -266,7 +263,7 @@ Future<void> _onEditReview({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReview({
   @required BuildContext context,
@@ -291,8 +288,8 @@ Future<void> _onDeleteReview({
     );
 
     deleteMap.value = reviewModel.toMap(
-        includeID: true,
-        includeDocSnapshot: true,
+      includeID: true,
+      includeDocSnapshot: true,
     );
 
     unawaited(TopDialog.showTopDialog(
@@ -307,7 +304,7 @@ Future<void> _onDeleteReview({
 
 /// BZ REPLY
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzReply({
   @required BuildContext context,
@@ -362,7 +359,7 @@ Future<void> onBzReply({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyOptions({
   @required BuildContext context,
@@ -426,7 +423,7 @@ Future<void> onReplyOptions({
   );
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReply({
   @required BuildContext context,
@@ -481,7 +478,7 @@ Future<void> _onEditReply({
 
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReply({
   @required BuildContext context,
@@ -530,4 +527,4 @@ Future<void> _onDeleteReply({
 
 
 }
-// ----------------------------------
+// -----------------------------------------------------------------------------
