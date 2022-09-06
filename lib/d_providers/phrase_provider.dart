@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHANGE APP LANGUAGE
 
@@ -60,7 +60,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   Future<void> fetchSetCurrentLangAndAllPhrases({
     @required BuildContext context,
     String setLangCode,
@@ -83,22 +83,22 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CURRENT LANGUAGE
+  /// CURRENT LANGUAGE
 
-// -------------------------------------
+  // --------------------
   String _currentLangCode = 'en';
   String get currentLangCode => _currentLangCode;
-// -------------------------------------
+  // --------------------
   static String proGetCurrentLangCode({
     @required BuildContext context,
     @required bool listen,
-}){
+  }){
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider._currentLangCode;
   }
-// -------------------------------------
+  // --------------------
   Future<void> getSetCurrentLangCode({
     @required BuildContext context,
     @required bool notify,
@@ -115,7 +115,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void _setCurrentLanguage({
     @required String code,
     @required bool notify,
@@ -128,23 +128,23 @@ class PhraseProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BASIC PHRASES (keywords phids 'phid_k_' / specs phids 'phid_s_' / general phids 'phid_' )
+  /// BASIC PHRASES (keywords phids 'phid_k_' / specs phids 'phid_s_' / general phids 'phid_' )
 
-// -------------------------------------
+  // --------------------
   /// does not include trigrams : used for superPhrase translating method only not for search engines
   List<Phrase> _mainPhrases = <Phrase>[];
   List<Phrase> get mainPhrases  => _mainPhrases;
-// -------------------------------------
+  // --------------------
   Future<void> fetchSetMainPhrases({
     @required BuildContext context,
     @required bool notify,
-}) async {
+  }) async {
 
     /// phrases received from the fetch include trigrams "that was stored in LDB"
     final List<Phrase> _phrases = await PhraseProtocols.fetchMainMixedLangPhrases(
-        context: context,
+      context: context,
     );
 
     setMainPhrases(
@@ -153,7 +153,7 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void setMainPhrases({
     @required List<Phrase> setTo,
     @required bool notify,
@@ -183,7 +183,7 @@ class PhraseProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   String getTranslatedPhraseByID(String id){
 
     String _translation;
@@ -191,7 +191,7 @@ class PhraseProvider extends ChangeNotifier {
     if (
     _mainPhrases != null
         &&
-    Mapper.checkCanLoopList(_mainPhrases) == true
+        Mapper.checkCanLoopList(_mainPhrases) == true
     ){
 
       final Phrase _phrase = _mainPhrases.singleWhere(
@@ -206,11 +206,11 @@ class PhraseProvider extends ChangeNotifier {
 
     return _translation;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -220,8 +220,8 @@ class PhraseProvider extends ChangeNotifier {
 
     /// _currentLangCode
     _phraseProvider._setCurrentLanguage(
-        code: 'en',
-        notify: false,
+      code: 'en',
+      notify: false,
     );
 
     /// _basicPhrases
@@ -231,25 +231,25 @@ class PhraseProvider extends ChangeNotifier {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USED X PHRASES => for dev only
 
-// -------------------------------------
+  // --------------------
   List<String> _usedXPhrases = <String>[];
   List<String> get usedXPhrases => _usedXPhrases;
-
+  // --------------------
   void addToUsedXPhrases(String id){
 
     _usedXPhrases = Stringer.addStringToListIfDoesNotContainIt(
-        strings: _usedXPhrases,
-        stringToAdd: id,
+      strings: _usedXPhrases,
+      stringToAdd: id,
     );
 
     // do not notifyListeners,, I will read it manually later
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 /// ----------------------------------------------------------------------------------------
 //-------------------------------------

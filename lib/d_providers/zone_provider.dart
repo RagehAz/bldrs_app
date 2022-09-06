@@ -9,14 +9,14 @@ import 'package:provider/provider.dart';
 
 // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTINENTS
 
-// -------------------------------------
+  // --------------------
   Continent _currentContinent;
   Continent get currentContinent => _currentContinent;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetContinentByCountryID({
     @required BuildContext context,
@@ -35,7 +35,7 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setCurrentContinent({
     @required Continent continent,
@@ -46,7 +46,7 @@ class ZoneProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentContinent({
     @required bool notify,
@@ -56,7 +56,7 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<CountryModel>> fetchContinentActivatedCountries(BuildContext context) async {
 
@@ -69,14 +69,14 @@ class ZoneProvider extends ChangeNotifier {
 
     return _countries;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CURRENT ZONE
 
-// -------------------------------------
+  // --------------------
   ZoneModel _currentZone;
   ZoneModel get currentZone => _currentZone;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZone({
     @required BuildContext context,
@@ -85,7 +85,7 @@ class ZoneProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZoneIDs({
     @required BuildContext context,
@@ -94,7 +94,7 @@ class ZoneProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentCompleteZone({
     @required BuildContext context,
@@ -131,7 +131,7 @@ class ZoneProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentZone({
     @required ZoneModel zone,
@@ -142,7 +142,7 @@ class ZoneProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentZone({
     @required bool notify,
@@ -152,17 +152,17 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CURRENCY
 
-// -------------------------------------
+  // --------------------
   List<CurrencyModel> _allCurrencies = <CurrencyModel>[];
   List<CurrencyModel> get allCurrencies => _allCurrencies;
-// -------------------------------------
+  // --------------------
   CurrencyModel _currentCurrency;
   CurrencyModel get currentCurrency => _currentCurrency;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> proGetAllCurrencies({
     @required BuildContext context,
@@ -171,7 +171,7 @@ class ZoneProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.allCurrencies;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCountryID({
     @required BuildContext context,
@@ -188,7 +188,7 @@ class ZoneProvider extends ChangeNotifier {
 
     return _currency;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCurrencyID({
     @required BuildContext context,
@@ -199,13 +199,13 @@ class ZoneProvider extends ChangeNotifier {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
     final CurrencyModel _currency = CurrencyModel.getCurrencyByID(
-        allCurrencies: _zoneProvider.allCurrencies,
-        currencyID: currencyID,
+      allCurrencies: _zoneProvider.allCurrencies,
+      currencyID: currencyID,
     );
 
     return _currency;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
     @required BuildContext context,
@@ -232,7 +232,7 @@ class ZoneProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void getSetCurrentCurrency({
     @required BuildContext context,
@@ -258,7 +258,7 @@ class ZoneProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setAllCurrenciesAndCurrentCurrency({
     @required List<CurrencyModel> allCurrencies,
@@ -271,7 +271,7 @@ class ZoneProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentCurrencyAndAllCurrencies({
     @required bool notify,
@@ -282,11 +282,11 @@ class ZoneProvider extends ChangeNotifier {
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
     @required BuildContext context,
@@ -312,24 +312,24 @@ class ZoneProvider extends ChangeNotifier {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-// -------------------------------------
+  // --------------------
 /// TASK : ACTIVATED & GLOBAL COUNTRIES
-// -------------------------------------
+  // --------------------
 /// ZONES NAMES
-// -------------------------------------
+  // --------------------
 /*
 //   String translateCurrentCountryNameByCurrentLingo(BuildContext context) {
 //     final String _name = superPhrase(context, _currentCountryModel.id);
 //     return _name;
 //   }
-// -------------------------------------
+  // --------------------
 //   String translateCurrentCityName(BuildContext context){
 //     final String _cityName = CityModel.translateCityNameWithCurrentLingoIfPossible(context, _currentCityModel);
 //     return _cityName;
 //   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 //   String translateCityNameWithCurrentLingoIfPossible(BuildContext context, String cityID){
 //
 //     final String _nameInCurrentLanguage = superPhrase(context, cityID);
@@ -337,4 +337,4 @@ class ZoneProvider extends ChangeNotifier {
 //     return _nameInCurrentLanguage ?? cityID;
 //   }
    */
-// -------------------------------------
+  // --------------------

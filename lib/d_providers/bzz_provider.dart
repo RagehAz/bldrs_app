@@ -10,11 +10,11 @@ import 'package:provider/provider.dart';
 
 // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void removeProBzEveryWhere({
     @required String bzID,
@@ -43,7 +43,7 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
     @required BuildContext context,
@@ -73,17 +73,17 @@ class BzzProvider extends ChangeNotifier {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SPONSORS
 
-// -------------------------------------
+  // --------------------
   List<BzModel> _sponsors = <BzModel>[];
-// -------------------------------------
+  // --------------------
   List<BzModel> get sponsors {
     return <BzModel>[..._sponsors];
   }
-// -------------------------------------
+  // --------------------
   /// TASK : sponsors bzz should depend on which city
   /// FETCH SPONSORS
   /// 1 - get sponsors from app state
@@ -91,7 +91,7 @@ class BzzProvider extends ChangeNotifier {
   Future<void> fetchSetSponsors({
     @required BuildContext context,
     @required bool notify,
-}) async {
+  }) async {
     /// 1 - get sponsorsIDs from app state
     // final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     final List<String> _sponsorsBzzIDs = []; /// TASK : RESTRUCTURE SPONSORS THING
@@ -109,31 +109,31 @@ class BzzProvider extends ChangeNotifier {
       );
     }
   }
-// -------------------------------------
+  // --------------------
   void _setSponsors({
     @required List<BzModel> bzz,
     @required bool notify,
-}){
+  }){
     _sponsors = bzz;
     if (notify == true){
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   void clearSponsors({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setSponsors(
       bzz: <BzModel>[],
       notify: notify,
     );
 
   }
-// -------------------------------------
+  // --------------------
   void removeBzFromSponsors({
     @required String bzIDToRemove,
     @required bool notify,
-}){
+  }){
 
     final int _index = _sponsors.indexWhere((bz) => bz.id == bzIDToRemove);
 
@@ -147,17 +147,17 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER BZZ
 
-// -------------------------------------
+  // --------------------
   List<BzModel> _myBzz = <BzModel>[];
-// -------------------------------------
+  // --------------------
   List<BzModel> get myBzz {
     return <BzModel>[..._myBzz];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> proGetMyBzz({
     @required BuildContext context,
@@ -167,7 +167,7 @@ class BzzProvider extends ChangeNotifier {
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
     return _myBzz;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> proGetMyBzzIDs({
     @required BuildContext context,
@@ -178,7 +178,7 @@ class BzzProvider extends ChangeNotifier {
     final List<String> _myBzzIDs = BzModel.getBzzIDsFromBzz(_myBzz);
     return _myBzzIDs;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetMyBzz({
     @required BuildContext context,
@@ -192,8 +192,8 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(_userBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
-          context: context,
-          bzzIDs: _userBzzIDs,
+        context: context,
+        bzzIDs: _userBzzIDs,
       );
 
       _setMyBzz(
@@ -203,7 +203,7 @@ class BzzProvider extends ChangeNotifier {
 
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setMyBzz({
     @required List<BzModel> bzz,
@@ -216,17 +216,17 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearMyBzz({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setMyBzz(
       bzz: <BzModel>[],
       notify: notify,
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void removeBzFromMyBzz({
     @required String bzID,
@@ -247,7 +247,7 @@ class BzzProvider extends ChangeNotifier {
 
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void addBzToMyBzz({
     @required BzModel bzModel,
@@ -258,7 +258,7 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void updateBzInMyBzz({
     @required BzModel modifiedBz,
@@ -286,22 +286,22 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FOLLOWED BZZ
 
-// -------------------------------------
+  // --------------------
   List<BzModel> _followedBzz = <BzModel>[];
-// -------------------------------------
+  // --------------------
   List<BzModel> get followedBzz {
     return <BzModel>[..._followedBzz];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetFollowedBzz({
     @required BuildContext context,
     @required bool notify,
-}) async {
+  }) async {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
@@ -320,7 +320,7 @@ class BzzProvider extends ChangeNotifier {
       );
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _setFollowedBzz({
     @required List<BzModel> bzz,
@@ -331,17 +331,17 @@ class BzzProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearFollowedBzz({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setFollowedBzz(
       bzz: <BzModel>[],
       notify: notify,
     );
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   bool checkFollow({
     @required BuildContext context,
@@ -366,12 +366,12 @@ class BzzProvider extends ChangeNotifier {
 
     return _isFollowing;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void removeBzFromFollowedBzz({
     @required String bzIDToRemove,
     @required bool notify,
-}){
+  }){
 
     final int _index = _followedBzz.indexWhere((bz) => bz.id == bzIDToRemove);
 
@@ -385,14 +385,14 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MY ACTIVE BZ
 
-// -------------------------------------
+  // --------------------
   BzModel _myActiveBz;
   BzModel get myActiveBz => _myActiveBz;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel proGetActiveBzModel({
     @required BuildContext context,
@@ -401,7 +401,7 @@ class BzzProvider extends ChangeNotifier {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
     return _bzzProvider.myActiveBz;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void setActiveBz({
     @required BzModel bzModel,
@@ -417,7 +417,7 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void resetActiveBz(BuildContext context){
 
@@ -432,24 +432,24 @@ class BzzProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void clearMyActiveBz({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     setActiveBz(
       bzModel: null,
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PENDING AUTHORSHIP INVITATIONS
 
-// -------------------------------------
+  // --------------------
   List<String> _pendingAuthorshipInvitationsUsersIDs = <String>[];
   List<String> get pendingAuthorsIDs => _pendingAuthorshipInvitationsUsersIDs;
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void setPendingAuthorshipInvitations({
     @required List<NoteModel> notes,
@@ -461,7 +461,7 @@ class BzzProvider extends ChangeNotifier {
     if (notes != null){
 
       final List<String> _receiversIDs = NoteModel.getReceiversIDs(
-          notes: notes,
+        notes: notes,
       );
 
       blog('_receiversIDs : $_receiversIDs');
@@ -489,5 +489,5 @@ class BzzProvider extends ChangeNotifier {
     blog('setPendingAuthorshipInvitations : end : ${_pendingAuthorshipInvitationsUsersIDs.length} ids');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

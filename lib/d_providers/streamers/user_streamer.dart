@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 /// IMPLEMENTATION
 /// userStreamBuilder(
 ///         context: context,
@@ -14,10 +14,11 @@ import 'package:flutter/material.dart';
 ///      ) xxxxxxxxxxxxx ; or , xxxxxxxxxxxxx
 // -----------------------------------------------------------------------------
 typedef UserModelWidgetBuilder = Widget Function(
-  BuildContext context,
-  UserModel userModel,
-);
+    BuildContext context,
+    UserModel userModel,
+    );
 // -----------------------------------------------------------------------------
+/*
 // Widget userStreamBuilder({
 //   BuildContext context,
 //   UserModelWidgetBuilder builder,
@@ -40,7 +41,7 @@ typedef UserModelWidgetBuilder = Widget Function(
 //     },
 //   );
 // }
-
+ */
 // -----------------------------------------------------------------------------
 Widget userModelBuilder({
   String userID,

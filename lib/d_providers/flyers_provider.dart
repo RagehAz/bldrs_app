@@ -14,11 +14,11 @@ import 'package:provider/provider.dart';
 
 // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
 class FlyersProvider extends ChangeNotifier {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFY / DELETE FLYER FROM FLYERS PROVIDER
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void removeFlyerFromProFlyers({
     @required String flyerID,
@@ -43,7 +43,7 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void removeFlyersFromProFlyers({
     @required List<String> flyersIDs,
     @required bool notify,
@@ -61,8 +61,8 @@ class FlyersProvider extends ChangeNotifier {
         }
 
         removeFlyerFromProFlyers(
-            flyerID: _flyerIDToRemove,
-            notify: _notify,
+          flyerID: _flyerIDToRemove,
+          notify: _notify,
         );
 
       }
@@ -70,7 +70,7 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void updateFlyerInAllProFlyers({
     @required FlyerModel flyerModel,
     @required bool notify,
@@ -99,21 +99,21 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PROMOTED FLYERS
 
-// -------------------------------------
+  // --------------------
   List<FlyerModel> _promotedFlyers = <FlyerModel>[];
-// -------------------------------------
+  // --------------------
   List<FlyerModel> get promotedFlyers {
     return [..._promotedFlyers];
   }
-// -------------------------------------
+  // --------------------
   Future<void> fetchSetPromotedFlyers({
     @required BuildContext context,
     @required bool notify,
-}) async {
+  }) async {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final CityModel _currentCity = _zoneProvider.currentZone?.cityModel;
@@ -128,8 +128,8 @@ class FlyersProvider extends ChangeNotifier {
       final List<String> _flyersIDs = FlyerPromotion.getFlyersIDsFromFlyersPromotions(promotions: _promotions);
 
       final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
-          context: context,
-          flyersIDs: _flyersIDs,
+        context: context,
+        flyersIDs: _flyersIDs,
       );
 
       _setPromotedFlyers(
@@ -139,7 +139,7 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void _setPromotedFlyers({
     @required List<FlyerModel> flyers,
     @required bool notify,
@@ -151,26 +151,26 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -------------------------------------
+  // --------------------
   void clearPromotedFlyers({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _setPromotedFlyers(
       flyers: <FlyerModel>[],
       notify: notify,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WALL FLYERS
 
-// -------------------------------------
+  // --------------------
   List<FlyerModel> _wallFlyers = <FlyerModel>[];
-// -------------------------------------
+  // --------------------
   List<FlyerModel> get wallFlyers {
     return <FlyerModel>[..._wallFlyers];
   }
-// -------------------------------------
+  // --------------------
   Future<void> paginateWallFlyers({
     @required BuildContext context,
     @required bool listenToZoneChange,
@@ -205,7 +205,7 @@ class FlyersProvider extends ChangeNotifier {
     );
 
   }
-// -------------------------------------
+  // --------------------
   void _addToWallFlyers({
     @required List<FlyerModel> flyers,
     @required bool notify,
@@ -215,20 +215,20 @@ class FlyersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-// -------------------------------------
+  // --------------------
   void clearWallFlyers({
-  @required bool notify,
-}){
+    @required bool notify,
+  }){
     _wallFlyers = <FlyerModel>[];
     if (notify == true){
       notifyListeners();
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCHERS
 
-// -------------------------------------
+  // --------------------
   Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
     @required BuildContext context,
     @required String keywordID,
@@ -247,7 +247,7 @@ class FlyersProvider extends ChangeNotifier {
 
     return _flyers;
   }
-// -------------------------------------
+  // --------------------
   Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
     @required BuildContext context,
     @required BzModel bz,
@@ -269,8 +269,8 @@ class FlyersProvider extends ChangeNotifier {
       for (final String flyerID in _flyersIDs){
 
         final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-            context: context,
-            flyerID: flyerID,
+          context: context,
+          flyerID: flyerID,
         );
 
         _bzFlyers.add(_flyer);
@@ -281,17 +281,17 @@ class FlyersProvider extends ChangeNotifier {
 
     return _bzFlyers;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SELECTED FLYERS
 
-// -------------------------------------
+  // --------------------
   List<FlyerModel> _selectedFlyers = <FlyerModel>[];
-// -------------------------------------
+  // --------------------
   List<FlyerModel> get selectedFlyers {
     return <FlyerModel>[..._selectedFlyers];
   }
-// -------------------------------------
+  // --------------------
   void addFlyerToSelectedFlyers(FlyerModel flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
@@ -305,7 +305,7 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void removeFlyerFromSelectedFlyers(FlyerModel flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
@@ -319,7 +319,7 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void clearSelectedFlyers({
     @required bool notify,
   }){
@@ -330,11 +330,11 @@ class FlyersProvider extends ChangeNotifier {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PRO GETTERS
 
-// -------------------------------------
+  // --------------------
   /*
 static Future<List<FlyerModel>> proFetchFlyers({
   @required BuildContext context,
@@ -349,7 +349,7 @@ static Future<List<FlyerModel>> proFetchFlyers({
 
   return _flyers;
 }
-// -------------------------------------
+  // --------------------
 static Future<FlyerModel> proFetchFlyer({
   @required BuildContext context,
   @required String flyerID,
@@ -364,11 +364,11 @@ static Future<FlyerModel> proFetchFlyer({
   return _flyer;
 }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// -------------------------------------
+  // --------------------
   static void wipeOut({
     @required BuildContext context,
     @required bool notify,
@@ -388,5 +388,5 @@ static Future<FlyerModel> proFetchFlyer({
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
