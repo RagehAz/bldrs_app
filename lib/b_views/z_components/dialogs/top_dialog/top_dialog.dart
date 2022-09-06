@@ -28,10 +28,10 @@ class TopDialog extends StatelessWidget {
   // final int duration;
   /// --------------------------------------------------------------------------
   static Future<void> showSuccessDialog({
-  @required BuildContext context,
+    @required BuildContext context,
     String firstLine,
     String secondLine,
-}) async {
+  }) async {
 
     await showTopDialog(
       context: context,
@@ -41,8 +41,8 @@ class TopDialog extends StatelessWidget {
       textColor: Colorz.white255,
     );
 
-}
-// -----------------------------------------------------------------------------
+  }
+  // --------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
     @required String firstLine,
@@ -117,15 +117,15 @@ class TopDialog extends StatelessWidget {
 
             /// SECOND LINE
             if (secondLine != null)
-            SuperVerse(
-              verse: secondLine,
-              size: 1,
-              color: textColor,
-              weight: VerseWeight.thin,
-              italic: true,
-              maxLines: 2,
-              margin: 5,
-            ),
+              SuperVerse(
+                verse: secondLine,
+                size: 1,
+                color: textColor,
+                weight: VerseWeight.thin,
+                italic: true,
+                maxLines: 2,
+                margin: 5,
+              ),
 
           ],
         ),
@@ -174,7 +174,7 @@ class TopDialog extends StatelessWidget {
       // userInputForm: ,
     ).show(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static void showUnawaitedTopDialog({
     @required BuildContext context,
     @required String firstLine,
@@ -183,7 +183,7 @@ class TopDialog extends StatelessWidget {
     Color textColor = Colorz.black255,
     Function onTap,
     int seconds = 6,
-}){
+  }){
 
     unawaited(showTopDialog(
       context: context,
@@ -195,8 +195,8 @@ class TopDialog extends StatelessWidget {
       seconds: seconds,
     ));
 
-}
-// -----------------------------------------------------------------------------
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -267,4 +267,5 @@ class TopDialog extends StatelessWidget {
     )..show(context);
 
   }
+// --------------------
 }

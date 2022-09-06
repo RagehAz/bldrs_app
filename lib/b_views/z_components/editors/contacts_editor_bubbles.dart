@@ -23,8 +23,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    // -------------------------------
+    // --------------------
     const List<ContactType> _types = <ContactType>[
       ContactType.phone,
       ContactType.email,
@@ -38,7 +37,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
       ContactType.tiktok,
       ContactType.twitter,
     ];
-    // -------------------------------
+    // --------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +116,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
-
+  /// --------------------------------------------------------------------------
 }
