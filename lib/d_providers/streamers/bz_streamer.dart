@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 typedef BzModelWidgetBuilder = Widget Function(
-  BuildContext context,
-  BzModel bzModel,
-);
+    BuildContext context,
+    BzModel bzModel,
+    );
 // -----------------------------------------------------------------------------
 Widget bzModelStreamBuilder({
   String bzID,
@@ -37,7 +37,6 @@ Widget bzModelStreamBuilder({
   );
 }
 // -----------------------------------------------------------------------------
-
 Widget bzModelBuilder({
   String bzID,
   BuildContext context,
@@ -67,15 +66,14 @@ Widget bzModelBuilder({
         }
       });
 }
-
 // -----------------------------------------------------------------------------
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
   final Stream<DocumentSnapshot<Object>> _bzSnapshot =
-      Fire.streamDoc(
-          collName: FireColl.bzz,
-          docName: bzID
-      );
+  Fire.streamDoc(
+      collName: FireColl.bzz,
+      docName: bzID
+  );
 
   final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);
 

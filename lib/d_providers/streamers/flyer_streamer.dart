@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 typedef FlyerModelWidgetBuilder = Widget Function(
-  BuildContext context,
-  FlyerModel flyerModel,
-);
-// -----------------------------------------------------------------------------
+    BuildContext context,
+    FlyerModel flyerModel,
+    );
+// --------------------
+/*
 // Widget flyerStreamBuilder({
 //   TinyFlyer tinyFlyer,
 //   BuildContext context,
@@ -54,7 +55,9 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 //     );
 //
 // }
-// -----------------------------------------------------------------------------
+ */
+// --------------------
+/*
 // Widget flyerModelBuilder({
 //   TinyFlyer tinyFlyer,
 //   BuildContext context,
@@ -92,14 +95,14 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 //       }
 //   );
 // }
-// -----------------------------------------------------------------------------
-
+ */
+// --------------------
 /// get flyer doc stream
 Stream<FlyerModel> getFlyerStream(String flyerID) {
 
   final Stream<DocumentSnapshot<Object>> _flyerSnapshot = Fire.streamDoc(
-      collName: FireColl.flyers,
-      docName: flyerID,
+    collName: FireColl.flyers,
+    docName: flyerID,
   );
 
   final Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(
@@ -108,8 +111,7 @@ Stream<FlyerModel> getFlyerStream(String flyerID) {
 
   return _flyerStream;
 }
-
-// -----------------------------------------------------------------------------
+// --------------------
 /// get flyer doc stream
 Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
 
@@ -137,13 +139,12 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
 
   return null;
 }
-
 // -----------------------------------------------------------------------------
 typedef ReviewModelsWidgetsBuilder = Widget Function(
-  BuildContext context,
-  List<ReviewModel> reviews,
-);
-// -----------------------------------------------------------------------------
+    BuildContext context,
+    List<ReviewModel> reviews,
+    );
+// --------------------
 Widget reviewsStreamBuilder({
   BuildContext context,
   ReviewModelsWidgetsBuilder builder,
