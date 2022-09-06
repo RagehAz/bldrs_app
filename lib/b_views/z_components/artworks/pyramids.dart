@@ -37,12 +37,13 @@ class Pyramids extends StatefulWidget {
   _PyramidsState createState() => _PyramidsState();
   /// --------------------------------------------------------------------------
   static double verticalPositionFix = -0.2;
+  /// --------------------------------------------------------------------------
 }
 
 class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   AnimationController _controller;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -53,14 +54,14 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   String getPyramid(PyramidType type){
 
     switch (type){
@@ -75,17 +76,17 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
     final String _pyramidIcon = getPyramid(widget.pyramidType); //_userModel?.isAdmin == true ? Iconz.pyramidsCrystal : getPyramid(widget.pyramidType);
     final Color _pyramidColor = _userModel?.isAdmin == true ? null : null;
-
+    // --------------------
     return Positioned(
       bottom: Pyramids.verticalPositionFix,
       right: 0,
@@ -97,10 +98,10 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
           onDoubleTap: () async {
 
             // if (_userModel?.isAdmin == true){
-              await Nav.goToNewScreen(
-                context: context,
-                screen: const BldrsDashBoard(),
-              );
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const BldrsDashBoard(),
+            );
 
             // }
 
@@ -135,5 +136,7 @@ class _PyramidsState extends State<Pyramids> with TickerProviderStateMixin {
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

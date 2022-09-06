@@ -51,7 +51,7 @@ class AppBarTitle extends StatelessWidget {
               backButtonIsOn: backButtonIsOn,
             );
 
-            },
+          },
         )
 
             :
@@ -59,12 +59,12 @@ class AppBarTitle extends StatelessWidget {
         const SizedBox()
     );
 
-
   }
+  // --------------------------------------------------------------------------
 }
 
 class _HeadlineSuperVerse extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const _HeadlineSuperVerse({
     @required this.title,
     @required this.backButtonIsOn,
@@ -98,6 +98,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
         scaleFactor: 0.9,
       );
     }
+
     else {
       return Container(
         width: width,
@@ -120,4 +121,5 @@ class _HeadlineSuperVerse extends StatelessWidget {
     }
 
   }
+  // --------------------------------------------------------------------------
 }

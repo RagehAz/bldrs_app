@@ -34,15 +34,15 @@ class WidgetFader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _WidgetFaderState createState() => _WidgetFaderState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   AnimationController _animationController;
   // Animation<double> _opacityTween;
   CurvedAnimation _animation;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -70,7 +70,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     _animation.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _animate() async {
 
     if (widget.fadeType == FadeType.fadeIn){
@@ -106,7 +106,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -138,6 +138,7 @@ class _WidgetFaderState extends State<WidgetFader> with SingleTickerProviderStat
         )
 
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

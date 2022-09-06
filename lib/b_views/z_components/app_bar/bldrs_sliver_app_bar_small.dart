@@ -14,7 +14,7 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Widget content;
   final double contentHeight;
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double getCollapsedSliverHeight({
     double givenContentHeight,
   }){
@@ -27,28 +27,28 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
             givenContentHeight: givenContentHeight,
           );
   }
-  // ---------------------------------------------------------------------------
+  // --------------------
   static double getContentHeight({
     double givenContentHeight,
   }){
     return (givenContentHeight ?? Ratioz.appBarSmallHeight) + _separatorLineThickness;
   }
-  // ---------------------------------------------------------------------------
+  // --------------------
   static const double _separatorLineThickness = 0.25;
-  // ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _collapsedHeight = getCollapsedSliverHeight(
       givenContentHeight: contentHeight,
     );
-
+    // --------------------
     final double _contentHeight = getContentHeight(
       givenContentHeight: contentHeight,
     );
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-
+    // --------------------
     return SliverAppBar(
       collapsedHeight: _collapsedHeight,
       // expandedHeight: ,
@@ -88,5 +88,7 @@ class BldrsSliverAppBarSmall extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

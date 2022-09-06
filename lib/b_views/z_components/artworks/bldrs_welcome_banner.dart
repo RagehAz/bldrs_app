@@ -39,4 +39,5 @@ class BldrsWelcomeBanner extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }

@@ -45,15 +45,17 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+  // --------------------
   TextEditingController _searchTextController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _searchTextController = widget.searchController ?? TextEditingController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -64,7 +66,7 @@ class _SearchBarState extends State<SearchBar> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _onClearSearch(){
 
     Keyboard.closeKeyboard(context);
@@ -78,22 +80,18 @@ class _SearchBarState extends State<SearchBar> {
     }
 
   }
-
-// -----------------------------------------------------------------------------
-  final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchIconIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;
     final int _numberOFPaddings = widget.searchIconIsOn == true ? 5 : 2;
-    final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - _padding * _numberOFPaddings;
-
     // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
-
+    final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - _padding * _numberOFPaddings;
+    // --------------------
     return Container(
       width: _appBarClearWidth,
       height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
@@ -111,42 +109,42 @@ class _SearchBarState extends State<SearchBar> {
 
           /// SEARCH BUTTON
           if (widget.searchIconIsOn == true)
-          ValueListenableBuilder(
-              valueListenable: _searchTextController,
-              builder: (_, TextEditingValue value, Widget child){
+            ValueListenableBuilder(
+                valueListenable: _searchTextController,
+                builder: (_, TextEditingValue value, Widget child){
 
-                final bool _canSubmit = value.text.length >= Standards.minSearchChar;
+                  final bool _canSubmit = value.text.length >= Standards.minSearchChar;
 
-                return Row(
-                  children: <Widget>[
+                  return Row(
+                    children: <Widget>[
 
-                    /// BUTTON
-                    DreamBox(
-                      width: _searchButtonWidth,
-                      height: _searchButtonHeight,
-                      icon: Iconz.search,
-                      isDeactivated: !_canSubmit,
-                      iconSizeFactor: 0.5,
-                      bubble: false,
-                      onTap: () async {
+                      /// BUTTON
+                      DreamBox(
+                        width: _searchButtonWidth,
+                        height: _searchButtonHeight,
+                        icon: Iconz.search,
+                        isDeactivated: !_canSubmit,
+                        iconSizeFactor: 0.5,
+                        bubble: false,
+                        onTap: () async {
 
-                        if (widget.onSearchSubmit != null){
-                          widget.onSearchSubmit(value.text);
-                        }
+                          if (widget.onSearchSubmit != null){
+                            widget.onSearchSubmit(value.text);
+                          }
 
-                      },
-                    ),
+                        },
+                      ),
 
-                    /// SPACER
-                    const SizedBox(
-                      width: _padding,
-                      height: _padding,
-                    ),
+                      /// SPACER
+                      const SizedBox(
+                        width: _padding,
+                        height: _padding,
+                      ),
 
-                  ],
-                );
-              }
-          ),
+                    ],
+                  );
+                }
+            ),
 
           /// SEARCH TEXT FIELD
           SuperTextField(
@@ -235,5 +233,7 @@ class _SearchBarState extends State<SearchBar> {
         ],
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
