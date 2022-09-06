@@ -15,6 +15,7 @@ class LogoScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +64,7 @@ class LogoScreenView extends StatelessWidget {
         ],
       ),
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

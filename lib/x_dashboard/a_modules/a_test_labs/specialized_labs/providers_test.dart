@@ -26,18 +26,19 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProvidersTestScreen extends StatefulWidget {
+class ProvidersViewerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ProvidersTestScreen({
+  const ProvidersViewerScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _ProvidersTestScreenState createState() => _ProvidersTestScreenState();
-/// --------------------------------------------------------------------------
+  _ProvidersViewerScreenState createState() => _ProvidersViewerScreenState();
+  /// --------------------------------------------------------------------------
 }
 
-class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTickerProviderStateMixin {
+class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with SingleTickerProviderStateMixin {
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
   UsersProvider _usersProvider;
   ZoneProvider _zoneProvider;
@@ -47,10 +48,10 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
   UiProvider _uiProvider;
   PhraseProvider _phraseProvider;
   BzzProvider _bzzProvider;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -59,10 +60,10 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'ProvidersTestScreen',);
+      blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -83,7 +84,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -98,7 +99,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -107,7 +108,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     _animationController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -523,6 +524,7 @@ class _ProvidersTestScreenState extends State<ProvidersTestScreen> with SingleTi
     );
 
   }
+// -----------------------------------------------------------------------------
 }
 
 class ProviderTestButton extends StatelessWidget {
@@ -542,7 +544,7 @@ class ProviderTestButton extends StatelessWidget {
     final String _icon = value == null ? Iconz.xSmall : Iconz.check;
     return _icon;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -574,4 +576,5 @@ class ProviderTestButton extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }
