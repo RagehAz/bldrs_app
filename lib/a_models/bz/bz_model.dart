@@ -154,7 +154,7 @@ class BzModel{
     return _initialBzModel.copyWith(
       logo: await FileModel.preparePicForEditing(
           pic: _initialBzModel.logo,
-          fileName: oldBz.id
+          fileName: oldBz?.id
       ),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
 
       zone: await ZoneModel.initializeZoneForEditing(
@@ -162,8 +162,8 @@ class BzModel{
           zoneModel: _initialBzModel.zone,
       ),
       contacts: ContactModel.initializeContactsForEditing(
-          contacts: oldBz.contacts,
-          countryID: oldBz.zone.countryID,
+          contacts: oldBz?.contacts,
+          countryID: oldBz?.zone?.countryID,
       ),
     );
 

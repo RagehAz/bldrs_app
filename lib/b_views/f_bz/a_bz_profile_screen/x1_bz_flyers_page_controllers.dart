@@ -108,6 +108,7 @@ Future<void> _onEditFlyerButtonTap({
       context: context,
       screen: FlyerMakerScreen(
         flyerToEdit: flyer,
+        validateOnStartup: true,
       ),
   );
 

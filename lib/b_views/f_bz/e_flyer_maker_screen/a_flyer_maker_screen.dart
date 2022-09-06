@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 class FlyerMakerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerMakerScreen({
+    @required this.validateOnStartup,
     this.flyerToEdit,
-    this.validateOnStartup = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,42 +22,37 @@ class FlyerMakerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FlyerMakerScreenState createState() => _FlyerMakerScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepAliveClientMixin{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
   bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // --------------------
+  bool _canValidate = false;
+  void _switchOnValidation(){
+    if (_canValidate != true){
+      setState(() {
+        _canValidate = true;
+      });
+    }
+  }
+  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<DraftFlyerModel> _draftFlyer = ValueNotifier(null);
   final ValueNotifier<DraftFlyerModel> _lastDraft = ValueNotifier(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
-  bool _isEditingFlyer;
-// -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-
-    _isEditingFlyer = widget.flyerToEdit != null;
-
-    initializeFlyerMakerLocalVariables(
-      context: context,
-      draftFlyer: _draftFlyer,
-      oldFlyer: widget.flyerToEdit,
-      mounted: mounted,
-    );
-
-  }
-// -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _isEditingFlyer = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -69,8 +64,23 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       blogLoading(loading: _loading.value, callerName: 'FlyerMakerScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+    _isEditingFlyer.value = widget.flyerToEdit != null;
+
+    initializeFlyerMakerLocalVariables(
+      context: context,
+      draftFlyer: _draftFlyer,
+      oldFlyer: widget.flyerToEdit,
+      mounted: mounted,
+    );
+
+  }
   bool _isInit = true;
+  // --------------------
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -81,6 +91,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
           context: context,
           oldFlyer: widget.flyerToEdit,
           draft: _draftFlyer,
+          isEditingFlyer: _isEditingFlyer,
         );
         // -----------------------------
         if (mounted == true){
@@ -90,11 +101,22 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
           );
         }
         // -----------------------------
-        if (widget.validateOnStartup == true){
+        if (_isEditingFlyer.value == true){
+        // if (widget.validateOnStartup == true){
+          _switchOnValidation();
           Formers.validateForm(_formKey);
         }
         // -----------------------------
-        _createStateListeners();
+        if (mounted == true){
+          _draftFlyer.addListener(() async {
+            _switchOnValidation();
+            await saveFlyerMakerSession(
+              draft: _draftFlyer,
+              lastDraft: _lastDraft,
+              mounted: mounted,
+            );
+          });
+        }
         // -------------------------------
         await _triggerLoading(setTo: false);
       });
@@ -103,7 +125,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose(){
@@ -116,32 +138,30 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
 
     _scrollController.dispose();
     _loading.dispose();
+    _isEditingFlyer.dispose();
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  void _createStateListeners(){
-    if (mounted == true){
+  // -----------------------------------------------------------------------------
+  Future<void> _onConfirmTap() async {
 
-      _draftFlyer.addListener(() => _saveSession());
+    _switchOnValidation();
 
-    }
-  }
-
-// -----------------------------------------------------------------------------
-  Future<void> _saveSession() async {
-    await saveFlyerMakerSession(
+    await onConfirmPublishFlyerButtonTap(
+      context: context,
+      formKey: _formKey,
+      oldFlyer: widget.flyerToEdit,
       draft: _draftFlyer,
-      lastDraft: _lastDraft,
-      mounted: mounted,
     );
+
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    // --------------------
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
-// ----------------------
+    // --------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
       pageTitleVerse: widget.flyerToEdit == null ? 'phid_createFlyer' : '##Edit Flyer',
@@ -152,13 +172,8 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       sectionButtonIsOn: false,
       confirmButtonModel: ConfirmButtonModel(
           // isDeactivated: !_canPublish,
-          firstLine: _isEditingFlyer == true ? '##Update Flyer' : 'phid_publish',
-          onTap: () => onConfirmPublishFlyerButtonTap(
-            context: context,
-            formKey: _formKey,
-            oldFlyer: widget.flyerToEdit,
-            draft: _draftFlyer,
-          )
+          firstLine: 'phid_publish',
+          onTap: () => _onConfirmTap(),
       ),
       appBarRowWidgets: <Widget>[
 
@@ -182,8 +197,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         AppBarButton(
           verse: '##draft',
           onTap: (){
-            widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
+            // widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
             _draftFlyer.value.blogDraft();
+
+            Formers.validateForm(_formKey);
+
           },
         ),
 
@@ -198,8 +216,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         loading: _loading,
         isEditingFlyer: _isEditingFlyer,
         originalFlyer: widget.flyerToEdit,
+        canValidate: _canValidate,
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

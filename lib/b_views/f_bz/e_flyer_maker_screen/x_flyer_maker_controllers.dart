@@ -82,6 +82,7 @@ Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
   @required FlyerModel oldFlyer,
+  @required ValueNotifier<bool> isEditingFlyer,
 }) async {
 
   final FlyerModel _lastSessionFlyer = await FlyerLDBOps.loadFlyerMakerSession(
@@ -120,6 +121,8 @@ Future<void> loadFlyerMakerLastSession({
           fileName: _lastSessionFlyer.pdf?.fileName,
         ),
       );
+      isEditingFlyer.value = true;
+
     }
 
   }

@@ -16,7 +16,6 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.buttonsList,
     @required this.onButtonTap,
     @required this.selectedButtons,
-    @required this.isInError,
     this.bulletPoints,
     this.translateBullets = true,
     this.inactiveButtons,
@@ -32,7 +31,6 @@ class MultipleChoiceBubble extends StatelessWidget {
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
   final List<String> inactiveButtons;
-  final bool isInError;
   final bool translateBullets;
   final String Function() validator;
   final bool autoValidate;
@@ -47,8 +45,6 @@ class MultipleChoiceBubble extends StatelessWidget {
         screenWidth: _bubbleWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
-          defaultColor: Colorz.white10,
-          canErrorize: true,
         ),
         headerViewModel: BubbleHeaderVM(
           headlineVerse: title,

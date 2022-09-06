@@ -22,18 +22,28 @@ class EmailAuthScreen extends StatefulWidget {
 class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // -----------------------------------------------------------------------------
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  // --------------------
+  bool _canValidate = false;
+  void _switchOnValidation(){
+    if (_canValidate != true){
+      setState(() {
+        _canValidate = true;
+      });
+    }
+  }
+  // --------------------
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmationController = TextEditingController();
-  // -----------------------------------------------------------------------------
+  // --------------------
   final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -43,23 +53,20 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _isSigningIn.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void _switchSignIn() {
     _formKey.currentState.reset();
     _isSigningIn.value = !_isSigningIn.value;
   }
-// -----------------------------------------------------------------------------
-//   bool _canSignIn = true;
+  // --------------------
   Future<void> _onSignin() async {
 
     Keyboard.closeKeyboard(context);
 
-    if (
-    mounted == true
-        // &&
-        // _canSignIn == true
-    ){
-      // _canSignIn = false;
+    if (mounted == true){
+
+      _switchOnValidation();
+
       await authByEmailSignIn(
         context: context,
         email: _emailController.text,
@@ -67,21 +74,19 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         formKey: _formKey,
       );
 
+
     }
 
   }
-// -----------------------------------------------------------------------------
-//   bool _canSignUp = true;
+  // --------------------
   Future<void> _onSignup() async {
 
     Keyboard.closeKeyboard(context);
 
-    if (
-    mounted == true
-        // &&
-        // _canSignUp == true
-    ){
-      // _canSignUp = false;
+    if (mounted == true){
+
+      _switchOnValidation();
+
       await authByEmailRegister(
         context: context,
         email: _emailController.text,
@@ -89,12 +94,11 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         passwordConfirmation: _passwordConfirmationController.text,
         formKey: _formKey,
       );
+
     }
 
   }
-// -----------------------------------------------------------------------------
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -109,12 +113,19 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         emailController: _emailController,
         passwordController: _passwordController,
         passwordConfirmationController: _passwordConfirmationController,
-        emailValidator: () => Formers.emailValidator(email: _emailController.text),
-        passwordValidator: () => Formers.passwordValidator(password: _passwordController.text),
+        emailValidator: () => Formers.emailValidator(
+          email: _emailController.text,
+          canValidate: _canValidate,
+        ),
+        passwordValidator: () => Formers.passwordValidator(
+          password: _passwordController.text,
+          canValidate: _canValidate,
+        ),
         passwordConfirmationValidator: () => Formers.passwordConfirmationValidation(
-            context: context,
-            password: _passwordController.text,
-            passwordConfirmation: _passwordConfirmationController.text,
+          context: context,
+          password: _passwordController.text,
+          passwordConfirmation: _passwordConfirmationController.text,
+          canValidate: _canValidate,
         ),
         switchSignIn: _switchSignIn,
         onSignin: _onSignin,
@@ -124,4 +135,5 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
     );
   }
+  // -----------------------------------------------------------------------------
 }

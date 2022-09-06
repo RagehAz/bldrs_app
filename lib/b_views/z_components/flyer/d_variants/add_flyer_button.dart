@@ -34,7 +34,9 @@ class AddFlyerButton extends StatelessWidget {
 
       final dynamic _result = await Nav.goToNewScreen(
           context: context,
-          screen: const FlyerMakerScreen(),
+          screen: const FlyerMakerScreen(
+            validateOnStartup: false,
+          ),
       );
 
       if (_result.runtimeType == FlyerModel) {

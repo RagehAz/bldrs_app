@@ -241,6 +241,7 @@ class Dialogs {
         showPasswordOnly: true,
         passwordValidator: () => Formers.passwordValidator(
           password: _password.text,
+          canValidate: true,
         ),
         passwordConfirmationController: null,
         passwordConfirmationValidator: null,
