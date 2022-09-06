@@ -72,7 +72,7 @@ class TileBubble extends StatelessWidget {
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
-      width: _bubbleWidth,
+      screenWidth: _bubbleWidth,
       onBubbleTap: btOnTap,
       bubbleColor: bubbleColor,
       columnChildren: <Widget>[

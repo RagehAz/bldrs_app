@@ -50,7 +50,7 @@ class GenderBubble extends StatelessWidget {
         // headlineVerse: 'phid_gender',
         redDot: true,
       ),
-      width: Bubble.defaultWidth(context),
+      screenWidth: Bubble.defaultWidth(context),
       columnChildren: <Widget>[
 
         Row(

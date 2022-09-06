@@ -172,7 +172,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           canErrorize: true,
         ),
         headerViewModel: widget.headerViewModel,
-      width: _bubbleWidth,
+      screenWidth: _bubbleWidth,
         columnChildren: <Widget>[
 
           /// BULLET POINTS
@@ -211,7 +211,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.globalKey,
-                titleVerse: '##Contact',
+                titleVerse: widget.headerViewModel?.headlineVerse,
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,

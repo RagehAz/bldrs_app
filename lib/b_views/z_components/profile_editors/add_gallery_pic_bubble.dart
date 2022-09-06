@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -85,20 +86,18 @@ class AddImagePicBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _width = Bubble.bubbleWidth(
-      context: context,
-      bubbleWidthOverride: width,
-    );
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context);
 
     return Bubble(
-        width: _width,
+        screenWidth: _screenWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
           defaultColor: Colorz.white10,
           canErrorize: true,
         ),
         headerViewModel: BubbleHeaderVM(
-          headerWidth: _width - 20,
+          headerWidth: _bubbleClearWidth,
           headlineVerse: titleVerse,
           redDot: redDot,
         ),
@@ -172,7 +171,7 @@ class AddImagePicBubble extends StatelessWidget {
 
           if (validator != null)
             SuperValidator(
-              width: _width - 20,
+              width: _bubbleClearWidth,
               validator: validator,
               // autoValidate: true,
             ),
