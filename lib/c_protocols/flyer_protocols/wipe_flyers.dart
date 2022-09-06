@@ -18,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WipeFlyerProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const WipeFlyerProtocols();
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> wipeFlyer({
     @required BuildContext context,
@@ -72,7 +72,7 @@ class WipeFlyerProtocols {
           isIncrementing: false,
         ),
 
-    ]);
+      ]);
 
       _updatedBzModel = await FlyerFireOps.deleteFlyerOps(
         context: context,
@@ -100,7 +100,7 @@ class WipeFlyerProtocols {
     blog('WipeFlyerProtocols.wipeFlyer : END');
     return _updatedBzModel;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<BzModel> wipeMultipleFlyers({
     @required BuildContext context,
@@ -205,5 +205,5 @@ class WipeFlyerProtocols {
     blog('WipeFlyerProtocols.wipeMultipleFlyers : END');
     return _bzModel;
   }
-// ----------------------------------
+  // --------------------
 }

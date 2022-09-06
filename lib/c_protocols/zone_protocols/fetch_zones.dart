@@ -13,15 +13,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchZoneProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FetchZoneProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COUNTRY
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> fetchCountry({
     @required BuildContext context,
@@ -56,7 +56,7 @@ class FetchZoneProtocols {
 
     return _countryModel;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
     @required BuildContext context,
@@ -82,11 +82,11 @@ class FetchZoneProtocols {
 
     return _countries;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CITY
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
     @required BuildContext context,
@@ -121,7 +121,7 @@ class FetchZoneProtocols {
 
     return _cityModel;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
     @required BuildContext context,
@@ -136,8 +136,8 @@ class FetchZoneProtocols {
       for (final String id in citiesIDs){
 
         final CityModel _city = await fetchCity(
-            context: context,
-            cityID: id,
+          context: context,
+          cityID: id,
         );
 
         if (_city != null){
@@ -156,7 +156,7 @@ class FetchZoneProtocols {
 
     return _cities;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCityByName({
     @required BuildContext context,
@@ -261,11 +261,11 @@ class FetchZoneProtocols {
 
     return _city;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CONTINENT
+  /// CONTINENT
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> fetchContinents({
     @required BuildContext context,
@@ -299,6 +299,6 @@ class FetchZoneProtocols {
     return _continents;
 
   }
-// -------------------------------------
+  // --------------------
 
 }

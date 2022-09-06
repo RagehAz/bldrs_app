@@ -11,15 +11,15 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ReviewProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> composeReview({
     @required BuildContext context,
@@ -33,9 +33,9 @@ class ReviewProtocols {
     /// 3. increment bzz counter field (real/countingBzz/bzID/allReviews)
 
     final ReviewModel _uploadedReview = await ReviewFireOps.createReview(
-        context: context,
-        text: text,
-        flyerID: flyerID,
+      context: context,
+      text: text,
+      flyerID: flyerID,
     );
 
     await FlyerRecordRealOps.reviewCreation(
@@ -47,11 +47,11 @@ class ReviewProtocols {
 
     return _uploadedReview;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RENOVATE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateReview({
     @required BuildContext context,
@@ -68,11 +68,11 @@ class ReviewProtocols {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REVIEW AGREE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> agreeOnReview({
     @required BuildContext context,
@@ -93,26 +93,26 @@ class ReviewProtocols {
     /// remove user ID from (review agrees list)
     if (isAlreadyAgreed == true){
       await Real.deleteField(
-          context: context,
-          collName: RealColl.agreesOnReviews,
-          docName: reviewModel.id,
-          fieldName: AuthFireOps.superUserID(),
+        context: context,
+        collName: RealColl.agreesOnReviews,
+        docName: reviewModel.id,
+        fieldName: AuthFireOps.superUserID(),
       );
     }
     /// add user id to (review agrees list)
     else {
       await Real.updateDocField(
-          context: context,
-          collName: RealColl.agreesOnReviews,
-          docName: reviewModel.id,
-          fieldName: AuthFireOps.superUserID(),
-          value: true,
+        context: context,
+        collName: RealColl.agreesOnReviews,
+        docName: reviewModel.id,
+        fieldName: AuthFireOps.superUserID(),
+        value: true,
       );
     }
 
     return _updated;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> fetchIsAgreed({
     @required BuildContext context,
@@ -132,11 +132,11 @@ class ReviewProtocols {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeSingleReview({
     @required BuildContext context,
@@ -170,9 +170,9 @@ class ReviewProtocols {
         ),
 
         FlyerRecordRealOps.reviewDeletion(
-            context: context,
-            flyerID: reviewModel.flyerID,
-            bzID: bzID,
+          context: context,
+          flyerID: reviewModel.flyerID,
+          bzID: bzID,
         ),
 
       ]);
@@ -180,7 +180,7 @@ class ReviewProtocols {
     }
 
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> wipeAllFlyerReviews({
     @required BuildContext context,
@@ -199,58 +199,58 @@ class ReviewProtocols {
 
     /// 1. DELETE SUB COLL
     await Fire.deleteSubCollection(
-      context: context,
-      collName: FireColl.flyers,
-      docName: flyerID,
-      subCollName: FireSubColl.flyers_flyer_reviews,
-      onDeleteSubDoc: (String reviewID) async {
+        context: context,
+        collName: FireColl.flyers,
+        docName: flyerID,
+        subCollName: FireSubColl.flyers_flyer_reviews,
+        onDeleteSubDoc: (String reviewID) async {
 
-        _numberOfReviews++;
+          _numberOfReviews++;
 
-        await Future.wait(<Future>[
+          await Future.wait(<Future>[
 
-          /// 2. DELETE REVIEW AGREES
-          Real.deleteDoc(
-            context: context,
-            collName: RealColl.agreesOnReviews,
-            docName: reviewID,
-          ),
-
-          /// 3. DELETE OR DECREMENT FLYER COUNTER
-          // if (isDeletingFlyer == true) // => flyer counter will be deleted in wipeFlyerOps
-
-          /// 4. DELETE OR DECREMENT BZ COUNTER
-          // if (isDeletingBz == true) // => bz counter will be deleted in wipeBzOps
-
-        ]);
-
-
-        /// 3 - 4 : DECREMENTING FLYER & BZ COUNTERS IF NOT WIPING THEM OUT
-        await Future.wait(<Future>[
-
-          if (isDeletingFlyer == false)
-            FlyerRecordRealOps.incrementFlyerCounter(
+            /// 2. DELETE REVIEW AGREES
+            Real.deleteDoc(
               context: context,
-              flyerID: flyerID,
-              field: 'reviews',
-              incrementThis: -_numberOfReviews,
+              collName: RealColl.agreesOnReviews,
+              docName: reviewID,
             ),
 
-          if (isDeletingBz == false)
-            BzRecordRealOps.incrementBzCounter(
-              context: context,
-              bzID: bzID,
-              field: 'allReviews',
-              incrementThis: -_numberOfReviews,
-            ),
+            /// 3. DELETE OR DECREMENT FLYER COUNTER
+            // if (isDeletingFlyer == true) // => flyer counter will be deleted in wipeFlyerOps
 
-        ]);
+            /// 4. DELETE OR DECREMENT BZ COUNTER
+            // if (isDeletingBz == true) // => bz counter will be deleted in wipeBzOps
 
-      }
+          ]);
+
+
+          /// 3 - 4 : DECREMENTING FLYER & BZ COUNTERS IF NOT WIPING THEM OUT
+          await Future.wait(<Future>[
+
+            if (isDeletingFlyer == false)
+              FlyerRecordRealOps.incrementFlyerCounter(
+                context: context,
+                flyerID: flyerID,
+                field: 'reviews',
+                incrementThis: -_numberOfReviews,
+              ),
+
+            if (isDeletingBz == false)
+              BzRecordRealOps.incrementBzCounter(
+                context: context,
+                bzID: bzID,
+                field: 'allReviews',
+                incrementThis: -_numberOfReviews,
+              ),
+
+          ]);
+
+        }
     );
 
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> wipeMultipleFlyersReviews({
     @required BuildContext context,
@@ -277,5 +277,5 @@ class ReviewProtocols {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

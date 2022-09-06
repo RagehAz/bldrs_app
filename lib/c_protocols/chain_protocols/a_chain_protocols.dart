@@ -12,15 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChainProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ChainProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> composeChainK({
     @required BuildContext context,
@@ -34,15 +34,15 @@ class ChainProtocols {
 
     /// NOTE : chain K does not allow duplicate IDs in last node
     final Chain _bigChainK = await ChainRealOps.createBigChainK(
-        context: context,
-        chainK: chainK,
+      context: context,
+      chainK: chainK,
     );
 
     WaitDialog.closeWaitDialog(context);
 
     return _bigChainK;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> composeChainS({
     @required BuildContext context,
@@ -64,7 +64,7 @@ class ChainProtocols {
 
     return _bigChainS;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FETCH
 
@@ -91,7 +91,7 @@ class ChainProtocols {
 
     return _bigChainK;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> fetchBigChainS(BuildContext context) async {
 
@@ -114,7 +114,7 @@ class ChainProtocols {
 
     return _bigChainS;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityPhidsModel> readCityPhidsOfCurrentZone({
     @required BuildContext context,
@@ -137,11 +137,11 @@ class ChainProtocols {
 
     return _cityPhidCounters;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RENOVATE
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBigChainK({
     @required BuildContext context,
@@ -172,7 +172,7 @@ class ChainProtocols {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBigChainS({
     @required BuildContext context,
@@ -203,7 +203,7 @@ class ChainProtocols {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainKLocally({
     @required BuildContext context,
@@ -219,10 +219,10 @@ class ChainProtocols {
 
       /// UPDATE CHAIN K IN LDB
       await ChainLDBOps.updateBigChainK(
-          newBigChainK: bigChainK,
+        newBigChainK: bigChainK,
       );
 
-    /// UPDATE CHAIN K IN PRO
+      /// UPDATE CHAIN K IN PRO
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       await _chainsProvider.updateBigChainKOps(
         context: context,
@@ -238,7 +238,7 @@ class ChainProtocols {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainSLocally({
     @required BuildContext context,
@@ -272,11 +272,11 @@ class ChainProtocols {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE
 
-// -------------------------------------
+  // --------------------
   /// NO NEED
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

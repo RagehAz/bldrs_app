@@ -7,30 +7,30 @@ import 'package:bldrs/c_protocols/flyer_protocols/wipe_flyers.dart';
 import 'package:flutter/cupertino.dart';
 
 class FlyerProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FlyerProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
     @required BzModel bzModel,
   }) => ComposeFlyerProtocols.compose(
-      context: context,
-      flyerToPublish: flyerModel,
-      bzModel: bzModel,
+    context: context,
+    flyerToPublish: flyerModel,
+    bzModel: bzModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> fetchFlyer({
     @required BuildContext context,
@@ -39,7 +39,7 @@ class FlyerProtocols {
     context: context,
     flyerID: flyerID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
@@ -48,11 +48,11 @@ class FlyerProtocols {
       context: context,
       flyersIDs: flyersIDs
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateFlyer({
     @required BuildContext context,
@@ -71,7 +71,7 @@ class FlyerProtocols {
     updateFlyerLocally: updateFlyerLocally,
     resetActiveBz: resetActiveBz,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerLocally({
     @required BuildContext context,
@@ -84,11 +84,11 @@ class FlyerProtocols {
     notifyFlyerPro: notifyFlyerPro,
     resetActiveBz: resetActiveBz,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> wipeTheFlyer({
     @required BuildContext context,
@@ -96,14 +96,14 @@ class FlyerProtocols {
     @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool isDeletingBz,
-}) => WipeFlyerProtocols.wipeFlyer(
+  }) => WipeFlyerProtocols.wipeFlyer(
     context: context,
     flyerModel: flyerModel,
     bzModel: bzModel,
     showWaitDialog: showWaitDialog,
     isDeletingBz: isDeletingBz,
   );
-// ----------------------------------
+  // --------------------
   static Future<BzModel> wipeFlyers({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -111,7 +111,7 @@ class FlyerProtocols {
     @required bool showWaitDialog,
     @required bool updateBzEveryWhere,
     @required bool isDeletingBz,
-}) => WipeFlyerProtocols.wipeMultipleFlyers(
+  }) => WipeFlyerProtocols.wipeMultipleFlyers(
     context: context,
     bzModel: bzModel,
     flyers: flyers,
@@ -119,5 +119,5 @@ class FlyerProtocols {
     updateBzEveryWhere: updateBzEveryWhere,
     isDeletingBz: isDeletingBz,
   );
-// ----------------------------------
+  // --------------------
 }

@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RenovateFlyerProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateFlyerProtocols();
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovate({
     @required BuildContext context,
@@ -61,7 +61,7 @@ class RenovateFlyerProtocols {
 
     blog('RenovateFlyerProtocols.renovate : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required BuildContext context,
@@ -89,5 +89,5 @@ class RenovateFlyerProtocols {
 
     blog('RenovateFlyerProtocols.updateLocally : END');
   }
-// ----------------------------------
+// --------------------
 }

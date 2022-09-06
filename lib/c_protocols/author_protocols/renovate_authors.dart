@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 
 class RenovateAuthorProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateAuthorProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<BzModel> updateAuthorProtocol({
     @required BuildContext context,
     @required BzModel oldBzModel,
