@@ -23,5 +23,5 @@ class WidgetDeactivator extends StatelessWidget {
     );
 
   }
-
+/// --------------------------------------------------------------------------
 }

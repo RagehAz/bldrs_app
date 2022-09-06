@@ -6,7 +6,6 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-
 class AppBarProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarProgressBar({
@@ -20,11 +19,10 @@ class AppBarProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _abWidth = BldrsAppBar.width(context);
     final EdgeInsets _margins = EdgeInsets.only(top: Ratioz.appBarSmallHeight - StaticStrips.stripThickness(_abWidth));
-
-
+    // --------------------
     return ValueListenableBuilder(
       valueListenable: loading,
       builder: (_, bool isLoading, Widget child){
@@ -68,6 +66,7 @@ class AppBarProgressBar extends StatelessWidget {
 
       },
     );
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

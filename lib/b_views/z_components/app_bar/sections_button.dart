@@ -24,7 +24,7 @@ class SectionsButton extends StatelessWidget {
     @required BuildContext context,
     @required String currentKeywordID,
     @required FlyerType currentSection,
-}){
+  }){
     String _title;
 
     if (currentKeywordID == null){
@@ -46,7 +46,7 @@ class SectionsButton extends StatelessWidget {
     @required BuildContext context,
     @required String currentKeywordID,
     @required FlyerType currentSection,
-}){
+  }){
     String _body;
 
     if (currentKeywordID != null){
@@ -62,8 +62,8 @@ class SectionsButton extends StatelessWidget {
     }
 
     return _body;
-}
-// -----------------------------------------------------------------------------
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -87,9 +87,9 @@ class SectionsButton extends StatelessWidget {
                   builder: (_, ChainsProvider chainsPro, Widget child){
 
                     final String _titleVerse = getTitle(
-                        context: context,
-                        currentKeywordID: chainsPro.wallPhid,
-                        currentSection: chainsPro.wallFlyerType,
+                      context: context,
+                      currentKeywordID: chainsPro.wallPhid,
+                      currentSection: chainsPro.wallFlyerType,
                     );
 
                     final String _sectionVerse = getBody(
@@ -165,5 +165,7 @@ class SectionsButton extends StatelessWidget {
         ),
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }
