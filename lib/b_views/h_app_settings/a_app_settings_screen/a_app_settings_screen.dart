@@ -88,4 +88,5 @@ class AppSettingsScreen extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

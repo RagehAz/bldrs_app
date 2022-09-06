@@ -36,7 +36,7 @@ class PhidButton extends StatelessWidget {
   static double getHeight(){
     return ChainButtonBox.sonHeight();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   String _getIcon(BuildContext context){
 
     String _icon;
@@ -54,7 +54,7 @@ class PhidButton extends StatelessWidget {
 
     return _icon;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   double _getVerseScaleFactor(){
     double _scaleFactor;
 
@@ -67,7 +67,7 @@ class PhidButton extends StatelessWidget {
 
     return _scaleFactor;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   double _getIconScaleFactor(){
     double _scaleFactor;
 
@@ -80,7 +80,7 @@ class PhidButton extends StatelessWidget {
 
     return _scaleFactor;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -111,4 +111,5 @@ class PhidButton extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

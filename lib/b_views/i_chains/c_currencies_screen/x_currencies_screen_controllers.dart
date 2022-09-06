@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
-  /// SEARCHING
+/// SEARCHING
 
-// ------------------------------
+// --------------------
 void onSearchCurrencies({
   @required BuildContext context,
   @required TextEditingController searchController,
@@ -65,8 +65,8 @@ void onSearchCurrencies({
 
       for (final String id in _filteredIDs){
         final CurrencyModel _currency = CurrencyModel.getCurrencyByID(
-            allCurrencies: _allCurrencies,
-            currencyID: id,
+          allCurrencies: _allCurrencies,
+          currencyID: id,
         );
 
         _currency.blogCurrency();
@@ -90,7 +90,7 @@ void onSearchCurrencies({
 
 /// SELECTION
 
-// ------------------------------
+// --------------------
 void onSelectCurrency({
   @required BuildContext context,
   @required CurrencyModel currency,

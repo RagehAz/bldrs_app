@@ -33,5 +33,7 @@ class DistrictsScreenBrowseView extends StatelessWidget {
 
       },
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

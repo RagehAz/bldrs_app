@@ -37,16 +37,17 @@ class PriceDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PriceDataCreatorState extends State<PriceDataCreator> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<String> _selectedCurrencyID = ValueNotifier(null);
   final ValueNotifier<double> _priceValue = ValueNotifier(null); // specValue
 // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -64,7 +65,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -73,7 +74,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     _priceValue.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -138,4 +139,5 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

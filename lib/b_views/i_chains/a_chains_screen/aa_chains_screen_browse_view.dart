@@ -68,7 +68,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
     return _instructions;
   }
-// ------------------------------------------------
+  // --------------------
   String _getInstructionsIcon(BuildContext context){
     // ---------------------
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
@@ -86,7 +86,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
     return _icon;
   }
-// -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -167,7 +167,8 @@ class ChainsScreenBrowseView extends StatelessWidget {
         ),
       );
 
-  }
+    }
 
   }
+  // --------------------------------------------------------------------------
 }
