@@ -21,6 +21,7 @@ class BzCreditsCounter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Container(
       height: Ratioz.appBarButtonSize,
       width: width,
@@ -48,7 +49,9 @@ class BzCreditsCounter extends StatelessWidget {
         ],
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }
 
 class CreditsRow extends StatelessWidget {
@@ -59,15 +62,14 @@ class CreditsRow extends StatelessWidget {
     @required this.width,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final String icon;
   final String value;
   final double width;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -96,5 +98,7 @@ class CreditsRow extends StatelessWidget {
 
       ],
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

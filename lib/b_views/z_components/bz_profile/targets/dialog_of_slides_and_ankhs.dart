@@ -39,4 +39,5 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       ],
     );
   }
+  /// --------------------------------------------------------------------------
 }

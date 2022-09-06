@@ -32,11 +32,11 @@ class AuthorCard extends StatelessWidget {
   final double bubbleWidth;
   final ValueChanged<ContactModel> onContactTap;
   final bool moreButtonIsOn;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static const double authorPicSize = 80;
   static const double spaceBetweenImageAndText = 5;
   static const double moreButtonSize = 40;
-// -----------------------------------------------------------------------------
+  // --------------------
   static double authorTextDetailsClearWidth({
     @required BuildContext context,
     @required double bubbleWidth,
@@ -55,51 +55,49 @@ class AuthorCard extends StatelessWidget {
             // - _spaceBetweenImageAndText
             - authorPicSize
             - _moreButtonSize
-            ; // for margin
+    ; // for margin
 
     return _clearTextWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static const double imageCornerValue = 15;
-// -----------------------------------------------------------------------------
+  // --------------------
   static double bubbleCornerValue(){
     return imageCornerValue + Bubble.paddingValue();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static String getAuthorTitleLine({
     @required String title,
     @required String companyName
   }){
     return '$title @ $companyName';
   }
-
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bubbleWidth = bubbleWidth ?? BldrsAppBar.width(context);
-
+    // --------------------
     final double _textAreaBoxWidth = authorTextDetailsClearWidth(
-      context: context,
-      bubbleWidth: _bubbleWidth,
-      withMoreButton: true
+        context: context,
+        bubbleWidth: _bubbleWidth,
+        withMoreButton: true
     );
-
+    // --------------------
     final double _textAreaWidth = _textAreaBoxWidth - 20;
-
+    // --------------------
     final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
       userID: author.userID,
       bzModel: bzModel,
     );
-
+    // --------------------
     final String _role = AuthorModel.translateRole(
       context: context,
       role: author.role,
     );
-
+    // --------------------
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
-
+    // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
       screenWidth: _bubbleWidth,
@@ -175,17 +173,17 @@ class AuthorCard extends StatelessWidget {
             ),
 
             if (moreButtonIsOn == true)
-            DreamBox(
-              width: moreButtonSize,
-              height: moreButtonSize,
-              icon: Iconz.more,
-              iconSizeFactor: 0.6,
-              onTap: () => onAuthorOptionsTap(
-                context: context,
-                bzModel: bzModel,
-                authorModel: author,
+              DreamBox(
+                width: moreButtonSize,
+                height: moreButtonSize,
+                icon: Iconz.more,
+                iconSizeFactor: 0.6,
+                onTap: () => onAuthorOptionsTap(
+                  context: context,
+                  bzModel: bzModel,
+                  authorModel: author,
+                ),
               ),
-            ),
 
 
           ],
@@ -246,6 +244,7 @@ class AuthorCard extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

@@ -21,7 +21,7 @@ class TargetProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bubbleClearWidth = Bubble.clearWidth(context) - 10;
     const double _titleBoxHeight = 30;
     final double _progressBoxWidth = _bubbleClearWidth / 2 - 30;
@@ -29,7 +29,7 @@ class TargetProgressBar extends StatelessWidget {
     const double _iconsHeight = 15;
     const EdgeInsets _barMargin = EdgeInsets.only(top: 9);
     final TargetProgress _progress = target.progress;
-
+    // --------------------
     return Container(
       width: _progressBoxWidth,
       height: _titleBoxHeight,
@@ -125,5 +125,7 @@ class TargetProgressBar extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }
