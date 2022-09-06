@@ -21,17 +21,16 @@ class StaticStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-// -----------------------------------------------------------------------------
-//     double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
+    // --------------------
     final double _aStripThickness = StaticStrips.stripThickness(flyerBoxWidth);
+    // int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
+    // double _stripsTotalLength = Strips.stripsTotalLength(flyerBoxWidth);
     final double _aStripOnePadding = _aStripThickness / 2;
     final double _aStripLength = StaticStrips.oneStripLength(
         flyerBoxWidth: flyerBoxWidth, numberOfStrips: numberOfSlides);
     final double _stripCorner = StaticStrips.stripCornerValue(flyerBoxWidth);
     final Color _stripColor = StaticStrips.stripColor(isWhite: isWhite, numberOfSlides: numberOfSlides);
-// -----------------------------------------------------------------------------
-
+    // --------------------
     return Container(
       width: stripWidth,
       height: _aStripThickness,
@@ -44,5 +43,7 @@ class StaticStrip extends StatelessWidget {
             borderRadius: Borderers.superBorderAll(context, _stripCorner)),
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

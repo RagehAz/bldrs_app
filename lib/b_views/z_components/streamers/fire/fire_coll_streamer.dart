@@ -65,15 +65,15 @@ class FireCollStreamer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<FireCollStreamer> createState() => _FireCollStreamerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FireCollStreamerState extends State<FireCollStreamer> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Stream<QuerySnapshot<Object>> _stream;
   final ValueNotifier<List<Map<String, dynamic>>> _oldMaps = ValueNotifier(<Map<String, dynamic>>[]);
   StreamSubscription _sub;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -100,7 +100,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -118,7 +118,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -147,5 +147,5 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

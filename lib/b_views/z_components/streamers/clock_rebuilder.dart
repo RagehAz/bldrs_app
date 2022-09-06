@@ -22,21 +22,21 @@ class ClockRebuilder extends StatefulWidget {
 }
 
 class _ClockRebuilderState extends State<ClockRebuilder> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     startClockRebuilder();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     timeDifference.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<int> timeDifference = ValueNotifier(0);
-// ---------------------------------------------------------
+  // --------------------
   Future<void> startClockRebuilder() async {
 
     if (mounted){
@@ -58,7 +58,7 @@ class _ClockRebuilderState extends State<ClockRebuilder> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -73,5 +73,5 @@ class _ClockRebuilderState extends State<ClockRebuilder> {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }
