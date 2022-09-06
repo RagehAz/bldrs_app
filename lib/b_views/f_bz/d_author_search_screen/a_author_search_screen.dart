@@ -16,17 +16,17 @@ class AuthorSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<AuthorSearchScreen> createState() => _AuthorSearchScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -40,7 +40,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     }
   }
   */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TAMAM
   @override
   void dispose() {
@@ -49,7 +49,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onSearch(String text) async {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
@@ -58,7 +58,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     );
 
     final List<String> _bzAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
-        authors: _bzModel.authors,
+      authors: _bzModel.authors,
     );
 
     await onSearchUsers(
@@ -71,13 +71,13 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     return MainLayout(
@@ -99,5 +99,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
       ),
 
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

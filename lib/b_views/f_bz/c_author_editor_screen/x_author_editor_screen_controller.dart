@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 
 /// AUTHOR EDITOR INITIALIZATION
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void initializeAuthorEditorLocalVariables({
   @required AuthorModel oldAuthor,
@@ -40,7 +40,7 @@ void initializeAuthorEditorLocalVariables({
   tempAuthor.value = _initialAuthor;
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareAuthorPicForEditing({
   @required BuildContext context,
@@ -56,9 +56,9 @@ Future<void> prepareAuthorPicForEditing({
   );
 
   setNotifier(
-      notifier: tempAuthor,
-      mounted: mounted,
-      value: _tempAuthor,
+    notifier: tempAuthor,
+    mounted: mounted,
+    value: _tempAuthor,
   );
 
 }
@@ -66,7 +66,7 @@ Future<void> prepareAuthorPicForEditing({
 
 /// LAST SESSION
 
-// ---------------------------------------
+// --------------------
 Future<void> loadAuthorEditorSession({
   @required BuildContext context,
   @required bool mounted,
@@ -110,7 +110,7 @@ Future<void> loadAuthorEditorSession({
   }
 
 }
-// ---------------------------------------
+// --------------------
 Future<void> saveAuthorEditorSession({
   @required BuildContext context,
   @required AuthorModel oldAuthor,
@@ -154,7 +154,7 @@ Future<void> saveAuthorEditorSession({
 
 /// AUTHOR PROFILE EDITOR
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeAuthorImage({
   @required BuildContext context,
@@ -203,7 +203,7 @@ Future<void> takeAuthorImage({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onDeleteAuthorImage({
   @required ValueNotifier<AuthorModel> author,
@@ -220,7 +220,7 @@ void onDeleteAuthorImage({
   );
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorNameChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
@@ -232,7 +232,7 @@ void onAuthorNameChanged({
   );
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorTitleChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
@@ -243,7 +243,7 @@ void onAuthorTitleChanged({
   );
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorContactChanged({
   @required ValueNotifier<AuthorModel> tempAuthor,
@@ -268,7 +268,7 @@ void onAuthorContactChanged({
 
 /// CONFIRMATION OPS
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmAuthorUpdates({
   @required BuildContext context,
@@ -320,7 +320,7 @@ Future<void> onConfirmAuthorUpdates({
 
 /// AUTHOR ROLE EDITOR
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAuthorRoleOps({
   @required BuildContext context,
@@ -392,7 +392,7 @@ Future<void> onChangeAuthorRoleOps({
 
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setAuthorRole({
   @required BuildContext context,
@@ -421,7 +421,7 @@ Future<void> setAuthorRole({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkCanChangeRole({
   @required BuildContext context,

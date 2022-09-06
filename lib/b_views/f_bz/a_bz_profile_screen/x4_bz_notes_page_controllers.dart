@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 /// BZ NOTE PAGINATION QUERY PARAMETERS
 
-// ------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 FireQueryModel bzReceivedNotesPaginationQueryParameters({
   @required String bzID,
@@ -46,8 +46,9 @@ FireQueryModel bzReceivedNotesPaginationQueryParameters({
 
 /// MARKING NOTES AS SEEN
 
-// ------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
+/*
 // void decrementBzObeliskUnseenNotesNumber({
 //   @required NotesProvider notesProvider,
 //   @required int markedNotesLength,
@@ -94,11 +95,12 @@ FireQueryModel bzReceivedNotesPaginationQueryParameters({
 //   }
 //
 // }
+ */
 // -----------------------------------------------------------------------------
 
 /// BZ AUTHORSHIP NOTES STREAMING QUERY MODEL
 
-// ------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
   @required String bzID,
@@ -134,7 +136,7 @@ FireQueryModel bzSentPendingAuthorshipNotesStreamQueryModel({
   );
 
 }
-// ------------------------------------------
+// --------------------
 /// TESTED : NOT YET
 FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
   @required String bzID,
@@ -181,7 +183,7 @@ FireQueryModel bzSentDeclinedAndCancelledNotesPaginatorQueryModel({
 
 /// SENDING AUTHORSHIP INVITATIONS
 
-// -------------------------------
+// --------------------
 /// TESTED : SENDS GOOD : need translations
 Future<void> onSendAuthorshipInvitation({
   @required BuildContext context,
@@ -223,7 +225,7 @@ Future<void> onSendAuthorshipInvitation({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCancelSentAuthorshipInvitation ({
   @required BuildContext context,

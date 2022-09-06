@@ -22,21 +22,24 @@ class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<BzNotesPage> createState() => _BzNotesPageState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _BzNotesPageState extends State<BzNotesPage>{
+  // -----------------------------------------------------------------------------
+  /*
   // with AutomaticKeepAliveClientMixin<BzNotesPage>
   // @override
   // bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
-  BzModel _bzModel;
   // Stream<List<NoteModel>> _receivedNotesStream;
-// -----------------------------------------------------------------------------
+  BzModel _bzModel;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -48,7 +51,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
       blogLoading(loading: _loading.value, callerName: 'BzNotesPage',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -56,7 +59,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     _scrollController = ScrollController();
     _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -78,7 +81,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _disposed = false;
   @override
   void dispose() {
@@ -91,9 +94,9 @@ class _BzNotesPageState extends State<BzNotesPage>{
     }
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
-// -----------------------------------
+  // --------------------
   void _markAllBzUnseenNotesAsSeen(){
 
     /// COLLECT NOTES TO MARK FIRST
@@ -110,34 +113,34 @@ class _BzNotesPageState extends State<BzNotesPage>{
     if (Mapper.checkCanLoopList(_notesToMark) == true){
       WidgetsBinding.instance.addPostFrameCallback((_){
 
-      // /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
-      // decrementBzObeliskUnseenNotesNumber(
-      //   notesProvider: _notesProvider,
-      //   markedNotesLength: _notesToMark.length,
-      //   bzID: _bzModel.id,
-      // );
+        // /// DECREMENT UNSEEN BZ NOTES NUMBER IN OBELISK
+        // decrementBzObeliskUnseenNotesNumber(
+        //   notesProvider: _notesProvider,
+        //   markedNotesLength: _notesToMark.length,
+        //   bzID: _bzModel.id,
+        // );
 
-      /// UN-FLASH PYRAMID
-      NotesProvider.proSetIsFlashing(
-        context: context,
-        setTo: false,
-        notify: true,
-      );
+        /// UN-FLASH PYRAMID
+        NotesProvider.proSetIsFlashing(
+          context: context,
+          setTo: false,
+          notify: true,
+        );
 
-      /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
-      NotesProvider.proRemoveNotesFromBzzNotes(
-        context: context,
-        notes: _notesToMark,
-        bzID: _bzModel.id,
-        notify: true,
-      );
+        /// REMOVE UNSEEN NOTES FROM ALL BZZ UNSEEN NOTES
+        NotesProvider.proRemoveNotesFromBzzNotes(
+          context: context,
+          notes: _notesToMark,
+          bzID: _bzModel.id,
+          notify: true,
+        );
 
-    });
+      });
     }
 
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onProviderDataChanged({
     @required List<NoteModel> bzNotes,
   }){
@@ -150,7 +153,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     );
 
   }
-// -----------------------------------
+  // --------------------
   void _onPaginatorDataChanged(List<Map<String, dynamic>> newMaps){
 
     /// DECIPHER NEW MAPS TO NOTES
@@ -167,11 +170,11 @@ class _BzNotesPageState extends State<BzNotesPage>{
     );
 
   }
-// -----------------------------------
+  // --------------------
   List<NoteModel> _combinePaginatorMapsWithProviderNotes({
     @required List<Map<String, dynamic>> paginatedMaps,
     @required List<NoteModel> providerNotes,
-}){
+  }){
 
     /// DECIPHER STREAM MAPS
     final List<NoteModel> _paginatedNotes = NoteModel.decipherNotes(
@@ -190,7 +193,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     return _ordered;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // super.build(context);
@@ -217,8 +220,8 @@ class _BzNotesPageState extends State<BzNotesPage>{
           return FireCollPaginator(
               scrollController: _scrollController,
               queryModel: bzReceivedNotesPaginationQueryParameters(
-                  bzID: _bzModel.id,
-                  onDataChanged: _onPaginatorDataChanged,
+                bzID: _bzModel.id,
+                onDataChanged: _onPaginatorDataChanged,
               ),
               builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
@@ -290,5 +293,5 @@ class _BzNotesPageState extends State<BzNotesPage>{
     // );
 
   }
-
+// -----------------------------------------------------------------------------
 }

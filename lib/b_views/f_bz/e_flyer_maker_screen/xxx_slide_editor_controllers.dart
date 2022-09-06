@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 /// INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Matrix4 initializeMatrix({
   @required MutableSlide slide,
 }){
@@ -29,7 +29,7 @@ Matrix4 initializeMatrix({
 
 /// SLIDE MODIFIERS
 
-// ---------------------------------
+// --------------------
 Future<void> onReset({
   @required MutableSlide originalSlide,
   @required ValueNotifier<MutableSlide> tempSlide,
@@ -43,7 +43,7 @@ Future<void> onReset({
   filter.value = ImageFilterModel.noFilter();
   matrix.value = Matrix4.identity();
 }
-// ---------------------------------
+// --------------------
 Future<void> onCropSlide({
   @required BuildContext context,
   @required ValueNotifier<MutableSlide> tempSlide,
@@ -74,7 +74,7 @@ Future<void> onCropSlide({
   }
 
 }
-// ---------------------------------
+// --------------------
 void onToggleFilter({
   @required ValueNotifier<MutableSlide> tempSlide,
   @required ValueNotifier<ImageFilterModel> currentFilter,
@@ -116,7 +116,7 @@ void onToggleFilter({
   );
   currentFilter.value = _bldrsFilters[_filterIndex];
 }
-
+// --------------------
 void onSlideHeadlineChanged({
   @required ValueNotifier<MutableSlide> tempSlide,
   @required String text,
@@ -129,7 +129,7 @@ void onSlideHeadlineChanged({
 
 /// CONFIRMATION - CANCELLING
 
-// ---------------------------------
+// --------------------
 void onCancelSlideEdits({
   @required BuildContext context,
 }){
@@ -140,7 +140,7 @@ void onCancelSlideEdits({
   );
 
 }
-// ---------------------------------
+// --------------------
 Future<void> onConfirmSlideEdits({
   @required BuildContext context,
   @required MutableSlide originalSlide,
@@ -155,9 +155,9 @@ Future<void> onConfirmSlideEdits({
   );
 
   Nav.goBack(
-      context: context,
-      invoker: 'onConfirmSlideEdits',
-      passedData: _slide,
+    context: context,
+    invoker: 'onConfirmSlideEdits',
+    passedData: _slide,
   );
 
 }

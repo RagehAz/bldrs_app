@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 
 /// BZ EDITING
 
-// -------------------------------
+// --------------------
 Future<void> onEditBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -34,7 +34,7 @@ Future<void> onEditBzButtonTap({
 
 /// BZ DELETION
 
-// -------------------------------
+// --------------------
 Future<void> onDeleteBzButtonTap({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -60,10 +60,10 @@ Future<void> onDeleteBzButtonTap({
 
     /// re-route back
     // if (routeBackHome == true){
-      Nav.goBackToHomeScreen(
-          context: context,
-          invoker: 'onDeleteBzButtonTap'
-      );
+    Nav.goBackToHomeScreen(
+        context: context,
+        invoker: 'onDeleteBzButtonTap'
+    );
     // }
 
     /// DELETE BZ LOCALLY
@@ -86,9 +86,9 @@ Future<void> onDeleteBzButtonTap({
   }
 
 }
-// -------------------------------
+// --------------------
 /// bz deletion dialogs
-// ------------------
+// -----
 Future<bool> _preDeleteBzAccountChecks({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -149,7 +149,7 @@ Future<bool> _preDeleteBzAccountChecks({
 
   return _canContinue;
 }
-// ------------------
+// -----
 Future<bool> _showConfirmDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -165,7 +165,7 @@ Future<bool> _showConfirmDeleteBzDialog({
 
   return _result;
 }
-// ------------------
+// -----
 Future<void> _showOnlyCreatorCanDeleteBzDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -180,7 +180,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
   );
 
 }
-// ------------------
+// -----
 Future<bool> _showConfirmDeleteAllBzFlyersDialog({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -196,4 +196,4 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
 
   return _result;
 }
-// -------------------------------
+// -----------------------------------------------------------------------------

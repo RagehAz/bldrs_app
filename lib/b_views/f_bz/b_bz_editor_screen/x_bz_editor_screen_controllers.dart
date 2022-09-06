@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
 
 /// INITIALIZATION
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void initializeBzEditorLocalVariables({
   @required BuildContext context,
@@ -63,7 +63,7 @@ void initializeBzEditorLocalVariables({
   tempBz.value = _initialBzModel;
   // -------------------------
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareBzForEditing({
   @required BuildContext context,
@@ -93,7 +93,7 @@ Future<void> prepareBzForEditing({
 
 /// LAST SESSION
 
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
   @required BuildContext context,
@@ -142,7 +142,7 @@ Future<void> loadBzEditorLastSession({
   }
 
 }
-// ---------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession({
   @required ValueNotifier<BzModel> tempBz,
@@ -182,7 +182,7 @@ Future<void> saveBzEditorSession({
 
   /// BZ MODEL EDITORS
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectBzSection({
   @required BuildContext context,
@@ -226,7 +226,7 @@ Future<void> onSelectBzSection({
   }
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectBzType({
   @required BuildContext context,
@@ -283,7 +283,7 @@ Future<void> onSelectBzType({
   }
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onSelectBzForm({
   @required int index,
@@ -295,7 +295,7 @@ void onSelectBzForm({
   );
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeBzLogo({
   @required BuildContext context,
@@ -345,7 +345,7 @@ Future<void> takeBzLogo({
   }
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onBzNameChanged({
   @required ValueNotifier<BzModel> tempBz,
@@ -357,7 +357,7 @@ void onBzNameChanged({
   );
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onBzAboutChanged({
   @required ValueNotifier<BzModel> tempBz,
@@ -367,7 +367,7 @@ void onBzAboutChanged({
     about: text,
   );
 }
-// -------------------------------
+// --------------------
   /// TESTED : WORKS PERFECT
   void onBzContactChanged({
     @required ValueNotifier<BzModel> tempBz,
@@ -388,7 +388,7 @@ void onBzAboutChanged({
     );
 
   }
-// ----------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onBzZoneChanged({
   @required ZoneModel zoneModel,
@@ -400,7 +400,7 @@ void onBzZoneChanged({
   );
 
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddScopesTap({
   @required BuildContext context,
@@ -433,7 +433,7 @@ Future<void> onAddScopesTap({
 
 /// DIALOGS
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _resetScopeDialog(BuildContext context) async {
 
@@ -452,7 +452,7 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
 
 /// VALIDATION - UPLOADING - CONFIRMATION
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzEditsConfirmTap({
   @required BuildContext context,
@@ -519,7 +519,7 @@ Future<void> onBzEditsConfirmTap({
   }
 
 }
-// ----------------------------------
+// --------------------
 Future<bool> _validateInputs({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -564,7 +564,7 @@ Future<bool> _validateInputs({
 
   return _inputsAreValid;
 }
-// ----------------------------------
+// --------------------
 /*
 bool _errorIsOn({
   @required List<String> missingFieldsKeys,
@@ -579,4 +579,4 @@ bool _errorIsOn({
   return _isError;
 
  */
-// ---------------------------------
+// -----------------------------------------------------------------------------

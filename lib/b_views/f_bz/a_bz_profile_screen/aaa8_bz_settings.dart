@@ -18,17 +18,16 @@ class BzSettingsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: true
     );
-
     final bool _userIsCreator = AuthorModel.checkUserIsCreatorAuthor(
       userID: AuthFireOps.superUserID(),
       bzModel: _bzModel,
     );
-
+    // --------------------
     return FloatingCenteredList(
       columnChildren: <Widget>[
 
@@ -62,7 +61,7 @@ class BzSettingsPage extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
-
+// -----------------------------------------------------------------------------
 }
