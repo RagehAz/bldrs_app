@@ -27,16 +27,16 @@ class PhidsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final BorderRadius _corners = Borderers.superBorderAll(context, Ratioz.appBarCorner);
     final double _boxHeight = height - ( Ratioz.appBarMargin);
-
+    // --------------------
     return Container(
       width: BldrsAppBar.width(context),
       height: _boxHeight,
       decoration: BoxDecoration(
-          color: Colorz.white10,
-          borderRadius: _corners,
+        color: Colorz.white10,
+        borderRadius: _corners,
       ),
       alignment: Alignment.topCenter,
       child: ClipRRect(
@@ -56,5 +56,7 @@ class PhidsDataCreator extends StatelessWidget {
       ),
 
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

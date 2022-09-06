@@ -22,7 +22,7 @@ import 'package:provider/provider.dart';
 
 /// CURRENCY DATA CREATOR
 
-// ------------------------------
+// --------------------
 void initializeCurrencyData({
   @required BuildContext context,
   @required ValueNotifier<String> selectedCurrencyID,
@@ -50,7 +50,7 @@ void initializeCurrencyData({
   textController.text = priceValue.value?.toString() ?? '';
 
 }
-// ------------------------------
+// --------------------
 void _initializeInitialCurrency({
   @required BuildContext context,
   @required String initialCurrencyID,
@@ -76,7 +76,7 @@ void _initializeInitialCurrency({
 
   selectedCurrencyID.value = _initialCurrencyID;
 }
-// ------------------------------
+// --------------------
 Future<void> onCurrencySelectorButtonTap({
   @required BuildContext context,
   @required ZoneModel zone,
@@ -113,7 +113,7 @@ Future<void> onCurrencySelectorButtonTap({
   }
 
 }
-// ------------------------------
+// --------------------
 String currencyFieldValidator({
   @required BuildContext context,
   @required ValueNotifier<String> selectedCurrencyID,
@@ -153,7 +153,7 @@ String currencyFieldValidator({
 
   return _output;
 }
-// ------------------------------
+// --------------------
 /// TASK : DELETE ME WHEN EVERYTHING IS GOOD : OLD CURRENCIES DIALOG
 /*
   static Future<void> showCurrencyDialog({
@@ -271,7 +271,7 @@ String currencyFieldValidator({
 
 /// NUMBER DATA CREATOR
 
-// ------------------------------
+// --------------------
 void initializeNumberData({
   @required BuildContext context,
   @required SpecModel initialValue,
@@ -282,7 +282,7 @@ void initializeNumberData({
   @required DataCreator dataCreatorType,
   @required String initialUnit,
 }){
-  // ---------------------------------
+  // --------------------
   specValue.value = _fixValueDataType(
     value: initialValue?.value,
     dataCreatorType: dataCreatorType,
@@ -291,21 +291,21 @@ void initializeNumberData({
   blog('a77aaaa :${specValue.value}');
 
   textController.text = specValue.value?.toString() ?? '';
-// ---------------------------------
+// --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
     context: context,
     chainID: picker.unitChainID,
   );
-// ---------------------------------
+// --------------------
   _initializeNumberUnit(
     initialUnit: initialUnit,
     selectedUnitID: selectedUnitID,
     unitChain: _unitChain,
   );
-// ---------------------------------
+// --------------------
 
 }
-// ------------------------------
+// --------------------
 void _initializeNumberUnit({
   @required String initialUnit,
   @required Chain unitChain,
@@ -329,7 +329,7 @@ void _initializeNumberUnit({
 
   selectedUnitID.value = _initialUnit;
 }
-// ------------------------------
+// --------------------
 String numberFieldValidator() {
 
   /// NEED TO VALIDATE IF FIELD IS REQUIRED
@@ -363,7 +363,7 @@ String numberFieldValidator() {
 
   return null;
 }
-// ------------------------------
+// --------------------
 Future<void> onUnitSelectorButtonTap({
   @required BuildContext context,
   @required PickerModel picker,
@@ -374,12 +374,12 @@ Future<void> onUnitSelectorButtonTap({
   @required GlobalKey<FormState> formKey,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
 }) async {
-// ---------------------------------
+// --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
     context: context,
     chainID: picker.unitChainID,
   );
-// ---------------------------------
+// --------------------
   Keyboard.closeKeyboard(context);
 
   final bool _arePhids = Chain.checkSonsArePhids(_unitChain.sons) == true;
@@ -443,7 +443,7 @@ Future<void> onUnitSelectorButtonTap({
   }
 
 }
-// ---------------------------------
+// --------------------
 void _onSelectUnit({
   @required String unitID,
   @required TextEditingController textController,
@@ -474,7 +474,7 @@ void _onSelectUnit({
 
 /// SHARED METHODS
 
-// ------------------------------
+// --------------------
 void onKeyboardChanged({
   @required GlobalKey<FormState> formKey,
   @required TextEditingController textController,
@@ -502,7 +502,7 @@ void onKeyboardChanged({
   );
 
 }
-// ------------------------------
+// --------------------
 Future<void> onKeyboardSubmitted({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -532,7 +532,7 @@ Future<void> onKeyboardSubmitted({
         await onKeyboardSubmitted();
       });
 }
-// ----------------------------------------
+// --------------------
 /// TASK : TEST THIS
 void _fixValueDataTypeAndSetValue({
   @required TextEditingController controller,
@@ -565,7 +565,7 @@ void _fixValueDataTypeAndSetValue({
   );
 
 }
-// ----------------------------------------
+// --------------------
 /// TASK : TEST THIS
 dynamic _fixValueDataType({
   @required dynamic value,
@@ -607,11 +607,11 @@ dynamic _fixValueDataType({
   }
 
 }
-// ------------------------------
+// --------------------
 void validateField(GlobalKey<FormState> formKey) {
   formKey.currentState.validate();
 }
-// -----------------------------------------------------------------------------
+// --------------------
 void _createSpecsFromLocalDataAndExport({
   @required TextEditingController textController,
   @required ValueNotifier<dynamic> specValue,
@@ -629,7 +629,7 @@ void _createSpecsFromLocalDataAndExport({
 
   onExportSpecs(_specs);
 }
-// -----------------------------------------------------------------------------
+// --------------------
 /// TASK : TEST THIS
 List<SpecModel> _createSpecsForValueAndUnit({
   @required TextEditingController controller,

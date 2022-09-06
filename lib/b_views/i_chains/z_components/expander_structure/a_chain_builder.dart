@@ -46,12 +46,12 @@ class ChainBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _sonWidth = ChainButtonBox.getSonWidth(
       parentLevel: parentLevel,
       parentWidth: boxWidth,
     );
-
+    // --------------------
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
@@ -80,6 +80,7 @@ class ChainBuilder extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }

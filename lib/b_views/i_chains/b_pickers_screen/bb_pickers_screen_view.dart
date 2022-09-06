@@ -39,7 +39,7 @@ class PickersScreenView extends StatelessWidget {
   final ValueChanged<List<SpecModel>> onAddSpecs;
   final Function onKeyboardSubmitted;
   final AppBarType appBarType;
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   double _getListZoneHeight(){
 
     final double _instructionsBoxHeight = showInstructions == true ?
@@ -51,7 +51,7 @@ class PickersScreenView extends StatelessWidget {
 
     return _listZoneHeight;
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// SINGLE PICKER INSTRUCTIONS
   String _getInstructions(BuildContext context){
     String _instructions;
@@ -77,12 +77,12 @@ class PickersScreenView extends StatelessWidget {
 
     return _instructions;
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// ----------------------------------------
+    // --------------------
     final double _listZoneHeight = _getListZoneHeight();
-// ----------------------------------------
+    // --------------------
     return Column(
       children: <Widget>[
 
@@ -208,6 +208,7 @@ class PickersScreenView extends StatelessWidget {
 
       ],
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

@@ -29,7 +29,7 @@ class ChainInstructions extends StatelessWidget {
       height: PickerScreen.instructionBoxHeight,
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(
-          horizontal: Ratioz.appBarMargin,
+        horizontal: Ratioz.appBarMargin,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -37,22 +37,22 @@ class ChainInstructions extends StatelessWidget {
 
           /// LEADING ICON
           if (leadingIcon != null)
-          DreamBox(
-            height: 35,
-            width: 35,
-            icon: leadingIcon,
-            corners: 10,
-            margins: const EdgeInsets.symmetric(vertical: 5),
-            iconSizeFactor: iconSizeFactor,
-            bubble: false,
-            color: Colorz.white20,
-          ),
+            DreamBox(
+              height: 35,
+              width: 35,
+              icon: leadingIcon,
+              corners: 10,
+              margins: const EdgeInsets.symmetric(vertical: 5),
+              iconSizeFactor: iconSizeFactor,
+              bubble: false,
+              color: Colorz.white20,
+            ),
 
           /// LEADING ICON SPACER
           if (leadingIcon != null)
             const SizedBox(
-            width: 10,
-          ),
+              width: 10,
+            ),
 
           /// INSTRUCTION VERSE
           Container(
@@ -78,4 +78,5 @@ class ChainInstructions extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

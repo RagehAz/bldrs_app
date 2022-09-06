@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class DataCreatorSplitter extends StatelessWidget {
-
+  /// --------------------------------------------------------------------------
   const DataCreatorSplitter({
     @required this.height,
     @required this.picker,
@@ -40,40 +40,38 @@ class DataCreatorSplitter extends StatelessWidget {
   final bool isMultipleSelectionMode;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
-// ----------------------------------------
+    // --------------------
     final Chain _valueChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker.chainID,
       onlyUseCityChains: onlyUseCityChains,
       // includeChainSInSearch: true,
     );
-// --------------------
+    // --------------------
     final Chain _unitChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker.unitChainID,
       onlyUseCityChains: onlyUseCityChains,
       // includeChainSInSearch: true,
     );
-// --------------------
+    // --------------------
     final DataCreator _dataCreatorType = Chain.decipherDataCreator(_valueChain?.sons);
-// ----------------------------------------
+    // --------------------
     final bool _isPhids = Chain.checkSonsArePhids(_valueChain?.sons);
     final bool _hasCurrencyUnit = picker.unitChainID == 'phid_s_currency';
-// ----------------------------------------
+    // --------------------
     final bool _isIntegerKeyboard = Chain.checkSonsAreDataCreatorOfType(
       sons: _valueChain?.sons,
       dataCreator: DataCreator.integerKeyboard,
     );
-// ----------------------------------------
+    // --------------------
     final bool _isDoubleKeyboard = Chain.checkSonsAreDataCreatorOfType(
       sons: _valueChain?.sons,
       dataCreator: DataCreator.doubleKeyboard,
     );
-// ----------------------------------------
-
+    // --------------------
     blog('DataCreatorSplitter - BUILDING');
     picker.blogPicker();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
@@ -81,7 +79,6 @@ class DataCreatorSplitter extends StatelessWidget {
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     _unitChain?.blogChain();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-
     blog('_dataCreatorType : $_dataCreatorType');
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     blog('_isPhids : $_isPhids');
@@ -91,7 +88,7 @@ class DataCreatorSplitter extends StatelessWidget {
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     SpecModel.blogSpecs(selectedSpecs);
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-
+    // --------------------
     /// PHIDS
     if (_isPhids == true){
 
@@ -112,7 +109,7 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
     }
-
+    // --------------------
     /// CURRENCIES
     else if (_hasCurrencyUnit == true){
 
@@ -140,7 +137,7 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
     }
-
+    // --------------------
     /// INTEGER - DOUBLE
     else if (_isIntegerKeyboard == true || _isDoubleKeyboard == true){
 
@@ -173,12 +170,12 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
     }
-
+    // --------------------
     /// OTHERWISE
     else {
       return const NoResultFound(color: Colorz.red255);
     }
-
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

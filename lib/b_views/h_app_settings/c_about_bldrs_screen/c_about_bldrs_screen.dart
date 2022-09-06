@@ -45,12 +45,12 @@ class AboutBldrsScreen extends StatelessWidget {
 
 
             ParagraphBubble(
-                maxLines: 1000,
-                bubbleColor: Colorz.white20,
-                title: '##Bldrs.net',
-                paragraph: '##Is the Network of builders\n'
-                    'categorizing major Bldrs sectors as\n'
-                    'Real-estate, Construction & Supplies.\n',
+              maxLines: 1000,
+              bubbleColor: Colorz.white20,
+              title: '##Bldrs.net',
+              paragraph: '##Is the Network of builders\n'
+                  'categorizing major Bldrs sectors as\n'
+                  'Real-estate, Construction & Supplies.\n',
             ),
 
             ParagraphBubble(
@@ -176,5 +176,7 @@ class AboutBldrsScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

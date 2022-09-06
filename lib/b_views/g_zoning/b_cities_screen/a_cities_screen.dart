@@ -33,20 +33,19 @@ class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
-
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _NewSelectCityScreen extends State<CitiesScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
   final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -58,7 +57,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       blogLoading(loading: _loading.value, callerName: 'SelectCityScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -69,17 +68,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
     _currentZone = ValueNotifier<ZoneModel>(_initialZone);
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _isSearching.dispose();
-    _foundCities.dispose();
-    _countryCities.dispose();
-    _currentZone.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -89,8 +78,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         // ----------------------------------------
         /// COMPLETE CURRENT ZONE
         _currentZone.value = await ZoneProtocols.completeZoneModel(
-            context: context,
-            incompleteZoneModel: _currentZone.value,
+          context: context,
+          incompleteZoneModel: _currentZone.value,
         );
 
         List<CityModel> _growingList = <CityModel>[];
@@ -134,7 +123,17 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _isSearching.dispose();
+    _foundCities.dispose();
+    _countryCities.dispose();
+    _currentZone.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   Future<void> _onCityTap(String cityID) async {
 
     if (mounted == true){
@@ -182,16 +181,16 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       /// WHEN A DISTRICT IS SELECTED
       else {
         Nav.goBack(
-            context: context,
-            invoker: '_onCityTap',
-            passedData: _zoneWithDistrict,
+          context: context,
+          invoker: '_onCityTap',
+          passedData: _zoneWithDistrict,
         );
       }
 
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onSearchCity(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -220,7 +219,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     }
 
   }
-// -------------------------------------
+  // --------------------
   Future<List<CityModel>> searchCitiesByName({
     @required BuildContext context,
     @required String input,
@@ -241,7 +240,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     return _searchResult;
 
   }
-  // -------------------------------------
+  // --------------------
   void _onBack(){
 
     Nav.goBack(
@@ -250,7 +249,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -277,33 +276,33 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         /// LOADING COUNTER
         if (Mapper.checkCanLoopList(widget.country?.citiesIDs) == true)
-        ValueListenableBuilder(
-            valueListenable: _loading,
-            builder: (_, bool isLoading, Widget child){
+          ValueListenableBuilder(
+              valueListenable: _loading,
+              builder: (_, bool isLoading, Widget child){
 
-              if (isLoading == true){
-                return ValueListenableBuilder(
-                  valueListenable: _countryCities,
-                  builder: (_, List<CityModel> cities, Widget child){
+                if (isLoading == true){
+                  return ValueListenableBuilder(
+                    valueListenable: _countryCities,
+                    builder: (_, List<CityModel> cities, Widget child){
 
-                    return SuperVerse(
-                      verse:  '${cities.length} / ${widget.country.citiesIDs.length}',
-                      weight: VerseWeight.thin,
-                      size: 1,
-                      margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),
-                      labelColor: Colorz.white20,
-                      color: Colorz.yellow255,
-                    );
+                      return SuperVerse(
+                        verse:  '${cities.length} / ${widget.country.citiesIDs.length}',
+                        weight: VerseWeight.thin,
+                        size: 1,
+                        margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),
+                        labelColor: Colorz.white20,
+                        color: Colorz.yellow255,
+                      );
 
-                  },
-                );
+                    },
+                  );
+                }
+
+                else {
+                  return const SizedBox();
+                }
               }
-
-              else {
-                return const SizedBox();
-              }
-            }
-        ),
+          ),
 
       ],
       layoutWidget: Scroller(
@@ -339,4 +338,5 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

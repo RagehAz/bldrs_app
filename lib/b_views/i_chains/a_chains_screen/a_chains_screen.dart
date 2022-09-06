@@ -51,21 +51,24 @@ class ChainsScreen extends StatefulWidget {
 }
 
 class _ChainsScreenState extends State<ChainsScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// DATA
   Chain _bigChainK;
+  // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
   ValueNotifier<List<PickerModel>> _refinedSpecsPickers;
   ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
   /// SEARCHING
+  // --------------------
   final TextEditingController _searchTextController = TextEditingController();
   final ValueNotifier<String> _searchText = ValueNotifier<String>(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
   /// FOUND RESULTS
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]); /// tamam disposed
   /// SELECTION
+  // --------------------
   ValueNotifier<List<SpecModel>> _selectedSpecs;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -83,7 +86,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
     // ------------------------------
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -100,7 +103,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
     _selectedSpecs.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   bool _isInitialized = false;
   void _initializeScreen(Chain _bigChainK){
     if (_isInitialized == false){
@@ -165,7 +168,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
       _isInitialized = true;
     }
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   List<String> _phidsOfAllPickers = <String>[];
   void _generatePhidsFromAllSpecPickers(){
 
@@ -195,7 +198,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Chain _getProChain (BuildContext ctx, ChainsProvider chainsPro){
     if (widget.onlyUseCityChains == true){
       return chainsPro.cityChainK;
@@ -203,8 +206,8 @@ class _ChainsScreenState extends State<ChainsScreen> {
     else {
       return chainsPro.bigChainK;
     }
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -327,17 +330,17 @@ class _ChainsScreenState extends State<ChainsScreen> {
                 selectedSpecs: _selectedSpecs,
                 searchText: _searchText,
                 onSelectPhid: (String path, String phid) => onSelectPhid(
-                    context: context,
-                    phid: phid,
-                    isMultipleSelectionMode: widget.isMultipleSelectionMode,
-                    selectedSpecs: _selectedSpecs,
-                    picker: PickerModel.getPickerByChainIDOrUnitChainID(
-                      pickers: _allSpecPickers,
-                      chainIDOrUnitChainID: PickerModel.getPickerChainIDOfPhid(
-                        context: context,
-                        phid: phid,
-                      ),
+                  context: context,
+                  phid: phid,
+                  isMultipleSelectionMode: widget.isMultipleSelectionMode,
+                  selectedSpecs: _selectedSpecs,
+                  picker: PickerModel.getPickerByChainIDOrUnitChainID(
+                    pickers: _allSpecPickers,
+                    chainIDOrUnitChainID: PickerModel.getPickerChainIDOfPhid(
+                      context: context,
+                      phid: phid,
                     ),
+                  ),
                 ),
               );
 
@@ -379,4 +382,5 @@ class _ChainsScreenState extends State<ChainsScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

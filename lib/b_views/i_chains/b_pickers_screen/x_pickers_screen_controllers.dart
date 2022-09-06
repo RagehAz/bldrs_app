@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 
 /// NAVIGATION
 
-// -----------------------------------
+// --------------------
 void onGoBackFromPickerScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -39,9 +39,7 @@ void onGoBackFromPickerScreen({
   }
 
 }
-
-
-
+// --------------------
 /*
 Future<void> onSpecPickerTap({
   @required BuildContext context,
@@ -89,7 +87,7 @@ Future<void> onSpecPickerTap({
   // }
 
 }
-// -----------------------------------
+// --------------------
 Future<void> _goToSpecPickerScreen({
   @required BuildContext context,
   @required SpecPicker specPicker,
@@ -123,7 +121,7 @@ Future<void> _goToSpecPickerScreen({
 
 }
  */
-// -----------------------------------
+// --------------------
 void updatePickersAndGroups({
   @required BuildContext context,
   @required dynamic specPickerResult,
@@ -165,7 +163,7 @@ void updatePickersAndGroups({
   }
   // -------------------------------------------------------------
 }
-// -----------------------------------
+// --------------------
 void onRemoveSpecs({
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
   @required List<SpecModel> specs,
@@ -186,7 +184,7 @@ void onRemoveSpecs({
 
 /// PICKER SCREEN
 
-// -----------------------------------
+// --------------------
 Future<void> onSelectPhid({
   @required BuildContext context,
   @required String phid,
@@ -214,7 +212,7 @@ Future<void> onSelectPhid({
   }
 
 }
-// -----------------------------------
+// --------------------
 Future<void> updateSelectedSpecsAtPhidSelection({
   @required BuildContext context,
   @required String phid,
@@ -308,7 +306,7 @@ Future<void> updateSelectedSpecsAtPhidSelection({
 
 
 }
-// -----------------------------------
+// --------------------
 void onCurrencyChanged({
   @required CurrencyModel currency,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -327,7 +325,7 @@ void onCurrencyChanged({
 
   selectedSpecs.value = _updatedList;
 }
-// -----------------------------------
+// --------------------
 void onPriceChanged({
   @required String price,
   @required PickerModel picker,
@@ -337,8 +335,8 @@ void onPriceChanged({
   final double _priceDouble = Numeric.transformStringToDouble(price);
 
   final SpecModel _priceSpec = SpecModel(
-      pickerChainID: picker.chainID,
-      value: _priceDouble,
+    pickerChainID: picker.chainID,
+    value: _priceDouble,
   );
 
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
@@ -349,7 +347,7 @@ void onPriceChanged({
 
   selectedSpecs.value = _updatedList;
 }
-// -----------------------------------
+// --------------------
 void onAddSpecs({
   @required List<SpecModel> specs,
   @required PickerModel picker,
@@ -365,7 +363,7 @@ void onAddSpecs({
 
   selectedSpecs.value = _updatedList;
 }
-// -----------------------------------
+// --------------------
 void onAddDouble({
   @required double num,
   @required PickerModel picker,

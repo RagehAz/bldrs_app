@@ -17,12 +17,11 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// BUILDING THE CHAINS
 
-// --------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 bool allChainsCanNotBeBuilt({
   @required BuildContext context,
@@ -68,7 +67,7 @@ bool allChainsCanNotBeBuilt({
 
 
 }
-// --------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 bool canBuildChain(Chain chain){
   return Mapper.checkCanLoopList(chain?.sons) == true;
@@ -77,7 +76,7 @@ bool canBuildChain(Chain chain){
 
 /// SETTING ACTIVE PHIDK
 
-// --------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSectionButtonTap(BuildContext context) async {
 
@@ -90,8 +89,8 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       isMultipleSelectionMode: false,
       pageTitleVerse: '##Browse Flyers by Keyword',
       zone: ZoneProvider.proGetCurrentZone(
-          context: context,
-          listen: false,
+        context: context,
+        listen: false,
       ),
     ),
   );
@@ -106,7 +105,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
   }
 
 }
-// --------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _setActivePhidK({
   @required BuildContext context,
@@ -193,7 +192,7 @@ Future<void> _setActivePhidK({
 
 /// SELECTION
 
-// --------------------------------
+// --------------------
 Future<void> onSpecPickerTap({
   @required BuildContext context,
   @required PickerModel picker,
@@ -239,9 +238,9 @@ Future<void> onSpecPickerTap({
     /// WHILE SELECTING ONLY ONE PHID
     else {
       Nav.goBack(
-          context: context,
-          invoker: 'onSpecPickerTap',
-          passedData: _result,
+        context: context,
+        invoker: 'onSpecPickerTap',
+        passedData: _result,
       );
     }
 

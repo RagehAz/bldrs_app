@@ -35,10 +35,10 @@ class PickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
     final String _pageTitle = specPicker.chainID;
-
+    // --------------------
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),
       appBarType: AppBarType.basic,
@@ -68,8 +68,8 @@ class PickerScreen extends StatelessWidget {
 
         if (_canContinue == true){
           Nav.goBack(
-              context: context,
-              invoker: 'SpecPickerScreen.goBack',
+            context: context,
+            invoker: 'SpecPickerScreen.goBack',
           );
         }
 
@@ -84,26 +84,26 @@ class PickerScreen extends StatelessWidget {
         ),
       ),
       layoutWidget: PickersScreenView(
-        appBarType: AppBarType.basic,
-        picker: specPicker,
-        selectedSpecs: selectedSpecs,
-        screenHeight: _screenHeight,
-        showInstructions: showInstructions,
-        isMultipleSelectionMode: isMultipleSelectionMode,
-        onlyUseCityChains: onlyUseCityChains,
-        zone: zone,
-        onSelectPhid: (String phid) => onSelectPhid(
-          context: context,
-          phid: phid,
+          appBarType: AppBarType.basic,
+          picker: specPicker,
           selectedSpecs: selectedSpecs,
+          screenHeight: _screenHeight,
+          showInstructions: showInstructions,
           isMultipleSelectionMode: isMultipleSelectionMode,
-          picker: specPicker,
-        ),
-        onAddSpecs: (List<SpecModel> specs) => onAddSpecs(
-          specs: specs,
-          picker: specPicker,
-          selectedSpecs: selectedSpecs,
-        ),
+          onlyUseCityChains: onlyUseCityChains,
+          zone: zone,
+          onSelectPhid: (String phid) => onSelectPhid(
+            context: context,
+            phid: phid,
+            selectedSpecs: selectedSpecs,
+            isMultipleSelectionMode: isMultipleSelectionMode,
+            picker: specPicker,
+          ),
+          onAddSpecs: (List<SpecModel> specs) => onAddSpecs(
+            specs: specs,
+            picker: specPicker,
+            selectedSpecs: selectedSpecs,
+          ),
           onKeyboardSubmitted: () => onGoBackFromPickerScreen(
             context: context,
             selectedSpecs: selectedSpecs,
@@ -113,5 +113,7 @@ class PickerScreen extends StatelessWidget {
       ),
 
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

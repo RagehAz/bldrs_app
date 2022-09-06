@@ -34,21 +34,24 @@ class TermsScreen extends StatelessWidget {
         ],
       ),
     );
+
   }
+// -----------------------------------------------------------------------------
 }
 
 class SVerse extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const SVerse(
       this.verse,
       {
-    Key key
-  }) : super(key: key);
-
+        Key key
+      }) : super(key: key);
+  // -----------------------------------------------------------------------------
   final String verse;
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SuperVerse(
       verse: verse,
       italic: true,
@@ -56,21 +59,24 @@ class SVerse extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 25),
       weight: VerseWeight.regular,
     );
+
   }
+// -----------------------------------------------------------------------------
 }
 
 class MVerse extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const MVerse(
       this.verse,
       {
         Key key
       }) : super(key: key);
-
+  // -----------------------------------------------------------------------------
   final String verse;
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return SuperVerse(
       verse: verse,
       weight: VerseWeight.thin,
@@ -78,19 +84,21 @@ class MVerse extends StatelessWidget {
       margin: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
       maxLines: 10,
     );
+
   }
+// -----------------------------------------------------------------------------
 }
 
 class BVerse extends StatelessWidget {
-
+// -----------------------------------------------------------------------------
   const BVerse(
       this.verse,
       {
         Key key
       }) : super(key: key);
-
+// -----------------------------------------------------------------------------
   final String verse;
-
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SuperVerse(
@@ -102,6 +110,7 @@ class BVerse extends StatelessWidget {
       margin: 10,
     );
   }
+// -----------------------------------------------------------------------------
 }
 
 List<Widget> generateTerms({
@@ -349,6 +358,6 @@ List<Widget> generateTerms({
   ];
 
   final String _lang = Words.activeLanguage(context);
-  
+
   return _lang == 'Arabic' ? _arabicTerms : _englishTerms;
 }

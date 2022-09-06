@@ -51,7 +51,7 @@ class CollapsedTile extends StatelessWidget {
   static const double cornersValue = Ratioz.appBarCorner;
   static const Color collapsedColor = Colorz.white10;
   static const Color expandedColor = Colorz.blue80;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static Widget arrow({
     double collapsedHeight,
     Color arrowColor,
@@ -70,7 +70,7 @@ class CollapsedTile extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -117,8 +117,8 @@ class CollapsedTile extends StatelessWidget {
                           collapsedHeight: collapsedHeight
                       ),
                       width: ExpandingTile.calculateTitleIconSize(
-                          icon: icon,
-                          collapsedHeight: collapsedHeight,
+                        icon: icon,
+                        collapsedHeight: collapsedHeight,
                       ),
                       icon: icon,
                       iconSizeFactor: iconSizeFactor,
@@ -128,9 +128,9 @@ class CollapsedTile extends StatelessWidget {
                   /// Tile title
                   Container(
                     width: ExpandingTile.calculateTitleBoxWidth(
-                        collapsedHeight: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
-                        tileWidth: tileWidth,
-                        icon: icon,
+                      collapsedHeight: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
+                      tileWidth: tileWidth,
+                      icon: icon,
                     ),
                     height: collapsedHeight ?? CollapsedTile.collapsedGroupHeight,
                     padding: EdgeInsets.symmetric(horizontal: _titlePadding),
@@ -150,15 +150,15 @@ class CollapsedTile extends StatelessWidget {
 
                         /// SECOND HEADLINE
                         if (secondHeadline != null)
-                        SuperVerse(
-                          verse: secondHeadline,
-                          weight: VerseWeight.thin,
-                          italic: true,
-                          size: 1,
-                          color: Colorz.white125,
-                          maxLines: 2,
-                          centered: false,
-                        ),
+                          SuperVerse(
+                            verse: secondHeadline,
+                            weight: VerseWeight.thin,
+                            italic: true,
+                            size: 1,
+                            color: Colorz.white125,
+                            maxLines: 2,
+                            centered: false,
+                          ),
 
                       ],
                     ),
@@ -168,8 +168,8 @@ class CollapsedTile extends StatelessWidget {
                   RotationTransition(
                     turns: arrowTurns,
                     child: arrow(
-                        collapsedHeight: collapsedHeight,
-                        arrowColor: arrowColor,
+                      collapsedHeight: collapsedHeight,
+                      arrowColor: arrowColor,
                     ),
                   ),
 
@@ -189,5 +189,7 @@ class CollapsedTile extends StatelessWidget {
         ],
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

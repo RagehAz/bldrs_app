@@ -143,10 +143,10 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         // ---------------------------------------
 
-        /// VIEWING PRO CHAINS
+        /// FLYER TYPE
         InfoPageHeadline(
             pageWidth: _screenWidth - 20,
-            headlineVerse:  'Viewing Pro Chains',
+            headlineVerse:  'Flyer Type',
         ),
 
         /// PICKERS SELECTORS
@@ -173,6 +173,16 @@ class _ChainsManagerState extends State<ChainsManager> {
 
               }
           ),
+        ),
+
+        // ---------------------------------------
+
+        const SeparatorLine(),
+
+        /// FLYER TYPE
+        InfoPageHeadline(
+          pageWidth: _screenWidth - 20,
+          headlineVerse:  'View Chains',
         ),
 
         /// CITY CHAINS + MULTIPLE SELECTION
@@ -285,7 +295,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         WideButton(
           translate: false,
           isActive: false,
-          verse:  'Real.CREATE BigChainK from ProChainK',
+          verse:  'CREATE BigChainK from ProChainK',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -332,7 +342,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         WideButton(
           translate: false,
           isActive: false,
-          verse:  'Real.CREATE BigChainS from ProChainS',
+          verse:  'CREATE BigChainS from ProChainS',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -377,7 +387,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// READ CHAIN K
         WideButton(
           translate: false,
-          verse:  'Real.READ BigChainK',
+          verse:  'READ BigChainK',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -406,7 +416,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// READ CHAIN S
         WideButton(
           translate: false,
-          verse:  'Real.READ BigChainS',
+          verse:  'READ BigChainS',
           color: Colorz.blue80,
           onTap: () async {
 

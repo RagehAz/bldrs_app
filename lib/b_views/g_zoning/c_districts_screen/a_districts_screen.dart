@@ -29,19 +29,19 @@ class DistrictsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<DistrictsScreen> createState() => _DistrictsScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _DistrictsScreenState extends State<DistrictsScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<DistrictModel>> _cityDistricts = ValueNotifier<List<DistrictModel>>(<DistrictModel>[]);
   final ValueNotifier<List<DistrictModel>> _foundDistricts = ValueNotifier<List<DistrictModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -53,7 +53,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       blogLoading(loading: _loading.value, callerName: 'SelectDistrictScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -66,7 +66,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     );
     _currentZone = ValueNotifier<ZoneModel>(_initialZone);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -80,11 +80,11 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
           incompleteZoneModel: _currentZone.value,
         );
 
-         final List<DistrictModel> _districts = _currentZone.value.cityModel.districts;
-         final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
-           context: context,
-           districts: _districts,
-         );
+        final List<DistrictModel> _districts = _currentZone.value.cityModel.districts;
+        final List<DistrictModel> _ordered = DistrictModel.sortDistrictsAlphabetically(
+          context: context,
+          districts: _districts,
+        );
         _cityDistricts.value = _ordered;
         // ----------------------------------------
         await _triggerLoading(setTo: false);
@@ -94,7 +94,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -104,7 +104,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onDistrictTap(String districtID) async {
 
     if (mounted == true){
@@ -119,13 +119,13 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     );
 
     Nav.goBack(
-        context: context,
-        invoker: 'SelectDistrictScreen',
-        passedData: _zoneWithDistrict,
+      context: context,
+      invoker: 'SelectDistrictScreen',
+      passedData: _zoneWithDistrict,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onSearchDistrict(String inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -155,14 +155,14 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onBack(){
     Nav.goBack(
       context: context,
       invoker: 'SelectDistrictScreen',
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -223,4 +223,5 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

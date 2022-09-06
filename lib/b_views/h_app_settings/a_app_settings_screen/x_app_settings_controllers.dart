@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 
 /// LANGUAGE
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAppLanguageTap(BuildContext context) async {
   await Nav.goToNewScreen(
@@ -39,7 +39,7 @@ Future<void> onChangeAppLanguageTap(BuildContext context) async {
 
 /// STUFF
 
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAboutBldrsTap(BuildContext context) async {
   await Nav.goToNewScreen(
@@ -48,7 +48,7 @@ Future<void> onAboutBldrsTap(BuildContext context) async {
     screen: const AboutBldrsScreen(),
   );
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
@@ -57,7 +57,7 @@ Future<void> onFeedbackTap(BuildContext context) async {
     screen: const FeedBack(),
   );
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onTermsAndRegulationsTap(BuildContext context) async {
   await Nav.goToNewScreen(
@@ -66,7 +66,7 @@ Future<void> onTermsAndRegulationsTap(BuildContext context) async {
     screen: const TermsScreen(),
   );
 }
-// ---------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onInviteFriendsTap(BuildContext context) async {
 
@@ -79,10 +79,10 @@ Future<void> onInviteFriendsTap(BuildContext context) async {
   //
   // if (_result == true){
 
-    await Launcher.shareLink(
-      context: context,
-      link: Standards.bldrsWebSiteLink,
-    );
+  await Launcher.shareLink(
+    context: context,
+    link: Standards.bldrsWebSiteLink,
+  );
   // }
 
 }
@@ -90,7 +90,7 @@ Future<void> onInviteFriendsTap(BuildContext context) async {
 
 /// CREATE NEW BZ ACCOUNT
 
-// ---------------------------------
+// --------------------
 Future<void> onCreateNewBzTap(BuildContext context) async {
 
   await Nav.goToNewScreen(
@@ -103,7 +103,7 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 
 /// SIGN OUT OPS
 
-// ---------------------------------
+// --------------------
 Future<void> onSignOut(BuildContext context) async {
 
   /// CLEAR FLYERS

@@ -9,12 +9,11 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// SEARCHING OLD METHOD
 
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChainsSearchChanged({
   @required BuildContext context,
@@ -39,12 +38,12 @@ Future<void> onChainsSearchChanged({
       phidsOfAllPickers: phidsOfAllPickers,
     ),
     onSwitchOff: () => _clearSearchResult(
-        foundChains: foundChains,
+      foundChains: foundChains,
     ),
   );
 
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChainsSearchSubmitted({
   @required BuildContext context,
@@ -81,7 +80,7 @@ Future<void> onChainsSearchSubmitted({
   );
 
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<List<String>> _searchKeywordsPhrases({
   @required String text,
@@ -129,7 +128,7 @@ Future<List<String>> _searchKeywordsPhrases({
 
   return _phids;
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 List<String> _removeCurrenciesFromPhids({
   @required List<String> phids,
@@ -153,7 +152,7 @@ List<String> _removeCurrenciesFromPhids({
 
   return _output;
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 List<String> _removePhidsOutOfScope({
   @required List<String> phids,
@@ -169,8 +168,8 @@ List<String> _removePhidsOutOfScope({
       for (final String phid in phids){
 
         final bool _withinScope = Stringer.checkStringsContainString(
-            strings: scope,
-            string: phid,
+          strings: scope,
+          string: phid,
         );
 
         if (_withinScope == false){
@@ -185,7 +184,7 @@ List<String> _removePhidsOutOfScope({
 
   return _output;
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 List<Chain> _getChainsFromPhids({
   @required BuildContext context,
@@ -210,7 +209,7 @@ List<Chain> _getChainsFromPhids({
 
   return _chains;
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _setFoundResults({
   @required BuildContext context,
@@ -233,7 +232,7 @@ Future<void> _setFoundResults({
   }
 
 }
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void _clearSearchResult({
   @required ValueNotifier<List<Chain>> foundChains,
