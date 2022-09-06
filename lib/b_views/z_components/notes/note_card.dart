@@ -37,16 +37,16 @@ class NoteCard extends StatelessWidget {
   static double getBubbleWidth(BuildContext context) {
     return Bubble.defaultWidth(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double bodyWidth({
     @required BuildContext context,
     @required double widthOverride
   }) {
     return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static const double bannerCorners = Bubble.cornersValue - Ratioz.appBarMargin;
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onNoteOptionsTap({
     @required BuildContext context,
   }) async {
@@ -65,19 +65,19 @@ class NoteCard extends StatelessWidget {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _bodyWidth = bodyWidth(
       context: context,
       widthOverride: bubbleWidth,
     );
     const double _moreButtonSize = 35;
     final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.buttons);
-
+    // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
-
+    // --------------------
     return NoteRedDotWrapper(
       childWidth: _bubbleWidth,
       redDotIsOn: noteModel?.seen != true,
@@ -187,5 +187,7 @@ class NoteCard extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+/// --------------------------------------------------------------------------
 }

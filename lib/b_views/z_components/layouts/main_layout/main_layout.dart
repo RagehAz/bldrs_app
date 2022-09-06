@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 
-// -----------------------------------------------------------------------------
+
 enum AppBarType {
   basic,
   scrollable,
@@ -24,7 +24,7 @@ enum AppBarType {
   intro,
   non,
 }
-// -----------------------------------------------------------------------------
+
 class MainLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainLayout({

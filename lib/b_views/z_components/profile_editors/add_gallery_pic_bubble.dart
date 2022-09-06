@@ -78,17 +78,17 @@ class AddImagePicBubble extends StatelessWidget {
           :
       Borderers.superBorderAll(context, corner);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const double picWidth = 100;
   static const double btZoneWidth = picWidth * 0.5;
   static const double btWidth = btZoneWidth * 0.8;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _bubbleClearWidth = Bubble.clearWidth(context);
-
+    // --------------------
     return Bubble(
         screenWidth: _screenWidth,
         bubbleColor: Colorizer.ValidatorColor(
@@ -176,8 +176,9 @@ class AddImagePicBubble extends StatelessWidget {
 
         ]
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
 
 class _FilePicSplitter extends StatelessWidget {
@@ -221,10 +222,9 @@ class _FilePicSplitter extends StatelessWidget {
           :
       Borderers.superBorderAll(context, corner);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     final BorderRadius _picBorders = _getPicBorder(
       context: context,
@@ -267,6 +267,7 @@ class _FilePicSplitter extends StatelessWidget {
     }
 
   }
+// -----------------------------------------------------------------------------
 }
 
 class _PlusIconLayer extends StatelessWidget {
@@ -335,6 +336,7 @@ class _PlusIconLayer extends StatelessWidget {
     }
 
   }
+/// --------------------------------------------------------------------------
 }
 
 // /// TASK : @deprecated

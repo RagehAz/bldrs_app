@@ -64,7 +64,9 @@ class NotificationFlyers extends StatelessWidget {
       ),
 
     );
+
   }
+/// --------------------------------------------------------------------------
 }
 
 class FlyerInNoteCard extends StatelessWidget {
@@ -91,7 +93,7 @@ class FlyerInNoteCard extends StatelessWidget {
 
     return _absorb;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -114,4 +116,5 @@ class FlyerInNoteCard extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }
