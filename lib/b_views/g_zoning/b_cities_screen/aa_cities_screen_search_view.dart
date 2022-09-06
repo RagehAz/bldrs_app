@@ -92,4 +92,5 @@ class CitiesScreenSearchView extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

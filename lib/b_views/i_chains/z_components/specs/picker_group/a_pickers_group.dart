@@ -24,7 +24,7 @@ class SpecsPickersGroup extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------------------------------------------------------
+
     return Padding(
       key: const ValueKey<String>('SpecsPickersGroup'),
       padding: const EdgeInsets.only(bottom: Ratioz.appBarMargin),
@@ -47,5 +47,7 @@ class SpecsPickersGroup extends StatelessWidget {
         ],
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

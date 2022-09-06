@@ -41,6 +41,6 @@ class CitiesScreenBrowseView extends StatelessWidget {
       },
     );
 
-
   }
+// -----------------------------------------------------------------------------
 }

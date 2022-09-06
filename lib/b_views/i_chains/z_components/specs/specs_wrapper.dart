@@ -28,7 +28,7 @@ class SpecsWrapper extends StatelessWidget {
   static bool combineTheTwoSpecs({
     @required List<SpecModel> specs,
     @required PickerModel picker,
-}){
+  }){
     bool _combine = false;
 
     if (specs.length == 2){
@@ -38,8 +38,8 @@ class SpecsWrapper extends StatelessWidget {
 
       if (
       picker.chainID == _first.pickerChainID
-      &&
-      picker.unitChainID == _second.pickerChainID
+          &&
+          picker.unitChainID == _second.pickerChainID
       ){
         _combine = true;
       }
@@ -47,7 +47,7 @@ class SpecsWrapper extends StatelessWidget {
       else if (
       picker.unitChainID == _first.pickerChainID
           &&
-      picker.chainID == _second.pickerChainID
+          picker.chainID == _second.pickerChainID
       ){
         _combine = true;
       }
@@ -56,15 +56,15 @@ class SpecsWrapper extends StatelessWidget {
 
     return _combine;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final bool _combineTwoSpecs = combineTheTwoSpecs(
-        specs: specs,
-        picker: picker,
+      specs: specs,
+      picker: picker,
     );
-
+    // --------------------
     return Container(
       width: boxWidth,
       padding: Scale.superMargins(margins: padding),
@@ -73,31 +73,32 @@ class SpecsWrapper extends StatelessWidget {
         children: <Widget>[
 
           if (_combineTwoSpecs == false)
-          ...List<Widget>.generate(specs.length,
-                  (int index) {
+            ...List<Widget>.generate(specs.length,
+                    (int index) {
 
-                final SpecModel _spec = specs[index];
+                  final SpecModel _spec = specs[index];
 
-                return SpecLabel(
+                  return SpecLabel(
                     xIsOn: xIsOn,
                     value: _spec.value.toString(),
-                  translate: true,
+                    translate: true,
                     onTap: () => onSpecTap(<SpecModel>[_spec]),
-                );
+                  );
 
-              }),
+                }),
 
           if (_combineTwoSpecs == true)
-          SpecLabel(
-            xIsOn: xIsOn,
-            value: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
-            translate: false,
-            onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
-          ),
+            SpecLabel(
+              xIsOn: xIsOn,
+              value: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
+              translate: false,
+              onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
+            ),
 
         ],
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
