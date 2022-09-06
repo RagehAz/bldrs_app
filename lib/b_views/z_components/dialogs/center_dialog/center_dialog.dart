@@ -34,25 +34,25 @@ class CenterDialog extends StatelessWidget {
   final String confirmButtonText;
   final Color color;
   final Function onOk;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SIZES
 
-// -----------------------------------------
+  // --------------------
   static double getWidth(BuildContext context) {
     return Scale.superScreenWidth(context) * 0.85;
   }
-// -----------------------------------------
+  // --------------------
   static double clearWidth(BuildContext context){
     return getWidth(context) - (2 * Ratioz.appBarMargin);
   }
-// -----------------------------------------
+  // --------------------
   static const double dialogCornerValue = 20;
-// -----------------------------------------
+  // --------------------
   static BorderRadius dialogBorders(BuildContext context) {
     return Borderers.superBorderAll(context, dialogCornerValue);
   }
-// -----------------------------------------
+  // --------------------
   static double getHeight({
     @required BuildContext context,
     double heightOverride,
@@ -61,11 +61,11 @@ class CenterDialog extends StatelessWidget {
     final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LAUNCHERS
 
-// -----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> showCenterDialog({
     @required BuildContext context,
@@ -97,7 +97,7 @@ class CenterDialog extends StatelessWidget {
 
     return _result;
   }
-// -----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void closeCenterDialog(BuildContext context){
     Nav.goBack(
@@ -105,7 +105,7 @@ class CenterDialog extends StatelessWidget {
       invoker: 'closeCenterDialog',
     );
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
 //   static double dialogVerticalMargin({BuildContext context, double dialogHeight}){
 //     double _screenHeight = Scale.superScreenHeight(context);
@@ -117,7 +117,7 @@ class CenterDialog extends StatelessWidget {
 //     return (_screenWidth - dialogWidth) / 2;
 //   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   String _getConfirmButtonText(){
 
     String _text = boolDialog ? 'Yes' : 'Ok';
@@ -128,22 +128,21 @@ class CenterDialog extends StatelessWidget {
 
     return _text;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeight(context);
-
+    // --------------------
     final BorderRadius _dialogBorders = dialogBorders(context);
-
+    // --------------------
     final double _dialogHeight = getHeight(
       context: context,
       heightOverride: height,
     );
-
+    // --------------------
     final double _dialogWidth = getWidth(context);
-
     // double _dialogVerticalMargin = dialogVerticalMargin(
     //   context: context,
     //   dialogHeight: _dialogHeight,
@@ -152,18 +151,14 @@ class CenterDialog extends StatelessWidget {
     //   context: context,
     //   dialogWidth: _dialogWidth,
     // );
-
     const double _buttonHeight = DialogButton.height;
     const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     // final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
-
     final String _confirmButtonText = _getConfirmButtonText();
-
+    // --------------------
     final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
-
-    blog('in dialog : _keyboardIsOn : $_keyboardIsOn');
-
+    // --------------------
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colorz.black80,
@@ -239,17 +234,17 @@ class CenterDialog extends StatelessWidget {
 
                               /// BODY
                               if (TextCheck.isEmpty(bodyVerse) == false)
-                              SizedBox(
-                                width: _dialogWidth,
-                                // height: _bodyZoneHeight,
-                                child: SuperVerse(
-                                  verse: bodyVerse.runtimeType == String ? bodyVerse
-                                      :
-                                  bodyVerse.toString(),
-                                  maxLines: 20,
-                                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
+                                SizedBox(
+                                  width: _dialogWidth,
+                                  // height: _bodyZoneHeight,
+                                  child: SuperVerse(
+                                    verse: bodyVerse.runtimeType == String ? bodyVerse
+                                        :
+                                    bodyVerse.toString(),
+                                    maxLines: 20,
+                                    margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
+                                  ),
                                 ),
-                              ),
 
                               /// child
                               if (child != null)
@@ -355,5 +350,7 @@ class CenterDialog extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+// --------------------
 }

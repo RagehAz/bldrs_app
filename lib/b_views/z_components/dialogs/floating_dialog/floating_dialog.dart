@@ -38,6 +38,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
   @override
   Widget build(BuildContext context) {
+
     // const int titleVerseSize = 2;
     // final double actionBtSize = SuperVerse.superVerseRealHeight(context, titleVerseSize, 1, null);
     // final double actionBtCorner = actionBtSize * 0.4;
@@ -138,5 +139,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
         ),
       ],
     );
+
   }
+
 }
