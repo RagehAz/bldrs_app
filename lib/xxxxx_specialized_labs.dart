@@ -20,7 +20,6 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboar
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notifications_test/awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notifications_test/fcm_tet_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
@@ -39,7 +38,7 @@ class SpecializedLabs extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   static const double height = 120;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     const List<DashButtonModel> _buttons = <DashButtonModel>[
@@ -119,13 +118,6 @@ class SpecializedLabs extends StatelessWidget {
         verse:  'REAL HTTP TEST',
         icon: Iconz.clock,
         screen: RealHttpTestScreen(),
-      ),
-
-      /// PROVIDER TEST
-      DashButtonModel(
-        verse:  'Providers Test',
-        icon: Iconz.check,
-        screen: ProvidersTestScreen(),
       ),
 
       /// STREAMING
@@ -239,14 +231,14 @@ class SpecializedLabs extends StatelessWidget {
 
     return _buttons;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // final double _screenHeight = Scale.superScreenHeight(context);
     final List<DashButtonModel> _buttons = _generateButtonsModels(context);
-
+    // --------------------
     return Container(
       width: _screenWidth,
       height: height,
@@ -271,6 +263,7 @@ class SpecializedLabs extends StatelessWidget {
           }
       ),
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

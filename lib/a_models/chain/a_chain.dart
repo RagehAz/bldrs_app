@@ -20,7 +20,7 @@ class Chain {
   /// --------------------------------------------------------------------------
   final String id;
   final dynamic sons;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TESTED : WORKS PERFECT
   void addPathSon({
@@ -45,11 +45,11 @@ class Chain {
 
   }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Chain copyWith({
     String id,
@@ -60,11 +60,11 @@ class Chain {
       sons: sons ?? this.sons,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REAL CYPHERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBigChainK({
     @required Chain chainK,
@@ -104,7 +104,7 @@ class Chain {
 
     return _map;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain decipherBigChainK({
     @required Map<String, dynamic> bigChainKMap,
@@ -133,7 +133,7 @@ class Chain {
 
     return _bigChainK;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBigChainS({
     @required Chain chainS,
@@ -179,7 +179,7 @@ class Chain {
 
     return _map;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain decipherBigChainS({
     @required Map<String, dynamic> bigChainSMap,
@@ -208,11 +208,11 @@ class Chain {
 
     return _bigChainS;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OLD FIRE CYPHERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMapOLD(){
     return
@@ -221,7 +221,7 @@ class Chain {
         'sons': _cipherSonsOLD(sons),
       };
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static dynamic _cipherSonsOLD(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
@@ -243,7 +243,7 @@ class Chain {
     }
 
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherDataCreator(dynamic sons){
     switch (sons){
@@ -262,7 +262,7 @@ class Chain {
 
     }
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DataCreator decipherDataCreator(dynamic sons){
 
@@ -325,7 +325,7 @@ class Chain {
       /// IS List<String>
       else if (sons is List<String>){
 
-          final String _sonsAsString = sons.toString();
+        final String _sonsAsString = sons.toString();
 
         /// DataCreator_doubleKeyboard
         if (_sonsAsString == '[DataCreator_doubleKeyboard]'){
@@ -333,37 +333,37 @@ class Chain {
         }
 
         /// DataCreator_doubleSlider
-          if (_sonsAsString == '[DataCreator_doubleSlider]'){
+        if (_sonsAsString == '[DataCreator_doubleSlider]'){
           return DataCreator.doubleSlider;
         }
 
         /// DataCreator_doubleSlider
-          if (_sonsAsString == '[DataCreator_doubleRangeSlider]'){
+        if (_sonsAsString == '[DataCreator_doubleRangeSlider]'){
           return DataCreator.doubleRangeSlider;
         }
 
         /// DataCreator_integerKeyboard
-          if (_sonsAsString == '[DataCreator_integerKeyboard]'){
+        if (_sonsAsString == '[DataCreator_integerKeyboard]'){
           return DataCreator.integerKeyboard;
         }
 
         /// DataCreator_integerSlider
-          if (_sonsAsString == '[DataCreator_integerSlider]'){
+        if (_sonsAsString == '[DataCreator_integerSlider]'){
           return DataCreator.integerSlider;
         }
 
         /// DataCreator_integerRangeSlider
-          if (_sonsAsString == '[DataCreator_integerRangeSlider]'){
+        if (_sonsAsString == '[DataCreator_integerRangeSlider]'){
           return DataCreator.integerRangeSlider;
         }
 
         /// DataCreator_boolSwitch
-          if (_sonsAsString == '[DataCreator_boolSwitch]'){
+        if (_sonsAsString == '[DataCreator_boolSwitch]'){
           return DataCreator.boolSwitch;
         }
 
         /// DataCreator_country
-          if (_sonsAsString == '[DataCreator_country]'){
+        if (_sonsAsString == '[DataCreator_country]'){
           return DataCreator.country;
         }
 
@@ -382,7 +382,7 @@ class Chain {
     }
 
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherChainsOLD(List<Chain> chains){
 
@@ -399,7 +399,7 @@ class Chain {
 
     return _maps;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain decipherChainOLD(Map<String, dynamic> map){
     Chain _chain;
@@ -413,7 +413,7 @@ class Chain {
 
     return _chain;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static dynamic _decipherSonsOLD(dynamic sons){
     dynamic _output;
@@ -449,7 +449,7 @@ class Chain {
 
     return  _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> decipherChainsOLD(List<dynamic> maps){
     final List<Chain> _chains = <Chain>[];
@@ -465,17 +465,17 @@ class Chain {
 
     return _chains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STANDARDS
 
-// --------------------------------------------
+  // --------------------
   static const String propertyChainID = 'phid_k_flyer_type_property';
   static const String designChainID = 'phid_k_flyer_type_design';
   static const String tradesChainID = 'phid_k_flyer_type_trades';
   static const String productChainID = 'phid_k_flyer_type_product';
   static const String equipmentChainID = 'phid_k_flyer_type_equipment';
-// --------------------------------------------
+  // --------------------
   static List<String> chainKSonsIDs = <String>[
     propertyChainID,
     designChainID,
@@ -483,11 +483,11 @@ class Chain {
     productChainID,
     equipmentChainID,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FILTERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain filterSpecPickerChainRange({
     @required BuildContext context,
@@ -533,11 +533,11 @@ class Chain {
 
     return _filteredChain;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsAreChains(dynamic sons){
     bool _areChains = false;
@@ -548,7 +548,7 @@ class Chain {
 
     return _areChains;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsAreDataCreator(dynamic sons){
 
@@ -584,7 +584,7 @@ class Chain {
 
     return _isDataCreator;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsAreDataCreatorOfType({
     @required dynamic sons,
@@ -633,7 +633,7 @@ class Chain {
 
     return _indeed;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSonsArePhids(dynamic sons){
 
@@ -662,7 +662,7 @@ class Chain {
 
     return _arePhids;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsAreIdentical({
     @required Chain chain1,
@@ -684,7 +684,7 @@ class Chain {
 
     return _areIdentical;
   }
-// --------------------------------------------
+  // --------------------
   /// TASK : NOT TESTED
   static bool checkChainsSonsAreIdentical(Chain chain1, Chain chain2){
 
@@ -731,7 +731,7 @@ class Chain {
 
     return _sonsAreIdentical;
   }
-// --------------------------------------------
+  // --------------------
   /// TASK : NOT TESTED
   static bool checkChainsListsAreIdenticalOLDMETHOD({
     @required List<Chain> chains1,
@@ -774,7 +774,7 @@ class Chain {
 
     return _listsAreIdentical;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsListPathsAreIdentical({
     @required List<Chain> chains1,
@@ -807,7 +807,7 @@ class Chain {
     return _identical;
 
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsPathsAreIdentical({
     @required Chain chain1,
@@ -818,7 +818,7 @@ class Chain {
       chains2: [chain2],
     );
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainIncludeThisPhid({
     @required Chain chain,
@@ -860,7 +860,7 @@ class Chain {
 
     return _includes;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsIncludeThisPhid({
     @required List<Chain> chains,
@@ -888,11 +888,11 @@ class Chain {
 
     return _includes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getChainBlogTreeSpacing(int level){
 
@@ -909,7 +909,7 @@ class Chain {
 
     return _space;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   void blogChain({
     int level = 0,
@@ -946,7 +946,7 @@ class Chain {
     }
 
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
 
@@ -966,11 +966,11 @@ class Chain {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainSonsIDs({
     @required Chain chain,
@@ -994,7 +994,7 @@ class Chain {
 
     return _chainSonsIDs;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain getChainFromChainsByID({
     @required String chainID,
@@ -1034,7 +1034,7 @@ class Chain {
 
     return _chain;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT FOR [ FlyerTyper.concludeFlyerTypeByChainID() ]
   static String getRootChainIDOfPhid({
     @required List<Chain> allChains,
@@ -1061,7 +1061,7 @@ class Chain {
 
     return _chainID;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainsIDsFromPhids({
     @required List<Chain> allChains,
@@ -1092,7 +1092,7 @@ class Chain {
 
     return _chainsIDs;
   }
-// --------------------------------------------
+  // --------------------
   static List<Chain> getChainsFromChainsByIDs({
     List<String> phids,
     List<Chain> allChains,
@@ -1122,7 +1122,7 @@ class Chain {
 
     return _foundChains;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChain({
     @required Chain chain,
@@ -1150,7 +1150,7 @@ class Chain {
 
     return _phids;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChains({
     @required List<Chain> chains,
@@ -1173,11 +1173,11 @@ class Chain {
 
     return _phids;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain addChainsToSonsIfPossible({
     @required List<Chain> chainsToAdd,
@@ -1207,7 +1207,7 @@ class Chain {
 
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> removeAllChainIDsFromKeywordsIDs({
     @required List<Chain> allChains,
@@ -1233,7 +1233,7 @@ class Chain {
 
     return _cleaned;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> updateNode({
     @required BuildContext context,
@@ -1323,7 +1323,7 @@ class Chain {
 
     return _output?.first;
   }
-// --------------------------------------------
+  // --------------------
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
@@ -1351,7 +1351,7 @@ class Chain {
 
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain removeAllPhidsNotUsedInThisList({
     @required Chain chain,
@@ -1384,7 +1384,7 @@ class Chain {
 
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain addPathToChain({
     @required Chain chain,
@@ -1416,7 +1416,7 @@ class Chain {
     // blog('addPathToChain : END');
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TEST : WORKS PERFECT
   static Chain removePathFromChain({
     @required Chain chain,
@@ -1450,7 +1450,7 @@ class Chain {
     // blog('addPathToChain : END');
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TEST : WORKS PERFECT
   static Chain replaceChainPathWithPath({
     @required Chain chain,
@@ -1460,7 +1460,7 @@ class Chain {
     Chain _output = chain;
 
     if (
-        chain !=null
+    chain !=null
         &&
         pathToRemove != null
         &&
@@ -1495,16 +1495,16 @@ class Chain {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // --------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -1522,10 +1522,10 @@ class Chain {
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       id.hashCode^
       sons.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

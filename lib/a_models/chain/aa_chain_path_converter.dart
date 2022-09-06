@@ -9,24 +9,24 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 @immutable
 class ChainPathConverter {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ChainPathConverter();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DEBUG BLOGGING
 
-// --------------------------------------------
+  // --------------------
   static const canBlog = false;
-  // --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void _dBlog(String text){
     if (canBlog == true){
       blog(text);
     }
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPaths(List<String> paths){
 
@@ -43,11 +43,11 @@ class ChainPathConverter {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE CHAINS FROM PATHS
 
-// --------------------------------------------
+  // --------------------
   /// TEST : WORKS PERFECT
   static Chain createChainFromPaths({
     @required String chainID,
@@ -65,7 +65,7 @@ class ChainPathConverter {
 
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain createChainFromSinglePath({
     @required String path,
@@ -85,11 +85,11 @@ class ChainPathConverter {
 
     return _chain;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> createChainsFromPaths({
-  @required List<String> paths,
-}) {
+    @required List<String> paths,
+  }) {
 
     final List<Chain> chains = [];
 
@@ -104,7 +104,7 @@ class ChainPathConverter {
 
     return chains;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _createNewEmptyChainForPath({
     @required List<String> dividedPath,
@@ -118,11 +118,11 @@ class ChainPathConverter {
     return _chain;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHAIN MODIFIERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathsToChains({
     @required List<Chain> allChains,
@@ -139,7 +139,7 @@ class ChainPathConverter {
     }
 
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _combineSonsIfChainsIntoOneChain({
     @required List<Chain> chains,
@@ -172,7 +172,7 @@ class ChainPathConverter {
 
     return _output;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathToChains({
     @required List<Chain> allChains,
@@ -192,7 +192,7 @@ class ChainPathConverter {
     // Chain.blogChains(allChains);
 
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void _addDividedPathToAllChains({
     @required List<Chain> allChains,
@@ -250,7 +250,7 @@ class ChainPathConverter {
     }
   }
 
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void _addNestedSonsIDsToChain({
     @required Chain parentChain, // has sons type defined already
@@ -342,11 +342,11 @@ class ChainPathConverter {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHAIN / PATHS / NODES GETTERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _getRootChainFromChains({
     @required List<Chain> chains,
@@ -363,7 +363,7 @@ class ChainPathConverter {
       return chains[index];
     }
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _getNestedSonsIDsFromDividedPath({
     @required List<String> dividedPath,
@@ -377,7 +377,7 @@ class ChainPathConverter {
 
     return _output;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getFirstPathNode({
     @required String path
@@ -389,7 +389,7 @@ class ChainPathConverter {
     /// => phid_c
     return _pathNodes.first;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getLastPathNode(String path){
     /// LAST PATH NODE IS the FURTHEST FROM ROOT ID, in this example it's [phid_c] => 'phid_a/phid_b/phid_c'
@@ -405,11 +405,11 @@ class ChainPathConverter {
     }
     return _node;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE PATHS FROM CHAINS
+  /// CREATE PATHS FROM CHAINS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateChainPaths({
     @required Chain chain,
@@ -464,7 +464,7 @@ class ChainPathConverter {
 
     return _allPaths;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateChainsPaths({
     @required String parentID,
@@ -496,7 +496,7 @@ class ChainPathConverter {
 
     return _cleaned;
   }
-  // --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _generateChainPathsFromPhidsSons({
     @required String parentID,
@@ -518,11 +518,11 @@ class ChainPathConverter {
 
     return _paths;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// PATHS FINDERS
+  /// PATHS FINDERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsContainingPhid({
     @required List<String> paths,
@@ -549,12 +549,12 @@ class ChainPathConverter {
 
     return _foundPaths;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsContainingPhids({
     @required List<String> paths,
     @required List<String> phids,
-}){
+  }){
     List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(paths) == true && Mapper.checkCanLoopList(phids) == true){
@@ -568,8 +568,8 @@ class ChainPathConverter {
 
         if (Mapper.checkCanLoopList(_foundPaths) == true){
           _output = Stringer.addStringsToStringsIfDoNotContainThem(
-              listToTake: _output,
-              listToAdd: _foundPaths,
+            listToTake: _output,
+            listToAdd: _foundPaths,
           );
         }
 
@@ -579,12 +579,12 @@ class ChainPathConverter {
 
     return _output;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidRelatedChains({
     @required List<Chain> allChains,
     @required String phid,
-}){
+  }){
 
     final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
@@ -593,8 +593,8 @@ class ChainPathConverter {
 
     /// SEARCH CHAINS FOR MATCH CASES
     final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhid(
-        paths: _allChainsPaths,
-        phid: phid,
+      paths: _allChainsPaths,
+      phid: phid,
     );
 
     final List<Chain> _foundPathsChains = ChainPathConverter.createChainsFromPaths(
@@ -603,12 +603,12 @@ class ChainPathConverter {
 
     return _foundPathsChains;
   }
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidsRelatedChains({
     @required List<Chain> allChains,
     @required List<String> phids,
-}){
+  }){
 
     final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
@@ -626,16 +626,16 @@ class ChainPathConverter {
 
     return _foundPathsChains;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// PATHS MODIFIERS
+  /// PATHS MODIFIERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> addPathToPaths({
     @required List<String> paths,
     @required String path,
-}){
+  }){
 
     final List<String> _output = <String>[...paths];
 
@@ -649,7 +649,7 @@ class ChainPathConverter {
 
     return _output;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> splitPathNodes(String path){
 
@@ -665,7 +665,7 @@ class ChainPathConverter {
 
     return _divisions;
   }
-// -------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String combinePathNodes(List<String> nodes){
     String _path = '';
@@ -682,11 +682,11 @@ class ChainPathConverter {
 
     return _path;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// PATH CHECKERS
+  /// PATH CHECKERS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool _chainSonsIncludeID({
     @required Chain chain,
@@ -721,11 +721,11 @@ class ChainPathConverter {
 
     return _include;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SPECIAL GENERATORS
 
-// --------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateChainSPathKeyForFirebase({
     @required String path,
@@ -746,8 +746,8 @@ class ChainPathConverter {
 
     return _key;
   }
-// -----------------------------------------------------------------------------
-/*
+  // --------------------
+  /*
   static bool phidIsAChainID({
     @required List<String> paths,
     @required String phid,
@@ -881,11 +881,11 @@ class ChainPathConverter {
   }
 
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FIXERS
+  /// FIXERS
 
-// --------------------------------------------
+  // --------------------
   static String fixPathFormatting(String path){
 
     /// NOTE : GOOD FORMAT SHOULD BE
@@ -905,8 +905,8 @@ class ChainPathConverter {
       /// REMOVE LAST '//////' IF EXISTS
       int _lastIndex = _output.length - 1;
       if (_output[_lastIndex] == '/'){
-          _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
-          _output = '$_output/'; // should always keep one last slash
+        _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
+        _output = '$_output/'; // should always keep one last slash
       }
 
       /// ASSURE LAST SLASH EXISTS
@@ -917,7 +917,7 @@ class ChainPathConverter {
 
     }
 
-      return _output;
+    return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
