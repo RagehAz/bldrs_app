@@ -265,7 +265,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                       /// --- BUTTON BLACK LAYER IF GREYED OUT
                       if (greyscale == true &&
                           icon != null &&
-                          ObjectChecker.fileExtensionOf(icon) != 'svg')
+                          ObjectCheck.fileExtensionOf(icon) != 'svg')
                         Container(
                           height: _jpgGraphicWidth,
                           width: _jpgGraphicWidth,

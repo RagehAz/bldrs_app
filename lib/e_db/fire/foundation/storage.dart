@@ -404,7 +404,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       /// A NEW FILE WAS GIVEN
       if (_shouldUploadNewFile == true){
 
-        if (ObjectChecker.objectIsFile(pdf.file) == true){
+        if (ObjectCheck.objectIsFile(pdf.file) == true){
 
           _fileFromURL = pdf.file;
 
@@ -564,7 +564,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     blog('getImageNameByURL : START');
     String _output;
 
-    if (ObjectChecker.objectIsURL(url) == true){
+    if (ObjectCheck.isAbsoluteURL(url) == true){
 
       final Reference _ref = await getRefFromURL(
         context: context,
@@ -598,7 +598,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     FullMetadata _meta;
 
-    if (ObjectChecker.objectIsURL(url) == true){
+    if (ObjectCheck.isAbsoluteURL(url) == true){
 
       await tryAndCatch(
         context: context,
@@ -663,7 +663,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   }) async {
     final List<String> _ids = [];
 
-    if (ObjectChecker.objectIsURL(url) == true){
+    if (ObjectCheck.isAbsoluteURL(url) == true){
 
       final FullMetadata _metaData = await getMetadataFromURL(
           context: context,
@@ -771,7 +771,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     String _outputURL;
 
-    final bool _oldURLIsValid = ObjectChecker.objectIsURL(oldURL);
+    final bool _oldURLIsValid = ObjectCheck.isAbsoluteURL(oldURL);
 
     /// when old url exists
     if (_oldURLIsValid == true){
@@ -819,7 +819,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     blog('updatePicMetaData : START');
 
-    if (ObjectChecker.objectIsURL(picURL) == true && metaDataMap != null){
+    if (ObjectCheck.isAbsoluteURL(picURL) == true && metaDataMap != null){
 
       final Reference _ref = await Storage.getRefFromURL(
           url: picURL,

@@ -328,7 +328,7 @@ void main() {
 
     // final bool _base64IsString = ObjectChecker.objectIsString(_base64);
     //
-    final bool _base64IsBase64 = ObjectChecker.isBase64(_pic);
+    final bool _base64IsBase64 = ObjectCheck.isBase64(_pic);
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
@@ -372,7 +372,7 @@ void main() {
   test('objectIsDatTime', () async {
     final dynamic _object = DateTime.now();
     final dynamic _object2 = Timers.cipherTime(time: _object, toJSON: false);
-    final bool _isDateTime = ObjectChecker.objectIsDateTime(_object2);
+    final bool _isDateTime = ObjectCheck.objectIsDateTime(_object2);
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 
@@ -507,8 +507,8 @@ void main() {
 
     final List<String> things = <String>['d', 'r'];
 
-    final bool isThingsSpecs = ObjectChecker.objectIsListOfSpecs(things);
-    final bool isSpecs = ObjectChecker.objectIsListOfSpecs(specsA);
+    final bool isThingsSpecs = ObjectCheck.objectIsListOfSpecs(things);
+    final bool isSpecs = ObjectCheck.objectIsListOfSpecs(specsA);
 
     expect(isSpecs, true);
     expect(isThingsSpecs, false);
@@ -534,7 +534,7 @@ void main() {
   test('objectIsURL', () async {
     const String _thing = null;
 
-    final bool _isURL = ObjectChecker.objectIsURL(_thing);
+    final bool _isURL = ObjectCheck.isAbsoluteURL(_thing);
 
     expect(_isURL, false);
   });

@@ -514,7 +514,7 @@ class FlyerFireOps {
           final SlideModel slide = newFlyer.slides[index];
 
           /// if slide pic changed
-          if (ObjectChecker.objectIsFile(slide.pic) == true) {
+          if (ObjectCheck.objectIsFile(slide.pic) == true) {
 
             /// upload File to fireStorage/slidesPics/slideID and get URL
             final String _newPicURL = await Storage.createStoragePicAndGetURL(

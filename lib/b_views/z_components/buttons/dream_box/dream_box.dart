@@ -141,11 +141,11 @@ class DreamBox extends StatelessWidget {
 
     final double _graphicWidth = icon == null && loading == false ? 0
         :
-    ObjectChecker.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth
+    ObjectCheck.fileExtensionOf(icon) == 'svg' ? _svgGraphicWidth
         :
-    ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
-        ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
-        ObjectChecker.fileExtensionOf(icon) == 'png' ?
+    ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
+        ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
+        ObjectCheck.fileExtensionOf(icon) == 'png' ?
     _jpgGraphicWidth
         :
     height;

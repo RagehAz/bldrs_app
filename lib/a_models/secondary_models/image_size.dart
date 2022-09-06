@@ -80,13 +80,13 @@ class ImageSize {
 
     if (image != null) {
       // -----------------------------------------------------------o
-      final bool _isURL = ObjectChecker.objectIsURL(image) == true;
+      final bool _isURL = ObjectCheck.isAbsoluteURL(image) == true;
       // blog('_isURL : $_isURL');
       // final bool _isAsset = ObjectChecker.objectIsAsset(image) == true;
       // blog('_isAsset : $_isAsset');
-      final bool _isFile = ObjectChecker.objectIsFile(image) == true;
+      final bool _isFile = ObjectCheck.objectIsFile(image) == true;
       // blog('_isFile : $_isFile');
-      final bool _isUints = ObjectChecker.objectIsUint8List(image) == true;
+      final bool _isUints = ObjectCheck.objectIsUint8List(image) == true;
       // blog('_isUints : $_isUints');
       // -----------------------------------------------------------o
       ui.Image _decodedImage;

@@ -145,7 +145,7 @@ void updatePickersAndGroups({
     if (_specChain.sons.runtimeType == DataCreator) {}
     // ------------------------------------
     /// B - WHEN FROM LIST OF KWs
-    if (ObjectChecker.objectIsListOfSpecs(specPickerResult)) {
+    if (ObjectCheck.objectIsListOfSpecs(specPickerResult)) {
       // Spec.printSpecs(_allSelectedSpecs);
 
       selectedSpecs.value = specPickerResult;

@@ -185,9 +185,9 @@ class MainButton extends StatelessWidget {
                           // padding: EdgeInsets.all(_buttonHeight * 0),
                           child: icon.runtimeType != String ? icon
                               :
-                          ObjectChecker.fileExtensionOf(icon) == 'jpg' ||
-                              ObjectChecker.fileExtensionOf(icon) == 'jpeg' ||
-                              ObjectChecker.fileExtensionOf(icon) == 'png' ? Container(
+                          ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
+                              ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
+                              ObjectCheck.fileExtensionOf(icon) == 'png' ? Container(
                             width: _buttonZoneHeight * 0.4,
                             height: _buttonZoneHeight * 0.4,
                             decoration: BoxDecoration(

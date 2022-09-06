@@ -20,10 +20,10 @@ extension FileExtention on FileSystemEntity {
   }
 }
 
-class ObjectChecker {
+class ObjectCheck {
 // -----------------------------------------------------------------------------
 
-  const ObjectChecker();
+  const ObjectCheck();
 
 // -----------------------------------------------------------------------------
   static String fileExtensionOf(dynamic file) {
@@ -37,36 +37,52 @@ class ObjectChecker {
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static bool objectIsURL(dynamic object) {
+  static bool isAbsoluteURL(dynamic object) {
     bool _isValidURL = false;
 
     if (object != null && object is String) {
-      _isValidURL = Uri.parse(object).isAbsolute;
+      // ----------------------------------
+      /*
+      /// INITIAL CHECK
+      final bool _startsWithHttp = TextCheck.textStartsWithAny(
+        text: object,
+        listThatMightIncludeText: <String>['h', 'ht','htt','http',],
+      );
+      final bool _startsWithWWW = TextCheck.textStartsWithAny(
+        text: object,
+        listThatMightIncludeText: <String>['www', 'ww','w'],
+      );
+      if (_startsWithHttp == true || _startsWithWWW == true){
+        _isValidURL = true;
+      }
+       */
+      // ----------------------------------
+      /// - EXTRA CHECK
+      // if (_isValidURL == false){
 
-      if (_isValidURL == true){
+        _isValidURL = Uri.parse(object).isAbsolute;
 
-        final bool _startsWithHttp = TextCheck.textStartsWith(
-          text: object,
-          startsWith: 'http',
-        );
-        final bool _startsWithWWW = TextCheck.textStartsWith(
-          text: object,
-          startsWith: 'www',
-        );
-
-        if (_startsWithHttp == true || _startsWithWWW == true){
-          _isValidURL = true;
-        }
-
+        // }
+      ///
+      // ----------------------------------
       }
 
-    }
-
-    else {
-      _isValidURL = false;
-    }
-
     return _isValidURL;
+  }
+// -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool isURLFormat(dynamic object) {
+
+    bool _isURLFormat = false;
+
+    if (object != null && object is String) {
+
+      final RegExp regExp = RegExp(TextCheck.urlPattern);
+      _isURLFormat = regExp.hasMatch(object);
+
+    }
+
+    return _isURLFormat;
   }
 // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

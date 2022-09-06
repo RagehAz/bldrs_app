@@ -58,7 +58,7 @@ class AuthorPicInBzPage extends StatelessWidget {
             image: authorPic == null ?
             null
                 :
-            ObjectChecker.objectIsJPGorPNG(authorPic) ?
+            ObjectCheck.objectIsJPGorPNG(authorPic) ?
             DecorationImage(image: AssetImage(authorPic), fit: BoxFit.cover)
                 :
             null
