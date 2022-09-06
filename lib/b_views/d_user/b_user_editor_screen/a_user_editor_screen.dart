@@ -254,7 +254,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                     tempUser: _tempUser,
                   ),
-                  autoValidate: true,
+                  // autoValidate: true,
                   validator: () => Formers.personNameValidator(
                     name: userModel.name,
                   ),
@@ -277,7 +277,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     tempUser: _tempUser,
                     text: text,
                   ),
-                  autoValidate: true,
+                  // autoValidate: true,
                   validator: () => Formers.jobTitleValidator(
                     jobTitle: userModel.title,
                   ),
@@ -295,7 +295,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
                   initialTextValue: userModel.company,
-                  autoValidate: true,
+                  // autoValidate: true,
                   textOnChanged: (String text) => onUserCompanyNameChanged(
                     text: text,
                     tempUser: _tempUser,
@@ -331,7 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     tempUser: _tempUser,
                   ),
                   canPaste: false,
-                  autoValidate: true,
+                  // autoValidate: true,
                   validator: () => Formers.contactsPhoneValidator(
                     contacts: userModel.contacts,
                     zoneModel: userModel?.zone,
@@ -362,7 +362,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     tempUser: _tempUser,
                   ),
                   canPaste: false,
-                  autoValidate: true,
+                  // autoValidate: true,
                   validator: () => Formers.contactsEmailValidator(
                     contacts: userModel.contacts,
                   ),

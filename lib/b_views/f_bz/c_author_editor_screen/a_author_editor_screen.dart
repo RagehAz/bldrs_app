@@ -251,7 +251,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                       text: text,
                     ),
-                    autoValidate: true,
+                    // autoValidate: true,
                     validator: () => Formers.personNameValidator(
                       name: authorModel.name,
                     ),
@@ -275,7 +275,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     initialTextValue: authorModel.title,
-                    autoValidate: true,
+                    // autoValidate: true,
                     validator: () => Formers.jobTitleValidator(
                         jobTitle: authorModel.title,
                     ),
@@ -307,7 +307,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       value: text,
                       tempAuthor: _tempAuthor,
                     ),
-                    autoValidate: true,
+                    // autoValidate: true,
                     validator: () => Formers.contactsPhoneValidator(
                       contacts: authorModel.contacts,
                       zoneModel: widget.bzModel.zone,
@@ -338,7 +338,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     canPaste: false,
-                    autoValidate: true,
+                    // autoValidate: true,
                     validator: () => Formers.contactsEmailValidator(
                       contacts: authorModel.contacts,
                     ),

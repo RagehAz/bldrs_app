@@ -91,12 +91,12 @@ class AddImagePicBubble extends StatelessWidget {
     );
 
     return Bubble(
+        width: _width,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
           defaultColor: Colorz.white10,
           canErrorize: true,
         ),
-      width: _width,
         headerViewModel: BubbleHeaderVM(
           headerWidth: _width - 20,
           headlineVerse: titleVerse,
@@ -171,11 +171,11 @@ class AddImagePicBubble extends StatelessWidget {
           ),
 
           if (validator != null)
-          SuperValidator(
-            width: _width - 20,
-            validator: validator,
-            autoValidate: true,
-          ),
+            SuperValidator(
+              width: _width - 20,
+              validator: validator,
+              // autoValidate: true,
+            ),
 
         ]
     );

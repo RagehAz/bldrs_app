@@ -56,7 +56,7 @@ class TextFieldBubble extends StatelessWidget {
     this.focusNode,
     this.isFloatingField = false,
     this.onFieldTap,
-    this.autoValidate = false,
+    this.autoValidate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -176,6 +176,14 @@ class TextFieldBubble extends StatelessWidget {
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 
+          /// BULLET POINTS
+          if (Mapper.checkCanLoopList(bulletPoints) == true)
+            BubbleBulletPoints(
+              bubbleWidth: bubbleWidth,
+              bulletPoints: bulletPoints,
+              translateBullets: translateBullets,
+            ),
+
           /// TEXT FIELD ROW
           Stack(
             alignment: Aligners.superInverseTopAlignment(context),
@@ -283,17 +291,11 @@ class TextFieldBubble extends StatelessWidget {
             ],
           ),
 
-          if (Mapper.checkCanLoopList(bulletPoints) == true)
-            BubbleBulletPoints(
-              bubbleWidth: bubbleWidth,
-              bulletPoints: bulletPoints,
-              translateBullets: translateBullets,
-            ),
-
           if (Mapper.checkCanLoopList(columnChildren) == true)
           ...columnChildren,
 
         ]
     );
   }
+// -----------------------------------------------------------------------------
 }

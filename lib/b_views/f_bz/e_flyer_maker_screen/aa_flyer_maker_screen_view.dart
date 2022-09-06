@@ -144,7 +144,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               draft: draft,
                               text: text,
                             ),
-                            autoValidate: true,
+                            // autoValidate: true,
                             initialTextValue: _draft.headline,
                             validator: () => Formers.flyerHeadlineValidator(
                               headline: _draft.headline,
@@ -164,7 +164,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             maxLines: 7,
                             keyboardTextInputType: TextInputType.multiline,
                             // bubbleColor: _bzScopeError ? Colorz.red125 : Colorz.white20,
-                            autoValidate: true,
+                            // autoValidate: true,
                             initialTextValue: _draft.description,
                             validator: () => Formers.paragraphValidator(
                               text: _draft.description,
