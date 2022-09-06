@@ -11,15 +11,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 class RenovateUserProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateUserProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER MODEL EDITS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateMyUserModel({
     @required BuildContext context,
@@ -60,7 +60,7 @@ class RenovateUserProtocols {
 
     return _uploadedModel ?? newUserModel;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
     @required UserModel newUserModel,
@@ -103,11 +103,11 @@ class RenovateUserProtocols {
     blog('UserProtocol.updateLocally : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SAVING AND FOLLOWING
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
     @required BuildContext context,
@@ -125,8 +125,8 @@ class RenovateUserProtocols {
     if (followIsOn == true){
 
       await BzRecordRealOps.followBz(
-          context: context,
-          bzID: bzID,
+        context: context,
+        bzID: bzID,
       );
 
       final UserModel _updatedModel = UserModel.addBzIDToUserFollows(
@@ -144,8 +144,8 @@ class RenovateUserProtocols {
     else {
 
       await BzRecordRealOps.unfollowBz(
-          context: context,
-          bzID: bzID,
+        context: context,
+        bzID: bzID,
       );
 
       final UserModel _updatedModel = UserModel.removeBzIDFromMyFollows(
@@ -162,7 +162,7 @@ class RenovateUserProtocols {
 
     blog('RenovateUserProtocols.followingProtocol : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
     @required BuildContext context,
@@ -222,5 +222,5 @@ class RenovateUserProtocols {
 
     blog('RenovateUserProtocols.savingFlyerProtocol : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

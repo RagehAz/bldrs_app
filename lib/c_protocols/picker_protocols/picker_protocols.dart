@@ -10,15 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PickerProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const PickerProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeFlyerTypePickers({
     @required BuildContext context,
@@ -40,11 +40,11 @@ class PickerProtocols {
     WaitDialog.closeWaitDialog(context);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FETCH
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> fetchFlyerTypPickers({
     @required BuildContext context,
@@ -53,8 +53,8 @@ class PickerProtocols {
   }) async {
 
     /// 1 - search LDB
-     List<PickerModel> _pickers = await PickerLDBOps.readPickers(
-        flyerType: flyerType,
+    List<PickerModel> _pickers = await PickerLDBOps.readPickers(
+      flyerType: flyerType,
     );
 
     /// 2 - bigChainK is not found in LDB
@@ -83,7 +83,7 @@ class PickerProtocols {
 
     return _pickers;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateFlyerTypPickers({
     @required BuildContext context,
@@ -117,7 +117,7 @@ class PickerProtocols {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerTypePickerLocally({
     @required BuildContext context,
@@ -154,11 +154,11 @@ class PickerProtocols {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// -------------------------------------
-/// NO NEED
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// NO NEED
+  // -----------------------------------------------------------------------------
 }

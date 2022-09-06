@@ -6,11 +6,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FetchFlyerProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FetchFlyerProtocols();
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> fetchFlyer({
     @required BuildContext context,
@@ -38,12 +38,12 @@ class FetchFlyerProtocols {
     }
 
     // if (_flyer == null){
-      // blog('fetchFlyerByID : ($flyerID) FlyerModel NOT FOUND');
+    // blog('fetchFlyerByID : ($flyerID) FlyerModel NOT FOUND');
     // }
 
     return _flyer;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> fetchFlyers({
     @required BuildContext context,
@@ -58,8 +58,8 @@ class FetchFlyerProtocols {
       for (final String flyerID in flyersIDs){
 
         final FlyerModel _flyer = await fetchFlyer(
-            context: context,
-            flyerID: flyerID,
+          context: context,
+          flyerID: flyerID,
         );
 
         if (_flyer != null){
@@ -75,5 +75,5 @@ class FetchFlyerProtocols {
     blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
     return _flyers;
   }
-// -------------------------------------
+// -----------------------------------------------------------------------------
 }

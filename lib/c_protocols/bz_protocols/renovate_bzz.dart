@@ -17,11 +17,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class RenovateBzProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RenovateBzProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<BzModel> renovateBz({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -106,7 +106,7 @@ class RenovateBzProtocols {
     blog('RenovateBzProtocol.renovateBz : END');
     return _uploadedBzModel;
   }
-// ----------------------------------
+  // --------------------
   static Future<void> updateBzLocally({
     @required BuildContext context,
     @required BzModel newBzModel,
@@ -156,8 +156,8 @@ class RenovateBzProtocols {
     }
 
     blog('RenovateBzProtocol.updateBzLocally : END');
-}
-// ----------------------------------
+  }
+  // --------------------
   static Future<BzModel> completeBzZoneModel({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -184,7 +184,7 @@ class RenovateBzProtocols {
     // blog('RenovateBzProtocol.completeBzZoneModel : END');
     return _output;
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _failureDialog(BuildContext context) async {
 
     /// FAILURE DIALOG
@@ -195,5 +195,5 @@ class RenovateBzProtocols {
     );
 
   }
-// ----------------------------------
+  // -----------------------------------------------------------------------------
 }

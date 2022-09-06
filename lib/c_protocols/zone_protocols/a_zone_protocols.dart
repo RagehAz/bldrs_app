@@ -14,23 +14,23 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 
 class ZoneProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ZoneProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// ----------------------------------
-///
-// -----------------------------------------------------------------------------
+  // --------------------
+  ///
+  // -----------------------------------------------------------------------------
 
   /// FETCH
 
-// ----------------------------------
+  // --------------------
   /// ZONE
-// -----------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> fetchZoneModelByGeoPoint({
     @required BuildContext context,
@@ -96,9 +96,9 @@ class ZoneProtocols {
 
     return _zoneModel;
   }
-// ----------------------------------
+  // --------------------
   /// COUNTRY
-// -----------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> fetchCountry({
     @required BuildContext context,
@@ -107,7 +107,7 @@ class ZoneProtocols {
     context: context,
     countryID: countryID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
     @required BuildContext context,
@@ -116,9 +116,9 @@ class ZoneProtocols {
       context: context,
       countriesIDs: countriesIDs
   );
-// ----------------------------------
+  // --------------------
   /// CITY
-// -----------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
     @required BuildContext context,
@@ -127,7 +127,7 @@ class ZoneProtocols {
     context: context,
     cityID: cityID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
     @required BuildContext context,
@@ -138,7 +138,7 @@ class ZoneProtocols {
     citiesIDs: citiesIDs,
     onCityLoaded: onCityLoaded,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCityByName({
     @required BuildContext context,
@@ -151,18 +151,18 @@ class ZoneProtocols {
     langCode: langCode,
     countryID: countryID,
   );
-// ----------------------------------
+  // --------------------
   /// CONTINENT
-// -----------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> fetchContinents({
     @required BuildContext context,
   }) => FetchZoneProtocols.fetchContinents(
     context: context,
   );
-// ----------------------------------
+  // --------------------
   /// CURRENCY
-// -----------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> fetchCurrencies({
     @required BuildContext context,
@@ -192,11 +192,11 @@ class ZoneProtocols {
     return _currencies;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> completeZoneModel({
     @required BuildContext context,
@@ -205,11 +205,11 @@ class ZoneProtocols {
     context: context,
     incompleteZoneModel: incompleteZoneModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
-///
-// -----------------------------------------------------------------------------
+  // --------------------
+  ///
+  // -----------------------------------------------------------------------------
 }

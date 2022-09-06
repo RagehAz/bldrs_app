@@ -14,15 +14,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WipeBzProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const WipeBzProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// WIPE OUT
 
-// ----------------------------------
+  // --------------------
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -41,7 +41,7 @@ class WipeBzProtocols {
 
     await Future.wait(<Future>[
 
-    /// DELETE BZ FLYERS
+      /// DELETE BZ FLYERS
       _deleteAllBzFlyersOps(
         context: context,
         bzModel: bzModel,
@@ -69,11 +69,11 @@ class WipeBzProtocols {
 
     ]);
 
-      /// DELETE BZ ON FIREBASE
+    /// DELETE BZ ON FIREBASE
     await BzFireOps.deleteBzOps(
-        context: context,
-        bzModel: bzModel,
-      );
+      context: context,
+      bzModel: bzModel,
+    );
 
     /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){
@@ -90,7 +90,7 @@ class WipeBzProtocols {
 
     blog('WipeBzProtocol.wipeBz : END');
   }
-// ----------------------------------
+  // --------------------
   static Future<void> _deleteAllBzFlyersOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -128,11 +128,11 @@ class WipeBzProtocols {
     blog('WipeBzProtocols._deleteAllBzFlyersOps : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LOCAL DELETION
 
-// ----------------------------------
+  // --------------------
   static Future<void> deleteLocally({
     @required BuildContext context,
     @required String bzID,
@@ -159,5 +159,5 @@ class WipeBzProtocols {
 
     blog('WipeBzProtocol.deleteLocally : $invoker : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

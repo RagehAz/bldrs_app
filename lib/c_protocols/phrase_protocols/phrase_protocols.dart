@@ -13,21 +13,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PhraseProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const PhraseProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COMPOSE
 
-// -------------------------------------
+  // --------------------
   /// => ALREADY COMPOSED AND NO NEED TO RE-COMPOSE
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> fetchMainMixedLangPhrases({
     @required BuildContext context,
@@ -52,7 +52,7 @@ class PhraseProtocols {
             onFinish: (List<Phrase> _enPhrases){
               _allPhrases.addAll(_enPhrases);
             }
-            ),
+        ),
 
         PhraseRealOps.readPhrasesByLang(
             context: context,
@@ -61,7 +61,7 @@ class PhraseProtocols {
             onFinish: (List<Phrase> _arPhrases){
               _allPhrases.addAll(_arPhrases);
             }
-            ),
+        ),
 
       ]);
 
@@ -81,7 +81,7 @@ class PhraseProtocols {
     return _allPhrases;
 
   }
-// -------------------------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> fetchMainPhrasesByCurrentLang({
@@ -108,11 +108,11 @@ class PhraseProtocols {
     return _cleaned;
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// -------------------------------------
+  // --------------------
   static Future<void> renovateMainPhrases({
     @required BuildContext context,
     @required List<Phrase> updatedMixedMainPhrases,
@@ -129,8 +129,8 @@ class PhraseProtocols {
       }
 
       final List<Phrase> _en = Phrase.searchPhrasesByLang(
-          phrases: updatedMixedMainPhrases,
-          langCode: 'en',
+        phrases: updatedMixedMainPhrases,
+        langCode: 'en',
       );
 
       final List<Phrase> _ar = Phrase.searchPhrasesByLang(
@@ -168,7 +168,7 @@ class PhraseProtocols {
     }
 
   }
-// -------------------------------------
+  // --------------------
   static Future<void> updateMainPhrasesLocally({
     @required BuildContext context,
     @required List<Phrase> newMainPhrases,
@@ -178,20 +178,20 @@ class PhraseProtocols {
 
       /// UPDATE LDB
       await PhraseLDBOps.updateMainPhrases(
-          updatedMixedLangsPhrases: newMainPhrases,
+        updatedMixedLangsPhrases: newMainPhrases,
       );
 
       /// UPDATE PRO
       final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
       _phraseProvider.setMainPhrases(
-          setTo: newMainPhrases,
-          notify: true,
+        setTo: newMainPhrases,
+        notify: true,
       );
 
     }
 
   }
-// -------------------------------------
+  // --------------------
   static Future<void> reloadMainPhrases(BuildContext context) async {
 
     /// delete LDB phrases
@@ -205,17 +205,17 @@ class PhraseProtocols {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// -------------------------------------
+  // --------------------
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATE PHRASES
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generateMixedLangPhrasesFromPhids({
     @required BuildContext context,
@@ -241,7 +241,7 @@ class PhraseProtocols {
 
     return _phrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generateCountriesMixedLangPhrases({
     @required BuildContext context,
@@ -272,7 +272,7 @@ class PhraseProtocols {
 
     return _allCountriesPhrases;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChain({
     @required Chain chain,
@@ -297,5 +297,5 @@ class PhraseProtocols {
 
     return _phrases;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

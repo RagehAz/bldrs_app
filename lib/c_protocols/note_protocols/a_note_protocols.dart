@@ -8,124 +8,124 @@ import 'package:bldrs/c_protocols/note_protocols/wipe_notes.dart';
 import 'package:flutter/material.dart';
 
 class NoteProtocols {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const NoteProtocols();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// COMPOSE
+  /// COMPOSE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipInvitationNote({
     @required BuildContext context,
     @required BzModel bzModel,
     @required UserModel userModelToSendTo,
-}) => ComposeNoteProtocols.sendAuthorshipInvitationNote(
+  }) => ComposeNoteProtocols.sendAuthorshipInvitationNote(
     context: context,
     bzModel: bzModel,
     userModelToSendTo: userModelToSendTo,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipAcceptanceNote({
     @required BuildContext context,
     @required String bzID,
-}) => ComposeNoteProtocols.sendAuthorshipAcceptanceNote(
+  }) => ComposeNoteProtocols.sendAuthorshipAcceptanceNote(
     context: context,
     bzID: bzID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
     @required BuildContext context,
     @required String bzID,
     @required AuthorModel author,
-}) => ComposeNoteProtocols.sendAuthorRoleChangeNote(
+  }) => ComposeNoteProtocols.sendAuthorRoleChangeNote(
     context: context,
     bzID: bzID,
     author: author,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
     @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel deletedAuthor,
     @required bool sendToUserAuthorExitNote,
-}) => ComposeNoteProtocols.sendAuthorDeletionNotes(
+  }) => ComposeNoteProtocols.sendAuthorDeletionNotes(
     context: context,
     bzModel: bzModel,
     deletedAuthor: deletedAuthor,
     sendToUserAuthorExitNote: sendToUserAuthorExitNote,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
     @required BuildContext context,
     @required BzModel bzModel,
     @required bool includeMyself,
-}) => ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors(
+  }) => ComposeNoteProtocols.sendBzDeletionNoteToAllAuthors(
     context: context,
     bzModel: bzModel,
     includeMyself: includeMyself,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String flyerID,
-}) => ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz(
+    @required BuildContext context,
+    @required BzModel bzModel,
+    @required String flyerID,
+  }) => ComposeNoteProtocols.sendFlyerUpdateNoteToItsBz(
     context: context,
     bzModel: bzModel,
     flyerID: flyerID,
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendNoBzContactAvailableNote({
     @required BuildContext context,
     @required BzModel bzModel,
-}) => ComposeNoteProtocols.sendNoBzContactAvailableNote(
+  }) => ComposeNoteProtocols.sendNoBzContactAvailableNote(
     context: context,
     bzModel: bzModel,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FETCH
+  /// FETCH
 
-// ------------------------------------------------------
+  // --------------------
   ///
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// RENOVATE
+  /// RENOVATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> modifyNoteResponse({
     @required BuildContext context,
     @required NoteModel noteModel,
     @required NoteResponse response,
-}) => RenovateNoteProtocols.modifyNoteResponse(
+  }) => RenovateNoteProtocols.modifyNoteResponse(
     context: context,
     noteModel: noteModel,
     response: response,
   );
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// WIPE
+  /// WIPE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> cancelSentAuthorshipInvitation({
     @required BuildContext context,
     @required NoteModel note,
-}) => WipeNoteProtocols.cancelSentAuthorshipInvitation(
+  }) => WipeNoteProtocols.cancelSentAuthorshipInvitation(
       context: context,
       note: note
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeNote({
     @required BuildContext context,
@@ -134,7 +134,7 @@ class NoteProtocols {
       context: context,
       noteModel: noteModel
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeBzReceivedNotes({
     @required BuildContext context,
@@ -143,8 +143,8 @@ class NoteProtocols {
     context: context,
     bzID: bzID,
   );
-// ----------------------------------
-
+  // --------------------
+  ///
   static Future<void> wipeBzSentAuthorshipNotes({
     @required BuildContext context,
     @required String bzID,
@@ -152,7 +152,7 @@ class NoteProtocols {
       context: context,
       bzID: bzID
   );
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeUserReceivedNotes({
     @required BuildContext context,
@@ -161,5 +161,5 @@ class NoteProtocols {
       context: context,
       userID: userID
   );
-// ------------------------------------------------------
+  // --------------------
 }
