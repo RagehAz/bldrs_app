@@ -49,22 +49,22 @@ class ReviewTextBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final bool _imReviewCreator = reviewModel?.userID == AuthFireOps.superUserID();
-
+    // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
       context: context,
       flyerModel: flyerModel,
     );
-
+    // --------------------
     final double _textBubbleWidth = ReviewBubble.getTextBubbleWidth(
-        pageWidth: pageWidth,
+      pageWidth: pageWidth,
     );
-
+    // --------------------
     final double _clearWidth = ReviewBubbleBox.clearWidth(
-        balloonWidth: _textBubbleWidth,
+      balloonWidth: _textBubbleWidth,
     );
-
+    // --------------------
     return Column(
       children: <Widget>[
 
@@ -84,23 +84,23 @@ class ReviewTextBalloon extends StatelessWidget {
 
               /// TEXT FIELD
               if (isCreatorMode == true)
-                  SuperTextField(
-                    appBarType: appBarType,
-                    globalKey: globalKey,
-                    titleVerse: '##Edit Review',
-                    width: _textBubbleWidth,
-                    textController: reviewTextController,
-                    maxLines: 5,
-                    textInputType: TextInputType.multiline,
-                    textInputAction: TextInputAction.newline,
-                    maxLength: 1000,
-                    // minLines: 1,
-                    textSize: 3,
-                    margins: const EdgeInsets.all(5),
-                    // onTap: onEditReview,
-                    // autofocus: false,
-                    onChanged: (String x){blog(x);},
-                  ),
+                SuperTextField(
+                  appBarType: appBarType,
+                  globalKey: globalKey,
+                  titleVerse: '##Edit Review',
+                  width: _textBubbleWidth,
+                  textController: reviewTextController,
+                  maxLines: 5,
+                  textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                  maxLength: 1000,
+                  // minLines: 1,
+                  textSize: 3,
+                  margins: const EdgeInsets.all(5),
+                  // onTap: onEditReview,
+                  // autofocus: false,
+                  onChanged: (String x){blog(x);},
+                ),
 
               /// SUBMIT BUTTON
               if (isCreatorMode == true)
@@ -145,23 +145,23 @@ class ReviewTextBalloon extends StatelessWidget {
 
                       /// MORE BUTTON
                       if (_imReviewCreator == true)
-                      ReviewBubbleButton(
-                        count: null,
-                        isOn: false,
-                        verse: null,
-                        icon: Iconz.more,
-                        onTap: () => onReviewOptions(
-                          context: context,
-                          reviewModel: reviewModel,
-                          deleteMapNotifier: paginatorNotifiers.deleteMap,
-                          replaceMapNotifier: paginatorNotifiers.replaceMap,
-                          bzID: flyerModel.bzID,
+                        ReviewBubbleButton(
+                          count: null,
+                          isOn: false,
+                          verse: null,
+                          icon: Iconz.more,
+                          onTap: () => onReviewOptions(
+                            context: context,
+                            reviewModel: reviewModel,
+                            deleteMapNotifier: paginatorNotifiers.deleteMap,
+                            replaceMapNotifier: paginatorNotifiers.replaceMap,
+                            bzID: flyerModel.bzID,
+                          ),
                         ),
-                      ),
 
                       /// EXPANDER
                       if (_imReviewCreator == true)
-                      const Expander(),
+                        const Expander(),
 
                       /// REPLY
                       if (_imAuthorInFlyerBz == true)
@@ -205,7 +205,7 @@ class ReviewTextBalloon extends StatelessWidget {
                             );
 
                           }
-                          ),
+                      ),
 
                     ],
                   ),
@@ -223,14 +223,16 @@ class ReviewTextBalloon extends StatelessWidget {
 
         /// BZ REPLY BUBBLE
         if (isCreatorMode == false && TextCheck.isEmpty(reviewModel?.reply) == false)
-        BzReplyBubble(
-          boxWidth: _textBubbleWidth,
-          reviewModel: reviewModel,
-          paginatorNotifiers: paginatorNotifiers,
-          flyerModel: flyerModel,
-        ),
+          BzReplyBubble(
+            boxWidth: _textBubbleWidth,
+            reviewModel: reviewModel,
+            paginatorNotifiers: paginatorNotifiers,
+            flyerModel: flyerModel,
+          ),
 
       ],
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

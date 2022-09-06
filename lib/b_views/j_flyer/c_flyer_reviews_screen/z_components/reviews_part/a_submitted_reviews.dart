@@ -27,19 +27,20 @@ class SubmittedReviews extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<SubmittedReviews> createState() => _SubmittedReviewsState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _SubmittedReviewsState extends State<SubmittedReviews> {
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+  // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
   PaginatorNotifiers _paginatorNotifiers;
   ScrollController _controller;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -51,7 +52,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       blogLoading(loading: _loading.value, callerName: 'SubmittedReviews',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -61,7 +62,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -86,7 +87,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _createStateListeners(){
     _reviewTextController.addListener(() async {
 
@@ -97,7 +98,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
     });
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -107,7 +108,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     _controller.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   FireQueryModel _createQueryModel(){
     return FireQueryModel(
       collRef: Fire.createSuperCollRef(
@@ -122,9 +123,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       ),
     );
   }
-// -----------------------------------------------------------------------------
-  final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -156,4 +155,5 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

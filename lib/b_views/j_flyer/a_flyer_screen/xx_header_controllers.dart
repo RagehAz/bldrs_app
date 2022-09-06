@@ -12,12 +12,11 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// EXPANSION INITIALIZATION
 
-// ----------------------------------
+// --------------------
 AnimationController initializeHeaderAnimationController({
   @required BuildContext context,
   @required TickerProvider vsync,
@@ -47,7 +46,7 @@ AnimationController initializeHeaderAnimationController({
 
 /// ANIMATION TRIGGER
 
-// ----------------------------------
+// --------------------
 Future<void> onTriggerHeader({
   @required BuildContext context,
   @required AnimationController headerAnimationController,
@@ -87,7 +86,7 @@ Future<void> onTriggerHeader({
 
   blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
 }
-// ----------------------------------
+// --------------------
 Future<void> readBzCounters({
   @required BuildContext context,
   @required String bzID,
@@ -102,7 +101,7 @@ Future<void> readBzCounters({
   bzCounters.value = _bzCounters;
 
 }
-// ----------------------------------
+// --------------------
 /// PROGRESS BAR OPACITY
 Future<void> _triggerProgressBarOpacity({
   @required BuildContext context,
@@ -126,7 +125,7 @@ Future<void> _triggerProgressBarOpacity({
   }
 
 }
-// -------------------------------------------------------
+// --------------------
 /// HEADER IS EXPANDED
 void _triggerHeaderExpansion({
   @required BuildContext context,
@@ -140,7 +139,7 @@ void _triggerHeaderExpansion({
   PageStorage.of(context)?.writeState(context, headerIsExpanded.value);
 
 }
-// -------------------------------------------------------
+// --------------------
 /// HEADER PAGE OPACITY
 void _triggerHeaderPageOpacity({
   @required BuildContext context,
@@ -168,7 +167,7 @@ void _triggerHeaderPageOpacity({
 
 /// EXPANSION ANIMATION
 
-// ----------------------------------
+// --------------------
 /// HEADER EXPANSION ANIMATION
 void _animateHeaderExpansion({
   @required BuildContext context,
@@ -206,7 +205,7 @@ void _animateHeaderExpansion({
 
 /// TAPS - BUTTONS
 
-// ----------------------------------
+// --------------------
 bool checkFollowIsOn({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -221,7 +220,7 @@ bool checkFollowIsOn({
 
   return _followIsOn;
 }
-// ----------------------------------
+// --------------------
 /// ON FOLLOW
 Future<void> onFollowTap({
   @required BuildContext context,
@@ -238,7 +237,7 @@ Future<void> onFollowTap({
   );
 
 }
-// -----------------------------------------------------------------------------
+// --------------------
 /// ON CALL
 Future<void> onCallTap({
   @required BuildContext context,
@@ -282,7 +281,7 @@ Future<void> onCallTap({
               contact: contact,
             ),
 
-          /// CALL RECORD PROTOCOL
+            /// CALL RECORD PROTOCOL
             BzRecordRealOps.callBz(
               context: context,
               bzID: bzModel.id,

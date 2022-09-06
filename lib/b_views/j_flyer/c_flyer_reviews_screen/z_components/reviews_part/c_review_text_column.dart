@@ -61,4 +61,5 @@ class ReviewTextsColumn extends StatelessWidget {
       ],
     );
   }
+  /// --------------------------------------------------------------------------
 }
