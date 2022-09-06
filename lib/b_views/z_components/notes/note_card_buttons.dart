@@ -28,7 +28,7 @@ class NoteCardButtons extends StatelessWidget {
 
     return _string;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TASK : FINALIZE THIS SHIT
   String _getResponseString(BuildContext context, NoteModel noteModel){
 
@@ -56,7 +56,7 @@ class NoteCardButtons extends StatelessWidget {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -124,4 +124,5 @@ class NoteCardButtons extends StatelessWidget {
     );
 
   }
+// --------------------
 }

@@ -144,4 +144,5 @@ class NoteSenderBalloon extends StatelessWidget {
     }
 
   }
+// -----------------------------------------------------------------------------
 }

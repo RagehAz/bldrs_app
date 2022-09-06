@@ -17,7 +17,7 @@ class NoteRedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const double defaultSize = 18;
   static const double maxWidth = 60;
-// -----------------------------
+  // --------------------
   static double getSize({
     @required bool isNano
   }){
@@ -25,7 +25,7 @@ class NoteRedDot extends StatelessWidget {
     final double _height = defaultSize * _factor;
     return _height;
   }
-// -----------------------------
+  // --------------------
   String _concludeCount(int count) {
     String _count;
 
@@ -43,14 +43,14 @@ class NoteRedDot extends StatelessWidget {
 
     return _count;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final String _count = _concludeCount(count);
     final double factor = isNano == true ? 0.7 : 1.0;
     final double _size = getSize(isNano: isNano);
-
+    // --------------------
     return Container(
       // width: _buttonWidth * 0.3,
       height: _size,
@@ -79,8 +79,9 @@ class NoteRedDot extends StatelessWidget {
         ],
       ),
     );
-
+    // --------------------
   }
+// -----------------------------------------------------------------------------
 }
 
 class NoteRedDotWrapper extends StatelessWidget {
@@ -109,7 +110,7 @@ class NoteRedDotWrapper extends StatelessWidget {
     final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
     return _viewWidth / childWidth;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static double getShrinkageDX({
     @required double childWidth,
     @required bool isNano,
@@ -158,4 +159,5 @@ class NoteRedDotWrapper extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }
