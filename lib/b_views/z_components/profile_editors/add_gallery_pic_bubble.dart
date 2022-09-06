@@ -93,8 +93,6 @@ class AddImagePicBubble extends StatelessWidget {
         screenWidth: _screenWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
-          defaultColor: Colorz.white10,
-          canErrorize: true,
         ),
         headerViewModel: BubbleHeaderVM(
           headerWidth: _bubbleClearWidth,

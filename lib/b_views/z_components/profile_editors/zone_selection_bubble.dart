@@ -15,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class ZoneSelectionBubble extends StatefulWidget {
@@ -45,16 +44,16 @@ class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
-// ------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -66,7 +65,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       blogLoading(loading: _loading.value, callerName: 'ZoneSelectionBubble',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -79,7 +78,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     _selectedZone.value = _initialZone;
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -100,14 +99,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose(){
     _loading.dispose();
     _selectedZone.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void didUpdateWidget(covariant ZoneSelectionBubble oldWidget) {
 
@@ -123,7 +122,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     super.didUpdateWidget(oldWidget);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onCountryButtonTap({
     @required BuildContext context
   }) async {
@@ -156,7 +155,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onCityButtonTap({
     @required BuildContext context
   }) async {
@@ -196,7 +195,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onDistrictButtonTap({
     @required BuildContext context,
   }) async {
@@ -235,7 +234,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -250,8 +249,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
               return Bubble(
                   bubbleColor: Colorizer.ValidatorColor(
                     validator: widget.validator,
-                    defaultColor: Colorz.white10,
-                    canErrorize: true,
                   ),
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse,
@@ -319,8 +316,9 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
         });
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
+
 // ----------------------------------------
 /*
   Future<void> _onSelectCountry(String countryID) async {

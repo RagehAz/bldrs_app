@@ -168,8 +168,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
           validator: widget.validator,
-          defaultColor: Colorz.white10,
-          canErrorize: true,
         ),
         headerViewModel: widget.headerViewModel,
       screenWidth: _bubbleWidth,

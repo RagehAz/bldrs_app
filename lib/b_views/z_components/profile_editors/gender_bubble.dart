@@ -13,11 +13,13 @@ class GenderBubble extends StatelessWidget {
   const GenderBubble({
     @required this.onTap,
     @required this.userModel,
+    @required this.canValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ValueChanged<Gender> onTap;
   final UserModel userModel;
+  final bool canValidate;
   /// --------------------------------------------------------------------------
   static double buttonWidth(BuildContext context){
     const double _spacing = 10;
@@ -36,15 +38,17 @@ class GenderBubble extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const List<Gender> _gendersList = UserModel.gendersList;
     final double _buttonWidth = buttonWidth(context);
-
+    // --------------------
     return Bubble(
       bubbleColor: Colorizer.ValidatorColor(
-        validator: () => Formers.genderValidator(userModel: userModel),
-        defaultColor: Colorz.white10,
-        canErrorize: true,
+        canErrorize: canValidate,
+        validator: () => Formers.genderValidator(
+          userModel: userModel,
+          canValidate: canValidate,
+        ),
       ),
       headerViewModel: const BubbleHeaderVM(
         // headlineVerse: 'phid_gender',
@@ -53,6 +57,7 @@ class GenderBubble extends StatelessWidget {
       screenWidth: Bubble.defaultWidth(context),
       columnChildren: <Widget>[
 
+        /// BUTTONS
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -96,14 +101,19 @@ class GenderBubble extends StatelessWidget {
           ],
         ),
 
+        /// VALIDATOR
         SuperValidator(
           width: Bubble.clearWidth(context),
-          validator: () => Formers.genderValidator(userModel: userModel),
+          validator: () => Formers.genderValidator(
+            userModel: userModel,
+            canValidate: canValidate,
+          ),
           // autoValidate: true,
         ),
 
       ],
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

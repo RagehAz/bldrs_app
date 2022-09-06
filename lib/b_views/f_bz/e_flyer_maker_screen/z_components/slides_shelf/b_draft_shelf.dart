@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/a_shelf_box.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/d_shelf_slides_part.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/d_shelf_slides_part.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/flyer_maker_structure/b_draft_shelf/e_shelf_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xx_draft_shelf_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -27,7 +27,7 @@ class SlidesShelf extends StatefulWidget {
   final int shelfNumber;
   final BzModel bzModel;
   final ValueNotifier<DraftFlyerModel> draft;
-  final bool isEditingFlyer;
+  final ValueNotifier<bool> isEditingFlyer;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -35,13 +35,13 @@ class SlidesShelf extends StatefulWidget {
 }
 
 class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClientMixin{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -55,15 +55,15 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     }
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose(){
@@ -71,7 +71,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -86,14 +86,14 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
-// -----------------------------------------------------------------------------
+    // --------------------
     final double _slideZoneHeight = ShelfSlide.shelfSlideZoneHeight(context);
-
+    // --------------------
     return Container(
       width: Scale.superScreenWidth(context),
       height: ShelfBox.height(context),
@@ -139,7 +139,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 mounted: mounted,
                 scrollController: _scrollController,
                 flyerWidth: ShelfSlide.flyerBoxWidth,
-                isEditingFlyer: widget.isEditingFlyer,
+                isEditingFlyer: widget.isEditingFlyer.value,
                 imagePickerType: imagePickerType,
               ),
             );
@@ -148,7 +148,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
         },
       ),
     );
-// -----------------------------------------------------------------------------
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

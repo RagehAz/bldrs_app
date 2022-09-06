@@ -17,17 +17,17 @@ class FileModel {
     this.fileName,
     this.size,
     this.file,
-});
+  });
   /// --------------------------------------------------------------------------
   final String url;
   final String fileName;
   final File file;
   final double size;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   FileModel copyWith({
     String url,
@@ -42,30 +42,30 @@ class FileModel {
       size: size ?? this.size,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static FileModel createModelByNewFile(File file){
     FileModel _model;
 
     if (file != null){
       _model = FileModel(
-          // url: null,
+        // url: null,
+        file: file,
+        size: Filers.getFileSize(file),
+        fileName: Filers.getFileNameFromFile(
           file: file,
-          size: Filers.getFileSize(file),
-          fileName: Filers.getFileNameFromFile(
-            file: file,
-            withExtension: true,
-          ),
+          withExtension: true,
+        ),
       );
     }
 
     return _model;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static List<FileModel> createModelsByNewFiles(List<File> files){
     final List<FileModel> _models = <FileModel>[];
@@ -83,7 +83,7 @@ class FileModel {
 
     return _models;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> createModelByUrl({
     @required String url,
@@ -109,7 +109,7 @@ class FileModel {
 
     return _model;
   }
-// --------------------------------------
+  // --------------------------------------
   static FileModel initializePicForEditing({
     @required dynamic pic,
     @required String fileName,
@@ -133,7 +133,7 @@ class FileModel {
 
     return _fileModel;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> preparePicForEditing({
     @required dynamic pic,
@@ -165,7 +165,7 @@ class FileModel {
     return completeModel(_fileModel);
 
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static dynamic bakeFileForUpload({
     @required dynamic newFile,
@@ -184,7 +184,7 @@ class FileModel {
 
     return _pic;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static String bakeFileForLDB(dynamic pic){
     String _pic;
@@ -203,11 +203,11 @@ class FileModel {
 
     return _pic;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CIPHER
+  /// CIPHER
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
@@ -217,36 +217,36 @@ class FileModel {
       'file' : file?.path,
     };
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static FileModel decipher(Map<String, dynamic> map){
     FileModel _flyerPDF;
 
     if (map != null){
       _flyerPDF = FileModel(
-          url: map['url'],
-          fileName: map['fileName'],
-          size: map['size'],
-          file: map['file'] == null ? null : File(map['file']),
+        url: map['url'],
+        fileName: map['fileName'],
+        size: map['size'],
+        file: map['file'] == null ? null : File(map['file']),
       );
     }
 
     return _flyerPDF;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// BLOG
+  /// BLOG
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyerPDF(FileModel pdf){
     blog('blogFlyerPDF | fileName ${pdf?.fileName}\n| file ${pdf?.file}\n| url :${pdf?.url}');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static List<File> getFilesFromModels(List<FileModel> files){
     final List<File> _files = <File>[];
@@ -261,7 +261,7 @@ class FileModel {
 
     return _files;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static List<String> getNamesFromModels(List<FileModel> files){
     final List<String> _names = <String>[];
@@ -276,11 +276,11 @@ class FileModel {
 
     return _names;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CHECKER
+  /// CHECKER
 
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkFileModelsAreIdentical({
     @required FileModel model1,
@@ -294,7 +294,7 @@ class FileModel {
     else if (model1 != null && model2 != null){
 
       if (
-          model1.fileName == model2.fileName &&
+      model1.fileName == model2.fileName &&
           model1.url == model2.url &&
           model1.size == model2.size &&
           Filers.checkFilesAreIdentical(file1: model1.file, file2: model2.file) == true
@@ -306,7 +306,7 @@ class FileModel {
 
     return _areIdentical;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldDeleteOldFlyerPDFFileModel({
     @required FlyerModel oldFlyer,
@@ -337,7 +337,7 @@ class FileModel {
             /// FILE HAS CHANGED
             // if (_filesAreIdentical == false){
             //   /// as need to re-upload the file with the new name and delete old file with old name
-              _shouldDelete = true;
+            _shouldDelete = true;
             // }
             /// FILE WAS NOT CHANGED
             // else {
@@ -383,7 +383,7 @@ class FileModel {
 
     return _shouldDelete;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldUploadNewPDFFileModel({
     @required FlyerModel oldFlyer,
@@ -426,7 +426,7 @@ class FileModel {
 
     return _shouldUpload;
   }
-// --------------------------------------
+  // --------------------------------------
   /// TESTED : WORKS PERFECT
   bool checkSizeLimitReached(){
 
@@ -438,7 +438,7 @@ class FileModel {
 
     return _bigger;
   }
-// --------------------------------------
+  // --------------------------------------
   static bool checkModelIsEmpty(FileModel model){
     bool _isEmpty = true;
 
@@ -454,11 +454,11 @@ class FileModel {
 
     return _isEmpty;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PDF STORAGE NAME
 
-// ------------------------------------------
+  // ------------------------------------------
   /// TESTED : WORKS PERFECT
   static String generateFlyerPDFStorageName({
     @required String pdfFileName,
@@ -468,11 +468,11 @@ class FileModel {
 
     return '${flyerID}_$pdfFileName';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ------------------------------------------
+  // ------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> completeModel(FileModel model) async {
     FileModel _output;
@@ -486,7 +486,7 @@ class FileModel {
 
         /// MISSING FILE
         if (_output.file == null){
-            blog('this bitch ass link is : ${_output.url}');
+          blog('this bitch ass link is : ${_output.url}');
           _output = _output.copyWith(
             file: await Filers.getFileFromURL(_output.url),
           );
@@ -520,25 +520,25 @@ class FileModel {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOG
 
-// ------------------------------------------
+  // ------------------------------------------
   /// TESTED : WORKS PERFECT
-void blogFileModel(){
+  void blogFileModel(){
     blog('blogFileModel : fileName : $fileName : size : $size : urlExists : ${url != null} : fileExists : ${file != null}');
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-// ----------------------------------------
+  // ----------------------------------------
   /*
    @override
    String toString() => 'MapModel(key: $key, value: ${value.toString()})';
    */
-// ----------------------------------------
+  // ----------------------------------------
   @override
   bool operator == (Object other){
 
@@ -556,12 +556,13 @@ void blogFileModel(){
 
     return _areIdentical;
   }
-// ----------------------------------------
+  // ----------------------------------------
   @override
   int get hashCode =>
       url.hashCode^
       fileName.hashCode^
       size.hashCode^
       file.hashCode;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
 }

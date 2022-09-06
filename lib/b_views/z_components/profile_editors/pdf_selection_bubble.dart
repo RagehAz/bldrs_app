@@ -10,9 +10,11 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ class PDFSelectionBubble extends StatefulWidget {
     @required this.existingPDF,
     @required this.formKey,
     @required this.appBarType,
+    @required this.canValidate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,20 +36,24 @@ class PDFSelectionBubble extends StatefulWidget {
   final FileModel existingPDF;
   final GlobalKey<FormState> formKey;
   final AppBarType appBarType;
+  final bool canValidate;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
-// ------------------------------
+  // -----------------------------------------------------------------------------
+  final GlobalKey globalKey = GlobalKey();
+  // --------------------
   ValueNotifier<FileModel> _pdf = ValueNotifier(null);
+  // --------------------
   TextEditingController _textController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -58,14 +65,14 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
       blogLoading(loading: _loading.value, callerName: 'PDFSelectionBubble',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _pdf = ValueNotifier(widget.existingPDF);
     _textController = TextEditingController(text: widget.existingPDF?.fileName);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -83,7 +90,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -92,17 +99,13 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
 
     return ValueListenableBuilder(
         valueListenable: _pdf,
         builder: (_, FileModel pdf, Widget child){
-
 
           final bool _fileExists = pdf?.file != null;
           final bool _urlExists = pdf?.url != null;
@@ -110,15 +113,17 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
+            bubbleColor: Colorizer.ValidatorColor(
+              validator: () => Formers.pdfValidator(
+                fileModel: pdf,
+                canValidate: widget.canValidate,
+              ),
+            ),
             screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: 'phid_pdf_attachment',
             ),
-            bubbleColor: Colorizer.errorize(
-                errorIsOn: _sizeLimitReached,
-                defaultColor: Colorz.white10,
-                canErrorize: true,
-            ),
+
             columnChildren: <Widget>[
 
               const BubbleBulletPoints(
@@ -254,6 +259,16 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               //     },
               //   ),
 
+              /// VALIDATOR
+              SuperValidator(
+                width: Bubble.clearWidth(context),
+                validator: () => Formers.pdfValidator(
+                  fileModel: pdf,
+                  canValidate: widget.canValidate,
+                ),
+                // autoValidate: true,
+              ),
+
               /// SELECTION BUTTON
               Row(
                 // width: width: Bubble.clearWidth(context),
@@ -319,6 +334,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
         },
     );
 
-
   }
+  // -----------------------------------------------------------------------------
 }
