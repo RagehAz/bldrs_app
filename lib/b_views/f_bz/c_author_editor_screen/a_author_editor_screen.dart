@@ -36,7 +36,7 @@ class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AuthorEditorScreenState createState() => _AuthorEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AuthorEditorScreenState extends State<AuthorEditorScreen> {

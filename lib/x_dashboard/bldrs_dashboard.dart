@@ -15,6 +15,7 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/a_pickers_manager_screen.dart';
@@ -51,8 +52,11 @@ class BldrsDashBoard extends StatelessWidget {
         icon: Iconz.lab,
         screen: TestLab(),
       ),
-      /// EMPTY
-      null,
+      DashButtonModel(
+        verse:  'Provider viewer',
+        icon: Iconz.check,
+        screen: ProvidersViewerScreen(),
+      ),
       /// LDB VIEWER
       DashButtonModel(
         verse:  'Local db viewers',
@@ -196,7 +200,7 @@ class BldrsDashBoard extends StatelessWidget {
   // -------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
@@ -204,9 +208,8 @@ class BldrsDashBoard extends StatelessWidget {
     const double _gridSpacing = 10;
     const int numberOfColumns = 4;
     // const double _itemHeight = 50;
-
     final double _boxSize = (_screenWidth - ((numberOfColumns + 1) * _gridSpacing)) / numberOfColumns;
-
+    // --------------------
     final SliverGridDelegate _gridDelegate =
     SliverGridDelegateWithFixedCrossAxisCount(
       mainAxisSpacing: _gridSpacing,
@@ -214,10 +217,9 @@ class BldrsDashBoard extends StatelessWidget {
       mainAxisExtent: _boxSize,
       crossAxisCount: numberOfColumns,
     );
-// -------------------------------------------------------
-
+    // --------------------
     final List<DashButtonModel> _buttons = _getButtons();
-// -------------------------------------------------------
+    // --------------------
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -284,6 +286,7 @@ class BldrsDashBoard extends StatelessWidget {
         ],
       ),
     );
-
+    // --------------------
   }
+  // -------------------------------------------------------
 }

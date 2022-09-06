@@ -1,3 +1,4 @@
+
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
@@ -75,8 +76,8 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
   // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
   await Nav.goBackToLogoScreen(
-      context: context,
-      animatedLogoScreen: false,
+    context: context,
+    animatedLogoScreen: false,
   );
 
 }
@@ -84,7 +85,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
 
 /// USER & AUTH MODELS INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeUserModel(BuildContext context) async {
 
   blog('_initializeUserModel : START');
@@ -92,13 +93,13 @@ Future<void> _initializeUserModel(BuildContext context) async {
   /// IF USER IS SIGNED IN
   if (AuthModel.userIsSignedIn() == true) {
 
-  final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+    final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
-  await setUserAndAuthModelsAndCompleteUserZoneLocally(
-    context: context,
-    authModel: _authModel,
-    notify: false,
-  );
+    await setUserAndAuthModelsAndCompleteUserZoneLocally(
+      context: context,
+      authModel: _authModel,
+      notify: false,
+    );
 
   }
 
@@ -110,7 +111,7 @@ Future<void> _initializeUserModel(BuildContext context) async {
   blog('_initializeUserModel : END');
 
 }
-// ---------------------------------
+// --------------------
 Future<UserModel> completeUserZoneModel({
   @required BuildContext context,
   @required UserModel userModel,
@@ -139,7 +140,7 @@ Future<UserModel> completeUserZoneModel({
 
   return _output;
 }
-// ---------------------------------
+// --------------------
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -154,8 +155,8 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
   if (authModel == null || authModel.userModel == null){
     _userModel = await UserProtocols.fetchUser(
-        context: context,
-        userID: AuthFireOps.superUserID(),
+      context: context,
+      userID: AuthFireOps.superUserID(),
     );
   }
   else {
@@ -184,7 +185,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
 /// APP STATE INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeAppState(BuildContext context) async {
 
   blog('_initializeAppState : START');
@@ -293,7 +294,7 @@ Future<void> _initializeAppState(BuildContext context) async {
   blog('_initializeAppState : END');
 
 }
-// ---------------------------------
+// --------------------
 Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
@@ -316,14 +317,14 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 /// APP CONTROLS INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeAppControls(BuildContext context) async {
   blog('_initializeAppControls : START');
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   await _generalProvider.fetchSetAppControls(
-      context: context,
-      notify: true,
+    context: context,
+    notify: true,
   );
 
   blog('_initializeAppControls : END');
@@ -332,7 +333,7 @@ Future<void> _initializeAppControls(BuildContext context) async {
 
 /// LOCAL ASSETS PATHS INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
   blog('_initializeLocalAssetsPaths : START');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -343,7 +344,7 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 
 /// APP LANGUAGE INITIALIZATION
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeAppLanguage(BuildContext context) async {
   blog('_initializeAppLanguage : START');
 
@@ -358,7 +359,7 @@ Future<void> _initializeAppLanguage(BuildContext context) async {
 
 /// MY DEVICE FCM TOKEN
 
-// ---------------------------------
+// --------------------
 Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
   await Notifications.updateMyUserFCMToken(context: context);
 }
@@ -366,7 +367,7 @@ Future<void> _initializeMyDeviceFCMToken(BuildContext context) async {
 
 /// NOTES STREAM INITIALIZATION
 
-// ---------------------------------
+// --------------------
 /*
 void _initializeUserNotesStream(BuildContext context){
 
@@ -382,7 +383,7 @@ void _initializeUserNotesStream(BuildContext context){
 
 /// NAVIGATION
 
-// ---------------------------------
+// --------------------
 /*
 Future<void> _goToLogoScreen(BuildContext context) async {
   await Nav.pushNamedAndRemoveAllBelow(

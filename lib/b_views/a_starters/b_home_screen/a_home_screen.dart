@@ -29,14 +29,14 @@ class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _HomeScreenState createState() => _HomeScreenState();
-  /// --------------------------------------------------------------------------
+/// --------------------------------------------------------------------------
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
       blogLoading(loading: _loading.value, callerName: 'HomeScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// KEYBOARDS CONTROLLERS
   StreamSubscription<bool> _keyboardSubscription;
   KeyboardVisibilityController keyboardVisibilityController;
@@ -66,18 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// NOTES STREAM SUBSCRIPTIONS
   StreamSubscription _userNotesStreamSub;
   List<StreamSubscription> _bzzNotesStreamsSubs;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _initializeKeyboard();
     _userNotesStreamSub = initializeUserNotes(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -103,11 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
       });
 
-    _isInit = false;
+      _isInit = false;
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -119,24 +119,24 @@ class _HomeScreenState extends State<HomeScreen> {
     _progressBarModel.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PYRAMID EXPANSION
 
-// -------------------------------------
+  // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier(null);
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
-// -------------------------------------
+  // --------------------
   void onTriggerExpansion(){
     _isExpanded.value = !_isExpanded.value;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
@@ -215,5 +215,5 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
   }
-
+// -----------------------------------------------------------------------------
 }
