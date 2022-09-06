@@ -23,7 +23,31 @@ class TextCheck {
   static bool containsBadWords({
     @required String text
   }){
-    return false;
+
+    bool _userIsSayingSomeNastyShit = false;
+
+    const List<String> _badWords = <String>[
+      'fuck',
+      'bitch',
+      'whore',
+      'cock',
+    ];
+
+    for (int i = 0; i < _badWords.length; i++){
+
+      final bool _hasBadWord = stringContainsSubString(
+          string: text,
+          subString: _badWords[i],
+      );
+
+      if (_hasBadWord == true){
+        _userIsSayingSomeNastyShit = true;
+        break;
+      }
+
+    }
+
+    return _userIsSayingSomeNastyShit;
   }
 // -----------------------------------------------------------------------------
 

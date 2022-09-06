@@ -39,23 +39,23 @@ void initializeBzEditorLocalVariables({
   @required ValueNotifier<List<BzForm>> inactiveBzForms,
 }){
   // -------------------------
-  final BzModel _initialBzModel = oldBz.copyWith(
+  final BzModel _initialBzModel = oldBz?.copyWith(
     logo: FileModel.initializePicForEditing(
-      pic: oldBz.logo,
-      fileName: oldBz.id,
+      pic: oldBz?.logo,
+      fileName: oldBz?.id,
     ),
 
   );
   // -------------------------
   selectedScopes.value = SpecModel.generateSpecsByPhids(
     context: context,
-    phids: _initialBzModel.scope,
+    phids: _initialBzModel?.scope,
   );
   // -------------------------
-  selectedBzSection.value   = BzModel.concludeBzSectionByBzTypes(_initialBzModel.bzTypes);
+  selectedBzSection.value   = BzModel.concludeBzSectionByBzTypes(_initialBzModel?.bzTypes);
   inactiveBzTypes.value  = BzModel.concludeDeactivatedBzTypesBySection(
     bzSection: selectedBzSection.value,
-    initialBzTypes: _initialBzModel.bzTypes,
+    initialBzTypes: _initialBzModel?.bzTypes,
   );
   // initialBzModel.value = _initialBzModel;
   inactiveBzForms.value = BzModel.concludeInactiveBzFormsByBzTypes(inactiveBzTypes.value);
@@ -102,7 +102,7 @@ Future<void> loadBzEditorLastSession({
 }) async {
 
   final BzModel _lastSessionBz = await BzLDBOps.loadBzEditorSession(
-    bzID: oldBz.id,
+    bzID: oldBz?.id,
   );
 
   if (_lastSessionBz != null){

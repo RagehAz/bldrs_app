@@ -229,8 +229,8 @@ class Colorizer {
 // ---------------------------------------
   static Color ValidatorColor({
     @required String Function() validator,
-    @required Color defaultColor,
-    @required bool canErrorize,
+    Color defaultColor = Colorz.white10,
+    bool canErrorize = true,
 }){
 
     bool _errorIsOn = false;

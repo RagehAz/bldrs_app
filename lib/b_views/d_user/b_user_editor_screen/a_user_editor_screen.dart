@@ -46,8 +46,18 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // --------------------
+  bool _canValidate = false;
+  void _switchOnValidation(){
+    if (_canValidate != true){
+      setState(() {
+        _canValidate = true;
+      });
+    }
+  }
+  // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<UserModel> _tempUser = ValueNotifier(null);
@@ -58,10 +68,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final FocusNode _companyNode = FocusNode();
   final FocusNode _emailNode = FocusNode();
   final FocusNode _phoneNode = FocusNode();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -73,7 +83,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       blogLoading(loading: _loading.value, callerName: 'EditProfileScreen',);
     }
   }
-// -----------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -85,7 +95,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
 
   }
-// -----------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -111,11 +121,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         }
         // -----------------------------
         if (widget.validateOnStartup == true){
+          _switchOnValidation();
           Formers.validateForm(_formKey);
         }
         // -----------------------------
         if (mounted == true){
           _tempUser.addListener((){
+            _switchOnValidation();
             saveUserEditorSession(
               context: context,
               mounted: mounted,
@@ -133,7 +145,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------
+  // --------------------
   /// tamam
   @override
   void dispose() {
@@ -151,7 +163,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  Future<void> _onConfirmTap() async {
+
+    _switchOnValidation();
+
+    await confirmEdits(
+      context: context,
+      formKey: _formKey,
+      tempUser: _tempUser,
+      oldUserModel: widget.userModel,
+      onFinish: widget.onFinish,
+      loading: _loading,
+      forceReAuthentication: widget.reAuthBeforeConfirm,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -188,15 +216,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           blog('skip');
 
         },
-        onTap: () => confirmEdits(
-          context: context,
-          formKey: _formKey,
-          tempUser: _tempUser,
-          oldUserModel: widget.userModel,
-          onFinish: widget.onFinish,
-          loading: _loading,
-          forceReAuthentication: widget.reAuthBeforeConfirm,
-        ),
+        onTap: () => _onConfirmTap(),
 
       ),
       layoutWidget: Form(
@@ -225,13 +245,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     userNotifier: _tempUser,
                     imagePickerType: imagePickerType,
                   ),
-                  validator: () => Formers.picValidator(pic: userModel.pic),
+                  validator: () => Formers.picValidator(
+                    pic: userModel.pic,
+                    canValidate: _canValidate,
+                  ),
                   formKey: _formKey,
                 ),
 
                 /// GENDER
                 GenderBubble(
                   userModel: userModel,
+                  canValidate: _canValidate,
                   onTap: (Gender gender) => onChangeGender(
                     selectedGender: gender,
                     tempUser: _tempUser,
@@ -257,6 +281,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // autoValidate: true,
                   validator: () => Formers.personNameValidator(
                     name: userModel.name,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -264,7 +289,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 TextFieldBubble(
                   key: const ValueKey<String>('title'),
                   globalKey: _formKey,
-
                   focusNode: _titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
@@ -280,6 +304,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // autoValidate: true,
                   validator: () => Formers.jobTitleValidator(
                     jobTitle: userModel.title,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -302,6 +327,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   validator: () => Formers.companyNameValidator(
                     companyName: userModel.company,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -335,6 +361,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   validator: () => Formers.contactsPhoneValidator(
                     contacts: userModel.contacts,
                     zoneModel: userModel?.zone,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -365,6 +392,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // autoValidate: true,
                   validator: () => Formers.contactsEmailValidator(
                     contacts: userModel.contacts,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -383,6 +411,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     zoneModel: userModel.zone,
                     selectCountryAndCityOnly: true,
                     selectCountryIDOnly: false,
+                    canValidate: _canValidate,
                   ),
                 ),
 
@@ -406,4 +435,5 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
 
   }
+// -----------------------------------------------------------------------------
 }
