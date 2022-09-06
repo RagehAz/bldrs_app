@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 /// SEARCH
 
-// -------------------------------
+// --------------------
 Future<void> onSearchUsers({
   @required BuildContext context,
   @required String text,
@@ -25,8 +25,8 @@ Future<void> onSearchUsers({
   blog('starting onSearchUsers : text : $text');
 
   TextCheck.triggerIsSearchingNotifier(
-      text: text,
-      isSearching: isSearching,
+    text: text,
+    isSearching: isSearching,
   );
 
   if (isSearching.value == true){
@@ -54,7 +54,7 @@ Future<void> onSearchUsers({
   }
 
 }
-// -------------------------------
+// --------------------
 Future<void> onShowUserDialog({
   @required BuildContext context,
   @required UserModel userModel,

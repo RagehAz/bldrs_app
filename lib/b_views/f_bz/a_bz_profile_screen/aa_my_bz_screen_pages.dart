@@ -21,21 +21,21 @@ class MyBzScreenPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const List<Widget> pages = <Widget>[
 
-      BzFlyersPage(),
+    BzFlyersPage(),
 
-      BzAboutPage(),
+    BzAboutPage(),
 
-      BzAuthorsPage(),
+    BzAuthorsPage(),
 
-      BzNotesPage(),
+    BzNotesPage(),
 
-      BzTargetsPage(),
+    BzTargetsPage(),
 
-      BzPowersPage(),
+    BzPowersPage(),
 
-      BzNetworkPage(),
+    BzNetworkPage(),
 
-      BzSettingsPage(),
+    BzSettingsPage(),
 
   ];
   /// --------------------------------------------------------------------------
@@ -49,5 +49,5 @@ class MyBzScreenPages extends StatelessWidget {
     );
 
   }
-
+// -----------------------------------------------------------------------------
 }

@@ -26,16 +26,16 @@ class AuthorRoleEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AuthorRoleEditorScreenState createState() => _AuthorRoleEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
-
+  // -----------------------------------------------------------------------------
   ValueNotifier<AuthorRole> _tempRole;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -49,13 +49,13 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
     }
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _tempRole = ValueNotifier(widget.authorModel.role);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -70,7 +70,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
 
@@ -79,7 +79,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _setAuthorRole(AuthorRole role) async {
 
     await setAuthorRole(
@@ -90,13 +90,13 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     return CenteredListLayout(
@@ -204,4 +204,5 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

@@ -102,7 +102,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         }
         // -----------------------------
         if (_isEditingFlyer.value == true){
-        // if (widget.validateOnStartup == true){
+          // if (widget.validateOnStartup == true){
           _switchOnValidation();
           Formers.validateForm(_formKey);
         }
@@ -171,9 +171,9 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       loading: _loading,
       sectionButtonIsOn: false,
       confirmButtonModel: ConfirmButtonModel(
-          // isDeactivated: !_canPublish,
-          firstLine: 'phid_publish',
-          onTap: () => _onConfirmTap(),
+        // isDeactivated: !_canPublish,
+        firstLine: 'phid_publish',
+        onTap: () => _onConfirmTap(),
       ),
       appBarRowWidgets: <Widget>[
 
@@ -184,11 +184,11 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
           onTap: () async {
 
             FlyerModel.checkFlyersAreIdentical(
-                flyer1: widget.flyerToEdit,
-                flyer2: await DraftFlyerModel.bakeDraftToUpload(
-                  draft: _draftFlyer.value,
-                  toLDB: false,
-                ),
+              flyer1: widget.flyerToEdit,
+              flyer2: await DraftFlyerModel.bakeDraftToUpload(
+                draft: _draftFlyer.value,
+                toLDB: false,
+              ),
             );
 
           },

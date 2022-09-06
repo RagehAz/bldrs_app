@@ -51,8 +51,8 @@ class FlyerMakerScreenView extends StatelessWidget {
     /// TASK : SHOULD BE ABLE TO DELETE A SLIDE FROM THE SHELF WHILE EDITING WITHOUT GOING INTO THE FUCKING GALLERY BITCH
     // --------------------
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
     // --------------------
     return ValueListenableBuilder(
@@ -238,10 +238,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                               zone: zone,
                             ),
                             validator: () => Formers.zoneValidator(
-                                zoneModel: _draft.zone,
-                                selectCountryAndCityOnly: true,
-                                selectCountryIDOnly: false,
-                                canValidate: canValidate,
+                              zoneModel: _draft.zone,
+                              selectCountryAndCityOnly: true,
+                              selectCountryIDOnly: false,
+                              canValidate: canValidate,
                             ),
                           ),
 
@@ -263,7 +263,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                     ),
                   );
 
-            });
+                });
 
           }
 

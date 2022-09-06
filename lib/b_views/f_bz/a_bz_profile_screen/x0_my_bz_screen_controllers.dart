@@ -12,12 +12,11 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 // -----------------------------------------------------------------------------
 
 /// MY BZ SCREEN INITIALIZERS
 
-// -------------------------------
+// --------------------
 Future<void> initializeMyBzScreen({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -34,7 +33,7 @@ Future<void> initializeMyBzScreen({
   );
 
 }
-// -------------------------------
+// --------------------
 Future<void> _setBzModel({
   @required BuildContext context,
   @required BzModel completedZoneBzModel,
@@ -53,7 +52,7 @@ Future<void> _setBzModel({
 
 /// MY BZ SCREEN INITIALIZERS
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMyActiveBzStreamChanged({
   @required BuildContext context,
@@ -118,7 +117,7 @@ Future<void> onMyActiveBzStreamChanged({
   }
 
 }
-// -------------------------------
+// --------------------
 Future<void> _myBzResignationProtocol({
   @required BuildContext context,
   @required BzModel newBzFromStream,
@@ -173,7 +172,7 @@ Future<void> _myBzResignationProtocol({
 
 /// MY BZ SCREEN CLOSING
 
-// -------------------------------
+// --------------------
 void onCloseMyBzScreen({
   @required BuildContext context,
 }) {
@@ -193,14 +192,16 @@ void onCloseMyBzScreen({
 
 /// BZ TABS
 
-// -------------------------------
+// --------------------
+/*
 // int getInitialMyBzScreenTabIndex(BuildContext context){
 //   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 //   final BzTab _currentTab = _uiProvider.currentBzTab;
 //   final int _index = BzModel.getBzTabIndex(_currentTab);
 //   return _index;
 // }
-// -------------------------------
+ */
+// --------------------
 void onChangeMyBzScreenTabIndexWhileAnimation({
   @required BuildContext context,
   @required TabController tabController,
@@ -218,7 +219,7 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
   }
 
 }
-// -------------------------------
+// --------------------
 void onChangeMyBzScreenTabIndex({
   @required BuildContext context,
   @required int index,

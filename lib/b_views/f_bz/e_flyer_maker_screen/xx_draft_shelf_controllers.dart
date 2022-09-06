@@ -36,7 +36,8 @@ import 'package:flutter/material.dart';
 
 /// INITIALIZATION
 
-// ----------------------------------
+// --------------------
+/*
 // Future<DraftFlyerModel> initializeDraftFlyerModel({
 //   @required FlyerModel existingFlyer,
 //   @required BzModel bzModel,
@@ -60,11 +61,12 @@ import 'package:flutter/material.dart';
 //
 //   return _draft;
 // }
+ */
 // -----------------------------------------------------------------------------
 
 /// EDITING
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onDeleteSlide({
   @required ValueNotifier<DraftFlyerModel> draftFlyer,
@@ -84,7 +86,7 @@ void onDeleteSlide({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
   @required BuildContext context,
@@ -141,7 +143,7 @@ Future<void> onAddNewSlides({
   isLoading.value = false;
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
   @required BuildContext context,
@@ -238,7 +240,7 @@ Future<void> _addImagesForNewFlyer({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForExistingFlyer({
   @required BuildContext context,
@@ -256,8 +258,8 @@ Future<void> _addImagesForExistingFlyer({
 
   }
 
-  }
-// ----------------------------------
+}
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
@@ -266,7 +268,7 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
     bodyVerse:  '##Can not add more than $maxLength images in one slide',
   );
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
   @required BuildContext context,
@@ -314,7 +316,7 @@ Future<void> onSlideTap({
      */
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMoreTap({
   @required BuildContext context,
@@ -383,7 +385,7 @@ Future<void> onMoreTap({
   );
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onFlyerHeadlineChanged({
   @required String text,
@@ -394,13 +396,13 @@ void onFlyerHeadlineChanged({
   /// DO YOU NEED THIS ?
   formKey.currentState.validate();
 
-    draftFlyer.value = DraftFlyerModel.updateHeadline(
+  draftFlyer.value = DraftFlyerModel.updateHeadline(
       draft: draftFlyer.value,
       newHeadline: text
-    );
+  );
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 String flyerHeadlineValidator({
   @required BuildContext context,

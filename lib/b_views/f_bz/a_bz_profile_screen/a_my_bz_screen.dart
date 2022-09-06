@@ -24,17 +24,17 @@ class MyBzScreen extends StatelessWidget {
     this.initialTab = BzTab.flyers,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final BzTab initialTab;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
     final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: false);
     final String bzID = _bzzPro.myActiveBz?.id;
     blog('MyBzScreen : bzID : $bzID');
-
+    // --------------------
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: bzID,
@@ -128,7 +128,7 @@ class MyBzScreen extends StatelessWidget {
 
       },
     );
-
+    // --------------------
   }
   // -----------------------------------------------------------------------------
 }

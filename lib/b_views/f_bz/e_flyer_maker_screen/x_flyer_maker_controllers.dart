@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
 
 /// INITIALIZATION
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void initializeFlyerMakerLocalVariables({
   @required BuildContext context,
@@ -51,7 +51,7 @@ void initializeFlyerMakerLocalVariables({
 
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareMutableSlidesForEditing({
   @required FlyerModel flyerToEdit,
@@ -66,8 +66,8 @@ Future<void> prepareMutableSlidesForEditing({
         flyerID: flyerToEdit.id,
       ),
       pdf: await FileModel.preparePicForEditing(
-          pic: flyerToEdit.pdf,
-          fileName: flyerToEdit.pdf?.fileName,
+        pic: flyerToEdit.pdf,
+        fileName: flyerToEdit.pdf?.fileName,
       ),
     );
   }
@@ -77,7 +77,7 @@ Future<void> prepareMutableSlidesForEditing({
 
 /// LAST SESSION
 
-// ---------------------------------------
+// --------------------
 Future<void> loadFlyerMakerLastSession({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -129,7 +129,7 @@ Future<void> loadFlyerMakerLastSession({
 
 
 }
-// ---------------------------------------
+// --------------------
 Future<void> saveFlyerMakerSession({
   @required ValueNotifier<DraftFlyerModel> draft,
   @required ValueNotifier<DraftFlyerModel> lastDraft,
@@ -138,8 +138,8 @@ Future<void> saveFlyerMakerSession({
 
 
   final bool _draftHasChanged = DraftFlyerModel.checkDraftsAreIdentical(
-      draft1: draft.value,
-      draft2: lastDraft.value,
+    draft1: draft.value,
+    draft2: lastDraft.value,
   ) == false;
 
   /// => SHOULD BAKE ALL FILES IN MUTABLE SLIDES FOR LDB
@@ -155,7 +155,7 @@ Future<void> saveFlyerMakerSession({
     );
 
     await FlyerLDBOps.saveFlyerMakerSession(
-        flyerModel: flyerFromDraft,
+      flyerModel: flyerFromDraft,
     );
 
     lastDraft.value = draft.value;
@@ -168,7 +168,7 @@ Future<void> saveFlyerMakerSession({
 
 /// CANCEL FLYER EDITING
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
@@ -192,7 +192,7 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 
 /// FLYER EDITING
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
   @required ValueNotifier<DraftFlyerModel> draft,
@@ -213,7 +213,7 @@ void onUpdateFlyerDescription({
     description: text,
   );
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectFlyerType({
   @required BuildContext context,
@@ -225,7 +225,7 @@ Future<void> onSelectFlyerType({
 
   if (draft.value.flyerType != _selectedFlyerType){
 
-  bool _canUpdate = true;
+    bool _canUpdate = true;
 
     /// SOME SPECS ARE SELECTED
     if (Mapper.checkCanLoopList(draft.value.specs) == true){
@@ -250,7 +250,7 @@ Future<void> onSelectFlyerType({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddSpecsTap({
   @required BuildContext context,
@@ -288,7 +288,7 @@ Future<void> onAddSpecsTap({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onZoneChanged({
   @required BuildContext context,
@@ -305,7 +305,7 @@ Future<void> onZoneChanged({
 
 /// PUBLISHING FLYER
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmPublishFlyerButtonTap({
   @required BuildContext context,
@@ -333,7 +333,7 @@ Future<void> onConfirmPublishFlyerButtonTap({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishNewFlyerTap({
   @required BuildContext context,
@@ -373,7 +373,7 @@ Future<void> _onPublishNewFlyerTap({
   }
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishFlyerUpdatesTap({
   @required BuildContext context,
@@ -418,7 +418,7 @@ Future<void> _onPublishFlyerUpdatesTap({
 
 /// PRE-PUBLISH CHECKUPS
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
   @required BuildContext context,
@@ -501,7 +501,7 @@ Future<bool> _preFlyerUpdateCheck({
 
 /// PUBLISHING
 
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
   @required BuildContext context,
@@ -509,9 +509,9 @@ Future<void> _publishFlyerOps({
 }) async {
 
   unawaited(WaitDialog.showWaitDialog(
-        context: context,
-        loadingVerse: '##Uploading flyer',
-      ));
+    context: context,
+    loadingVerse: '##Uploading flyer',
+  ));
 
   final FlyerModel _flyerToPublish = await DraftFlyerModel.bakeDraftToUpload(
     draft: draft.value,
@@ -520,8 +520,8 @@ Future<void> _publishFlyerOps({
   );
 
   final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: false,
+    context: context,
+    listen: false,
   );
 
   await FlyerProtocols.composeFlyer(
@@ -533,7 +533,7 @@ Future<void> _publishFlyerOps({
   WaitDialog.closeWaitDialog(context);
 
 }
-// ----------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
   @required BuildContext context,
@@ -541,32 +541,32 @@ Future<void> _updateFlyerOps({
   @required FlyerModel oldFlyer,
 }) async {
 
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingVerse: '##Uploading flyer',
-    ));
+  unawaited(WaitDialog.showWaitDialog(
+    context: context,
+    loadingVerse: '##Uploading flyer',
+  ));
 
-    final FlyerModel _flyerToUpdate = await DraftFlyerModel.bakeDraftToUpload(
-      draft: draft.value,
-      toLDB: false,
-    );
+  final FlyerModel _flyerToUpdate = await DraftFlyerModel.bakeDraftToUpload(
+    draft: draft.value,
+    toLDB: false,
+  );
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
-        bzID: oldFlyer.bzID,
-    );
+  final BzModel _bzModel = await BzProtocols.fetchBz(
+    context: context,
+    bzID: oldFlyer.bzID,
+  );
 
-    await FlyerProtocols.renovateFlyer(
-      context: context,
-      newFlyer: _flyerToUpdate,
-      oldFlyer: oldFlyer,
-      bzModel: _bzModel,
-      sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
-      updateFlyerLocally: _bzModel.authors.length == 1,
-      resetActiveBz: _bzModel.authors.length == 1,
-    );
+  await FlyerProtocols.renovateFlyer(
+    context: context,
+    newFlyer: _flyerToUpdate,
+    oldFlyer: oldFlyer,
+    bzModel: _bzModel,
+    sendFlyerUpdateNoteToItsBz: _bzModel.authors.length > 1,
+    updateFlyerLocally: _bzModel.authors.length == 1,
+    resetActiveBz: _bzModel.authors.length == 1,
+  );
 
-    WaitDialog.closeWaitDialog(context);
+  WaitDialog.closeWaitDialog(context);
 
 
 }

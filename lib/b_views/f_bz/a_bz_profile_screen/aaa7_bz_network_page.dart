@@ -14,8 +14,8 @@ class BzNetworkPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     return FloatingCenteredList(
@@ -31,4 +31,5 @@ class BzNetworkPage extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

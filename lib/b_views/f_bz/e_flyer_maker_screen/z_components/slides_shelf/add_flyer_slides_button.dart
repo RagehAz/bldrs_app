@@ -21,10 +21,10 @@ class AddSlidesButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const double _flyerBoxWidth = ShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
-
+    // --------------------
     return Container(
       width: _flyerBoxWidth,
       height: ShelfSlide.shelfSlideZoneHeight(context),
@@ -91,8 +91,9 @@ class AddSlidesButton extends StatelessWidget {
         ],
       ),
     );
-
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
 
 class NewSlideImagePickerButton extends StatelessWidget {
@@ -142,13 +143,13 @@ class NewSlideImagePickerButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     const double _flyerBoxWidth = ShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
     const double _spacing = 10;
     const double _buttonWidth = _flyerBoxWidth - (_spacing * 3);
     final double _buttonHeight = (_flyerBoxHeight - (_spacing * 3)) * 0.5;
-
+    // --------------------
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -191,5 +192,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }
