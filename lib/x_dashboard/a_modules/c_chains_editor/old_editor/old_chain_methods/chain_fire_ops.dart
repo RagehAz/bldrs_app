@@ -9,15 +9,15 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/cupertino.dart';
 
 class ChainFireOpsOLD {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ChainFireOpsOLD();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> backupChainsOps(BuildContext context) async {
 
@@ -94,11 +94,11 @@ class ChainFireOpsOLD {
     }
 
   }
-// ------------------------------------------
+  // --------------------
 
   /// READ
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readKeywordsChain(BuildContext context) async {
 
@@ -112,7 +112,7 @@ class ChainFireOpsOLD {
 
     return _chain;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readSpecsChain(BuildContext context) async {
 
@@ -126,7 +126,7 @@ class ChainFireOpsOLD {
 
     return _chain;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> readKeywordsAndSpecsBackups(BuildContext context) async {
 
@@ -152,18 +152,18 @@ class ChainFireOpsOLD {
 
     return <Chain>[_keywordChain, _specsChain];
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> reloadKeywordsAndSpecsChains(BuildContext context) async {
     final Chain _keywordsChain = await readKeywordsChain(context);
     final Chain _specsChain = await readSpecsChain(context);
     return <Chain>[_keywordsChain, _specsChain];
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATES
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> addChainsToSpecsChainSons({
     @required BuildContext context,
@@ -199,7 +199,7 @@ class ChainFireOpsOLD {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> replaceSonChain({
     @required BuildContext context,
@@ -233,7 +233,7 @@ class ChainFireOpsOLD {
     );
 
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateKeywordsChain({
     @required BuildContext context,
@@ -248,7 +248,7 @@ class ChainFireOpsOLD {
     );
 
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateSpecsChain({
     @required BuildContext context,
@@ -263,10 +263,10 @@ class ChainFireOpsOLD {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// ------------------------------------------
+  // --------------------
 
 }

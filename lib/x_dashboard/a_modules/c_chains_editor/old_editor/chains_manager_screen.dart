@@ -27,11 +27,16 @@ class OLDChainsManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _OLDChainsManagerScreenState createState() => _OLDChainsManagerScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null); /// tamam disposed
+  final ValueNotifier<String> _searchValue = ValueNotifier(null); /// tamam disposed
+  final ValueNotifier<String> _selectedPath = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   List<Chain> _originalChains;
   ValueNotifier<List<Chain>> _chainsNotifier;
   // List<String> _allChainsPaths;
@@ -39,7 +44,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
   final PageController _pageController = PageController();
   TextEditingController _textController;
   TextEditingController _searchController;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -113,7 +118,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
     // ChainPathConverter.blogPaths(_allChainsPaths);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -127,11 +132,11 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
     _selectedPath.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onStripTap({
     /// => 'phid_a/phid_b/phid_c/'
     @required String path,
-}) async {
+  }) async {
 
     _selectedPath.value = path;
     _textController.text = ChainPathConverter.getLastPathNode(path);
@@ -143,11 +148,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false); /// tamam disposed
-  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null); /// tamam disposed
-  final ValueNotifier<String> _searchValue = ValueNotifier(null); /// tamam disposed
-// ------------------------------------------------
+  // --------------------
   Future<void> onSearch({
     @required String text,
     @required List<Chain> chains,
@@ -160,9 +161,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
       foundChains: _foundChains,
     );
   }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<String> _selectedPath = ValueNotifier(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -336,4 +335,5 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

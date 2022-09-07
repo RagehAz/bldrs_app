@@ -25,7 +25,6 @@ class CurrencyManagerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context) - 10;
-
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
 
@@ -87,25 +86,25 @@ class CurrencyManagerScreen extends StatelessWidget {
                         ),
 
                         if (_currency.countriesIDs.length > 1)
-                        SizedBox(
-                          width: 300,
-                          height: 60,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: _currency.countriesIDs.length,
-                              padding: Scale.superMargins(margins: 10),
-                              itemBuilder: (_, index){
+                          SizedBox(
+                            width: 300,
+                            height: 60,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: _currency.countriesIDs.length,
+                                padding: Scale.superMargins(margins: 10),
+                                itemBuilder: (_, index){
 
-                                final String _countryID = _currency.countriesIDs[index];
+                                  final String _countryID = _currency.countriesIDs[index];
 
-                                return FlagBox(
-                                  countryID: _countryID,
-                                );
+                                  return FlagBox(
+                                    countryID: _countryID,
+                                  );
 
-                              }
+                                }
+                            ),
                           ),
-                        ),
 
                       ],
 
@@ -119,5 +118,7 @@ class CurrencyManagerScreen extends StatelessWidget {
         ),
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

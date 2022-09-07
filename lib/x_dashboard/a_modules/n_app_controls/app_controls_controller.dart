@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_fire_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.dart';
 import 'package:flutter/material.dart';
-
+// -----------------------------------------------------------------------------
 Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
   @required BuildContext context,
   @required ValueNotifier<AppControlsModel> appControlsModel,
@@ -17,8 +17,8 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
   );
 
   await AppControlsFireOps.updateAppControls(
-      context: context,
-      newAppControlsModel: appControlsModel.value,
+    context: context,
+    newAppControlsModel: appControlsModel.value,
   );
 
   TopDialog.showUnawaitedTopDialog(
@@ -28,3 +28,4 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
   );
 
 }
+// -----------------------------------------------------------------------------

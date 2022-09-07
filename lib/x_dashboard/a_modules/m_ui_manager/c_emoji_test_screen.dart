@@ -85,12 +85,10 @@ class EmojiModel {
     @required this.code,
     @required this.emoji,
   });
-
   /// --------------------------------------------------------------------------
   final String name;
   final String code;
   final String emoji;
-
   /// --------------------------------------------------------------------------
   static List<EmojiModel> allEmojis() {
     return const <EmojiModel>[
@@ -7389,4 +7387,5 @@ class EmojiModel {
           emoji: Emojis.variationSelector16),
     ];
   }
+  /// --------------------------------------------------------------------------
 }

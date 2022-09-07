@@ -18,27 +18,27 @@ class PhraseEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<PhraseEditorScreen> createState() => _PhraseEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<List<Phrase>> _initialMixedPhrases = ValueNotifier(<Phrase>[]);
   final ValueNotifier<List<Phrase>> _tempMixedPhrases = ValueNotifier(<Phrase>[]);
   final ValueNotifier<List<Phrase>> _mixedSearchedPhrases = ValueNotifier(<Phrase>[]);
-// ----------------------------
+  // --------------------
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
   final TextEditingController _arabicController = TextEditingController();
   final TextEditingController _searchController = TextEditingController();
-// ----------------------------
+  // --------------------
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -50,13 +50,13 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -77,7 +77,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _initialMixedPhrases.dispose();
@@ -97,7 +97,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
 
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -114,9 +114,9 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       },
       loading: _loading,
       onBack: () => Dialogs.goBackDialog(
-          context: context,
-          goBackOnConfirm: true,
-        ),
+        context: context,
+        goBackOnConfirm: true,
+      ),
       onSearchChanged: (String text) => onPhrasesSearchChanged(
         isSearching: _isSearching,
         allMixedPhrases: _tempMixedPhrases.value,
@@ -143,8 +143,8 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                 builder: (_, List<Phrase> _temp, Widget child){
 
                   final bool _areIdentical = Phrase.checkPhrasesListsAreIdentical(
-                      phrases1: _initial,
-                      phrases2: _temp,
+                    phrases1: _initial,
+                    phrases2: _temp,
                   );
 
                   return AppBarButton(
@@ -216,4 +216,5 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

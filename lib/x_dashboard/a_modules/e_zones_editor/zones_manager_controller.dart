@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 /// NAVIGATION
 
-// --------------------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> goToCountrySelectionScreen({
   @required BuildContext context,
@@ -16,23 +16,23 @@ Future<void> goToCountrySelectionScreen({
 }) async {
 
   final ZoneModel _zone = await Nav.goToNewScreen(
-      context: context,
-      screen: const CountriesScreen(
-        selectCountryIDOnly: true,
-      ),
+    context: context,
+    screen: const CountriesScreen(
+      selectCountryIDOnly: true,
+    ),
   );
 
   if (_zone != null){
 
     zone.value = await ZoneProtocols.completeZoneModel(
-        context: context,
-        incompleteZoneModel: _zone,
+      context: context,
+      incompleteZoneModel: _zone,
     );
 
   }
 
 }
-// --------------------------------------------
+// --------------------
 Future<void> goToCitySelectionScreen({
   @required BuildContext context,
   @required ValueNotifier<ZoneModel> zone,
@@ -55,8 +55,8 @@ Future<void> goToCitySelectionScreen({
     );
 
     await pageController.animateToPage(1,
-        duration: const Duration(milliseconds: 750),
-        curve: Curves.easeInOutQuart,
+      duration: const Duration(milliseconds: 750),
+      curve: Curves.easeInOutQuart,
     );
 
   }

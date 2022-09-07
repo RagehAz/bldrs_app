@@ -250,7 +250,7 @@ class SpecializedLabs extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           itemBuilder: (BuildContext context, int index){
 
-          final DashButtonModel _buttonModel = _buttons[index];
+            final DashButtonModel _buttonModel = _buttons[index];
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),

@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 
 /// SEARCH
 
-// -----------------------------
+// --------------------
 ///  TESTED : WORKS PERFECT
 void onPhrasesSearchChanged({
   @required ValueNotifier<bool> isSearching,
@@ -41,7 +41,7 @@ void onPhrasesSearchChanged({
   }
 
 }
-// -----------------------------
+// --------------------
 ///  TESTED : WORKS PERFECT
 void onPhrasesSearchSubmit({
   @required ValueNotifier<bool> isSearching,
@@ -60,7 +60,7 @@ void onPhrasesSearchSubmit({
   );
 
 }
-// -----------------------------
+// --------------------
 ///  TESTED : WORKS PERFECT
 List<Phrase> onSearchPhrases({
   @required ValueNotifier<bool> isSearching,
@@ -136,9 +136,9 @@ List<Phrase> onSearchPhrases({
 
 /// MODIFIERS
 
-// -----------------------------
+// --------------------
 /// EDIT - ADD
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<void> onTapEditPhrase({
   @required BuildContext context,
@@ -181,7 +181,7 @@ Future<void> onTapEditPhrase({
   );
 
 }
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmEditPhrase({
   @required BuildContext context,
@@ -215,14 +215,14 @@ Future<void> onConfirmEditPhrase({
 
     /// REMOVE OLD PHRASES IF EXISTED
     final bool _idExists = Phrase.checkPhrasesIncludeThisID(
-        phrases: tempMixedPhrases.value,
-        id: idTextController.text,
+      phrases: tempMixedPhrases.value,
+      id: idTextController.text,
     );
     // blog('_idExists : $_idExists');
     if (_idExists == true){
       _output = Phrase.deletePhidFromPhrases(
-          phrases: _output,
-          phid: idTextController.text,
+        phrases: _output,
+        phid: idTextController.text,
       );
     }
 
@@ -260,7 +260,7 @@ Future<void> onConfirmEditPhrase({
   }
 
 }
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<bool> _preEditCheck({
   @required List<Phrase> arOldPhrases,
@@ -275,10 +275,10 @@ Future<bool> _preEditCheck({
 
   /// INPUTS ARE INVALID
   if (
-      TextCheck.isEmpty(phid) == true
-          ||
+  TextCheck.isEmpty(phid) == true
+      ||
       TextCheck.isEmpty(enValue) == true
-          ||
+      ||
       TextCheck.isEmpty(arValue) == true
   ){
     await CenterDialog.showCenterDialog(
@@ -308,9 +308,9 @@ Future<bool> _preEditCheck({
     );
     if (_idIsTakenEn == true){
       _phrase = Phrase.searchPhraseByIDAndLangCode(
-        phrases: enOldPhrases,
-        phid: phid,
-        langCode: 'en'
+          phrases: enOldPhrases,
+          phid: phid,
+          langCode: 'en'
       );
       _alertMessage = 'ID is Taken : ${_phrase.id}\n: value : ${_phrase.value} : langCode : ${_phrase.langCode}';
     }
@@ -385,7 +385,7 @@ Future<bool> _preEditCheck({
 
   return _continueOps;
 }
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<void> _goBackToPhrasesPageAndResetControllers({
   @required PageController pageController,
@@ -404,9 +404,9 @@ Future<void> _goBackToPhrasesPageAndResetControllers({
   );
 
 }
-// -----------------------------
+// --------------------
 /// DELETE
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<void> onDeletePhrase({
   @required BuildContext context,
@@ -431,8 +431,8 @@ Future<void> onDeletePhrase({
     );
 
     final List<Phrase> _result = Phrase.deletePhidFromPhrases(
-        phrases: tempMixedPhrases.value,
-        phid: phid,
+      phrases: tempMixedPhrases.value,
+      phid: phid,
     );
 
     // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH : BUT  ${_result.length} phrases in output');
@@ -453,9 +453,9 @@ Future<void> onDeletePhrase({
   }
 
 }
-// -----------------------------
+// --------------------
 /// SELECTION
-// --------------
+// ------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectPhrase({
   @required BuildContext context,
@@ -491,7 +491,7 @@ Future<void> onSelectPhrase({
 
 /// SYNC
 
-// -----------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSyncPhrases({
   @required BuildContext context,
@@ -535,7 +535,7 @@ Future<void> onSyncPhrases({
 
 /// OLD FIRE READ OPS
 
-// -----------------------------
+// --------------------
 /// TASK : DELETE AFTER DELETING PHRASES FIRE COLL FROM FIREBASE
 Future<List<Phrase>> readMainPhrasesFromFire({
   @required BuildContext context,
@@ -543,9 +543,9 @@ Future<List<Phrase>> readMainPhrasesFromFire({
 }) async {
 
   final Map<String, dynamic> _phrasesMap = await Fire.readDoc(
-      context: context,
-      collName: FireColl.phrases,
-      docName: langCode,
+    context: context,
+    collName: FireColl.phrases,
+    docName: langCode,
   );
 
   if (_phrasesMap != null){

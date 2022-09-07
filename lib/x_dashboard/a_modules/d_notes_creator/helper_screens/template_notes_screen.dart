@@ -19,16 +19,16 @@ class TemplateNotesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _TemplateNotesScreenState createState() => _TemplateNotesScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final List<NoteModel> _notes = noteTemplates;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -40,20 +40,13 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       blogLoading(loading: _loading.value, callerName: 'TemplateNotesScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     // _notifications.addAll(BldrsNotiModelz.allNotifications());
   }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _loading.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -69,7 +62,14 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -104,8 +104,8 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
         controller: ScrollController(),
         itemCount: _notes.length,
         padding: const EdgeInsets.only(
-            top: Ratioz.stratosphere,
-            bottom: Ratioz.horizon,
+          top: Ratioz.stratosphere,
+          bottom: Ratioz.horizon,
         ),
         itemBuilder: (BuildContext ctx, int index) {
 
@@ -138,9 +138,10 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
             ],
           );
 
-          },
+        },
       ),
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }

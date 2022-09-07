@@ -64,8 +64,8 @@ Future<void> readMoreUsers({
   else {
 
     await TopDialog.showTopDialog(
-        context: context,
-        firstLine: 'No More Users Found',
+      context: context,
+      firstLine: 'No More Users Found',
     );
 
   }
@@ -96,9 +96,9 @@ Future<void> onSelectUser({
 }
 // -----------------------------------------------------------------------------
 
-  /// USER OPTIONS
+/// USER OPTIONS
 
-// ------------------------------------
+// --------------------
 Future<void> onSelectedUserOptions({
   @required BuildContext context,
   @required UserModel userModel,
@@ -141,7 +141,7 @@ Future<void> onSelectedUserOptions({
   );
 
 }
-// ------------------------------------
+// --------------------
 Future<void> onDeleteUser({
   @required BuildContext context,
   @required ValueNotifier<List<UserModel>> usersModels,
@@ -261,7 +261,7 @@ Future<void> onDeleteUser({
   }
 
 }
-// ------------------------------------
+// --------------------
 /*
 Future<bool> _doYouKnowThePassword({
   @required BuildContext context,
@@ -305,7 +305,7 @@ Future<bool> _doYouKnowThePassword({
   return _passwordIsGood;
 }
  */
-// ------------------------------------
+// --------------------
 /*
 Future<bool> _couldGetCredentials({
   @required BuildContext context,

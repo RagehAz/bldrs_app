@@ -21,18 +21,18 @@ class ZonesEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ZonesEditorScreenState createState() => _ZonesEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ScrollController _scrollController;
   PageController _pageController;
   ValueNotifier<ZoneModel> _zone;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -44,7 +44,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'ZonesEditorScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -54,7 +54,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
     _scrollController = ScrollController();
     _pageController = PageController();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -72,7 +72,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -82,122 +82,124 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-        pyramidsAreOn: true,
-        sectionButtonIsOn: false,
-        appBarType: AppBarType.basic,
-        pageTitleVerse:  'Zones Manager',
-        skyType: SkyType.black,
-        appBarRowWidgets: <Widget>[
+      pyramidsAreOn: true,
+      sectionButtonIsOn: false,
+      appBarType: AppBarType.basic,
+      pageTitleVerse:  'Zones Manager',
+      skyType: SkyType.black,
+      appBarRowWidgets: <Widget>[
 
-          const Expander(),
+        const Expander(),
 
-          /// SYNCING
-          ValueListenableBuilder(
-            valueListenable: _zone,
-            builder: (_, ZoneModel zone, Widget child){
+        /// SYNCING
+        ValueListenableBuilder(
+          valueListenable: _zone,
+          builder: (_, ZoneModel zone, Widget child){
 
-              final bool _areIdentical = ZoneModel.checkZonesIDsAreIdentical(
-                  zone1: zone,
-                  zone2: zone,
-              );
+            final bool _areIdentical = ZoneModel.checkZonesIDsAreIdentical(
+              zone1: zone,
+              zone2: zone,
+            );
 
-              return AppBarButton(
-                verse:  'Synced',
-                buttonColor: _areIdentical == true ? Colorz.nothing : Colorz.yellow255,
-                bubble: !_areIdentical,
-                isDeactivated: _areIdentical,
-                onTap: (){},
-              );
+            return AppBarButton(
+              verse:  'Synced',
+              buttonColor: _areIdentical == true ? Colorz.nothing : Colorz.yellow255,
+              bubble: !_areIdentical,
+              isDeactivated: _areIdentical,
+              onTap: (){},
+            );
 
-            },
-          ),
+          },
+        ),
 
-          /// ZONE BUTTON
-          ValueListenableBuilder(
-            valueListenable: _zone,
-            builder: (_, ZoneModel zone, Widget child){
+        /// ZONE BUTTON
+        ValueListenableBuilder(
+          valueListenable: _zone,
+          builder: (_, ZoneModel zone, Widget child){
 
-              return ZoneButton(
-                zoneOverride: zone,
+            return ZoneButton(
+              zoneOverride: zone,
+              onTap: () => goToCountrySelectionScreen(
+                context: context,
+                zone: _zone,
+              ),
+            );
+
+          },
+        ),
+
+      ],
+      layoutWidget: ValueListenableBuilder(
+        valueListenable: _zone,
+        builder: (_, ZoneModel zone, Widget child){
+
+          if (zone == null){
+            return Center(
+              child: DreamBox(
+                verse:  'Select Zone',
+                height: 100,
+                verseMaxLines: 2,
                 onTap: () => goToCountrySelectionScreen(
                   context: context,
                   zone: _zone,
                 ),
-              );
+              ),
+            );
+          }
 
-            },
-          ),
+          else {
 
-        ],
-        layoutWidget: ValueListenableBuilder(
-          valueListenable: _zone,
-          builder: (_, ZoneModel zone, Widget child){
+            // final String _countryName = CountryModel.getTranslatedCountryName(
+            //   context: context,
+            //   countryID: zone.countryID,
+            // );
+            // final String _countryFlag = Flag.getFlagIconByCountryID(zone.countryID);
+            //
+            // final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+            //   currencies: ZoneProvider.proGetAllCurrencies(context),
+            //   countryID: zone.countryID,
+            // );
 
-            if (zone == null){
-              return Center(
-                child: DreamBox(
-                  verse:  'Select Zone',
-                  height: 100,
-                  verseMaxLines: 2,
-                  onTap: () => goToCountrySelectionScreen(
+            return PageView(
+              physics: const BouncingScrollPhysics(),
+              controller: _pageController,
+              children: <Widget>[
+
+                /// COUNTRY PAGE
+                CountryEditorPage(
+                  appBarType: AppBarType.basic,
+                  country: zone.countryModel,
+                  screenHeight: _screenHeight,
+                  onCityTap: () => goToCitySelectionScreen(
                     context: context,
                     zone: _zone,
+                    pageController: _pageController,
                   ),
                 ),
-              );
-            }
 
-            else {
+                /// CITY PAGE
+                EditCityPage(
+                  screenHeight: _screenHeight,
+                  zoneModel: zone,
+                ),
 
-              // final String _countryName = CountryModel.getTranslatedCountryName(
-              //   context: context,
-              //   countryID: zone.countryID,
-              // );
-              // final String _countryFlag = Flag.getFlagIconByCountryID(zone.countryID);
-              //
-              // final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-              //   currencies: ZoneProvider.proGetAllCurrencies(context),
-              //   countryID: zone.countryID,
-              // );
+              ],
+            );
 
-              return PageView(
-                physics: const BouncingScrollPhysics(),
-                controller: _pageController,
-                children: <Widget>[
-
-                  /// COUNTRY PAGE
-                  CountryEditorPage(
-                    appBarType: AppBarType.basic,
-                    country: zone.countryModel,
-                    screenHeight: _screenHeight,
-                    onCityTap: () => goToCitySelectionScreen(
-                      context: context,
-                      zone: _zone,
-                      pageController: _pageController,
-                    ),
-                  ),
-
-                  /// CITY PAGE
-                  EditCityPage(
-                    screenHeight: _screenHeight,
-                    zoneModel: zone,
-                  ),
-
-                ],
-              );
-
-            }
+          }
 
 
-          },
-        ),
+        },
+      ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

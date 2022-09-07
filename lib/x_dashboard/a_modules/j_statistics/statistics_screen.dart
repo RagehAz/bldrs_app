@@ -26,6 +26,7 @@ class GeneralStatistics extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final double _screenWidth = MediaQuery.of(context).size.width;
 
     return MainLayout(
@@ -49,7 +50,7 @@ class GeneralStatistics extends StatelessWidget {
       ],
       layoutWidget:
 
-          /// STREAM : DB / admin / statistics
+      /// STREAM : DB / admin / statistics
       StreamBuilder(
         stream: Fire.streamDoc(
           collName: FireColl.admin,
@@ -353,5 +354,7 @@ class GeneralStatistics extends StatelessWidget {
         },
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

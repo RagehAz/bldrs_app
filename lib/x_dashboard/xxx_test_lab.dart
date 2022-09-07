@@ -39,15 +39,15 @@ class TestLab extends StatefulWidget {
   _TestLabState createState() => _TestLabState();
   /// --------------------------------------------------------------------------
 }
-/// --------------------------------------------------------------------------
+
 class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FAST TEST
 
-// -------------------------
+  // --------------------
 
   ///
 
@@ -70,12 +70,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     // // //
     // _bz.value = _newBz;
     // _bz.value.zone.blogZone(methodName: '_bz.value');
-///
+    ///
     // final ValueNotifier<String> _thing = ValueNotifier('aho');
     // blog('thing is : ${_thing.value}');
     // _thing.value = 'became fuck';
     // blog('thing is : ${_thing.value}');
-///
+    ///
 
 
     // if (_bzoo == _newBz){
@@ -93,7 +93,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   ///
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ZoneProvider _zoneProvider;
   PhraseProvider _phraseProvider;
   ScrollController _scrollController;
@@ -141,7 +141,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _hashVerse = ValueNotifier(_original);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
 
@@ -156,7 +156,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -171,7 +171,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
   /// DIALOG THAT LISTENS TO PROVIDER CHANGES
   Future<void> _showDialog(Function onTap) async {
@@ -259,10 +259,10 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     );
 
   }*/
-// -----------------------------------------------------------------------------
+  // --------------------
   final TextEditingController _textController = TextEditingController(); /// tamam disposed
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-// -----------------------------------------------------------------------------
+  // --------------------
   final ValueNotifier<String> _highlightedText = ValueNotifier<String>(null); /// tamam disposed
   void _onTextFieldChanged(String text){
     blog('received text : $text');
@@ -275,9 +275,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     _highlightedText.value = _phone;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   final ValueNotifier<dynamic> _thePic = ValueNotifier(null);
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   Future<void> _scrollOnKeyboard() async {
 
@@ -298,7 +298,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   }
 */
-// -----------------------------------------------------------------------------
+  // --------------------
   void blogEverything(){
     final ZoneModel _currentZone = _zoneProvider.currentZone;
     _currentZone.blogZone();
@@ -311,11 +311,11 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     final String _wallPhid = _chainsProvider.wallPhid;
     blog('wall phid : $_wallPhid');
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   final String _original = 'Fuck you ${TextMod.userNameVarTag1} you fuck '
       'ya ${TextMod.userNameVarTag1}, ya bitch fuck you company ${TextMod.bzNameVarTag1} and your co founder ${TextMod.authorNameVarTag1} '
       'after that, lets have a beer at ${TextMod.bzNameVarTag2} at night because i need to eat two chickens';
-// -----------------------------------------------------------------------------
+  // --------------------
   ValueNotifier<String> _hashVerse;
   final ValueNotifier<bool> _showHash = ValueNotifier(false);
   void replaceHash(){
@@ -332,8 +332,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     _showHash.value = !_showHash.value;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<List<File>> _theFiles = ValueNotifier(<File>[]);
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -349,12 +350,12 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     const int _textSize = 2;
     const double _sizeFactor = 1; // 1.5429 max factor before box starts expanding
     final double _concludedHeight = SuperTextField.getFieldHeight(
-        context: context,
-        minLines: numberOfLines,
-        textSize: _textSize,
-        scaleFactor: _sizeFactor,
-        withBottomMargin: true,
-        withCounter: true,
+      context: context,
+      minLines: numberOfLines,
+      textSize: _textSize,
+      scaleFactor: _sizeFactor,
+      withBottomMargin: true,
+      withCounter: true,
     );
     final double _fieldWidth = BldrsAppBar.width(context) - 50;
 
@@ -406,8 +407,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
         /// FAST TEST
         AppBarButton(
-            verse:  'fastTest',
-            onTap: () async {await _fastTest(context);},
+          verse:  'fastTest',
+          onTap: () async {await _fastTest(context);},
         ),
 
       ],
@@ -483,8 +484,8 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               validator: (){
 
                                 final bool _containsSubString = TextCheck.stringContainsSubString(
-                                    string: _textController.text,
-                                    subString: 'a77a ',
+                                  string: _textController.text,
+                                  subString: 'a77a ',
                                 );
 
                                 if (_containsSubString == true){
@@ -672,4 +673,5 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
       ),
     );
   }
+  // -----------------------------------------------------------------------------
 }

@@ -33,12 +33,11 @@ class CountryEditorPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _CountryEditorPageState createState() => _CountryEditorPageState();
-
   /// --------------------------------------------------------------------------
 }
 
 class _CountryEditorPageState extends State<CountryEditorPage> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
@@ -55,27 +54,13 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     }
   }
    */
-// -----------------------------------------------------------------------------
-  @override
-  void initState() {
-    super.initState();
-    _initialize();
-  }
-// -----------------------------------------------------------------------------
-  /// TAMAM
-  @override
-  void dispose() {
-    _enNameController.dispose();
-    _arNameController.dispose();
-    _countryModel.dispose();
-    super.dispose();
-  }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   TextEditingController _enNameController;
   TextEditingController _arNameController;
   ValueNotifier<CountryModel> _countryModel;
   Phrase _oldEnPhrase;
   Phrase _oldArPhrase;
+  // --------------------
   void _initialize(){
 
     _oldEnPhrase = Phrase.searchFirstPhraseByLang(
@@ -92,7 +77,22 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
     _countryModel = ValueNotifier(widget.country);
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+    _initialize();
+  }
+  // --------------------
+  /// TAMAM
+  @override
+  void dispose() {
+    _enNameController.dispose();
+    _arNameController.dispose();
+    _countryModel.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   /*
   Future<void> _updateCountryFieldOnFirestore(
       String _field, dynamic _input) async {
@@ -112,7 +112,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
     unawaited(_triggerLoading());
   }
 */
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<Phrase> updatePhrases({
     @required String langCode,
     @required String text,
@@ -133,7 +133,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
 
     return _phrases;
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -224,7 +224,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                     ),
                   );
 
-                  },
+                },
               ),
 
               /// ARABIC NAME
@@ -242,7 +242,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                     ),
                   );
 
-                  },
+                },
               ),
 
               const DotSeparator(),
@@ -310,10 +310,10 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
             ],
           );
 
-          },
+        },
       ),
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }

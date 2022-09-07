@@ -7,11 +7,11 @@ class AppControlsModel {
   });
   /// --------------------------------------------------------------------------
   final bool showOnlyVerifiedFlyersInHomeWall;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   AppControlsModel copyWith({
     bool showOnlyVerifiedFlyersInHomeWall,
   }){
@@ -21,28 +21,28 @@ class AppControlsModel {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CYPHER
+  /// CYPHER
 
-// -------------------------------------
+  // --------------------
   Map<String, dynamic> toMap(){
     return {
       'showOnlyVerifiedFlyersInHomeWall' : showOnlyVerifiedFlyersInHomeWall,
     };
   }
-// -------------------------------------
+  // --------------------
   static AppControlsModel decipherAppControlsModel(Map<String, dynamic> map){
 
     AppControlsModel _model;
 
     if (map != null){
       _model = AppControlsModel(
-          showOnlyVerifiedFlyersInHomeWall: map['showOnlyVerifiedFlyersInHomeWall'],
+        showOnlyVerifiedFlyersInHomeWall: map['showOnlyVerifiedFlyersInHomeWall'],
       );
     }
 
     return _model;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

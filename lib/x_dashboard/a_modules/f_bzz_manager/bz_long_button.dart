@@ -30,7 +30,7 @@ class BzLongButton extends StatelessWidget {
   static const double height = 60;
   static const double bzButtonMargin = Ratioz.appBarPadding;
   static const double extent = BzLongButton.height + bzButtonMargin;
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onTap({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -43,16 +43,16 @@ class BzLongButton extends StatelessWidget {
     else {
 
       await Nav.goToNewScreen(
-          context: context,
-          screen: BzPreviewScreen(
-              bzModel: bzModel,
-          ),
+        context: context,
+        screen: BzPreviewScreen(
+          bzModel: bzModel,
+        ),
       );
 
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -128,4 +128,5 @@ class BzLongButton extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

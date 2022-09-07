@@ -79,7 +79,7 @@ class SearchBzzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SearchBzzScreenState createState() => _SearchBzzScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _SearchBzzScreenState extends State<SearchBzzScreen> {
@@ -88,10 +88,10 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   final ValueNotifier<List<BzModel>> _historyBzz = ValueNotifier(<BzModel>[]);
   ValueNotifier<List<BzModel>> _selectedBzz;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -103,13 +103,13 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       blogLoading(loading: _loading.value, callerName: 'SearchBzzScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _selectedBzz = ValueNotifier<List<BzModel>>(widget.selectedBzz);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -127,7 +127,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _historyBzz.dispose();
@@ -137,7 +137,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     _selectedBzz.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
     await onSearchBzz(
@@ -150,7 +150,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> onBzTap(BzModel bzModel) async {
 
     /// WHEN SELECTION FUNCTION IS HANDLED INTERNALLY
@@ -169,8 +169,8 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       else {
 
         final bool _isSelected = BzModel.checkBzzContainThisBz(
-            bzz: _selectedBzz.value,
-            bzModel: bzModel,
+          bzz: _selectedBzz.value,
+          bzModel: bzModel,
         );
 
         if (_isSelected == true){
@@ -189,7 +189,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onBack(){
 
     Nav.goBack(
@@ -199,7 +199,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -270,5 +270,5 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }

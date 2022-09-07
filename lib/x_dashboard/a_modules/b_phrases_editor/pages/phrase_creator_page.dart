@@ -35,12 +35,11 @@ class PhraseCreatorPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-
     blog('dd');
-
+    // --------------------
     return SizedBox(
       key: const ValueKey<String>('PhraseCreatorPage'),
       width: _screenWidth,
@@ -144,5 +143,7 @@ class PhraseCreatorPage extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

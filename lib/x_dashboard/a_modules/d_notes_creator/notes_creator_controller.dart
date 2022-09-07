@@ -35,7 +35,7 @@ import 'package:page_transition/page_transition.dart';
 
 /// INITIALIZATION
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void initializeVariables({
   @required BuildContext context,
@@ -44,7 +44,7 @@ void initializeVariables({
   final NoteModel _initialNote = createInitialNote(context);
   note.value = _initialNote;
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 NoteModel createInitialNote(BuildContext context) {
 
@@ -77,7 +77,7 @@ NoteModel createInitialNote(BuildContext context) {
 
 /// NOTE TYPE
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeNoteType({
   @required BuildContext context,
@@ -89,8 +89,8 @@ Future<void> onChangeNoteType({
 
   if (
   noteType == NoteType.authorship
-  &&
-  noteSenderType.value != NoteSenderType.bz
+      &&
+      noteSenderType.value != NoteSenderType.bz
   ){
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -151,7 +151,7 @@ Future<void> onChangeNoteType({
 
 /// NOTE RECEIVER
 
-// -------------------------------
+// --------------------
 
 // /// TESTED : WORKS PERFECT
 // Future<void> onSelectNoteReceiverTap({
@@ -179,7 +179,7 @@ Future<void> onChangeNoteType({
 //     }
 //
 // }
-// -------------------------------
+// --------------------
 
 Future<void> onSelectReceiverType({
   @required BuildContext context,
@@ -205,13 +205,13 @@ Future<void> onSelectReceiverType({
 
   if (_receiverID != null){
     note.value = note.value.copyWith(
-        receiverType: receiverType,
-        receiverID: _receiverID,
+      receiverType: receiverType,
+      receiverID: _receiverID,
     );
   }
 
 }
-// -------------------------------
+// --------------------
 
 Future<String> _onSelectUserAsNoteReceiver({
   @required BuildContext context,
@@ -239,11 +239,11 @@ Future<String> _onSelectUserAsNoteReceiver({
 
   return _userID;
 }
-// -------------------------------
+// --------------------
 
-  Future<String> _onSelectBzAsNoteReceiver({
-    @required BuildContext context,
-  }) async {
+Future<String> _onSelectBzAsNoteReceiver({
+  @required BuildContext context,
+}) async {
   String _bzID;
 
   final List<BzModel> _bzModels = await Nav.goToNewScreen(
@@ -266,7 +266,7 @@ Future<String> _onSelectUserAsNoteReceiver({
 
   return _bzID;
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void deleteSelectedReciever({
   @required ValueNotifier<UserModel> selectedUser,
@@ -279,7 +279,7 @@ void deleteSelectedReciever({
 
 /// BODY AND TITLE
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onTitleChanged({
   @required String text,
@@ -292,7 +292,7 @@ void onTitleChanged({
 
   note.value = _updated;
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onBodyChanged({
   @required String text,
@@ -309,7 +309,7 @@ void onBodyChanged({
 
 /// SENDER
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectNoteSender({
   @required BuildContext context,
@@ -374,7 +374,7 @@ Future<void> onSelectNoteSender({
 
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _showEthicalConfirmationDialog({
   @required BuildContext context,
@@ -385,8 +385,8 @@ Future<bool> _showEthicalConfirmationDialog({
 
   if (
   senderType == NoteSenderType.bz
-  ||
-  senderType == NoteSenderType.user
+      ||
+      senderType == NoteSenderType.user
   ){
 
     final String _senderTypeString = NoteModel.cipherNoteSenderType(senderType);
@@ -405,7 +405,7 @@ Future<bool> _showEthicalConfirmationDialog({
 
   return _canContinue;
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectUserAsNoteSender({
   @required BuildContext context,
@@ -441,7 +441,7 @@ Future<void> _onSelectUserAsNoteSender({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsNoteSender({
   @required BuildContext context,
@@ -475,7 +475,7 @@ Future<void> _onSelectBzAsNoteSender({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectCountryAsNoteSender({
   @required BuildContext context,
@@ -507,7 +507,7 @@ Future<void> _onSelectCountryAsNoteSender({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectBldrsAsNoteSender({
   @required BuildContext context,
@@ -531,7 +531,7 @@ Future<void> _onSelectBldrsAsNoteSender({
 
 /// SEND FCM SWITCH
 
-// -------------------------------
+// --------------------
 void onSwitchSendFCM({
   @required ValueNotifier<NoteModel> note,
   @required bool value,
@@ -546,7 +546,7 @@ void onSwitchSendFCM({
 
 /// BUTTONS
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void onAddNoteButton({
   @required ValueNotifier<NoteModel> note,
@@ -554,8 +554,8 @@ void onAddNoteButton({
 }){
 
   final List<String> _updatedButtons = Stringer.addOrRemoveStringToStrings(
-      strings: note.value?.buttons,
-      string: button,
+    strings: note.value?.buttons,
+    string: button,
   );
 
   note.value = note.value.copyWith(
@@ -567,7 +567,7 @@ void onAddNoteButton({
 
 /// ATTACHMENTS
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectAttachmentType({
   @required BuildContext context,
@@ -610,7 +610,7 @@ Future<void> onSelectAttachmentType({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectBzAsAttachment({
   @required BuildContext context,
@@ -639,7 +639,7 @@ Future<void> _onSelectBzAsAttachment({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED :
 Future<void> _onSelectFlyersIDsAsAttachment({
   @required BuildContext context,
@@ -669,7 +669,7 @@ Future<void> _onSelectFlyersIDsAsAttachment({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onSelectImageURLAsAttachment({
   @required BuildContext context,
@@ -697,7 +697,7 @@ Future<void> _onSelectImageURLAsAttachment({
   );
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void _onClearAttachments({
   @required ValueNotifier<NoteModel> note,
@@ -734,7 +734,7 @@ void _onClearAttachments({
 
 /// SEND
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSendNote({
   @required BuildContext context,
@@ -791,7 +791,7 @@ Future<void> onSendNote({
       );
 
       await Scrollers.scrollToTop(
-          controller: scrollController,
+        controller: scrollController,
       );
 
       unawaited(TopDialog.showTopDialog(
@@ -817,7 +817,7 @@ Future<void> onSendNote({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _modifyAttachmentIfFile({
   @required BuildContext context,
@@ -826,7 +826,7 @@ Future<void> _modifyAttachmentIfFile({
 
   if (note != null && ObjectCheck.objectIsFile(note.value.attachment) == true){
 
-      final String _id = '${Numeric.createUniqueID()}';
+    final String _id = '${Numeric.createUniqueID()}';
 
     final String _url = await Storage.createStoragePicAndGetURL(
       context: context,
@@ -845,7 +845,7 @@ Future<void> _modifyAttachmentIfFile({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 List<String> _concludeImageOwnersIDs(NoteModel noteModel){
 
@@ -861,12 +861,12 @@ List<String> _concludeImageOwnersIDs(NoteModel noteModel){
     _ownerID = noteModel.senderID;
   }
   else if (noteModel.noteSenderType == NoteSenderType.bldrs){
-  _ownerID = noteModel.senderID;
+    _ownerID = noteModel.senderID;
   }
 
   return <String>[_ownerID];
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 void _clearNote({
   @required BuildContext context,
@@ -887,7 +887,7 @@ void _clearNote({
 
 /// DELETE NOTE (ALL NOTES PAGINATOR SCREEN)
 
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteNote({
   @required BuildContext context,
@@ -920,9 +920,9 @@ Future<void> onDeleteNote({
       );
 
       await Storage.deleteStoragePic(
-          context: context,
-          storageDocName: StorageDoc.notesBanners,
-          fileName: _picName,
+        context: context,
+        storageDocName: StorageDoc.notesBanners,
+        fileName: _picName,
       );
 
     }
@@ -958,7 +958,7 @@ Future<void> onDeleteNote({
 
 /// TEMPLATE NOTES
 
-// -------------------------------
+// --------------------
 Future<void> onGoToNoteTemplatesScreen({
   @required BuildContext context,
   @required ValueNotifier<NoteModel> note,
@@ -990,7 +990,7 @@ Future<void> onGoToNoteTemplatesScreen({
   }
 
 }
-// -------------------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectNoteTemplateTap({
   @required BuildContext context,
@@ -998,10 +998,10 @@ Future<void> onSelectNoteTemplateTap({
 }) async {
 
   Nav.goBack(
-      context: context,
-      invoker: 'onSelectNoteTemplateTap',
-      passedData: noteModel,
+    context: context,
+    invoker: 'onSelectNoteTemplateTap',
+    passedData: noteModel,
   );
 
 }
-// -------------------------------
+// --------------------
