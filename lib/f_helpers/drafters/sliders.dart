@@ -2,7 +2,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
 enum SwipeDirection {
   next,
   back,
@@ -10,11 +9,11 @@ enum SwipeDirection {
 }
 
 class Sliders {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Sliders();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<int> slideToNextAndGetNewIndex({
     @required PageController slidingController,
     @required int numberOfSlides,
@@ -35,7 +34,7 @@ class Sliders {
       return currentSlide + 1;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<int> slideToBackAndGetNewIndex({
     @required PageController pageController,
     @required int currentSlide
@@ -57,7 +56,7 @@ class Sliders {
       return currentSlide - 1;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> slideToNext({
     @required PageController pageController,
     @required int numberOfSlides,
@@ -70,7 +69,7 @@ class Sliders {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> slideToBackFrom({
     @required PageController pageController,
     @required int currentSlide,
@@ -90,19 +89,21 @@ class Sliders {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// never used
-//   Future<void> snapToBack(PageController slidingController, int currentSlide) async {
-//
-//   if (currentSlide == 0){
-//     blog('can not slide back');
-//   }
-//
-//   else {
-//     await slidingController.jumpToPage(currentSlide - 1);
-//   }
-// }
-// -----------------------------------------------------------------------------
+  /*
+  //   Future<void> snapToBack(PageController slidingController, int currentSlide) async {
+  //
+  //   if (currentSlide == 0){
+  //     blog('can not slide back');
+  //   }
+  //
+  //   else {
+  //     await slidingController.jumpToPage(currentSlide - 1);
+  //   }
+  // }
+  */
+  // -----------------------------------------------------------------------------
   static Future<void> slideTo({
     @required PageController controller,
     @required int toIndex,
@@ -114,7 +115,7 @@ class Sliders {
     // }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static void snapTo({
     @required PageController pageController,
     @required int currentSlide
@@ -125,7 +126,7 @@ class Sliders {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static SwipeDirection slidingDecision(int numberOfSlides, int currentSlide) {
 
     final SwipeDirection _decision =
@@ -141,7 +142,7 @@ class Sliders {
     return _decision;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> slidingAction({
     @required PageController slidingController,
     @required int numberOfSlides,
@@ -174,10 +175,9 @@ class Sliders {
     // blog('=======================================|| i: $currentSlide || #: $numberOfSlides || --> after slidingAction');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static void zombie(int slideIndex) {
     blog('i wont slide');
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }

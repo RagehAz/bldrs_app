@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Iconizer {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Iconizer();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ARROW
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String superArrowENRight(BuildContext context) {
 
@@ -30,7 +30,7 @@ class Iconizer {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String superArrowENLeft(BuildContext context) {
 
@@ -43,11 +43,11 @@ class Iconizer {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BACK ICON
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String superBackIcon(BuildContext context) {
     return TextDir.appIsLeftToRight(context) ?
@@ -55,7 +55,7 @@ class Iconizer {
         :
     Iconz.backArabic;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String superInverseBackIcon(BuildContext context) {
     return TextDir.appIsLeftToRight(context) ?
@@ -63,11 +63,11 @@ class Iconizer {
         :
     Iconz.back;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SHARE ICON
 
-// -------------------------------------
+  // --------------------
   static String shareAppIcon(){
 
     String _shareIcon = Iconz.share;
@@ -82,11 +82,11 @@ class Iconizer {
 
     return _shareIcon;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DIRECTORY - LOCAL ASSET PATH
 
-// -------------------------------------
+  // --------------------
   static String imageDir({
     @required String prefix,
     @required String fileName,
@@ -124,7 +124,7 @@ class Iconizer {
 
     return '$prefix$directory$fileName';
   }
-// -------------------------------------
+  // --------------------
   static Future<List<String>> getLocalAssetsPaths() async {
 
     final String assets = await rootBundle.loadString('AssetManifest.json');
@@ -138,7 +138,7 @@ class Iconizer {
 
     return _allAssetsPaths;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getLocalAssetPathFromLocalPaths({
     @required List<String> allAssetsPaths,
@@ -154,5 +154,5 @@ class Iconizer {
 
     return _path;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

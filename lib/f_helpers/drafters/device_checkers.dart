@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class DeviceChecker {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const DeviceChecker();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DEVICE OS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsIOS(){
     bool _isIOS;
@@ -28,7 +28,7 @@ class DeviceChecker {
 
     return _isIOS;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsAndroid(){
     bool _inAndroid;
@@ -43,11 +43,11 @@ class DeviceChecker {
 
     return _inAndroid;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SCREEN DIRECTION
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool deviceIsLandscape(BuildContext context){
     final MediaQueryData _mediaQuery = MediaQuery.of(context);
@@ -64,11 +64,11 @@ class DeviceChecker {
 
     return _isLandscape;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONNECTIVITY
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkConnectivity({
     @required BuildContext context,
@@ -120,5 +120,5 @@ class DeviceChecker {
 
     return _connected;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

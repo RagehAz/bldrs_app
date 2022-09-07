@@ -5,20 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as international;
 
 class TextCheck {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const TextCheck();
-// -----------------------------------------------------------------------------
+
+  // -----------------------------------------------------------------------------
 
   /// REG EXP
 
-// -------------------------------------
+  // --------------------
   static const String urlPattern = r'((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?';
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BAD WORDS
 
-// -------------------------------------
+  // --------------------
   /// PLAN : DO THE BAD WORDS CHECKER IN V1.1
   static bool containsBadWords({
     @required String text
@@ -36,8 +37,8 @@ class TextCheck {
     for (int i = 0; i < _badWords.length; i++){
 
       final bool _hasBadWord = stringContainsSubString(
-          string: text,
-          subString: _badWords[i],
+        string: text,
+        subString: _badWords[i],
       );
 
       if (_hasBadWord == true){
@@ -49,11 +50,11 @@ class TextCheck {
 
     return _userIsSayingSomeNastyShit;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LANGUAGE CHECK
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textIsEnglish(String val) {
     final RegExp exp = RegExp('[a-zA-Z]', multiLine: true, unicode: true);
@@ -74,7 +75,7 @@ class TextCheck {
 
     return textIsEnglish;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textStartsInArabic(String val) {
     /// \p{N} will match any unicode numeric digit.
@@ -115,7 +116,7 @@ class TextCheck {
 
     return _startInArabic;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textStartsInEnglish(String val) {
     const String _reg = r'[a-zA-Z]';
@@ -138,12 +139,12 @@ class TextCheck {
 
     return _startsInEnglish;
   }
-// -------------------------------------
+  // --------------------
   /// TASK : textIsRTL is not tested yet
   static bool textIsRTL(String text){
     return international.Bidi.detectRtlDirectionality(text);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String concludeEnglishOrArabicLang(String text) {
 
@@ -157,11 +158,11 @@ class TextCheck {
 
     return _lingoCode;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PHID CHECK
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkVerseIsPhid(String text){
 
@@ -172,7 +173,7 @@ class TextCheck {
 
     return _phid == 'phid';
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkVerseIsCurrency(String text){
     final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -182,7 +183,7 @@ class TextCheck {
 
     return _phid == 'currency';
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkVerseIsTemp(String text){
     final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
@@ -191,7 +192,7 @@ class TextCheck {
     );
     return _temp == '##';
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool verseIsUpperCase(String text){
     bool _isUpperCase = false;
@@ -204,11 +205,11 @@ class TextCheck {
 
     return _isUpperCase;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT CONTROLLER CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textControllerIsEmpty(TextEditingController controller) {
     bool _controllerIsEmpty;
@@ -227,7 +228,7 @@ class TextCheck {
 
     return _controllerIsEmpty;
   }
-// -------------------------------------
+  // --------------------
   static bool textControllersAreIdentical({
     @required TextEditingController controller1,
     @required TextEditingController controller2,
@@ -241,7 +242,7 @@ class TextCheck {
 
       if (
       controller1.text == controller2.text &&
-      controller1.hashCode == controller2.hashCode
+          controller1.hashCode == controller2.hashCode
       ){
         _areIdentical = true;
       }
@@ -250,20 +251,20 @@ class TextCheck {
 
     return _areIdentical;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT CONTROLLER DISPOSERS
 
-// -------------------------------------
+  // --------------------
   /// TASK : is this the correct way to dispose a text controller ? are you sure ?
   static void disposeControllerIfPossible(TextEditingController controller) {
     if (controller != null) {
       // if (textControllerIsEmpty(controller) == true) {
-        controller.dispose();
+      controller.dispose();
       // }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TASK : this makes more sense, dispose if controller has a value => tested and does not fire an error in search screen controller,,,
   static void disposeControllerIfNotEmpty(TextEditingController controller) {
     if (controller != null) {
@@ -272,7 +273,7 @@ class TextCheck {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static void disposeAllTextControllers(List<TextEditingController> controllers) {
     if (controllers != null) {
       for (final TextEditingController controller in controllers) {
@@ -280,11 +281,11 @@ class TextCheck {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT CONTROLLER CREATORS
 
-// -------------------------------------
+  // --------------------
   static List<TextEditingController> createEmptyTextControllers(int length) {
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
@@ -298,11 +299,11 @@ class TextCheck {
 
     return _controllers;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTAINS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool isEmpty(String val) {
     bool _isEmpty = true;
@@ -315,10 +316,10 @@ class TextCheck {
         _string == ''
         ||
         _string.isEmpty == true
-        // ||
-        // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
-        // ||
-        // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
+    // ||
+    // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
+    // ||
+    // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
     ) {
       _isEmpty = true;
     }
@@ -329,7 +330,7 @@ class TextCheck {
 
     return _isEmpty;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool stringContainsSubString({
     @required String string,
@@ -347,7 +348,7 @@ class TextCheck {
 
     return _itContainsIt;
   }
-  // -------------------------------------
+    // --------------------
   /// TESTED : WORKS PERFECT
   static bool stringContainsSubStringRegExp({
     @required String string,
@@ -373,7 +374,7 @@ class TextCheck {
 
     return _itContainsIt;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textStartsExactlyWith({
     @required String text,
@@ -384,8 +385,8 @@ class TextCheck {
     if (TextCheck.isEmpty(text) == false && TextCheck.isEmpty(startsWith) == false){
 
       final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
-          input: text,
-          numberOfChars: startsWith.length,
+        input: text,
+        numberOfChars: startsWith.length,
       );
 
       if (_cutText == startsWith){
@@ -396,7 +397,7 @@ class TextCheck {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool textStartsWithAny({
     @required String text,
@@ -426,11 +427,11 @@ class TextCheck {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LENGTH
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool isShorterThanOrEqualTo({
     @required String text,
@@ -447,7 +448,7 @@ class TextCheck {
 
     return _isShorter;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool isShorterThan({
     @required String text,
@@ -464,11 +465,11 @@ class TextCheck {
 
     return _isShorter;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SEARCH TRIGGERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool triggerIsSearching({
     @required String text,
@@ -489,7 +490,7 @@ class TextCheck {
 
     return  _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void triggerIsSearchingNotifier({
     @required String text,
@@ -532,5 +533,5 @@ class TextCheck {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

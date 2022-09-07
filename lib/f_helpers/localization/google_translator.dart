@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 
 class GoogleTranslate {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const GoogleTranslate();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<String> translate({
     @required String input,
     @required String from,

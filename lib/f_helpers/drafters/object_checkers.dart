@@ -8,24 +8,23 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'dart:ui' as ui;
 
-// -----------------------------------------------------------------------------
 extension FileExtention on FileSystemEntity {
   String get fileNameWithExtension {
     return this?.path?.split('/')?.last;
   }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   String get fileExtension {
     return this?.path?.split('.')?.last;
   }
 }
 
 class ObjectCheck {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ObjectCheck();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static String fileExtensionOf(dynamic file) {
     return file == null ?
     null
@@ -35,7 +34,7 @@ class ObjectCheck {
         :
     null;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool isAbsoluteURL(dynamic object) {
     bool _isValidURL = false;
@@ -60,16 +59,16 @@ class ObjectCheck {
       /// - EXTRA CHECK
       // if (_isValidURL == false){
 
-        _isValidURL = Uri.parse(object).isAbsolute;
+      _isValidURL = Uri.parse(object).isAbsolute;
 
-        // }
+      // }
       ///
       // ----------------------------------
-      }
+    }
 
     return _isValidURL;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool isURLFormat(dynamic object) {
 
@@ -84,7 +83,7 @@ class ObjectCheck {
 
     return _isURLFormat;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool isBase64(dynamic value) {
     if (value is String == true) {
@@ -110,7 +109,7 @@ class ObjectCheck {
       return false;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsFile(dynamic file) {
     bool _isFile = false;
@@ -135,7 +134,7 @@ class ObjectCheck {
 
     return _isFile;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsUint8List(dynamic object) {
     bool _isUint8List = false;
@@ -144,7 +143,7 @@ class ObjectCheck {
       if (
       object.runtimeType.toString() == '_Uint8ArrayView'
           ||
-      object.runtimeType.toString() == 'Uint8List'
+          object.runtimeType.toString() == 'Uint8List'
       ) {
         _isUint8List = true;
       }
@@ -152,7 +151,7 @@ class ObjectCheck {
 
     return _isUint8List;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsSVG(dynamic object) {
     bool _isSVG;
@@ -167,7 +166,7 @@ class ObjectCheck {
 
     return _isSVG;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsJPGorPNG(dynamic object) {
     bool _objectIsJPGorPNG;
@@ -184,7 +183,7 @@ class ObjectCheck {
 
     return _objectIsJPGorPNG;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsUiImage(dynamic object){
     bool _isUiImage = false;
@@ -199,7 +198,7 @@ class ObjectCheck {
 
     return _isUiImage;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool objectIsImgImage(dynamic object){
     bool _isImgImage = false;
@@ -214,7 +213,7 @@ class ObjectCheck {
 
     return _isImgImage;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<bool> objectIsIntInString(BuildContext context, dynamic string) async {
     bool _objectIsIntInString;
     int _int;
@@ -238,7 +237,7 @@ class ObjectCheck {
 
     return _objectIsIntInString;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsDoubleInString(dynamic string) {
     bool _objectIsDoubleInString;
     double _double;
@@ -259,22 +258,22 @@ class ObjectCheck {
 
     return _objectIsDoubleInString;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsDateTime(dynamic object) {
     final bool _isDatTime = object?.runtimeType == DateTime;
     return _isDatTime;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsGeoPoint(dynamic object) {
     final bool _isGeoPoint = object?.runtimeType == GeoPoint;
     return _isGeoPoint;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsTimeStamp(dynamic object) {
     final bool _isTimestamp = object?.runtimeType == Timestamp;
     return _isTimestamp;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsListOfSpecs(dynamic object) {
     bool _objectsListIsSpecs = false;
 
@@ -288,7 +287,7 @@ class ObjectCheck {
 
     return _objectsListIsSpecs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool objectIsNull(dynamic object){
     bool _isNull;
 
@@ -302,6 +301,6 @@ class ObjectCheck {
 
     return _isNull;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 }
