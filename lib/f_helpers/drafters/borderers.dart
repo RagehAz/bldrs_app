@@ -3,13 +3,13 @@ import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class Borderers {
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Borderers();
 
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TASK : use clipBehaviour : Clip.antiAliasWithSaveLayer instead of ClipRRect
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superBorderOnly({
     @required BuildContext context,
     double enTopLeft,
@@ -31,7 +31,7 @@ class Borderers {
       bottomRight: Radius.circular(enBottomRight),
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superHeaderShadowCorners(BuildContext context, double flyerBoxWidth) {
     final double upperFlyerCorner = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     final BorderRadius flyerCorners = superBorderOnly(
@@ -42,7 +42,7 @@ class Borderers {
         enTopRight: upperFlyerCorner);
     return flyerCorners;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth) {
     final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
     return superBorderOnly(
@@ -53,7 +53,7 @@ class Borderers {
       enTopRight: headerMainCorners,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superFollowOrCallCorners({
     @required BuildContext context,
     @required double flyerBoxWidth,
@@ -81,7 +81,7 @@ class Borderers {
         enTopRight: followBTCornerBR);
     return gettingFollowCorner == true ? followCorners : callCorners;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(corner),
@@ -92,11 +92,11 @@ class Borderers {
       gapPadding: 0,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superBorderAll(BuildContext context, double corners) {
     return BorderRadius.all(Radius.circular(corners));
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superLogoShape({
     @required BuildContext context,
     bool zeroCornerEnIsRight,
@@ -122,7 +122,7 @@ class Borderers {
 
     return _superLogoShape;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superBorder({
     @required BuildContext context,
     dynamic corners,
@@ -142,9 +142,8 @@ class Borderers {
     }
 
     return _corner;
-// -----------------------------------------------------------------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static double getCornersAsDouble(dynamic corners) {
     BorderRadius _cornerBorders;
     double _topLeftCorner;
@@ -159,7 +158,7 @@ class Borderers {
 
     return _topLeftCorner ?? 0;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners) {
     BorderRadius _cornerBorders;
     // double _topLeftCorner;
@@ -173,7 +172,7 @@ class Borderers {
 
     return _cornerBorders;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static BorderRadius superOneSideBorders({
     @required BuildContext context,
     @required AxisDirection side,

@@ -6,15 +6,15 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/foundation.dart';
 
 class Stringer {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Stringer();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLONING
 
-// -------------------------------------
+  // --------------------
   static List<String> cloneListOfStrings(List<String> list) {
     final List<dynamic> _newList = <dynamic>[];
 
@@ -23,11 +23,11 @@ class Stringer {
     }
     return _newList;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkStringsContainString({
     @required List<String> strings,
@@ -41,11 +41,11 @@ class Stringer {
 
     return _containsIt;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> addStringToListIfDoesNotContainIt({
     @required List<String> strings,
@@ -69,7 +69,7 @@ class Stringer {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> addStringsToStringsIfDoNotContainThem({
     @required List<String> listToTake,
@@ -97,7 +97,7 @@ class Stringer {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> addOrRemoveStringToStrings({
     @required List<String> strings,
@@ -124,7 +124,7 @@ class Stringer {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> removeStringsFromStrings({
     @required List<String> removeFrom,
@@ -155,7 +155,7 @@ class Stringer {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> putStringInStringsIfAbsent({
     @required List<String> strings,
@@ -182,7 +182,7 @@ class Stringer {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> cleanDuplicateStrings({
     @required List<String> strings,
@@ -203,18 +203,18 @@ class Stringer {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SORTING STRINGS
 
-// -------------------------------------
+  // --------------------
   /*
   static List<String> sortAlphabetically(List<String> inputList) {
     inputList.sort();
     return inputList;
   }
    */
-// -------------------------------------
+  // --------------------
 
   /// TESTED : WORKS PERFECT
   static List<String> sortAlphabetically2(List<String> inputList) {
@@ -225,11 +225,11 @@ class Stringer {
     return inputList;
   }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getStringsFromDynamics({
     @required List<dynamic> dynamics,
@@ -250,11 +250,11 @@ class Stringer {
 
     return _strings;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRIGRAM
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> createTrigram({
     @required String input,
@@ -358,11 +358,11 @@ class Stringer {
 
     return _trigram;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateStringFromStrings({
     @required List<String> strings,
@@ -395,11 +395,11 @@ class Stringer {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogStrings({
     @required List<String> strings,
@@ -407,7 +407,7 @@ class Stringer {
   }){
     blog('blogStrings : START --- : $invoker');
     if (Mapper.checkCanLoopList(strings) == true){
-      
+
 
       for (int i = 0; i <strings.length; i++){
 
@@ -419,18 +419,18 @@ class Stringer {
         );
 
         blog('$_index : [ ${strings[i]} ]');
-        
+
       }
-      
+
     }
     else {
       blog('blogStrings : strings can not be blogged');
     }
-    
+
     blog('blogStrings : END --- : $invoker');
-    
+
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> blogStringsListsDifferences({
     @required List<String> strings1,
@@ -576,5 +576,5 @@ class Stringer {
 
     return _blogLog;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

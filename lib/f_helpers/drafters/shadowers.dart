@@ -1,7 +1,7 @@
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
+
 class CustomBoxShadow extends BoxShadow {
   /// --------------------------------------------------------------------------
   const CustomBoxShadow({
@@ -29,32 +29,33 @@ class CustomBoxShadow extends BoxShadow {
 
     return _result;
   }
+/// --------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
+
 class Shadower {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Shadower();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTANTS
 
-// -------------------------------------
+  // --------------------
   static const BoxShadow basicOuterShadow = CustomBoxShadow(
       color: Colorz.black200,
       blurRadius: 10,
       style: BlurStyle.outer
   );
-// -------------------------------------
+  // --------------------
   static const List<BoxShadow> appBarShadow = <BoxShadow>[
     basicOuterShadow,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER SHADOWS
 
-// -------------------------------------
+  // --------------------
   static List<BoxShadow> flyerZoneShadow(double flyerBoxWidth) {
     final List<BoxShadow> _flyerZoneShadow = <BoxShadow>[
       CustomBoxShadow(
@@ -65,7 +66,7 @@ class Shadower {
 
     return _flyerZoneShadow;
   }
-// -------------------------------------
+  // --------------------
   static List<BoxShadow> flyerHeaderShadow(double flyerBoxWidth) {
     final List<BoxShadow> _shadows = <BoxShadow>[
       CustomBoxShadow(
@@ -75,11 +76,11 @@ class Shadower {
     ];
     return _shadows;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FOLLOW BUTTON SHADOW
+  /// FOLLOW BUTTON SHADOW
 
-// -------------------------------------
+  // --------------------
   static List<BoxShadow> superFollowBtShadow(double btHeight) {
     // List<BoxShadow> _btShadow = <BoxShadow>[
     //   CustomBoxShadow(
@@ -97,6 +98,5 @@ class Shadower {
     /// TASK : optimize shadows
     return null;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

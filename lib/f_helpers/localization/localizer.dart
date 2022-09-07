@@ -25,31 +25,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 //
 // --- TAWAKAL 3ALA ALLAH ---
 //
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 /// check this https://pub.dev/packages/localize_and_translate
-// -----------------------------------------------------------------------------
+
 class Localizer {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTRUCTOR
 
-// -------------------------------------
+  // --------------------
   Localizer(this.locale);
-// -------------------------------------
+  // --------------------
   final Locale locale;
   Map<String, String> _localizedValues;
-// -------------------------------------
+  // --------------------
   static Localizer of(BuildContext context) {
     return Localizations.of<Localizer>(context, Localizer);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELEGATE
 
-// -------------------------------------
+  // --------------------
   static const LocalizationsDelegate<Localizer> delegate = _DemoLocalizationDelegate();
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<LocalizationsDelegate> getLocalizationDelegates() {
 
@@ -63,26 +63,26 @@ class Localizer {
 
     return _localizationDelegates;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -------------------------------------
+  // --------------------
   static Future<void> initializeLocale(ValueNotifier<Locale> locale) async {
     final Locale _gotLocale = await Localizer.getLocaleFromSharedPref();
     locale.value = _gotLocale;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> load() async {
     _localizedValues = await getJSONLangMap(langCode: locale.languageCode);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   String getTranslatedValue(String key) {
     return _localizedValues[key];
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Locale> getLocaleFromSharedPref() async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
@@ -91,7 +91,7 @@ class Localizer {
     return _concludeLocaleByLingoCode(_languageCode);
 //  await _prefs.setString(Language_Code, languageCode);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Locale> getSupportedLocales() {
 
@@ -107,7 +107,7 @@ class Localizer {
 
     return _supportedLocales;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Locale localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
 
@@ -120,11 +120,11 @@ class Localizer {
 
     return supportedLocales.first;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READING  LOCAL JSON
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, String>> getJSONLangMap({
     @required String langCode
@@ -141,12 +141,12 @@ class Localizer {
 
     return _map;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translate(BuildContext context, String key) {
     return Localizer.of(context).getTranslatedValue(key);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getTranslationFromJSONByLangCode({
     @required BuildContext context,
@@ -181,11 +181,11 @@ class Localizer {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LANGUAGE SWITCHING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> changeAppLanguage(BuildContext context, String code) async {
 
@@ -205,7 +205,7 @@ class Localizer {
       blog("changed local language and firestore.user['language']  updated to $code");
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
     Words.languageCode(context) == Lang.englishLingo.code ?
@@ -213,14 +213,14 @@ class Localizer {
         :
     await changeAppLanguage(context, Lang.englishLingo.code);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Locale> setLocale(String languageCode) async {
     final SharedPreferences _prefs = await SharedPreferences.getInstance();
     await _prefs.setString('languageCode', languageCode);
     return _concludeLocaleByLingoCode(languageCode);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Locale _concludeLocaleByLingoCode(String lingoCode) {
     Locale _temp;
@@ -236,11 +236,11 @@ class Localizer {
     }
     return _temp;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool appIsArabic(BuildContext context) {
     bool _isArabic;
@@ -253,7 +253,7 @@ class Localizer {
 
     return _isArabic;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String> translateLangCodeName({
     @required BuildContext context,
@@ -276,25 +276,27 @@ class Localizer {
 
     return '( $_langNameByActiveAppLang ) ';
   }
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
-  const _DemoLocalizationDelegate();
 
+class _DemoLocalizationDelegate extends LocalizationsDelegate<Localizer> {
+  // -----------------------------------------------------------------------------
+  const _DemoLocalizationDelegate();
+  // --------------------
   @override
   bool isSupported(Locale locale) {
     return <String>['en', 'ar', 'es', 'fr', 'zh', 'de', 'it']
         .contains(locale.languageCode);
   }
-
+  // --------------------
   @override
   Future<Localizer> load(Locale locale) async {
     final Localizer localization = Localizer(locale);
     await localization.load();
     return localization;
   }
-
+  // --------------------
   @override
   bool shouldReload(LocalizationsDelegate old) => false;
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

@@ -20,15 +20,15 @@ import 'package:image/image.dart' as img;
 import 'package:path/path.dart';
 
 class Filers {
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Filers();
 
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATORS - WRITING
+  /// CREATORS - WRITING
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<File> createNewEmptyFile({
     @required String fileName,
@@ -48,7 +48,7 @@ class Filers {
 
     return _file;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<File> writeUint8ListOnFile({
     @required File file,
@@ -58,7 +58,7 @@ class Filers {
     await file.create(recursive: true);
     return file;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<File> writeBytesOnFile({
     @required File file,
@@ -73,17 +73,17 @@ class Filers {
 
     return _file;
   }
-// ---------------------------------------
+  // --------------------
   /*
   static File createFileFromXFile(XFile xFile){
     return File(xFile.path);
   }
    */
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FILE PATH
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> _createNewFilePath({
     @required String fileName,
@@ -100,7 +100,7 @@ class Filers {
 
     return _filePath;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getFileNameFromFile({
     @required File file,
@@ -121,7 +121,7 @@ class Filers {
 
     return _fileName;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getFilesNamesFromFiles({
     @required List<File> files,
@@ -147,7 +147,7 @@ class Filers {
 
     return _names;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getFileExtensionFromFile(File file){
 
@@ -166,11 +166,11 @@ class Filers {
 
     return _fileExtension;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SIZE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double getFileSize(File file){
 
@@ -190,11 +190,11 @@ class Filers {
 
     return _output;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
 
-// ---------------------------------------
+  // --------------------
   /// LOCAL RASTER ASSET
 // ---------------------
   /// TAMAM
@@ -230,20 +230,20 @@ class Filers {
           // blog('4. file is ${_file.path}');
 
           final Uint8List _uInt = await Floaters.getUint8ListFromLocalRasterAsset(
-              asset: _asset,
-              width: width,
+            asset: _asset,
+            width: width,
           );
 
           _file = await getFileFromUint8List(
-              uInt8List: _uInt,
-              fileName: _fileName,
+            uInt8List: _uInt,
+            fileName: _fileName,
           );
 
         });
 
     return _file;
   }
-// ---------------------------------------
+  // --------------------
   /// Uint8List
 // ---------------------
   /// TESTED : WORKS PERFECT
@@ -276,8 +276,8 @@ class Filers {
       for (int i = 0; i < uInt8Lists.length; i++){
 
         final File _file = await getFileFromUint8List(
-            uInt8List: uInt8Lists[i],
-            fileName: filesNames[i],
+          uInt8List: uInt8Lists[i],
+          fileName: filesNames[i],
         );
 
         if (_file != null){
@@ -290,14 +290,14 @@ class Filers {
 
     return _output;
   }
-// ---------------------------------------
+  // --------------------
   /// ImgImage
 // ---------------------
   /// TESTED : WORKS PERFECT
   static Future<File> getFileFromImgImage({
     @required img.Image imgImage,
     @required String fileName,
-}) async {
+  }) async {
 
     File file;
 
@@ -314,7 +314,7 @@ class Filers {
 
     return file;
   }
-// ---------------------------------------
+  // --------------------
   /// URL
 // ---------------------
   /// TESTED : WORKS PERFECT
@@ -368,7 +368,7 @@ class Filers {
 
     return _file;
   }
-// ---------------------------------------
+  // --------------------
   /// BASE 64
 // ---------------------
   static Future<File> getFileFromBase64(String base64) async {
@@ -383,7 +383,7 @@ class Filers {
 
     return _fileAgain;
   }
-// ---------------------------------------
+  // --------------------
   /// DYNAMICS
 // ---------------------
   static Future<File> getFileFromDynamics(dynamic pic) async {
@@ -406,11 +406,11 @@ class Filers {
 
     return _file;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFilesAreIdentical({
     @required File file1,
@@ -451,7 +451,7 @@ class Filers {
 
     return _identical;
   }
-// ---------------------------------------
+  // --------------------
 /*
   static bool checkFileSizeIsBiggerThan({
     @required File file,
@@ -470,11 +470,11 @@ class Filers {
     return _bigger;
   }
  */
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOG
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFile({
     @required File file,
@@ -514,7 +514,7 @@ class Filers {
     }
 
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFilesDifferences({
     @required File file1,
@@ -550,11 +550,11 @@ class Filers {
     }
 
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// IMAGE FILE RESIZE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<File> resizeImage({
     @required File file,
@@ -595,7 +595,7 @@ class Filers {
 
     return _output;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<File>> resizeImages({
     @required List<File> files,
@@ -629,11 +629,11 @@ class Filers {
     return _files;
 
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PICK PDF
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<File> pickPDF() async {
 
@@ -663,5 +663,5 @@ class Filers {
 
     return _file;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

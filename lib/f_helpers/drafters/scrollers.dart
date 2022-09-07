@@ -4,7 +4,6 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-// -----------------------------------------------------------------------------
 enum SlidingDirection {
   next,
   back,
@@ -12,15 +11,15 @@ enum SlidingDirection {
 }
 
 class Scrollers {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Scrollers();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FUCK YOU
 
-// -----------------------------------
+  // --------------------
   static ScrollPhysics superScroller({
     @required bool trigger,
   }) {
@@ -31,23 +30,23 @@ class Scrollers {
 
     return scroller;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------------
+  // --------------------
   static bool checkIsAtTop(ScrollController scrollController) {
     final bool _atTop =
         scrollController.offset == scrollController.position.minScrollExtent;
     return _atTop;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool checkIsAtBottom(ScrollController scrollController) {
     final bool _atTop =
         scrollController.offset == scrollController.position.maxScrollExtent;
     return _atTop;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool checkIsGoingDown(ScrollController scrollController) {
     bool _goingDown;
 
@@ -60,13 +59,13 @@ class Scrollers {
 
     return _goingDown;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool checkIsGoingUp(ScrollController scrollController) {
     final bool _goingUp =
         scrollController.position.userScrollDirection == ScrollDirection.reverse;
     return _goingUp;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool checkIsAtPercentFromTop({
     ScrollController scrollController,
     double percent,
@@ -81,7 +80,7 @@ class Scrollers {
 
     return _isAtTenPercentFromTop;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool checkCanSlide({
     @required ScrollUpdateNotification details,
     @required double boxDistance,
@@ -112,11 +111,11 @@ class Scrollers {
 
     return _canSlide;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SCROLL TO
 
-// -----------------------------------
+  // --------------------
   static Future<void> scrollTo({
     @required ScrollController controller,
     @required double offset,
@@ -129,7 +128,7 @@ class Scrollers {
     );
     // }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> scrollToEnd({
     @required ScrollController controller,
@@ -143,7 +142,7 @@ class Scrollers {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> scrollToTop({
     @required ScrollController controller,
@@ -157,11 +156,11 @@ class Scrollers {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogScrolling({
     @required ScrollController scrollController,
@@ -184,11 +183,11 @@ class Scrollers {
     blog('SHOULD LOAD : (max $_max - current $_current) = $_diff : canPaginate $_canPaginate');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PAGINATION
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool canPaginate({
     @required ScrollController scrollController,
@@ -200,5 +199,5 @@ class Scrollers {
 
     return (max - current <= paginationHeight) && (isPaginating == false);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

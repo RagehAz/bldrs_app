@@ -5,20 +5,20 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 class Trinity {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Trinity();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<double> cipherMatrix(Matrix4 matrix){
     return matrix?.storage;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Matrix4 decipherMatrix(List<dynamic> doubles){
     Matrix4 _matrix;
@@ -31,20 +31,20 @@ class Trinity {
 
     return _matrix;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMatrix(Matrix4 matrix){
     blog('BLOGGING MATRIX\n${matrix.toString()}');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GENERATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In Ratio to flyer box sizes
   static Matrix4 generateSlideMatrix({
     @required Matrix4 matrix,
@@ -74,7 +74,7 @@ class Trinity {
 
     return _output;
   }
-// ----------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT : adjust Matrix Translation To Be In pixels
   static Matrix4 renderSlideMatrix({
     @required Matrix4 matrix,
@@ -104,11 +104,11 @@ class Trinity {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   static bool checkMatrixesAreIdentical({
     @required Matrix4 matrix1,
     @required Matrix4 matrixReloaded,
@@ -123,8 +123,8 @@ class Trinity {
     );
 
   }
-// -----------------------------------------------------------------------------
-/*
+  // --------------------
+  /*
 
                     // blog('matrix sent flyerWidth : $_flyerBoxWidth : flyerHeight : $_flyerBoxHeight -');
                     // blog(m.row0);
@@ -174,5 +174,5 @@ class Trinity {
                     [2] 0.0,0.0,1.0,0.0
                     [3] 0.0,0.0,0.0,1.0
                      */
-
+  // -----------------------------------------------------------------------------
 }
