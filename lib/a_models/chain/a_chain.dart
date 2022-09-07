@@ -154,7 +154,7 @@ class Chain {
       for (int i = 0; i < chainSPaths.length; i++){
 
         final String _path = chainSPaths[i];
-        final String _key = ChainPathConverter.generateChainSPathKeyForFirebase(
+        final String _key = Phider.generatePhidPathUniqueKey(
           path: _path,
         );
 
