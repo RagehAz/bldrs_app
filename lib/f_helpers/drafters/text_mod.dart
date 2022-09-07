@@ -421,6 +421,8 @@ class TextMod {
   /// CYPHERS
 
   // --------------------
+  /*
+  /// TASK DEPRECATED
   static String sqlCipherStrings(List<String> strings) {
     String _output;
 
@@ -438,7 +440,10 @@ class TextMod {
 
     return _output;
   }
+   */
   // --------------------
+  /// TASK DEPRECATED
+  /*
   static List<String> sqlDecipherStrings(String text) {
     List<String> _strings;
 
@@ -448,6 +453,22 @@ class TextMod {
 
     return _strings;
   }
+
+   */
+
+  /*
+    test('sqlCipherStrings and sqlDecipherStrings', () {
+    final List<String> strings = <String>['aa', 'bb', 'cc'];
+
+    final String string = TextMod.sqlCipherStrings(strings);
+
+    final List<String> _toListAgain = TextMod.sqlDecipherStrings(string);
+
+    final List<String> _expected = strings;
+
+    expect(_toListAgain, _expected);
+  });
+   */
   // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS

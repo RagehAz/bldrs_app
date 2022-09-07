@@ -270,18 +270,6 @@ void main() {
     expect(_map, _expected);
   });
 // -----------------------------------------------------------------------------
-  test('sqlCipherStrings and sqlDecipherStrings', () {
-    final List<String> strings = <String>['aa', 'bb', 'cc'];
-
-    final String string = TextMod.sqlCipherStrings(strings);
-
-    final List<String> _toListAgain = TextMod.sqlDecipherStrings(string);
-
-    final List<String> _expected = strings;
-
-    expect(_toListAgain, _expected);
-  });
-// -----------------------------------------------------------------------------
   test('sqlCipherGeoPoint and sqlDecipherGeoPoint', () {
     const GeoPoint _point = GeoPoint(12.3, 45.6);
 
