@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/dd_data_creator.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -647,12 +648,7 @@ class Chain {
 
         if (Mapper.checkCanLoopList(_sons) == true){
 
-          final String _first = _sons.first;
-
-          final String _phid = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
-          if (_phid == 'phid'){
-            _arePhids = true;
-          }
+          _arePhids = Phider.checkIsPhid(_sons.first);
 
         }
 

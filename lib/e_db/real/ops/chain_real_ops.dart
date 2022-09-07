@@ -86,6 +86,38 @@ class ChainRealOps {
 
     return _uploaded;
   }
+
+  static Future<List<Chain>> createBldrsChains({
+    @required BuildContext context,
+    @required List<Chain> chains,
+  }) async {
+    // Chain _uploaded;
+    //
+    // /// NOTE : chain K does not allow duplicate IDs in last node
+    // if (chains != null){
+    //
+    //   final Map<String, dynamic> _map = Chain.cipherBigChainS(
+    //     chainS: chainS,
+    //   );
+    //
+    //   final Map<String, dynamic> _uploadedChainSMap = await Real.createDocInPath(
+    //     context: context,
+    //     pathWithoutDocName: RealColl.chains,
+    //     addDocIDToOutput: false,
+    //     docName: RealDoc.chains_bigChainS,
+    //     map: _map,
+    //   );
+    //
+    //   _uploaded = Chain.decipherBigChainS(
+    //       bigChainSMap: _uploadedChainSMap
+    //   );
+    //
+    // }
+    //
+    // return _uploaded;
+
+    return null;
+  }
   // -----------------------------------------------------------------------------
 
   /// READ

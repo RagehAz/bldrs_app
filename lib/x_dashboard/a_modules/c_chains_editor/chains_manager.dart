@@ -122,6 +122,22 @@ class _ChainsManagerState extends State<ChainsManager> {
     // --------------------
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
+      onBldrsTap: () async {
+
+        // final dynamic _blha = await Real.readPath(context: context, path: 'chains');
+        //
+        // final List<Map<String, dynamic>> _maps = Mapper.getMapsFromInternalHashLinkedMapObjectObject(internalHashLinkedMapObjectObject: _blha);
+        //
+        // Mapper.blogMaps(_maps);
+
+        // await Real.cr
+
+        // const String phid = 'phid_s_am_kidsPoo';
+
+
+
+
+      },
       appBarWidgets: <Widget>[
 
         AppBarButton(

@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 class ChainsScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsScreenBrowseView({
-    @required this.specsPickers,
+    @required this.pickers,
     @required this.onPickerTap,
     @required this.onDeleteSpec,
     @required this.selectedSpecs,
@@ -28,7 +28,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<PickerModel> specsPickers;
+  final List<PickerModel> pickers;
   final ValueChanged<PickerModel> onPickerTap;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
@@ -90,8 +90,10 @@ class ChainsScreenBrowseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
+
     /// WHEN PICKERS ARE PROVIDED
-    if (Mapper.checkCanLoopList(specsPickers) == true){
+    if (Mapper.checkCanLoopList(pickers) == true){
 
       return ValueListenableBuilder(
           valueListenable: refinedPickers,

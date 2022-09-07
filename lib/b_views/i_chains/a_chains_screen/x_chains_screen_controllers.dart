@@ -193,7 +193,7 @@ Future<void> _setActivePhidK({
 /// SELECTION
 
 // --------------------
-Future<void> onSpecPickerTap({
+Future<void> onPickerTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -209,7 +209,7 @@ Future<void> onSpecPickerTap({
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: PickerScreen(
-      specPicker: picker,
+      picker: picker,
       selectedSpecs: selectedSpecs,
       onlyUseCityChains: onlyUseCityChains,
       showInstructions: isMultipleSelectionMode,
