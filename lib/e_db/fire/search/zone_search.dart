@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 
 /// ZONES
 
-// -----------------------------------------------
+// --------------------
 Future<List<CountryModel>> countriesModelsByCountryName({
   @required BuildContext context,
   @required String countryName,
@@ -48,7 +48,7 @@ Future<List<CountryModel>> countriesModelsByCountryName({
 
   return _countries;
 }
-// -----------------------------------------------
+// --------------------
 Future<List<CityModel>> citiesByCityName({
   @required BuildContext context,
   @required String cityName,
@@ -80,7 +80,7 @@ Future<List<CityModel>> citiesByCityName({
 
   return _cities;
 }
-// -----------------------------------------------
+// --------------------
 /// not tested
 Future<List<CityModel>> citiesByCityNameAndCountryID({
   @required BuildContext context,
@@ -101,9 +101,9 @@ Future<List<CityModel>> citiesByCityNameAndCountryID({
         );
 
         final String _searchValue =
-            TextMod.removeAllCharactersAfterNumberOfCharacters(
+        TextMod.removeAllCharactersAfterNumberOfCharacters(
           input: TextMod.fixCountryName(cityName),
-              numberOfChars: Standards.maxTrigramLength,
+          numberOfChars: Standards.maxTrigramLength,
         );
 
         final QuerySnapshot<Object> _collectionSnapshot = await _collRef

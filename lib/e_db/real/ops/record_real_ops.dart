@@ -8,15 +8,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class RecordRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RecordRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PATH
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String createRecordTypeRealPath({
     @required RecordType recordType,
@@ -47,11 +47,11 @@ class RecordRealOps {
 
     return _path;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<RecordModel> createRecord({ /// TASK : CORRECT NAME REMOVE a
     @required BuildContext context,
@@ -81,16 +81,16 @@ class RecordRealOps {
     }
 
     return RecordModel.decipherRecord(
-        map: _map,
-        fromJSON: true,
+      map: _map,
+      fromJSON: true,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------
+  // --------------------
   static Future<List<RecordModel>> paginateRecords({
     @required BuildContext context,
     @required String userID,
@@ -138,11 +138,11 @@ class RecordRealOps {
 
     return _records;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ----------------------------------
+  // --------------------
   /* static Future<void> deleteRecord({
     @required BuildContext context,
     @required String recordID,
@@ -156,6 +156,5 @@ class RecordRealOps {
 
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

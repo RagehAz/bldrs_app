@@ -8,50 +8,50 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppStateFireOps{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const AppStateFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> createGlobalAppState({
     @required BuildContext context,
     @required AppState newAppState,
-}) async {
+  }) async {
 
     await Fire.createNamedDoc(
-        context: context,
-        collName: FireColl.admin,
-        docName: FireDoc.admin_appState,
-        input: newAppState.toMap(),
+      context: context,
+      collName: FireColl.admin,
+      docName: FireDoc.admin_appState,
+      input: newAppState.toMap(),
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<AppState> readGlobalAppState(BuildContext context) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
-        context: context,
-        collName: FireColl.admin,
-        docName: FireDoc.admin_appState,
+      context: context,
+      collName: FireColl.admin,
+      docName: FireDoc.admin_appState,
     );
 
     return AppState.fromMap(_map);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE USER APP STATE
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateUserAppState({
     @required BuildContext context,
@@ -68,11 +68,11 @@ class AppStateFireOps{
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE GLOBAL APP STATE
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> _updateGlobalAppState({
     @required BuildContext context,
@@ -85,12 +85,12 @@ class AppStateFireOps{
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalAppVersion({
     @required BuildContext context,
     @required String newVersion,
-}) async {
+  }) async {
 
     final AppState _appState = await readGlobalAppState(context);
 
@@ -99,12 +99,12 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-        context: context,
-        newAppState: _newAppState,
+      context: context,
+      newAppState: _newAppState,
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalKeywordsChainVersion(BuildContext context) async {
 
@@ -117,12 +117,12 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-      context: context,
-      newAppState: _newAppState
+        context: context,
+        newAppState: _newAppState
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalLDBVersion(BuildContext context) async {
 
@@ -140,7 +140,7 @@ class AppStateFireOps{
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateGlobalPhrasesVersion(BuildContext context) async {
 
@@ -151,12 +151,12 @@ class AppStateFireOps{
     );
 
     await _updateGlobalAppState(
-        context: context,
-        newAppState: _newAppState,
+      context: context,
+      newAppState: _newAppState,
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateSpecsPickersVersion(BuildContext context) async {
 
@@ -173,7 +173,7 @@ class AppStateFireOps{
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<void> updateSpecsChainVersion(BuildContext context) async {
 
@@ -190,22 +190,22 @@ class AppStateFireOps{
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// APP VERSION
+  /// APP VERSION
 
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static Future<String> getAppVersion() async {
     final PackageInfo _packageInfo = await PackageInfo.fromPlatform();
     return _packageInfo.version;
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static bool appVersionNeedUpdate({
     @required String globalVersion,
     @required String userVersion,
-}){
+  }){
     bool _needUpdate = false;
 
     blog('appVersionNeedUpdate : globalVersion : $globalVersion : userVersion : $userVersion');
@@ -222,7 +222,7 @@ class AppStateFireOps{
 
     return _needUpdate;
   }
-// -----------------------------------
+  // --------------------
   /// TAMAM : WORKS PERFECTLY
   static List<int> _getAppVersionDivisions(String version){
     final List<int> _divisions = <int>[];
@@ -242,5 +242,5 @@ class AppStateFireOps{
 
     return _divisions;
   }
-// -----------------------------------
+  // --------------------
 }

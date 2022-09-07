@@ -9,35 +9,35 @@ import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-/// --------------------------------------------------------------------------
+
 class RealPaginator{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const RealPaginator({
     this.orderByField,
     this.keyField,
   });
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final String orderByField;
   // final value,
   final String keyField;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-/// --------------------------------------------------------------------------
+
 class Real {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Real();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REF
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DatabaseReference  getRef(){
     return FirebaseDatabase.instance.ref();
   }
-// ----------------------------------------
+  // --------------------
   /*
   static DatabaseReference  _getRefFromURL({
   @required String url,
@@ -45,7 +45,7 @@ class Real {
     return FirebaseDatabase.instance.refFromURL(url);
   }
    */
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _createPath({
     @required String collName,
@@ -67,7 +67,7 @@ class Real {
 
     return _path;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DatabaseReference _createPathAndGetRef({
     @required String collName,
@@ -81,7 +81,7 @@ class Real {
     );
     return FirebaseDatabase.instance.ref(path);
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DatabaseReference _getRefByPath({
     @required String path,
@@ -89,7 +89,7 @@ class Real {
     assert(path != null, 'PATH SHOULD NOT BE NULL');
     return FirebaseDatabase.instance.ref(path);
   }
-// ----------------------------------------
+  // --------------------
   /*
   static FirebaseDatabase _getSecondaryFirebaseAppDB(String appName){
     final FirebaseApp _secondaryApp = Firebase.app(appName);
@@ -97,12 +97,12 @@ class Real {
     return _database;
   }
    */
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _createPathValueMapFromFieldsAndNumbers({
     @required Map<String, dynamic> fieldsAndNumbers,
     @required bool isIncrementing,
-}){
+  }){
 
     Map<String, dynamic> _output = {};
 
@@ -129,11 +129,11 @@ class Real {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ----------------------------------------
+  // --------------------
   /*
   static Future<String> createDoc({
     @required String docName,
@@ -146,7 +146,7 @@ class Real {
 
   }
    */
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDoc({
     @required BuildContext context,
@@ -169,24 +169,24 @@ class Real {
         );
 
         /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onChildAdded.listen((event){
+        final StreamSubscription _sub = _ref.onChildAdded.listen((event){
 
-            _docID = event.previousChildKey;
+          _docID = event.previousChildKey;
 
-            _output = Mapper.getMapFromDataSnapshot(
-              snapshot: event.snapshot,
-              onNull: () => blog('Real.createNamedDoc : failed to create doc '),
+          _output = Mapper.getMapFromDataSnapshot(
+            snapshot: event.snapshot,
+            onNull: () => blog('Real.createNamedDoc : failed to create doc '),
+          );
+
+          if (addDocIDToOutput == true){
+            _output = Mapper.insertPairInMap(
+              map: _output,
+              key: 'id',
+              value: _docID,
             );
+          }
 
-            if (addDocIDToOutput == true){
-              _output = Mapper.insertPairInMap(
-                map: _output,
-                key: 'id',
-                value: _docID,
-              );
-            }
-
-          });
+        });
 
         /// CREATE
         await _ref.push().set(map);
@@ -203,7 +203,7 @@ class Real {
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createNamedDoc({
     @required BuildContext context,
@@ -224,22 +224,22 @@ class Real {
     }
 
     await tryAndCatch(
-        context: context,
-        methodName: 'createNamedDoc',
+      context: context,
+      methodName: 'createNamedDoc',
 
-        functions: () async {
+      functions: () async {
 
-          await _ref.set(map);
+        await _ref.set(map);
 
-          // blog('Real.reateNamedDoc : added to [REAL/$collName/$docName] : '
-          //     'push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
+        // blog('Real.reateNamedDoc : added to [REAL/$collName/$docName] : '
+        //     'push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
 
-        },
+      },
 
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required BuildContext context,
@@ -304,7 +304,7 @@ class Real {
 
     return _map;
   }
-// ----------------------------------------
+  // --------------------
   /*
   // static Future<Map<String, dynamic>> createNamedDocInPath({
   //   @required BuildContext context,
@@ -333,11 +333,11 @@ class Real {
   //
   // }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------------
+  // --------------------
   static Query createQuery({
     @required DatabaseReference ref,
     @required RealPaginator realPaginator,
@@ -399,7 +399,7 @@ class Real {
 
     return _query;
   }
-// ----------------------------------------
+  // --------------------
   static Future<List<Map<String, dynamic>>> readColl({
     @required BuildContext context,
     @required String nodePath,
@@ -413,63 +413,63 @@ class Real {
     final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     await tryAndCatch(
-        context: context,
-        functions: () async {
+      context: context,
+      functions: () async {
 
-          final DatabaseReference _ref = _getRefByPath(path: nodePath);
+        final DatabaseReference _ref = _getRefByPath(path: nodePath);
 
-          final Query _query = createQuery(
-            ref: _ref,
-            realPaginator: realOrderBy,
-            limit: limit,
-            limitToFirst: limitToFirst,
-            startAfter: startAfter,
-          );
+        final Query _query = createQuery(
+          ref: _ref,
+          realPaginator: realOrderBy,
+          limit: limit,
+          limitToFirst: limitToFirst,
+          startAfter: startAfter,
+        );
 
-          final DataSnapshot _snap = await _query.get();
+        final DataSnapshot _snap = await _query.get();
 
-          final Map<String, dynamic> _dynamics = Mapper.getMapFromDataSnapshot(
-            snapshot: _snap,
-            addDocID: false,
-          );
+        final Map<String, dynamic> _dynamics = Mapper.getMapFromDataSnapshot(
+          snapshot: _snap,
+          addDocID: false,
+        );
 
-          blog(_dynamics);
+        blog(_dynamics);
 
-          if (_dynamics != null){
+        if (_dynamics != null){
 
-            final List<String> _keys = _dynamics.keys.toList();
+          final List<String> _keys = _dynamics.keys.toList();
 
-            if (Mapper.checkCanLoopList(_keys) == true){
+          if (Mapper.checkCanLoopList(_keys) == true){
 
-              for (final String key in _keys){
+            for (final String key in _keys){
 
-                blog('key : ${_dynamics[key]}');
+              blog('key : ${_dynamics[key]}');
 
-                Map<String, dynamic> _map = Map<String, dynamic>.from(_dynamics[key]);
+              Map<String, dynamic> _map = Map<String, dynamic>.from(_dynamics[key]);
 
-                if (addDocIDToEachMap == true){
-                  _map = Mapper.insertPairInMap(
-                      map: _map,
-                      key: 'id',
-                      value: key,
-                  );
-                }
-
-                _output.add(_map);
-
+              if (addDocIDToEachMap == true){
+                _map = Mapper.insertPairInMap(
+                  map: _map,
+                  key: 'id',
+                  value: key,
+                );
               }
+
+              _output.add(_map);
 
             }
 
           }
 
+        }
 
-        },
+
+      },
     );
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
     @required BuildContext context,
@@ -509,7 +509,7 @@ class Real {
 
     return _output;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDocOnce({
     @required BuildContext context,
@@ -519,24 +519,24 @@ class Real {
   }) async {
 
     final DatabaseReference ref = _createPathAndGetRef(
-        collName: collName,
-        docName: docName,
+      collName: collName,
+      docName: docName,
     );
 
     Map<String, dynamic> _map;
 
     await tryAndCatch(
-        context: context,
-        functions: () async {
+      context: context,
+      functions: () async {
 
-          final DatabaseEvent event = await ref.once(DatabaseEventType.value);
+        final DatabaseEvent event = await ref.once(DatabaseEventType.value);
 
-          _map = Mapper.getMapFromDataSnapshot(
-            snapshot: event.snapshot,
-            addDocID: addDocID,
-          );
+        _map = Mapper.getMapFromDataSnapshot(
+          snapshot: event.snapshot,
+          addDocID: addDocID,
+        );
 
-        },
+      },
     );
 
     if (_map != null){
@@ -545,7 +545,7 @@ class Real {
 
     return _map;
   }
-// ----------------------------------------
+  // --------------------
   static StreamSubscription streamDoc({
     @required String collName,
     @required String docName,
@@ -553,8 +553,8 @@ class Real {
   }){
 
     final DatabaseReference _ref = _createPathAndGetRef(
-        collName: collName,
-        docName: docName,
+      collName: collName,
+      docName: docName,
     );
 
     final StreamSubscription _sub = _ref.onValue.listen((DatabaseEvent event) {
@@ -564,7 +564,7 @@ class Real {
 
     return _sub;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readPath({
     @required BuildContext context,
@@ -589,11 +589,11 @@ class Real {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required BuildContext context,
@@ -615,7 +615,7 @@ class Real {
     }
 
   }
-// ----------------------------------------
+  // --------------------
   /// TASK : ERRRROOOOOOOOOOOOR
   static Future<void> updateDocField({
     @required BuildContext context,
@@ -658,7 +658,7 @@ class Real {
     blog('updateDocField : END');
 
   }
-// ----------------------------------------
+  // --------------------
   /*
   static Future<void> updateMultipleDocsAtOnce({
     @required List<RealNode> nodes,
@@ -675,7 +675,7 @@ class Real {
     return FirebaseDatabase.instance.ref().update(updates);
   }
    */
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementDocFields({
     @required BuildContext context,
@@ -683,7 +683,7 @@ class Real {
     @required String docName,
     @required Map<String, dynamic> mapOfFieldsAndNumbers,
     @required bool isIncrementing,
-}) async {
+  }) async {
 
     final DatabaseReference _ref = _createPathAndGetRef(
       collName: collName,
@@ -698,11 +698,11 @@ class Real {
     await _ref.update(_updatesMap);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required BuildContext context,
@@ -716,16 +716,16 @@ class Real {
     );
 
     await tryAndCatch(
-        context: context,
-        functions: () async {
+      context: context,
+      functions: () async {
 
-          await _ref.remove();
+        await _ref.remove();
 
-        },
+      },
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteField({
     @required BuildContext context,
@@ -735,19 +735,19 @@ class Real {
   }) async {
 
     await updateDocField(
-        context: context,
-        collName: collName,
-        docName: docName,
-        fieldName: fieldName,
-        value: null,
+      context: context,
+      collName: collName,
+      docName: docName,
+      fieldName: fieldName,
+      value: null,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSACTION & ATOMICS & LISTENERS
 
-// ----------------------------------------
+  // --------------------
   static Future<TransactionResult> runTransaction ({
     @required BuildContext context,
     @required String collName,
@@ -778,15 +778,15 @@ class Real {
       }
 
     },
-    applyLocally: applyLocally,
+      applyLocally: applyLocally,
     );
 
     blog('runTransaction : _result.committed : ${_result.committed} : _result.snapshot : ${_result.snapshot}');
 
     return _result;
   }
-// ----------------------------------------
-/*
+  // --------------------
+  /*
   void addStar(uid, key) async {
     Map<String, Object?> updates = {};
     updates["posts/$key/stars/$uid"] = true;
@@ -796,8 +796,8 @@ class Real {
     return FirebaseDatabase.instance.ref().update(updates);
   }
  */
-// ----------------------------------------
-/*
+  // --------------------
+  /*
     /// Listen for child events
 
   final commentsRef = FirebaseDatabase.instance.ref("post-comments/$postId");
@@ -813,8 +813,8 @@ class Real {
       // this comment and if so remove it.
   });
  */
-// ----------------------------------------
-/*
+  // --------------------
+  /*
     /// Listen for value events
 
         myTopPostsQuery.onValue.listen((event) {
@@ -826,14 +826,14 @@ class Real {
       });
 
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CLOUD FUNCTIONS
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> incrementDocFieldNourMethod({
     @required BuildContext context,
     @required String docID,
@@ -893,15 +893,15 @@ class Real {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOG
 
-// ----------------------------------------
+  // --------------------
   static void blogDatabaseEvent({
-  @required DatabaseEvent event,
-  String methodName = 'blogDatabaseEvent',
-}){
+    @required DatabaseEvent event,
+    String methodName = 'blogDatabaseEvent',
+  }){
     blog('blogDatabaseEvent : $methodName ----------------------- START');
 
     if (event != null){
@@ -925,8 +925,8 @@ class Real {
 
 
     blog('blogDatabaseEvent : $methodName ----------------------- END');
-}
-// ----------------------------------------
+  }
+  // --------------------
   static void blogDataSnapshot ({
     @required DataSnapshot snapshot,
     String methodName = 'blogDataSnapshot',
@@ -947,5 +947,5 @@ class Real {
     }
     blog('blogDataSnapshot : $methodName ----------------------- END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

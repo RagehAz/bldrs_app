@@ -14,15 +14,15 @@ Map<String, dynamic> chainKMap = <String,dynamic>{
  */
 
 class ChainRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ChainRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> createBigChainK({
     @required BuildContext context,
@@ -54,7 +54,7 @@ class ChainRealOps {
 
     return _uploaded;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORK PERFECT
   static Future<Chain> createBigChainS({
     @required BuildContext context,
@@ -86,11 +86,11 @@ class ChainRealOps {
 
     return _uploaded;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORK PERFECT
   static Future<Chain> readBigChainK(BuildContext context) async {
 
@@ -106,7 +106,7 @@ class ChainRealOps {
 
     return _bigChainK;
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainS(BuildContext context) async {
 
@@ -122,11 +122,11 @@ class ChainRealOps {
 
     return _bigChainS;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainK({
     @required BuildContext context,
@@ -145,7 +145,7 @@ class ChainRealOps {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainS({
     @required BuildContext context,
@@ -164,7 +164,7 @@ class ChainRealOps {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   static Future<void> updateChainKPath({
     @required BuildContext context,
     @required String phidK, // which is map key for the path
@@ -173,23 +173,23 @@ class ChainRealOps {
 
 
   }
-// ------------------------------------------
+  // --------------------
   static Future<void> updateChainSPath({
     @required BuildContext context,
     @required String chainSPathKey, // which is combination ( 'lastPartOfParentID' + phidS )
   }) async {
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ------------------------------------------
+  // --------------------
   /// NO NEED
-/*
+  /*
   static Future<void> deleteChainKPhidK() async {}
-// ------------------------------------------
+  // --------------------
   static Future<void> deleteChainSPhidS() async {}
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

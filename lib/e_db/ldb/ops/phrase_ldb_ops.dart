@@ -5,15 +5,15 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class PhraseLDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const PhraseLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> insertMainPhrases({
     @required List<Phrase> mixedLangsPhrases,
@@ -34,7 +34,7 @@ class PhraseLDBOps {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> insertCountriesPhrases({
     @required List<Phrase> countriesMixedLangsPhrases,
@@ -51,11 +51,11 @@ class PhraseLDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readMainPhrases() async {
 
@@ -75,7 +75,7 @@ class PhraseLDBOps {
 
     return _mainPhrases;
   }
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readCountriesPhrases() async {
 
@@ -89,7 +89,7 @@ class PhraseLDBOps {
 
     return _countriesMixedLangPhrases;
   }
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchMainPhrasesByIDs({
     @required List<String> phids,
@@ -98,10 +98,10 @@ class PhraseLDBOps {
     List<Phrase> _output = <Phrase>[];
 
     final List<Map<String, dynamic>> _maps = await LDBOps.searchMultipleValues(
-        docName: LDBDoc.mainPhrases,
-        searchField: 'id',
-        searchObjects: phids,
-        fieldToSortBy: 'id',
+      docName: LDBDoc.mainPhrases,
+      searchField: 'id',
+      searchObjects: phids,
+      fieldToSortBy: 'id',
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -114,11 +114,11 @@ class PhraseLDBOps {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
-// ------------------------------------------
+  // --------------------
   static Future<void> updateMainPhrases({
     @required List<Phrase> updatedMixedLangsPhrases,
   }) async {
@@ -134,7 +134,7 @@ class PhraseLDBOps {
     }
 
   }
-// ------------------------------------------
+  // --------------------
   static Future<void> updateCountriesPhrases({
     @required List<Phrase> updatedCountriesMixedLangsPhrases,
   }) async {
@@ -150,11 +150,11 @@ class PhraseLDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> deleteMainPhrases() async {
 
@@ -163,7 +163,7 @@ class PhraseLDBOps {
     );
 
   }
-// ------------------------------------------
+  // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> deleteCountriesPhrases() async {
 
@@ -172,5 +172,5 @@ class PhraseLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

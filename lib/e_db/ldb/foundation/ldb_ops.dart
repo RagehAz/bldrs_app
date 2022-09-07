@@ -6,15 +6,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
 
 class LDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const LDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getPrimaryKey(String docName) {
     switch (docName) {
@@ -53,11 +53,11 @@ class LDBOps {
       default: return null;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertMap({
     @required Map<String, Object> input,
@@ -72,7 +72,7 @@ class LDBOps {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertMaps({
     @required List<Map<String, Object>> inputs,
@@ -87,11 +87,11 @@ class LDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readMaps({
     @required List<String> ids,
@@ -108,7 +108,7 @@ class LDBOps {
 
     return _maps;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> readAllMaps({
     @required String docName,
@@ -120,7 +120,7 @@ class LDBOps {
 
     return _result;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> searchFirstMap({
     @required String fieldToSortBy,
@@ -142,7 +142,7 @@ class LDBOps {
 
     return _fixedMap;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchAllMaps({
     @required String fieldToSortBy,
@@ -166,7 +166,7 @@ class LDBOps {
 
     return _fixedMaps;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchPhrasesDoc({
     @required dynamic searchValue,
@@ -196,7 +196,7 @@ class LDBOps {
     }
 
   }
-// ----------------------------------------
+  // --------------------
   /// deprecated
   static Future<List<Map<String, Object>>> searchLDBDocTrigram({
     @required dynamic searchValue,
@@ -214,7 +214,7 @@ class LDBOps {
 
     return _result;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchMultipleValues({
     @required String docName,
@@ -232,11 +232,11 @@ class LDBOps {
 
     return _result;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteMap({
     @required String objectID,
@@ -249,7 +249,7 @@ class LDBOps {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   static Future<void> deleteMaps ({
     @required List<String> ids,
     @required String docName,
@@ -264,7 +264,7 @@ class LDBOps {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllMapsOneByOne({
     @required String docName,
@@ -275,7 +275,7 @@ class LDBOps {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllMapsAtOnce({
     @required String docName,
@@ -284,7 +284,7 @@ class LDBOps {
     await Sembast.deleteAllAtOnce(docName: docName);
 
   }
-// ----------------------------------------
+  // --------------------
   static Future<void> wipeOutEntireLDB() async {
 
     const List<String> _docs = LDBDoc.allDocs;
@@ -298,12 +298,12 @@ class LDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FIREBASE TO SEMBAST ADAPTERS
+  /// FIREBASE TO SEMBAST ADAPTERS
 
-// ----------------------------------------
-/*
+  // --------------------
+  /*
 //   Map<String, Object> _cipherFirebaseMapToSembastMap(Map<String, Object> mapOfFirebase){
 //
 //     Map<String, Object> _fixedMap = mapOfFirebase;
@@ -358,7 +358,7 @@ class LDBOps {
 //     return _fixedMap;
 //
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
 //   List<Map<String, Object>> _cipherFirebaseMapsToSembastMaps(List<Map<String, Object>> firebaseMaps){
 //
 //     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
@@ -372,7 +372,7 @@ class LDBOps {
 //
 //     return _fixedMaps;
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
 //   Map<String, Object> _decipherSembastMapToFirebaseMap(Map<String, Object> sembastMap){
 //
 //     Map<String, Object> _fixedMap = sembastMap;
@@ -437,7 +437,7 @@ class LDBOps {
 //
 //     return _fixedMap;
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
 //   List<Map<String, Object>> _decipherSembastMapsToFirebaseMaps(List<Map<String, Object>> sembastMaps){
 //     final List<Map<String, Object>> _fixedMaps = <Map<String, Object>>[];
 //
@@ -450,7 +450,7 @@ class LDBOps {
 //
 //     return _fixedMaps;
 //   }
-// // -----------------------------------------------------------------------------
+//   // -----------------------------------------------------------------------------
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

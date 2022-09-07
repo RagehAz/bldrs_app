@@ -22,11 +22,11 @@ class FireQueryModel {
   final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
   final QueryDocumentSnapshot startAfter;
   final List<Map<String, dynamic>> initialMaps;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// QueryParameter CREATOR
+  /// QueryParameter CREATOR
 
-// -----------------------------------
+  // --------------------
   FireQueryModel copyWith({
     CollectionReference<Object> collRef,
     int limit,
@@ -35,7 +35,7 @@ class FireQueryModel {
     ValueChanged<List<Map<String, dynamic>>> onDataChanged,
     QueryDocumentSnapshot startAfter,
     List<Map<String, dynamic>> initialMaps,
-}){
+  }){
     return FireQueryModel(
       collRef: collRef ?? this.collRef,
       limit: limit ?? this.limit,
@@ -46,5 +46,5 @@ class FireQueryModel {
       initialMaps: initialMaps ?? this.initialMaps,
     );
   }
-// -----------------------------------
+  // --------------------
 }
