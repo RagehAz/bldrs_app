@@ -24,60 +24,31 @@ Route<dynamic> allRoutes(RouteSettings settings) {
       return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
       break;
   // --------------------------
-    /// AUTH SCREEN
+  /// AUTH SCREEN
     case Routez.auth:
       return Nav.fadeToScreen(const AuthScreen(), settings);
       break;
   // --------------------------
   /// HOME SCREEN
-      case Routez.home:
-        return Nav.fadeToScreen(const HomeScreen(), settings);
-        break;
+    case Routez.home:
+      return Nav.fadeToScreen(const HomeScreen(), settings);
+      break;
   // --------------------------
-    /// s12
+  /// s12
     case Routez.savedFlyers:
       return Nav.slideToScreen(const SavedFlyersScreen(), settings);
       break;
   // --------------------------
-//     /// s14
-//       case Routez.More:
-//         return MaterialPageRoute(builder: (_) => MoreScreen());
-// -----------------------------------------------------------------------------
-//     /// s15
-//       case Routez.Profile:
-//         return Nav.slideToScreen(UserProfileScreen(), settings); break;
-// -----------------------------------------------------------------------------
-//     /// s16
-//       case Routez.EditProfile:
-//         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: superUserID()));
-// -----------------------------------------------------------------------------
-    /// s20
+  /// s20
     case Routez.search:
       return Nav.fadeToScreen(const MainSearchScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-//     /// s40
-//       case Routez.BzEditor:
-//         return MaterialPageRoute(builder: (_) => BzEditorScreen());
-// -----------------------------------------------------------------------------
-//     /// s41
-//       case Routez.MyBz:
-//         return MaterialPageRoute(builder: (_) => MyBzScreen());
-// -----------------------------------------------------------------------------
-//     /// s42
-//       case Routez.EditBz:
-//         return MaterialPageRoute(builder: (_) => EditBzScreen());
-// -----------------------------------------------------------------------------
-//     /// s50
-//       case Routez.FlyerEditor:
-//         return MaterialPageRoute(builder: (_) => FlyerEditorScreen());
-// -----------------------------------------------------------------------------
-    ///  s51
+  // --------------------------
+  ///  s51
     case Routez.flyerScreen:
       return Nav.slideToScreen(const FlyerScreen(), settings);
       break;
-// -----------------------------------------------------------------------------
-
+  // --------------------------
   }
   return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
 }

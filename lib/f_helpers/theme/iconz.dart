@@ -1,13 +1,13 @@
 
 class Iconz {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Iconz();
 
-// -----------------------------------------------------------------------------
+  // --------------------
   static const String _iconsPath = 'assets/icons';
   static const String _artworkPath = 'assets/aw';
-// -----------------------------------------------------------------------------
+  // --------------------
   /// artworks
   static const String bldrsNameEn = '$_artworkPath/aw_bldrs_name_en.svg' ;
   static const String bldrsNameSquare = '$_artworkPath/aw_bldrs_name_square.svg' ;
@@ -19,7 +19,7 @@ class Iconz {
   static const String footerShadow = '$_artworkPath/footer_shadow.svg';
 
   static const String welcomeToBldrsBanner_22x18 = '$_artworkPath/welcome.svg'; /// w22 * h18
-// -----------------------------------------------------------------------------
+  // --------------------
   /// COMMUNICATION
   static const String comApple = '$_iconsPath/com_apple.svg' ;
   static const String comEmail = '$_iconsPath/com_email.svg' ;
@@ -37,7 +37,7 @@ class Iconz {
   static const String comTikTok = '$_iconsPath/com_tiktok.svg' ;
   static const String comPinterest = '$_iconsPath/com_pinterest.svg' ;
   static const String comGooglePlus = '$_iconsPath/com_google_plus.svg' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// dummies
   static const String dumAuthorPic = 'assets/dum/dum_author_pic.jpg' ;
   static const String dumBusinessLogo = 'assets/dum/dum_business_logo.jpg' ;
@@ -54,7 +54,7 @@ class Iconz {
   static const String dumBzPNG = 'assets/dum/dum_bz.png' ;
   static const String dumPinPNG = 'assets/dum/dum_pin.png' ;
   static const String dumPyramidPin = 'assets/dum/dum_pyramid_pin.png' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// dev
   static const String dvBlankSVG = '$_iconsPath/dv_blank.svg' ;
   static const String dvGouran = '$_iconsPath/dv_gouran.svg' ;
@@ -64,7 +64,7 @@ class Iconz {
   static const String dvBlankPNG = '$_iconsPath/dv_blank.png' ;
   static const String dvBlackHole = '$_iconsPath/dv_black_hole.png' ;
   static const String dvDonaldDuck = '$_iconsPath/dv_donald_duck.png' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// FLYER TYPE
   static const String bxPropertiesOn = '$_iconsPath/ft_properties_on.svg' ;
   static const String bxPropertiesOff = '$_iconsPath/ft_properties_off.svg' ;
@@ -86,7 +86,7 @@ class Iconz {
   static const String bxEquipmentOff = '$_iconsPath/ft_equipment_off.svg' ;
   static const String bxOwnerOn = '$_iconsPath/ft_owner_on.svg' ;
   static const String bxOwnerOff = '$_iconsPath/ft_owner_off.svg' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// GENERAL ICONS
   static const String back = '$_iconsPath/gi_back.svg' ;
   static const String backArabic = '$_iconsPath/gi_back_arabic.svg' ;
@@ -171,7 +171,7 @@ class Iconz {
   static const String paste = '$_iconsPath/gi_paste.svg';
   static const String male = '$_iconsPath/gi_male.svg';
   static const String female = '$_iconsPath/gi_female.svg';
-// -----------------------------------------------------------------------------
+  // --------------------
   /// PYRAMIDS
   static const String pyramidsYellow = '$_iconsPath/pyramids_yellow.svg' ;
   static const String pyramidsWhite = '$_iconsPath/pyramids_white.svg' ;
@@ -184,7 +184,7 @@ class Iconz {
   static const String pyramid = '$_iconsPath/gi_pyramid.svg' ;
   static const String pyramidsYellowClean = '$_iconsPath/pyramids_yellow_clean.svg' ;
   static const String pyramidsWhiteClean = '$_iconsPath/pyramids_white_clean.svg' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   /// USER TYPE
   static const String utNormal = '$_iconsPath/ut_normal_user.svg' ;
   static const String utSearching = '$_iconsPath/ut_searching_user.svg' ;
@@ -192,15 +192,14 @@ class Iconz {
   static const String utSelling = '$_iconsPath/ut_selling_user.svg' ;
   static const String utPlanning = '$_iconsPath/ut_planning_user.svg' ;
   static const String utExecuting = '$_iconsPath/ut_executing_user.svg' ;
-// -----------------------------------------------------------------------------
+  // --------------------
   static const String contAfrica = '$_iconsPath/cont_africa.svg' ;
   static const String contAsia = '$_iconsPath/cont_asia.svg' ;
   static const String contAustralia = '$_iconsPath/cont_australia.svg' ;
   static const String contEurope = '$_iconsPath/cont_europe.svg' ;
   static const String contNorthAmerica = '$_iconsPath/cont_north_america.svg' ;
   static const String contSouthAmerica = '$_iconsPath/cont_south_america.svg' ;
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   static List<String> allIconz(){
 
     return <String>[
@@ -354,5 +353,5 @@ class Iconz {
     ];
 
   }
-
+// -----------------------------------------------------------------------------
 }
