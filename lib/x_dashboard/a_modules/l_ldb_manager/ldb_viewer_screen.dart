@@ -107,9 +107,10 @@ class LDBViewerScreen extends StatefulWidget {
 }
 
 class _LDBViewerScreenState extends State<LDBViewerScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
+  // --------------------
   Future<void> _triggerLoading({Function function}) async {
     if (mounted) {
       if (function == null) {
@@ -128,12 +129,12 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -146,7 +147,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     }
     _isInit = false;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   List<Map<String, Object>> _maps;
   Future<void> _readSembast() async {
     final List<Map<String, Object>> _sembastMaps = await LDBOps.readAllMaps(
@@ -158,12 +159,12 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
       _loading = false;
     });
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onRowTap(Map<String, dynamic> map) async {
     // blog('Bldrs local data base : _bldbName : ${widget.ldbDocName} : row id : $id');
     Mapper.blogMap(map);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onClearLDB() async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -180,13 +181,13 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
     else {
       await TopDialog.showTopDialog(
-          context: context,
-          firstLine: 'Ana 2olt keda bardo',
+        context: context,
+        firstLine: 'Ana 2olt keda bardo',
       );
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> _onBldrsTap() async {
 
     await BottomDialog.showButtonsBottomDialog(
@@ -196,24 +197,24 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
         numberOfWidgets: 1,
         builder: (xxx, phrasePro){
 
-        return <Widget>[
+          return <Widget>[
 
-          DreamBox(
-            width: BottomDialog.clearWidth(context),
-            height: 40,
-            verse:  'Clear ${widget.ldbDocName} data',
-            verseWeight: VerseWeight.thin,
-            verseScaleFactor: 0.7,
-            onTap: _onClearLDB,
-          ),
+            DreamBox(
+              width: BottomDialog.clearWidth(context),
+              height: 40,
+              verse:  'Clear ${widget.ldbDocName} data',
+              verseWeight: VerseWeight.thin,
+              verseScaleFactor: 0.7,
+              onTap: _onClearLDB,
+            ),
 
-        ];
+          ];
 
         }
 
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -236,5 +237,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
 
       ],
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

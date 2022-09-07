@@ -26,21 +26,21 @@ class AllNotesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<AllNotesScreen> createState() => _AllNotesScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AllNotesScreenState extends State<AllNotesScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ///
   //   final ValueNotifier<List<NoteModel>> _notes = ValueNotifier(<NoteModel>[]);
   ///
   // bool _canPaginate = true;
   ///
   final ScrollController _scrollController = ScrollController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -52,7 +52,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
       blogLoading(loading: _loading.value, callerName: 'AllNotesScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
@@ -66,7 +66,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -82,14 +82,14 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
   Future<void> _paginateAllNotes() async {
 
@@ -128,7 +128,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
 //   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onNoteTap({
     @required NoteModel note,
   }) async {
@@ -162,7 +162,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -192,8 +192,8 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
           final List<NoteModel> notesModels = NoteModel.decipherNotes(
-              maps: maps,
-              fromJSON: false,
+            maps: maps,
+            fromJSON: false,
           );
 
           if (Mapper.checkCanLoopList(notesModels) == false){
@@ -254,4 +254,5 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

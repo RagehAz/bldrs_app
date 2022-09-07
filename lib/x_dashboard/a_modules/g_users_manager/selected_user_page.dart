@@ -31,7 +31,7 @@ class SelectedUserPage extends StatelessWidget {
     @required BuildContext context,
     @required UserModel userModel,
     @required ValueNotifier<List<UserModel>> usersModels,
-}){
+  }){
 
     return <Widget>[
 
@@ -52,7 +52,7 @@ class SelectedUserPage extends StatelessWidget {
           ),
         ),
       ),
-      
+
       /// PROFILE PAGE
       UserProfileBanners(
         userModel: userModel,
@@ -272,5 +272,7 @@ class SelectedUserPage extends StatelessWidget {
         },
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

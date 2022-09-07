@@ -26,14 +26,14 @@ class SpecPickerManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SpecPickerManagerState createState() => _SpecPickerManagerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _SpecPickerManagerState extends State<SpecPickerManager> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({
     bool setTo,
   }) async {
@@ -47,12 +47,12 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
       blogLoading(loading: _loading.value, callerName: 'SpecPickerManager',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -69,18 +69,18 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const List<FlyerType> _allFlyerTypes = <FlyerType>[
     ...FlyerTyper.flyerTypesList,
   ];
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   FlyerType _selectedFlyerType;
 // ------------------------
@@ -97,14 +97,14 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     const FlyerType _flyerType = FlyerType.equipment;
-
     final double _screenWidth = Scale.superScreenWidth(context);
     blog('c');
+
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
@@ -146,7 +146,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
             translate: false,
             verse:  'Edit ${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
             icon: FlyerTyper.flyerTypeIconOff(_flyerType),
-                        onTap: () async {
+            onTap: () async {
 
               final List<PickerModel> _pickers = await PickerProtocols.fetchFlyerTypPickers(
                 context: context,
@@ -222,7 +222,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         // ---------------------------------------
 
-         ///
+        ///
         // WideButton(
         //   verse:  'INSERT in LDB',
         //   isActive: false,
@@ -325,6 +325,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
       ],
     );
+
   }
 // -----------------------------------------------------------------------------
 }

@@ -18,6 +18,7 @@ class ValueBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTap: () => Keyboard.copyToClipboard(
         context: context,
@@ -45,5 +46,7 @@ class ValueBox extends StatelessWidget {
         ),
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

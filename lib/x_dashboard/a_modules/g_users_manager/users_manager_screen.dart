@@ -18,14 +18,21 @@ class UsersManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _UsersManagerScreenState createState() => _UsersManagerScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _UsersManagerScreenState extends State<UsersManagerScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final ScrollController _scrollController = ScrollController();
+  final PageController _pageController = PageController();
+  // --------------------
+  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]);
+  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null);
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -37,12 +44,12 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
       blogLoading(loading: _loading.value, callerName: 'UsersManagerScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -63,7 +70,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     }
     super.didChangeDependencies();
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -75,14 +82,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  final ScrollController _scrollController = ScrollController();
-  final PageController _pageController = PageController();
-// -----------------------------------------------------------------------------
-  final ValueNotifier<QueryDocumentSnapshot<Object>> _lastSnapshot = ValueNotifier(null);
-  final ValueNotifier<List<UserModel>> _usersModels = ValueNotifier<List<UserModel>>(<UserModel>[]);
-  final ValueNotifier<UserModel> _selectedUser = ValueNotifier<UserModel>(null);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -120,7 +120,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
               );
 
             }
-            ),
+        ),
 
       ],
 
@@ -149,5 +149,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
         ],
       ),
     );
+
   }
+// -----------------------------------------------------------------------------
 }

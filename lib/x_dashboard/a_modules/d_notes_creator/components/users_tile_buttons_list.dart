@@ -72,8 +72,8 @@ class UserTileButtonsList extends StatelessWidget {
                         onUserTap: () => onUserTap(_user),
                         sideButton: sideButton,
                         sideButtonDeactivated: Stringer.checkStringsContainString(
-                            strings: usersWithSideButtonsDeactivated,
-                            string: _user.id,
+                          strings: usersWithSideButtonsDeactivated,
+                          string: _user.id,
                         ),
                         onSideButtonTap: () => onSideButtonTap(_user),
                       );
@@ -98,4 +98,5 @@ class UserTileButtonsList extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }

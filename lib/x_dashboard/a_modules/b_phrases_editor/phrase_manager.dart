@@ -30,10 +30,10 @@ class PhraseManager extends StatefulWidget {
 }
 
 class _PhraseManagerState extends State<PhraseManager> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({
     bool setTo,
   }) async {
@@ -47,12 +47,12 @@ class _PhraseManagerState extends State<PhraseManager> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -69,14 +69,14 @@ class _PhraseManagerState extends State<PhraseManager> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -121,8 +121,8 @@ class _PhraseManagerState extends State<PhraseManager> {
           onTap: () async {
 
             final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
-                context: context,
-                langCode: 'en',
+              context: context,
+              langCode: 'en',
             );
             await PhraseRealOps.createPhrasesForLang(
                 context: context,
@@ -243,6 +243,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
       ],
     );
+
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -16,14 +16,16 @@ class AllFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AllFlyersScreenState createState() => _AllFlyersScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AllFlyersScreenState extends State<AllFlyersScreen> {
+  // -----------------------------------------------------------------------------
   List<FlyerModel> _flyers;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   bool _loading = false;
+  // --------------------
   Future<void> _triggerLoading({Function function}) async {
     if (function == null) {
       setState(() {
@@ -40,7 +42,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
         ? blog('LOADING--------------------------------------')
         : blog('LOADING COMPLETE--------------------------------------');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -57,8 +59,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 
         blog('we got ${_maps.length} maps');
         final List<FlyerModel> _flyersFromMaps = FlyerModel.decipherFlyers(
-            maps: _maps,
-            fromJSON: false,
+          maps: _maps,
+          fromJSON: false,
         );
         blog('we got ${_flyersFromMaps.length} flyers');
 
@@ -76,7 +78,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
     _isInit = false;
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  /*
 //   Future<void> _onTapFlyer(FlyerModel flyer) async {
 //
 //     await BottomDialog.showButtonsBottomDialog(
@@ -125,7 +128,8 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
 //     );
 //
 //   }
-// -----------------------------------------------------------------------------
+   */
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -148,5 +152,7 @@ class _AllFlyersScreenState extends State<AllFlyersScreen> {
       ),
 
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

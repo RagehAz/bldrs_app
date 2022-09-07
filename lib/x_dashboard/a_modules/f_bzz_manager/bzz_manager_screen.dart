@@ -24,17 +24,16 @@ class BzzManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _BzzManagerScreenState createState() => _BzzManagerScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _BzzManagerScreenState extends State<BzzManagerScreen> {
-
+  // -----------------------------------------------------------------------------
   final TextEditingController _searchController = TextEditingController();
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -46,12 +45,12 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       blogLoading(loading: _loading.value, callerName: 'BzzManagerScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -67,7 +66,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     }
     _isInit = false;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -75,7 +74,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
     _searchController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   QueryDocumentSnapshot<Object> _lastSnapshot;
   final List<BzModel> _bzzModels = <BzModel>[];
   Future<dynamic> _readMoreBzz() async {
@@ -95,9 +94,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       });
     }
 
-      _loading.value = false;
+    _loading.value = false;
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   List<BzModel> _searchedBzz = <BzModel>[];
   void _onSearchChanged(String value) {
     final String val = TextMod.removeSpacesFromAString(value);
@@ -128,9 +127,9 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
         );
 
         final bool _alreadyInList = BzModel.checkBzzContainThisBz(
-              bzz: _searchedBzz,
-              bzModel: tinyBz,
-            ) ==
+          bzz: _searchedBzz,
+          bzModel: tinyBz,
+        ) ==
             true;
 
         // blog('_alreadyInList : ${tinyBz.bzID} : $_alreadyInList');
@@ -152,15 +151,15 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
       }
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-
+    // --------------------
     final List<BzModel> _bzz = _searchedBzz.isEmpty ? _bzzModels : _searchedBzz;
-
+    // --------------------
     return _bzzModels == null ?
     const LoadingFullScreenLayer()
         :
@@ -195,9 +194,11 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
             return BzLongButton(
               bzModel: _bz,
             );
-            },
+          },
         ),
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

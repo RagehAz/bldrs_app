@@ -26,33 +26,33 @@ class ChainTreeViewer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<ChainTreeViewer> createState() => _ChainTreeViewerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ChainTreeViewerState extends State<ChainTreeViewer> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<bool> _expanded;
-// ----------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _expanded = ValueNotifier(widget.initiallyExpanded);
   }
-// ----------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _expanded.dispose();
     super.dispose();
   }
-// ----------------------------------------------
+  // -----------------------------------------------------------------------------
   void _triggerExpansion(){
     _expanded.value = !_expanded.value;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final bool _sonsAreChain = Chain.checkSonsAreChains(widget.chain?.sons);
     final bool _sonsArePhids = Chain.checkSonsArePhids(widget.chain?.sons);
     final bool _sonsAreDataCreators = Chain.checkSonsAreDataCreator(widget.chain?.sons);
@@ -61,9 +61,8 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
         :
     _sonsArePhids ? widget.chain?.sons?.length
         :
-    1
-    ;
-
+    1;
+    // --------------------
     return SizedBox(
       width: widget.width,
       child: ValueListenableBuilder(
@@ -160,5 +159,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
 
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

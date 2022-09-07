@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -81,4 +79,5 @@ class NoteSenderDynamicButton extends StatelessWidget {
     }
 
   }
+  /// --------------------------------------------------------------------------
 }

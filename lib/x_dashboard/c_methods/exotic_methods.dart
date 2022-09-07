@@ -20,11 +20,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ExoticMethods {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ExoticMethods();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllCollectionDocs({
     @required BuildContext context,
@@ -44,7 +44,7 @@ class ExoticMethods {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<List<Map<String, dynamic>>> readAllSubCollectionDocs({
     @required BuildContext context,
     @required String collName,
@@ -65,94 +65,94 @@ class ExoticMethods {
     return _maps;
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> readAllUserModels({
     @required BuildContext context,
     @required int limit,
   }) async {
-  // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
+    // List<UserModel> _allUsers = await ExoticMethods.readAllUserModels(limit: limit);
 
-  List<UserModel> _allUserModels = <UserModel>[];
+    List<UserModel> _allUserModels = <UserModel>[];
 
-  final List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
-    docName: LDBDoc.users,
-  );
+    final List<dynamic> _ldbUsers = await LDBOps.readAllMaps(
+      docName: LDBDoc.users,
+    );
 
-  if (_ldbUsers.length < 4) {
-    final List<dynamic> _maps = await Fire.readCollectionDocs(
+    if (_ldbUsers.length < 4) {
+      final List<dynamic> _maps = await Fire.readCollectionDocs(
+        context: context,
+        limit: limit ?? 100,
+        collName: FireColl.users,
+        orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
+      );
+
+      _allUserModels = UserModel.decipherUsers(
+        maps: _maps,
+        fromJSON: false,
+      );
+
+      for (final UserModel user in _allUserModels) {
+        await LDBOps.insertMap(
+          docName: LDBDoc.users,
+          input: user.toMap(toJSON: true),
+        );
+      }
+    } else {
+      _allUserModels =
+          UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
+    }
+
+    return _allUserModels;
+  }
+  // -----------------------------------------------------------------------------
+  static Future<List<NoteModel>> readAllNoteModels({
+    @required BuildContext context,
+    @required String userID,
+  }) async {
+    // List<NotiModel> _allNotiModels = await ExoticMethods.readAllNotiModels(context: context, userID: userID);
+
+    final List<dynamic> _maps = await Fire.readSubCollectionDocs(
       context: context,
-      limit: limit ?? 100,
       collName: FireColl.users,
+      docName: userID,
+      subCollName: FireSubColl.users_user_notifications,
+      addDocsIDs: true,
+      limit: 50,
+
+      /// TASK : CHECK NOTI LIMIT WHILE READING THEM
       orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
     );
 
-    _allUserModels = UserModel.decipherUsers(
+    final List<NoteModel> _allModels = NoteModel.decipherNotes(
       maps: _maps,
       fromJSON: false,
     );
 
-    for (final UserModel user in _allUserModels) {
-      await LDBOps.insertMap(
-        docName: LDBDoc.users,
-        input: user.toMap(toJSON: true),
-      );
-    }
-  } else {
-    _allUserModels =
-        UserModel.decipherUsers(maps: _ldbUsers, fromJSON: true);
+    return _allModels;
   }
-
-  return _allUserModels;
-}
-// -----------------------------------------------------------------------------
-  static Future<List<NoteModel>> readAllNoteModels({
-  @required BuildContext context,
-  @required String userID,
-}) async {
-  // List<NotiModel> _allNotiModels = await ExoticMethods.readAllNotiModels(context: context, userID: userID);
-
-  final List<dynamic> _maps = await Fire.readSubCollectionDocs(
-    context: context,
-    collName: FireColl.users,
-    docName: userID,
-    subCollName: FireSubColl.users_user_notifications,
-    addDocsIDs: true,
-    limit: 50,
-
-    /// TASK : CHECK NOTI LIMIT WHILE READING THEM
-    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-  );
-
-  final List<NoteModel> _allModels = NoteModel.decipherNotes(
-    maps: _maps,
-    fromJSON: false,
-  );
-
-  return _allModels;
-}
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<List<BzModel>> readAllBzzModels({
-  @required BuildContext context,
-  @required int limit,
-}) async {
-  // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
+    @required BuildContext context,
+    @required int limit,
+  }) async {
+    // List<BzModel> _allBzz = await ExoticMethods.readAllBzzModels(context: context, limit: limit);
 
-  final List<dynamic> _maps = await Fire.readCollectionDocs(
-    context: context,
-    limit: limit ?? 100,
-    collName: FireColl.bzz,
-    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-  );
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
+      context: context,
+      limit: limit ?? 100,
+      collName: FireColl.bzz,
+      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
+    );
 
-  final List<BzModel> _allModels = BzModel.decipherBzz(
-    maps: _maps,
-    fromJSON: false,
-  );
+    final List<BzModel> _allModels = BzModel.decipherBzz(
+      maps: _maps,
+      fromJSON: false,
+    );
 
-  return _allModels;
-}
-// -----------------------------------------------------------------------------
+    return _allModels;
+  }
+  // -----------------------------------------------------------------------------
 //   static Future<List<FeedbackModel>> readAllFeedbacks({
 //   @required BuildContext context,
 //   @required int limit,
@@ -171,304 +171,304 @@ class ExoticMethods {
 
 //   return _allModels;
 // }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readAllFlyers({
-  @required BuildContext context,
-  @required int limit,
-}) async {
-  // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
+    @required BuildContext context,
+    @required int limit,
+  }) async {
+    // List<FlyerModel> _allFlyers = await ExoticMethods.readAllFlyers(context: context, limit: limit);
 
-  final List<dynamic> _maps = await Fire.readCollectionDocs(
-    context: context,
-    limit: limit ?? 100,
-    collName: FireColl.flyers,
-    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-  );
+    final List<dynamic> _maps = await Fire.readCollectionDocs(
+      context: context,
+      limit: limit ?? 100,
+      collName: FireColl.flyers,
+      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
+    );
 
-  final List<FlyerModel> _allModels =
-      FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+    final List<FlyerModel> _allModels =
+    FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
 
-  return _allModels;
-}
-// -----------------------------------------------------------------------------
+    return _allModels;
+  }
+  // -----------------------------------------------------------------------------
   static Future<List<CountryModel>> fetchAllCountryModels({
-  @required BuildContext context,
-}) async {
+    @required BuildContext context,
+  }) async {
 
-  final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
+    final List<String> _allCountriesIDs = CountryModel.getAllCountriesIDs();
 
-  final List<CountryModel> _countries = <CountryModel>[];
+    final List<CountryModel> _countries = <CountryModel>[];
 
-  for (final String id in _allCountriesIDs) {
+    for (final String id in _allCountriesIDs) {
 
-    final CountryModel _country = await ZoneProtocols.fetchCountry(
+      final CountryModel _country = await ZoneProtocols.fetchCountry(
         context: context,
         countryID: id,
-    );
+      );
 
-    if (_country != null) {
-      _countries.add(_country);
+      if (_country != null) {
+        _countries.add(_country);
+      }
     }
-  }
 
-  return _countries;
-}
-// -----------------------------------------------------------------------------
+    return _countries;
+  }
+  // -----------------------------------------------------------------------------
   static Future<void> createContinentsDocFromAllCountriesCollection(BuildContext context) async {
-  /// in case any (continent name) or (region name) or (countryID) has changed
+    /// in case any (continent name) or (region name) or (countryID) has changed
 
-  final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
+    final List<CountryModel> _allCountries = await fetchAllCountryModels(context: context);
 
-  final List<Continent> _continents = <Continent>[];
+    final List<Continent> _continents = <Continent>[];
 
-  for (final CountryModel country in _allCountries) {
-    /// add continent
-    final bool _continentIsAddedAlready = Continent.checkContinentsIncludeContinent(
-      name: country.continent,
-      continents: _continents,
-    );
-
-    if (_continentIsAddedAlready == false) {
-      _continents.add(Continent(
+    for (final CountryModel country in _allCountries) {
+      /// add continent
+      final bool _continentIsAddedAlready = Continent.checkContinentsIncludeContinent(
         name: country.continent,
-        regions: const <Region>[],
-        globalCountriesIDs: const <String>[],
-        activatedCountriesIDs: const <String>[],
-      ));
+        continents: _continents,
+      );
+
+      if (_continentIsAddedAlready == false) {
+        _continents.add(Continent(
+          name: country.continent,
+          regions: const <Region>[],
+          globalCountriesIDs: const <String>[],
+          activatedCountriesIDs: const <String>[],
+        ));
+      }
+
+      /// add region to continent
+      final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
+
+      final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
+        name: country.region,
+        regions: _continents[_continentIndex].regions,
+      );
+
+      if (_regionIsAddedAlready == false) {
+        _continents[_continentIndex].regions.add(Region(
+          continent: _continents[_continentIndex].name,
+          name: country.region,
+          countriesIDs: const <String>[],
+        ));
+      }
+
+      /// add country to region
+      final int _regionIndex = _continents[_continentIndex]
+          .regions
+          .indexWhere((Region region) => region.name == country.region);
+
+      final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
+        countryID: country.id,
+        countriesIDs: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
+      );
+
+      if (_countryIsAddedAlready == false) {
+        _continents[_continentIndex]
+            .regions[_regionIndex]
+            .countriesIDs
+            .add(country.id);
+      }
+
+      blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.id}');
     }
 
-    /// add region to continent
-    final int _continentIndex = _continents.indexWhere((Continent continent) => continent.name == country.continent);
+    final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
 
-    final bool _regionIsAddedAlready = Region.regionsIncludeRegion(
-      name: country.region,
-      regions: _continents[_continentIndex].regions,
+    await Fire.createNamedDoc(
+      context: context,
+      collName: FireColl.admin,
+      docName: 'continents',
+      input: _contMaps,
     );
 
-    if (_regionIsAddedAlready == false) {
-      _continents[_continentIndex].regions.add(Region(
-            continent: _continents[_continentIndex].name,
-            name: country.region,
-            countriesIDs: const <String>[],
-          ));
-    }
-
-    /// add country to region
-    final int _regionIndex = _continents[_continentIndex]
-        .regions
-        .indexWhere((Region region) => region.name == country.region);
-
-    final bool _countryIsAddedAlready = CountryModel.countriesIDsIncludeCountryID(
-      countryID: country.id,
-      countriesIDs: _continents[_continentIndex].regions[_regionIndex].countriesIDs,
-    );
-
-    if (_countryIsAddedAlready == false) {
-      _continents[_continentIndex]
-          .regions[_regionIndex]
-          .countriesIDs
-          .add(country.id);
-    }
-
-    blog('XXXXXXXXXXXXXXXXXXXXXXX ---> done with ${country.id}');
   }
-
-  final Map<String, dynamic> _contMaps = Continent.cipherContinents(_continents);
-
-  await Fire.createNamedDoc(
-    context: context,
-    collName: FireColl.admin,
-    docName: 'continents',
-    input: _contMaps,
-  );
-
-}
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<List<BigMac>> readAllBigMacs(BuildContext context) async {
-  final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
-    context: context,
-    collName: 'admin',
-    docName: 'bigMac',
-    subCollName: 'bigMacs',
-    limit: 250,
-    orderBy: const QueryOrderBy(fieldName: 'countryID', descending: true),
-  );
+    final List<dynamic> _allMaps = await Fire.readSubCollectionDocs(
+      context: context,
+      collName: 'admin',
+      docName: 'bigMac',
+      subCollName: 'bigMacs',
+      limit: 250,
+      orderBy: const QueryOrderBy(fieldName: 'countryID', descending: true),
+    );
 
-  final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
+    final List<BigMac> _allBigMacs = BigMac.decipherBigMacs(_allMaps);
 
-  return _allBigMacs;
-}
-// -----------------------------------------------------------------------------
-/// super dangerous method,, take care !!
-  static Future<void> updateAFieldInAllCollDocs({
-  @required BuildContext context,
-  @required String collName,
-  @required String field,
-  @required dynamic input
-}) async {
-
-  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
-    context: context,
-    limit: 1000,
-    collName: collName,
-    addDocsIDs: true,
-    orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
-  );
-
-  for (final Map<String, dynamic> map in _maps) {
-    await Fire.updateDocField(
-        context: context,
-        collName: collName,
-        docName: map['id'],
-        field: field,
-        input: input);
+    return _allBigMacs;
   }
+  // -----------------------------------------------------------------------------
+  /// super dangerous method,, take care !!
+  static Future<void> updateAFieldInAllCollDocs({
+    @required BuildContext context,
+    @required String collName,
+    @required String field,
+    @required dynamic input
+  }) async {
 
-  blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
-}
-// -----------------------------------------------------------------------------
+    final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+      context: context,
+      limit: 1000,
+      collName: collName,
+      addDocsIDs: true,
+      orderBy: const QueryOrderBy(fieldName: 'id', descending: true),
+    );
+
+    for (final Map<String, dynamic> map in _maps) {
+      await Fire.updateDocField(
+          context: context,
+          collName: collName,
+          docName: map['id'],
+          field: field,
+          input: input);
+    }
+
+    blog('Tamam with : ${_maps.length} flyers updated their [$field] field');
+  }
+  // -----------------------------------------------------------------------------
   static Future<void> takeOwnerShip({
-  @required BuildContext context,
-  @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
-  @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
-}) async {
+    @required BuildContext context,
+    @required String oldUserID, // '60a1SPzftGdH6rt15NF96m0j9Et2'
+    @required String newUserID, // 'nM6NmPjhgwMKhPOsZVW4L1Jlg5N2'
+  }) async {
 
-  /// Auth => can only be done in firebase
-  /// security level => can only be done in firebase
+    /// Auth => can only be done in firebase
+    /// security level => can only be done in firebase
 
-  final UserModel _oldUserModel = await UserProtocols.fetchUser(
+    final UserModel _oldUserModel = await UserProtocols.fetchUser(
       context: context,
       userID: oldUserID,
-  );
-
-  final List<String> _oldUserFlyersIDs = <String>[];
-
-  for (final String bzID in _oldUserModel.myBzzIDs){
-    final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: bzID);
-    _oldUserFlyersIDs.addAll(_bz.flyersIDs);
-    await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
-  }
-
-  await takeOverFlyers(context: context, newUserID: newUserID, flyersIDs: _oldUserFlyersIDs);
-
-}
-// -----------------------------------------------------------------------------
-  static Future<void> _takeOverBz({
-  @required BuildContext context,
-  @required String oldUserID,
-  @required String newUserID,
-  @required BzModel bzModel,
-}) async {
-
-  if (bzModel != null && oldUserID != null && newUserID != null){
-
-    final List<AuthorModel> _authors = bzModel.authors;
-
-    final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
-        bz: bzModel,
-        authorID: oldUserID,
     );
 
-    if (_oldAuthor != null){
+    final List<String> _oldUserFlyersIDs = <String>[];
 
-      final UserModel _newUserModel = await UserProtocols.fetchUser(
-        context: context,
-        userID: newUserID,
+    for (final String bzID in _oldUserModel.myBzzIDs){
+      final BzModel _bz = await BzProtocols.fetchBz(context: context, bzID: bzID);
+      _oldUserFlyersIDs.addAll(_bz.flyersIDs);
+      await _takeOverBz(context: context, oldUserID: oldUserID, newUserID: newUserID, bzModel: _bz);
+    }
+
+    await takeOverFlyers(context: context, newUserID: newUserID, flyersIDs: _oldUserFlyersIDs);
+
+  }
+  // -----------------------------------------------------------------------------
+  static Future<void> _takeOverBz({
+    @required BuildContext context,
+    @required String oldUserID,
+    @required String newUserID,
+    @required BzModel bzModel,
+  }) async {
+
+    if (bzModel != null && oldUserID != null && newUserID != null){
+
+      final List<AuthorModel> _authors = bzModel.authors;
+
+      final AuthorModel _oldAuthor = AuthorModel.getAuthorFromBzByAuthorID(
+        bz: bzModel,
+        authorID: oldUserID,
       );
 
-      final AuthorModel _newAuthor = _oldAuthor.copyWith(
-        userID: newUserID,
-        pic: _newUserModel.pic,
-      );
+      if (_oldAuthor != null){
 
-      final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsListByID(
-        authors: _authors,
-        authorToReplace: _newAuthor,
-      );
+        final UserModel _newUserModel = await UserProtocols.fetchUser(
+          context: context,
+          userID: newUserID,
+        );
 
-      await Fire.updateDocField(
-        context: context,
-        collName: FireColl.bzz,
-        docName: bzModel.id,
-        field: 'authors',
-        input: AuthorModel.cipherAuthors(_updatedAuthors),
-      );
+        final AuthorModel _newAuthor = _oldAuthor.copyWith(
+          userID: newUserID,
+          pic: _newUserModel.pic,
+        );
+
+        final List<AuthorModel> _updatedAuthors = AuthorModel.replaceAuthorModelInAuthorsListByID(
+          authors: _authors,
+          authorToReplace: _newAuthor,
+        );
+
+        await Fire.updateDocField(
+          context: context,
+          collName: FireColl.bzz,
+          docName: bzModel.id,
+          field: 'authors',
+          input: AuthorModel.cipherAuthors(_updatedAuthors),
+        );
+
+      }
+
 
     }
 
-
   }
-
-}
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> takeOverFlyers({
-  @required BuildContext context,
-  @required String newUserID,
-  @required List<String> flyersIDs,
-}) async {
+    @required BuildContext context,
+    @required String newUserID,
+    @required List<String> flyersIDs,
+  }) async {
 
-  for (final String id in flyersIDs){
+    for (final String id in flyersIDs){
 
-    await Fire.updateDocField(
+      await Fire.updateDocField(
         context: context,
         collName: FireColl.flyers,
         docName: id,
         field: 'authorID',
         input: newUserID,
-    );
+      );
 
-    blog('flyer $id finished');
+      blog('flyer $id finished');
+
+    }
 
   }
-
-}
-/// ----------------------------------------------------------------------------
+  /// ----------------------------------------------------------------------------
   static Future<void> assignBzzOwnership({
-  @required BuildContext context,
-  @required String userID,
-  @required List<String> bzzIDs,
-}) async {
+    @required BuildContext context,
+    @required String userID,
+    @required List<String> bzzIDs,
+  }) async {
 
-  await  Fire.updateDocField(
+    await  Fire.updateDocField(
       context: context,
       collName: FireColl.users,
       docName: userID,
       field: 'myBzzIDs',
       input: bzzIDs,
-  );
+    );
 
-}
-/// ----------------------------------------------------------------------------
+  }
+  /// ----------------------------------------------------------------------------
   static Future<List<BzModel>> searchBzzByAuthorID({
     @required BuildContext context,
     @required String authorID,
     @required QueryDocumentSnapshot<Object> startAfter,
     int limit = 10,
-}) async {
+  }) async {
 
-  final List<Map<String, dynamic>> _bzzMaps = await Fire.readCollectionDocs(
-    context: context,
-    collName: FireColl.bzz,
-    limit: limit,
-    startAfter: startAfter,
-    addDocSnapshotToEachMap: true,
-    finders: <FireFinder>[
+    final List<Map<String, dynamic>> _bzzMaps = await Fire.readCollectionDocs(
+      context: context,
+      collName: FireColl.bzz,
+      limit: limit,
+      startAfter: startAfter,
+      addDocSnapshotToEachMap: true,
+      finders: <FireFinder>[
 
-      FireFinder(
-        field: 'authors.$authorID.userID',
-        comparison: FireComparison.equalTo,
-        value: authorID,
-      ),
+        FireFinder(
+          field: 'authors.$authorID.userID',
+          comparison: FireComparison.equalTo,
+          value: authorID,
+        ),
 
-    ],
-  );
+      ],
+    );
 
-  final List<BzModel> _foundBzz = BzModel.decipherBzz(maps: _bzzMaps, fromJSON: false);
+    final List<BzModel> _foundBzz = BzModel.decipherBzz(maps: _bzzMaps, fromJSON: false);
 
-  return _foundBzz;
-}
-/// ----------------------------------------------------------------------------
+    return _foundBzz;
+  }
+  /// ----------------------------------------------------------------------------
   // Future<List<CurrencyModel>> getCurrenciesFromCountries({@required BuildContext context}) async {
   //
   //   final List<CurrencyModel> _currencies = <CurrencyModel>[];
@@ -508,7 +508,7 @@ class ExoticMethods {
   //
   //   return _currencies;
   // }
-/// ----------------------------------------------------------------------------
+  /// ----------------------------------------------------------------------------
   static Future<List<CountryModel>> readAllCountries({
     @required BuildContext context,
   }) async {
@@ -522,18 +522,18 @@ class ExoticMethods {
     );
 
     final List<CountryModel> _countries = CountryModel.decipherCountriesMaps(
-        maps: allMaps,
+      maps: allMaps,
     );
 
     return _countries;
   }
-/// ----------------------------------------------------------------------------
+  /// ----------------------------------------------------------------------------
   static Future<void> duplicateDoc({
-  @required BuildContext context,
+    @required BuildContext context,
     @required String fromCollName,
     @required String docName,
     @required String toCollName,
-}) async {
+  }) async {
 
     final Map<String, dynamic> _doc = await Fire.readDoc(
       context: context,
@@ -542,14 +542,14 @@ class ExoticMethods {
     );
 
     await Fire.createNamedDoc(
-        context: context,
-        collName: toCollName,
-        docName: docName,
-        input: _doc,
+      context: context,
+      collName: toCollName,
+      docName: docName,
+      input: _doc,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> changeDocFieldName({
     @required BuildContext context,
@@ -557,7 +557,7 @@ class ExoticMethods {
     @required String docName,
     @required String oldFieldName,
     @required String newFieldName,
-}) async {
+  }) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
         context: context,
@@ -576,11 +576,11 @@ class ExoticMethods {
 
 
       await Fire.updateDocField(
-          context: context,
-          collName: collName,
-          docName: docName,
-          field: newFieldName,
-          input: _map[oldFieldName],
+        context: context,
+        collName: collName,
+        docName: docName,
+        field: newFieldName,
+        input: _map[oldFieldName],
       );
 
     }

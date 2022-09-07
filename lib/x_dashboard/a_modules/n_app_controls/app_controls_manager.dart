@@ -19,17 +19,17 @@ class AppControlsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _AppControlsManagerState createState() => _AppControlsManagerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _AppControlsManagerState extends State<AppControlsManager> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _showOnlyVerifiedFlyers = ValueNotifier(false);
   ValueNotifier<AppControlsModel> _appControls;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
@@ -43,14 +43,14 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     }
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     final AppControlsModel _initialModel = GeneralProvider.proGerAppControls(context, listen: false);
     _appControls = ValueNotifier(_initialModel);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /*
   bool _isInit = true;
   @override
@@ -67,7 +67,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     super.didChangeDependencies();
   }
    */
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -76,7 +76,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
     _appControls.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -135,6 +135,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
         },
       ),
     );
+    
   }
-
+  // -----------------------------------------------------------------------------
 }

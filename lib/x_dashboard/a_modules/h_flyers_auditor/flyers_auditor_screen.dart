@@ -18,17 +18,17 @@ class FlyersAuditor extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _FlyersAuditorState createState() => _FlyersAuditorState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _FlyersAuditorState extends State<FlyersAuditor> {
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   ValueNotifier<List<FlyerModel>> _flyers;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -40,21 +40,13 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
       blogLoading(loading: _loading.value, callerName: 'FlyersAuditor',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _flyers = ValueNotifier(<FlyerModel>[]);
   }
-// -----------------------------------------------------------------------------
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    _loading.dispose();
-    _flyers.dispose();
-    super.dispose();
-  }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -74,7 +66,15 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _loading.dispose();
+    _flyers.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   /*
   bool _canDelete = true;
   int _numberOfStrips;
@@ -402,7 +402,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   }
 // -----------------------------------------------------o
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -470,5 +470,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         ],
       ),
     );
+
   }
+  // -----------------------------------------------------------------------------
 }

@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 /// SYNCING
 
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
@@ -48,7 +48,7 @@ Future<void> onSyncChain({
 
   blog('onSyncChain : ---------------- END');
 }
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preSyncCheckups({
   @required BuildContext context,
@@ -89,7 +89,7 @@ Future<bool> _preSyncCheckups({
 
   return _continue;
 }
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _updateChain({
   @required BuildContext context,
@@ -142,9 +142,9 @@ Future<void> _updateChain({
 }
 // -----------------------------------------------------------------------------
 
-  /// SELECTION
+/// SELECTION
 
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPhidTap({
   @required BuildContext context,
@@ -207,9 +207,9 @@ Future<void> onPhidTap({
 }
 // -----------------------------------------------------------------------------
 
-  /// MODIFIERS
+/// MODIFIERS
 
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewPath ({
   @required BuildContext context,
@@ -242,46 +242,46 @@ Future<void> onAddNewPath ({
 
 
 }
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
-  Future<void> onDeleteThePhid ({
-    @required BuildContext context,
-    @required String phid,
-    @required String path,
-    @required ValueNotifier<Chain> tempChain,
-  }) async {
+Future<void> onDeleteThePhid ({
+  @required BuildContext context,
+  @required String phid,
+  @required String path,
+  @required ValueNotifier<Chain> tempChain,
+}) async {
 
-    Nav.goBack(
-      context: context,
-      invoker: 'onDeletePhid delete button',
+  Nav.goBack(
+    context: context,
+    invoker: 'onDeletePhid delete button',
+  );
+
+  final bool _continue = await CenterDialog.showCenterDialog(
+    context: context,
+    titleVerse:  'Delete $phid ?',
+    bodyVerse:  'this path will be deleted :-'
+        '\n[ $path ]',
+    boolDialog: true,
+  );
+
+  if (_continue == true){
+
+    final Chain _updated = Chain.removePathFromChain(
+      chain: tempChain.value,
+      path: path,
     );
 
-    final bool _continue = await CenterDialog.showCenterDialog(
+    tempChain.value = _updated;
+
+    await TopDialog.showSuccessDialog(
       context: context,
-      titleVerse:  'Delete $phid ?',
-      bodyVerse:  'this path will be deleted :-'
-          '\n[ $path ]',
-      boolDialog: true,
+      firstLine: '( $phid ) has been deleted',
     );
-
-    if (_continue == true){
-
-      final Chain _updated = Chain.removePathFromChain(
-        chain: tempChain.value,
-        path: path,
-      );
-
-      tempChain.value = _updated;
-
-      await TopDialog.showSuccessDialog(
-        context: context,
-        firstLine: '( $phid ) has been deleted',
-      );
-
-    }
 
   }
-// --------------------
+
+}
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditPhid({
   @required BuildContext context,
@@ -330,7 +330,7 @@ Future<void> onEditPhid({
   }
 
 }
-// --------------------
+  // --------------------
 /// TESTED : WORKS PERFECT
 Future<String> _pathKeyboardDialog({
   @required BuildContext context,

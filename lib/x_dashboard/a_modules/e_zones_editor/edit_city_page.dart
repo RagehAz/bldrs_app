@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
@@ -68,8 +66,8 @@ class EditCityPage extends StatelessWidget {
 
             /// POPULATION
             DataStrip(
-                dataKey: 'Population',
-                dataValue: Numeric.formatNumToSeparatedKilos(number: _city?.population),
+              dataKey: 'Population',
+              dataValue: Numeric.formatNumToSeparatedKilos(number: _city?.population),
             ),
 
             /// DISTRICTS
@@ -158,8 +156,8 @@ class EditCityPage extends StatelessWidget {
                     else {
 
                       final CityPhidsModel _countersModel = CityPhidsModel.decipherCityPhids(
-                          map: _map,
-                          cityID: _city.cityID,
+                        map: _map,
+                        cityID: _city.cityID,
                       );
 
                       List<MapModel> keywords = _countersModel.phidsMapModels;
@@ -176,24 +174,24 @@ class EditCityPage extends StatelessWidget {
                         children: <Widget>[
 
                           if (Mapper.checkCanLoopList(keywords) == true)
-                          ...List.generate(keywords.length, (index){
+                            ...List.generate(keywords.length, (index){
 
-                            final MapModel _kw = keywords[index];
+                              final MapModel _kw = keywords[index];
 
-                            return DreamBox(
-                              height: 30,
-                              width: PageBubble.clearWidth(context),
-                              icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
-                              verse:  '${_kw.value} : ${_kw.key}',
-                              verseScaleFactor: 0.6,
-                              verseWeight: VerseWeight.thin,
-                              verseCentered: false,
-                            );
+                              return DreamBox(
+                                height: 30,
+                                width: PageBubble.clearWidth(context),
+                                icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
+                                verse:  '${_kw.value} : ${_kw.key}',
+                                verseScaleFactor: 0.6,
+                                verseWeight: VerseWeight.thin,
+                                verseCentered: false,
+                              );
 
-                          },
+                            },
 
 
-                          )
+                            )
                         ],
 
                       );
@@ -211,5 +209,5 @@ class EditCityPage extends StatelessWidget {
     }
 
   }
-
+  /// --------------------------------------------------------------------------
 }

@@ -16,6 +16,7 @@ class UIManager extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return DashBoardLayout(
       pageTitle: 'UI Manager',
       listWidgets: <Widget>[
@@ -66,5 +67,7 @@ class UIManager extends StatelessWidget {
 
       ],
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

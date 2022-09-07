@@ -24,13 +24,13 @@ class ChainEditorScreen extends StatefulWidget {
 }
 
 class _ChainEditorScreenState extends State<ChainEditorScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   ValueNotifier<Chain> _initialChain;
   ValueNotifier<Chain> _tempChain;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -42,14 +42,14 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _initialChain = ValueNotifier( widget.chain);
     _tempChain = ValueNotifier( widget.chain);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -66,7 +66,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   @override
   void dispose() {
     _loading.dispose();
@@ -74,7 +74,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
     _initialChain.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -94,31 +94,31 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
             valueListenable: _initialChain,
             builder: (_, Chain initialChain, Widget child){
 
-          return ValueListenableBuilder(
-            valueListenable: _tempChain,
-            builder: (_, Chain tempChain, Widget child){
+              return ValueListenableBuilder(
+                valueListenable: _tempChain,
+                builder: (_, Chain tempChain, Widget child){
 
-              final bool _areIdentical = Chain.checkChainsPathsAreIdentical(
-                chain1: tempChain,
-                chain2: initialChain,
+                  final bool _areIdentical = Chain.checkChainsPathsAreIdentical(
+                    chain1: tempChain,
+                    chain2: initialChain,
+                  );
+
+                  return AppBarButton(
+                    verse:  'Sync',
+                    isDeactivated: _areIdentical,
+                    buttonColor: Colorz.yellow255,
+                    verseColor: Colorz.black255,
+                    onTap: () => onSyncChain(
+                      context: context,
+                      initialChain: _initialChain,
+                      editedChain: _tempChain.value,
+                    ),
+                  );
+
+                },
               );
 
-              return AppBarButton(
-                verse:  'Sync',
-                isDeactivated: _areIdentical,
-                buttonColor: Colorz.yellow255,
-                verseColor: Colorz.black255,
-                onTap: () => onSyncChain(
-                  context: context,
-                  initialChain: _initialChain,
-                  editedChain: _tempChain.value,
-                ),
-              );
-
-            },
-          );
-
-        }),
+            }),
 
       ],
       layoutWidget: Container(
@@ -159,4 +159,5 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

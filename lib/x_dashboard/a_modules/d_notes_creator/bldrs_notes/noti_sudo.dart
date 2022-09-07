@@ -28,9 +28,9 @@ enum CityState {
   any,
 }
 
-class NotiSudo {
+class NotiPseudo {
   /// --------------------------------------------------------------------------
-  const NotiSudo({
+  const NotiPseudo({
     @required this.subject,
     @required this.eventTrigger,
     @required this.scheduledTiming,
@@ -38,7 +38,6 @@ class NotiSudo {
     @required this.cityState,
     @required this.reciever,
   });
-
   /// --------------------------------------------------------------------------
   final NotiSubject subject;
   final String eventTrigger;
@@ -46,7 +45,6 @@ class NotiSudo {
   final String ifStatement;
   final CityState cityState;
   final NotiRecieverType reciever;
-
   /// --------------------------------------------------------------------------
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -58,12 +56,11 @@ class NotiSudo {
       'reciever': cipherNotiReciever(reciever),
     };
   }
-
-// -----------------------------------------------------------------------------
-  static NotiSudo decipherNotiSudo(Map<String, dynamic> map) {
-    NotiSudo _sudo;
+  // -----------------------------------------------------------------------------
+  static NotiPseudo decipherNotiSudo(Map<String, dynamic> map) {
+    NotiPseudo _sudo;
     if (map != null) {
-      _sudo = NotiSudo(
+      _sudo = NotiPseudo(
         subject: decipherNotiSubject(map['subject']),
         eventTrigger: map['eventTrigger'],
         scheduledTiming: map['scheduledTiming'],
@@ -75,8 +72,7 @@ class NotiSudo {
 
     return _sudo;
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static String cipherNotiReciever(NotiRecieverType reciever) {
     switch (reciever) {
       case NotiRecieverType.author:
@@ -95,8 +91,7 @@ class NotiSudo {
         return 'user';
     }
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static NotiRecieverType decipherNotiReciever(String reciever) {
     switch (reciever) {
       case 'author':
@@ -115,8 +110,7 @@ class NotiSudo {
         return NotiRecieverType.user;
     }
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static String cipherNotiSubject(NotiSubject notiSubject) {
     switch (notiSubject) {
       case NotiSubject.ad:
@@ -141,8 +135,7 @@ class NotiSudo {
         return 'non';
     }
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static NotiSubject decipherNotiSubject(String notiSubject) {
     switch (notiSubject) {
       case 'ad':
@@ -167,8 +160,7 @@ class NotiSudo {
         return NotiSubject.non;
     }
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static String cipherCityState(CityState cityState) {
     switch (cityState) {
       case CityState.public:
@@ -184,8 +176,7 @@ class NotiSudo {
         return 'any';
     }
   }
-
-// -----------------------------------------------------------------------------
+  // --------------------
   static CityState decipherCityState(String cityState) {
     switch (cityState) {
       case 'public':
@@ -201,8 +192,7 @@ class NotiSudo {
         return CityState.any;
     }
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   void printSudo({@required String methodName}) {
     blog('$methodName : PRINTING NOTI SUDO ---------------- START -- ');
 
@@ -215,5 +205,5 @@ class NotiSudo {
 
     blog('$methodName : PRINTING NOTI SUDO ---------------- END -- ');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -42,18 +42,17 @@ class PhrasesBuilderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     blog('PhrasesBuilderBubble : BUILDING SCREEEEEEEEN');
-
+    // --------------------
     final bool _canBuildPhrases = Mapper.checkCanLoopList(mixedPhrases) == true;
-
     final List<Phrase> _enListBeforeSorting = Phrase.searchPhrasesByLang(
-        phrases: mixedPhrases,
-        langCode: 'en',
+      phrases: mixedPhrases,
+      langCode: 'en',
     );
-    final List<Phrase> _enList = Phrase.sortPhrasesByID(phrases: _enListBeforeSorting);
     // final List<Phrase> _arList = arPhrases; //Phrase.sortPhrasesByID(phrases: arPhrases);
-
+    final List<Phrase> _enList = Phrase.sortPhrasesByID(phrases: _enListBeforeSorting);
+    // --------------------
     return PageBubble(
       screenHeightWithoutSafeArea: screenHeight,
       appBarType: AppBarType.search,
@@ -74,9 +73,9 @@ class PhrasesBuilderBubble extends StatelessWidget {
 
               final Phrase _enPhrase = _enList[index];
               final Phrase _arPhrase = Phrase.searchPhraseByIDAndLangCode(
-                  phid: _enPhrase.id,
-                  phrases: mixedPhrases,
-                  langCode: 'ar',
+                phid: _enPhrase.id,
+                phrases: mixedPhrases,
+                langCode: 'ar',
               );
 
               if (_arPhrase == null){
@@ -114,6 +113,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
         ),
       ),
     );
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }
