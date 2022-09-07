@@ -27,11 +27,11 @@ class FireFinder {
   final String field; /// fire field name
   final FireComparison comparison; /// fire equality comparison type
   final dynamic value; /// search value
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// QUERY CREATOR
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Query<Map<String, dynamic>> createQueryByFinder({
     @required Query<Map<String, dynamic>> query,
@@ -98,12 +98,12 @@ class FireFinder {
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Query<Map<String, dynamic>> createCompositeQueryByFinders({
     @required Query<Map<String, dynamic>> query,
     @required List<FireFinder> finders,
-}){
+  }){
 
     Query<Map<String, dynamic>> _output = query;
 
@@ -120,5 +120,5 @@ class FireFinder {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

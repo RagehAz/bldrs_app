@@ -1,21 +1,18 @@
-
-
-
 import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:flutter/cupertino.dart';
 
 class FeedbackRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FeedbackRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// ---------------------------------
+  // --------------------
   ///
   static Future<FeedbackModel> createFeedback({
     @required BuildContext context,
@@ -42,6 +39,5 @@ class FeedbackRealOps {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }

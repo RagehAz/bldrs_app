@@ -7,18 +7,16 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 // -----------------------------------------------------------------------------
 
 /// BZZ
 
-// -----------------------------------------------
+// --------------------
 Future<List<BzModel>> paginateBzzBySearchingBzName({
   @required BuildContext context,
   @required String bzName,
   @required QueryDocumentSnapshot<Object> startAfter,
   @required int limit,
-
 }) async {
 
   final List<Map<String, dynamic>> _result = await Fire.readCollectionDocs(

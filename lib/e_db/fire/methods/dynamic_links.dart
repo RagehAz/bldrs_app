@@ -43,22 +43,22 @@ Bldr.net Use cases that require dynamic link
 
 /// FDL : FIREBASE DYNAMIC LINK
 class DynamicLinks {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const DynamicLinks();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTANTS
 
-// ----------------------------
+  // --------------------
   static const String _uranus = 'https://en.m.wikipedia.org/wiki/Uranus';
   static const String bzPageDynamicLink = 'https://bldrs.page.link/business-page';
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// ----------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> initDynamicLinks(BuildContext context) async {
 
@@ -81,7 +81,7 @@ class DynamicLinks {
     });
 
   }
-// ----------------------------
+  // --------------------
   /// TESTED : old - not needed
   static Future<void> initializeDynamicLinks(BuildContext context) async {
 
@@ -97,7 +97,7 @@ class DynamicLinks {
     blog('initializeDynamicLinks : END');
 
   }
-// ----------------------------
+  // --------------------
   /// TESTED : old - not needed
   static Future<void> _handleDynamicLink(PendingDynamicLinkData data) async {
 
@@ -138,11 +138,11 @@ class DynamicLinks {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATION
 
-// ----------------------------
+  // --------------------
   /// TESTED : ...
   static Future<Uri> createDynamicLink({
     bool isShortLink = true,
@@ -196,11 +196,11 @@ class DynamicLinks {
 
     return _uri;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPendingDynamicLinkData(PendingDynamicLinkData data){
     blog('blogPendingDynamicLinkData : START');
@@ -217,7 +217,7 @@ class DynamicLinks {
       methodName: 'PendingDynamicLinkData',
     );
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogURI({
     @required Uri uri,
@@ -249,11 +249,11 @@ class DynamicLinks {
 
     // blog('blogURI $methodName : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// OLD CODES
 
-// ----------------------------
+  // --------------------
   static void handleSuccessLinking(PendingDynamicLinkData data) {
 
     final Uri _deepLink = data?.link;
@@ -273,7 +273,7 @@ class DynamicLinks {
       }
     }
   }
-// ----------------------------
+  // --------------------
   static Future<String> createReferralLink(String referralCode) async {
     // final DynamicLinkParameters dynamicLinkParameters = DynamicLinkParameters(
     //   uriPrefix: 'https://bldrs.page.link',
@@ -318,9 +318,9 @@ class DynamicLinks {
     blog(_dynamicUrl);
     return _dynamicUrl.toString();
   }
-// ----------------------------
+  // --------------------
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-// ----------------------------
+  // --------------------
   static Future<dynamic> createFlyerDynamicLink({
     @required BuildContext context,
     @required bool isShortURL,
@@ -371,7 +371,7 @@ class DynamicLinks {
 
     return _url.toString();
   }
-// ----------------------------
+  // --------------------
   static String getFlyerIDFromDynamicLink(String link) {
     /// sample link
     /// https://bldrs.page.link/flyer/5FzRLxTgRekkRzKflsjs/0
@@ -379,7 +379,7 @@ class DynamicLinks {
     final String _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(_withoutIndex, '/');
     return _flyerID;
   }
-// ----------------------------
+  // --------------------
   static int getSlideIndexFromDynamicLink(String link) {
 
     final String indexString = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
@@ -389,7 +389,7 @@ class DynamicLinks {
     /// so return zero if _index was null
     return _index ??= 0;
   }
-// ----------------------------
+  // --------------------
   static Future<void> goToFlyerScreenByDynamicLink({
     @required BuildContext context,
     @required String link,
@@ -407,5 +407,5 @@ class DynamicLinks {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
