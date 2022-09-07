@@ -45,22 +45,23 @@ class DataCreatorSplitter extends StatelessWidget {
     // --------------------
     final Chain _valueChain = ChainsProvider.proFindChainByID(
       context: context,
-      chainID: picker.chainID,
+      chainID: picker?.chainID,
       onlyUseCityChains: onlyUseCityChains,
       // includeChainSInSearch: true,
     );
     // --------------------
     final Chain _unitChain = ChainsProvider.proFindChainByID(
       context: context,
-      chainID: picker.unitChainID,
+      chainID: picker?.unitChainID,
       onlyUseCityChains: onlyUseCityChains,
       // includeChainSInSearch: true,
     );
     // --------------------
     final DataCreator _dataCreatorType = Chain.decipherDataCreator(_valueChain?.sons);
     // --------------------
+    final bool _isChains = Chain.checkSonsAreChains(_valueChain?.sons);
     final bool _isPhids = Chain.checkSonsArePhids(_valueChain?.sons);
-    final bool _hasCurrencyUnit = picker.unitChainID == 'phid_s_currency';
+    final bool _hasCurrencyUnit = picker?.unitChainID == 'phid_s_currency';
     // --------------------
     final bool _isIntegerKeyboard = Chain.checkSonsAreDataCreatorOfType(
       sons: _valueChain?.sons,
@@ -73,7 +74,7 @@ class DataCreatorSplitter extends StatelessWidget {
     );
     // --------------------
     blog('DataCreatorSplitter - BUILDING');
-    picker.blogPicker();
+    picker?.blogPicker();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     _valueChain?.blogChain();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
@@ -81,6 +82,7 @@ class DataCreatorSplitter extends StatelessWidget {
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     blog('_dataCreatorType : $_dataCreatorType');
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    blog('_isChains : $_isChains');
     blog('_isPhids : $_isPhids');
     blog('_hasCurrencyUnit : $_hasCurrencyUnit');
     blog('_isIntegerKeyboard : $_isIntegerKeyboard');
@@ -89,8 +91,21 @@ class DataCreatorSplitter extends StatelessWidget {
     SpecModel.blogSpecs(selectedSpecs);
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     // --------------------
-    /// PHIDS
-    if (_isPhids == true){
+    // if (_isChains == true){
+    //
+    //   final List<String> _selectedPhids = SpecModel.getSpecsIDs(selectedSpecs);
+    //
+    //   return ChainSplitter(
+    //     chainOrChainsOrSonOrSons: _valueChain.sons,
+    //     initiallyExpanded: false,
+    //     onSelectPhid: (String path, String phid) => onSelectPhid(phid),
+    //     selectedPhids: _selectedPhids,
+    //     // searchText: ,
+    //   );
+    //
+    // }
+    /// PHIDS OR CHAINS
+    if (_isPhids == true || _isChains == true){
 
       final List<SpecModel> _selectedSpecs =
       isMultipleSelectionMode == false ? null
@@ -101,7 +116,7 @@ class DataCreatorSplitter extends StatelessWidget {
       );
 
       return PhidsDataCreator(
-        height: height,
+        allowableHeight: height,
         specPicker: picker,
         selectedSpecs: _selectedSpecs,
         onPhidTap: onSelectPhid,

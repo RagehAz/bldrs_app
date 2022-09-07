@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -794,7 +795,7 @@ class Verse extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String xFuckingSuperVerse({
+  static String bakeVerseForViewing({
     @required BuildContext context,
     @required String verse,
     @required VerseCasing verseCasing,
@@ -809,8 +810,8 @@ class Verse extends StatelessWidget {
       if (TextCheck.isEmpty(_output) == false){
 
         /// IS PHID
-        final bool _isPhid = TextCheck.checkVerseIsPhid(_output);
-        final bool _isCurrency = TextCheck.checkVerseIsCurrency(_output);
+        final bool _isPhid = Phider.checkVerseIsPhid(_output);
+        final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
         if (_isPhid == true || _isCurrency == true){
 
           final String _foundXPhrase = xPhrase(context, verse);
@@ -831,7 +832,7 @@ class Verse extends StatelessWidget {
         else {
 
           /// IS TEMP
-          final bool _isTemp = TextCheck.checkVerseIsTemp(_output);
+          final bool _isTemp = Phider.checkVerseIsTemp(_output);
           if (_isTemp == true){
             _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
             _output = '##$_output';
@@ -874,7 +875,7 @@ class Verse extends StatelessWidget {
       strikeThrough: strikeThrough,
     );
     // --------------------
-    final String _verse = xFuckingSuperVerse(
+    final String _verse = bakeVerseForViewing(
       context: context,
       verse: verse,
       verseCasing: verseCasing,

@@ -53,11 +53,13 @@ class ChainsScreen extends StatefulWidget {
 class _ChainsScreenState extends State<ChainsScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
+  // --------------------
   Chain _bigChainK;
   // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
   ValueNotifier<List<PickerModel>> _refinedSpecsPickers;
-  ValueNotifier<List<String>> _groupsIDs; /// tamam disposed
+  ValueNotifier<List<String>> _groupsIDs;
+  // --------------------
   /// SEARCHING
   // --------------------
   final TextEditingController _searchTextController = TextEditingController();
@@ -311,7 +313,6 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
           }
 
-
         },
 
         child: ValueListenableBuilder<bool>(
@@ -349,13 +350,15 @@ class _ChainsScreenState extends State<ChainsScreen> {
             /// WHILE BROWSING
             else {
 
+
+
               return ChainsScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
                 refinedPickers: _refinedSpecsPickers,
-                specsPickers: _allSpecPickers,
+                pickers: _allSpecPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: widget.flyerTypesChainFilters,
-                onPickerTap: (PickerModel picker) => onSpecPickerTap(
+                onPickerTap: (PickerModel picker) => onPickerTap(
                   context: context,
                   zone: widget.zone,
                   selectedSpecs: _selectedSpecs,

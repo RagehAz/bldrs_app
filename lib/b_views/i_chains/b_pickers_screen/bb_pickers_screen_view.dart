@@ -58,7 +58,7 @@ class PickersScreenView extends StatelessWidget {
 
     final Chain _chain = ChainsProvider.proFindChainByID(
       context: context,
-      chainID: picker.chainID,
+      chainID: picker?.chainID,
       onlyUseCityChains: onlyUseCityChains,
     );
 
