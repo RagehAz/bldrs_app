@@ -21,7 +21,7 @@ class ChainProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> composeChainK({
     @required BuildContext context,
     @required Chain chainK,
@@ -43,7 +43,7 @@ class ChainProtocols {
     return _bigChainK;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> composeChainS({
     @required BuildContext context,
     @required Chain chainS,
@@ -64,12 +64,33 @@ class ChainProtocols {
 
     return _bigChainS;
   }
+  // --------------------
+
+  static Future<List<Chain>> composeBldrsChains({
+    @required BuildContext context,
+    @required List<Chain> chains,
+  }) async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse:  'Uploading Bldrs Chains to RealTime Database',
+    ));
+
+    final List<Chain> _bldrsChains = await ChainRealOps.createBldrsChains(
+      context: context,
+      chains: chains,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    return _bldrsChains;
+  }
   // -----------------------------------------------------------------------------
 
   /// FETCH
 
-// ----------------------------------
-  /// TESTED : WORKS PERFECT
+  // --------------------
+  /// TASK DEPRECATED
   static Future<Chain> fetchBigChainK(BuildContext context) async {
 
     /// 1 - search LDB
@@ -92,7 +113,7 @@ class ChainProtocols {
     return _bigChainK;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> fetchBigChainS(BuildContext context) async {
 
     /// 1 - search LDB
@@ -142,7 +163,7 @@ class ChainProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> renovateBigChainK({
     @required BuildContext context,
     @required Chain bigChainK,
@@ -173,7 +194,7 @@ class ChainProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> renovateBigChainS({
     @required BuildContext context,
     @required Chain bigChainS,
@@ -204,7 +225,7 @@ class ChainProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> updateBigChainKLocally({
     @required BuildContext context,
     @required Chain bigChainK,
@@ -239,7 +260,7 @@ class ChainProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> updateBigChainSLocally({
     @required BuildContext context,
     @required Chain bigChainS,

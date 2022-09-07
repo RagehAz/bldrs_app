@@ -133,24 +133,67 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         // await Real.cr
 
-        const String phid = 'phid_s_am_kidsPopo';
-        const int index = 555;
+        // const String phid = 'phid_s_am_kidsPopo';
+        // const int index = 555;
+        //
+        // final String _withIndex = Phider.addIndexToPhid(
+        //   phid: phid,
+        //   index: index,
+        //   // overrideExisting: true,
+        // );
+        //
+        // final bool _phidHasIndex = Phider.checkPhidHasIndex(_withIndex);
+        //
+        // final int oldIndex = Phider.getIndexFromPhid(phid);
+        //
+        // final String _withoutPhidAgain = Phider.removeIndexFromPhid(phid: phid);
+        //
+        // blog('x_withIndex : $_withIndex _phidHasIndex : $_phidHasIndex : newIndex : $index : oldIndex : $oldIndex : _withoutPhidAgain : $_withoutPhidAgain');
+        //
+        // // const String _curr = 'currency_egy';
+        // final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
+        // blog('isCurrency : $_isCurrency');
 
-        final String _withIndex = Phider.addIndexToPhid(
-          phid: phid,
-          index: index,
-          // overrideExisting: true,
+
+
+        final Chain _chainK = ChainsProvider.proGetBigChainK(
+            context: context,
+            onlyUseCityChains: false,
+            listen: false,
         );
 
-        final bool _phidHasIndex = Phider.checkPhidHasIndex(_withIndex);
+        final Chain _chainS = ChainsProvider.proGetBigChainS(
+            context: context,
+            listen: false,
+        );
 
-        final int oldIndex = Phider.getIndexFromPhid(phid);
+        final List<Chain> _bldrsChains = <Chain>[..._chainK.sons, ..._chainS.sons];
 
-        blog('x_withIndex : $_withIndex _phidHasIndex : $_phidHasIndex : newIndex : $index : oldIndex : $oldIndex');
+        final List<Chain> _withIndexes = Phider.createChainsIndexes(_bldrsChains);
 
-        // const String _curr = 'currency_egy';
-        final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
-        blog('isCurrency : $_isCurrency');
+        // Chain.blogChains(_withIndexes);
+
+        // final Map<String, dynamic> _map = Chain.cipherBldrsChains(chains: _withIndexes);
+        //
+        // final List<Chain> _reChains = Chain.decipherBldrsChains(map: _map);
+        //
+        // final bool _areIdenticalOld = Chain.checkChainsListsAreIdenticalOLDMETHOD(
+        //     chains1: _withIndexes,
+        //     chains2: _reChains
+        // );
+        //
+        // final bool _areIdenticalPaths = Chain.checkChainsListPathsAreIdentical(
+        //     chains1: _withIndexes,
+        //     chains2: _reChains
+        // );
+        //
+        // blog('_areIdenticalOld : $_areIdenticalOld : _areIdenticalPaths : $_areIdenticalPaths');
+
+        await ChainProtocols.composeBldrsChains(
+            context: context,
+            chains: _withIndexes,
+        );
+
 
       },
       appBarWidgets: <Widget>[

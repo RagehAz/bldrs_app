@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -25,10 +26,10 @@ class Phider {
   /// CONSTANTS
 
   // --------------------
-  static const String phid = 'phid';
-  static const String phid_k = 'phid_k';
-  static const String phid_s = 'phid_s';
-  static const String currency = 'currency';
+  static const String phidCut = 'phid';
+  static const String phid_kCut = 'phid_k';
+  static const String phid_sCut = 'phid_s';
+  static const String currencyCut = 'currency';
   // -----------------------------------------------------------------------------
 
   /// INDEXING
@@ -124,7 +125,7 @@ class Phider {
       /// IF HAS INDEX => REMOVE IT
       if (_hasIndex == true){
         _output = TextMod.removeTextBeforeFirstSpecialCharacter(phid, '_');
-        blog('removeIndexFromPhid : $_output');
+        // blog('removeIndexFromPhid : $_output');
       }
 
       /// IF HAS NO INDEX => KEEP PHID AS IS
@@ -173,6 +174,181 @@ class Phider {
   }
   // -----------------------------------------------------------------------------
 
+  /// INDEX SORTING
+
+  // --------------------
+  static Chain sortChainSonsByIndex(Chain chain){
+    Chain _output;
+
+    if (chain != null){
+
+      if (Mapper.checkCanLoopList(chain.sons) == true){
+
+        final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
+        final bool _isChains = Chain.checkSonsAreChains(chain.sons);
+
+        if (_isChains == true){
+
+          final List<Chain> sons = sortChainsByIndexes(chain.sons);
+
+          _output = Chain(
+            id: chain.id,
+            sons: sons,
+          );
+
+        }
+
+        else if (_isPhids == true){
+
+          final List<String> sons = sortPhidsByIndexes(chain.sons);
+
+          _output = Chain(
+            id: chain.id,
+            sons: sons,
+          );
+
+
+        }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static List<Chain> sortChainsByIndexes(List<Chain> input){
+    List<Chain> _output = <Chain>[];
+
+    if (Mapper.checkCanLoopList(input) == true){
+
+      final List<Chain> _chains = <Chain>[...input];
+
+      _chains.sort((a, b){
+        final int _indexA = getIndexFromPhid(a.id) ?? 0;
+        final int _indexB = getIndexFromPhid(b.id) ?? 0;
+        return _indexA.compareTo(_indexB);
+      });
+
+      _output = <Chain>[..._chains];
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static List<String> sortPhidsByIndexes(List<String> input){
+    List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(input) == true){
+
+      final List<String> _phids = <String>[...input];
+
+      _phids.sort((a, b){
+        final int _indexA = getIndexFromPhid(a) ?? 0;
+        final int _indexB = getIndexFromPhid(b) ?? 0;
+        return _indexA.compareTo(_indexB);
+      });
+
+      _output = <String>[..._phids];
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// INDEX CREATION
+
+  // --------------------
+
+  static Chain createChainIndexes({
+    @required Chain chain,
+    @required int chainIndex,
+  }){
+    Chain _output = chain;
+
+    if (chain != null){
+
+      final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
+      final bool _isChains = Chain.checkSonsAreChains(chain.sons);
+      final bool _isDataCreator = Chain.checkSonsAreDataCreator(chain.sons);
+
+      final String _chainID = addIndexToPhid(phid: chain.id, index: chainIndex);
+
+      if (_isChains == true){
+        _output = Chain(
+          id: _chainID,
+          sons: createChainsIndexes(chain.sons),
+        );
+      }
+
+      else if (_isPhids == true){
+        _output = Chain(
+          id: _chainID,
+          sons: createPhidsIndexes(chain.sons),
+        );
+      }
+
+      else if (_isDataCreator == true){
+        _output = Chain(
+          id: _chainID,
+          sons: chain.sons,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static List<Chain> createChainsIndexes(List<Chain> chains){
+    final List<Chain> _output = <Chain>[];
+
+    // Chain.blogChains(chains);
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      for (int i = 0; i< chains.length; i++){
+
+        final Chain _original = chains[i];
+
+        final Chain _modified = createChainIndexes(
+          chain: _original,
+          chainIndex: i,
+        );
+
+        _output.add(_modified);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static List<String> createPhidsIndexes(List<String> phids){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      for (int i = 0; i< phids.length; i++){
+
+        final String _modified = addIndexToPhid(
+            phid: phids[i],
+            index: i
+        );
+
+        _output.add(_modified);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// GENERATORS
 
   // --------------------
@@ -187,7 +363,8 @@ class Phider {
     // => '{secondNode_xxx} + {yyy}
     // => key = 'xxx_yyy'
 
-    final String _phid = ChainPathConverter.getLastPathNode(path);
+    final String _phidWithIndex = ChainPathConverter.getLastPathNode(path);
+    final String _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
     final List<String> _split = ChainPathConverter.splitPathNodes(path);
 
     final String _groupLine = _split[_split.length - 2];
@@ -210,8 +387,8 @@ class Phider {
       if (object is String){
 
         _isPhid = TextCheck.textStartsExactlyWith(
-            text: object,
-            startsWith: phid,
+            text: removeIndexFromPhid(phid: object),
+            startsWith: phidCut,
         );
 
       }
@@ -226,10 +403,10 @@ class Phider {
 
     final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
       input: text,
-      numberOfChars: phid.length, // 'phid'
+      numberOfChars: phidCut.length, // 'phid'
     )?.toLowerCase();
 
-    return _phid == phid;
+    return _phid == phidCut;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -240,7 +417,7 @@ class Phider {
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: text,
-        numberOfChars: currency.length,
+        numberOfChars: currencyCut.length,
       )?.toLowerCase();
 
       /*
@@ -249,7 +426,7 @@ class Phider {
     final String _phid = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
      */
 
-      _isCurrency = _phid == currency;
+      _isCurrency = _phid == currencyCut;
     }
 
     return _isCurrency;
