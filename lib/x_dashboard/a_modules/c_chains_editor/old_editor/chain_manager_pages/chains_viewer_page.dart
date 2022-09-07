@@ -26,6 +26,7 @@ class ChainViewerPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return PageBubble(
       screenHeightWithoutSafeArea: screenHeight,
       appBarType: AppBarType.search,
@@ -62,5 +63,7 @@ class ChainViewerPage extends StatelessWidget {
         },
       ),
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

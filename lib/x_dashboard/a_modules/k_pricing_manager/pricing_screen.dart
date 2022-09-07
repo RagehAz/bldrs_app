@@ -18,11 +18,10 @@ class PricingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<BigMac> _macs = BigMac.bigMacs();
-
     _macs.sort((BigMac macA, BigMac macB) => BigMac.localPriceToDollar(
-            localPrice: macB.localPrice, toDollarRate: macB.toDollarRate)
+        localPrice: macB.localPrice, toDollarRate: macB.toDollarRate)
         .compareTo(BigMac.localPriceToDollar(
-            localPrice: macA.localPrice, toDollarRate: macA.toDollarRate)));
+        localPrice: macA.localPrice, toDollarRate: macA.toDollarRate)));
 
     // CountryProvider _countryPro =  Provider.of<CountryProvider>(context, listen: false);
 
@@ -51,8 +50,8 @@ class PricingScreen extends StatelessWidget {
               final double _proPriceRounded = Numeric.roundFractions(_proAccountPriceInLocalCurrency, 2);
               final String _proPrice = '$_proPriceRounded $_currency';
               final double _proPriceDollar = BigMac.localPriceToDollar(
-                  localPrice: _proAccountPriceInLocalCurrency,
-                  toDollarRate: _toDollarRate,
+                localPrice: _proAccountPriceInLocalCurrency,
+                toDollarRate: _toDollarRate,
               );
 
               final double _proPriceDollarRounded = Numeric.roundFractions(_proPriceDollar, 2);
@@ -183,5 +182,7 @@ class PricingScreen extends StatelessWidget {
         // ),
       ],
     );
+
   }
+  /// --------------------------------------------------------------------------
 }

@@ -162,42 +162,42 @@ class BldrsDashBoard extends StatelessWidget {
 
     return _buttons;
   }
-  // -------------------------------------------------------
+  // --------------------
   Future<void> _onRebootSystem(BuildContext context) async {
 
-      final bool _result = await CenterDialog.showCenterDialog(
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse:  'Reboot System ?',
+      bodyVerse:  'This will clear all local data, all cache in pro and in LDB, continue ?',
+      boolDialog: true,
+      confirmButtonVerse:  'Fuck it !',
+    );
+
+    if (_result == true){
+
+      unawaited(WaitDialog.showWaitDialog(
         context: context,
-        titleVerse:  'Reboot System ?',
-        bodyVerse:  'This will clear all local data, all cache in pro and in LDB, continue ?',
-        boolDialog: true,
-        confirmButtonVerse:  'Fuck it !',
+        loadingVerse:  'Rebooting system',
+      ));
+
+      /// WIPE OUT LDB
+      await LDBOps.wipeOutEntireLDB();
+
+      /// WIPE OUT PRO
+      GeneralProvider.wipeOutAllProviders(context);
+
+      /// SIGN OUT
+      await AuthFireOps.signOut(
+          context: context,
+          routeToLogoScreen: true
       );
 
-      if (_result == true){
+      WaitDialog.closeWaitDialog(context);
 
-        unawaited(WaitDialog.showWaitDialog(
-          context: context,
-          loadingVerse:  'Rebooting system',
-        ));
-
-        /// WIPE OUT LDB
-        await LDBOps.wipeOutEntireLDB();
-
-        /// WIPE OUT PRO
-        GeneralProvider.wipeOutAllProviders(context);
-
-        /// SIGN OUT
-        await AuthFireOps.signOut(
-            context: context,
-            routeToLogoScreen: true
-        );
-
-        WaitDialog.closeWaitDialog(context);
-
-      }
+    }
 
   }
-  // -------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -260,7 +260,7 @@ class BldrsDashBoard extends StatelessWidget {
 
           /// BUTTONS
           GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: _buttons.length,
               gridDelegate: _gridDelegate,
               shrinkWrap: true,
@@ -288,5 +288,5 @@ class BldrsDashBoard extends StatelessWidget {
     );
     // --------------------
   }
-  // -------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

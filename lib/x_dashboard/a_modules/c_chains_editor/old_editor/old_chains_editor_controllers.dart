@@ -107,7 +107,7 @@ Future<void> onSearchChains({
   }
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 void _searchChainsOps({
   @required List<Chain> chains,
   @required String text,
@@ -123,7 +123,7 @@ void _searchChainsOps({
   foundChains.value = _foundPathsChains;
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> onUpdateNode({
   @required BuildContext context,
   @required String path,
@@ -181,8 +181,8 @@ Future<void> onUpdateNode({
     chainsNotifier.value = _newChains;
 
     await Sliders.slideToBackFrom(
-        pageController: pageController,
-        currentSlide: 1,
+      pageController: pageController,
+      currentSlide: 1,
     );
 
     searchController.text = newPhid;
@@ -197,7 +197,7 @@ Future<void> onUpdateNode({
   }
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> onSync({
   @required BuildContext context,
   @required List<Chain> originalChains,
@@ -277,7 +277,7 @@ Future<void> onSync({
   }
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> _syncSuccessDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
@@ -288,7 +288,7 @@ Future<void> _syncSuccessDialog(BuildContext context) async {
   );
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> _syncFailureDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
@@ -299,15 +299,15 @@ Future<void> _syncFailureDialog(BuildContext context) async {
   );
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 bool chainIsKeywordsChain(Chain chain){
   return chain.id == 'phid_sections';
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 bool chainIsSpecsChain(Chain chain){
   return chain.id == 'phid_s_specs_chain';
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> _updateKeywordsChainOps({
   @required BuildContext context,
   @required Chain chain,
@@ -315,32 +315,32 @@ Future<void> _updateKeywordsChainOps({
 
   if (chainIsKeywordsChain(chain) == true){
 
-  /// 1 - UPDATE ON FIREBASE
-  await ChainFireOpsOLD.updateKeywordsChain(
+    /// 1 - UPDATE ON FIREBASE
+    await ChainFireOpsOLD.updateKeywordsChain(
       context: context,
       newKeywordsChain: chain,
-  );
+    );
 
-  /// 2 - UPDATE ON LDB
-  await LDBOps.insertMap(
+    /// 2 - UPDATE ON LDB
+    await LDBOps.insertMap(
       input: chain.toMapOLD(),
       docName: LDBDoc.bigChainK,
-  );
+    );
 
-  /// 3 - UPDATE PROVIDER
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  await _chainsProvider.updateBigChainKOps(
-    context: context,
-    bigChainK: chain,
-    notify: true,
-  );
+    /// 3 - UPDATE PROVIDER
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    await _chainsProvider.updateBigChainKOps(
+      context: context,
+      bigChainK: chain,
+      notify: true,
+    );
 
-  /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+    /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
     await AppStateFireOps.updateGlobalKeywordsChainVersion(context);
   }
 
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------
 Future<void> _updateSpecsChainOps({
   @required BuildContext context,
   @required Chain chain,
@@ -368,4 +368,4 @@ Future<void> _updateSpecsChainOps({
   // /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
   // await AppStateOps.updateSpecsChainVersion(context);
 }
-// ------------------------------------------------
+// -----------------------------------------------------------------------------

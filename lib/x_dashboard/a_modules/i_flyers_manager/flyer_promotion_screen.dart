@@ -36,15 +36,16 @@ class FlyerPromotionScreen extends StatefulWidget {
 }
 
 class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   /// TAMAM
   @override
   void dispose() {
     _selectedZone.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
-  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier(null);
+  // -----------------------------------------------------------------------------
   Future<void> _onSelectCityTap() async {
 
     final ZoneModel _zone = await controlSelectCountryAndCityOnly(context);
@@ -64,7 +65,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onPromoteFlyer() async {
 
     final ZoneModel _zone = _selectedZone.value;
@@ -113,7 +114,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -184,4 +185,5 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       ),
     );
   }
+  // -----------------------------------------------------------------------------
 }

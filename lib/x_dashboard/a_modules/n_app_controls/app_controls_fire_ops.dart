@@ -4,21 +4,21 @@ import 'package:bldrs/x_dashboard/a_modules/n_app_controls/app_controls_model.da
 import 'package:flutter/cupertino.dart';
 
 class AppControlsFireOps{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const AppControlsFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// ------------------------------------------
+  // --------------------
   ///
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// ------------------------------------------
+  // --------------------
   static Future<AppControlsModel> readAppControls(BuildContext context) async {
 
     final Map<String, dynamic> _map = await Fire.readDoc(
@@ -31,27 +31,27 @@ class AppControlsFireOps{
 
     return _model;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
-// ------------------------------------------
+  // --------------------
   static Future<void> updateAppControls({
     @required BuildContext context,
     @required AppControlsModel newAppControlsModel,
   }) async {
 
     await Fire.updateDoc(
-        context: context,
-        collName: FireColl.admin,
-        docName: FireDoc.admin_appControls,
-        input: newAppControlsModel.toMap(),
+      context: context,
+      collName: FireColl.admin,
+      docName: FireDoc.admin_appControls,
+      input: newAppControlsModel.toMap(),
     );
 
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// ------------------------------------------
+  // --------------------
 }

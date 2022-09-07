@@ -14,7 +14,6 @@ class DashboardUserButton extends StatelessWidget {
     this.margins,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final double width;
   final UserModel userModel;
@@ -23,7 +22,7 @@ class DashboardUserButton extends StatelessWidget {
   final dynamic margins;
   /// --------------------------------------------------------------------------
   static const double height = 60;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
   static SuperVerse _titleVerse(String title) {
     return SuperVerse(
@@ -33,7 +32,7 @@ class DashboardUserButton extends StatelessWidget {
     );
   }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -52,4 +51,5 @@ class DashboardUserButton extends StatelessWidget {
     );
 
   }
+  // -----------------------------------------------------------------------------
 }

@@ -21,7 +21,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 
 /// READING
 
-// -------------------------------------
+// --------------------
 Future<void> readMoreUnVerifiedFlyers({
   @required BuildContext context,
   @required ValueNotifier<List<FlyerModel>> flyers,
@@ -77,7 +77,7 @@ Future<void> readMoreUnVerifiedFlyers({
 
 /// SELECTED FLYER OPTIONS
 
-// -------------------------------------
+// --------------------
 Future<void> onFlyerOptionsTap({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -140,7 +140,7 @@ Future<void> onFlyerOptionsTap({
   );
 
 }
-// -------------------------------------
+// --------------------
 Future<void> onVerifyFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
@@ -200,28 +200,28 @@ Future<void> onVerifyFlyer({
   }
 
 }
-// -------------------------------------
+// --------------------
 void _removeFlyerFromFlyers({
   @required ValueNotifier<List<FlyerModel>> flyers,
   @required String flyerIDToRemove,
 }){
 
   final List<FlyerModel> _updatedList = FlyerModel.removeFlyerFromFlyersByID(
-      flyers: flyers.value,
-      flyerIDToRemove: flyerIDToRemove,
+    flyers: flyers.value,
+    flyerIDToRemove: flyerIDToRemove,
   );
 
   flyers.value = _updatedList;
 
 }
-// -------------------------------------
+// --------------------
 Future<void> onAuditFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
 }) async {
   blog('should audit flyer');
 }
-// -------------------------------------
+// --------------------
 Future<void> _sendFlyerVerificationUpdateNote({
   @required BuildContext context,
   @required String flyerID,
@@ -257,4 +257,4 @@ Future<void> _sendFlyerVerificationUpdateNote({
   );
 
 }
-// -------------------------------------
+// -----------------------------------------------------------------------------

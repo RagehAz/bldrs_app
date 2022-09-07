@@ -27,7 +27,7 @@ class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _SearchUsersScreenState extends State<SearchUsersScreen> {
@@ -36,10 +36,10 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   final ValueNotifier<List<UserModel>> _historyUsers = ValueNotifier(<UserModel>[]);
   ValueNotifier<List<UserModel>> _selectedUsers;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -51,13 +51,13 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       blogLoading(loading: _loading.value, callerName: 'SearchUsersScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _selectedUsers = ValueNotifier<List<UserModel>>(widget.selectedUsers);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -75,7 +75,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -86,7 +86,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     _selectedUsers.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onSearch(String text) async {
 
     await onSearchUsers(
@@ -107,7 +107,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     await UserLDBOps.insertUsers(_history);
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   Future<void> onUserTap(UserModel userModel) async {
 
     /// WHEN SELECTION FUNCTION IS HANDLED INTERNALLY
@@ -146,17 +146,17 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   void _onBack(){
 
     Nav.goBack(
-        context: context,
-        invoker: 'SearchUsersScreen.onBack',
-        passedData: _selectedUsers.value,
+      context: context,
+      invoker: 'SearchUsersScreen.onBack',
+      passedData: _selectedUsers.value,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -230,5 +230,5 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
