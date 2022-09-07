@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 
 class BzRecordRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const BzRecordRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATION
 
-// ----------------------------------
+  // --------------------
   /// FOLLOWS CREATION
-// -------------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<void> followBz({
     @required BuildContext context,
@@ -53,7 +53,7 @@ class BzRecordRealOps {
 
     blog('BzRecordOps.followBz : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unfollowBz({
     @required BuildContext context,
@@ -84,9 +84,9 @@ class BzRecordRealOps {
 
     blog('BzRecordOps.unfollowBz : END');
   }
-// ----------------------------------
+  // --------------------
   /// CALLS CREATION
-// -------------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<void> callBz({
     @required BuildContext context,
@@ -119,13 +119,13 @@ class BzRecordRealOps {
 
     blog('BzRecordOps.callBz : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ COUNTERS
 
-// ----------------------------------
+  // --------------------
   /// CREATION - UPDATING
-// -------------------
+  // ---------
   /// TESTED : WORKS PERFECT
   static Future<BzCounterModel> incrementBzCounter({
     @required BuildContext context,
@@ -176,9 +176,9 @@ class BzRecordRealOps {
 
     return _model;
   }
-// ----------------------------------
+  // --------------------
   /// READING
-// -------------------
+  // ---------
   static Future<BzCounterModel> readBzCounters({
     @required BuildContext context,
     @required String bzID,
@@ -194,9 +194,9 @@ class BzRecordRealOps {
 
     return _bzCounters;
   }
-// ----------------------------------
-/// DELETION
-// -------------------
+  // --------------------
+  /// DELETION
+  // ---------
   static Future<void> deleteAllBzCountersAndRecords({
     @required BuildContext context,
     @required String bzID,
@@ -204,9 +204,9 @@ class BzRecordRealOps {
 
     /// FOLLOWS
     await Real.deleteDoc(
-        context: context,
-        collName: RealColl.recordingFollows,
-        docName: bzID,
+      context: context,
+      collName: RealColl.recordingFollows,
+      docName: bzID,
     );
 
     /// CALLS
@@ -224,5 +224,5 @@ class BzRecordRealOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

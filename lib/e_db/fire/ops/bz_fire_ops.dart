@@ -21,15 +21,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class BzFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const BzFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// --------------------------
+  // --------------------
   static Future<BzModel> createBz({
     @required BuildContext context,
     @required BzModel draftBz,
@@ -96,7 +96,7 @@ class BzFireOps {
 
     return _result == true ? _output : null;
   }
-// --------------------------
+  // --------------------
   static Future<String> _createEmptyBzDocToGetBzID({
     @required BuildContext context,
   }) async {
@@ -114,7 +114,7 @@ class BzFireOps {
 
     return _docRef?.id;
   }
-// --------------------------
+  // --------------------
   static Future<String> _uploadBzLogoAndGetURL({
     @required BuildContext context,
     @required dynamic logo,
@@ -143,8 +143,8 @@ class BzFireOps {
     else if (ObjectCheck.isAbsoluteURL(logo) == true){
 
       final File _fileFromURL = await Storage.getImageFileByURL(
-          context: context,
-          url: logo,
+        context: context,
+        url: logo,
       );
 
 
@@ -163,7 +163,7 @@ class BzFireOps {
 
     return _bzLogoURL;
   }
-// --------------------------
+  // --------------------
   static Future<AuthorModel> _uploadAuthorPicAndCreateNewCreatorAuthor({
     @required BuildContext context,
     @required BzModel draftBz,
@@ -179,7 +179,7 @@ class BzFireOps {
     if (
     draftBz.authors[0].pic == null
         ||
-    ObjectCheck.isAbsoluteURL(draftBz.authors[0].pic) == true
+        ObjectCheck.isAbsoluteURL(draftBz.authors[0].pic) == true
     ){
       _authorPicURL = userModel.pic;
     }
@@ -214,7 +214,7 @@ class BzFireOps {
 
     return _creatorAuthor;
   }
-// --------------------------
+  // --------------------
   static Future<void> _addBzIDToUserBzzIDs({
     @required BuildContext context,
     @required UserModel userModel,
@@ -239,11 +239,11 @@ class BzFireOps {
     blog('_addBzIDToUserBzzIDs : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// --------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> readBz({
     @required BuildContext context,
@@ -263,7 +263,7 @@ class BzFireOps {
 
     return _bz;
   }
-// --------------------------
+  // --------------------
   static Future<dynamic> readAndFilterTeamlessBzzByUserModel({
     @required BuildContext context,
     @required UserModel userModel,
@@ -298,11 +298,11 @@ class BzFireOps {
 
     return _bzzMap;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// --------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> updateBz({
     @required BuildContext context,
@@ -350,7 +350,7 @@ class BzFireOps {
 
     return _output;
   }
-// --------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> _updateBzLogoIfChangedAndReturnNewBzModel({
     @required BuildContext context,
@@ -397,7 +397,7 @@ class BzFireOps {
 
     return _updatedBzModel;
   }
-// --------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> updateAuthorPicIfChangedAndReturnNewBzModel({
     @required BuildContext context,
@@ -457,7 +457,7 @@ class BzFireOps {
 
     return _finalBz;
   }
-// --------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateBzDoc({
     @required BuildContext context,
@@ -480,11 +480,11 @@ class BzFireOps {
     blog('_updateBzDoc : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE BZ
 
-// --------------------------
+  // --------------------
   static Future<void> deleteBzOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -517,7 +517,7 @@ class BzFireOps {
 
     blog('deleteBzOps : END');
   }
-// --------------------------
+  // --------------------
   static Future<void> _deleteBzStorageLogo({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -538,7 +538,7 @@ class BzFireOps {
     blog('_deleteBzStorageLogo : END');
 
   }
-// --------------------------
+  // --------------------
   static Future<void> _deleteBzDoc({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -559,11 +559,11 @@ class BzFireOps {
     blog('_deleteBzDoc : END');
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE AUTHOR
 
-// --------------------------
+  // --------------------
   static Future<void> deleteAuthorPic({
     @required BuildContext context,
     @required AuthorModel authorModel,
@@ -574,17 +574,17 @@ class BzFireOps {
       context: context,
       storageDocName: StorageDoc.authors,
       fileName: AuthorModel.generateAuthorPicID(
-          authorID: authorModel.userID,
-          bzID: bzID,
+        authorID: authorModel.userID,
+        bzID: bzID,
       ),
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REPORT BZ
 
-// --------------------------
+  // --------------------
   static Future<void> reportBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -664,5 +664,5 @@ class BzFireOps {
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

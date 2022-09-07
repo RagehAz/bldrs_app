@@ -7,27 +7,27 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerLDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
- const FlyerLDBOps();
+  const FlyerLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertFlyer(FlyerModel flyerModel) async {
     blog('FlyerLDBOps.insertFlyer : START');
 
     await LDBOps.insertMap(
-        docName: LDBDoc.flyers,
-        input: flyerModel.toMap(toJSON: true),
+      docName: LDBDoc.flyers,
+      input: flyerModel.toMap(toJSON: true),
     );
 
     blog('FlyerLDBOps.insertFlyer : END');
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertFlyers(List<FlyerModel> flyers) async {
 
@@ -44,63 +44,63 @@ class FlyerLDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> readFlyer(String flyerID) async {
-    
+
     final Map<String, dynamic> _map = await LDBOps.searchFirstMap(
       fieldToSortBy: 'id',
       searchField: 'id',
       searchValue: flyerID,
       docName: LDBDoc.flyers,
     );
-    
+
     final FlyerModel _flyer = FlyerModel.decipherFlyer(
-        map: _map,
-        fromJSON: true,
+      map: _map,
+      fromJSON: true,
     );
-    
+
     return  _flyer;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readFlyers(List<String> flyersIDs) async {
-    
+
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-        ids: flyersIDs,
-        docName: LDBDoc.flyers,
+      ids: flyersIDs,
+      docName: LDBDoc.flyers,
     );
 
     final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
-        maps: _maps,
-        fromJSON: true,
+      maps: _maps,
+      fromJSON: true,
     );
 
     return _flyers;
-  } 
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyer(FlyerModel flyer) async {
 
     await LDBOps.insertMap(
-        docName: LDBDoc.flyers,
-        input: flyer.toMap(toJSON: true),
+      docName: LDBDoc.flyers,
+      input: flyer.toMap(toJSON: true),
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyers (List<String> flyersIDs) async {
 
@@ -110,18 +110,18 @@ class FlyerLDBOps {
     );
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeOut(BuildContext context) async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.flyers);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FLYER MAKER SESSION
+  /// FLYER MAKER SESSION
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveFlyerMakerSession({
     @required FlyerModel flyerModel,
@@ -137,7 +137,7 @@ class FlyerLDBOps {
     }
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> loadFlyerMakerSession({
     @required String flyerID,
@@ -158,7 +158,7 @@ class FlyerLDBOps {
 
     return _flyer;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerMakerSession({
     @required String flyerID,
@@ -170,27 +170,27 @@ class FlyerLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FLYER REVIEW SESSION
+  /// FLYER REVIEW SESSION
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveReviewSession({
-  @required ReviewModel review,
-}) async {
+    @required ReviewModel review,
+  }) async {
 
     if (review != null){
 
       await LDBOps.insertMap(
-          docName: LDBDoc.reviewEditor,
-          input: review.toMap(toJSON: true, includeID: true),
+        docName: LDBDoc.reviewEditor,
+        input: review.toMap(toJSON: true, includeID: true),
       );
 
     }
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> loadReviewSession({
     @required String reviewID,
@@ -212,7 +212,7 @@ class FlyerLDBOps {
 
     return _review;
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteReviewSession({
     @required String reviewID,
@@ -224,5 +224,5 @@ class FlyerLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

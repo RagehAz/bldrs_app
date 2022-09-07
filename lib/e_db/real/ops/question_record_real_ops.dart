@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/real/ops/record_real_ops.dart';
@@ -7,15 +5,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class QuestionRecordRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const QuestionRecordRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE QUESTIONS RECORDS AND COUNTERS
 
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createCreateQuestion({
     @required BuildContext context,
@@ -35,7 +33,7 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createCreateQuestion : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createEditQuestion({
     @required BuildContext context,
@@ -55,7 +53,7 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createEditQuestion : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createDeleteQuestion({
     @required BuildContext context,
@@ -75,7 +73,7 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createDeleteQuestion : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createCreateAnswer({
     @required BuildContext context,
@@ -97,7 +95,7 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createCreateAnswer : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createEditAnswer({
     @required BuildContext context,
@@ -119,7 +117,7 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createEditAnswer : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> createDeleteAnswer({
     @required BuildContext context,
@@ -142,5 +140,5 @@ class QuestionRecordRealOps {
 
     blog('QuestionRecordOps.createDeleteAnswer : END');
   }
-// ----------------------------------
+  // --------------------
 }

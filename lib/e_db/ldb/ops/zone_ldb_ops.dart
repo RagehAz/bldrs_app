@@ -8,17 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
 class ZoneLDBOps{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ZoneLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTINENT
 
-// ---------------------------------
+  // --------------------
   /// CREATE / INSERT
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertContinents(List<Continent> continents) async {
 
@@ -28,9 +28,9 @@ class ZoneLDBOps{
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// READ
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readContinents() async {
 
@@ -46,17 +46,17 @@ class ZoneLDBOps{
 
     return _continents;
   }
-// ---------------------------------
+  // --------------------
   /// UPDATE
-// ---------------
+  // --------------------
   /// DELETE
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COUNTRY
 
-// ---------------------------------
+  // --------------------
   /// CREATE / INSERT
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCountry(CountryModel country) async {
 
@@ -66,9 +66,9 @@ class ZoneLDBOps{
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// READ
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountry(String countryID) async {
 
@@ -85,17 +85,17 @@ class ZoneLDBOps{
 
     return _country;
   }
-// ---------------------------------
+  // --------------------
   /// UPDATE
-// ---------------
+  // --------------------
   /// DELETE
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CITY
 
-// ---------------------------------
+  // --------------------
   /// CREATE / INSERT
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCity(CityModel city) async {
 
@@ -105,9 +105,9 @@ class ZoneLDBOps{
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// READ
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity(String cityID) async {
 
@@ -125,7 +125,7 @@ class ZoneLDBOps{
 
     return _city;
   }
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> searchCitiesByName({
     @required String cityName,
@@ -145,17 +145,17 @@ class ZoneLDBOps{
 
     return _foundCities;
   }
-// ---------------------------------
+  // --------------------
   /// UPDATE
-// ---------------
+  // --------------------
   /// DELETE
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CURRENCIES
 
-// ---------------------------------
+  // --------------------
   /// CREATE / INSERT
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCurrencies(List<CurrencyModel> currencies) async {
 
@@ -165,9 +165,9 @@ class ZoneLDBOps{
     );
 
   }
-// ---------------------------------
+  // --------------------
   /// READ
-// ---------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> readCurrencies() async {
 
@@ -183,6 +183,6 @@ class ZoneLDBOps{
 
     return _currencies;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 }

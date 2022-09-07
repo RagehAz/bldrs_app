@@ -22,15 +22,15 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class ZoneFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ZoneFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTINENT
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Continent>> readContinentsOps({
     @required BuildContext context,
@@ -45,11 +45,11 @@ class ZoneFireOps {
 
     return _allContinents;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COUNTRY
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountryOps({
     @required BuildContext context,
@@ -70,11 +70,11 @@ class ZoneFireOps {
 
     return _countryModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CITY
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCityOps({
     @required BuildContext context,
@@ -96,7 +96,7 @@ class ZoneFireOps {
 
     return _cityModel;
   }
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCitiesOps({
     @required BuildContext context,
@@ -130,11 +130,11 @@ class ZoneFireOps {
 
     return _cities;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ZONE
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> _getZoneByIP_ipApi({
     @required BuildContext context
@@ -212,7 +212,7 @@ class ZoneFireOps {
     );
 
   }
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> _getZoneByIP_ipRegistry({
     @required BuildContext context
@@ -294,7 +294,7 @@ class ZoneFireOps {
       cityID: _cityID,
     );
   }
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> _getZoneByGeoLocator({
     @required BuildContext context
@@ -316,7 +316,7 @@ class ZoneFireOps {
 
     return _zoneModel;
   }
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> superGetZoneByIP(BuildContext context) async {
     /// trial 1
@@ -348,11 +348,11 @@ class ZoneFireOps {
 
     return _zone;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GEO
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Position> getGeoLocatorCurrentPosition() async {
     bool _serviceEnabled;
@@ -396,7 +396,7 @@ class ZoneFireOps {
 
     return _result;
   }
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Placemark>> getAddressFromPosition({@
   required GeoPoint geoPoint
@@ -417,11 +417,11 @@ class ZoneFireOps {
 
     return _placeMarks;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CURRENCY
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CurrencyModel>> readCurrencies(BuildContext context) async {
 
@@ -435,6 +435,5 @@ class ZoneFireOps {
 
     return _currencies;
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }

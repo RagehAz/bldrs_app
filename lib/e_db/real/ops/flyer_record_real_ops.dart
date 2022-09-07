@@ -12,17 +12,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
 
 class FlyerRecordRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FlyerRecordRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATION
 
-// ----------------------------------
+  // --------------------
   /// SHARES CREATION
-// -------------------
+  // -------
   /// TESTED : WORKS PERFECT
   static Future<void> shareFlyer({
     @required BuildContext context,
@@ -61,9 +61,9 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.shareFlyer : END');
   }
-// ----------------------------------
+  // --------------------
   /// VIEWS CREATION
-// -------------------
+  // -------
   /// TESTED : WORKS PERFECT
   static Future<void> viewFlyer({
     @required BuildContext context,
@@ -149,9 +149,9 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.viewFlyer : END');
   }
-// ----------------------------------
+  // --------------------
   /// SAVES CREATION
-// -------------------
+  // -------
   /// TESTED : WORKS PERFECT
   static Future<void> saveFlyer({
     @required BuildContext context,
@@ -192,7 +192,7 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.saveFlyer : END');
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unSaveFlyer({
     @required BuildContext context,
@@ -232,9 +232,9 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.unSaveFlyer : END');
   }
-// ----------------------------------
+  // --------------------
   /// REVIEWS CREATION
-// -------------------
+  // -------
   /// TESTED : ...
   static Future<void> reviewCreation({
     @required BuildContext context,
@@ -275,7 +275,7 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.createCreateReview : END');
   }
-// ----------------------------------
+  // --------------------
   /// NO NEED
   /*
   /// TESTED : ...
@@ -300,7 +300,7 @@ class FlyerRecordRealOps {
     blog('FlyerRecordOps.createEditReview : END');
   }
    */
-// ----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> reviewDeletion({
     @required BuildContext context,
@@ -339,13 +339,13 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.reviewDeletion : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// FLYER COUNTERS
+  /// FLYER COUNTERS
 
-// ----------------------------------
+  // --------------------
   /// COUNTER CREATION - UPDATING
-// -------------------
+  // -------
   /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel> incrementFlyerCounter({
     @required BuildContext context,
@@ -394,9 +394,9 @@ class FlyerRecordRealOps {
     blog('FlyerRecordOps.incrementFlyerCounter : END');
     return _model;
   }
-// ----------------------------------
+  // --------------------
   /// COUNTER READING
-// -------------------
+  // -------
   static Future<FlyerCounterModel> readFlyerCounters({
     @required BuildContext context,
     @required String flyerID,
@@ -412,9 +412,9 @@ class FlyerRecordRealOps {
 
     return _flyerCounters;
   }
-// ----------------------------------
-/// COUNTER DELETION
-// -------------------
+  // --------------------
+  /// COUNTER DELETION
+  // -------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteAllFlyerCountersAndRecords({
     @required BuildContext context,
@@ -423,45 +423,45 @@ class FlyerRecordRealOps {
 
     await Future.wait(<Future>[
 
-    /// SHARES
-    Real.deleteDoc(
-    context: context,
-    collName: RealColl.recordingShares,
-    docName: flyerID,
-    ),
+      /// SHARES
+      Real.deleteDoc(
+        context: context,
+        collName: RealColl.recordingShares,
+        docName: flyerID,
+      ),
 
-    /// VIEWS
-    Real.deleteDoc(
-      context: context,
-      collName: RealColl.recordingViews,
-      docName: flyerID,
-    ),
+      /// VIEWS
+      Real.deleteDoc(
+        context: context,
+        collName: RealColl.recordingViews,
+        docName: flyerID,
+      ),
 
-    /// SAVES
-    Real.deleteDoc(
-      context: context,
-      collName: RealColl.recordingSaves,
-      docName: flyerID,
-    ),
+      /// SAVES
+      Real.deleteDoc(
+        context: context,
+        collName: RealColl.recordingSaves,
+        docName: flyerID,
+      ),
 
-    // /// REVIEWS
-    // Real.deleteDoc(
-    //   context: context,
-    //   collName: RealColl.recordingReviews,
-    //   docName: flyerID,
-    // ),
+      // /// REVIEWS
+      // Real.deleteDoc(
+      //   context: context,
+      //   collName: RealColl.recordingReviews,
+      //   docName: flyerID,
+      // ),
 
-    /// FLYERS COUNTER
-    Real.deleteDoc(
-      context: context,
-      collName: RealColl.countingFlyers,
-      docName: flyerID,
-    ),
+      /// FLYERS COUNTER
+      Real.deleteDoc(
+        context: context,
+        collName: RealColl.countingFlyers,
+        docName: flyerID,
+      ),
 
     ]);
 
   }
-// -------------------
+  // -------
   /// TESTED : WORKS PERFECT : TASK : NEED CLOUD FUNCTION
   static Future<void> deleteMultipleFlyersCountersAndRecords({
     @required BuildContext context,
@@ -482,5 +482,5 @@ class FlyerRecordRealOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -5,15 +5,15 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class ChainLDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ChainLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBigChainK(Chain bigChainK) async {
 
@@ -23,7 +23,7 @@ class ChainLDBOps {
     );
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBigChainS(Chain bigChainS) async {
 
@@ -33,11 +33,11 @@ class ChainLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainK() async {
 
@@ -57,7 +57,7 @@ class ChainLDBOps {
 
     return _bigChainK;
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainS() async {
 
@@ -77,11 +77,11 @@ class ChainLDBOps {
 
     return _bigChainS;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainK({
     @required Chain newBigChainK,
@@ -92,7 +92,7 @@ class ChainLDBOps {
     await insertBigChainK(newBigChainK);
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainS({
     @required Chain newBigChainS,
@@ -103,11 +103,11 @@ class ChainLDBOps {
     await insertBigChainS(newBigChainS);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBigChainK() async {
 
@@ -116,7 +116,7 @@ class ChainLDBOps {
     );
 
   }
-// ----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBigChainS() async {
 
@@ -125,5 +125,5 @@ class ChainLDBOps {
     );
 
   }
-// ----------------------------------
+  // --------------------
 }

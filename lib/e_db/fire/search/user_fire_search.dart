@@ -8,14 +8,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UserFireSearch{
+  // -----------------------------------------------------------------------------
 
   const UserFireSearch();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USERS
 
-// -----------------------------------------------
+  // --------------------
   static Future<List<UserModel>> usersByUserName({
     @required BuildContext context,
     @required String name,
@@ -56,7 +57,7 @@ class UserFireSearch{
 
     return _usersModels;
   }
-// -----------------------------------------------
+  // --------------------
   static Future<List<UserModel>> usersByNameAndIsAuthor({
     @required BuildContext context,
     @required String name,
@@ -94,5 +95,4 @@ class UserFireSearch{
     return _usersModels;
   }
 // -----------------------------------------------------------------------------
-
 }

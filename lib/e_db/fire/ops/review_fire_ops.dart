@@ -6,16 +6,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ReviewFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const ReviewFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// PATH
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String createRealPath(String flyerID){
     return '/${RealColl.reviews}/$flyerID';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+  // --------------------
   static Future<ReviewModel> createReview({
     @required BuildContext context,
     @required String text,
@@ -48,21 +56,25 @@ class ReviewFireOps {
 
     return _review.copyWith(id: _ref?.id);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
   static Future<void> updateReview({
     @required BuildContext context,
     @required ReviewModel reviewModel,
   }) async {
 
     await Fire.updateSubDoc(
-        context: context,
-        collName: FireColl.flyers,
-        docName: reviewModel.flyerID,
-        subCollName: FireSubColl.flyers_flyer_reviews,
-        subDocName: reviewModel.id,
-        input: reviewModel.toMap(),
+      context: context,
+      collName: FireColl.flyers,
+      docName: reviewModel.flyerID,
+      subCollName: FireSubColl.flyers_flyer_reviews,
+      subDocName: reviewModel.id,
+      input: reviewModel.toMap(),
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }

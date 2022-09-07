@@ -6,24 +6,24 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
 
 class PickerRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const PickerRealOps();
 
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PATHS
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static  String _getPickerRealDocNameByFlyerType(FlyerType flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CREATE
+  /// CREATE
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createPickers({
     @required BuildContext context,
@@ -32,18 +32,18 @@ class PickerRealOps {
   }) async {
 
     await Real.createNamedDoc(
-        context: context,
-        collName: RealColl.pickers,
-        docName: _getPickerRealDocNameByFlyerType(flyerType),
-        map: PickerModel.cipherPickers(pickers),
+      context: context,
+      collName: RealColl.pickers,
+      docName: _getPickerRealDocNameByFlyerType(flyerType),
+      map: PickerModel.cipherPickers(pickers),
     );
 
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// READ
+  /// READ
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> readPickers({
     @required BuildContext context,
@@ -71,11 +71,11 @@ class PickerRealOps {
 
     return _output;
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// UPDATE
+  /// UPDATE
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updatePickers({
     @required BuildContext context,
@@ -96,11 +96,11 @@ class PickerRealOps {
 
 
   }
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// DELETE
+  /// DELETE
 
-// -----------------------------
+  // --------------------
   /// I GUESS NO NEED
-// ---------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

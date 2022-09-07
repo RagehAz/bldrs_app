@@ -31,15 +31,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FlyerFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// -----------------------------------
+  // --------------------
   ///
   static Future<Map<String, dynamic>> createFlyerOps({
     @required BuildContext context,
@@ -93,7 +93,7 @@ class FlyerFireOps {
       'bz' : _finalBz,
     };
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : : returns Flyer ID
   static Future<String> _createFlyerDoc({
     @required BuildContext context,
@@ -120,7 +120,7 @@ class FlyerFireOps {
 
     return _docRef?.id;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _uploadImagesAndPDFsAndUpdateFlyer({
     @required BuildContext context,
@@ -200,7 +200,7 @@ class FlyerFireOps {
 
     return _finalFlyer;
   }
-// -----------------------------------
+  // --------------------
   static Future<BzModel> _addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -237,11 +237,11 @@ class FlyerFireOps {
 
     return _uploadedBzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> readFlyerOps({
     @required BuildContext context,
@@ -261,7 +261,7 @@ class FlyerFireOps {
 
     return _flyer;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<FlyerModel>> readBzFlyers({
     @required BuildContext context,
     @required BzModel bzModel
@@ -283,7 +283,7 @@ class FlyerFireOps {
 
     return _flyers;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<FlyerModel>> readBzzFlyers({
     @required BuildContext context,
     @required List<BzModel> bzzModels,
@@ -305,7 +305,7 @@ class FlyerFireOps {
 
     return _allFlyers;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<ReviewModel>> readAllReviews({
     @required BuildContext context,
     @required String flyerID,
@@ -328,7 +328,7 @@ class FlyerFireOps {
 
     return null;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<FlyerModel>> paginateFlyers({
     @required BuildContext context,
     @required String countryID,
@@ -442,11 +442,11 @@ class FlyerFireOps {
 
     return _flyers;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> updateFlyerOps({
     @required BuildContext context,
@@ -485,7 +485,7 @@ class FlyerFireOps {
 
     return _finalFlyer;
   }
-// -----------------------------------
+  // --------------------
   static Future<FlyerModel> _updateSlides({
     @required BuildContext context,
     @required FlyerModel oldFlyer,
@@ -548,7 +548,7 @@ class FlyerFireOps {
           }
 
 
-      }),
+        }),
 
       ]);
 
@@ -563,7 +563,7 @@ class FlyerFireOps {
 
     return _finalFlyer;
   }
-// -----------------------------------
+  // --------------------
   static Future<void> _deleteUnusedSlides({
     @required BuildContext context,
     @required FlyerModel oldFlyer,
@@ -601,7 +601,7 @@ class FlyerFireOps {
     blog('_deleteUnusedSlides : END');
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _updateFlyerPDF({
     @required BuildContext context,
@@ -614,8 +614,8 @@ class FlyerFireOps {
     FlyerModel _output = newFlyer.copyWith();
 
     final bool _pdfsAreIdentical = FileModel.checkFileModelsAreIdentical(
-        model1: oldFlyer.pdf,
-        model2: newFlyer.pdf,
+      model1: oldFlyer.pdf,
+      model2: newFlyer.pdf,
     );
 
     blog('_updateFlyerPDF : _pdfsAreIdentical : $_pdfsAreIdentical');
@@ -672,8 +672,8 @@ class FlyerFireOps {
           context: context,
           storageDocName: StorageDoc.flyersPDFs,
           fileName: FileModel.generateFlyerPDFStorageName(
-              pdfFileName: oldFlyer.pdf.fileName,
-              flyerID: oldFlyer.id,
+            pdfFileName: oldFlyer.pdf.fileName,
+            flyerID: oldFlyer.id,
           ),
         );
 
@@ -685,7 +685,7 @@ class FlyerFireOps {
     blog('_updateFlyerPDF : END');
     return _output;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateFlyerDoc({
     @required BuildContext context,
@@ -704,8 +704,8 @@ class FlyerFireOps {
     blog('_updateFlyerDoc : END');
 
   }
-// -----------------------------------
-/*
+  // --------------------
+  /*
 //   Future<void> switchFlyerShowsAuthor({
 //     @required BuildContext context,
 //     @required String flyerID,
@@ -720,11 +720,11 @@ class FlyerFireOps {
 //     );
 //   }
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> deleteFlyerOps({
     @required BuildContext context,
@@ -774,7 +774,7 @@ class FlyerFireOps {
 
     return _uploadedBz;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
     @required BuildContext context,
@@ -789,8 +789,8 @@ class FlyerFireOps {
     if (bzModel != null && flyer != null){
 
       final BzModel _updatedBzModel = BzModel.removeFlyerIDFromBzAndAuthor(
-          bzModel: bzModel,
-          flyer: flyer,
+        bzModel: bzModel,
+        flyer: flyer,
       );
 
       _uploadedBzModel = await BzFireOps.updateBz(
@@ -806,7 +806,7 @@ class FlyerFireOps {
 
     return _uploadedBzModel;
   }
-// -----------------------------------
+  // --------------------
   static Future<void> _deleteFlyerStorageImagesAndPDF({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -843,8 +843,8 @@ class FlyerFireOps {
               context: context,
               storageDocName: StorageDoc.flyersPDFs,
               fileName: FileModel.generateFlyerPDFStorageName(
-                  pdfFileName: flyerModel.pdf.fileName,
-                  flyerID: flyerModel.id,
+                pdfFileName: flyerModel.pdf.fileName,
+                flyerID: flyerModel.id,
               ),
             ),
 
@@ -857,7 +857,7 @@ class FlyerFireOps {
     blog('_deleteFlyerStorageImages : END');
 
   }
-// -----------------------------------
+  // --------------------
   static Future<void> _deleteFlyerDoc({
     @required BuildContext context,
     @required String flyerID,
@@ -876,7 +876,7 @@ class FlyerFireOps {
     blog('_deleteFlyerDoc : END');
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> deleteMultipleBzFlyers({
     @required BuildContext context,
@@ -914,14 +914,14 @@ class FlyerFireOps {
 
             /// DELETE FLYER STORAGE IMAGES
             await _deleteFlyerStorageImagesAndPDF(
-                context: context,
-                flyerModel: flyerModel,
+              context: context,
+              flyerModel: flyerModel,
             );
 
             /// I - delete firestore/flyers/flyerID
             await _deleteFlyerDoc(
-                context: context,
-                flyerID: flyerModel.id,
+              context: context,
+              flyerID: flyerModel.id,
             );
 
             _bzFlyersIDs = Stringer.removeStringsFromStrings(
@@ -961,11 +961,11 @@ class FlyerFireOps {
 
     return _bzModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER PROMOTIONS
 
-// -----------------------------------
+  // --------------------
   static Future<void> promoteFlyerInCity({
     @required BuildContext context,
     @required FlyerPromotion flyerPromotion,
@@ -1001,8 +1001,8 @@ class FlyerFireOps {
     }
 
   }
-// -----------------------------------
-/*
+  // --------------------
+  /*
 // Future<void> demoteFlyerInCity({
 //   @required BuildContext context,
 //   @required CityModel cityModel,
@@ -1027,8 +1027,7 @@ class FlyerFireOps {
 //
 // }
  */
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
   static Future<void> onReportFlyer({
     @required BuildContext context,
     @required FlyerModel flyer,
@@ -1037,56 +1036,56 @@ class FlyerFireOps {
     String _feedback;
 
     await BottomDialog.showButtonsBottomDialog(
-      context: context,
-      draggable: true,
-      numberOfWidgets: 3,
-      title: 'Report Flyer',
-      builder: (_, PhraseProvider phrasePro){
+        context: context,
+        draggable: true,
+        numberOfWidgets: 3,
+        title: 'Report Flyer',
+        builder: (_, PhraseProvider phrasePro){
 
-        return <Widget>[
+          return <Widget>[
 
-          /// INAPPROPRIATE CONTENT
-          BottomDialog.wideButton(
-            context: context,
-            verse: '##Inappropriate content',
-            onTap: (){
-              _feedback = 'Inappropriate content';
-              Nav.goBack(
+            /// INAPPROPRIATE CONTENT
+            BottomDialog.wideButton(
                 context: context,
-                invoker: 'onReportFlyer.Inappropriate'
-              );
-            }
-          ),
+                verse: '##Inappropriate content',
+                onTap: (){
+                  _feedback = 'Inappropriate content';
+                  Nav.goBack(
+                      context: context,
+                      invoker: 'onReportFlyer.Inappropriate'
+                  );
+                }
+            ),
 
-          /// CONTENT IS NOT RELEVANT TO BLDRS
-          BottomDialog.wideButton(
-              context: context,
-              verse: '##Flyer content is not relevant to Bldrs.net',
-              onTap: (){
-                _feedback = 'Flyer content is not relevant to Bldrs.net';
-                Nav.goBack(
-                    context: context,
-                    invoker: 'onReportFlyer.not relevant'
-                );
-              }
-          ),
+            /// CONTENT IS NOT RELEVANT TO BLDRS
+            BottomDialog.wideButton(
+                context: context,
+                verse: '##Flyer content is not relevant to Bldrs.net',
+                onTap: (){
+                  _feedback = 'Flyer content is not relevant to Bldrs.net';
+                  Nav.goBack(
+                      context: context,
+                      invoker: 'onReportFlyer.not relevant'
+                  );
+                }
+            ),
 
-          /// COPY RIGHTS
-          BottomDialog.wideButton(
-              context: context,
-              verse: '##content violates copyrights',
-              onTap: (){
-                _feedback = 'content violates copyrights';
-                Nav.goBack(
-                    context: context,
-                    invoker: 'onReportFlyer.copyrights'
-                );
-              }
-          ),
+            /// COPY RIGHTS
+            BottomDialog.wideButton(
+                context: context,
+                verse: '##content violates copyrights',
+                onTap: (){
+                  _feedback = 'content violates copyrights';
+                  Nav.goBack(
+                      context: context,
+                      invoker: 'onReportFlyer.copyrights'
+                  );
+                }
+            ),
 
-        ];
+          ];
 
-      }
+        }
     );
 
     if (_feedback != null){
@@ -1120,5 +1119,5 @@ class FlyerFireOps {
 
 
   }
-
+  // -----------------------------------------------------------------------------
 }

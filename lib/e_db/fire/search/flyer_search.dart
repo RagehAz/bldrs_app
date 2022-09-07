@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 
 /// FLYERS
 
-// -----------------------------------------------
+// --------------------
 /// SEARCH FLYERS BY AREA AND FLYER TYPE
 Future<List<FlyerModel>> flyersByZoneAndFlyerType({
   @required BuildContext context,
@@ -57,8 +57,7 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
 
   return _flyers;
 }
-
-// -----------------------------------------------
+// --------------------
 Future<List<FlyerModel>> flyersByZoneAndKeywordID({
   @required BuildContext context,
   @required ZoneModel zone,
@@ -100,8 +99,7 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
 
   return _flyers;
 }
-
-// -----------------------------------------------
+// --------------------
 Future<List<FlyerModel>> flyersByZoneAndTitle({
   @required BuildContext context,
   @required ZoneModel zone,
@@ -120,12 +118,12 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
     startAfter: startAfter,
     finders: <FireFinder>[
       FireFinder(
-        field: 'trigram',
-        comparison: FireComparison.arrayContains,
-        value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-          input: title.trim(),
-          numberOfChars: Standards.maxTrigramLength,
-        )
+          field: 'trigram',
+          comparison: FireComparison.arrayContains,
+          value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+            input: title.trim(),
+            numberOfChars: Standards.maxTrigramLength,
+          )
       ),
       FireFinder(
         field: 'zone.countryID',
@@ -150,9 +148,9 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
 }
 // -----------------------------------------------------------------------------
 
-  /// FLYER PROMOTION
+/// FLYER PROMOTION
 
-// -----------------------------------------------
+// --------------------
 Future<List<FlyerPromotion>> flyerPromotionsByCity({
   @required BuildContext context,
   @required String cityID,

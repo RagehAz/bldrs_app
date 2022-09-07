@@ -5,15 +5,15 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class UserLDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const UserLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertUserModel(UserModel userModel) async {
 
@@ -29,7 +29,7 @@ class UserLDBOps {
     }
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertUsers(List<UserModel> users) async {
 
@@ -46,11 +46,11 @@ class UserLDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> readAll() async {
 
@@ -65,7 +65,7 @@ class UserLDBOps {
 
     return _users;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> readUserOps({
     @required String userID,
@@ -89,11 +89,11 @@ class UserLDBOps {
 
     return _userModel;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateUserModel(UserModel userModel) async {
 
@@ -109,11 +109,11 @@ class UserLDBOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteUserOps(String userID) async {
 
@@ -123,11 +123,11 @@ class UserLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// EDITOR SESSION
+  /// EDITOR SESSION
 
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveEditorSession({
     @required UserModel userModel,
@@ -143,7 +143,7 @@ class UserLDBOps {
     }
 
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> loadEditorSession({
     @required String userID,
@@ -166,16 +166,16 @@ class UserLDBOps {
 
     return _user;
   }
-// ---------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeEditorSession(String userID) async {
 
     await LDBOps.deleteMap(
-        objectID: userID,
-        docName: LDBDoc.userEditor,
+      objectID: userID,
+      docName: LDBDoc.userEditor,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
 }

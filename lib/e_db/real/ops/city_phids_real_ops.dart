@@ -6,20 +6,20 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class CityPhidsRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const CityPhidsRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityPhidsModel> readCityPhids({
     @required BuildContext context,
     @required String cityID,
-}) async {
+  }) async {
     CityPhidsModel _cityChain;
 
     if (cityID != null){
@@ -41,11 +41,11 @@ class CityPhidsRealOps {
 
     return _cityChain;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// EDITOR
+  /// EDITOR
 
-// --------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementFlyerCityChainUsage({
     @required BuildContext context,
@@ -70,8 +70,7 @@ class CityPhidsRealOps {
     }
 
   }
-// --------------------------------
-
+  // --------------------
   static Future<void> incrementFlyersCityChainUsage({
     @required BuildContext context,
     @required List<FlyerModel> flyersModels,
@@ -93,5 +92,5 @@ class CityPhidsRealOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

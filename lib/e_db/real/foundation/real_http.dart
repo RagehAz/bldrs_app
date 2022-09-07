@@ -7,30 +7,30 @@ import 'package:http/http.dart' as http;
 
 /// REAL TIME DB METHODS
 abstract class RealHttp{
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const RealHttp();
 
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
-// ----------------------------------------
+  // --------------------
   static Uri collectionLink(String collName){
     return Uri.parse('https://bldrsnet.firebaseio.com/$collName.json');
   }
-// ----------------------------------------
+  // --------------------
   static Uri docLink({
     @required String collName,
     @required String docName,
   }){
     return Uri.parse('https://bldrsnet.firebaseio.com/$collName/$docName.json');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> createDoc({
     @required BuildContext context,
@@ -55,7 +55,7 @@ abstract class RealHttp{
           /// --- get doc ID;
           _docID = json.decode(_response.body)['name'];
 
-          },
+        },
         onError: (String error) async {
 
           await Dialogs.errorDialog(
@@ -65,11 +65,11 @@ abstract class RealHttp{
 
         }
 
-        );
+    );
 
     return _docID;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createNamedDoc({
     @required BuildContext context,
@@ -79,18 +79,18 @@ abstract class RealHttp{
   }) async {
 
     await updateDoc(
-        context: context,
-        collName: collName,
-        docName: docName,
-        input: input,
+      context: context,
+      collName: collName,
+      docName: docName,
+      input: input,
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> readDoc({
     @required BuildContext context,
@@ -128,11 +128,11 @@ abstract class RealHttp{
 
     return _map;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required BuildContext context,
@@ -172,11 +172,11 @@ abstract class RealHttp{
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required BuildContext context,
@@ -201,5 +201,5 @@ abstract class RealHttp{
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
