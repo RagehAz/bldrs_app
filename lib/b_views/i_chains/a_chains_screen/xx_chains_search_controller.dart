@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -139,10 +139,9 @@ List<String> _removeCurrenciesFromPhids({
 
     for (final String phid in phids){
 
-      /// CURRENCY PHID COME LIKES THIS : 'currency_xxx'
-      final String _currencyText = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+      final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
 
-      if (_currencyText != 'currency'){
+      if (_isCurrency == false){
         _output.add(phid);
       }
 

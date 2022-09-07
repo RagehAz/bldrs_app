@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 class PickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerScreen({
-    @required this.specPicker,
+    @required this.picker,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
     @required this.onlyUseCityChains,
@@ -23,7 +23,7 @@ class PickerScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final PickerModel specPicker;
+  final PickerModel picker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
@@ -35,9 +35,12 @@ class PickerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    picker?.blogPicker(methodName: 'PickerScreen');
+
     // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final String _pageTitle = specPicker.chainID;
+    final String _pageTitle = picker?.chainID;
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),
@@ -85,7 +88,7 @@ class PickerScreen extends StatelessWidget {
       ),
       layoutWidget: PickersScreenView(
           appBarType: AppBarType.basic,
-          picker: specPicker,
+          picker: picker,
           selectedSpecs: selectedSpecs,
           screenHeight: _screenHeight,
           showInstructions: showInstructions,
@@ -97,11 +100,11 @@ class PickerScreen extends StatelessWidget {
             phid: phid,
             selectedSpecs: selectedSpecs,
             isMultipleSelectionMode: isMultipleSelectionMode,
-            picker: specPicker,
+            picker: picker,
           ),
           onAddSpecs: (List<SpecModel> specs) => onAddSpecs(
             specs: specs,
-            picker: specPicker,
+            picker: picker,
             selectedSpecs: selectedSpecs,
           ),
           onKeyboardSubmitted: () => onGoBackFromPickerScreen(
