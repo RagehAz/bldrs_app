@@ -851,7 +851,7 @@ class Mapper {
 
       for (int i = 0; i < _keys.length; i++) {
 
-        final String _index = Numeric.uniformizeIndexDigits(
+        final String _index = Numeric.formatIndexDigits(
           index: i,
           listLength: _keys.length,
         );

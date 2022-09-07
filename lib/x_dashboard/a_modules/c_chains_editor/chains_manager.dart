@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -132,10 +133,24 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         // await Real.cr
 
-        // const String phid = 'phid_s_am_kidsPoo';
+        const String phid = 'phid_s_am_kidsPopo';
+        const int index = 555;
 
+        final String _withIndex = Phider.addIndexToPhid(
+          phid: phid,
+          index: index,
+          // overrideExisting: true,
+        );
 
+        final bool _phidHasIndex = Phider.checkPhidHasIndex(_withIndex);
 
+        final int oldIndex = Phider.getIndexFromPhid(phid);
+
+        blog('x_withIndex : $_withIndex _phidHasIndex : $_phidHasIndex : newIndex : $index : oldIndex : $oldIndex');
+
+        // const String _curr = 'currency_egy';
+        final bool _isCurrency = Phider.checkVerseIsCurrency(phid);
+        blog('isCurrency : $_isCurrency');
 
       },
       appBarWidgets: <Widget>[
@@ -179,7 +194,6 @@ class _ChainsManagerState extends State<ChainsManager> {
                   flyerType: _allTypes[index],
                   flyerTypes: _selectedTypes,
                 );
-
 
                 return AppBarButton(
                   verse: _allTypes[index].toString(),

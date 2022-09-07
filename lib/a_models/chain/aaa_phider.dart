@@ -1,14 +1,23 @@
 // ignore_for_file: constant_identifier_names
+import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:flutter/material.dart';
 
 class Phider {
   // -----------------------------------------------------------------------------
 
   /// PHID IS : 'phrase ID' : consists of several cuts
+  ///
   /// Example :-
   /// String phid         = 'phid_k_am_clubHouse'
   /// List<String> cuts   = ['phid', 'k', 'am', 'clubHouse'];
+  ///
+  /// INDEXING PHID
+  /// String phidWithIndex = '0000_phid_k_am_clubHouse'
+  /// notice that index is always within the first 4 digits of the first phid cut
   const Phider();
 
   // -----------------------------------------------------------------------------
@@ -22,10 +31,171 @@ class Phider {
   static const String currency = 'currency';
   // -----------------------------------------------------------------------------
 
-  /// GETTERS
+  /// INDEXING
 
   // --------------------
-  // static bool
+  /// TESTED : WORKS PERFECT
+  static String _formatPhidIndex(int index){
+    String _output;
+
+    if (index != null){
+
+      /// last allowable index would be 9999
+      _output = Numeric.formatIndexDigits(
+          index: index,
+          listLength: 10000,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String addIndexToPhid({
+    @required String phid,
+    @required int index,
+    bool overrideExisting = true,
+  }){
+    String _output = phid;
+
+    if (phid != null && index != null && phid is String){
+
+      final bool _hasIndex = checkPhidHasIndex(phid);
+
+      /// PHID HAS NO INDEX => ADD NEW INDEX
+      if (_hasIndex == false){
+
+        _output = _mergeIndexWithPhid(index, phid);
+
+      }
+
+      /// PHID ALREADY HAS INDEX
+      else {
+
+        /// IF OVERRIDE EXISTING INDEX
+        if (overrideExisting == true){
+
+          final String _withoutIndex = removeIndexFromPhid(
+              phid: phid,
+          );
+          _output = _mergeIndexWithPhid(index, _withoutIndex);
+
+        }
+
+        // /// KEEP EXISTING INDEX
+        // else {
+        //   _output = phid;
+        // }
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _mergeIndexWithPhid(int index, String phid){
+    String _output;
+
+    if (phid != null && phid is String){
+      if (index != null){
+        _output = '${_formatPhidIndex(index)}_$phid';
+      }
+      else {
+        _output = phid;
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String removeIndexFromPhid({
+    @required String phid,
+  }){
+    String _output;
+
+    if (phid != null && phid is String){
+
+      final bool _hasIndex = checkPhidHasIndex(phid);
+
+      /// IF HAS INDEX => REMOVE IT
+      if (_hasIndex == true){
+        _output = TextMod.removeTextBeforeFirstSpecialCharacter(phid, '_');
+        blog('removeIndexFromPhid : $_output');
+      }
+
+      /// IF HAS NO INDEX => KEEP PHID AS IS
+      else {
+        _output = phid;
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkPhidHasIndex(String phid){
+    bool _hasIndex = false;
+
+    if (phid != null && phid is String){
+
+      final String _firstFourChars = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+
+      final int _int = Numeric.transformStringToInt(_firstFourChars);
+
+      if (_int != null){
+        _hasIndex = true;
+      }
+
+    }
+
+    return _hasIndex;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static int getIndexFromPhid(String phid){
+    int _index;
+
+    if (phid != null && phid is String){
+
+      if (checkPhidHasIndex(phid) == true){
+        final String _indexString = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+        _index = Numeric.transformStringToInt(_indexString);
+      }
+
+    }
+
+    return _index;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GENERATORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String generatePhidPathUniqueKey({
+    @required String path,
+  }){
+
+    /// NOTE : WORKS ONLY WITH CHAIN S paths
+    // map pair looks like this
+    /// style_phid_s_arch_style_arabian : chainS/phid_s_style/phid_s_arch_style_arabian/
+    // => '{secondNode_xxx} + {yyy}
+    // => key = 'xxx_yyy'
+
+    final String _phid = ChainPathConverter.getLastPathNode(path);
+    final List<String> _split = ChainPathConverter.splitPathNodes(path);
+
+    final String _groupLine = _split[_split.length - 2];
+    final String group = TextMod.removeTextBeforeLastSpecialCharacter(_groupLine, '_');
+    final String _key = '${group}_$_phid';
+
+    return _key;
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKER
@@ -62,7 +232,7 @@ class Phider {
     return _phid == phid;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkVerseIsCurrency(String text){
     bool _isCurrency = false;
 

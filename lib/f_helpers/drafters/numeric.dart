@@ -144,7 +144,7 @@ class Numeric {
 
     String _output;
 
-    if (num >= _maxPossibleNum) {
+    if (num > _maxPossibleNum) {
       _output = 'XXXX';
     }
 
@@ -173,14 +173,16 @@ class Numeric {
   /// TESTED : WORKS PERFECT
   static int concludeNumberOfDigits(int length){
 
-    final String _stringed = length.toString();
+    final int _length = length == null || length <= 0 ? 0 : length - 1;
+
+    final String _stringed = _length.toString();
     final int _digits = _stringed.length;
 
     return _digits;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String uniformizeIndexDigits({
+  static String formatIndexDigits({
     @required int index,
     @required int listLength,
   }){
