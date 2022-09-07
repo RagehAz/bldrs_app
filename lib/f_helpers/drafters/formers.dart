@@ -24,7 +24,7 @@ class Formers {
 
   /// FORM VALIDATION
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool validateForm(GlobalKey<FormState> formKey) {
     bool _inputsAreValid = true;
@@ -35,7 +35,7 @@ class Formers {
 
     return _inputsAreValid;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void focusOnNode(FocusNode node){
 
@@ -50,7 +50,7 @@ class Formers {
 
   /// AUTH VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String emailValidator({
     @required String email,
@@ -76,7 +76,7 @@ class Formers {
 
     return _output;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordValidator({
     @required String password,
@@ -98,7 +98,7 @@ class Formers {
 
     return _output;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordConfirmationValidation({
     @required BuildContext context,
@@ -128,7 +128,7 @@ class Formers {
 
   /// GENERAL FIELDS VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String picValidator({
     @required dynamic pic,
@@ -144,7 +144,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String personNameValidator({
     @required String name,
@@ -179,7 +179,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String companyNameValidator({
     @required String companyName,
@@ -224,7 +224,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String jobTitleValidator({
     @required String jobTitle,
@@ -257,7 +257,7 @@ class Formers {
 
   /// ZONE VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String zoneValidator({
     @required ZoneModel zoneModel,
@@ -310,7 +310,7 @@ class Formers {
 
   /// CONTACTS VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsPhoneValidator({
     @required List<ContactModel> contacts,
@@ -355,7 +355,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsEmailValidator({
     @required List<ContactModel> contacts,
@@ -385,7 +385,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsWebsiteValidator({
     @required List<ContactModel> contacts,
@@ -424,7 +424,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   ///
   static String paragraphValidator({
     @required String text,
@@ -457,7 +457,7 @@ class Formers {
 
   /// BZ VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String bzSectionValidator({
     @required BzSection selectedSection,
@@ -473,7 +473,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String bzTypeValidator({
     @required List<BzType> selectedTypes,
@@ -489,7 +489,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String bzFormValidator({
     @required BzForm bzForm,
@@ -505,7 +505,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String bzAboutValidator({
     @required String bzAbout,
@@ -537,7 +537,7 @@ class Formers {
 
   /// FLYER VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerHeadlineValidator({
     @required String headline,
@@ -562,7 +562,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
     @required DraftFlyerModel draft,
@@ -582,7 +582,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeValidator({
     @required DraftFlyerModel draft,
@@ -600,7 +600,7 @@ class Formers {
 
     return _message;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String pdfValidator({
     @required FileModel fileModel,
@@ -632,7 +632,7 @@ class Formers {
 
   /// USER VALIDATORS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String genderValidator({
     @required UserModel userModel,
@@ -652,7 +652,7 @@ class Formers {
 
   /// USER MISSING FIELDS CHECK UPS
 
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showUserMissingFieldsDialog({
     @required BuildContext context,
@@ -669,7 +669,7 @@ class Formers {
     );
 
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserHasMissingFields(UserModel userModel){
     bool _thereAreMissingFields;
@@ -686,7 +686,7 @@ class Formers {
 
     return _thereAreMissingFields;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _generateUserMissingFieldsHeadlines(UserModel userModel) {
     final List<String> _missingFields = <String>[];
@@ -748,7 +748,7 @@ class Formers {
 
     return _missingFields;
   }
-  // -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateUserMissingFieldsString(UserModel userModel){
     String _output;
@@ -763,5 +763,5 @@ class Formers {
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 }

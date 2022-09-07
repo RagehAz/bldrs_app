@@ -11,17 +11,16 @@ enum InsertionDuplicity {
   replace,
 }
 
-// -----------------------------------------------------------------------------
 class Mapper {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Mapper();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STRINGS GETTERS FROM LISTS
 
-// -------------------------------------
+  // --------------------
   static List<String> getFirstValuesFromMaps(List<Map<String, Object>> listOfMaps) {
 
     /// TASK : check getFirstValuesFromMaps if not used in production
@@ -39,7 +38,7 @@ class Mapper {
 
     return _listOfFirstValues;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static List<String> getSecondValuesFromMaps(List<Map<String, Object>> listOfMaps) {
 
     /// TASK : check getFirstValuesFromMaps if not used in production
@@ -57,7 +56,7 @@ class Mapper {
 
     return _listOfValues;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getMapsPrimaryKeysValues({
     @required List<Map<String, dynamic>> maps,
@@ -80,11 +79,11 @@ class Mapper {
 
     return _primaryKeys;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAPS - QUERY SNAPSHOT - QUERY DOCUMENT SNAPSHOT
 
-// -------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
     @required QuerySnapshot<Object> querySnapshot,
     @required bool addDocsIDs,
@@ -101,7 +100,7 @@ class Mapper {
 
     return _maps;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
     @required List<QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
@@ -134,11 +133,11 @@ class Mapper {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAPS - SNAPSHOTS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromDocumentSnapshot({
     @required DocumentSnapshot<Object> docSnapshot,
@@ -166,7 +165,7 @@ class Mapper {
 
     return _map;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromDataSnapshot({
     @required DataSnapshot snapshot,
@@ -212,7 +211,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> getMapsFromDataSnapshots({
     @required List<DataSnapshot> snapshots,
     bool addDocsIDs = true,
@@ -237,11 +236,11 @@ class Mapper {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAP GETTERS FROM (URL - DYNAMIC - STRING STRING IMMUTABLE MAP STRING OBJECT)
 
-// -------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> getMapsFromDynamics(List<dynamic> dynamics) {
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
@@ -253,7 +252,7 @@ class Mapper {
 
     return _maps;
   }
-// -------------------------------------
+  // --------------------
   static Map<String, dynamic> getMapFromURLQuery({
     @required String urlQuery,
   }) {
@@ -318,7 +317,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
 
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
@@ -326,7 +325,7 @@ class Mapper {
     final Map<String, dynamic> _map = Map.from(internalHashLinkedMapObjectObject);
     return _map;
   }
-// -------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> getMapsFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){
@@ -342,9 +341,9 @@ class Mapper {
         Map<String, dynamic> _map = Map.from(_bigMap[id]);
 
         _map = insertPairInMap(
-            map: _map,
-            key: 'id',
-            value: id,
+          map: _map,
+          key: 'id',
+          value: id,
         );
 
         _maps.add(_map);
@@ -355,11 +354,11 @@ class Mapper {
 
     return _maps;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAP IN MAPS INDEX CHECKERS
 
-// -------------------------------------
+  // --------------------
   static int indexOfMapInListOfMaps(List<Map<String, dynamic>> listOfMaps, Map<String, dynamic> map) {
     final int _indexOfTheMap =
     listOfMaps.indexWhere(
@@ -371,7 +370,7 @@ class Mapper {
     );
     return _indexOfTheMap;
   }
-// -------------------------------------
+  // --------------------
   static int indexOfMapByValueInListOfMaps({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String key,
@@ -380,11 +379,11 @@ class Mapper {
     listOfMaps.indexWhere((Map<String, dynamic> map) => map[key] == value);
     return _indexOfTheMap;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAPS MODIFIERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> insertPairInMap({
     @required Map<String, dynamic> map,
@@ -416,7 +415,7 @@ class Mapper {
 
     return _result;
   }
-// -------------------------------------
+  // --------------------
   static Map<String, Object> replacePair({
     @required Map<String, Object> map,
     @required String fieldKey,
@@ -435,7 +434,7 @@ class Mapper {
 
     return _aMap;
   }
-// -------------------------------------
+  // --------------------
   static Map<String, Object> removePair({
     @required Map<String, Object> map,
     @required String fieldKey,
@@ -446,7 +445,7 @@ class Mapper {
 
     return _map;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cleanDuplicateMaps({
     @required List<Map<String, dynamic>> maps,
@@ -472,7 +471,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cleanMapsOfDuplicateIDs({
     @required List<Map<String, dynamic>> maps,
@@ -496,7 +495,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> replaceMapInMapsWithSameIDField({
     @required List<Map<String, dynamic>> baseMaps,
@@ -531,7 +530,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static List<Map<String, dynamic>> removeMapFromMapsByIdField({
     @required List<Map<String, dynamic>> baseMaps,
     @required Map<String, dynamic> mapToRemove,
@@ -563,11 +562,11 @@ class Mapper {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanLoopList(List<dynamic> list) {
     bool _canLoop = false;
@@ -577,7 +576,7 @@ class Mapper {
     }
     return _canLoop;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkListHasNullValue(List<dynamic> list){
     bool _hasNull = false;
@@ -590,7 +589,7 @@ class Mapper {
 
     return _hasNull;
   }
-// -------------------------------------
+  // --------------------
   /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
   static bool checkMapsAreIdentical({
     Map<String, dynamic> map1,
@@ -637,7 +636,7 @@ class Mapper {
 
     return _mapsAreIdentical;
   }
-// -------------------------------------
+  // --------------------
   /// TASK : TESTED : NOT WORKINGGGGGGGGGGGGGGG
   static bool checkMapsListsAreIdentical({
     @required List<Map<String, dynamic>> maps1,
@@ -695,7 +694,7 @@ class Mapper {
     return _listsAreIdentical;
 
   }
-// -------------------------------------
+  // --------------------
   static bool checkMapsContainValue({
     @required List<Map<String, dynamic>> listOfMaps,
     @required String field,
@@ -718,7 +717,7 @@ class Mapper {
 
     return _listOfMapContainsTheValue;
   }
-// -------------------------------------
+  // --------------------
   static bool checkMapsContainMap({
     @required List<Map<String, dynamic>> maps,
     @required Map<String, dynamic> map,
@@ -770,7 +769,7 @@ class Mapper {
 
     return _listOfMapContainsTheMap;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkListsAreIdentical({
     @required List<dynamic> list1,
@@ -815,7 +814,7 @@ class Mapper {
     return _listsAreIdentical;
   }
 
-// -------------------------------------
+  // --------------------
   static bool checkIsLastListObject({
     @required List<dynamic> list,
     @required int index,
@@ -835,11 +834,11 @@ class Mapper {
 
     return _isAtLast;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING MAPS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMap(Map<dynamic, dynamic> map, {String methodName = ''}) {
 
@@ -869,7 +868,7 @@ class Mapper {
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMaps(List<Map<dynamic, dynamic>> maps, {String methodName}) {
     if (checkCanLoopList(maps)) {
@@ -878,7 +877,7 @@ class Mapper {
       }
     }
   }
-// -------------------------------------
+  // --------------------
   static void blogMapsListsDifferences({
     @required List<Map<String, dynamic>> maps1,
     @required List<Map<String, dynamic>> maps2,
@@ -925,11 +924,11 @@ class Mapper {
 
     blog('blogMapsListsDifferences : END');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MAP<STRING, STRING> STUFF
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeysHavingThisValue({
     @required Map<String, String> map,
@@ -959,7 +958,7 @@ class Mapper {
 
     return _output;
   }
-  // -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, String> _insertPairInMapWithStringValue({
     @required Map<String, String> map,
@@ -995,7 +994,7 @@ class Mapper {
 
     return _result;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, String> mergeMaps({
     @required Map<String, String> baseMap,
@@ -1033,7 +1032,7 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, String> getStringStringMapFromImmutableMapStringObject(dynamic object){
 
@@ -1081,5 +1080,5 @@ class Mapper {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
 }

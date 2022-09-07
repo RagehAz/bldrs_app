@@ -8,15 +8,15 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
 class TextMod {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const TextMod();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// ----------------------------
+  // --------------------
   static String modifyAllCharactersWith({
     @required String characterToReplace,
     @required String replacement,
@@ -27,7 +27,7 @@ class TextMod {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String obscureText({
     @required String text,
@@ -47,11 +47,11 @@ class TextMod {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT TAGS MODIFIER
 
-// ----------------------------
+  // --------------------
   /// TEXT VARIABLE TAGS
   static const String userNameVarTag1 = '<USERNAME1>';
   static const String userNameVarTag2 = '<USERNAME2>';
@@ -61,7 +61,7 @@ class TextMod {
   static const String authorNameVarTag2 = '<AUTHORNAME2>';
   static const String numberVarTag1 = '<NUMBER1>';
   static const String numberVarTag2 = '<NUMBER2>';
-// ----------------------------
+  // --------------------
   static const List<String> varTags = <String>[
     userNameVarTag1,
     userNameVarTag2,
@@ -72,7 +72,7 @@ class TextMod {
     numberVarTag1,
     numberVarTag2,
   ];
-// ----------------------------
+  // --------------------
   static String replaceVarTag({
     @required String input,
     String userName1,
@@ -183,11 +183,11 @@ class TextMod {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CUTTERS
 
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cutFirstCharacterAfterRemovingSpacesFromAString(String string) {
     final String _stringTrimmed = string.trim();
@@ -207,7 +207,7 @@ class TextMod {
     // blog('string($string) - _stringTrimmed($_stringTrimmed) - _stringWithoutSpaces($_stringWithoutSpaces) - _firstCharacter($_firstCharacter) - _output($_output)');
     return _output;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cutNumberOfCharactersOfAStringBeginning(String string, int number) {
     final String _output = string == null || string.isEmpty || string == '' || string == ' ' ?
@@ -217,7 +217,7 @@ class TextMod {
 
     return _output == null || _output == '' || _output == '' ? null : _output;
   }
-// ----------------------------
+  // --------------------
   static String cutLastTwoCharactersFromAString(String string) {
     final List<String> _stringSplit = string.split('');
     final int _listLength = _stringSplit.length;
@@ -229,16 +229,16 @@ class TextMod {
         :
     '${_stringSplit[_beforeLastIndex]}${_stringSplit[_lastIndex]}';
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REMOVERS
 
-// ----------------------------
+  // --------------------
   static String removeFirstCharacterFromAString(String string) {
     final String stringWithoutFirstCharacter = string.isNotEmpty ? string?.substring(1) : null;
     return stringWithoutFirstCharacter;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeNumberOfCharactersFromBeginningOfAString({
     @required String string,
@@ -259,7 +259,7 @@ class TextMod {
 
     return _stringTrimmed;
   }
-// ----------------------------
+  // --------------------
   static String removeNumberOfCharactersFromEndOfAString(String string, int numberOfCharacters) {
     String _stringTrimmed;
     // if (numberOfCharacters > string.length){
@@ -283,7 +283,7 @@ class TextMod {
 
     return _stringTrimmed;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeSpacesFromAString(String string) {
     String _output5;
@@ -322,7 +322,7 @@ class TextMod {
 
     return _output5;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
@@ -338,7 +338,7 @@ class TextMod {
 
     return _result;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
@@ -361,7 +361,7 @@ class TextMod {
 
     return _result;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
@@ -377,7 +377,7 @@ class TextMod {
 
     return _result;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
@@ -398,7 +398,7 @@ class TextMod {
 
     return _result;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String removeAllCharactersAfterNumberOfCharacters({
     @required String input,
@@ -416,11 +416,11 @@ class TextMod {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// ----------------------------
+  // --------------------
   static String sqlCipherStrings(List<String> strings) {
     String _output;
 
@@ -438,7 +438,7 @@ class TextMod {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   static List<String> sqlDecipherStrings(String text) {
     List<String> _strings;
 
@@ -448,17 +448,17 @@ class TextMod {
 
     return _strings;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
 
-// ----------------------------
+  // --------------------
   /// this trims paths like 'assets/xx/pp_sodic/builds_1.jpg' to 'builds_1.jpg'
   static String getFileNameFromAsset(String asset) {
     final String _fileName = removeTextBeforeLastSpecialCharacter(asset, '/');
     return _fileName;
   }
-// ----------------------------
+  // --------------------
   /// converts list of strings to map of keywords with true map value
   static Future<Map<String, dynamic>> getKeywordsMap(List<String> keywordsIDs) async {
     /// example
@@ -498,23 +498,23 @@ class TextMod {
 
     return _stringIndexMap;
   }
-// ----------------------------
+  // --------------------
   static Map<String, dynamic> getValueAndTrueMap(List<String> list) {
     final Map<String, dynamic> _result = <String, dynamic>{
       for (String string in list) string: true
     };
     return _result;
   }
-// ----------------------------
+  // --------------------
   static List<dynamic> getValuesFromValueAndTrueMap(Map<String, dynamic> map) {
     final List<dynamic> _flyersIDs = map.keys.toList();
     return _flyersIDs;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FIXERS
 
-// ----------------------------
+  // --------------------
   static String fixArabicText(String input) {
     /// TASK : alef hamza issue
     /// TASK : ya2 w alef maksoura issue
@@ -522,7 +522,7 @@ class TextMod {
 
     return 'Bokra isa';
   }
-// ----------------------------
+  // --------------------
   /// only user with country names, city names, districts names
   static String fixCountryName(String input) {
     String _output;
@@ -599,7 +599,7 @@ class TextMod {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   static String fixSearchText(String input){
     String _output;
 
@@ -613,29 +613,29 @@ class TextMod {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// TEXT CONTROLLERS
+  /// TEXT CONTROLLERS
 
-// ----------------------------
+  // --------------------
   static void controllerClear(TextEditingController controller){
     controller.text = '';
   }
-// ----------------------------
+  // --------------------
   static Future<void> controllerPaste(TextEditingController controller) async {
     final String value = await FlutterClipboard.paste();
     controller.text = value;
   }
-// ----------------------------
+  // --------------------
   static Future<void> controllerCopy(BuildContext context, String value) async {
     await Keyboard.copyToClipboard(
       context: context,
       copy: value,
     );
   }
-// ----------------------------
+  // --------------------
   /// PHONE NUMBER
-// -----------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String initializePhoneNumber({
     @required String number,
@@ -661,7 +661,7 @@ class TextMod {
 
     return initialNumber;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String nullifyNumberIfOnlyCountryCode({
     @required String number,
@@ -683,11 +683,11 @@ class TextMod {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
   /// WEB LINK
-// -----------
+  // --------------------
   static const String httpsCode = 'https://';
-// -----------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String initializeWebLink({
     @required String url,
@@ -706,7 +706,7 @@ class TextMod {
 
     return _initialText;
   }
-// ----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String nullifyUrlLinkIfOnlyHTTPS({
     @required String url,
@@ -724,7 +724,7 @@ class TextMod {
 
     return _output;
   }
-// ----------------------------
+  // --------------------
 
 }
 

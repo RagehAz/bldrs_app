@@ -9,15 +9,15 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 
 class Keyboard {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Keyboard();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -------------------------------------
+  // --------------------
   static StreamSubscription<bool> initializeKeyboardListener({
     @required BuildContext context,
     @required KeyboardVisibilityController controller,
@@ -33,8 +33,8 @@ class Keyboard {
       if (visible == false){
         FocusManager.instance.primaryFocus?.unfocus();
         _uiProvider.setKeyboardIsOn(
-            setTo: false,
-            notify: true,
+          setTo: false,
+          notify: true,
         );
         // _uiProvider.setKeyboard(
         //     model: null,
@@ -54,11 +54,11 @@ class Keyboard {
 
     return _keyboardSubscription;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONTROLLING KEYBOARD
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void closeKeyboard(BuildContext context) {
     /// SOLUTION 1
@@ -85,7 +85,7 @@ class Keyboard {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static bool keyboardIsOn(BuildContext context) {
     /// SOLUTION 1
     // bool _keyboardIsOn = FocusScope.of(context).hasFocus;
@@ -108,11 +108,11 @@ class Keyboard {
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     return _keyboardIsOn;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TEXT INPUT TYPE
 
-// -------------------------------------
+  // --------------------
   static const List<TextInputType> textInputTypes = <TextInputType>[
     TextInputType.text,
     TextInputType.multiline,
@@ -126,14 +126,14 @@ class Keyboard {
     TextInputType.streetAddress,
     // TextInputType.none,
   ];
-// -------------------------------------
+  // --------------------
   static String cipherTextInputType(TextInputType type){
 
     final String _type = TextMod.removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
 
     return _type;
   }
-// -------------------------------------
+  // --------------------
   static TextInputType decipherTextInputType(String type){
 
     switch(type){
@@ -153,8 +153,8 @@ class Keyboard {
 
 
   }
-// -------------------------------------
-/*
+  // --------------------
+  /*
 // HOW TO DETECT CURRENT KEYBOARD LANGUAGE OF THE DEVICE (NOT SOLVED)
 // BEST COMMENT HERE https://github.com/flutter/flutter/issues/25841
 // justinmc commented on Jul 9, 2020 •
@@ -166,11 +166,11 @@ class Keyboard {
 // Does anyone know if it's possible to listen for a keyboard language change
 // on native Android?
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// COPY PASTE
 
-// -------------------------------------
+  // --------------------
   static Future<void> handlePaste(TextSelectionDelegate delegate) async {
 
     final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.
@@ -198,7 +198,7 @@ class Keyboard {
 
     delegate.hideToolbar();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> copyToClipboard({
     @required BuildContext context,
     @required String copy,
@@ -218,5 +218,5 @@ class Keyboard {
 
     blog('copied to clipboard : $copy');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

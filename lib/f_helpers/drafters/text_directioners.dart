@@ -7,21 +7,19 @@ import 'package:provider/provider.dart';
 
 /// TEXT DIRECTION
 class TextDir {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const TextDir();
 
-// -----------------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TASK : need to test this method to detect text direction
- /*
+  /*
  import 'package:intl/intl.dart' as international;
  bool isRTL(String text) {
    return international.Bidi.detectRtlDirectionality(text);
  }
   */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static bool appIsLeftToRight(BuildContext context) {
     bool _isLTR;
 
@@ -33,7 +31,7 @@ class TextDir {
 
     return _isLTR;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static TextDirection textDirectionAsPerAppDirection(BuildContext context) {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -44,7 +42,7 @@ class TextDir {
       return TextDirection.rtl;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static TextDirection superInverseTextDirection(BuildContext context) {
     if (appIsLeftToRight(context)) {
       return TextDirection.rtl;
@@ -52,7 +50,7 @@ class TextDir {
       return TextDirection.ltr;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static TextDirection superTextDirectionSwitcherByController(TextEditingController controller) {
 
     /// if keyboard lang is ltr ? ltr : rtl
@@ -93,7 +91,7 @@ class TextDir {
 
     return _textDirection;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static TextDirection superTextDirectionSwitcher({
     @required BuildContext context,
     @required String val,
@@ -136,7 +134,7 @@ class TextDir {
 
     return _textDirection;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static TextDirection concludeTextDirection({
     @required BuildContext context,
     @required TextDirection definedDirection,
@@ -163,6 +161,5 @@ class TextDir {
 
     return _concludedTextDirection;
   }
-// -----------------------------------------------------------------------------
-
+  // -----------------------------------------------------------------------------
 }
