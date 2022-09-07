@@ -56,7 +56,7 @@ class RenovateUserProtocols {
 
     }
 
-    blog('UserProtocol.updateMyUserEverywhereProtocol : END');
+    blog('RenovateUserProtocols.renovateMyUserModel : END');
 
     return _uploadedModel ?? newUserModel;
   }

@@ -65,6 +65,7 @@ class Rest {
     @required bool showErrorDialog,
     Map<String, String> headers,
     String invoker = '',
+    int timeout = 2,
   }) async {
 
     http.Response _response;
@@ -78,8 +79,13 @@ class Rest {
         _response = await http.get(
           Uri.parse(rawLink),
           headers: headers,
-        );
-
+        ).timeout(
+            Duration(seconds: timeout),
+            onTimeout: () async {
+              blog('Rest.get timeout occurred');
+              return null;
+            }
+            );
       },
 
     );

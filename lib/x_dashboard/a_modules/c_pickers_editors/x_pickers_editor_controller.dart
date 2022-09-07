@@ -67,7 +67,7 @@ Future<void> onPickerTileTap({
     context: context,
     screen: PickerScreen(
       zone: flyerZone,
-      specPicker: picker,
+      picker: picker,
       showInstructions: false,
       isMultipleSelectionMode: false,
       onlyUseCityChains: false,

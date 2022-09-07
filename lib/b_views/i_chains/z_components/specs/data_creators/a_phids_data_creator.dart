@@ -15,7 +15,7 @@ class PhidsDataCreator extends StatelessWidget {
     @required this.onlyUseCityChains,
     @required this.selectedSpecs,
     @required this.onPhidTap,
-    @required this.height,
+    @required this.allowableHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,7 +23,41 @@ class PhidsDataCreator extends StatelessWidget {
   final bool onlyUseCityChains;
   final List<SpecModel> selectedSpecs;
   final ValueChanged<String> onPhidTap;
+  final double allowableHeight;
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    return PickersViewBox(
+      height: allowableHeight,
+      child: ChainSplitter(
+        width: BldrsAppBar.width(context),
+        previousPath: specPicker.chainID,
+        chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
+          picker: specPicker,
+          context: context,
+          onlyUseCityChains: onlyUseCityChains,
+        )?.sons,
+        onSelectPhid: (String path, String phid) => onPhidTap(phid),
+        selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
+        initiallyExpanded: false,
+      ),
+    );
+    // --------------------
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class PickersViewBox extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const PickersViewBox({
+    @required this.height,
+    @required this.child,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
   final double height;
+  final Widget child;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -41,22 +75,11 @@ class PhidsDataCreator extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: ClipRRect(
         borderRadius: _corners,
-        child: ChainSplitter(
-          width: BldrsAppBar.width(context),
-          previousPath: specPicker.chainID,
-          chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
-            picker: specPicker,
-            context: context,
-            onlyUseCityChains: onlyUseCityChains,
-          )?.sons,
-          onSelectPhid: (String path, String phid) => onPhidTap(phid),
-          selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
-          initiallyExpanded: false,
-        ),
+        child: child,
       ),
 
     );
     // --------------------
   }
-  // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

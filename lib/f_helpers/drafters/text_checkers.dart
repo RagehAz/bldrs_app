@@ -160,38 +160,8 @@ class TextCheck {
   }
   // -----------------------------------------------------------------------------
 
-  /// PHID CHECK
+  /// CASE CHECK
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkVerseIsPhid(String text){
-
-    final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
-      numberOfChars: 4, //' ph id '
-    )?.toLowerCase();
-
-    return _phid == 'phid';
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkVerseIsCurrency(String text){
-    final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
-      numberOfChars: 8, //' cu rr en cy '
-    )?.toLowerCase();
-
-    return _phid == 'currency';
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkVerseIsTemp(String text){
-    final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
-      numberOfChars: 2, //'##'
-    );
-    return _temp == '##';
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool verseIsUpperCase(String text){
