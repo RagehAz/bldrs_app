@@ -11,22 +11,22 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-/// TESTED : WORKS PERFECT
+/// ------------------------------------------------o
 typedef NotiModelsWidgetsBuilder = Widget Function(
     BuildContext context,
     List<NoteModel> notiModels,
     );
-// -----------------------------------------------------------------------------
+/// ------------------------------------------------o
 class NoteFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const NoteFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createNote({
     @required BuildContext context,
@@ -42,11 +42,11 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ALL NOTES PAGINATION
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<NoteModel>> readReceivedNotes({
     @required BuildContext context,
@@ -89,7 +89,7 @@ class NoteFireOps {
 
     return _notes;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<NoteModel>> paginateAllSentNotes({
     @required BuildContext context,
     @required String senderID,
@@ -133,7 +133,7 @@ class NoteFireOps {
 
     return _notes;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<NoteModel>> paginateAllReceivedNotes({
     @required BuildContext context,
     @required String recieverID,
@@ -175,11 +175,11 @@ class NoteFireOps {
 
     return _notes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// AUTHORSHIP NOTES PAGINATION
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FireFinder> generatePendingSentAuthorshipNotesFireFinder({
     @required String senderID,
@@ -202,7 +202,7 @@ class NoteFireOps {
       ),
     ];
   }
-// -----------------------------------
+  // --------------------
   static Future<List<NoteModel>> paginatePendingSentAuthorshipNotes({
     @required BuildContext context,
     @required String senderID,
@@ -239,7 +239,7 @@ class NoteFireOps {
 
     return _notes;
   }
-// -----------------------------------
+  // --------------------
   static Future<List<NoteModel>> paginateReceivedAuthorshipNotes({
     @required BuildContext context,
     @required String receiverID,
@@ -285,11 +285,11 @@ class NoteFireOps {
 
     return _notes;
   }
-// -----------------------------------
+  // --------------------
 
   /// STREAMING
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Stream<List<NoteModel>> getNoteModelsStream({
     @required BuildContext context,
@@ -342,11 +342,11 @@ class NoteFireOps {
 
     return _notiModelsStream;
   }
-// -----------------------------------
+  // --------------------
 
   /// UPDATE
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateNote({
     @required BuildContext context,
@@ -363,7 +363,7 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> markNoteAsSeen({
     @required BuildContext context,
@@ -386,7 +386,7 @@ class NoteFireOps {
 
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> markNotesAsSeen({
     @required BuildContext context,
@@ -407,11 +407,11 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// -----------------------------------
+  // --------------------
   static Future<void> deleteAllSentAuthorshipNotes({
     @required BuildContext context,
     @required String senderID,
@@ -453,7 +453,7 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteNote({
     @required BuildContext context,
@@ -471,7 +471,7 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteNotes({
     @required BuildContext context,
@@ -492,7 +492,7 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------
+  // --------------------
   static Future<void> deleteAllReceivedNotes({
     @required BuildContext context,
     @required String receiverID,
@@ -532,5 +532,6 @@ class NoteFireOps {
     }
 
   }
-// -----------------------------------
+  // --------------------
 }
+/// ------------------------------------------------o

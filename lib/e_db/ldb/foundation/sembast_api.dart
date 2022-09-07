@@ -13,23 +13,23 @@ import 'package:sembast/sembast_io.dart';
 
 /// Simple Embedded Application Store database
 class Sembast  {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// REFERENCES
 
-// -----------------------------
+  // --------------------
   /// private constructor to create instances of this class only in itself
   Sembast._thing();
-// -----------------------------
+  // --------------------
   /// Singleton instance
   static final Sembast _singleton = Sembast._thing();
-// -----------------------------
+  // --------------------
   /// Singleton accessor
   static Sembast get instance => _singleton;
-// -----------------------------
+  // --------------------
   /// to transform from synchronous into asynchronous
   Completer<Database> _dbOpenCompleter;
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<Database> get database async {
     /// NOTE :this is db object accessor
@@ -41,7 +41,7 @@ class Sembast  {
 
     return _dbOpenCompleter.future;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _openDatabase() async {
     final Directory _appDocDir = await getApplicationDocumentsDirectory();
@@ -54,33 +54,33 @@ class Sembast  {
 
     return _db;
   }
-// -----------------------------
+  // --------------------
   /// static const String _storeName = 'blah';
   /// final StoreRef<int, Map<String, Object>> _doc = intMapStoreFactory.store(_storeName);
   /// Future<Database> get _db async => await AppDatabase.instance.database;
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Database> _getDB() async {
     final Database _result = await Sembast.instance.database;
     return _result;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static StoreRef<int, Map<String, Object>> _getStore({
     @required String docName,
   }) {
     return intMapStoreFactory.store(docName);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addMap({
     @required Map<String, Object> map,
     @required String docName,
-}) async {
+  }) async {
 
     /// NOTE : this ignores if there is an existing map with same ID
     final Database _db = await _getDB();
@@ -95,12 +95,12 @@ class Sembast  {
     }
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addMaps({
-  @required List<Map<String, Object>> maps,
-  @required String docName,
-}) async {
+    @required List<Map<String, Object>> maps,
+    @required String docName,
+  }) async {
 
     /// NOTE : this allows duplicate IDs
 
@@ -115,8 +115,8 @@ class Sembast  {
     }
 
 
-}
-// -----------------------------
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateExistingMap({
     @required Map<String, Object> map,
@@ -144,7 +144,7 @@ class Sembast  {
     blog('SEMBAST : _updateExistingMap : updated in ( $docName ) : result : $_result : map has ${map?.keys?.length} keys');
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insert({
     @required Map<String, Object> map,
@@ -188,7 +188,7 @@ class Sembast  {
     }
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertAll({
     @required List<Map<String, Object>> maps,
@@ -208,7 +208,7 @@ class Sembast  {
       else {
 
         final List<Map<String, dynamic>> _existingMaps = await readAll(
-            docName: docName,
+          docName: docName,
         );
 
         final String _primaryKey = LDBOps.getPrimaryKey(docName);
@@ -231,7 +231,7 @@ class Sembast  {
     }
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllThenAddAll({
     @required List<Map<String, Object>> maps,
@@ -239,7 +239,7 @@ class Sembast  {
   }) async {
 
     await deleteAllAtOnce(
-        docName: docName,
+      docName: docName,
     );
 
     await _addMaps(
@@ -248,17 +248,17 @@ class Sembast  {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// -----------------------------
+  // --------------------
   /// TESTED :
   static Future<List<Map <String, Object>>> readMaps({
     @required String docName,
     @required List<String> ids,
     @required String primaryKeyName,
-}) async {
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(
       docName: docName,
@@ -280,16 +280,16 @@ class Sembast  {
         finder: _finder,
       );
 
-       _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
+      _maps = _recordSnapshots.map((RecordSnapshot<int, Map<String, Object>> snapshot) {
         return snapshot.value;
       }).toList();
 
     }
-      blog('Sembast : readMaps : $docName : $primaryKeyName : $_maps');
+    blog('Sembast : readMaps : $docName : $primaryKeyName : $_maps');
 
     return _maps;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> readAll({
     @required String docName,
@@ -301,7 +301,7 @@ class Sembast  {
     final Database _db = await _getDB();
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-        await _doc.find(
+    await _doc.find(
       _db,
       // finder: _finder,
     );
@@ -313,8 +313,8 @@ class Sembast  {
 
     return _maps;
   }
-// -----------------------------
-/*
+  // --------------------
+  /*
   static Future<List<Map<String, Object>>> readAllNewMethod({
   @required String docName,
 }) async {
@@ -335,14 +335,14 @@ class Sembast  {
     return _maps;
   }
  */
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
-    static Future<List<Map<String, Object>>> searchArrays({
-      @required String fieldToSortBy,
-      @required String searchField,
-      @required dynamic searchValue,
-      @required String docName,
-    }) async {
+  static Future<List<Map<String, Object>>> searchArrays({
+    @required String fieldToSortBy,
+    @required String searchField,
+    @required dynamic searchValue,
+    @required String docName,
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(docName: docName);
     final Database _db = await _getDB();
@@ -365,7 +365,7 @@ class Sembast  {
 
     return _maps;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> search({
     @required String fieldToSortBy,
@@ -384,7 +384,7 @@ class Sembast  {
     );
 
     final List<RecordSnapshot<int, Map<String, Object>>> _recordSnapshots =
-        await _doc.find(
+    await _doc.find(
       _db,
       finder: _finder,
     );
@@ -404,7 +404,7 @@ class Sembast  {
 
     return _maps;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, Object>> findFirst({
     @required String fieldToSortBy,
@@ -426,7 +426,7 @@ class Sembast  {
     // blog('_finder is : $_finder');
 
     final RecordSnapshot<int, Map<String, Object>> _recordSnapshot =
-        await _doc?.findFirst(
+    await _doc?.findFirst(
       _db,
       finder: _finder,
     );
@@ -437,8 +437,7 @@ class Sembast  {
 
     return _map;
   }
-
-  // -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, Object>>> searchMultiple({
     @required String docName,
@@ -467,20 +466,19 @@ class Sembast  {
 
     return _maps;
   }
-
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteMap({
     @required String objectID,
     @required String docName,
   }) async {
 
-      /// NOTE : Deletes all maps with the given primary key,
-      /// as LDB allows duplicate maps of same ID "same value of the primary key"
+    /// NOTE : Deletes all maps with the given primary key,
+    /// as LDB allows duplicate maps of same ID "same value of the primary key"
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(
         docName: docName
@@ -504,16 +502,16 @@ class Sembast  {
     }
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED :
   static Future<void> deleteMaps({
     @required String primaryKeyName,
     @required List<String> ids,
     @required String docName,
-}) async {
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(
-        docName: docName,
+      docName: docName,
     );
 
     final Database _db = await _getDB();
@@ -532,14 +530,14 @@ class Sembast  {
     }
 
   }
-// -----------------------------
+  // --------------------
   /// TESTED :
   static Future<void> deleteAllOneByOne({
     @required String docName,
   }) async {
 
     final List<Map<String, Object>> _allMaps = await readAll(
-        docName: docName,
+      docName: docName,
     );
 
     if (Mapper.checkCanLoopList(_allMaps) == true){
@@ -551,8 +549,8 @@ class Sembast  {
         final String _id = map[_primaryKey];
 
         await deleteMap(
-            objectID: _id,
-            docName: docName,
+          objectID: _id,
+          docName: docName,
         );
 
         blog('Sembast : deleteAll : $docName : _id : $_id');
@@ -560,13 +558,13 @@ class Sembast  {
 
     }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllAtOnce({
-  @required String docName,
-}) async {
+    @required String docName,
+  }) async {
 
     final StoreRef<int, Map<String, Object>> _doc = _getStore(
         docName: docName
@@ -577,20 +575,20 @@ class Sembast  {
     await _doc.delete(_db,);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkMapExists({
     @required String docName,
     @required Map<String, dynamic> map,
-}) async {
+  }) async {
 
     Map<String, dynamic> _map;
 
-      await tryAndCatch(
+    await tryAndCatch(
         functions: () async {
 
           final String _primaryKey = LDBOps.getPrimaryKey(docName);
@@ -604,10 +602,10 @@ class Sembast  {
           );
 
         }
-      );
+    );
 
 
-      return _map != null;
+    return _map != null;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

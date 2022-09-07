@@ -8,17 +8,17 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserRecordRealOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const UserRecordRealOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER SEARCHES
 
-// ----------------------------------
+  // --------------------
   /// CREATION
-// -------------------
+  // ----------
   static Future<RecordModel> createUserSearchRecord({
     @required BuildContext context,
     @required String searchText,
@@ -45,13 +45,13 @@ class UserRecordRealOps {
     blog('UserRecordOps.createUserSearchRecord : END');
     return _uploadedRecord;
   }
-// ----------------------------------
-/// READING
-// -------------------
-
-// ----------------------------------
-/// DELETION
-// -------------------
+  // --------------------
+  /// READING
+  // ----------
+  ///
+  // --------------------
+  /// DELETION
+  // ----------
   static Future<void> deleteAllUserRecords({
     @required BuildContext context,
     @required String userID,
@@ -73,5 +73,5 @@ class UserRecordRealOps {
     // );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -21,15 +21,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserFireOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const UserFireOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// ---------------------------------------------------
+  // --------------------
   /// create or update user document
   static Future<void> _createOrUpdateUserDoc({
     @required BuildContext context,
@@ -44,7 +44,7 @@ class UserFireOps {
     );
 
   }
-// ---------------------------------------------------
+  // --------------------
   static Future<UserModel> createUser({
     @required BuildContext context,
     @required UserModel userModel,
@@ -119,8 +119,7 @@ class UserFireOps {
 
     return _finalUserModel;
   }
-
-// ---------------------------------------------------
+  // --------------------
   static Future<UserModel> getOrCreateUserModelFromUser({
     @required BuildContext context,
     @required User user,
@@ -179,11 +178,11 @@ class UserFireOps {
 
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// ---------------------------------------------------
+  // --------------------
   static Future<UserModel> readUser({
     @required BuildContext context,
     @required String userID,
@@ -216,7 +215,7 @@ class UserFireOps {
 
     return _user;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// auth change user stream
   Stream<UserModel> streamInitialUser() {
 
@@ -229,11 +228,11 @@ class UserFireOps {
     //     .map(
     //     UserModel.initializeUserModelStreamFromUser); // different syntax than previous snippet
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// ---------------------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> updateUser({
     @required BuildContext context,
@@ -331,8 +330,8 @@ class UserFireOps {
         else {
           /// refactor the newUserModel with the old email
           final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
-              contacts: oldUserModel.contacts,
-              type: ContactType.email,
+            contacts: oldUserModel.contacts,
+            type: ContactType.email,
           );
 
           final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -353,11 +352,11 @@ class UserFireOps {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// USER FIELD MODIFIERS
 
-// --------------------------------
+  // --------------------
   /// returns new pic url
   static Future<String> updateUserPic({
     @required BuildContext context,
@@ -382,7 +381,7 @@ class UserFireOps {
 
     return _newURL;
   }
-// --------------------------------
+  // --------------------
   static Future<void> addFlyerIDToSavedFlyersIDs({
     @required BuildContext context,
     @required String flyerID,
@@ -407,7 +406,7 @@ class UserFireOps {
     );
 
   }
-// --------------------------------
+  // --------------------
   static Future<void> removeFlyerIDFromSavedFlyersIDs({
     @required BuildContext context,
     @required String flyerID,
@@ -429,7 +428,7 @@ class UserFireOps {
       );
     }
   }
-// --------------------------------
+  // --------------------
   static Future<UserModel> addBzIDToUserBzzIDs({
     @required BuildContext context,
     @required String bzID,
@@ -437,8 +436,8 @@ class UserFireOps {
   }) async {
 
     final UserModel _updatedUserModel = UserModel.addBzIDToUserBzz(
-        userModel: oldUserModel,
-        bzIDToAdd: bzID,
+      userModel: oldUserModel,
+      bzIDToAdd: bzID,
     );
 
     final UserModel _uploadedModel = await updateUser(
@@ -449,7 +448,7 @@ class UserFireOps {
 
     return _uploadedModel;
   }
-// --------------------------------
+  // --------------------
   static Future<void> removeBzIDFromUserBzzIDs({
     @required BuildContext context,
     @required String bzID,
@@ -470,12 +469,12 @@ class UserFireOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// ---------------------------------------------------
-/*
+  // --------------------
+  /*
 static Future<dynamic> deleteUserOps({
   @required BuildContext context,
   @required UserModel userModel,
@@ -700,7 +699,7 @@ static Future<dynamic> deleteUserOps({
   }
 }
  */
-// ---------------------------------------------------
+  // --------------------
   /// TESTED :
   static Future<bool> deleteNonAuthorUserOps({
     @required BuildContext context,
@@ -751,6 +750,5 @@ static Future<dynamic> deleteUserOps({
 
     return _success;
   }
-// ---------------------------------------------------
-
+  // --------------------
 }

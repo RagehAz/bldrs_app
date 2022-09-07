@@ -4,7 +4,7 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
-
+/// ------------------------------------------------o
 /*
 CLOUD FUNCTIONS ARTICLES
 
@@ -30,23 +30,23 @@ FieldValue ++
 
 // -----------------------------------------------------------------------------
 */
-
+/// ------------------------------------------------o
 class CloudFunction {
-//------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const CloudFunction();
 
-//------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// CLOUD FUNCTIONS NAMES
+  /// CLOUD FUNCTIONS NAMES
 
-// -----------------------------------
-static const String sendNotificationToDevice = 'sendNotificationToDevice';
-//------------------------------------------------------------------------------
+  // --------------------
+  static const String sendNotificationToDevice = 'sendNotificationToDevice';
+  // -----------------------------------------------------------------------------
 
   /// CALLERS
 
-// -----------------------------------
+  // --------------------
   /// TESTED :
   static Future<dynamic> callFunction({
     @required BuildContext context,
@@ -103,7 +103,7 @@ static const String sendNotificationToDevice = 'sendNotificationToDevice';
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   static HttpsCallable _getCallableFunction({String funcName}) {
     return FirebaseFunctions.instance.httpsCallable(
       funcName,
@@ -112,17 +112,16 @@ static const String sendNotificationToDevice = 'sendNotificationToDevice';
       ),
     );
   }
-//------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-
-//------------------------------------------------------------------------------
+/// ------------------------------------------------o
 const String funcNameMyFunction = 'myFunction';
 // String callable_toBlackHole = 'toBlackHole';
 const String callableRandomNumber = 'randomNumber';
 const String callableSayHello = 'x_sayHello';
-//------------------------------------------------------------------------------
+/// ------------------------------------------------o
 Future<String> deleteFirebaseUser({String userID}) async {
   blog('will delete user tomorrow isa, after 3eid');
   return 'rabena ysahhel';
 }
-//------------------------------------------------------------------------------
+/// ------------------------------------------------o

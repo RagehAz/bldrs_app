@@ -6,31 +6,31 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/material.dart';
 
 class BzLDBOps {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const BzLDBOps();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATE
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBz({
-  @required BzModel bzModel,
-}) async {
+    @required BzModel bzModel,
+  }) async {
 
     await LDBOps.insertMap(
-        docName: LDBDoc.bzz,
-        input: bzModel.toMap(toJSON: true),
+      docName: LDBDoc.bzz,
+      input: bzModel.toMap(toJSON: true),
     );
 
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBzz({
-  @required List<BzModel> bzz,
-}) async {
+    @required List<BzModel> bzz,
+  }) async {
 
     await LDBOps.insertMaps(
       docName: LDBDoc.bzz,
@@ -40,12 +40,12 @@ class BzLDBOps {
       ),
     );
 
-}
-// -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// READ
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> readBz(String bzID) async {
 
@@ -68,42 +68,42 @@ class BzLDBOps {
     return _bzModel;
 
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> readAll() async {
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
-    docName: LDBDoc.bzz,
+      docName: LDBDoc.bzz,
     );
 
     final List<BzModel> _bzzModels = BzModel.decipherBzz(
-        maps: _maps,
-        fromJSON: true,
+      maps: _maps,
+      fromJSON: true,
     );
 
     return _bzzModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzOps({
     @required BzModel bzModel,
   }) async {
 
     await LDBOps.insertMap(
-        docName: LDBDoc.bzz,
-        input: bzModel.toMap(toJSON: true),
+      docName: LDBDoc.bzz,
+      input: bzModel.toMap(toJSON: true),
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DELETE
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBzOps({
     @required String bzID,
@@ -115,18 +115,18 @@ class BzLDBOps {
     );
 
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeOut(BuildContext context) async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ EDITOR SESSION
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveBzEditorSession({
     @required BzModel bzModel,
@@ -142,7 +142,7 @@ class BzLDBOps {
     }
 
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> loadBzEditorSession({
     @required String bzID,
@@ -165,7 +165,7 @@ class BzLDBOps {
 
     return _bz;
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBzEditorSession(String bzID) async {
 
@@ -175,11 +175,11 @@ class BzLDBOps {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// AUTHOR EDITOR SESSION
 
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveAuthorEditorSession({
     @required AuthorModel authorModel,
@@ -195,7 +195,7 @@ class BzLDBOps {
     }
 
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel> loadAuthorEditorSession({
     @required String authorID,
@@ -213,7 +213,7 @@ class BzLDBOps {
 
     return _author;
   }
-// -------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAuthorEditorSession(String authorID) async {
 
@@ -222,5 +222,5 @@ class BzLDBOps {
       docName: LDBDoc.authorEditor,
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

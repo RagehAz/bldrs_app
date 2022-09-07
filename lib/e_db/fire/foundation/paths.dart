@@ -1,5 +1,5 @@
 // ignore_for_file: constant_identifier_names
-
+/// ----------------------------o
 abstract class FireColl{
 
   static const String users = 'users';
@@ -25,7 +25,7 @@ abstract class FireColl{
 
   static const String authorships = 'authorships';
 }
-// -----------------------------------------------------------------------------
+/// ----------------------------o
 abstract class FireDoc {
 
   static const String admin_statistics = 'statistics';
@@ -46,7 +46,7 @@ abstract class FireDoc {
   static const String chains_keywords = 'keywords';
 
 }
-// -----------------------------------------------------------------------------
+/// ----------------------------o
 abstract class FireSubColl {
 
   static const String admin_backups_phrases = 'phrases';
@@ -68,7 +68,7 @@ abstract class FireSubColl {
   static const String zones_countries_countries = 'countries';
 
 }
-// -----------------------------------------------------------------------------
+/// ----------------------------o
 abstract class FireSubDoc{
 
   static const String flyers_flyer_counters_counters = 'counters';
@@ -86,7 +86,7 @@ abstract class FireSubDoc{
 
   static const String admin_backups_currencies_currencies = 'currencies';
 }
-// -----------------------------------------------------------------------------
+/// ----------------------------o
 abstract class StorageDoc{
 
   static const String users         = 'users';        /// storage/users/{userID}
@@ -99,4 +99,4 @@ abstract class StorageDoc{
   static const String flyersPDFs = 'flyersPDFs'; /// storage/flyersPDFs/{flyerID}
 
 }
-// -----------------------------------------------------------------------------
+/// ----------------------------o

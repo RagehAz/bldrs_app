@@ -4,13 +4,11 @@ import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-
-
 // -----------------------------------------------------------------------------
 
 /// GENERAL
 
-// -----------------------------------------------
+// --------------------
 Future<dynamic> subCollectionMapsByFieldValue({
   @required BuildContext context,
   @required String collName,
@@ -53,7 +51,7 @@ Future<dynamic> subCollectionMapsByFieldValue({
 
   return _maps;
 }
-// -----------------------------------------------
+// --------------------
 Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
   @required BuildContext context,
   @required CollectionReference<Object> collRef,
@@ -159,8 +157,7 @@ Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
 
   return _collectionSnapshot;
 }
-// -----------------------------------------------
-
+// --------------------
 Future<dynamic> mapsByFieldValue({
   @required BuildContext context,
   @required String collName,
@@ -197,11 +194,8 @@ Future<dynamic> mapsByFieldValue({
 
   return _maps;
 }
-
-
+// -----------------------------------------------------------------------------
 /*
-// -----------------------------------------------
-// -----------------------------------------------
 Future<dynamic> mapsByValueInArray({
   @required BuildContext context,
   @required CollectionReference<Object> collRef,
@@ -239,7 +233,10 @@ Future<dynamic> mapsByValueInArray({
 
   return _maps;
 }
-// -----------------------------------------------
+ */
+// --------------------
+/*
+
 Future<dynamic> mapsByTwoValuesEqualTo({
   @required BuildContext context,
   @required String collName,
@@ -279,5 +276,5 @@ Future<dynamic> mapsByTwoValuesEqualTo({
 
   return _maps;
 }
-// -----------------------------------------------------------------------------
  */
+// -----------------------------------------------------------------------------
