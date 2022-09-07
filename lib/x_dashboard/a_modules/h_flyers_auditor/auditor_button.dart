@@ -26,8 +26,8 @@ class AuditorButton extends StatelessWidget {
 
     const int _numberOfItems = 2;
     final double _buttonWidth = Scale.getUniformRowItemWidth(
-        context: context,
-        numberOfItems: _numberOfItems,
+      context: context,
+      numberOfItems: _numberOfItems,
     );
 
     return DreamBox(
@@ -52,6 +52,5 @@ class AuditorButton extends StatelessWidget {
     properties.add(DiagnosticsProperty<String>('icon', icon));
     properties.add(DiagnosticsProperty<Function>('onTap', onTap));
   }
-
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

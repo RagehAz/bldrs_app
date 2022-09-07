@@ -34,7 +34,7 @@ class SpecPickerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _SpecPickerEditorScreenState createState() => _SpecPickerEditorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
@@ -42,12 +42,11 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
   final ValueNotifier<List<PickerModel>> _initialSpecPickers = ValueNotifier(<PickerModel>[]);
   final ValueNotifier<List<PickerModel>> _tempPickers = ValueNotifier(<PickerModel>[]);
   final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier(<PickerModel>[]);
-
   final PageController _pageController = PageController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({
     bool setTo,
   }) async {
@@ -61,12 +60,12 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -92,7 +91,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -105,7 +104,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -203,10 +202,10 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                 onReorderEnd: (int newIndex){},
                 onReorder: (oldIndex, newIndex) {
                   // blog('before index correction : oldIndex : $oldIndex : newIndex : $newIndex');
-                    int _newIndex = newIndex;
-                    if (newIndex > oldIndex) {
-                      _newIndex = newIndex - 1;
-                    }
+                  int _newIndex = newIndex;
+                  if (newIndex > oldIndex) {
+                    _newIndex = newIndex - 1;
+                  }
                   // blog('after index correction : oldIndex : $oldIndex : newIndex : $_newIndex');
 
                   final List<PickerModel> _pickers = <PickerModel>[...refinedPickers];
@@ -306,5 +305,5 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

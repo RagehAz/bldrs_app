@@ -16,11 +16,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LDBViewersScreen extends StatelessWidget {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const LDBViewersScreen({
     Key key
   }) : super(key: key);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> goToLDBViewer(BuildContext context, String ldbDocName) async {
     await Nav.goToNewScreen(
         context: context,
@@ -29,7 +29,7 @@ class LDBViewersScreen extends StatelessWidget {
         )
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -65,7 +65,9 @@ class LDBViewersScreen extends StatelessWidget {
         ),
       ],
     );
+
   }
+  // -----------------------------------------------------------------------------
 }
 
 class SmallFuckingButton extends StatelessWidget {
@@ -103,7 +105,6 @@ class SmallFuckingButton extends StatelessWidget {
       verseItalic: true,
     );
   }
-
   /// --------------------------------------------------------------------------
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
@@ -111,6 +112,5 @@ class SmallFuckingButton extends StatelessWidget {
     properties.add(StringProperty('verse', verse));
     properties.add(DiagnosticsProperty<Function>('onTap', onTap));
   }
-
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

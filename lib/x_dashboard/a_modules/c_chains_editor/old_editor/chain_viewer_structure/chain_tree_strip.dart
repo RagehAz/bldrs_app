@@ -33,17 +33,16 @@ class ChainTreeStrip extends StatelessWidget {
   final ValueNotifier<String> searchValue;
   /// --------------------------------------------------------------------------
   static const double stripHeight = 40;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
+    // --------------------
     const Color _stripColor = Colorz.black255;
-
     final double _levelPaddingWidth = stripHeight + (stripHeight * 0.6 * (level - 1));
     final double _stringsWidth = width - _levelPaddingWidth - stripHeight;
-
+    // --------------------
     return Container(
       key: const ValueKey<String>('chain_tree_strip'),
       width: width,
@@ -143,5 +142,7 @@ class ChainTreeStrip extends StatelessWidget {
         ],
       ),
     );
+    // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

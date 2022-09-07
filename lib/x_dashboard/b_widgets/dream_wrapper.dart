@@ -19,7 +19,6 @@ class DreamWrapper extends StatelessWidget {
     this.boxHeight,
     Key key,
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final List<String> verses;
   final List<String> icons;
@@ -29,7 +28,6 @@ class DreamWrapper extends StatelessWidget {
   final EdgeInsets margins;
   final double boxWidth;
   final double boxHeight;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -70,4 +68,5 @@ class DreamWrapper extends StatelessWidget {
       ),
     );
   }
+  /// --------------------------------------------------------------------------
 }

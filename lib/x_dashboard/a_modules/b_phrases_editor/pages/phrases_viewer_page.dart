@@ -41,7 +41,7 @@ class PhrasesViewerPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-// -----------------------------
+    // --------------------
     Future<void> _onEditPhraseTap(String phid) async {
 
       await onTapEditPhrase(
@@ -57,15 +57,15 @@ class PhrasesViewerPage extends StatelessWidget {
       );
 
     }
-// -----------------------------
+    // --------------------
     Future<void> _onDeletePhraseTap(String phid) async {
-       await onDeletePhrase(
+      await onDeletePhrase(
         context: context,
         phid: phid,
         tempMixedPhrases: tempMixedPhrases,
       );
     }
-// -----------------------------
+    // --------------------
     Future<void> _onSelectPhrase(String phid) async {
 
       await onSelectPhrase(
@@ -74,7 +74,7 @@ class PhrasesViewerPage extends StatelessWidget {
       );
 
     }
-// -----------------------------
+    // --------------------
     return ValueListenableBuilder(
       valueListenable: isSearching,
       builder: (_, bool isSearching, Widget child){
@@ -89,10 +89,10 @@ class PhrasesViewerPage extends StatelessWidget {
               /// NO RESULT FOUND
               if (mixedPhrases.isEmpty == true){
                 return PageBubble(
-                    screenHeightWithoutSafeArea: screenHeight,
-                    appBarType: AppBarType.search,
-                    color: Colorz.black125,
-                    child: const NoResultFound(),
+                  screenHeightWithoutSafeArea: screenHeight,
+                  appBarType: AppBarType.search,
+                  color: Colorz.black125,
+                  child: const NoResultFound(),
                 );
               }
 
@@ -164,6 +164,7 @@ class PhrasesViewerPage extends StatelessWidget {
         },
       ),
     );
-
+    // --------------------
   }
+  /// --------------------------------------------------------------------------
 }

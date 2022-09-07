@@ -14,5 +14,5 @@ class DashButtonModel {
   final String icon;
   final Widget screen;
   final PageTransitionType transitionType;
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

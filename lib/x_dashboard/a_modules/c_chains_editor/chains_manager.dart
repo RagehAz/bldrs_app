@@ -33,14 +33,14 @@ class ChainsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _ChainsManagerState createState() => _ChainsManagerState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _ChainsManagerState extends State<ChainsManager> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({
     bool setTo,
   }) async {
@@ -54,12 +54,12 @@ class _ChainsManagerState extends State<ChainsManager> {
       blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -76,26 +76,26 @@ class _ChainsManagerState extends State<ChainsManager> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
     _loading.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final List<FlyerType> _selectedTypes = <FlyerType>[];
-// ------------------------
+  // --------------------
   static const List<FlyerType> _allTypes = <FlyerType>[
     // null,
     ...FlyerTyper.flyerTypesList,
   ];
-// ------------------------
+  // --------------------
   void _onTapPickerSelector(FlyerType flyerType){
 
     final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
-        flyerType: flyerType,
-        flyerTypes: _selectedTypes,
+      flyerType: flyerType,
+      flyerTypes: _selectedTypes,
     );
 
     if (_isSelected == true){
@@ -111,15 +111,15 @@ class _ChainsManagerState extends State<ChainsManager> {
     }
 
   }
-// ------------------------
+  // --------------------
   bool onlyPhidKs = false;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
-
+    // --------------------
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
       appBarWidgets: <Widget>[
@@ -145,8 +145,8 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// FLYER TYPE
         InfoPageHeadline(
-            pageWidth: _screenWidth - 20,
-            headlineVerse:  'Flyer Type',
+          pageWidth: _screenWidth - 20,
+          headlineVerse:  'Flyer Type',
         ),
 
         /// PICKERS SELECTORS
@@ -154,8 +154,8 @@ class _ChainsManagerState extends State<ChainsManager> {
           width: Scale.superScreenWidth(context),
           height: Ratioz.appBarButtonSize + 5,
           child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: _allTypes.length,
+              physics: const BouncingScrollPhysics(),
+              itemCount: _allTypes.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (_, index){
 
@@ -508,6 +508,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
       ],
     );
+    // --------------------
   }
 // -----------------------------------------------------------------------------
 }

@@ -96,68 +96,68 @@ class PhraseStrip extends StatelessWidget {
                     'enID : ${enPhrase?.id} : arID ${arPhrase?.id}';
 
                     await BottomDialog.showBottomDialog(
-                        context: context,
-                        draggable: true,
-                        title: title,
-                        child: Column(
-                          children: <Widget>[
+                      context: context,
+                      draggable: true,
+                      title: title,
+                      child: Column(
+                        children: <Widget>[
 
-                            SuperVerse(
-                              verse: enPhrase?.value,
-                              maxLines: 5,
-                              color: Colorz.yellow255,
-                              weight: VerseWeight.thin,
-                              margin: 5,
-                            ),
+                          SuperVerse(
+                            verse: enPhrase?.value,
+                            maxLines: 5,
+                            color: Colorz.yellow255,
+                            weight: VerseWeight.thin,
+                            margin: 5,
+                          ),
 
-                            SuperVerse(
-                              verse: arPhrase?.value,
-                              maxLines: 5,
-                              color: Colorz.yellow255,
-                              weight: VerseWeight.thin,
-                              margin: 5,
-                            ),
+                          SuperVerse(
+                            verse: arPhrase?.value,
+                            maxLines: 5,
+                            color: Colorz.yellow255,
+                            weight: VerseWeight.thin,
+                            margin: 5,
+                          ),
 
-                            const SizedBox(
-                              width: 10,
-                              height: 10,
-                            ),
+                          const SizedBox(
+                            width: 10,
+                            height: 10,
+                          ),
 
-                            DreamBox(
-                              width: BottomDialog.clearWidth(context),
-                              height: 40,
-                              verse:  'Edit',
-                              verseCasing: VerseCasing.upperCase,
-                              margins: const EdgeInsets.only(bottom: 5),
-                              verseItalic: true,
-                              onTap: onEdit,
-                            ),
+                          DreamBox(
+                            width: BottomDialog.clearWidth(context),
+                            height: 40,
+                            verse:  'Edit',
+                            verseCasing: VerseCasing.upperCase,
+                            margins: const EdgeInsets.only(bottom: 5),
+                            verseItalic: true,
+                            onTap: onEdit,
+                          ),
 
-                            DreamBox(
-                              width: BottomDialog.clearWidth(context),
-                              height: 40,
-                              verse:  'Delete',
-                              verseCasing: VerseCasing.upperCase,
-                              margins: const EdgeInsets.only(bottom: 5),
-                              verseItalic: true,
-                              onTap: onDelete,
-                            ),
+                          DreamBox(
+                            width: BottomDialog.clearWidth(context),
+                            height: 40,
+                            verse:  'Delete',
+                            verseCasing: VerseCasing.upperCase,
+                            margins: const EdgeInsets.only(bottom: 5),
+                            verseItalic: true,
+                            onTap: onDelete,
+                          ),
 
-                            DreamBox(
-                              width: BottomDialog.clearWidth(context),
-                              height: 40,
-                              verse:  'Select',
-                              verseCasing: VerseCasing.upperCase,
-                              margins: const EdgeInsets.only(bottom: 5),
-                              verseItalic: true,
-                              onTap: onSelect,
-                            ),
+                          DreamBox(
+                            width: BottomDialog.clearWidth(context),
+                            height: 40,
+                            verse:  'Select',
+                            verseCasing: VerseCasing.upperCase,
+                            margins: const EdgeInsets.only(bottom: 5),
+                            verseItalic: true,
+                            onTap: onSelect,
+                          ),
 
 
 
-                          ],
+                        ],
 
-                        ),
+                      ),
                     );
 
                   },
@@ -200,4 +200,5 @@ class PhraseStrip extends StatelessWidget {
     );
 
   }
+// -----------------------------------------------------------------------------
 }

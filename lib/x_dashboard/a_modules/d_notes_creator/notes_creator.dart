@@ -41,23 +41,23 @@ class NotesCreatorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _NotesCreatorScreenState createState() => _NotesCreatorScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-// -----------------------------------------------------------------------------
+  // --------------------
   final ValueNotifier<NoteModel> _note = ValueNotifier<NoteModel>(null);
   final ValueNotifier<NoteSenderType> _selectedSenderType = ValueNotifier<NoteSenderType>(NoteSenderType.bldrs);
   final ValueNotifier<dynamic> _selectedSenderModel = ValueNotifier<dynamic>(NoteModel.bldrsSenderModel);
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bodyController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
-// -----------
+  // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -69,12 +69,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       blogLoading(loading: _loading.value, callerName: 'NotesCreatorScreen',);
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -94,7 +94,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     }
     super.didChangeDependencies();
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -107,10 +107,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
+    // --------------------
     final double _noteSenderTypeButtonWidth = Scale.getUniformRowItemWidth(
       context: context,
       numberOfItems: NoteModel.noteSenderTypesList.length,
@@ -131,7 +131,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
       numberOfItems: NoteModel.noteAttachmentTypesList.length,
       boxWidth: TileBubble.childWidth(context: context),
     );
-
+    // --------------------
     return MainLayout(
       loading: _loading,
       pageTitleVerse:  'Note Creator',
@@ -346,46 +346,46 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                         /// NOTE SENDER TYPES
                         ValueListenableBuilder(
-                            valueListenable: _selectedSenderType,
-                            builder: (_, NoteSenderType selectedSenderType, Widget child){
+                          valueListenable: _selectedSenderType,
+                          builder: (_, NoteSenderType selectedSenderType, Widget child){
 
-                              return SizedBox(
-                                width: TileBubble.childWidth(context: context),
-                                height: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
+                            return SizedBox(
+                              width: TileBubble.childWidth(context: context),
+                              height: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: <Widget>[
 
-                                    ...List.generate(NoteModel.noteSenderTypesList.length, (index){
+                                  ...List.generate(NoteModel.noteSenderTypesList.length, (index){
 
-                                      final NoteSenderType _senderType = NoteModel.noteSenderTypesList[index];
-                                      final bool _isSelected = selectedSenderType == _senderType;
-                                      final String _senderTypeString = NoteModel.cipherNoteSenderType(_senderType);
+                                    final NoteSenderType _senderType = NoteModel.noteSenderTypesList[index];
+                                    final bool _isSelected = selectedSenderType == _senderType;
+                                    final String _senderTypeString = NoteModel.cipherNoteSenderType(_senderType);
 
-                                      return DreamBox(
-                                        height: 40,
-                                        width: _noteSenderTypeButtonWidth,
-                                        verse: _senderTypeString.toUpperCase(),
-                                        verseScaleFactor: 0.5,
-                                        color: _isSelected == true ? Colorz.yellow255 : null,
-                                        verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
-                                        verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
-                                        onTap: () => onSelectNoteSender(
-                                          context: context,
-                                          senderType: _senderType,
-                                          selectedSenderType: _selectedSenderType,
-                                          selectedSenderModel: _selectedSenderModel,
-                                          note: _note,
-                                        ),
-                                      );
+                                    return DreamBox(
+                                      height: 40,
+                                      width: _noteSenderTypeButtonWidth,
+                                      verse: _senderTypeString.toUpperCase(),
+                                      verseScaleFactor: 0.5,
+                                      color: _isSelected == true ? Colorz.yellow255 : null,
+                                      verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                      verseWeight: _isSelected == true ? VerseWeight.black : VerseWeight.thin,
+                                      onTap: () => onSelectNoteSender(
+                                        context: context,
+                                        senderType: _senderType,
+                                        selectedSenderType: _selectedSenderType,
+                                        selectedSenderModel: _selectedSenderModel,
+                                        note: _note,
+                                      ),
+                                    );
 
-                                    }),
+                                  }),
 
-                                  ],
-                                ),
-                              );
+                                ],
+                              ),
+                            );
 
-                            },
+                          },
                         ),
 
                         /// NOTE SENDER BUTTON
@@ -483,38 +483,38 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     );
 
                                   }
-                                  ),
+                              ),
 
                           ],
                         );
-                        },
+                      },
                     ),
                   ),
                 ),
 
                 /// FCM SWITCH
                 ValueListenableBuilder(
-                    valueListenable: _note,
-                    builder: (_, NoteModel noteModel, Widget child){
+                  valueListenable: _note,
+                  builder: (_, NoteModel noteModel, Widget child){
 
-                      return TileBubble(
-                        bubbleHeaderVM: BubbleHeaderVM(
-                          headlineVerse:  'Send FCM',
-                          leadingIcon: Iconz.news,
-                          leadingIconSizeFactor: 0.5,
-                          leadingIconBoxColor: Colorz.grey50,
-                          switchIsOn: noteModel.sendFCM,
-                          onSwitchTap: (bool val) => onSwitchSendFCM(
-                            note: _note,
-                            value: val,
-                          ),
-
+                    return TileBubble(
+                      bubbleHeaderVM: BubbleHeaderVM(
+                        headlineVerse:  'Send FCM',
+                        leadingIcon: Iconz.news,
+                        leadingIconSizeFactor: 0.5,
+                        leadingIconBoxColor: Colorz.grey50,
+                        switchIsOn: noteModel.sendFCM,
+                        onSwitchTap: (bool val) => onSwitchSendFCM(
+                          note: _note,
+                          value: val,
                         ),
-                        secondLineVerse:  'This sends firebase cloud message to the receiver or '
-                            'to a group of receivers through a channel',
-                      );
 
-                    },
+                      ),
+                      secondLineVerse:  'This sends firebase cloud message to the receiver or '
+                          'to a group of receivers through a channel',
+                    );
+
+                  },
                 ),
 
                 /// BUTTONS
@@ -695,35 +695,35 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           builder: (_, AsyncSnapshot<Object> snapshot){
 
 
-                          String _receiverName;
+                            String _receiverName;
 
-                          if (note?.receiverType == NoteReceiverType.user){
-                            final UserModel _user = snapshot.data;
-                            _receiverName = _user?.name;
-                          }
-                          else if (note?.receiverType == NoteReceiverType.bz){
-                            final BzModel _bz = snapshot.data;
-                            _receiverName = _bz?.name;
-                          }
+                            if (note?.receiverType == NoteReceiverType.user){
+                              final UserModel _user = snapshot.data;
+                              _receiverName = _user?.name;
+                            }
+                            else if (note?.receiverType == NoteReceiverType.bz){
+                              final BzModel _bz = snapshot.data;
+                              _receiverName = _bz?.name;
+                            }
 
-                          return ConfirmButton(
-                            confirmButtonModel: ConfirmButtonModel(
-                              firstLine: 'Send',
-                              secondLine: 'to $_receiverName',
-                              isDeactivated: !NoteModel.checkCanSendNote(note),
-                              onTap: () => onSendNote(
-                                context: context,
-                                note: _note,
-                                formKey: _formKey,
-                                titleController: _titleController,
-                                bodyController: _bodyController,
-                                receiverName: _receiverName,
-                                selectedSenderType: _selectedSenderType,
-                                selectedSenderModel: _selectedSenderModel,
-                                scrollController: _scrollController,
+                            return ConfirmButton(
+                              confirmButtonModel: ConfirmButtonModel(
+                                firstLine: 'Send',
+                                secondLine: 'to $_receiverName',
+                                isDeactivated: !NoteModel.checkCanSendNote(note),
+                                onTap: () => onSendNote(
+                                  context: context,
+                                  note: _note,
+                                  formKey: _formKey,
+                                  titleController: _titleController,
+                                  bodyController: _bodyController,
+                                  receiverName: _receiverName,
+                                  selectedSenderType: _selectedSenderType,
+                                  selectedSenderModel: _selectedSenderModel,
+                                  scrollController: _scrollController,
+                                ),
                               ),
-                            ),
-                          );
+                            );
 
                           }
                       ),
@@ -758,6 +758,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
         ],
       ),
     );
+    // --------------------
   }
-
+  // -----------------------------------------------------------------------------
 }

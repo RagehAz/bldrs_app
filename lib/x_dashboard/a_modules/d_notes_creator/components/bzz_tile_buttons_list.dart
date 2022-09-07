@@ -72,4 +72,5 @@ class BzzTilesButtonsList extends StatelessWidget {
     );
 
   }
+  /// --------------------------------------------------------------------------
 }

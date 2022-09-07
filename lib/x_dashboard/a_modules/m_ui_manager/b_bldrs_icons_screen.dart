@@ -23,22 +23,22 @@ class IconsViewerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   State<IconsViewerScreen> createState() => _IconsViewerScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _IconsViewerScreenState extends State<IconsViewerScreen> {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<String>> _found = ValueNotifier(<String>[]);
   final ValueNotifier<String> _textHighlight = ValueNotifier(null);
   List<String> _icons;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _icons = UiProvider.proGetLocalAssetsPaths(context);
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   /// TAMAM
   @override
   void dispose() {
@@ -47,7 +47,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
     _textHighlight.dispose();
     super.dispose();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   Future<void> _onSearchChanged(String text) async {
 
     TextCheck.triggerIsSearchingNotifier(
@@ -77,7 +77,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -122,21 +122,22 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
         ),
       ),
     );
-  }
 
+  }
+  // -----------------------------------------------------------------------------
 }
 
 class IconsGridBuilder extends StatelessWidget {
-
+  // -----------------------------------------------------------------------------
   const IconsGridBuilder({
     @required this.icons,
     this.textHighlight,
     Key key
   }) : super(key: key);
-
+  // -----------------------------------------------------------------------------
   final List<String> icons;
   final ValueNotifier<String> textHighlight;
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -205,4 +206,5 @@ class IconsGridBuilder extends StatelessWidget {
         });
 
   }
+  // -----------------------------------------------------------------------------
 }
