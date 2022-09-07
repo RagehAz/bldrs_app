@@ -17,115 +17,115 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class Nav {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Nav();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// GOING FORWARD
+  /// GOING FORWARD
 
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings) {
-  return PageTransition<dynamic>(
-    child: screen,
-    type: PageTransitionType.bottomToTop,
-    // duration: Ratioz.durationFading200,
-    // reverseDuration: Ratioz.durationFading200,
-    curve: Curves.fastOutSlowIn,
-    settings: settings,
-  );
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-  static PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
-  return PageTransition<dynamic>(
-    child: screen,
-    type: PageTransitionType.fade,
-    duration: Ratioz.duration150ms,
-    reverseDuration: Ratioz.duration150ms,
-    curve: Curves.fastOutSlowIn,
-    settings: settings,
-  );
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-  static Future<dynamic> goToNewScreen({
-  @required BuildContext context,
-  @required Widget screen,
-  PageTransitionType transitionType = PageTransitionType.bottomToTop,
-}) async {
-
-  final dynamic _result = await Navigator.push(
-    context,
-    PageTransition<dynamic>(
-      type: transitionType,
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings) {
+    return PageTransition<dynamic>(
       child: screen,
+      type: PageTransitionType.bottomToTop,
       // duration: Ratioz.durationFading200,
       // reverseDuration: Ratioz.durationFading200,
       curve: Curves.fastOutSlowIn,
-      alignment: Alignment.bottomCenter,
-    ),
-  );
+      settings: settings,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
+    return PageTransition<dynamic>(
+      child: screen,
+      type: PageTransitionType.fade,
+      duration: Ratioz.duration150ms,
+      reverseDuration: Ratioz.duration150ms,
+      curve: Curves.fastOutSlowIn,
+      settings: settings,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<dynamic> goToNewScreen({
+    @required BuildContext context,
+    @required Widget screen,
+    PageTransitionType transitionType = PageTransitionType.bottomToTop,
+  }) async {
 
-  return _result;
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-  static Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
-  await Navigator.of(context).pushNamed(routezName, arguments: arguments);
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
-  static Future<dynamic> replaceScreen({
-  @required BuildContext context,
-  @required Widget screen,
-  PageTransitionType transitionType = PageTransitionType.bottomToTop,
-}) async {
-
-  final dynamic _result = await Navigator.pushReplacement(
+    final dynamic _result = await Navigator.push(
       context,
       PageTransition<dynamic>(
         type: transitionType,
         child: screen,
-        // duration: Ratioz.duration750ms,
-        // reverseDuration: Ratioz.duration750ms,
+        // duration: Ratioz.durationFading200,
+        // reverseDuration: Ratioz.durationFading200,
         curve: Curves.fastOutSlowIn,
         alignment: Alignment.bottomCenter,
-      )
-  );
-
-  return _result;
-}
-// -------------------------------------
-  static Future<void> pushNamedAndRemoveAllBelow({
-  @required BuildContext context,
-  @required String goToRoute,
-}) async {
-
-  await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
-
-}
-// -------------------------------------
-  static Future<void> pushAndRemoveUntil({
-  @required BuildContext context,
-  @required Widget screen,
-}) async {
-
-  await Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute<dynamic>(
-        builder: (_) => screen,
       ),
-          (Route<dynamic> route) => route.isFirst);
-}
-// -----------------------------------------------------------------------------
+    );
 
-/// GOING BACK
+    return _result;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
+    await Navigator.of(context).pushNamed(routezName, arguments: arguments);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<dynamic> replaceScreen({
+    @required BuildContext context,
+    @required Widget screen,
+    PageTransitionType transitionType = PageTransitionType.bottomToTop,
+  }) async {
 
-// -------------------------------------
-/// TESTED : WORKS PERFECT
+    final dynamic _result = await Navigator.pushReplacement(
+        context,
+        PageTransition<dynamic>(
+          type: transitionType,
+          child: screen,
+          // duration: Ratioz.duration750ms,
+          // reverseDuration: Ratioz.duration750ms,
+          curve: Curves.fastOutSlowIn,
+          alignment: Alignment.bottomCenter,
+        )
+    );
+
+    return _result;
+  }
+  // --------------------
+  static Future<void> pushNamedAndRemoveAllBelow({
+    @required BuildContext context,
+    @required String goToRoute,
+  }) async {
+
+    await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
+
+  }
+  // --------------------
+  static Future<void> pushAndRemoveUntil({
+    @required BuildContext context,
+    @required Widget screen,
+  }) async {
+
+    await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (_) => screen,
+        ),
+            (Route<dynamic> route) => route.isFirst);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GOING BACK
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static void goBack({
     @required BuildContext context,
     @required String invoker,
@@ -133,13 +133,13 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
   }) {
     blog('Nav.goBack : invoker : $invoker');
     Navigator.pop(context, passedData);
-}
-// -------------------------------------
-/// TESTED : WORKS PERFECT
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> closeApp(BuildContext context) async {
-  await SystemNavigator.pop();
-}
-// -------------------------------------
+    await SystemNavigator.pop();
+  }
+  // --------------------
   static Future<void> goBackToLogoScreen({
     @required BuildContext context,
     @required bool animatedLogoScreen,
@@ -163,60 +163,60 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
       );
     }
 
-}
-// -------------------------------------
+  }
+  // --------------------
   static void goBackUntil(BuildContext context, String routeName) {
 
-  Navigator.popUntil(context, ModalRoute.withName(routeName));
-}
-// -------------------------------------
+    Navigator.popUntil(context, ModalRoute.withName(routeName));
+  }
+  // --------------------
   static void goBackToHomeScreen({
     @required BuildContext context,
     @required String invoker,
   }) {
-  blog('goBackToHomeScreen : popUntil Routez.home : $invoker');
-  Navigator.popUntil(context, ModalRoute.withName(Routez.home));
-}
-// -----------------------------------------------------------------------------
+    blog('goBackToHomeScreen : popUntil Routez.home : $invoker');
+    Navigator.popUntil(context, ModalRoute.withName(Routez.home));
+  }
+  // -----------------------------------------------------------------------------
 
-/// I DONT KNO ABOUT THIS SHIT
+  /// I DONT KNO ABOUT THIS SHIT
 
-// -------------------------------------
+  // --------------------
   static Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
-  Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
-}
-// -----------------------------------------------------------------------------
+    Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
+  }
+  // -----------------------------------------------------------------------------
 
-/// TRANSITION
+  /// TRANSITION
 
-// -------------------------------------
+  // --------------------
   static PageTransitionType superHorizontalTransition(BuildContext context, {bool inverse = false}) {
 
-  /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
+    /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
 
-  final PageTransitionType _enBookDirection = inverse == false ?
-  PageTransitionType.rightToLeftWithFade
-      :
-  PageTransitionType.leftToRightWithFade;
+    final PageTransitionType _enBookDirection = inverse == false ?
+    PageTransitionType.rightToLeftWithFade
+        :
+    PageTransitionType.leftToRightWithFade;
 
-  final PageTransitionType _arBookDirection = inverse == false ?
-  PageTransitionType.leftToRightWithFade
-      :
-  PageTransitionType.rightToLeftWithFade;
+    final PageTransitionType _arBookDirection = inverse == false ?
+    PageTransitionType.leftToRightWithFade
+        :
+    PageTransitionType.rightToLeftWithFade;
 
-  final PageTransitionType _transition = TextDir.appIsLeftToRight(context) == true ?
-  _enBookDirection
-      :
-  _arBookDirection;
+    final PageTransitionType _transition = TextDir.appIsLeftToRight(context) == true ?
+    _enBookDirection
+        :
+    _arBookDirection;
 
-  return _transition;
-// -----------------------------------------------------------------------------
-}
-// -----------------------------------------------------------------------------
+    return _transition;
+  // -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
 
   /// HOME SCREEN NAV.
 
-// -------------------------------------
+  // --------------------
   static Future<void> autoNavigateFromHomeScreen(BuildContext context) async {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
@@ -238,14 +238,14 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
       /// CLEAR AFTER HOME ROUTE
       UiProvider.proClearAfterHomeRoute(
-          context: context,
-          notify: true,
+        context: context,
+        notify: true,
       );
 
     }
 
   }
-// -------------------------------------
+  // --------------------
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
     final bool _result = await Dialogs.goBackDialog(
@@ -267,11 +267,11 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ SCREEN NAV.
 
-// -------------------------------------
+  // --------------------
   static Future<void> goToMyBzScreen({
     @required BuildContext context,
     @required String bzID,
@@ -306,7 +306,7 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
 
   }
-// -------------------------------------
+  // --------------------
   static Future<void> goRebootToInitNewBzScreen({
     @required BuildContext context,
     @required String bzID,
@@ -328,11 +328,11 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
 
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FLYER NAVIGATORS
 
-// -------------------------------------
+  // --------------------
   static Future<void> openFlyerOldWay(BuildContext context, String flyerID) async {
     await Navigator.of(context).push(PageRouteBuilder(
       transitionDuration: const Duration(milliseconds: 750),
@@ -349,7 +349,7 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
       },
     ));
   }
-// -------------------------------------
+  // --------------------
   static Future<void> openFlyer({
     @required BuildContext context,
     String flyerID,
@@ -381,5 +381,5 @@ static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settin
     //   // do nothing
     // }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

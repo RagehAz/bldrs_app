@@ -2,11 +2,11 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
 
 class Words {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Words();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static String allahoAkbar (BuildContext context) => Localizer.translate(context, 'allahoAkbar');
   static String activeLanguage (BuildContext context) => Localizer.translate(context, 'activeLanguage');
   static String textDirection (BuildContext context) => Localizer.translate(context, 'textDirection');
