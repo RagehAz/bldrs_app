@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:flutter/cupertino.dart';
 
 /*
@@ -23,7 +24,7 @@ class ChainRealOps {
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> createBigChainK({
     @required BuildContext context,
     @required Chain chainK,
@@ -55,7 +56,7 @@ class ChainRealOps {
     return _uploaded;
   }
   // --------------------
-  /// TESTED : WORK PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> createBigChainS({
     @required BuildContext context,
     @required Chain chainS,
@@ -86,44 +87,39 @@ class ChainRealOps {
 
     return _uploaded;
   }
-
+  // --------------------
   static Future<List<Chain>> createBldrsChains({
     @required BuildContext context,
     @required List<Chain> chains,
   }) async {
-    // Chain _uploaded;
-    //
-    // /// NOTE : chain K does not allow duplicate IDs in last node
-    // if (chains != null){
-    //
-    //   final Map<String, dynamic> _map = Chain.cipherBigChainS(
-    //     chainS: chainS,
-    //   );
-    //
-    //   final Map<String, dynamic> _uploadedChainSMap = await Real.createDocInPath(
-    //     context: context,
-    //     pathWithoutDocName: RealColl.chains,
-    //     addDocIDToOutput: false,
-    //     docName: RealDoc.chains_bigChainS,
-    //     map: _map,
-    //   );
-    //
-    //   _uploaded = Chain.decipherBigChainS(
-    //       bigChainSMap: _uploadedChainSMap
-    //   );
-    //
-    // }
-    //
-    // return _uploaded;
+    List<Chain> _uploaded;
 
-    return null;
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      final Map<String, dynamic> _map = Chain.cipherBldrsChains(
+        chains: chains,
+      );
+
+      final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
+        context: context,
+        collName: RealColl.bldrsChains,
+        map: _map,
+      );
+
+      _uploaded = Chain.decipherBldrsChains(
+          map: _uploadedChainSMap
+      );
+
+    }
+
+    return _uploaded;
   }
   // -----------------------------------------------------------------------------
 
   /// READ
 
   // --------------------
-  /// TESTED : WORK PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> readBigChainK(BuildContext context) async {
 
     final Map<String, dynamic> _bigChainKMap = await Real.readDocOnce(
@@ -139,7 +135,7 @@ class ChainRealOps {
     return _bigChainK;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<Chain> readBigChainS(BuildContext context) async {
 
     final Map<String, dynamic> _bigChainSMap = await Real.readDocOnce(
@@ -159,7 +155,7 @@ class ChainRealOps {
   /// UPDATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> updateBigChainK({
     @required BuildContext context,
     @required Chain bigChainK,
@@ -178,7 +174,7 @@ class ChainRealOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Future<void> updateBigChainS({
     @required BuildContext context,
     @required Chain bigChainS,
