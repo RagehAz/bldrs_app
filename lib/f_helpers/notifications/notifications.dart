@@ -17,23 +17,23 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class Notifications {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Notifications();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CONSTANTS
 
-// -----------------------------------
+  // --------------------
   static const String redBldrsBanner = 'resource://drawable/res_red_bldrs';
   static const String flatBldrsNotiIcon = 'resource://drawable/res_flat_logo';
   static const String flatBldrsNotiIcon2 = 'res_flat_logo'; ///'resource://drawable/res_flat_logo'; // "@mipmap/ic_launcher"
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNotifications() async {
 
@@ -52,7 +52,7 @@ class Notifications {
     );
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> initializeNotifications(BuildContext context) async {
     /// THIS GOES IN MAIN WIDGET INIT
@@ -113,7 +113,7 @@ class Notifications {
     // await _fireMessaging.subscribeToTopic('flyers');
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onReceiveNotification({
     @required BuildContext context,
@@ -129,11 +129,11 @@ class Notifications {
     await _pushNotificationFromRemoteMessage(remoteMessage);
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATION
 
-// -----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> _pushNotificationFromRemoteMessage(RemoteMessage remoteMessage) async {
 
@@ -180,7 +180,7 @@ class Notifications {
     }
 
   }
-// -----------------------------------
+  // --------------------
   /*
   static Future<void> _pushNotificationFromNote(NoteModel note) async {
 
@@ -203,7 +203,7 @@ class Notifications {
 
   }
    */
-// -----------------------------------
+  // --------------------
   static Future<void> createScheduledNotification() async {
 
     await AwesomeNotifications().createNotification(
@@ -254,11 +254,11 @@ class Notifications {
       // ),
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TOKEN AND SUBSCRIPTIONS
 
-// -----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> updateMyUserFCMToken({
     @required BuildContext context,
@@ -342,7 +342,7 @@ class Notifications {
     }
 
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> subscribeToTopic({
     String topicName
@@ -350,7 +350,7 @@ class Notifications {
     final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
     await _fireMessaging.subscribeToTopic(topicName);
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : ...
   static Future<void> unsubscribeFromTopic({
     @required String topicName,
@@ -358,19 +358,19 @@ class Notifications {
     final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
     await _fireMessaging.unsubscribeFromTopic(topicName);
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CANCELLATION
 
-// -----------------------------------
+  // --------------------
   static Future<void> cancelScheduledNotification() async {
     await AwesomeNotifications().cancelAllSchedules();
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHANNELS
 
-// -----------------------------------
+  // --------------------
   static String getNotificationChannelName(FCMChannel channel) {
     switch (channel) {
       case FCMChannel.basic: return 'Basic Notifications';break;
@@ -378,7 +378,7 @@ class Notifications {
       default: return 'Basic Notifications';
     }
   }
-// -----------------------------------
+  // --------------------
   static NotificationChannel basicNotificationChannel() {
     return NotificationChannel(
       channelKey: getNotificationChannelName(FCMChannel.basic),
@@ -396,7 +396,7 @@ class Notifications {
       enableVibration: true,
     );
   }
-// -----------------------------------
+  // --------------------
   static NotificationChannel scheduledNotificationChannel() {
     return NotificationChannel(
       channelKey: getNotificationChannelName(FCMChannel.scheduled),
@@ -414,11 +414,11 @@ class Notifications {
       soundSource: Sounder.randomBldrsNameSoundPath(),
     );
   }
-// -----------------------------------
+  // -----------------------------------------------------------------------------
 
   /// NOTIFY THING
 
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> onNotifyButtonTap({
     @required BuildContext context,
     @required Widget screenToGoToOnNotiTap,
@@ -434,7 +434,7 @@ class Notifications {
     });
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
   static Future<void> notify() async {
     // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
 
@@ -449,11 +449,11 @@ class Notifications {
       ),
     );
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRemoteMessage({
     String methodName,
@@ -517,12 +517,12 @@ class Notifications {
 
     blog('blogING REMOTE MESSAGE ATTRIBUTES ------------- END -');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-/// OLD CODES
+  /// OLD CODES
 
-// -----------------------------------
-/*
+  // --------------------
+  /*
   /// fcm on background
   //  AndroidNotificationChannel channel;
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -570,5 +570,5 @@ class Notifications {
   //   // }
   // }
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

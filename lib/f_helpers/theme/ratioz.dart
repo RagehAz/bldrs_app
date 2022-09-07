@@ -1,7 +1,7 @@
 
 abstract class Ratioz {
-// -----------------------------------------------------------------------------
-/// FONT SIZES
+  // -----------------------------------------------------------------------------
+  /// FONT SIZES
 
   static const double fontSize0 = 0.013; // -- 8 -- A77A
 
@@ -21,7 +21,7 @@ abstract class Ratioz {
 
   static const double fontSize8 = 0.058; // -- 30 -- Gigantic
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// BLDRS APPBARS
   static const double appBarCorner = 18; // ORIGINALLY MediaQuery.of(context).size.height * 0.0215;
   static const double appBarButtonCorner = 13;
@@ -52,7 +52,7 @@ abstract class Ratioz {
   static const double rrFlyerProgressBarHeight = 0.0075;
   static const double rrFlyerTitleTopMargin = rrFlyerHeaderHeight + rrFlyerProgressBarHeight;
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// flyer ratios multiplied by flyerBoxWidth
   static const double xxbzPageSpacing = 0.005;
 
@@ -83,13 +83,13 @@ abstract class Ratioz {
   /// Business logo corners Ratio in respect to Container Width or Height
   static const double bzLogoCorner = 0.17152;
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// paddings
   static const double stratosphere = 70;
   static const double exosphere = appBarBigHeight + (appBarMargin * 2);
   static const double horizon = pyramidsHeight * 1.5;
   static const double grandHorizon = pyramidsHeight;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// Durations
   static const Duration duration150ms = Duration(milliseconds: 150);
   static const Duration durationFading200 = Duration(milliseconds: 200);
@@ -98,14 +98,15 @@ abstract class Ratioz {
   static const Duration durationSliding410 = Duration(milliseconds: 410);
   static const Duration duration750ms = Duration(milliseconds: 750);
   static const Duration duration1000ms = Duration(milliseconds: 1000);
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// Blur
   static const double blur1 = 10;
   static const double blur2 = 15;
   static const double blur3 = 20;
   static const double blur4 = 30;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// image ratioz
   /// 90% of slide's flyerZoneHeight is the boxFit limit to turn from fitWidth to fitHeight
   static const double slideFitWidthLimit = 90;
+  // -----------------------------------------------------------------------------
 }
