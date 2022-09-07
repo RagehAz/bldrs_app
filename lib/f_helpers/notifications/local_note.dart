@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class LocalNotification {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const LocalNotification();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
-// -----------------------------------
+  // --------------------
   static Future<void> initialize(BuildContext context) async {
 
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
@@ -42,7 +42,7 @@ class LocalNotification {
 
     );
   }
-// -----------------------------------
+  // -----------------------------------------------------------------------------
   static Future<void> display(RemoteMessage remoteMessage) async {
 
     final FlutterLocalNotificationsPlugin _notiPlugin = FlutterLocalNotificationsPlugin();
@@ -73,5 +73,5 @@ class LocalNotification {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

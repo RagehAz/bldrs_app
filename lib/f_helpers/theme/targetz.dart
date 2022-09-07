@@ -1,42 +1,24 @@
 import 'package:bldrs/a_models/bz/target/target_model.dart';
 import 'package:bldrs/a_models/bz/target/target_progress.dart';
 import 'package:bldrs/a_models/bz/target/target_reward.dart';
-
-const TargetReward startupReward =
-    TargetReward(targetID: 'startup', ankh: 1, slides: 10);
-const TargetReward completeAccountReward =
-    TargetReward(targetID: 'completeAccount', ankh: 1, slides: 14);
-const TargetReward verifyAccountReward =
-    TargetReward(targetID: 'verifyAccount', ankh: 5, slides: 38);
-const TargetReward perfectFlyerReward =
-    TargetReward(targetID: 'perfectFlyer', ankh: 2, slides: 6);
-const TargetReward threeFlyersAWeekReward =
-    TargetReward(targetID: 'threeFlyerAWeek', ankh: 5, slides: 75);
-const TargetReward aFlyerADayReward =
-    TargetReward(targetID: 'aFlyerADay', ankh: 3, slides: 38);
-const TargetReward communityGrowthReward =
-    TargetReward(targetID: 'communityGrowth', ankh: 100, slides: 62);
-const TargetReward payItBackReward =
-    TargetReward(targetID: 'payItBack', ankh: 50, slides: 50);
-const TargetReward makeARhythmReward =
-    TargetReward(targetID: 'makeARhythm', ankh: 1, slides: 2);
-const TargetReward tenPotentialCustomersReward =
-    TargetReward(targetID: 'tenPotentialCustomers', ankh: 2, slides: 10);
-const TargetReward richGalleryReward =
-    TargetReward(targetID: 'richGallery', ankh: 75, slides: 100);
-const TargetReward callToActionReward =
-    TargetReward(targetID: 'callToAction', ankh: 5, slides: 20);
-const TargetReward shareWorthyReward =
-    TargetReward(targetID: 'shareWorthy', ankh: 5, slides: 100);
-const TargetReward diversityReward =
-    TargetReward(targetID: 'diversity', ankh: 5, slides: 100);
-const TargetReward publisherReward =
-    TargetReward(targetID: 'publisher', ankh: 50, slides: 100);
-const TargetReward influencerReward =
-    TargetReward(targetID: 'influencer', ankh: 1, slides: 10);
-const TargetReward masterBldrReward =
-    TargetReward(targetID: 'masterBldr', ankh: 10, slides: 50);
-
+// -----------------------------------------------------------------------------
+const TargetReward startupReward = TargetReward(targetID: 'startup', ankh: 1, slides: 10);
+const TargetReward completeAccountReward = TargetReward(targetID: 'completeAccount', ankh: 1, slides: 14);
+const TargetReward verifyAccountReward = TargetReward(targetID: 'verifyAccount', ankh: 5, slides: 38);
+const TargetReward perfectFlyerReward = TargetReward(targetID: 'perfectFlyer', ankh: 2, slides: 6);
+const TargetReward threeFlyersAWeekReward = TargetReward(targetID: 'threeFlyerAWeek', ankh: 5, slides: 75);
+const TargetReward aFlyerADayReward = TargetReward(targetID: 'aFlyerADay', ankh: 3, slides: 38);
+const TargetReward communityGrowthReward = TargetReward(targetID: 'communityGrowth', ankh: 100, slides: 62);
+const TargetReward payItBackReward = TargetReward(targetID: 'payItBack', ankh: 50, slides: 50);
+const TargetReward makeARhythmReward = TargetReward(targetID: 'makeARhythm', ankh: 1, slides: 2);
+const TargetReward tenPotentialCustomersReward = TargetReward(targetID: 'tenPotentialCustomers', ankh: 2, slides: 10);
+const TargetReward richGalleryReward = TargetReward(targetID: 'richGallery', ankh: 75, slides: 100);
+const TargetReward callToActionReward = TargetReward(targetID: 'callToAction', ankh: 5, slides: 20);
+const TargetReward shareWorthyReward = TargetReward(targetID: 'shareWorthy', ankh: 5, slides: 100);
+const TargetReward diversityReward = TargetReward(targetID: 'diversity', ankh: 5, slides: 100);
+const TargetReward publisherReward = TargetReward(targetID: 'publisher', ankh: 50, slides: 100);
+const TargetReward influencerReward = TargetReward(targetID: 'influencer', ankh: 1, slides: 10);
+const TargetReward masterBldrReward = TargetReward(targetID: 'masterBldr', ankh: 10, slides: 50);
 // -----------------------------------------------------------------------------
 const TargetModel startup = TargetModel(
   id: 'startup',
@@ -207,7 +189,6 @@ List<TargetModel> allTargets() {
     masterBldr,
   ];
 }
-
 // -----------------------------------------------------------------------------
 List<TargetProgress> dummyTargetsProgress() {
   return const <TargetProgress>[
@@ -231,10 +212,11 @@ List<TargetProgress> dummyTargetsProgress() {
     TargetProgress(targetID: 'masterBldr', objective: 1, current: 0),
   ];
 }
-
 // -----------------------------------------------------------------------------
-List<TargetModel> insertTargetsProgressIntoTargetsModels(
-    {List<TargetModel> allTargets, List<TargetProgress> targetsProgress}) {
+List<TargetModel> insertTargetsProgressIntoTargetsModels({
+  List<TargetModel> allTargets,
+  List<TargetProgress> targetsProgress,
+}) {
   final List<TargetModel> _targets = <TargetModel>[];
 
   for (final TargetModel target in allTargets) {
@@ -256,3 +238,4 @@ List<TargetModel> insertTargetsProgressIntoTargetsModels(
 
   return _targets;
 }
+// -----------------------------------------------------------------------------
