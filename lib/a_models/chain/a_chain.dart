@@ -66,7 +66,7 @@ class Chain {
   /// REAL CYPHERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Map<String, dynamic> cipherBigChainK({
     @required Chain chainK,
   }){
@@ -106,7 +106,7 @@ class Chain {
     return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Chain decipherBigChainK({
     @required Map<String, dynamic> bigChainKMap,
   }) {
@@ -135,7 +135,7 @@ class Chain {
     return _bigChainK;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Map<String, dynamic> cipherBigChainS({
     @required Chain chainS,
   }){
@@ -181,7 +181,7 @@ class Chain {
     return _map;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK DEPRECATED
   static Chain decipherBigChainS({
     @required Map<String, dynamic> bigChainSMap,
   }) {
@@ -208,6 +208,76 @@ class Chain {
     }
 
     return _bigChainS;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherBldrsChains({
+    @required List<Chain> chains,
+  }){
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      final List<String> paths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains,
+      );
+
+      // Stringer.blogStrings(strings: paths);
+
+      for (int i = 0; i < paths.length; i++){
+
+        final String _path = paths[i];
+
+        final String _key = Phider.generatePhidPathUniqueKey(
+          path: _path,
+        );
+        // final String _pathWithPhidIndex =
+
+        /// THIS KEY IS UNIQUE
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: _key,
+            value: _path,
+          );
+        }
+
+        /// THE KEY IS TAKEN ALREADY
+        else {
+          blog('cipherChainSPaths : error here key is taken : _key $_key : ${_map[_key]}');
+          throw Error();
+        }
+
+      }
+
+    }
+
+    return _map;
+  }
+  // --------------------
+
+  static List<Chain> decipherBldrsChains({
+    @required Map<String, dynamic> map,
+  }) {
+    List<Chain> _bldrsChains;
+
+    if (map != null) {
+
+      final List<dynamic> _dynamicsValues = map.values.toList();
+      _dynamicsValues.remove(RealColl.bldrsChains);
+
+      final List<String> _paths = Stringer.getStringsFromDynamics(
+        dynamics: _dynamicsValues,
+      );
+
+      _bldrsChains = ChainPathConverter.createChainsFromPaths(
+        paths: _paths,
+      );
+
+    }
+
+    return _bldrsChains;
   }
   // -----------------------------------------------------------------------------
 
@@ -555,9 +625,14 @@ class Chain {
 
     bool _isDataCreator = false;
 
+    // blog('checkSonsAreDataCreator : ${sons.runtimeType} : $sons');
+
     if (sons != null){
 
       if (sons is DataCreator){
+        _isDataCreator = true;
+      }
+      else if (sons is List<DataCreator>){
         _isDataCreator = true;
       }
 
@@ -681,7 +756,7 @@ class Chain {
     return _areIdentical;
   }
   // --------------------
-  /// TASK : NOT TESTED
+  /// TESTED : WORKS PERFECT
   static bool checkChainsSonsAreIdentical(Chain chain1, Chain chain2){
 
     bool _sonsAreIdentical = false;
@@ -720,15 +795,24 @@ class Chain {
 
       /// IF SONS ARE DATA CREATORS
       if (sonsAisDataCreator == true){
-        _sonsAreIdentical = chain1.sons == chain2.sons;
+        _sonsAreIdentical = chain1.sons?.toString() == chain2.sons?.toString();
       }
 
+    }
+
+    if (_sonsAreIdentical == false){
+      blog('xxx ~~~> checkChainsSonsAreIdentical : TAKE CARE : _sonsAreIdentical : $_sonsAreIdentical');
+      blog('xxx ~~~> sonsAisChains : $sonsAisChains : sonsAisDataCreator : $sonsAisDataCreator : sonsAisPhids : $sonsAisPhids');
+      blog('xxx ~~~> sonsBisChains : $sonsBisChains : sonsBisDataCreator : $sonsBisDataCreator : sonsBIsPhids : $sonsBIsPhids');
+      blog('xxx ~~~> chain1.sons : ${chain1.sons}');
+      blog('xxx ~~~> chain2.sons : ${chain2.sons}');
+      blog('xxx ~~~> checkChainsSonsAreIdentical - TAMAM KEDA !');
     }
 
     return _sonsAreIdentical;
   }
   // --------------------
-  /// TASK : NOT TESTED
+  /// TESTED : WORKS PERFECT
   static bool checkChainsListsAreIdenticalOLDMETHOD({
     @required List<Chain> chains1,
     @required List<Chain> chains2
@@ -753,8 +837,8 @@ class Chain {
 
 
           if (_twoChainsAreIdentical == false){
-            final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ----------------------------------- X OPS X';
-            blog('( ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
+            final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
+            blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
           }
@@ -913,26 +997,24 @@ class Chain {
 
     final String _space = getChainBlogTreeSpacing(level);
 
-    // blog('sons run type is ${sons.runtimeType}');
-
     if (id != null){
-      if (checkSonsAreDataCreator(sons)){
+      if (checkSonsAreDataCreator(sons) == true){
         blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsArePhids(sons)){
+      else if (checkSonsArePhids(sons) == true){
         blog('$_space $level : $id : <String>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsAreChains(sons)){
-        blog('$_space $level : $id :-');
+      else if (checkSonsAreChains(sons) == true){
+        blog('$_space $level : <Chain>{$id} :-');
         blogChains(sons, parentLevel: level);
       }
 
       else {
-        blog('$_space $level : $id : sons dynamics :  ${sons.toString()}');
+        blog('$_space $level : $id : sons |${sons.runtimeType}| :  ${sons.toString()}');
       }
 
     }
@@ -944,21 +1026,24 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogChains(List<dynamic> chains, {int parentLevel = 0}){
+  static void blogChains(List<Chain> chains, {int parentLevel = 0}){
 
     if (Mapper.checkCanLoopList(chains) == true){
 
       // int _count = 1;
-      for (final dynamic chain in chains){
+      for (final Chain chain in chains){
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
+
         chain?.blogChain(level: parentLevel+1);
+
+
         // _count++;
       }
 
     }
     else {
       final String _space = getChainBlogTreeSpacing(parentLevel);
-      blog('$_space $parentLevel : NOTHING IN CHAINS FOUND');
+      blog('$_space $parentLevel : NO CHAINS TO BLOG');
     }
 
   }
@@ -1490,6 +1575,44 @@ class Chain {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DUMMY
+
+  // --------------------
+  /// TEST : WORKS PERFECT
+  static Chain dummyChain(){
+
+    return const Chain(
+      id: 'dummyx',
+      sons: <Chain>[
+
+        Chain(
+          id: 'phids_Sons',
+          sons: <String>['phidA', 'phidB', 'phidC'],
+        ),
+
+        Chain(
+          id: 'chains_sons',
+          sons: <Chain>[
+            Chain(id: 'chainSon', sons: <String>['phid_sonA', 'phid_sonB']),
+          ],
+        ),
+
+        Chain(
+          id: 'DataCreator',
+          sons: DataCreator.doubleKeyboard,
+        ),
+
+        Chain(
+          id: 'phids_Bzzz',
+          sons: <String>['phidXX', 'phidYY', 'phidZZ'],
+        ),
+
+      ],
+    );
+
   }
   // -----------------------------------------------------------------------------
 
