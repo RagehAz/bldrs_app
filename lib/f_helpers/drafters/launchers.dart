@@ -8,15 +8,15 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
 
 class Launcher {
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Launcher();
 
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// JOKER
 
-// ----------------------------------------
+  // --------------------
   static Future<void> launchContactModel({
     @required BuildContext context,
     @required ContactModel contact,
@@ -49,11 +49,11 @@ class Launcher {
     }
 
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LAUNCH URL
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _launchURL(String link) async {
 
@@ -93,11 +93,11 @@ class Launcher {
 
     return _success;
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LAUNCH EMAIL
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchEmail({
     @required BuildContext context,
@@ -128,21 +128,21 @@ class Launcher {
     }
 
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailSubject(BuildContext context){
     return ''; //xPhrase( context, 'phid_bldrs');
   }
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailBody(BuildContext context){
     return '';
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// LAUNCH CALL
 
-// ----------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchCall(String phoneNumber) async {
 
@@ -165,11 +165,11 @@ class Launcher {
     }
 
   }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SHARING
 
-// ----------------------------------------
+  // --------------------
   static Future<void> shareLink({
     @required BuildContext context,
     @required LinkModel link,
@@ -189,7 +189,7 @@ class Launcher {
     }
 
   }
-// ----------------------------------------
+  // --------------------
   static Future<void> shareFlyer({
     @required BuildContext context,
     @required LinkModel flyerLink,
@@ -204,9 +204,9 @@ class Launcher {
     );
 
   }
-// --------------------------------------------------------------------------
-/*
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  /*
+  // -----------------------------------------------------------------------------
 /// old method test
 void _onShare(BuildContext context) async {
   // A builder is used to retrieve the context immediately
@@ -237,7 +237,7 @@ void _onShare(BuildContext context) async {
 // void _onShareWithEmptyOrigin(BuildContext context) async {
 //   await Share.share("text");
 // }
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
  */
-// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

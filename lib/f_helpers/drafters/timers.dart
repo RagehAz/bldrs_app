@@ -18,7 +18,7 @@ import 'package:intl/intl.dart';
 
 /// FORMATTING
 
-// -------------------------------------
+  // --------------------
 /*
 DAY                          d
  ABBR_WEEKDAY                 E
@@ -72,7 +72,7 @@ Examples Using the US Locale:
  new DateFormat.Hm()              -> 17:08 // force 24 hour time
  */
 
-// -----------------------------------------------------------------------------
+
 enum TimeAccuracy{
   year,
   month,
@@ -83,20 +83,20 @@ enum TimeAccuracy{
   millisecond,
   microSecond,
 }
-// -----------------------------------------------------------------------------
+
 class Timers {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Timers();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// "2019-07-19 8:40:23"
   static DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static dynamic cipherTime({
     @required DateTime time,
@@ -105,7 +105,7 @@ class Timers {
     final dynamic _output = toJSON ? _cipherDateTimeIso8601(time) : time;
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime decipherTime({
     @required dynamic time,
@@ -126,7 +126,7 @@ class Timers {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<dynamic> cipherTimes({
     @required List<DateTime> times,
@@ -147,7 +147,7 @@ class Timers {
 
     return _times;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<DateTime> decipherTimes({
     @required List<dynamic> times,
@@ -166,7 +166,7 @@ class Timers {
 
     return _dateTimes;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String _cipherDateTimeIso8601(DateTime dateTime){
     String _string;
@@ -177,7 +177,7 @@ class Timers {
 
     return _string;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime _decipherDateTimeIso8601(String cipheredDateTimeIso8601){
     DateTime _time;
@@ -188,7 +188,7 @@ class Timers {
 
     return _time;
   }
-// -------------------------------------
+  // --------------------
   /// we may revise datetimes timestamps isoStrings for firebase, sembast & sql
   static Timestamp decipherDateTimeIso8601ToTimeStamp(String cipheredDateTimeIso8601){
     Timestamp _time;
@@ -200,7 +200,7 @@ class Timers {
 
     return _time;
   }
-// -------------------------------------
+  // --------------------
   static String tempCipherDateTimeToString(DateTime dateTime){
 
     if(dateTime == null){
@@ -212,7 +212,7 @@ class Timers {
     }
 
   }
-// -------------------------------------
+  // --------------------
   static DateTime tempDecipherDateTimeString(String dateTimeString){
 
     if (dateTimeString == null){
@@ -224,11 +224,11 @@ class Timers {
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// STRING GENERATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateMonthNameByInt(BuildContext context, int month){
     switch (month){
@@ -246,12 +246,12 @@ class Timers {
       default : return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateDayName(BuildContext context, DateTime time){
     return DateFormat('EEEE').format(time);
   }
-// -------------------------------------
+  // --------------------
   /// GENERATES => [ 'on dd month yyyy' ]
   static String generateString_on_dd_month_yyyy({
     @required BuildContext context,
@@ -264,7 +264,7 @@ class Timers {
 
     return _timeString;
   }
-// -------------------------------------
+  // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
   static String generateString_dd_month_yyyy({
     @required BuildContext context,
@@ -276,7 +276,7 @@ class Timers {
     final String _timeString = '$_day $_monthString $_year';
     return _timeString;
   }
-// -------------------------------------
+  // --------------------
   /// GENERATES => [ 'dd / MM / yyyy' ]
   static String generateString_dd_I_MM_I_yyyy({
     @required BuildContext context,
@@ -288,7 +288,7 @@ class Timers {
     final String _timeString = '$_dd / $_mm / $_yyyy';
     return _timeString;
   }
-// -------------------------------------
+  // --------------------
   /// GENERATES => [ 'hh : mm ampm' ]
   static String generateString_hh_i_mm_ampm({
     @required BuildContext context,
@@ -301,7 +301,7 @@ class Timers {
 
     return _timeString;
   }
-// -------------------------------------
+  // --------------------
   static String generateString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
 
     String _output = '';
@@ -317,7 +317,7 @@ class Timers {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   static String generateString_in_bldrs_since_dd_month_yyyy(BuildContext context, DateTime time){
 
     String _output = '';
@@ -343,7 +343,7 @@ class Timers {
     return _output;
 
   }
-// -------------------------------------
+  // --------------------
   static String generateString_hh_i_mm_i_ss(DateTime time){
 
     String _output = '';
@@ -363,7 +363,7 @@ class Timers {
     return _output;
 
   }
-// -------------------------------------
+  // --------------------
   static String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
     @required BuildContext context,
     @required DateTime time,
@@ -389,7 +389,7 @@ class Timers {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
 /*
 String generateStringsList_hh_i_mm_i_ss(List<DateTime> times){
   String _output = '';
@@ -406,7 +406,7 @@ String generateStringsList_hh_i_mm_i_ss(List<DateTime> times){
 
   return _output;
 }
-// -------------------------------------
+  // --------------------
 String generateStringsList_index_hh_i_mm_i_ss({
   @required List<DateTime> times,
   @required List<int> indexes,
@@ -432,11 +432,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
   return _output;
 }
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime createDateTime({
     int year,
@@ -464,7 +464,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime createDate({
     @required int year,
@@ -483,7 +483,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         microsecond: 0,
       );
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime createClock({
     @required int hour,
@@ -502,7 +502,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         microsecond: 0,
       );
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime createClockFromSeconds(int seconds){
 
@@ -525,7 +525,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime createDateAndClock({
     @required int year,
@@ -547,7 +547,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         microsecond: 0,
       );
   }
-// -------------------------------------
+  // --------------------
   static DateTime createDateTimeAfterNumberOfDays({
     @required int days,
   }){
@@ -564,11 +564,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _dayAndClock;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TIME DIFFERENCE
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInSeconds({
     @required DateTime from,
@@ -583,7 +583,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInMinutes({
     @required DateTime from,
@@ -597,7 +597,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInHours({
     @required DateTime from,
@@ -611,7 +611,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInDays({
     @required DateTime from,
@@ -625,7 +625,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInWeeks({
     @required DateTime from,
@@ -634,7 +634,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 7).floor();
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInMonths({
     @required DateTime from,
@@ -643,7 +643,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 30).floor();
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateTimeDifferenceInYears({
     @required DateTime from,
@@ -652,7 +652,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final int _differenceInDays = calculateTimeDifferenceInDays(from: from, to: to);
     return (_differenceInDays / 365).floor();
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String calculateSuperTimeDifferenceString({
     @required DateTime from,
@@ -707,7 +707,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _string;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static String calculateRemainingHoursAndMinutes({
     @required int secondsUntilNow,
   }){
@@ -727,19 +727,19 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _string;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BLOGGERS
 
-// -------------------------------------
+  // --------------------
   static void blogDateTime(DateTime dateTime){
     blog('BLOGGING DATE TIME : $dateTime');
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// MODIFIERS
 
-// -------------------------------------
+  // --------------------
   static List<DateTime> putTimeInTimes({
     @required DateTime time,
     @required List<DateTime> times,
@@ -758,7 +758,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _result;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static DateTime offsetTime({
     @required DateTime time,
@@ -796,11 +796,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// GETTERS
 
-// -------------------------------------
+  // --------------------
   static List<DateTime> getHoursAndMinutesFromDateTimes({
     @required List<DateTime> times,
   }){
@@ -827,11 +827,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _result;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTimesAreIdentical({
     @required TimeAccuracy accuracy,
@@ -973,7 +973,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _areIdentical;
   }
-// -------------------------------------
+  // --------------------
   static bool checkTimesContainTime({
     @required List<DateTime> times,
     @required DateTime time,
@@ -1002,7 +1002,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _contains;
   }
-// -------------------------------------
+  // --------------------
   static bool checkTimeIsAfter({
     @required DateTime existing,
     @required DateTime timeAfter,
@@ -1017,7 +1017,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _isAfter;
   }
-// -------------------------------------
+  // --------------------
   static bool checkTimeIsEmpty({
     @required DateTime time,
     // @required TimeAccuracy accuracy,
@@ -1030,11 +1030,11 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _isEmpty;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DEVICE TIME
 
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkDeviceTimeIsCorrect({
     @required BuildContext context,
@@ -1076,7 +1076,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _isCorrect;
   }
-// -----------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DateTime> getInternetUTCTime() async {
 
@@ -1124,6 +1124,5 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     return _dateTime;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------

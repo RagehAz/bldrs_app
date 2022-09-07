@@ -3,27 +3,27 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class Scale {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Scale();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// SIZES
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenWidth(BuildContext context) {
     final double _screenWidth = MediaQuery.of(context).size.width;
     return _screenWidth;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenHeight(BuildContext context) {
     final double _screenHeight = MediaQuery.of(context).size.height;
     return _screenHeight;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenHeightWithoutSafeArea(BuildContext context) {
 
@@ -35,17 +35,17 @@ class Scale {
 
     return _screenWithoutSafeAreaHeight;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PADDING
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double superSafeAreaTopPadding(BuildContext context) {
     final double _safeAreaHeight = MediaQuery.of(context).padding.top;
     return _safeAreaHeight;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets superInsets({
     @required BuildContext context,
@@ -70,7 +70,7 @@ class Scale {
         top: top
     );
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets superPadding({
     @required BuildContext context,
@@ -94,7 +94,7 @@ class Scale {
       bottom: bottom,
     );
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets superMargins({dynamic margins}) {
     final EdgeInsets _boxMargins = margins == null || margins == 0 ? EdgeInsets.zero
@@ -109,18 +109,18 @@ class Scale {
 
     return _boxMargins;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double superDeviceRatio(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
     final double _deviceRatio = _size.aspectRatio;
     return _deviceRatio;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// DIVISION
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double getUniformRowItemWidth({
     @required BuildContext context,
@@ -135,5 +135,5 @@ class Scale {
     final double _width = (_screenWidth - (Ratioz.appBarMargin * (numberOfItems + 1))) / numberOfItems;
     return _width;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -6,15 +6,15 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class Numeric {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Numeric();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FORMATTERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String formatNumToSeparatedKilos({
     @required dynamic number,
@@ -91,7 +91,7 @@ class Numeric {
 
     return _result;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String formatNumToCounterCaliber(BuildContext context, int x) {
     String _stringOfCalibratedNumber = '0';
@@ -127,7 +127,7 @@ class Numeric {
 
     return _stringOfCalibratedNumber;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String formatNumberWithinDigits({
     @required int num,
@@ -169,7 +169,7 @@ class Numeric {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int concludeNumberOfDigits(int length){
 
@@ -178,12 +178,12 @@ class Numeric {
 
     return _digits;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String uniformizeIndexDigits({
     @required int index,
     @required int listLength,
-}){
+  }){
 
     return formatNumberWithinDigits(
       digits: concludeNumberOfDigits(listLength),
@@ -191,11 +191,11 @@ class Numeric {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSFORMERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int transformStringToInt(String string) {
     int _value;
@@ -206,7 +206,7 @@ class Numeric {
 
     return _value;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double transformStringToDouble(String string) {
     double _value;
@@ -219,11 +219,11 @@ class Numeric {
 
     return _value;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CREATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int createRandomIndex({
     int listLength = 1001, /// FOR 1000 ITEMS => ONLY VALUES FROM ( 0 -> 999 ) MAY RESULT
@@ -231,7 +231,7 @@ class Numeric {
     final math.Random _random = math.Random();
     return _random.nextInt(listLength);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int createUniqueIndex({
     @required List<int> existingIndexes,
@@ -256,7 +256,7 @@ class Numeric {
 
     return _randomNumber;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int createUniqueID({
     int maxDigitsCount = 16, // 8'640'000'000'000'000'000
@@ -276,7 +276,7 @@ class Numeric {
 
     return _output;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static ValueKey<int> createUniqueKeyFrom({
     @required List<ValueKey<int>> existingKeys
@@ -290,7 +290,7 @@ class Numeric {
 
     return ValueKey<int>(_newValue);
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<dynamic> createListWithDummyValue({
     @required int length,
@@ -304,7 +304,7 @@ class Numeric {
 
     return _dummies;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<int> createRandomIndexes({
     @required int numberOfIndexes,
@@ -323,11 +323,11 @@ class Numeric {
     }
     return _indexes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BOOL CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int cipherBool({
     @required bool bool,
@@ -339,7 +339,7 @@ class Numeric {
       default: return 0;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool decipherBool(int int) {
     /// 1 => true; 0 => false else => null (returning false instead of null)
@@ -349,11 +349,11 @@ class Numeric {
       default: return false;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// VALUE KEYS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<int> getValuesFromKeys({
     @required List<ValueKey<int>> keys,
@@ -368,7 +368,7 @@ class Numeric {
 
     return _values;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<ValueKey<int>> addUniqueKeyToKeys({
     @required List<ValueKey<int>> keys
@@ -384,11 +384,11 @@ class Numeric {
 
     return _newKeys;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// FRACTION
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double getFractions({
     @required double number,
@@ -408,7 +408,7 @@ class Numeric {
     final double _fraction = transformStringToDouble('0.$_fractionsString');
     return _fraction;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double removeFractions({
     @required double number,
@@ -416,14 +416,14 @@ class Numeric {
     final double _fractions = getFractions(number: number);
     return number - _fractions;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double roundFractions(double value, int fractions) {
     final String _roundedAsString = value.toStringAsFixed(fractions);
     final double _rounded = transformStringToDouble(_roundedAsString);
     return _rounded;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getFractionStringWithoutZero({
     @required double fraction,
@@ -444,7 +444,7 @@ class Numeric {
 
     return _fractionAsStringWithoutZero;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int getNumberOfFractions({
     @required double number,
@@ -457,11 +457,11 @@ class Numeric {
     blog('_numberFractions : $_numberFractions');
     return _numberFractions;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CALCULATORS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateDiscountPercentage({
     @required double oldPrice,
@@ -470,7 +470,7 @@ class Numeric {
     final double _percent = ((oldPrice - currentPrice) / oldPrice) * 100;
     return _percent.round();
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int calculateIntegerPower({
     @required int num,
@@ -486,11 +486,11 @@ class Numeric {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ANGLES
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static double degreeToRadian(double degree){
     /// remember that dart starts from angle 0 on the right,, rotates clockWise when
@@ -500,11 +500,11 @@ class Numeric {
     final double _radian = degree * ( math.pi / 180 );
     return _radian;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BINARY SEARCH
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int binarySearch({
     @required List<int> list,
@@ -542,5 +542,5 @@ class Numeric {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

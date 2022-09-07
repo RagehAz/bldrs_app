@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
-
 enum ImagePickerType {
   cameraImage,
   galleryImage,
@@ -31,15 +30,15 @@ enum PicType {
 }
 
 class Imagers {
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Imagers();
 
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// PICK IMAGE FROM GALLERY
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> pickAndCropSingleImage({
     @required BuildContext context,
@@ -71,7 +70,7 @@ class Imagers {
 
     return _fileModel;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FileModel>> pickAndCropMultipleImages({
     @required BuildContext context,
@@ -101,15 +100,15 @@ class Imagers {
     /// RESIZE
     if (resizeToWidth != null && Mapper.checkCanLoopList(_fileModels) == true){
       _fileModels = await resizeImages(
-          inputFileModels: _fileModels,
-          resizeToWidth: resizeToWidth,
-          isFlyerRatio: isFlyerRatio,
+        inputFileModels: _fileModels,
+        resizeToWidth: resizeToWidth,
+        isFlyerRatio: isFlyerRatio,
       );
     }
 
     return _fileModels;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FileModel>> _pickMultipleImages({
     @required BuildContext context,
@@ -260,11 +259,11 @@ class Imagers {
 
     return _output;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TAKE IMAGE FROM CAMERA
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> shootAndCropCameraImage({
     @required BuildContext context,
@@ -312,7 +311,7 @@ class Imagers {
 
     return _output;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> _shootCameraImage({
     @required BuildContext context,
@@ -379,17 +378,17 @@ class Imagers {
 
     return _fileModel;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CROP IMAGE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FileModel> cropImage({
     @required BuildContext context,
     @required FileModel pickedFile,
     @required bool isFlyerRatio,
-}) async {
+  }) async {
 
     FileModel _fileModel;
 
@@ -404,8 +403,8 @@ class Imagers {
     }
 
     return _fileModel;
-}
-// ---------------------------------------
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FileModel>> cropImages({
     @required BuildContext context,
@@ -429,11 +428,11 @@ class Imagers {
 
     return _fileModels;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// RESIZE IMAGE
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FileModel>> resizeImages({
     @required List<FileModel> inputFileModels,
@@ -459,11 +458,11 @@ class Imagers {
 
     return _fileModels;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
     @required dynamic pic1,
@@ -494,7 +493,7 @@ class Imagers {
 
     return _identical;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool picturesURLsAreIdentical({
     @required List<String> urls1,
@@ -525,7 +524,7 @@ class Imagers {
 
     return _areIdentical;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicIsEmpty(dynamic pic){
     bool _isEmpty = true;
@@ -556,11 +555,11 @@ class Imagers {
 
     return _isEmpty;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// IMAGE QUALITY
 
-// ---------------------------------------
+  // --------------------
   /*
   static int concludeImageQuality(PicType picType) {
     switch (picType) {
@@ -575,7 +574,7 @@ class Imagers {
       default:return 100;
     }
   }
-// ---------------------------------------
+  // --------------------
   static double concludeImageMaxWidth(PicType picType) {
     switch (picType) {
       case PicType.userPic:return 150;break;
@@ -589,7 +588,11 @@ class Imagers {
     }
   }
    */
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CIPHER
+
+  // --------------------
   static String cipherPic({
     @required dynamic pic,
     @required bool toJSON,
@@ -626,11 +629,12 @@ class Imagers {
 
     return _output;
   }
-
+  // --------------------
   static dynamic decipherPic({
     @required String pic,
     @required bool fromJSON,
   }){
 
   }
+// --------------------
 }

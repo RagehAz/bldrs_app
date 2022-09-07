@@ -16,15 +16,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart' as img;
 
 class Floaters {
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const Floaters();
 
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ByteData
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ByteData> getByteDataFromUiImage(ui.Image uiImage) async {
     ByteData _byteData;
@@ -37,11 +37,11 @@ class Floaters {
 
     return _byteData;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ui.Image
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ui.Image> getUiImageFromUint8List(Uint8List uInt) async {
     ui.Image _decodedImage;
@@ -52,7 +52,7 @@ class Floaters {
 
     return _decodedImage;
   }
-// ---------------------------------------
+  // --------------------
   static Future<ui.Image> getUiImageFromInts(List<int> ints) async {
     final Completer<ui.Image> completer = Completer<ui.Image>();
 
@@ -60,11 +60,11 @@ class Floaters {
 
     return completer.future;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// img.Image
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<img.Image> getImgImageFromFile(File file) async {
     img.Image _image;
@@ -79,7 +79,7 @@ class Floaters {
 
     return _image;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<img.Image> getImgImageFromUint8List(Uint8List uInt) async {
     img.Image imgImage;
@@ -90,7 +90,7 @@ class Floaters {
 
     return imgImage;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static img.Image resizeImgImage({
     @required img.Image imgImage,
@@ -101,14 +101,14 @@ class Floaters {
 
     if (imgImage != null){
       _output = img.copyResize(imgImage,
-          width: width,
-          height: height,
+        width: width,
+        height: height,
       );
     }
 
     return _output;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /*
 static img.Image decodeToImgImage({
   @required List<int> bytes,
@@ -136,7 +136,7 @@ static img.Image decodeToImgImage({
 
 }
    */
-// ---------------
+  // --------------------
   /*
   enum PicFormat {
   image,
@@ -161,18 +161,18 @@ static img.Image decodeToImgImage({
 // svg,
 }
 */
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// uInt8List
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Uint8List getUint8ListFromByteData(ByteData byteData) {
 
     /// METHOD 1 : WORKS PERFECT
     final Uint8List _uInts = byteData.buffer.asUint8List(
-        byteData.offsetInBytes,
-        byteData.lengthInBytes,
+      byteData.offsetInBytes,
+      byteData.lengthInBytes,
     );
 
     /// METHOD 2 : WORKS PERFECT
@@ -180,7 +180,7 @@ static img.Image decodeToImgImage({
 
     return _uInts;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> getUint8ListFromFile(File file) async {
     Uint8List _uInt;
@@ -193,7 +193,7 @@ static img.Image decodeToImgImage({
     //       functions: () async {
     //
     //         blog('transformFileToUint8List : _uInt : $_uInt');
-            _uInt = await file.readAsBytes();
+    _uInt = await file.readAsBytes();
     //         blog('transformFileToUint8List : _uInt : $_uInt');
     //
     //       });
@@ -203,7 +203,7 @@ static img.Image decodeToImgImage({
 
     return _uInt;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> getUint8ListsFromFiles(List<File> files) async {
     final List<Uint8List> _screenShots = <Uint8List>[];
@@ -219,7 +219,7 @@ static img.Image decodeToImgImage({
 
     return _screenShots;
   }
-// ---------------------------------------
+  // --------------------
   /// TAMAM
   static Future<Uint8List> getUint8ListFromLocalRasterAsset({
     @required String asset,
@@ -228,8 +228,8 @@ static img.Image decodeToImgImage({
     final ByteData _byteData = await rootBundle.load(asset);
 
     final ui.Codec _codec = await ui.instantiateImageCodec(
-        _byteData.buffer.asUint8List(),
-        targetWidth: width,
+      _byteData.buffer.asUint8List(),
+      targetWidth: width,
     );
 
     final ui.FrameInfo _fi = await _codec.getNextFrame();
@@ -241,7 +241,7 @@ static img.Image decodeToImgImage({
 
     return _result;
   }
-// ---------------------------------------
+  // --------------------
   static Future<Uint8List> getUint8ListFromRasterURL(int width, int height, String urlAsset) async {
     final ui.PictureRecorder _pictureRecorder = ui.PictureRecorder();
     final Canvas _canvas = Canvas(_pictureRecorder);
@@ -270,7 +270,7 @@ static img.Image decodeToImgImage({
 
     return _data.buffer.asUint8List();
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> getUint8ListFromUiImage(ui.Image uiImage) async {
     Uint8List uInt;
@@ -287,7 +287,7 @@ static img.Image decodeToImgImage({
 
     return uInt;
   }
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Uint8List getUint8ListFromImgImage(img.Image imgImage) {
     Uint8List uInt;
@@ -298,7 +298,7 @@ static img.Image decodeToImgImage({
 
     return uInt;
   }
-// ---------------------------------------
+  // --------------------
   static Future<Uint8List> getUint8ListFromImgImageAsync(img.Image imgImage) async{
     Uint8List uInt;
     if (imgImage != null){
@@ -306,11 +306,11 @@ static img.Image decodeToImgImage({
     }
     return uInt;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// Base64
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getBase64FromFileOrURL(dynamic image) async {
     File _file;
@@ -342,11 +342,11 @@ static img.Image decodeToImgImage({
 
     return _base64Image;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BitmapDescriptor
 
-// ---------------------------------------
+  // --------------------
   static Future<BitmapDescriptor> getBitmapFromSVG({
     @required BuildContext context,
     @required String assetName,
@@ -375,7 +375,7 @@ static img.Image decodeToImgImage({
     final ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
   }
-// ---------------------------------------
+  // --------------------
   static Future<BitmapDescriptor> getBitmapFromPNG({
     String pngPic = Iconz.flyerPinPNG,
   }) async {
@@ -383,11 +383,11 @@ static img.Image decodeToImgImage({
     await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, pngPic);
     return _marker;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// INTs : List<int>
 
-// ---------------------------------------
+  // --------------------
   static List<int> getIntsFromUint7List(Uint8List uInt){
     List<int> _ints;
 
@@ -397,10 +397,10 @@ static img.Image decodeToImgImage({
 
     return _ints;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// DOUBLEs : List<double>
 
-// ---------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<double> getDoublesFromDynamics(List<dynamic> dynamics){
 
@@ -421,5 +421,5 @@ static img.Image decodeToImgImage({
 
     return _output;
   }
-// -----------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

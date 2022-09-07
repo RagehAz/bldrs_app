@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 // -----------------------------------------------------------------------------
   const bool _traceScreenBuild = true;

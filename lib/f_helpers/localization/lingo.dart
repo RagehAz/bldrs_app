@@ -50,7 +50,7 @@ class Lang {
 
     return _lingosMapModels;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const List<Lang> allLanguages = <Lang>[
     englishLingo,
     arabicLingo,
@@ -60,7 +60,7 @@ class Lang {
     // chineseLingo,
     // germanLingo,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const String englishCode = 'en';
   static const Lang englishLingo = Lang(code: englishCode, name: 'English');
 
@@ -84,7 +84,7 @@ class Lang {
 
   static const String italianCode = 'it';
   static const Lang italianLingo = Lang(code: italianCode, name: 'Italiano');
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static List<String> getAllLingoCodes() {
     final List<String> _codes = <String>[];
 
