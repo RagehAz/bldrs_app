@@ -318,7 +318,7 @@ class Mapper {
     return _output;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromInternalHashLinkedMapObjectObject({
     @required Object internalHashLinkedMapObjectObject,
   }){

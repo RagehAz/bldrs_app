@@ -34,7 +34,6 @@ class RealColl {
   /// CHAINS
   // --------------------
   static const String chainsUsage = 'chainsUsage';
-  static const String chains = 'chains';
   static const String bldrsChains = 'bldrsChains';
   // -----------------------------------------------------------------------------
   /// PICKERS

@@ -393,6 +393,7 @@ class Real {
   /// READ
 
   // --------------------
+
   static Query createQuery({
     @required DatabaseReference ref,
     @required RealPaginator realPaginator,
@@ -455,6 +456,7 @@ class Real {
     return _query;
   }
   // --------------------
+
   static Future<List<Map<String, dynamic>>> readColl({
     @required BuildContext context,
     @required String nodePath,
@@ -518,6 +520,43 @@ class Real {
 
         }
 
+
+      },
+    );
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readCollAsMap({
+    @required BuildContext context,
+    @required String collName,
+  }) async {
+
+    Map<String, dynamic> _output = {};
+
+    await tryAndCatch(
+      context: context,
+      functions: () async {
+
+        final DatabaseReference _ref = _createPathAndGetRef(
+          collName: collName,
+        );
+
+        final Query _query = createQuery(
+          ref: _ref,
+          realPaginator: const RealPaginator(),
+          // limit: limit,
+          // limitToFirst: limitToFirst,
+          // startAfter: startAfter,
+        );
+
+        final DataSnapshot _snap = await _query.get();
+
+        _output = Mapper.getMapFromDataSnapshot(
+          snapshot: _snap,
+          addDocID: false,
+        );
 
       },
     );
