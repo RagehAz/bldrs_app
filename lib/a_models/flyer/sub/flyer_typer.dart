@@ -64,7 +64,6 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
-
     final List<String> _strings = <String>[];
 
     if (Mapper.checkCanLoopList(flyersTypes) == true){
@@ -79,7 +78,6 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
-
     final List<FlyerType> _flyersTypes = <FlyerType>[];
 
     if (Mapper.checkCanLoopList(strings) == true){

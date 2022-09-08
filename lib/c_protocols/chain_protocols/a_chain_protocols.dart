@@ -46,7 +46,7 @@ class ChainProtocols {
   /// FETCH
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<List<Chain>> fetchBldrsChains(BuildContext context) async {
 
     /// 1 - search LDB
@@ -160,7 +160,6 @@ class ChainProtocols {
     }
 
   }
-
   // -----------------------------------------------------------------------------
 
   /// WIPE

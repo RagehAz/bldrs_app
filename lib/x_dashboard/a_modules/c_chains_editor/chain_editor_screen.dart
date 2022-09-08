@@ -9,9 +9,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
 import 'package:flutter/material.dart';
 
-class ChainEditorScreen extends StatefulWidget {
+class ChainsEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainEditorScreen({
+  const ChainsEditorScreen({
     @required this.chains,
     Key key
   }) : super(key: key);
@@ -19,11 +19,11 @@ class ChainEditorScreen extends StatefulWidget {
   final List<Chain> chains;
   /// --------------------------------------------------------------------------
   @override
-  State<ChainEditorScreen> createState() => _ChainEditorScreenState();
+  State<ChainsEditorScreen> createState() => _ChainsEditorScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _ChainEditorScreenState extends State<ChainEditorScreen> {
+class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   // -----------------------------------------------------------------------------
   ValueNotifier<List<Chain>> _initialChains;
   ValueNotifier<List<Chain>> _tempChains;

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -12,14 +11,13 @@ import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -154,13 +152,13 @@ class _ChainsManagerState extends State<ChainsManager> {
 
 
 
-        final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
-            context: context,
-            onlyUseCityChains: false,
-            listen: false,
-        );
+        // final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
+        //     context: context,
+        //     onlyUseCityChains: false,
+        //     listen: false,
+        // );
 
-        final List<Chain> _withIndexes = Phider.createChainsIndexes(_bldrsChains);
+        // final List<Chain> _withIndexes = Phider.createChainsIndexes(_bldrsChains);
 
         // Chain.blogChains(_withIndexes);
 
@@ -168,23 +166,23 @@ class _ChainsManagerState extends State<ChainsManager> {
         //
         // final List<Chain> _reChains = Chain.decipherBldrsChains(map: _map);
         //
+        //
+        // final List<Chain> _uploaded = await ChainProtocols.composeBldrsChains(
+        //     context: context,
+        //     chains: _withIndexes,
+        // );
 
-        final List<Chain> _uploaded = await ChainProtocols.composeBldrsChains(
-            context: context,
-            chains: _withIndexes,
-        );
-
-        final bool _areIdenticalOld = Chain.checkChainsListsAreIdentical(
-          chains1: Phider.sortChainsByIndexes(_withIndexes),
-          chains2: Phider.sortChainsByIndexes(_uploaded),
-        );
-
-        final bool _areIdenticalPaths = Chain.checkChainsListPathsAreIdentical(
-            chains1: Phider.sortChainsByIndexes(_withIndexes),
-            chains2: Phider.sortChainsByIndexes(_uploaded),
-        );
-
-        blog('xx _areIdenticalOld : $_areIdenticalOld : _areIdenticalPaths : $_areIdenticalPaths');
+        // final bool _areIdenticalOld = Chain.checkChainsListsAreIdentical(
+        //   chains1: Phider.sortChainsByIndexes(_withIndexes),
+        //   chains2: Phider.sortChainsByIndexes(_uploaded),
+        // );
+        //
+        // final bool _areIdenticalPaths = Chain.checkChainsListPathsAreIdentical(
+        //     chains1: Phider.sortChainsByIndexes(_withIndexes),
+        //     chains2: Phider.sortChainsByIndexes(_uploaded),
+        // );
+        //
+        // blog('xx _areIdenticalOld : $_areIdenticalOld : _areIdenticalPaths : $_areIdenticalPaths');
 
 
       },
@@ -218,12 +216,13 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// PICKERS SELECTORS
         SizedBox(
           width: Scale.superScreenWidth(context),
-          height: Ratioz.appBarButtonSize + 5,
-          child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: _allTypes.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index){
+          // height: Ratioz.appBarButtonSize + 5,
+          child: Wrap(
+            spacing: 5,
+            runSpacing: 5,
+            children: [
+
+              ...List.generate(_allTypes.length, (index){
 
                 final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
                   flyerType: _allTypes[index],
@@ -236,7 +235,9 @@ class _ChainsManagerState extends State<ChainsManager> {
                   onTap: () => _onTapPickerSelector(_allTypes[index]),
                 );
 
-              }
+              }),
+            ],
+
           ),
         ),
 
@@ -273,7 +274,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
           },
         ),
-
         /// ALL CHAINS + MULTIPLE SELECTION
         WideButton(
           translate: false,
@@ -298,7 +298,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
           },
         ),
-
         /// CITY CHAINS + SINGLE SELECTION
         WideButton(
           translate: false,
@@ -322,7 +321,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
           },
         ),
-
         /// ALL CHAINS + SINGLE SELECTION
         WideButton(
           translate: false,
@@ -355,7 +353,6 @@ class _ChainsManagerState extends State<ChainsManager> {
           pageWidth: _screenWidth - 20,
           headlineVerse:  'Chain Real Ops',
         ),
-
         /// CREATE BLDRS CHAIN
         WideButton(
           translate: false,
@@ -402,12 +399,10 @@ class _ChainsManagerState extends State<ChainsManager> {
 
           },
         ),
-
-
-        /// READ CHAIN K
+        /// READ BLDRS CHAIN
         WideButton(
           translate: false,
-          verse:  'READ BigChainK',
+          verse:  'READ Bldrs Chain',
           color: Colorz.blue80,
           onTap: () async {
 
@@ -415,7 +410,9 @@ class _ChainsManagerState extends State<ChainsManager> {
 
             final List<Chain> _bldrsChains = await ChainRealOps.readBldrsChains(context);
 
-            Chain.blogChains(_bldrsChains);
+            blog('o');
+
+            // Chain.blogChains(_bldrsChains);
 
             WaitDialog.closeWaitDialog(context);
 
@@ -424,18 +421,16 @@ class _ChainsManagerState extends State<ChainsManager> {
             }
 
             else {
-              // await Nav.goToNewScreen(
-              //   context: context,
-              //   screen: ChainEditorScreen(
-              //     chain: _bldrsChains,
-              //   ),
-              // );
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainsEditorScreen(
+                  chains: _bldrsChains,
+                ),
+              );
             }
 
           },
         ),
-
-
         /// FETCH CHAINS
         WideButton(
           translate: false,
@@ -456,12 +451,12 @@ class _ChainsManagerState extends State<ChainsManager> {
             }
 
             else {
-              // await Nav.goToNewScreen(
-              //   context: context,
-              //   screen: ChainEditorScreen(
-              //     chain: _bldrsChains,
-              //   ),
-              // );
+              await Nav.goToNewScreen(
+                context: context,
+                screen: ChainsEditorScreen(
+                  chains: _bldrsChains,
+                ),
+              );
             }
 
           },

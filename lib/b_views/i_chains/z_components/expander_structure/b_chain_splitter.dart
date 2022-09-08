@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/c_chain_sons_builder.dart';
@@ -100,7 +101,7 @@ class ChainSplitter extends StatelessWidget {
         chain: _chain,
         boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
-        firstHeadline: _chain.id,
+        firstHeadline: Phider.removeIndexFromPhid(phid: _chain.id),
         secondHeadline: null,
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
