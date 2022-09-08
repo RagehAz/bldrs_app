@@ -57,8 +57,8 @@ class _ChainsScreenState extends State<ChainsScreen> {
   List<Chain> _bldrsChains;
   // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
-  ValueNotifier<List<PickerModel>> _refinedSpecsPickers;
-  ValueNotifier<List<String>> _groupsIDs;
+  final ValueNotifier<List<PickerModel>> _refinedSpecsPickers = ValueNotifier([]);
+  final ValueNotifier<List<String>> _groupsIDs = ValueNotifier([]);
   // --------------------
   /// SEARCHING
   // --------------------
@@ -69,7 +69,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]); /// tamam disposed
   /// SELECTION
   // --------------------
-  ValueNotifier<List<SpecModel>> _selectedSpecs;
+  final ValueNotifier<List<SpecModel>> _selectedSpecs = ValueNotifier([]);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -151,18 +151,18 @@ class _ChainsScreenState extends State<ChainsScreen> {
       }
 
       // ------------------------------
-      _selectedSpecs = ValueNotifier<List<SpecModel>>(widget.selectedSpecs ?? []);
+      _selectedSpecs.value = widget.selectedSpecs ?? [];
       // ------------------------------
       final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
         sourcePickers: _allSpecPickers,
         selectedSpecs: widget.selectedSpecs,
       );
-      _refinedSpecsPickers = ValueNotifier<List<PickerModel>>(_theRefinedPickers);
+      _refinedSpecsPickers.value = _theRefinedPickers;
       // ------------------------------
       final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
         pickers: _theRefinedPickers,
       );
-      _groupsIDs = ValueNotifier<List<String>>(_theGroupsIDs);
+      _groupsIDs.value = _theGroupsIDs;
       // ------------------------------
       _generatePhidsFromAllSpecPickers();
       // ------------------------------

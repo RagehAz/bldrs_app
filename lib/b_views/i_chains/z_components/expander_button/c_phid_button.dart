@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -92,7 +93,7 @@ class PhidButton extends StatelessWidget {
         height: getHeight(),
         width: width,
         color: color,
-        verse: phid,
+        verse: Phider.removeIndexFromPhid(phid: phid),
         translateVerse: true,
         margins: margins,
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),

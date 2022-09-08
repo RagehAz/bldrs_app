@@ -14,7 +14,7 @@ class ChainLDBOps {
   /// CREATE
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<void> insertBldrsChains(List<Chain> chains) async {
 
     await LDBOps.insertMap(
@@ -28,7 +28,7 @@ class ChainLDBOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Chain>> readBldrsChains() async {
 
     final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
