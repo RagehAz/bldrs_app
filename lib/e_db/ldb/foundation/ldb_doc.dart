@@ -1,6 +1,56 @@
 
 class LDBDoc {
+  // -----------------------------------------------------------------------------
 
+  const LDBDoc();
+
+  // -----------------------------------------------------------------------------
+
+  /// PRIMARY KEYS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getPrimaryKey(String docName) {
+    switch (docName) {
+      case LDBDoc.follows: return 'recordID';
+      case LDBDoc.calls: return 'recordID';
+      case LDBDoc.shares: return 'recordID';
+      case LDBDoc.views: return 'recordID';
+      case LDBDoc.saves: return 'recordID';
+      case LDBDoc.reviews: return 'reviewID';
+      case LDBDoc.questions: return 'questionID';
+      case LDBDoc.answers: return 'answerID';
+      case LDBDoc.flyers: return 'id';
+      case LDBDoc.bzz: return 'id';
+      case LDBDoc.users: return 'id';
+      case LDBDoc.bldrsChains: return 'id';
+      case LDBDoc.countries: return 'id';
+      case LDBDoc.cities: return 'cityID';
+      case LDBDoc.continents: return 'name';
+      case LDBDoc.currencies: return 'id';
+      case LDBDoc.mainPhrases: return 'id';
+      case LDBDoc.countriesPhrases: return 'id';
+      case LDBDoc.appState: return 'id';
+      case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
+      case LDBDoc.authModel: return 'uid';
+      case LDBDoc.notes: return 'id';
+      case LDBDoc.pickers: return 'id';
+
+      case LDBDoc.userEditor: return 'id';
+      case LDBDoc.bzEditor: return 'id';
+      case LDBDoc.authorEditor: return 'userID';
+      case LDBDoc.flyerMaker: return 'id';
+      case LDBDoc.reviewEditor: return 'id';
+
+      case 'test': return 'id';
+      default: return null;
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DOCS
+
+  // --------------------
   static const String follows = 'follows';
   static const String calls = 'calls';
   static const String shares = 'shares';
@@ -14,8 +64,7 @@ class LDBDoc {
   static const String bzz = 'bzz';
   static const String users = 'users';
 
-  static const String bigChainK = 'bigChainK';
-  static const String bigChainS = 'bigChainS';
+  static const String bldrsChains = 'chains';
   static const String pickers = 'pickers';
 
   static const String countries = 'countries';
@@ -37,7 +86,11 @@ class LDBDoc {
   static const String authorEditor = 'authorEditor';
   static const String flyerMaker = 'flyerMaker';
   static const String reviewEditor = 'reviewEditor';
+  // -----------------------------------------------------------------------------
 
+  /// ALL DOCS LIST
+
+  // --------------------
   static const List<String> allDocs = <String>[
     follows,
     calls,
@@ -51,8 +104,7 @@ class LDBDoc {
     flyers,
     bzz,
     users,
-    bigChainK,
-    bigChainS,
+    bldrsChains,
     pickers,
     countries,
     cities,
@@ -71,5 +123,5 @@ class LDBDoc {
     flyerMaker,
     reviewEditor,
   ];
-
+// -----------------------------------------------------------------------------
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/foundation.dart';
@@ -90,7 +90,7 @@ class Sembast  {
 
     if (map != null){
       await _doc.add(_db, map);
-      final String _id = LDBOps.getPrimaryKey(docName);
+      final String _id = LDBDoc.getPrimaryKey(docName);
       blog('SEMBAST : _addMap : added to ($docName) : map has (${map.keys.length}) keys : (${map[_id]})');
     }
 
@@ -128,7 +128,7 @@ class Sembast  {
       docName: docName,
     );
 
-    final String _primaryKey = LDBOps.getPrimaryKey(docName);
+    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
     final String _objectID = map[_primaryKey];
 
     final Finder _finder = Finder(
@@ -211,7 +211,7 @@ class Sembast  {
           docName: docName,
         );
 
-        final String _primaryKey = LDBOps.getPrimaryKey(docName);
+        final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
         final List<Map<String, dynamic>> _cleanedMaps = Mapper.cleanMapsOfDuplicateIDs(
           /// do not change this order of maps to overwrite the new values
@@ -484,7 +484,7 @@ class Sembast  {
         docName: docName
     );
     final Database _db = await _getDB();
-    final String _primaryKey = LDBOps.getPrimaryKey(docName);
+    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
     final Finder _finder = Finder(
       filter: Filter.equals(_primaryKey, objectID),
@@ -542,7 +542,7 @@ class Sembast  {
 
     if (Mapper.checkCanLoopList(_allMaps) == true){
 
-      final String _primaryKey = LDBOps.getPrimaryKey(docName);
+      final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
       for (final Map<String, Object> map in _allMaps) {
 
@@ -591,7 +591,7 @@ class Sembast  {
     await tryAndCatch(
         functions: () async {
 
-          final String _primaryKey = LDBOps.getPrimaryKey(docName);
+          final String _primaryKey = LDBDoc.getPrimaryKey(docName);
           final String _objectID = map[_primaryKey];
 
           _map = await findFirst(

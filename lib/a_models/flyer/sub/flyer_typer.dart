@@ -1,11 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
-// -----------------------------------------------------------------------------
 enum FlyerType {
   all,
   property,
@@ -18,11 +16,11 @@ enum FlyerType {
 }
 
 class FlyerTyper{
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   const FlyerTyper();
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   static const List<FlyerType> flyerTypesList = <FlyerType>[
     FlyerType.property,
     FlyerType.design,
@@ -31,11 +29,11 @@ class FlyerTyper{
     FlyerType.trade,
     FlyerType.equipment,
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType decipherFlyerType(String x) {
     switch (x) {
@@ -49,11 +47,11 @@ class FlyerTyper{
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String cipherFlyerType(FlyerType x) {
     switch (x) {
-      // case FlyerType.all        : return 'all';       break;
+    // case FlyerType.all        : return 'all';       break;
       case FlyerType.property   : return 'property';  break;
       case FlyerType.design     : return 'design';    break;
       case FlyerType.product    : return 'product';   break;
@@ -63,7 +61,7 @@ class FlyerTyper{
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> cipherFlyersTypes(List<FlyerType> flyersTypes){
 
@@ -78,7 +76,7 @@ class FlyerTyper{
     }
     return _strings;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> decipherFlyersTypes(List<dynamic> strings){
 
@@ -92,11 +90,11 @@ class FlyerTyper{
 
     return _flyersTypes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TABS
 
-// -------------------------------------
+  // --------------------
   static const List<FlyerType> savedFlyersTabs = <FlyerType>[
     FlyerType.all,
     FlyerType.property,
@@ -106,17 +104,17 @@ class FlyerTyper{
     FlyerType.trade,
     FlyerType.equipment,
   ];
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static int getFlyerTypeIndexFromSectionsTabs(FlyerType flyerType){
     final int _index = savedFlyersTabs.indexWhere((type) => type == flyerType);
     return _index;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// ICONS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeIconOn(FlyerType flyerType) {
 
@@ -137,7 +135,7 @@ class FlyerTyper{
 
     return icon;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeIconOff(FlyerType flyerType) {
 
@@ -158,7 +156,7 @@ class FlyerTyper{
 
     return _icon;
   }
-// -------------------------------------
+  // --------------------
   /*
 String getSectionIcon({
   @required FlyerType section,
@@ -176,11 +174,11 @@ String getSectionIcon({
   return _icon;
 }
  */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// BZ TYPE <--> FLYER TYPE : CONCLUDERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType concludeFlyerTypeByBzType(BzType bzType) {
     switch (bzType) {
@@ -194,7 +192,7 @@ String getSectionIcon({
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzType({
     @required BzType bzType
@@ -210,7 +208,7 @@ String getSectionIcon({
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzTypes({
     @required List<BzType> bzTypes
@@ -237,7 +235,7 @@ String getSectionIcon({
 
     return _flyerTypes;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludeInactiveFlyerTypesByBzModel({
     @required BzModel bzModel,
@@ -257,11 +255,11 @@ String getSectionIcon({
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerTypesIncludeThisType({
     @required FlyerType flyerType,
@@ -277,11 +275,11 @@ String getSectionIcon({
 
     return _includes;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// TRANSLATION
 
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translateFlyerType({
     @required BuildContext context,
@@ -316,7 +314,7 @@ String getSectionIcon({
     }
 
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> translateFlyerTypes({
     @required BuildContext context,
@@ -343,7 +341,7 @@ String getSectionIcon({
 
     return _strings;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translateFlyerTypeByBzType({
     @required BuildContext context,
@@ -361,7 +359,7 @@ String getSectionIcon({
 
     return _translation;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String translateFlyerTypeDescription({
     @required BuildContext context,
@@ -381,49 +379,49 @@ String getSectionIcon({
     return _description;
   }
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
   /// CHAIN <--> FLYER TYPE : CONCLUDERS
 
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FlyerType concludeFlyerTypeByChainID({
     @required String chainID,
   }){
     switch (chainID) {
     /// REAL ESTATE
-      case Chain.propertyChainID:  return FlyerType.property; break;
+      case propertyChainID:  return FlyerType.property; break;
     /// CONSTRUCTION
-      case Chain.designChainID:    return FlyerType.design; break;
-      case Chain.tradesChainID:    return FlyerType.trade; break;
+      case designChainID:    return FlyerType.design; break;
+      case tradesChainID:    return FlyerType.trade; break;
     /// SUPPLIES
-      case Chain.productChainID:   return FlyerType.product; break;
-      case Chain.equipmentChainID: return FlyerType.equipment; break;
+      case productChainID:   return FlyerType.product; break;
+      case equipmentChainID: return FlyerType.equipment; break;
       default: return null;
     }
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String concludeChainIDByFlyerType({
     @required FlyerType flyerType,
   }){
 
-    String _chainID = 'phid_sections'; /// TASK : REVISE THIS
+    String _chainID;
 
     switch(flyerType){
-      case FlyerType.property   : _chainID = Chain.propertyChainID;   break;
-      case FlyerType.design     : _chainID = Chain.designChainID;     break;
-      case FlyerType.project    : _chainID = Chain.designChainID;     break;
-      case FlyerType.trade      : _chainID = Chain.tradesChainID;     break;
-      case FlyerType.product    : _chainID = Chain.productChainID;    break;
-      case FlyerType.equipment  : _chainID = Chain.equipmentChainID;  break;
-      case FlyerType.all        : _chainID = 'phid_sections';   break; /// TASK : REVISE THIS
-      case FlyerType.non        : _chainID = 'phid_sections';   break; /// TASK : REVISE THIS
+      case FlyerType.property   : _chainID = propertyChainID;   break;
+      case FlyerType.design     : _chainID = designChainID;     break;
+      case FlyerType.project    : _chainID = designChainID;     break;
+      case FlyerType.trade      : _chainID = tradesChainID;     break;
+      case FlyerType.product    : _chainID = productChainID;    break;
+      case FlyerType.equipment  : _chainID = equipmentChainID;  break;
+      case FlyerType.all        : _chainID = null;   break;
+      case FlyerType.non        : _chainID = null;   break;
     }
 
     return _chainID;
   }
-// -------------------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String getGroupIDByChainKSonID({
     @required BuildContext context,
@@ -431,15 +429,33 @@ String getSectionIcon({
   }){
     switch (chainKSonID) {
     /// REAL ESTATE
-      case Chain.propertyChainID:  return 'phid_realEstate';   break;
+      case propertyChainID:  return 'phid_realEstate';   break;
     /// CONSTRUCTION
-      case Chain.designChainID:    return 'phid_construction'; break;
-      case Chain.tradesChainID:    return 'phid_construction'; break;
+      case designChainID:    return 'phid_construction'; break;
+      case tradesChainID:    return 'phid_construction'; break;
     /// SUPPLIES
-      case Chain.productChainID:   return 'phid_supplies';     break;
-      case Chain.equipmentChainID: return 'phid_supplies';     break;
+      case productChainID:   return 'phid_supplies';     break;
+      case equipmentChainID: return 'phid_supplies';     break;
       default: return null;
     }
   }
-// -------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// CHAINS IDS
+
+  // --------------------
+  static const String propertyChainID = 'phid_k_flyer_type_property';
+  static const String designChainID = 'phid_k_flyer_type_design';
+  static const String tradesChainID = 'phid_k_flyer_type_trades';
+  static const String productChainID = 'phid_k_flyer_type_product';
+  static const String equipmentChainID = 'phid_k_flyer_type_equipment';
+  // --------------------
+  static List<String> chainKSonsIDs = <String>[
+    propertyChainID,
+    designChainID,
+    tradesChainID,
+    productChainID,
+    equipmentChainID,
+  ];
+  // -----------------------------------------------------------------------------
 }

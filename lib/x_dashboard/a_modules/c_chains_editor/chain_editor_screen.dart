@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 class ChainEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ChainEditorScreen({
-    @required this.chain,
+    @required this.chains,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Chain chain;
+  final List<Chain> chains;
   /// --------------------------------------------------------------------------
   @override
   State<ChainEditorScreen> createState() => _ChainEditorScreenState();
@@ -25,8 +25,8 @@ class ChainEditorScreen extends StatefulWidget {
 
 class _ChainEditorScreenState extends State<ChainEditorScreen> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<Chain> _initialChain;
-  ValueNotifier<Chain> _tempChain;
+  ValueNotifier<List<Chain>> _initialChains;
+  ValueNotifier<List<Chain>> _tempChains;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -46,8 +46,8 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
   @override
   void initState() {
     super.initState();
-    _initialChain = ValueNotifier( widget.chain);
-    _tempChain = ValueNotifier( widget.chain);
+    _initialChains = ValueNotifier( widget.chains);
+    _tempChains = ValueNotifier( widget.chains);
   }
   // --------------------
   bool _isInit = true;
@@ -70,8 +70,8 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
   @override
   void dispose() {
     _loading.dispose();
-    _tempChain.dispose();
-    _initialChain.dispose();
+    _tempChains.dispose();
+    _initialChains.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -79,7 +79,7 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: widget.chain.id,
+      pageTitleVerse: 'Bldrs Chains',
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       onBack: () => Dialogs.goBackDialog(
@@ -91,16 +91,16 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
         const Expander(),
 
         ValueListenableBuilder(
-            valueListenable: _initialChain,
-            builder: (_, Chain initialChain, Widget child){
+            valueListenable: _initialChains,
+            builder: (_, List<Chain> initialChains, Widget child){
 
               return ValueListenableBuilder(
-                valueListenable: _tempChain,
-                builder: (_, Chain tempChain, Widget child){
+                valueListenable: _tempChains,
+                builder: (_, List<Chain> tempChains, Widget child){
 
-                  final bool _areIdentical = Chain.checkChainsPathsAreIdentical(
-                    chain1: tempChain,
-                    chain2: initialChain,
+                  final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
+                    chains1: tempChains,
+                    chains2: initialChains,
                   );
 
                   return AppBarButton(
@@ -110,8 +110,8 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
                     verseColor: Colorz.black255,
                     onTap: () => onSyncChain(
                       context: context,
-                      initialChain: _initialChain,
-                      editedChain: _tempChain.value,
+                      initialChains: _initialChains,
+                      editedChains: _tempChains.value,
                     ),
                   );
 
@@ -129,24 +129,24 @@ class _ChainEditorScreenState extends State<ChainEditorScreen> {
           physics: const BouncingScrollPhysics(),
           padding: Stratosphere.stratosphereSandwich,
           child: ValueListenableBuilder(
-            valueListenable: _tempChain,
-            builder: (_, Chain tempChain, Widget child){
+            valueListenable: _tempChains,
+            builder: (_, List<Chain> tempChains, Widget child){
 
               // chain.blogChain();
 
               return ChainSplitter(
                 initiallyExpanded: false,
-                chainOrChainsOrSonOrSons: tempChain,
+                chainOrChainsOrSonOrSons: tempChains,
                 onSelectPhid: (String path, String phid) => onPhidTap(
                   context: context,
                   path: path,
                   phid: phid,
-                  tempChain: _tempChain,
+                  tempChains: _tempChains,
                 ),
                 onAddToPath: (String path) => onAddNewPath(
                   context: context,
                   path: path,
-                  tempChain: _tempChain,
+                  tempChains: _tempChains,
                 ),
 
               );

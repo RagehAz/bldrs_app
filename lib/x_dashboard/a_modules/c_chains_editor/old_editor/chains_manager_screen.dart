@@ -17,7 +17,6 @@ import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chain_man
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_chain_methods/chain_fire_ops.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_chains_editor_controllers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class OLDChainsManagerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -49,73 +48,16 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
   void initState() {
     super.initState();
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final Chain _keywordsChain = _chainsProvider.bigChainK;
-    final Chain _specsChain = _chainsProvider.bigChainS;
+    final List<Chain> _bldrsChain = ChainsProvider.proGetBldrsChains(
+        context: context,
+        onlyUseCityChains: false,
+        listen: false,
+    );
 
-    _textController = TextEditingController(); /// tamam disposed
-    _searchController = TextEditingController();/// tamam disposed
+    _textController = TextEditingController();
+    _searchController = TextEditingController();
 
-    // _testChain = const Chain(
-    //   id: 'phid_bldrs',
-    //   sons: <Chain>[
-    //
-    //     Chain(
-    //       id: 'phid_design',
-    //       sons: <String>[
-    //         'phid_contractor',
-    //         'phid_trade',
-    //       ],
-    //     ),
-    //
-    //     Chain(
-    //       id: 'phid_property',
-    //       sons: <String>[
-    //         'phid_product',
-    //         'phid_equipment',
-    //       ],
-    //     ),
-    //
-    //     Chain(
-    //       id: 'phid_enter',
-    //       sons: <Chain>[
-    //
-    //         Chain(
-    //           id: 'xx',
-    //           sons: <String>[
-    //             'yyy',
-    //             'zzz',
-    //           ],
-    //         ),
-    //
-    //         Chain(
-    //           id: 'qqq',
-    //           sons: <String>[
-    //             'uuuu',
-    //             'eeee',
-    //           ],
-    //         ),
-    //       ],
-    //     ),
-    //
-    //   ],
-    // );
-
-    _originalChains = <Chain>[
-      _keywordsChain,
-      _specsChain,
-      // _testChain,
-    ];
-
-    _chainsNotifier = ValueNotifier<List<Chain>>(<Chain>[_keywordsChain, _specsChain]);
-
-    // _allChainsPaths = ChainPathConverter.generateChainsPaths(
-    //     parentID: '',
-    //     chains: _originalChains,
-    // );
-
-    // blog('all chains paths : -');
-    // ChainPathConverter.blogPaths(_allChainsPaths);
+    _chainsNotifier = ValueNotifier<List<Chain>>(_bldrsChain);
 
   }
   // --------------------

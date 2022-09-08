@@ -210,7 +210,7 @@ class PhraseProtocols {
   /// WIPE
 
   // --------------------
-
+  ///
   // -----------------------------------------------------------------------------
 
   /// GENERATE PHRASES
@@ -297,5 +297,33 @@ class PhraseProtocols {
 
     return _phrases;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  ///
+  static Future<List<Phrase>> generatePhrasesFromChains({
+    @required List<Chain> chains,
+    @required BuildContext context,
+  }) async {
+    final List<Phrase> _phrases = <Phrase>[];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      Future<void> _generate(Chain chain) async {
+        final List<Phrase> _chainPhrases = await generatePhrasesFromChain(
+          chain: chain,
+          context: context,
+        );
+        _phrases.addAll(_chainPhrases);
+      }
+
+      await Future.wait(<Future>[
+        ...List.generate(chains.length, (index){
+          return _generate(chains[index]);
+        }),
+      ]);
+
+    }
+
+    return _phrases;
+  }
+// -----------------------------------------------------------------------------
 }

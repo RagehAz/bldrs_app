@@ -106,14 +106,14 @@ class AppStateFireOps{
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateGlobalKeywordsChainVersion(BuildContext context) async {
+  static Future<void> updateGlobalChainsVersion(BuildContext context) async {
 
     final AppState _appState = await readGlobalAppState(context);
 
-    final double lastVersion = _appState.keywordsChainVersion ?? 0;
+    final double lastVersion = _appState.chainsVersion ?? 0;
 
     final AppState _newAppState = _appState.copyWith(
-      keywordsChainVersion: lastVersion + 1,
+      chainsVersion: lastVersion + 1,
     );
 
     await _updateGlobalAppState(
@@ -162,26 +162,9 @@ class AppStateFireOps{
 
     final AppState _appState = await readGlobalAppState(context);
 
-    final double lastVersion = _appState.specPickersVersion ?? 0;
+    final double lastVersion = _appState.pickersVersion ?? 0;
     final AppState _newAppState = _appState.copyWith(
-      specPickersVersion: lastVersion + 1,
-    );
-
-    await _updateGlobalAppState(
-      context: context,
-      newAppState: _newAppState,
-    );
-
-  }
-  // --------------------
-  /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateSpecsChainVersion(BuildContext context) async {
-
-    final AppState _appState = await readGlobalAppState(context);
-
-    final double lastVersion = _appState.specsChainVersion ?? 0;
-    final AppState _newAppState = _appState.copyWith(
-      specsChainVersion: lastVersion + 1,
+      pickersVersion: lastVersion + 1,
     );
 
     await _updateGlobalAppState(

@@ -1,17 +1,12 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/old_chain_methods/chain_fire_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -204,101 +199,101 @@ Future<void> onSync({
   @required List<Chain> updatedChains,
 }) async {
 
-  final bool _chainsListsAreTheSame = Chain.checkChainsListPathsAreIdentical(
-    chains1: originalChains,
-    chains2: updatedChains,
-  );
-
-  /// WHEN THERE ARE NO CHANGES
-  if (_chainsListsAreTheSame == true){
-
-    await TopDialog.showTopDialog(
-      context: context,
-      firstLine: 'Chains were not modified',
-      secondLine: 'No Sync required',
-    );
-
-  }
-
-  /// WHEN A CHAIN NODE CHANGED
-  else {
-
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse:  'Sync Chains to DB ?',
-      bodyVerse:  'This will check which Chain was modified and automatically update it on database',
-      boolDialog: true,
-    );
-
-    if (_result == true){
-
-      for (int i = 0; i < updatedChains.length; i++){
-
-        final Chain _updatedChain = updatedChains[i];
-        final Chain _originalChain = originalChains[i];
-        final bool _chainsAreTheSame = Chain.checkChainsPathsAreIdentical(
-            chain1: _updatedChain,
-            chain2: _originalChain
-        );
-
-        if (_chainsAreTheSame == false){
-
-          /// IF KEYWORDS CHAIN
-          if (chainIsKeywordsChain(_updatedChain) == true){
-            await _updateKeywordsChainOps(
-              context: context,
-              chain: _updatedChain,
-            );
-
-            await _syncSuccessDialog(context);
-          }
-          /// IF SPECS CHAIN
-          else if (chainIsSpecsChain(_updatedChain) == true){
-            await _updateSpecsChainOps(
-                context: context,
-                chain: _updatedChain
-            );
-            await _syncSuccessDialog(context);
-          }
-          /// IF OTHER NEW CHAIN
-          else {
-            blog('this Chain ${_updatedChain.id} was not synced');
-            _updatedChain.blogChain();
-            await _syncFailureDialog(context);
-          }
-        }
-
-      }
-
-
-
-    }
-
-  }
-
-}
-// -----------------------------------------------------------------------------
-Future<void> _syncSuccessDialog(BuildContext context) async {
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse:  'Chains Are Synced on database Successfully',
-    bodyVerse:  'you need to restart this screen to update the red button ma3lesh',
-    confirmButtonVerse:  'I Understand mashi',
-  );
+  // final bool _chainsListsAreTheSame = Chain.checkChainsListPathsAreIdentical(
+  //   chains1: originalChains,
+  //   chains2: updatedChains,
+  // );
+  //
+  // /// WHEN THERE ARE NO CHANGES
+  // if (_chainsListsAreTheSame == true){
+  //
+  //   await TopDialog.showTopDialog(
+  //     context: context,
+  //     firstLine: 'Chains were not modified',
+  //     secondLine: 'No Sync required',
+  //   );
+  //
+  // }
+  //
+  // /// WHEN A CHAIN NODE CHANGED
+  // else {
+  //
+  //   final bool _result = await CenterDialog.showCenterDialog(
+  //     context: context,
+  //     titleVerse:  'Sync Chains to DB ?',
+  //     bodyVerse:  'This will check which Chain was modified and automatically update it on database',
+  //     boolDialog: true,
+  //   );
+  //
+  //   if (_result == true){
+  //
+  //     for (int i = 0; i < updatedChains.length; i++){
+  //
+  //       final Chain _updatedChain = updatedChains[i];
+  //       final Chain _originalChain = originalChains[i];
+  //       final bool _chainsAreTheSame = Chain.checkChainsPathsAreIdentical(
+  //           chain1: _updatedChain,
+  //           chain2: _originalChain
+  //       );
+  //
+  //       if (_chainsAreTheSame == false){
+  //
+  //         /// IF KEYWORDS CHAIN
+  //         if (chainIsKeywordsChain(_updatedChain) == true){
+  //           await _updateKeywordsChainOps(
+  //             context: context,
+  //             chain: _updatedChain,
+  //           );
+  //
+  //           await _syncSuccessDialog(context);
+  //         }
+  //         /// IF SPECS CHAIN
+  //         else if (chainIsSpecsChain(_updatedChain) == true){
+  //           await _updateSpecsChainOps(
+  //               context: context,
+  //               chain: _updatedChain
+  //           );
+  //           await _syncSuccessDialog(context);
+  //         }
+  //         /// IF OTHER NEW CHAIN
+  //         else {
+  //           blog('this Chain ${_updatedChain.id} was not synced');
+  //           _updatedChain.blogChain();
+  //           await _syncFailureDialog(context);
+  //         }
+  //       }
+  //
+  //     }
+  //
+  //
+  //
+  //   }
+  //
+  // }
 
 }
 // -----------------------------------------------------------------------------
-Future<void> _syncFailureDialog(BuildContext context) async {
-
-  await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse:  'nothing Synced',
-    bodyVerse:  'Something went wrong',
-    color: Colorz.bloodTest,
-  );
-
-}
+// Future<void> _syncSuccessDialog(BuildContext context) async {
+//
+//   await CenterDialog.showCenterDialog(
+//     context: context,
+//     titleVerse:  'Chains Are Synced on database Successfully',
+//     bodyVerse:  'you need to restart this screen to update the red button ma3lesh',
+//     confirmButtonVerse:  'I Understand mashi',
+//   );
+//
+// }
+// -----------------------------------------------------------------------------
+// Future<void> _syncFailureDialog(BuildContext context) async {
+//
+//   await CenterDialog.showCenterDialog(
+//     context: context,
+//     titleVerse:  'nothing Synced',
+//     bodyVerse:  'Something went wrong',
+//     color: Colorz.bloodTest,
+//   );
+//
+// }
 // -----------------------------------------------------------------------------
 bool chainIsKeywordsChain(Chain chain){
   return chain.id == 'phid_sections';
@@ -308,64 +303,64 @@ bool chainIsSpecsChain(Chain chain){
   return chain.id == 'phid_s_specs_chain';
 }
 // -----------------------------------------------------------------------------
-Future<void> _updateKeywordsChainOps({
-  @required BuildContext context,
-  @required Chain chain,
-}) async {
-
-  if (chainIsKeywordsChain(chain) == true){
-
-    /// 1 - UPDATE ON FIREBASE
-    await ChainFireOpsOLD.updateKeywordsChain(
-      context: context,
-      newKeywordsChain: chain,
-    );
-
-    /// 2 - UPDATE ON LDB
-    await LDBOps.insertMap(
-      input: chain.toMapOLD(),
-      docName: LDBDoc.bigChainK,
-    );
-
-    /// 3 - UPDATE PROVIDER
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    await _chainsProvider.updateBigChainKOps(
-      context: context,
-      bigChainK: chain,
-      notify: true,
-    );
-
-    /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
-    await AppStateFireOps.updateGlobalKeywordsChainVersion(context);
-  }
-
-}
+// Future<void> _updateKeywordsChainOps({
+//   @required BuildContext context,
+//   @required Chain chain,
+// }) async {
+//
+//   if (chainIsKeywordsChain(chain) == true){
+//
+//     /// 1 - UPDATE ON FIREBASE
+//     await ChainFireOpsOLD.updateKeywordsChain(
+//       context: context,
+//       newKeywordsChain: chain,
+//     );
+//
+//     /// 2 - UPDATE ON LDB
+//     await LDBOps.insertMap(
+//       input: chain.toMapOLD(),
+//       docName: LDBDoc.bldrsChains,
+//     );
+//
+//     /// 3 - UPDATE PROVIDER
+//     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+//     await _chainsProvider.updateBldrsChainsOps(
+//       context: context,
+//       bldrsChains: chain,
+//       notify: true,
+//     );
+//
+//     /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+//     await AppStateFireOps.updateGlobalChainsVersion(context);
+//   }
+//
+// }
 // -----------------------------------------------------------------------------
-Future<void> _updateSpecsChainOps({
-  @required BuildContext context,
-  @required Chain chain,
-}) async {
-
-  // /// 1 - UPDATE ON FIREBASE
-  // await ChainFireOpsOLD.updateSpecsChain(
-  //   context: context,
-  //   newSpecsChain: chain,
-  // );
-  //
-  // /// 2 - UPDATE ON LDB
-  // await LDBOps.insertMap(
-  //   input: chain.toMapOLD(),
-  //   docName: LDBDoc.bigChainS,
-  // );
-  //
-  // /// 3 - UPDATE PROVIDER
-  // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-  // _chainsProvider.setBigChainS(
-  //     bigChainS: chain,
-  //     notify: true
-  // );
-  //
-  // /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
-  // await AppStateOps.updateSpecsChainVersion(context);
-}
+// Future<void> _updateSpecsChainOps({
+//   @required BuildContext context,
+//   @required Chain chain,
+// }) async {
+//
+//   // /// 1 - UPDATE ON FIREBASE
+//   // await ChainFireOpsOLD.updateSpecsChain(
+//   //   context: context,
+//   //   newSpecsChain: chain,
+//   // );
+//   //
+//   // /// 2 - UPDATE ON LDB
+//   // await LDBOps.insertMap(
+//   //   input: chain.toMapOLD(),
+//   //   docName: LDBDoc.bigChainS,
+//   // );
+//   //
+//   // /// 3 - UPDATE PROVIDER
+//   // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+//   // _chainsProvider.setBigChainS(
+//   //     bigChainS: chain,
+//   //     notify: true
+//   // );
+//   //
+//   // /// 4 - UPDATE APP STATE (KEYWORDS VERSION)
+//   // await AppStateOps.updateSpecsChainVersion(context);
+// }
 // -----------------------------------------------------------------------------

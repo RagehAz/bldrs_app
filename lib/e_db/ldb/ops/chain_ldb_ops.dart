@@ -14,6 +14,71 @@ class ChainLDBOps {
   /// CREATE
 
   // --------------------
+
+  static Future<void> insertBldrsChains(List<Chain> chains) async {
+
+    await LDBOps.insertMap(
+      docName: LDBDoc.bldrsChains,
+      input: Chain.cipherBldrsChains(chains: chains),
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ
+
+  // --------------------
+  ///
+  static Future<List<Chain>> readBldrsChains() async {
+
+    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.bldrsChains,
+    );
+
+    List<Chain> _chains;
+
+    if (Mapper.checkCanLoopList(_maps) == true) {
+
+      _chains = Chain.decipherBldrsChains(
+        map: _maps[0],
+      );
+
+    }
+
+    return _chains;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  ///
+  static Future<void> updateBldrsChains({
+    @required List<Chain> chains,
+  }) async {
+
+    await insertBldrsChains(chains);
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  ///
+  static Future<void> deleteBldrsChains() async {
+
+    await LDBOps.deleteAllMapsAtOnce(
+      docName: LDBDoc.bldrsChains,
+    );
+
+  }
+  // --------------------
+}
+
+/*
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBigChainK(Chain bigChainK) async {
 
@@ -33,10 +98,6 @@ class ChainLDBOps {
     );
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// READ
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> readBigChainK() async {
@@ -77,11 +138,8 @@ class ChainLDBOps {
 
     return _bigChainS;
   }
-  // -----------------------------------------------------------------------------
 
-  /// UPDATE
-
-  // --------------------
+    // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBigChainK({
     @required Chain newBigChainK,
@@ -103,27 +161,5 @@ class ChainLDBOps {
     await insertBigChainS(newBigChainS);
 
   }
-  // -----------------------------------------------------------------------------
 
-  /// DELETE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteBigChainK() async {
-
-    await LDBOps.deleteAllMapsAtOnce(
-      docName: LDBDoc.bigChainK,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteBigChainS() async {
-
-    await LDBOps.deleteAllMapsAtOnce(
-      docName: LDBDoc.bigChainS,
-    );
-
-  }
-  // --------------------
-}
+ */
