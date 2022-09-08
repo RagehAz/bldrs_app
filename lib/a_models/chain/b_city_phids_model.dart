@@ -193,9 +193,9 @@ class CityPhidsModel {
     return _output;
   }
 // -------------------------------------
-  /// TESTED : WORKS PERFECT
-  static Chain removeUnusedPhidsFromChainKForThisCity({
-    @required Chain bigChainK,
+  ///
+  static List<Chain> removeUnusedPhidsFromBldrsChainsForThisCity({
+    @required List<Chain> bldrsChains,
     @required CityPhidsModel currentCityPhidsModel,
   }) {
 
@@ -203,8 +203,8 @@ class CityPhidsModel {
       cityPhidsModel: currentCityPhidsModel,
     );
 
-    final Chain _refined = Chain.removeAllPhidsNotUsedInThisList(
-      chain: bigChainK,
+    final List<Chain> _refined = Chain.removeAllPhidsNotUsedInThisList(
+      chains: bldrsChains,
       usedPhids: _usedPhids,
     );
 

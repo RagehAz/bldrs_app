@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -22,27 +21,27 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
-  @required ValueNotifier<Chain> initialChain,
-  @required Chain editedChain,
+  @required ValueNotifier<List<Chain>> initialChains,
+  @required List<Chain> editedChains,
 }) async {
 
-  blog('onSyncChain : ---------------- START : originalChain.id : ${initialChain.value.id}');
+  blog('onSyncChain : ---------------- START ');
 
   final bool _continue = await _preSyncCheckups(
     context: context,
-    originalChain: initialChain.value,
-    editedChain: editedChain,
+    originalChains: initialChains.value,
+    editedChains: editedChains,
   );
 
   if (_continue == true){
 
     await _updateChain(
       context: context,
-      initialChain: initialChain.value,
-      editedChain: editedChain,
+      initialChains: initialChains.value,
+      editedChains: editedChains,
     );
 
-    initialChain.value = editedChain;
+    initialChains.value = editedChains;
 
   }
 
@@ -52,18 +51,18 @@ Future<void> onSyncChain({
 /// TESTED : WORKS PERFECT
 Future<bool> _preSyncCheckups({
   @required BuildContext context,
-  @required Chain originalChain,
-  @required Chain editedChain,
+  @required List<Chain> originalChains,
+  @required List<Chain> editedChains,
 }) async {
 
   final List<String> _originalPaths = ChainPathConverter.generateChainsPaths(
-    parentID: originalChain.id,
-    chains: originalChain.sons,
+    parentID: 'OriginalPaths',
+    chains: originalChains,
   );
 
   final List<String> _editedPaths = ChainPathConverter.generateChainsPaths(
-    parentID: editedChain.id,
-    chains: editedChain.sons,
+    parentID: 'EditedPaths',
+    chains: editedChains,
   );
 
   final List<String> _differencesLog = Stringer.blogStringsListsDifferences(
@@ -90,54 +89,23 @@ Future<bool> _preSyncCheckups({
   return _continue;
 }
   // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> _updateChain({
   @required BuildContext context,
-  @required Chain initialChain,
-  @required Chain editedChain,
+  @required List<Chain> initialChains,
+  @required List<Chain> editedChains,
 }) async {
 
-  final String _realChainDoc =
-  initialChain.id == 'chainK' ?
-  RealDoc.chains_bigChainK
-      :
-  initialChain.id == 'chainS' ?
-  RealDoc.chains_bigChainS
-      :
-  null;
-
-  bool _success = false;
-
-  /// BIG CHAIN K RENOVATION
-  if (_realChainDoc == RealDoc.chains_bigChainK) {
-
-    await ChainProtocols.renovateBigChainK(
-        context: context,
-        bigChainK: editedChain
-    );
-
-    _success = true;
-  }
-
-  /// BIG CHAIN S RENOVATION
-  else if (_realChainDoc == RealDoc.chains_bigChainS) {
-
-    await ChainProtocols.renovateBigChainS(
-        context: context,
-        bigChainS: editedChain
-    );
-
-    _success = true;
-  }
-
-  /// SUCCESS DIALOG
-  if (_success == true){
-    await TopDialog.showSuccessDialog(
+  await ChainProtocols.renovateBldrsChains(
       context: context,
-      firstLine: '${initialChain.id} updated successfully',
-      secondLine: 'in ( Real/chains/$_realChainDoc)',
-    );
-  }
+      newChains: editedChains
+  ).whenComplete(
+          () => TopDialog.showSuccessDialog(
+    context: context,
+    firstLine: 'updated Bldrs chain successfully',
+    secondLine: 'in ( Real/chains/ )',
+  )
+  );
 
 }
 // -----------------------------------------------------------------------------
@@ -150,7 +118,7 @@ Future<void> onPhidTap({
   @required BuildContext context,
   @required String path,
   @required String phid,
-  @required ValueNotifier<Chain> tempChain,
+  @required ValueNotifier<List<Chain>> tempChains,
 }) async {
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
@@ -181,7 +149,7 @@ Future<void> onPhidTap({
             verse:  'Edit',
             onTap: () => onEditPhid(
               context: context,
-              tempChain: tempChain,
+              tempChains: tempChains,
               path: _path,
               phid: phid,
             ),
@@ -193,7 +161,7 @@ Future<void> onPhidTap({
             verse:  'Delete',
             onTap: () => onDeleteThePhid(
               context: context,
-              tempChain: tempChain,
+              tempChains: tempChains,
               path: _path,
               phid: phid,
             ),
@@ -210,11 +178,11 @@ Future<void> onPhidTap({
 /// MODIFIERS
 
   // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onAddNewPath ({
   @required BuildContext context,
   @required String path,
-  @required ValueNotifier<Chain> tempChain,
+  @required ValueNotifier<List<Chain>> tempChains,
 }) async {
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
@@ -225,14 +193,14 @@ Future<void> onAddNewPath ({
     title: 'Add to path',
   );
 
-  final Chain _updated = Chain.addPathToChain(
-    chain: tempChain.value,
+  final List<Chain> _updated = Chain.addPathToChains(
+    chains: tempChains.value,
     path: _typedPath,
   );
 
   // _updated.blogChain();
 
-  tempChain.value = _updated;
+  tempChains.value = _updated;
 
   await TopDialog.showSuccessDialog(
     context: context,
@@ -248,7 +216,7 @@ Future<void> onDeleteThePhid ({
   @required BuildContext context,
   @required String phid,
   @required String path,
-  @required ValueNotifier<Chain> tempChain,
+  @required ValueNotifier<List<Chain>> tempChains,
 }) async {
 
   Nav.goBack(
@@ -266,12 +234,12 @@ Future<void> onDeleteThePhid ({
 
   if (_continue == true){
 
-    final Chain _updated = Chain.removePathFromChain(
-      chain: tempChain.value,
+    final List<Chain> _updated = Chain.removePathFromChains(
+      chains: tempChains.value,
       path: path,
     );
 
-    tempChain.value = _updated;
+    tempChains.value = _updated;
 
     await TopDialog.showSuccessDialog(
       context: context,
@@ -285,7 +253,7 @@ Future<void> onDeleteThePhid ({
 /// TESTED : WORKS PERFECT
 Future<void> onEditPhid({
   @required BuildContext context,
-  @required ValueNotifier<Chain> tempChain,
+  @required ValueNotifier<List<Chain>> tempChains,
   @required String phid,
   @required String path,
 }) async {
@@ -312,13 +280,13 @@ Future<void> onEditPhid({
 
     if (_continue == true){
 
-      final Chain _updated = Chain.replaceChainPathWithPath(
-        chain: tempChain.value,
+      final List<Chain> _updated = Chain.replaceChainsPathWithPath(
+        chains: tempChains.value,
         pathToRemove: path,
         pathToReplace: _typedPath,
       );
 
-      tempChain.value = _updated;
+      tempChains.value = _updated;
 
       await TopDialog.showSuccessDialog(
         context: context,

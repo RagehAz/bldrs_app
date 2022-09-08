@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
@@ -21,7 +20,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
 import 'package:flutter/material.dart';
@@ -156,18 +154,11 @@ class _ChainsManagerState extends State<ChainsManager> {
 
 
 
-        final Chain _chainK = ChainsProvider.proGetBigChainK(
+        final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
             context: context,
             onlyUseCityChains: false,
             listen: false,
         );
-
-        final Chain _chainS = ChainsProvider.proGetBigChainS(
-            context: context,
-            listen: false,
-        );
-
-        final List<Chain> _bldrsChains = <Chain>[..._chainK.sons, ..._chainS.sons];
 
         final List<Chain> _withIndexes = Phider.createChainsIndexes(_bldrsChains);
 
@@ -177,22 +168,23 @@ class _ChainsManagerState extends State<ChainsManager> {
         //
         // final List<Chain> _reChains = Chain.decipherBldrsChains(map: _map);
         //
-        // final bool _areIdenticalOld = Chain.checkChainsListsAreIdenticalOLDMETHOD(
-        //     chains1: _withIndexes,
-        //     chains2: _reChains
-        // );
-        //
-        // final bool _areIdenticalPaths = Chain.checkChainsListPathsAreIdentical(
-        //     chains1: _withIndexes,
-        //     chains2: _reChains
-        // );
-        //
-        // blog('_areIdenticalOld : $_areIdenticalOld : _areIdenticalPaths : $_areIdenticalPaths');
 
-        await ChainProtocols.composeBldrsChains(
+        final List<Chain> _uploaded = await ChainProtocols.composeBldrsChains(
             context: context,
             chains: _withIndexes,
         );
+
+        final bool _areIdenticalOld = Chain.checkChainsListsAreIdentical(
+          chains1: Phider.sortChainsByIndexes(_withIndexes),
+          chains2: Phider.sortChainsByIndexes(_uploaded),
+        );
+
+        final bool _areIdenticalPaths = Chain.checkChainsListPathsAreIdentical(
+            chains1: Phider.sortChainsByIndexes(_withIndexes),
+            chains2: Phider.sortChainsByIndexes(_uploaded),
+        );
+
+        blog('xx _areIdenticalOld : $_areIdenticalOld : _areIdenticalPaths : $_areIdenticalPaths');
 
 
       },
@@ -364,98 +356,53 @@ class _ChainsManagerState extends State<ChainsManager> {
           headlineVerse:  'Chain Real Ops',
         ),
 
-        /// CREATE CHAIN K
+        /// CREATE BLDRS CHAIN
         WideButton(
           translate: false,
           isActive: false,
-          verse:  'CREATE BigChainK from ProChainK',
+          verse:  'CREATE BLDRS CHAIN',
           color: Colorz.blue80,
           onTap: () async {
 
-            final bool _continue = await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse:  'Create new Chain ?',
-              bodyVerse:  'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
-              boolDialog: true,
-              color: Colorz.bloodTest,
-            );
-
-            if (_continue == true){
-
-              final Chain chainK = ChainsProvider.proGetBigChainK(
-                  context: context,
-                  onlyUseCityChains: false,
-                  listen: false
-              );
-
-              final Chain _chainKUploaded = await ChainProtocols.composeChainK(
-                  context: context,
-                  chainK: chainK
-              );
-
-              if (_chainKUploaded == null){
-                blog('No ChainK received');
-              }
-
-              else {
-                await Nav.goToNewScreen(
-                  context: context,
-                  screen: ChainEditorScreen(
-                    chain: _chainKUploaded,
-                  ),
-                );
-              }
-
-            }
+            // final bool _continue = await CenterDialog.showCenterDialog(
+            //   context: context,
+            //   titleVerse:  'Create new Chain ?',
+            //   bodyVerse:  'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
+            //   boolDialog: true,
+            //   color: Colorz.bloodTest,
+            // );
+            //
+            // if (_continue == true){
+            //
+            //   final Chain chainK = ChainsProvider.proGetBldrsChains(
+            //       context: context,
+            //       onlyUseCityChains: false,
+            //       listen: false
+            //   );
+            //
+            //   final Chain _chainKUploaded = await ChainProtocols.composeChainK(
+            //       context: context,
+            //       chainK: chainK
+            //   );
+            //
+            //   if (_chainKUploaded == null){
+            //     blog('No ChainK received');
+            //   }
+            //
+            //   else {
+            //     await Nav.goToNewScreen(
+            //       context: context,
+            //       screen: ChainEditorScreen(
+            //         chain: _chainKUploaded,
+            //       ),
+            //     );
+            //   }
+            //
+            // }
 
           },
         ),
 
-        /// CREATE CHAIN S
-        WideButton(
-          translate: false,
-          isActive: false,
-          verse:  'CREATE BigChainS from ProChainS',
-          color: Colorz.blue80,
-          onTap: () async {
-
-            final bool _continue = await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse:  'Create new Chain ?',
-              bodyVerse:  'This will Create a new chain from pro chain and upload it to real db,, wanna continue ?',
-              boolDialog: true,
-              color: Colorz.bloodTest,
-            );
-
-            if (_continue == true){
-
-              final Chain chainS = ChainsProvider.proGetBigChainS(
-                  context: context,
-                  listen: false
-              );
-
-              final Chain _chainSUploaded = await ChainProtocols.composeChainS(
-                  context: context,
-                  chainS: chainS
-              );
-
-              if (_chainSUploaded == null){
-                blog('No ChainS received');
-              }
-
-              else {
-                await Nav.goToNewScreen(
-                  context: context,
-                  screen: ChainEditorScreen(
-                    chain: _chainSUploaded,
-                  ),
-                );
-              }
-
-            }
-
-          },
-        ),
 
         /// READ CHAIN K
         WideButton(
@@ -466,108 +413,55 @@ class _ChainsManagerState extends State<ChainsManager> {
 
             unawaited(WaitDialog.showWaitDialog(context: context,));
 
-            final Chain _bigChainK = await ChainRealOps.readBigChainK(context);
+            final List<Chain> _bldrsChains = await ChainRealOps.readBldrsChains(context);
+
+            Chain.blogChains(_bldrsChains);
 
             WaitDialog.closeWaitDialog(context);
 
-            if (_bigChainK == null){
+            if (_bldrsChains == null){
               blog('No ChainK found');
             }
 
             else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainEditorScreen(
-                  chain: _bigChainK,
-                ),
-              );
+              // await Nav.goToNewScreen(
+              //   context: context,
+              //   screen: ChainEditorScreen(
+              //     chain: _bldrsChains,
+              //   ),
+              // );
             }
 
           },
         ),
 
-        /// READ CHAIN S
+
+        /// FETCH CHAINS
         WideButton(
           translate: false,
-          verse:  'READ BigChainS',
+          verse:  'FETCH Bldrs Chains',
           color: Colorz.blue80,
           onTap: () async {
 
             unawaited(WaitDialog.showWaitDialog(context: context,));
 
-            final Chain _bigChainS = await ChainRealOps.readBigChainS(context);
+            final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+
+            Chain.blogChains(_bldrsChains);
 
             WaitDialog.closeWaitDialog(context);
 
-            if (_bigChainS == null){
-              blog('No ChainS found');
-            }
-
-            else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainEditorScreen(
-                  chain: _bigChainS,
-                ),
-              );
-            }
-
-          },
-        ),
-
-        /// FETCH CHAIN K
-        WideButton(
-          translate: false,
-          verse:  'FETCH BigChainK',
-          color: Colorz.blue80,
-          onTap: () async {
-
-            unawaited(WaitDialog.showWaitDialog(context: context,));
-
-            final Chain _bigChainK = await ChainProtocols.fetchBigChainK(context);
-
-            WaitDialog.closeWaitDialog(context);
-
-            if (_bigChainK == null){
+            if (_bldrsChains == null){
               blog('No ChainK found');
             }
 
             else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainEditorScreen(
-                  chain: _bigChainK,
-                ),
-              );
-            }
-
-          },
-        ),
-
-        /// READ CHAIN S
-        WideButton(
-          translate: false,
-          verse:  'FETCH BigChainS',
-          color: Colorz.blue80,
-          onTap: () async {
-
-            unawaited(WaitDialog.showWaitDialog(context: context,));
-
-            final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
-
-            WaitDialog.closeWaitDialog(context);
-
-            if (_bigChainS == null){
-              blog('No ChainS found');
-            }
-
-            else {
-              await Nav.goToNewScreen(
-                context: context,
-                screen: ChainEditorScreen(
-                  chain: _bigChainS,
-                ),
-              );
+              // await Nav.goToNewScreen(
+              //   context: context,
+              //   screen: ChainEditorScreen(
+              //     chain: _bldrsChains,
+              //   ),
+              // );
             }
 
           },

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
@@ -303,57 +304,39 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// CHAINS -------------------------------------------------------------
             const SuperVerse(verse:  'Chains',),
 
-            /// BIG CHAIN K
+            /// BLDRS CHAINS
             ProviderTestButton(
-              title: 'chainsProvider.bigChainK ',
-              value: _chainsProvider?.bigChainK,
+              title: 'chainsProvider.bldrsChains ',
+              value: _chainsProvider?.bldrsChains,
               onTap: (){
-                _chainsProvider.bigChainK.blogChain();
-              },
-            ),
-
-            /// BIG CHAIN S
-            ProviderTestButton(
-              title: 'chainsProvider.bigChainS ',
-              value: _chainsProvider?.bigChainS,
-              onTap: (){
-                _chainsProvider.bigChainS.blogChain();
+                Chain.blogChains(_chainsProvider?.bldrsChains);
               },
             ),
 
             /// CITY CHAIN K
             ProviderTestButton(
-              title: 'chainsProvider.cityChainK ',
-              value: _chainsProvider?.cityChainK,
+              title: 'chainsProvider.cityChains ',
+              value: _chainsProvider?.cityChains,
               onTap: (){
-                _chainsProvider.cityChainK.blogChain();
+                Chain.blogChains(_chainsProvider?.cityChains);
               },
             ),
 
-            /// BIG CHAIN K PHRASES
+            /// BLDRS CHAINS PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.bigChainKPhrases : ${_chainsProvider?.bigChainKPhrases?.length} phrases ',
-              value: _chainsProvider?.bigChainKPhrases,
+              title: 'chainsProvider.chainsPhrases : ${_chainsProvider?.chainsPhrases?.length} phrases ',
+              value: _chainsProvider?.chainsPhrases,
               onTap: (){
-                Phrase.blogPhrases(_chainsProvider?.bigChainKPhrases);
+                Phrase.blogPhrases(_chainsProvider?.chainsPhrases);
               },
             ),
 
-            /// BIG CHAIN S PHRASES
+            /// CITY CHAINS PHRASES
             ProviderTestButton(
-              title: 'chainsProvider.bigChainSPhrases : ${_chainsProvider?.bigChainSPhrases?.length} phrases ',
-              value: _chainsProvider?.bigChainSPhrases,
+              title: 'chainsProvider.cityChainKPhrases : ${_chainsProvider?.cityChainsPhrases?.length} phrases ',
+              value: _chainsProvider?.cityChainsPhrases,
               onTap: (){
-                Phrase.blogPhrases(_chainsProvider?.bigChainSPhrases);
-              },
-            ),
-
-            /// CITY CHAIN K PHRASES
-            ProviderTestButton(
-              title: 'chainsProvider.cityChainKPhrases : ${_chainsProvider?.cityChainKPhrases?.length} phrases ',
-              value: _chainsProvider?.cityChainKPhrases,
-              onTap: (){
-                Phrase.blogPhrases(_chainsProvider?.cityChainKPhrases);
+                Phrase.blogPhrases(_chainsProvider?.cityChainsPhrases);
               },
             ),
 

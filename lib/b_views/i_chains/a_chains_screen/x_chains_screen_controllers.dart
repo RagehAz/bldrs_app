@@ -114,11 +114,11 @@ Future<void> _setActivePhidK({
 
   const bool deactivated = false;
 
-  final List<Chain> allChains = ChainsProvider.proGetBigChainK(
+  final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseCityChains: false,
       listen: false
-  )?.sons;
+  );
 
   final String _chainID = Chain.getRootChainIDOfPhid(
     allChains: allChains,

@@ -182,22 +182,16 @@ class SelectedUserPage extends StatelessWidget {
         dataValue: userModel.appState.phrasesVersion,
       ),
 
-      /// KEYWORDS VERSION
+      /// CHAINS VERSION
       DataStrip(
-        dataKey: 'KWs version',
-        dataValue: userModel.appState.keywordsChainVersion,
-      ),
-
-      /// SPECS CHAIN VERSION
-      DataStrip(
-        dataKey: 'Specs version',
-        dataValue: userModel.appState.specsChainVersion,
+        dataKey: 'Chains version',
+        dataValue: userModel.appState.chainsVersion,
       ),
 
       /// SPECS CHAIN VERSION
       DataStrip(
         dataKey: 'Pickers version',
-        dataValue: userModel.appState.specPickersVersion,
+        dataValue: userModel.appState.pickersVersion,
       ),
 
       const DotSeparator(),

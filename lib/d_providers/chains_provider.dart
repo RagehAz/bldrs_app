@@ -8,8 +8,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_doc.dart';
-import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
+import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,12 +41,7 @@ class ChainsProvider extends ChangeNotifier {
     /// 1. START WITH : BIG CHAIN K - BIG CHAIN S - CITY PHID COUNTERS
     await Future.wait(<Future>[
       /// BIG CHAIN K
-      _fetchSetBigChainK(
-        context: context,
-        notify: false,
-      ),
-      /// BIG CHAIN S
-      _fetchSetBigChainS(
+      _fetchSetBldrsChains(
         context: context,
         notify: false,
       ),
@@ -66,28 +60,22 @@ class ChainsProvider extends ChangeNotifier {
     /// 2. BIG CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
     await Future.wait(<Future>[
       /// CITY CHAIN K
-      _refineSetCityChainK(
-        bigChainK: _bigChainK,
+      _refineSetCityChains(
+        chains: _chains,
         notify: false,
       ),
       /// BIG CHAIN K PHRASES
-      _generateSetBigChainKPhrases(
+      _generateSetChainsPhrases(
         context: context,
-        bigChainK: _bigChainK,
-        notify: false,
-      ),
-      /// BIG CHAIN S PHRASES
-      _generateSetBigChainSPhrases(
-        context: context,
-        bigChainS: _bigChainS,
+        chains: _chains,
         notify: false,
       ),
     ]);
     // --------------------
     /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainKPhrases(
+    await _generateSetCityChainsPhrases(
       context: context,
-      cityChainK: _cityChainK,
+      cityChains: _cityChains,
       notify: false,
     );
     // --------------------
@@ -101,27 +89,20 @@ class ChainsProvider extends ChangeNotifier {
   Future<void> reInitializeAllChains(BuildContext context) async {
     // --------------------
     /// DELETE LDB CHAINS
-    await Future.wait(<Future>[
-      LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainK),
-      LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainS),
-    ]);
+    await ChainLDBOps.deleteBldrsChains();
     // --------------------
-    /// BIG CHAIN K
-    _bigChainK = null;
-    /// BIG CHAIN S
-    _bigChainS = null;
+    /// BLDRS CHAINS
+    _chains = null;
     /// ALL PICKERS
     _allPickers = {};
     /// CITY PHID COUNTERS
     _cityPhidsModel = null;
-    /// CITY CHAIN K
-    _cityChainK = null;
-    /// BIG CHAIN K PHRASES
-    _bigChainKPhrases = <Phrase>[];
-    /// BIG CHAIN S PHRASES
-    _bigChainSPhrases = <Phrase>[];
-    /// CITY CHAIN K PHRASES
-    _cityChainKPhrases = <Phrase>[];
+    /// CITY CHAINS
+    _cityChains = null;
+    /// CHAINS PHRASES
+    _chainsPhrases = <Phrase>[];
+    /// CITY CHAINS PHRASES
+    _cityChainsPhrases = <Phrase>[];
     // --------------------
     /// INITIALIZE
     await initializeAllChains(
@@ -151,15 +132,15 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
     /// 2. CITY CHAIN K
-    await _refineSetCityChainK(
-      bigChainK: _bigChainK,
+    await _refineSetCityChains(
+      chains: _chains,
       notify: false,
     );
     // --------------------
     /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainKPhrases(
+    await _generateSetCityChainsPhrases(
       context: context,
-      cityChainK: _cityChainK,
+      cityChains: _cityChains,
       notify: true,
     );
     // --------------------
@@ -170,9 +151,9 @@ class ChainsProvider extends ChangeNotifier {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> updateBigChainKOps({
+  Future<void> updateBldrsChainsOps({
     @required BuildContext context,
-    @required Chain bigChainK,
+    @required List<Chain> bldrsChains,
     @required bool notify,
   }) async {
     // --------------------
@@ -184,66 +165,31 @@ class ChainsProvider extends ChangeNotifier {
     /// KEEP : BIG CHAIN S PHRASES
     /// UPDATE : CITY CHAIN K PHRASES
     // --------------------
-    /// 1. BIG CHAIN K
-    _setBigChainK(
-      chain: bigChainK,
+    /// 1. BLDRS CHAINS
+    _setBldrsChains(
+      chains: bldrsChains,
       notify: false,
     );
     // --------------------
-    /// 2. BIG CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
+    /// 2. BLDRS CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
     await Future.wait(<Future>[
       /// CITY CHAIN K
-      _refineSetCityChainK(
-        bigChainK: bigChainK,
+      _refineSetCityChains(
+        chains: bldrsChains,
         notify: false,
       ),
       /// BIG CHAIN K PHRASES
-      _generateSetBigChainKPhrases(
+      _generateSetChainsPhrases(
         context: context,
-        bigChainK: bigChainK,
+        chains: bldrsChains,
         notify: false,
       ),
     ]);
     // --------------------
     /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainKPhrases(
+    await _generateSetCityChainsPhrases(
       context: context,
-      cityChainK: bigChainK,
-      notify: false,
-    );
-    // --------------------
-    /// NOTIFY LISTENERS
-    if (notify == true){
-      notifyListeners();
-    }
-    // --------------------
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> updateBigChainSOps({
-    @required BuildContext context,
-    @required Chain bigChainS,
-    @required bool notify,
-  }) async {
-    // --------------------
-    /// KEEP : BIG CHAIN K
-    /// UPDATE : BIG CHAIN S
-    /// KEEP : CITY PHID COUNTERS
-    /// KEEP : CITY CHAIN K
-    /// KEEP : BIG CHAIN K PHRASES
-    /// UPDATE : BIG CHAIN S PHRASES
-    /// KEEP : CITY CHAIN K PHRASES
-    // --------------------
-    /// 1. BIG CHAIN S
-    _setBigChainS(
-      bigChainS: bigChainS,
-      notify: false,
-    );
-    // --------------------
-    /// BIG CHAIN S PHRASES
-    await _generateSetBigChainSPhrases(
-      context: context,
-      bigChainS: bigChainS,
+      cityChains: bldrsChains,
       notify: false,
     );
     // --------------------
@@ -264,22 +210,18 @@ class ChainsProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    /// BIG CHAIN K
-    _bigChainK = null;
-    /// BIG CHAIN S
-    _bigChainS = null;
+    /// BLDRS CHAINS
+    _chains = null;
     /// ALL PICKERS
     _allPickers = {};
     /// CITY PHID COUNTERS
     _cityPhidsModel = null;
     /// CITY CHAIN K
-    _cityChainK = null;
-    /// BIG CHAIN K PHRASES
-    _bigChainKPhrases = <Phrase>[];
-    /// BIG CHAIN S PHRASES
-    _bigChainSPhrases = <Phrase>[];
+    _cityChains = null;
+    /// BLDRS CHAINS PHRASES
+    _chainsPhrases = <Phrase>[];
     /// CITY CHAIN K PHRASES
-    _cityChainKPhrases = <Phrase>[];
+    _cityChainsPhrases = <Phrase>[];
 
     /// WALL FLYER TYPE AND PHID
     clearWallFlyerTypeAndPhid(
@@ -301,14 +243,14 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// BIG CHAIN-K (main keywords chain)
+  /// BLDRS CHAINS
 
   // --------------------
-  Chain _bigChainK;
-  Chain get bigChainK => _bigChainK;
+  List<Chain> _chains;
+  List<Chain> get bldrsChains => _chains;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Chain proGetBigChainK({
+  ///
+  static List<Chain> proGetBldrsChains({
     @required BuildContext context,
     @required bool onlyUseCityChains,
     @required bool listen,
@@ -317,78 +259,35 @@ class ChainsProvider extends ChangeNotifier {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
 
     if (onlyUseCityChains == true){
-      return _chainsProvider.cityChainK;
+      return _chainsProvider.cityChains;
     }
     else {
-      return _chainsProvider.bigChainK;
+      return _chainsProvider.bldrsChains;
     }
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _fetchSetBigChainK({
+  ///
+  Future<void> _fetchSetBldrsChains({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final Chain _bigChainK = await ChainProtocols.fetchBigChainK(context);
+    final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
 
-    _setBigChainK(
-      chain: _bigChainK,
+    _setBldrsChains(
+      chains: _bldrsChains,
       notify: notify,
     );
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setBigChainK({
-    @required Chain chain,
+  ///
+  void _setBldrsChains({
+    @required List<Chain> chains,
     @required bool notify,
   }){
-    _bigChainK = chain;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BIG CHAIN S - (main specs chain)
-
-  // --------------------
-  Chain _bigChainS;
-  // --------------------
-  Chain get bigChainS => _bigChainS;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Chain proGetBigChainS({
-    @required BuildContext context,
-    @required bool listen,
-  }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
-    return _chainsProvider.bigChainS;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _fetchSetBigChainS({
-    @required BuildContext context,
-    @required bool notify,
-  }) async {
-
-    final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
-
-    _setBigChainS(
-      bigChainS: _bigChainS,
-      notify: notify,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setBigChainS({
-    @required Chain bigChainS,
-    @required bool notify,
-  }){
-    _bigChainS = bigChainS;
+    _chains = chains;
     if (notify == true){
       notifyListeners();
     }
@@ -432,61 +331,61 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// CITY CHAIN K ( city's keywords chain according to City Phid Counters )
+  /// CITY CHAIN ( city's chains according to City Phid Counters )
 
   // --------------------
-  Chain _cityChainK;
-  Chain get cityChainK => _cityChainK;
+  List<Chain> _cityChains;
+  List<Chain> get cityChains => _cityChains;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _refineSetCityChainK({
+  ///
+  Future<void> _refineSetCityChains({
     @required bool notify,
-    @required Chain bigChainK,
+    @required List<Chain> chains,
   }) async {
 
-    final Chain _cityChainK = CityPhidsModel.removeUnusedPhidsFromChainKForThisCity(
-      bigChainK: bigChainK,
+    final List<Chain> _cityChains = CityPhidsModel.removeUnusedPhidsFromBldrsChainsForThisCity(
+      bldrsChains: _chains,
       currentCityPhidsModel: _cityPhidsModel,
     );
 
-    _setCityChainK(
+    _setCityChains(
       notify: notify,
-      chain: _cityChainK,
+      chains: _cityChains,
     );
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setCityChainK({
+  ///
+  void _setCityChains({
     @required bool notify,
-    @required Chain chain,
+    @required List<Chain> chains,
   }){
-    _cityChainK = chain;
+    _cityChains = chains;
     if (notify == true){
       notifyListeners();
     }
   }
   // -----------------------------------------------------------------------------
 
-  /// BIG CHAIN K PHRASES
+  /// BLDRS CHAINS PHRASES
 
   // --------------------
-  List<Phrase> _bigChainKPhrases = <Phrase>[];
-  List<Phrase> get bigChainKPhrases => _bigChainKPhrases;
+  List<Phrase> _chainsPhrases = <Phrase>[];
+  List<Phrase> get chainsPhrases => _chainsPhrases;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _generateSetBigChainKPhrases({
+  Future<void> _generateSetChainsPhrases({
     @required BuildContext context,
-    @required Chain bigChainK,
+    @required List<Chain> chains,
     @required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
       context: context,
-      chain: bigChainK,
+      chains: chains,
     );
 
-    _setBigChainKPhrases(
+    _setBldrsChainsPhrases(
       phrases: _phrases,
       notify: notify,
     );
@@ -494,74 +393,37 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setBigChainKPhrases({
+  void _setBldrsChainsPhrases({
     @required List<Phrase> phrases,
     @required bool notify,
   }){
-    _bigChainKPhrases = phrases;
+    _chainsPhrases = phrases;
     if (notify == true){
       notifyListeners();
     }
   }
   // -----------------------------------------------------------------------------
 
-  /// BIG CHAIN S PHRASES
-
-  // --------------------
-  List<Phrase> _bigChainSPhrases = <Phrase>[];
-  List<Phrase> get bigChainSPhrases => _bigChainSPhrases;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _generateSetBigChainSPhrases({
-    @required BuildContext context,
-    @required Chain bigChainS,
-    @required bool notify,
-  }) async {
-
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
-      context: context,
-      chain: bigChainS,
-    );
-
-    _setBigChainSPhrases(
-      phrases: _phrases,
-      notify: notify,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setBigChainSPhrases({
-    @required List<Phrase> phrases,
-    @required bool notify,
-  }){
-    _bigChainSPhrases = phrases;
-    if (notify == true){
-      notifyListeners();
-    }
-  }
-  // -----------------------------------------------------------------------------
-
-  /// City Chain K Phrases
+  /// CITY CHAINS PHRASES
 
   // --------------------
   /// must include trigrams and both languages (en, ar) for search engines
-  List<Phrase> _cityChainKPhrases = <Phrase>[];
-  List<Phrase> get cityChainKPhrases => _cityChainKPhrases;
+  List<Phrase> _cityChainsPhrases = <Phrase>[];
+  List<Phrase> get cityChainsPhrases => _cityChainsPhrases;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _generateSetCityChainKPhrases({
+  Future<void> _generateSetCityChainsPhrases({
     @required BuildContext context,
-    @required Chain cityChainK,
+    @required List<Chain> cityChains,
     @required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
       context: context,
-      chain: cityChainK,
+      chains: cityChains,
     );
 
-    _setCityChainKPhrases(
+    _setCityChainsPhrases(
       phrases: _phrases,
       notify: notify,
     );
@@ -569,11 +431,11 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setCityChainKPhrases({
+  void _setCityChainsPhrases({
     @required List<Phrase> phrases,
     @required bool notify,
   }){
-    _cityChainKPhrases = phrases;
+    _cityChainsPhrases = phrases;
     if (notify == true){
       notifyListeners();
     }
@@ -767,31 +629,22 @@ class ChainsProvider extends ChangeNotifier {
 
 
 // -----------------------------------------------------------------------------o
-  /// TESTED : WORKS PERFECT
+  ///
   Chain findChainByID({
     @required String chainID,
     bool onlyUseCityChains = false,
-    bool includeChainSInSearch = true,
   }){
-    // ---------------------------
-    final Chain _keywordsChain = onlyUseCityChains == true ?
-    _cityChainK
+
+    final List<Chain> _chainsToSearch = onlyUseCityChains == true ?
+    _cityChains
         :
-    _bigChainK;
-    // ---------------------------
-    List<Chain> _allChains;
-    if (includeChainSInSearch == true){
-      _allChains = <Chain>[_keywordsChain, _bigChainS];
-    }
-    else {
-      _allChains = <Chain>[_keywordsChain];
-    }
-    // ---------------------------
+    _chains;
+
     final Chain _chain = Chain.getChainFromChainsByID(
       chainID: chainID,
-      chains: _allChains,
+      chains: _chainsToSearch,
     );
-    // ---------------------------
+
     return _chain;
   }
   // --------------------
@@ -800,30 +653,16 @@ class ChainsProvider extends ChangeNotifier {
     @required BuildContext context,
     @required String chainID,
     bool onlyUseCityChains = false,
-    bool includeChainSInSearch = true,
   }){
+
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    // ---------------------------
+
     final Chain _chain = _chainsProvider.findChainByID(
       chainID: chainID,
-      includeChainSInSearch: includeChainSInSearch,
       onlyUseCityChains: onlyUseCityChains,
     );
 
     return _chain;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  List<Chain> getChainKAndChainS({
-    @required BuildContext context,
-    @required bool getOnlyCityKeywordsChain,
-  }){
-    final Chain _keywordsChain = ChainsProvider.proGetBigChainK(
-      context: context,
-      onlyUseCityChains: getOnlyCityKeywordsChain,
-      listen: false,
-    );
-    return <Chain>[_keywordsChain, _bigChainS];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -839,7 +678,6 @@ class ChainsProvider extends ChangeNotifier {
     final Chain _chain = findChainByID(
       chainID: _chainID,
       onlyUseCityChains: onlyUseCityChains,
-      includeChainSInSearch: false,
     );
 
     return _chain;
@@ -880,3 +718,124 @@ class ChainsProvider extends ChangeNotifier {
   }
 // -----------------------------------------------------------------------------o
 }
+
+/*
+  // -----------------------------------------------------------------------------
+
+  /// BIG CHAIN S - (main specs chain)
+
+  // --------------------
+  Chain _bigChainS;
+  // --------------------
+  Chain get bigChainS => _bigChainS;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Chain proGetBigChainS({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
+    return _chainsProvider.bigChainS;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _fetchSetBigChainS({
+    @required BuildContext context,
+    @required bool notify,
+  }) async {
+
+    final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
+
+    _setBigChainS(
+      bigChainS: _bigChainS,
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setBigChainS({
+    @required Chain bigChainS,
+    @required bool notify,
+  }){
+    _bigChainS = bigChainS;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+
+    // -----------------------------------------------------------------------------
+
+  /// BIG CHAIN S PHRASES
+
+  // --------------------
+  List<Phrase> _bigChainSPhrases = <Phrase>[];
+  List<Phrase> get bigChainSPhrases => _bigChainSPhrases;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _generateSetBigChainSPhrases({
+    @required BuildContext context,
+    @required Chain bigChainS,
+    @required bool notify,
+  }) async {
+
+    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
+      context: context,
+      chain: bigChainS,
+    );
+
+    _setBigChainSPhrases(
+      phrases: _phrases,
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setBigChainSPhrases({
+    @required List<Phrase> phrases,
+    @required bool notify,
+  }){
+    _bigChainSPhrases = phrases;
+    if (notify == true){
+      notifyListeners();
+    }
+  }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> updateBigChainSOps({
+    @required BuildContext context,
+    @required Chain bigChainS,
+    @required bool notify,
+  }) async {
+    // --------------------
+    /// KEEP : BIG CHAIN K
+    /// UPDATE : BIG CHAIN S
+    /// KEEP : CITY PHID COUNTERS
+    /// KEEP : CITY CHAIN K
+    /// KEEP : BIG CHAIN K PHRASES
+    /// UPDATE : BIG CHAIN S PHRASES
+    /// KEEP : CITY CHAIN K PHRASES
+    // --------------------
+    /// 1. BIG CHAIN S
+    _setBigChainS(
+      bigChainS: bigChainS,
+      notify: false,
+    );
+    // --------------------
+    /// BIG CHAIN S PHRASES
+    await _generateSetBigChainSPhrases(
+      context: context,
+      bigChainS: bigChainS,
+      notify: false,
+    );
+    // --------------------
+    /// NOTIFY LISTENERS
+    if (notify == true){
+      notifyListeners();
+    }
+    // --------------------
+  }
+
+ */

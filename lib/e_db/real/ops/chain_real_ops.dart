@@ -24,6 +24,87 @@ class ChainRealOps {
   /// CREATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Chain>> createBldrsChains({
+    @required BuildContext context,
+    @required List<Chain> chains,
+  }) async {
+    List<Chain> _uploaded;
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      final Map<String, dynamic> _map = Chain.cipherBldrsChains(
+        chains: chains,
+      );
+
+      final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
+        context: context,
+        collName: RealColl.bldrsChains,
+        map: _map,
+      );
+
+      _uploaded = Chain.decipherBldrsChains(
+          map: _uploadedChainSMap
+      );
+
+    }
+
+    return _uploaded;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ
+
+  // --------------------
+  ///
+  static Future<List<Chain>> readBldrsChains(BuildContext context) async {
+
+    final List<Map<String, dynamic>> _maps = await Real.readColl(
+      context: context,
+      nodePath: RealColl.chains,
+    );
+
+    final List<Chain> _chains = Chain.decipherChainsOLD(_maps);
+
+    return _chains;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  static Future<void> updateBldrsChains({
+    @required BuildContext context,
+    @required List<Chain> chains,
+  }) async {
+
+    if (chains != null){
+
+      await Real.updateColl(
+        context: context,
+        collName: RealColl.chains,
+        map: Chain.cipherBldrsChains(chains: chains),
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// NO NEED
+  /*
+  static Future<void> deleteChainKPhidK() async {}
+  // --------------------
+  static Future<void> deleteChainSPhidS() async {}
+   */
+  // -----------------------------------------------------------------------------
+}
+
+/*
+  // --------------------
   /// TASK DEPRECATED
   static Future<Chain> createBigChainK({
     @required BuildContext context,
@@ -87,38 +168,7 @@ class ChainRealOps {
 
     return _uploaded;
   }
-  // --------------------
-  static Future<List<Chain>> createBldrsChains({
-    @required BuildContext context,
-    @required List<Chain> chains,
-  }) async {
-    List<Chain> _uploaded;
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
-      final Map<String, dynamic> _map = Chain.cipherBldrsChains(
-        chains: chains,
-      );
-
-      final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
-        context: context,
-        collName: RealColl.bldrsChains,
-        map: _map,
-      );
-
-      _uploaded = Chain.decipherBldrsChains(
-          map: _uploadedChainSMap
-      );
-
-    }
-
-    return _uploaded;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// READ
-
-  // --------------------
   /// TASK DEPRECATED
   static Future<Chain> readBigChainK(BuildContext context) async {
 
@@ -150,11 +200,7 @@ class ChainRealOps {
 
     return _bigChainS;
   }
-  // -----------------------------------------------------------------------------
 
-  /// UPDATE
-
-  // --------------------
   /// TASK DEPRECATED
   static Future<void> updateBigChainK({
     @required BuildContext context,
@@ -192,6 +238,7 @@ class ChainRealOps {
     }
 
   }
+
   // --------------------
   static Future<void> updateChainKPath({
     @required BuildContext context,
@@ -208,16 +255,7 @@ class ChainRealOps {
   }) async {
 
   }
-  // -----------------------------------------------------------------------------
 
-  /// DELETE
 
-  // --------------------
-  /// NO NEED
-  /*
-  static Future<void> deleteChainKPhidK() async {}
-  // --------------------
-  static Future<void> deleteChainSPhidS() async {}
-   */
-  // -----------------------------------------------------------------------------
-}
+
+ */

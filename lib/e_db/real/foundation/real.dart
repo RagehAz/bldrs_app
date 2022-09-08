@@ -186,7 +186,7 @@ class Real {
     }
 
     if (_output != null){
-      blog('Real.createColl : map added to [REAL/$collName] : map : $_output');
+      blog('Real.createColl : map added to [REAL/$collName] : map : ${_output.keys.length} keys');
     }
 
     return _output;
@@ -247,7 +247,7 @@ class Real {
     }
 
     if (_output != null){
-      blog('Real.createDoc : map added to [REAL/$collName/$_docID] : map : $map');
+      blog('Real.createDoc : map added to [REAL/$collName/$_docID] : map : ${_output.keys.length} keys');
     }
 
     return _output;
@@ -352,7 +352,7 @@ class Real {
     }
 
     if (_map != null){
-      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : $_map');
+      blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : ${_map.keys.length} keys');
     }
 
     // blog('X - createDocInPath ================================ END');
@@ -648,6 +648,22 @@ class Real {
 
   /// UPDATE
 
+  // --------------------
+  static Future<void> updateColl({
+    @required BuildContext context,
+    @required String collName,
+    @required Map<String, dynamic> map,
+  }) async {
+    if (map != null){
+
+      await createColl(
+        context: context,
+        collName: collName,
+        map: map,
+      );
+
+    }
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({

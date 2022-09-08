@@ -61,11 +61,6 @@ class RealDoc {
   const RealDoc();
 
   // -----------------------------------------------------------------------------
-  /// CHAINS
-  // --------------------
-  static const String chains_bigChainK = 'bigChainK';
-  static const String chains_bigChainS = 'bigChainS';
-  // -----------------------------------------------------------------------------
   /// PICKERS
   // --------------------
   static const String pickers_properties = 'properties';

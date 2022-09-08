@@ -12,49 +12,6 @@ class LDBOps {
 
   // -----------------------------------------------------------------------------
 
-  /// REFERENCES
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getPrimaryKey(String docName) {
-    switch (docName) {
-      case LDBDoc.follows: return 'recordID';
-      case LDBDoc.calls: return 'recordID';
-      case LDBDoc.shares: return 'recordID';
-      case LDBDoc.views: return 'recordID';
-      case LDBDoc.saves: return 'recordID';
-      case LDBDoc.reviews: return 'reviewID';
-      case LDBDoc.questions: return 'questionID';
-      case LDBDoc.answers: return 'answerID';
-      case LDBDoc.flyers: return 'id';
-      case LDBDoc.bzz: return 'id';
-      case LDBDoc.users: return 'id';
-      case LDBDoc.bigChainK: return 'id';
-      case LDBDoc.bigChainS: return 'id';
-      case LDBDoc.countries: return 'id';
-      case LDBDoc.cities: return 'cityID';
-      case LDBDoc.continents: return 'name';
-      case LDBDoc.currencies: return 'id';
-      case LDBDoc.mainPhrases: return 'id';
-      case LDBDoc.countriesPhrases: return 'id';
-      case LDBDoc.appState: return 'id';
-      case LDBDoc.appControls: return 'primaryKey'; /// TASK : WTF
-      case LDBDoc.authModel: return 'uid';
-      case LDBDoc.notes: return 'id';
-      case LDBDoc.pickers: return 'id';
-
-      case LDBDoc.userEditor: return 'id';
-      case LDBDoc.bzEditor: return 'id';
-      case LDBDoc.authorEditor: return 'userID';
-      case LDBDoc.flyerMaker: return 'id';
-      case LDBDoc.reviewEditor: return 'id';
-
-      case 'test': return 'id';
-      default: return null;
-    }
-  }
-  // -----------------------------------------------------------------------------
-
   /// CREATE
 
   // --------------------
@@ -98,7 +55,7 @@ class LDBOps {
     @required String docName,
   }) async {
 
-    final String _primaryKey = getPrimaryKey(docName);
+    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
     final List<Map<String, dynamic>> _maps = await Sembast.readMaps(
       primaryKeyName: _primaryKey,
@@ -205,7 +162,7 @@ class LDBOps {
   }) async {
 
     final List<Map<String, dynamic>> _result = await Sembast.search(
-      fieldToSortBy: getPrimaryKey(docName),
+      fieldToSortBy: LDBDoc.getPrimaryKey(docName),
       searchField: 'phrases.$lingoCode.trigram',
       fieldIsList: true,
       searchValue: TextMod.fixCountryName(searchValue),
@@ -255,7 +212,7 @@ class LDBOps {
     @required String docName,
   }) async {
 
-    final String _primaryKey = getPrimaryKey(docName);
+    final String _primaryKey = LDBDoc.getPrimaryKey(docName);
 
     await Sembast.deleteMaps(
       docName: docName,
