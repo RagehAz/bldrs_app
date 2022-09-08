@@ -54,7 +54,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
   // --------------------
-  Chain _bigChainK;
+  List<Chain> _bldrsChains;
   // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
   ValueNotifier<List<PickerModel>> _refinedSpecsPickers;
@@ -75,15 +75,15 @@ class _ChainsScreenState extends State<ChainsScreen> {
   void initState() {
     super.initState();
     // ------------------------------
-    _bigChainK = ChainsProvider.proGetBigChainK(
+    _bldrsChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseCityChains: widget.onlyUseCityChains,
       listen: false,
     );
     // ------------------------------
     /// WHEN CHAINS ARE LOADED IN CHAINS PRO
-    if (_bigChainK != null){
-      _initializeScreen(_bigChainK);
+    if (_bldrsChains != null){
+      _initializeScreen(_bldrsChains);
     }
 
     // ------------------------------
@@ -107,7 +107,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
   }
   // -----------------------------------------------------------------------------
   bool _isInitialized = false;
-  void _initializeScreen(Chain _bigChainK){
+  void _initializeScreen(List<Chain> _bldrsChains){
     if (_isInitialized == false){
       // ------------------------------
 
@@ -126,10 +126,9 @@ class _ChainsScreenState extends State<ChainsScreen> {
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
         if (Mapper.checkCanLoopList(widget.flyerTypesChainFilters) == false){
 
-          _allSpecPickers = PickerModel.createPickersForChainK(
+          _allSpecPickers = PickerModel.createHomeWallPickers(
             context: context,
-            chainK: _bigChainK,
-            canPickManyOfAPicker: false,
+            canPickMany: false,
           );
         }
 
@@ -201,12 +200,12 @@ class _ChainsScreenState extends State<ChainsScreen> {
 
   }
   // --------------------
-  Chain _getProChain (BuildContext ctx, ChainsProvider chainsPro){
+  List<Chain> _getProChains (BuildContext ctx, ChainsProvider chainsPro){
     if (widget.onlyUseCityChains == true){
-      return chainsPro.cityChainK;
+      return chainsPro.cityChains;
     }
     else {
-      return chainsPro.bigChainK;
+      return chainsPro.bldrsChains;
     }
   }
   // -----------------------------------------------------------------------------
@@ -284,14 +283,14 @@ class _ChainsScreenState extends State<ChainsScreen> {
       },
       searchController: _searchTextController,
       searchHintVerse: '##Search keywords',
-      layoutWidget: Selector<ChainsProvider, Chain>(
-        selector: _getProChain,
+      layoutWidget: Selector<ChainsProvider, List<Chain>>(
+        selector: _getProChains,
         // child: ,
         // shouldRebuild: ,
-        builder: (_, Chain chain, Widget screenView){
+        builder: (_, List<Chain> chains, Widget screenView){
 
           /// WHILE LOADING CHAIN
-          if (chain == null){
+          if (chains == null){
             return const Center(
               child: WidgetFader(
                 fadeType: FadeType.repeatAndReverse,
@@ -307,7 +306,7 @@ class _ChainsScreenState extends State<ChainsScreen> {
           /// AFTER CHAIN IS LOADED
           else {
 
-            _initializeScreen(chain);
+            _initializeScreen(chains);
 
             return screenView;
 

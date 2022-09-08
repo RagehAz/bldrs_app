@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -294,13 +294,17 @@ class SpecModel {
     return _containsNewSale;
   }
   // --------------------
+  /// NEED TEST
   static bool checkSpecIsFromChainK({
     @required SpecModel spec,
   }){
     bool _isFromKeywords = false;
 
     if (spec != null){
-      _isFromKeywords =  Chain.chainKSonsIDs.contains(spec.pickerChainID);
+      // _isFromKeywords =  Chain.chainKSonsIDs.contains(spec.pickerChainID);
+
+      _isFromKeywords = Phider.checkIsPhidK(spec.pickerChainID);
+
     }
 
     return _isFromKeywords;

@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
@@ -63,7 +62,7 @@ class RawPickers {
                 // ----------------------------
                 /// TYPE
                 PickerModel(
-                    chainID: Chain.propertyChainID,
+                    chainID: FlyerTyper.propertyChainID,
                     groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
@@ -490,7 +489,7 @@ class RawPickers {
                 // ----------------------------
                 /// DESIGN TYPE
                 PickerModel(
-                    chainID: Chain.designChainID,
+                    chainID: FlyerTyper.designChainID,
                     groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
@@ -608,7 +607,7 @@ class RawPickers {
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
-                    chainID: Chain.tradesChainID,
+                    chainID: FlyerTyper.tradesChainID,
                     groupID: 'Construction Activities',
                     canPickMany: true,
                     isRequired: false,
@@ -775,7 +774,7 @@ class RawPickers {
                 // ----------------------------
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
-                    chainID: Chain.tradesChainID,
+                    chainID: FlyerTyper.tradesChainID,
                     groupID: 'Construction Activities',
                     canPickMany: true,
                     isRequired: false,
@@ -795,7 +794,7 @@ class RawPickers {
                 // ----------------------------
                 /// TYPE
                 PickerModel(
-                    chainID: Chain.equipmentChainID,
+                    chainID: FlyerTyper.equipmentChainID,
                     groupID: 'Construction Equipment',
                     canPickMany: true,
                     isRequired: true,
@@ -867,7 +866,7 @@ class RawPickers {
                 // ----------------------------
                 /// TYPE
                 PickerModel(
-                    chainID: Chain.tradesChainID,
+                    chainID: FlyerTyper.tradesChainID,
                     groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
@@ -937,7 +936,7 @@ class RawPickers {
                 // ----------------------------
                 /// TYPE
                 PickerModel(
-                    chainID: Chain.productChainID,
+                    chainID: FlyerTyper.productChainID,
                     groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
@@ -1380,7 +1379,7 @@ class RawPickers {
                 // ----------------------------
                 /// TYPE
                 PickerModel(
-                    chainID: Chain.equipmentChainID,
+                    chainID: FlyerTyper.equipmentChainID,
                     groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,

@@ -388,18 +388,24 @@ class PickerModel {
   /// CREATORS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static List<PickerModel> createPickersForChainK({
+  /*
+  static List<PickerModel> createPickersForHomeWall({
     @required BuildContext context,
-    @required Chain chainK,
+    @required List<Chain> bldrsChains,
     @required bool canPickManyOfAPicker,
   }){
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (chainK != null && Mapper.checkCanLoopList(chainK.sons) == true){
+    if (Mapper.checkCanLoopList(bldrsChains) == true){
+
+      for (final FlyerType flyerType in FlyerTyper.flyerTypesList){
+
+        final String _chainID = PickerModel.getPickersIDByFlyerType(flyerType);
+
+      }
 
       final List<String> chainKSonsIDs = Chain.getOnlyChainSonsIDs(
-        chain: chainK,
+        chain: bldrsChains,
       );
 
       int _index = 0;
@@ -429,6 +435,7 @@ class PickerModel {
 
     return _pickers;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
@@ -437,7 +444,7 @@ class PickerModel {
     List<FlyerType> onlyUseTheseFlyerTypes,
   }) {
 
-    final List<PickerModel> allChainKPickers = createAllChainKPickers(
+    final List<PickerModel> allChainKPickers = createHomeWallPickers(
       context: context,
       canPickMany: canPickManyOfAPicker,
     );
@@ -472,7 +479,7 @@ class PickerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PickerModel> createAllChainKPickers({
+  static List<PickerModel> createHomeWallPickers({
     @required BuildContext context,
     @required bool canPickMany,
   }){
@@ -481,10 +488,10 @@ class PickerModel {
 
       /// PROPERTIES
       PickerModel(
-        chainID: Chain.propertyChainID,
+        chainID: FlyerTyper.propertyChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
           context: context,
-          chainKSonID: Chain.propertyChainID,
+          chainKSonID: FlyerTyper.propertyChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -494,10 +501,10 @@ class PickerModel {
 
       /// DESIGN
       PickerModel(
-        chainID: Chain.designChainID,
+        chainID: FlyerTyper.designChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
           context: context,
-          chainKSonID: Chain.designChainID,
+          chainKSonID: FlyerTyper.designChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -507,10 +514,10 @@ class PickerModel {
 
       /// TRADES
       PickerModel(
-        chainID: Chain.tradesChainID,
+        chainID: FlyerTyper.tradesChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
           context: context,
-          chainKSonID: Chain.tradesChainID,
+          chainKSonID: FlyerTyper.tradesChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -520,10 +527,10 @@ class PickerModel {
 
       /// PRODUCTS
       PickerModel(
-        chainID: Chain.productChainID,
+        chainID: FlyerTyper.productChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
           context: context,
-          chainKSonID: Chain.productChainID,
+          chainKSonID: FlyerTyper.productChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -533,10 +540,10 @@ class PickerModel {
 
       /// EQUIPMENT
       PickerModel(
-        chainID: Chain.equipmentChainID,
+        chainID: FlyerTyper.equipmentChainID,
         groupID: FlyerTyper.getGroupIDByChainKSonID(
           context: context,
-          chainKSonID: Chain.equipmentChainID,
+          chainKSonID: FlyerTyper.equipmentChainID,
         ),
         canPickMany: canPickMany,
         isRequired: false,
@@ -805,11 +812,9 @@ class PickerModel {
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    final Chain _bigChainK = _chainsProvider.bigChainK;
-    final Chain _bigChainS = _chainsProvider.bigChainS;
 
     final String _rooChainID = Chain.getRootChainIDOfPhid(
-      allChains: <Chain>[..._bigChainK.sons, ..._bigChainS.sons],
+      allChains: _chainsProvider.bldrsChains,
       phid: phid,
     );
 
