@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 class AppState {
   // -----------------------------------------------------------------------------
   const AppState({
-    @required this.keywordsChainVersion,
-    @required this.specsChainVersion,
-    @required this.specPickersVersion,
+    @required this.chainsVersion,
+    @required this.pickersVersion,
 
     @required this.phrasesVersion,
 
@@ -22,9 +21,8 @@ class AppState {
   });
   // -----------------------------------------------------------------------------
   /// chains
-  final double keywordsChainVersion;
-  final double specsChainVersion;
-  final double specPickersVersion;
+  final double chainsVersion;
+  final double pickersVersion;
 
   /// phrases
   final double phrasesVersion;
@@ -42,9 +40,8 @@ class AppState {
   // --------------------
   /// TESTED : WORKS PERFECT
   AppState copyWith({
-    double keywordsChainVersion,
-    double specsChainVersion,
-    double specPickersVersion,
+    double chainsVersion,
+    double pickersVersion,
     double phrasesVersion,
     String appVersion,
     double ldbVersion,
@@ -53,9 +50,8 @@ class AppState {
   }){
     return AppState(
       id: id ?? this.id,
-      keywordsChainVersion: keywordsChainVersion ?? this.keywordsChainVersion,
-      specPickersVersion: specPickersVersion ?? this.specPickersVersion,
-      specsChainVersion: specsChainVersion ?? this.specsChainVersion,
+      chainsVersion: chainsVersion ?? this.chainsVersion,
+      pickersVersion: pickersVersion ?? this.pickersVersion,
 
       phrasesVersion: phrasesVersion ?? this.phrasesVersion,
 
@@ -73,9 +69,8 @@ class AppState {
   static AppState initialState() {
     return const AppState(
       id: null,
-      keywordsChainVersion : null,
-      specsChainVersion : null,
-      specPickersVersion : null,
+      chainsVersion : null,
+      pickersVersion : null,
       phrasesVersion : null,
       appVersion : null,
       ldbVersion : null,
@@ -91,9 +86,8 @@ class AppState {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id' : id,
-      'keywordsChainVersion' : keywordsChainVersion,
-      'specsChainVersion' : specsChainVersion,
-      'specPickersVersion' : specPickersVersion,
+      'keywordsChainVersion' : chainsVersion,
+      'specPickersVersion' : pickersVersion,
       'phrasesVersion' : phrasesVersion,
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
@@ -111,9 +105,8 @@ class AppState {
     else {
       return AppState(
         id: map['id'],
-        keywordsChainVersion : map['keywordsChainVersion']?.toDouble(),
-        specsChainVersion : map['specsChainVersion']?.toDouble(),
-        specPickersVersion : map['specPickersVersion']?.toDouble(),
+        chainsVersion : map['keywordsChainVersion']?.toDouble(),
+        pickersVersion : map['specPickersVersion']?.toDouble(),
         phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
         ldbVersion : map['ldbVersion']?.toDouble(),
@@ -141,15 +134,13 @@ class AppState {
           &&
           stateA.appVersion == stateB.appVersion
           &&
-          stateA.keywordsChainVersion == stateB.keywordsChainVersion
+          stateA.chainsVersion == stateB.chainsVersion
           &&
           stateA.ldbVersion == stateB.ldbVersion
           &&
           stateA.phrasesVersion == stateB.phrasesVersion
           &&
-          stateA.specPickersVersion == stateB.specPickersVersion
-          &&
-          stateA.specsChainVersion == stateB.specsChainVersion
+          stateA.pickersVersion == stateB.pickersVersion
           &&
           stateA.appControlsVersion == stateB.appControlsVersion
       ){
@@ -169,9 +160,8 @@ class AppState {
   static AppState dummyAppState(){
     return const AppState(
       id: 'dummy',
-      keywordsChainVersion: 0,
-      specsChainVersion: 0,
-      specPickersVersion: 0,
+      chainsVersion: 0,
+      pickersVersion: 0,
       phrasesVersion: 0,
       appVersion: '0.0.0',
       ldbVersion: 0,
@@ -187,9 +177,8 @@ class AppState {
   void blogAppState(){
     blog('AppState is : -------------------- START');
     blog('id : $id');
-    blog('keywordsChainVersion : $keywordsChainVersion');
-    blog('specsChainVersion : $specsChainVersion');
-    blog('specPickersVersion : $specPickersVersion');
+    blog('keywordsChainVersion : $chainsVersion');
+    blog('specPickersVersion : $pickersVersion');
     blog('phrasesVersion : $phrasesVersion');
     blog('appVersion : $appVersion');
     blog('ldbVersion : $ldbVersion');
@@ -210,9 +199,8 @@ class AppState {
     if (appState1 != null && appState2 != null){
 
       if (
-      appState1.keywordsChainVersion == appState2.keywordsChainVersion &&
-          appState1.specsChainVersion == appState2.specsChainVersion &&
-          appState1.specPickersVersion == appState2.specPickersVersion &&
+          appState1.chainsVersion == appState2.chainsVersion &&
+          appState1.pickersVersion == appState2.pickersVersion &&
           appState1.phrasesVersion == appState2.phrasesVersion &&
           appState1.appVersion == appState2.appVersion &&
           appState1.ldbVersion == appState2.ldbVersion &&
@@ -256,9 +244,8 @@ class AppState {
   // --------------------
   @override
   int get hashCode =>
-      keywordsChainVersion.hashCode^
-      specsChainVersion.hashCode^
-      specPickersVersion.hashCode^
+      chainsVersion.hashCode^
+      pickersVersion.hashCode^
       phrasesVersion.hashCode^
       appVersion.hashCode^
       ldbVersion.hashCode^

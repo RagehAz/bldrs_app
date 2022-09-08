@@ -177,39 +177,40 @@ class Phider {
   /// INDEX SORTING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Chain sortChainSonsByIndex(Chain chain){
     Chain _output;
 
     if (chain != null){
 
-      if (Mapper.checkCanLoopList(chain.sons) == true){
+      final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
+      final bool _isChains = Chain.checkSonsAreChains(chain.sons);
 
-        final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
-        final bool _isChains = Chain.checkSonsAreChains(chain.sons);
+      if (_isChains == true){
 
-        if (_isChains == true){
+        final List<Chain> sons = sortChainsByIndexes(chain.sons);
 
-          final List<Chain> sons = sortChainsByIndexes(chain.sons);
+        _output = Chain(
+          id: chain.id,
+          sons: sons,
+        );
 
-          _output = Chain(
-            id: chain.id,
-            sons: sons,
-          );
+      }
 
-        }
+      else if (_isPhids == true){
 
-        else if (_isPhids == true){
+        final List<String> sons = sortPhidsByIndexes(chain.sons);
 
-          final List<String> sons = sortPhidsByIndexes(chain.sons);
-
-          _output = Chain(
-            id: chain.id,
-            sons: sons,
-          );
+        _output = Chain(
+          id: chain.id,
+          sons: sons,
+        );
 
 
-        }
+      }
 
+      else {
+        _output = chain;
       }
 
     }
@@ -217,26 +218,33 @@ class Phider {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Chain> sortChainsByIndexes(List<Chain> input){
-    List<Chain> _output = <Chain>[];
+    final List<Chain> _output = <Chain>[];
 
     if (Mapper.checkCanLoopList(input) == true){
 
-      final List<Chain> _chains = <Chain>[...input];
+      final List<Chain> _sortedChainsIDs = <Chain>[...input];
 
-      _chains.sort((a, b){
+      /// SORT CHAINS BY IDs
+      _sortedChainsIDs.sort((a, b){
         final int _indexA = getIndexFromPhid(a.id) ?? 0;
         final int _indexB = getIndexFromPhid(b.id) ?? 0;
         return _indexA.compareTo(_indexB);
       });
 
-      _output = <Chain>[..._chains];
+      /// SORT EACH CHAIN SONS
+      for (final Chain chain in _sortedChainsIDs){
+        final Chain _sortedSon = sortChainSonsByIndex(chain);
+        _output.add(_sortedSon);
+      }
 
     }
 
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> sortPhidsByIndexes(List<String> input){
     List<String> _output = <String>[];
 
@@ -261,7 +269,7 @@ class Phider {
   /// INDEX CREATION
 
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Chain createChainIndexes({
     @required Chain chain,
     @required int chainIndex,
@@ -302,6 +310,7 @@ class Phider {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Chain> createChainsIndexes(List<Chain> chains){
     final List<Chain> _output = <Chain>[];
 
@@ -327,6 +336,7 @@ class Phider {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> createPhidsIndexes(List<String> phids){
     final List<String> _output = <String>[];
 
@@ -439,6 +449,22 @@ class Phider {
       numberOfChars: 2, //'##'
     );
     return _temp == '##';
+  }
+  // --------------------
+  ///  NEED TEST
+  static bool checkIsPhidK(String text){
+    bool _isPhidK= false;
+
+    if (text != null){
+
+      _isPhidK = TextCheck.textStartsExactlyWith(
+        text: removeIndexFromPhid(phid: text),
+        startsWith: phid_kCut,
+      );
+
+    }
+
+    return _isPhidK;
   }
   // -----------------------------------------------------------------------------
 }

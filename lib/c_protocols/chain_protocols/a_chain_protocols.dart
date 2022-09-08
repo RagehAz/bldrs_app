@@ -21,51 +21,7 @@ class ChainProtocols {
   /// COMPOSE
 
   // --------------------
-  /// TASK DEPRECATED
-  static Future<Chain> composeChainK({
-    @required BuildContext context,
-    @required Chain chainK,
-  }) async {
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingVerse:  'Uploading ChainK to RealTime Database',
-    ));
-
-    /// NOTE : chain K does not allow duplicate IDs in last node
-    final Chain _bigChainK = await ChainRealOps.createBigChainK(
-      context: context,
-      chainK: chainK,
-    );
-
-    WaitDialog.closeWaitDialog(context);
-
-    return _bigChainK;
-  }
-  // --------------------
-  /// TASK DEPRECATED
-  static Future<Chain> composeChainS({
-    @required BuildContext context,
-    @required Chain chainS,
-  }) async {
-
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-      loadingVerse:  'Uploading ChainS to RealTime Database',
-    ));
-
-    /// NOTE : chain S allows duplicate keys in its last nodes
-    final Chain _bigChainS = await ChainRealOps.createBigChainS(
-      context: context,
-      chainS: chainS,
-    );
-
-    WaitDialog.closeWaitDialog(context);
-
-    return _bigChainS;
-  }
-  // --------------------
-
+  /// TESTED : WORKS PERFECT
   static Future<List<Chain>> composeBldrsChains({
     @required BuildContext context,
     @required List<Chain> chains,
@@ -90,50 +46,27 @@ class ChainProtocols {
   /// FETCH
 
   // --------------------
-  /// TASK DEPRECATED
-  static Future<Chain> fetchBigChainK(BuildContext context) async {
+
+  static Future<List<Chain>> fetchBldrsChains(BuildContext context) async {
 
     /// 1 - search LDB
-    Chain _bigChainK = await ChainLDBOps.readBigChainK();
+    List<Chain> _chains = await ChainLDBOps.readBldrsChains();
 
-    /// 2 - bigChainK is not found in LDB
-    if (_bigChainK == null){
+    /// 2 - BLDRS CHAINS not found in LDB
+    if (_chains == null) {
 
-      _bigChainK = await ChainRealOps.readBigChainK(context);
+      _chains = await ChainRealOps.readBldrsChains(context);
 
       /// 3 - insert in LDB when found on firebase
-      if (_bigChainK != null){
+      if (_chains != null){
 
-        await ChainLDBOps.insertBigChainK(_bigChainK);
+        await ChainLDBOps.insertBldrsChains(_chains);
 
       }
 
     }
 
-    return _bigChainK;
-  }
-  // --------------------
-  /// TASK DEPRECATED
-  static Future<Chain> fetchBigChainS(BuildContext context) async {
-
-    /// 1 - search LDB
-    Chain _bigChainS = await ChainLDBOps.readBigChainS();
-
-    /// 2 - bigChainS is not found in LDB
-    if (_bigChainS == null) {
-
-      _bigChainS = await ChainRealOps.readBigChainS(context);
-
-      /// 3 - insert in LDB when found on firebase
-      if (_bigChainS != null){
-
-        await ChainLDBOps.insertBigChainS(_bigChainS);
-
-      }
-
-    }
-
-    return _bigChainS;
+    return _chains;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -163,6 +96,182 @@ class ChainProtocols {
   /// RENOVATE
 
   // --------------------
+  ///
+  static Future<void> renovateBldrsChains({
+    @required BuildContext context,
+    @required List<Chain> newChains,
+  }) async {
+
+    if (newChains != null){
+
+      unawaited(WaitDialog.showWaitDialog(context: context,));
+
+      await Future.wait(<Future>[
+
+        ChainRealOps.updateBldrsChains(
+            context: context,
+            chains: newChains,
+        ),
+
+        updateBldrsChainsLocally(
+          context: context,
+          newChains: newChains,
+          showWaitDialog: false,
+        ),
+
+      ]);
+
+      WaitDialog.closeWaitDialog(context);
+
+    }
+
+  }
+  // --------------------
+
+  static Future<void> updateBldrsChainsLocally({
+    @required BuildContext context,
+    @required List<Chain> newChains,
+    @required bool showWaitDialog,
+  }) async {
+
+    if (newChains != null){
+
+      if (showWaitDialog == true){
+        unawaited(WaitDialog.showWaitDialog(context: context,));
+      }
+
+      /// UPDATE CHAIN S IN LDB
+      await ChainLDBOps.updateBldrsChains(
+        chains: newChains,
+      );
+
+      /// UPDATE CHAIN S IN PRO
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      await _chainsProvider.updateBldrsChainsOps(
+        context: context,
+        bldrsChains: newChains,
+        notify: true,
+      );
+
+      if (showWaitDialog == true){
+        WaitDialog.closeWaitDialog(context);
+      }
+
+    }
+
+  }
+
+  // -----------------------------------------------------------------------------
+
+  /// WIPE
+
+  // --------------------
+  /// NO NEED
+  // -----------------------------------------------------------------------------
+}
+// -----------------------------------------------------------------------------
+  /*
+  // --------------------
+  /// TASK DEPRECATED
+  static Future<Chain> composeChainK({
+    @required BuildContext context,
+    @required Chain chainK,
+  }) async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse:  'Uploading ChainK to RealTime Database',
+    ));
+
+    /// NOTE : chain K does not allow duplicate IDs in last node
+    final Chain _bigChainK = await ChainRealOps.createBigChainK(
+      context: context,
+      chainK: chainK,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    return _bigChainK;
+  }
+
+ */
+  // --------------------
+  /*
+  /// TASK DEPRECATED
+  static Future<Chain> composeChainS({
+    @required BuildContext context,
+    @required Chain chainS,
+  }) async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+      loadingVerse:  'Uploading ChainS to RealTime Database',
+    ));
+
+    /// NOTE : chain S allows duplicate keys in its last nodes
+    final Chain _bigChainS = await ChainRealOps.createBigChainS(
+      context: context,
+      chainS: chainS,
+    );
+
+    WaitDialog.closeWaitDialog(context);
+
+    return _bigChainS;
+  }
+
+ */
+  // --------------------
+  /*
+  /// TASK DEPRECATED
+  static Future<Chain> fetchBigChainK(BuildContext context) async {
+
+    /// 1 - search LDB
+    Chain _bigChainK = await ChainLDBOps.readBigChainK();
+
+    /// 2 - bigChainK is not found in LDB
+    if (_bigChainK == null){
+
+      _bigChainK = await ChainRealOps.readBigChainK(context);
+
+      /// 3 - insert in LDB when found on firebase
+      if (_bigChainK != null){
+
+        await ChainLDBOps.insertBigChainK(_bigChainK);
+
+      }
+
+    }
+
+    return _bigChainK;
+  }
+  */
+  // --------------------
+  /*
+  /// TASK DEPRECATED
+  static Future<Chain> fetchBigChainS(BuildContext context) async {
+
+    /// 1 - search LDB
+    Chain _bigChainS = await ChainLDBOps.readBigChainS();
+
+    /// 2 - bigChainS is not found in LDB
+    if (_bigChainS == null) {
+
+      _bigChainS = await ChainRealOps.readBigChainS(context);
+
+      /// 3 - insert in LDB when found on firebase
+      if (_bigChainS != null){
+
+        await ChainLDBOps.insertBigChainS(_bigChainS);
+
+      }
+
+    }
+
+    return _bigChainS;
+  }
+  */
+  // --------------------
+  /*
   /// TASK DEPRECATED
   static Future<void> renovateBigChainK({
     @required BuildContext context,
@@ -193,7 +302,9 @@ class ChainProtocols {
     }
 
   }
+  */
   // --------------------
+  /*
   /// TASK DEPRECATED
   static Future<void> renovateBigChainS({
     @required BuildContext context,
@@ -223,8 +334,9 @@ class ChainProtocols {
 
     }
 
-  }
+  }*/
   // --------------------
+  /*
   /// TASK DEPRECATED
   static Future<void> updateBigChainKLocally({
     @required BuildContext context,
@@ -259,7 +371,10 @@ class ChainProtocols {
     }
 
   }
+
+   */
   // --------------------
+  /*
   /// TASK DEPRECATED
   static Future<void> updateBigChainSLocally({
     @required BuildContext context,
@@ -293,11 +408,5 @@ class ChainProtocols {
     }
 
   }
-  // -----------------------------------------------------------------------------
-
-  /// WIPE
-
-  // --------------------
-  /// NO NEED
-  // -----------------------------------------------------------------------------
-}
+   */
+// -----------------------------------------------------------------------------

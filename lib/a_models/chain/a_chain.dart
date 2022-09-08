@@ -66,150 +66,6 @@ class Chain {
   /// REAL CYPHERS
 
   // --------------------
-  /// TASK DEPRECATED
-  static Map<String, dynamic> cipherBigChainK({
-    @required Chain chainK,
-  }){
-
-    final List<String> chainKPaths = ChainPathConverter.generateChainsPaths(
-      parentID: '',
-      chains: chainK.sons,
-    );
-
-    Map<String, dynamic> _map = {};
-
-    if (Mapper.checkCanLoopList(chainKPaths) == true){
-
-      for (int i = 0; i < chainKPaths.length; i++){
-
-        final String _path = chainKPaths[i];
-        final String _key = ChainPathConverter.getLastPathNode(_path);
-
-        if (_map[_key] == null){
-          _map = Mapper.insertPairInMap(
-            map: _map,
-            key: _key,
-            value: _path,
-          );
-        }
-
-        else {
-          blog('cipherChainKPaths : error here key is taken : _key $_key : ${_map[_key]}');
-          throw Error();
-        }
-
-      }
-
-
-    }
-
-    return _map;
-  }
-  // --------------------
-  /// TASK DEPRECATED
-  static Chain decipherBigChainK({
-    @required Map<String, dynamic> bigChainKMap,
-  }) {
-    Chain _bigChainK;
-
-    if (bigChainKMap != null) {
-
-      final List<dynamic> _dynamicsValues = bigChainKMap.values.toList();
-      _dynamicsValues.remove(RealDoc.chains_bigChainK);
-
-      final List<String> _paths = Stringer.getStringsFromDynamics(
-        dynamics: _dynamicsValues,
-      );
-
-      final List<Chain> _chainKSons = ChainPathConverter.createChainsFromPaths(
-        paths: _paths,
-      );
-
-      _bigChainK = Chain(
-        id: 'chainK',
-        sons: _chainKSons,
-      );
-
-    }
-
-    return _bigChainK;
-  }
-  // --------------------
-  /// TASK DEPRECATED
-  static Map<String, dynamic> cipherBigChainS({
-    @required Chain chainS,
-  }){
-
-    /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
-
-    final List<String> chainSPaths = ChainPathConverter.generateChainsPaths(
-      parentID: '',
-      chains: chainS.sons,
-    );
-
-    Map<String, dynamic> _map = {};
-
-    if (Mapper.checkCanLoopList(chainSPaths) == true){
-
-      for (int i = 0; i < chainSPaths.length; i++){
-
-        final String _path = chainSPaths[i];
-        final String _key = Phider.generatePhidPathUniqueKey(
-          path: _path,
-        );
-
-        /// THIS KEY IS UNIQUE
-        if (_map[_key] == null){
-          _map = Mapper.insertPairInMap(
-            map: _map,
-            key: _key,
-            value: _path,
-          );
-        }
-
-        /// THE KEY IS TAKEN ALREADY
-        else {
-          blog('cipherChainSPaths : error here key is taken : _key $_key : ${_map[_key]}');
-          throw Error();
-        }
-
-      }
-
-
-    }
-
-    return _map;
-  }
-  // --------------------
-  /// TASK DEPRECATED
-  static Chain decipherBigChainS({
-    @required Map<String, dynamic> bigChainSMap,
-  }) {
-    Chain _bigChainS;
-
-    if (bigChainSMap != null) {
-
-      final List<dynamic> _dynamicsValues = bigChainSMap.values.toList();
-      _dynamicsValues.remove(RealDoc.chains_bigChainS);
-
-      final List<String> _paths = Stringer.getStringsFromDynamics(
-        dynamics: _dynamicsValues,
-      );
-
-      final List<Chain> _chainSSons = ChainPathConverter.createChainsFromPaths(
-        paths: _paths,
-      );
-
-      _bigChainS = Chain(
-        id: 'chainS',
-        sons: _chainSSons,
-      );
-
-    }
-
-    return _bigChainS;
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBldrsChains({
     @required List<Chain> chains,
@@ -256,7 +112,7 @@ class Chain {
     return _map;
   }
   // --------------------
-
+  /// TESTED : WORKS PERFECT
   static List<Chain> decipherBldrsChains({
     @required Map<String, dynamic> map,
   }) {
@@ -538,24 +394,6 @@ class Chain {
   }
   // -----------------------------------------------------------------------------
 
-  /// STANDARDS
-
-  // --------------------
-  static const String propertyChainID = 'phid_k_flyer_type_property';
-  static const String designChainID = 'phid_k_flyer_type_design';
-  static const String tradesChainID = 'phid_k_flyer_type_trades';
-  static const String productChainID = 'phid_k_flyer_type_product';
-  static const String equipmentChainID = 'phid_k_flyer_type_equipment';
-  // --------------------
-  static List<String> chainKSonsIDs = <String>[
-    propertyChainID,
-    designChainID,
-    tradesChainID,
-    productChainID,
-    equipmentChainID,
-  ];
-  // -----------------------------------------------------------------------------
-
   /// FILTERS
 
   // --------------------
@@ -779,7 +617,7 @@ class Chain {
 
       /// IF SONS ARE CHAINS
       if (sonsAisChains == true){
-        _sonsAreIdentical = checkChainsListsAreIdenticalOLDMETHOD(
+        _sonsAreIdentical = checkChainsListsAreIdentical(
           chains1: chain1.sons,
           chains2: chain2.sons,
         );
@@ -813,7 +651,7 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkChainsListsAreIdenticalOLDMETHOD({
+  static bool checkChainsListsAreIdentical({
     @required List<Chain> chains1,
     @required List<Chain> chains2
   }){
@@ -1076,7 +914,7 @@ class Chain {
     return _chainSonsIDs;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  ///
   static Chain getChainFromChainsByID({
     @required String chainID,
     @required List<Chain> chains,
@@ -1090,7 +928,11 @@ class Chain {
 
       for (final Chain chain in chains){
 
-        if (chain?.id == chainID){
+        if (
+            Phider.removeIndexFromPhid(phid: chain?.id)
+            ==
+            Phider.removeIndexFromPhid(phid: chainID)
+        ){
           _chain = chain;
           break;
         }
@@ -1098,7 +940,7 @@ class Chain {
         else if (checkSonsAreChains(chain?.sons) == true){
 
           final Chain _son = getChainFromChainsByID(
-            chainID: chainID,
+            chainID: Phider.removeIndexFromPhid(phid: chainID),
             chains: chain?.sons,
           );
 
@@ -1433,31 +1275,23 @@ class Chain {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Chain removeAllPhidsNotUsedInThisList({
-    @required Chain chain,
+  ///
+  static List<Chain> removeAllPhidsNotUsedInThisList({
+    @required List<Chain> chains,
     @required List<String> usedPhids,
   }){
-    Chain _output;
+    List<Chain> _output;
 
-    if (chain != null){
-
-      _output = Chain(
-        id: chain?.id,
-        sons: const <dynamic>[],
-      );
+    if (chains != null){
 
       if (Mapper.checkCanLoopList(usedPhids) == true){
 
         final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
-          allChains: chain.sons,
+          allChains: chains,
           phids: usedPhids,
         );
 
-        _output = Chain(
-          id: chain.id,
-          sons: _foundPathsChains,
-        );
+        _output = _foundPathsChains;
 
       }
 
@@ -1498,6 +1332,37 @@ class Chain {
     return _output;
   }
   // --------------------
+  ///
+  static List<Chain> addPathToChains({
+    @required List<Chain> chains,
+    @required String path,
+  }){
+    // blog('addPathToChain : START');
+
+    List<Chain> _output = chains;
+
+    if (Mapper.checkCanLoopList(chains) == true && path != null){
+
+      final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains,
+      );
+
+      final List<String> _updated = ChainPathConverter.addPathToPaths(
+          paths: _chainPaths,
+          path: path
+      );
+
+      _output = ChainPathConverter.createChainsFromPaths(
+        paths: _updated,
+      );
+
+    }
+
+    // blog('addPathToChain : END');
+    return _output;
+  }
+  // --------------------
   /// TEST : WORKS PERFECT
   static Chain removePathFromChain({
     @required Chain chain,
@@ -1523,6 +1388,39 @@ class Chain {
 
       _output = ChainPathConverter.createChainFromPaths(
         chainID: chain.id,
+        paths: _updated,
+      );
+
+    }
+
+    // blog('addPathToChain : END');
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<Chain> removePathFromChains({
+    @required List<Chain> chains,
+    @required String path,
+  }){
+    // blog('addPathToChain : START');
+
+    List<Chain> _output = chains;
+
+    if (Mapper.checkCanLoopList(chains) == true && path != null){
+
+      final List<String> _chainsPaths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains,
+      );
+
+      final String _fixedPath = ChainPathConverter.fixPathFormatting(path);
+
+      final List<String> _updated = Stringer.removeStringsFromStrings(
+        removeFrom: _chainsPaths,
+        removeThis: <String>[_fixedPath],
+      );
+
+      _output = ChainPathConverter.createChainsFromPaths(
         paths: _updated,
       );
 
@@ -1569,6 +1467,50 @@ class Chain {
 
       _output = ChainPathConverter.createChainFromPaths(
         chainID: chain.id,
+        paths: _afterInsert,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<Chain> replaceChainsPathWithPath({
+    @required List<Chain> chains,
+    @required String pathToRemove,
+    @required String pathToReplace,
+  }){
+    List<Chain> _output = chains;
+
+    if (
+    Mapper.checkCanLoopList(chains) == true
+        &&
+        pathToRemove != null
+        &&
+        pathToReplace != null
+        &&
+        pathToRemove != pathToReplace
+    ){
+
+      final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains,
+      );
+
+      /// REMOVE ORIGINAL PATH
+      final List<String> _afterRemove = Stringer.removeStringsFromStrings(
+        removeFrom: _chainPaths,
+        removeThis: <String>[pathToRemove],
+      );
+
+      /// INSERT NEW PATH
+      final List<String> _afterInsert = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _afterRemove,
+        stringToAdd: pathToReplace,
+      );
+
+      _output = ChainPathConverter.createChainsFromPaths(
         paths: _afterInsert,
       );
 
@@ -1648,3 +1590,151 @@ class Chain {
       sons.hashCode;
   // -----------------------------------------------------------------------------
 }
+
+/*
+  // --------------------
+  /// TASK DEPRECATED
+  static Map<String, dynamic> cipherBigChainK({
+    @required Chain chainK,
+  }){
+
+    final List<String> chainKPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: chainK.sons,
+    );
+
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.checkCanLoopList(chainKPaths) == true){
+
+      for (int i = 0; i < chainKPaths.length; i++){
+
+        final String _path = chainKPaths[i];
+        final String _key = ChainPathConverter.getLastPathNode(_path);
+
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: _key,
+            value: _path,
+          );
+        }
+
+        else {
+          blog('cipherChainKPaths : error here key is taken : _key $_key : ${_map[_key]}');
+          throw Error();
+        }
+
+      }
+
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  /// TASK DEPRECATED
+  static Chain decipherBigChainK({
+    @required Map<String, dynamic> bigChainKMap,
+  }) {
+    Chain _bigChainK;
+
+    if (bigChainKMap != null) {
+
+      final List<dynamic> _dynamicsValues = bigChainKMap.values.toList();
+      _dynamicsValues.remove(RealDoc.chains_bigChainK);
+
+      final List<String> _paths = Stringer.getStringsFromDynamics(
+        dynamics: _dynamicsValues,
+      );
+
+      final List<Chain> _chainKSons = ChainPathConverter.createChainsFromPaths(
+        paths: _paths,
+      );
+
+      _bigChainK = Chain(
+        id: 'chainK',
+        sons: _chainKSons,
+      );
+
+    }
+
+    return _bigChainK;
+  }
+  // --------------------
+  /// TASK DEPRECATED
+  static Map<String, dynamic> cipherBigChainS({
+    @required Chain chainS,
+  }){
+
+    /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
+
+    final List<String> chainSPaths = ChainPathConverter.generateChainsPaths(
+      parentID: '',
+      chains: chainS.sons,
+    );
+
+    Map<String, dynamic> _map = {};
+
+    if (Mapper.checkCanLoopList(chainSPaths) == true){
+
+      for (int i = 0; i < chainSPaths.length; i++){
+
+        final String _path = chainSPaths[i];
+        final String _key = Phider.generatePhidPathUniqueKey(
+          path: _path,
+        );
+
+        /// THIS KEY IS UNIQUE
+        if (_map[_key] == null){
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: _key,
+            value: _path,
+          );
+        }
+
+        /// THE KEY IS TAKEN ALREADY
+        else {
+          blog('cipherChainSPaths : error here key is taken : _key $_key : ${_map[_key]}');
+          throw Error();
+        }
+
+      }
+
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  /// TASK DEPRECATED
+  static Chain decipherBigChainS({
+    @required Map<String, dynamic> bigChainSMap,
+  }) {
+    Chain _bigChainS;
+
+    if (bigChainSMap != null) {
+
+      final List<dynamic> _dynamicsValues = bigChainSMap.values.toList();
+      _dynamicsValues.remove(RealDoc.chains_bigChainS);
+
+      final List<String> _paths = Stringer.getStringsFromDynamics(
+        dynamics: _dynamicsValues,
+      );
+
+      final List<Chain> _chainSSons = ChainPathConverter.createChainsFromPaths(
+        paths: _paths,
+      );
+
+      _bigChainS = Chain(
+        id: 'chainS',
+        sons: _chainSSons,
+      );
+
+    }
+
+    return _bigChainS;
+  }
+
+ */

@@ -221,10 +221,10 @@ Future<void> _initializeAppState(BuildContext context) async {
         }
 
         /// KEYWORDS CHAIN
-        if (_globalState.keywordsChainVersion > _userState.keywordsChainVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainK,);
+        if (_globalState.chainsVersion > _userState.chainsVersion){
+          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bldrsChains,);
           _userAppState = _userAppState.copyWith(
-            keywordsChainVersion: _globalState.keywordsChainVersion,
+            chainsVersion: _globalState.chainsVersion,
           );
         }
 
@@ -245,18 +245,10 @@ Future<void> _initializeAppState(BuildContext context) async {
         }
 
         /// SPEC PICKERS
-        if (_globalState.specPickersVersion > _userState.specPickersVersion){
+        if (_globalState.pickersVersion > _userState.pickersVersion){
           await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.pickers,);
           _userAppState = _userAppState.copyWith(
-            specPickersVersion: _globalState.specPickersVersion,
-          );
-        }
-
-        /// SPEC CHAIN VERSION
-        if (_globalState.specsChainVersion > _userState.specsChainVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bigChainS,);
-          _userAppState = _userAppState.copyWith(
-            specsChainVersion: _globalState.specsChainVersion,
+            pickersVersion: _globalState.pickersVersion,
           );
         }
 
