@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
@@ -693,12 +694,12 @@ class ChainsProvider extends ChangeNotifier {
 
     /// WHEN SON IS KEYWORD ID
     if (son.runtimeType == String) {
-      _phid  = son;
+      _phid  = Phider.removeIndexFromPhid(phid: son);
     }
     /// WHEN SON IS A CHAIN
     else if (son.runtimeType == Chain) {
       final Chain _chain = son;
-      _phid = _chain.id;
+      _phid = Phider.removeIndexFromPhid(phid: _chain.id);
     }
 
     return getLocalAssetPath(

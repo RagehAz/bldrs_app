@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/e_db/real/foundation/real.dart';
 import 'package:bldrs/e_db/real/foundation/real_colls.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -56,17 +57,17 @@ class ChainRealOps {
   /// READ
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<Chain>> readBldrsChains(BuildContext context) async {
 
-    final List<Map<String, dynamic>> _maps = await Real.readColl(
+    final Map<String, dynamic> map = await Real.readCollAsMap(
       context: context,
-      nodePath: RealColl.chains,
+      collName: RealColl.bldrsChains,
     );
 
-    final List<Chain> _chains = Chain.decipherChainsOLD(_maps);
+    final List<Chain> _chains = Chain.decipherBldrsChains(map: map);
 
-    return _chains;
+    return Phider.sortChainsByIndexes(_chains);
   }
   // -----------------------------------------------------------------------------
 
@@ -82,7 +83,7 @@ class ChainRealOps {
 
       await Real.updateColl(
         context: context,
-        collName: RealColl.chains,
+        collName: RealColl.bldrsChains,
         map: Chain.cipherBldrsChains(chains: chains),
       );
 
