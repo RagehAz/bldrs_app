@@ -516,12 +516,14 @@ class ProviderTestButton extends StatelessWidget {
     @required this.title,
     @required this.value,
     this.onTap,
+    this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
   final dynamic value;
   final Function onTap;
+  final double width;
   /// --------------------------------------------------------------------------
   String valueIsNotNull(dynamic value) {
     final String _icon = value == null ? Iconz.xSmall : Iconz.check;
@@ -534,7 +536,7 @@ class ProviderTestButton extends StatelessWidget {
     return DreamBox(
       height: 25,
       corners: 5,
-      width: BldrsAppBar.width(context),
+      width: width ?? BldrsAppBar.width(context),
       margins: const EdgeInsets.symmetric(vertical: 2.5),
       color: value == null ? Colorz.bloodTest : Colorz.green255,
       verse: title,

@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -162,7 +163,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         headlineVerse: 'Picking mode',
         translateHeadline: false,
       ),
-      bubbleColor: Colorz.bloodTest,
+      bubbleColor: Colorz.white20,
       columnChildren: <Widget>[
 
         /// SELECT FLYER TYPE
@@ -173,7 +174,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
             translateHeadline: false,
             headerWidth: Bubble.bubbleWidth(context: context) - 20,
           ),
-          bubbleColor: Colorz.black125,
+          // bubbleColor: Colorz.white10,
           margins: 0,
           columnChildren: <Widget>[
             SizedBox(
@@ -189,10 +190,17 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                       flyerType: _type,
                       flyerTypes: _selectedTypes,
                     );
-                    return AppBarButton(
+                    return DreamBox(
+                      height: 35,
                       verse: FlyerTyper.translateFlyerType(context: context, flyerType: _type),
+                      verseCasing: VerseCasing.upperCase,
+                      translateVerse: true,
+                      verseScaleFactor: 0.6,
+                      verseWeight: VerseWeight.black,
+                      verseItalic: true,
                       icon: FlyerTyper.flyerTypeIconOff(_type),
-                      buttonColor: _isSelected == true ? Colorz.green255 : null,
+                      color: _isSelected == true ? Colorz.green255 : null,
+                      iconSizeFactor: 0.8,
                       onTap: () => _onSelectFlyerType(_type),
                     );
                   }),
@@ -214,7 +222,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               hasSwitch: true,
               onSwitchTap: _onSwitchShowCityChainsOnly,
           ),
-          bubbleColor: Colorz.black125,
+          // bubbleColor: Colorz.white10,
           margins: const EdgeInsets.only(top: 5),
           columnChildren: const <Widget>[],
         ),
@@ -230,7 +238,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               hasSwitch: true,
               onSwitchTap: _onSwitchMultipleSelectionMode
           ),
-          bubbleColor: Colorz.black125,
+          // bubbleColor: Colorz.white10,
           margins: const EdgeInsets.only(top: 5),
           columnChildren: const <Widget>[],
         ),
@@ -244,7 +252,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
             headerWidth: Bubble.bubbleWidth(context: context) - 20,
             leadingIcon: _onlyCityChains == true ? Flag.getFlagIcon(_zone.countryID) : Iconz.earth,
           ),
-          bubbleColor: _onlyCityChains == true ? Colorz.black125 : Colorz.black50,
+          bubbleColor: _onlyCityChains == true ? Colorz.white10 : Colorz.black50,
           margins: const EdgeInsets.only(top: 5),
           onBubbleTap: _onSelectNewZone,
           columnChildren: const <Widget>[],
@@ -252,6 +260,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
         DreamBox(
           height: 80,
+          color: Colorz.blue80,
           verseCentered: false,
           width: Bubble.clearWidth(context),
           verse: 'Go to Chains Picking Screen',
@@ -269,5 +278,5 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
     );
 
   }
-
+  // -----------------------------------------------------------------------------
 }
