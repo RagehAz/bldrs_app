@@ -109,7 +109,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                     headlineVerse:  'Show only Verified Flyers',
                     leadingIcon: Iconz.news,
                     leadingIconSizeFactor: 0.5,
-                    switchIsOn: controls.showOnlyVerifiedFlyersInHomeWall,
+                    switchValue: controls.showOnlyVerifiedFlyersInHomeWall,
                     onSwitchTap: (bool val) => switchOnlyShowVerifiedFlyersInHomeWall(
                       context: context,
                       value: val,
