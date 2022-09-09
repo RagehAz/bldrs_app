@@ -15,7 +15,7 @@ import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/providers_test.dart';
+import 'package:bldrs/x_dashboard/a_modules/l_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_pickers_editors/a_pickers_manager_screen.dart';
