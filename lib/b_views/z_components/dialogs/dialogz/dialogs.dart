@@ -293,6 +293,7 @@ class Dialogs {
     @required BuildContext context,
     KeyboardModel keyboardModel,
     bool confirmButtonIsOn = true,
+    String Function() validator,
   }) async {
 
     final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
@@ -347,6 +348,8 @@ class Dialogs {
               keyboardTextInputAction: _keyboardModel.textInputAction,
               autoFocus: true,
               onSubmitted: _onConfirmTap,
+              // autoValidate: true,
+              validator: validator,
 
             ),
 
