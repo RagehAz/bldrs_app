@@ -655,6 +655,7 @@ class Chain {
     @required List<Chain> chains1,
     @required List<Chain> chains2
   }){
+    blog('checkChainsListsAreIdentical : START');
 
     bool _listsAreIdentical = false;
 
@@ -664,7 +665,11 @@ class Chain {
         Mapper.checkCanLoopList(chains2) == true
     ){
 
+
+
       if (chains1.length == chains2.length){
+
+        // blog('checkChainsListsAreIdentical : chains1.length (${chains1.length}) == chains2.length (${chains2.length})');
 
         for (int i = 0; i < chains1.length; i++){
 
@@ -681,6 +686,7 @@ class Chain {
             break;
           }
           else {
+
             _listsAreIdentical = true;
           }
 
@@ -690,6 +696,7 @@ class Chain {
 
     }
 
+    blog('checkChainsListsAreIdentical : END');
     return _listsAreIdentical;
   }
   // --------------------
@@ -704,15 +711,19 @@ class Chain {
         chains: chains1
     );
 
-
     final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains2
     );
 
+    Stringer.blogStrings(strings: _pathsA, invoker: '_pathsA');
+    Stringer.blogStrings(strings: _pathsB, invoker: '_pathsB');
+
+    blog('checkChainsListPathsAreIdentical : _pathsA.length (${_pathsA.length}) == _pathsB.length (${_pathsB.length})');
+
     final bool _identical = Mapper.checkListsAreIdentical(
         list1: _pathsA,
-        list2: _pathsB
+        list2: _pathsB,
     );
 
     if (_identical == false){
@@ -842,7 +853,7 @@ class Chain {
       }
 
       else if (checkSonsArePhids(sons) == true){
-        blog('$_space $level : $id : <String>${sons.toString()}');
+        blog('$_space $level : $id : <Phid>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
@@ -882,6 +893,21 @@ class Chain {
     else {
       final String _space = getChainBlogTreeSpacing(parentLevel);
       blog('$_space $parentLevel : NO CHAINS TO BLOG');
+    }
+
+  }
+
+  static void blogChainsPaths(List<Chain> chains){
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      final List<String> _paths = ChainPathConverter.generateChainsPaths(
+          parentID: '',
+          chains: chains
+      );
+
+      ChainPathConverter.blogPaths(_paths);
+
     }
 
   }
@@ -1337,29 +1363,42 @@ class Chain {
     @required List<Chain> chains,
     @required String path,
   }){
-    // blog('addPathToChain : START');
+    blog('addPathToChains : START');
 
     List<Chain> _output = chains;
 
-    if (Mapper.checkCanLoopList(chains) == true && path != null){
+    blog('addPathToChains : _output.length : ${_output?.length}');
+
+    if (chains != null && path != null){
 
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
       );
 
+      blog('addPathToChains : _chainPaths.length : ${_chainPaths.length}');
+
       final List<String> _updated = ChainPathConverter.addPathToPaths(
           paths: _chainPaths,
           path: path
       );
 
+      blog('addPathToChains : _updated.length : ${_updated.length}');
+
+
       _output = ChainPathConverter.createChainsFromPaths(
         paths: _updated,
       );
 
+      blog('addPathToChains : _output.length : ${_output.length}');
+
     }
 
-    // blog('addPathToChain : END');
+    blog('addPathToChains : _output.length : ${_output.length}');
+
+
+
+    blog('addPathToChains : END');
     return _output;
   }
   // --------------------
@@ -1531,14 +1570,14 @@ class Chain {
       sons: <Chain>[
 
         Chain(
-          id: 'phids_Sons',
+          id: 'when sons are phids',
           sons: <String>['phidA', 'phidB', 'phidC'],
         ),
 
         Chain(
-          id: 'chains_sons',
+          id: 'when sons are chains',
           sons: <Chain>[
-            Chain(id: 'chainSon', sons: <String>['phid_sonA', 'phid_sonB']),
+            Chain(id: 'a chain sub son', sons: <String>['phid_sonA', 'phid_sonB']),
           ],
         ),
 
@@ -1548,7 +1587,7 @@ class Chain {
         ),
 
         Chain(
-          id: 'phids_Bzzz',
+          id: 'sons strings keda test',
           sons: <String>['phidXX', 'phidYY', 'phidZZ'],
         ),
 

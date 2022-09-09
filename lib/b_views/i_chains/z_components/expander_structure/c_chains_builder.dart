@@ -6,9 +6,9 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainSonsBuilder extends StatelessWidget {
+class ChainsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainSonsBuilder({
+  const ChainsBuilder({
     @required this.sons,
     @required this.previousPath,
     @required this.width,
