@@ -20,6 +20,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.appBarType,
     @required this.appBarRowWidgets,
     @required this.pageTitle,
+    @required this.translatePageTitle,
     @required this.onBack,
     @required this.loading,
     @required this.progressBarModel,
@@ -46,6 +47,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final AppBarType appBarType;
   final List<Widget> appBarRowWidgets;
   final dynamic pageTitle;
+  final bool translatePageTitle;
   final Function onBack;
   // final bool loading;
   final ScrollController appBarScrollController;
@@ -127,6 +129,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             appBarType: appBarType,
             appBarRowWidgets: appBarRowWidgets,
             pageTitle: pageTitle,
+            translatePageTitle: translatePageTitle,
             onBack: onBack,
             loading: loading,
             progressBarModel: progressBarModel,

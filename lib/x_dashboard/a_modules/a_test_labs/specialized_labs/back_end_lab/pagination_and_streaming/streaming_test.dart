@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/streamers/clock_rebuilder.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
@@ -155,7 +155,7 @@ class _StreamingTestState extends State<StreamingTest> {
                       },
                     );
 
-                    await TopDialog.showSuccessDialog(context : context);
+                    await Dialogs.showSuccessDialog(context : context);
 
                   },
                 );

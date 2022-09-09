@@ -22,7 +22,7 @@ class ZoneLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _zoneString = ZoneModel.generateZoneString(
+    final String _zoneString = ZoneModel.translateZoneString(
       context: context,
       zoneModel: zoneModel,
       showCity: showCity,

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -325,11 +326,13 @@ String getSectionIcon({
 
       for (final FlyerType type in flyerTypes){
 
-        final String _translation = translateFlyerType(
+        final String _phid = translateFlyerType(
           context: context,
           flyerType: type,
           pluralTranslation: pluralTranslation,
         );
+
+        final String _translation = xPhrase(context, _phid);
 
         _strings.add(_translation);
 

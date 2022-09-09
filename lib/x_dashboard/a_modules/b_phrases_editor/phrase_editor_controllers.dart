@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -252,7 +251,7 @@ Future<void> onConfirmEditPhrase({
       idTextController: idTextController,
     );
 
-    await TopDialog.showSuccessDialog(
+    await Dialogs.showSuccessDialog(
       context: context,
       firstLine: 'Phrases Updated',
     );
@@ -445,7 +444,7 @@ Future<void> onDeletePhrase({
 
     // blog('onDeletePhrase : ${tempMixedPhrases.value.length} GIVEN LENGTH');
 
-    await TopDialog.showSuccessDialog(
+    await Dialogs.showSuccessDialog(
       context: context,
       firstLine: 'Phrase has been deleted',
     );
@@ -522,7 +521,7 @@ Future<void> onSyncPhrases({
       idTextController: idTextController,
     );
 
-    await TopDialog.showSuccessDialog(
+    await Dialogs.showSuccessDialog(
       context: context,
       firstLine: 'Sync Successful',
     );
