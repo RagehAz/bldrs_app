@@ -110,7 +110,7 @@ class EditCityPage extends StatelessWidget {
                 onSwitchTap: (bool val) {
                   blog('city is Active : $val');
                 },
-                switchIsOn: _city?.isActivated,
+                switchValue: _city?.isActivated,
 
               ),
               secondLineVerse:  'When City is Deactivated, '
@@ -128,7 +128,7 @@ class EditCityPage extends StatelessWidget {
                 onSwitchTap: (bool val) {
                   blog('city is Global : $val');
                 },
-                switchIsOn: _city?.isPublic,
+                switchValue: _city?.isPublic,
               ),
               secondLineVerse:  'Means City content volumes reached the publishing sweet spot'
                   '\nUsers of This city can view Flyers now,, not only The Businesses'

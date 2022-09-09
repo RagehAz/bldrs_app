@@ -261,7 +261,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                       isActivated: val,
                     );
                   },
-                  switchIsOn: country.isActivated,
+                  switchValue: country.isActivated,
 
                 ),
                 secondLineVerse:  'The Main Country Switch.. When Activated, '
@@ -282,7 +282,7 @@ class _CountryEditorPageState extends State<CountryEditorPage> {
                       isGlobal: val,
                     );
                   },
-                  switchIsOn: country.isGlobal,
+                  switchValue: country.isGlobal,
                 ),
                 secondLineVerse:  'Country is only Local by Default, '
                     'where only Users in this country can see themselves '
