@@ -10,6 +10,7 @@ class AppBarTitle extends StatelessWidget {
     @required this.backButtonIsOn,
     @required this.width,
     @required this.appBarRowWidgets,
+    @required this.translatePageTitle,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -17,6 +18,7 @@ class AppBarTitle extends StatelessWidget {
   final bool backButtonIsOn;
   final double width;
   final List<Widget> appBarRowWidgets;
+  final bool translatePageTitle;
   /// --------------------------------------------------------------------------
   static double getTitleHorizontalMargin({
     @required bool backButtonIsOn,
@@ -31,6 +33,7 @@ class AppBarTitle extends StatelessWidget {
     return Center(
         child: pageTitle is String ?
         _HeadlineSuperVerse(
+          translate: translatePageTitle,
           title: pageTitle,
           width: width,
           appBarRowWidgets: appBarRowWidgets,
@@ -45,6 +48,7 @@ class AppBarTitle extends StatelessWidget {
           builder: (_, String title, Widget child){
 
             return _HeadlineSuperVerse(
+              translate: translatePageTitle,
               title: title,
               width: width,
               appBarRowWidgets: appBarRowWidgets,
@@ -67,6 +71,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _HeadlineSuperVerse({
     @required this.title,
+    @required this.translate,
     @required this.backButtonIsOn,
     @required this.width,
     @required this.appBarRowWidgets,
@@ -74,6 +79,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String title;
+  final bool translate;
   final bool backButtonIsOn;
   final double width;
   final List<Widget> appBarRowWidgets;
@@ -87,7 +93,9 @@ class _HeadlineSuperVerse extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(appBarRowWidgets) == true){
       return SuperVerse(
-        verse: title.toUpperCase(),
+        verse: title,
+        translate: translate,
+        verseCasing: VerseCasing.upperCase,
         weight: VerseWeight.black,
         color: Colorz.white200,
         margin: 0,
@@ -107,7 +115,9 @@ class _HeadlineSuperVerse extends StatelessWidget {
             horizontal: _titleHorizontalMargins
         ),
         child: SuperVerse(
-          verse: title.toUpperCase(),
+          verse: title,
+          translate: translate,
+          verseCasing: VerseCasing.upperCase,
           weight: VerseWeight.black,
           color: Colorz.white200,
           margin: 0,

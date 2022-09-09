@@ -32,6 +32,7 @@ class BldrsAppBar extends StatelessWidget {
     this.searchHint,
     this.canGoBack,
     this.onSearchCancelled,
+    this.translatePageTitle,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -51,6 +52,7 @@ class BldrsAppBar extends StatelessWidget {
   final bool canGoBack;
   final Function onSearchCancelled;
   final GlobalKey globalKey;
+  final bool translatePageTitle;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context, {double boxWidth}) {
     final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
@@ -250,6 +252,7 @@ class BldrsAppBar extends StatelessWidget {
                         pageTitle: pageTitle,
                         backButtonIsOn: _backButtonIsOn,
                         appBarRowWidgets: appBarRowWidgets,
+                        translatePageTitle: translatePageTitle,
                       ),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// SCROLLER WIDGETS

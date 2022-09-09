@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

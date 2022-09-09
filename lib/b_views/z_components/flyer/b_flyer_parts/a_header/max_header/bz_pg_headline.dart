@@ -47,7 +47,7 @@ class OldBzPageHeadline extends StatelessWidget {
 
           /// BUSINESS LOCALE
           SuperVerse(
-            verse: ZoneModel.generateZoneString(
+            verse: ZoneModel.translateZoneString(
               context: context,
               zoneModel: bzModel?.zone,
             ),
