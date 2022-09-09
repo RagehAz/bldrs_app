@@ -21,7 +21,7 @@ class BubbleHeaderVM {
     this.headlineVerse,
     this.translateHeadline = true,
     this.headlineColor = Colorz.white255,
-    this.switchIsOn = false,
+    this.switchValue = false,
     this.onSwitchTap,
     this.onMoreButtonTap,
     this.redDot = false,
@@ -40,7 +40,7 @@ class BubbleHeaderVM {
   final bool translateHeadline;
   final Color headlineColor;
   final bool centered;
-  final bool switchIsOn;
+  final bool switchValue;
   final ValueChanged<bool> onSwitchTap;
   final Function onMoreButtonTap;
   final bool redDot;
@@ -56,7 +56,7 @@ class BubbleHeaderVM {
     String headlineVerse,
     bool translateHeadline,
     Color headlineColor,
-    bool switchIsOn,
+    bool switchValue,
     ValueChanged<bool> onSwitchTap,
     Function onMoreButtonTap,
     bool redDot,
@@ -72,7 +72,7 @@ class BubbleHeaderVM {
       headlineVerse: headlineVerse ?? this.headlineVerse,
       translateHeadline: translateHeadline ?? this.translateHeadline,
       headlineColor: headlineColor ?? this.headlineColor,
-      switchIsOn: switchIsOn ?? this.switchIsOn,
+      switchValue: switchValue ?? this.switchValue,
       onSwitchTap: onSwitchTap ?? this.onSwitchTap,
       onMoreButtonTap: onMoreButtonTap ?? this.onMoreButtonTap,
       redDot: redDot ?? this.redDot,
@@ -133,7 +133,7 @@ class BubbleHeader extends StatelessWidget {
         &&
         viewModel.leadingIcon == null
         &&
-        viewModel.switchIsOn == false
+        viewModel.switchValue == false
         &&
         viewModel.hasMoreButton == false
     ){
@@ -180,7 +180,7 @@ class BubbleHeader extends StatelessWidget {
             BubbleSwitcher(
               width: _switcherWidth,
               height: iconBoxSize,
-              switchIsOn: viewModel.switchIsOn,
+              switchIsOn: viewModel.switchValue,
               onSwitch: viewModel.onSwitchTap,
             ),
 
