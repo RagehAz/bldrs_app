@@ -107,7 +107,7 @@ class PickerEditingTile extends StatelessWidget {
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse:  'Is Required',
-                    switchIsOn: picker.isRequired,
+                    switchValue: picker.isRequired,
                     onSwitchTap: (bool value) => onSwitchIsRequired(
                         newValue: value,
                         context: context,
@@ -127,7 +127,7 @@ class PickerEditingTile extends StatelessWidget {
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse:  'Can pick many',
-                    switchIsOn: picker.canPickMany,
+                    switchValue: picker.canPickMany,
                     onSwitchTap: (bool value) => onSwitchCanPickMany(
                         newValue: value,
                         context: context,

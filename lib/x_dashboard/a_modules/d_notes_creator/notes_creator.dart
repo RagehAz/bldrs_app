@@ -503,7 +503,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                         leadingIcon: Iconz.news,
                         leadingIconSizeFactor: 0.5,
                         leadingIconBoxColor: Colorz.grey50,
-                        switchIsOn: noteModel.sendFCM,
+                        switchValue: noteModel.sendFCM,
                         onSwitchTap: (bool val) => onSwitchSendFCM(
                           note: _note,
                           value: val,

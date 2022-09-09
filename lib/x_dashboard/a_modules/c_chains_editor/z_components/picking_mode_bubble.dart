@@ -218,7 +218,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               headlineVerse: 'City Chains Only',
               translateHeadline: false,
               headerWidth: Bubble.bubbleWidth(context: context) - 20,
-              switchIsOn: true,
+              switchValue: _onlyCityChains,
               hasSwitch: true,
               onSwitchTap: _onSwitchShowCityChainsOnly,
           ),
@@ -234,7 +234,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
               headlineVerse: 'Multiple Selection mode',
               translateHeadline: false,
               headerWidth: Bubble.bubbleWidth(context: context) - 20,
-              switchIsOn: true,
+              switchValue: _multipleSelectionMode,
               hasSwitch: true,
               onSwitchTap: _onSwitchMultipleSelectionMode
           ),
