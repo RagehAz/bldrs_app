@@ -42,7 +42,7 @@ class BzLabel extends StatelessWidget {
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
     /// B.LOCALE
-    final String _businessLocale = ZoneModel.generateZoneString(
+    final String _businessLocale = ZoneModel.translateZoneString(
       context: context,
       zoneModel: bzModel.zone,
     );

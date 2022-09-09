@@ -4,8 +4,7 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -100,7 +99,7 @@ Future<void> _updateChain({
       context: context,
       newChains: editedChains
   ).whenComplete(
-          () => TopDialog.showSuccessDialog(
+          () => Dialogs.showSuccessDialog(
     context: context,
     firstLine: 'updated Bldrs chain successfully',
     secondLine: 'in ( Real/chains/ )',
@@ -202,7 +201,7 @@ Future<void> onAddNewPath ({
 
   tempChains.value = _updated;
 
-  await TopDialog.showSuccessDialog(
+  await Dialogs.showSuccessDialog(
     context: context,
     firstLine: 'New Path has been deleted',
     secondLine: _path,
@@ -241,7 +240,7 @@ Future<void> onDeleteThePhid ({
 
     tempChains.value = _updated;
 
-    await TopDialog.showSuccessDialog(
+    await Dialogs.showSuccessDialog(
       context: context,
       firstLine: '( $phid ) has been deleted',
     );
@@ -288,7 +287,7 @@ Future<void> onEditPhid({
 
       tempChains.value = _updated;
 
-      await TopDialog.showSuccessDialog(
+      await Dialogs.showSuccessDialog(
         context: context,
         firstLine: 'Edit Successful',
       );
