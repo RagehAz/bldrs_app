@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -16,17 +15,18 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
 import 'package:flutter/material.dart';
 
 class ChainsPickingModeBubble extends StatefulWidget {
-
+  /// --------------------------------------------------------------------------
   const ChainsPickingModeBubble({
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   @override
   _ChainsPickingModeBubbleState createState() => _ChainsPickingModeBubbleState();
-
+  /// --------------------------------------------------------------------------
 }
 
 class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
@@ -131,16 +131,14 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
   // -----------------------------------------------------------------------------
   Future<void> _onGoChainsPickingScreenButtonTap() async {
 
-    final dynamic _received =  await Nav.goToNewScreen(
-        context: context,
-        screen: ChainsPickingScreen(
-          flyerTypesChainFilters: _selectedTypes,
-          onlyUseCityChains: _onlyCityChains,
-          isMultipleSelectionMode: _multipleSelectionMode,
-          pageTitleVerse: _getGoButtonDescription(),
-          // onlyChainKSelection: false, /// TASK : WTF IS THIS DOING
-          zone: _zone,
-        )
+    final dynamic _received = await goToChainsPickingScreen(
+      context: context,
+      flyerTypes: _selectedTypes,
+      onlyUseCityChains: _onlyCityChains,
+      isMultipleSelectionMode: _multipleSelectionMode,
+      pageTitleVerse: _getGoButtonDescription(),
+      // onlyChainKSelection: false, /// TASK : WTF IS THIS DOING
+      zone: _zone,
     );
 
     if (_multipleSelectionMode == true){

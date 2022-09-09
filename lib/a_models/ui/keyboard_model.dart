@@ -21,6 +21,7 @@ class KeyboardModel {
     this.onSavedForForm,
     this.onEditingComplete,
     this.isFloatingField = true,
+    this.globalKey,
   }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
   // -----------------------------------------------------------------------------
   final String titleVerse;
@@ -41,6 +42,7 @@ class KeyboardModel {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   final bool isFloatingField;
+  final GlobalKey<FormState> globalKey;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -65,6 +67,7 @@ class KeyboardModel {
     ValueChanged<String> onSavedForForm,
     Function onEditingComplete,
     bool isFloatingField,
+    GlobalKey<FormState> globalKey,
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
@@ -84,6 +87,7 @@ class KeyboardModel {
       onSavedForForm: onSavedForForm ?? this.onSavedForForm,
       onEditingComplete: onEditingComplete ?? this.onEditingComplete,
       isFloatingField: isFloatingField ?? this.isFloatingField,
+      globalKey: globalKey ?? this.globalKey,
     );
   }
   // -----------------------------------------------------------------------------
@@ -144,7 +148,8 @@ class KeyboardModel {
         modelA.onSubmitted == modelB.onSubmitted &&
         modelA.onSavedForForm == modelB.onSavedForForm &&
         modelA.onEditingComplete == modelB.onEditingComplete &&
-        modelA.isFloatingField == modelB.isFloatingField
+        modelA.isFloatingField == modelB.isFloatingField &&
+        modelA.globalKey == modelB.globalKey
     ){
       _areIdentical = true;
     }
@@ -197,6 +202,7 @@ class KeyboardModel {
       onSubmitted.hashCode^
       onSavedForForm.hashCode^
       onEditingComplete.hashCode^
-      isFloatingField.hashCode;
+      isFloatingField.hashCode^
+      globalKey.hashCode;
   // -----------------------------------------------------------------------------
 }

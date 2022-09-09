@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -161,7 +160,7 @@ class TextFieldBubble extends StatelessWidget {
       showUnObscure: canObscure,
     );
     // --------------------
-    blog('fuck this : ${validator()}');
+    final double _screenWidth = Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth);
     // --------------------
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
@@ -169,12 +168,13 @@ class TextFieldBubble extends StatelessWidget {
           defaultColor: bubbleColor,
         ),
         headerViewModel: BubbleHeaderVM(
-        headlineVerse: titleVerse,
-        redDot: fieldIsRequired,
-        leadingIcon: actionBtIcon,
-        onLeadingIconTap: actionBtFunction,
-      ),
-        screenWidth: Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth),
+          headerWidth: _screenWidth - 20,
+          headlineVerse: titleVerse,
+          redDot: fieldIsRequired,
+          leadingIcon: actionBtIcon,
+          onLeadingIconTap: actionBtFunction,
+        ),
+        screenWidth: _screenWidth,
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 

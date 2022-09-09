@@ -13,7 +13,8 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chain_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/b_chain_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/picking_mode_bubble.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
@@ -108,20 +109,18 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
 
-                Chain.blogChains(_bldrsChains);
+                // Chain.blogChains(_bldrsChains);
 
                 WaitDialog.closeWaitDialog(context);
 
                 if (_bldrsChains == null){
-                  blog('No ChainK found');
+                  blog('Bldrs Chains are null');
                 }
 
                 else {
-                  await Nav.goToNewScreen(
+                  await goToChainsEditorScreen(
                     context: context,
-                    screen: ChainsEditorScreen(
-                      chains: _bldrsChains,
-                    ),
+                    chains: Chain.dummyChain().sons,
                   );
                 }
 

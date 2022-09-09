@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/a_chain_builder.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_structure/c_chain_sons_builder.dart';
+import 'package:bldrs/b_views/i_chains/z_components/expander_structure/c_chains_builder.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -75,7 +75,7 @@ class ChainSplitter extends StatelessWidget {
     // --------------------
     /// IF SONS IS List<String>
     else if (chainOrChainsOrSonOrSons is List<String>){
-      return ChainSonsBuilder(
+      return ChainsBuilder(
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
@@ -117,7 +117,7 @@ class ChainSplitter extends StatelessWidget {
     /// IF SONS IS List<Chain>
     else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
 
-      return ChainSonsBuilder(
+      return ChainsBuilder(
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
