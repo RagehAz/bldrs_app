@@ -25,8 +25,8 @@ class ChainsEditorScreen extends StatefulWidget {
 
 class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<List<Chain>> _initialChains;
-  ValueNotifier<List<Chain>> _tempChains;
+  final ValueNotifier<List<Chain>> _initialChains = ValueNotifier([]);
+  final ValueNotifier<List<Chain>> _tempChains = ValueNotifier([]);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -39,15 +39,16 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       else {
         _loading.value = setTo;
       }
-      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
+      blogLoading(loading: _loading.value, callerName: 'ChainsEditorScreen',);
     }
   }
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _initialChains = ValueNotifier( widget.chains);
-    _tempChains = ValueNotifier( widget.chains);
+    _initialChains.value = widget.chains;
+    _tempChains.value = widget.chains;
+
   }
   // --------------------
   bool _isInit = true;
@@ -80,6 +81,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
     return MainLayout(
       pageTitleVerse: 'Bldrs Chains',
+      translatePageTitle: false,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       onBack: () => Dialogs.goBackDialog(
@@ -108,6 +110,18 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                     isDeactivated: _areIdentical,
                     buttonColor: Colorz.yellow255,
                     verseColor: Colorz.black255,
+                    onDeactivatedTap: (){
+
+                      final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
+                        chains1: tempChains,
+                        chains2: initialChains,
+                      );
+
+                      blog('_areIdentical : $_areIdentical');
+
+                      // Chain.blogChainsPaths(tempChains);
+
+                    },
                     onTap: () => onSyncChain(
                       context: context,
                       initialChains: _initialChains,

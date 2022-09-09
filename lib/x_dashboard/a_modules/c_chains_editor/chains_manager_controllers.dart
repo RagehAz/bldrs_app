@@ -1,6 +1,10 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -8,14 +12,69 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/b_chain_editor_screen.dart';
 import 'package:flutter/material.dart';
+// -----------------------------------------------------------------------------
+
+/// NAVIGATION
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> goToChainsEditorScreen({
+  @required BuildContext context,
+  @required List<Chain> chains,
+}) async {
+
+  await Nav.goToNewScreen(
+    context: context,
+    screen: ChainsEditorScreen(
+      chains: chains,
+    ),
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<dynamic> goToChainsPickingScreen({
+  @required BuildContext context,
+  @required List<FlyerType> flyerTypes,
+  @required bool onlyUseCityChains,
+  @required bool isMultipleSelectionMode,
+  @required String pageTitleVerse,
+  @required ZoneModel zone,
+}) async {
+
+  final dynamic _received =  await Nav.goToNewScreen(
+      context: context,
+      screen: ChainsPickingScreen(
+        flyerTypesChainFilters: flyerTypes,
+        onlyUseCityChains: onlyUseCityChains,
+        isMultipleSelectionMode: isMultipleSelectionMode,
+        pageTitleVerse: pageTitleVerse,
+        // onlyChainKSelection: false, /// TASK : WTF IS THIS DOING
+        zone: zone,
+      )
+  );
+
+  if (isMultipleSelectionMode == true){
+    final List<SpecModel> _specs = _received;
+    SpecModel.blogSpecs(_specs);
+  }
+  else {
+    final String _phid = _received;
+    blog(_phid);
+  }
+
+  return dynamic;
+}
 // -----------------------------------------------------------------------------
 
 /// SYNCING
 
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSyncChain({
   @required BuildContext context,
@@ -45,7 +104,7 @@ Future<void> onSyncChain({
 
   blog('onSyncChain : ---------------- END');
 }
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preSyncCheckups({
   @required BuildContext context,
@@ -86,7 +145,7 @@ Future<bool> _preSyncCheckups({
 
   return _continue;
 }
-  // --------------------
+// --------------------
 ///
 Future<void> _updateChain({
   @required BuildContext context,
@@ -99,10 +158,10 @@ Future<void> _updateChain({
       newChains: editedChains
   ).whenComplete(
           () => Dialogs.showSuccessDialog(
-    context: context,
-    firstLine: 'updated Bldrs chain successfully',
-    secondLine: 'in ( Real/chains/ )',
-  )
+        context: context,
+        firstLine: 'updated Bldrs chain successfully',
+        secondLine: 'in ( Real/chains/ )',
+      )
   );
 
 }
@@ -110,7 +169,7 @@ Future<void> _updateChain({
 
 /// SELECTION
 
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPhidTap({
   @required BuildContext context,
@@ -175,7 +234,7 @@ Future<void> onPhidTap({
 
 /// MODIFIERS
 
-  // --------------------
+// --------------------
 ///
 Future<void> onAddNewPath ({
   @required BuildContext context,
@@ -191,24 +250,37 @@ Future<void> onAddNewPath ({
     title: 'Add to path',
   );
 
-  final List<Chain> _updated = Chain.addPathToChains(
-    chains: tempChains.value,
-    path: _typedPath,
-  );
+  if (TextCheck.isEmpty(_typedPath) == false){
 
-  // _updated.blogChain();
+    final List<Chain> _updated = Chain.addPathToChains(
+      chains: tempChains.value,
+      path: _typedPath,
+    );
 
-  tempChains.value = _updated;
+    // final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
+    //   chains1: _updated,
+    //   chains2: tempChains.value,
+    // );
 
-  await Dialogs.showSuccessDialog(
-    context: context,
-    firstLine: 'New Path has been deleted',
-    secondLine: _path,
-  );
+    blog('xx - old chains : -');
+    Chain.blogChains(tempChains.value);
+    blog('xx - updated chains : -');
+    Chain.blogChains(_updated);
 
+    // blog('onAddNewPath : shoof keda chains have changed : $_areIdentical');
+
+    tempChains.value = _updated;
+
+    await Dialogs.showSuccessDialog(
+      context: context,
+      firstLine: 'New Path has been deleted',
+      secondLine: _typedPath,
+    );
+
+  }
 
 }
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteThePhid ({
   @required BuildContext context,
@@ -247,7 +319,7 @@ Future<void> onDeleteThePhid ({
   }
 
 }
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditPhid({
   @required BuildContext context,
@@ -296,7 +368,7 @@ Future<void> onEditPhid({
   }
 
 }
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 Future<String> _pathKeyboardDialog({
   @required BuildContext context,
@@ -312,22 +384,31 @@ Future<String> _pathKeyboardDialog({
     _typedPath = ChainPathConverter.fixPathFormatting(text);
   }
 
+  final GlobalKey _globalKey = GlobalKey<FormState>();
+
   _typedPath = await Dialogs.keyboardDialog(
     context: context,
+    validator: () => _pathCreationValidator(_controller.text),
     keyboardModel: KeyboardModel.standardModel().copyWith(
+      globalKey: _globalKey,
       titleVerse: title,
       hintVerse: path,
       controller: _controller,
       // focusNode: _node,
-      minLines: 3,
-      maxLines: 8,
+      minLines: 2,
+      maxLines: 5,
       maxLength: 1000,
       isFloatingField: false,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.url,
-      // onChanged: (String text){},
+      onChanged: (String text){
+        // _globalKey.currentS;
+      },
       onSubmitted: doneWithPath,
       onEditingComplete: doneWithPath,
+      counterIsOn: true,
+      isFormField: true,
+
     ),
   );
 
@@ -336,3 +417,27 @@ Future<String> _pathKeyboardDialog({
   return _typedPath;
 }
 // -----------------------------------------------------------------------------
+String _pathCreationValidator(String path){
+
+  final List<String> _nodes = ChainPathConverter.splitPathNodes(path);
+
+  String _message;
+
+  for (int i = 0; i < _nodes.length; i++){
+
+    final String _node = _nodes[i];
+    final bool _startsWith = TextCheck.textStartsWithAny(
+        text: _node,
+        listThatMightIncludeText: ['phid', 'phi', 'ph', 'p'],
+    );
+
+    if (_startsWith == false){
+      _message = 'node ${i+1} : ( $_node ) : should start with "phid_"';
+    }
+
+  }
+
+  blog('_pathCreationValidator : _message : $_message');
+
+  return _message;
+}

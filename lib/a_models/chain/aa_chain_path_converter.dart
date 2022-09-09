@@ -33,9 +33,8 @@ class ChainPathConverter {
     if (Mapper.checkCanLoopList(paths) == true){
       blog('blogging ${paths.length} paths ---------------- start');
 
-      for (final String string in paths){
-        blog('path : [ $string ]');
-      }
+      Stringer.blogStrings(strings: paths);
+
       blog('blogging paths ------------------------------------ end ');
     }
     else {
