@@ -13,7 +13,7 @@ import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';

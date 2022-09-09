@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

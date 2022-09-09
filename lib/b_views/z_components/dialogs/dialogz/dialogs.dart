@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.d
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
@@ -40,6 +41,92 @@ class Dialogs {
   // --------------------
   static void closDialog(BuildContext context){
     Nav.goBack(context: context, invoker: 'closeDialog');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SUCCESS
+
+  // --------------------
+  static Future<void> showSuccessDialog({
+    @required BuildContext context,
+    String firstLine,
+    String secondLine,
+  }) async {
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: firstLine ?? 'phid_success',
+      secondLine: secondLine,
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// NOTICE
+
+  // --------------------
+  static Future<void> topNotice({
+    @required BuildContext context,
+    @required String text,
+  }) async {
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstLine: text,
+      // color: Colorz.yellow255,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CONFIRMATION DIALOGS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> confirmProceed({
+    @required BuildContext context,
+    String titleVerse,
+    String bodyVerse,
+  }) async {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: titleVerse ?? '##Proceed ?',
+      bodyVerse: bodyVerse,
+      boolDialog: true,
+    );
+
+    return _result;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> goBackDialog({
+    @required BuildContext context,
+    String titleVerse,
+    String bodyVerse,
+    String confirmButtonText,
+    bool goBackOnConfirm = false,
+  }) async {
+
+    final bool _result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: titleVerse ?? 'Go Back ?',
+      bodyVerse: bodyVerse,
+      boolDialog: true,
+      confirmButtonVerse: confirmButtonText ?? 'Go Back',
+    );
+
+    if (goBackOnConfirm == true && _result == true){
+      Nav.goBack(
+        context: context,
+        invoker: 'goBackDialog : $titleVerse',
+      );
+    }
+
+    return _result;
+
   }
   // -----------------------------------------------------------------------------
 
@@ -164,59 +251,6 @@ class Dialogs {
   }
   // -----------------------------------------------------------------------------
 
-  /// ZONE DIALOGS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<CityModel> confirmCityDialog({
-    @required BuildContext context,
-    @required List<CityModel> cities,
-  }) async {
-    CityModel _city;
-
-    await BottomDialog.showButtonsBottomDialog(
-        context: context,
-        draggable: true,
-        buttonHeight: 50,
-        numberOfWidgets: cities.length + 1,
-        builder: (BuildContext context, PhraseProvider _phraseProvider){
-
-          return <Widget>[
-
-            const SuperVerse(
-              verse: '##Please confirm your city',
-            ),
-
-            ...List<Widget>.generate(cities.length, (int index) {
-
-              final CityModel _foundCity = cities[index];
-              final String _foundCityName = _foundCity.cityID;
-
-              return BottomDialog.wideButton(
-                  context: context,
-                  verse: _foundCityName,
-                  icon: Flag.getFlagIcon(_foundCity.countryID),
-                  onTap: () {
-
-                    _city = _foundCity;
-
-                    Nav.goBack(
-                      context: context,
-                      invoker: 'confirmCityDialog : city selected aho $_foundCityName',
-                    );
-
-                  });
-            }),
-
-          ];
-
-        }
-    );
-
-    return _city;
-  }
-  // -----------------------------------------------------------------------------
-
   /// TEXT FIELD DIALOGS
 
   // --------------------
@@ -335,52 +369,56 @@ class Dialogs {
   }
   // -----------------------------------------------------------------------------
 
-  /// CONFIRMATION DIALOGS
+  /// ZONE DIALOGS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> confirmProceed({
+  static Future<CityModel> confirmCityDialog({
     @required BuildContext context,
-    String titleVerse,
-    String bodyVerse,
+    @required List<CityModel> cities,
   }) async {
+    CityModel _city;
 
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: titleVerse ?? '##Proceed ?',
-      bodyVerse: bodyVerse,
-      boolDialog: true,
-    );
-
-    return _result;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> goBackDialog({
-    @required BuildContext context,
-    String titleVerse,
-    String bodyVerse,
-    String confirmButtonText,
-    bool goBackOnConfirm = false,
-  }) async {
-
-    final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: titleVerse ?? 'Go Back ?',
-      bodyVerse: bodyVerse,
-      boolDialog: true,
-      confirmButtonVerse: confirmButtonText ?? 'Go Back',
-    );
-
-    if (goBackOnConfirm == true && _result == true){
-      Nav.goBack(
+    await BottomDialog.showButtonsBottomDialog(
         context: context,
-        invoker: 'goBackDialog : $titleVerse',
-      );
-    }
+        draggable: true,
+        buttonHeight: 50,
+        numberOfWidgets: cities.length + 1,
+        builder: (BuildContext context, PhraseProvider _phraseProvider){
 
-    return _result;
+          return <Widget>[
 
+            const SuperVerse(
+              verse: '##Please confirm your city',
+            ),
+
+            ...List<Widget>.generate(cities.length, (int index) {
+
+              final CityModel _foundCity = cities[index];
+              final String _foundCityName = _foundCity.cityID;
+
+              return BottomDialog.wideButton(
+                  context: context,
+                  verse: _foundCityName,
+                  icon: Flag.getFlagIcon(_foundCity.countryID),
+                  onTap: () {
+
+                    _city = _foundCity;
+
+                    Nav.goBack(
+                      context: context,
+                      invoker: 'confirmCityDialog : city selected aho $_foundCityName',
+                    );
+
+                  });
+            }),
+
+          ];
+
+        }
+    );
+
+    return _city;
   }
   // -----------------------------------------------------------------------------
 

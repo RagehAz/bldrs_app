@@ -33,6 +33,7 @@ class MainLayout extends StatelessWidget {
     this.pyramidsAreOn = false,
     this.appBarType,
     this.pageTitleVerse,
+    this.translatePageTitle = true,
     this.skyType = SkyType.night,
     this.onBack,
     this.canGoBack = true,
@@ -59,6 +60,7 @@ class MainLayout extends StatelessWidget {
   final bool pyramidsAreOn;
   final AppBarType appBarType;
   final dynamic pageTitleVerse;
+  final bool translatePageTitle;
   final SkyType skyType;
   final Function onBack;
   final bool canGoBack;
@@ -197,6 +199,7 @@ class MainLayout extends StatelessWidget {
                     appBarType: appBarType,
                     appBarRowWidgets: appBarRowWidgets,
                     pageTitle: pageTitleVerse,
+                    translatePageTitle: translatePageTitle,
                     onBack: () => _onBack(context),
                     loading: loading,
                     progressBarModel: progressBarModel,

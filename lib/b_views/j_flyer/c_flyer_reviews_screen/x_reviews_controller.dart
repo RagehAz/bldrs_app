@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';

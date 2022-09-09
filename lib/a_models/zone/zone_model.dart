@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/zone_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -368,7 +369,7 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateZoneString ({
+  static String translateZoneString ({
     @required BuildContext context,
     @required ZoneModel zoneModel,
     bool showCity = true,
@@ -376,7 +377,7 @@ class ZoneModel {
   }){
 
     String _verse = '...';
-    const String _inn = 'phid_inn';
+    final String _inn = xPhrase(context, 'phid_inn');
 
     if (zoneModel?.countryID != null){
 

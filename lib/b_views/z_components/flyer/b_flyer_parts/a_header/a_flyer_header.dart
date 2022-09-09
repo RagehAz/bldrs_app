@@ -288,7 +288,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
                   firstLine: widget.bzModel.name,
-                  secondLine: ZoneModel.generateZoneString(
+                  secondLine: ZoneModel.translateZoneString(
                     context: context,
                     zoneModel: widget.bzModel.zone,
                   ),

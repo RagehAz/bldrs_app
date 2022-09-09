@@ -8,9 +8,9 @@ import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_screen.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogz.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -265,7 +265,7 @@ Future<void> onAddSpecsTap({
 
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
-      screen: ChainsScreen(
+      screen: ChainsPickingScreen(
         pageTitleVerse:  '##$_flyerTypeString Specifications',
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,

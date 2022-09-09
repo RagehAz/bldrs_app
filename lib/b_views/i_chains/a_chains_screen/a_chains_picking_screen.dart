@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_screen_search_view.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_screen_browse_view.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/x_chains_screen_controllers.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_search_view.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_browse_view.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/x_chains_picking_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/xx_chains_search_controller.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
@@ -23,9 +23,9 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ChainsScreen extends StatefulWidget {
+class ChainsPickingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const ChainsScreen({
+  const ChainsPickingScreen({
     @required this.flyerTypesChainFilters,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
@@ -46,11 +46,11 @@ class ChainsScreen extends StatefulWidget {
   final ZoneModel zone;
   /// --------------------------------------------------------------------------
   @override
-  State<ChainsScreen> createState() => _ChainsScreenState();
+  State<ChainsPickingScreen> createState() => _ChainsPickingScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _ChainsScreenState extends State<ChainsScreen> {
+class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
   // --------------------
