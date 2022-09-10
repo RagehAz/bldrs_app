@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/a_phids_data_creator.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/b_price_data_creator.dart';
@@ -57,18 +58,18 @@ class DataCreatorSplitter extends StatelessWidget {
       // includeChainSInSearch: true,
     );
     // --------------------
-    final DataCreator _dataCreatorType = Chain.decipherDataCreator(_valueChain?.sons);
+    final DataCreator _dataCreatorType = DataCreation.decipherDataCreator(_valueChain?.sons);
     // --------------------
-    final bool _isChains = Chain.checkSonsAreChains(_valueChain?.sons);
-    final bool _isPhids = Chain.checkSonsArePhids(_valueChain?.sons);
+    final bool _isChains = Chain.checkIsChains(_valueChain?.sons);
+    final bool _isPhids = Phider.checkIsPhids(_valueChain?.sons);
     final bool _hasCurrencyUnit = picker?.unitChainID == 'phid_s_currency';
     // --------------------
-    final bool _isIntegerKeyboard = Chain.checkSonsAreDataCreatorOfType(
+    final bool _isIntegerKeyboard = DataCreation.checkIsDataCreatorOfType(
       sons: _valueChain?.sons,
       dataCreator: DataCreator.integerKeyboard,
     );
     // --------------------
-    final bool _isDoubleKeyboard = Chain.checkSonsAreDataCreatorOfType(
+    final bool _isDoubleKeyboard = DataCreation.checkIsDataCreatorOfType(
       sons: _valueChain?.sons,
       dataCreator: DataCreator.doubleKeyboard,
     );

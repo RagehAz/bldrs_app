@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -183,8 +184,8 @@ class Phider {
 
     if (chain != null){
 
-      final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
-      final bool _isChains = Chain.checkSonsAreChains(chain.sons);
+      final bool _isPhids = Phider.checkIsPhids(chain.sons);
+      final bool _isChains = Chain.checkIsChains(chain.sons);
 
       if (_isChains == true){
 
@@ -278,9 +279,9 @@ class Phider {
 
     if (chain != null){
 
-      final bool _isPhids = Chain.checkSonsArePhids(chain.sons);
-      final bool _isChains = Chain.checkSonsAreChains(chain.sons);
-      final bool _isDataCreator = Chain.checkSonsAreDataCreator(chain.sons);
+      final bool _isPhids = Phider.checkIsPhids(chain.sons);
+      final bool _isChains = Chain.checkIsChains(chain.sons);
+      final bool _isDataCreator = DataCreation.checkIsDataCreator(chain.sons);
 
       final String _chainID = addIndexToPhid(phid: chain.id, index: chainIndex);
 
@@ -387,6 +388,30 @@ class Phider {
 
   /// CHECKER
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkIsPhids(dynamic sons){
+
+    bool _arePhids = false;
+
+    if (sons != null){
+
+      if (sons is List<String>){
+
+        final List<String> _sons = sons;
+
+        if (Mapper.checkCanLoopList(_sons) == true){
+
+          _arePhids = Phider.checkIsPhid(_sons.first);
+
+        }
+
+      }
+
+    }
+
+    return _arePhids;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsPhid(dynamic object){
