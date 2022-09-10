@@ -5,9 +5,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class BubbleBulletPoints extends StatelessWidget {
+class BulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BubbleBulletPoints({
+  const BulletPoints({
     @required this.bulletPoints,
     @required this.translateBullets,
     this.bubbleWidth,

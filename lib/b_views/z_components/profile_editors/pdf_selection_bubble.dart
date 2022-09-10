@@ -126,7 +126,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
             columnChildren: <Widget>[
 
-              const BubbleBulletPoints(
+              const BulletPoints(
                 bulletPoints: <String>[
                   '##You can attach a PDF File to this flyer.',
                   '##Anybody can view and download this PDF file.',

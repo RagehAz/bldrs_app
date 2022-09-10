@@ -87,6 +87,8 @@ class ChainSplitter extends StatelessWidget {
       );
 
       final Color _color = _isSelected == true ? Colorz.blue125 : Colorz.white20;
+      final String _path = '$previousPath/$_phid/';
+      final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
 
       return PhidButton(
         phid: _phid,
@@ -95,13 +97,8 @@ class ChainSplitter extends StatelessWidget {
         parentLevel: parentLevel,
         searchText: searchText,
         color: _color,
-        onTap: (){
-
-          final String _path = '$previousPath/$_phid/';
-          final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
-          onSelectPhid(_cleanedPath, _phid);
-
-        }, // good
+        onLongTap: () => onLongPress(_cleanedPath),
+        onTap: () => onSelectPhid(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
         // margins: ,
@@ -186,6 +183,8 @@ class ChainSplitter extends StatelessWidget {
     else if (editMode == true && Chain.checkSonsAreDataCreator(chainOrChainsOrSonOrSons) == true){
 
       final DataCreator _phid = chainOrChainsOrSonOrSons;
+      final String _path = '$previousPath/$_phid/';
+      final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
 
       return PhidButton(
         phid: Chain.cipherDataCreator(_phid),
@@ -194,11 +193,10 @@ class ChainSplitter extends StatelessWidget {
         parentLevel: parentLevel,
         searchText: searchText,
         color: Colorz.green50,
+        onLongTap: () => onLongPress(_cleanedPath),
         // isDisabled: false,
         onTap: (){
 
-          final String _path = '$previousPath/$_phid/';
-          final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
           onSelectPhid(_cleanedPath, _phid.toString());
 
         }, // good

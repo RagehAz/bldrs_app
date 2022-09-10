@@ -110,7 +110,7 @@ void _searchChainsOps({
 }){
 
   final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
-    allChains: chains,
+    chains: chains,
     phid: text,
   );
 
