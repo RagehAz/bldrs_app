@@ -436,7 +436,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         keyboardTextInputType: TextInputType.name,
                         keyboardTextInputAction: TextInputAction.next,
                         fieldIsRequired: true,
-                        initialTextValue: bzModel?.name,
+                        initialText: bzModel?.name,
                         textOnChanged: (String text) => onBzNameChanged(
                           text: text,
                           tempBz: _tempBz,
@@ -459,7 +459,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           maxLength: 1000,
                           maxLines: 20,
                           keyboardTextInputType: TextInputType.multiline,
-                          initialTextValue: bzModel?.about,
+                          initialText: bzModel?.about,
                           textOnChanged: (String text) => onBzAboutChanged(
                             text: text,
                             tempBz: _tempBz,
