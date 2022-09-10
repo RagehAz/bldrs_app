@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -149,7 +150,7 @@ class ChainPathConverter {
 
       for (final Chain chain in chains){
 
-        if (Chain.checkSonsAreChains(chain.sons) == true){
+        if (Chain.checkIsChains(chain.sons) == true){
           final List<Chain> _chains = chain.sons;
           combinesSons.addAll(_chains);
         }
@@ -267,7 +268,7 @@ class ChainPathConverter {
       _dBlog('$_space B - parent chainID ( ${parentChain.id} ) sons are ( ${parentChain.sons.runtimeType} )');
 
       /// B - IF SONS ARE DEFINED STRINGS
-      if (parentChain.sons is List<String> || Chain.checkSonsAreDataCreator(parentChain.sons) == true){
+      if (parentChain.sons is List<String> || DataCreation.checkIsDataCreator(parentChain.sons) == true){
 
         /// C - IF STRING IS ALREADY ADDED
         if (_parentChainHasThisSon == true){
@@ -286,7 +287,7 @@ class ChainPathConverter {
       }
 
       /// B - IF SONS ARE DEFINED CHAINS
-      if (Chain.checkSonsAreChains(parentChain.sons) == true){
+      if (Chain.checkIsChains(parentChain.sons) == true){
 
         /// C - IF CHAIN HAS THIS SON ADDED
         if (_parentChainHasThisSon == true){
@@ -420,7 +421,7 @@ class ChainPathConverter {
       // _allPaths.add(_chainPath);
 
       /// STRINGS SONS PATHS
-      if (Chain.checkSonsArePhids(chain.sons) == true){
+      if (Phider.checkIsPhids(chain.sons) == true){
 
         final List<String> _sons = chain.sons;
         final List<String> _sonsPaths = _generateChainPathsFromPhidsSons(
@@ -432,7 +433,7 @@ class ChainPathConverter {
       }
 
       /// CHAINS SONS PATHS
-      if (Chain.checkSonsAreChains(chain.sons) == true){
+      if (Chain.checkIsChains(chain.sons) == true){
 
         final List<Chain> _sons = chain.sons;
         final List<String> _sonsPaths = generateChainsPaths(
@@ -445,10 +446,10 @@ class ChainPathConverter {
       }
 
       /// DATA CREATOR SONS PATHS
-      if (Chain.checkSonsAreDataCreator(chain.sons) == true){
+      if (DataCreation.checkIsDataCreator(chain.sons) == true){
 
-        final DataCreator _sons = Chain.decipherDataCreator(chain.sons);
-        final String _dc = Chain.cipherDataCreator(_sons);
+        final DataCreator _sons = DataCreation.decipherDataCreator(chain.sons);
+        final String _dc = DataCreation.cipherDataCreator(_sons);
         final String _path = '$previousPath${chain.id}/$_dc/';
 
         _allPaths.add(_path);
@@ -751,23 +752,23 @@ class ChainPathConverter {
     if (Chain != null && sonID != null){
 
       /// SONS ARE CHAINS
-      if (Chain.checkSonsAreChains(chain.sons) == true){
+      if (Chain.checkIsChains(chain.sons) == true){
         final List<Chain> _sonsChains = chain.sons;
         final int _index = _sonsChains.indexWhere((sonChain) => sonChain.id == sonID);
         _include = _index != -1;
       }
 
       /// SONS ARE PHIDS
-      else if (Chain.checkSonsArePhids(chain.sons) == true){
+      else if (Phider.checkIsPhids(chain.sons) == true){
         final List<String> _sonsStrings = chain.sons;
         final int _index = _sonsStrings.indexWhere((sonString) => sonString == sonID);
         _include = _index != -1;
       }
 
       /// SONS ARE DATA CREATOR
-      else if (Chain.checkSonsAreDataCreator(chain.sons) == true){
-        final DataCreator _dc = Chain.decipherDataCreator(chain.sons);
-        final DataCreator _deciphered = Chain.decipherDataCreator(sonID);
+      else if (DataCreation.checkIsDataCreator(chain.sons) == true){
+        final DataCreator _dc = DataCreation.decipherDataCreator(chain.sons);
+        final DataCreator _deciphered = DataCreation.decipherDataCreator(sonID);
         _include = _dc == _deciphered;
       }
 
