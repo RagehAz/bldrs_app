@@ -253,7 +253,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             headerViewModel: const BubbleHeaderVM(
                               headlineVerse: 'phid_show_author_on_flyer',
                             ),
-                            screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
+                            width: Bubble.bubbleWidth(context),
                             columnChildren: const <Widget>[],
                           ),
 

@@ -90,7 +90,7 @@ class AddImagePicBubble extends StatelessWidget {
     final double _bubbleClearWidth = Bubble.clearWidth(context);
     // --------------------
     return Bubble(
-        screenWidth: _screenWidth,
+        width: _screenWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
         ),

@@ -108,7 +108,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
           leadingIcon: widget.actionBtIcon,
         ),
         key: widget.key,
-        screenWidth: widget.bubbleWidth,
+        width: widget.bubbleWidth,
         margins: widget.margins,
         corners: widget.corners,
         childrenCentered: widget.centered,

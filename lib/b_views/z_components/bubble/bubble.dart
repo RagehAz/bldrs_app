@@ -1,8 +1,8 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +14,7 @@ class Bubble extends StatelessWidget {
     @required this.headerViewModel,
     this.childrenCentered = false,
     this.bubbleColor = Colorz.white10,
-    this.stretchy = false,
-    this.screenWidth,
+    this.width,
     this.onBubbleTap,
     this.margins,
     this.corners,
@@ -26,32 +25,20 @@ class Bubble extends StatelessWidget {
   final BubbleHeaderVM headerViewModel;
   final bool childrenCentered;
   final Color bubbleColor;
-  final bool stretchy;
-  final double screenWidth;
+  final double width;
   final Function onBubbleTap;
   final dynamic margins;
   final dynamic corners;
   // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
-    final double _bubbleWidth = defaultWidth(context, bubbleWidthOverride: bubbleWidthOverride);
+    final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: bubbleWidthOverride);
     const double _bubblePaddings = Ratioz.appBarMargin * 2;
     final double _inBubbleClearWidth = _bubbleWidth - _bubblePaddings;
     return _inBubbleClearWidth;
   }
   // --------------------
-  static double defaultWidth(BuildContext context, {double bubbleWidthOverride}) {
-    final double _screenWidth = bubbleWidthOverride ?? Scale.superScreenWidth(context);
-    const double _bubbleMargins = Ratioz.appBarMargin * 2;
-    final double _bubbleWidth = _screenWidth - _bubbleMargins;
-    return _bubbleWidth;
-  }
-  // --------------------
-  static double bubbleWidth({
-    @required BuildContext context,
-    double bubbleWidthOverride,
-    bool stretchy,
-  }) {
-    final double _bubbleWidth = stretchy == true ? null : clearWidth(context, bubbleWidthOverride: bubbleWidthOverride);
+  static double bubbleWidth(BuildContext context, {double bubbleWidthOverride}) {
+    final double _bubbleWidth = bubbleWidthOverride ?? BldrsAppBar.width(context);
     return _bubbleWidth;
   }
   // --------------------
@@ -102,22 +89,9 @@ class Bubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final EdgeInsets _bubbleMargins = margins == null && stretchy == true ?
-    Scale.superMargins(margins: 0)
-        :
-    margins == null && stretchy == false ?
-    Scale.superMargins(margins: _pageMargin)
-        :
-    margins != null ?
-    Scale.superMargins(margins: margins)
-        :
-    Scale.superMargins(margins: margins);
+    final EdgeInsets _bubbleMargins = margins ?? EdgeInsets.zero;
     // --------------------
-    final double _bubbleWidth = screenWidth ??
-        bubbleWidth(
-          context: context,
-          stretchy: stretchy,
-        );
+    final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: width);
     // --------------------
     final BorderRadius _corners = corners == null ?
     borders(context)
@@ -130,9 +104,8 @@ class Bubble extends StatelessWidget {
     Aligners.superCenterAlignment(context);
     // --------------------
     final Widget _bubbleContents = _BubbleContents(
-      width: screenWidth,
+      width: width,
       childrenCentered: childrenCentered,
-      stretchy: stretchy,
       columnChildren: columnChildren,
       headerViewModel: headerViewModel,
     );
@@ -174,7 +147,6 @@ class _BubbleContents extends StatelessWidget {
   const _BubbleContents({
     @required this.columnChildren,
     @required this.childrenCentered,
-    @required this.stretchy,
     @required this.width,
     @required this.headerViewModel,
     Key key,
@@ -182,7 +154,6 @@ class _BubbleContents extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
   final bool childrenCentered;
-  final bool stretchy;
   final double width;
   final BubbleHeaderVM headerViewModel;
   /// --------------------------------------------------------------------------
@@ -193,7 +164,7 @@ class _BubbleContents extends StatelessWidget {
       key: const ValueKey<String>('_BubbleContents'),
       padding: const EdgeInsets.all(Bubble._pageMargin),
       child: Column(
-        mainAxisSize: stretchy ? MainAxisSize.min : MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: childrenCentered == true ?
         MainAxisAlignment.center
             :

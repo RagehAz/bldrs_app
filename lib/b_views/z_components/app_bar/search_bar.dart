@@ -21,7 +21,7 @@ class SearchBar extends StatefulWidget {
     @required this.globalKey,
     this.searchController,
     this.onSearchChanged,
-    this.boxWidth,
+    // this.boxWidth,
     this.hintText,
     this.height,
     this.onSearchCancelled,
@@ -32,7 +32,7 @@ class SearchBar extends StatefulWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool searchIconIsOn;
-  final double boxWidth;
+  // final double boxWidth;
   final String hintText;
   final double height;
   final Function onSearchCancelled;
@@ -84,7 +84,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _appBarClearWidth = BldrsAppBar.width(context, boxWidth: widget.boxWidth);
+    final double _appBarClearWidth = BldrsAppBar.width(context);
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchIconIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;

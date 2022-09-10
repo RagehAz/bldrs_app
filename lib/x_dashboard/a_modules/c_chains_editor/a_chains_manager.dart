@@ -89,7 +89,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// GO TO CHAINS EDITOR SCREEN
         Bubble(
-          screenWidth: Scale.superScreenWidth(context),
+          width: Scale.superScreenWidth(context),
           headerViewModel: const BubbleHeaderVM(
             headlineVerse: 'Editing mode',
             translateHeadline: false,
@@ -141,7 +141,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// TESTING METHODS
         Bubble(
-          screenWidth: Scale.superScreenWidth(context),
+          width: Scale.superScreenWidth(context),
           headerViewModel: const BubbleHeaderVM(
             headlineVerse: 'Testers',
             translateHeadline: false,
