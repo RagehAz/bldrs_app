@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -61,6 +60,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
+  /*
   Future<void> _triggerLoading({
     bool setTo,
   }) async {
@@ -74,6 +74,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       blogLoading(loading: _loading.value, callerName: 'KeyboardScreen',);
     }
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -88,12 +89,12 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading().then((_) async {
-
-        /// FUCK
-
-        await _triggerLoading();
-      });
+      // _triggerLoading().then((_) async {
+      //
+      //   /// FUCK
+      //
+      //   await _triggerLoading();
+      // });
 
       _isInit = false;
     }

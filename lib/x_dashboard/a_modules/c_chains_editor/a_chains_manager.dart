@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -89,7 +88,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// GO TO CHAINS EDITOR SCREEN
         Bubble(
-          width: Scale.superScreenWidth(context),
           headerViewModel: const BubbleHeaderVM(
             headlineVerse: 'Editing mode',
             translateHeadline: false,
@@ -141,7 +139,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// TESTING METHODS
         Bubble(
-          width: Scale.superScreenWidth(context),
           headerViewModel: const BubbleHeaderVM(
             headlineVerse: 'Testers',
             translateHeadline: false,
