@@ -1049,7 +1049,7 @@ class Chain {
     if (Mapper.checkCanLoopList(allChains) == true && phid != null){
 
       final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
-          allChains: allChains,
+          chains: allChains,
           phid: phid
       );
 
@@ -1367,7 +1367,7 @@ class Chain {
       if (Mapper.checkCanLoopList(usedPhids) == true){
 
         final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
-          allChains: chains,
+          chains: chains,
           phids: usedPhids,
         );
 
@@ -1490,7 +1490,7 @@ class Chain {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<Chain> removePathFromChains({
     @required List<Chain> chains,
     @required String path,
@@ -1521,6 +1521,29 @@ class Chain {
 
     // blog('addPathToChain : END');
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> removePathsFromChains({
+    @required List<Chain> chains,
+    @required List<String> paths,
+  }){
+    List<Chain> _chains = chains;
+
+    if (Mapper.checkCanLoopList(_chains) == true && Mapper.checkCanLoopList(paths) == true){
+
+      for (final String path in paths){
+
+        _chains = removePathFromChains(
+            chains: _chains,
+            path: path
+        );
+
+      }
+
+    }
+
+    return _chains;
   }
   // --------------------
   /// TEST : WORKS PERFECT

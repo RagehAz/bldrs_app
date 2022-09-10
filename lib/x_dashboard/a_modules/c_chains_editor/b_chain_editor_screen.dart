@@ -1,9 +1,12 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
@@ -123,8 +126,17 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                           verse:  'B.Paths',
                           translate: false,
                           buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
-                          onTap: (){
-                            Chain.blogChainsPaths(tempChains);
+                          onTap: () async {
+
+                            // Chain.blogChainsPaths(tempChains);
+
+                            final bool _result = await Dialogs.bottomBoolDialog(
+                              context: context,
+                              titleVerse: 'Will you do this ?',
+                            );
+
+                            blog('result is : $_result');
+
                           }
                       ),
 
@@ -155,6 +167,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                           blog('_identicalPaths : $_areIdentical');
 
                           // Chain.blogChainsPaths(tempChains);
+
 
                         },
                         onTap: () => onSyncChain(
@@ -200,9 +213,12 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                 ),
                 editMode: true,
                 secondLinesType: ChainSecondLinesType.indexAndID,
-                onLongPress: (String path){
-                  blog('path is : ( $path )');
-                },
+                onLongPress: (String path) => onPhidTap(
+                  context: context,
+                  path: path,
+                  phid: null,
+                  tempChains: _tempChains,
+                )
               );
 
             },

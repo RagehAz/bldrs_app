@@ -396,7 +396,7 @@ class Phider {
 
       if (object is String){
 
-        _isPhid = TextCheck.textStartsExactlyWith(
+        _isPhid = TextCheck.stringStartsExactlyWith(
             text: removeIndexFromPhid(phid: object),
             startsWith: phidCut,
         );
@@ -457,7 +457,7 @@ class Phider {
 
     if (text != null){
 
-      _isPhidK = TextCheck.textStartsExactlyWith(
+      _isPhidK = TextCheck.stringStartsExactlyWith(
         text: removeIndexFromPhid(phid: text),
         startsWith: phid_kCut,
       );

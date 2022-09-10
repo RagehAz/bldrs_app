@@ -334,7 +334,7 @@ class Formers {
         if (zoneModel != null && zoneModel.countryID != null){
 
           final String _code = CountryModel.getCountryPhoneCode(zoneModel.countryID);
-          final bool _startsWithCode = TextCheck.textStartsExactlyWith(
+          final bool _startsWithCode = TextCheck.stringStartsExactlyWith(
             text: _phone,
             startsWith: _code,
           );

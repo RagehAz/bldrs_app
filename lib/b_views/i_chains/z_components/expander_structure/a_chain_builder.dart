@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
@@ -58,6 +59,8 @@ class ChainBuilder extends StatelessWidget {
       parentWidth: boxWidth,
     );
     // --------------------
+    final String _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
+    // --------------------
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
@@ -73,7 +76,7 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onLongPress: () => onLongPress('$previousPath/${chain.id}'),
+        onLongPress: () => onLongPress(_cleanedPath),
         child: ChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',

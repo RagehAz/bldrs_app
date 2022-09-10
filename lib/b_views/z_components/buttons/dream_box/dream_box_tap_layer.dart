@@ -62,7 +62,7 @@ class DreamBoxTapLayer extends StatelessWidget {
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
-          onLongPress: onLongTap,
+          // onLongPress: onLongTap,
           onTapDown: deactivated == true || onTapDown == null ?
               (TapDownDetails details) {}
               :
@@ -75,6 +75,7 @@ class DreamBoxTapLayer extends StatelessWidget {
             splashColor: deactivated == true ? Colorz.white20 : splashColor,
             onTap: onTap == null && onDeactivatedTap == null ? null : () => _onTap(context),
             onTapCancel: onTapCancel,
+            onLongPress: onLongTap,
           ),
         ),
       ),

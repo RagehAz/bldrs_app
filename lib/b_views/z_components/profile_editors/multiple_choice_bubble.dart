@@ -55,7 +55,7 @@ class MultipleChoiceBubble extends StatelessWidget {
 
           /// BULLET POINTS
           if (bulletPoints != null)
-            BubbleBulletPoints(
+            BulletPoints(
               bulletPoints: bulletPoints,
               translateBullets: translateBullets,
             ),

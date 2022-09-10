@@ -346,7 +346,7 @@ class TextCheck {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool textStartsExactlyWith({
+  static bool stringStartsExactlyWith({
     @required String text,
     @required String startsWith, // http
   }){
@@ -369,7 +369,7 @@ class TextCheck {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool textStartsWithAny({
+  static bool stringStartsWithAny({
     @required String text,
     @required List<String> listThatMightIncludeText, // http
   }){
@@ -392,6 +392,33 @@ class TextCheck {
 
       }
 
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getStringsStartingExactlyWith({
+    @required String startWith,
+    @required List<String> strings,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(strings) == true && TextCheck.isEmpty(startWith) == false){
+
+      for (final String string in strings){
+
+        final bool _startsIndeed = stringStartsExactlyWith(
+            text: string,
+            startsWith: startWith,
+        );
+
+        if (_startsIndeed == true){
+          _output.add(string);
+        }
+
+      }
 
     }
 
