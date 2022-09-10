@@ -255,7 +255,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     bulletPoints: const <String>[
                       '##This will only change your name inside this Business account',
                     ],
-                    initialTextValue: authorModel.name,
+                    initialText: authorModel.name,
                     textOnChanged: (String text) => onAuthorNameChanged(
                       tempAuthor: _tempAuthor,
                       text: text,
@@ -284,7 +284,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       text: text,
                       tempAuthor: _tempAuthor,
                     ),
-                    initialTextValue: authorModel.title,
+                    initialText: authorModel.title,
                     validator: () => Formers.jobTitleValidator(
                         jobTitle: authorModel.title,
                         canValidate: _canValidate

@@ -124,43 +124,47 @@ Future<void> onChangeGroupIDForAllItsPickers({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onChangeGroupIDForSinglePicker({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  final TextEditingController _controller = TextEditingController(text: picker.groupID);
+  String _initialText = picker.groupID;
 
-  await Dialogs.keyboardDialog(
+  _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit ChainID',
       translateTitle: false,
       hintVerse:  'Edit ChainID',
-      controller: _controller,
+      initialText: _initialText,
       isFloatingField: false,
     ),
   );
 
-  final bool _continue = await Dialogs.confirmProceed(
-    context: context,
-    titleVerse: 'replace ( ${picker.groupID} ) with ( ${_controller.text} ) ?',
-    bodyVerse: 'This will impact only this picker of chainID ( ${picker.chainID} )',
-  );
+  if (_initialText != picker.groupID){
 
-  if (_continue == true){
-
-    final PickerModel _picker = picker.copyWith(
-      groupID: _controller.text,
+    final bool _continue = await Dialogs.confirmProceed(
+      context: context,
+      titleVerse: 'replace ( ${picker.groupID} ) with ( $_initialText ) ?',
+      bodyVerse: 'This will impact only this picker of chainID ( ${picker.chainID} )',
     );
 
-    tempPickers.value = PickerModel.replacePicker(
-        sourcePickers: tempPickers.value,
-        pickerChainIDtoReplace: _picker.chainID,
-        updatedPicker: _picker
-    );
+    if (_continue == true){
+
+      final PickerModel _picker = picker.copyWith(
+        groupID: _initialText,
+      );
+
+      tempPickers.value = PickerModel.replacePicker(
+          sourcePickers: tempPickers.value,
+          pickerChainIDtoReplace: _picker.chainID,
+          updatedPicker: _picker
+      );
+
+    }
 
   }
 
@@ -173,23 +177,23 @@ Future<void> onPickerChainIDTap({
   @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  final TextEditingController _controller = TextEditingController(text: picker.chainID);
+  String _initialText = picker.chainID;
 
-  await Dialogs.keyboardDialog(
+  _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit ChainID',
       translateTitle: false,
       hintVerse:  'Edit ChainID',
-      controller: _controller,
+      initialText: _initialText,
       isFloatingField: false,
     ),
   );
 
-  if (picker.chainID != _controller.text){
+  if (picker.chainID != _initialText){
 
     final PickerModel _updated = picker.copyWith(
-      chainID: _controller.text,
+      chainID: _initialText,
     );
 
     tempPickers.value = PickerModel.replacePicker(
@@ -209,23 +213,23 @@ Future<void> onPickerUnitChainIDTap({
   @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  final TextEditingController _controller = TextEditingController(text: picker.unitChainID);
+  String _initialText = picker.unitChainID;
 
-  await Dialogs.keyboardDialog(
+  _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit Unit ChainID',
       translateTitle: false,
       hintVerse:  'Edit Unit ChainID',
-      controller: _controller,
+      initialText: _initialText,
       isFloatingField: false,
     ),
   );
 
-  if (picker.unitChainID != _controller.text){
+  if (picker.unitChainID != _initialText){
 
     final PickerModel _updated = picker.copyWith(
-      unitChainID: _controller.text,
+      unitChainID: _initialText,
     );
 
     tempPickers.value = PickerModel.replacePicker(

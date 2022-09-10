@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class KeyboardModel {
   // -----------------------------------------------------------------------------
   const KeyboardModel({
-    @required this.controller,
     @required this.titleVerse,
     @required this.translateTitle,
+    this.initialText = '',
     this.hintVerse = '...',
     this.minLines = 1,
     this.maxLines = 2,
@@ -23,12 +23,13 @@ class KeyboardModel {
     this.onEditingComplete,
     this.isFloatingField = true,
     this.globalKey,
-  }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
+    this.validator,
+  });
   // -----------------------------------------------------------------------------
   final String titleVerse;
   final bool translateTitle;
   final String hintVerse;
-  final TextEditingController controller;
+  final String initialText;
   final int minLines;
   final int maxLines;
   final int maxLength;
@@ -45,6 +46,7 @@ class KeyboardModel {
   final Function onEditingComplete;
   final bool isFloatingField;
   final GlobalKey<FormState> globalKey;
+  final String Function(String text) validator;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -55,7 +57,7 @@ class KeyboardModel {
     String titleVerse,
     bool translateTitle,
     String hintVerse,
-    TextEditingController controller,
+    String initialText,
     int minLines,
     int maxLines,
     int maxLength,
@@ -71,12 +73,13 @@ class KeyboardModel {
     Function onEditingComplete,
     bool isFloatingField,
     GlobalKey<FormState> globalKey,
+    String Function(String text) validator,
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
       translateTitle: translateTitle ?? this.translateTitle,
       hintVerse: hintVerse ?? this.hintVerse,
-      controller: controller ?? this.controller,
+      initialText: initialText ?? this.initialText,
       minLines: minLines ?? this.minLines,
       maxLines: maxLines ?? this.maxLines,
       maxLength: maxLength ?? this.maxLength,
@@ -92,6 +95,7 @@ class KeyboardModel {
       onEditingComplete: onEditingComplete ?? this.onEditingComplete,
       isFloatingField: isFloatingField ?? this.isFloatingField,
       globalKey: globalKey ?? this.globalKey,
+      validator: validator ?? this.validator,
     );
   }
   // -----------------------------------------------------------------------------
@@ -100,11 +104,10 @@ class KeyboardModel {
 
   // --------------------
   static KeyboardModel standardModel(){
-    return KeyboardModel(
+    return const KeyboardModel(
       titleVerse: null,
       translateTitle: false,
       // hintText: '...',
-      controller: TextEditingController(),
       // minLines: 1,
       maxLines: 1,
       // maxLength: null,
@@ -140,7 +143,7 @@ class KeyboardModel {
     modelA.titleVerse == modelB.titleVerse &&
         modelA.translateTitle == modelB.translateTitle &&
         modelA.hintVerse == modelB.hintVerse &&
-        modelA.controller == modelB.controller &&
+        modelA.initialText == modelB.initialText &&
         modelA.minLines == modelB.minLines &&
         modelA.maxLines == modelB.maxLines &&
         modelA.maxLength == modelB.maxLength &&
@@ -155,7 +158,8 @@ class KeyboardModel {
         modelA.onSavedForForm == modelB.onSavedForForm &&
         modelA.onEditingComplete == modelB.onEditingComplete &&
         modelA.isFloatingField == modelB.isFloatingField &&
-        modelA.globalKey == modelB.globalKey
+        modelA.globalKey == modelB.globalKey &&
+        modelA.validator == modelB.validator
     ){
       _areIdentical = true;
     }
@@ -192,7 +196,7 @@ class KeyboardModel {
   // --------------------
   @override
   int get hashCode =>
-      controller.hashCode^
+      initialText.hashCode^
       titleVerse.hashCode^
       translateTitle.hashCode^
       hintVerse.hashCode^
@@ -210,6 +214,7 @@ class KeyboardModel {
       onSavedForForm.hashCode^
       onEditingComplete.hashCode^
       isFloatingField.hashCode^
+      validator.hashCode^
       globalKey.hashCode;
   // -----------------------------------------------------------------------------
 }
