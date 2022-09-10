@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -382,7 +383,7 @@ Future<String> _pathKeyboardDialog({
     _typedPath = ChainPathConverter.fixPathFormatting(text);
   }
 
-  await Dialogs.keyboardDialog(
+  await KeyboardScreen.goToKeyboardScreen(
     context: context,
     keyboardModel: KeyboardModel.standardModel().copyWith(
       globalKey: GlobalKey<FormState>(),
