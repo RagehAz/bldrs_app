@@ -34,7 +34,7 @@ class TextFieldBubble extends StatelessWidget {
     this.isFormField,
     this.onSavedForForm,
     this.keyboardTextInputAction,
-    this.initialTextValue,
+    this.initialText,
     this.validator,
     this.bulletPoints,
     this.translateBullets = true,
@@ -76,7 +76,7 @@ class TextFieldBubble extends StatelessWidget {
   final bool isFormField;
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
-  final String initialTextValue;
+  final String initialText;
   final String Function() validator;
   final List<String> bulletPoints;
   final bool translateBullets;
@@ -230,7 +230,7 @@ class TextFieldBubble extends StatelessWidget {
                     onSubmitted: onSubmitted,
                     onSavedForForm: onSavedForForm,
                     textInputAction: keyboardTextInputAction,
-                    initialValue: initialTextValue,
+                    initialValue: initialText,
                     validator: validator,
                     focusNode: focusNode,
                     autofocus: autoFocus,

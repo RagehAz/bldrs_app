@@ -2,11 +2,14 @@
 
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 class KeyboardScreen extends StatefulWidget {
@@ -14,20 +17,46 @@ class KeyboardScreen extends StatefulWidget {
   const KeyboardScreen({
     @required this.keyboardModel,
     @required this.onSubmit,
+    this.confirmButtonIsOn = true,
+    this.columnChildren,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final KeyboardModel keyboardModel;
   final ValueChanged<String> onSubmit;
+  final bool confirmButtonIsOn;
+  final List<Widget> columnChildren;
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
   /// --------------------------------------------------------------------------
+  static Future<String> goToKeyboardScreen({
+    @required BuildContext context,
+    KeyboardModel keyboardModel,
+  }) async {
+    String _output;
+
+    await Nav.goToNewScreen(
+      context: context,
+      screen: KeyboardScreen(
+        keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
+        // confirmButtonIsOn: true,
+        onSubmit: (String text){
+          _output = text;
+        },
+      ),
+    );
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
 }
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
   KeyboardModel _keyboardModel;
+  final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
+  String _fieldText = '';
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -75,7 +104,25 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   @override
   void dispose() {
     _loading.dispose();
+    _canSubmit.dispose();
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  void _onSubmit (String text){
+
+    Keyboard.closeKeyboard(context);
+
+    Nav.goBack(
+      context: context,
+      invoker: 'KeyboardScreen',
+    );
+
+    if (_keyboardModel.onSubmitted != null){
+      if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
+        _keyboardModel.onSubmitted(text);
+      }
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -86,6 +133,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
+      sectionButtonIsOn: false,
       layoutWidget: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
@@ -100,7 +148,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
               isFloatingField: _keyboardModel.isFloatingField,
               titleVerse: _keyboardModel.titleVerse,
               translateTitle: _keyboardModel.translateTitle,
-              textController: _keyboardModel.controller,
+              initialText: _keyboardModel.initialText,
               maxLines: _keyboardModel.maxLines,
               minLines: _keyboardModel.minLines,
               maxLength: _keyboardModel.maxLength,
@@ -113,21 +161,23 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
               isFormField: _keyboardModel.isFormField,
               onSubmitted: widget.onSubmit,
               // autoValidate: true,
-              validator: validator,
+              validator: () => _keyboardModel.validator(_fieldText),
               textOnChanged: (String text){
+
+                _fieldText = text;
 
                 if (_keyboardModel.onChanged != null){
                   _keyboardModel.onChanged(text);
                 }
 
-                if (validator != null){
+                if (_keyboardModel.validator != null){
 
                   setState((){
-                    if (validator() == null){
-                      _buttonDeactivated = false;
+                    if (_keyboardModel.validator(_fieldText) == null){
+                      _canSubmit.value = true;
                     }
                     else {
-                      _buttonDeactivated = true;
+                      _canSubmit.value = false;
                     }
                   });
 
@@ -136,16 +186,26 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
             ),
 
-            if (confirmButtonIsOn == true)
-              DreamBox(
-                isDeactivated: _buttonDeactivated,
-                height: 40,
-                verseScaleFactor: 0.6,
-                margins: const EdgeInsets.symmetric(horizontal: 10),
-                verse:'Confirm',
+            if (widget.confirmButtonIsOn == true)
+              ValueListenableBuilder(
+                  valueListenable: _canSubmit,
+                  builder: (_, bool canSubmit, Widget child){
 
-                onTap: () => _onSubmit(_keyboardModel.controller.text),
+                    return DreamBox(
+                      isDeactivated: !canSubmit,
+                      height: 40,
+                      verseScaleFactor: 0.6,
+                      margins: const EdgeInsets.symmetric(horizontal: 10),
+                      verse:'Confirm',
+
+                      onTap: () => _onSubmit(_fieldText),
+                    );
+
+                  }
               ),
+
+            if (widget.columnChildren != null)
+              ... widget.columnChildren,
 
           ],
         ),

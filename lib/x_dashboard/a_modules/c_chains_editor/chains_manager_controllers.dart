@@ -377,23 +377,19 @@ Future<String> _pathKeyboardDialog({
 }) async {
 
   String _typedPath;
-  final TextEditingController _controller = TextEditingController(text: path);
 
   void doneWithPath(String text){
     _typedPath = ChainPathConverter.fixPathFormatting(text);
   }
 
-  final GlobalKey _globalKey = GlobalKey<FormState>();
-
   await Dialogs.keyboardDialog(
     context: context,
-    validator: () => _pathCreationValidator(_controller.text),
     keyboardModel: KeyboardModel.standardModel().copyWith(
-      globalKey: _globalKey,
+      globalKey: GlobalKey<FormState>(),
       titleVerse: title,
       translateTitle: false,
       hintVerse: path,
-      controller: _controller,
+      initialText: path,
       // focusNode: _node,
       minLines: 2,
       maxLines: 5,
@@ -401,14 +397,12 @@ Future<String> _pathKeyboardDialog({
       isFloatingField: false,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.url,
-      onChanged: (String text){
-        // _globalKey.currentS;
-      },
+      // onChanged: (String text){},
       onSubmitted: doneWithPath,
       // onEditingComplete: doneWithPath,
       counterIsOn: true,
       isFormField: true,
-
+      validator: (String text) => _pathCreationValidator(text),
     ),
   );
 

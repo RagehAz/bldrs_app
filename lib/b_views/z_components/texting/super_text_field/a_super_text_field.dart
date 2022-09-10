@@ -545,7 +545,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
   }
   // --------------------
-  String _validator(String val){
+  String _validator(String text){
 
     if (widget.validator == null){
       return null;
