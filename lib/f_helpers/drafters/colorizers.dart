@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:io';
 import 'dart:ui' as ui;
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
@@ -233,7 +233,7 @@ class Colorizer {
     bool canErrorize = true,
   }){
 
-    blog('ValidatorColor : validator : $validator : ${validator()}');
+    // blog('ValidatorColor : validator : $validator : ${validator()}');
 
     bool _errorIsOn = false;
     if (validator != null){

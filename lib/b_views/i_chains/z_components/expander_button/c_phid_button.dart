@@ -21,6 +21,7 @@ class PhidButton extends StatelessWidget {
     this.searchText,
     this.inverseAlignment,
     this.secondLine,
+    this.onLongTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class PhidButton extends StatelessWidget {
   final ValueNotifier<String> searchText;
   final bool inverseAlignment;
   final String secondLine;
+  final Function onLongTap;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -92,6 +94,7 @@ class PhidButton extends StatelessWidget {
       boxWidth: width,
       inverseAlignment: inverseAlignment,
       child: DreamBox(
+        onLongTap: onLongTap,
         height: getHeight(),
         width: width,
         color: color,
