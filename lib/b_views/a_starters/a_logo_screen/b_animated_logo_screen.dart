@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -98,6 +99,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     if (_isInit) {
 
       _triggerLoading().then((_) async {
+
+        Keyboard.closeKeyboard(context);
 
         await Future.delayed(const Duration(milliseconds: 500), () async {
 

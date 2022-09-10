@@ -60,6 +60,7 @@ class ChainsScreenSearchView extends StatelessWidget {
                     initiallyExpanded: true,
                     onSelectPhid: onSelectPhid,
                     searchText: searchText,
+                    editMode: false,
                   );
 
                 },

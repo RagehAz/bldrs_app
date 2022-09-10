@@ -139,32 +139,37 @@ class Numeric {
     /// 0001 -> 0010 -> 0100 -> 1000 -> 9999
     /// when num = 10000 => should return 'increase digits to view number'
 
-    final int _maxPlusOne = calculateIntegerPower(num: 10, power: digits);
-    final int _maxPossibleNum = _maxPlusOne - 1;
 
     String _output;
 
-    if (num > _maxPossibleNum) {
-      _output = 'XXXX';
-    }
+    if (num != null){
 
-    else {
+      final int _maxPlusOne = calculateIntegerPower(num: 10, power: digits);
+      final int _maxPossibleNum = _maxPlusOne - 1;
 
-      String _numAsText = num.toString();
-
-      for (int i = 1; i <= digits; i++) {
-
-        if (_numAsText.length < digits) {
-          _numAsText = '0$_numAsText';
-        }
-
-        else {
-          break;
-        }
-
+      if (num > _maxPossibleNum) {
+        _output = 'XXXX';
       }
 
-      _output = _numAsText;
+      else {
+
+        String _numAsText = num.toString();
+
+        for (int i = 1; i <= digits; i++) {
+
+          if (_numAsText.length < digits) {
+            _numAsText = '0$_numAsText';
+          }
+
+          else {
+            break;
+          }
+
+        }
+
+        _output = _numAsText;
+      }
+
     }
 
     return _output;

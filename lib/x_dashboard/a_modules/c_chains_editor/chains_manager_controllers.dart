@@ -377,7 +377,6 @@ Future<String> _pathKeyboardDialog({
 }) async {
 
   String _typedPath;
-  // _controller.text = ChainPathConverter.fixPathFormatting(path);
   final TextEditingController _controller = TextEditingController(text: path);
 
   void doneWithPath(String text){
@@ -386,12 +385,13 @@ Future<String> _pathKeyboardDialog({
 
   final GlobalKey _globalKey = GlobalKey<FormState>();
 
-  _typedPath = await Dialogs.keyboardDialog(
+  await Dialogs.keyboardDialog(
     context: context,
     validator: () => _pathCreationValidator(_controller.text),
     keyboardModel: KeyboardModel.standardModel().copyWith(
       globalKey: _globalKey,
       titleVerse: title,
+      translateTitle: false,
       hintVerse: path,
       controller: _controller,
       // focusNode: _node,
@@ -405,18 +405,17 @@ Future<String> _pathKeyboardDialog({
         // _globalKey.currentS;
       },
       onSubmitted: doneWithPath,
-      onEditingComplete: doneWithPath,
+      // onEditingComplete: doneWithPath,
       counterIsOn: true,
       isFormField: true,
 
     ),
   );
 
-  _typedPath = ChainPathConverter.fixPathFormatting(_typedPath);
-
   return _typedPath;
 }
-// -----------------------------------------------------------------------------
+// --------------------
+/// TESTED : WORKS PERFECT
 String _pathCreationValidator(String path){
 
   final List<String> _nodes = ChainPathConverter.splitPathNodes(path);
@@ -426,9 +425,9 @@ String _pathCreationValidator(String path){
   for (int i = 0; i < _nodes.length; i++){
 
     final String _node = _nodes[i];
-    final bool _startsWith = TextCheck.textStartsWithAny(
+    final bool _startsWith = TextCheck.textStartsExactlyWith(
         text: _node,
-        listThatMightIncludeText: ['phid', 'phi', 'ph', 'p'],
+        startsWith: 'phid_',
     );
 
     if (_startsWith == false){
@@ -441,3 +440,4 @@ String _pathCreationValidator(String path){
 
   return _message;
 }
+// --------------------

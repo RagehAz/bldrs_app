@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/route_names.dart';
@@ -61,6 +62,8 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
     if (_isInit) {
 
       _triggerLoading().then((_) async {
+
+        Keyboard.closeKeyboard(context);
 
         await initializeLogoScreen(
           context: context,
