@@ -35,7 +35,7 @@ class NoteCard extends StatelessWidget {
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   static double getBubbleWidth(BuildContext context) {
-    return Bubble.defaultWidth(context);
+    return Bubble.bubbleWidth(context);
   }
   // --------------------
   static double bodyWidth({
@@ -86,7 +86,7 @@ class NoteCard extends StatelessWidget {
         headerViewModel: const BubbleHeaderVM(
           centered: true,
         ),
-        screenWidth: _bubbleWidth,
+        width: _bubbleWidth,
         childrenCentered: true,
         margins: const EdgeInsets.symmetric(
             horizontal: Ratioz.appBarMargin,

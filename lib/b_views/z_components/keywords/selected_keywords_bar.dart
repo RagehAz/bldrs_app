@@ -50,7 +50,7 @@ class SelectedPhidsBar extends StatelessWidget {
     '${selectedPhids.length} Selected keywords';
     // --------------------
     return Bubble(
-      screenWidth: _screenWidth,
+      width: _screenWidth,
       headerViewModel: BubbleHeaderVM(
         headlineVerse: _screenTitle,
       ),

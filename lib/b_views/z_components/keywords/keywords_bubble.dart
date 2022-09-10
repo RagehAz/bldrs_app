@@ -54,7 +54,7 @@ class KeywordsBubble extends StatelessWidget {
       headerViewModel: BubbleHeaderVM(
         headlineVerse: title,
       ),
-      screenWidth: bubbleWidth,
+      width: bubbleWidth,
       onBubbleTap: passKeywordOnTap == true ? null : onTap,
       columnChildren: <Widget>[
 

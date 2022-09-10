@@ -83,7 +83,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: 'phid_add_with_dots', // 'Add ...'
       ),
-      screenWidth: _bubbleWidth,
+      width: _bubbleWidth,
       columnChildren: <Widget>[
 
         // /// BULLET POINTS

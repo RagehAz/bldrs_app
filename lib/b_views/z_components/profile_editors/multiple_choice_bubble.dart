@@ -39,10 +39,10 @@ class MultipleChoiceBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context);
 
     return Bubble(
-        screenWidth: _bubbleWidth,
+        width: _bubbleWidth,
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
         ),

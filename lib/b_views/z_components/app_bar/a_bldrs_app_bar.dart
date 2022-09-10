@@ -54,14 +54,13 @@ class BldrsAppBar extends StatelessWidget {
   final GlobalKey globalKey;
   final bool translatePageTitle;
   /// --------------------------------------------------------------------------
-  static double width(BuildContext context, {double boxWidth}) {
-    final double _boxWidth = boxWidth ?? Scale.superScreenWidth(context);
-    final double _abWidth = _boxWidth - (2 * Ratioz.appBarMargin);
+  static double width(BuildContext context) {
+    final double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
     return _abWidth;
   }
   // --------------------
-  static double clearWidth(BuildContext context, {double boxWidth}){
-    final double _appBarWidth = width(context, boxWidth: boxWidth);
+  static double clearWidth(BuildContext context){
+    final double _appBarWidth = width(context);
     return _appBarWidth - (2 * Ratioz.appBarPadding);
   }
   // --------------------

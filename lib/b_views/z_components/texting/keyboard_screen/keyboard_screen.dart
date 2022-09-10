@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -148,70 +149,72 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleWidth = BldrsAppBar.width(context);
-
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      layoutWidget: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        padding: Stratosphere.stratosphereSandwich,
-        child: ValueListenableBuilder(
-          valueListenable: _canSubmit,
-          builder: (_, bool canSubmit, Widget child){
+      layoutWidget: ValueListenableBuilder(
+        valueListenable: _canSubmit,
+        builder: (_, bool canSubmit, Widget child){
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+          return Column(
+            children: <Widget>[
 
-                /// TEXT FIELD
-                TextFieldBubble(
-                  globalKey: _keyboardModel.globalKey,
-                  appBarType: AppBarType.basic,
-                  bubbleWidth: _bubbleWidth,
-                  isFloatingField: _keyboardModel.isFloatingField,
-                  titleVerse: _keyboardModel.titleVerse,
-                  translateTitle: _keyboardModel.translateTitle,
-                  textController: _controller,
-                  maxLines: _keyboardModel.maxLines,
-                  minLines: _keyboardModel.minLines,
-                  maxLength: _keyboardModel.maxLength,
-                  hintText: _keyboardModel.hintVerse,
-                  counterIsOn: _keyboardModel.counterIsOn,
-                  canObscure: _keyboardModel.canObscure,
-                  keyboardTextInputType: _keyboardModel.textInputType,
-                  keyboardTextInputAction: _keyboardModel.textInputAction,
-                  autoFocus: true,
-                  isFormField: _keyboardModel.isFormField,
-                  onSubmitted: widget.onSubmit,
-                  // autoValidate: true,
-                  validator: () => _keyboardModel.validator(_controller.text),
-                  textOnChanged: _onTextChanged,
+              const Stratosphere(),
+
+              /// TEXT FIELD
+              TextFieldBubble(
+                bubbleWidth: BldrsAppBar.width(context),
+                globalKey: _keyboardModel.globalKey,
+                appBarType: AppBarType.basic,
+                isFloatingField: _keyboardModel.isFloatingField,
+                titleVerse: _keyboardModel.titleVerse,
+                translateTitle: _keyboardModel.translateTitle,
+                textController: _controller,
+                maxLines: _keyboardModel.maxLines,
+                minLines: _keyboardModel.minLines,
+                maxLength: _keyboardModel.maxLength,
+                hintText: _keyboardModel.hintVerse,
+                counterIsOn: _keyboardModel.counterIsOn,
+                canObscure: _keyboardModel.canObscure,
+                keyboardTextInputType: _keyboardModel.textInputType,
+                keyboardTextInputAction: _keyboardModel.textInputAction,
+                autoFocus: true,
+                isFormField: _keyboardModel.isFormField,
+                onSubmitted: widget.onSubmit,
+                // autoValidate: true,
+                validator: () => _keyboardModel.validator(_controller.text),
+                textOnChanged: _onTextChanged,
+              ),
+
+              /// CONFIRM BUTTON
+              if (widget.confirmButtonIsOn == true)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    DreamBox(
+                      isDeactivated: !canSubmit,
+                      height: 40,
+                      verseScaleFactor: 0.6,
+                      margins: const EdgeInsets.symmetric(horizontal: 10),
+                      verse:'Confirm',
+                      verseCasing: VerseCasing.upperCase,
+                      verseItalic: true,
+                      onTap: () => _onSubmit(_controller.text),
+                    ),
+                  ],
                 ),
 
-                /// CONFIRM BUTTON
-                if (widget.confirmButtonIsOn == true)
-                  DreamBox(
-                    isDeactivated: !canSubmit,
-                    height: 40,
-                    verseScaleFactor: 0.6,
-                    margins: const EdgeInsets.symmetric(horizontal: 10),
-                    verse:'Confirm',
-                    verseCasing: VerseCasing.upperCase,
-                    verseItalic: true,
-                    onTap: () => _onSubmit(_controller.text),
-                  ),
+              /// EXTRA CHILDREN
+              if (widget.columnChildren != null)
+                ... widget.columnChildren,
 
-                /// EXTRA CHILDREN
-                if (widget.columnChildren != null)
-                  ... widget.columnChildren,
+              const Horizon(),
 
-              ],
-            );
+            ],
+          );
 
-          },
-        ),
+        },
       ),
     );
 
