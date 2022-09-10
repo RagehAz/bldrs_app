@@ -223,7 +223,8 @@ Future<void> _onEditReview({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  '##Edit Your Review',
+      titleVerse:  'phid_edit_your_review',
+      translateTitle: true,
       hintVerse:  '##What do you think of this flyer ?',
       controller: TextEditingController(text: reviewModel.text),
       maxLines: 5,
@@ -317,7 +318,8 @@ Future<void> onBzReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  '##Reply to this review',
+      titleVerse:  'phid_reply_to_flyer',
+      translateTitle: true,
       hintVerse:  '##Reply ...',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
@@ -436,8 +438,9 @@ Future<void> _onEditReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  '##Edit Your Reply',
-      hintVerse:  '##Reply',
+      titleVerse:  'phid_edit_your_reply',
+      translateTitle: true,
+      hintVerse:  'phid_reply',
       controller: TextEditingController(text: reviewModel.reply),
       maxLines: 5,
       textInputAction: TextInputAction.newline,

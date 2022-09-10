@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.d
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/redorder_list_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/images_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/animations_lab.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/animations_lab/super_rage7.dart';
@@ -20,6 +19,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/keyboar
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/location_test_screen/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notifications_test/awesome_noti_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notifications_test/fcm_tet_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/redorder_list_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
@@ -43,7 +43,7 @@ class SpecializedLabs extends StatelessWidget {
 
     const List<DashButtonModel> _buttons = <DashButtonModel>[
 
-      /// EMAIL SENDER
+      /// RE-ORDER LIST
       DashButtonModel(
         verse:  'Re-order-list',
         icon: Iconz.statistics,
