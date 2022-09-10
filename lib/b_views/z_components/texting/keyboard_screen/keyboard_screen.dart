@@ -1,5 +1,3 @@
-
-
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -7,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -29,7 +28,8 @@ class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<String> goToKeyboardScreen({
     @required BuildContext context,
     KeyboardModel keyboardModel,
@@ -56,7 +56,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
   KeyboardModel _keyboardModel;
   final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
-  String _fieldText = '';
+  final TextEditingController _controller = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -105,9 +105,29 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   void dispose() {
     _loading.dispose();
     _canSubmit.dispose();
+    _controller.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  void _onTextChanged(String text){
+
+    if (_keyboardModel.onChanged != null){
+      _keyboardModel.onChanged(text);
+    }
+
+    if (_keyboardModel.validator != null){
+
+      if (_keyboardModel.validator(_controller.text) == null){
+        _canSubmit.value = true;
+      }
+      else {
+        _canSubmit.value = false;
+      }
+
+    }
+
+  }
+  // --------------------
   void _onSubmit (String text){
 
     Keyboard.closeKeyboard(context);
@@ -137,77 +157,60 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       layoutWidget: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: Stratosphere.stratosphereSandwich,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
+        child: ValueListenableBuilder(
+          valueListenable: _canSubmit,
+          builder: (_, bool canSubmit, Widget child){
 
-            TextFieldBubble(
-              globalKey: _keyboardModel.globalKey,
-              appBarType: AppBarType.basic,
-              bubbleWidth: _bubbleWidth,
-              isFloatingField: _keyboardModel.isFloatingField,
-              titleVerse: _keyboardModel.titleVerse,
-              translateTitle: _keyboardModel.translateTitle,
-              initialText: _keyboardModel.initialText,
-              maxLines: _keyboardModel.maxLines,
-              minLines: _keyboardModel.minLines,
-              maxLength: _keyboardModel.maxLength,
-              hintText: _keyboardModel.hintVerse,
-              counterIsOn: _keyboardModel.counterIsOn,
-              canObscure: _keyboardModel.canObscure,
-              keyboardTextInputType: _keyboardModel.textInputType,
-              keyboardTextInputAction: _keyboardModel.textInputAction,
-              autoFocus: true,
-              isFormField: _keyboardModel.isFormField,
-              onSubmitted: widget.onSubmit,
-              // autoValidate: true,
-              validator: () => _keyboardModel.validator(_fieldText),
-              textOnChanged: (String text){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
 
-                _fieldText = text;
+                /// TEXT FIELD
+                TextFieldBubble(
+                  globalKey: _keyboardModel.globalKey,
+                  appBarType: AppBarType.basic,
+                  bubbleWidth: _bubbleWidth,
+                  isFloatingField: _keyboardModel.isFloatingField,
+                  titleVerse: _keyboardModel.titleVerse,
+                  translateTitle: _keyboardModel.translateTitle,
+                  textController: _controller,
+                  maxLines: _keyboardModel.maxLines,
+                  minLines: _keyboardModel.minLines,
+                  maxLength: _keyboardModel.maxLength,
+                  hintText: _keyboardModel.hintVerse,
+                  counterIsOn: _keyboardModel.counterIsOn,
+                  canObscure: _keyboardModel.canObscure,
+                  keyboardTextInputType: _keyboardModel.textInputType,
+                  keyboardTextInputAction: _keyboardModel.textInputAction,
+                  autoFocus: true,
+                  isFormField: _keyboardModel.isFormField,
+                  onSubmitted: widget.onSubmit,
+                  // autoValidate: true,
+                  validator: () => _keyboardModel.validator(_controller.text),
+                  textOnChanged: _onTextChanged,
+                ),
 
-                if (_keyboardModel.onChanged != null){
-                  _keyboardModel.onChanged(text);
-                }
+                /// CONFIRM BUTTON
+                if (widget.confirmButtonIsOn == true)
+                  DreamBox(
+                    isDeactivated: !canSubmit,
+                    height: 40,
+                    verseScaleFactor: 0.6,
+                    margins: const EdgeInsets.symmetric(horizontal: 10),
+                    verse:'Confirm',
+                    verseCasing: VerseCasing.upperCase,
+                    verseItalic: true,
+                    onTap: () => _onSubmit(_controller.text),
+                  ),
 
-                if (_keyboardModel.validator != null){
+                /// EXTRA CHILDREN
+                if (widget.columnChildren != null)
+                  ... widget.columnChildren,
 
-                  setState((){
-                    if (_keyboardModel.validator(_fieldText) == null){
-                      _canSubmit.value = true;
-                    }
-                    else {
-                      _canSubmit.value = false;
-                    }
-                  });
+              ],
+            );
 
-                }
-              },
-
-            ),
-
-            if (widget.confirmButtonIsOn == true)
-              ValueListenableBuilder(
-                  valueListenable: _canSubmit,
-                  builder: (_, bool canSubmit, Widget child){
-
-                    return DreamBox(
-                      isDeactivated: !canSubmit,
-                      height: 40,
-                      verseScaleFactor: 0.6,
-                      margins: const EdgeInsets.symmetric(horizontal: 10),
-                      verse:'Confirm',
-
-                      onTap: () => _onSubmit(_fieldText),
-                    );
-
-                  }
-              ),
-
-            if (widget.columnChildren != null)
-              ... widget.columnChildren,
-
-          ],
+          },
         ),
       ),
     );

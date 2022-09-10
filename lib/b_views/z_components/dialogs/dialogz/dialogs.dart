@@ -321,6 +321,7 @@ class Dialogs {
     );
 
     bool _buttonDeactivated;
+    String _text = _keyboardModel.initialText;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -332,7 +333,6 @@ class Dialogs {
         child: StatefulBuilder(
           builder: (BuildContext ctx,  setState){
 
-            String _text = _keyboardModel.initialText;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
