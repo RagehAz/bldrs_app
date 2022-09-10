@@ -715,6 +715,27 @@ class ChainPathConverter {
 
     return _path;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String removeLastPathNode({
+    @required String path
+  }){
+    String _output;
+
+    if (path != null){
+
+      final String _fixed = fixPathFormatting(path);
+      final List<String> _nodes = splitPathNodes(_fixed);
+
+      if (Mapper.checkCanLoopList(_nodes) == true){
+        _nodes.removeAt(_nodes.length - 1);
+        _output = combinePathNodes(_nodes);
+      }
+
+    }
+
+    return fixPathFormatting(_output);
+  }
   // -----------------------------------------------------------------------------
 
   /// PATH CHECKERS
@@ -906,7 +927,7 @@ class ChainPathConverter {
     /// => no '/' in the beggining
     /// => there MUST '/' in the end
 
-    String _output = path.trim();
+    String _output = path?.trim();
 
     if (TextCheck.isEmpty(path) == false){
 
