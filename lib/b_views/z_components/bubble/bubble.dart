@@ -111,32 +111,34 @@ class Bubble extends StatelessWidget {
       headerViewModel: headerViewModel,
     );
     // --------------------
-    return Container(
-      key: key,
-      width: _bubbleWidth,
-      margin: _bubbleMargins,
-      // padding: EdgeInsets.all(_pageMargin),
-      decoration: BoxDecoration(
-        color: bubbleColor,
-        borderRadius: _corners,
-      ),
-      alignment: _alignment,
-      child: onBubbleTap == null ?
-
-      _bubbleContents
-
-          :
-
-      Material(
-        color: Colorz.nothing,
-        child: InkWell(
-          onTap: onBubbleTap,
-          splashColor: Colorz.yellow255,
+    return Center(
+      child: Container(
+        key: key,
+        width: _bubbleWidth,
+        margin: _bubbleMargins,
+        // padding: EdgeInsets.all(_pageMargin),
+        decoration: BoxDecoration(
+          color: bubbleColor,
           borderRadius: _corners,
-          child: _bubbleContents,
         ),
-      ),
+        alignment: _alignment,
+        child: onBubbleTap == null ?
 
+        _bubbleContents
+
+            :
+
+        Material(
+          color: Colorz.nothing,
+          child: InkWell(
+            onTap: onBubbleTap,
+            splashColor: Colorz.yellow255,
+            borderRadius: _corners,
+            child: _bubbleContents,
+          ),
+        ),
+
+      ),
     );
     // --------------------
   }

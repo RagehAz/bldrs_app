@@ -62,6 +62,7 @@ class DreamBox extends StatelessWidget {
     this.onDeactivatedTap,
     this.verseHighlight,
     this.verseHighlightColor = Colorz.bloodTest,
+    this.onLongTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -112,6 +113,7 @@ class DreamBox extends StatelessWidget {
   final Function onDeactivatedTap;
   final ValueNotifier<dynamic> verseHighlight;
   final Color verseHighlightColor;
+  final Function onLongTap;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
     bool blackAndWhite = false,
@@ -394,6 +396,7 @@ class DreamBox extends StatelessWidget {
             onTapCancel: onTapCancel,
             deactivated: isDeactivated,
             onDeactivatedTap: onDeactivatedTap,
+            onLongTap: onLongTap,
           ),
 
       ],

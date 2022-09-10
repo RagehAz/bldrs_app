@@ -18,6 +18,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.selectedPhids,
     @required this.editMode,
     @required this.secondLinesType,
+    @required this.onLongPress,
     this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
@@ -47,6 +48,7 @@ class ChainBuilder extends StatelessWidget {
   final Function(String path) onAddToPath;
   final bool editMode;
   final ChainSecondLinesType secondLinesType;
+  final ValueChanged<String> onLongPress;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
+        onLongPress: () => onLongPress('$previousPath/${chain.id}'),
         child: ChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',
@@ -83,6 +86,7 @@ class ChainBuilder extends StatelessWidget {
           onAddToPath: onAddToPath,
           editMode: editMode,
           secondLinesType: secondLinesType,
+          onLongPress: onLongPress,
         ),
       ),
     );

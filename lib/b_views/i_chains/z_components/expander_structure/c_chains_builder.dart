@@ -18,6 +18,7 @@ class ChainsBuilder extends StatelessWidget {
     @required this.initiallyExpanded,
     @required this.onAddToPath,
     @required this.secondLinesType,
+    @required this.onLongPress,
     this.searchText,
     Key key
   }) : super(key: key);
@@ -32,6 +33,7 @@ class ChainsBuilder extends StatelessWidget {
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
+  final ValueChanged<String> onLongPress;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -76,6 +78,7 @@ class ChainsBuilder extends StatelessWidget {
                   onAddToPath: onAddToPath,
                   secondLinesType: secondLinesType,
                   editMode: true,
+                  onLongPress: onLongPress,
                 ),
               );
 

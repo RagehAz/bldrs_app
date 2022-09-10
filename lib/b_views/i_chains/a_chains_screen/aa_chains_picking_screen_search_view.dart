@@ -62,6 +62,7 @@ class ChainsScreenSearchView extends StatelessWidget {
                     searchText: searchText,
                     editMode: false,
                     secondLinesType: ChainSecondLinesType.non,
+                    onLongPress: null,
                   );
 
                 },
