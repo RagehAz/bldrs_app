@@ -245,7 +245,6 @@ class ChainPathConverter {
 
     }
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addNestedSonsIDsToChain({

@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class Bubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final EdgeInsets _bubbleMargins = margins ?? EdgeInsets.zero;
+    final EdgeInsets _bubbleMargins = margins == null ? EdgeInsets.zero : Scale.superMargins(margins: margins);
     // --------------------
     final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: width);
     // --------------------
