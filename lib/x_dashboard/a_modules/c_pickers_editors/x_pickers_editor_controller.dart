@@ -137,6 +137,7 @@ Future<void> onChangeGroupIDForSinglePicker({
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit ChainID',
+      translateTitle: false,
       hintVerse:  'Edit ChainID',
       controller: _controller,
       isFloatingField: false,
@@ -178,6 +179,7 @@ Future<void> onPickerChainIDTap({
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit ChainID',
+      translateTitle: false,
       hintVerse:  'Edit ChainID',
       controller: _controller,
       isFloatingField: false,
@@ -213,6 +215,7 @@ Future<void> onPickerUnitChainIDTap({
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse:  'Edit Unit ChainID',
+      translateTitle: false,
       hintVerse:  'Edit Unit ChainID',
       controller: _controller,
       isFloatingField: false,

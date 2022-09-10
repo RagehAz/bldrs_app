@@ -21,6 +21,7 @@ class TextFieldBubble extends StatelessWidget {
     @required this.appBarType,
     this.globalKey,
     this.titleVerse,
+    this.translateTitle = true,
     this.bubbleWidth,
     this.hintText = '...',
     this.counterIsOn = false,
@@ -62,6 +63,7 @@ class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
   final String titleVerse;
+  final bool translateTitle;
   final String hintText;
   final bool counterIsOn;
   final int maxLines;
@@ -170,6 +172,7 @@ class TextFieldBubble extends StatelessWidget {
         headerViewModel: BubbleHeaderVM(
           headerWidth: _screenWidth - 20,
           headlineVerse: titleVerse,
+          translateHeadline: translateTitle,
           redDot: fieldIsRequired,
           leadingIcon: actionBtIcon,
           onLeadingIconTap: actionBtFunction,

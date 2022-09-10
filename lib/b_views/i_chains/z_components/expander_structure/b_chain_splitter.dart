@@ -1,16 +1,24 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/chain/dd_data_creator.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/c_chains_builder.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+enum ChainSecondLinesType {
+  non,
+  id,
+  indexAndID,
+}
 
 /// SPLITS CHAIN OR CHAINS OR SON OR SONS INTO DESIGNATED WIDGET
 class ChainSplitter extends StatelessWidget {
@@ -18,6 +26,7 @@ class ChainSplitter extends StatelessWidget {
   const ChainSplitter({
     @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
+    @required this.editMode,
     this.previousPath = '',
     this.parentLevel = 0,
     this.width,
@@ -25,6 +34,7 @@ class ChainSplitter extends StatelessWidget {
     this.selectedPhids,
     this.searchText,
     this.onAddToPath,
+    this.secondLinesType = ChainSecondLinesType.non,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,7 +47,27 @@ class ChainSplitter extends StatelessWidget {
   final bool initiallyExpanded;
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
+  final ChainSecondLinesType secondLinesType;
+  final bool editMode;
   /// --------------------------------------------------------------------------
+  String createSecondLine(ChainSecondLinesType type, String phid, {int index}){
+    String _output;
+
+    if (type == ChainSecondLinesType.id){
+      _output = phid;
+    }
+    else if (type == ChainSecondLinesType.indexAndID){
+      final int _index = Phider.getIndexFromPhid(phid);
+      final String _phid = Phider.removeIndexFromPhid(phid: phid);
+
+      final String _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
+      final String _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
+      _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -57,11 +87,11 @@ class ChainSplitter extends StatelessWidget {
 
       return PhidButton(
         phid: _phid,
+        secondLine: createSecondLine(secondLinesType, _phid),
         width: _width,
         parentLevel: parentLevel,
         searchText: searchText,
         color: _color,
-        // isDisabled: false,
         onTap: (){
 
           final String _path = '$previousPath/$_phid/';
@@ -69,6 +99,12 @@ class ChainSplitter extends StatelessWidget {
           onSelectPhid(_cleanedPath, _phid);
 
         }, // good
+
+        // inverseAlignment: ,
+        // margins: ,
+        // isDisabled: ,
+        // xIsOn: ,
+
       );
 
     }
@@ -85,6 +121,7 @@ class ChainSplitter extends StatelessWidget {
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
+        secondLinesType: secondLinesType,
       );
     }
     // --------------------
@@ -102,14 +139,21 @@ class ChainSplitter extends StatelessWidget {
         boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
         firstHeadline: Phider.removeIndexFromPhid(phid: _chain.id),
-        secondHeadline: null,
+        secondHeadline: createSecondLine(secondLinesType, _chain.id),
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
-        // isDisabled: false,
+
         parentLevel: parentLevel,
         selectedPhids: selectedPhids,
         searchText: searchText,
         onAddToPath: onAddToPath,
+        editMode: editMode,
+
+        // deactivated: ,
+        // expansionColor: ,
+        // initialColor: ,
+        // inverseAlignment: ,
+
       );
 
     }
@@ -127,6 +171,31 @@ class ChainSplitter extends StatelessWidget {
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
+        secondLinesType: secondLinesType,
+      );
+
+    }
+    // --------------------
+    /// EDIT MODE AND DATA CREATOR
+    else if (editMode == true && Chain.checkSonsAreDataCreator(chainOrChainsOrSonOrSons) == true){
+
+      final DataCreator _phid = chainOrChainsOrSonOrSons;
+
+      return PhidButton(
+        phid: Chain.cipherDataCreator(_phid),
+        secondLine: createSecondLine(secondLinesType, _phid.toString()),
+        width: _width,
+        parentLevel: parentLevel,
+        searchText: searchText,
+        color: Colorz.green50,
+        // isDisabled: false,
+        onTap: (){
+
+          final String _path = '$previousPath/$_phid/';
+          final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
+          onSelectPhid(_cleanedPath, _phid.toString());
+
+        }, // good
       );
     }
     // --------------------

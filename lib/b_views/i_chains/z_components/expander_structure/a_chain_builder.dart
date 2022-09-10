@@ -16,6 +16,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.secondHeadline,
     @required this.initiallyExpanded,
     @required this.selectedPhids,
+    @required this.editMode,
     this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
@@ -43,6 +44,7 @@ class ChainBuilder extends StatelessWidget {
   final List<String> selectedPhids;
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
+  final bool editMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -77,6 +79,7 @@ class ChainBuilder extends StatelessWidget {
           selectedPhids: selectedPhids,
           searchText: searchText,
           onAddToPath: onAddToPath,
+          editMode: editMode,
         ),
       ),
     );

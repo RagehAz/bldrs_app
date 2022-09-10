@@ -148,6 +148,26 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
               // chain.blogChain();
 
+              // return ChainsBuilder(
+              //     sons: tempChains,
+              //     previousPath: '',
+              //     width: BldrsAppBar.width(context),
+              //     parentLevel: 0,
+              //     onPhidTap: (String path, String phid) => onPhidTap(
+              //       context: context,
+              //       path: path,
+              //       phid: phid,
+              //       tempChains: _tempChains,
+              //     ),
+              //     selectedPhids: const [],
+              //     initiallyExpanded: false,
+              //     onAddToPath: (String path) => onAddNewPath(
+              //       context: context,
+              //       path: path,
+              //       tempChains: _tempChains,
+              //     )
+              // );
+
               return ChainSplitter(
                 initiallyExpanded: false,
                 chainOrChainsOrSonOrSons: tempChains,
@@ -162,7 +182,8 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                   path: path,
                   tempChains: _tempChains,
                 ),
-
+                editMode: true,
+                secondLinesType: ChainSecondLinesType.indexAndID,
               );
 
             },

@@ -41,6 +41,7 @@ class PhidsDataCreator extends StatelessWidget {
         onSelectPhid: (String path, String phid) => onPhidTap(phid),
         selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
         initiallyExpanded: false,
+        editMode: false,
       ),
     );
     // --------------------

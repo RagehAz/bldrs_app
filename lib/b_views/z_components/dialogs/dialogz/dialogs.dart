@@ -298,7 +298,7 @@ class Dialogs {
 
     final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
 
-    const double _ratioOfScreenHeight = 0.75;
+    const double _ratioOfScreenHeight = 0.8;
     final double _overridingDialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
     final double _clearWidth = BottomDialog.clearWidth(context);
     final double _clearHeight = BottomDialog.clearHeight(
@@ -316,10 +316,14 @@ class Dialogs {
         invoker: 'keyboardDialog',
       );
       if (_keyboardModel.onSubmitted != null){
-        _keyboardModel.onSubmitted(_keyboardModel.controller.text);
+        if (validator == null || validator() == null){
+          _keyboardModel.onSubmitted(_keyboardModel.controller.text);
+        }
       }
 
     }
+
+    bool _buttonDeactivated;
 
     await BottomDialog.showBottomDialog(
       context: context,
@@ -328,47 +332,78 @@ class Dialogs {
       child: SizedBox(
         width: _clearWidth,
         height: _clearHeight,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
+        child: StatefulBuilder(
+          builder: (BuildContext ctx,  setState){
 
-            TextFieldBubble(
-              appBarType: AppBarType.non,
-              isFloatingField: _keyboardModel.isFloatingField,
-              titleVerse: _keyboardModel.titleVerse,
-              textController: _keyboardModel.controller,
-              maxLines: _keyboardModel.maxLines,
-              minLines: _keyboardModel.minLines,
-              maxLength: _keyboardModel.maxLength,
-              bubbleWidth: _clearWidth,
-              hintText: _keyboardModel.hintVerse,
-              counterIsOn: _keyboardModel.counterIsOn,
-              canObscure: _keyboardModel.canObscure,
-              keyboardTextInputType: _keyboardModel.textInputType,
-              keyboardTextInputAction: _keyboardModel.textInputAction,
-              autoFocus: true,
-              onSubmitted: _onConfirmTap,
-              // autoValidate: true,
-              validator: validator,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
 
-            ),
+                TextFieldBubble(
+                  globalKey: _keyboardModel.globalKey,
+                  appBarType: AppBarType.non,
+                  isFloatingField: _keyboardModel.isFloatingField,
+                  titleVerse: _keyboardModel.titleVerse,
+                  translateTitle: _keyboardModel.translateTitle,
+                  textController: _keyboardModel.controller,
+                  maxLines: _keyboardModel.maxLines,
+                  minLines: _keyboardModel.minLines,
+                  maxLength: _keyboardModel.maxLength,
+                  bubbleWidth: _clearWidth,
+                  hintText: _keyboardModel.hintVerse,
+                  counterIsOn: _keyboardModel.counterIsOn,
+                  canObscure: _keyboardModel.canObscure,
+                  keyboardTextInputType: _keyboardModel.textInputType,
+                  keyboardTextInputAction: _keyboardModel.textInputAction,
+                  autoFocus: true,
+                  isFormField: _keyboardModel.isFormField,
+                  onSubmitted: _onConfirmTap,
+                  // autoValidate: true,
+                  validator: validator,
+                  textOnChanged: (String text){
 
-            if (confirmButtonIsOn == true)
-              DreamBox(
-                height: 40,
-                verseScaleFactor: 0.6,
-                margins: const EdgeInsets.symmetric(horizontal: 10),
-                verse:'Confirm',
+                    if (_keyboardModel.onChanged != null){
+                      _keyboardModel.onChanged(text);
+                    }
 
-                onTap: () => _onConfirmTap(_keyboardModel.controller.text),
-              ),
+                    if (validator != null){
 
-          ],
+                      setState((){
+                        if (validator() == null){
+                          blog('setting _buttonDeactivated to false');
+                          _buttonDeactivated = false;
+                        }
+                        else {
+                          blog('setting _buttonDeactivated to true');
+                          _buttonDeactivated = true;
+                        }
+                      });
+
+                    }
+                  },
+
+                ),
+
+                if (confirmButtonIsOn == true)
+                  DreamBox(
+                    isDeactivated: _buttonDeactivated,
+                    height: 40,
+                    verseScaleFactor: 0.6,
+                    margins: const EdgeInsets.symmetric(horizontal: 10),
+                    verse:'Confirm',
+
+                    onTap: () => _onConfirmTap(_keyboardModel.controller.text),
+                  ),
+
+              ],
+            );
+
+        },
         ),
       ),
     );
 
-    return _keyboardModel.controller.text;
+    return null;
   }
   // -----------------------------------------------------------------------------
 

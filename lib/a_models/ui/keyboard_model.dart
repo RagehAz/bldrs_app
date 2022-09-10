@@ -6,6 +6,7 @@ class KeyboardModel {
   const KeyboardModel({
     @required this.controller,
     @required this.titleVerse,
+    @required this.translateTitle,
     this.hintVerse = '...',
     this.minLines = 1,
     this.maxLines = 2,
@@ -25,6 +26,7 @@ class KeyboardModel {
   }): assert(controller != null, 'KeyboardModel controller should NEVER be null');
   // -----------------------------------------------------------------------------
   final String titleVerse;
+  final bool translateTitle;
   final String hintVerse;
   final TextEditingController controller;
   final int minLines;
@@ -51,6 +53,7 @@ class KeyboardModel {
   /// TESTED : WORKS PERFECT
   KeyboardModel copyWith({
     String titleVerse,
+    bool translateTitle,
     String hintVerse,
     TextEditingController controller,
     int minLines,
@@ -71,6 +74,7 @@ class KeyboardModel {
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
+      translateTitle: translateTitle ?? this.translateTitle,
       hintVerse: hintVerse ?? this.hintVerse,
       controller: controller ?? this.controller,
       minLines: minLines ?? this.minLines,
@@ -98,6 +102,7 @@ class KeyboardModel {
   static KeyboardModel standardModel(){
     return KeyboardModel(
       titleVerse: null,
+      translateTitle: false,
       // hintText: '...',
       controller: TextEditingController(),
       // minLines: 1,
@@ -133,6 +138,7 @@ class KeyboardModel {
     }
     else if (
     modelA.titleVerse == modelB.titleVerse &&
+        modelA.translateTitle == modelB.translateTitle &&
         modelA.hintVerse == modelB.hintVerse &&
         modelA.controller == modelB.controller &&
         modelA.minLines == modelB.minLines &&
@@ -188,6 +194,7 @@ class KeyboardModel {
   int get hashCode =>
       controller.hashCode^
       titleVerse.hashCode^
+      translateTitle.hashCode^
       hintVerse.hashCode^
       minLines.hashCode^
       maxLines.hashCode^
