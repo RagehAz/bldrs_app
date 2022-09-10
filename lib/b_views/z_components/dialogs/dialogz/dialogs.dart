@@ -128,6 +128,75 @@ class Dialogs {
     return _result;
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> bottomBoolDialog({
+    @required BuildContext context,
+    @required String titleVerse,
+}) async {
+
+    bool _result = false;
+
+    await BottomDialog.showBottomDialog(
+      context: context,
+      draggable: false,
+      height: BottomDialog.calculateDialogHeight(
+        draggable: false,
+        titleIsOn: true,
+        childHeight: 70,
+      ),
+      title: titleVerse,
+      child: SizedBox(
+        width: BottomDialog.clearWidth(context),
+        height: 70,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+
+            /// NO
+            DreamBox(
+              height: 50,
+              width: Scale.getUniformRowItemWidth(
+                context: context,
+                numberOfItems: 2,
+                boxWidth: BottomDialog.clearWidth(context),
+              ),
+              // color: Colorz.bloodTest,
+              verse: 'phid_no',
+              verseCasing: VerseCasing.upperCase,
+              translateVerse: true,
+              verseItalic: true,
+              onTap: (){
+                Nav.goBack(context: context, invoker: 'bottomBoolDialog');
+              },
+            ),
+
+            /// YES
+            DreamBox(
+              height: 50,
+              width: Scale.getUniformRowItemWidth(
+                context: context,
+                numberOfItems: 2,
+                boxWidth: BottomDialog.clearWidth(context),
+              ),
+              color: Colorz.green125,
+              verse: 'phid_yes',
+              verseCasing: VerseCasing.upperCase,
+              translateVerse: true,
+              verseItalic: true,
+              onTap: (){
+                _result = true;
+                Nav.goBack(context: context, invoker: 'bottomBoolDialog');
+              },
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+    return _result;
+  }
   // -----------------------------------------------------------------------------
 
   /// ERRORS DIALOGS

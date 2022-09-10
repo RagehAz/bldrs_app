@@ -91,7 +91,7 @@ class TileBubble extends StatelessWidget {
             context: context,
             enLeft: iconBoxWidth,
           ),
-          child: BubbleBulletPoints(
+          child: BulletPoints(
             bulletPoints: bulletPoints,
             translateBullets: translateBullets,
           ),

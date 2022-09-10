@@ -184,7 +184,7 @@ class TextFieldBubble extends StatelessWidget {
 
           /// BULLET POINTS
           if (Mapper.checkCanLoopList(bulletPoints) == true)
-            BubbleBulletPoints(
+            BulletPoints(
               bubbleWidth: bubbleWidth,
               bulletPoints: bulletPoints,
               translateBullets: translateBullets,

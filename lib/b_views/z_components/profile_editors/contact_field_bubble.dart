@@ -173,7 +173,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
 
           /// BULLET POINTS
           if (widget.bulletPoints != null)
-            BubbleBulletPoints(
+            BulletPoints(
               bulletPoints: widget.bulletPoints,
               translateBullets: widget.translateBulletPoints,
             ),

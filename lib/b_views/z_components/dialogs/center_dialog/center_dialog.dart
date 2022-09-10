@@ -23,6 +23,8 @@ class CenterDialog extends StatelessWidget {
     this.child,
     this.color = Colorz.skyDarkBlue,
     this.onOk,
+    this.translateBody = true,
+    this.translateTitle = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -34,6 +36,8 @@ class CenterDialog extends StatelessWidget {
   final String confirmButtonText;
   final Color color;
   final Function onOk;
+  final bool translateTitle;
+  final bool translateBody;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -77,6 +81,8 @@ class CenterDialog extends StatelessWidget {
     String confirmButtonVerse,
     Color color = Colorz.skyDarkBlue,
     Function onOk,
+    bool translateBody = true,
+    bool translateTitle = true,
   }) async {
 
     final bool _result = await showDialog(
@@ -86,11 +92,14 @@ class CenterDialog extends StatelessWidget {
         // ctx: ctx,
         bodyVerse: bodyVerse,
         title: titleVerse,
+
         height: height,
         boolDialog: boolDialog,
         confirmButtonText: confirmButtonVerse,
         color: color,
         onOk: onOk,
+        translateTitle: translateTitle,
+        translateBody: translateBody,
         child: child,
       ),
     );
@@ -217,6 +226,7 @@ class CenterDialog extends StatelessWidget {
                                     :
                                 SuperVerse(
                                   verse: title,
+                                  translate: translateTitle,
                                   color: Colorz.yellow255,
                                   shadow: true,
                                   size: 3,
@@ -241,6 +251,7 @@ class CenterDialog extends StatelessWidget {
                                     verse: bodyVerse.runtimeType == String ? bodyVerse
                                         :
                                     bodyVerse.toString(),
+                                    translate: translateBody,
                                     maxLines: 20,
                                     margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
                                   ),

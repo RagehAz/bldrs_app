@@ -586,7 +586,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               width: Bubble.bubbleWidth(context),
                               columnChildren: <Widget>[
 
-                                const BubbleBulletPoints(
+                                const BulletPoints(
                                   bulletPoints:  <String>[
                                     '##Select at least 1 keyword to help search engines show your content in its dedicated place',
                                   ],

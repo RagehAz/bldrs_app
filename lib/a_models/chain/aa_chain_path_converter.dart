@@ -90,7 +90,7 @@ class ChainPathConverter {
     final List<Chain> chains = [];
 
     _addPathsToChains(
-      allChains: chains,
+      chains: chains,
       pathsToAdd: paths,
     );
 
@@ -121,14 +121,14 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathsToChains({
-    @required List<Chain> allChains,
+    @required List<Chain> chains,
     @required List<String> pathsToAdd,
   }){
 
     for (final String path in pathsToAdd) {
 
       _addPathToChains(
-        allChains: allChains,
+        chains: chains,
         pathToAdd: path,
       );
 
@@ -171,7 +171,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathToChains({
-    @required List<Chain> allChains,
+    @required List<Chain> chains,
     @required String pathToAdd,
   }){
 
@@ -180,7 +180,7 @@ class ChainPathConverter {
     _dBlog('XXX - adding path of ( $pathToAdd )');
 
     _addDividedPathToAllChains(
-      allChains: allChains,
+      chains: chains,
       dividedPath: _divided,
     );
 
@@ -191,14 +191,14 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addDividedPathToAllChains({
-    @required List<Chain> allChains,
+    @required List<Chain> chains,
     @required List<String> dividedPath,
   }) {
 
     /// GET ROOT CHAIN IF EXISTED OR NULL IF NOT
     final String _rootChainID = dividedPath.first;
     final Chain _rooChain = _getRootChainFromChains(
-      chains: allChains,
+      chains: chains,
       rootChainID: _rootChainID,
     );
     final List<String> _nestedSonsIDs = _getNestedSonsIDsFromDividedPath(
@@ -230,13 +230,13 @@ class ChainPathConverter {
       );
 
       /// add new chain
-      allChains.add(_chain);
+      chains.add(_chain);
 
       _dBlog('2 - created new chainID ( ${dividedPath.first} )');
 
       /// add sons to the new chain just added at the end of the list
       _addNestedSonsIDsToChain(
-        parentChain: allChains[allChains.length - 1],
+        parentChain: chains[chains.length - 1],
         nestedSonsIDs: _nestedSonsIDs,
         level: 1,
       );
@@ -577,13 +577,20 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidRelatedChains({
-    @required List<Chain> allChains,
+    @required List<Chain> chains,
     @required String phid,
   }){
 
+    /// NOTE : PHID CAN BE ANY NODE (ROOT MIDDLE OR LAST NODE)
+    /// THIS SEARCHES ALL PATH GETTING ANY PATH CONTAINING THIS PHID
+    /// SO IF PHID IS ROOT OR MIDDLE NODE => THIS WILL RESULT BRINGING ALL NODES
+    /// SHARING THIS PHID BELOW OR ABOVE IT
+    /// BRING THE ALL CHAINS ROOT TO END WHERE THIS PHID RESIDES WITH ALL ITS NEIGHBORS
+    /// MEANING => IT BRINGS ALL PATHS HAVING THIS PHID
+
     final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
-      chains: allChains,
+      chains: chains,
     );
 
     /// SEARCH CHAINS FOR MATCH CASES
@@ -601,13 +608,15 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidsRelatedChains({
-    @required List<Chain> allChains,
+    @required List<Chain> chains,
     @required List<String> phids,
   }){
 
+    /// NOTE : SAME AS [findPhidRelatedChains] BUT SEARCHES FOR MULTIPLE PHIDS AT ONCE
+
     final List<String> _allChainsPaths = ChainPathConverter.generateChainsPaths(
       parentID: '',
-      chains: allChains,
+      chains: chains,
     );
 
     final List<String> _foundPaths = ChainPathConverter.findPathsContainingPhids(
@@ -620,6 +629,35 @@ class ChainPathConverter {
     );
 
     return _foundPathsChains;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> findPathsStartingWith({
+    @required List<Chain> chains,
+    @required String startsWith,
+  }){
+
+    /// NOTE : THIS GETS ALL PATHS THAT EXACTLY STARTS WITH THE GIVEN PATH
+    /// MEANING => THIS ENTIRE BRANCH UNTIL THIS NODE WILL BE COLLECTED
+
+
+    List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(chains) == true && TextCheck.isEmpty(startsWith) == false){
+
+      final List<String> _paths = generateChainsPaths(
+          parentID: '',
+          chains: chains,
+      );
+
+      _output = TextCheck.getStringsStartingExactlyWith(
+          strings: _paths,
+          startWith: startsWith,
+      );
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -860,6 +898,7 @@ class ChainPathConverter {
   /// FIXERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String fixPathFormatting(String path){
 
     /// NOTE : GOOD FORMAT SHOULD BE

@@ -62,8 +62,7 @@ class BottomDialog extends StatelessWidget {
   static double draggerZoneHeight({
     @required bool draggable
   }) {
-    final double _draggerZoneHeight =
-    draggable == true ? Ratioz.appBarMargin * 3 : 0;
+    final double _draggerZoneHeight = draggable == true ? Ratioz.appBarMargin * 3 : 0;
     return _draggerZoneHeight;
   }
   // --------------------
@@ -95,6 +94,19 @@ class BottomDialog extends StatelessWidget {
     _titleIsOn == true ? Ratioz.appBarSmallHeight : 0;
 
     return _titleZoneHeight;
+  }
+  // --------------------
+  static double calculateDialogHeight({
+    @required bool draggable,
+    @required bool titleIsOn,
+    @required double childHeight,
+  }){
+    final double _draggerHeight = draggerZoneHeight(draggable: draggable);
+    final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
+
+    final double _topZoneHeight = _draggerHeight + _titleHeight + childHeight;
+
+    return _topZoneHeight;
   }
   // --------------------
   static double dialogWidth(BuildContext context) {
