@@ -82,7 +82,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: 'phid_add_with_dots', // 'Add ...'
       ),
-      screenWidth: BldrsAppBar.width(context),
+      width: BldrsAppBar.width(context),
       columnChildren: <Widget>[
 
         // /// BULLET POINTS

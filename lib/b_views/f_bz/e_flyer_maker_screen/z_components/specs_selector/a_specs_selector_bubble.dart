@@ -45,7 +45,7 @@ class SpecsSelectorBubble extends StatelessWidget {
         headerViewModel: const BubbleHeaderVM(
           headlineVerse: 'phid_specifications',
         ),
-        screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
+        width: Bubble.bubbleWidth(context),
         columnChildren: <Widget>[
 
           BubbleBulletPoints(

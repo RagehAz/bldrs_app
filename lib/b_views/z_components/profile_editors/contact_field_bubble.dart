@@ -168,7 +168,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           validator: widget.validator,
         ),
         headerViewModel: widget.headerViewModel,
-      screenWidth: _bubbleWidth,
+      width: _bubbleWidth,
         columnChildren: <Widget>[
 
           /// BULLET POINTS

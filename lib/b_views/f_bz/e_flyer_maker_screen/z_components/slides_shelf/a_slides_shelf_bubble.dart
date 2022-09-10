@@ -37,7 +37,7 @@ class SlidesShelfBubble extends StatelessWidget {
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: 'phid_flyer_slides',
       ),
-      screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
+      width: Bubble.bubbleWidth(context),
       columnChildren: <Widget>[
 
         /// SLIDES SHELF

@@ -94,7 +94,7 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: 'phid_pending_invitation_requests',
             ),
-            screenWidth: BldrsAppBar.width(context),
+            width: BldrsAppBar.width(context),
             onBubbleTap: (){
               NoteModel.blogNotes(notes: _notes);
             },

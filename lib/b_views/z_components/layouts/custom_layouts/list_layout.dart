@@ -93,7 +93,7 @@ class ListLayout extends StatelessWidget {
                 centered: true,
               ),
               childrenCentered: true,
-              screenWidth: Bubble.clearWidth(context),
+              width: Bubble.clearWidth(context),
               columnChildren: <Widget>[
                 SizedBox(
                   width: Bubble.clearWidth(context) - 10,
