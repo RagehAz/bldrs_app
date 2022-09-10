@@ -43,6 +43,7 @@ class PhidsDataCreator extends StatelessWidget {
         initiallyExpanded: false,
         editMode: false,
         secondLinesType: ChainSecondLinesType.non,
+        onLongPress: null,
       ),
     );
     // --------------------

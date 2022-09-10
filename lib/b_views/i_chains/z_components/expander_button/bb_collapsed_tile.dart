@@ -26,6 +26,7 @@ class CollapsedTile extends StatelessWidget {
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
     this.searchText,
+    this.onLongPress,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,6 +46,7 @@ class CollapsedTile extends StatelessWidget {
   final bool marginIsOn;
   final double iconSizeFactor;
   final ValueNotifier<String> searchText;
+  final Function onLongPress;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
@@ -101,6 +103,7 @@ class CollapsedTile extends StatelessWidget {
           /// COLLAPSED ZONE
           GestureDetector(
             onTap: toggleExpansion,
+            onLongPress: onLongPress,
             child: Container(
               width: tileWidth,
               color: Colorz.nothing,

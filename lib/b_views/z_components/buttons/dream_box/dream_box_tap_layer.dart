@@ -16,6 +16,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.onTapCancel,
     @required this.deactivated,
     @required this.onDeactivatedTap,
+    @required this.onLongTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class DreamBoxTapLayer extends StatelessWidget {
   final Function onTapCancel;
   final bool deactivated;
   final Function onDeactivatedTap;
+  final Function onLongTap;
   /// --------------------------------------------------------------------------
   Future<void> _onTap(BuildContext context) async {
 
@@ -60,6 +62,7 @@ class DreamBoxTapLayer extends StatelessWidget {
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
+          onLongPress: onLongTap,
           onTapDown: deactivated == true || onTapDown == null ?
               (TapDownDetails details) {}
               :

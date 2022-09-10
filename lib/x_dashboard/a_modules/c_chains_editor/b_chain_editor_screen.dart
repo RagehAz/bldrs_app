@@ -31,6 +31,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
+  /*
   Future<void> _triggerLoading({bool setTo}) async {
     if (mounted == true){
       if (setTo == null){
@@ -42,16 +43,17 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       blogLoading(loading: _loading.value, callerName: 'ChainsEditorScreen',);
     }
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _initialChains.value = widget.chains;
     _tempChains.value = widget.chains;
-
   }
   // --------------------
-  bool _isInit = true;
+  /*
+  final bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit && mounted) {
@@ -67,6 +69,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     }
     super.didChangeDependencies();
   }
+   */
   // --------------------
   @override
   void dispose() {
@@ -197,6 +200,9 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                 ),
                 editMode: true,
                 secondLinesType: ChainSecondLinesType.indexAndID,
+                onLongPress: (String path){
+                  blog('path is : ( $path )');
+                },
               );
 
             },
