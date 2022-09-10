@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -40,30 +41,89 @@ class PathEditorScreen extends StatefulWidget {
 
     String _message;
 
-    for (int i = 0; i < _nodes.length; i++){
+    /// DATA CREATOR IS MISPLACED
+    final String _dataCreatorValidation = _dataCreatorValidator(path);
+    if (_dataCreatorValidation != null){
+      _message = _dataCreatorValidation;
+    }
 
-      final String _node = _nodes[i];
-      final bool _startsWith = TextCheck.stringStartsExactlyWith(
-        text: _node,
-        startsWith: 'phid_',
-      );
+    else {
 
-      if (_startsWith == false){
-        _message = 'node ${i+1} : ( $_node ) : should start with "phid_"';
+      /// ALWAYS START WITH PHID
+      if (Mapper.checkCanLoopList(_nodes) == true){
+        for (int i = 0; i < _nodes.length; i++){
+          final String _node = _nodes[i];
+          if (_pathHasDataCreator(_node) == false){
+            final bool _startsWith = TextCheck.stringStartsExactlyWith(
+              text: _node,
+              startsWith: 'phid_',
+            );
+            if (_startsWith == false){
+              _message = 'node ${i+1} : ( $_node ) : should start with "phid_"';
+            }
+          }
+        }
+      }
+
+      /// NOT LESS THAN 2 NODES
+      if (_nodes.length < 2){
+        _message = 'Path should at-least have 2 nodes';
+      }
+
+      /// NO EMPTY SPACES
+      if (TextCheck.stringContainsSubString(string: path, subString: ' ') == true){
+        _message = 'Path should not have Empty spaces';
       }
 
     }
 
-    if (_nodes.length < 2){
-      _message = 'Path should at-least have 2 nodes';
-    }
 
-    if (TextCheck.stringContainsSubString(string: path, subString: ' ') == true){
-      _message = 'Path should not have Empty spaces';
-    }
-    // blog('_pathCreationValidator : _message : $_message');
+
 
     return _message;
+  }
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static String _dataCreatorValidator(String path){
+    String _message;
+
+    if (TextCheck.isEmpty(path) == false){
+
+      final bool _pathContains = _pathHasDataCreator(path);
+
+      if (_pathContains == true){
+
+        final List<String> _nodes = ChainPathConverter.splitPathNodes('${path}x');
+
+        if (_nodes.length > 2){
+          _message = 'DataCreator chain can only have two nodes';
+        }
+        else if (_nodes.length == 1){
+          _message = 'DataCreator can only be in second node in a two nodes chain';
+        }
+        else if (_nodes.length > 1){
+
+          final bool _isAtSecondNode = _pathHasDataCreator(_nodes[1]);
+
+          if (_isAtSecondNode == false){
+            _message = 'Where the fuck did you place the DataCreator man ?';
+          }
+
+        }
+
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static bool _pathHasDataCreator(String path){
+    return TextCheck.stringContainsSubString(
+      string: path,
+      subString: 'DataCreator',
+    );
   }
   // --------------------------------------------------------------------------
 }
@@ -146,6 +206,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   void _onTextChanged(String text){
 
     if (_keyboardModel.onChanged != null){
@@ -165,6 +226,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _onSubmit (String text){
 
     Keyboard.closeKeyboard(context);
@@ -183,10 +245,12 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
   }
   // --------------------
-  void _onAddPhid(){
-    _setController('${_controller.text}phid_');
+  /// TESTED : WORKS PERFECT
+  void _onAddTextAtEnd(String text){
+    _setController('${_controller.text}$text');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onPickPhid() async {
 
     final String _phid = await pickAPhid(context);
@@ -196,15 +260,16 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
     }
 
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onAddDataCreator() async {
 
     await BottomDialog.showButtonsBottomDialog(
         context: context,
         draggable: true,
         numberOfWidgets: DataCreation.dataCreatorsList.length,
-      buttonHeight: 40,
-      builder: (_, PhraseProvider phrasePro){
+        buttonHeight: 40,
+        builder: (_, PhraseProvider phrasePro){
 
           return <Widget>[
 
@@ -214,19 +279,25 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
               final String _dataCreatorString = DataCreation.cipherDataCreator(_dataCreator);
 
               return BottomDialog.wideButton(
+                  height: 40,
                   context: context,
                   verse: _dataCreatorString,
-              );
+                  onTap: (){
+                    Nav.goBack(context: context, invoker: '_onAddDataCreator');
+                    _setController('${_controller.text}$_dataCreatorString');
+                  }
+                  );
 
             }),
 
           ];
 
-      }
-    );
+        }
+        );
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onClear() async {
 
     if (TextCheck.textControllerIsEmpty(_controller) == false){
@@ -244,6 +315,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onDeleteLastNode() async {
 
     if (TextCheck.textControllerIsEmpty(_controller) == false){
@@ -263,10 +335,32 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   void _setController(String text){
     _controller.text = text;
     TextMod.setControllerSelectionAtEnd(_controller);
     Formers.focusOnNode(_keyboardModel.focusNode);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canAddDataCreator(){
+
+    final bool _hasSlash = TextCheck.stringContainsSubString(string: _controller.text, subString: '/');
+    final List<String> _nodes = ChainPathConverter.splitPathNodes('${_controller.text}x');
+
+    bool _canAdd = false;
+
+    if (_hasSlash == true){
+      if (_nodes.length > 1 && _nodes.length < 3){
+        _canAdd = true;
+      }
+    }
+
+    if (PathEditorScreen._pathHasDataCreator(_controller.text) == true){
+      _canAdd = false;
+    }
+
+    return _canAdd;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -346,7 +440,22 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       color: Colorz.blue80,
                       verse:'Add "phid_"',
                       verseItalic: true,
-                      onTap: () => _onAddPhid(),
+                      onTap: () => _onAddTextAtEnd('phid_'),
+                    ),
+
+                    const SizedBox(
+                      width: 5,
+                      height: 10,
+                    ),
+
+                    /// ADD /
+                    DreamBox(
+                      height: 40,
+                      verseScaleFactor: 0.6,
+                      color: Colorz.blue80,
+                      verse:'Add "/"',
+                      verseItalic: true,
+                      onTap: () => _onAddTextAtEnd('/'),
                     ),
 
                     const Expander(),
@@ -376,7 +485,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 height: 5,
               ),
 
-              /// CLEAR - REMOVE LAST NODE
+              /// CLEAR - REMOVE LAST NODE - ADD DATA CREATOR
               ValueListenableBuilder(
                   valueListenable: _controller,
                   builder: (_, TextEditingValue text, Widget child){
@@ -422,14 +531,14 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 5,
                     ),
 
-                    /// REMOVE LAST NODE
+                    /// ADD DATA CREATOR
                     DreamBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse:'Add Data creator',
                       verseItalic: true,
-                      isDeactivated: TextCheck.isEmpty(text.text),
+                      isDeactivated: !_canAddDataCreator(),
                       onTap: () => _onAddDataCreator(),
                     ),
 
