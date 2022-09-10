@@ -20,6 +20,7 @@ class PhidButton extends StatelessWidget {
     this.margins,
     this.searchText,
     this.inverseAlignment,
+    this.secondLine,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class PhidButton extends StatelessWidget {
   final dynamic margins;
   final ValueNotifier<String> searchText;
   final bool inverseAlignment;
+  final String secondLine;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -107,6 +109,8 @@ class PhidButton extends StatelessWidget {
         verseItalic: true,
         onTap: onTap,
         verseHighlight: searchText,
+
+        secondLine: secondLine,
         // verseHighlightColor: Colorz.bloodTest,
       ),
     );

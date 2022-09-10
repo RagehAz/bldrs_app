@@ -218,6 +218,7 @@ class SuperTextField extends StatefulWidget {
   }){
     return SuperVerse(
       verse:  '$currentLength / $maxLength',
+      translate: false,
       weight: VerseWeight.thin,
       // size: 2,
       // scaleFactor: 1,
