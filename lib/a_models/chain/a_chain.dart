@@ -653,10 +653,9 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static bool checkChainsListsAreIdentical({
     @required List<Chain> chains1,
-    @required List<Chain> chains2
+    @required List<Chain> chains2,
+    bool blogDifferences = true,
   }){
-    blog('checkChainsListsAreIdentical : START');
-
     bool _listsAreIdentical = false;
 
     if (
@@ -696,7 +695,13 @@ class Chain {
 
     }
 
-    blog('checkChainsListsAreIdentical : END');
+    if (_listsAreIdentical == false && blogDifferences == true){
+      blogChainsDifferences(
+        chains1: chains1,
+        chains2: chains2,
+      );
+    }
+
     return _listsAreIdentical;
   }
   // --------------------
@@ -704,6 +709,7 @@ class Chain {
   static bool checkChainsListPathsAreIdentical({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
+    bool blogDifferences = true,
   }){
 
     final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
@@ -716,17 +722,16 @@ class Chain {
         chains: chains2
     );
 
-    Stringer.blogStrings(strings: _pathsA, invoker: '_pathsA');
-    Stringer.blogStrings(strings: _pathsB, invoker: '_pathsB');
-
-    blog('checkChainsListPathsAreIdentical : _pathsA.length (${_pathsA.length}) == _pathsB.length (${_pathsB.length})');
+    // Stringer.blogStrings(strings: _pathsA, invoker: '_pathsA');
+    // Stringer.blogStrings(strings: _pathsB, invoker: '_pathsB');
+    // blog('checkChainsListPathsAreIdentical : _pathsA.length (${_pathsA.length}) == _pathsB.length (${_pathsB.length})');
 
     final bool _identical = Mapper.checkListsAreIdentical(
         list1: _pathsA,
         list2: _pathsB,
     );
 
-    if (_identical == false){
+    if (_identical == false && blogDifferences == true){
       Stringer.blogStringsListsDifferences(
         strings1: _pathsA,
         strings2: _pathsB,
@@ -896,7 +901,8 @@ class Chain {
     }
 
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogChainsPaths(List<Chain> chains){
 
     if (Mapper.checkCanLoopList(chains) == true){
@@ -910,6 +916,54 @@ class Chain {
 
     }
 
+  }
+  // --------------------
+  /// TASK : IN DEVELOPMENT WILL CONTINUE LATER
+  static void blogChainsDifferences({
+    @required List<Chain> chains1,
+    @required List<Chain> chains2,
+  }){
+    blog('blogChainsDifferences : START');
+
+    if (chains1 == null){
+      blog('--> chains1 is null');
+    }
+    if (chains1?.isEmpty == true){
+      blog('--> chains1 is empty');
+    }
+    if (chains2 == null){
+      blog('--> chains2 is null');
+    }
+    if (chains2?.isEmpty == true){
+      blog('--> chains2 is empty');
+    }
+    if (Mapper.checkCanLoopList(chains1) == true && Mapper.checkCanLoopList(chains2) == true){
+
+      if (chains1.length != chains2.length){
+        blog('--> chains1.length (${chains1.length}) != chains2.length (${chains2.length})');
+      }
+
+
+      for (int i = 0; i < chains1.length; i++){
+
+        final bool _twoChainsAreIdentical = checkChainsAreIdentical(
+          chain1: chains1[i],
+          chain2: chains2[i],
+        );
+
+        if (_twoChainsAreIdentical == false){
+
+          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
+          blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
+
+        }
+
+      }
+
+    }
+
+
+    blog('blogChainsDifferences : END');
   }
   // -----------------------------------------------------------------------------
 

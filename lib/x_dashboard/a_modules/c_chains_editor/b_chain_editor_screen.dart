@@ -100,33 +100,68 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                 valueListenable: _tempChains,
                 builder: (_, List<Chain> tempChains, Widget child){
 
-                  final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
+                  final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(
                     chains1: tempChains,
                     chains2: initialChains,
+                    blogDifferences: false,
                   );
 
-                  return AppBarButton(
-                    verse:  'Sync',
-                    isDeactivated: _areIdentical,
-                    buttonColor: Colorz.yellow255,
-                    verseColor: Colorz.black255,
-                    onDeactivatedTap: (){
+                  final bool _identicalChains = Chain.checkChainsListsAreIdentical(
+                    chains1: tempChains,
+                    chains2: initialChains,
+                    blogDifferences: false,
+                  );
 
-                      final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
-                        chains1: tempChains,
-                        chains2: initialChains,
-                      );
+                  return Row(
+                    children: <Widget>[
 
-                      blog('_areIdentical : $_areIdentical');
+                      /// BLOG CURRENT CHAIN PATHS
+                      AppBarButton(
+                          verse:  'B.Paths',
+                          translate: false,
+                          buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
+                          onTap: (){
+                            Chain.blogChainsPaths(tempChains);
+                          }
+                      ),
 
-                      // Chain.blogChainsPaths(tempChains);
+                      /// BLOG CURRENT CHAIN
+                      AppBarButton(
+                        verse:  'B.Chain',
+                        translate: false,
+                        buttonColor: _identicalChains == true ? Colorz.white20 : Colorz.bloodTest,
+                        onTap: (){
+                          Chain.blogChains(tempChains);
+                        }
+                      ),
 
-                    },
-                    onTap: () => onSyncChain(
-                      context: context,
-                      initialChains: _initialChains,
-                      editedChains: _tempChains.value,
-                    ),
+                      /// SYNC BUTTON
+                      AppBarButton(
+                        verse:  'Sync',
+                        translate: false,
+                        isDeactivated: _identicalPaths,
+                        buttonColor: Colorz.yellow255,
+                        verseColor: Colorz.black255,
+                        onDeactivatedTap: (){
+
+                          final bool _areIdentical = Chain.checkChainsListPathsAreIdentical(
+                            chains1: tempChains,
+                            chains2: initialChains,
+                          );
+
+                          blog('_identicalPaths : $_areIdentical');
+
+                          // Chain.blogChainsPaths(tempChains);
+
+                        },
+                        onTap: () => onSyncChain(
+                          context: context,
+                          initialChains: _initialChains,
+                          editedChains: _tempChains.value,
+                        ),
+                      ),
+
+                    ],
                   );
 
                 },
@@ -145,28 +180,6 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
           child: ValueListenableBuilder(
             valueListenable: _tempChains,
             builder: (_, List<Chain> tempChains, Widget child){
-
-              // chain.blogChain();
-
-              // return ChainsBuilder(
-              //     sons: tempChains,
-              //     previousPath: '',
-              //     width: BldrsAppBar.width(context),
-              //     parentLevel: 0,
-              //     onPhidTap: (String path, String phid) => onPhidTap(
-              //       context: context,
-              //       path: path,
-              //       phid: phid,
-              //       tempChains: _tempChains,
-              //     ),
-              //     selectedPhids: const [],
-              //     initiallyExpanded: false,
-              //     onAddToPath: (String path) => onAddNewPath(
-              //       context: context,
-              //       path: path,
-              //       tempChains: _tempChains,
-              //     )
-              // );
 
               return ChainSplitter(
                 initiallyExpanded: false,

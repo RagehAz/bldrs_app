@@ -111,6 +111,8 @@ class PhidButton extends StatelessWidget {
         verseHighlight: searchText,
 
         secondLine: secondLine,
+        secondVerseMaxLines: 1,
+
         // verseHighlightColor: Colorz.bloodTest,
       ),
     );
