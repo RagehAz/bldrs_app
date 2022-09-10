@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/a_chain_builder.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_structure/c_chains_builder.dart';
@@ -161,7 +161,7 @@ class ChainSplitter extends StatelessWidget {
     }
     // --------------------
     /// IF SONS IS List<Chain>
-    else if (Chain.checkSonsAreChains(chainOrChainsOrSonOrSons) == true){
+    else if (Chain.checkIsChains(chainOrChainsOrSonOrSons) == true){
 
       return ChainsBuilder(
         sons: chainOrChainsOrSonOrSons,
@@ -180,14 +180,14 @@ class ChainSplitter extends StatelessWidget {
     }
     // --------------------
     /// EDIT MODE AND DATA CREATOR
-    else if (editMode == true && Chain.checkSonsAreDataCreator(chainOrChainsOrSonOrSons) == true){
+    else if (editMode == true && DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
       final DataCreator _phid = chainOrChainsOrSonOrSons;
       final String _path = '$previousPath/$_phid/';
       final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
 
       return PhidButton(
-        phid: Chain.cipherDataCreator(_phid),
+        phid: DataCreation.cipherDataCreator(_phid),
         secondLine: createSecondLine(secondLinesType, _phid.toString()),
         width: _width,
         parentLevel: parentLevel,

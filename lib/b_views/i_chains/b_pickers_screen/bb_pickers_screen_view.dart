@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/bbb_data_creator_splitter.dart';
@@ -62,7 +63,7 @@ class PickersScreenView extends StatelessWidget {
       onlyUseCityChains: onlyUseCityChains,
     );
 
-    final bool _sonsAreDataCreator = Chain.checkSonsAreDataCreator(_chain?.sons);
+    final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(_chain?.sons);
 
     if (_sonsAreDataCreator == true) {
       _instructions = 'Specify this';

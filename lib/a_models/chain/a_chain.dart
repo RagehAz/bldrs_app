@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -152,9 +152,9 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static dynamic _cipherSonsOLD(dynamic sons){
     /// can either be DataCreator or List<String> or List<Chain>
-    final bool _sonsAreChains = checkSonsAreChains(sons);
-    final bool _sonsArePhids = checkSonsArePhids(sons);
-    final bool _sonsAreDataCreator = checkSonsAreDataCreator(sons);
+    final bool _sonsAreChains = checkIsChains(sons);
+    final bool _sonsArePhids = Phider.checkIsPhids(sons);
+    final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(sons);
 
     if (_sonsAreChains == true){
       return cipherChainsOLD(sons); // List<Map<String, dynamic>>
@@ -163,149 +163,10 @@ class Chain {
       return sons; // List<String>
     }
     else if ( _sonsAreDataCreator == true){
-      return cipherDataCreator(sons);
+      return DataCreation.cipherDataCreator(sons);
     }
     else {
       return null;
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String cipherDataCreator(dynamic sons){
-    switch (sons){
-
-      case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';      break;
-      case DataCreator.doubleSlider:        return 'DataCreator_doubleSlider';        break;
-      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';   break;
-
-      case DataCreator.integerKeyboard:     return 'DataCreator_integerKeyboard';     break;
-      case DataCreator.integerSlider:       return 'DataCreator_integerSlider';       break;
-      case DataCreator.integerRangeSlider:  return 'DataCreator_integerRangeSlider';  break;
-
-      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
-      case DataCreator.country:             return 'DataCreator_country';             break;
-      default: return null;
-
-    }
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static DataCreator decipherDataCreator(dynamic sons){
-
-    /// IS DATA CREATOR
-    if (sons is DataCreator){
-      return sons;
-    }
-    else {
-
-      /// IS String
-      if (sons is String){
-
-        /// DataCreator_doubleKeyboard
-        if (sons == 'DataCreator_doubleKeyboard'){
-          return DataCreator.doubleKeyboard;
-        }
-
-        /// DataCreator_doubleSlider
-        else if (sons == 'DataCreator_doubleSlider'){
-          return DataCreator.doubleSlider;
-        }
-
-        /// DataCreator_doubleSlider
-        else if (sons == 'DataCreator_doubleRangeSlider'){
-          return DataCreator.doubleRangeSlider;
-        }
-
-        /// DataCreator_integerKeyboard
-        else if (sons == 'DataCreator_integerKeyboard'){
-          return DataCreator.integerKeyboard;
-        }
-
-        /// DataCreator_integerSlider
-        else if (sons == 'DataCreator_integerSlider'){
-          return DataCreator.integerSlider;
-        }
-
-        /// DataCreator_integerRangeSlider
-        else if (sons == 'DataCreator_integerRangeSlider'){
-          return DataCreator.integerRangeSlider;
-        }
-
-        /// DataCreator_boolSwitch
-        else if (sons == 'DataCreator_boolSwitch'){
-          return DataCreator.boolSwitch;
-        }
-
-        /// DataCreator_country
-        else if (sons == 'DataCreator_country'){
-          return DataCreator.country;
-        }
-
-        /// NOTHING => is String but not DataCreator
-        else {
-          return null;
-        }
-
-      }
-
-      /// IS List<String>
-      else if (sons is List<String>){
-
-        final String _sonsAsString = sons.toString();
-
-        /// DataCreator_doubleKeyboard
-        if (_sonsAsString == '[DataCreator_doubleKeyboard]'){
-          return DataCreator.doubleKeyboard;
-        }
-
-        /// DataCreator_doubleSlider
-        if (_sonsAsString == '[DataCreator_doubleSlider]'){
-          return DataCreator.doubleSlider;
-        }
-
-        /// DataCreator_doubleSlider
-        if (_sonsAsString == '[DataCreator_doubleRangeSlider]'){
-          return DataCreator.doubleRangeSlider;
-        }
-
-        /// DataCreator_integerKeyboard
-        if (_sonsAsString == '[DataCreator_integerKeyboard]'){
-          return DataCreator.integerKeyboard;
-        }
-
-        /// DataCreator_integerSlider
-        if (_sonsAsString == '[DataCreator_integerSlider]'){
-          return DataCreator.integerSlider;
-        }
-
-        /// DataCreator_integerRangeSlider
-        if (_sonsAsString == '[DataCreator_integerRangeSlider]'){
-          return DataCreator.integerRangeSlider;
-        }
-
-        /// DataCreator_boolSwitch
-        if (_sonsAsString == '[DataCreator_boolSwitch]'){
-          return DataCreator.boolSwitch;
-        }
-
-        /// DataCreator_country
-        if (_sonsAsString == '[DataCreator_country]'){
-          return DataCreator.country;
-        }
-
-        /// NOTHING => is List<String> but not DataCreator
-        else {
-          return null;
-        }
-
-      }
-
-      /// NOTHING
-      else {
-        return null;
-      }
-
     }
 
   }
@@ -368,7 +229,7 @@ class Chain {
       else if (sons is String){
         final bool _isDataCreator = TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
         if (_isDataCreator == true){
-          _output = decipherDataCreator(sons);
+          _output = DataCreation.decipherDataCreator(sons);
         }
       }
 
@@ -448,7 +309,7 @@ class Chain {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkSonsAreChains(dynamic sons){
+  static bool checkIsChains(dynamic sons){
     bool _areChains = false;
 
     if (sons.runtimeType.toString() == 'List<Chain>'){
@@ -456,120 +317,6 @@ class Chain {
     }
 
     return _areChains;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSonsAreDataCreator(dynamic sons){
-
-    bool _isDataCreator = false;
-
-    // blog('checkSonsAreDataCreator : ${sons.runtimeType} : $sons');
-
-    if (sons != null){
-
-      if (sons is DataCreator){
-        _isDataCreator = true;
-      }
-      else if (sons is List<DataCreator>){
-        _isDataCreator = true;
-      }
-
-      else if (sons.runtimeType.toString() == 'DataCreator'){
-        _isDataCreator = true;
-      }
-
-      else if (sons is List<String>){
-
-        final List<String> _sons = sons;
-
-        if (Mapper.checkCanLoopList(_sons) == true){
-
-          final String _first = _sons.first;
-
-          final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
-          if (_dataCreator == 'DataCreator'){
-            _isDataCreator = true;
-          }
-
-        }
-      }
-
-    }
-
-    return _isDataCreator;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSonsAreDataCreatorOfType({
-    @required dynamic sons,
-    @required DataCreator dataCreator,
-  }){
-
-    bool _indeed = false;
-
-    if (sons == dataCreator){
-      _indeed = true;
-    }
-    else {
-
-      final bool _isDataCreator = checkSonsAreDataCreator(sons);
-
-      if (_isDataCreator == true){
-
-        if (sons is List<String>){
-
-          final List<String> _sons = sons;
-          if (Mapper.checkCanLoopList(_sons) == true){
-
-            final String _first = _sons.first;
-            final String _cipheredType = Chain.cipherDataCreator(dataCreator);
-
-            // blog('_first : $_first');
-            // blog('dataCreator : $dataCreator');
-            // blog('dataCreator.toString() : ${dataCreator.toString()} || ${dataCreator.toString() == _first}');
-            // blog('_cipheredType : $_cipheredType || ${_cipheredType == _first}');
-
-            if (_cipheredType == _first){
-              _indeed = true;
-            }
-
-          }
-
-
-        }
-
-
-      }
-
-    }
-
-
-
-    return _indeed;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSonsArePhids(dynamic sons){
-
-    bool _arePhids = false;
-
-    if (sons != null){
-
-      if (sons is List<String>){
-
-        final List<String> _sons = sons;
-
-        if (Mapper.checkCanLoopList(_sons) == true){
-
-          _arePhids = Phider.checkIsPhid(_sons.first);
-
-        }
-
-      }
-
-    }
-
-    return _arePhids;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -599,13 +346,13 @@ class Chain {
 
     bool _sonsAreIdentical = false;
 
-    final bool sonsAisChains = checkSonsAreChains(chain1.sons);
-    final bool sonsAisDataCreator = checkSonsAreDataCreator(chain1.sons);
-    final bool sonsAisPhids = checkSonsArePhids(chain1.sons);
+    final bool sonsAisChains = checkIsChains(chain1.sons);
+    final bool sonsAisDataCreator = DataCreation.checkIsDataCreator(chain1.sons);
+    final bool sonsAisPhids = Phider.checkIsPhids(chain1.sons);
 
-    final bool sonsBisChains = checkSonsAreChains(chain2.sons);
-    final bool sonsBisDataCreator = checkSonsAreDataCreator(chain2.sons);
-    final bool sonsBIsPhids = checkSonsArePhids(chain2.sons);
+    final bool sonsBisChains = checkIsChains(chain2.sons);
+    final bool sonsBisDataCreator = DataCreation.checkIsDataCreator(chain2.sons);
+    final bool sonsBIsPhids = Phider.checkIsPhids(chain2.sons);
 
     if (
     sonsAisChains == sonsBisChains
@@ -769,7 +516,7 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
-      else if (checkSonsArePhids(chain.sons) == true){
+      else if (Phider.checkIsPhids(chain.sons) == true){
         _includes = Stringer.checkStringsContainString(
           strings: chain.sons,
           string: phid,
@@ -778,7 +525,7 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH CHAINS SONS
-      else if (checkSonsAreChains(chain.sons) == true){
+      else if (checkIsChains(chain.sons) == true){
         _includes = checkChainsIncludeThisPhid(
           chains: chain.sons,
           phid: phid,
@@ -852,17 +599,17 @@ class Chain {
     final String _space = getChainBlogTreeSpacing(level);
 
     if (id != null){
-      if (checkSonsAreDataCreator(sons) == true){
+      if (DataCreation.checkIsDataCreator(sons) == true){
         blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsArePhids(sons) == true){
+      else if (Phider.checkIsPhids(sons) == true){
         blog('$_space $level : $id : <Phid>${sons.toString()}');
         // blogChains(sons, level: level + 1);
       }
 
-      else if (checkSonsAreChains(sons) == true){
+      else if (checkIsChains(sons) == true){
         blog('$_space $level : <Chain>{$id} :-');
         blogChains(sons, parentLevel: level);
       }
@@ -1017,7 +764,7 @@ class Chain {
           break;
         }
 
-        else if (checkSonsAreChains(chain?.sons) == true){
+        else if (checkIsChains(chain?.sons) == true){
 
           final Chain _son = getChainFromChainsByID(
             chainID: Phider.removeIndexFromPhid(phid: chainID),
@@ -1134,12 +881,12 @@ class Chain {
 
     if (chain != null){
 
-      if (checkSonsArePhids(chain.sons) == true){
+      if (Phider.checkIsPhids(chain.sons) == true){
 
         _phids.addAll(chain.sons);
 
       }
-      else if (checkSonsAreChains(chain.sons) == true){
+      else if (checkIsChains(chain.sons) == true){
 
         final List<String> _allNestedStrings = getOnlyPhidsSonsFromChains(
           chains: chain.sons,
@@ -1193,7 +940,7 @@ class Chain {
         &&
         chainToTake != null
         &&
-        checkSonsAreChains(chainToTake.sons) == true
+        checkIsChains(chainToTake.sons) == true
     ){
 
       final List<Chain> _newSons = <Chain>[

@@ -1,7 +1,8 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/chain/dd_data_creator.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
@@ -382,7 +383,7 @@ Future<void> onUnitSelectorButtonTap({
 // --------------------
   Keyboard.closeKeyboard(context);
 
-  final bool _arePhids = Chain.checkSonsArePhids(_unitChain.sons) == true;
+  final bool _arePhids = Phider.checkIsPhids(_unitChain.sons) == true;
 
   /// SONS ARE PHIDS
   if (_arePhids == true){
@@ -573,7 +574,7 @@ dynamic _fixValueDataType({
 }){
 
   /// IF INT
-  if (isIntDataCreator(dataCreatorType) == true){
+  if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
     int _output;
 
     if (value is String){
@@ -587,7 +588,7 @@ dynamic _fixValueDataType({
   }
 
   /// IF DOUBLE
-  else if (isDoubleDataCreator(dataCreatorType) == true){
+  else if (DataCreation.checkIsDoubleDataCreator(dataCreatorType) == true){
     double _output;
 
     if (value is String){

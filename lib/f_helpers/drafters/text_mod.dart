@@ -655,6 +655,13 @@ class TextMod {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static void setControllerSelectionAtEnd(TextEditingController controller){
+    if (controller != null){
+      controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+    }
+  }
+  // --------------------
   /// PHONE NUMBER
   // --------------------
   /// TESTED : WORKS PERFECT
