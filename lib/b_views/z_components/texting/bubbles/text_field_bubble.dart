@@ -162,22 +162,23 @@ class TextFieldBubble extends StatelessWidget {
       showUnObscure: canObscure,
     );
     // --------------------
-    final double _screenWidth = Bubble.defaultWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _bubbleWidth = Bubble.bubbleWidth(context, bubbleWidthOverride: bubbleWidth);
     // --------------------
+
     return Bubble(
         bubbleColor: Colorizer.ValidatorColor(
           validator: validator,
           defaultColor: bubbleColor,
         ),
         headerViewModel: BubbleHeaderVM(
-          headerWidth: _screenWidth - 20,
+          headerWidth: _bubbleWidth - 20,
           headlineVerse: titleVerse,
           translateHeadline: translateTitle,
           redDot: fieldIsRequired,
           leadingIcon: actionBtIcon,
           onLeadingIconTap: actionBtFunction,
         ),
-        screenWidth: _screenWidth,
+        width: _bubbleWidth,
         onBubbleTap: onBubbleTap,
         columnChildren: <Widget>[
 

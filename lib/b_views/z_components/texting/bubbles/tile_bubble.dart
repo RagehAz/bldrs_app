@@ -72,7 +72,7 @@ class TileBubble extends StatelessWidget {
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(),
-      screenWidth: _bubbleWidth,
+      width: _bubbleWidth,
       onBubbleTap: btOnTap,
       bubbleColor: bubbleColor,
       columnChildren: <Widget>[
@@ -100,7 +100,7 @@ class TileBubble extends StatelessWidget {
         /// SECOND LINE
         if (secondLineVerse != null)
           SizedBox(
-            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            width: Bubble.bubbleWidth(context),
             child: Row(
               children: <Widget>[
 
@@ -134,7 +134,7 @@ class TileBubble extends StatelessWidget {
         /// CHILD
         if (child != null)
           SizedBox(
-            width: Bubble.bubbleWidth(context: context, stretchy: false),
+            width: Bubble.bubbleWidth(context),
             // height: 200,
             // padding: const EdgeInsets.symmetric(horizontal: 5),
             // color: Colorz.Yellow255,

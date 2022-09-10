@@ -119,7 +119,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 canValidate: widget.canValidate,
               ),
             ),
-            screenWidth: Bubble.bubbleWidth(context: context, stretchy: false),
+            width: Bubble.bubbleWidth(context),
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: 'phid_pdf_attachment',
             ),
