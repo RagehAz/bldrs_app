@@ -62,7 +62,7 @@ class ChainEditorPage extends StatelessWidget {
           final String _phraseName = _phid;
 
           final List<Chain> _relatedChains = ChainPathConverter.findPhidRelatedChains(
-              allChains: allChains,
+              chains: allChains,
               phid: _phid,
           );
 

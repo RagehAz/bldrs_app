@@ -137,7 +137,7 @@ Future<bool> _preSyncCheckups({
     bodyVerse:  'Below is a comparison result of Chain changed\n'
         'Wish to upload the edited Chain',
     boolDialog: true,
-    child: BubbleBulletPoints(
+    child: BulletPoints(
       bubbleWidth: CenterDialog.clearWidth(context),
       bulletPoints: _differencesLog,
       translateBullets: false,
@@ -183,7 +183,7 @@ Future<void> onPhidTap({
 
   await BottomDialog.showButtonsBottomDialog(
       context: context,
-      numberOfWidgets: 7,
+      numberOfWidgets: 5,
       draggable: true,
       title: phid,
       buttonHeight: 50,
@@ -194,7 +194,7 @@ Future<void> onPhidTap({
           /// PATH SPLIT
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: BubbleBulletPoints(
+            child: BulletPoints(
               bulletPoints: ChainPathConverter.splitPathNodes(_path),
               bubbleWidth: BottomDialog.clearWidth(context),
               translateBullets: false,
@@ -263,10 +263,10 @@ Future<void> onAddNewPath ({
     //   chains2: tempChains.value,
     // );
 
-    blog('xx - old chains : -');
-    Chain.blogChains(tempChains.value);
-    blog('xx - updated chains : -');
-    Chain.blogChains(_updated);
+    // blog('xx - old chains : -');
+    // Chain.blogChains(tempChains.value);
+    // blog('xx - updated chains : -');
+    // Chain.blogChains(_updated);
 
     // blog('onAddNewPath : shoof keda chains have changed : $_areIdentical');
 
@@ -295,19 +295,29 @@ Future<void> onDeleteThePhid ({
     invoker: 'onDeletePhid delete button',
   );
 
+  final List<String> _relatedPaths = ChainPathConverter.findPathsStartingWith(
+    startsWith: path,
+    chains: tempChains.value,
+  );
+
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  'Delete $phid ?',
-    bodyVerse:  'this path will be deleted :-'
-        '\n[ $path ]',
+    titleVerse:  'Delete Paths ?',
+    translateTitle: false,
+    translateBody: false,
+    bodyVerse:  '${_relatedPaths.length} paths will be deleted',
     boolDialog: true,
+    child: BulletPoints(
+        bulletPoints: _relatedPaths,
+        translateBullets: false
+    ),
   );
 
   if (_continue == true){
 
-    final List<Chain> _updated = Chain.removePathFromChains(
+    final List<Chain> _updated = Chain.removePathsFromChains(
       chains: tempChains.value,
-      path: path,
+      paths: _relatedPaths,
     );
 
     tempChains.value = _updated;
@@ -321,7 +331,7 @@ Future<void> onDeleteThePhid ({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> onEditPhid({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> tempChains,
@@ -337,7 +347,7 @@ Future<void> onEditPhid({
     title: 'Edit path',
   );
 
-  if (path != _typedPath){
+  if (TextCheck.isEmpty(_typedPath?.trim()) == false && path != _typedPath){
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
@@ -420,7 +430,7 @@ String _pathCreationValidator(String path){
   for (int i = 0; i < _nodes.length; i++){
 
     final String _node = _nodes[i];
-    final bool _startsWith = TextCheck.textStartsExactlyWith(
+    final bool _startsWith = TextCheck.stringStartsExactlyWith(
         text: _node,
         startsWith: 'phid_',
     );

@@ -48,7 +48,7 @@ class SpecsSelectorBubble extends StatelessWidget {
         width: Bubble.bubbleWidth(context),
         columnChildren: <Widget>[
 
-          BubbleBulletPoints(
+          BulletPoints(
             bulletPoints: <String>[
               '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
             ],

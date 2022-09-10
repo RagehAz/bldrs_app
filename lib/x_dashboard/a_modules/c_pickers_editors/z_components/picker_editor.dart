@@ -238,7 +238,7 @@ class PickerEditingTile extends StatelessWidget {
                                 ),
 
                                 /// DEACT PICKERS IDS
-                                BubbleBulletPoints(
+                                BulletPoints(
                                   bubbleWidth: _clearWidth,
                                   bulletPoints: _blocker.pickersIDsToBlock,
                                   translateBullets: false,

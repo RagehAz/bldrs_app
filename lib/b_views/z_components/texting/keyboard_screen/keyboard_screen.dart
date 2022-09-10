@@ -81,6 +81,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.initState();
 
     _keyboardModel = widget.keyboardModel;
+    _controller.text = _keyboardModel.initialText;
 
   }
   // --------------------

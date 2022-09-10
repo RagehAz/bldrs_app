@@ -195,7 +195,7 @@ List<Chain> _getChainsFromPhids({
 
     _chains = ChainPathConverter.findPhidsRelatedChains(
       phids: phids,
-      allChains: _chainsProvider.bldrsChains,
+      chains: _chainsProvider.bldrsChains,
     );
 
   }
