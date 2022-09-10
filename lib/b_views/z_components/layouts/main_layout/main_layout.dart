@@ -122,24 +122,25 @@ class MainLayout extends StatelessWidget {
   // --------------------
   void _onBack(BuildContext context){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-    final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
 
-    // blog('wtf : _keyboardIsOn : $_keyboardIsOn');
-
-    if (_keyboardIsOn == true){
-      Keyboard.closeKeyboard(context);
-    }
-
-    else if (onBack != null){
+    if (onBack != null){
       onBack();
     }
 
-    else if (canGoBack == true){
-      Nav.goBack(
-        context: context,
-        invoker: 'MainLayout._onBack',
-      );
+    else {
+
+      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      if (_uiProvider.keyboardIsOn == true){
+        Keyboard.closeKeyboard(context);
+      }
+
+      if (canGoBack == true){
+        Nav.goBack(
+          context: context,
+          invoker: 'MainLayout._onBack',
+        );
+      }
+
     }
 
   }

@@ -120,7 +120,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               draft: draft,
                               text: text,
                             ),
-                            initialTextValue: _draft.headline,
+                            initialText: _draft.headline,
                             validator: () => Formers.flyerHeadlineValidator(
                               headline: _draft.headline,
                               canValidate: canValidate,
@@ -139,7 +139,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                             maxLength: 1000,
                             maxLines: 7,
                             keyboardTextInputType: TextInputType.multiline,
-                            initialTextValue: _draft.description,
+                            initialText: _draft.description,
                             validator: () => Formers.paragraphValidator(
                               text: _draft.description,
                               canValidate: canValidate,
