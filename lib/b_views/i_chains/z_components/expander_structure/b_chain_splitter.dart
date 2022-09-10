@@ -27,6 +27,7 @@ class ChainSplitter extends StatelessWidget {
     @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
     @required this.editMode,
+    @required this.secondLinesType,
     this.previousPath = '',
     this.parentLevel = 0,
     this.width,
@@ -34,7 +35,6 @@ class ChainSplitter extends StatelessWidget {
     this.selectedPhids,
     this.searchText,
     this.onAddToPath,
-    this.secondLinesType = ChainSecondLinesType.non,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -49,7 +49,8 @@ class ChainSplitter extends StatelessWidget {
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
   final bool editMode;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   String createSecondLine(ChainSecondLinesType type, String phid, {int index}){
     String _output;
 
@@ -148,6 +149,7 @@ class ChainSplitter extends StatelessWidget {
         searchText: searchText,
         onAddToPath: onAddToPath,
         editMode: editMode,
+        secondLinesType: secondLinesType,
 
         // deactivated: ,
         // expansionColor: ,

@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:flutter/material.dart';
 
 class PasswordBubbles extends StatelessWidget {

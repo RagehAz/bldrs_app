@@ -5,10 +5,10 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.da
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip.dart';
-import 'package:bldrs/b_views/z_components/texting/data_strip_with_headline.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';

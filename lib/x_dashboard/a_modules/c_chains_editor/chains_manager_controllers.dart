@@ -436,7 +436,11 @@ String _pathCreationValidator(String path){
 
   }
 
-  blog('_pathCreationValidator : _message : $_message');
+  if (_nodes.length < 2){
+    _message = 'Path should at-least have 2 nodes';
+  }
+
+  // blog('_pathCreationValidator : _message : $_message');
 
   return _message;
 }

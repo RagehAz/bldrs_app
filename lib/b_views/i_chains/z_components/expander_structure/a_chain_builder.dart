@@ -17,6 +17,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.initiallyExpanded,
     @required this.selectedPhids,
     @required this.editMode,
+    @required this.secondLinesType,
     this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
@@ -45,6 +46,7 @@ class ChainBuilder extends StatelessWidget {
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
   final bool editMode;
+  final ChainSecondLinesType secondLinesType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -80,6 +82,7 @@ class ChainBuilder extends StatelessWidget {
           searchText: searchText,
           onAddToPath: onAddToPath,
           editMode: editMode,
+          secondLinesType: secondLinesType,
         ),
       ),
     );

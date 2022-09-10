@@ -42,6 +42,7 @@ class PhidsDataCreator extends StatelessWidget {
         selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
         initiallyExpanded: false,
         editMode: false,
+        secondLinesType: ChainSecondLinesType.non,
       ),
     );
     // --------------------
