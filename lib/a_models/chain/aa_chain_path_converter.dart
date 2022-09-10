@@ -31,12 +31,9 @@ class ChainPathConverter {
   static void blogPaths(List<String> paths){
 
     if (Mapper.checkCanLoopList(paths) == true){
-      blog('blogging ${paths.length} paths ---------------- start');
-
       Stringer.blogStrings(strings: paths);
-
-      blog('blogging paths ------------------------------------ end ');
     }
+
     else {
       blog('ALERT : paths are empty');
     }
