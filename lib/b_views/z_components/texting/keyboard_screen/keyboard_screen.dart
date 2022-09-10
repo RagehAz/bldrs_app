@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -164,7 +163,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
               /// TEXT FIELD
               TextFieldBubble(
-                bubbleWidth: BldrsAppBar.width(context),
                 globalKey: _keyboardModel.globalKey,
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
@@ -196,8 +194,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                       isDeactivated: !canSubmit,
                       height: 40,
                       verseScaleFactor: 0.6,
-                      margins: const EdgeInsets.symmetric(horizontal: 10),
-                      verse:'Confirm',
+                      margins: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      verse:'- Confirm -',
                       verseCasing: VerseCasing.upperCase,
                       verseItalic: true,
                       onTap: () => _onSubmit(_controller.text),
