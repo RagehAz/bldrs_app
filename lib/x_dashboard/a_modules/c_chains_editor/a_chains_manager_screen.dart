@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/b_chain_editor_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/x_chains_manager_controllers.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/picking_mode_bubble.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
