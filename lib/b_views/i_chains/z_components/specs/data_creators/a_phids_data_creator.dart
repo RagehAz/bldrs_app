@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';

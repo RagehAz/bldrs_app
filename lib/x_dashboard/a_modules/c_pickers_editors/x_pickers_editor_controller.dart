@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/b_phrase_editor_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
