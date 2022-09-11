@@ -118,7 +118,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                 else {
                   await goToChainsEditorScreen(
                     context: context,
-                    chains: Chain.dummyChain().sons,
+                    chains: _bldrsChains,
                   );
                 }
 
