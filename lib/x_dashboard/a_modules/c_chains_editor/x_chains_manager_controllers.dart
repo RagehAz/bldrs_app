@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
@@ -10,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -372,6 +375,133 @@ Future<void> onEditPhid({
       );
 
     }
+
+  }
+
+}
+// --------------------
+///
+void onReorderSon({
+  @required ValueNotifier<List<Chain>> tempChains,
+  @required int newIndex,
+  @required int oldIndex,
+  @required String previousPath,
+  @required int level,
+  /// the list of objects built in list builder along with the selected phid
+  @required List<dynamic> sons, // phid brothers
+}){
+
+  final dynamic son = sons[oldIndex];
+  final String _previousPath = ChainPathConverter.fixPathFormatting(previousPath);
+  blog('oldIndex : $oldIndex : newIndex : $newIndex : level : $level : _previousPath : $_previousPath');
+
+  Chain.blogSon(son);
+
+  final bool _isChain = son is Chain;
+  final bool _isChains = Chain.checkIsChains(son);
+  final bool _isPhid = Phider.checkIsPhid(son);
+  final bool _isPhids = Phider.checkIsPhids(son);
+  final bool _isDataCreator = DataCreation.checkIsDataCreator(son);
+
+  /// A - UPDATE SONS
+  if (_isPhid){
+
+    final List<String> _sons = <String>[...sons];
+    final String _phid = son;
+    final String _previousNode = ChainPathConverter.getLastPathNode(_previousPath);
+
+    blog('_previousNode : $_previousNode');
+    _sons.removeAt(oldIndex);
+    _sons.insert(newIndex, _phid);
+
+    final List<String> _indexed = Phider.createPhidsIndexes(_sons);
+    final List<String> _newPaths = <String>[];
+    for (final String _indexedPhid in _indexed){
+      final String _newPath = '$_previousPath/$_indexedPhid/';
+      _newPaths.add(_newPath);
+    }
+
+
+    if (Mapper.checkCanLoopList(sons) == true){
+
+      final List<String> _allPaths = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: tempChains.value,
+      );
+
+      final List<String> _relatedPaths = TextCheck.getStringsStartingExactlyWith(
+        strings: _allPaths,
+        startWith: _previousPath,
+      );
+
+      final List<String> _afterRemove = Stringer.removeStringsFromStrings(
+          removeFrom: _allPaths,
+          removeThis: _relatedPaths,
+      );
+
+      final List<String> _afterAdd = Stringer.addStringsToStringsIfDoNotContainThem(
+          listToTake: _afterRemove,
+          listToAdd: _newPaths,
+      );
+
+      // Stringer.blogStrings(strings: _afterRemove, invoker: '_afterRemove');
+      // Stringer.blogStrings(strings: _afterAdd, invoker: '_afterAdd');
+
+      final List<Chain> _reChains = ChainPathConverter.createChainsFromPaths(
+          paths: _afterAdd,
+      );
+
+      final List<Chain> _ordered = Phider.sortChainsByIndexes(_reChains);
+
+      Chain.blogChains(_ordered);
+
+      tempChains.value = _ordered;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Stringer.blogStrings(strings: sons, invoker: 'Before');
+    // Stringer.blogStrings(strings: _sons, invoker: 'After');
+    // Stringer.blogStrings(strings: _indexed, invoker: '_indexed');
+
+    // final List<String> _relatedPaths = ChainPathConverter.findPathsStartingWith(
+    //   startsWith: _previousPath,
+    //   chains: tempChains.value,
+    // );
+
+    // Stringer.blogStrings(strings: _relatedPaths, invoker: 'related old paths');
+    // Stringer.blogStrings(strings: _newPaths, invoker: '_newPaths');
+
+    // final List<Chain> _updated = Chain.removePathsFromChains(
+    //   chains: tempChains.value,
+    //   paths: _relatedPaths,
+    // );
+    // //
+    // final List<Chain> _final = Chain.addPathsToChains(
+    //     chains: _updated,
+    //     paths: _newPaths,
+    // );
+    // //
+    // final List<Chain> _indexesChains = Phider.createChainsIndexes(_final);
+    //
+    // tempChains.value = Phider.sortChainsByIndexes(_indexesChains);
 
   }
 
