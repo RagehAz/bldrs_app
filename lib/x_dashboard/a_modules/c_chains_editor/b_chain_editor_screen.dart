@@ -1,12 +1,13 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/x_chains_manager_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/editing_chain_builders/a_editing_chain_splitter.dart';
 import 'package:flutter/material.dart';
 
 class ChainsEditorScreen extends StatefulWidget {
@@ -187,7 +188,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
             valueListenable: _tempChains,
             builder: (_, List<Chain> tempChains, Widget child){
 
-              return ChainSplitter(
+              return EditingChainSplitter(
                 initiallyExpanded: false,
                 chainOrChainsOrSonOrSons: tempChains,
                 onSelectPhid: (String path, String phid) => onPhidTap(

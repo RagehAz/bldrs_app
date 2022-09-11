@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/g_users_manager/users_manager_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/g_users_manager/x_users_manager_controller.dart';
 import 'package:bldrs/x_dashboard/b_widgets/user_button.dart';
 import 'package:flutter/material.dart';
 

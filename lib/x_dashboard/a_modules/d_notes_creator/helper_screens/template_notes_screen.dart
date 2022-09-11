@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/bldrs_notes/note_templates.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
 class TemplateNotesScreen extends StatefulWidget {

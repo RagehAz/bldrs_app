@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/auditor_button.dart';
+import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/components/auditor_button.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/e_db/fire/ops/note_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';

@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/chains_manager_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/x_chains_manager_controllers.dart';
 import 'package:flutter/material.dart';
 
 class ChainsPickingModeBubble extends StatefulWidget {
