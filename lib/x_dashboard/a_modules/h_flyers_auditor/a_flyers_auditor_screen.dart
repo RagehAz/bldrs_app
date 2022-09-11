@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/flyer_auditor_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/h_flyers_auditor/x_flyer_auditor_controller.dart';
 import 'package:flutter/material.dart';
 
 class FlyersAuditor extends StatefulWidget {

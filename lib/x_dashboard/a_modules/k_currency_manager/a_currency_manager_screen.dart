@@ -11,7 +11,7 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/currency_manager_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/k_currency_manager/x_currency_manager_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

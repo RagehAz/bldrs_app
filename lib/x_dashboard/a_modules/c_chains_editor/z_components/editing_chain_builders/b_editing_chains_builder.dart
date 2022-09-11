@@ -1,14 +1,14 @@
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_structure/b_chain_splitter.dart';
+import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class ChainsBuilder extends StatelessWidget {
+class EditingChainsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const ChainsBuilder({
+  const EditingChainsBuilder({
     @required this.sons,
     @required this.previousPath,
     @required this.width,

@@ -7,7 +7,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/phrase_creator_page.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/pages/phrases_viewer_page.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/phrase_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
 class PhraseEditorScreen extends StatefulWidget {

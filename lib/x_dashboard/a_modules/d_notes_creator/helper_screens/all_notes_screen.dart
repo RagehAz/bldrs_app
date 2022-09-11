@@ -15,7 +15,7 @@ import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_paginator.dart';
-import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/notes_creator_controller.dart';
+import 'package:bldrs/x_dashboard/a_modules/d_notes_creator/x_notes_creator_controller.dart';
 import 'package:flutter/material.dart';
 
 class AllNotesScreen extends StatefulWidget {
