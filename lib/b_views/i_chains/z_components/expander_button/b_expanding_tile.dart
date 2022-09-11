@@ -27,6 +27,7 @@ class ExpandingTile extends StatefulWidget {
     this.margin,
     this.searchText,
     this.onLongPress,
+    this.onDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -48,6 +49,7 @@ class ExpandingTile extends StatefulWidget {
   final EdgeInsets margin;
   final ValueNotifier<String> searchText;
   final Function onLongPress;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;
@@ -309,6 +311,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
             iconCorners: ExpandingTile.cornersValue,
             searchText: widget.searchText,
             onLongPress: widget.onLongPress,
+            onDoubleTap: widget.onDoubleTap,
             child: child,
           );
         },

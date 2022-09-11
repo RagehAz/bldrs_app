@@ -323,6 +323,7 @@ class Chain {
   static bool checkChainsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
+    bool blogDifferences = false,
   }){
     bool _areIdentical = false;
 
@@ -330,7 +331,13 @@ class Chain {
 
       if (chain1.id == chain2.id){
 
-        if (checkChainsSonsAreIdentical(chain1, chain2) == true){
+        final bool _chainsSonsAreIdentical = checkChainsSonsAreIdentical(
+          chain1: chain1,
+          chain2: chain2,
+          blogDifferences: blogDifferences,
+        );
+
+        if (_chainsSonsAreIdentical == true){
           _areIdentical = true;
         }
 
@@ -342,7 +349,11 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkChainsSonsAreIdentical(Chain chain1, Chain chain2){
+  static bool checkChainsSonsAreIdentical({
+    @required Chain chain1,
+    @required Chain chain2,
+    bool blogDifferences = false,
+  }){
 
     bool _sonsAreIdentical = false;
 
@@ -385,7 +396,7 @@ class Chain {
 
     }
 
-    if (_sonsAreIdentical == false){
+    if (_sonsAreIdentical == false && blogDifferences == true){
       blog('xxx ~~~> checkChainsSonsAreIdentical : TAKE CARE : _sonsAreIdentical : $_sonsAreIdentical');
       blog('xxx ~~~> sonsAisChains : $sonsAisChains : sonsAisDataCreator : $sonsAisDataCreator : sonsAisPhids : $sonsAisPhids');
       blog('xxx ~~~> sonsBisChains : $sonsBisChains : sonsBisDataCreator : $sonsBisDataCreator : sonsBIsPhids : $sonsBIsPhids');
@@ -401,7 +412,7 @@ class Chain {
   static bool checkChainsListsAreIdentical({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
-    bool blogDifferences = true,
+    bool blogDifferences = false,
   }){
     bool _listsAreIdentical = false;
 
@@ -426,8 +437,8 @@ class Chain {
 
 
           if (_twoChainsAreIdentical == false){
-            final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
-            blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
+            // final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
+            // blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
           }
@@ -611,7 +622,7 @@ class Chain {
 
       else if (checkIsChains(sons) == true){
         blog('$_space $level : <Chain>{$id} :-');
-        blogChains(sons, parentLevel: level);
+        blogChains(sons, level: level);
       }
 
       else {
@@ -627,7 +638,7 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogChains(List<Chain> chains, {int parentLevel = 0}){
+  static void blogChains(List<Chain> chains, {int level = 0}){
 
     if (Mapper.checkCanLoopList(chains) == true){
 
@@ -635,7 +646,7 @@ class Chain {
       for (final Chain chain in chains){
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
 
-        chain?.blogChain(level: parentLevel+1);
+        chain?.blogChain(level: level+1);
 
 
         // _count++;
@@ -643,8 +654,8 @@ class Chain {
 
     }
     else {
-      final String _space = getChainBlogTreeSpacing(parentLevel);
-      blog('$_space $parentLevel : NO CHAINS TO BLOG');
+      final String _space = getChainBlogTreeSpacing(level);
+      blog('$_space $level : NO CHAINS TO BLOG');
     }
 
   }
@@ -669,8 +680,9 @@ class Chain {
   static void blogChainsDifferences({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
+    String invoker,
   }){
-    blog('blogChainsDifferences : START');
+    blog('blogChainsDifferences : $invoker :  START');
 
     if (chains1 == null){
       blog('--> chains1 is null');
@@ -711,6 +723,62 @@ class Chain {
 
 
     blog('blogChainsDifferences : END');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogChainsPathsDifferences({
+    @required List<Chain> chains1,
+    @required List<Chain> chains2,
+  }){
+
+    final List<String> _paths1 = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains1
+    );
+
+    final List<String> _paths2 = ChainPathConverter.generateChainsPaths(
+        parentID: '',
+        chains: chains2
+    );
+
+    Stringer.blogStringsListsDifferences(
+        strings1: _paths1,
+        strings2: _paths2,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogSon(dynamic son){
+
+    final bool _isChain = son is Chain;
+    final bool _isChains = Chain.checkIsChains(son);
+    final bool _isPhid = Phider.checkIsPhid(son);
+    final bool _isPhids = Phider.checkIsPhids(son);
+    final bool _isDataCreator = DataCreation.checkIsDataCreator(son);
+
+    /// BLOGGING
+    if (_isChains){
+      final List<Chain> chains = son;
+      blog('Chains : ${chains.length} chains');
+    }
+    else if (_isChain){
+      final Chain chain = son;
+      blog('chain : ${chain.id}');
+    }
+    else if (_isPhids){
+      final List<String> _phids = son;
+      blog('Phids : $_phids');
+    }
+    else if (_isPhid){
+      final String phid = son;
+      blog('Phid : $phid');
+    }
+    else if (_isDataCreator){
+      final DataCreator dataCreator = son;
+      blog('DataCreator : $dataCreator');
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -1168,7 +1236,7 @@ class Chain {
 
     List<Chain> _output = chains;
 
-    blog('addPathToChains : _output.length : ${_output?.length}');
+    // blog('addPathToChains : _output.length : ${_output?.length}');
 
     if (chains != null && path != null){
 
@@ -1177,29 +1245,57 @@ class Chain {
         chains: chains,
       );
 
-      blog('addPathToChains : _chainPaths.length : ${_chainPaths.length}');
+      // blog('addPathToChains : _chainPaths.length : ${_chainPaths.length}');
 
       final List<String> _updated = ChainPathConverter.addPathToPaths(
           paths: _chainPaths,
           path: path
       );
 
-      blog('addPathToChains : _updated.length : ${_updated.length}');
+      // blog('addPathToChains : _updated.length : ${_updated.length}');
 
 
       _output = ChainPathConverter.createChainsFromPaths(
         paths: _updated,
       );
 
-      blog('addPathToChains : _output.length : ${_output.length}');
+      // blog('addPathToChains : _output.length : ${_output.length}');
 
     }
 
-    blog('addPathToChains : _output.length : ${_output.length}');
-
+    // blog('addPathToChains : _output.length : ${_output.length}');
 
 
     blog('addPathToChains : END');
+    return _output;
+  }
+  // --------------------
+
+  static List<Chain> addPathsToChains({
+    @required List<Chain> chains,
+    @required List<String> paths,
+  }){
+    List<Chain> _output = <Chain>[];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      _output = chains;
+
+      if (Mapper.checkCanLoopList(paths) == true){
+
+        for (final String path in paths){
+
+          _output = addPathToChains(
+            chains: chains,
+            path: path,
+          );
+
+        }
+
+      }
+
+    }
+
     return _output;
   }
   // --------------------
@@ -1394,26 +1490,42 @@ class Chain {
       sons: <Chain>[
 
         Chain(
-          id: 'when sons are phids',
-          sons: <String>['phidA', 'phidB', 'phidC'],
+          id: 'phid_A',
+          sons: <String>['phid_A0', 'phid_A2', 'phid_A1'],
         ),
 
         Chain(
-          id: 'when sons are chains',
+          id: 'phid_B',
           sons: <Chain>[
-            Chain(id: 'a chain sub son', sons: <String>['phid_sonA', 'phid_sonB']),
+            Chain(
+              id: 'phid_BB0',
+              sons: <String>['phid_BB00', 'phid_BB01'],
+            ),
+            Chain(
+              id: 'phid_BB1',
+              sons: <String>['phid_BB10', 'phid_BB11'],
+            ),
+            Chain(
+              id: 'phid_BB2',
+              sons: <String>['phid_BB20', 'phid_BB21', 'phid_BB22'],
+            ),
           ],
         ),
 
         Chain(
-          id: 'DataCreator',
-          sons: DataCreator.doubleKeyboard,
+          id: 'phid_C',
+          sons: <String>['phid_C2', 'phid_C0', 'phid_C1'],
         ),
 
-        Chain(
-          id: 'sons strings keda test',
-          sons: <String>['phidXX', 'phidYY', 'phidZZ'],
-        ),
+        // Chain(
+        //   id: 'DataCreator',
+        //   sons: DataCreator.doubleKeyboard,
+        // ),
+        //
+        // Chain(
+        //   id: 'sons strings keda test',
+        //   sons: <String>['phidXX', 'phidYY', 'phidZZ'],
+        // ),
 
       ],
     );

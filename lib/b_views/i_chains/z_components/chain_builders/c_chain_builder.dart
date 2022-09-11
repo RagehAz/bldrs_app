@@ -25,7 +25,7 @@ class ChainBuilder extends StatelessWidget {
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
     this.onPhidTap,
-    this.parentLevel = 0,
+    this.level = 0,
     this.searchText,
     this.onAddToPath,
     Key key
@@ -43,7 +43,7 @@ class ChainBuilder extends StatelessWidget {
   final Color expansionColor;
   final Function(String path, String phid) onPhidTap;
   final bool initiallyExpanded;
-  final int parentLevel;
+  final int level;
   final List<String> selectedPhids;
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
@@ -55,7 +55,7 @@ class ChainBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _sonWidth = ChainButtonBox.getSonWidth(
-      parentLevel: parentLevel,
+      level: level,
       parentWidth: boxWidth,
     );
     // --------------------
@@ -83,7 +83,7 @@ class ChainBuilder extends StatelessWidget {
           chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
           onSelectPhid: (String path, String phid) => onPhidTap(path, phid),
-          parentLevel: parentLevel,
+          level: level,
           selectedPhids: selectedPhids,
           searchText: searchText,
           onAddToPath: onAddToPath,

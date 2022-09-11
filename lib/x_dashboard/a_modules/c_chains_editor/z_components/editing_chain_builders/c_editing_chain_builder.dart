@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_butt
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/editing_chain_builders/a_editing_chain_splitter.dart';
 import 'package:flutter/material.dart';
 
 class EditingChainBuilder extends StatelessWidget {
@@ -17,15 +18,15 @@ class EditingChainBuilder extends StatelessWidget {
     @required this.secondHeadline,
     @required this.initiallyExpanded,
     @required this.selectedPhids,
-    @required this.editMode,
     @required this.secondLinesType,
-    @required this.onLongPress,
+    @required this.onDoubleTap,
+    @required this.onReorder,
     this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
     this.onPhidTap,
-    this.parentLevel = 0,
+    this.level = 0,
     this.searchText,
     this.onAddToPath,
     Key key
@@ -43,19 +44,19 @@ class EditingChainBuilder extends StatelessWidget {
   final Color expansionColor;
   final Function(String path, String phid) onPhidTap;
   final bool initiallyExpanded;
-  final int parentLevel;
+  final int level;
   final List<String> selectedPhids;
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
-  final bool editMode;
   final ChainSecondLinesType secondLinesType;
-  final ValueChanged<String> onLongPress;
+  final ValueChanged<String> onDoubleTap;
+  final Function({int oldIndex, int newIndex, List<dynamic> sons, String previousPath, int level}) onReorder;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _sonWidth = ChainButtonBox.getSonWidth(
-      parentLevel: parentLevel,
+      level: level,
       parentWidth: boxWidth,
     );
     // --------------------
@@ -76,20 +77,20 @@ class EditingChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onLongPress: () => onLongPress(_cleanedPath),
-        child: ChainSplitter(
+        onDoubleTap: () => onDoubleTap(_cleanedPath),
+        child: EditingChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',
           chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
           onSelectPhid: (String path, String phid) => onPhidTap(path, phid),
-          parentLevel: parentLevel,
+          level: level,
           selectedPhids: selectedPhids,
           searchText: searchText,
           onAddToPath: onAddToPath,
-          editMode: editMode,
           secondLinesType: secondLinesType,
-          onLongPress: onLongPress,
+          onDoubleTap: onDoubleTap,
+          onReorder: onReorder,
         ),
       ),
     );

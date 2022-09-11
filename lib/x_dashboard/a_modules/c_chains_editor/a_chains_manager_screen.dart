@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -118,7 +119,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                 else {
                   await goToChainsEditorScreen(
                     context: context,
-                    chains: _bldrsChains,
+                    chains: Phider.createChainsIndexes(Chain.dummyChain().sons),//_bldrsChains,
                   );
                 }
 

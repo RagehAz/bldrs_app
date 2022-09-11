@@ -564,9 +564,14 @@ void main() {
         chains: _chains
     );
 
-    final List<Chain> _regeneratedChains = ChainPathConverter.createChainsFromPaths(paths: _generatedPaths);
+    final List<Chain> _regeneratedChains = ChainPathConverter.createChainsFromPaths(
+        paths: _generatedPaths,
+    );
 
-    final bool _result = Chain.checkChainsListsAreIdentical(chains1: _chains, chains2: _regeneratedChains);
+    final bool _result = Chain.checkChainsListsAreIdentical(
+        chains1: _chains,
+        chains2: _regeneratedChains
+    );
 
     expect(_result, true);
   });
