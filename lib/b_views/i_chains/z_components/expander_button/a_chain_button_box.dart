@@ -19,11 +19,11 @@ class ChainButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static double getSonWidth({
     @required double parentWidth,
-    @required int parentLevel,
+    @required int level,
   }){
-    final int _parentLevel = parentLevel ?? 0;
+    final int _level = level ?? 0;
     const double _padding = 2 * Ratioz.appBarPadding;
-    final double _levelOffset = _parentLevel * _parentLevel * 0.01;
+    final double _levelOffset = _level * _level * 0.01;
     final double _sonWidth = parentWidth - _padding - _levelOffset;
 
     return _sonWidth;

@@ -12,7 +12,7 @@ class ChainsBuilder extends StatelessWidget {
     @required this.sons,
     @required this.previousPath,
     @required this.width,
-    @required this.parentLevel,
+    @required this.level,
     @required this.onPhidTap,
     @required this.selectedPhids,
     @required this.initiallyExpanded,
@@ -26,7 +26,7 @@ class ChainsBuilder extends StatelessWidget {
   final dynamic sons;
   final String previousPath;
   final double width;
-  final int parentLevel;
+  final int level;
   final Function(String path, String phid) onPhidTap;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
@@ -40,7 +40,7 @@ class ChainsBuilder extends StatelessWidget {
 
     final double _sonWidth = ChainButtonBox.getSonWidth(
       parentWidth: width,
-      parentLevel: parentLevel,
+      level: level,
     );
 
     return SizedBox(
@@ -73,7 +73,7 @@ class ChainsBuilder extends StatelessWidget {
                   onSelectPhid: onPhidTap,
                   selectedPhids: selectedPhids,
                   initiallyExpanded: initiallyExpanded,
-                  parentLevel: parentLevel+1,
+                  level: level+1,
                   searchText: searchText,
                   onAddToPath: onAddToPath,
                   secondLinesType: secondLinesType,

@@ -30,7 +30,7 @@ class ChainSplitter extends StatelessWidget {
     @required this.secondLinesType,
     @required this.onLongPress,
     this.previousPath = '',
-    this.parentLevel = 0,
+    this.level = 0,
     this.width,
     this.onSelectPhid,
     this.selectedPhids,
@@ -40,7 +40,7 @@ class ChainSplitter extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
-  final int parentLevel;
+  final int level;
   final String previousPath;
   final double width;
   final Function(String path, String phid) onSelectPhid;
@@ -94,10 +94,10 @@ class ChainSplitter extends StatelessWidget {
         phid: _phid,
         secondLine: createSecondLine(secondLinesType, _phid),
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         searchText: searchText,
         color: _color,
-        onLongTap: () => onLongPress(_cleanedPath),
+        onDoubleTap: () => onLongPress(_cleanedPath),
         onTap: () => onSelectPhid(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
@@ -115,7 +115,7 @@ class ChainSplitter extends StatelessWidget {
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
@@ -131,7 +131,7 @@ class ChainSplitter extends StatelessWidget {
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       final Chain _chain = chainOrChainsOrSonOrSons;
-      // blog('$parentLevel : $previousPath/${_chain.id}');
+      // blog('$level : $previousPath/${_chain.id}');
 
       return ChainBuilder(
         key: PageStorageKey<String>(_chain.id),
@@ -144,7 +144,7 @@ class ChainSplitter extends StatelessWidget {
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
         onLongPress: onLongPress,
-        parentLevel: parentLevel,
+        level: level,
         selectedPhids: selectedPhids,
         searchText: searchText,
         onAddToPath: onAddToPath,
@@ -167,7 +167,7 @@ class ChainSplitter extends StatelessWidget {
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
@@ -190,10 +190,10 @@ class ChainSplitter extends StatelessWidget {
         phid: DataCreation.cipherDataCreator(_phid),
         secondLine: createSecondLine(secondLinesType, _phid.toString()),
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         searchText: searchText,
         color: Colorz.green50,
-        onLongTap: () => onLongPress(_cleanedPath),
+        onDoubleTap: () => onLongPress(_cleanedPath),
         // isDisabled: false,
         onTap: (){
 
