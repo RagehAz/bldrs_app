@@ -1,11 +1,12 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/x_chains_manager_controllers.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/editing_chain_builders/a_editing_chain_splitter.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +50,8 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   @override
   void initState() {
     super.initState();
-    _initialChains.value = widget.chains;
-    _tempChains.value = widget.chains;
+    _initialChains.value = Phider.sortChainsByIndexes(widget.chains);
+    _tempChains.value = _initialChains.value;
   }
   // --------------------
   /*
@@ -84,7 +85,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: 'Bldrs Chains',
+      pageTitleVerse: 'Chains',
       translatePageTitle: false,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
@@ -92,6 +93,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         context: context,
         goBackOnConfirm: true,
       ),
+      pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
 
         const Expander(),
@@ -113,27 +115,49 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                   final bool _identicalChains = Chain.checkChainsListsAreIdentical(
                     chains1: tempChains,
                     chains2: initialChains,
-                    blogDifferences: false,
                   );
 
                   return Row(
                     children: <Widget>[
 
+                      /// RESET
+                      AppBarButton(
+                          icon: Iconz.reload,
+                          buttonColor: Colorz.bloodTest,
+                          onTap: () async {
+
+                            final bool _result = await Dialogs.bottomBoolDialog(
+                                context: context,
+                                titleVerse: 'Reset Chains ?',
+                            );
+
+                            if (_result == true){
+                              _tempChains.value = widget.chains;
+                            }
+
+                          }
+                      ),
+
                       /// BLOG CURRENT CHAIN PATHS
                       AppBarButton(
-                          verse:  'B.Paths',
+                          verse:  'Path',
                           translate: false,
                           buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
                           onTap: () async {
 
-                            // Chain.blogChainsPaths(tempChains);
+                            Chain.blogChainsPaths(tempChains);
+
+                            Chain.blogChainsPathsDifferences(
+                                chains1: tempChains,
+                                chains2: initialChains,
+                            );
 
                           }
                       ),
 
                       /// BLOG CURRENT CHAIN
                       AppBarButton(
-                        verse:  'B.Chain',
+                        verse:  'Chain',
                         translate: false,
                         buttonColor: _identicalChains == true ? Colorz.white20 : Colorz.bloodTest,
                         onTap: (){
@@ -181,40 +205,50 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: Stratosphere.stratosphereSandwich,
-          child: ValueListenableBuilder(
-            valueListenable: _tempChains,
-            builder: (_, List<Chain> tempChains, Widget child){
+        child: ValueListenableBuilder(
+          valueListenable: _tempChains,
+          builder: (_, List<Chain> tempChains, Widget child){
 
-              return EditingChainSplitter(
-                initiallyExpanded: false,
-                chainOrChainsOrSonOrSons: tempChains,
-                onSelectPhid: (String path, String phid) => onPhidTap(
-                  context: context,
-                  path: path,
-                  phid: phid,
-                  tempChains: _tempChains,
-                ),
-                onAddToPath: (String path) => onAddNewPath(
-                  context: context,
-                  path: path,
-                  tempChains: _tempChains,
-                ),
-                editMode: true,
-                secondLinesType: ChainSecondLinesType.indexAndID,
-                onLongPress: (String path) => onPhidTap(
-                  context: context,
-                  path: path,
-                  phid: null,
-                  tempChains: _tempChains,
-                )
-              );
+            return EditingChainSplitter(
+              width: Scale.superScreenWidth(context),
+              initiallyExpanded: false,
+              chainOrChainsOrSonOrSons: tempChains,
+              onSelectPhid: (String path, String phid) => onPhidTap(
+                context: context,
+                path: path,
+                phid: phid,
+                tempChains: _tempChains,
+              ),
+              onAddToPath: (String path) => onAddNewPath(
+                context: context,
+                path: path,
+                tempChains: _tempChains,
+              ),
+              secondLinesType: ChainSecondLinesType.indexAndID,
+              onDoubleTap: (String path) => onPhidTap(
+                context: context,
+                path: path,
+                phid: null,
+                tempChains: _tempChains,
+              ),
+              onReorder: ({
+                int oldIndex,
+                int newIndex,
+                List<dynamic> sons,
+                String previousPath,
+                int level,
+              }) => onReorderSon(
+                sons: sons,
+                oldIndex: oldIndex,
+                tempChains: _tempChains,
+                newIndex: newIndex,
+                previousPath: previousPath,
+                level: level,
+              ),
+            );
 
-            },
+          },
 
-          ),
         ),
       ),
     );

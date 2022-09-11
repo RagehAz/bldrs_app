@@ -63,6 +63,7 @@ class DreamBox extends StatelessWidget {
     this.verseHighlight,
     this.verseHighlightColor = Colorz.bloodTest,
     this.onLongTap,
+    this.onDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -114,6 +115,7 @@ class DreamBox extends StatelessWidget {
   final ValueNotifier<dynamic> verseHighlight;
   final Color verseHighlightColor;
   final Function onLongTap;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   static Color getIconColor({
     bool blackAndWhite = false,
@@ -384,7 +386,7 @@ class DreamBox extends StatelessWidget {
           ),
 
         /// --- RIPPLE & TAP LAYER
-        if (onTap != null || onDeactivatedTap != null || onLongTap != null)
+        if (onTap != null || onDeactivatedTap != null || onLongTap != null || onDoubleTap != null)
           DreamBoxTapLayer(
             key: const ValueKey<String>('DreamBoxTapLayer'),
             width: width,
@@ -397,6 +399,7 @@ class DreamBox extends StatelessWidget {
             deactivated: isDeactivated,
             onDeactivatedTap: onDeactivatedTap,
             onLongTap: onLongTap,
+            onDoubleTap: onDoubleTap,
           ),
 
       ],

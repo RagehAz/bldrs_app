@@ -17,6 +17,7 @@ class DreamBoxTapLayer extends StatelessWidget {
     @required this.deactivated,
     @required this.onDeactivatedTap,
     @required this.onLongTap,
+    @required this.onDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class DreamBoxTapLayer extends StatelessWidget {
   final bool deactivated;
   final Function onDeactivatedTap;
   final Function onLongTap;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   Future<void> _onTap(BuildContext context) async {
 
@@ -76,6 +78,7 @@ class DreamBoxTapLayer extends StatelessWidget {
             onTap: onTap == null && onDeactivatedTap == null ? null : () => _onTap(context),
             onTapCancel: onTapCancel,
             onLongPress: onLongTap,
+            onDoubleTap: onDoubleTap,
           ),
         ),
       ),

@@ -341,12 +341,14 @@ class Phider {
   static List<String> createPhidsIndexes(List<String> phids){
     final List<String> _output = <String>[];
 
+    /// NOTE : OVERRIDES EXISTING INDEX
+
     if (Mapper.checkCanLoopList(phids) == true){
 
       for (int i = 0; i< phids.length; i++){
 
         final String _modified = addIndexToPhid(
-            phid: phids[i],
+            phid: removeIndexFromPhid(phid: phids[i]),
             index: i
         );
 
@@ -490,6 +492,45 @@ class Phider {
     }
 
     return _isPhidK;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GETTER
+
+  // --------------------
+  static String getPossibleID(dynamic son){
+
+    String _id;
+
+    if (son != null){
+
+      final bool _isChain = son is Chain;
+      final bool _isChains = Chain.checkIsChains(son);
+      final bool _isPhid = Phider.checkIsPhid(son);
+      final bool _isPhids = Phider.checkIsPhids(son);
+      final bool _isDataCreator = DataCreation.checkIsDataCreator(son);
+
+      /// BLOGGING
+      if (_isChains){
+
+      }
+      else if (_isChain){
+        final Chain chain = son;
+        _id = removeIndexFromPhid(phid: chain.id);
+      }
+      else if (_isPhids){
+
+      }
+      else if (_isPhid){
+        _id = removeIndexFromPhid(phid: son);
+      }
+      else if (_isDataCreator){
+        _id = DataCreation.cipherDataCreator(son);
+      }
+
+    }
+
+    return _id;
   }
   // -----------------------------------------------------------------------------
 }

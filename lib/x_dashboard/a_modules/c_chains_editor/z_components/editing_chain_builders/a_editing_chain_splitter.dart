@@ -21,11 +21,11 @@ class EditingChainSplitter extends StatelessWidget {
   const EditingChainSplitter({
     @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
-    @required this.editMode,
     @required this.secondLinesType,
-    @required this.onLongPress,
+    @required this.onDoubleTap,
+    @required this.onReorder,
     this.previousPath = '',
-    this.parentLevel = 0,
+    this.level = 0,
     this.width,
     this.onSelectPhid,
     this.selectedPhids,
@@ -35,7 +35,7 @@ class EditingChainSplitter extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
-  final int parentLevel;
+  final int level;
   final String previousPath;
   final double width;
   final Function(String path, String phid) onSelectPhid;
@@ -44,8 +44,8 @@ class EditingChainSplitter extends StatelessWidget {
   final ValueNotifier<String> searchText;
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
-  final bool editMode;
-  final ValueChanged<String> onLongPress;
+  final ValueChanged<String> onDoubleTap;
+  final Function({int oldIndex, int newIndex, List<dynamic> sons, String previousPath, int level}) onReorder;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   String createSecondLine(ChainSecondLinesType type, String phid, {int index}){
@@ -75,12 +75,10 @@ class EditingChainSplitter extends StatelessWidget {
     if (chainOrChainsOrSonOrSons is String) {
 
       final String _phid = chainOrChainsOrSonOrSons;
-
       final bool _isSelected = Stringer.checkStringsContainString(
         strings: selectedPhids,
         string: _phid,
       );
-
       final Color _color = _isSelected == true ? Colorz.blue125 : Colorz.white20;
       final String _path = '$previousPath/$_phid/';
       final String _cleanedPath = ChainPathConverter.fixPathFormatting(_path);
@@ -89,10 +87,10 @@ class EditingChainSplitter extends StatelessWidget {
         phid: _phid,
         secondLine: createSecondLine(secondLinesType, _phid),
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         searchText: searchText,
         color: _color,
-        onLongTap: () => onLongPress(_cleanedPath),
+        onDoubleTap: () => onDoubleTap(_cleanedPath),
         onTap: () => onSelectPhid(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
@@ -106,19 +104,22 @@ class EditingChainSplitter extends StatelessWidget {
     // --------------------
     /// IF SONS IS List<String>
     else if (chainOrChainsOrSonOrSons is List<String>){
+
       return EditingChainsBuilder(
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
         secondLinesType: secondLinesType,
-        onLongPress: onLongPress,
+        onDoubleTap: onDoubleTap,
+        onReorder: onReorder,
       );
+
     }
     // --------------------
     /// IF SON IS CHAIN
@@ -126,7 +127,6 @@ class EditingChainSplitter extends StatelessWidget {
 
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       final Chain _chain = chainOrChainsOrSonOrSons;
-      // blog('$parentLevel : $previousPath/${_chain.id}');
 
       return EditingChainBuilder(
         key: PageStorageKey<String>(_chain.id),
@@ -138,13 +138,13 @@ class EditingChainSplitter extends StatelessWidget {
         secondHeadline: createSecondLine(secondLinesType, _chain.id),
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
-        onLongPress: onLongPress,
-        parentLevel: parentLevel,
+        onDoubleTap: onDoubleTap,
+        level: level,
         selectedPhids: selectedPhids,
         searchText: searchText,
         onAddToPath: onAddToPath,
-        editMode: editMode,
         secondLinesType: secondLinesType,
+        onReorder: onReorder,
 
         // deactivated: ,
         // expansionColor: ,
@@ -162,20 +162,21 @@ class EditingChainSplitter extends StatelessWidget {
         sons: chainOrChainsOrSonOrSons,
         previousPath: previousPath, // good
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         onPhidTap: onSelectPhid,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
         secondLinesType: secondLinesType,
-        onLongPress: onLongPress,
+        onDoubleTap: onDoubleTap,
+        onReorder: onReorder,
       );
 
     }
     // --------------------
     /// EDIT MODE AND DATA CREATOR
-    else if (editMode == true && DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
+    else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
       final DataCreator _phid = chainOrChainsOrSonOrSons;
       final String _path = '$previousPath/$_phid/';
@@ -185,10 +186,10 @@ class EditingChainSplitter extends StatelessWidget {
         phid: DataCreation.cipherDataCreator(_phid),
         secondLine: createSecondLine(secondLinesType, _phid.toString()),
         width: _width,
-        parentLevel: parentLevel,
+        level: level,
         searchText: searchText,
         color: Colorz.green50,
-        onLongTap: () => onLongPress(_cleanedPath),
+        onDoubleTap: () => onDoubleTap(_cleanedPath),
         // isDisabled: false,
         onTap: (){
 
@@ -196,11 +197,14 @@ class EditingChainSplitter extends StatelessWidget {
 
         }, // good
       );
+
     }
     // --------------------
     /// OTHERWISE
     else {
+
       return const BldrsName(size: 40);
+
     }
     // --------------------
   }
