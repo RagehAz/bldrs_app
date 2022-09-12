@@ -59,6 +59,7 @@ class EditingChainsBuilder extends StatelessWidget {
           vertical: Ratioz.appBarPadding,
         ),
         onReorder: (oldIndex, newIndex) {
+
           int _newIndex = newIndex;
           if (newIndex > oldIndex) {
             _newIndex = newIndex - 1;
@@ -113,6 +114,7 @@ class EditingChainsBuilder extends StatelessWidget {
 
           /// ADD TO PATH BUTTON
           else {
+
             return DreamBox(
               key: const ValueKey<String>('add_button'),
               height: 60,
@@ -135,6 +137,7 @@ class EditingChainsBuilder extends StatelessWidget {
               ),
               onTap: () => onAddToPath(previousPath),
             );
+
           }
 
         },

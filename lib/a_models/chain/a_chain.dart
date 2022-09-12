@@ -1145,13 +1145,12 @@ class Chain {
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
-    @required String oldChainID,
   }){
     List<Chain> _output = <Chain>[];
 
     if (Mapper.checkCanLoopList(chains) == true && chainToReplace != null){
 
-      final int _index = chains.indexWhere((chain) => oldChainID == chain.id);
+      final int _index = chains.indexWhere((chain) => chainToReplace.id == chain.id);
 
       /// WHEN NO CHAIN TO UPDATE FOUND
       if (_index == -1){
