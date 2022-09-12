@@ -87,7 +87,7 @@ class AppState {
     return <String, dynamic>{
       'id' : id,
       'chainsVersion' : chainsVersion,
-      'specPickersVersion' : pickersVersion,
+      'pickersVersion' : pickersVersion,
       'phrasesVersion' : phrasesVersion,
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
@@ -107,7 +107,7 @@ class AppState {
       return AppState(
         id: map['id'],
         chainsVersion : map['chainsVersion']?.toDouble(),
-        pickersVersion : map['specPickersVersion']?.toDouble(),
+        pickersVersion : map['pickersVersion']?.toDouble(),
         phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
         ldbVersion : map['ldbVersion']?.toDouble(),
@@ -175,11 +175,11 @@ class AppState {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogAppState(){
-    blog('AppState is : -------------------- START');
+  void blogAppState({String invoker = ''}){
+    blog('AppState is $invoker : -------------------- START');
     blog('id : $id');
-    blog('keywordsChainVersion : $chainsVersion');
-    blog('specPickersVersion : $pickersVersion');
+    blog('chainsVersion : $chainsVersion');
+    blog('pickersVersion : $pickersVersion');
     blog('phrasesVersion : $phrasesVersion');
     blog('appVersion : $appVersion');
     blog('ldbVersion : $ldbVersion');
@@ -191,6 +191,7 @@ class AppState {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
     @required AppState appState1,
     @required AppState appState2,

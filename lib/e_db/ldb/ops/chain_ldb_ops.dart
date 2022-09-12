@@ -52,7 +52,7 @@ class ChainLDBOps {
   /// UPDATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
     @required List<Chain> chains,
   }) async {
@@ -65,7 +65,7 @@ class ChainLDBOps {
   /// DELETE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteBldrsChains() async {
 
     await LDBOps.deleteAllMapsAtOnce(
@@ -75,91 +75,3 @@ class ChainLDBOps {
   }
   // --------------------
 }
-
-/*
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> insertBigChainK(Chain bigChainK) async {
-
-    await LDBOps.insertMap(
-      input: Chain.cipherBigChainK(chainK: bigChainK),
-      docName: LDBDoc.bigChainK,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> insertBigChainS(Chain bigChainS) async {
-
-    await LDBOps.insertMap(
-      input: Chain.cipherBigChainS(chainS: bigChainS),
-      docName: LDBDoc.bigChainS,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Chain> readBigChainK() async {
-
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.bigChainK,
-    );
-
-    Chain _bigChainK;
-
-    if (Mapper.checkCanLoopList(_maps) == true) {
-
-      _bigChainK = Chain.decipherBigChainK(
-        bigChainKMap: _maps[0],
-      );
-
-    }
-
-    return _bigChainK;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Chain> readBigChainS() async {
-
-    final List<Map<String, Object>> _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.bigChainS,
-    );
-
-    Chain _bigChainS;
-
-    if (Mapper.checkCanLoopList(_maps) == true) {
-
-      _bigChainS = Chain.decipherBigChainS(
-        bigChainSMap: _maps[0],
-      );
-
-    }
-
-    return _bigChainS;
-  }
-
-    // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateBigChainK({
-    @required Chain newBigChainK,
-  }) async {
-
-    // await deleteBigChainK();
-
-    await insertBigChainK(newBigChainK);
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateBigChainS({
-    @required Chain newBigChainS,
-  }) async {
-
-    // await deleteBigChainS();
-
-    await insertBigChainS(newBigChainS);
-
-  }
-
- */

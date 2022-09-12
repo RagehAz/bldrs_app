@@ -688,6 +688,7 @@ class Real {
   /// UPDATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateColl({
     @required BuildContext context,
     @required String collName,

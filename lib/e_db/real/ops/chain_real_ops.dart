@@ -74,6 +74,7 @@ class ChainRealOps {
   /// UPDATE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
     @required BuildContext context,
     @required List<Chain> chains,
