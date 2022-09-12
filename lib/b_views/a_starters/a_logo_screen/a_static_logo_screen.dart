@@ -100,8 +100,11 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
       loading: _loading,
-      onBack: (){
-        Nav.closeApp(context);
+      onBack: () async {
+        await Nav.replaceScreen(
+          context: context,
+          screen: const StaticLogoScreen(),
+        );
       },
       layoutWidget: LogoScreenView(
         scaleController: _scaleController,

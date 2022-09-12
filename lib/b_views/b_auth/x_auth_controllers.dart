@@ -74,6 +74,7 @@ Future<void> authByEmailSignIn({
   @required String email,
   @required String password,
   @required GlobalKey<FormState> formKey,
+  @required bool mounted,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -103,7 +104,9 @@ Future<void> authByEmailSignIn({
       authModel: _authModel,
     );
 
-    WaitDialog.closeWaitDialog(context);
+    if (mounted == true){
+      WaitDialog.closeWaitDialog(context);
+    }
 
   }
 
