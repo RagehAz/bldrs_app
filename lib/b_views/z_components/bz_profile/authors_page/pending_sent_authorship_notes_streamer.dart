@@ -92,7 +92,10 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
         if (Mapper.checkCanLoopList(_notes) == true){
           return Bubble(
             headerViewModel: const BubbleHeaderVM(
-              headlineVerse: 'phid_pending_invitation_requests',
+              headlineVerse: Verse(
+                text: 'phid_pending_invitation_requests',
+                translate: true,
+              ),
             ),
             width: BldrsAppBar.width(context),
             onBubbleTap: (){

@@ -30,7 +30,11 @@ class UserFollowingPage extends StatelessWidget {
     /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
       return const SuperVerse(
-        verse: '##Fuck you',
+        verse: Verse(
+            text: 'phid_no_bzz_are_followed',
+            translate: true,
+            casing: Casing.capitalizeFirstChar,
+        ),
       );
     }
     // --------------------

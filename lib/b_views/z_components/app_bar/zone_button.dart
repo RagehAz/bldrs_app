@@ -81,12 +81,18 @@ class ZoneButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     SuperVerse(
-                      verse: _firstRow ?? '',
+                      verse: Verse(
+                        text: _firstRow ?? '',
+                        translate: false,
+                      ),
                       size: 1,
                       color: isOn ? Colorz.black230 : Colorz.white255,
                     ),
                     SuperVerse(
-                      verse: _secondRow ?? '',
+                      verse: Verse(
+                        text: _secondRow ?? '',
+                        translate: false,
+                      ),
                       size: 1,
                       scaleFactor: 0.8,
                       color: isOn ? Colorz.black230 : Colorz.white255,

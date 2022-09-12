@@ -24,7 +24,7 @@ class SuperTextField extends StatefulWidget {
     /// main
     this.isFormField,
     this.initialValue,
-    this.hintVerse = '...',
+    this.hintVerse,
     this.autofocus = false,
     this.focusNode,
     this.counterIsOn = false,
@@ -69,11 +69,11 @@ class SuperTextField extends StatefulWidget {
   }) : super(key: key);
   // --------------------------------------------------------------------------
   /// main
-  final String titleVerse;
+  final Verse titleVerse;
   final bool isFormField;
   final TextEditingController textController;
   final String initialValue;
-  final String hintVerse;
+  final Verse hintVerse;
   final bool autofocus;
   final FocusNode focusNode;
   final bool counterIsOn;
@@ -217,8 +217,10 @@ class SuperTextField extends StatefulWidget {
     @required Color fieldColor,
   }){
     return SuperVerse(
-      verse:  '$currentLength / $maxLength',
-      translate: false,
+      verse:  Verse(
+        text: '$currentLength / $maxLength',
+        translate: false,
+      ),
       weight: VerseWeight.thin,
       // size: 2,
       // scaleFactor: 1,
@@ -655,7 +657,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                   /// main
                   isFormField: widget.isFormField,
                   controller: _controller,
-                  hintText: widget.hintVerse,
+                  hintVerse: widget.hintVerse,
                   autoFocus: widget.autofocus,
                   focusNode: _focusNode,
                   counterIsOn: widget.counterIsOn,

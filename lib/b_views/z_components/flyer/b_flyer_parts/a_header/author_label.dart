@@ -166,14 +166,20 @@ class AuthorLabel extends StatelessWidget {
 
                     /// AUTHOR NAME
                     SuperVerse(
-                      verse: _author?.name,
+                      verse: Verse(
+                        text: _author?.name,
+                        translate: false,
+                      ),
                       centered: false,
                       scaleFactor: flyerBoxWidth / _screenWidth,
                     ),
 
                     /// AUTHOR TITLE
                     SuperVerse(
-                      verse: _author?.title,
+                      verse: Verse(
+                        text: _author?.title,
+                        translate: false,
+                      ),
                       size: 1,
                       weight: VerseWeight.regular,
                       centered: false,
@@ -183,7 +189,10 @@ class AuthorLabel extends StatelessWidget {
 
                     /// FOLLOWERS COUNTER
                     SuperVerse(
-                      verse: _followersCounter,
+                      verse: Verse(
+                        text: _followersCounter,
+                        translate: false,
+                      ),
                       italic: true,
                       centered: false,
                       weight: VerseWeight.regular,

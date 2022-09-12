@@ -104,7 +104,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
             SizedBox(
               width: Scale.superScreenWidth(context) * 0.8,
               child: const SuperVerse(
-                verse: _message,
+                verse: Verse(
+                  text: _message,
+                  translate: false,
+                ),
                 // size: 2,
                 weight: VerseWeight.thin,
                 color: Colorz.yellow200,

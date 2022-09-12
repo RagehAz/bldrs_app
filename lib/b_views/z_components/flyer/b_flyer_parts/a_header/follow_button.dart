@@ -33,7 +33,6 @@ class FollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    const String followText = 'phid_follow';
     // --------------------
     return GestureDetector(
       onTap: onFollowTap,
@@ -84,7 +83,10 @@ class FollowBT extends StatelessWidget {
                     /// FOLLOW TEXT
                     if (_followIsOn == false)
                       SuperVerse(
-                        verse: followText,
+                        verse: const Verse(
+                          text: 'phid_follow',
+                          translate: true,
+                        ),
                         color: followTextColor,
                         size: 0,
                         scaleFactor: flyerBoxWidth / screenWidth,

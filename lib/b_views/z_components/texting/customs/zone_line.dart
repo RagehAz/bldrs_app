@@ -22,7 +22,7 @@ class ZoneLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _zoneString = ZoneModel.translateZoneString(
+    final Verse _zoneVerse = ZoneModel.translateZoneString(
       context: context,
       zoneModel: zoneModel,
       showCity: showCity,
@@ -47,7 +47,7 @@ class ZoneLine extends StatelessWidget {
           ),
 
           SuperVerse(
-            verse: _zoneString,
+            verse: _zoneVerse,
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,

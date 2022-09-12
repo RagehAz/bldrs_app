@@ -173,7 +173,10 @@ class InfoPageSpecs extends StatelessWidget {
 
                     /// SPEC PICKER NAME
                     SuperVerse(
-                      verse: _pickerName,
+                      verse: Verse(
+                        text: _pickerName,
+                        translate: true,
+                      ),
                       weight: VerseWeight.thin,
                       color: Colorz.white200,
                       centered: false,

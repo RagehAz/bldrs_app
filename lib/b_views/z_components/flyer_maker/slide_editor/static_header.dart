@@ -18,11 +18,11 @@ class StaticHeader extends StatelessWidget {
     this.onTap,
     this.logo,
     this.authorImage,
-    this.firstLine = '',
-    this.secondLine = '',
-    this.thirdLine = '',
-    this.fourthLine = '',
-    this.fifthLine = '',
+    this.firstLine,
+    this.secondLine,
+    this.thirdLine,
+    this.fourthLine,
+    this.fifthLine,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,11 +32,11 @@ class StaticHeader extends StatelessWidget {
   final Function onTap;
   final String logo;
   final String authorImage;
-  final String firstLine;
-  final String secondLine;
-  final String thirdLine;
-  final String fourthLine;
-  final String fifthLine;
+  final Verse firstLine;
+  final Verse secondLine;
+  final Verse thirdLine;
+  final Verse fourthLine;
+  final Verse fifthLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -112,10 +112,10 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: titleVerse ?? 'Go Back ?',
+      titleVerse: titleVerse ?? '##Go Back ?',
       bodyVerse: bodyVerse,
       boolDialog: true,
-      confirmButtonVerse: confirmButtonText ?? 'Go Back',
+      confirmButtonVerse: confirmButtonText ?? '##Go Back',
     );
 
     if (goBackOnConfirm == true && _result == true){
@@ -162,9 +162,11 @@ class Dialogs {
                 boxWidth: BottomDialog.clearWidth(context),
               ),
               // color: Colorz.bloodTest,
-              verse: 'phid_no',
-              verseCasing: VerseCasing.upperCase,
-              translateVerse: true,
+              verse: const Verse(
+                text: 'phid_no',
+                casing: Casing.upperCase,
+                translate: true,
+              ),
               verseItalic: true,
               onTap: (){
                 Nav.goBack(context: context, invoker: 'bottomBoolDialog');
@@ -180,9 +182,11 @@ class Dialogs {
                 boxWidth: BottomDialog.clearWidth(context),
               ),
               color: Colorz.green125,
-              verse: 'phid_yes',
-              verseCasing: VerseCasing.upperCase,
-              translateVerse: true,
+              verse: const Verse(
+                text: 'phid_yes',
+                casing: Casing.upperCase,
+                translate: true,
+              ),
               verseItalic: true,
               onTap: (){
                 _result = true;
@@ -418,7 +422,7 @@ class Dialogs {
                   minLines: _keyboardModel.minLines,
                   maxLength: _keyboardModel.maxLength,
                   bubbleWidth: _clearWidth,
-                  hintText: _keyboardModel.hintVerse,
+                  hintVerse: _keyboardModel.hintVerse,
                   counterIsOn: _keyboardModel.counterIsOn,
                   canObscure: _keyboardModel.canObscure,
                   keyboardTextInputType: _keyboardModel.textInputType,
@@ -460,8 +464,11 @@ class Dialogs {
                     height: 40,
                     verseScaleFactor: 0.6,
                     margins: const EdgeInsets.symmetric(horizontal: 10),
-                    verse:'Confirm',
-
+                    verse: const Verse(
+                      text: 'phid_confirm',
+                      translate: true,
+                      casing: Casing.upperCase,
+                    ),
                     onTap: () => _onSubmit(_text),
                   ),
 
@@ -497,7 +504,12 @@ class Dialogs {
           return <Widget>[
 
             const SuperVerse(
-              verse: '##Please confirm your city',
+              verse: Verse(
+                text: 'phid_confirm_your_city',
+                translate: true,
+                casing: Casing.capitalizeFirstChar,
+                pseudo: 'Please confirm your city',
+              ),
             ),
 
             ...List<Widget>.generate(cities.length, (int index) {
@@ -519,6 +531,7 @@ class Dialogs {
                     );
 
                   });
+
             }),
 
           ];

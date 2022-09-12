@@ -61,7 +61,11 @@ class SlidesShelf extends StatelessWidget {
               alignment: Aligners.superCenterAlignment(context),
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               child: SuperVerse(
-                verse: title.toUpperCase(),
+                verse: Verse(
+                  text: title,
+                  translate: false,
+                  casing: Casing.upperCase,
+                ),
                 size: 4,
                 scaleFactor: _flyerSizeFactor * 4,
                 weight: VerseWeight.black,
@@ -102,7 +106,10 @@ class SlidesShelf extends StatelessWidget {
                         alignment: Aligners.superCenterAlignment(context),
                         child: index < pics.length
                             ? SuperVerse(
-                          verse:  '${index + 1}',
+                          verse: Verse(
+                            text: '${index + 1}',
+                            translate: false,
+                          ),
                           size: 1,
                           color: Colorz.white200,
                           labelColor: Colorz.white10,
@@ -169,7 +176,11 @@ class SlidesShelf extends StatelessWidget {
                                   SizedBox(
                                     width: _flyerZoneWidth * 0.95,
                                     child: const SuperVerse(
-                                      verse: '##Add Photos',
+                                      verse: Verse(
+                                        text: 'phid_add_photos',
+                                        translate: true,
+                                        casing: Casing.capitalizeFirstChar,
+                                      ),
                                       color: Colorz.white20,
                                       maxLines: 2,
                                     ),

@@ -6,7 +6,9 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
+@immutable
 class BubbleHeaderVM {
   /// --------------------------------------------------------------------------
   const BubbleHeaderVM({
@@ -19,7 +21,6 @@ class BubbleHeaderVM {
     this.hasSwitch = false,
     this.hasMoreButton = false,
     this.headlineVerse,
-    this.translateHeadline = true,
     this.headlineColor = Colorz.white255,
     this.switchValue = false,
     this.onSwitchTap,
@@ -36,8 +37,7 @@ class BubbleHeaderVM {
   final Function onLeadingIconTap;
   final bool hasSwitch;
   final bool hasMoreButton;
-  final String headlineVerse;
-  final bool translateHeadline;
+  final Verse headlineVerse;
   final Color headlineColor;
   final bool centered;
   final bool switchValue;
@@ -53,8 +53,7 @@ class BubbleHeaderVM {
     bool leadingIconIsBubble,
     bool hasSwitch,
     bool hasMoreButton,
-    String headlineVerse,
-    bool translateHeadline,
+    Verse headlineVerse,
     Color headlineColor,
     bool switchValue,
     ValueChanged<bool> onSwitchTap,
@@ -70,7 +69,6 @@ class BubbleHeaderVM {
       hasSwitch: hasSwitch ?? this.hasSwitch,
       hasMoreButton: hasMoreButton ?? this.hasMoreButton,
       headlineVerse: headlineVerse ?? this.headlineVerse,
-      translateHeadline: translateHeadline ?? this.translateHeadline,
       headlineColor: headlineColor ?? this.headlineColor,
       switchValue: switchValue ?? this.switchValue,
       onSwitchTap: onSwitchTap ?? this.onSwitchTap,
@@ -165,7 +163,6 @@ class BubbleHeader extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: SuperVerse(
               verse: viewModel.headlineVerse,
-              translate: viewModel.translateHeadline,
               color: viewModel.headlineColor,
               maxLines: 2,
               centered: viewModel.centered,

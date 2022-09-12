@@ -219,7 +219,10 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
                       children: <Widget>[
 
                         SuperVerse(
-                          verse: _noteModel.id,
+                          verse: Verse(
+                            text: _noteModel.id,
+                            translate: false,
+                          ),
                           italic: true,
                           size: 1,
                           margin: Scale.superInsets(context: context, enLeft: 20, top: 5),

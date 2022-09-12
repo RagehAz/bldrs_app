@@ -36,8 +36,8 @@ class CollapsedTile extends StatelessWidget {
   final double collapsedHeight;
   final String icon;
   final Widget child;
-  final String firstHeadline;
-  final String secondHeadline;
+  final Verse firstHeadline;
+  final Verse secondHeadline;
   final Animation<double> arrowTurns;
   final Color arrowColor;
   final double expandableHeightFactorAnimationValue;

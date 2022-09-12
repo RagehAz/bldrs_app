@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,7 @@ class SettingsWideButton extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
+  final Verse verse;
   final String icon;
   final Function onTap;
   final bool isOn;
@@ -34,11 +33,9 @@ class SettingsWideButton extends StatelessWidget {
     return DreamBox(
       isDeactivated: !isOn,
       height: height,
-      verse: verse,
-      translateVerse: true,
+      verse: verse.copyWith(casing: Casing.upperCase),
       verseColor: verseColor,
       verseShadow: verseColor != Colorz.black255,
-      verseCasing: VerseCasing.upperCase,
       icon: icon,
       iconColor: iconColor,
       width: width,

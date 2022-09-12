@@ -24,7 +24,7 @@ class MainButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
+  final Verse verse;
   final dynamic icon;
   final Color buttonColor;
   final Color splashColor;

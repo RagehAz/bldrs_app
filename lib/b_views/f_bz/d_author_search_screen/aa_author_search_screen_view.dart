@@ -47,7 +47,10 @@ class AuthorSearchScreenView extends StatelessWidget {
             valueListenable: isSearching,
             child: Bubble(
               headerViewModel: const BubbleHeaderVM(
-                headlineVerse: 'phid_share_invitation_link',
+                headlineVerse: Verse(
+                  text: 'phid_share_invitation_link',
+                  translate: true,
+                ),
               ),
               width: Bubble.bubbleWidth(context),
               margins: Scale.superPadding(
@@ -60,9 +63,13 @@ class AuthorSearchScreenView extends StatelessWidget {
                 SizedBox(
                   width: Bubble.clearWidth(context),
                   child: const SuperVerse(
-                    verse: '##This Link is available for one time use only, '
-                        'to allow its reciever to be redirected to '
-                        'creating new author account for your Business page',
+                    verse: Verse(
+                      pseudo: 'This Link is available for one time use only, '
+                          'to allow its reciever to be redirected to '
+                          'creating new author account for your Business page',
+                      text: 'phids_author_invitation_link_description',
+                      translate: true,
+                    ),
                     weight: VerseWeight.thin,
                     maxLines: 5,
                     centered: false,
@@ -71,7 +78,11 @@ class AuthorSearchScreenView extends StatelessWidget {
                 ),
 
                 const SuperVerse(
-                  verse: '##Invitation link . com',
+                  verse: Verse(
+                    text: 'phid_invitation_link_com',
+                    translate: true,
+                    pseudo: 'Invitation link . com',
+                  ),
                   maxLines: 2,
                   margin: 10,
                   weight: VerseWeight.thin,
@@ -88,7 +99,10 @@ class AuthorSearchScreenView extends StatelessWidget {
                       icon: Iconz.share,
                       iconSizeFactor: 0.5,
                       iconColor: Colorz.black230,
-                      verse: '##Share',
+                      verse: Verse(
+                        text: 'phid_share',
+                        translate: true,
+                      ),
                       verseColor: Colorz.black230,
                       verseScaleFactor: 1.2,
                     ),

@@ -120,16 +120,25 @@ class NoteCard extends StatelessWidget {
 
                     /// TITLE
                     SuperVerse(
-                      verse: TextCheck.isEmpty(noteModel?.title) == false ? noteModel?.title : '##Title',
+                      verse: Verse(
+                        text: TextCheck.isEmpty(noteModel?.title) == false ?
+                        noteModel?.title
+                            :
+                        'phid_title',
+                        translate: false,
+                      ),
                       maxLines: 5,
                       centered: false,
                     ),
 
                     /// TIME STAMP
                     SuperVerse(
-                      verse: Timers.calculateSuperTimeDifferenceString(
+                      verse: Verse(
+                        text: Timers.calculateSuperTimeDifferenceString(
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
+                        ),
+                        translate: false,
                       ),
                       color: Colorz.grey255,
                       italic: true,
@@ -141,7 +150,10 @@ class NoteCard extends StatelessWidget {
 
                     /// BODY
                     SuperVerse(
-                      verse: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
+                      verse: Verse(
+                        text: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
+                        translate: false,
+                      ),
                       weight: VerseWeight.thin,
                       maxLines: 20,
                       centered: false,

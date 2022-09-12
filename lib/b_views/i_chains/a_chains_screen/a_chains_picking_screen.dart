@@ -41,7 +41,7 @@ class ChainsPickingScreen extends StatefulWidget {
   final List<FlyerType> flyerTypesChainFilters;
   final bool onlyUseCityChains;
   final bool isMultipleSelectionMode;
-  final String pageTitleVerse;
+  final Verse pageTitleVerse;
   final bool onlyChainKSelection;
   final ZoneModel zone;
   /// --------------------------------------------------------------------------
@@ -295,7 +295,12 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
               child: WidgetFader(
                 fadeType: FadeType.repeatAndReverse,
                 child: SuperVerse(
-                  verse: '##Loading\n Please Wait',
+                  verse: Verse(
+                    text: 'phid_loading_please_wait',
+                    translate: true,
+                    pseudo: 'Loading\n Please Wait',
+                    casing: Casing.capitalizeFirstChar,
+                  ),
                   weight: VerseWeight.black,
                   maxLines: 2,
                 ),

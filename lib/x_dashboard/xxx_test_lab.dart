@@ -267,7 +267,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   void _onTextFieldChanged(String text){
     blog('received text : $text');
 
-    final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
+    final String _phone  = text.nullifyNumberIfOnlyCountryCode(
       number: text,
       countryID: 'egy',
     );

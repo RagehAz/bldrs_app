@@ -181,9 +181,12 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
                   child: SuperVerse(
-                    verse: Timers.generateString_on_dd_month_yyyy(
-                        context: context,
-                        time: DateTime.now()
+                    verse: Verse(
+                      text: Timers.generateString_on_dd_month_yyyy(
+                          context: context,
+                          time: DateTime.now()
+                      ),
+                      translate: false,
                     ),
                     color: Colorz.grey255,
                     italic: true,
@@ -270,13 +273,19 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// NOTE TYPE
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse:  'Note Type',
+                    headlineVerse: Verse(
+                      text: 'Note Type',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.star,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
 
                   ),
-                  secondLineVerse:  'Select Note Type',
+                  secondLineVerse: const Verse(
+                    text: 'Select Note Type',
+                    translate: false,
+                  ),
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -302,7 +311,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     return DreamBox(
                                       height: 40,
                                       width: _noteTypeButtonWidth,
-                                      verse: _noteTypeString.toUpperCase(),
+                                      verse: Verse(
+                                        text: _noteTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
                                       verseScaleFactor: 0.5,
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -333,12 +346,18 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// SENDER
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse:  'Sender',
+                    headlineVerse: Verse(
+                      text: 'Sender',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.normalUser,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLineVerse:  'Select Note Sender',
+                  secondLineVerse: const Verse(
+                    text: 'Select Note Sender',
+                    translate: false,
+                  ),
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -365,7 +384,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     return DreamBox(
                                       height: 40,
                                       width: _noteSenderTypeButtonWidth,
-                                      verse: _senderTypeString.toUpperCase(),
+                                      verse: Verse(
+                                        text: _senderTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
                                       verseScaleFactor: 0.5,
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -415,12 +438,18 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// RECEIVER
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse:  'Receiver',
+                    headlineVerse: Verse(
+                      text: 'Receiver',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.news,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLineVerse:  'Select who will receive this Note',
+                  secondLineVerse: const Verse(
+                    text: 'Select who will receive this Note',
+                    translate: false,
+                  ),
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -445,7 +474,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     return DreamBox(
                                       height: 40,
                                       width: _noteButtonButtonWidth,
-                                      verse: NoteModel.cipherNoteReceiverType(_receiverType).toUpperCase(),
+                                      verse: Verse(
+                                        text: NoteModel.cipherNoteReceiverType(_receiverType),
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
                                       verseScaleFactor: 0.5,
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -499,19 +532,25 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                     return TileBubble(
                       bubbleHeaderVM: BubbleHeaderVM(
-                        headlineVerse:  'Send FCM',
+                        headlineVerse: Verse(
+                          text: 'Send FCM',
+                          translate: false,
+                        ),
                         leadingIcon: Iconz.news,
                         leadingIconSizeFactor: 0.5,
                         leadingIconBoxColor: Colorz.grey50,
-                        switchValue: noteModel.sendFCM,
+                        switchValue: noteModel?.sendFCM,
                         onSwitchTap: (bool val) => onSwitchSendFCM(
                           note: _note,
                           value: val,
                         ),
 
                       ),
-                      secondLineVerse:  'This sends firebase cloud message to the receiver or '
-                          'to a group of receivers through a channel',
+                      secondLineVerse: const Verse(
+                        text: 'This sends firebase cloud message to the receiver or '
+                            'to a group of receivers through a channel',
+                        translate: false,
+                      ),
                     );
 
                   },
@@ -520,12 +559,18 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// BUTTONS
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse:  'Buttons',
+                    headlineVerse: Verse(
+                      text: 'Buttons',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.pause,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
                   ),
-                  secondLineVerse:  'Add buttons to the Note',
+                  secondLineVerse: const Verse(
+                    text: 'Add buttons to the Note',
+                    translate: false,
+                  ),
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: Column(
@@ -553,7 +598,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     return DreamBox(
                                       height: 40,
                                       width: _noteButtonButtonWidth,
-                                      verse: _phid.toUpperCase(),
+                                      verse: Verse(
+                                        text: _phid,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
                                       verseScaleFactor: 0.5,
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -581,13 +630,19 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// ATTACHMENTS
                 TileBubble(
                   bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse:  'Attachments',
+                    headlineVerse: Verse(
+                      text: 'Attachments',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.flyer,
                     leadingIconSizeFactor: 0.5,
                     leadingIconBoxColor: Colorz.grey50,
 
                   ),
-                  secondLineVerse:  'Add attachments',
+                  secondLineVerse: Verse(
+                    text: 'Add attachments',
+                    translate: false,
+                  ),
                   child: SizedBox(
                     width: Bubble.clearWidth(context),
                     child: ValueListenableBuilder(
@@ -614,7 +669,11 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                                     return DreamBox(
                                       height: 40,
                                       width: _noteAttachmentTypeButtonWidth,
-                                      verse: _attachmentTypeString.toUpperCase(),
+                                      verse: Verse(
+                                        text: _attachmentTypeString,
+                                        translate: false,
+                                        casing: Casing.upperCase,
+                                      ),
                                       verseScaleFactor: 0.5,
                                       color: _isSelected == true ? Colorz.yellow255 : null,
                                       verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -735,7 +794,10 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                           height: 50,
                           alignment: Aligners.superTopAlignment(context),
                           child: SuperVerse(
-                            verse:  'Missing Fields :-\n$_missingFieldsString',
+                            verse: Verse(
+                              text: 'Missing Fields :-\n$_missingFieldsString',
+                              translate: false,
+                            ),
                             color: Colorz.red255,
                             size: 1,
                             italic: true,

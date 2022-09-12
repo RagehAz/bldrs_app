@@ -45,10 +45,9 @@ class AppBarTitle extends StatelessWidget {
         pageTitle is ValueNotifier<String> ?
         ValueListenableBuilder(
           valueListenable: pageTitle,
-          builder: (_, String title, Widget child){
+          builder: (_, Verse title, Widget child){
 
             return _HeadlineSuperVerse(
-              translate: translatePageTitle,
               title: title,
               width: width,
               appBarRowWidgets: appBarRowWidgets,
@@ -71,15 +70,13 @@ class _HeadlineSuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _HeadlineSuperVerse({
     @required this.title,
-    @required this.translate,
     @required this.backButtonIsOn,
     @required this.width,
     @required this.appBarRowWidgets,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
-  final bool translate;
+  final Verse title;
   final bool backButtonIsOn;
   final double width;
   final List<Widget> appBarRowWidgets;
@@ -93,9 +90,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(appBarRowWidgets) == true){
       return SuperVerse(
-        verse: title,
-        translate: translate,
-        verseCasing: VerseCasing.upperCase,
+        verse: title.copyWith(casing: Casing.upperCase),
         weight: VerseWeight.black,
         color: Colorz.white200,
         margin: 0,
@@ -115,9 +110,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
             horizontal: _titleHorizontalMargins
         ),
         child: SuperVerse(
-          verse: title,
-          translate: translate,
-          verseCasing: VerseCasing.upperCase,
+          verse: title.copyWith(casing: Casing.upperCase),
           weight: VerseWeight.black,
           color: Colorz.white200,
           margin: 0,

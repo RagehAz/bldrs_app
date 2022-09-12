@@ -99,61 +99,79 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
           return Bubble(
             headerViewModel: const BubbleHeaderVM(
-              headlineVerse: 'phid_stats',
+              headlineVerse: Verse(
+                text: 'phid_stats',
+                translate: true,
+              ),
             ),
               columnChildren: <Widget>[
 
                 /// FOLLOWERS
                 StatsLine(
-                  verse:  '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
+                  verse: Verse(
+                    text: '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
+                    translate: false,
+                  ),
                   icon: Iconz.follow,
-                  translate: false,
                 ),
 
                 /// CALLS
                 StatsLine(
-                  verse:  '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
+                  verse: Verse(
+                    text: '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
+                    translate: false,
+                  ),
                   icon: Iconz.comPhone,
-                  translate: false,
                 ),
 
                 /// SLIDES & FLYERS
                 StatsLine(
-                  verse:  '${_counter.allSlides} '
-                      '${xPhrase( context, 'phid_slidesPublished')} '
-                      '${xPhrase( context, 'phid_inn')} '
-                      '${_bzModel.flyersIDs.length} '
-                      '${xPhrase( context, 'phid_flyers')}',
+                  verse: Verse(
+                    text: '${_counter.allSlides} '
+                        '${xPhrase( context, 'phid_slidesPublished')} '
+                        '${xPhrase( context, 'phid_inn')} '
+                        '${_bzModel.flyersIDs.length} '
+                        '${xPhrase( context, 'phid_flyers')}',
+                    translate: false,
+                    varTag: [_counter.allSlides, _bzModel.flyersIDs.length]
+                  ),
                   icon: Iconz.gallery,
-                  translate: false,
                 ),
 
                 /// SAVES
                 StatsLine(
-                  verse:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
+                  verse: Verse(
+                    text:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
+                    translate: false,
+                  ),
                   icon: Iconz.saveOn,
-                  translate: false,
                 ),
 
                 /// VIEWS
                 StatsLine(
-                  verse:  '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
+                  verse: Verse(
+                    text: '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
+                    translate: false,
+                  ),
                   icon: Iconz.viewsIcon,
-                  translate: false,
                 ),
 
                 /// SHARES
                 StatsLine(
-                  verse:  '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
+                  verse: Verse(
+                    text: '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
+                    translate: false,
+                  ),
                   icon: Iconz.share,
-                  translate: false,
                 ),
 
                 /// BIRTH
                 StatsLine(
-                  verse: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel.createdAt),
+                  verse: Verse(
+                    text: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel.createdAt),
+                    translate: false,
+                  ),
                   icon: Iconz.calendar,
-                  translate: false,
                 ),
 
               ]

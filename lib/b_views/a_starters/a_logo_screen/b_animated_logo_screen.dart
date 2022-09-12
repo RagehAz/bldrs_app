@@ -332,7 +332,11 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               alignment: Alignment.bottomRight,
                               padding: EdgeInsets.only(right: _val * 300),
                               child: SuperVerse(
-                                verse: "THE BUILDER'S NETWORK",
+                                verse: const Verse(
+                                  text: 'phid_the_builders_network',
+                                  translate: true,
+                                  casing: Casing.upperCase,
+                                ),
                                 shadow: true,
                                 scaleFactor: 1.8,
                                 margin: Scale.superInsets(context: context, bottom: 10),
@@ -487,7 +491,11 @@ class AnimatedLine extends StatelessWidget {
         width: 200,
         height: 35,
         child: SuperVerse(
-          verse: verse.toUpperCase(),
+          verse: Verse(
+            text: verse,
+            casing: Casing.upperCase,
+            translate: true,
+          ),
           size: 3,
           weight: VerseWeight.black,
           italic: true,

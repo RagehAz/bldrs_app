@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class FlyersShelf extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersShelf({
-    this.title,
+    this.titleVerse,
     this.flyers,
     this.titleIcon,
     this.flyerOnTap,
@@ -20,7 +20,7 @@ class FlyersShelf extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
+  final Verse titleVerse;
   final List<FlyerModel> flyers;
   final String titleIcon;
   final Function flyerOnTap;
@@ -73,14 +73,14 @@ class FlyersShelf extends StatelessWidget {
         children: <Widget>[
 
           /// ---  ABOVE TITLE SPACING
-          if (title != null)
+          if (titleVerse != null)
             SizedBox(
               width: _screenWidth,
               height: spacing,
             ),
 
           /// --- COLLECTION TITLE
-          if (title != null)
+          if (titleVerse != null)
             GestureDetector(
               onTap: onScrollEnd,
               child: Container(
@@ -106,7 +106,7 @@ class FlyersShelf extends StatelessWidget {
                     SizedBox(
                       width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
                       child: SuperVerse(
-                        verse: title,
+                        verse: titleVerse,
                         centered: false,
                         shadow: true,
                         italic: true,
@@ -120,7 +120,7 @@ class FlyersShelf extends StatelessWidget {
             ),
 
           /// --- BENEATH TITLE SPACING
-          if (title != null)
+          if (titleVerse != null)
             SizedBox(
               width: _screenWidth,
               height: spacing,
@@ -132,7 +132,7 @@ class FlyersShelf extends StatelessWidget {
             height: _flyerZoneHeight,
             // color: Colorz.WhiteAir,
             child: FlyersShelfListBuilder(
-              shelfTitle: title,
+              shelfTitleVerse: titleVerse,
               flyers: flyers,
               flyerSizeFactor: flyerSizeFactor,
               flyerOnTap: flyerOnTap,

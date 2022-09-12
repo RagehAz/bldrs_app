@@ -69,7 +69,10 @@ class NoteRedDot extends StatelessWidget {
         children: <Widget>[
 
           SuperVerse(
-            verse: _count,
+            verse: Verse(
+              text: _count,
+              translate: false,
+            ),
             size: 0,
             scaleFactor: 1.4 * factor,
             margin: const EdgeInsets.symmetric(horizontal: 4),

@@ -95,9 +95,11 @@ class AddFlyerButton extends StatelessWidget {
               ),
 
               SuperVerse(
-                verse: 'phid_add_new_flyer',
-                // translate: true,
-                verseCasing: VerseCasing.upperCase,
+                verse: const Verse(
+                  text: 'phid_add_new_flyer',
+                  casing: Casing.upperCase,
+                  translate: true,
+                ),
                 maxLines: 5,
                 scaleFactor: _flyerSizeFactor * 4,
                 color: Colorz.white200,

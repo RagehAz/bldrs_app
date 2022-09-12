@@ -22,7 +22,7 @@ class SavedGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _verse = isStarGraphic ? 'Nice' : isSaved ? 'saved' : 'unSaved';
+    final String _verse = isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved';
 
     return Container(
       width: flyerBoxWidth,
@@ -37,7 +37,11 @@ class SavedGraphic extends StatelessWidget {
           Positioned(
             bottom: flyerBoxWidth * 0.58,
             child: SuperVerse(
-              verse: _verse.toUpperCase(),
+              verse: Verse(
+                text: _verse,
+                translate: true,
+                casing: Casing.upperCase,
+              ),
               size: 5,
               scaleFactor: 3,
               weight: VerseWeight.black,

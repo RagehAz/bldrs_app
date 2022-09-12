@@ -23,21 +23,17 @@ class CenterDialog extends StatelessWidget {
     this.child,
     this.color = Colorz.skyDarkBlue,
     this.onOk,
-    this.translateBody = true,
-    this.translateTitle = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final dynamic bodyVerse;
-  final String title;
+  final Verse bodyVerse;
+  final Verse title;
   final bool boolDialog;
   final double height;
   final Widget child;
   final String confirmButtonText;
   final Color color;
   final Function onOk;
-  final bool translateTitle;
-  final bool translateBody;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -73,16 +69,14 @@ class CenterDialog extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<bool> showCenterDialog({
     @required BuildContext context,
-    dynamic bodyVerse,
-    String titleVerse,
+    Verse bodyVerse,
+    Verse titleVerse,
     bool boolDialog = false,
     double height,
     Widget child,
     String confirmButtonVerse,
     Color color = Colorz.skyDarkBlue,
     Function onOk,
-    bool translateBody = true,
-    bool translateTitle = true,
   }) async {
 
     final bool _result = await showDialog(
@@ -98,8 +92,6 @@ class CenterDialog extends StatelessWidget {
         confirmButtonText: confirmButtonVerse,
         color: color,
         onOk: onOk,
-        translateTitle: translateTitle,
-        translateBody: translateBody,
         child: child,
       ),
     );
@@ -226,7 +218,6 @@ class CenterDialog extends StatelessWidget {
                                     :
                                 SuperVerse(
                                   verse: title,
-                                  translate: translateTitle,
                                   color: Colorz.yellow255,
                                   shadow: true,
                                   size: 3,
@@ -243,15 +234,12 @@ class CenterDialog extends StatelessWidget {
                               ),
 
                               /// BODY
-                              if (TextCheck.isEmpty(bodyVerse) == false)
+                              if (TextCheck.isEmpty(bodyVerse?.text) == false)
                                 SizedBox(
                                   width: _dialogWidth,
                                   // height: _bodyZoneHeight,
                                   child: SuperVerse(
-                                    verse: bodyVerse.runtimeType == String ? bodyVerse
-                                        :
-                                    bodyVerse.toString(),
-                                    translate: translateBody,
+                                    verse: bodyVerse,
                                     maxLines: 20,
                                     margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
                                   ),

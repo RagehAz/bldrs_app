@@ -57,9 +57,12 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
     super.dispose();
   }
 // -----------------------------------------------------------------------------
-  Widget _button(String verse) {
+  Widget _button(String text) {
     return SuperVerse(
-      verse: verse,
+      verse: Verse(
+        text: text,
+        translate: false,
+      ),
       labelColor: Colorz.white20,
       weight: VerseWeight.thin,
       italic: true,

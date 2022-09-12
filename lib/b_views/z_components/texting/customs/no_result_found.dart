@@ -14,9 +14,11 @@ class NoResultFound extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SuperVerse(
-      verse: 'phid_nothing_found',
-      // translate: true,
-      verseCasing: VerseCasing.upperCase,
+      verse: const Verse(
+        text: 'phid_nothing_found',
+        translate: true,
+        casing: Casing.upperCase,
+      ),
       color: color,
       size: 4,
       maxLines: 3,

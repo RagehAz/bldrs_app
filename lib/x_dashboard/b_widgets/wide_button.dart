@@ -8,7 +8,6 @@ class WideButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WideButton({
     @required this.verse,
-    @required this.translate,
     this.onTap,
     this.icon,
     this.isActive = true,
@@ -22,8 +21,7 @@ class WideButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final dynamic icon;
   final Function onTap;
-  final String verse;
-  final bool translate;
+  final Verse verse;
   final bool isActive;
   final Color color;
   final Color verseColor;
@@ -41,7 +39,6 @@ class WideButton extends StatelessWidget {
       height: height,
       width: _buttonWith,
       verse: verse,
-      translateVerse: translate,
       verseColor: verseColor,
       verseScaleFactor: verseScaleFactor,
       icon: icon,

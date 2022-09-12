@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -174,7 +173,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 maxLines: _keyboardModel.maxLines,
                 minLines: _keyboardModel.minLines,
                 maxLength: _keyboardModel.maxLength,
-                hintText: _keyboardModel.hintVerse,
+                hintVerse: _keyboardModel.hintVerse,
                 counterIsOn: _keyboardModel.counterIsOn,
                 canObscure: _keyboardModel.canObscure,
                 keyboardTextInputType: _keyboardModel.textInputType,
@@ -197,8 +196,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       margins: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      verse:'- Confirm -',
-                      verseCasing: VerseCasing.upperCase,
+                      verse: const Verse(
+                        text: 'phid_confirm',
+                        translate: true,
+                        casing: Casing.upperCase,
+                      ),
                       verseItalic: true,
                       onTap: () => _onSubmit(_controller.text),
                     ),

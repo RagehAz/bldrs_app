@@ -257,7 +257,7 @@ Future<void> onAddSpecsTap({
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final String _flyerTypeString = FlyerTyper.translateFlyerType(
+  final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
     context: context,
     flyerType: draft.value.flyerType,
     pluralTranslation: false,

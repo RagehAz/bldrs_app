@@ -246,14 +246,20 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     focusNode: _nameNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
-                    titleVerse: 'phid_author_name',
+                    titleVerse: const Verse(
+                      text: 'phid_author_name',
+                      translate: true,
+                    ),
                     counterIsOn: true,
                     maxLength: 72,
                     keyboardTextInputType: TextInputType.name,
                     keyboardTextInputAction: TextInputAction.next,
                     fieldIsRequired: true,
-                    bulletPoints: const <String>[
-                      '##This will only change your name inside this Business account',
+                    bulletPoints: const <Verse>[
+                      Verse(
+                        text: '##This will only change your name inside this Business account',
+                        translate: true,
+                      ),
                     ],
                     initialText: authorModel.name,
                     textOnChanged: (String text) => onAuthorNameChanged(
@@ -301,7 +307,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     appBarType: AppBarType.basic,
                     isFormField: true,
                     headerViewModel: const BubbleHeaderVM(
-                      headlineVerse: 'phid_phone',
+                      headlineVerse: Verse(
+                        text: 'phid_phone',
+                        translate: true,
+                      ),
                       redDot: true,
                     ),
                     canPaste: false,
@@ -332,7 +341,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     appBarType: AppBarType.basic,
                     isFormField: true,
                     headerViewModel: const BubbleHeaderVM(
-                      headlineVerse: 'phid_email',
+                      headlineVerse: Verse(
+                        text: 'phid_email',
+                        translate: true,
+                      ),
                       redDot: true,
                     ),
                     keyboardTextInputType: TextInputType.emailAddress,

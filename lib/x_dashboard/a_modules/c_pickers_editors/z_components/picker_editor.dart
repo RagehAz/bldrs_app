@@ -53,8 +53,10 @@ class PickerEditingTile extends StatelessWidget {
                 child: BubbleHeader(
                   viewModel: BubbleHeaderVM(
                     headerWidth: _clearWidth,
-                    headlineVerse:  'GroupID: ${picker.groupID}',
-                    translateHeadline: false,
+                    headlineVerse: Verse(
+                      text: 'GroupID: ${picker.groupID}',
+                      translate: false
+                    ),
                   ),
                 ),
                 onTap: () => onChangeGroupIDForAllItsPickers(
@@ -70,8 +72,10 @@ class PickerEditingTile extends StatelessWidget {
                 child: BubbleHeader(
                   viewModel: BubbleHeaderVM(
                     headerWidth: _clearWidth,
-                    headlineVerse:  'ChainID: ${picker.chainID}',
-                    translateHeadline: false,
+                    headlineVerse: Verse(
+                      text: 'ChainID: ${picker.chainID}',
+                      translate: false,
+                    ),
                   ),
                 ),
                 onTap: () => onPickerChainIDTap(
@@ -88,8 +92,10 @@ class PickerEditingTile extends StatelessWidget {
                   child: BubbleHeader(
                     viewModel: BubbleHeaderVM(
                       headerWidth: _clearWidth,
-                      headlineVerse:  'unitChainID: ${picker.unitChainID}',
-                      translateHeadline: false,
+                      headlineVerse: Verse(
+                        text: 'unitChainID: ${picker.unitChainID}',
+                        translate: false,
+                      ),
                     ),
                   ),
                   onTap: () => onPickerUnitChainIDTap(
@@ -106,7 +112,10 @@ class PickerEditingTile extends StatelessWidget {
                   viewModel: BubbleHeaderVM(
                     headerWidth: _clearWidth,
                     hasSwitch: true,
-                    headlineVerse:  'Is Required',
+                    headlineVerse: const Verse(
+                      text: 'Is Required',
+                      translate: false,
+                    ),
                     switchValue: picker.isRequired,
                     onSwitchTap: (bool value) => onSwitchIsRequired(
                         newValue: value,
@@ -114,7 +123,6 @@ class PickerEditingTile extends StatelessWidget {
                         picker: picker,
                         tempPickers: tempPickers
                     ),
-                    translateHeadline: false,
                   ),
                 ),
               ),
@@ -126,7 +134,10 @@ class PickerEditingTile extends StatelessWidget {
                   viewModel: BubbleHeaderVM(
                     headerWidth: _clearWidth,
                     hasSwitch: true,
-                    headlineVerse:  'Can pick many',
+                    headlineVerse: const Verse(
+                      text: 'Can pick many',
+                      translate: false,
+                    ),
                     switchValue: picker.canPickMany,
                     onSwitchTap: (bool value) => onSwitchCanPickMany(
                         newValue: value,
@@ -134,7 +145,6 @@ class PickerEditingTile extends StatelessWidget {
                         picker: picker,
                         tempPickers: tempPickers
                     ),
-                    translateHeadline: false,
                   ),
                 ),
               ),
@@ -149,9 +159,11 @@ class PickerEditingTile extends StatelessWidget {
                       /// HEADLINE
                       BubbleHeader(
                         viewModel: BubbleHeaderVM(
-                          headlineVerse:  'Visible Range',
+                          headlineVerse: const Verse(
+                            text: 'Visible Range',
+                            translate: false,
+                          ),
                           headerWidth: _clearWidth,
-                          translateHeadline: false,
                         ),
                       ),
 
@@ -193,9 +205,11 @@ class PickerEditingTile extends StatelessWidget {
                       /// HEADLINE
                       BubbleHeader(
                         viewModel: BubbleHeaderVM(
-                          headlineVerse:  'Deactivators',
+                          headlineVerse: const Verse(
+                            text: 'Deactivators',
+                            translate: false,
+                          ),
                           headerWidth: _clearWidth,
-                          translateHeadline: false,
                         ),
                       ),
 
@@ -203,8 +217,11 @@ class PickerEditingTile extends StatelessWidget {
                       SizedBox(
                         width: _clearWidth,
                         child: const SuperVerse(
-                          verse:  'Values that deactivate specific specPickers',
-                          translate: false,
+                          verse:  Verse(
+                            text: 'Values that deactivate specific specPickers',
+                            translate: false,
+                            casing: Casing.non,
+                          ),
                           size: 1,
                           centered: false,
                           margin: 10,
@@ -229,7 +246,10 @@ class PickerEditingTile extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   child: BubbleHeader(
                                     viewModel: BubbleHeaderVM(
-                                      headlineVerse: _blocker.value.toString(),
+                                      headlineVerse: Verse(
+                                        text: _blocker.value.toString(),
+                                        translate: false,
+                                      ),
                                       headerWidth: _clearWidth,
                                       // translateHeadline: true,
                                     ),
@@ -240,8 +260,10 @@ class PickerEditingTile extends StatelessWidget {
                                 /// DEACT PICKERS IDS
                                 BulletPoints(
                                   bubbleWidth: _clearWidth,
-                                  bulletPoints: _blocker.pickersIDsToBlock,
-                                  translateBullets: false,
+                                  bulletPoints: Verse.createVerses(
+                                      strings: _blocker.pickersIDsToBlock,
+                                      translate: false,
+                                  ),
                                 ),
 
                               ],
@@ -266,12 +288,14 @@ class PickerEditingTile extends StatelessWidget {
                     /// DELETE
                     DreamBox(
                       height: 40,
-                      verse: '##switch\nHeadline',
+                      verse: const Verse(
+                        text: 'Switch\nHeadline',
+                        translate: false,
+                        casing: Casing.upperCase,
+                      ),
                       verseMaxLines: 2,
                       verseScaleFactor: 0.5,
-                      translateVerse: true,
                       verseItalic: true,
-                      verseCasing: VerseCasing.upperCase,
                       onTap: () => switchHeadline(
                         context: context,
                         tempPickers: tempPickers,
@@ -283,11 +307,13 @@ class PickerEditingTile extends StatelessWidget {
                     /// DELETE
                     DreamBox(
                       height: 40,
-                      verse: 'phid_delete',
+                      verse: const Verse(
+                        text: 'Delete',
+                        translate: false,
+                        casing: Casing.upperCase,
+                      ),
                       verseScaleFactor: 0.5,
-                      translateVerse: true,
                       verseItalic: true,
-                      verseCasing: VerseCasing.upperCase,
                       onTap: () => onDeletePicker(
                         context: context,
                         tempPickers: tempPickers,

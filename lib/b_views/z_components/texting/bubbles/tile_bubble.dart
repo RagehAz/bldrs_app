@@ -21,7 +21,6 @@ class TileBubble extends StatelessWidget {
     this.moreBtOnTap,
     this.child,
     this.bulletPoints,
-    this.translateBullets = true,
     this.bubbleColor = Colorz.white10,
     Key key,
   }) : super(key: key);
@@ -30,13 +29,12 @@ class TileBubble extends StatelessWidget {
   final BubbleHeaderVM bubbleHeaderVM;
   final Color verseColor;
   final Function btOnTap;
-  final String secondLineVerse;
+  final Verse secondLineVerse;
   final bool iconIsBubble;
   final bool insideDialog;
   final Function moreBtOnTap;
   final Widget child;
-  final List<String> bulletPoints;
-  final bool translateBullets;
+  final List<Verse> bulletPoints;
   final Color bubbleColor;
   /// --------------------------------------------------------------------------
   static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
@@ -93,7 +91,6 @@ class TileBubble extends StatelessWidget {
           ),
           child: BulletPoints(
             bulletPoints: bulletPoints,
-            translateBullets: translateBullets,
           ),
         ),
 

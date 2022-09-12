@@ -354,7 +354,7 @@ class TextCheck {
 
     if (TextCheck.isEmpty(text) == false && TextCheck.isEmpty(startsWith) == false){
 
-      final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      final String _cutText = text.removeAllCharactersAfterNumberOfCharacters(
         input: text,
         numberOfChars: startsWith.length,
       );
@@ -379,7 +379,7 @@ class TextCheck {
 
       for (final String startWith in listThatMightIncludeText){
 
-        final String _cutText = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        final String _cutText = text.removeAllCharactersAfterNumberOfCharacters(
           input: text,
           numberOfChars: startWith.length,
         );

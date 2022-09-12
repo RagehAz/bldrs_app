@@ -28,12 +28,20 @@ class BzPowersPage extends StatelessWidget {
 
         Bubble(
           headerViewModel: const BubbleHeaderVM(
-            headlineVerse: 'phid_get_more_slides',
+            headlineVerse: Verse(
+              text: 'phid_get_more_slides',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[
 
             SuperVerse(
-              verse: '##${_bzModel.name} has got 500 slides left',
+              verse: Verse(
+                text: '##${_bzModel.name} has got 500 slides left',
+                translate: false,
+                casing: Casing.non,
+                varTag: _bzModel.name,
+              )
             ),
           ],
         ),
@@ -42,7 +50,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_get_more_ankhs',
+            headlineVerse: Verse(
+              text: 'phid_get_more_ankhs',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -51,7 +62,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_get_premium_account',
+            headlineVerse: Verse(
+              text: 'phid_get_premium_account',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -60,7 +74,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_get_super_account',
+            headlineVerse: Verse(
+              text: 'phid_get_super_account',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -69,7 +86,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_boost_flyer',
+            headlineVerse: Verse(
+              text: 'phid_boost_flyer',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -78,7 +98,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_create_ad',
+            headlineVerse: Verse(
+              text: 'phid_create_ad',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -87,7 +110,10 @@ class BzPowersPage extends StatelessWidget {
 
         const Bubble(
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'phid_sponsor_bldrs_in_ur_city',
+            headlineVerse: Verse(
+              text: 'phid_sponsor_bldrs_in_ur_city',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[],
         ),
@@ -96,12 +122,18 @@ class BzPowersPage extends StatelessWidget {
 
         Bubble(
           headerViewModel: const BubbleHeaderVM(
-            headlineVerse: 'phid_get_marketing_material',
+            headlineVerse: Verse(
+              text: 'phid_get_marketing_material',
+              translate: true,
+            ),
           ),
           columnChildren: <Widget>[
 
             SuperVerse.dotVerse(
-              verse: '##Download Your custom Bldr online banner',
+              verse: const Verse(
+                text: '##Download Your custom Bldr online banner',
+                translate: true,
+              )
             ),
 
             Container(
@@ -116,14 +148,16 @@ class BzPowersPage extends StatelessWidget {
             ),
 
             SuperVerse.dotVerse(
-              verse: '##Download "Find us on Bldrs.net" printable banner',
+              verse: const Verse(
+                text: '##Download "Find us on Bldrs.net" printable banner',
+                translate: true,
+              ),
             ),
 
             Container(
               width: Bubble.clearWidth(context),
               height: 100,
-              margin:
-                  const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
+              margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               alignment: Alignment.center,
               child: Container(
                 width: Bubble.clearWidth(context) - 150,
@@ -136,7 +170,10 @@ class BzPowersPage extends StatelessWidget {
             ),
 
             SuperVerse.dotVerse(
-              verse: '##Use Bldrs.net graphics to customize your own materials',
+              verse: const Verse(
+                text: '##Use Bldrs.net graphics to customize your own materials',
+                translate: true,
+              ),
             ),
 
             Container(

@@ -33,13 +33,19 @@ class ValueBox extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SuperVerse(
-              verse: dataKey,
+              verse: Verse(
+                text: dataKey,
+                translate: false,
+              ),
               weight: VerseWeight.thin,
               italic: true,
               size: 1,
             ),
             SuperVerse(
-              verse: value.toString(),
+              verse: Verse(
+                text: value.toString(),
+                translate: false,
+              ),
               size: 1,
             ),
           ],
