@@ -23,7 +23,7 @@ class UserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   /// --------------------------------------------------------------------------
-  static String generateTitleCompanyString({
+  static Verse generateTitleCompanyString({
     @required UserModel userModel,
     @required BuildContext context,
   }){
@@ -49,7 +49,11 @@ class UserBanner extends StatelessWidget {
       _string = null;
     }
 
-    return _string;
+    return Verse(
+      text: _string,
+      translate: false,
+    );
+
   }
   // --------------------
   static bool canShowTitleCompanyLine({
@@ -123,7 +127,10 @@ class UserBanner extends StatelessWidget {
 
         /// USER NAME
         SuperVerse(
-          verse: _userName,
+          verse: Verse(
+            text: _userName,
+            translate: false,
+          ),
           shadow: true,
           size: 4,
           margin: 5,
@@ -150,7 +157,10 @@ class UserBanner extends StatelessWidget {
 
         /// JOINED AT
         SuperVerse(
-          verse: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+          verse: Verse(
+            text: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+            translate: false,
+          ),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.grey255,
@@ -159,7 +169,11 @@ class UserBanner extends StatelessWidget {
         /// AUTHORSHIP LINE
         if (UserModel.checkUserIsAuthor(userModel) == true)
           SuperVerse(
-            verse: '##Author in ${getBzzString(userModel: userModel)}',
+            verse: Verse(
+              text: '##Author in ${getBzzString(userModel: userModel)}',
+              translate: true,
+              varTag: getBzzString(userModel: userModel),
+            ),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,

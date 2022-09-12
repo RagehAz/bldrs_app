@@ -18,7 +18,7 @@ class BzPgCounter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final int count;
-  final String verse;
+  final Verse verse;
   final String icon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------
@@ -52,7 +52,10 @@ class BzPgCounter extends StatelessWidget {
 
             /// COUNT
             SuperVerse(
-              verse: Numeric.formatNumToSeparatedKilos(number: count),
+              verse: Verse(
+                text: Numeric.formatNumToSeparatedKilos(number: count),
+                translate: false,
+              ),
               margin: bzPageStripSideMargin * 0.1,
             ),
 

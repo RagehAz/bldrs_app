@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/x_chains_manager_controllers.dart';
@@ -89,10 +90,28 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       translatePageTitle: false,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
-      onBack: () => Dialogs.goBackDialog(
-        context: context,
-        goBackOnConfirm: true,
-      ),
+      onBack: (){
+
+        final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(
+          chains1: _tempChains.value,
+          chains2: _initialChains.value,
+          blogDifferences: false,
+        );
+
+        if (_identicalPaths == true){
+          Nav.goBack(context: context, invoker: 'ChainsEditorScreen');
+        }
+
+        else {
+          Dialogs.goBackDialog(
+            context: context,
+            titleVerse: 'Go Back ?',
+            bodyVerse: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
+            goBackOnConfirm: true,
+          );
+        }
+
+      },
       pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
 

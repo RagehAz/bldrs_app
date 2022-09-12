@@ -343,7 +343,7 @@ class DynamicLinks {
         minimumVersion: '0',
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
-        title: FlyerTyper.translateFlyerType(
+        title: FlyerTyper.getFlyerTypePhid(
           context: context,
           flyerType: flyerModel.flyerType,
           pluralTranslation: false,

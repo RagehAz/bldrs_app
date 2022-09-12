@@ -169,6 +169,8 @@ class BldrsDashBoard extends StatelessWidget {
       context: context,
       titleVerse:  'Reboot System ?',
       bodyVerse:  'This will clear all local data, all cache in pro and in LDB, continue ?',
+      translateBody: false,
+      translateTitle: false,
       boolDialog: true,
       confirmButtonVerse:  'Fuck it !',
     );
@@ -232,6 +234,7 @@ class BldrsDashBoard extends StatelessWidget {
 
         AppBarButton(
           verse:  'Reboot System',
+          translate: false,
           icon: Iconz.reload,
           onTap: () => _onRebootSystem(context),
         ),
@@ -246,7 +249,10 @@ class BldrsDashBoard extends StatelessWidget {
           const SizedBox(
             height: 50,
             child: SuperVerse(
-              verse:  'Dear Lord\nPlease Bless this project to be in good use for humanity',
+              verse: Verse(
+                text: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
+                translate: false,
+              ),
               size: 1,
               italic: true,
               weight: VerseWeight.thin,

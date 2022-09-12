@@ -111,7 +111,10 @@ class InstallmentsPriceTag extends StatelessWidget {
                         alignment: Aligners.superCenterAlignment(context),
                         padding: _paddings,
                         child: SuperVerse(
-                          verse: '##/ 40 Months',
+                          verse: const Verse(
+                            text: '##/ 400 Months',
+                            translate: false,
+                          ),
                           size: 6,
                           scaleFactor: _installmentScaleFactor,
                         ),

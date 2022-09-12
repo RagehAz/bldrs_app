@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -42,8 +43,15 @@ Future<void> tryAndCatch({
       if (context != null){
         await CenterDialog.showCenterDialog(
           context: context,
-          bodyVerse: error,
-          titleVerse: '##Something Went Wrong !',
+          bodyVerse: Verse(
+            text: error?.toString(),
+            translate: false,
+          ),
+          titleVerse: const Verse(
+            text: 'phid_something_went_wrong',
+            translate: true,
+            pseudo: '##Something Went Wrong !',
+          ),
         );
       }
     }

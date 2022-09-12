@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -12,12 +13,12 @@ class FlyersShelfListBuilder extends StatefulWidget {
     @required this.flyers,
     @required this.flyerSizeFactor,
     @required this.flyerOnTap,
-    @required this.shelfTitle,
+    @required this.shelfTitleVerse,
     this.onScrollEnd,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String shelfTitle;
+  final Verse shelfTitleVerse;
   final List<FlyerModel> flyers;
   final double flyerSizeFactor;
   final ValueChanged<FlyerModel> flyerOnTap;
@@ -184,7 +185,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
               child: FlyerStarter(
                 minWidthFactor: widget.flyerSizeFactor,
                 flyerModel: _flyers[_x],
-                heroTag: widget.shelfTitle,
+                heroTag: '${_flyers[_x].id}$_x',
               ),
 
             ),

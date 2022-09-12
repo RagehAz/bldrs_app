@@ -49,7 +49,10 @@ class AddKeywordsButton extends StatelessWidget {
                         /// 'Group' TITLE
                         // if (title != null)
                         const SuperVerse(
-                          verse: '##Add ...',
+                          verse: Verse(
+                            text: 'phid_add',
+                            translate: true,
+                          ),
                           size: 1,
                           italic: true,
                           color: Colorz.white125,
@@ -63,7 +66,10 @@ class AddKeywordsButton extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: const <Widget>[
                             SuperVerse(
-                              verse: '##Keywords',
+                              verse: Verse(
+                                text: 'phid_keywords',
+                                translate: true,
+                              ),
                               size: 1,
                               color: Colorz.white125,
                               centered: false,

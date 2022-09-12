@@ -29,8 +29,8 @@ class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
-    @required String firstLine,
-    String secondLine,
+    @required Verse firstLine,
+    Verse secondLine,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
     Function onTap,
@@ -161,8 +161,8 @@ class TopDialog extends StatelessWidget {
   // --------------------
   static void showUnawaitedTopDialog({
     @required BuildContext context,
-    @required String firstLine,
-    String secondLine,
+    @required Verse firstLine,
+    Verse secondLine,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
     Function onTap,

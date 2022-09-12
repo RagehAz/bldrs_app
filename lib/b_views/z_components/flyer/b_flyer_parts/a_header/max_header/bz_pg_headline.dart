@@ -38,7 +38,10 @@ class OldBzPageHeadline extends StatelessWidget {
 
           /// BUSINESS NAME
           SuperVerse(
-            verse: bzModel?.name,
+            verse: Verse(
+              text: bzModel?.name,
+              translate: false,
+            ),
             size: 5,
             shadow: true,
             maxLines: 2,

@@ -113,8 +113,11 @@ class FlyerSelectionStack extends StatelessWidget {
               height: _flyerBoxHeight,
               alignment: Alignment.center,
               child: SuperVerse(
-                verse: '##SELECTED',
-                verseCasing: VerseCasing.upperCase,
+                verse: const Verse(
+                  text: 'phid_selected',
+                  casing: Casing.upperCase,
+                  translate: true,
+                ),
                 weight: VerseWeight.black,
                 italic: true,
                 scaleFactor: flyerBoxWidth / 100,
@@ -166,7 +169,7 @@ class FlyerSelectionStack extends StatelessWidget {
               ),
               child: FooterButton(
                 icon: Iconz.more,
-                verse: '##More',
+                phid: '##More',
                 flyerBoxWidth: flyerBoxWidth,
                 onTap: onFlyerOptionsTap,
                 isOn: false,

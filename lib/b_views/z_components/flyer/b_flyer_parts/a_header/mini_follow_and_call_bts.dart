@@ -121,7 +121,6 @@ class OldFollowBT extends StatelessWidget {
     const String followIcon = Iconz.follow;
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
-    const String followText = 'phid_follow';
     final Color followTextColor = followOn == true ? Colorz.black230 : Colorz.white255;
     // --------------------
     return GestureDetector(
@@ -172,7 +171,10 @@ class OldFollowBT extends StatelessWidget {
                       /// FOLLOW TEXT
                       if (followOn == false)
                         SuperVerse(
-                          verse: followText,
+                          verse: const Verse(
+                            text: 'phid_follow',
+                            translate: true,
+                          ),
                           color: followTextColor,
                           size: 0,
                           scaleFactor: flyerBoxWidth / screenWidth,
@@ -268,7 +270,10 @@ class OldCallBT extends StatelessWidget {
 
                 /// FLYERS TEXT
                 SuperVerse(
-                  verse: 'phid_call',
+                  verse: const Verse(
+                    text: 'phid_call',
+                    translate: true,
+                  ),
                   size: 1,
                   scaleFactor: flyerBoxWidth / Scale.superScreenWidth(context),
                 )

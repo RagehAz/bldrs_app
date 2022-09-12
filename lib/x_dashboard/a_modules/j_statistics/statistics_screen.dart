@@ -82,7 +82,10 @@ class GeneralStatistics extends StatelessWidget {
                 const Stratosphere(),
 
                 const SuperVerse(
-                  verse:  'General states :-',
+                  verse: Verse(
+                    text: 'General states :-',
+                    translate: false,
+                  ),
                   italic: true,
                   shadow: true,
                   weight: VerseWeight.black,
@@ -92,7 +95,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse:  'Users',
+                  verse: const Verse(
+                    text: 'phid_users',
+                    translate: true,
+                  ),
                   count: _numberOfUsers,
                   icon: Iconz.normalUser,
                   iconSizeFactor: 0.95,
@@ -100,7 +106,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse:  'Countries',
+                  verse: const Verse(
+                    text: 'Countries',
+                    translate: true,
+                  ),
                   count: _numberOfCountries,
                   icon: Iconz.earth,
                   iconSizeFactor: 0.95,
@@ -108,7 +117,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_businesses',
+                  verse: const Verse(
+                    text: 'phid_businesses',
+                    translate: true,
+                  ),
                   count: _numberOfBzz,
                   icon: Iconz.bz,
                   iconSizeFactor: 0.95,
@@ -116,7 +128,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_flyers',
+                  verse: const Verse(
+                    text: 'phid_flyers',
+                    translate: true,
+                  ),
                   count: _numberOfFlyers,
                   icon: Iconz.gallery,
                   iconSizeFactor: 0.8,
@@ -124,7 +139,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_slides',
+                  verse: const Verse(
+                    text: 'phid_slides',
+                    translate: true,
+                  ),
                   count: _numberOfSlides,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -139,7 +157,10 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 const SuperVerse(
-                  verse: 'phid_bz_statistics',
+                  verse: Verse(
+                    text: 'phid_bz_statistics',
+                    translate: false,
+                  ),
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -150,7 +171,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_realtors',
+                  verse: const Verse(
+                    text: 'phid_realtors',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.bxPropertiesOn,
                   iconSizeFactor: 0.95,
@@ -158,7 +182,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: FlyerTyper.propertyChainID,
+                  verse: const Verse(
+                    text: FlyerTyper.propertyChainID,
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -176,7 +203,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_designers',
+                  verse: const Verse(
+                    text: 'phid_designers',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.bxDesignsOn,
                   iconSizeFactor: 0.95,
@@ -184,7 +214,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: FlyerTyper.designChainID,
+                  verse: const Verse(
+                    text: FlyerTyper.designChainID,
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -202,7 +235,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_suppliers',
+                  verse: const Verse(
+                    text: 'phid_suppliers',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.bxEquipmentOn,
                   iconSizeFactor: 0.95,
@@ -210,7 +246,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: FlyerTyper.productChainID,
+                  verse: const Verse(
+                    text: FlyerTyper.productChainID,
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -218,7 +257,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: FlyerTyper.equipmentChainID,
+                  verse: const Verse(
+                    text: FlyerTyper.equipmentChainID,
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -236,7 +278,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_contractors',
+                  verse: const Verse(
+                    text: 'phid_contractors',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.bxProjectsOn,
                   iconSizeFactor: 0.95,
@@ -244,7 +289,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_k_flyer_type_project',
+                  verse: const Verse(
+                    text: 'phid_k_flyer_type_project',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -262,7 +310,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_tradesmanship',
+                  verse: const Verse(
+                    text: 'phid_tradesmanship',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.bxTradesOn,
                   iconSizeFactor: 0.95,
@@ -270,7 +321,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_k_flyer_type_trade',
+                  verse: const Verse(
+                    text: 'phid_k_flyer_type_trade',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.flyer,
                   iconSizeFactor: 0.8,
@@ -286,7 +340,10 @@ class GeneralStatistics extends StatelessWidget {
                 ),
 
                 SuperVerse(
-                  verse:  '${xPhrase( context, 'phid_engagement_rates')} :-',
+                  verse: const Verse(
+                    text: 'phid_engagement_rates',
+                    translate: true,
+                  ),
                   size: 3,
                   italic: true,
                   shadow: true,
@@ -297,7 +354,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_totalSaves', // Wordz.saves
+                  verse: const Verse(
+                    text: 'phid_totalSaves',
+                    translate: true,
+                  ), // Wordz.saves
                   count: 0,
                   icon: Iconz.saveOn,
                   iconSizeFactor: 0.8,
@@ -305,7 +365,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_views',
+                  verse: const Verse(
+                    text: 'phid_views',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.viewsIcon,
                   iconSizeFactor: 0.8,
@@ -313,7 +376,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_totalShares', // Wordz.shares
+                  verse: const Verse(
+                    text: 'phid_totalShares',
+                    translate: true
+                  ),
                   count: 0,
                   icon: Iconz.share,
                   iconSizeFactor: 0.8,
@@ -321,7 +387,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_followers',
+                  verse: const Verse(
+                    text: 'phid_followers',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.follow,
                   iconSizeFactor: 0.8,
@@ -329,7 +398,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_bldrsConnected',
+                  verse: const Verse(
+                    text: 'phid_bldrsConnected',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.handShake,
                   iconSizeFactor: 0.9,
@@ -337,7 +409,10 @@ class GeneralStatistics extends StatelessWidget {
 
                 BzPgCounter(
                   flyerBoxWidth: _screenWidth,
-                  verse: 'phid_contact_me_clicks',
+                  verse: const Verse(
+                    text: 'phid_contact_me_clicks',
+                    translate: true,
+                  ),
                   count: 0,
                   icon: Iconz.comPhone,
                   iconSizeFactor: 0.8,
@@ -350,9 +425,11 @@ class GeneralStatistics extends StatelessWidget {
                 ),
               ],
             );
+
           }
         },
       ),
+
     );
 
   }

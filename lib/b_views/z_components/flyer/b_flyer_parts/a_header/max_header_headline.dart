@@ -14,8 +14,8 @@ class MaxHeaderHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool bzPageIsOn;
-  final String firstLine;
-  final String secondLine;
+  final Verse firstLine;
+  final Verse secondLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,20 +34,14 @@ class MaxHeaderHeadline extends StatelessWidget {
           /// BUSINESS NAME
           SuperVerse(
             verse: firstLine,
-            // verse: bzModel?.name,
             size: 5,
             shadow: true,
             maxLines: 2,
-            // softWrap: true,
           ),
 
           /// BUSINESS LOCALE
           SuperVerse(
             verse: secondLine,
-            // verse: TextGen.countryStringerByZoneModel(
-            //   context: context,
-            //   zone: bzZone,
-            // ),
             italic: true,
             weight: VerseWeight.regular,
             color: Colorz.white200,

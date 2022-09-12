@@ -81,7 +81,11 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
-        headlineVerse: 'phid_add_with_dots', // 'Add ...'
+        headlineVerse: Verse(
+          text: 'phid_add_with_dots',
+          translate: true,
+          pseudo: 'Add ...',
+        ),
       ),
       width: _bubbleWidth,
       columnChildren: <Widget>[

@@ -43,8 +43,13 @@ class TargetsBubble extends StatelessWidget {
         children: <Widget>[
 
           const SuperVerse(
-            verse:
-            'Achieving the below targets will put you on track, and will give you an idea how to use Bldrs.net to acquire new customers and boost potential sales.',
+            verse: Verse(
+              text: 'phid_targets_main_description',
+              translate: true,
+              pseudo: 'Achieving the below targets will put you on track, '
+                  'and will give you an idea how to use Bldrs.net to acquire '
+                  'new customers and boost potential sales.',
+            ),
             maxLines: 10,
             centered: false,
             margin: 10,

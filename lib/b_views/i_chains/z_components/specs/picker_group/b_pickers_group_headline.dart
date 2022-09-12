@@ -10,7 +10,7 @@ class PickersGroupHeadline extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String headline;
+  final Verse headline;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,7 @@ import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 class DreamBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -24,8 +25,6 @@ class DreamBox extends StatelessWidget {
     this.corners = Ratioz.boxCorner12,
     this.iconColor,
     this.verse,
-    this.verseCasing,
-    this.translateVerse,
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
@@ -39,7 +38,6 @@ class DreamBox extends StatelessWidget {
     this.iconRounded = true,
     this.bubble = true,
     this.secondLine,
-    this.translateSecondLine,
     this.verseCentered = true,
     this.subChild,
     this.childAlignment = Alignment.center,
@@ -75,9 +73,7 @@ class DreamBox extends StatelessWidget {
   final double height;
   final dynamic corners;
   final Color iconColor;
-  final String verse;
-  final VerseCasing verseCasing;
-  final bool translateVerse;
+  final Verse verse;
   final Color verseColor;
   final VerseWeight verseWeight;
   final double verseScaleFactor;
@@ -90,8 +86,7 @@ class DreamBox extends StatelessWidget {
   final bool greyscale;
   final bool iconRounded;
   final bool bubble;
-  final String secondLine;
-  final bool translateSecondLine;
+  final Verse secondLine;
   final bool verseCentered;
   final Widget subChild;
   final Alignment childAlignment;
@@ -193,7 +188,7 @@ class DreamBox extends StatelessWidget {
     final double _iconMargin = iconMargin(
       height: height,
       icon: icon,
-      verse: verse,
+      verse: verse?.text,
       graphicWidth: _graphicWidth,
     );
     // --------------------
@@ -312,8 +307,6 @@ class DreamBox extends StatelessWidget {
         DreamBoxIconVerseSecondLine(
           key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
           verse: verse,
-          verseCasing: verseCasing,
-          translate: translateVerse,
           textDirection: _textDirection,
           icon: icon,
           loading: loading,
@@ -329,7 +322,6 @@ class DreamBox extends StatelessWidget {
           verseScaleFactor: verseScaleFactor,
           verseCentered: verseCentered,
           secondLine: secondLine,
-          translateSecondLine: translateSecondLine,
           verseSize: _verseSize,
           verseWeight: verseWeight,
           inActiveMode: isDeactivated,

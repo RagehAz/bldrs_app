@@ -86,7 +86,11 @@ class AuthorPicInBzPage extends StatelessWidget {
                   ),
 
                   const SuperVerse(
-                    verse: '##Add new Author',
+                    verse: Verse(
+                      text: 'phid_add_new_author',
+                      pseudo: 'Add new Author',
+                      translate: true,
+                    ),
                     size: 0,
                     maxLines: 2,
                   ),

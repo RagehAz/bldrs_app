@@ -47,125 +47,183 @@ class AboutBldrsScreen extends StatelessWidget {
             ParagraphBubble(
               maxLines: 1000,
               bubbleColor: Colorz.white20,
-              title: '##Bldrs.net',
-              paragraph: '##Is the Network of builders\n'
-                  'categorizing major Bldrs sectors as\n'
-                  'Real-estate, Construction & Supplies.\n',
+              headerViewModel: BubbleHeaderVM(
+                headlineVerse: Verse(
+                  text: 'phid_bldrs_net',
+                  translate: true,
+                ),
+              ),
+              paragraph: Verse(
+                text: '##Is the Network of builders\n'
+                    'categorizing major Bldrs sectors as\n'
+                    'Real-estate, Construction & Supplies.\n',
+                translate: true,
+              ),
             ),
 
             ParagraphBubble(
               bubbleColor: Colorz.white20,
-              paragraph: '##So whenever you need to connect with a professional '
-                  'or a company in a specific field or trade to aid you in '
-                  'building you projects, you have all Businesses here for you',
+              headerViewModel: BubbleHeaderVM(),
+              paragraph: Verse(
+                text: '##So whenever you need to connect with a professional '
+                      'or a company in a specific field or trade to aid you in '
+                      'building you projects, you have all Businesses here for you',
+                translate: true,
+              ),
             ),
 
             DotSeparator(),
 
             SuperVerse(
-              verse: '##Bldrs.net Business types',
+              verse: Verse(
+                pseudo: 'Bldrs.net Business types',
+                text: 'phid_bldrs_bzz_types',
+                translate: true,
+              ),
               size: 4,
               italic: true,
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Developers',
+                headlineVerse: Verse(
+                    text: 'phid_developers',
+                    translate: true,
+                ),
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Real-Estate developers, they control the construction '
-                  'development over plots & lands, then lease property contracts '
-                  'for sale or rent.\n'
-                  '\n'
-                  'in Short... if You are looking for a property directly from '
-                  'its creator, then these are the companies to contact',
+              secondLineVerse: Verse(
+                text: '##Real-Estate developers, they control the construction '
+                    'development over plots & lands, then lease property contracts '
+                    'for sale or rent.\n'
+                    '\n'
+                    'in Short... if You are looking for a property directly from '
+                    'its creator, then these are the companies to contact',
+                translate: true,
+              ),
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Brokers',
+                headlineVerse: Verse(
+                  text: 'phid_brokers',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxPropertiesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Real-Estate Brokerage individuals or companies, they '
-                  'consult, provide and assist you in your property purchasing '
-                  'journey.\n'
-                  '\n'
-                  'in Short... if You are looking for someone to get you the best '
-                  'property deals, these are the ones to contact',
+              secondLineVerse: Verse(
+                text: '##Real-Estate Brokerage individuals or companies, they '
+                    'consult, provide and assist you in your property purchasing '
+                    'journey.\n'
+                    '\n'
+                    'in Short... if You are looking for someone to get you the best '
+                    'property deals, these are the ones to contact',
+                translate: true,
+              ),
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Designers',
+                headlineVerse: Verse(
+                  text: 'phid_designers',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxDesignsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Architects, Decorators, Landscapers, Engineers, '
-                  'Planners and Designers of any urban construct you see in buildings'
-                  ' inside-out and their surroundings\n'
-                  '\n'
-                  'in Short... if You have an idea or project to plan its '
-                  'construction, you must contact these people',
-            ),
+              secondLineVerse: Verse(
+                text: '##Architects, Decorators, Landscapers, Engineers, '
+                    'Planners and Designers of any urban construct you see in buildings'
+                    ' inside-out and their surroundings\n'
+                    '\n'
+                    'in Short... if You have an idea or project to plan its '
+                    'construction, you must contact these people',
+                translate: true,
+              ),
+              ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Contractors',
+                headlineVerse: Verse(
+                  text: 'phid_contractors',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxProjectsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##The Builders of properties, they contract owners in '
-                  'specific trades to build, they manage construction progress and'
-                  ' quality then deliver contract deliverables\n'
-                  '\n'
-                  'in Short... if You have a project in construction, '
-                  'they build it for you',
+              secondLineVerse: Verse(
+                text: '##The Builders of properties, they contract owners in '
+                    'specific trades to build, they manage construction progress and'
+                    ' quality then deliver contract deliverables\n'
+                    '\n'
+                    'in Short... if You have a project in construction, '
+                    'they build it for you',
+                translate: true,
+              ),
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Artisans',
+                headlineVerse: Verse(
+                  text: 'phid_tradesmen',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxTradesOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
-                  'Artists, Artisans, Painters, Plasterers ... etc\n'
-                  '\n'
-                  'in Short... The Work-force and the actual builders of all constructs',
+              secondLineVerse: Verse(
+                text: '##Masons, Carpenters, Smiths, Glaziers, Technicians, '
+                    'Artists, Artisans, Painters, Plasterers ... etc\n'
+                    '\n'
+                    'in Short... The Work-force and the actual builders of all constructs',
+                translate: true,
+              ),
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Manufacturers',
+                headlineVerse: Verse(
+                  text: 'phid_manufacturers',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Factories and Workshops that fabricates & manufactures '
-                  'all construction products and equipment\n'
-                  '\n'
-                  'in Other words... If you want customization or want to get a big batch of '
-                  'construction products or equipment, these are the companies '
-                  'to contact',
+              secondLineVerse: Verse(
+                text: '##Factories and Workshops that fabricates & manufactures '
+                    'all construction products and equipment\n'
+                    '\n'
+                    'in Other words... If you want customization or want to get a big batch of '
+                    'construction products or equipment, these are the companies '
+                    'to contact',
+                translate: true,
+              ),
             ),
 
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: '##Suppliers',
+                headlineVerse: Verse(
+                  text: 'phid_suppliers',
+                  translate: true,
+                ),
                 leadingIcon: Iconz.bxProductsOn,
               ),
               bubbleColor: Colorz.white20,
-              secondLineVerse: '##Those companies that import, supply, transport, sell '
-                  'or rent construction products and equipment\n'
-                  '\n'
-                  'They Supply Floor, cieling, wall products, paints, wood & '
-                  'timber, doors & windows, wall papers, cables, sand, cement '
-                  '... etc and any product used in the creation of properties\n'
-                  '\n'
-                  'in Other words... If you want customization or want to get a big batch of '
-                  'construction products or equipment, these are the companies '
-                  'to contact',
+              secondLineVerse: Verse(
+                text: '##Those companies that import, supply, transport, sell '
+                    'or rent construction products and equipment\n'
+                    '\n'
+                    'They Supply Floor, cieling, wall products, paints, wood & '
+                    'timber, doors & windows, wall papers, cables, sand, cement '
+                    '... etc and any product used in the creation of properties\n'
+                    '\n'
+                    'in Other words... If you want customization or want to get a big batch of '
+                    'construction products or equipment, these are the companies '
+                    'to contact',
+                translate: true,
+              )
             ),
 
             DotSeparator(color: Colorz.yellow80),

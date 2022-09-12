@@ -22,7 +22,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   const ZoneSelectionBubble({
     @required this.currentZone,
     @required this.onZoneChanged,
-    this.titleVerse = 'Preferred Location',
+    this.titleVerse,
     this.bulletPoints,
     this.translateBullets = true,
     this.validator,
@@ -34,8 +34,8 @@ class ZoneSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final ZoneModel currentZone;
   final ValueChanged<ZoneModel> onZoneChanged;
-  final String titleVerse;
-  final List<String> bulletPoints;
+  final Verse titleVerse;
+  final List<Verse> bulletPoints;
   final bool translateBullets;
   final String Function() validator;
   final bool autoValidate;
@@ -251,7 +251,10 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     validator: widget.validator,
                   ),
                   headerViewModel: BubbleHeaderVM(
-                    headlineVerse: widget.titleVerse,
+                    headlineVerse: widget.titleVerse ?? const Verse(
+                      text: 'phid_preferred_location',
+                      translate: true,
+                    ),
                     redDot: true,
                   ),
                   columnChildren: <Widget>[
@@ -261,9 +264,15 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(
-                      title: 'phid_country',
+                      title: const Verse(
+                        text: 'phid_country',
+                        translate: true,
+                      ),
+                      verse: Verse(
+                        text: zone.countryName,
+                        translate: false,
+                      ),
                       icon: zone?.flag,
-                      verse: zone.countryName,
                       onTap: () => _onCountryButtonTap(context: context),
                       loading: loading,
                     ),
@@ -275,8 +284,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     widget.selectCountryIDOnly == false
                     )
                     ZoneSelectionButton(
-                      title: 'City',
-                      verse: zone.cityName,
+                      title: const Verse(
+                        text: 'phid_city',
+                        translate: true,
+                      ),
+                      verse: Verse(
+                        text: zone.cityName,
+                        translate: false,
+                      ),
                       onTap: () => _onCityButtonTap(context: context),
                       loading: loading,
                     ),
@@ -290,8 +305,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     Mapper.checkCanLoopList(zone?.cityModel?.districts) == true
                     )
                       ZoneSelectionButton(
-                        title: 'District',
-                        verse: zone.districtName,
+                        title: const Verse(
+                          text: 'phid_district',
+                          translate: true,
+                        ),
+                        verse: Verse(
+                          text: zone.districtName,
+                          translate: false,
+                        ),
                         onTap: () => _onDistrictButtonTap(context: context),
                         loading: loading,
                       ),
@@ -309,7 +330,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             },
             child: BulletPoints(
               bulletPoints: widget.bulletPoints,
-              translateBullets: widget.translateBullets,
             ),
           );
 

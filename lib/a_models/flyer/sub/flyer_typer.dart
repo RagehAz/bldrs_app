@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -280,8 +281,7 @@ String getSectionIcon({
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateFlyerType({
-    @required BuildContext context,
+  static String getFlyerTypePhid({
     @required FlyerType flyerType,
     bool pluralTranslation = true,
   }){
@@ -315,32 +315,35 @@ String getSectionIcon({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> translateFlyerTypes({
+  static List<Verse> translateFlyerTypes({
     @required BuildContext context,
     @required List<FlyerType> flyerTypes,
     bool pluralTranslation = true,
   }){
-    final List<String> _strings = <String>[];
+    final List<Verse> _verses = <Verse>[];
 
     if (Mapper.checkCanLoopList(flyerTypes) == true){
 
       for (final FlyerType type in flyerTypes){
 
-        final String _phid = translateFlyerType(
+        final String _phid = getFlyerTypePhid(
           context: context,
           flyerType: type,
           pluralTranslation: pluralTranslation,
         );
 
-        final String _translation = xPhrase(context, _phid);
+        final Verse _verse = Verse(
+          text: _phid,
+          translate: true,
+        );
 
-        _strings.add(_translation);
+        _verses.add(_verse);
 
       }
 
     }
 
-    return _strings;
+    return _verses;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -352,7 +355,7 @@ String getSectionIcon({
 
     final FlyerType _concludedFlyerType = concludeFlyerTypeByBzType(bzType);
 
-    final String _translation = translateFlyerType(
+    final String _translation = getFlyerTypePhid(
       context: context,
       flyerType: _concludedFlyerType,
       pluralTranslation: pluralTranslation,

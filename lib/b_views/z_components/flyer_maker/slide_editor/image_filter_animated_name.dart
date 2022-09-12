@@ -37,7 +37,11 @@ class ImageFilterAnimatedName extends StatelessWidget {
                     )
                 ),
                 child: SuperVerse(
-                  verse: _filterModel.id.toUpperCase(),
+                  verse: Verse(
+                    text: _filterModel.id,
+                    casing: Casing.upperCase,
+                    translate: true,
+                  ),
                   maxLines: 3,
                   weight: VerseWeight.black,
                   italic: true,

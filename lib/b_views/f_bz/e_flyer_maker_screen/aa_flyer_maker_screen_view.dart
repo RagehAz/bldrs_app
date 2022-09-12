@@ -76,7 +76,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                   final List<FlyerType> _allowableTypes = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
                     bzTypes: _bzModel.bzTypes,
                   );
-                  final List<String> _flyerTypesTranslation = FlyerTyper.translateFlyerTypes(
+                  final List<Verse> _flyerTypesTranslation = FlyerTyper.translateFlyerTypes(
                     context: context,
                     flyerTypes: _allowableTypes,
                   );
@@ -110,7 +110,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                             focusNode: _draft.headlineNode,
                             appBarType: appBarType,
                             isFormField: true,
-                            titleVerse: 'phid_flyer_headline',
+                            titleVerse: const Verse(
+                              text: 'phid_flyer_headline',
+                              translate: true,
+                            ),
                             fieldIsRequired: true,
                             counterIsOn: true,
                             maxLength: 50,
@@ -134,7 +137,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                             focusNode: _draft.descriptionNode,
                             appBarType: appBarType,
                             isFormField: true,
-                            titleVerse: 'phid_flyer_description',
+                            titleVerse: const Verse(
+                              text: 'phid_flyer_description',
+                              translate: true,
+                            ),
                             counterIsOn: true,
                             maxLength: 1000,
                             maxLines: 7,
@@ -155,19 +161,33 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER TYPE SELECTOR
                           MultipleChoiceBubble(
-                            title: 'phid_flyer_type',
-                            bulletPoints: <String>[
-                              '##Business accounts of types ${_bzTypeTranslation.toString()} can publish ${_flyerTypesTranslation.toString()} flyers.',
-                              '##Each Flyer Should have one flyer type',
+                            title: const Verse(
+                              text: 'phid_flyer_type',
+                              translate: true,
+                            ),
+                            bulletPoints: <Verse>[
+
+                              Verse(
+                                text: '##Business accounts of types '
+                                    '${_bzTypeTranslation.toString()} can publish '
+                                    '${_flyerTypesTranslation.toString()} flyers.',
+                                translate: true,
+                                varTag: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
+                              ),
+
+                              const Verse(
+                                text: '##Each Flyer Should have one flyer type',
+                                translate: true,
+                              ),
+
                             ],
-                            buttonsList: FlyerTyper.translateFlyerTypes(
+                            buttonsVerses: FlyerTyper.translateFlyerTypes(
                               context: context,
                               flyerTypes: FlyerTyper.flyerTypesList,
                               pluralTranslation: false,
                             ),
                             selectedButtons: <String>[
-                              FlyerTyper.translateFlyerType(
-                                context: context,
+                              FlyerTyper.getFlyerTypePhid(
                                 flyerType: _draft.flyerType,
                                 pluralTranslation: false,
                               ),
@@ -177,7 +197,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                               index: index,
                               draft: draft,
                             ),
-                            inactiveButtons: <String>[
+                            inactiveButtons: <Verse>[
                               ...FlyerTyper.translateFlyerTypes(
                                 context: context,
                                 flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
@@ -251,7 +271,10 @@ class FlyerMakerScreenView extends StatelessWidget {
                           /// SHOW FLYER AUTHOR
                           Bubble(
                             headerViewModel: const BubbleHeaderVM(
-                              headlineVerse: 'phid_show_author_on_flyer',
+                              headlineVerse: Verse(
+                                text: 'phid_show_author_on_flyer',
+                                translate: true,
+                              ),
                             ),
                             width: Bubble.bubbleWidth(context),
                             columnChildren: const <Widget>[],

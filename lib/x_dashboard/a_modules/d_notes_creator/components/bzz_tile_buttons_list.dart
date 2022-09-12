@@ -64,7 +64,11 @@ class BzzTilesButtonsList extends StatelessWidget {
           /// NO BZZ FOUND
           else {
             return const SuperVerse(
-              verse:  'No Businesses found',
+              verse: Verse(
+                pseudo: 'No Businesses found',
+                text: 'phid_no_bzz_found',
+                translate: true,
+              ),
             );
           }
 

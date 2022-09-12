@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -369,7 +370,7 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateZoneString ({
+  static Verse translateZoneString ({
     @required BuildContext context,
     @required ZoneModel zoneModel,
     bool showCity = true,
@@ -413,16 +414,19 @@ class ZoneModel {
 
     }
 
-    return _verse;
+    return Verse(
+      text: _verse,
+      translate: false,
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateObeliskString({
+  static Verse generateObeliskString({
     @required BuildContext context,
     @required ZoneModel zone,
   }){
 
-    String _line = 'Select Country';
+    String _line = xPhrase(context, 'phid_select_country');
 
     if (zone != null){
 
@@ -446,7 +450,10 @@ class ZoneModel {
 
     }
 
-    return _line;
+    return Verse(
+      text: _line,
+      translate: false,
+    );
   }
   // -----------------------------------------------------------------------------
 

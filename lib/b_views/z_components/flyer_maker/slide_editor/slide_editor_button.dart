@@ -15,7 +15,7 @@ class SlideEditorButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double size;
   final String icon;
-  final String verse;
+  final Verse verse;
   final Function onTap;
   /// --------------------------------------------------------------------------
   static double getVerseZoneHeight({

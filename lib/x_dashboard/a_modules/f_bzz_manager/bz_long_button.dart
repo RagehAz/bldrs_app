@@ -90,7 +90,10 @@ class BzLongButton extends StatelessWidget {
                     SizedBox(
                       width: _textZoneWidth,
                       child: SuperVerse(
-                        verse: bzModel.name,
+                        verse: Verse(
+                          text: bzModel.name,
+                          translate: false,
+                        ),
                         centered: false,
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         size: 3,

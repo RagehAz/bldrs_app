@@ -11,8 +11,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DreamBoxIconVerseSecondLine({
     @required this.verse,
-    @required this.verseCasing,
-    @required this.translate,
     @required this.textDirection,
     @required this.icon,
     @required this.loading,
@@ -28,7 +26,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.verseScaleFactor,
     @required this.verseCentered,
     @required this.secondLine,
-    @required this.translateSecondLine,
     @required this.verseSize,
     @required this.verseWeight,
     @required this.inActiveMode,
@@ -47,9 +44,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
-  final VerseCasing verseCasing;
-  final bool translate;
+  final Verse verse;
   final TextDirection textDirection;
   final dynamic icon;
   final bool loading;
@@ -64,8 +59,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final double iconSizeFactor;
   final double verseScaleFactor;
   final bool verseCentered;
-  final String secondLine;
-  final bool translateSecondLine;
+  final Verse secondLine;
   final int verseSize;
   final VerseWeight verseWeight;
   final bool inActiveMode;
@@ -124,12 +118,12 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   // --------------------
   static double verseIconSpacing({
     double height,
-    String verse,
+    Verse verse,
     double iconSizeFactor,
     double verseScaleFactor
   }) {
 
-    final double _verseIconSpacing = verse != null ?
+    final double _verseIconSpacing = verse?.text != null ?
     height * 0.3 * iconSizeFactor * verseScaleFactor : 0;
 
     return _verseIconSpacing;
@@ -206,7 +200,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     // --------------------
     final CrossAxisAlignment _versesCrossAlignment = versesCrossAlignment(
       icon: icon,
-      secondLine: secondLine,
+      secondLine: secondLine.text,
       textDirection: textDirection,
       verseCentered: verseCentered,
     );
@@ -324,8 +318,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   width: _verseWidth,
                   child: SuperVerse(
                     verse: verse,
-                    verseCasing: verseCasing,
-                    translate: translate,
                     size: verseSize,
                     weight: verseWeight,
                     color: greyscale == true || inActiveMode == true ?
@@ -348,7 +340,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                     width: _verseWidth,
                     child: SuperVerse(
                       verse: secondLine,
-                      translate: translateSecondLine,
                       weight: VerseWeight.thin,
                       size: 1,
                       color: greyscale == true || inActiveMode == true ?

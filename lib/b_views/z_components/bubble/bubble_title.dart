@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class BubbleTitle extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BubbleTitle({
-    @required this.title,
+    @required this.titleVerse,
     this.centered = false,
     this.redDot = false,
     this.titleColor = Colorz.white255,
@@ -14,7 +14,7 @@ class BubbleTitle extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
+  final Verse titleVerse;
   final bool redDot;
   final bool centered;
   final Color titleColor;
@@ -30,7 +30,7 @@ class BubbleTitle extends StatelessWidget {
           right: Ratioz.appBarPadding
       ),
       child: SuperVerse(
-        verse: title,
+        verse: titleVerse,
         redDot: redDot,
         centered: centered,
         color: titleColor,

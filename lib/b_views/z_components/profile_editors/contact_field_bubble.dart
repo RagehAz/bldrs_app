@@ -28,7 +28,6 @@ class ContactFieldBubble extends StatefulWidget {
     this.initialTextValue,
     this.validator,
     this.bulletPoints,
-    this.translateBulletPoints = true,
     this.fieldIsRequired = false,
     this.loading = false,
     this.horusOnTapDown,
@@ -50,8 +49,7 @@ class ContactFieldBubble extends StatefulWidget {
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
   final Function validator;
-  final List<String> bulletPoints;
-  final bool translateBulletPoints;
+  final List<Verse> bulletPoints;
   final bool fieldIsRequired;
   final bool loading;
   final Function horusOnTapDown;
@@ -175,7 +173,6 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
           if (widget.bulletPoints != null)
             BulletPoints(
               bulletPoints: widget.bulletPoints,
-              translateBullets: widget.translateBulletPoints,
             ),
 
           /// TEXT FIELD ROW

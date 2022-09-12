@@ -22,7 +22,12 @@ class BzNetworkPage extends StatelessWidget {
       columnChildren: <Widget>[
 
         SuperVerse(
-          verse: '##${_bzModel.name}\nNetwork\nPage',
+          verse: Verse(
+            text: '##${_bzModel.name}\nNetwork\nPage',
+            translate: true,
+            casing: Casing.non,
+            varTag: _bzModel.name,
+          ),
           size: 4,
           maxLines: 3,
         ),

@@ -63,7 +63,10 @@ class AddSlidesButton extends StatelessWidget {
 
                     /// CAMERA
                     NewSlideImagePickerButton(
-                      line: 'Camera',
+                      line:const  Verse(
+                        text: 'phid_camera',
+                        translate: true,
+                      ),
                       icon: Iconz.camera,
                       isTopBox: true,
                       onTap: () => onTap(ImagePickerType.cameraImage),
@@ -71,7 +74,10 @@ class AddSlidesButton extends StatelessWidget {
 
                     /// GALLERY
                     NewSlideImagePickerButton(
-                      line: 'Gallery',
+                      line: const Verse(
+                        text: 'phid_gallery',
+                        translate: true,
+                      ),
                       icon: Iconz.phoneGallery,
                       isTopBox: false,
                       onTap: () => onTap(ImagePickerType.galleryImage),
@@ -108,7 +114,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onTap;
   final String icon;
-  final String line;
+  final Verse line;
   final bool isTopBox;
   /// --------------------------------------------------------------------------
   BorderRadius getBorders({

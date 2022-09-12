@@ -9,6 +9,8 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
   black,
@@ -17,20 +19,12 @@ enum VerseWeight {
   thin,
 }
 
-enum VerseCasing {
-  non,
-  upperCase,
-  lowerCase,
-  // Proper,
-  // upperCamelCase,
-  // lowerCamelCase,
-}
 
 /// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperVerse({
-    this.verse = 'Bldrs.net will shock planet Earth isa',
+    @required this.verse,
     this.size = 2,
     this.color = Colorz.white255,
     this.weight = VerseWeight.bold,
@@ -49,12 +43,10 @@ class SuperVerse extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.verseCasing,
-    this.translate = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
+  final Verse verse;
   final int size;
   final Color color;
   final VerseWeight weight;
@@ -73,10 +65,8 @@ class SuperVerse extends StatelessWidget {
   final ValueNotifier<dynamic> highlight;
   final Color highlightColor;
   final Color shadowColor;
-  final VerseCasing verseCasing;
-  final bool translate;
   /// --------------------------------------------------------------------------
-  static Widget dotVerse({String verse}) {
+  static Widget dotVerse({Verse verse}) {
     return SuperVerse(
       verse: verse,
       scaleFactor: 0.9,
@@ -104,7 +94,11 @@ class SuperVerse extends StatelessWidget {
       children: <Widget>[
 
         SuperVerse(
-          verse: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
+          verse: Verse(
+            text: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
+            translate: false,
+            casing: Casing.upperCase,
+          ),
           color: color,
           weight: isBold ? VerseWeight.black : VerseWeight.bold,
           size: 6,
@@ -115,7 +109,11 @@ class SuperVerse extends StatelessWidget {
 
         if (currency != null)
           SuperVerse(
-            verse: currency,
+            verse: Verse(
+              text: currency,
+              translate: true,
+              casing: Casing.lowerCase,
+            ),
             weight: isBold ? VerseWeight.black : VerseWeight.thin,
             color: color,
             italic: true,
@@ -478,27 +476,36 @@ class SuperVerse extends StatelessWidget {
         sizeFactor: scaleFactor,
         hasLabelBox: labelColor != null,
       );
-
       final double _dotSize = verseSizeValue * 0.3;
 
-      return SuperVerseBox(
+      /// PLAN : SHOULD DELETE OR CREATE A SWITCH FOR THIS AFTER TRANSLATING EVERYTHING
+      final bool _canSuperTranslate = Verse.checkCanSuperTranslate(
+        context: context,
+        verse: verse,
+      );
+
+      return _SuperVerseBox(
         onTap: onTap,
         margin: margin,
         centered: centered,
         leadingDot: leadingDot,
         redDot: redDot,
+        onDoubleTap: _canSuperTranslate == false ? null : () => Verse.goToFastTranslator(
+          context: context,
+          verse: verse,
+        ),
         children: <Widget>[
 
           if (leadingDot == true)
-            LeadingDot(
+            _LeadingDot(
               dotSize: _dotSize,
               color: color,
             ),
 
-          Verse(
+          _TheVerse(
             verse: verse,
             maxLines: maxLines,
-            color: color,
+            color: _canSuperTranslate == true ? Colorz.red255.withGreen(150).withBlue(100) : color,
             centered: centered,
             scaleFactor: scaleFactor,
             size: size,
@@ -510,12 +517,10 @@ class SuperVerse extends StatelessWidget {
             highlight: highlight,
             highlightColor: highlightColor,
             strikeThrough: strikeThrough,
-            verseCasing: verseCasing,
-            translate: translate,
           ),
 
           if (redDot == true)
-            RedDot(
+            _RedDot(
               labelHeight: _labelHeight,
               labelColor: labelColor,
               dotSize: _dotSize,
@@ -530,15 +535,16 @@ class SuperVerse extends StatelessWidget {
   // -----------------------------------------------------------------------------
 }
 
-class SuperVerseBox extends StatelessWidget {
+class _SuperVerseBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SuperVerseBox({
+  const _SuperVerseBox({
     @required this.onTap,
     @required this.margin,
     @required this.centered,
     @required this.leadingDot,
     @required this.redDot,
     @required this.children,
+    @required this.onDoubleTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -548,6 +554,7 @@ class SuperVerseBox extends StatelessWidget {
   final bool leadingDot;
   final bool redDot;
   final List<Widget> children;
+  final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   static MainAxisAlignment _getMainAxisAlignment({
     @required bool centered,
@@ -578,6 +585,7 @@ class SuperVerseBox extends StatelessWidget {
     return GestureDetector(
       key: const ValueKey<String>('SuperVerseBox'),
       onTap: onTap,
+      onDoubleTap: onDoubleTap,
       child: Padding(
         padding: Scale.superMargins(margins: margin),
         child: Row(
@@ -598,9 +606,9 @@ class SuperVerseBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
 }
 
-class LeadingDot extends StatelessWidget {
+class _LeadingDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const LeadingDot({
+  const _LeadingDot({
     @required this.dotSize,
     @required this.color,
     Key key
@@ -640,9 +648,9 @@ class LeadingDot extends StatelessWidget {
   // -----------------------------------------------------------------------------
 }
 
-class RedDot extends StatelessWidget {
+class _RedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const RedDot({
+  const _RedDot({
     @required this.labelHeight,
     @required this.labelColor,
     @required this.dotSize,
@@ -671,7 +679,7 @@ class RedDot extends StatelessWidget {
         EdgeInsets.only(top: labelHeight * 0.2)
             :
         EdgeInsets.only(top: labelHeight * 0.05),
-        child: LeadingDot.dot(
+        child: _LeadingDot.dot(
           dotSize: dotSize,
           color: Colorz.red255,
         ),
@@ -682,9 +690,9 @@ class RedDot extends StatelessWidget {
   // -----------------------------------------------------------------------------
 }
 
-class Verse extends StatelessWidget {
+class _TheVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const Verse({
+  const _TheVerse({
     @required this.verse,
     this.highlight,
     this.size = 2,
@@ -699,14 +707,12 @@ class Verse extends StatelessWidget {
     this.strikeThrough = false,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.verseCasing,
-    this.translate,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
+  final Verse verse;
   final int size;
   final Color labelColor;
-  final String verse;
   final ValueNotifier<dynamic> highlight;
   final int maxLines;
   final bool centered;
@@ -718,8 +724,6 @@ class Verse extends StatelessWidget {
   final bool strikeThrough;
   final Color highlightColor;
   final Color shadowColor;
-  final VerseCasing verseCasing;
-  final bool translate;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static List<TextSpan> _generateTextSpans({
@@ -779,13 +783,13 @@ class Verse extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static String convertVerseCase({
     @required String verse,
-    @required VerseCasing verseCasing,
+    @required Casing verseCasing,
   }){
 
     switch (verseCasing){
-      case VerseCasing.non:             return verse;                   break;
-      case VerseCasing.lowerCase:       return verse.toLowerCase();     break;
-      case VerseCasing.upperCase:       return verse.toUpperCase();     break;
+      case Casing.non:             return verse;                   break;
+      case Casing.lowerCase:       return verse.toLowerCase();     break;
+      case Casing.upperCase:       return verse.toUpperCase();     break;
     // case VerseCasing.Proper:          return properVerse(verse);      break;
     // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
     // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
@@ -797,14 +801,12 @@ class Verse extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static String bakeVerseForViewing({
     @required BuildContext context,
-    @required String verse,
-    @required VerseCasing verseCasing,
-    @required bool translate,
+    @required Verse verse,
   }){
 
-    String _output = translate == true ? verse.trim() : '.$verse';
+    String _output = verse.translate == true ? verse.text.trim() : '.${verse.text}';
 
-    if (translate == true){
+    if (verse.translate == true){
 
       /// ADJUST VALUE
       if (TextCheck.isEmpty(_output) == false){
@@ -814,7 +816,7 @@ class Verse extends StatelessWidget {
         final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
         if (_isPhid == true || _isCurrency == true){
 
-          final String _foundXPhrase = xPhrase(context, verse);
+          final String _foundXPhrase = xPhrase(context, verse.text);
 
           /// X PHRASE NOT FOUND
           if (_foundXPhrase == null){
@@ -850,7 +852,7 @@ class Verse extends StatelessWidget {
     }
 
     /// ADJUST CASING
-    return convertVerseCase(verse: _output, verseCasing: verseCasing);
+    return convertVerseCase(verse: _output, verseCasing: verse.casing);
   }
   // -----------------------------------------------------------------------------
   @override
@@ -878,8 +880,6 @@ class Verse extends StatelessWidget {
     final String _verse = bakeVerseForViewing(
       context: context,
       verse: verse,
-      verseCasing: verseCasing,
-      translate: translate,
     );
     // --------------------
     return Flexible(

@@ -26,7 +26,10 @@ class InfoPageParagraph extends StatelessWidget {
         columnChildren: <Widget>[
 
           SuperVerse(
-            verse: flyerInfo,
+            verse: Verse(
+              text: flyerInfo,
+              translate: false,
+            ),
             maxLines: 500,
             centered: false,
             weight: VerseWeight.thin,
