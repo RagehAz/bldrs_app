@@ -66,8 +66,12 @@ class SuperImage extends StatelessWidget {
       width: width,
       height: height,
       color: Colorz.red255, // Colorz.white10,
-      child: SuperVerse(
-        verse: xPhrase(ctx, '##FOKING ERROR'),
+      child: const SuperVerse(
+        verse: Verse(
+          text: 'phid_error',
+          translate: true,
+          casing: Casing.lowerCase,
+        ),
         size: 0,
         maxLines: 2,
       ),

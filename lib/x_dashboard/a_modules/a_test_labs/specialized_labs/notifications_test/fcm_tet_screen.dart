@@ -206,9 +206,12 @@ class _FCMTestScreenState extends State<FCMTestScreen> {
           width: Scale.superScreenWidth(context),
           color: Colorz.bloodTest,
           child: SuperVerse(
-            verse:  '_note.notification.title : ${_note?.title}\n'
-                '_note.notification.body : ${_note?.body}\n'
-                '_note.data : ${_note?.metaData}',
+            verse: Verse(
+              text: '_note.notification.title : ${_note?.title}\n'
+                  '_note.notification.body : ${_note?.body}\n'
+                  '_note.data : ${_note?.metaData}',
+              translate: false,
+            ),
             maxLines: 100,
             margin: 20,
           ),

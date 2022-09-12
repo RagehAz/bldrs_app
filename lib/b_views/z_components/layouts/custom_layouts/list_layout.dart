@@ -34,7 +34,7 @@ class ListLayout extends StatelessWidget {
   final List<String> icons;
   final ValueChanged<String> onItemTap;
   final String pageIcon;
-  final String pageIconVerse;
+  final Verse pageIconVerse;
   final SkyType sky;
   /// --------------------------------------------------------------------------
   @override
@@ -49,7 +49,7 @@ class ListLayout extends StatelessWidget {
       sizeFactor: 1,
       hasLabelBox: true,
     );
-
+    // --------------------
     final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight -
         (Ratioz.appBarMargin * 4);
     // --------------------
@@ -110,9 +110,7 @@ class ListLayout extends StatelessWidget {
                           child: DreamBox(
                             height: 40,
                             width: Bubble.clearWidth(context) - 10,
-                            icon: icons == null || icons.isEmpty
-                                ? null
-                                : icons[index],
+                            icon: icons == null || icons.isEmpty ? null : icons[index],
                             iconSizeFactor: 0.8,
                             verse: mapModels[index].value,
                             bubble: false,

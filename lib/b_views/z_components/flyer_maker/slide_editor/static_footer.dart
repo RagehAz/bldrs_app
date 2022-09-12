@@ -82,7 +82,7 @@ class StaticFooter extends StatelessWidget {
               FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
                 icon: null, // Iconz.share,
-                verse:  '', // superPhrase(context, 'phid_send'),
+                phid:  '', // superPhrase(context, 'phid_send'),
                 isOn: false,
                 canTap: true,
                 onTap: (){},
@@ -95,7 +95,7 @@ class StaticFooter extends StatelessWidget {
               FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
                 icon: null, // Iconz.utPlanning,
-                verse:  '', // superPhrase(context, 'phid_comment'),
+                phid:  '', // superPhrase(context, 'phid_comment'),
                 isOn: false,
                 canTap: false,
                 onTap: (){},
@@ -108,7 +108,7 @@ class StaticFooter extends StatelessWidget {
               FooterButton(
                 flyerBoxWidth: flyerBoxWidth,
                 icon: null, // Iconz.save,
-                verse:  '', // superPhrase(context, 'phid_save'),
+                phid:  '', // superPhrase(context, 'phid_save'),
                 isOn: false,
                 canTap: false,
                 onTap: (){},

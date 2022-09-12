@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -266,7 +265,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                           translateVerse: false,
                           secondLine: _picker.chainID,
                           translateSecondLine: false,
-                          verseCasing: VerseCasing.upperCase,
+                          verseCasing: Casing.upperCase,
                           margins: 10,
                           verseScaleFactor: 0.65,
                           verseItalic: true,

@@ -92,7 +92,10 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
       layoutWidget: _notes.isEmpty ?
       const Center(
         child: SuperVerse(
-          verse:   '##No new Notifications',
+          verse: Verse(
+            text: 'No new Notifications',
+            translate: false,
+          ),
           weight: VerseWeight.thin,
           italic: true,
           color: Colorz.white20,
@@ -118,7 +121,10 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
               const SizedBox(height: 5),
 
               SuperVerse(
-                verse: _noteModel.id,
+                verse: Verse(
+                  text: _noteModel.id,
+                  translate: false,
+                ),
                 centered: false,
                 size: 1,
                 italic: true,

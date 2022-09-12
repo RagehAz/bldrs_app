@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 class ParagraphBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ParagraphBubble({
+    @required this.headerViewModel,
     @required this.paragraph,
-    this.title,
     this.maxLines = 5,
     this.centered = false,
     this.actionBtIcon,
@@ -27,8 +27,7 @@ class ParagraphBubble extends StatefulWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
-  final String paragraph;
+  final Verse paragraph;
   final int maxLines;
   final bool centered;
   final String actionBtIcon;
@@ -38,6 +37,7 @@ class ParagraphBubble extends StatefulWidget {
   final bool editMode;
   final Function onParagraphTap;
   final Color bubbleColor;
+  final BubbleHeaderVM headerViewModel;
   /// --------------------------------------------------------------------------
   @override
   _ParagraphBubbleState createState() => _ParagraphBubbleState();
@@ -54,7 +54,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   void initState() {
     super.initState();
     _maxLines = widget.maxLines;
-    _canExpand = widget.paragraph.length > 100;
+    _canExpand = widget.paragraph.text.length > 100;
   }
   // --------------------
   @override
@@ -103,10 +103,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return Bubble(
-        headerViewModel: BubbleHeaderVM(
-          headlineVerse: widget.title,
-          leadingIcon: widget.actionBtIcon,
-        ),
+        headerViewModel: widget.headerViewModel,
         key: widget.key,
         width: widget.bubbleWidth,
         margins: widget.margins,
@@ -120,7 +117,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         columnChildren: <Widget>[
 
           /// PARAGRAPH TEXT
-          if (widget.paragraph != null && widget.paragraph != '')
+          if (widget.paragraph != null && widget.paragraph.text != '')
             Padding(
               padding: Scale.superMargins(margins: widget.margins),
               child: SuperVerse(
@@ -133,9 +130,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
             ),
 
           /// ARROW
-          if (widget.paragraph != null && widget.paragraph != '')
+          if (widget.paragraph != null && widget.paragraph.text != '')
             TextLinesAnalyzer(
-              text: widget.paragraph.trim(),
+              text: widget.paragraph.text.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
               childIfWithinMaxLines: Container(),

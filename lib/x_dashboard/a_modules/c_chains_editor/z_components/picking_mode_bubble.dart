@@ -113,7 +113,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
   }
   // --------------------
-  String _getGoButtonDescription(){
+  Verse _getGoButtonDescription(){
 
     List<String> _typesStrings = FlyerTyper.translateFlyerTypes(context: context, flyerTypes: _selectedTypes);
     _typesStrings = Stringer.sortAlphabetically2(_typesStrings);
@@ -125,7 +125,11 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
     final String _cityName = _onlyCityChains == true ? _zone.cityName : '';
 
-    return '$_multipleString of $_cityName $_cityString :-\n$_typesString';
+    return Verse(
+      text: '$_multipleString of $_cityName $_cityString :-\n$_typesString',
+      translate: false,
+    );
+
   }
   // -----------------------------------------------------------------------------
   Future<void> _onGoChainsPickingScreenButtonTap() async {
@@ -140,13 +144,17 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
       zone: _zone,
     );
 
-    if (_multipleSelectionMode == true){
-      final List<SpecModel> _specs = _received;
-      SpecModel.blogSpecs(_specs);
-    }
-    else {
-      final String _phid = _received;
-      blog(_phid);
+    if (_received != null){
+
+      if (_multipleSelectionMode == true){
+        final List<SpecModel> _specs = _received;
+        SpecModel.blogSpecs(_specs);
+      }
+      else {
+        final String _phid = _received;
+        blog(_phid);
+      }
+
     }
 
   }
@@ -156,8 +164,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
-        headlineVerse: 'Picking mode',
-        translateHeadline: false,
+        headlineVerse: Verse(
+          text: 'Picking mode',
+          translate: false,
+        ),
       ),
       bubbleColor: Colorz.white20,
       columnChildren: <Widget>[
@@ -166,8 +176,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         Bubble(
           width: Bubble.clearWidth(context),
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: 'Flyer Types',
-            translateHeadline: false,
+            headlineVerse: const Verse(
+              text: 'Flyer Types',
+              translate: false,
+            ),
             headerWidth: Bubble.clearWidth(context) - 20,
           ),
           // bubbleColor: Colorz.white10,
@@ -188,9 +200,11 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                     );
                     return DreamBox(
                       height: 35,
-                      verse: FlyerTyper.translateFlyerType(context: context, flyerType: _type),
-                      verseCasing: VerseCasing.upperCase,
-                      translateVerse: true,
+                      verse: Verse(
+                        text: FlyerTyper.getFlyerTypePhid(context: context, flyerType: _type),
+                        translate: true,
+                        casing: Casing.upperCase,
+                      ),
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
@@ -211,8 +225,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         Bubble(
           width: Bubble.clearWidth(context),
           headerViewModel: BubbleHeaderVM(
-              headlineVerse: 'City Chains Only',
-              translateHeadline: false,
+              headlineVerse: const Verse(
+                text: 'City Chains Only',
+                translate: false,
+              ),
               headerWidth: Bubble.clearWidth(context) - 20,
               switchValue: _onlyCityChains,
               hasSwitch: true,
@@ -227,8 +243,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         Bubble(
           width: Bubble.clearWidth(context),
           headerViewModel: BubbleHeaderVM(
-              headlineVerse: 'Multiple Selection mode',
-              translateHeadline: false,
+              headlineVerse: const Verse(
+                text: 'Multiple Selection mode',
+                translate: false,
+              ),
               headerWidth: Bubble.clearWidth(context) - 20,
               switchValue: _multipleSelectionMode,
               hasSwitch: true,
@@ -243,8 +261,10 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         Bubble(
           width: Bubble.clearWidth(context),
           headerViewModel: BubbleHeaderVM(
-            headlineVerse: _onlyCityChains == true ? ZoneModel.translateZoneString(context: context, zoneModel: _zone) : '...',
-            translateHeadline: false,
+            headlineVerse: _onlyCityChains == true ?
+            ZoneModel.translateZoneString(context: context, zoneModel: _zone)
+                :
+            Verse.threeDots(),
             headerWidth: Bubble.clearWidth(context) - 20,
             leadingIcon: _onlyCityChains == true ? Flag.getFlagIcon(_zone.countryID) : Iconz.earth,
           ),
@@ -259,11 +279,12 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
           color: Colorz.blue80,
           verseCentered: false,
           width: Bubble.clearWidth(context),
-          verse: 'Go to Chains Picking Screen',
-          translateVerse: false,
+          verse: const Verse(
+            text: 'Go to Chains Picking Screen',
+            translate: false,
+          ),
           secondLine: _getGoButtonDescription(),
           secondVerseMaxLines: 3,
-          translateSecondLine: false,
           onTap: _onGoChainsPickingScreenButtonTap,
           verseScaleFactor: 0.7,
           margins: const EdgeInsets.only(top: 5),

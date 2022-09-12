@@ -80,7 +80,11 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
 
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
-        headlineVerse: 'phid_add_with_dots', // 'Add ...'
+        headlineVerse: Verse(
+          text: 'phid_add_with_dots',
+          translate: true,
+          pseudo: 'Add ...',
+        ),
       ),
       width: BldrsAppBar.width(context),
       columnChildren: <Widget>[

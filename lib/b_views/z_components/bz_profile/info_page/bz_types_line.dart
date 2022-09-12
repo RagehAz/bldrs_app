@@ -31,7 +31,10 @@ class BzTypesLine extends StatelessWidget {
     return SizedBox(
       width: width,
       child: SuperVerse(
-        verse: _bzTypesString,
+        verse: Verse(
+          text: _bzTypesString,
+          translate: false,
+        ),
         maxLines: 4,
         weight: VerseWeight.thin,
         italic: true,

@@ -11,7 +11,7 @@ class InfoPageHeadline extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final String headlineVerse;
+  final Verse headlineVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

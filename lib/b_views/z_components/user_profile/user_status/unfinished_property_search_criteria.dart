@@ -213,7 +213,10 @@ class PropertySearchCriteria extends StatelessWidget {
                       vertical: _pageMargin * 0.5,
                     ),
                     child: SuperVerse(
-                      verse: '##Select your default property search criteria !',
+                      verse: Verse(
+                        text: '##Select your default property search criteria !',
+                        translate: true,
+                      ),
                       centered: false,
                       italic: true,
                       color: Colorz.yellow200,
@@ -261,7 +264,11 @@ class PropertySearchCriteria extends StatelessWidget {
                   icon: Iconz.plus,
                   iconColor: Colorz.blue255,
                   iconSizeFactor: 0.5,
-                  verse: '##Add more details',
+                  verse: const Verse(
+                    pseudo: 'Add more details',
+                    text: 'phid_add_more_details',
+                    translate: true,
+                  ),
                   verseColor: Colorz.blue255,
                   onTap: () {
                     blog('3afreet enta');

@@ -33,7 +33,10 @@ class MiniUserBanner extends StatelessWidget {
           width: size+10,
           height: 30,
           child: SuperVerse(
-            verse: userModel?.name,
+            verse: Verse(
+              text: userModel?.name,
+              translate: false,
+            ),
             size: 1,
             weight: VerseWeight.thin,
             maxLines: 2,

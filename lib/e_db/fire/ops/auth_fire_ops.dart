@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -421,8 +422,15 @@ class AuthFireOps {
     on Exception catch (error) {
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '#Trouble Signing out',
-        bodyVerse: error,
+        titleVerse: const Verse(
+          pseudo: '#Trouble Signing out',
+          text: 'phid_trouble_signing_out',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          text: error.toString(),
+          translate: false,
+        ),
       );
     }
 

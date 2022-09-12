@@ -341,7 +341,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: 'phid_phone',
+                    headlineVerse: Verse(
+                      text: 'phid_phone',
+                      translate: true,
+                    ),
                     redDot: true,
                   ),
                   keyboardTextInputType: TextInputType.phone,
@@ -373,7 +376,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   appBarType: AppBarType.basic,
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
-                    headlineVerse: 'phid_email',
+                    headlineVerse: Verse(
+                      text: 'phid_email',
+                      translate: true,
+                    ),
                     redDot: true,
                   ),
                   keyboardTextInputType: TextInputType.emailAddress,

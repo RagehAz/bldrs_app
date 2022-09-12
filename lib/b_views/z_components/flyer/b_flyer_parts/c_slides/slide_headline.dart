@@ -13,7 +13,7 @@ class SlideHeadline extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final String verse;
+  final Verse verse;
   final Function tappingVerse;
   final Color verseColor;
   /// --------------------------------------------------------------------------

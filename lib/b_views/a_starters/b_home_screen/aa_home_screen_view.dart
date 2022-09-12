@@ -73,7 +73,11 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     if (Mapper.checkCanLoopList(_wallFlyers) == false){
       return const Center(
         child: SuperVerse(
-          verse: '##No Flyers To Show',
+          verse: Verse(
+            text: 'phid_no_flyers_to_show',
+            translate: true,
+            casing: Casing.capitalizeFirstChar,
+          ),
           italic: true,
           weight: VerseWeight.black,
           size: 5,

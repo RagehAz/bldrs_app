@@ -15,7 +15,7 @@ class BzPgVerse extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final String verse;
+  final Verse verse;
   final int size;
   final int maxLines;
   /// --------------------------------------------------------------------------
@@ -50,7 +50,7 @@ class BzAboutVerse extends StatefulWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final String verse;
+  final Verse verse;
   final String bzName;
   /// --------------------------------------------------------------------------
   @override
@@ -78,7 +78,10 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
         children: <Widget>[
 
           SuperVerse(
-            verse:  '${xPhrase( context, 'phid_about')} ${widget.bzName}',
+            verse: Verse(
+              text: '${xPhrase( context, 'phid_about')} ${widget.bzName}',
+              translate: false,
+            ),
             weight: VerseWeight.thin,
             margin: 10,
             color: Colorz.grey255,

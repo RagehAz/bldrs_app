@@ -30,15 +30,21 @@ class ReviewTextsColumn extends StatelessWidget {
 
         /// USER NAME
         SuperVerse(
-          verse: name,
+          verse: Verse(
+            text: name,
+            translate: false,
+          ),
         ),
 
         /// TIME
         if (isCreatorMode == false)
           SuperVerse(
-            verse: Timers.calculateSuperTimeDifferenceString(
-              from: timeStamp,
-              to: DateTime.now(),
+            verse: Verse(
+              text: Timers.calculateSuperTimeDifferenceString(
+                from: timeStamp,
+                to: DateTime.now(),
+              ),
+              translate: false,
             ),
             weight: VerseWeight.thin,
             italic: true,
@@ -49,7 +55,10 @@ class ReviewTextsColumn extends StatelessWidget {
         /// TEXT
         if (isCreatorMode == false)
           SuperVerse(
-            verse: text,
+            verse: Verse(
+              text: text,
+              translate: false,
+            ),
             maxLines: 100,
             centered: false,
             weight: _isSpecialReview ? VerseWeight.bold : VerseWeight.thin,

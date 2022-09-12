@@ -42,7 +42,7 @@ class BzLabel extends StatelessWidget {
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
     /// B.LOCALE
-    final String _businessLocale = ZoneModel.translateZoneString(
+    final Verse _businessLocale = ZoneModel.translateZoneString(
       context: context,
       zoneModel: bzModel.zone,
     );
@@ -63,7 +63,10 @@ class BzLabel extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
               child: SuperVerse(
-                verse: bzModel?.name,
+                verse: Verse(
+                  text: bzModel?.name,
+                  translate: false,
+                ),
                 centered: false,
                 size: _bzNameSize,
                 scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,

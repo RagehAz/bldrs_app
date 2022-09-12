@@ -21,9 +21,8 @@ class TextFieldBubble extends StatelessWidget {
     @required this.appBarType,
     this.globalKey,
     this.titleVerse,
-    this.translateTitle = true,
     this.bubbleWidth,
-    this.hintText = '...',
+    this.hintVerse,
     this.counterIsOn = false,
     this.maxLines = 1,
     this.maxLength = 100,
@@ -37,7 +36,6 @@ class TextFieldBubble extends StatelessWidget {
     this.initialText,
     this.validator,
     this.bulletPoints,
-    this.translateBullets = true,
     this.fieldIsRequired = false,
     // this.loading = false,
     this.actionBtIcon,
@@ -62,9 +60,8 @@ class TextFieldBubble extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
-  final String titleVerse;
-  final bool translateTitle;
-  final String hintText;
+  final Verse titleVerse;
+  final Verse hintVerse;
   final bool counterIsOn;
   final int maxLines;
   final int maxLength;
@@ -78,8 +75,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputAction keyboardTextInputAction;
   final String initialText;
   final String Function() validator;
-  final List<String> bulletPoints;
-  final bool translateBullets;
+  final List<Verse> bulletPoints;
   final bool fieldIsRequired;
   // final bool loading;
   final String actionBtIcon;
@@ -173,7 +169,6 @@ class TextFieldBubble extends StatelessWidget {
         headerViewModel: BubbleHeaderVM(
           headerWidth: _bubbleWidth - 20,
           headlineVerse: titleVerse,
-          translateHeadline: translateTitle,
           redDot: fieldIsRequired,
           leadingIcon: actionBtIcon,
           onLeadingIconTap: actionBtFunction,
@@ -187,7 +182,6 @@ class TextFieldBubble extends StatelessWidget {
             BulletPoints(
               bubbleWidth: bubbleWidth,
               bulletPoints: bulletPoints,
-              translateBullets: translateBullets,
             ),
 
           /// TEXT FIELD ROW
@@ -221,7 +215,7 @@ class TextFieldBubble extends StatelessWidget {
                     width: fieldWidth,
                     isFormField: isFormField,
                     textDirection: textDirection,
-                    hintVerse: hintText,
+                    hintVerse: hintVerse,
                     counterIsOn: counterIsOn,
                     textInputType: keyboardTextInputType,
                     maxLines: maxLines,

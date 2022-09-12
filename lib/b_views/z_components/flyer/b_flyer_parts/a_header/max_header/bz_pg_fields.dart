@@ -24,7 +24,10 @@ class BzPgFields extends StatelessWidget {
         children: const <Widget>[
 
           SuperVerse(
-            verse: 'phid_scopeOfServices',
+            verse: Verse(
+              text: 'phid_scopeOfServices',
+              translate: true,
+            ),
             weight: VerseWeight.thin,
             margin: 10,
             color: Colorz.grey255,

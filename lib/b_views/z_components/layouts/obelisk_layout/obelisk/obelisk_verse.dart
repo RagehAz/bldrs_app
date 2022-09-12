@@ -41,9 +41,11 @@ class ObeliskVerse extends StatelessWidget {
               alignment: Alignment.centerLeft,
               color: Colorz.nothing,
               child: SuperVerse(
-                verse: navModel?.title,
-                verseCasing: _isSelected ? VerseCasing.upperCase : VerseCasing.non,
-                translate: navModel.translateTitle,
+                verse: Verse(
+                  text: navModel?.title,
+                  translate: navModel.translateTitle,
+                  casing: _isSelected ? Casing.upperCase : Casing.non,
+                ),
                 margin: Scale.superInsets(
                   context: context,
                   enLeft: 5,

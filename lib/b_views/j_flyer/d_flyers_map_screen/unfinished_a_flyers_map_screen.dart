@@ -238,7 +238,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               left: 10,
               child: DreamBox(
                 height: 60,
-                verse: '##Tap The Map\nto pin flyer on the map !',
+                verse: Verse(
+                  text: '##Tap The Map\nto pin flyer on the map !',
+                  translate: true,
+                  pseudo: 'Tap The Map\nto pin flyer on the map !',
+                ),
                 verseWeight: VerseWeight.regular,
                 verseItalic: true,
                 verseMaxLines: 2,
@@ -258,9 +262,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                 color: confirmButtonIsActive == true
                     ? Colorz.yellow255
                     : Colorz.red255,
-                verse: confirmButtonIsActive == true
-                    ? 'Confirm flyer Location'
-                    : 'Pin the Map first !',
+                verse: Verse(
+                  text: confirmButtonIsActive == true ? 'Confirm flyer Location' : 'phid_pin_the_map_first',
+                  translate: true,
+                ),
                 verseMaxLines: 2,
                 verseScaleFactor: 0.7,
                 verseWeight: VerseWeight.black,

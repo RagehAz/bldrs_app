@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -44,7 +45,7 @@ Future<dynamic> goToChainsPickingScreen({
   @required List<FlyerType> flyerTypes,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
-  @required String pageTitleVerse,
+  @required Verse pageTitleVerse,
   @required ZoneModel zone,
 }) async {
 
@@ -60,16 +61,18 @@ Future<dynamic> goToChainsPickingScreen({
       )
   );
 
-  if (isMultipleSelectionMode == true){
-    final List<SpecModel> _specs = _received;
-    SpecModel.blogSpecs(_specs);
-  }
-  else {
-    final String _phid = _received;
-    blog(_phid);
+  if (_received != null){
+    if (isMultipleSelectionMode == true){
+      final List<SpecModel> _specs = _received;
+      SpecModel.blogSpecs(_specs);
+    }
+    else {
+      final String _phid = _received;
+      blog(_phid);
+    }
   }
 
-  return dynamic;
+  return _received;
 }
 // -----------------------------------------------------------------------------
 
@@ -133,14 +136,19 @@ Future<bool> _preSyncCheckups({
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
     height: 600,
-    titleVerse:  'Chains Differences',
-    bodyVerse:  'Below is a comparison result of Chain changed\n'
-        'Wish to upload the edited Chain',
+    titleVerse: const Verse(
+      text: 'Chains Differences',
+      translate: false,
+    ),
+    bodyVerse: const Verse(
+      text: 'Below is a comparison result of Chain changed\n'
+          'Wish to upload the edited Chain',
+      translate: false,
+    ),
     boolDialog: true,
     child: BulletPoints(
       bubbleWidth: CenterDialog.clearWidth(context),
-      bulletPoints: _differencesLog,
-      translateBullets: false,
+      bulletPoints: Verse.createVerses(strings: _differencesLog, translate: false),
     ),
   );
 
@@ -195,9 +203,11 @@ Future<void> onPhidTap({
           Padding(
             padding: const EdgeInsets.only(top: 5),
             child: BulletPoints(
-              bulletPoints: ChainPathConverter.splitPathNodes(_path),
+              bulletPoints: Verse.createVerses(
+                strings: ChainPathConverter.splitPathNodes(_path),
+                translate: false,
+              ),
               bubbleWidth: BottomDialog.clearWidth(context),
-              translateBullets: false,
             ),
           ),
 
@@ -301,14 +311,17 @@ Future<void> onDeleteThePhid ({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  'Delete Paths ?',
-    translateTitle: false,
-    translateBody: false,
-    bodyVerse:  '${_relatedPaths.length} paths will be deleted',
+    titleVerse: const Verse(
+      text: 'Delete Paths ?',
+      translate: false,
+    ),
+    bodyVerse: Verse(
+      text: '${_relatedPaths.length} paths will be deleted',
+      translate: false,
+    ),
     boolDialog: true,
     child: BulletPoints(
-        bulletPoints: _relatedPaths,
-        translateBullets: false
+        bulletPoints: Verse.createVerses(strings: _relatedPaths, translate: false),
     ),
   );
 
@@ -350,10 +363,14 @@ Future<void> onEditPhid({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       height: 500,
-      titleVerse:  'Edit this path ?',
-      bodyVerse:  'old\n$path'
-          '\n\n'
-          'new\n$_typedPath',
+      titleVerse: const Verse(
+        text: 'Edit this path ?',
+        translate: false,
+      ),
+      bodyVerse: Verse(
+        text: 'old\n$path\n\nnew\n$_typedPath',
+        translate: false,
+      ),
       boolDialog: true,
     );
 

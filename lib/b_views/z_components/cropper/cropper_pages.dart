@@ -72,7 +72,11 @@ class CropperPages extends StatelessWidget {
                 height: _imageSpaceHeight,
                 color: Colorz.black255,
                 child: const SuperVerse(
-                  verse: '##Image format is inCompatible\nPlease select another Image',
+                  verse: Verse(
+                    pseudo: 'Image format is inCompatible\nPlease select another Image',
+                    text: 'phid_image_format_incompatible',
+                    translate: true,
+                  ),
                   maxLines: 3,
                 ),
               );

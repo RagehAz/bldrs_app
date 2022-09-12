@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -391,7 +390,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 maxLines: _keyboardModel.maxLines,
                 minLines: _keyboardModel.minLines,
                 maxLength: _keyboardModel.maxLength,
-                hintText: _keyboardModel.hintVerse,
+                hintVerse: _keyboardModel.hintVerse,
                 counterIsOn: _keyboardModel.counterIsOn,
                 keyboardTextInputType: _keyboardModel.textInputType,
                 keyboardTextInputAction: _keyboardModel.textInputAction,
@@ -423,7 +422,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'pick phid',
+                      verse: const Verse(
+                        text: 'pick phid',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       onTap: () => _onPickPhid(),
                     ),
@@ -438,7 +440,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'Add "phid_"',
+                      verse: const Verse(
+                        text: 'Add "phid_"',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       onTap: () => _onAddTextAtEnd('phid_'),
                     ),
@@ -453,7 +458,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'Add "/"',
+                      verse: const Verse(
+                        text: 'Add "/"',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       onTap: () => _onAddTextAtEnd('/'),
                     ),
@@ -466,8 +474,11 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       color: Colorz.green50,
                       verseScaleFactor: 0.6,
-                      verse:'- Confirm -',
-                      verseCasing: VerseCasing.upperCase,
+                      verse: const Verse(
+                        text: '- Confirm -',
+                        translate: false,
+                        casing: Casing.upperCase,
+                      ),
                       verseItalic: true,
                       onTap: () => _onSubmit(_controller.text),
                     ),
@@ -504,7 +515,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'Clear',
+                      verse: const Verse(
+                        text: 'Clear',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       isDeactivated: TextCheck.isEmpty(text.text),
                       onTap: () => _onClear(),
@@ -520,7 +534,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'Remove last Node',
+                      verse: const Verse(
+                        text: 'Remove last Node',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       isDeactivated: TextCheck.isEmpty(text.text),
                       onTap: () => _onDeleteLastNode(),
@@ -536,7 +553,10 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
-                      verse:'Add Data creator',
+                      verse: const Verse(
+                        text: 'Add Data creator',
+                        translate: false,
+                      ),
                       verseItalic: true,
                       isDeactivated: !_canAddDataCreator(),
                       onTap: () => _onAddDataCreator(),

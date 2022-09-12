@@ -117,7 +117,10 @@ class _FloatingDialogState extends State<FloatingDialog> {
             menuMaxHeight: 500,
             itemHeight: _stripHeight,
             hint: const SuperVerse(
-              verse: '##flotingDialingHint',
+              verse: Verse(
+                text: '##floatingDialogHint',
+                translate: false,
+              ),
             ),
             dropdownColor: Colorz.white255,
             elevation: 30,
@@ -130,7 +133,10 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 },
                 child: SuperVerse(
                   color: Colorz.black230,
-                  verse: item,
+                  verse: Verse(
+                    text: item,
+                    translate: false,
+                  ),
                 ),
               );
             }).toList(),

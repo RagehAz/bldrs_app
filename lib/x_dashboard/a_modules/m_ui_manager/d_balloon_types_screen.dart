@@ -50,7 +50,10 @@ class BalloonTypesScreen extends StatelessWidget {
                   ),
 
                   SuperVerse(
-                    verse: _balloonType.toString(),
+                    verse: Verse(
+                      text: _balloonType.toString(),
+                      translate: false,
+                    ),
                     margin: 10,
                   ),
 

@@ -31,7 +31,7 @@ class SpecsSelectorBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _translatedFlyerType = FlyerTyper.translateFlyerType(
+    final String _translatedFlyerType = FlyerTyper.getFlyerTypePhid(
       context: context,
       flyerType: draft.flyerType,
       pluralTranslation: false,
@@ -43,16 +43,22 @@ class SpecsSelectorBubble extends StatelessWidget {
       absorbPointer: draft.flyerType == null,
       child: Bubble(
         headerViewModel: const BubbleHeaderVM(
-          headlineVerse: 'phid_specifications',
+          headlineVerse: Verse(
+            text: 'phid_specifications',
+            translate: true,
+          ),
         ),
         width: Bubble.bubbleWidth(context),
         columnChildren: <Widget>[
 
           BulletPoints(
-            bulletPoints: <String>[
-              '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+            bulletPoints: <Verse>[
+              Verse(
+                text: '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+                translate: true,
+                varTag: _translatedFlyerType,
+              ),
             ],
-            translateBullets: true,
           ),
 
           InfoPageSpecs(
@@ -64,7 +70,10 @@ class SpecsSelectorBubble extends StatelessWidget {
           DreamBox(
             height: PhidButton.getHeight(),
             // width: Bubble.clearWidth(context),
-            verse: Mapper.checkCanLoopList(draft.keywordsIDs) ? 'Edit Specifications' : 'Add Specifications',
+            verse: Verse(
+              text: Mapper.checkCanLoopList(draft.keywordsIDs) ? 'phid_edit_specs' : 'phid_add_specs',
+              translate: true,
+            ),
             bubble: false,
             color: Colorz.white20,
             verseScaleFactor: 1.5,
