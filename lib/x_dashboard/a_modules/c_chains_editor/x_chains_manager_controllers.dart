@@ -99,7 +99,7 @@ Future<void> onSyncChain({
       editedChains: editedChains,
     );
 
-    // initialChains.value = editedChains;
+    initialChains.value = editedChains;
 
   }
 

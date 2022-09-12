@@ -31,7 +31,6 @@ class WaitDialog extends StatelessWidget {
         loadingPhrase: loadingVerse,
       ),
     );
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -131,8 +131,10 @@ class Nav {
     @required String invoker,
     dynamic passedData,
   }) {
-    blog('Nav.goBack : invoker : $invoker');
-    Navigator.pop(context, passedData);
+    if (context != null){
+      blog('Nav.goBack : invoker : $invoker');
+      Navigator.pop(context, passedData);
+    }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
