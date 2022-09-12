@@ -169,8 +169,10 @@ Future<void> onUpdateNode({
 
     final List<Chain> _newChains = Chain.replaceChainInChains(
       chains: chains,
-      oldChainID: _rootChainID,
-      chainToReplace: _newChain,
+      chainToReplace: Chain(
+        id: _rootChainID,
+        sons: _newChain,
+      ),
     );
 
     chainsNotifier.value = _newChains;

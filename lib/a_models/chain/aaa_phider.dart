@@ -139,6 +139,57 @@ class Phider {
     return _output;
   }
   // --------------------
+  ///
+  static List<String> removeIndexesFromPhids(List<String> phids){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+      for (final String phid in phids){
+        _output.add(removeIndexFromPhid(phid: phid));
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static String removePathIndexes(String path){
+    String _output;
+    if (TextCheck.isEmpty(path) == false){
+
+      final List<String> _nodes = ChainPathConverter.splitPathNodes(path);
+
+      final List<String> _nodesWithoutIndexes = <String>[];
+      for (final String node in _nodes){
+        final String _nodeWithoutIndex = removeIndexFromPhid(phid: node);
+        _nodesWithoutIndexes.add(_nodeWithoutIndex);
+      }
+
+      _output = ChainPathConverter.combinePathNodes(_nodesWithoutIndexes);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  ///
+  static List<String> removePathsIndexes(List<String> paths){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      for (final String path in paths){
+
+        final String _pathWithoutIndex = removePathIndexes(path);
+        _output.add(_pathWithoutIndex);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhidHasIndex(String phid){
     bool _hasIndex = false;
@@ -283,7 +334,11 @@ class Phider {
       final bool _isChains = Chain.checkIsChains(chain.sons);
       final bool _isDataCreator = DataCreation.checkIsDataCreator(chain.sons);
 
-      final String _chainID = addIndexToPhid(phid: chain.id, index: chainIndex);
+      final String _chainID = addIndexToPhid(
+        phid: chain.id,
+        index: chainIndex,
+        // overrideExisting: true,
+      );
 
       if (_isChains == true){
         _output = Chain(

@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/e_db/real/ops/city_phids_real_ops.dart';
@@ -118,6 +119,8 @@ class ChainProtocols {
           newChains: newChains,
           showWaitDialog: false,
         ),
+
+        AppStateFireOps.updateGlobalChainsVersion(context),
 
       ]);
 

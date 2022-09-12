@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -290,7 +291,7 @@ class PhraseProtocols {
 
       _phrases = await generateMixedLangPhrasesFromPhids(
         context: context,
-        phids: _phids,
+        phids: Phider.removeIndexesFromPhids(_phids),
       );
 
     }
