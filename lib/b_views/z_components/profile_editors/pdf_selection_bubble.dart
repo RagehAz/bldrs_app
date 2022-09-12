@@ -121,18 +121,20 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
             ),
             width: Bubble.bubbleWidth(context),
             headerViewModel: const BubbleHeaderVM(
-              headlineVerse: 'phid_pdf_attachment',
+              headlineVerse: Verse(
+                text: 'phid_pdf_attachment',
+                translate: true,
+              ),
             ),
 
             columnChildren: <Widget>[
 
               const BulletPoints(
-                bulletPoints: <String>[
-                  '##You can attach a PDF File to this flyer.',
-                  '##Anybody can view and download this PDF file.',
-                  '##PDF file size can only be less than 3 Mb.',
+                bulletPoints: <Verse>[
+                  Verse(text:'##You can attach a PDF File to this flyer.', translate: true,),
+                  Verse(text:'##Anybody can view and download this PDF file.', translate: true,),
+                  Verse(text:'##PDF file size can only be less than 3 Mb.', translate: true,),
                 ],
-                translateBullets: true,
               ),
 
               if (_fileExists == true || _urlExists == true)
@@ -141,14 +143,20 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   children: <Widget>[
 
                     const BubbleTitle(
-                      title: '##PDF File name',
+                      titleVerse: Verse(
+                        text: 'phid_pdf_file_name',
+                        translate: true,
+                      ),
                       titleScaleFactor: 0.9,
                     ),
 
 
                     if (pdf.size != null)
                     SuperVerse(
-                      verse: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
+                      verse: Verse(
+                        text: '##${_sizeLimitReached == true ? 'Max Limit Reached' : 'File Size'} : ${pdf.size} Mb / 3 Mb',
+                        translate: true,
+                      ),
                       italic: true,
                       color: _sizeLimitReached == true ? Colorz.red255 : Colorz.white125,
                       weight: VerseWeight.thin,
@@ -279,7 +287,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   if (_fileExists == true || _urlExists == true)
                     DreamBox(
                       height: 50,
-                      verse: '##Remove',
+                      verse: const Verse(
+                        text: 'phid_remove',
+                        translate: true,
+                      ),
                       verseScaleFactor: 0.6,
                       verseWeight: VerseWeight.black,
                       verseItalic: true,
@@ -293,7 +304,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   /// SELECT PDF
                   DreamBox(
                     height: 50,
-                    verse: _fileExists == true || pdf?.url != null ? 'Replace PDF' : 'Select a PDF',
+                    verse: Verse(
+                      text: _fileExists == true || pdf?.url != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',
+                      translate: true,
+                    ),
                     verseScaleFactor: 0.6,
                     verseWeight: VerseWeight.black,
                     verseItalic: true,

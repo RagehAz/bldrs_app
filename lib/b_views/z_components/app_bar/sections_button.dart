@@ -20,7 +20,7 @@ class SectionsButton extends StatelessWidget {
   final Function onTap;
   final Color color;
   /// --------------------------------------------------------------------------
-  static String getTitle({
+  static Verse getTitle({
     @required BuildContext context,
     @required String currentKeywordID,
     @required FlyerType currentSection,
@@ -32,17 +32,20 @@ class SectionsButton extends StatelessWidget {
     }
 
     else {
-      final String _sectionName = FlyerTyper.translateFlyerType(
+      final String _sectionName = FlyerTyper.getFlyerTypePhid(
         context: context,
         flyerType: currentSection,
       );
       _title = _sectionName;
     }
 
-    return _title;
+    return Verse(
+      text: _title,
+      translate: true,
+    );
   }
 // -----------------------------------------------------------------------------
-  static String getBody({
+  static Verse getBody({
     @required BuildContext context,
     @required String currentKeywordID,
     @required FlyerType currentSection,
@@ -53,7 +56,7 @@ class SectionsButton extends StatelessWidget {
       _body = currentKeywordID;
     }
     else {
-      final String _sectionName = FlyerTyper.translateFlyerType(
+      final String _sectionName = FlyerTyper.getFlyerTypePhid(
         context: context,
         flyerType: currentSection,
       );
@@ -61,7 +64,10 @@ class SectionsButton extends StatelessWidget {
       _body = _sectionName;
     }
 
-    return _body;
+    return Verse(
+      text: _body,
+      translate: true,
+    );
   }
   // --------------------
   @override
@@ -86,13 +92,13 @@ class SectionsButton extends StatelessWidget {
                 child: Consumer<ChainsProvider>(
                   builder: (_, ChainsProvider chainsPro, Widget child){
 
-                    final String _titleVerse = getTitle(
+                    final Verse _titleVerse = getTitle(
                       context: context,
                       currentKeywordID: chainsPro.wallPhid,
                       currentSection: chainsPro.wallFlyerType,
                     );
 
-                    final String _sectionVerse = getBody(
+                    final Verse _sectionVerse = getBody(
                         context: context,
                         currentKeywordID: chainsPro.wallPhid,
                         currentSection: chainsPro.wallFlyerType

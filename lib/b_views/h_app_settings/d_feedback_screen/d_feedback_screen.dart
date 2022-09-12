@@ -125,7 +125,11 @@ class _FeedBackState extends State<FeedBack> {
         children: <Widget>[
 
           const SuperVerse(
-            verse: '##Your opinion Matters !',
+            verse: Verse(
+              text: 'phid_your_opinion_matters',
+              translate: true,
+              casing: Casing.upperCase,
+            ),
             margin: 10,
             color: Colorz.yellow255,
           ),
@@ -135,7 +139,11 @@ class _FeedBackState extends State<FeedBack> {
               width: Scale.superScreenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
               child: const SuperVerse(
-                verse: '##Tell us what you think about Bldrs.net, or what upgrades you might think of',
+                verse: Verse(
+                  pseudo: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
+                  text: 'phid_feedback_description',
+                  translate: true,
+                ),
                 margin: 5,
                 maxLines: 3,
                 size: 1,
@@ -166,7 +174,10 @@ class _FeedBackState extends State<FeedBack> {
           DreamBox(
             height: 50,
             width: 200,
-            verse: '##Send',
+            verse: const Verse(
+              text: 'phid_send',
+              translate: true
+            ),
             verseColor: Colorz.black230,
             color: Colorz.yellow255,
             verseScaleFactor: 0.6,

@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
@@ -53,10 +54,13 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
 
           ZoneSelectionBubble(
             currentZone: _bubbleZone,
-            titleVerse:  'Zoning test',
-            bulletPoints:  const <String>[
-              'Fuck you',
-              'Bitch',
+            titleVerse:  const Verse(
+              text: 'Zoning test',
+              translate: false,
+            ),
+            bulletPoints:  const <Verse>[
+              Verse(text: 'Fuck you', translate: false,),
+              Verse(text: 'Bitch', translate: false,),
             ],
             onZoneChanged: (ZoneModel zone){
 

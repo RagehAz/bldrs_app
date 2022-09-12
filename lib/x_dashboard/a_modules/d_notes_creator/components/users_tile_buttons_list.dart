@@ -16,7 +16,7 @@ class UserTileButtonsList extends StatelessWidget {
     @required this.onUserTap,
     this.usersWithSideButtonsDeactivated,
     this.selectedUsers,
-    this.emptyListString = 'No users found with this name',
+    this.emptyListString,
     this.sideButton,
     this.onSideButtonTap,
     Key key
@@ -26,7 +26,7 @@ class UserTileButtonsList extends StatelessWidget {
   final ValueNotifier<List<UserModel>> selectedUsers;
   final List<String> usersWithSideButtonsDeactivated;
   final ValueChanged<UserModel> onUserTap;
-  final String emptyListString;
+  final Verse emptyListString;
   final String sideButton;
   final ValueChanged<UserModel> onSideButtonTap;
   /// --------------------------------------------------------------------------
@@ -90,7 +90,11 @@ class UserTileButtonsList extends StatelessWidget {
           /// NO USERS FOUND
           else {
             return SuperVerse(
-              verse: emptyListString,
+              verse: emptyListString ?? const Verse(
+                text: 'phid_no_users_found',
+                pseudo: 'No users found with this name',
+                translate: true,
+              ),
             );
           }
 

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -14,7 +15,7 @@ class ChainTreeStrip extends StatelessWidget {
   const ChainTreeStrip({
     @required this.width,
     @required this.level,
-    @required this.phraseID,
+    @required this.phid,
     @required this.phraseValue,
     @required this.onTriggerExpansion,
     @required this.onStripTap,
@@ -25,7 +26,7 @@ class ChainTreeStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final int level;
-  final String phraseID;
+  final String phid;
   final String phraseValue;
   final Function onTriggerExpansion;
   final bool expanded;
@@ -76,7 +77,7 @@ class ChainTreeStrip extends StatelessWidget {
           GestureDetector(
             onTap: (){
 
-              onStripTap(phraseID);
+              onStripTap(phid);
 
             },
             child: Container(
@@ -93,10 +94,10 @@ class ChainTreeStrip extends StatelessWidget {
                   DreamBox(
                     height: stripHeight,
                     width: stripHeight,
-                    iconSizeFactor: Phrase.isKeywordPhid(phraseID) ? 1 : 0.7,
+                    iconSizeFactor: Phrase.isKeywordPhid(phid) ? 1 : 0.7,
                     bubble: false,
                     icon: _chainsProvider.getPhidIcon(
-                      son: phraseID,
+                      son: phid,
                       context: context,
                     ),
                   ),
@@ -112,7 +113,10 @@ class ChainTreeStrip extends StatelessWidget {
 
                       /// TRANSLATION
                       SuperVerse(
-                        verse: phraseValue,
+                        verse: Verse(
+                          text: phraseValue,
+                          translate: false,
+                        ),
                         italic: true,
                         centered: false,
                         highlight: searchValue,
@@ -121,7 +125,10 @@ class ChainTreeStrip extends StatelessWidget {
 
                       /// ID
                       SuperVerse(
-                        verse:  '( lvl $level ) : $phraseID',
+                        verse: Verse(
+                          text: '( lvl $level ) : $phid',
+                          translate: false,
+                        ),
                         size: 1,
                         centered: false,
                         weight: VerseWeight.thin,

@@ -15,8 +15,8 @@ class ZoneSelectionButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
-  final String verse;
+  final Verse title;
+  final Verse verse;
   final String icon;
   final Function onTap;
   final bool loading;
@@ -26,12 +26,6 @@ class ZoneSelectionButton extends StatelessWidget {
 
     // final double _bubbleClearWidth = Bubble.clearWidth(context);
     // const double _buttonsSpacing = Ratioz.appBarPadding;
-
-    final String _buttonVerse = loading ? 'Loading ...'
-        :
-    verse == null ? ''
-        :
-    ' $verse    ';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +47,10 @@ class ZoneSelectionButton extends StatelessWidget {
           verseScaleFactor: 0.8,
           icon: icon,
           bubble: false,
-          verse: _buttonVerse,
+          verse: Verse(
+            text: loading == true ? 'phid_loading' : verse?.text ?? '',
+            translate: true,
+          ),
           verseMaxLines: 2,
           color: Colorz.white10,
           onTap: onTap,

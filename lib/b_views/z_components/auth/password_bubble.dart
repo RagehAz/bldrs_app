@@ -52,7 +52,7 @@ class PasswordBubbles extends StatelessWidget {
           ],
           canObscure: true,
           onSubmitted: onSubmitted,
-          hintText: '',
+          hintVerse: '',
           isFloatingField: isTheSuperKeyboardField,
         ),
 
@@ -72,7 +72,7 @@ class PasswordBubbles extends StatelessWidget {
             bulletPoints: const <String>['phid_min6Char'],
             canObscure: true,
             onSubmitted: onSubmitted,
-            hintText: '',
+            hintVerse: '',
           ),
 
       ],

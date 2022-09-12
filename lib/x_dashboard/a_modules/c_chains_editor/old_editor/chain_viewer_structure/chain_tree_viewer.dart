@@ -107,7 +107,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                       return ChainTreeStrip(
                         width: widget.width,
                         level: widget.initialLevel + 1,
-                        phraseID: keywordID,
+                        phid: keywordID,
                         phraseValue: '${index + 1} - ${xPhrase( context, keywordID)}',
                         onTriggerExpansion: (){},
                         onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
@@ -123,7 +123,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               ChainTreeStrip(
                 width: widget.width,
                 level: widget.initialLevel + 1,
-                phraseID: DataCreation.cipherDataCreator(widget.chain?.sons),
+                phid: DataCreation.cipherDataCreator(widget.chain?.sons),
                 phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
@@ -142,7 +142,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
               ChainTreeStrip(
                 width: widget.width,
                 level: widget.initialLevel,
-                phraseID: widget.chain?.id,
+                phid: widget.chain?.id,
                 phraseValue: '${widget.index + 1} - ${xPhrase( context, widget.chain?.id)}',
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,

@@ -43,7 +43,6 @@ class DiscountPriceTag extends StatelessWidget {
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );
-    const String _off = 'OFF';
     // --------------------
     final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
@@ -83,7 +82,10 @@ class DiscountPriceTag extends StatelessWidget {
                         width: height,
                         padding: EdgeInsets.symmetric(horizontal: height * 0.05),
                         child: SuperVerse(
-                          verse:  '${ _discountPercentage.toString()}%',
+                          verse:  Verse(
+                            text: '${ _discountPercentage.toString()}%',
+                            translate: false,
+                          ),
                           weight: VerseWeight.black,
                           color: Colorz.red255,
                         ),
@@ -94,7 +96,11 @@ class DiscountPriceTag extends StatelessWidget {
                     Positioned(
                       bottom: _percentagePosition,
                       child: const SuperVerse(
-                        verse: _off,
+                        verse: Verse(
+                          text: 'phid_off',
+                          translate: true,
+                          casing: Casing.upperCase,
+                        ),
                         weight: VerseWeight.black,
                         scaleFactor: 0.8,
                         color: Colorz.red255,
@@ -181,7 +187,11 @@ class DiscountPriceTag extends StatelessWidget {
                             Padding(
                               padding: _paddings,
                               child: SuperVerse(
-                                verse: _currency,
+                                verse: Verse(
+                                  text: _currency,
+                                  translate: true,
+                                  casing: Casing.upperCase,
+                                ),
                                 size: 6,
                                 scaleFactor: _oldPriceSizeFactor,
                                 weight: VerseWeight.thin,

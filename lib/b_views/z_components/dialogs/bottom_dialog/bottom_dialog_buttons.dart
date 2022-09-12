@@ -65,9 +65,13 @@ class BottomDialogButtons extends StatelessWidget {
             child: DreamBox(
               height: buttonHeight,
               width: _buttonWidth,
+              verse: Verse(
+                text: _value.toString(),
+                casing: Casing.non,
+                translate: false,
+              ),
               icon: _icon,
               iconSizeFactor: 0.8,
-              verse: _value.toString(),
               bubble: false,
               margins: const EdgeInsets.all(Ratioz.appBarPadding),
               verseScaleFactor: 0.8,

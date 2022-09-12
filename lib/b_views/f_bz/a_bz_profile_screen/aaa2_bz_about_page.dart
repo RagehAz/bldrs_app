@@ -54,7 +54,13 @@ class BzAboutPage extends StatelessWidget {
         /// ABOUT
         if (TextCheck.isEmpty(_bzModel.about) == false)
           ParagraphBubble(
-            title: '##About ${_bzModel.name}',
+            headerViewModel: BubbleHeaderVM(
+              headlineVerse: Verse(
+                text: '##About ${_bzModel.name}',
+                translate: true,
+                varTag: _bzModel.name,
+              ),
+            ),
             paragraph: _bzModel.about,
           ),
 
@@ -71,7 +77,10 @@ class BzAboutPage extends StatelessWidget {
         if (Mapper.checkCanLoopList(_bzModel.scope) == true)
           Bubble(
             headerViewModel: const BubbleHeaderVM(
-              headlineVerse: 'phid_scope_of_services',
+              headlineVerse: Verse(
+                text: 'phid_scope_of_services',
+                translate: true,
+              ),
             ),
             columnChildren: <Widget>[
 
@@ -95,7 +104,12 @@ class BzAboutPage extends StatelessWidget {
         /// FLYERS GALLERY TITLE
         if (showGallery == true)
           SuperVerse(
-            verse: '##Flyers By ${bzModel.name}',
+            verse: Verse(
+              text: '##Flyers By ${bzModel.name}',
+              translate: false,
+              casing: Casing.non,
+              varTag: bzModel.name,
+            ),
             centered: false,
             maxLines: 2,
             margin: 20,

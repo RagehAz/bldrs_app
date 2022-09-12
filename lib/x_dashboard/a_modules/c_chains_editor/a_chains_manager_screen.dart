@@ -90,8 +90,10 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// GO TO CHAINS EDITOR SCREEN
         Bubble(
           headerViewModel: const BubbleHeaderVM(
-            headlineVerse: 'Editing mode',
-            translateHeadline: false,
+            headlineVerse: Verse(
+              text: 'Editing mode',
+              translate: false,
+            ),
           ),
           bubbleColor: Colorz.white20,
           columnChildren: <Widget>[
@@ -99,8 +101,10 @@ class _ChainsManagerState extends State<ChainsManager> {
             WideButton(
               width: Bubble.clearWidth(context),
               icon: Iconz.keywords,
-              translate: false,
-              verse:  'Go to Chains Editor',
+              verse: const Verse(
+                text: 'Go to Chains Editor',
+                translate: false,
+              ),
               color: Colorz.blue80,
               onTap: () async {
 
@@ -147,8 +151,10 @@ class _ChainsManagerState extends State<ChainsManager> {
         /// TESTING METHODS
         Bubble(
           headerViewModel: const BubbleHeaderVM(
-            headlineVerse: 'Testers',
-            translateHeadline: false,
+            headlineVerse: Verse(
+              text: 'Testers',
+              translate: false,
+            ),
           ),
           bubbleColor: Colorz.white20,
           columnChildren: <Widget>[

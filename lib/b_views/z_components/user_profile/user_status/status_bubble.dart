@@ -48,7 +48,10 @@ class StatusBubble extends StatelessWidget {
 
         /// HEADLINE QUESTION
         const SuperVerse(
-          verse: '##Let the Builders know',
+          verse: Verse(
+            text: '##Let the Builders know',
+            translate: true,
+          ),
           margin: 0,
           italic: true,
           color: Colorz.yellow255,
@@ -57,7 +60,10 @@ class StatusBubble extends StatelessWidget {
         ),
 
         const SuperVerse(
-          verse: '##What are you looking for ?',
+          verse: Verse(
+            text: '##What are you looking for ?',
+            translate: true,
+          ),
           size: 3,
           shadow: true,
           italic: true,
@@ -91,7 +97,10 @@ class StatusBubble extends StatelessWidget {
             color: Colorz.yellow255,
             margin: const EdgeInsets.only(top: abPadding * 2),
             child: const SuperVerse(
-              verse: '##SELL SELL SELL FUCKERS !!',
+              verse: Verse(
+                text: '##SELL SELL SELL FUCKERS !!',
+                translate: false,
+              ),
             ),
           ),
 

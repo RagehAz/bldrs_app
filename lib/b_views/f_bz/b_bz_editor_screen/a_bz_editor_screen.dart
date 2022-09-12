@@ -286,7 +286,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                             return MultipleChoiceBubble(
                               title: 'phid_sections',
-                              buttonsList: _allSections,
+                              buttonsVerses: _allSections,
                               selectedButtons: <String>[_selectedButton],
                               onButtonTap: (int index) => onSelectBzSection(
                                 context: context,
@@ -333,7 +333,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                             return MultipleChoiceBubble(
                               title: 'phid_bz_entity_type',
-                              buttonsList: _allButtons,
+                              buttonsVerses: _allButtons,
                               selectedButtons: _selectedButtons,
                               inactiveButtons: _inactiveButtons,
                               onButtonTap: (int index) => onSelectBzType(
@@ -380,7 +380,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           return MultipleChoiceBubble(
                             title: 'phid_businessForm',
                             // description: superPhrase(context, 'phid_businessForm_description'),
-                            buttonsList: _buttonsList,
+                            buttonsVerses: _buttonsList,
                             selectedButtons: <String>[_selectedButton],
                             inactiveButtons: _inactiveButtons,
                             onButtonTap: (int index) => onSelectBzForm(
@@ -481,7 +481,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         appBarType: AppBarType.basic,
                         isFormField: true,
                         headerViewModel: const BubbleHeaderVM(
-                          headlineVerse: 'phid_phone',
+                          headlineVerse: Verse(
+                            text: 'phid_phone',
+                            translate: true,
+                          ),
                           redDot: true,
                         ),
                         keyboardTextInputType: TextInputType.phone,
@@ -513,7 +516,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         appBarType: AppBarType.basic,
                         isFormField: true,
                         headerViewModel: const BubbleHeaderVM(
-                          headlineVerse: 'phid_email',
+                          headlineVerse: Verse(
+                            text: 'phid_email',
+                            translate: true,
+                          ),
                           redDot: true,
                         ),
                         keyboardTextInputType: TextInputType.emailAddress,
@@ -540,7 +546,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       ContactFieldBubble(
                         key: const ValueKey<String>('website'),
                         headerViewModel: const BubbleHeaderVM(
-                          headlineVerse: 'phid_website',
+                          headlineVerse: Verse(
+                            text: 'phid_website',
+                            translate: true,
+                          ),
                         ),
                         globalKey: _formKey,
                         focusNode: _websiteNode,
@@ -581,14 +590,21 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             absorbPointer: Mapper.checkCanLoopList(bzModel?.bzTypes) == false,
                             child: Bubble(
                               headerViewModel: const BubbleHeaderVM(
-                                headlineVerse: 'phid_scope_of_services',
+                                headlineVerse: Verse(
+                                  text: 'phid_scope_of_services',
+                                  translate: true,
+                                ),
                               ),
                               width: Bubble.bubbleWidth(context),
                               columnChildren: <Widget>[
 
                                 const BulletPoints(
-                                  bulletPoints:  <String>[
-                                    '##Select at least 1 keyword to help search engines show your content in its dedicated place',
+                                  bulletPoints:  <Verse>[
+                                    Verse(
+                                      pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
+                                      text: '##Select at least 1 keyword to help search engines show your content in its dedicated place',
+                                      translate: true,
+                                    )
                                   ],
                                   translateBullets: true,
                                 ),
@@ -602,7 +618,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 DreamBox(
                                   height: PhidButton.getHeight(),
                                   // width: Bubble.clearWidth(context),
-                                  verse: Mapper.checkCanLoopList(_phids) ? '##Edit Scopes' : '##Add Scopes',
+                                  verse: Verse(
+                                    text: Mapper.checkCanLoopList(_phids) ?
+                                    'phid_edit_bz_scope'
+                                        :
+                                    'phid_add_bz_scope',
+                                    translate: true,
+                                  ),
                                   bubble: false,
                                   color: Colorz.white20,
                                   verseScaleFactor: 1.5,

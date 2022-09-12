@@ -31,7 +31,7 @@ class SearchResultView extends StatelessWidget {
             final SearchResult _result = searchResult[index];
 
             return FlyersShelf(
-              title: _result.title,
+              titleVerse: _result.title,
               flyerSizeFactor: 0.45,
               titleIcon: _result.icon,
               // flyerOnTap: (FlyerModel flyerModel) {

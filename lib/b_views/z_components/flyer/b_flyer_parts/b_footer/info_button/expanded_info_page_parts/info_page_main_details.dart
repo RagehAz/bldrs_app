@@ -23,7 +23,7 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _flyerTypeString = FlyerTyper.translateFlyerType(
+    final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
       context: context,
       flyerType: flyerModel.flyerType,
       pluralTranslation: false,

@@ -11,7 +11,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
     /// main
     @required this.isFormField,
     @required this.controller,
-    @required this.hintText,
+    @required this.hintVerse,
     @required this.autoFocus,
     @required this.focusNode,
     @required this.counterIsOn,
@@ -60,7 +60,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
   // main
   final bool isFormField;
   final TextEditingController controller;
-  final String hintText;
+  final Verse hintVerse;
   final bool autoFocus;
   final FocusNode focusNode;
   final bool counterIsOn;
@@ -142,7 +142,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
       context: context,
       textSize: textSize,
       textSizeFactor: textSizeFactor,
-      hintText: hintText,
+      hintText: hintVerse, // ?? '...' TASK : TAKE CARE OF DEFAULT DOTS
       textItalic: textItalic,
       corners: corners,
       fieldColor: fieldColor,

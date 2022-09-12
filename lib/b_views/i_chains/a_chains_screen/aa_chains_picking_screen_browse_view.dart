@@ -44,13 +44,13 @@ class ChainsScreenBrowseView extends StatelessWidget {
       listen: true,
     );
     // ---------------------
-    final List<String> _strings = FlyerTyper.translateFlyerTypes(
+    final List<Verse> _verses = FlyerTyper.translateFlyerTypes(
       context: context,
       flyerTypes: flyerTypes,
     );
     // ---------------------
     final String _flyerTypesString = Stringer.generateStringFromStrings(
-      strings: _strings,
+      strings: Verse.getTextsFromVerses(_verses),
     );
     // ---------------------
     final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
@@ -159,7 +159,11 @@ class ChainsScreenBrowseView extends StatelessWidget {
           height: Scale.superScreenHeight(context),
           padding: Scale.superMargins(margins: 20),
           child: const SuperVerse(
-            verse: '##No Available Flyers in This City yet',
+            verse: Verse(
+              text: 'phid_no_flyer_in_this_city',
+              pseudo: 'No Available Flyers in This City yet',
+              translate: true,
+            ),
             weight: VerseWeight.black,
             italic: true,
             size: 3,

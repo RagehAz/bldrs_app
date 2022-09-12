@@ -19,7 +19,7 @@ class DreamBoxUnderLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
-  final String underLine;
+  final Verse underLine;
   final String icon;
   final Color underLineColor;
   final int verseSize;

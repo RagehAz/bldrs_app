@@ -13,11 +13,10 @@ class MultipleChoiceBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MultipleChoiceBubble({
     @required this.title,
-    @required this.buttonsList,
+    @required this.buttonsVerses,
     @required this.onButtonTap,
     @required this.selectedButtons,
     this.bulletPoints,
-    this.translateBullets = true,
     this.inactiveButtons,
     this.validator,
     this.autoValidate = true,
@@ -25,13 +24,12 @@ class MultipleChoiceBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
-  final List<String> bulletPoints;
-  final List<String> buttonsList;
+  final Verse title;
+  final List<Verse> bulletPoints;
+  final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtons;
-  final List<String> inactiveButtons;
-  final bool translateBullets;
+  final List<Verse> inactiveButtons;
   final String Function() validator;
   final bool autoValidate;
   final bool isRequired;
@@ -57,30 +55,29 @@ class MultipleChoiceBubble extends StatelessWidget {
           if (bulletPoints != null)
             BulletPoints(
               bulletPoints: bulletPoints,
-              translateBullets: translateBullets,
             ),
 
           /// BUTTONS
           Wrap(
               runAlignment: WrapAlignment.center,
-              children: List<Widget>.generate(buttonsList.length, (int index) {
+              children: List<Widget>.generate(buttonsVerses.length, (int index) {
 
-                final String _button = buttonsList[index];
+                final Verse _buttonVerse = buttonsVerses[index];
 
                 final bool _isSelected = Stringer.checkStringsContainString(
                   strings: selectedButtons,
-                  string: _button,
+                  string: _buttonVerse.text,
                 );
 
                 final bool _isInactive = Stringer.checkStringsContainString(
-                  strings: inactiveButtons,
-                  string: _button,
+                  strings: Verse.getTextsFromVerses(inactiveButtons),
+                  string: _buttonVerse.text,
                 );
 
                 return DreamBox(
                   height: 40,
                   isDeactivated: _isInactive,
-                  verse: buttonsList[index],
+                  verse: buttonsVerses[index],
                   color: _isSelected == true ?
                   Colorz.yellow255
                       :

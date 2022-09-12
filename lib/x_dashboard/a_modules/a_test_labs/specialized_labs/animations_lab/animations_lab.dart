@@ -307,7 +307,10 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
               child: DreamBox(
                 height: 100,
                 icon: Iconz.dvDonaldDuck,
-                verse:  'ana ho',
+                verse: const Verse(
+                  text: 'ana ho',
+                  translate: false,
+                ),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -477,7 +480,10 @@ class TweenTest extends StatelessWidget {
           );
         },
         child: const SuperVerse(
-          verse:  'WTF is this',
+          verse: Verse(
+            text: 'WTF is this',
+            translate: false,
+          ),
           size: 4,
         ),
       ),
@@ -501,7 +507,10 @@ class HeroMax extends StatelessWidget {
             child: DreamBox(
               height: 150,
               icon: Iconz.dvDonaldDuck,
-              verse:  'ana ho',
+              verse: const Verse(
+                text: 'ana ho',
+                translate: false,
+              ),
               verseMaxLines: 2,
               onTap: () {
                 // Navigator.push(context,

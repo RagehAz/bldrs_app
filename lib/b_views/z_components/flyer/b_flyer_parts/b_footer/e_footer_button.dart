@@ -14,7 +14,7 @@ class FooterButton extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.icon,
     @required this.onTap,
-    @required this.verse,
+    @required this.phid,
     @required this.isOn,
     @required this.canTap,
     @required this.count,
@@ -24,7 +24,7 @@ class FooterButton extends StatelessWidget {
   final String icon;
   final double flyerBoxWidth;
   final Function onTap;
-  final String verse;
+  final String phid;
   final bool isOn;
   final bool canTap;
   final int count;
@@ -161,11 +161,14 @@ class FooterButton extends StatelessWidget {
             Positioned(
               bottom: flyerBoxWidth * 0.01,
               child: SuperVerse(
-                verse: generateButtonText(
-                  context: context,
-                  verse: verse,
-                  count: count,
-                  isOn: isOn,
+                verse: Verse(
+                  text: generateButtonText(
+                    context: context,
+                    verse: phid,
+                    count: count,
+                    isOn: isOn,
+                  ),
+                  translate: true,
                 ),
                 size: 1,
                 scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),

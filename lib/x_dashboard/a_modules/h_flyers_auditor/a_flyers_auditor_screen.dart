@@ -456,7 +456,10 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                 else {
                   return const Center(
                     child: SuperVerse(
-                      verse:  'No Flyers Left',
+                      verse: Verse(
+                        text: 'No Flyers Left',
+                        translate: false,
+                      ),
                       weight: VerseWeight.black,
                       italic: true,
                       size: 4,

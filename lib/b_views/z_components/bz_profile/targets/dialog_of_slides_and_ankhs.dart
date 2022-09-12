@@ -20,7 +20,10 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       child: Column(
         children: const <Widget>[
           SuperVerse(
-            verse:  'Blo blo blo',
+            verse: Verse(
+              text: 'Blo blo blo',
+              translate: false,
+            ),
             size: 1,
           ),
         ],
@@ -33,7 +36,10 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
     return Column(
       children: const <Widget>[
         SuperVerse(
-          verse:  'Blo blo blo',
+          verse:  Verse(
+            text: 'Blo blo blo',
+            translate: false,
+          ),
           size: 1,
         ),
       ],

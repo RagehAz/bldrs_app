@@ -101,12 +101,18 @@ class _AppControlsManagerState extends State<AppControlsManager> {
               children: <Widget>[
 
                 const SuperVerse(
-                  verse:  'Wall Flyers',
+                  verse: Verse(
+                    text: 'Wall Flyers',
+                    translate: false,
+                  ),
                 ),
 
                 TileBubble(
                   bubbleHeaderVM: BubbleHeaderVM(
-                    headlineVerse:  'Show only Verified Flyers',
+                    headlineVerse: const Verse(
+                      text: 'Show only Verified Flyers',
+                      translate: false,
+                    ),
                     leadingIcon: Iconz.news,
                     leadingIconSizeFactor: 0.5,
                     switchValue: controls.showOnlyVerifiedFlyersInHomeWall,
@@ -116,16 +122,19 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                       appControlsModel: _appControls,
                     ),
                   ),
-                  bulletPoints: const <String>[
-                    'Audit States are :-',
-                    'null',
-                    'verified',
-                    'suspended',
-                    'banned',
+                  bulletPoints: const <Verse>[
+                    Verse(text: 'Audit States are :-', translate: false,),
+                    Verse(text: 'null', translate: false,),
+                    Verse(text: 'verified', translate: false,),
+                    Verse(text: 'suspended', translate: false,),
+                    Verse(text: 'banned', translate: false,),
                   ],
-                  secondLineVerse:  'Only verified flyers will be shown in Home screen wall.\n'
-                      'if switched off, Audit state will be neglected in its search query showing both null and verified Audit states.\n'
-                      'But still banned and suspended flyers will not be viewed.\n',
+                  secondLineVerse: const Verse(
+                    text: 'Only verified flyers will be shown in Home screen wall.\n'
+                        'if switched off, Audit state will be neglected in its search query showing both null and verified Audit states.\n'
+                        'But still banned and suspended flyers will not be viewed.\n',
+                    translate: false,
+                  ),
                 ),
 
               ],

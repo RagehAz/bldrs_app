@@ -16,7 +16,7 @@ class InfoGraphic extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<bool> buttonIsExpanded; /// p
+  final ValueNotifier<bool> buttonIsExpanded;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override
@@ -56,7 +56,11 @@ class InfoGraphic extends StatelessWidget {
                 opacity: _buttonIsExpanded ? 1 : 0,
                 duration: const Duration(milliseconds: 100),
                 child: const SuperVerse(
-                  verse: '##Flyer Info',
+                  verse: Verse(
+                    text: 'phid_flyer_info',
+                    translate: true,
+                    casing: Casing.capitalizeFirstChar,
+                  ),
                 ),
               );
 

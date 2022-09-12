@@ -129,7 +129,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// AUTH -------------------------------------------------------------
-            const SuperVerse(verse:  'Auth',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'Auth',
+                translate: false,
+              ),
+            ),
 
             /// SUPER USER ID
             ProviderTestButton(
@@ -153,7 +158,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// USER -------------------------------------------------------------
-            const SuperVerse(verse:  'User',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'User',
+                translate: false,
+              ),
+            ),
 
             /// MY USER MODEL
             ProviderTestButton(
@@ -179,7 +189,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// BZZ -------------------------------------------------------------
-            const SuperVerse(verse:  'Bzz',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'Bzz',
+                translate: false,
+              ),
+            ),
 
             /// MY BZZ
             ProviderTestButton(
@@ -232,7 +247,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// ZONE -------------------------------------------------------------
-            const SuperVerse(verse:  'Zone',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'Zone',
+                translate: false,
+              ),
+            ),
 
             /// CURRENT ZONE
             ProviderTestButton(
@@ -302,7 +322,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(verse:  'Chains',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'Chains',
+                translate: false,
+              ),
+            ),
 
             /// BLDRS CHAINS
             ProviderTestButton(
@@ -379,7 +404,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// PHRASES -------------------------------------------------------------
-            const SuperVerse(verse:  'Phrases',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'Phrases',
+                translate: false,
+              ),
+            ),
 
             /// CURRENT LANG CODE
             ProviderTestButton(
@@ -411,7 +441,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// UI -------------------------------------------------------------
-            const SuperVerse(verse:  'UI',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'UI',
+                translate: false,
+              ),
+            ),
 
             /// BASIC PHRASES
             ProviderTestButton(
@@ -437,7 +472,12 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(verse:  'TO AVOID SET STATE TECHNIQUES',),
+            const SuperVerse(
+              verse: Verse(
+                text: 'TO AVOID SET STATE TECHNIQUES',
+                translate: false,
+              ),
+            ),
 
             /// AVOID SET STATE : WAY # 2
             Consumer<UiProvider>(
@@ -446,7 +486,10 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                 return DreamBox(
                   height: 50,
                   width: 300,
-                  verse:  '_loading is : $_loading',
+                  verse:  Verse(
+                    text: '_loading is : $_loading',
+                    translate: false,
+                  ),
                   verseScaleFactor: 0.6,
                   verseWeight: VerseWeight.black,
                   onTap: uiProvider.triggerLoading,
@@ -463,7 +506,10 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                   DreamBox(
                     height: 50,
                     width: 300,
-                    verse:  'isLoading is : $isLoading',
+                    verse:  Verse(
+                      text: 'isLoading is : $isLoading',
+                      translate: false,
+                    ),
                     verseScaleFactor: 0.6,
                     verseWeight: VerseWeight.black,
                     onTap: () => _uiProvider.triggerLoading(
@@ -481,7 +527,10 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                 child: DreamBox(
                   height: 50,
                   width: 50,
-                  verse:  'X',
+                  verse: const Verse(
+                    text: 'X',
+                    translate: false,
+                  ),
                   verseScaleFactor: 0.6,
                   verseWeight: VerseWeight.black,
                   color: Colorz.bloodTest,
@@ -539,7 +588,10 @@ class ProviderTestButton extends StatelessWidget {
       width: width ?? BldrsAppBar.width(context),
       margins: const EdgeInsets.symmetric(vertical: 2.5),
       color: value == null ? Colorz.bloodTest : Colorz.green255,
-      verse: title,
+      verse: Verse(
+        text: title,
+        translate: false,
+      ),
       iconSizeFactor: 0.6,
       verseCentered: false,
       verseShadow: false,

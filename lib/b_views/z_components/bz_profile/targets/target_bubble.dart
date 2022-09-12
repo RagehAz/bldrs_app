@@ -42,7 +42,10 @@ class TargetCard extends StatelessWidget {
 
           /// TITLE
           SuperVerse(
-            verse: target.name,
+            verse: Verse(
+              text: target.name,
+              translate: true,
+            ),
             centered: false,
             margin: 5,
             color: Colorz.yellow255,
@@ -52,7 +55,10 @@ class TargetCard extends StatelessWidget {
 
           /// DESCRIPTION
           SuperVerse(
-            verse: target.description,
+            verse: Verse(
+              text: target.description,
+              translate: true,
+            ),
             centered: false,
             weight: VerseWeight.thin,
             maxLines: 10,
@@ -76,7 +82,10 @@ class TargetCard extends StatelessWidget {
               children: <Widget>[
 
                 const SuperVerse(
-                  verse: '##Instructions',
+                  verse: Verse(
+                    text: 'phid_instructions',
+                    translate: true,
+                  ),
                   size: 3,
                   color: Colorz.blue255,
                   italic: true,
@@ -90,7 +99,10 @@ class TargetCard extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (_, index) {
                       return SuperVerse(
-                        verse: target.instructions[index],
+                        verse: Verse(
+                          text: target.instructions[index],
+                          translate: true,
+                        ),
                         leadingDot: true,
                         centered: false,
                         maxLines: 5,
@@ -110,7 +122,11 @@ class TargetCard extends StatelessWidget {
               child: DreamBox(
                 width: _bubbleClearWidth,
                 height: 70,
-                verse: '##CLAIM ${target.reward.slides} Slides ',
+                verse: Verse(
+                  text: '##CLAIM ${target.reward.slides} Slides ',
+                  translate: true,
+                  varTag: target.reward.slides,
+                ),
                 verseWeight: VerseWeight.black,
                 verseItalic: true,
                 color: Colorz.yellow255,

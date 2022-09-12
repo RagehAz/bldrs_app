@@ -53,7 +53,7 @@ class PhraseCreatorPage extends StatelessWidget {
           TextFieldBubble(
             appBarType: appBarType,
             titleVerse:  'Key',
-            hintText:  'Phrase key',
+            hintVerse:  'Phrase key',
             textController: idController,
             onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
             pasteFunction: () => TextMod.controllerPaste(idController),
@@ -85,7 +85,7 @@ class PhraseCreatorPage extends StatelessWidget {
           TextFieldBubble(
             appBarType: appBarType,
             titleVerse:  'English',
-            hintText:  'English phrase',
+            hintVerse:  'English phrase',
             textController: enController,
             onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
             pasteFunction: () => TextMod.controllerPaste(enController),
@@ -97,7 +97,7 @@ class PhraseCreatorPage extends StatelessWidget {
           TextFieldBubble(
             appBarType: appBarType,
             titleVerse:  'عربي',
-            hintText:  'مصطلح عربي',
+            hintVerse:  'مصطلح عربي',
             textController: arController,
             onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
             pasteFunction: () => TextMod.controllerPaste(arController),
@@ -110,7 +110,7 @@ class PhraseCreatorPage extends StatelessWidget {
             alignment: Aligners.superInverseCenterAlignment(context),
             child: DreamBox(
               verse:  'Confirm',
-              verseCasing: VerseCasing.upperCase,
+              verseCasing: Casing.upperCase,
               height: 50,
               color: Colorz.yellow255,
               verseWeight: VerseWeight.black,

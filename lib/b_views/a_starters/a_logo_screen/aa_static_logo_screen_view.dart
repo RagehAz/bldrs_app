@@ -52,7 +52,11 @@ class LogoScreenView extends StatelessWidget {
               min: 0.2,
               max: 0.8,
               child: SuperVerse(
-                verse: '##LOADING',
+                verse: Verse(
+                  text: 'phid_loading',
+                  casing: Casing.upperCase,
+                  translate: true,
+                ),
                 size: 5,
                 margin: 20,
                 italic: true,

@@ -66,7 +66,10 @@ class BzBanner extends StatelessWidget {
 
               /// NAME
               SuperVerse(
-                verse: bzModel?.name,
+                verse: Verse(
+                  text: bzModel?.name,
+                  translate: false,
+                ),
                 size: 3,
                 scaleFactor: boxWidth * _bigNameFactor,
                 maxLines: 3,
