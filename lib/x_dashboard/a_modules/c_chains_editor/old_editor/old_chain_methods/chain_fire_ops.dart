@@ -211,7 +211,6 @@ class ChainFireOpsOLD {
 
     final List<Chain> _newSons = Chain.replaceChainInChains(
       chains: sourceChain.sons,
-      oldChainID: sonChainIDToReplace,
       chainToReplace: Chain(
         id: sonChainIDToReplace,
         sons: newSons,
