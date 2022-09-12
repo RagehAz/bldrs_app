@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
-import 'package:bldrs/e_db/ldb/ops/chain_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -87,6 +86,7 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
   }
   // --------------------
+  /*
   Future<void> reInitializeAllChains(BuildContext context) async {
     // --------------------
     /// DELETE LDB CHAINS
@@ -112,6 +112,7 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> reInitializeCityChains(BuildContext context) async {

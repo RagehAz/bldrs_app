@@ -72,6 +72,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         email: _emailController.text,
         password: _passwordController.text,
         formKey: _formKey,
+        mounted: mounted,
       );
 
 

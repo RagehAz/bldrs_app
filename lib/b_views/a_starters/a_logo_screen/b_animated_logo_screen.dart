@@ -241,8 +241,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       pyramidType: PyramidType.yellow,
       appBarType: AppBarType.non,
       // loading: ValueNotifier(true),
-      onBack: (){
-        Nav.closeApp(context);
+      onBack: () async {
+
+        await Nav.replaceScreen(
+            context: context,
+            screen: const AnimatedLogoScreen(),
+        );
+
       },
       layoutWidget: Stack(
         alignment: Alignment.center,

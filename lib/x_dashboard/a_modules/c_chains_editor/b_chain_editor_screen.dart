@@ -123,6 +123,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                       /// RESET
                       AppBarButton(
                           icon: Iconz.reload,
+                          isDeactivated: _identicalPaths,
                           buttonColor: Colorz.bloodTest,
                           onTap: () async {
 
@@ -140,7 +141,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                       /// BLOG CURRENT CHAIN PATHS
                       AppBarButton(
-                          verse:  'Path',
+                          verse:  'Blog\nPaths',
                           translate: false,
                           buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
                           onTap: () async {
@@ -157,7 +158,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                       /// BLOG CURRENT CHAIN
                       AppBarButton(
-                        verse:  'Chain',
+                        verse:  'Blog\nChains',
                         translate: false,
                         buttonColor: _identicalChains == true ? Colorz.white20 : Colorz.bloodTest,
                         onTap: (){
