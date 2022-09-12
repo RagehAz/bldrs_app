@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -9,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
+import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/real/ops/chain_real_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -106,7 +106,13 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 unawaited(WaitDialog.showWaitDialog(context: context,));
 
-                final List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+                List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains(context);
+
+                _bldrsChains = ChainsProvider.proGetBldrsChains(
+                    context: context,
+                    onlyUseCityChains: false,
+                    listen: false,
+                );
 
                 // Chain.blogChains(_bldrsChains);
 
@@ -119,7 +125,7 @@ class _ChainsManagerState extends State<ChainsManager> {
                 else {
                   await goToChainsEditorScreen(
                     context: context,
-                    chains: Phider.createChainsIndexes(Chain.dummyChain().sons),//_bldrsChains,
+                    chains: _bldrsChains, // Phider.createChainsIndexes(Chain.dummyChain().sons)
                   );
                 }
 

@@ -86,7 +86,7 @@ class AppState {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id' : id,
-      'keywordsChainVersion' : chainsVersion,
+      'chainsVersion' : chainsVersion,
       'specPickersVersion' : pickersVersion,
       'phrasesVersion' : phrasesVersion,
       'appVersion' : appVersion,
@@ -103,9 +103,10 @@ class AppState {
     }
 
     else {
+
       return AppState(
         id: map['id'],
-        chainsVersion : map['keywordsChainVersion']?.toDouble(),
+        chainsVersion : map['chainsVersion']?.toDouble(),
         pickersVersion : map['specPickersVersion']?.toDouble(),
         phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
