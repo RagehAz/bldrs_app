@@ -327,13 +327,17 @@ class TextMod {
   static String removeTextAfterFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextCheck.stringContainsSubString(
-      string: verse,
-      subString: specialCharacter,
-    );
+    if (TextCheck.isEmpty(verse) == false){
 
-    if (_verseContainsChar == true) {
-      _result = verse?.substring(0, verse.indexOf(specialCharacter));
+      final bool _verseContainsChar = TextCheck.stringContainsSubString(
+        string: verse,
+        subString: specialCharacter,
+      );
+
+      if (_verseContainsChar == true) {
+        _result = verse?.substring(0, verse.indexOf(specialCharacter));
+      }
+
     }
 
     return _result;
@@ -343,20 +347,24 @@ class TextMod {
   static String removeTextBeforeFirstSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextCheck.stringContainsSubString(
-      string: verse,
-      subString: specialCharacter,
-    );
+    if (TextCheck.isEmpty(verse) == false){
 
-    if (_verseContainsChar == true) {
-      final int _position = verse?.indexOf(specialCharacter);
-      _result = verse == null ?
-      null
-          :
-      (_position != -1) ?
-      verse.substring(_position + 1, verse.length)
-          :
-      verse;
+      final bool _verseContainsChar = TextCheck.stringContainsSubString(
+        string: verse,
+        subString: specialCharacter,
+      );
+
+      if (_verseContainsChar == true) {
+        final int _position = verse?.indexOf(specialCharacter);
+        _result = verse == null ?
+        null
+            :
+        (_position != -1) ?
+        verse.substring(_position + 1, verse.length)
+            :
+        verse;
+      }
+
     }
 
     return _result;
@@ -366,13 +374,17 @@ class TextMod {
   static String removeTextAfterLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextCheck.stringContainsSubString(
-      string: verse,
-      subString: specialCharacter,
-    );
+    if (TextCheck.isEmpty(verse) == false){
 
-    if (_verseContainsChar == true) {
-      _result = verse?.substring(0, verse.lastIndexOf(specialCharacter));
+      final bool _verseContainsChar = TextCheck.stringContainsSubString(
+        string: verse,
+        subString: specialCharacter,
+      );
+
+      if (_verseContainsChar == true) {
+        _result = verse?.substring(0, verse.lastIndexOf(specialCharacter));
+      }
+
     }
 
     return _result;
@@ -382,18 +394,22 @@ class TextMod {
   static String removeTextBeforeLastSpecialCharacter(String verse, String specialCharacter) {
     String _result = verse;
 
-    final bool _verseContainsChar = TextCheck.stringContainsSubString(
-      string: verse,
-      subString: specialCharacter,
-    );
+    if (TextCheck.isEmpty(verse) == false){
 
-    if (_verseContainsChar == true) {
-      final int _position = verse?.lastIndexOf(specialCharacter);
-      _result = verse == null ? null
-          :
-      (_position != -1) ? verse.substring(_position + 1, verse.length)
-          :
-      verse;
+      final bool _verseContainsChar = TextCheck.stringContainsSubString(
+        string: verse,
+        subString: specialCharacter,
+      );
+
+      if (_verseContainsChar == true) {
+        final int _position = verse?.lastIndexOf(specialCharacter);
+        _result = verse == null ? null
+            :
+        (_position != -1) ? verse.substring(_position + 1, verse.length)
+            :
+        verse;
+      }
+
     }
 
     return _result;

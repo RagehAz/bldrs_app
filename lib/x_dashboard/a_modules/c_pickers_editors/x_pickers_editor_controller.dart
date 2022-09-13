@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/b_phrase_editor_screen.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -80,16 +80,6 @@ Future<void> onPickerTileTap({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
-Future<String> pickAPhid(BuildContext context) async {
-
-  final String _phid = await Nav.goToNewScreen(
-    context: context,
-    screen: const PhraseEditorScreen(),
-  );
-
-  return _phid;
-}
 // -----------------------------------------------------------------------------
 
 /// MODIFIERS
@@ -102,7 +92,7 @@ Future<void> onChangeGroupIDForAllItsPickers({
   @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  final String _phid = await pickAPhid(context);
+  final String _phid = await pickAPhidFast(context);
 
   if (oldGroupID != _phid){
 
@@ -332,7 +322,7 @@ Future<void> onAddNewPickers({
   @required ValueNotifier<List<PickerModel>> tempPickers,
 }) async {
 
-  final String _phid = await pickAPhid(context);
+  final String _phid = await pickAPhidFast(context);
 
   if (_phid != null){
 
