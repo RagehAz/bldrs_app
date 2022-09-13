@@ -6,11 +6,56 @@ import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/b_phrase_editor_screen.dart';
 import 'package:flutter/material.dart';
+// ---------------------------------------------------------------------------
+
+/// INITIALIZATION
+
+// --------------------
+Future<void> prepareFastPhidCreation({
+  @required BuildContext context,
+  @required Verse untranslatedVerse,
+  @required ValueNotifier<bool> isSearching,
+  @required TextEditingController searchController,
+  @required List<Phrase> allMixedPhrases,
+  @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  @required TextEditingController idTextController,
+  @required TextEditingController enTextController,
+  @required PageController pageController,
+  @required FocusNode enNode,
+}) async {
+
+  if (untranslatedVerse != null){
+
+    searchController.text = untranslatedVerse.text;
+    idTextController.text = untranslatedVerse.text;
+    enTextController.text = TextMod.removeTextBeforeLastSpecialCharacter(untranslatedVerse.pseudo, '#') ?? '';
+
+    onPhrasesSearchSubmit(
+      isSearching: isSearching,
+      mixedSearchResult: mixedSearchResult,
+      searchController: searchController,
+      allMixedPhrases: allMixedPhrases,
+    );
+
+    await Sliders.slideToNext(
+      pageController: pageController,
+      numberOfSlides: 2,
+      currentSlide: 0,
+    );
+
+    Formers.focusOnNode(enNode);
+
+  }
+
+}
 // ---------------------------------------------------------------------------
 
 /// SEARCH
@@ -526,6 +571,36 @@ Future<void> onSyncPhrases({
 
   }
 
+
+}
+// ---------------------------------------------------------------------------
+
+/// FAST METHODS
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<String> pickAPhidFast(BuildContext context) async {
+
+  final String _phid = await Nav.goToNewScreen(
+    context: context,
+    screen: const PhraseEditorScreen(),
+  );
+
+  return _phid;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> createAPhidFast({
+  @required BuildContext context,
+  @required Verse verse,
+}) async {
+
+  await Nav.goToNewScreen(
+    context: context,
+    screen: PhraseEditorScreen(
+      createPhid: verse,
+    ),
+  );
 
 }
 // ---------------------------------------------------------------------------
