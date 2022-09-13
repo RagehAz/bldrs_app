@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 
@@ -17,10 +18,9 @@ class NavModel {
   /// --------------------------------------------------------------------------
   const NavModel({
     @required this.id,
-    @required this.title,
+    @required this.titleVerse,
     @required this.icon,
     @required this.screen,
-    @required this.translateTitle,
     this.iconColor,
     this.iconSizeFactor,
     this.onNavigate,
@@ -29,7 +29,7 @@ class NavModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String title;
+  final Verse titleVerse;
   final String icon;
   final Widget screen;
   final Function onNavigate;
@@ -38,7 +38,6 @@ class NavModel {
   /// VISIBILITY BOOLEAN CONDITION : when to show and when not to show
   final bool canShow;
   final bool forceRedDot;
-  final bool translateTitle;
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -55,13 +54,12 @@ class NavModel {
     return _output;
   }
   // --------------------
-  static String getTitleFromNavModels({
+  static Verse getTitleVerseFromNavModels({
     @required List<NavModel> navModels,
     @required int index,
   }){
 
-    return navModels[index].title;
-
+    return navModels[index].titleVerse;
 
   }
   // --------------------
@@ -105,7 +103,7 @@ class NavModel {
     @required BzTab bzTab,
     @required String bzID,
   }){
-    final String _tabID = BzModel.getBzTabID(bzTab: bzTab);
+    final String _tabID = BzModel.getBzTabPhid(bzTab: bzTab);
     return 'bz_${bzID}_$_tabID';
   }
   // -----------------------------------------------------------------------------

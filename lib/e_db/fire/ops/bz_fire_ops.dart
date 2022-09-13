@@ -6,7 +6,8 @@ import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -596,7 +597,10 @@ class BzFireOps {
         context: context,
         draggable: true,
         numberOfWidgets: 3,
-        title: 'Report Business Account',
+        titleVerse: const Verse(
+          text: 'phid_report_bz_account',
+          translate: true,
+        ),
         builder: (_, PhraseProvider phrasePro){
 
           return <Widget>[
@@ -604,7 +608,11 @@ class BzFireOps {
             /// INAPPROPRIATE CONTENT
             BottomDialog.wideButton(
                 context: context,
-                verse: '##This Account published Inappropriate content',
+                verse: const Verse(
+                  pseudo: '##This Account published Inappropriate content',
+                  text: 'phid_account_published_inapp_content',
+                  translate: true,
+                ),
                 onTap: (){
                   _feedback = 'This Account published Inappropriate content';
                   Nav.goBack(
@@ -617,7 +625,11 @@ class BzFireOps {
             /// COPY RIGHTS
             BottomDialog.wideButton(
                 context: context,
-                verse: '##This Account violates copyrights',
+                verse: const Verse(
+                  pseudo: '##This Account violates copyrights',
+                  text: 'phid_account_published_copyright_violation',
+                  translate: true,
+                ),
                 onTap: (){
                   _feedback = 'This Account violates copyrights';
                   Nav.goBack(
@@ -649,13 +661,7 @@ class BzFireOps {
 
       if (_docRef != null){
 
-        await CenterDialog.showCenterDialog(
-          context: context,
-          titleVerse:  '##Thanks a Million',
-          bodyVerse:  '##We will look into this matter and take the necessary '
-              'action as soon as possible\n Thank you for helping out',
-          confirmButtonVerse:  '##Most Welcome',
-        );
+        await Dialogs.weWillLookIntoItNotice(context);
 
       }
 

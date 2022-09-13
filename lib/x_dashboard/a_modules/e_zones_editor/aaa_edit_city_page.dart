@@ -57,7 +57,7 @@ class EditCityPage extends StatelessWidget {
 
             /// NAME
             SuperVerse(
-              verse: zoneModel?.cityName,
+              verse: Verse.plain(zoneModel?.cityName),
               size: 5,
               labelColor: Colorz.white50,
               maxLines: 3,
@@ -105,7 +105,7 @@ class EditCityPage extends StatelessWidget {
             TileBubble(
               bubbleWidth: _clearWidth,
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse:  'City is Activated',
+                headlineVerse: Verse.plain('City is Activated'),
                 hasSwitch: true,
                 onSwitchTap: (bool val) {
                   blog('city is Active : $val');
@@ -113,9 +113,9 @@ class EditCityPage extends StatelessWidget {
                 switchValue: _city?.isActivated,
 
               ),
-              secondLineVerse:  'When City is Deactivated, '
+              secondLineVerse: Verse.plain('When City is Deactivated, '
                   '\nonly business authors may see it while creating business profile'
-                  "\nBut Users won't see it while browsing",
+                  "\nBut Users won't see it while browsing"),
             ),
 
             /// --- IS PUBLIC
@@ -123,16 +123,16 @@ class EditCityPage extends StatelessWidget {
               bubbleWidth: _clearWidth,
               bubbleHeaderVM: BubbleHeaderVM(
                 leadingIconBoxColor: Colorz.grey50,
-                headlineVerse:  'City is Global ?',
+                headlineVerse: Verse.plain('City is Global ?'),
                 hasSwitch: true,
                 onSwitchTap: (bool val) {
                   blog('city is Global : $val');
                 },
                 switchValue: _city?.isPublic,
               ),
-              secondLineVerse:  'Means City content volumes reached the publishing sweet spot'
+              secondLineVerse: Verse.plain('Means City content volumes reached the publishing sweet spot'
                   '\nUsers of This city can view Flyers now,, not only The Businesses'
-                  '\nWhen Switched On users can only see City Businesses but not Flyers or Questions',
+                  '\nWhen Switched On users can only see City Businesses but not Flyers or Questions'),
             ),
 
             const SeparatorLine(
@@ -182,7 +182,7 @@ class EditCityPage extends StatelessWidget {
                                 height: 30,
                                 width: PageBubble.clearWidth(context),
                                 icon: ChainsProvider.proGetPhidIcon(context: context, son: _kw.key),
-                                verse:  '${_kw.value} : ${_kw.key}',
+                                verse: Verse.plain('${_kw.value} : ${_kw.key}'),
                                 verseScaleFactor: 0.6,
                                 verseWeight: VerseWeight.thin,
                                 verseCentered: false,

@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -252,9 +253,20 @@ class Nav {
 
     final bool _result = await Dialogs.goBackDialog(
       context: context,
-      titleVerse:  '##Exit App ?',
-      bodyVerse:  '##Would you like to exit and close Bldrs.net App ?',
-      confirmButtonText:  '##Exit Bldrs.net',
+      titleVerse: const Verse(
+        text: 'phid_exit_app_?',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'Would you like to exit and close Bldrs.net App ?',
+        text: 'phid_exit_app_notice',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_exit',
+        translate: true,
+      ),
+
     );
 
     if (_result == true){

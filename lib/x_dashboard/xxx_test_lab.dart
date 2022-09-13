@@ -267,7 +267,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   void _onTextFieldChanged(String text){
     blog('received text : $text');
 
-    final String _phone  = text.nullifyNumberIfOnlyCountryCode(
+    final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
       number: text,
       countryID: 'egy',
     );
@@ -399,7 +399,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
         /// DO SOMETHING
         AppBarButton(
-            verse:  'chainS',
+            verse: Verse.plain('chainS'),
             onTap: () async {
 
             }
@@ -407,7 +407,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
         /// FAST TEST
         AppBarButton(
-          verse:  'fastTest',
+          verse: Verse.plain('fastTest'),
           onTap: () async {await _fastTest(context);},
         ),
 
@@ -432,7 +432,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                   fadeType: FadeType.fadeIn,
                   curve: Curves.fastOutSlowIn,
                   child: SuperVerse(
-                    verse: _fuckingText,
+                    verse: Verse.plain(_fuckingText),
                     maxLines: 10,
                     centered: false,
                     margin: 10,
@@ -456,7 +456,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                             child: SuperTextField(
                               appBarType: AppBarType.basic,
                               globalKey: globalKey,
-                              titleVerse:  'test Lab',
+                              titleVerse: Verse.plain('test Lab'),
                               isFormField: true,
                               width: _fieldWidth,
                               textController: _textController,
@@ -473,7 +473,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               },
                               // corners: 50,
                               // autofocus: false,
-                              hintVerse:  'fuck you',
+                              hintVerse: Verse.plain('fuck you'),
                               onSubmitted: (String val){
                                 blog('submitted val : $val');
                               },
@@ -517,7 +517,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     builder: (_, String text, Widget child){
 
                       return SuperVerse(
-                        verse: text,
+                        verse: Verse.plain(text),
                         labelColor: Colorz.blue80,
                       );
 

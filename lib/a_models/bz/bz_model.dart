@@ -781,7 +781,7 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateBzType({
+  static String getBzTypePhid({
     @required BuildContext context,
     @required BzType bzType,
     bool nounTranslation = true,
@@ -835,7 +835,7 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> translateBzTypes({
+  static List<String> getBzTypesPhids({
     @required BuildContext context,
     @required List<BzType> bzTypes,
     bool pluralTranslation = true,
@@ -846,7 +846,7 @@ class BzModel{
 
       for (final BzType type in bzTypes){
 
-        final String _translation = translateBzType(
+        final String _translation = getBzTypePhid(
           context: context,
           bzType: type,
           pluralTranslation: pluralTranslation,
@@ -868,7 +868,7 @@ class BzModel{
     bool oneLine = false,
   }){
 
-    final List<String> _bzTypesStrings = BzModel.translateBzTypes(
+    final List<String> _bzTypesStrings = BzModel.getBzTypesPhids(
       context: context,
       bzTypes: bzTypes,
       pluralTranslation: false,
@@ -1359,23 +1359,23 @@ class BzModel{
   /// BZ SECTION
 
   // --------------------
-  static String translateBzSection({
+  static String getBzSectionPhid({
     @required BuildContext context,
     @required BzSection bzSection,
   }){
     final String _translation =
-    bzSection == BzSection.realestate ? 'Real-Estate'
+    bzSection == BzSection.realestate ? 'phid_realEstate'
         :
-    bzSection == BzSection.construction ? 'Construction'
+    bzSection == BzSection.construction ? 'phid_construction'
         :
-    bzSection == BzSection.supplies ? 'Supplies'
+    bzSection == BzSection.supplies ? 'phid_supplies'
         :
-    'Bldrs';
+    'phid_bldrs_net';
 
     return _translation;
   }
   // --------------------
-  static List<String> translateBzSections({
+  static List<String> getBzSectionsPhids({
     @required BuildContext context,
     @required List<BzSection> bzSections,
   }){
@@ -1384,7 +1384,7 @@ class BzModel{
     if (Mapper.checkCanLoopList(bzSections) == true){
 
       for (final BzSection section in bzSections){
-        final String _translation = translateBzSection(
+        final String _translation = getBzSectionPhid(
           context: context,
           bzSection: section,
         );
@@ -1834,35 +1834,18 @@ class BzModel{
 //   ];
    */
   // --------------------
-  static String getBzTabID({
+  static String getBzTabPhid({
     @required BzTab bzTab,
   }){
     switch(bzTab){
-      case BzTab.flyers   : return 'Flyers '  ; break;
-      case BzTab.about    : return 'Info  '  ; break;
-      case BzTab.authors  : return 'Team'  ; break;
-      case BzTab.notes    : return 'Notification'  ; break;
-      case BzTab.targets  : return 'Targets'  ; break;
-      case BzTab.powers   : return 'Powers'  ; break;
-      case BzTab.network  : return 'Network'  ; break;
-      case BzTab.settings : return 'Settings' ; break;
-      default : return null;
-    }
-  }
-  // --------------------
-  static String translateBzTab({
-    @required BzTab bzTab,
-    @required BuildContext context,
-  }){
-    switch(bzTab){
-      case BzTab.flyers   : return '##Flyers '  ; break;
-      case BzTab.about    : return '##Info  '  ; break;
-      case BzTab.authors  : return '##Team'  ; break;
-      case BzTab.notes    : return '##Notification'  ; break;
-      case BzTab.targets  : return '##Targets'  ; break;
-      case BzTab.powers   : return '##Powers'  ; break;
-      case BzTab.network  : return '##Network'  ; break;
-      case BzTab.settings : return '##Settings' ; break;
+      case BzTab.flyers   : return 'phid_flyers '  ; break;
+      case BzTab.about    : return 'phid_info  '  ; break;
+      case BzTab.authors  : return 'phid_team'  ; break;
+      case BzTab.notes    : return 'phid_notification'  ; break;
+      case BzTab.targets  : return 'phid_targets'  ; break;
+      case BzTab.powers   : return 'phid_powers'  ; break;
+      case BzTab.network  : return 'phid_network'  ; break;
+      case BzTab.settings : return 'phid_settings' ; break;
       default : return null;
     }
   }
@@ -1886,11 +1869,10 @@ class BzModel{
     @required BuildContext context,
   }){
     final BzTab _bzTab = BzModel.bzTabsList[index];
-    final String _tabTitle = BzModel.translateBzTab(
-      context: context,
+    final String _bzTabPhid = BzModel.getBzTabPhid(
       bzTab: _bzTab,
     );
-    return _tabTitle;
+    return _bzTabPhid;
   }
   // -----------------------------------------------------------------------------
 

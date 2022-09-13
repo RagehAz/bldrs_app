@@ -42,7 +42,7 @@ class AddImagePicBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Function onAddPicture;
   final FileModel fileModel;
-  final String titleVerse;
+  final Verse titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
   final double width;
@@ -324,7 +324,7 @@ class _PlusIconLayer extends StatelessWidget {
           height: AddImagePicBubble.picWidth,
           alignment: Aligners.superInverseBottomAlignment(context),
           child: SuperVerse(
-            verse:  '${fileModel.size} ${xPhrase( context, 'phid_mega_byte')}',
+            verse: Verse.plain('${fileModel.size} ${xPhrase( context, 'phid_mega_byte')}'),
             size: 1,
             centered: false,
             shadow: true,

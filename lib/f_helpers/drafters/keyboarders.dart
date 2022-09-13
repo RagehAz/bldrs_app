@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -212,8 +213,11 @@ class Keyboard {
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: 'Copied to clipboard',
-      secondLine: copy,
+      firstLine: const Verse(
+        text: 'phid_copied_to_clipboard',
+        translate: true,
+      ),
+      secondLine: Verse.plain(copy),
     );
 
     blog('copied to clipboard : $copy');

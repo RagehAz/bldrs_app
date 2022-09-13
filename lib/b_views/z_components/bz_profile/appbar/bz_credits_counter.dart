@@ -16,8 +16,8 @@ class BzCreditsCounter extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double width;
-  final Verse slidesCredit;
-  final Verse ankhsCredit;
+  final String slidesCredit;
+  final String ankhsCredit;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class CreditsRow extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String icon;
-  final Verse value;
+  final String value;
   final double width;
   /// --------------------------------------------------------------------------
   @override
@@ -80,7 +80,10 @@ class CreditsRow extends StatelessWidget {
           height: Ratioz.appBarButtonSize * 0.4,
           alignment: Aligners.superInverseCenterAlignment(context),
           child: SuperVerse(
-            verse: value,
+            verse: Verse(
+              text: value,
+              translate: false,
+            ),
             size: 1,
             italic: true,
             weight: VerseWeight.thin,

@@ -328,7 +328,7 @@ class CountryModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getTranslatedCountryName({
+  static String translateCountryName({
     @required BuildContext context,
     @required String countryID
   }) {
@@ -631,7 +631,7 @@ class CountryModel {
 
     for (final String id in _allCountriesIDs) {
 
-      final String _countryName = getTranslatedCountryName(
+      final String _countryName = translateCountryName(
         context: context,
         countryID: id,
       );
@@ -656,7 +656,7 @@ class CountryModel {
 
     for (final String id in _allCountriesIDs){
 
-      final String _countryName = getTranslatedCountryName(
+      final String _countryName = translateCountryName(
         context: context,
         countryID: id,
       );

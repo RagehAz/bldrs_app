@@ -66,11 +66,14 @@ class AuthorCard extends StatelessWidget {
     return imageCornerValue + Bubble.paddingValue();
   }
   // --------------------
-  static String getAuthorTitleLine({
+  static Verse getAuthorTitleLine({
     @required String title,
     @required String companyName
   }){
-    return '$title @ $companyName';
+    return Verse(
+      text: '$title @ $companyName',
+      translate: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -91,7 +94,7 @@ class AuthorCard extends StatelessWidget {
       bzModel: bzModel,
     );
     // --------------------
-    final String _role = AuthorModel.translateRole(
+    final String _rolePhid = AuthorModel.getAuthorRolePhid(
       context: context,
       role: author.role,
     );
@@ -137,7 +140,10 @@ class AuthorCard extends StatelessWidget {
 
                         /// NAME
                         SuperVerse(
-                          verse: author.name ?? '...',
+                          verse: Verse(
+                            text: author.name ?? '...',
+                            translate: false,
+                          ),
                           size: 3,
                           centered: false,
                         ),
@@ -197,7 +203,10 @@ class AuthorCard extends StatelessWidget {
 
               /// ROLE
               AuthorCardDetail(
-                verse: _role,
+                verse: Verse(
+                  text: _rolePhid,
+                  translate: true,
+                ),
                 bubble: false,
                 icon: Iconz.bz,
                 iconColor: _roleIconColor,
@@ -206,7 +215,11 @@ class AuthorCard extends StatelessWidget {
 
               /// NUMBER OF FLYERS
               AuthorCardDetail(
-                verse: '##${author.flyersIDs.length} published flyers',
+                verse: Verse(
+                  text: '##${author.flyersIDs.length} published flyers',
+                  translate: true,
+                  varTag: author.flyersIDs.length,
+                ),
                 bubble: false,
                 icon: Iconz.flyer,
                 boxWidth: _bubbleWidth - authorPicSize - 40,
@@ -220,7 +233,10 @@ class AuthorCard extends StatelessWidget {
                 return AuthorCardDetail(
                     icon: ContactModel.concludeContactIcon(_contact.type),
                     bubble: true,
-                    verse: _contact.value,
+                    verse: Verse(
+                      text: _contact.value,
+                      translate: false,
+                    ),
                     boxWidth: _bubbleWidth - authorPicSize - 40,
                     onTap: () async {
 

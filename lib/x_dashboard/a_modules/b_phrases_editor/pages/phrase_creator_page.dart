@@ -52,8 +52,14 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ID
           TextFieldBubble(
             appBarType: appBarType,
-            titleVerse:  'Key',
-            hintVerse:  'Phrase key',
+            titleVerse: const Verse(
+              text: 'Key',
+              translate: false,
+            ),
+            hintVerse: const Verse(
+              text: 'Phrase key',
+              translate: false,
+            ),
             textController: idController,
             onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
             pasteFunction: () => TextMod.controllerPaste(idController),
@@ -68,7 +74,10 @@ class PhraseCreatorPage extends StatelessWidget {
                   DreamBox(
                     height: 35,
                     width: 150,
-                    verse:  'Add [phid_] to ID',
+                    verse: const Verse(
+                      text: 'Add [phid_] to ID',
+                      translate: false,
+                    ),
                     verseScaleFactor: 0.6,
                     onTap: (){
                       idController.text = 'phid_${idController.text}';
@@ -84,8 +93,14 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ENGLISH
           TextFieldBubble(
             appBarType: appBarType,
-            titleVerse:  'English',
-            hintVerse:  'English phrase',
+            titleVerse: const Verse(
+              text: 'English',
+              translate: false,
+            ),
+            hintVerse: const Verse(
+              text: 'English phrase',
+              translate: false,
+            ),
             textController: enController,
             onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
             pasteFunction: () => TextMod.controllerPaste(enController),
@@ -96,8 +111,14 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ARABIC
           TextFieldBubble(
             appBarType: appBarType,
-            titleVerse:  'عربي',
-            hintVerse:  'مصطلح عربي',
+            titleVerse: const Verse(
+              text: 'عربي',
+              translate: false,
+            ),
+            hintVerse: const Verse(
+              text: 'مصطلح عربي',
+              translate: false,
+            ),
             textController: arController,
             onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
             pasteFunction: () => TextMod.controllerPaste(arController),
@@ -109,8 +130,11 @@ class PhraseCreatorPage extends StatelessWidget {
           Align(
             alignment: Aligners.superInverseCenterAlignment(context),
             child: DreamBox(
-              verse:  'Confirm',
-              verseCasing: Casing.upperCase,
+              verse: const Verse(
+                text: 'Confirm',
+                translate: false,
+                casing: Casing.upperCase,
+              ),
               height: 50,
               color: Colorz.yellow255,
               verseWeight: VerseWeight.black,

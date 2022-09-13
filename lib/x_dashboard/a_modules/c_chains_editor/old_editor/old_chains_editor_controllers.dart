@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -38,8 +39,8 @@ Future<void> onBackupAllChains(BuildContext context) async {
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     boolDialog: true,
-    titleVerse:  'Back up All Chains ?',
-    bodyVerse:  'Please confirm',
+    titleVerse: const Verse(text: 'Back up All Chains ?', translate: false),
+    bodyVerse: const Verse(text: 'Please confirm', translate: false),
   );
 
   if (_result == true){

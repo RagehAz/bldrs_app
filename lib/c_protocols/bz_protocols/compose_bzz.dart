@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -29,7 +30,10 @@ class ComposeBzProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: '##Creating a new Business Account',
+      loadingVerse: const Verse(
+        text: 'phid_creating_new_bz_account',
+        translate: true,
+      ),
     ));
 
     /// FIREBASE CREATE BZ OPS
@@ -64,8 +68,15 @@ class ComposeBzProtocols {
       /// SHOW SUCCESS DIALOG
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '##Great !',
-        bodyVerse: '##Successfully created your Business Account\n system will reboot now',
+        titleVerse: const Verse(
+          text: 'phid_great',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          pseudo: '##Successfully created your Business Account\n system will reboot now',
+          text: 'phid_created_bz_successfully',
+          translate: true,
+        ),
         // color: Colorz.green255,
       );
 
@@ -141,8 +152,14 @@ class ComposeBzProtocols {
     /// FAILURE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Ops !',
-      bodyVerse: '##Something went wrong, Please try again',
+      titleVerse: const Verse(
+        text: 'phid_ops_!',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_somethingIsWrong',
+        translate: true,
+      ),
     );
 
   }

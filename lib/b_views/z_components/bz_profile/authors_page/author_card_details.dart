@@ -15,7 +15,7 @@ class AuthorCardDetail extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String icon;
-  final String verse;
+  final Verse verse;
   final double boxWidth;
   final Color iconColor;
   final Function onTap;

@@ -159,9 +159,14 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
     _keyboardModel = KeyboardModel.standardModel().copyWith(
       globalKey: GlobalKey<FormState>(),
       focusNode: FocusNode(),
-      titleVerse: 'Edit path',
-      translateTitle: false,
-      hintVerse: 'phid_aaa/phid_bbb ...',
+      titleVerse: const Verse(
+        text: 'Edit path',
+        translate: false,
+      ),
+      hintVerse: const Verse(
+        text: 'phid_aaa/phid_bbb ...',
+        translate: false,
+      ),
       initialText: widget.path,
       minLines: 2,
       maxLines: 5,
@@ -280,7 +285,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
               return BottomDialog.wideButton(
                   height: 40,
                   context: context,
-                  verse: _dataCreatorString,
+                  verse: Verse.plain(_dataCreatorString),
                   onTap: (){
                     Nav.goBack(context: context, invoker: '_onAddDataCreator');
                     _setController('${_controller.text}$_dataCreatorString');
@@ -303,7 +308,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
       final bool _result = await Dialogs.bottomBoolDialog(
         context: context,
-        titleVerse: 'Clear Path ?',
+        titleVerse: Verse.plain('Clear Path ?'),
       );
 
       if (_result == true){
@@ -323,7 +328,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
 
       final bool _result = await Dialogs.bottomBoolDialog(
         context: context,
-        titleVerse: 'Delete last node ( $_lastNode ) ?',
+        titleVerse: Verse.plain('Delete last node ( $_lastNode ) ?'),
       );
 
       if (_result == true){
@@ -385,7 +390,6 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
                 titleVerse: _keyboardModel.titleVerse,
-                translateTitle: _keyboardModel.translateTitle,
                 textController: _controller,
                 maxLines: _keyboardModel.maxLines,
                 minLines: _keyboardModel.minLines,

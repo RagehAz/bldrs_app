@@ -29,8 +29,8 @@ class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Future<void> showTopDialog({
     @required BuildContext context,
-    @required Verse firstLine,
-    Verse secondLine,
+    @required Verse firstVerse,
+    Verse secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
     Function onTap,
@@ -93,16 +93,16 @@ class TopDialog extends StatelessWidget {
 
             /// FIRST LINE
             SuperVerse(
-              verse: firstLine,
+              verse: firstVerse,
               color: textColor,
               maxLines: 2,
               margin: 5,
             ),
 
             /// SECOND LINE
-            if (secondLine != null)
+            if (secondVerse != null)
               SuperVerse(
-                verse: secondLine,
+                verse: secondVerse,
                 size: 1,
                 color: textColor,
                 weight: VerseWeight.thin,
@@ -171,8 +171,8 @@ class TopDialog extends StatelessWidget {
 
     unawaited(showTopDialog(
       context: context,
-      firstLine: firstLine,
-      secondLine: secondLine,
+      firstVerse: firstLine,
+      secondVerse: secondLine,
       color: color,
       textColor: textColor,
       onTap: onTap,

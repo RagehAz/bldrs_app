@@ -106,7 +106,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
 
   }
   // --------------------
-  String _getSearchHintText(BuildContext context){
+  Verse _getSearchHintVerse(BuildContext context){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
         context: context,
@@ -116,8 +116,13 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     final String _countryName = _zone.countryName;
     final String _cityName = _zone.cityName;
 
-    final String _hintText = 'Search flyers in $_cityName, $_countryName';
-    return _hintText;
+    final String _hintText = '##Search flyers in $_cityName, $_countryName';
+    return Verse(
+      text: _hintText,
+      translate: true,
+      varTag: [_cityName, _countryName],
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -138,8 +143,12 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     return MainLayout(
       appBarType: AppBarType.search,
       sectionButtonIsOn: false,
-      pageTitleVerse: '##Search',
-      searchHintVerse: _getSearchHintText(context),
+      pageTitleVerse: const Verse(
+        text: 'phid_search',
+        translate: true,
+        casing: Casing.capitalizeFirstChar,
+      ),
+      searchHintVerse: _getSearchHintVerse(context),
       pyramidsAreOn: true,
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,

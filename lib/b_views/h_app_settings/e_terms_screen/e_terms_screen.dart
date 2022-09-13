@@ -18,7 +18,10 @@ class TermsScreen extends StatelessWidget {
     return MainLayout(
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
-      pageTitleVerse: '##Terms & Conditions',
+      pageTitleVerse: const Verse(
+        text: 'phid_terms_and_conditions',
+        translate: true,
+      ),
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       skyType: SkyType.non,

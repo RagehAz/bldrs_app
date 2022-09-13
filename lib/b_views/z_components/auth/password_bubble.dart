@@ -45,14 +45,13 @@ class PasswordBubbles extends StatelessWidget {
           fieldIsRequired: true,
           keyboardTextInputType: TextInputType.visiblePassword,
           keyboardTextInputAction: showPasswordOnly ? TextInputAction.go : TextInputAction.next,
-          titleVerse: 'phid_password',
+          titleVerse: const Verse(text: 'phid_password', translate: true),
           validator: passwordValidator,
-          bulletPoints: const <String>[
-            'phid_min6Char',
+          bulletPoints: const <Verse>[
+            Verse(text: 'phid_min6Char', translate: true,),
           ],
           canObscure: true,
           onSubmitted: onSubmitted,
-          hintVerse: '',
           isFloatingField: isTheSuperKeyboardField,
         ),
 
@@ -67,12 +66,16 @@ class PasswordBubbles extends StatelessWidget {
             fieldIsRequired: true,
             keyboardTextInputType: TextInputType.visiblePassword,
             keyboardTextInputAction: TextInputAction.done,
-            titleVerse: 'phid_confirmPassword',
+            titleVerse: const Verse(
+              text: 'phid_confirmPassword',
+              translate: true,
+            ),
             validator: passwordConfirmationValidator,
-            bulletPoints: const <String>['phid_min6Char'],
+            bulletPoints: const <Verse>[
+              Verse(text: 'phid_min6Char', translate: true),
+            ],
             canObscure: true,
             onSubmitted: onSubmitted,
-            hintVerse: '',
           ),
 
       ],

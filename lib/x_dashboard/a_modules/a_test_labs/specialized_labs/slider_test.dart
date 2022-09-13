@@ -77,7 +77,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
       // appBarBackButton: true,
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
-      pageTitleVerse:  'Slider test',
+      pageTitleVerse: Verse.plain('Slider test'),
       layoutWidget: Center(
         child: ListView(
           children: <Widget>[
@@ -86,7 +86,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse:  'Set Min value',
+              titleVerse: Verse.plain('Set Min value'),
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
               actionBtIcon: Iconz.plus,
@@ -103,7 +103,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse:  'Set Max value',
+              titleVerse: Verse.plain('Set Max value'),
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
               actionBtIcon: Iconz.plus,
@@ -120,7 +120,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             TextFieldBubble(
               appBarType: AppBarType.basic,
-              titleVerse:  'Set divisions',
+              titleVerse: Verse.plain('Set divisions'),
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
               actionBtIcon: Iconz.plus,

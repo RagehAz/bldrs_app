@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,10 @@ class UserSettingsPage extends StatelessWidget {
 
         /// INVITE BZZ
         SettingsWideButton(
-          verse: 'phid_invite_bzz_you_know',
+          verse: const Verse(
+            text: 'phid_invite_bzz_you_know',
+            translate: true,
+          ),
           icon: Iconz.bz,
           color: Colorz.yellow255,
           verseColor: Colorz.black255,
@@ -35,14 +39,20 @@ class UserSettingsPage extends StatelessWidget {
 
         /// EDIT PROFILE
         SettingsWideButton(
-          verse: 'phid_editProfile',
+          verse: const Verse(
+            text: 'phid_editProfile',
+            translate: true,
+          ),
           icon: Iconz.gears,
           onTap: () => onEditProfileTap(context),
         ),
 
         /// DELETE MY ACCOUNT
         SettingsWideButton(
-          verse: 'phid_delete_my_account',
+          verse: const Verse(
+            text: 'phid_delete_my_account',
+            translate: true,
+          ),
           icon: Iconz.xSmall,
           color: Colorz.bloodTest,
           onTap: () => onDeleteMyAccount(context),
@@ -52,7 +62,10 @@ class UserSettingsPage extends StatelessWidget {
 
         /// SIGN OUT
         SettingsWideButton(
-          verse: 'phid_signOut',
+          verse: const Verse(
+            text: 'phid_signOut',
+            translate: true,
+          ),
           icon: Iconz.exit,
           onTap: () => onSignOut(context),
         ),

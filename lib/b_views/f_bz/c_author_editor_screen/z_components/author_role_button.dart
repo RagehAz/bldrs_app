@@ -14,7 +14,7 @@ class AuthorRoleButton extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
+  final Verse verse;
   final Function onTap;
   final bool isOn;
   final String icon;
@@ -25,7 +25,7 @@ class AuthorRoleButton extends StatelessWidget {
     return DreamBox(
       height: 50,
       width: 300,
-      verse: isOn == true ? verse.toUpperCase() : verse,
+      verse: verse.copyWith(casing: isOn == true ? Casing.upperCase : Casing.non),
       icon: icon,
       iconSizeFactor: 0.6,
       verseScaleFactor: 1.5,

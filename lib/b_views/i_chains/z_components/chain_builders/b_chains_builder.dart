@@ -88,8 +88,8 @@ class ChainsBuilder extends StatelessWidget {
             DreamBox(
               height: 60,
               width: _sonWidth,
-              verse:  'Add to path :',
-              secondLine: '$previousPath/...',
+              verse: const Verse(text: 'Add to path :', translate: false),
+              secondLine: Verse(text: '$previousPath/...', translate: false),
               icon: Iconz.plus,
               iconSizeFactor: 0.5,
               verseScaleFactor: 1.2,

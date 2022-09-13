@@ -37,20 +37,20 @@ class ChainsScreenBrowseView extends StatelessWidget {
   final List<FlyerType> flyerTypes;
   // --------------------------------------------------------------------------
   /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
-  String _getInstructions(BuildContext context){
+  Verse _getInstructions(BuildContext context){
     // ---------------------
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
       context: context,
       listen: true,
     );
     // ---------------------
-    final List<Verse> _verses = FlyerTyper.translateFlyerTypes(
+    final List<String> _translations = FlyerTyper.translateFlyerTypes(
       context: context,
       flyerTypes: flyerTypes,
     );
     // ---------------------
     final String _flyerTypesString = Stringer.generateStringFromStrings(
-      strings: Verse.getTextsFromVerses(_verses),
+      strings: _translations,
     );
     // ---------------------
     final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
@@ -66,7 +66,10 @@ class ChainsScreenBrowseView extends StatelessWidget {
         '\n$_flyerTypesString');
     // ---------------------
 
-    return _instructions;
+    return Verse(
+      text: _instructions,
+      translate: false,
+    );
   }
   // --------------------
   String _getInstructionsIcon(BuildContext context){
@@ -133,7 +136,11 @@ class ChainsScreenBrowseView extends StatelessWidget {
                     );
 
                     return SpecsPickersGroup(
-                      headline: _groupID.toUpperCase(),
+                      headlineVerse: Verse(
+                        text: _groupID,
+                        translate: true,
+                        casing: Casing.upperCase,
+                      ),
                       selectedSpecs: selectedSpecs,
                       groupPickers: _pickersOfThisGroup,
                       onPickerTap: onPickerTap,

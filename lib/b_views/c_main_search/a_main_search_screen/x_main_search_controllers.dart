@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/secondary_models/search_result.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
 import 'package:bldrs/d_providers/search_provider.dart';
@@ -341,8 +342,15 @@ Future<void> _handleSearchResult({
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: 'No result found',
-      secondLine: 'Try again with different words',
+      firstLine: const Verse(
+        text: 'phid_no_result_found',
+        translate: true,
+      ),
+      secondLine: const Verse(
+        pseudo: 'Try again with different words',
+        text: 'phid_try_again_with_different_words',
+        translate: true,
+      ),
     );
 
   }

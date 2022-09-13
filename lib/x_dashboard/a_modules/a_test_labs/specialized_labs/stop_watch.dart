@@ -138,7 +138,7 @@ class _StopWatchBarState extends State<StopWatchBar> {
                     return DreamBox(
                       height: _boxHeight * 0.5,
                       width: _boxWidth * 0.5,
-                      verse: displayTime,
+                      verse: Verse.plain(displayTime),
                     );
                   },
                 ),
@@ -210,7 +210,7 @@ class _StopWatchBarState extends State<StopWatchBar> {
                         final String _highlighted = TextMod.removeTextBeforeLastSpecialCharacter(_verse, ': ');
 
                         return SuperVerse(
-                          verse: _verse,
+                          verse: Verse.plain(_verse),
                           weight: VerseWeight.thin,
                           highlight: ValueNotifier<String>(_highlighted),
                         );

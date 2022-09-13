@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -23,7 +24,10 @@ Future<void> setCurrentZone({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: '##Loading, please wait',
+      loadingVerse: const Verse(
+        text: 'phid_loading_please_wait',
+        translate: true,
+      ),
     ));
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);

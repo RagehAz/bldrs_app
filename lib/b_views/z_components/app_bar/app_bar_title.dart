@@ -6,19 +6,17 @@ import 'package:flutter/material.dart';
 class AppBarTitle extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarTitle({
-    @required this.pageTitle,
+    @required this.pageTitleVerse,
     @required this.backButtonIsOn,
     @required this.width,
     @required this.appBarRowWidgets,
-    @required this.translatePageTitle,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final dynamic pageTitle;
+  final Verse pageTitleVerse;
   final bool backButtonIsOn;
   final double width;
   final List<Widget> appBarRowWidgets;
-  final bool translatePageTitle;
   /// --------------------------------------------------------------------------
   static double getTitleHorizontalMargin({
     @required bool backButtonIsOn,
@@ -30,37 +28,39 @@ class AppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Center(
-        child: pageTitle is String ?
-        _HeadlineSuperVerse(
-          translate: translatePageTitle,
-          title: pageTitle,
-          width: width,
-          appBarRowWidgets: appBarRowWidgets,
-          backButtonIsOn: backButtonIsOn,
-        )
+    if (pageTitleVerse == null){
+      return const SizedBox();
+    }
 
-            :
+    else {
+      return Center(
+          child: pageTitleVerse?.notifier == null ?
+          _HeadlineSuperVerse(
+            title: pageTitleVerse,
+            width: width,
+            appBarRowWidgets: appBarRowWidgets,
+            backButtonIsOn: backButtonIsOn,
+          )
 
-        pageTitle is ValueNotifier<String> ?
-        ValueListenableBuilder(
-          valueListenable: pageTitle,
-          builder: (_, Verse title, Widget child){
+              :
 
-            return _HeadlineSuperVerse(
-              title: title,
-              width: width,
-              appBarRowWidgets: appBarRowWidgets,
-              backButtonIsOn: backButtonIsOn,
-            );
+          ValueListenableBuilder(
+            valueListenable: pageTitleVerse.notifier,
+            builder: (_, String value, Widget child){
 
-          },
-        )
+              return _HeadlineSuperVerse(
+                title: pageTitleVerse.copyWith(text: value),
+                width: width,
+                appBarRowWidgets: appBarRowWidgets,
+                backButtonIsOn: backButtonIsOn,
+              );
 
-            :
+            },
+          ),
 
-        const SizedBox()
-    );
+      );
+    }
+
 
   }
   // --------------------------------------------------------------------------

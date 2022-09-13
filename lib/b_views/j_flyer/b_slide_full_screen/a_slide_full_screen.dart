@@ -24,7 +24,10 @@ class SlideFullScreen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeight(context);
     // --------------------
     return MainLayout(
-      pageTitleVerse: '##Create flyers',
+      pageTitleVerse: const Verse(
+        text: 'phid_flyer_slides',
+        translate: true,
+      ),
       pyramidsAreOn: true,
       appBarType: AppBarType.non,
       skyType: SkyType.black,

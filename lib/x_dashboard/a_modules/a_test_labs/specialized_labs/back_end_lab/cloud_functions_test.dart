@@ -90,7 +90,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse:  'Cloud Functions test',
+      pageTitleVerse: Verse.plain('Cloud Functions test'),
       appBarRowWidgets: const <Widget>[],
       layoutWidget: Center(
         child: ListView(
@@ -99,8 +99,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
           children: <Widget>[
 
             WideButton(
-                translate: false,
-                verse:  'call a cloud function callable_sayHello',
+                verse: Verse.plain('call a cloud function callable_sayHello'),
                 onTap: () async {
                   final dynamic map = await CloudFunction.callFunction(
                       context: context,
@@ -118,13 +117,14 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
             /// INCREMENT FLYER COUNTER
             SettingsWideButton(
-              verse:  'INCREMENT FLYER COUNTER',
+              verse: Verse.plain('INCREMENT FLYER COUNTER'),
               icon: Iconz.addFlyer,
               onTap: () async {
 
                 unawaited(TopDialog.showTopDialog(
                     context: context,
-                    firstLine: 'sending request to nour')
+                    firstVerse: Verse.plain('sending request to nour')
+                )
                 );
 
                 // await CounterOps.incrementFlyerCounter(
@@ -157,7 +157,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
 
                 await TopDialog.showTopDialog(
                   context: context,
-                  firstLine: '$_numberOfTimes requestS sent',
+                  firstVerse: Verse.plain('$_numberOfTimes requestS sent'),
                 );
 
                 // blogMap(_map, methodName: 'REAL FUCKING TIME MAP IS :');
@@ -166,14 +166,13 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
             ),
 
             WideButton(
-              translate: false,
               width: 250,
-              verse:  'realBypassUpdate',
+              verse: Verse.plain('realBypassUpdate'),
               onTap: () async {
 
                 unawaited(WaitDialog.showWaitDialog(
                   context: context,
-                  loadingVerse:  'Posting Http request aho',
+                  loadingVerse: Verse.plain('Posting Http request aho'),
                   canManuallyGoBack: true,
                 ),
 

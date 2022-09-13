@@ -79,7 +79,10 @@ class UserBalloon extends StatelessWidget {
               child: DreamBox(
                 height: size * 0.4,
                 width: size * 0.5,
-                verse: 'phid_edit',
+                verse: const Verse(
+                  text: 'phid_edit',
+                  translate: true,
+                ),
                 verseScaleFactor: 0.5,
                 color: Colorz.red255,
                 onTap: onTap,

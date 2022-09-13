@@ -27,7 +27,7 @@ class WideDistrictButton extends StatelessWidget {
       height: 40,
       width: Bubble.clearWidth(context) - 10,
       iconSizeFactor: 0.8,
-      verse: _districtNameValue,
+      verse: Verse.plain(_districtNameValue),
       bubble: false,
       margins: const EdgeInsets.symmetric(vertical: 5),
       verseScaleFactor: 0.8,

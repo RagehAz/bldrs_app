@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
@@ -29,13 +28,13 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pageTitleVerse:  'Zoning work space',
+      pageTitleVerse: Verse.plain('Zoning work space'),
       pyramidType: PyramidType.crystalYellow,
       layoutWidget: FloatingCenteredList(
         columnChildren: <Widget>[
 
           AppBarButton(
-            verse:  'Zone by one button',
+            verse: Verse.plain('Zone by one button'),
             onTap: () async {
 
               final ZoneModel _zone = await Nav.goToNewScreen(
@@ -74,7 +73,7 @@ class _ZoningWorkSpaceState extends State<ZoningWorkSpace> {
           ),
 
           AppBarButton(
-            verse:  'blog current zone',
+            verse: Verse.plain('blog current zone'),
             onTap: (){
 
               _bubbleZone?.blogZone();

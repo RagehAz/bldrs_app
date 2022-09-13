@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
@@ -78,7 +79,11 @@ Future<void> onAuthorOptionsTap({
     /// CHANGE ROLE
     BottomDialog.wideButton(
       context: context,
-      verse: '##Change team role for $_authorName',
+      verse: Verse(
+        text: '##Change team role for $_authorName',
+        translate: true,
+        varTag: _authorName,
+      ),
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
@@ -105,7 +110,11 @@ Future<void> onAuthorOptionsTap({
     /// EDIT AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: '##Edit $_authorName Author details',
+      verse: Verse(
+        text: '##Edit $_authorName Author details',
+        translate: true,
+        varTag: _authorName,
+      ),
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
@@ -132,7 +141,10 @@ Future<void> onAuthorOptionsTap({
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: '##Remove $_authorName from the team',
+      verse: Verse(
+        text: '##Remove $_authorName from the team',
+        translate: true,
+      ),
       icon: Iconz.xSmall,
       isDeactivated: _canRemoveAuthor == false,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
@@ -193,8 +205,16 @@ Future<void> onDeleteAuthorFromBz({
   if (showConfirmationDialog == true){
     _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Remove ${authorModel.name} ?',
-      bodyVerse:  '##${authorModel.name} and all his published flyers will be deleted as well',
+      titleVerse: Verse(
+        text: '##Remove ${authorModel.name} ?',
+        translate: true,
+        varTag: authorModel.name,
+      ),
+      bodyVerse: Verse(
+        text: '##${authorModel.name} and all his published flyers will be deleted as well',
+        translate: true,
+        varTag: authorModel.name,
+      ),
       boolDialog: true,
     );
   }
@@ -248,9 +268,16 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##You can not remove ${authorModel.name}',
-    bodyVerse:  '##Only Account Admins can remove other team members,\n'
-        'however you can remove only yourself from this business account',
+    titleVerse: Verse(
+      text: '##You can not remove ${authorModel.name}',
+      translate: true,
+      varTag: authorModel.name,
+    ),
+    bodyVerse: const Verse(
+      text: '##Only Account Admins can remove other team members,\n'
+          'however you can remove only yourself from this business account',
+      translate: true,
+    ),
   );
 
 }
@@ -286,7 +313,11 @@ Future<void> _removeAuthorWhoHasFlyers({
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: '##Removing ${authorModel.name}',
+        loadingVerse: Verse(
+          text: '##Removing ${authorModel.name}',
+          translate: true,
+          varTag: authorModel.name,
+        ),
       ));
     }
 
@@ -353,11 +384,22 @@ Future<bool> _showDeleteAllAuthorFlyers({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Delete All Flyers',
-    bodyVerse:  '##${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
+    titleVerse: const Verse(
+      text: 'phid_delete_all_flyers',
+      translate: true,
+    ),
+    bodyVerse: Verse(
+      text: '##${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
+      translate: true,
+      varTag: [authorModel.flyersIDs.length, authorModel.name],
+    ),
     height: 400,
     boolDialog: true,
-    confirmButtonVerse:  '##Delete All Flyers And Remove ${authorModel.name}',
+    confirmButtonVerse: Verse(
+      text: '##Delete All Flyers And Remove ${authorModel.name}',
+      translate: true,
+      varTag: authorModel.name,
+    ),
     child: Container(
       width: CenterDialog.getWidth(context),
       height: 200,
@@ -426,7 +468,11 @@ Future<void> _showAuthorRemovalConfirmationDialog({
 
   unawaited(TopDialog.showTopDialog(
     context: context,
-    firstLine: '${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
+    firstVerse: Verse(
+      text: '##${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
+      translate: true,
+      varTag: [deletedAuthor.name, bzModel.name]
+    ),
     color: Colorz.green255,
     textColor: Colorz.white255,
   ));
@@ -462,8 +508,16 @@ Future<void> _onShowCanNotEditAuthorDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##You can not Edit ${authorModel.name}',
-    bodyVerse:  '##Only ${authorModel.name} can edit his Author detail',
+    titleVerse: Verse(
+      text: '##You can not Edit ${authorModel.name}',
+      translate: true,
+      varTag: authorModel.name,
+    ),
+    bodyVerse: Verse(
+      text: '##Only ${authorModel.name} can edit his Author detail',
+      translate: true,
+      varTag: authorModel.name,
+    ),
   );
 
 }
@@ -502,8 +556,16 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##You can not Change team member roles',
-    bodyVerse:  '##Only Account Admins can change the roles of other team members',
+    titleVerse: const Verse(
+      pseudo: 'You can not Change team member roles',
+      text: 'phid_you_cant_change_team_roles',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'Only Account Admins can change the roles of other team members',
+      text: 'phid_only_admins_change_roles',
+      translate: true,
+    ),
   );
 
 }

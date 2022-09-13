@@ -176,7 +176,10 @@ class _CroppingScreenState extends State<CroppingScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: '##Crop Images',
+      pageTitleVerse: const Verse(
+        text: 'phid_crop_images',
+        translate: true,
+      ),
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       // pyramidsAreOn: false,

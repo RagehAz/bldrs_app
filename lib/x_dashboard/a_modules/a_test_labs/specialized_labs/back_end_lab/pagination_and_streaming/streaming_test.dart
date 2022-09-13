@@ -140,8 +140,7 @@ class _StreamingTestState extends State<StreamingTest> {
               builder: (_, Map<String, dynamic> map){
 
                 return WideButton(
-                  translate: false,
-                  verse:  'Add Data',
+                  verse: Verse.plain('Add Data'),
                   color: Colorizer.decipherColor(map['color']),
                   onTap: () async {
 
@@ -257,7 +256,7 @@ class ColorButton extends StatelessWidget {
           verseColor: Colorz.white30,
           verseShadow: false,
           iconSizeFactor: 0.5,
-          secondLine: '( $_mmss )',
+          secondLine: Verse.plain('( $_mmss )'),
           color: Colorizer.decipherColor(map['color']),
           verseCentered: false,
           onTap: () async {

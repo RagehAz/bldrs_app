@@ -112,7 +112,10 @@ class _PendingSentAuthorshipNotesStreamerState extends State<PendingSentAuthorsh
                   userID: _note.receiverID,
                   color: Colorz.white10,
                   bubble: false,
-                  sideButton: '##Cancel',
+                  sideButtonVerse: const Verse(
+                    text: 'phid_cancel',
+                    translate: true,
+                  ),
                   onSideButtonTap: () => onCancelSentAuthorshipInvitation(
                     context: context,
                     note: _note,

@@ -18,7 +18,7 @@ class FlyerTypeButton extends StatelessWidget {
   final bool isSelected;
   final String icon;
   final double iconSizeFactor;
-  final String verse;
+  final Verse verse;
   final Function onTap;
   final bool triggerIconColor;
   /// --------------------------------------------------------------------------

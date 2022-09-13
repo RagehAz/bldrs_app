@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
@@ -56,7 +57,10 @@ Future<void> onShowNoteOptions({
       context: context,
       draggable: true,
       numberOfWidgets: 1,
-      title: '##Options',
+      titleVerse: const Verse(
+        text: 'phid_options',
+        translate: true,
+      ),
       buttonHeight: 50,
       builder: (_, PhraseProvider pro){
 
@@ -64,7 +68,10 @@ Future<void> onShowNoteOptions({
 
           BottomDialog.wideButton(
               context: context,
-              verse: '##Delete',
+              verse: const Verse(
+                text: 'phid_delete',
+                translate: true,
+              ),
               height: 50,
               onTap: () async {
 
@@ -227,8 +234,15 @@ Future<void> _acceptAuthorshipInvitation({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Accept invitation ?',
-    bodyVerse:  'T##his will add you as an Author for this business account',
+    titleVerse: const Verse(
+      text: 'phid_accept_invitation_?',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'This will add you as an Author for this business account',
+      text: 'phid_accept_author_invitation_description',
+      translate: true,
+    ),
     boolDialog: true,
   );
 
@@ -238,7 +252,11 @@ Future<void> _acceptAuthorshipInvitation({
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse:  "##Adding you to '${bzModel.name}' business account",
+      loadingVerse: Verse(
+        text: "##Adding you to '${bzModel.name}' business account",
+        translate: true,
+        varTag: bzModel.name,
+      ),
     ));
 
     await AuthorProtocols.addMeAsNewAuthorToABzProtocol(
@@ -262,11 +280,23 @@ Future<void> _acceptAuthorshipInvitation({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##You have become an Author in ${bzModel.name}',
-      bodyVerse:  '##You can control the business account, publish flyers,'
-          ' reply to costumers on behalf of the business and more.\n'
-          'a system reboot is required',
-      confirmButtonVerse:  '##Great',
+      titleVerse: Verse(
+        pseudo: 'You have become an Author in ${bzModel.name}',
+        text: 'phid_you_became_author_in_bz',
+        translate: true,
+        varTag: bzModel.name,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'You can control the business account, publish flyers,'
+            ' reply to costumers on behalf of the business and more.\n'
+            'a system reboot is required',
+        text: 'phid_became_author_in_bz_description',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_great',
+        translate: true,
+      ),
     );
 
     /// NOTE : a system reboot is required at that point
@@ -294,9 +324,20 @@ Future<void> _declineAuthorshipInvitation({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Decline invitation ?',
-    bodyVerse:  '##This will reject the invitation and you will not be added as an author.',
-    confirmButtonVerse:  '##Decline Invitation',
+    titleVerse: const Verse(
+      pseudo: 'Decline invitation ?',
+      text: 'phid_decline_invitation_?',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'This will reject the invitation and you will not be added as an author.',
+      text: 'phid_decline_invitation_description',
+      translate: true,
+    ),
+    confirmButtonVerse: const Verse(
+      text: 'phid_decline_invitation',
+      translate: true,
+    ),
     boolDialog: true,
   );
 

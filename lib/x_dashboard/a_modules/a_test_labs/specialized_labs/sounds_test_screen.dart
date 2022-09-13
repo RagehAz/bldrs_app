@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -133,8 +134,7 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
             final String _sound = _allSounds[index];
 
             return WideButton(
-              translate: false,
-              verse: TextMod.removeTextBeforeLastSpecialCharacter(_sound, '/'),
+              verse: Verse.plain(TextMod.removeTextBeforeLastSpecialCharacter(_sound, '/')),
               onTap: () async {
 
                 await Sounder.playAssetSound(_sound);

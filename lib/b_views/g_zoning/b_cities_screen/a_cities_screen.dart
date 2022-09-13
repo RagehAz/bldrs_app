@@ -253,7 +253,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = CountryModel.getTranslatedCountryName(
+    final String _countryName = CountryModel.translateCountryName(
       context: context,
       countryID: widget.country?.id,
     );
@@ -265,10 +265,16 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
-      pageTitleVerse: 'phid_selectCity',
+      pageTitleVerse: const Verse(
+        text: 'phid_selectCity',
+        translate: true,
+      ),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHintVerse:  '${xPhrase( context, 'phid_search_cities_of')} $_countryName',
+      searchHintVerse: Verse(
+        text: '${xPhrase( context, 'phid_search_cities_of')} $_countryName',
+        translate: false,
+      ),
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
@@ -286,7 +292,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                     builder: (_, List<CityModel> cities, Widget child){
 
                       return SuperVerse(
-                        verse:  '${cities.length} / ${widget.country.citiesIDs.length}',
+                        verse: Verse.plain('${cities.length} / ${widget.country.citiesIDs.length}'),
                         weight: VerseWeight.thin,
                         size: 1,
                         margin: Scale.superInsets(context: context, bottom: 20, enRight: 10),

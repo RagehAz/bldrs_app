@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
@@ -253,7 +254,7 @@ Future<void> onConfirmEditPhrase({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: 'Phrases Updated',
+      firstLine: const Verse(text: 'Phrases Updated', translate: false),
     );
 
   }
@@ -282,8 +283,8 @@ Future<bool> _preEditCheck({
   ){
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Check inputs',
-      bodyVerse:  'The ID or one of the values is empty.',
+      titleVerse: const Verse(text: 'Check inputs', translate: false),
+      bodyVerse: const Verse(text: 'The ID or one of the values is empty.', translate: false),
       color: Colorz.red255,
     );
 
@@ -371,11 +372,9 @@ Future<bool> _preEditCheck({
 
       _continueOps = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse:  '7aseb !',
+        titleVerse: const Verse(text: '7aseb !', translate: false),
         boolDialog: true,
-        bodyVerse:  '$_alertMessage\n'
-            '$_actionTypeMessage\n'
-            'Wanna continue uploading ?',
+        bodyVerse: Verse.plain('$_alertMessage\n$_actionTypeMessage\nWanna continue uploading ?'),
       );
 
     }
@@ -415,10 +414,9 @@ Future<void> onDeletePhrase({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  'Bgad ?',
+    titleVerse: const Verse(text: 'Bgad ?', translate: false),
     boolDialog: true,
-    bodyVerse:  'Delete This Phrase ?'
-        '\n\nPhid : $phid',
+    bodyVerse:  Verse.plain('Delete This Phrase ?\n\nPhid : $phid'),
   );
 
   if (_continue == true){
@@ -446,7 +444,7 @@ Future<void> onDeletePhrase({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: 'Phrase has been deleted',
+      firstLine: const Verse(text: 'Phrase has been deleted', translate: false),
     );
 
   }
@@ -463,9 +461,9 @@ Future<void> onSelectPhrase({
 
   final bool _continue = await Dialogs.goBackDialog(
     context: context,
-    titleVerse:  'Select This & go Back ?',
-    bodyVerse:  '$phid\n${xPhrase( context, phid)}',
-    confirmButtonText: 'Select & Back',
+    titleVerse: const Verse(text: 'Select This & go Back ?', translate: false),
+    bodyVerse: Verse.plain('$phid\n${xPhrase( context, phid)}'),
+    confirmButtonVerse: const Verse(text: 'Select & Back', translate: false),
   );
 
   if (_continue == true){
@@ -523,7 +521,7 @@ Future<void> onSyncPhrases({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: 'Sync Successful',
+      firstLine: const Verse(text: 'Sync Successful', translate: false),
     );
 
   }

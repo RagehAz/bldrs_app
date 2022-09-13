@@ -178,10 +178,16 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
-      pageTitleVerse: 'phid_select_a_district',
+      pageTitleVerse: const Verse(
+        text: 'phid_select_a_district',
+        translate: true,
+      ),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHintVerse:  '${xPhrase( context, 'phid_search_districts_of')} $_cityName',
+      searchHintVerse: Verse(
+        text: '${xPhrase( context, 'phid_search_districts_of')} $_cityName',
+        translate: false,
+      ),
       loading: _loading,
       layoutWidget: Scroller(
         child: ValueListenableBuilder(

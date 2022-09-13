@@ -106,8 +106,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Allow notifications',
-      bodyVerse:  '##To be able to know what is going on',
+      titleVerse: Verse.plain('Allow notifications'),
+      bodyVerse: Verse.plain('To be able to know what is going on'),
       boolDialog: true,
     );
 
@@ -144,8 +144,8 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
 
         await TopDialog.showTopDialog(
           context: context,
-          firstLine: 'Notification created',
-          secondLine: 'sent on Channel : ${notification.channelKey} : id : ${notification.id}',
+          firstVerse: Verse.plain('Notification created'),
+          secondVerse: Verse.plain('sent on Channel : ${notification.channelKey} : id : ${notification.id}'),
         );
 
       });
@@ -185,7 +185,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
       scaffoldKey: _scaffoldKey,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
-      pageTitleVerse:  'Awesome notification test',
+      pageTitleVerse: Verse.plain('Awesome notification test'),
       layoutWidget: Column(
         children: <Widget>[
 
@@ -199,7 +199,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
             child: DreamBox(
               height: 60,
               width: 250,
-              verse:  'Send Notification',
+              verse: Verse.plain('Send Notification'),
               verseScaleFactor: 0.7,
               color: Colorz.yellow255,
               verseColor: Colorz.black255,
@@ -214,7 +214,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           DreamBox(
             height: 60,
             width: 250,
-            verse:  'send scheduled',
+            verse: Verse.plain('send scheduled'),
             verseScaleFactor: 0.7,
             color: Colorz.yellow255,
             verseColor: Colorz.black255,
@@ -226,7 +226,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           DreamBox(
             height: 60,
             width: 250,
-            verse:  'cancel schedules',
+            verse: Verse.plain('cancel schedules'),
             verseScaleFactor: 0.7,
             color: Colorz.yellow255,
             verseColor: Colorz.black255,
@@ -237,8 +237,7 @@ class _AwesomeNotiTestScreenState extends State<AwesomeNotiTestScreen> {
           ),
 
           WideButton(
-            translate: false,
-            verse:  'Cancel Stream',
+            verse:  Verse.plain('Cancel Stream'),
             onTap: () async {
 
               if (_streamSubscription == null){

@@ -40,7 +40,7 @@ class PickerScreen extends StatelessWidget {
 
     // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final String _pageTitle = picker?.chainID;
+    final String _chainID = picker?.chainID;
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),
@@ -48,7 +48,10 @@ class PickerScreen extends StatelessWidget {
       // appBarBackButton: true,
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitleVerse: _pageTitle,
+      pageTitleVerse: Verse(
+        text: _chainID,
+        translate: true,
+      ),
       pyramidsAreOn: true,
       onBack: () async {
 
@@ -78,7 +81,11 @@ class PickerScreen extends StatelessWidget {
 
       },
       confirmButtonModel: isMultipleSelectionMode == false ? null : ConfirmButtonModel(
-        firstLine: 'Confirm $_pageTitle',
+        firstLine: Verse(
+          text: 'Confirm $_chainID',
+          translate: true,
+          varTag: _chainID,
+        ),
         onTap: () => onGoBackFromPickerScreen(
           context: context,
           isMultipleSelectionMode: isMultipleSelectionMode,
