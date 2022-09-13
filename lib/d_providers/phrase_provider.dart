@@ -254,6 +254,20 @@ class PhraseProvider extends ChangeNotifier {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// PHIDS WAITING TRANSLATION
+
+  // --------------------
+  List<String> _phidsPendingTranslation = <String>[];
+  List<String> get phidsPendingTranslation => _phidsPendingTranslation;
+  // --------------------
+  void addToPhidsPendingTranslation(String id){
+    _phidsPendingTranslation = Stringer.addStringToListIfDoesNotContainIt(
+      strings: _phidsPendingTranslation,
+      stringToAdd: id,
+    );
+  }
+  // -----------------------------------------------------------------------------
 }
 /// ----------------------------------------------------------------------------------------
 //-------------------------------------
@@ -265,6 +279,7 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
   _phraseProvider.addToUsedXPhrases(id);
 
   if (_stringNeedTranslation(id) == true){
+    _phraseProvider.addToPhidsPendingTranslation(id);
     return null;
   }
 

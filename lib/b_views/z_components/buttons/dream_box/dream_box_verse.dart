@@ -200,7 +200,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     // --------------------
     final CrossAxisAlignment _versesCrossAlignment = versesCrossAlignment(
       icon: icon,
-      secondLine: secondLine.text,
+      secondLine: secondLine?.text,
       textDirection: textDirection,
       verseCentered: verseCentered,
     );
