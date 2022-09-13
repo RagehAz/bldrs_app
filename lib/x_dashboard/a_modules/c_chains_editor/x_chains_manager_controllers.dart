@@ -168,8 +168,8 @@ Future<void> _updateChain({
   ).whenComplete(
           () => Dialogs.showSuccessDialog(
             context: context,
-            firstLine: 'updated Bldrs chain successfully',
-            secondLine: 'in ( Real/bldrsChains/ )',
+            firstLine: const Verse(text: 'updated Bldrs chain successfully', translate: false),
+            secondLine: const Verse(text: 'in ( Real/bldrsChains/ )', translate: false),
           )
   );
 
@@ -193,7 +193,7 @@ Future<void> onPhidTap({
       context: context,
       numberOfWidgets: 5,
       draggable: true,
-      title: phid,
+      titleVerse: Verse.plain(phid),
       buttonHeight: 50,
       builder: (_, PhraseProvider phrasePro){
 
@@ -214,7 +214,7 @@ Future<void> onPhidTap({
           /// EDIT
           BottomDialog.wideButton(
             context: context,
-            verse:  'Edit',
+            verse: const Verse(text: 'Edit', translate: false),
             onTap: () => onEditPhid(
               context: context,
               tempChains: tempChains,
@@ -226,7 +226,7 @@ Future<void> onPhidTap({
           /// DELETE
           BottomDialog.wideButton(
             context: context,
-            verse:  'Delete',
+            verse: const Verse(text: 'Delete', translate: false),
             onTap: () => onDeleteThePhid(
               context: context,
               tempChains: tempChains,
@@ -283,8 +283,8 @@ Future<void> onAddNewPath ({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: 'New Path has been deleted',
-      secondLine: _typedPath,
+      firstLine: const Verse(text: 'New Path has been deleted', translate: false),
+      secondLine: Verse.plain(_typedPath),
     );
 
   }
@@ -336,7 +336,7 @@ Future<void> onDeleteThePhid ({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: '( $phid ) has been deleted',
+      firstLine: Verse(text: '( $phid ) has been deleted', translate: false),
     );
 
   }
@@ -386,7 +386,7 @@ Future<void> onEditPhid({
 
       await Dialogs.showSuccessDialog(
         context: context,
-        firstLine: 'Edit Successful',
+        firstLine: const Verse(text: 'Edit Successful', translate: false),
       );
 
     }

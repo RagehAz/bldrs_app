@@ -32,8 +32,12 @@ class IsConnectedButton extends StatelessWidget {
 
                 TopDialog.showUnawaitedTopDialog(
                   context: context,
-                  firstLine: 'Hello There',
-                  secondLine: "Welcome to Bldrs.net the Builders' network",
+                  firstLine: const Verse(text: 'phid_hello_there', translate: true),
+                  secondLine: const Verse(
+                    pseudo: "Welcome to Bldrs.net the Builders' network",
+                    text: 'phid_welcome_to_bldrs_net',
+                    translate: true,
+                  ),
                   // color: Colorz.red50,
                 );
 

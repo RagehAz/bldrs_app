@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/z_components/editing_chain_builders/a_editing_chain_splitter.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ class EditingChainBuilder extends StatelessWidget {
     @required this.previousPath,
     @required this.boxWidth,
     @required this.icon,
-    @required this.firstHeadline,
-    @required this.secondHeadline,
+    @required this.firstHeadlineVerse,
+    @required this.secondHeadlineVerse,
     @required this.initiallyExpanded,
     @required this.selectedPhids,
     @required this.secondLinesType,
@@ -38,8 +39,8 @@ class EditingChainBuilder extends StatelessWidget {
   final double boxWidth;
   final bool inverseAlignment;
   final String icon;
-  final String firstHeadline;
-  final String secondHeadline;
+  final Verse firstHeadlineVerse;
+  final Verse secondHeadlineVerse;
   final Color initialColor;
   final Color expansionColor;
   final Function(String path, String phid) onPhidTap;
@@ -71,8 +72,8 @@ class EditingChainBuilder extends StatelessWidget {
         width: boxWidth,
         isDisabled: deactivated,
         icon: icon,
-        firstHeadline: firstHeadline,
-        secondHeadline: secondHeadline,
+        firstHeadline: firstHeadlineVerse,
+        secondHeadline: secondHeadlineVerse,
         initialColor: initialColor,
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,

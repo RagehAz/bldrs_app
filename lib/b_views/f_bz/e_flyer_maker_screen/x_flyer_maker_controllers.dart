@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -93,8 +94,14 @@ Future<void> loadFlyerMakerLastSession({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'phid_load_last_session_data_q',
-      bodyVerse: 'phid_want_to_load_last_session_q',
+      titleVerse: const Verse(
+        text: 'phid_load_last_session_data_q',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_want_to_load_last_session_q',
+        translate: true,
+      ),
       boolDialog: true,
     );
 
@@ -175,9 +182,18 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   final bool result = await CenterDialog.showCenterDialog(
     context: context,
     boolDialog: true,
-    titleVerse:  '##Cancel Flyer',
-    bodyVerse:  '##All progress in this flyer will be lost',
-    confirmButtonVerse:  '##Yes Cancel',
+    titleVerse: const Verse(
+      text: 'phid_cancel_flyer',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      text: 'phid_all_progress_will_be_lost',
+      translate: true,
+    ),
+    confirmButtonVerse: const Verse(
+      text: 'phid_yes_cancel',
+      translate: true,
+    ),
   );
 
   if (result == true){
@@ -232,8 +248,16 @@ Future<void> onSelectFlyerType({
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse:  '##Delete selected Specifications ?',
-        bodyVerse:  '##All selected specifications will be deleted\nDo you wish to continue ?',
+        titleVerse: const Verse(
+          pseudo: 'Delete selected Specifications ?',
+          text: 'phid_delete_selected_specs_?',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          pseudo: 'All selected specifications will be deleted\nDo you wish to continue ?',
+          text: 'phid_delete_selected_specs_warning',
+          translate: true,
+        ),
         boolDialog: true,
       );
 
@@ -258,7 +282,6 @@ Future<void> onAddSpecsTap({
 }) async {
 
   final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
-    context: context,
     flyerType: draft.value.flyerType,
     pluralTranslation: false,
   );
@@ -266,7 +289,11 @@ Future<void> onAddSpecsTap({
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: ChainsPickingScreen(
-        pageTitleVerse:  '##$_flyerTypeString Specifications',
+        pageTitleVerse: Verse(
+          text: '##$_flyerTypeString Specifications',
+          translate: true,
+          varTag: _flyerTypeString,
+        ),
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
@@ -365,7 +392,10 @@ Future<void> _onPublishNewFlyerTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'phid_flyer_has_been_published',
+      firstVerse: const Verse(
+        text: 'phid_flyer_has_been_published',
+        translate: true,
+      ),
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
@@ -406,7 +436,10 @@ Future<void> _onPublishFlyerUpdatesTap({
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'phid_flyer_has_been_updated',
+      firstVerse: const Verse(
+        text: 'phid_flyer_has_been_updated',
+        translate: true,
+      ),
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
@@ -444,7 +477,11 @@ Future<bool> _preFlyerUpdateCheck({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Flyer was not changed',
+      titleVerse: const Verse(
+        pseudo: 'Flyer was not changed',
+        text: 'phid_flyer_was_not_changed',
+        translate: true,
+      ),
     );
 
     _canContinue = false;
@@ -456,8 +493,15 @@ Future<bool> _preFlyerUpdateCheck({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse:  '##Add Images',
-        bodyVerse:  '##Add at least one image to the flyer',
+        titleVerse: const Verse(
+          text: 'phid_add_images',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          pseudo: '##Add at least one image to the flyer',
+          text: 'phid_add_flyer_images_notice',
+          translate: true,
+        ),
       );
 
     }
@@ -472,7 +516,11 @@ Future<bool> _preFlyerUpdateCheck({
         if (draft.value.headline.length < 10){
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: 'Flyer headline can not be less than 10 characters long',
+            firstLine: const Verse(
+              pseudo: 'Flyer headline can not be less than 10 characters long',
+              text: 'phid_flyer_headline_length_notice',
+              translate: true,
+            ),
           );
         }
 
@@ -490,7 +538,10 @@ Future<bool> _preFlyerUpdateCheck({
 
     _canContinue = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: 'phid_confirm_upload_flyer',
+      titleVerse: const Verse(
+        text: 'phid_confirm_upload_flyer',
+        translate: true,
+      ),
     );
 
   }
@@ -510,7 +561,10 @@ Future<void> _publishFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
     context: context,
-    loadingVerse: '##Uploading flyer',
+    loadingVerse: const Verse(
+      text: 'phid_uploading_flyer',
+      translate: true,
+    ),
   ));
 
   final FlyerModel _flyerToPublish = await DraftFlyerModel.bakeDraftToUpload(
@@ -543,7 +597,10 @@ Future<void> _updateFlyerOps({
 
   unawaited(WaitDialog.showWaitDialog(
     context: context,
-    loadingVerse: '##Uploading flyer',
+    loadingVerse: const Verse(
+      text: 'phid_uploading_flyer',
+      translate: true,
+    ),
   ));
 
   final FlyerModel _flyerToUpdate = await DraftFlyerModel.bakeDraftToUpload(

@@ -54,7 +54,7 @@ class PickersScreenView extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   /// SINGLE PICKER INSTRUCTIONS
-  String _getInstructions(BuildContext context){
+  Verse _getInstructions(BuildContext context){
     String _instructions;
 
     final Chain _chain = ChainsProvider.proFindChainByID(
@@ -71,12 +71,12 @@ class PickersScreenView extends StatelessWidget {
 
     else {
       _instructions = picker?.canPickMany == true ?
-      'You may pick multiple specifications from this list'
+      '##You may pick multiple specifications from this list'
           :
-      'You can pick only one specification from this list';
+      '##You can pick only one specification from this list';
     }
 
-    return _instructions;
+    return Verse(text: _instructions, translate: true);
   }
   // -----------------------------------------------------------------------------
   @override

@@ -12,8 +12,8 @@ import 'package:bldrs/a_models/secondary_models/feedback_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
@@ -1039,7 +1039,10 @@ class FlyerFireOps {
         context: context,
         draggable: true,
         numberOfWidgets: 3,
-        title: 'Report Flyer',
+        titleVerse: const Verse(
+          text: 'phid_report_flyer',
+          translate: true,
+        ),
         builder: (_, PhraseProvider phrasePro){
 
           return <Widget>[
@@ -1047,7 +1050,11 @@ class FlyerFireOps {
             /// INAPPROPRIATE CONTENT
             BottomDialog.wideButton(
                 context: context,
-                verse: '##Inappropriate content',
+                verse: const Verse(
+                  text: 'phid_flyer_has_inapp_content',
+                  translate: true,
+                  pseudo: 'Inappropriate content',
+                ),
                 onTap: (){
                   _feedback = 'Inappropriate content';
                   Nav.goBack(
@@ -1060,7 +1067,11 @@ class FlyerFireOps {
             /// CONTENT IS NOT RELEVANT TO BLDRS
             BottomDialog.wideButton(
                 context: context,
-                verse: '##Flyer content is not relevant to Bldrs.net',
+                verse: const Verse(
+                  pseudo: 'Flyer content is not relevant to Bldrs.net',
+                  text: 'phid_flyer_has_irrelevant_content',
+                  translate: true,
+                ),
                 onTap: (){
                   _feedback = 'Flyer content is not relevant to Bldrs.net';
                   Nav.goBack(
@@ -1073,7 +1084,11 @@ class FlyerFireOps {
             /// COPY RIGHTS
             BottomDialog.wideButton(
                 context: context,
-                verse: '##content violates copyrights',
+                verse: const Verse(
+                  pseudo: '##content violates copyrights',
+                  text: 'phid_flyer_has_copyright_violation',
+                  translate: true,
+                ),
                 onTap: (){
                   _feedback = 'content violates copyrights';
                   Nav.goBack(
@@ -1106,13 +1121,7 @@ class FlyerFireOps {
         await Dialogs.tryAgainDialog(context);
       }
       else {
-        await CenterDialog.showCenterDialog(
-          context: context,
-          titleVerse:  '##Thanks a Million',
-          bodyVerse:  '##We will look into this matter and take the necessary '
-              'action as soon as possible\n Thank you for helping out',
-          confirmButtonVerse:  '##Most Welcome',
-        );
+        await Dialogs.weWillLookIntoItNotice(context);
       }
 
     }

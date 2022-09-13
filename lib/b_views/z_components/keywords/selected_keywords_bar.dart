@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -42,17 +43,20 @@ class SelectedPhidsBar extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
     final String _screenTitle = selectedPhids.isEmpty ?
-    'Select keywords'
+    xPhrase(context, 'phid_select_keywords')
         :
     selectedPhids.length == 1 ?
-    '1 Selected keyword'
+    xPhrase(context, 'phid_selected')
         :
-    '${selectedPhids.length} Selected keywords';
+    '${selectedPhids.length} ${xPhrase(context, 'phid_selected')}';
     // --------------------
     return Bubble(
       width: _screenWidth,
       headerViewModel: BubbleHeaderVM(
-        headlineVerse: _screenTitle,
+        headlineVerse: Verse(
+          text: _screenTitle,
+          translate: false,
+        ),
       ),
       columnChildren: <Widget>[
 

@@ -27,7 +27,7 @@ class WideCityButton extends StatelessWidget {
       height: 40,
       width: Bubble.clearWidth(context) - 10,
       iconSizeFactor: 0.8,
-      verse: _cityNameValue,
+      verse: Verse.plain(_cityNameValue),
       bubble: false,
       margins: const EdgeInsets.symmetric(vertical: 5),
       verseScaleFactor: 0.8,

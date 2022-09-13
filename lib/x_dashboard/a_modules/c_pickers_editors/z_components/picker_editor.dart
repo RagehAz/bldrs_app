@@ -41,8 +41,8 @@ class PickerEditingTile extends StatelessWidget {
       children: <Widget>[
 
         ExpandingTile(
-          firstHeadline: picker.chainID,
-          secondHeadline: 'i : ${picker.index} : ID : ${picker.chainID}',
+          firstHeadline: Verse.trans(picker.chainID),
+          secondHeadline: Verse.plain('i : ${picker.index} : ID : ${picker.chainID}'),
           width: BldrsAppBar.width(context),
           child: Column(
             children: <Widget>[
@@ -179,8 +179,7 @@ class PickerEditingTile extends StatelessWidget {
 
                                 return SpecLabel(
                                   xIsOn: true,
-                                  value: item,
-                                  translate: true,
+                                  verse: Verse.trans(item),
                                   onTap: (){
                                     blog('range item : $item');
                                   },
@@ -220,7 +219,6 @@ class PickerEditingTile extends StatelessWidget {
                           verse:  Verse(
                             text: 'Values that deactivate specific specPickers',
                             translate: false,
-                            casing: Casing.non,
                           ),
                           size: 1,
                           centered: false,

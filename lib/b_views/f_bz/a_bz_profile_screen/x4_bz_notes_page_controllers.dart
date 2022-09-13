@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
@@ -193,8 +194,15 @@ Future<void> onSendAuthorshipInvitation({
 
   final bool _result = await Dialogs.userDialog(
     context: context,
-    titleVerse:  '##Send Invitation ?',
-    bodyVerse:  '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
+    titleVerse: const Verse(
+      text: 'phid_send_invitation_?',
+      translate: true,
+    ),
+    bodyVerse: Verse(
+      text: '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
+      translate: true,
+      varTag: [selectedUser.name, bzModel.name]
+    ),
     userModel: selectedUser,
   );
 
@@ -216,8 +224,15 @@ Future<void> onSendAuthorshipInvitation({
     unawaited(
         TopDialog.showTopDialog(
           context: context,
-          firstLine:  '##Invitation Sent',
-          secondLine:  '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
+          firstVerse: const Verse(
+            text: 'phid_invitation_sent',
+            translate: true,
+          ),
+          secondVerse: Verse(
+            text: '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
+            translate: true,
+            varTag: selectedUser.name,
+          ),
           color: Colorz.green255,
           textColor: Colorz.white255,
         ));
@@ -241,10 +256,20 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Cancel Invitation ?',
-      bodyVerse:  '##${_receiverModel.name} will be notified with cancelling this invitation',
+      titleVerse: const Verse(
+        text: 'phid_cancel_invitation_?',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        text: '##${_receiverModel.name} will be notified with cancelling this invitation',
+        translate: true,
+        varTag: _receiverModel.name,
+      ),
       boolDialog: true,
-      confirmButtonVerse:  '##Yes, Cancel Invitation',
+      confirmButtonVerse: const Verse(
+        text: 'phid_yes_cancel_invitation',
+        translate: true,
+      ),
     );
 
     if (_result == true){
@@ -256,7 +281,11 @@ Future<void> onCancelSentAuthorshipInvitation ({
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine:  '##Invitation request has been cancelled',
+        firstVerse: const Verse(
+          pseudo: '##Invitation request has been cancelled',
+          text: 'phid_invitation_is_cancelled',
+          translate: true,
+        ),
         color: Colorz.green255,
         textColor: Colorz.white255,
       );

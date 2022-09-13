@@ -84,7 +84,7 @@ class _IconsViewerScreenState extends State<IconsViewerScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitleVerse:  'UI Manager',
+      pageTitleVerse: Verse.plain('UI Manager'),
       appBarType: AppBarType.search,
       onSearchChanged: _onSearchChanged,
       layoutWidget: Scroller(
@@ -193,7 +193,7 @@ class IconsGridBuilder extends StatelessWidget {
                 height: _iconBoxSize * 0.25,
                 color: Colorz.white20,
                 child: SuperVerse(
-                  verse: TextMod.removeTextBeforeLastSpecialCharacter(icons[index], '/'),
+                  verse: Verse.plain(TextMod.removeTextBeforeLastSpecialCharacter(icons[index], '/')),
                   weight: VerseWeight.thin,
                   scaleFactor: 0.7,
                   maxLines: 2,

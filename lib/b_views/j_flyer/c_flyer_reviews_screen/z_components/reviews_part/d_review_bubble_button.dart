@@ -21,26 +21,29 @@ class ReviewBubbleButton extends StatelessWidget {
   final Function onTap;
   final bool isOn;
   /// --------------------------------------------------------------------------
-  static String generateCounterVerse({
+  static Verse generateCounterVerse({
     @required BuildContext context,
     @required int count,
-    @required String verse,
+    @required String text,
   }){
 
-    String _output = verse;
+    String _output = text;
 
     final int _count = count ?? 0;
 
     if (_count == 0){
-      _output = verse;
+      _output = text;
     }
 
     else {
       final String _formattedCount = Numeric.formatNumToCounterCaliber(context, _count);
-      _output = '$_formattedCount $verse';
+      _output = '$_formattedCount $text';
     }
 
-    return _output;
+    return Verse(
+      text: _output,
+      translate: false,
+    );
   }
   // -----------------------------------------------------------------------------
   @override
@@ -52,7 +55,7 @@ class ReviewBubbleButton extends StatelessWidget {
       verse: generateCounterVerse(
         context: context,
         count: count,
-        verse: verse,
+        text: verse,
       ),
       verseWeight: isOn == true ? VerseWeight.bold : VerseWeight.thin,
       iconColor: isOn == true ? null : Colorz.white255,

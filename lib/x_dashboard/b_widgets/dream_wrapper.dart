@@ -20,7 +20,7 @@ class DreamWrapper extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<String> verses;
+  final List<Verse> verses;
   final List<String> icons;
   final double spacing;
   final double buttonHeight;
@@ -53,7 +53,7 @@ class DreamWrapper extends StatelessWidget {
         spacing: spacing,
         children: <Widget>[
           ...List<Widget>.generate(_listLength, (int index) {
-            final String _verse = verses[index];
+            final Verse _verse = verses[index];
 
             return DreamBox(
                 height: buttonHeight,

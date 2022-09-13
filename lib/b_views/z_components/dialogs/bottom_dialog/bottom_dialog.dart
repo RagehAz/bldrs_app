@@ -28,14 +28,14 @@ class BottomDialog extends StatelessWidget {
     this.height,
     this.draggable = true,
     this.child,
-    this.title,
+    this.titleVerse,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double height;
   final bool draggable;
   final Widget child;
-  final String title;
+  final Verse titleVerse;
   /// --------------------------------------------------------------------------
   /// one side value only
   static double draggerMarginValue({
@@ -197,7 +197,7 @@ class BottomDialog extends StatelessWidget {
     @required bool draggable,
     @required Widget child,
     double height,
-    String title,
+    Verse titleVerse,
   }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
@@ -234,7 +234,7 @@ class BottomDialog extends StatelessWidget {
                     body: BottomDialog(
                       height: _height,
                       draggable: draggable,
-                      title: title,
+                      titleVerse: titleVerse,
                       child: child,
                     ),
                   ),
@@ -253,7 +253,7 @@ class BottomDialog extends StatelessWidget {
     @required int numberOfWidgets,
     double buttonHeight = wideButtonHeight,
     List<Widget> Function(BuildContext, PhraseProvider) builder,
-    String title,
+    Verse titleVerse,
   }) async {
 
     final int _widgetsLength = numberOfWidgets;
@@ -262,7 +262,7 @@ class BottomDialog extends StatelessWidget {
     final double _height =
         BottomDialog.draggerZoneHeight(draggable: draggable)
             + BottomDialog.draggerMarginValue(draggable: draggable)
-            + BottomDialog.titleZoneHeight(titleIsOn: title != null)
+            + BottomDialog.titleZoneHeight(titleIsOn: titleVerse != null)
             + (buttonHeight * _widgetsLength)
             + (_spacing * _widgetsLength);
 
@@ -271,7 +271,7 @@ class BottomDialog extends StatelessWidget {
       context: context,
       draggable: draggable,
       height: _height,
-      title: title,
+      titleVerse: titleVerse,
       builder: (BuildContext ctx, title){
 
         final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(ctx, listen: false);
@@ -301,8 +301,8 @@ class BottomDialog extends StatelessWidget {
     @required BuildContext context,
     @required double height,
     @required bool draggable,
-    @required Widget Function(BuildContext, String) builder,
-    @required String title
+    @required Widget Function(BuildContext, Verse) builder,
+    @required Verse titleVerse
   }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
@@ -326,8 +326,8 @@ class BottomDialog extends StatelessWidget {
             body: BottomDialog(
               height: _height,
               draggable: draggable,
-              title: title,
-              child: builder(context, title),
+              titleVerse: titleVerse,
+              child: builder(context, titleVerse),
             ),
           )),
     );
@@ -378,7 +378,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Widget wideButton({
     @required BuildContext context,
-    @required String verse,
+    @required Verse verse,
     Function onTap,
     String icon,
     double height = wideButtonHeight,
@@ -408,9 +408,11 @@ class BottomDialog extends StatelessWidget {
   bool _titleIsOnCheck() {
     bool _isOn;
 
-    if (title == null || TextMod.removeSpacesFromAString(title) == '') {
+    if (titleVerse == null || TextMod.removeSpacesFromAString(titleVerse?.text) == '') {
       _isOn = false;
-    } else {
+    }
+
+    else {
       _isOn = true;
     }
 
@@ -497,14 +499,14 @@ class BottomDialog extends StatelessWidget {
                   ),
 
                 /// --- TITLE
-                if (title != null)
+                if (titleVerse != null)
                   Container(
                     width: _dialogWidth,
                     height: _titleZoneHeight,
                     alignment: Alignment.center,
                     // color: Colorz.BloodTest,
                     child: SuperVerse(
-                      verse: title,
+                      verse: titleVerse,
                     ),
                   ),
 

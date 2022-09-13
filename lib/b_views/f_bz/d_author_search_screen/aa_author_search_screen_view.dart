@@ -136,7 +136,10 @@ class AuthorSearchScreenView extends StatelessWidget {
                           context: context,
                           userModel: userModel,
                         ),
-                        sideButton: 'phid_invite',
+                        sideButtonVerse: const Verse(
+                          text: 'phid_invite',
+                          translate: true,
+                        ),
                         usersWithSideButtonsDeactivated: _pendingInvitations,
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,

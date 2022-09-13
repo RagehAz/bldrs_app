@@ -15,8 +15,8 @@ class ConfirmButtonModel{
   });
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final String firstLine;
-  final String secondLine;
+  final Verse firstLine;
+  final Verse secondLine;
   final bool isDeactivated;
   final Function onSkipTap;
   /// --------------------------------------------------------------------------
@@ -36,7 +36,7 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = confirmButtonModel.firstLine.length > 20 ? 200 : null;
+    final double _width = confirmButtonModel.firstLine.text.length > 20 ? 200 : null;
     final Widget _button = DreamBox(
       isDeactivated: confirmButtonModel.isDeactivated,
       height: 50,
@@ -46,8 +46,7 @@ class ConfirmButton extends StatelessWidget {
       verseColor: Colorz.black230,
       verseWeight: VerseWeight.black,
       verseItalic: true,
-      verse: confirmButtonModel.firstLine,
-      verseCasing: Casing.upperCase,
+      verse: confirmButtonModel.firstLine.copyWith(casing: Casing.upperCase),
       secondLine: confirmButtonModel.secondLine,
       secondLineColor: Colorz.black255,
       verseScaleFactor: 0.7,
@@ -78,7 +77,10 @@ class ConfirmButton extends StatelessWidget {
 
             ConfirmButton(
               confirmButtonModel: ConfirmButtonModel(
-                firstLine: 'Skip',
+                firstLine: const Verse(
+                  text: 'phid_skip',
+                  translate: true,
+                ),
                 onTap: confirmButtonModel.onSkipTap,
                 // secondLine: null,
                 // isDeactivated: false,

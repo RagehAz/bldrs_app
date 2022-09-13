@@ -26,7 +26,7 @@ class WideCountryButton extends StatelessWidget {
       width: width ?? Bubble.clearWidth(context),
       icon: Flag.getFlagIcon(countryID),
       iconSizeFactor: 0.8,
-      verse: CountryModel.getTranslatedCountryName(context: context, countryID: countryID),
+      verse: Verse.plain(CountryModel.translateCountryName(context: context, countryID: countryID)),
       bubble: false,
       margins: const EdgeInsets.symmetric(vertical: 5),
       verseScaleFactor: 0.8,

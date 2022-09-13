@@ -57,7 +57,10 @@ class InfoPageContents extends StatelessWidget {
           /// MAIN DETAILS HEADLINE
           InfoPageHeadline(
             pageWidth: _pageWidth,
-            headlineVerse: '##Main Details',
+            headlineVerse: const Verse(
+              text: 'phid_main_details',
+              translate: true,
+            ),
           ),
 
           /// MAIN DETAILS : FLYER TYPE - PUBLISH TIME - ZONE
@@ -86,7 +89,10 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.description.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: '##More about this flyer',
+                          headlineVerse: const Verse(
+                            text: 'phid_more_about_this_flyer',
+                            translate: true,
+                          ),
                         ),
                       /// INFO
                       if (flyerModel.description.isNotEmpty == true)
@@ -106,7 +112,7 @@ class InfoPageContents extends StatelessWidget {
                         height: 30,
                         width: _pageWidth - 20,
                         color: Colorz.blue80,
-                        verse:  '${flyerModel.pdf.fileName}.pdf',
+                        verse: Verse.plain('${flyerModel.pdf.fileName}.pdf'),
                         verseScaleFactor: 0.6,
                         onTap: () async {
 
@@ -129,7 +135,10 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: '##Flyer Keywords',
+                          headlineVerse: const Verse(
+                            text: 'phid_flyer_keywords',
+                            translate: true,
+                          ),
                         ),
                       /// KEYWORDS
                       if (flyerModel.keywordsIDs.isNotEmpty == true)
@@ -147,7 +156,10 @@ class InfoPageContents extends StatelessWidget {
                       if (flyerModel.specs.isNotEmpty == true)
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
-                          headlineVerse: '##Flyer specifications',
+                          headlineVerse: const Verse(
+                            text: 'phid_flyer_specs',
+                            translate: true,
+                          ),
                         ),
                       /// SPECS
                       if (flyerModel.specs.isNotEmpty == true)

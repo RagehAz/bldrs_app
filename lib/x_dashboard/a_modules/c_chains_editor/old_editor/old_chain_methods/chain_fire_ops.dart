@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -75,8 +76,11 @@ class ChainFireOpsOLD {
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Success',
-        secondLine: 'Both Keywords and Specs chains have been backed up successfully',
+        firstVerse: const Verse(
+          text: 'phid_success',
+          translate: true,
+        ),
+        secondVerse: Verse.plain('Both Keywords and Specs chains have been backed up successfully'),
       );
 
     }
@@ -85,8 +89,14 @@ class ChainFireOpsOLD {
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Failed',
-        secondLine: 'Something went wrong, Try again',
+        firstVerse: const Verse(
+          text: 'phid_failed',
+          translate: true,
+        ),
+        secondVerse: const Verse(
+          text: 'phid_somethingIsWrong',
+          translate: true,
+        ),
         color: Colorz.red255,
       );
 

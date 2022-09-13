@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/header_b
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/mini_follow_and_call_bts.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/x_button_part.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -287,7 +288,10 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 LinesBelowLogoPart(
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
-                  firstLine: widget.bzModel.name,
+                  firstLine: Verse(
+                    text: widget.bzModel.name,
+                    translate: false,
+                  ),
                   secondLine: ZoneModel.translateZoneString(
                     context: context,
                     zoneModel: widget.bzModel.zone,

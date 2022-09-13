@@ -32,7 +32,6 @@ class SpecsSelectorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final String _translatedFlyerType = FlyerTyper.getFlyerTypePhid(
-      context: context,
       flyerType: draft.flyerType,
       pluralTranslation: false,
     );

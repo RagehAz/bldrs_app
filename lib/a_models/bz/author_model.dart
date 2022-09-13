@@ -1065,14 +1065,14 @@ class AuthorModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateRole({
+  static String getAuthorRolePhid({
     @required BuildContext context,
     @required AuthorRole role,
   }){
     switch (role){
-      case AuthorRole.creator: return 'creator'; break;
-      case AuthorRole.moderator: return 'moderator'; break;
-      case AuthorRole.teamMember: return 'teamMember'; break;
+      case AuthorRole.creator: return 'phid_creator'; break;
+      case AuthorRole.moderator: return 'phid_moderator'; break;
+      case AuthorRole.teamMember: return 'phid_teamMember'; break;
       default: return null;
     }
   }

@@ -128,7 +128,10 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
             /// USER NAME
             SuperVerse(
-              verse: widget.authorModel.name,
+              verse: Verse(
+                text: widget.authorModel.name,
+                translate: false,
+              ),
               shadow: true,
               size: 4,
               margin: 5,
@@ -150,9 +153,12 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             SuperVerse(
               italic: true,
               weight: VerseWeight.thin,
-              verse: AuthorModel.translateRole(
-                context: context,
-                role: widget.authorModel.role,
+              verse: Verse(
+                text: AuthorModel.getAuthorRolePhid(
+                  context: context,
+                  role: widget.authorModel.role,
+                ),
+                translate: true,
               ),
             ),
 
@@ -173,21 +179,30 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
                 children: <Widget>[
 
                   AuthorRoleButton(
-                    verse: '##Account Creator',
+                    verse: const Verse(
+                      text: 'phid_account_creator',
+                      translate: true,
+                    ),
                     isOn: role == AuthorRole.creator,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.creator),
                   ),
 
                   AuthorRoleButton(
-                    verse: '##Team member',
+                    verse: const Verse(
+                      text: 'phid_team_member',
+                      translate: true
+                    ),
                     isOn: role == AuthorRole.teamMember,
                     icon: Iconz.normalUser,
                     onTap: () => _setAuthorRole(AuthorRole.teamMember),
                   ),
 
                   AuthorRoleButton(
-                    verse: '##Account Moderator',
+                    verse: const Verse(
+                      text: 'phid_account_moderator',
+                      translate: true,
+                    ),
                     isOn: role == AuthorRole.moderator,
                     icon: Iconz.bz,
                     onTap: () => _setAuthorRole(AuthorRole.moderator),

@@ -38,6 +38,7 @@ class TargetProgressBar extends StatelessWidget {
       child: Stack(
 
         children: <Widget>[
+
           /// BAR
           Align(
             child: Stack(
@@ -75,7 +76,7 @@ class TargetProgressBar extends StatelessWidget {
                   height: _barHeight,
                   margin: const EdgeInsets.only(top: 9, left: 3, right: 3),
                   child: SuperVerse(
-                    verse:  '${_progress?.current}/${_progress?.objective}',
+                    verse: Verse.plain('${_progress?.current}/${_progress?.objective}'),
                     size: 1,
                     scaleFactor: 0.8,
                     color: Colorz.black255,
@@ -95,11 +96,12 @@ class TargetProgressBar extends StatelessWidget {
               // color: Colorz.Black255,
               child: Row(
                 children: <Widget>[
+
                   /// SLIDES
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.flyer,
-                    verse:  '${target.reward.slides} ${xPhrase( context, '##Slides')}',
+                    verse: Verse.plain('${target.reward.slides} ${xPhrase( context, 'phid_slides')}'),
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,
@@ -111,17 +113,19 @@ class TargetProgressBar extends StatelessWidget {
                   DreamBox(
                     height: _iconsHeight,
                     icon: Iconz.save,
-                    verse:  '${target.reward.ankh} ${xPhrase( context, '##Ankhs')}',
+                    verse: Verse.plain('${target.reward.ankh} ${xPhrase( context, 'phid_ankhs')}'),
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,
                     verseItalic: true,
                     bubble: false,
                   ),
+
                 ],
               ),
             ),
           ),
+
         ],
       ),
     );

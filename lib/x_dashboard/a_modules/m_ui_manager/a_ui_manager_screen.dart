@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/x_dashboard/a_modules/m_ui_manager/d_balloon_types_screen.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -24,8 +25,7 @@ class UIManager extends StatelessWidget {
         const Stratosphere(),
 
         WideButton(
-          translate: false,
-          verse:  'Bldrs icons',
+          verse: Verse.plain('Bldrs icons'),
           icon: Iconz.dvGouran,
           onTap: () async {
 
@@ -38,8 +38,7 @@ class UIManager extends StatelessWidget {
         ),
 
         WideButton(
-          translate: false,
-          verse:  'Emojis',
+          verse: Verse.plain('Emojis'),
           icon: Iconz.emoji,
           onTap: () async {
 
@@ -52,8 +51,7 @@ class UIManager extends StatelessWidget {
         ),
 
         WideButton(
-          translate: false,
-          verse:  'Balloons',
+          verse: Verse.plain('Balloons'),
           icon: Iconz.utSelling,
           onTap: () async {
 

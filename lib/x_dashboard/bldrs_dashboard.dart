@@ -167,19 +167,26 @@ class BldrsDashBoard extends StatelessWidget {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Reboot System ?',
-      bodyVerse:  'This will clear all local data, all cache in pro and in LDB, continue ?',
-      translateBody: false,
-      translateTitle: false,
+      titleVerse: const Verse(
+        text: 'Reboot System ?',
+        translate: false,
+      ),
+      bodyVerse: const Verse(
+        text: 'This will clear all local data, all cache in pro and in LDB, continue ?',
+        translate: false,
+      ),
       boolDialog: true,
-      confirmButtonVerse:  'Fuck it !',
+      confirmButtonVerse: const Verse(
+        text: 'Fuck it !',
+        translate: true,
+      ),
     );
 
     if (_result == true){
 
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse:  'Rebooting system',
+        loadingVerse: Verse.plain('Rebooting system'),
       ));
 
       /// WIPE OUT LDB
@@ -233,8 +240,10 @@ class BldrsDashBoard extends StatelessWidget {
         const Expander(),
 
         AppBarButton(
-          verse:  'Reboot System',
-          translate: false,
+          verse: const Verse(
+            text: 'Reboot System',
+            translate: false,
+          ),
           icon: Iconz.reload,
           onTap: () => _onRebootSystem(context),
         ),

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/fire_finder.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -65,8 +66,8 @@ Future<void> readMoreUnVerifiedFlyers({
   else {
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'DONE !',
-      bodyVerse:  'No more flyers need verification',
+      titleVerse: Verse.plain('DONE !'),
+      bodyVerse: Verse.plain('No more flyers need verification'),
     );
   }
 
@@ -98,7 +99,7 @@ Future<void> onFlyerOptionsTap({
       context: context,
       draggable: true,
       height: _dialogHeight,
-      title: 'Audit Flyer : $_shortTitle',
+      titleVerse: Verse.plain('Audit Flyer : $_shortTitle'),
       child: Container(
         width: BottomDialog.clearWidth(context),
         height: _clearHeight,
@@ -181,8 +182,8 @@ Future<void> onVerifyFlyer({
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: 'Done',
-      secondLine: 'flyer ${flyerModel.getShortHeadline()}... got verified',
+      firstLine: Verse.plain('Done'),
+      secondLine: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
       color: Colorz.green255,
       seconds: 1,
     );
@@ -194,8 +195,8 @@ Future<void> onVerifyFlyer({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Already Verified',
-      bodyVerse:  'This flyer is already verified, check the next one. please',
+      titleVerse: Verse.plain('Already Verified'),
+      bodyVerse: Verse.plain('This flyer is already verified, check the next one. please'),
     );
   }
 

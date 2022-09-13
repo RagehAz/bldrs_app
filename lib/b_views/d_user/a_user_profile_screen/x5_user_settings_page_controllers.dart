@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
@@ -71,9 +72,19 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
   if (_continue == true){
     _continue = await reAuthenticateUser(
       context: context,
-      dialogTitle: 'Delete your Account',
-      dialogBody: 'Are you sure you want to delete your Account ?',
-      confirmButtonText: 'Yes, Delete',
+      dialogTitleVerse: const Verse(
+        text: 'phid_delete_your_account_?',
+        translate: true,
+      ),
+      dialogBodyVerse: const Verse(
+        pseudo: 'Are you sure you want to delete your Account ?',
+        text: 'phid_delete_account_description',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_yes_delete',
+        translate: true,
+      ),
     );
   }
 
@@ -86,9 +97,19 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Account is Deleted Successfully',
-      bodyVerse:  '##It has been an honor.',
-      confirmButtonVerse:  '##The Honor is Mine',
+      titleVerse: const Verse(
+        pseudo: 'Account is Deleted Successfully',
+        text: 'phid_account_is_deleted',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_it_has_been_an_honor',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_the_honor_is_mine',
+        translate: true,
+      ),
     );
 
     /// SIGN OUT OPS
@@ -139,9 +160,20 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
         _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
           context: context,
           bzzModels: _myBzzICreated,
-          title: 'Your business Accounts Will be permanently deleted',
-          body: 'You have created ${_myBzzICreated.length} business accounts which will be permanently deleted if you continue.',
-          confirmButtonText: 'Delete All',
+          titleVerse: const Verse(
+            pseudo: 'Your business Accounts Will be permanently deleted',
+            text: 'phid_bz_will_be_deleted',
+            translate: true,
+          ),
+          bodyVerse: Verse(
+            text: 'You have created ${_myBzzICreated.length} business accounts which will be permanently deleted if you continue.',
+            varTag: _myBzzICreated.length,
+            translate: true,
+          ),
+          confirmButtonVerse: const Verse(
+            text: 'phid_delete_all',
+            translate: true,
+          ),
         );
 
       }
@@ -157,9 +189,21 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
         _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
           context: context,
           bzzModels: _myBzzIDidNotCreate,
-          title: 'Delete your membership in these Business accounts',
-          body: 'You are a member in ${_myBzzIDidNotCreate.length} business accounts which you will delete your membership in each of them if you continue.',
-          confirmButtonText: 'Continue',
+          titleVerse: const Verse(
+            pseudo: 'Delete your membership in these Business accounts',
+            text: 'phid_delete_bz_membership',
+            translate: true,
+          ),
+          bodyVerse: Verse(
+            pseudo: 'You are a member in ${_myBzzIDidNotCreate.length} business accounts which you will delete your membership in each of them if you continue.',
+            text: 'phid_delete_bz_membership_description',
+            translate: true,
+            varTag: _myBzzIDidNotCreate.length,
+          ),
+          confirmButtonVerse: const Verse(
+            text: 'phid_continue',
+            translate: true,
+          ),
         );
 
       }
@@ -185,9 +229,9 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<bool> reAuthenticateUser({
   @required BuildContext context,
-  @required String dialogTitle,
-  @required String dialogBody,
-  @required String confirmButtonText,
+  @required Verse dialogTitleVerse,
+  @required Verse dialogBodyVerse,
+  @required Verse confirmButtonVerse,
 }) async {
 
   bool _canContinue = false;
@@ -201,9 +245,9 @@ Future<bool> reAuthenticateUser({
 
     _canContinue = await Dialogs.userDialog(
       context: context,
-      titleVerse: dialogTitle,
-      bodyVerse: dialogBody,
-      confirmButtonText: confirmButtonText,
+      titleVerse: dialogTitleVerse,
+      bodyVerse: dialogBodyVerse,
+      confirmButtonVerse: confirmButtonVerse,
       userModel: _userModel,
     );
 
@@ -228,8 +272,14 @@ Future<bool> reAuthenticateUser({
 
         unawaited(TopDialog.showTopDialog(
           context: context,
-          firstLine: 'Wrong password',
-          secondLine: 'Please try again',
+          firstVerse: const Verse(
+            text: 'phid_wrong_password',
+            translate: true,
+          ),
+          secondVerse: const Verse(
+            text: 'phid_please_try_again',
+            translate: true,
+          ),
         ));
 
         _canContinue = false;

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class KeywordsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const KeywordsBubble({
-    @required this.title,
+    @required this.titleVerse,
     @required this.phids,
     @required this.selectedWords,
     @required this.addButtonIsOn,
@@ -25,7 +25,7 @@ class KeywordsBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
+  final Verse titleVerse;
   final List<String> phids;
   final int verseSize;
   final Function onTap;
@@ -52,7 +52,7 @@ class KeywordsBubble extends StatelessWidget {
       margins: margins,
       corners: corners,
       headerViewModel: BubbleHeaderVM(
-        headlineVerse: title,
+        headlineVerse: titleVerse,
       ),
       width: bubbleWidth,
       onBubbleTap: passKeywordOnTap == true ? null : onTap,

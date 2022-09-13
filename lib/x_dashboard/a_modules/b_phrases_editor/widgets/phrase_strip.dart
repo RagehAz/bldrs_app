@@ -104,7 +104,7 @@ class PhraseStrip extends StatelessWidget {
                     await BottomDialog.showBottomDialog(
                       context: context,
                       draggable: true,
-                      title: title,
+                      titleVerse: Verse.plain(title),
                       child: Column(
                         children: <Widget>[
 

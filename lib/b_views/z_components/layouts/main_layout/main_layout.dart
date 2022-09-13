@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -14,7 +15,7 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
-
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum AppBarType {
   basic,
@@ -33,7 +34,6 @@ class MainLayout extends StatelessWidget {
     this.pyramidsAreOn = false,
     this.appBarType,
     this.pageTitleVerse,
-    this.translatePageTitle = true,
     this.skyType = SkyType.night,
     this.onBack,
     this.canGoBack = true,
@@ -59,8 +59,7 @@ class MainLayout extends StatelessWidget {
   final Widget layoutWidget;
   final bool pyramidsAreOn;
   final AppBarType appBarType;
-  final dynamic pageTitleVerse;
-  final bool translatePageTitle;
+  final Verse pageTitleVerse;
   final SkyType skyType;
   final Function onBack;
   final bool canGoBack;
@@ -71,7 +70,7 @@ class MainLayout extends StatelessWidget {
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
-  final String searchHintVerse;
+  final Verse searchHintVerse;
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
@@ -199,8 +198,7 @@ class MainLayout extends StatelessWidget {
                     skyType: skyType,
                     appBarType: appBarType,
                     appBarRowWidgets: appBarRowWidgets,
-                    pageTitle: pageTitleVerse,
-                    translatePageTitle: translatePageTitle,
+                    pageTitleVerse: pageTitleVerse,
                     onBack: () => _onBack(context),
                     loading: loading,
                     progressBarModel: progressBarModel,
@@ -211,7 +209,7 @@ class MainLayout extends StatelessWidget {
                     historyButtonIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     pyramidsAreOn: pyramidsAreOn,
-                    searchHint: searchHintVerse,
+                    searchHintVerse: searchHintVerse,
                     pyramidType: pyramidType,
                     onPyramidTap: onPyramidTap,
                     canGoBack: canGoBack,

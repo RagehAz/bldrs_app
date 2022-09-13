@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
@@ -30,7 +31,7 @@ class ChainProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse:  'Uploading Bldrs Chains to RealTime Database',
+      loadingVerse: Verse.plain('Uploading Bldrs Chains to RealTime Database'),
     ));
 
     final List<Chain> _bldrsChains = await ChainRealOps.createBldrsChains(

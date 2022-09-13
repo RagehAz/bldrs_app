@@ -38,14 +38,14 @@ class KeywordsButtonsList extends StatelessWidget {
           final String _keywordID = keywordsIDs[keyIndex];
           final String _icon = _keywordsProvider.getPhidIcon(context: context, son: _keywordID);
           final String _keywordName = _keywordID;
-          const String _keywordNameArabic = 'keyword name but in arabic';//Phrase.getPhraseByLangFromPhrases(phrases: _keywordID.names, langCode: 'ar')?.value;
+          const String _keywordNameArabic = '##keyword name but in arabic';//Phrase.getPhraseByLangFromPhrases(phrases: _keywordID.names, langCode: 'ar')?.value;
 
           return DreamBox(
             height: ExpandingTile.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
             icon: _icon,
-            verse: _keywordName,
-            secondLine: _keywordNameArabic,
+            verse: Verse.plain(_keywordName),
+            secondLine: Verse.plain(_keywordNameArabic),
             verseScaleFactor: 0.7,
             verseCentered: false,
             bubble: false,

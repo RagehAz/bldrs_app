@@ -83,8 +83,14 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     return MainLayout(
       skyType: SkyType.black,
       sectionButtonIsOn: false,
-      pageTitleVerse: '##Add new Author',
-      searchHintVerse: '##Search Users by name',
+      pageTitleVerse: const Verse(
+        text: 'phid_add_new_author',
+        translate: true,
+      ),
+      searchHintVerse: const Verse(
+        text: 'phid_search_user_by_name',
+        translate: true,
+      ),
       pyramidsAreOn: true,
       // appBarBackButton: true,
       appBarType: AppBarType.search,

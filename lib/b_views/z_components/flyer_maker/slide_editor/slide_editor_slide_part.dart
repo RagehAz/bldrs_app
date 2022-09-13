@@ -149,9 +149,16 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 child: SuperTextField(
                                   appBarType: appBarType,
                                   globalKey: globalKey,
-                                  titleVerse: '##Flyer Slide Headline',
+                                  titleVerse: const Verse(
+                                    text: 'phid_flyer_slide_headline',
+                                    translate: true,
+                                  ),
                                   // key: ValueKey<String>('slide$slideIndex'),
-                                  hintVerse: '##T i t l e',
+                                  hintVerse: const Verse(
+                                    text: 'phid_t_i_t_l_e',
+                                    translate: true,
+                                    pseudo: 'T i t l e',
+                                  ),
                                   width: _flyerBoxWidth,
                                   // height: flyerBoxWidth * 0.15,
                                   fieldColor: Colorz.black80,

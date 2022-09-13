@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -141,8 +142,16 @@ Future<void> _myBzResignationProtocol({
     /// 3 - SHOW NOTICE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##This Business account is not available',
-      bodyVerse:  '##Your account does not have access to this business account',
+      titleVerse: const Verse(
+        pseudo: 'This Business account is not available',
+        text: 'phid_bz_account_is_unavailable',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'Your account does not have access to this business account',
+        text: 'phid_no_access_to_this_account',
+        translate: true,
+      ),
     );
 
     await AuthorProtocols.removeMeFromBzProtocol(

@@ -49,19 +49,24 @@ class Dialogs {
   // --------------------
   static Future<void> showSuccessDialog({
     @required BuildContext context,
-    String firstLine,
-    String secondLine,
+    Verse firstLine,
+    Verse secondLine,
   }) async {
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: firstLine ?? 'phid_success',
-      secondLine: secondLine,
+      firstVerse: firstLine ?? const Verse(
+        text: 'phid_success',
+        translate: true,
+      ),
+      secondVerse: secondLine,
       color: Colorz.green255,
       textColor: Colorz.white255,
     );
 
   }
+
+
   // -----------------------------------------------------------------------------
 
   /// NOTICE
@@ -69,15 +74,35 @@ class Dialogs {
   // --------------------
   static Future<void> topNotice({
     @required BuildContext context,
-    @required String text,
+    @required Verse verse,
   }) async {
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: text,
+      firstVerse: verse,
       // color: Colorz.yellow255,
     );
 
+  }
+  // --------------------
+  static Future<void> weWillLookIntoItNotice(BuildContext context) async {
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse:  const Verse(
+        text: 'phid_thanks_million',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'We will look into this matter and take the necessary '
+            'action as soon as possible\n Thank you for helping out',
+        text: 'phid_we_will_look_into_it',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_most_welcome',
+        translate: true,
+      ),
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -87,13 +112,16 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> confirmProceed({
     @required BuildContext context,
-    String titleVerse,
-    String bodyVerse,
+    Verse titleVerse,
+    Verse bodyVerse,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: titleVerse ?? '##Proceed ?',
+      titleVerse: titleVerse ?? const Verse(
+        text: 'phid_proceed_?',
+        translate: true,
+      ),
       bodyVerse: bodyVerse,
       boolDialog: true,
     );
@@ -104,18 +132,24 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
     @required BuildContext context,
-    String titleVerse,
-    String bodyVerse,
-    String confirmButtonText,
+    Verse titleVerse,
+    Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool goBackOnConfirm = false,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: titleVerse ?? '##Go Back ?',
+      titleVerse: titleVerse ?? const Verse(
+        text: 'phid_go_back_?',
+        translate: true,
+      ),
       bodyVerse: bodyVerse,
       boolDialog: true,
-      confirmButtonVerse: confirmButtonText ?? '##Go Back',
+      confirmButtonVerse: confirmButtonVerse ?? const Verse(
+        text:'phid_go_back',
+        translate: true,
+      ),
     );
 
     if (goBackOnConfirm == true && _result == true){
@@ -132,7 +166,7 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<bool> bottomBoolDialog({
     @required BuildContext context,
-    @required String titleVerse,
+    @required Verse titleVerse,
 }) async {
 
     bool _result = false;
@@ -145,7 +179,7 @@ class Dialogs {
         titleIsOn: true,
         childHeight: 70,
       ),
-      title: titleVerse,
+      titleVerse: titleVerse,
       child: SizedBox(
         width: BottomDialog.clearWidth(context),
         height: 70,
@@ -268,31 +302,44 @@ class Dialogs {
 
     // blog('authErrorDialog result : $result');
 
-    String _errorReply;
+    Verse _errorReplyVerse;
 
     for (final Map<String, dynamic> map in _errors) {
+
       final bool _mapContainsTheError = TextCheck.stringContainsSubString(
         string: result,
         subString: map['error'],
       );
 
       if (_mapContainsTheError == true) {
-        _errorReply = map['reply'];
+        _errorReplyVerse = Verse(
+          text: map['reply'],
+          translate: true,
+        );
         break;
-      } else {
-        _errorReply = 'phid_something_went_wrong_error';
       }
+
+      else {
+        _errorReplyVerse = const Verse(
+          text: 'phid_somethingIsWrong',
+          translate: true,
+        );
+      }
+
     }
 
     // [firebase_auth/user-not-found]
     // [firebase_auth/user-not-found]
 
-    blog('_errorReply : $_errorReply');
+    blog('_errorReplyVerse : $_errorReplyVerse');
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'phid_a_could_not_continue_title',
-      bodyVerse: _errorReply,
+      titleVerse: const Verse(
+        text: 'phid_a_could_not_continue_title',
+        translate: true,
+      ),
+      bodyVerse: _errorReplyVerse,
     );
   }
   // --------------------
@@ -301,8 +348,14 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'Something went wrong!',
-      bodyVerse: 'Please try Again.',
+      titleVerse: const Verse(
+        text: 'phid_somethingIsWrong!',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_please_try_again',
+        translate: true,
+      ),
     );
 
   }
@@ -310,13 +363,16 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> errorDialog({
     @required BuildContext context,
-    String titleVerse,
-    String bodyVerse,
+    Verse titleVerse,
+    Verse bodyVerse,
   }) async {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: titleVerse ?? 'phid_something_went_wrong',
+      titleVerse: titleVerse ?? const Verse(
+        text: 'phid_somethingIsWrong',
+        translate: true,
+      ),
       bodyVerse: bodyVerse,
       color: Colorz.red255,
     );
@@ -334,7 +390,10 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Enter Your password',
+      titleVerse: const Verse(
+        text: 'phid_enter_your_password',
+        translate: true,
+      ),
       height: Scale.superScreenHeight(context) * 0.6,
       onOk: () async {
 
@@ -416,7 +475,6 @@ class Dialogs {
                   appBarType: AppBarType.non,
                   isFloatingField: _keyboardModel.isFloatingField,
                   titleVerse: _keyboardModel.titleVerse,
-                  translateTitle: _keyboardModel.translateTitle,
                   initialText: _keyboardModel.initialText,
                   maxLines: _keyboardModel.maxLines,
                   minLines: _keyboardModel.minLines,
@@ -515,11 +573,17 @@ class Dialogs {
             ...List<Widget>.generate(cities.length, (int index) {
 
               final CityModel _foundCity = cities[index];
-              final String _foundCityName = _foundCity.cityID;
+              final String _foundCityName = CityModel.getTranslatedCityNameFromCity(
+                context: context,
+                city: _foundCity,
+              );
 
               return BottomDialog.wideButton(
                   context: context,
-                  verse: _foundCityName,
+                  verse: Verse(
+                    text: _foundCityName,
+                    translate: false,
+                  ),
                   icon: Flag.getFlagIcon(_foundCity.countryID),
                   onTap: () {
 
@@ -550,9 +614,9 @@ class Dialogs {
   static Future<bool> userDialog({
     @required BuildContext context,
     @required UserModel userModel,
-    @required String titleVerse,
-    @required String bodyVerse,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
@@ -561,7 +625,7 @@ class Dialogs {
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
-      confirmButtonVerse: confirmButtonText,
+      confirmButtonVerse: confirmButtonVerse,
       height: Scale.superScreenHeight(context) * 0.85,
       child: UserBanner(
         userModel: userModel,
@@ -579,17 +643,17 @@ class Dialogs {
   static Future<bool> bzBannerDialog({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required String title,
-    @required String body,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: title,
-      bodyVerse: body,
-      confirmButtonVerse: confirmButtonText,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
+      confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
       height: Scale.superScreenHeight(context) * 0.85,
       child: BzBanner(
@@ -608,9 +672,9 @@ class Dialogs {
   static Future<bool> bzzBannersDialog({
     @required BuildContext context,
     @required List<BzModel> bzzModels,
-    @required String title,
-    @required String body,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
@@ -618,9 +682,9 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: title,
-      bodyVerse: body,
-      confirmButtonVerse: confirmButtonText,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
+      confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
@@ -660,9 +724,9 @@ class Dialogs {
   static Future<void> bzContactsDialog({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required String title,
-    @required String body,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     ValueChanged<ContactModel> onContact,
   }) async {
 
@@ -670,9 +734,12 @@ class Dialogs {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: title,
-      bodyVerse: body,
-      confirmButtonVerse: '##Cancel',
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
+      confirmButtonVerse: confirmButtonVerse ?? const Verse(
+        text: 'phid_cancel',
+        translate: true,
+      ),
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
@@ -708,9 +775,9 @@ class Dialogs {
   static Future<bool> flyersDialog({
     @required BuildContext context,
     @required List<String> flyersIDs,
-    @required String title,
-    @required String body,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
@@ -718,10 +785,10 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: title,
-      bodyVerse: body,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
       boolDialog: boolDialog,
-      confirmButtonVerse: confirmButtonText,
+      confirmButtonVerse: confirmButtonVerse,
       height: Scale.superScreenHeight(context) * 0.85,
       child: Container(
         width: CenterDialog.getWidth(context),
@@ -750,9 +817,9 @@ class Dialogs {
   static Future<bool> flyerDialog({
     @required BuildContext context,
     @required FlyerModel flyer,
-    @required String title,
-    @required String body,
-    String confirmButtonText,
+    @required Verse titleVerse,
+    @required Verse bodyVerse,
+    Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
@@ -762,10 +829,10 @@ class Dialogs {
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: title,
-      bodyVerse: body,
+      titleVerse: titleVerse,
+      bodyVerse: bodyVerse,
       boolDialog: boolDialog,
-      confirmButtonVerse: confirmButtonText,
+      confirmButtonVerse: confirmButtonVerse,
       height: _dialogHeight,
       child: SizedBox(
         height: _flyerBoxHeight,

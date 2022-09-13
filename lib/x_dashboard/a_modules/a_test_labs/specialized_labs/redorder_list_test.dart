@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -79,8 +80,7 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
       listWidgets: <Widget>[
 
         WideButton(
-          translate: false,
-          verse:  'ReOrderListTest wide button',
+          verse: Verse.plain('ReOrderListTest wide button'),
           onTap: () async {
 
             blog('ReOrderListTest wide button on tap');
@@ -111,8 +111,7 @@ class _ReOrderListTestState extends State<ReOrderListTest> {
 
               return WideButton(
                 key: ValueKey<String>(_colors[index].toString()),
-                verse: _colors[index].toString(),
-                translate: false,
+                verse:Verse.plain(_colors[index].toString()),
                 color: _colors[index],
               );
 

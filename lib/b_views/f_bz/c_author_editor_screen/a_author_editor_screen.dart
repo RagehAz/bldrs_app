@@ -187,11 +187,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: 'phid_edit_author_details',
+      pageTitleVerse: const Verse(
+        text: 'phid_edit_author_details',
+        translate: true,
+      ),
       appBarRowWidgets: [
 
         AppBarButton(
-          verse: 'Validate',
+          verse: Verse.plain('Validate'),
           onTap: (){
 
             Formers.validateForm(_formKey);
@@ -202,8 +205,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
       ],
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: 'phid_confirm',
-        secondLine: 'phid_update_author_details',
+        firstLine: const Verse(text: 'phid_confirm', translate: true),
+        secondLine: const Verse(text: 'phid_update_author_details', translate: true),
         onTap: () => _onConfirmTap(),
       ),
       layoutWidget: Form(
@@ -227,7 +230,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     child: AddImagePicBubble(
                       // width: BldrsAppBar.width(context),
                       fileModel: authorModel.pic,
-                      titleVerse: 'phid_author_picture',
+                      titleVerse: const Verse(
+                        text: 'phid_author_picture',
+                        translate: true,
+                      ),
                       redDot: true,
                       bubbleType: BubbleType.authorPic,
                       onAddPicture: (ImagePickerType imagePickerType) => takeAuthorImage(
@@ -280,7 +286,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     focusNode: _titleNode,
                     appBarType: AppBarType.basic,
                     isFormField: true,
-                    titleVerse: 'phid_job_title',
+                    titleVerse: const Verse(
+                      text: 'phid_job_title',
+                      translate: true,
+                    ),
                     counterIsOn: true,
                     maxLength: 72,
                     keyboardTextInputType: TextInputType.name,

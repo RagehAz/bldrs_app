@@ -71,10 +71,10 @@ class PricingScreen extends StatelessWidget {
                       width: 140,
                       icon: _flag,
                       margins: const EdgeInsets.all(Ratioz.appBarPadding),
-                      verse: _countryName,
+                      verse: Verse.plain(_countryName),
                       verseScaleFactor: 0.5,
                       verseCentered: false,
-                      secondLine: _countryCurrency,
+                      secondLine: Verse.plain(_countryCurrency),
                       secondLineScaleFactor: 0.8,
                     ),
 
@@ -82,10 +82,10 @@ class PricingScreen extends StatelessWidget {
                     DreamBox(
                       height: 40,
                       width: 150,
-                      verse: _localBigMacPrice,
+                      verse: Verse.plain(_localBigMacPrice),
                       verseScaleFactor: 0.5,
                       verseCentered: false,
-                      secondLine: _localMacPriceInUSD,
+                      secondLine: Verse.plain(_localMacPriceInUSD),
                       secondLineScaleFactor: 0.9,
                     ),
 
@@ -95,9 +95,9 @@ class PricingScreen extends StatelessWidget {
                       color: Colorz.black255,
                       margins: const EdgeInsets.symmetric(
                           horizontal: Ratioz.appBarPadding),
-                      verse: _proPrice,
+                      verse: Verse.plain(_proPrice),
                       verseScaleFactor: 0.6,
-                      secondLine: _proPrice$,
+                      secondLine: Verse.plain(_proPrice$),
                       secondLineScaleFactor: 0.9,
                       secondLineColor: Colorz.yellow255,
                     ),

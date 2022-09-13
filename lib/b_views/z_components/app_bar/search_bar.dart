@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -22,7 +21,7 @@ class SearchBar extends StatefulWidget {
     this.searchController,
     this.onSearchChanged,
     // this.boxWidth,
-    this.hintText,
+    this.hintVerse,
     this.height,
     this.onSearchCancelled,
     Key key,
@@ -33,7 +32,7 @@ class SearchBar extends StatefulWidget {
   final ValueChanged<String> onSearchChanged;
   final bool searchIconIsOn;
   // final double boxWidth;
-  final String hintText;
+  final Verse hintVerse;
   final double height;
   final Function onSearchCancelled;
   final AppBarType appBarType;
@@ -150,7 +149,10 @@ class _SearchBarState extends State<SearchBar> {
           SuperTextField(
             appBarType: widget.appBarType,
             globalKey: globalKey,
-            titleVerse: xPhrase(context, 'phid_search'),
+            titleVerse: const Verse(
+              text: 'phid_search',
+              translate: true,
+            ),
             // fieldIsFormField: true,
             // onSavedForForm: (String val) {
             //   blog('on saved');
@@ -170,7 +172,10 @@ class _SearchBarState extends State<SearchBar> {
                 }
               }
             },
-            hintVerse: widget.hintText ?? xPhrase(context, 'phid_search'),
+            hintVerse: widget.hintVerse ?? const Verse(
+              text: 'phid_search',
+              translate: true,
+            ),
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
             textSizeFactor: 1.15,

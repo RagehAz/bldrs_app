@@ -158,7 +158,10 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     const double _pinWidth = 30;
 
     return MainLayout(
-      pageTitleVerse:  '##Select on Map',
+      pageTitleVerse: const Verse(
+        text: 'phid_select_on_map',
+        translate: true,
+      ),
       appBarType: AppBarType.basic,
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
@@ -280,10 +283,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               icon: _countryModel == null ? Iconz.locationPin : Flag.getFlagIcon(_countryModel.id),
               // iconColor: Colorz.red230,
               iconSizeFactor: 0.7,
-              verse:  'Confirm Location',
+              verse: const Verse(text: 'phid_confirm', translate: true),
               verseCentered: false,
-              secondLine:
-                  'lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}',
+              secondLine: Verse.plain('lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}'),
               color: Colorz.black230,
               onTap: () {
                 Nav.goBack(

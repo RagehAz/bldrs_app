@@ -134,7 +134,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
     // --------------------
     return MainLayout(
       loading: _loading,
-      pageTitleVerse:  'Note Creator',
+      pageTitleVerse: Verse.plain('Note Creator'),
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -144,7 +144,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
         const Expander(),
 
         AppBarButton(
-          verse:  'All Notes',
+          verse: Verse.plain('All Notes'),
           onTap: () => Nav.goToNewScreen(
             context: context,
             screen: const AllNotesScreen(),
@@ -152,7 +152,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
         ),
 
         AppBarButton(
-          verse:  'Templates',
+          verse: Verse.plain('Templates'),
           onTap: () => onGoToNoteTemplatesScreen(
             context: context,
             scrollController: _scrollController,
@@ -219,7 +219,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// TITLE
                 TextFieldBubble(
                   appBarType: AppBarType.basic,
-                  titleVerse:  'Note Title',
+                  titleVerse: Verse.plain('Note Title'),
                   isFormField: true,
                   textController: _titleController,
                   textOnChanged: (String text) => onTitleChanged(
@@ -245,7 +245,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                 /// BODY
                 TextFieldBubble(
                   appBarType: AppBarType.basic,
-                  titleVerse:  'Note Body',
+                  titleVerse: Verse.plain('Note Body'),
                   isFormField: true,
                   textController: _bodyController,
                   textOnChanged: (String text) => onBodyChanged(
@@ -532,7 +532,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                     return TileBubble(
                       bubbleHeaderVM: BubbleHeaderVM(
-                        headlineVerse: Verse(
+                        headlineVerse: const Verse(
                           text: 'Send FCM',
                           translate: false,
                         ),
@@ -639,7 +639,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                     leadingIconBoxColor: Colorz.grey50,
 
                   ),
-                  secondLineVerse: Verse(
+                  secondLineVerse: const Verse(
                     text: 'Add attachments',
                     translate: false,
                   ),
@@ -767,8 +767,8 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
 
                             return ConfirmButton(
                               confirmButtonModel: ConfirmButtonModel(
-                                firstLine: 'Send',
-                                secondLine: 'to $_receiverName',
+                                firstLine: Verse.plain('Send'),
+                                secondLine: Verse.plain('to $_receiverName'),
                                 isDeactivated: !NoteModel.checkCanSendNote(note),
                                 onTap: () => onSendNote(
                                   context: context,

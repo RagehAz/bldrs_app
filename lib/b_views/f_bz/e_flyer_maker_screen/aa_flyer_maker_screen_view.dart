@@ -69,16 +69,19 @@ class FlyerMakerScreenView extends StatelessWidget {
                 valueListenable: draft,
                 builder: (_, DraftFlyerModel _draft, Widget child){
 
-                  final List<String> _bzTypeTranslation = BzModel.translateBzTypes(
+                  final List<String> _bzTypeTranslation = BzModel.getBzTypesPhids(
                       context: context,
                       bzTypes: _bzModel.bzTypes
                   );
                   final List<FlyerType> _allowableTypes = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
                     bzTypes: _bzModel.bzTypes,
                   );
-                  final List<Verse> _flyerTypesTranslation = FlyerTyper.translateFlyerTypes(
-                    context: context,
-                    flyerTypes: _allowableTypes,
+                  final List<Verse> _flyerTypesTranslation = Verse.createVerses(
+                    strings: FlyerTyper.translateFlyerTypes(
+                      context: context,
+                      flyerTypes: _allowableTypes,
+                    ),
+                    translate: false,
                   );
 
                   return Form(
@@ -161,7 +164,7 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// FLYER TYPE SELECTOR
                           MultipleChoiceBubble(
-                            title: const Verse(
+                            titleVerse: const Verse(
                               text: 'phid_flyer_type',
                               translate: true,
                             ),
@@ -181,10 +184,13 @@ class FlyerMakerScreenView extends StatelessWidget {
                               ),
 
                             ],
-                            buttonsVerses: FlyerTyper.translateFlyerTypes(
-                              context: context,
-                              flyerTypes: FlyerTyper.flyerTypesList,
-                              pluralTranslation: false,
+                            buttonsVerses: Verse.createVerses(
+                              strings: FlyerTyper.translateFlyerTypes(
+                                context: context,
+                                flyerTypes: FlyerTyper.flyerTypesList,
+                                pluralTranslation: false,
+                              ),
+                              translate: false,
                             ),
                             selectedButtons: <String>[
                               FlyerTyper.getFlyerTypePhid(
@@ -198,13 +204,16 @@ class FlyerMakerScreenView extends StatelessWidget {
                               draft: draft,
                             ),
                             inactiveButtons: <Verse>[
-                              ...FlyerTyper.translateFlyerTypes(
-                                context: context,
-                                flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
-                                  bzModel: _bzModel,
-                                ),
-                                pluralTranslation: false,
-                              )
+                              ...Verse.createVerses(
+                                  strings: FlyerTyper.translateFlyerTypes(
+                                    context: context,
+                                    flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
+                                      bzModel: _bzModel,
+                                    ),
+                                    pluralTranslation: false,
+                                  ),
+                                  translate: false,
+                              ),
                             ],
 
                             validator: () => Formers.flyerTypeValidator(
@@ -245,11 +254,14 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// ZONE SELECTOR
                           ZoneSelectionBubble(
-                            titleVerse: '##Flyer Target city',
-                            bulletPoints: const <String>[
-                              '##Select The city you would like this flyer to target',
-                              '##each flyer can target only one city',
-                              '##Selecting district increases the probability of this flyer to gain more views in that district',
+                            titleVerse: const Verse(
+                              text: 'phid_flyer_target_city',
+                              translate: true,
+                            ),
+                            bulletPoints: const <Verse>[
+                              Verse(text: '##Select The city you would like this flyer to target', translate: true,),
+                              Verse(text: '##each flyer can target only one city', translate: true,),
+                              Verse(text: '##Selecting district increases the probability of this flyer to gain more views in that district', translate: true,),
                             ],
                             currentZone: _draft.zone,
                             onZoneChanged: (ZoneModel zone) => onZoneChanged(

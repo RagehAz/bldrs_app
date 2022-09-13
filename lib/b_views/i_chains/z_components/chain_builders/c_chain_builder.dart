@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -37,8 +38,8 @@ class ChainBuilder extends StatelessWidget {
   final double boxWidth;
   final bool inverseAlignment;
   final String icon;
-  final String firstHeadline;
-  final String secondHeadline;
+  final Verse firstHeadline;
+  final Verse secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final Function(String path, String phid) onPhidTap;

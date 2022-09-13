@@ -13,14 +13,14 @@ class FlyerRecordsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerRecordsBox({
     @required this.pageWidth,
-    @required this.headline,
+    @required this.headlineVerse,
     @required this.icon,
     @required this.realNodePath,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final String headline;
+  final Verse headlineVerse;
   final String icon;
   final String realNodePath;
   /// --------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class FlyerRecordsBox extends StatelessWidget {
 
         DreamBox(
           height: 30,
-          verse: headline,
+          verse: headlineVerse,
           verseWeight: VerseWeight.thin,
           verseItalic: true,
           icon: icon,

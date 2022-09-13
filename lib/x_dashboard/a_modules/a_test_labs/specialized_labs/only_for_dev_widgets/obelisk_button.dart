@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -25,7 +26,7 @@ class ObeliskButton extends StatelessWidget {
     final Color _color = color ?? Colorz.black125;
 
     return MainButton(
-      verse: title,
+      verse: Verse.plain(title),
       buttonColor: _color,
       icon: icon,
       onTap: () => Nav.goToNewScreen(

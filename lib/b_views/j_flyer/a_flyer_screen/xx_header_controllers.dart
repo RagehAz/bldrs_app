@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -253,8 +254,16 @@ Future<void> onCallTap({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##${bzModel.name} has no available contact',
-      bodyVerse:  '##A reminder notification for the business will be sent to request updating their phone number',
+      titleVerse: Verse(
+        text: '##${bzModel.name} has no available contact',
+        translate: true,
+        varTag: bzModel.name,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'A reminder notification for the business will be sent to request updating their phone number',
+        text: 'phid_reminder_will_be_sent_to_bz_for_phone',
+        translate: true,
+      ),
     );
 
     await NoteProtocols.sendNoBzContactAvailableNote(
@@ -268,8 +277,16 @@ Future<void> onCallTap({
 
     await Dialogs.bzContactsDialog(
         context: context,
-        title: '##Contact ${bzModel.name}',
-        body: '##Select an Author to contact',
+        titleVerse: Verse(
+          text: '##Contact ${bzModel.name}',
+          translate: true,
+          varTag: bzModel.name,
+        ),
+        bodyVerse: const Verse(
+          pseudo: 'Select an Author to contact',
+          text: 'phid_select_author_to_contact',
+          translate: true,
+        ),
         bzModel: bzModel,
         onContact: (ContactModel contact) async {
 

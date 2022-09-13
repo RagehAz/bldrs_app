@@ -10,25 +10,25 @@ class WaitDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WaitDialog({
     this.canManuallyGoBack = false,
-    this.loadingPhrase,
+    this.loadingVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final bool canManuallyGoBack;
-  final String loadingPhrase;
+  final Verse loadingVerse;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showWaitDialog({
     @required BuildContext context,
     bool canManuallyGoBack = false,
-    String loadingVerse,
+    Verse loadingVerse,
   }) async {
 
     await showDialog(
       context: context,
       builder: (BuildContext ctx) => WaitDialog(
         canManuallyGoBack: canManuallyGoBack,
-        loadingPhrase: loadingVerse,
+        loadingVerse: loadingVerse,
       ),
     );
   }
@@ -78,11 +78,11 @@ class WaitDialog extends StatelessWidget {
                     margin: 20,
                   ),
 
-                  if (loadingPhrase != null)
+                  if (loadingVerse != null)
                     SizedBox(
                       width: _screenWidth * 0.8,
                       child: SuperVerse(
-                        verse: loadingPhrase,
+                        verse: loadingVerse,
                         size: 3,
                         shadow: true,
                         italic: true,

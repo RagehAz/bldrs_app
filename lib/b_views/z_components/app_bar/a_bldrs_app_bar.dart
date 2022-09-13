@@ -19,7 +19,7 @@ class BldrsAppBar extends StatelessWidget {
     @required this.globalKey,
     this.appBarType,
     this.onBack,
-    this.pageTitle,
+    this.pageTitleVerse,
     this.appBarRowWidgets,
     this.loading,
     this.progressBarModel,
@@ -29,16 +29,15 @@ class BldrsAppBar extends StatelessWidget {
     this.onSearchSubmit,
     this.onSearchChanged,
     this.historyButtonIsOn,
-    this.searchHint,
+    this.searchHintVerse,
     this.canGoBack,
     this.onSearchCancelled,
-    this.translatePageTitle,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final AppBarType appBarType;
   final Function onBack;
-  final dynamic pageTitle;
+  final Verse pageTitleVerse;
   final List<Widget> appBarRowWidgets;
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -48,11 +47,10 @@ class BldrsAppBar extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onSearchChanged;
   final bool historyButtonIsOn;
-  final String searchHint;
+  final Verse searchHintVerse;
   final bool canGoBack;
   final Function onSearchCancelled;
   final GlobalKey globalKey;
-  final bool translatePageTitle;
   /// --------------------------------------------------------------------------
   static double width(BuildContext context) {
     final double _abWidth = Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin);
@@ -245,13 +243,12 @@ class BldrsAppBar extends StatelessWidget {
                       width: Ratioz.appBarPadding,
                     ),
                     /// PAGE TITLE
-                    if (pageTitle != null)
+                    if (pageTitleVerse != null)
                       AppBarTitle(
                         width: _titleWidth,
-                        pageTitle: pageTitle,
+                        pageTitleVerse: pageTitleVerse,
                         backButtonIsOn: _backButtonIsOn,
                         appBarRowWidgets: appBarRowWidgets,
-                        translatePageTitle: translatePageTitle,
                       ),
                     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                     /// SCROLLER WIDGETS
@@ -302,7 +299,7 @@ class BldrsAppBar extends StatelessWidget {
                     onSearchSubmit: onSearchSubmit,
                     searchIconIsOn: historyButtonIsOn,
                     onSearchChanged: onSearchChanged,
-                    hintText: searchHint,
+                    hintVerse: searchHintVerse,
                     onSearchCancelled: onSearchCancelled,
                     appBarType: appBarType,
                     globalKey: globalKey,

@@ -19,7 +19,7 @@ class CenterDialog extends StatelessWidget {
     @required this.title,
     @required this.boolDialog,
     @required this.height,
-    this.confirmButtonText,
+    this.confirmButtonVerse,
     this.child,
     this.color = Colorz.skyDarkBlue,
     this.onOk,
@@ -31,7 +31,7 @@ class CenterDialog extends StatelessWidget {
   final bool boolDialog;
   final double height;
   final Widget child;
-  final String confirmButtonText;
+  final Verse confirmButtonVerse;
   final Color color;
   final Function onOk;
   // -----------------------------------------------------------------------------
@@ -74,7 +74,7 @@ class CenterDialog extends StatelessWidget {
     bool boolDialog = false,
     double height,
     Widget child,
-    String confirmButtonVerse,
+    Verse confirmButtonVerse,
     Color color = Colorz.skyDarkBlue,
     Function onOk,
   }) async {
@@ -89,7 +89,7 @@ class CenterDialog extends StatelessWidget {
 
         height: height,
         boolDialog: boolDialog,
-        confirmButtonText: confirmButtonVerse,
+        confirmButtonVerse: confirmButtonVerse,
         color: color,
         onOk: onOk,
         child: child,
@@ -119,15 +119,25 @@ class CenterDialog extends StatelessWidget {
 //   }
    */
   // --------------------
-  String _getConfirmButtonText(){
+  /// TESTED : WORKS PERFECT
+  Verse _getConfirmButtonVerse(){
 
-    String _text = boolDialog ? 'Yes' : 'Ok';
+    Verse _verse = boolDialog ?
+    const Verse(
+      text: 'phid_yes',
+      translate: true,
+    )
+        :
+    const Verse(
+      text: 'phid_ok',
+      translate: true,
+    );
 
-    if (confirmButtonText != null){
-      _text = confirmButtonText;
+    if (confirmButtonVerse != null){
+      _verse = confirmButtonVerse;
     }
 
-    return _text;
+    return _verse;
   }
   // --------------------
   @override
@@ -153,9 +163,8 @@ class CenterDialog extends StatelessWidget {
     //   dialogWidth: _dialogWidth,
     // );
     const double _buttonHeight = DialogButton.height;
-    const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     // final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
-    final String _confirmButtonText = _getConfirmButtonText();
+    const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     // --------------------
     final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
@@ -284,7 +293,11 @@ class CenterDialog extends StatelessWidget {
 
                                       if (boolDialog == true)
                                         DialogButton(
-                                          verse: '##No',
+                                          verse: const Verse(
+                                            text: 'phid_no',
+                                            translate: true,
+                                            casing: Casing.capitalizeFirstChar,
+                                          ),
                                           color: Colorz.white80,
                                           onTap: () =>
                                               Nav.goBack(
@@ -295,7 +308,7 @@ class CenterDialog extends StatelessWidget {
                                         ),
 
                                       DialogButton(
-                                        verse: _confirmButtonText,
+                                        verse: _getConfirmButtonVerse(),
                                         verseColor: Colorz.black230,
                                         color: Colorz.yellow255,
                                         onTap:

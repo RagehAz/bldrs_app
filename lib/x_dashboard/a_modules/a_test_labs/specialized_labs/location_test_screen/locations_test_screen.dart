@@ -234,7 +234,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                       } else {
                         await TopDialog.showTopDialog(
                             context: context,
-                            firstLine: 'No city found'
+                            firstVerse: Verse.plain('No city found'),
                         );
                       }
                     },
@@ -247,8 +247,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
-                translate: false,
-                verse:  'Get Current Location',
+                verse: Verse.plain('Get Current Location'),
                 icon: _countryID == null ?
                 Iconz.share
                     :
@@ -261,8 +260,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
               ),
 
               WideButton(
-                translate: false,
-                verse:  'Get Position from Map',
+                verse: Verse.plain('Get Position from Map'),
                 icon: _countryID == null ?
                 Iconz.share
                     :
@@ -275,8 +273,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
               DataStripWithHeadline(
                 dataKey: 'geo point',
-                dataValue:
-                    'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',
+                dataValue: 'LAT : ${_point?.latitude} : LNG : ${_point?.longitude}',
               ),
 
               DataStripWithHeadline(

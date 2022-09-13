@@ -75,9 +75,12 @@ class ContactsEditorsBubbles extends StatelessWidget {
               return ContactFieldBubble(
                 globalKey: globalKey,
                 headerViewModel: BubbleHeaderVM(
-                    headlineVerse: ContactModel.translateContactType(
-                      context: context,
-                      contactType: _contactType,
+                    headlineVerse: Verse(
+                      text: ContactModel.getContactTypePhid(
+                        context: context,
+                        contactType: _contactType,
+                      ),
+                      translate: true,
                     ),
                     leadingIcon: ContactModel.concludeContactIcon(_contactType),
                     leadingIconSizeFactor: 0.7

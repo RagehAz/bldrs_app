@@ -48,9 +48,8 @@ Future<void> tryAndCatch({
             translate: false,
           ),
           titleVerse: const Verse(
-            text: 'phid_something_went_wrong',
+            text: 'phid_somethingIsWrong',
             translate: true,
-            pseudo: '##Something Went Wrong !',
           ),
         );
       }

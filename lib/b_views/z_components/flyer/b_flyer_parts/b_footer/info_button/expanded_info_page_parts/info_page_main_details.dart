@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,7 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
-      context: context,
+    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
       flyerType: flyerModel.flyerType,
       pluralTranslation: false,
     );
@@ -46,7 +46,11 @@ class InfoPageMainDetails extends StatelessWidget {
         /// Flyer Type
         StatsLine(
           bubbleWidth: pageWidth,
-          verse: '##Flyer Type : $_flyerTypeString',
+          verse: Verse(
+            text: '##Flyer Type : $_flyerTypePhid',
+            translate: true,
+            varTag: _flyerTypePhid,
+          ),
           icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
           iconSizeFactor: 1,
           verseScaleFactor: 0.85 * 0.7,
@@ -55,13 +59,21 @@ class InfoPageMainDetails extends StatelessWidget {
         /// PUBLISH TIME
         StatsLine(
           bubbleWidth: pageWidth,
-          verse: '##Published $_timeDifferance',
+          verse: Verse(
+            text: '##Published $_timeDifferance',
+            translate: true,
+            varTag: _timeDifferance,
+          ),
           icon: Iconz.calendar,
         ),
 
         /// ZONE
         StatsLine(
-          verse: '##Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
+          verse: Verse(
+            text: '##Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
+            translate: true,
+            varTag: [flyerZone?.cityName, flyerZone?.countryName]
+          ),
           icon: flyerZone?.flag,
           bubbleWidth: pageWidth,
         ),

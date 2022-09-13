@@ -16,6 +16,7 @@ import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_setting
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/nav_model.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -314,8 +315,10 @@ List<NavModel> generateMainNavModels({
     /// SIGN IN
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
-      title: 'phid_sign',
-      translateTitle: true,
+      titleVerse: const Verse(
+        text: 'phid_sign',
+        translate: true,
+      ),
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
       iconSizeFactor: 0.6,
@@ -333,8 +336,16 @@ List<NavModel> generateMainNavModels({
     /// MY PROFILE
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
-      title: userModel?.name ?? 'phid_complete_my_profile',
-      translateTitle: userModel?.name == null,
+      titleVerse: userModel?.name == null ?
+      const Verse(
+        text: 'phid_complete_my_profile',
+        translate: true,
+      )
+          :
+      Verse(
+        text: userModel.name,
+        translate: false,
+      ),
       icon: userModel?.pic ?? Iconz.normalUser,
       screen: const UserProfileScreen(),
       iconSizeFactor: userModel?.pic == null ? 0.55 : 1,
@@ -346,8 +357,10 @@ List<NavModel> generateMainNavModels({
     /// SAVED FLYERS
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
-      title: 'phid_savedFlyers',
-      translateTitle: true,
+      titleVerse: const Verse(
+        text: 'phid_savedFlyers',
+        translate: true,
+      ),
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
       canShow: AuthModel.userIsSignedIn() == true,
@@ -367,8 +380,10 @@ List<NavModel> generateMainNavModels({
             navID: MainNavModel.bz,
             bzID: _bzModel.id,
           ),
-          title: _bzModel.name,
-          translateTitle: false,
+          titleVerse: Verse(
+            text: _bzModel.name,
+            translate: false,
+          ),
           icon: _bzModel.logo,
           iconSizeFactor: 1,
           iconColor: Colorz.nothing,
@@ -396,11 +411,10 @@ List<NavModel> generateMainNavModels({
       ),
       iconSizeFactor: 1,
       iconColor: Colorz.nothing,
-      title: ZoneModel.generateObeliskString(
+      titleVerse: ZoneModel.generateObeliskVerse(
           context: context,
           zone: currentZone
       ),
-      translateTitle: false,
     ),
 
     /// SEPARATOR
@@ -408,8 +422,10 @@ List<NavModel> generateMainNavModels({
 
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.settings),
-      title: 'phid_settings',
-      translateTitle: true,
+      titleVerse: const Verse(
+        text: 'phid_settings',
+        translate: true,
+      ),
       icon: Iconz.more,
       screen: const AppSettingsScreen(),
       iconSizeFactor: 0.6,

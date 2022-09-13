@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -60,7 +61,7 @@ abstract class RealHttp{
 
           await Dialogs.errorDialog(
             context: context,
-            bodyVerse: error,
+            bodyVerse: Verse.plain(error),
           );
 
         }
@@ -120,7 +121,7 @@ abstract class RealHttp{
 
           await Dialogs.errorDialog(
             context: context,
-            bodyVerse: error,
+            bodyVerse: Verse.plain(error),
           );
 
         }
@@ -164,7 +165,7 @@ abstract class RealHttp{
 
           await Dialogs.errorDialog(
             context: context,
-            bodyVerse: error,
+            bodyVerse: Verse.plain(error),
           );
 
         }
@@ -194,7 +195,7 @@ abstract class RealHttp{
 
       await Dialogs.errorDialog(
         context: context,
-        bodyVerse: _response.body,
+        bodyVerse: Verse.plain(_response.body),
       );
 
       // throw HttpException('Could not delete Business');

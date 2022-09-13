@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/picker_ldb_ops.dart';
@@ -28,7 +29,7 @@ class PickerProtocols {
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse:  'Uploading ChainK to RealTime Database',
+      loadingVerse: const Verse(text: 'Uploading ChainK to RealTime Database', translate: false),
     ));
 
     await PickerRealOps.createPickers(

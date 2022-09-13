@@ -45,8 +45,14 @@ class DataStrip extends StatelessWidget {
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: 'data copied to clipboard',
-      secondLine: dataValue.toString(),
+      firstLine: const Verse(
+        text: 'phid_copied_to_clipboard',
+        translate: true,
+      ),
+      secondLine: Verse(
+        text: dataValue.toString(),
+        translate: false,
+      ),
     );
 
   }
@@ -93,7 +99,10 @@ class DataStrip extends StatelessWidget {
               DreamBox(
                 height: height,
                 width: _rowWidth * 0.2,
-                verse: dataKey,
+                verse: Verse(
+                  text: dataKey,
+                  translate: false,
+                ),
                 verseShadow: false,
                 verseMaxLines: 2,
                 verseScaleFactor: 0.6,
@@ -109,7 +118,10 @@ class DataStrip extends StatelessWidget {
               DreamBox(
                 height: height,
                 width: _rowWidth * 0.79,
-                verse: dataValue.toString(),
+                verse: Verse(
+                  text: dataValue.toString(),
+                  translate: false,
+                ),
                 verseShadow: false,
                 verseMaxLines: 2,
                 verseScaleFactor: 0.6,

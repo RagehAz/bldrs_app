@@ -48,7 +48,7 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final TextDirection textDirection;
   final dynamic icon;
   final bool loading;
-  final String underLine;
+  final Verse underLine;
   final double width;
   final double height;
   final BorderRadius iconCorners;

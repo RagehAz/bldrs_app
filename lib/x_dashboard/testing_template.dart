@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/b_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/b_widgets/wide_button.dart';
@@ -68,8 +69,7 @@ class _TestingTemplateState extends State<TestingTemplate> {
       listWidgets: <Widget>[
 
         WideButton(
-          translate: false,
-          verse:  '~~~~~~~~~test~~~~~~~~~~',
+          verse: Verse.plain('~~~~~~~~~test~~~~~~~~~~'),
           onTap: () async {
 
             blog('~~~~~~~~~test~~~~~~~~~~ onTap');

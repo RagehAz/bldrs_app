@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -101,7 +102,10 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         if (isConnected == true){
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: 'Connected',
+            firstLine: const Verse(
+              text: 'phid_connected',
+              translate: true,
+            ),
             color: Colorz.green255,
             // seconds: 2,
           );
@@ -110,8 +114,14 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         else {
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: 'Disconnected',
-            secondLine: 'Check your Internet connection',
+            firstLine: const Verse(
+              text: 'phid_disconnected',
+              translate: true,
+            ),
+            secondLine: const Verse(
+              text: 'phid_check_your_internet_connection',
+              translate: true,
+            ),
             color: Colorz.red255,
           );
         }
