@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
@@ -34,7 +35,10 @@ class RenovateBzProtocols {
     if (showWaitDialog == true){
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: '##Updating Business account',
+        loadingVerse: const Verse(
+          text: 'phid_updating_bz_account',
+          translate: true,
+        ),
       ));
     }
 
@@ -81,8 +85,15 @@ class RenovateBzProtocols {
         /// SHOW SUCCESS DIALOG
         unawaited(TopDialog.showTopDialog(
           context: context,
-          firstLine: '##Great !',
-          secondLine: '##Successfully updated your Business Account',
+          firstVerse: const Verse(
+            text: 'phid_great',
+            translate: true,
+          ),
+          secondVerse: const Verse(
+            pseudo: '##Successfully updated your Business Account',
+            text: 'phid_updated_bz_successfully',
+            translate: true,
+          ),
           color: Colorz.green255,
           textColor: Colorz.white255,
         ));
@@ -190,8 +201,15 @@ class RenovateBzProtocols {
     /// FAILURE DIALOG
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Ops !',
-      bodyVerse: '##Something went wrong, Please try again',
+      titleVerse: const Verse(
+        pseudo: '##Ops !',
+        text: 'phid_ops_!',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_somethingIsWrong',
+        translate: true,
+      ),
     );
 
   }

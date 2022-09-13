@@ -364,22 +364,22 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateContactType({
+  static String getContactTypePhid({
     @required BuildContext context,
     @required ContactType contactType,
   }){
 
     switch (contactType){
-      case ContactType.phone:      return '##phone'; break;
-      case ContactType.email:      return '##email'; break;
-      case ContactType.website:    return '##website'; break;
-      case ContactType.facebook:   return '##facebook'; break;
-      case ContactType.linkedIn:   return '##linkedIn'; break;
-      case ContactType.youtube:    return '##youtube'; break;
-      case ContactType.instagram:  return '##instagram'; break;
-      case ContactType.pinterest:  return '##pinterest'; break;
-      case ContactType.tiktok:     return '##tiktok'; break;
-      case ContactType.twitter:    return '##twitter'; break;
+      case ContactType.phone:      return 'phid_phone'; break;
+      case ContactType.email:      return 'phid_email'; break;
+      case ContactType.website:    return 'phid_website'; break;
+      case ContactType.facebook:   return 'phid_facebook'; break;
+      case ContactType.linkedIn:   return 'phid_linkedIn'; break;
+      case ContactType.youtube:    return 'phid_youtube'; break;
+      case ContactType.instagram:  return 'phid_instagram'; break;
+      case ContactType.pinterest:  return 'phid_pinterest'; break;
+      case ContactType.tiktok:     return 'phid_tiktok'; break;
+      case ContactType.twitter:    return 'phid_twitter'; break;
       default: return null;
 
     }

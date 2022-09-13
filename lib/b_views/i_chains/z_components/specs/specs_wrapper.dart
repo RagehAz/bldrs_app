@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -80,8 +81,10 @@ class SpecsWrapper extends StatelessWidget {
 
                   return SpecLabel(
                     xIsOn: xIsOn,
-                    value: _spec.value.toString(),
-                    translate: true,
+                    verse: Verse(
+                      text: _spec.value.toString(),
+                      translate: true,
+                    ),
                     onTap: () => onSpecTap(<SpecModel>[_spec]),
                   );
 
@@ -90,8 +93,10 @@ class SpecsWrapper extends StatelessWidget {
           if (_combineTwoSpecs == true)
             SpecLabel(
               xIsOn: xIsOn,
-              value: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
-              translate: false,
+              verse: Verse(
+                text: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
+                translate: false,
+              ),
               onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
             ),
 

@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_build
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/b_chains_builder.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
@@ -53,7 +54,7 @@ class ChainSplitter extends StatelessWidget {
   final ValueChanged<String> onLongPress;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  String createSecondLine(ChainSecondLinesType type, String phid, {int index}){
+  Verse createSecondLineVerse(ChainSecondLinesType type, String phid, {int index}){
     String _output;
 
     if (type == ChainSecondLinesType.id){
@@ -68,7 +69,7 @@ class ChainSplitter extends StatelessWidget {
       _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
     }
 
-    return _output;
+    return Verse(text: _output, translate: false);
   }
   // --------------------------------------------------------------------------
   @override
@@ -92,7 +93,7 @@ class ChainSplitter extends StatelessWidget {
 
       return PhidButton(
         phid: _phid,
-        secondLine: createSecondLine(secondLinesType, _phid),
+        secondLine: createSecondLineVerse(secondLinesType, _phid),
         width: _width,
         level: level,
         searchText: searchText,
@@ -139,8 +140,11 @@ class ChainSplitter extends StatelessWidget {
         chain: _chain,
         boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
-        firstHeadline: Phider.removeIndexFromPhid(phid: _chain.id),
-        secondHeadline: createSecondLine(secondLinesType, _chain.id),
+        firstHeadline: Verse(
+          text: Phider.removeIndexFromPhid(phid: _chain.id),
+          translate: true,
+        ),
+        secondHeadline: createSecondLineVerse(secondLinesType, _chain.id),
         initiallyExpanded: initiallyExpanded,
         onPhidTap: onSelectPhid,
         onLongPress: onLongPress,
@@ -188,7 +192,7 @@ class ChainSplitter extends StatelessWidget {
 
       return PhidButton(
         phid: DataCreation.cipherDataCreator(_phid),
-        secondLine: createSecondLine(secondLinesType, _phid.toString()),
+        secondLine: createSecondLineVerse(secondLinesType, _phid.toString()),
         width: _width,
         level: level,
         searchText: searchText,

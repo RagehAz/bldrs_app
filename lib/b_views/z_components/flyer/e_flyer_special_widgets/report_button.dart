@@ -21,15 +21,18 @@ class ReportButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _verse = modelType == ModelType.flyer ? 'Report Flyer'
+    final String _buttonPhid = modelType == ModelType.flyer ? 'phid_report_flyer'
         :
-    modelType == ModelType.bz ? 'Report Business Account'
+    modelType == ModelType.bz ? 'phid_report_bz_account'
         :
-    'Report';
+    'phid_report';
     // --------------------
     return DreamBox(
       height: 35,
-      verse: _verse,
+      verse: Verse(
+        text: _buttonPhid,
+        translate: true,
+      ),
       color: color,
       icon: Iconz.yellowAlert,
       margins: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

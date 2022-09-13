@@ -66,7 +66,7 @@ class GenderBubble extends StatelessWidget {
                     (index){
 
                   final Gender _gender = UserModel.gendersList[index];
-                  final String _genderString = UserModel.translateGender(_gender);
+                  final String _genderPhid = UserModel.getGenderPhid(_gender);
                   final String _genderIcon = UserModel.genderIcon(_gender);
 
                   final bool _isSelected = _gender == userModel.gender;
@@ -88,7 +88,10 @@ class GenderBubble extends StatelessWidget {
                     height: 50,
                     width: _buttonWidth,
                     color: _buttonColor,
-                    verse: _genderString,
+                    verse: Verse(
+                      text: _genderPhid,
+                      translate: true,
+                    ),
                     verseColor: _verseColor,
                     verseScaleFactor: 1.2,
                     verseCentered: false,

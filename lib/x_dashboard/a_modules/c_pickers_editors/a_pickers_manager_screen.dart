@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
@@ -111,7 +112,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         AppBarButton(
           icon: Iconz.star,
-          verse:  'thing',
+          verse: Verse.plain('thing'),
           // buttonColor:
           // verseColor: Colorz.white255,
           onTap: (){
@@ -133,7 +134,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// VIEWING SPEC PICKERS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: 'Fetch Picker and go',
+          headlineVerse: Verse.plain('Fetch Picker and go'),
         ),
 
         /// GO TO PICKERS SCREEN
@@ -143,8 +144,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
           // final String _translatedFlyerType = FlyerTyper.cipherFlyerType(_flyerType);
 
           return WideButton(
-            translate: false,
-            verse:  'Edit ${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers',
+            verse: Verse.plain('Edit ${FlyerTyper.cipherFlyerType(_flyerType).toUpperCase()} Pickers'),
             icon: FlyerTyper.flyerTypeIconOff(_flyerType),
             onTap: () async {
 
@@ -181,13 +181,12 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// SPEC REAL OPS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: 'COMPOSING',
+          headlineVerse: Verse.plain('COMPOSING'),
         ),
 
         /// COMPOSE PICKERS
         WideButton(
-          verse:  'COMPOSE : first all pickers',
-          translate: false,
+          verse: Verse.plain('COMPOSE : first all pickers'),
           // isActive: true,
           onTap: () async {
 
@@ -284,13 +283,12 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// VIEWING SPEC PICKERS
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse: 'BLOG PICKERS',
+          headlineVerse: Verse.plain('BLOG PICKERS'),
         ),
 
         /// BLOG
         WideButton(
-          translate: false,
-          verse:  'BLOG ( FlyerType.project ) PICKERS',
+          verse: Verse.plain('BLOG ( FlyerType.project ) PICKERS'),
           // isActive: false,
           onTap: () async {
 

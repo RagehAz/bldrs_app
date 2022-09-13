@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
@@ -67,8 +68,14 @@ class Storage {
           /// TASK : this is temp ,, or see how it goes
           await CenterDialog.showCenterDialog(
             context: context,
-            titleVerse:  'Something is wrong',
-            bodyVerse:  'Could not get this image',
+            titleVerse: const Verse(
+              text: 'phid_somethingIsWrong',
+              translate: true,
+            ),
+            bodyVerse: const Verse(
+              text: 'phid_could_not_get_this_image',
+              translate: true,
+            ),
           );
         });
 

@@ -234,9 +234,19 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
           if (_specsChanged == true){
             _canContinue = await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: '##Discard Changes',
-              bodyVerse: '##This will ignore All selection changes',
-              confirmButtonVerse: '##Discard',
+              titleVerse: const Verse(
+                text: 'phid_discard_changes',
+                translate: true,
+              ),
+              bodyVerse: const Verse(
+                pseudo: '##This will ignore All selection changes',
+                text: 'phid_discard_changed_warning',
+                translate: true,
+              ),
+              confirmButtonVerse: const Verse(
+                text: 'phid_discard',
+                translate: true,
+              ),
               boolDialog: true,
             );
           }
@@ -251,7 +261,11 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
       },
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
-        firstLine: '##Confirm ${widget.pageTitleVerse}',
+        firstLine: Verse(
+          text: '##Confirm ${widget.pageTitleVerse}',
+          translate: true,
+          varTag: widget.pageTitleVerse,
+        ),
         onTap: (){
           Nav.goBack(
             context: context,
@@ -282,7 +296,10 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         _isSearching.value = false;
       },
       searchController: _searchTextController,
-      searchHintVerse: '##Search keywords',
+      searchHintVerse: const Verse(
+        text: 'phid_search_keywords',
+        translate: true,
+      ),
       layoutWidget: Selector<ChainsProvider, List<Chain>>(
         selector: _getProChains,
         // child: ,

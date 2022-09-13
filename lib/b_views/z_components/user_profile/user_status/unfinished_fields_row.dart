@@ -8,14 +8,14 @@ class FieldsRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FieldsRow({
     @required this.openList,
-    @required this.fields,
-    @required this.title,
+    @required this.fieldsVerses,
+    @required this.titleVerse,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function openList;
-  final List<String> fields;
-  final String title;
+  final List<Verse> fieldsVerses;
+  final Verse titleVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,10 @@ class FieldsRow extends StatelessWidget {
         /// --- FIELDS TITLE
         Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5),
+              horizontal: _buttonSpacing * 2, vertical: _buttonSpacing * 0.5
+          ),
           child: SuperVerse(
-            verse: title,
+            verse: titleVerse,
             margin: 0,
             centered: false,
             italic: true,
@@ -70,9 +71,9 @@ class FieldsRow extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     runAlignment: WrapAlignment.center,
-                    children: List<Widget>.generate(fields.length, (int index) {
+                    children: List<Widget>.generate(fieldsVerses.length, (int index) {
                       return SuperVerse(
-                        verse: fields[index],
+                        verse: fieldsVerses[index],
                         labelColor: Colorz.white50,
                         margin: _boxHeight * 0,
                       );

@@ -111,7 +111,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: '##${widget.flyerType} Picker Editor',
+      pageTitleVerse: Verse.plain('${widget.flyerType} Picker Editor'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
@@ -155,7 +155,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                   );
 
                   return AppBarButton(
-                    verse:  'Sync',
+                    verse: Verse.plain('Sync'),
                     isDeactivated: _areIdentical,
                     buttonColor: Colorz.yellow255,
                     verseColor: Colorz.black255,
@@ -240,8 +240,10 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                     return WideButton(
                       key: const ValueKey<String>('add_button'),
-                      verse: 'Add',
-                      translate: false,
+                      verse: const Verse(
+                        text: 'Add',
+                        translate: false,
+                      ),
                       onTap: () => onAddNewPickers(
                         context: context,
                         tempPickers: _tempPickers,
@@ -261,11 +263,15 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                         alignment: Alignment.centerLeft,
                         child: DreamBox(
                           height: 40,
-                          verse:  '$index : ${xPhrase(context, _picker.groupID)}',
-                          translateVerse: false,
-                          secondLine: _picker.chainID,
-                          translateSecondLine: false,
-                          verseCasing: Casing.upperCase,
+                          verse: Verse(
+                            text: '$index : ${xPhrase(context, _picker.groupID)}',
+                            translate: false,
+                            casing: Casing.upperCase,
+                          ),
+                          secondLine: Verse(
+                            text: _picker.chainID,
+                            translate: false,
+                          ),
                           margins: 10,
                           verseScaleFactor: 0.65,
                           verseItalic: true,

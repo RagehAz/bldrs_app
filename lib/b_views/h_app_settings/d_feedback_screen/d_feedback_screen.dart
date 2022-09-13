@@ -84,15 +84,27 @@ class _FeedBackState extends State<FeedBack> {
     if (_uploadedModel == null){
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '##Not Sent',
-        bodyVerse: '##Sorry !, something went wrong',
+        titleVerse: const Verse(
+          text: 'phid_not_sent',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          text: 'phid_somethingIsWrong',
+          translate: true,
+        ),
       );
     }
     else {
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '##Thanks',
-        bodyVerse: '##FeedBack sent',
+        titleVerse: const Verse(
+          text: 'phid_thanks',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          text: 'phid_feedback_has_been_sent',
+          translate: true,
+        ),
       );
     }
 
@@ -100,6 +112,7 @@ class _FeedBackState extends State<FeedBack> {
       context: context,
       invoker: 'FeedbackScreen',
     );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -116,7 +129,10 @@ class _FeedBackState extends State<FeedBack> {
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
-      pageTitleVerse: 'phid_feedback',
+      pageTitleVerse: const Verse(
+        text: 'phid_feedback',
+        translate: true,
+      ),
       skyType: SkyType.non,
       // loading: _loading,
       layoutWidget: ListView(
@@ -160,7 +176,10 @@ class _FeedBackState extends State<FeedBack> {
             appBarType: AppBarType.basic,
             leadingIcon: _userModel?.pic,
             bubbleColor: Colorz.white20,
-            titleVerse: '##Feedback',
+            titleVerse: const Verse(
+              text: 'phid_feedback',
+              translate: true,
+            ),
             textController: _feedbackController,
             // loading: _loading,
             maxLines: 5,

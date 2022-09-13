@@ -19,11 +19,18 @@ class RemainingSlidesCounter extends StatelessWidget {
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 1.3,
-      verse: '##$_numberOfSlides slides',
+      verse: const Verse(
+        text: '##$_numberOfSlides slides',
+        translate: true,
+        varTag: _numberOfSlides,
+      ),
       verseItalic: true,
       verseMaxLines: 2,
       verseScaleFactor: 0.5,
-      secondLine: '##available',
+      secondLine: const Verse(
+        text: 'phid_available',
+        translate: true,
+      ),
       secondLineScaleFactor: 0.9,
       verseCentered: false,
       bubble: false,
@@ -32,8 +39,15 @@ class RemainingSlidesCounter extends StatelessWidget {
         final dynamic _result = await CenterDialog.showCenterDialog(
           context: context,
           boolDialog: true,
-          titleVerse: '##No Slides left',
-          bodyVerse: "##You don't have any more slides to add\nWould you wish to get more slides ?",
+          titleVerse: const Verse(
+            text: 'phid_no_slides_left',
+            translate: true,
+          ),
+          bodyVerse: const Verse(
+            pseudo: "##You don't have any more slides to add\nWould you wish to get more slides ?",
+            text: 'phid_no_slides_left_description',
+            translate: true,
+          ),
         );
 
         if (_result == false) {

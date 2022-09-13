@@ -49,7 +49,10 @@ class SearchHistoryView extends StatelessWidget {
                 DreamBox(
                   height: 50,
                   width: Scale.superScreenWidth(context) - (2 * Ratioz.appBarMargin) - 60,
-                  verse: _searchRecord?.recordDetails.toString(),
+                  verse: Verse(
+                    text: _searchRecord?.recordDetails.toString(),
+                    translate: false,
+                  ),
                   icon: Iconz.clock,
                   iconSizeFactor: 0.4,
                   verseCentered: false,

@@ -58,7 +58,7 @@ class _LockTestScreenState extends State<LockTestScreen> {
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Alf Mabrouk , etfaddal m3ana',
+        firstVerse: Verse.plain('Alf Mabrouk , etfaddal m3ana'),
         color: Colorz.green255,
         textColor: Colorz.white255,
       );
@@ -69,7 +69,7 @@ class _LockTestScreenState extends State<LockTestScreen> {
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'You Shall Not pass',
+        firstVerse: Verse.plain('You Shall Not pass'),
         color: Colorz.red255,
         textColor: Colorz.white255,
       );
@@ -86,10 +86,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
-      pageTitleVerse:  'Lock Test',
+      pageTitleVerse: Verse.plain('Lock Test'),
       appBarType: AppBarType.basic,
       confirmButtonModel: ConfirmButtonModel(
-        firstLine:  'Open Sesame',
+        firstLine: Verse.plain('Open Sesame'),
         onTap: _onOpenSesame,
       ),
       layoutWidget: Container(

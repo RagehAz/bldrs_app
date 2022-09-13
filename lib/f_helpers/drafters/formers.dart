@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -663,9 +664,12 @@ class Formers {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'phid_complete_your_profile',
-      bodyVerse:  '##Required fields :\n'
-          '$_missingFieldsString',
+      titleVerse: const Verse(text: 'phid_complete_your_profile', translate: true),
+      bodyVerse: Verse(
+        text: '##Required fields :\n$_missingFieldsString',
+        translate: true,
+        varTag: _missingFieldsString,
+      ),
     );
 
   }

@@ -1,15 +1,12 @@
-import 'package:bldrs/a_models/chain/aaa_phider.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
@@ -779,81 +776,6 @@ class _TheVerse extends StatelessWidget {
 
     }
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String convertVerseCase({
-    @required String verse,
-    @required Casing verseCasing,
-  }){
-
-    switch (verseCasing){
-      case Casing.non:             return verse;                   break;
-      case Casing.lowerCase:       return verse.toLowerCase();     break;
-      case Casing.upperCase:       return verse.toUpperCase();     break;
-    // case VerseCasing.Proper:          return properVerse(verse);      break;
-    // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
-    // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
-      default: return verse;
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String bakeVerseForViewing({
-    @required BuildContext context,
-    @required Verse verse,
-  }){
-
-    String _output = verse.translate == true ? verse.text.trim() : '.${verse.text}';
-
-    if (verse.translate == true){
-
-      /// ADJUST VALUE
-      if (TextCheck.isEmpty(_output) == false){
-
-        /// IS PHID
-        final bool _isPhid = Phider.checkVerseIsPhid(_output);
-        final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
-        if (_isPhid == true || _isCurrency == true){
-
-          final String _foundXPhrase = xPhrase(context, verse.text);
-
-          /// X PHRASE NOT FOUND
-          if (_foundXPhrase == null){
-            _output = '?$_output';
-          }
-
-          /// X PHRASE FOUND
-          else {
-            _output = '.$_foundXPhrase';
-          }
-
-        }
-
-        /// NOT NOT PHID
-        else {
-
-          /// IS TEMP
-          final bool _isTemp = Phider.checkVerseIsTemp(_output);
-          if (_isTemp == true){
-            _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
-            _output = '##$_output';
-          }
-
-          /// NOT TEMP - NOT PHID
-          else {
-            _output = '>$_output';
-          }
-
-        }
-
-      }
-
-    }
-
-    /// ADJUST CASING
-    return convertVerseCase(verse: _output, verseCasing: verse.casing);
-  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -877,7 +799,7 @@ class _TheVerse extends StatelessWidget {
       strikeThrough: strikeThrough,
     );
     // --------------------
-    final String _verse = bakeVerseForViewing(
+    final String _verse = Verse.bakeVerseToString(
       context: context,
       verse: verse,
     );

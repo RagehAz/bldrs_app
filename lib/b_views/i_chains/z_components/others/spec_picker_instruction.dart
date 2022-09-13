@@ -15,7 +15,7 @@ class ChainInstructions extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String instructions;
+  final Verse instructions;
   final String leadingIcon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------

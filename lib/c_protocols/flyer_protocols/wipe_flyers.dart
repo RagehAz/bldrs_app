@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/flyers_provider.dart';
@@ -40,7 +41,10 @@ class WipeFlyerProtocols {
       if (showWaitDialog == true){
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse: '##Deleting flyer',
+          loadingVerse: const Verse(
+            text: 'phid_deleting_flyer',
+            translate: true,
+          ),
         ));
       }
 
@@ -121,7 +125,10 @@ class WipeFlyerProtocols {
       if (showWaitDialog == true){
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse: '##Deleting flyers',
+          loadingVerse: const Verse(
+            text: 'phid_deleting_flyers',
+            translate: true,
+          ),
         ));
       }
 

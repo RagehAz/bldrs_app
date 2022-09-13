@@ -83,7 +83,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
                   width: BldrsAppBar.width(context) - 20,
                   height: 50,
                   color: Colorz.bloodTest,
-                  verse:  '${_enPhrase.id} : ${_enPhrase.value} : ar is null',
+                  verse: Verse.plain('${_enPhrase.id} : ${_enPhrase.value} : ar is null'),
                   verseScaleFactor: 0.7,
                   verseCentered: false,
                   verseWeight: VerseWeight.thin,

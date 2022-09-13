@@ -35,7 +35,7 @@ class ContactsBubble extends StatelessWidget {
       absorbing: !canLaunchOnTap,
       child: Bubble(
         headerViewModel: BubbleHeaderVM(
-          headlineVerse: 'phid_contacts',
+          headlineVerse: const Verse(text: 'phid_contacts', translate: true),
           headerWidth: Bubble.clearWidth(context) - 20,
         ),
         columnChildren: <Widget>[
@@ -53,7 +53,7 @@ class ContactsBubble extends StatelessWidget {
                   height: _contactBoxHeight,
                   icon: ContactModel.concludeContactIcon(_contact.type),
                   margins: const EdgeInsets.all(_abPadding),
-                  verse: _contact?.value,
+                  verse: Verse.plain(_contact?.value),
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,
                   iconSizeFactor: 0.6,

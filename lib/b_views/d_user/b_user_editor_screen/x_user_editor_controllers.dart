@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/x5_user_settings_page
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/a_user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/auth_ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/user_ldb_ops.dart';
@@ -84,8 +85,14 @@ Future<void> loadUserEditorLastSession({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'phid_load_last_session_data_q',
-      bodyVerse: 'phid_want_to_load_last_session_q',
+      titleVerse: const Verse(
+        text: 'phid_load_last_session_data_q',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_want_to_load_last_session_q',
+        translate: true,
+      ),
       boolDialog: true,
     );
 
@@ -346,16 +353,29 @@ Future<void> confirmEdits({
     if (_shouldReAuthenticate == true){
       _continueOps = await reAuthenticateUser(
         context: context,
-        dialogTitle: 'User Check',
-        dialogBody: 'Please add your password to be able to continue',
-        confirmButtonText: 'Continue',
+        dialogTitleVerse: const Verse(
+          text: 'phid_enter_your_password',
+          translate: true,
+        ),
+        dialogBodyVerse: const Verse(
+          pseudo: 'Please add your password to be able to continue',
+          text: 'phid_enter_your_password_description',
+          translate: true,
+        ),
+        confirmButtonVerse: const Verse(
+          text: 'phid_continue',
+          translate: true,
+        ),
       );
     }
     else {
       _continueOps = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '',
-        bodyVerse: '##Are you sure you want to continue ?',
+        bodyVerse: const Verse(
+          text: 'phid_you_want_to_continue',
+          translate: true,
+          pseudo: 'Are you sure you want to continue ?'
+        ),
         boolDialog: true,
       );
     }
@@ -407,7 +427,10 @@ Future<UserModel> _updateUserModel({
   loading.value = true;
   unawaited(WaitDialog.showWaitDialog(
     context: context,
-    loadingVerse: '##Updating Profile',
+    loadingVerse: const Verse(
+      text: 'phid_updating_profile',
+      translate: true,
+    ),
   ));
 
   /// start create user ops
@@ -422,8 +445,15 @@ Future<UserModel> _updateUserModel({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Great !',
-    bodyVerse:  '##Successfully updated your user account',
+    titleVerse: const Verse(
+      text: 'phid_great_!',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'Successfully updated your user account',
+      text: 'phid_updated_your_profile_successfully',
+      translate: true,
+    ),
   );
 
   return _uploadedUserModel;

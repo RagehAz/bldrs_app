@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -5,9 +6,8 @@ class KeyboardModel {
   // -----------------------------------------------------------------------------
   const KeyboardModel({
     @required this.titleVerse,
-    @required this.translateTitle,
-    this.initialText = '',
-    this.hintVerse = '...',
+    this.initialText,
+    this.hintVerse,
     this.minLines = 1,
     this.maxLines = 2,
     this.maxLength,
@@ -26,9 +26,8 @@ class KeyboardModel {
     this.validator,
   });
   // -----------------------------------------------------------------------------
-  final String titleVerse;
-  final bool translateTitle;
-  final String hintVerse;
+  final Verse titleVerse;
+  final Verse hintVerse;
   final String initialText;
   final int minLines;
   final int maxLines;
@@ -54,9 +53,8 @@ class KeyboardModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   KeyboardModel copyWith({
-    String titleVerse,
-    bool translateTitle,
-    String hintVerse,
+    Verse titleVerse,
+    Verse hintVerse,
     String initialText,
     int minLines,
     int maxLines,
@@ -77,7 +75,6 @@ class KeyboardModel {
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
-      translateTitle: translateTitle ?? this.translateTitle,
       hintVerse: hintVerse ?? this.hintVerse,
       initialText: initialText ?? this.initialText,
       minLines: minLines ?? this.minLines,
@@ -106,8 +103,10 @@ class KeyboardModel {
   static KeyboardModel standardModel(){
     return const KeyboardModel(
       titleVerse: null,
-      translateTitle: false,
-      // hintText: '...',
+      hintVerse: Verse(
+        text: '...',
+        translate: false,
+      ),
       // minLines: 1,
       maxLines: 1,
       // maxLength: null,
@@ -141,7 +140,6 @@ class KeyboardModel {
     }
     else if (
     modelA.titleVerse == modelB.titleVerse &&
-        modelA.translateTitle == modelB.translateTitle &&
         modelA.hintVerse == modelB.hintVerse &&
         modelA.initialText == modelB.initialText &&
         modelA.minLines == modelB.minLines &&
@@ -198,7 +196,6 @@ class KeyboardModel {
   int get hashCode =>
       initialText.hashCode^
       titleVerse.hashCode^
-      translateTitle.hashCode^
       hintVerse.hashCode^
       minLines.hashCode^
       maxLines.hashCode^

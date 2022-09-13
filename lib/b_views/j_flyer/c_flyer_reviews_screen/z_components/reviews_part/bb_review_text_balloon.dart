@@ -87,7 +87,10 @@ class ReviewTextBalloon extends StatelessWidget {
                 SuperTextField(
                   appBarType: appBarType,
                   globalKey: globalKey,
-                  titleVerse: '##Edit Review',
+                  titleVerse: const Verse(
+                    text: 'phid_edit_review',
+                    translate: true,
+                  ),
                   width: _textBubbleWidth,
                   textController: reviewTextController,
                   maxLines: 5,
@@ -109,7 +112,11 @@ class ReviewTextBalloon extends StatelessWidget {
                   children: <Widget>[
 
                     DreamBox(
-                      verse: '##SUBMIT',
+                      verse: const Verse(
+                        text: 'phid_submit',
+                        translate: true,
+                        casing: Casing.upperCase,
+                      ),
                       height: 40,
                       color: Colorz.yellow255,
                       verseColor: Colorz.black255,

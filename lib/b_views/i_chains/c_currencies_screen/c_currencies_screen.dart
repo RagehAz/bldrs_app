@@ -128,8 +128,14 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     _currentCurrency.blogCurrency();
     // --------------------
     return MainLayout(
-      pageTitleVerse: '##Select Currency',
-      searchHintVerse: '##Search Currencies',
+      pageTitleVerse: const Verse(
+        text: 'phid_select_currency',
+        translate: true,
+      ),
+      searchHintVerse: const Verse(
+        text: 'phid_search_currencies',
+        translate: true,
+      ),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
@@ -299,8 +305,10 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                         else {
                           return WideButton(
                             width: PageBubble.clearWidth(context) - 20,
-                            verse: '##Show all currencies',
-                            translate: true,
+                            verse: const Verse(
+                              text: 'phid_show_all_currencies',
+                              translate: true,
+                            ),
                             onTap: (){
                               _showAllCurrencies.value = !_showAllCurrencies.value;
                             },

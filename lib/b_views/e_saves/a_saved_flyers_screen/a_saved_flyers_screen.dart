@@ -60,7 +60,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitleVerse: 'phid_savedFlyers',
+      pageTitleVerse: const Verse(
+        text: 'phid_savedFlyers',
+        translate: true,
+      ),
       sectionButtonIsOn: false,
       onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
       layoutWidget:

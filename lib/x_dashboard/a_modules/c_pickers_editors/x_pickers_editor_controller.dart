@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -44,7 +45,10 @@ Future<void> onSyncSpecPickers({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: 'Sync Successful',
+      firstLine: const Verse(
+        text: 'Sync Successful',
+        translate: false,
+      ),
     );
 
   }
@@ -104,8 +108,14 @@ Future<void> onChangeGroupIDForAllItsPickers({
 
     final bool _continue = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: 'replace ( $oldGroupID ) with ( $_phid ) ?',
-      bodyVerse: 'This will change all pickers of this group ( $oldGroupID )',
+      titleVerse: Verse(
+        text: 'replace ( $oldGroupID ) with ( $_phid ) ?',
+        translate: false,
+      ),
+      bodyVerse: Verse(
+        text: 'This will change all pickers of this group ( $oldGroupID )',
+        translate: false,
+      ),
     );
 
     if (_continue == true){
@@ -136,9 +146,14 @@ Future<void> onChangeGroupIDForSinglePicker({
   _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'Edit ChainID',
-      translateTitle: false,
-      hintVerse:  'Edit ChainID',
+      titleVerse: const Verse(
+        text: 'Edit ChainID',
+        translate: false,
+      ),
+      hintVerse: const Verse(
+        text: 'Edit ChainID',
+        translate: false,
+      ),
       initialText: _initialText,
       isFloatingField: false,
     ),
@@ -148,8 +163,14 @@ Future<void> onChangeGroupIDForSinglePicker({
 
     final bool _continue = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: 'replace ( ${picker.groupID} ) with ( $_initialText ) ?',
-      bodyVerse: 'This will impact only this picker of chainID ( ${picker.chainID} )',
+      titleVerse: Verse(
+        text: 'replace ( ${picker.groupID} ) with ( $_initialText ) ?',
+        translate: false,
+      ),
+      bodyVerse: Verse(
+        text: 'This will impact only this picker of chainID ( ${picker.chainID} )',
+        translate: false,
+      ),
     );
 
     if (_continue == true){
@@ -182,9 +203,14 @@ Future<void> onPickerChainIDTap({
   _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'Edit ChainID',
-      translateTitle: false,
-      hintVerse:  'Edit ChainID',
+      titleVerse: const Verse(
+        text: 'Edit ChainID',
+        translate: false,
+      ),
+      hintVerse: const Verse(
+        text: 'Edit ChainID',
+        translate: false,
+      ),
       initialText: _initialText,
       isFloatingField: false,
     ),
@@ -218,9 +244,14 @@ Future<void> onPickerUnitChainIDTap({
   _initialText = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'Edit Unit ChainID',
-      translateTitle: false,
-      hintVerse:  'Edit Unit ChainID',
+      titleVerse: const Verse(
+        text: 'Edit Unit ChainID',
+        translate: false,
+      ),
+      hintVerse: const Verse(
+        text: 'Edit Unit ChainID',
+        translate: false,
+      ),
       initialText: _initialText,
       isFloatingField: false,
     ),
@@ -307,7 +338,7 @@ Future<void> onAddNewPickers({
 
     final bool _continue = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: 'Add ( $_phid ) as chainID for new picker ?',
+      titleVerse: Verse.plain('Add ( $_phid ) as chainID for new picker ?'),
     );
 
     if (_continue == true){
@@ -335,9 +366,9 @@ Future<void> onAddNewPickers({
       if (_containsPhid == true){
         await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: '$_phid is already taken',
-          bodyVerse: 'Can not add an new picker with this chain ID',
-          confirmButtonVerse: 'Eshta',
+          titleVerse: Verse.plain('$_phid is already taken'),
+          bodyVerse: Verse.plain('Can not add an new picker with this chain ID'),
+          confirmButtonVerse: Verse.plain('Eshta'),
         );
       }
       else {
@@ -361,9 +392,9 @@ Future<void> onDeletePicker({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: 'Delete this picker of chainID : ( ${picker.chainID} )',
+    titleVerse: Verse.plain('Delete this picker of chainID : ( ${picker.chainID} )'),
     boolDialog: true,
-    confirmButtonVerse: 'phid_delete',
+    confirmButtonVerse: Verse.plain('Delete'),
   );
 
   if (_continue == true){
@@ -392,9 +423,9 @@ Future<void> switchHeadline({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: _notice,
+    titleVerse: Verse.plain(_notice),
     boolDialog: true,
-    confirmButtonVerse: 'Switch',
+    confirmButtonVerse: Verse.plain('Switch'),
   );
 
   if (_continue == true){
@@ -424,7 +455,7 @@ Future<void> onHeadlineTap({
       context: context,
       draggable: true,
       numberOfWidgets: 4,
-      title: 'Edit Headline ( ${picker.chainID} )',
+      titleVerse:  Verse.plain('Edit Headline ( ${picker.chainID} )'),
       // buttonHeight: BottomDialog.wideButtonHeight,
       builder: (_, PhraseProvider phrasePro){
 
@@ -433,7 +464,7 @@ Future<void> onHeadlineTap({
           /// SWITCH HEADLINE TO NORMAL PICKER
           BottomDialog.wideButton(
             context: context,
-            verse: 'Switch to Normal Picker',
+            verse: const Verse(text: 'Switch to Normal Picker', translate: false),
             onTap: () async {
 
               Dialogs.closDialog(context);
@@ -450,7 +481,7 @@ Future<void> onHeadlineTap({
           /// CHANGE CHAIN ID
           BottomDialog.wideButton(
             context: context,
-            verse: 'change ChainID',
+            verse: const Verse(text: 'change ChainID', translate: false),
             onTap: () async {
 
               Dialogs.closDialog(context);
@@ -467,7 +498,7 @@ Future<void> onHeadlineTap({
           /// CHANGE GROUP ID
           BottomDialog.wideButton(
             context: context,
-            verse: 'change GroupID',
+            verse: const Verse(text: 'change GroupID', translate: false),
             onTap: () async {
 
               Dialogs.closDialog(context);
@@ -484,7 +515,7 @@ Future<void> onHeadlineTap({
           /// DELETE
           BottomDialog.wideButton(
             context: context,
-            verse: 'Delete',
+            verse: const Verse(text: 'Delete', translate: false),
             onTap: () async {
 
               Dialogs.closDialog(context);

@@ -19,8 +19,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.layoutWidget,
     @required this.appBarType,
     @required this.appBarRowWidgets,
-    @required this.pageTitle,
-    @required this.translatePageTitle,
+    @required this.pageTitleVerse,
     @required this.onBack,
     @required this.loading,
     @required this.progressBarModel,
@@ -31,7 +30,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.sectionButtonIsOn,
     @required this.historyButtonIsOn,
     @required this.pyramidsAreOn,
-    @required this.searchHint,
+    @required this.searchHintVerse,
     @required this.pyramidType,
     @required this.onPyramidTap,
     @required this.canGoBack,
@@ -46,8 +45,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final Widget layoutWidget;
   final AppBarType appBarType;
   final List<Widget> appBarRowWidgets;
-  final dynamic pageTitle;
-  final bool translatePageTitle;
+  final Verse pageTitleVerse;
   final Function onBack;
   // final bool loading;
   final ScrollController appBarScrollController;
@@ -57,7 +55,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool pyramidsAreOn;
   final bool historyButtonIsOn;
   final bool sectionButtonIsOn;
-  final String searchHint;
+  final Verse searchHintVerse;
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final PyramidType pyramidType;
@@ -128,8 +126,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             key: const ValueKey<String>('appBar'),
             appBarType: appBarType,
             appBarRowWidgets: appBarRowWidgets,
-            pageTitle: pageTitle,
-            translatePageTitle: translatePageTitle,
+            pageTitleVerse: pageTitleVerse,
             onBack: onBack,
             loading: loading,
             progressBarModel: progressBarModel,
@@ -139,7 +136,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchSubmit: onSearchSubmit,
             onSearchChanged: onSearchChanged,
             historyButtonIsOn: historyButtonIsOn,
-            searchHint: searchHint,
+            searchHintVerse: searchHintVerse,
             canGoBack: canGoBack,
             onSearchCancelled: onSearchCancelled,
           ),

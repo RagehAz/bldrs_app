@@ -29,7 +29,7 @@ class CurrencyManagerScreen extends StatelessWidget {
     final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
 
     return MainLayout(
-      pageTitleVerse:  'Currencies',
+      pageTitleVerse: Verse.plain('Currencies'),
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,
@@ -39,7 +39,7 @@ class CurrencyManagerScreen extends StatelessWidget {
         const Expander(),
 
         AppBarButton(
-          verse:  'Backup',
+          verse: Verse.plain('Backup'),
           onTap: () => onBackupCurrencies(context),
         ),
 
@@ -61,7 +61,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                 children: <Widget>[
 
                   SuperVerse(
-                    verse: _number,
+                    verse: Verse.plain(_number),
                     labelColor: Colorz.black125,
                     margin: 5,
                   ),

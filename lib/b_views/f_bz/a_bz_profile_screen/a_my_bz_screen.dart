@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
@@ -109,10 +110,12 @@ class MyBzScreen extends StatelessWidget {
 
                     return NavModel(
                       id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
-                      title: BzModel.translateBzTab(context: context, bzTab: _bzTab),
+                      titleVerse: Verse(
+                        text: BzModel.getBzTabPhid(bzTab: _bzTab),
+                        translate: true,
+                      ),
                       icon: BzModel.getBzTabIcon(_bzTab),
                       screen: MyBzScreenPages.pages[index],
-                      translateTitle: true,
                     );
 
                   }),

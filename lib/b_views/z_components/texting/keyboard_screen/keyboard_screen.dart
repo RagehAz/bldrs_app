@@ -168,7 +168,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
                 titleVerse: _keyboardModel.titleVerse,
-                translateTitle: _keyboardModel.translateTitle,
                 textController: _controller,
                 maxLines: _keyboardModel.maxLines,
                 minLines: _keyboardModel.minLines,

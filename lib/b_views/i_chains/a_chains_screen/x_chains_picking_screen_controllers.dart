@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -87,7 +88,10 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       flyerTypesChainFilters: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
-      pageTitleVerse: '##Browse Flyers by Keyword',
+      pageTitleVerse: const Verse(
+        text: 'phid_browse_flyers_by_keyword',
+        translate: true,
+      ),
       zone: ZoneProvider.proGetCurrentZone(
         context: context,
         listen: false,
@@ -135,22 +139,32 @@ Future<void> _setActivePhidK({
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final String _currentCityID = _zoneProvider.currentZone.cityID;
 
-    final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
-        context: context,
+    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: _flyerType
     );
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Section "$_flyerTypeString" is\nTemporarily closed in $_currentCityID',
-      bodyVerse: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+      titleVerse: Verse(
+        text: '##Section "$_flyerTypePhid" is\nTemporarily closed in $_currentCityID',
+        translate: true,
+        varTag: [_flyerTypePhid, _currentCityID]
+      ),
+      bodyVerse: Verse(
+        text: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
+        translate: true,
+        varTag: _currentCityID,
+      ),
       height: 400,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
           DialogButton(
-            verse: '##Inform a friend',
+            verse: const Verse(
+              text: 'phid_inform_a_friend',
+              translate: true,
+            ),
             width: 133,
             onTap: () => Launcher.shareLink(
               context : context,
@@ -159,7 +173,10 @@ Future<void> _setActivePhidK({
           ),
 
           DialogButton(
-            verse: '##Go back',
+            verse: const Verse(
+              text: 'phid_go_back',
+              translate: true,
+            ),
             color: Colorz.yellow255,
             verseColor: Colorz.black230,
             onTap: () => Nav.goBack(

@@ -77,7 +77,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   Widget build(BuildContext context) {
     // --------------------
     final double _bubbleWidth = BldrsAppBar.width(context);
-    final String _hintText = widget.picker.chainID;
+
     // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
@@ -102,7 +102,10 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
           validator: numberFieldValidator,
           textController: _textController,
           formKey: _formKey,
-          hintText: _hintText,
+          hintVerse: Verse(
+            text: widget.picker.chainID,
+            translate: true,
+          ),
           selectedUnitID: _selectedUnitID,
           onUnitSelectorButtonTap: () => onUnitSelectorButtonTap(
             context: context,

@@ -285,7 +285,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
               icon: Iconz.clock,
               color: Colorz.yellow255,
               splashColor: Colorz.darkRed125,
-              underLine: 'Ripple Effect\n Works Now',
+              underLine: Verse.plain('Ripple Effect\n Works Now'),
               underLineColor: Colorz.black230,
               onTap: () {
                 blog('ripple effect works now');

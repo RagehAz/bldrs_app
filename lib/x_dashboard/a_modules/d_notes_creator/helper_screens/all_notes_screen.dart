@@ -137,7 +137,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
 
       BottomDialog.wideButton(
         context: context,
-        verse:  'Delete',
+        verse: Verse.plain( 'Delete'),
         onTap: () => onDeleteNote(
           context: context,
           noteModel: note,
@@ -152,7 +152,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
         context: context,
         draggable: true,
         numberOfWidgets: _buttons.length,
-        title: 'All note screen show button dialog',
+        titleVerse: Verse.plain('All note screen show button dialog'),
         builder: (_, PhraseProvider phrasePro){
 
           return _buttons;
@@ -169,7 +169,7 @@ class _AllNotesScreenState extends State<AllNotesScreen> {
     blog('AllNotesScreen : REBUILDING SCREEN');
 
     return MainLayout(
-      pageTitleVerse:  'Note Creator',
+      pageTitleVerse: Verse.plain('Note Creator'),
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       skyType: SkyType.black,

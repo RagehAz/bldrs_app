@@ -97,7 +97,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
     else {
       await Dialogs.topNotice(
         context: context,
-        text: 'Showing all Chains : Can not Select a zone',
+        verse: Verse.plain('Showing all Chains : Can not Select a zone'),
       );
     }
 
@@ -201,7 +201,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                     return DreamBox(
                       height: 35,
                       verse: Verse(
-                        text: FlyerTyper.getFlyerTypePhid(context: context, flyerType: _type),
+                        text: FlyerTyper.getFlyerTypePhid(flyerType: _type),
                         translate: true,
                         casing: Casing.upperCase,
                       ),

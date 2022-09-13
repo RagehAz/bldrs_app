@@ -33,7 +33,7 @@ class AuditorButton extends StatelessWidget {
     return DreamBox(
       height: height,
       width: _buttonWidth,
-      verse: verse,
+      verse: Verse.plain(verse),
       verseScaleFactor: 1.3,
       icon: icon,
       iconColor: Colorz.white230,

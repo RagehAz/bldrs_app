@@ -67,7 +67,6 @@ class BottomDialogButtons extends StatelessWidget {
               width: _buttonWidth,
               verse: Verse(
                 text: _value.toString(),
-                casing: Casing.non,
                 translate: false,
               ),
               icon: _icon,

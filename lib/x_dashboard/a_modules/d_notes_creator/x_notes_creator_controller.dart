@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_scree
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/e_db/fire/foundation/storage.dart';
@@ -95,9 +96,9 @@ Future<void> onChangeNoteType({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Watch out!',
-      bodyVerse:  'Only Business note Sender Type can send Authorship notes'
-          '\n want to continue and wipe selected sender type?',
+      titleVerse: Verse.plain('Watch out!'),
+      bodyVerse: Verse.plain('Only Business note Sender Type can send Authorship notes'
+          '\n want to continue and wipe selected sender type?'),
       boolDialog: true,
     );
 
@@ -393,12 +394,12 @@ Future<bool> _showEthicalConfirmationDialog({
 
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Ethical Alert',
-      bodyVerse:  'Sending Notes on behalf of a $_senderTypeString '
+      titleVerse: Verse.plain('Ethical Alert'),
+      bodyVerse: Verse.plain('Sending Notes on behalf of a $_senderTypeString '
           "is kind of little bit unethical, isn't it ?\n"
-          'Anyways, Would you like to continue ?',
+          'Anyways, Would you like to continue ?'),
       boolDialog: true,
-      confirmButtonVerse:  'Fuck Yeah',
+      confirmButtonVerse: Verse.plain('Fuck Yeah'),
     );
 
   }
@@ -754,8 +755,8 @@ Future<void> onSendNote({
 
     final bool _confirmSend = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Send ?',
-      bodyVerse:  'Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )',
+      titleVerse: Verse.plain('Send ?'),
+      bodyVerse: Verse.plain('Do you want to confirm sending this notification to $receiverName : ( ${note.value.receiverType} )'),
       boolDialog: true,
     );
 
@@ -796,8 +797,8 @@ Future<void> onSendNote({
 
       unawaited(TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Note Sent',
-        secondLine: 'Alf Mabrouk ya5oya',
+        firstVerse: Verse.plain('Note Sent'),
+        secondVerse: Verse.plain('Alf Mabrouk ya5oya'),
       ));
 
       /// FAILED SCENARIO
@@ -898,8 +899,8 @@ Future<void> onDeleteNote({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  'Delete Note ?',
-    bodyVerse:  'Will Delete on Database and can never be recovered',
+    titleVerse: Verse.plain('Delete Note ?'),
+    bodyVerse: Verse.plain('Will Delete on Database and can never be recovered'),
     boolDialog: true,
   );
 
@@ -945,8 +946,8 @@ Future<void> onDeleteNote({
     /// SHOW CONFIRMATION DIALOG
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Note Deleted',
-      secondLine: 'Tamam keda',
+      firstVerse: Verse.plain('Note Deleted'),
+      secondVerse: Verse.plain('Tamam keda'),
       color: Colorz.green255,
       textColor: Colorz.white255,
     );

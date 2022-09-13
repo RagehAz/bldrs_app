@@ -17,7 +17,7 @@ class UserTileButtonsList extends StatelessWidget {
     this.usersWithSideButtonsDeactivated,
     this.selectedUsers,
     this.emptyListString,
-    this.sideButton,
+    this.sideButtonVerse,
     this.onSideButtonTap,
     Key key
   }) : super(key: key);
@@ -27,7 +27,7 @@ class UserTileButtonsList extends StatelessWidget {
   final List<String> usersWithSideButtonsDeactivated;
   final ValueChanged<UserModel> onUserTap;
   final Verse emptyListString;
-  final String sideButton;
+  final Verse sideButtonVerse;
   final ValueChanged<UserModel> onSideButtonTap;
   /// --------------------------------------------------------------------------
   @override
@@ -70,7 +70,7 @@ class UserTileButtonsList extends StatelessWidget {
                         userModel: _user,
                         color: _buttonColor,
                         onUserTap: () => onUserTap(_user),
-                        sideButton: sideButton,
+                        sideButtonVerse: sideButtonVerse,
                         sideButtonDeactivated: Stringer.checkStringsContainString(
                           strings: usersWithSideButtonsDeactivated,
                           string: _user.id,

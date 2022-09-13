@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -120,23 +120,18 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
 
           return MainLayout(
             key: const ValueKey<String>('ChainsManagerScreen'),
-            pageTitleVerse:  'All Keywords',
+            pageTitleVerse: Verse.plain('All Keywords'),
             appBarType: AppBarType.search,
             pyramidsAreOn: true,
             sectionButtonIsOn: false,
             skyType: SkyType.black,
             onBack: () async {
-              final bool _result = await CenterDialog.showCenterDialog(
-                context: context,
-                boolDialog: true,
-                titleVerse:  'Go Back ?',
-              );
-              if (_result == true){
-                Nav.goBack(
+
+              await Dialogs.goBackDialog(
                   context: context,
-                  invoker: 'ChainsManagerScreen.onBack',
-                );
-              }
+                goBackOnConfirm: true,
+              );
+
             },
             onSearchSubmit: (String text) => onSearch(
               text: text,
@@ -154,7 +149,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
               /// SYNCED BUTTON
               DreamBox(
                 height: 40,
-                verse: _inSync ? 'Synced' : 'Not\nSynced',
+                verse: Verse.plain(_inSync ? 'Synced' : 'Not\nSynced'),
                 verseScaleFactor: 0.5,
                 verseMaxLines: 2,
                 color: _inSync ? Colorz.green255 : Colorz.red255,
@@ -168,7 +163,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
               /// BACKUP CHAIN
               DreamBox(
                 height: 40,
-                verse:  'Backups',
+                verse: Verse.plain('Backups'),
                 iconSizeFactor: 0.6,
                 margins: const EdgeInsets.symmetric(horizontal: 5),
                 onTap: () async {
@@ -178,7 +173,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                       draggable: true,
                       buttonHeight: 40,
                       numberOfWidgets: 3,
-                      title: 'Back The fuck Up',
+                      titleVerse: Verse.plain('Back The fuck Up'),
                       builder: (BuildContext context, PhraseProvider phraseProvider){
 
                         return <Widget>[
@@ -186,14 +181,14 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                           /// BACK UP
                           BottomDialog.wideButton(
                             context: context,
-                            verse:  'Back up current Chain',
+                            verse: Verse.plain('Back up current Chain'),
                             onTap: () => onBackupAllChains(context),
                           ),
 
                           /// DOWNLOAD LAST BACKUP
                           BottomDialog.wideButton(
                             context: context,
-                            verse:  'Download and set last Backup',
+                            verse: Verse.plain('Download and set last Backup'),
                             onTap: () async {
 
                               final List<Chain> _backups = await ChainFireOpsOLD.readKeywordsAndSpecsBackups(context);
@@ -210,7 +205,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                           /// RELOAD CHAINS
                           BottomDialog.wideButton(
                             context: context,
-                            verse:  'Reload chains',
+                            verse: Verse.plain('Reload chains'),
                             onTap: () async {
                               final List<Chain> _chains = await ChainFireOpsOLD.reloadKeywordsAndSpecsChains(context);
                               Nav.goBack(

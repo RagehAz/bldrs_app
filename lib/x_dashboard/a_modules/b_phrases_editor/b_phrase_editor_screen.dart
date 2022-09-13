@@ -104,7 +104,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse:  'Phrases Editor',
+      pageTitleVerse: Verse.plain('Phrases Editor'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       searchController: _searchController,
@@ -148,7 +148,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   );
 
                   return AppBarButton(
-                    verse:  'Sync',
+                    verse: Verse.plain('Sync'),
                     isDeactivated: _areIdentical,
                     buttonColor: Colorz.yellow255,
                     verseColor: Colorz.black255,

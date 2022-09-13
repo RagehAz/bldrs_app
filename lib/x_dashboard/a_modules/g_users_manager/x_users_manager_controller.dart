@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -65,7 +66,7 @@ Future<void> readMoreUsers({
 
     await TopDialog.showTopDialog(
       context: context,
-      firstLine: 'No More Users Found',
+      firstVerse: Verse.plain('No More Users Found'),
     );
 
   }
@@ -118,13 +119,13 @@ Future<void> onSelectedUserOptions({
 
           BottomDialog.wideButton(
             context: context,
-            verse:  'Fuck ${userModel.name}',
+            verse: Verse.plain('Fuck ${userModel.name}'),
           ),
 
 
           BottomDialog.wideButton(
             context: context,
-            verse:  'Delete this Bitch : ${userModel.name}',
+            verse: Verse.plain('Delete this Bitch : ${userModel.name}'),
             onTap: () => onDeleteUser(
               context: context,
               usersModels: usersModels,
@@ -153,9 +154,9 @@ Future<void> onDeleteUser({
   if (Mapper.checkCanLoopList(userModel.myBzzIDs) == true){
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'User is Author !',
-      bodyVerse:  'For now, we can not delete this User from here',
-      confirmButtonVerse:  'Mashi',
+      titleVerse: Verse.plain('User is Author !'),
+      bodyVerse: Verse.plain('For now, we can not delete this User from here'),
+      confirmButtonVerse: Verse.plain('Mashi'),
     );
   }
 
@@ -163,9 +164,9 @@ Future<void> onDeleteUser({
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'Delete User ?',
-      bodyVerse:  '${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?',
-      confirmButtonVerse:  'Delete Fucker',
+      titleVerse: Verse.plain('Delete User ?'),
+      bodyVerse: Verse.plain('${userModel.name} : id ( ${userModel.id} ) will be deleted for good, are you sure ?'),
+      confirmButtonVerse: Verse.plain('Delete Fucker'),
       boolDialog: true,
     );
 
@@ -190,7 +191,7 @@ Future<void> onDeleteUser({
         /// START WAITING
         unawaited(WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse:  'Deleting ${userModel.name} : ${userModel.id}',
+          loadingVerse: Verse.plain('Deleting ${userModel.name} : ${userModel.id}'),
         ));
 
         /// DELETE firebase user : auth/userID
@@ -245,8 +246,8 @@ Future<void> onDeleteUser({
 
           await CenterDialog.showCenterDialog(
             context: context,
-            titleVerse:  'Failed',
-            bodyVerse:  'Could not Delete this User',
+            titleVerse: Verse.plain('Failed'),
+            bodyVerse: Verse.plain('Could not Delete this User'),
           );
 
           /// CLOSE WAITING

@@ -20,7 +20,10 @@ class BzPreviewScreen extends StatelessWidget {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pyramidsAreOn: true,
-      pageTitleVerse: bzModel.name,
+      pageTitleVerse: Verse(
+        text: bzModel.name,
+        translate: false,
+      ),
       appBarType: AppBarType.basic,
       layoutWidget: BzAboutPage(
         bzModel: bzModel,

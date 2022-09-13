@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/phrase_real_ops.dart';
@@ -89,7 +90,7 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// GO TO NEW EDITOR
         AppBarButton(
           icon: Iconz.language,
-          verse:  'NEW Editor',
+          verse: Verse.plain('NEW Editor'),
           onTap: () async {
 
             await Nav.goToNewScreen(
@@ -110,14 +111,13 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// PHRASES CREATION
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse:  'REAL',
+          headlineVerse: Verse.plain('REAL'),
         ),
 
         /// MIGRATE main phrases from fire to real
         WideButton(
-          translate: false,
           isActive: false,
-          verse:  'MIGRATE main phrases from FIRE to REAL',
+          verse: Verse.plain('MIGRATE main phrases from FIRE to REAL'),
           onTap: () async {
 
             final List<Phrase> _enPhrases = await readMainPhrasesFromFire(
@@ -149,8 +149,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL EN READ
         WideButton(
-          translate: false,
-          verse:  'REAL READ EN PHRASESs',
+          verse: Verse.plain('REAL READ EN PHRASESs'),
           onTap: () async {
 
             // final List<Phrase> _firePhrases = await readBasicPhrases(
@@ -179,8 +178,7 @@ class _PhraseManagerState extends State<PhraseManager> {
 
         /// REAL ar READ
         WideButton(
-          translate: false,
-          verse:  'REAL READ AR PHRASESs',
+          verse: Verse.plain('REAL READ AR PHRASESs'),
           onTap: () async {
 
             final List<Phrase> _realPhrases = await PhraseRealOps.readPhrasesByLang(
@@ -199,13 +197,12 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// PHRASES PRO
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse:  'PRO',
+          headlineVerse: Verse.plain('PRO'),
         ),
 
         /// READ MAIN PHRASES
         WideButton(
-          translate: false,
-          verse:  'READ PRO MAIN PHRASES',
+          verse: Verse.plain('READ PRO MAIN PHRASES'),
           onTap: () async {
 
             final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
@@ -220,13 +217,12 @@ class _PhraseManagerState extends State<PhraseManager> {
         /// LDD
         InfoPageHeadline(
           pageWidth: _screenWidth - 20,
-          headlineVerse:  'LDB',
+          headlineVerse: Verse.plain('LDB'),
         ),
 
         /// READ MAIN PHRASES
         WideButton(
-          translate: false,
-          verse:  'READ LDB MAIN PHRASES',
+          verse: Verse.plain('READ LDB MAIN PHRASES'),
           onTap: () async {
 
             final List<Phrase> _phrases = await PhraseLDBOps.readMainPhrases();

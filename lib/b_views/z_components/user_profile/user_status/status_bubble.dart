@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_property_search_criteria.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_status_buttons.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -84,10 +83,10 @@ class StatusBubble extends StatelessWidget {
         ),
 
         /// IF USER IS SEARCHING FOR PROPERTIES
-        if (currentUserStatus == UserStatus.searching)
-          PropertySearchCriteria(
-            openEnumLister: openEnumLister,
-          ),
+        // if (currentUserStatus == UserStatus.searching)
+        //   PropertySearchCriteria(
+        //     openEnumLister: openEnumLister,
+        //   ),
 
         /// IF USER WANT TO SELL OR RENT HIS PROPERTY
         if (currentUserStatus == UserStatus.selling)

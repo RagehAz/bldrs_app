@@ -247,10 +247,16 @@ class _CountriesScreenState extends State<CountriesScreen> {
       sectionButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
-      pageTitleVerse: 'phid_select_a_country',
+      pageTitleVerse: const Verse(
+        text: 'phid_select_a_country',
+        translate: true,
+      ),
       pyramidsAreOn: true,
       onBack: _onBack,
-      searchHintVerse: 'phid_search_countries',
+      searchHintVerse: const Verse(
+        text: 'phid_search_countries',
+        translate: true,
+      ),
       loading: _loading,
       layoutWidget: Scroller(
         child: ValueListenableBuilder(

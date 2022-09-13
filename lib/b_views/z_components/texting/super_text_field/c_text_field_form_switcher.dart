@@ -142,7 +142,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
       context: context,
       textSize: textSize,
       textSizeFactor: textSizeFactor,
-      hintText: hintVerse, // ?? '...' TASK : TAKE CARE OF DEFAULT DOTS
+      hintVerse: hintVerse, // ?? '...' TASK : TAKE CARE OF DEFAULT DOTS
       textItalic: textItalic,
       corners: corners,
       fieldColor: fieldColor,

@@ -41,8 +41,7 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
                 final String _text = isOn == true ? 'Switch off' : 'Switch on';
 
                 return WideButton(
-                  translate: false,
-                  verse: _text,
+                  verse: Verse.plain(_text),
                   onTap: (){
 
                     backWidgetIsOn.value = !backWidgetIsOn.value;

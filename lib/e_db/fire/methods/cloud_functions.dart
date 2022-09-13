@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -85,16 +86,29 @@ class CloudFunction {
           if (_unauthenticated == true) {
             await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: '##You Are not Signed in',
-              bodyVerse: '##Please Sign in into your account first',
+              titleVerse: const Verse(
+                pseudo: '##You Are not Signed in',
+                text: 'phid_your_not_signed_in',
+                translate: true,
+              ),
+              bodyVerse: const Verse(
+                text: 'phid_please_sign_in_first',
+                translate: true,
+              ),
             );
           }
 
           else {
             await CenterDialog.showCenterDialog(
               context: context,
-              titleVerse: '##error',
-              bodyVerse: error,
+              titleVerse: const Verse(
+                text: 'phid_error',
+                translate: true,
+              ),
+              bodyVerse: Verse(
+                text: error,
+                translate: false,
+              ),
             );
           }
 

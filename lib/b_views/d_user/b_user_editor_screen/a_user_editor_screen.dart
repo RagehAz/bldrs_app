@@ -189,17 +189,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse: 'phid_update_profile',
+      pageTitleVerse: const Verse(text: 'phid_update_profile', translate: true),
       loading: _loading,
-      appBarRowWidgets: [
+      appBarRowWidgets: <Widget>[
+
         AppBarButton(
-          verse: 'validate',
+          verse: Verse.plain('validate'),
           onTap: (){
             Formers.validateForm(_formKey);
           },
         ),
+
         AppBarButton(
-          verse: 'pi5',
+          verse: Verse.plain('pi5'),
           onTap: (){
             _tempUser.value = _tempUser.value.copyWith(
               zone: _tempUser.value.zone.nullifyField(
@@ -208,9 +210,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             );
           },
         ),
+
       ],
       confirmButtonModel: ConfirmButtonModel(
-        firstLine: 'phid_updateProfile',
+        firstLine: const Verse(text: 'phid_updateProfile', translate: true),
         onSkipTap: (){
 
           blog('skip');
@@ -235,7 +238,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                 /// PICTURE
                 AddImagePicBubble(
-                  titleVerse: 'phid_picture',
+                  titleVerse: const Verse(
+                    text: 'phid_picture',
+                    translate: true,
+                  ),
                   redDot: true,
                   fileModel: userModel.pic,
                   bubbleType: BubbleType.userPic,
@@ -266,10 +272,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 TextFieldBubble(
                   key: const ValueKey<String>('name'),
                   globalKey: _formKey,
+                  titleVerse: const Verse(
+                    text: 'phid_name',
+                    translate: true,
+                  ),
                   focusNode: _nameNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: 'phid_name',
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
@@ -292,7 +301,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   focusNode: _titleNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: 'phid_jobTitle',
+                  titleVerse: const Verse(
+                    text: 'phid_jobTitle',
+                    translate: true,
+                  ),
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,
@@ -315,7 +327,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   focusNode: _companyNode,
                   appBarType: AppBarType.basic,
                   isFormField: true,
-                  titleVerse: 'phid_companyName',
+                  titleVerse: const Verse(
+                    text: 'phid_companyName',
+                    translate: true,
+                  ),
                   keyboardTextInputType: TextInputType.name,
                   keyboardTextInputAction: TextInputAction.next,
                   fieldIsRequired: true,

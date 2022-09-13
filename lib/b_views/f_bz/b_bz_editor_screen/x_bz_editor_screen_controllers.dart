@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
@@ -109,8 +110,14 @@ Future<void> loadBzEditorLastSession({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'phid_load_last_session_data_q',
-      bodyVerse: 'phid_want_to_load_last_session_q',
+      titleVerse: const Verse(
+        text: 'phid_load_last_session_data_q',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_want_to_load_last_session_q',
+        translate: true,
+      ),
       boolDialog: true,
     );
 
@@ -417,7 +424,10 @@ Future<void> onAddScopesTap({
       flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: tempBz.value.bzTypes),
       onlyUseCityChains: false,
       isMultipleSelectionMode: true,
-      pageTitleVerse: 'phid_select_keywords',
+      pageTitleVerse: const Verse(
+        text: 'phid_select_keywords',
+        translate: true,
+      ),
       selectedSpecs: selectedScopes.value,
       onlyChainKSelection: true,
       zone: tempBz.value.zone,
@@ -439,10 +449,20 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Reset Scope',
-    bodyVerse:  '##This will delete all selected business scope keywords',
+    titleVerse: const Verse(
+      text: 'phid_reset_scope',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: '##This will delete all selected business scope keywords',
+      translate: true,
+      text: 'phid_reset_scope_warning',
+    ),
     boolDialog: true,
-    confirmButtonVerse:  '##Reset',
+    confirmButtonVerse: const Verse(
+      text: 'phid_reset',
+      translate: true,
+    ),
 
   );
 
@@ -484,8 +504,11 @@ Future<void> onBzEditsConfirmTap({
     /// REQUEST CONFIRMATION
     final bool _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '',
-      bodyVerse:  '##Are you sure you want to continue ?',
+      bodyVerse: const Verse(
+        pseudo: 'Are you sure you want to continue ?',
+        text: 'phid_confirm_continue',
+        translate: true,
+      ),
       boolDialog: true,
     );
 
@@ -537,8 +560,16 @@ Future<bool> _validateInputs({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Please check your inputs',
-      bodyVerse:  '##Some fields might require more info to be able to continue',
+      titleVerse: const Verse(
+        pseudo: 'Please check your inputs',
+        text: 'phid_check_inputs',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        pseudo: 'Some fields might require more info to be able to continue',
+        text: 'phid_fields_require_info_to_continue',
+        translate: true,
+      ),
     );
 
   }
@@ -555,8 +586,16 @@ Future<bool> _validateInputs({
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Complete Your Business profile',
-      bodyVerse:  '##Required fields :\n''$_missingFieldsString',
+      titleVerse: const Verse(
+        pseudo: 'Complete Your Business profile',
+        text: 'phid_complete_bz_profile',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        text: '##Required fields :\n''$_missingFieldsString',
+        translate: true,
+        varTag: _missingFieldsString,
+      ),
     );
 
     // _inputsAreValid = false;

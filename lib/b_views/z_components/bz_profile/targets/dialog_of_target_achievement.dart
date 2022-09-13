@@ -18,13 +18,28 @@ class DialogOfTargetAchievement extends StatelessWidget {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: '##Congratulations',
-      bodyVerse: '##You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
-      confirmButtonVerse: '##CLAIM',
+      titleVerse: const Verse(
+        text: 'phid_congrats',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        pseudo: 'You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
+        text: 'phid_target_achievement_congrats_description',
+        translate: true,
+        varTag: [target.name, target.reward.slides, target.reward.ankh]
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_claim',
+        translate: true,
+      ),
       child: Column(
         children: <Widget>[
           SuperVerse(
-            verse: '##To know more about Slides and Ankhs\nTap here',
+            verse: const Verse(
+              pseudo: 'To know more about Slides and Ankhs\nTap here',
+              text: 'phid_know_more_about_slides_and_ankhs',
+              translate: true,
+            ),
             maxLines: 3,
             weight: VerseWeight.thin,
             italic: true,
@@ -48,7 +63,11 @@ class DialogOfTargetAchievement extends StatelessWidget {
     return Column(
       children: <Widget>[
         SuperVerse(
-          verse: '##To know more about Slides and Ankhs\nTap here',
+          verse: const Verse(
+            pseudo: 'To know more about Slides and Ankhs\nTap here',
+            text: 'phid_know_more_about_slides_and_ankhs',
+            translate: true,
+          ),
           maxLines: 3,
           weight: VerseWeight.thin,
           italic: true,

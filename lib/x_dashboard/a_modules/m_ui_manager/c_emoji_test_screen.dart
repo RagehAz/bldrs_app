@@ -21,7 +21,7 @@ class EmojiTestScreen extends StatelessWidget {
 
     await BottomDialog.showBottomDialog(
       context: context,
-      title: '${emo.emoji}  ${emo.name}',
+      titleVerse: Verse.plain('${emo.emoji}  ${emo.name}'),
       height: 400,
       draggable: true,
       child: Container(
@@ -33,7 +33,7 @@ class EmojiTestScreen extends StatelessWidget {
             overridingDialogHeight: 400),
         color: Colorz.bloodTest,
         child: SuperVerse(
-          verse:  '$index : ${emo.code}',
+          verse: Verse.plain('$index : ${emo.code}'),
         ),
       ),
     );
@@ -46,7 +46,7 @@ class EmojiTestScreen extends StatelessWidget {
     final List<EmojiModel> _emojis = EmojiModel.allEmojis();
 
     return MainLayout(
-      pageTitleVerse:  'Emojis',
+      pageTitleVerse: Verse.plain('Emojis'),
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
@@ -64,7 +64,7 @@ class EmojiTestScreen extends StatelessWidget {
             return DreamBox(
               height: 50,
               width: 50,
-              verse: _emoji.emoji,
+              verse: Verse.plain(_emoji.emoji),
               verseWeight: VerseWeight.thin,
               // margins: EdgeInsets.symmetric(horizontal: 2.5),
               onTap: () => onEmojiTap(

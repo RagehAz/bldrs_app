@@ -233,7 +233,7 @@ class SuperTextField extends StatefulWidget {
     @required BuildContext context,
     @required int textSize,
     @required double textSizeFactor,
-    @required String hintText,
+    @required Verse hintVerse,
     @required bool textItalic,
     @required double corners,
     @required Color fieldColor,
@@ -243,7 +243,7 @@ class SuperTextField extends StatefulWidget {
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
 
     final InputDecoration _inputDecoration = InputDecoration(
-      hintText: hintText,
+      hintText: Verse.bakeVerseToString(context: context, verse: hintVerse),
       hintMaxLines: 1,
       hintStyle: createHintStyle(
         context: context,
