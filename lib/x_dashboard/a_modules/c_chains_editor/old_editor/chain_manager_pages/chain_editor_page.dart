@@ -48,7 +48,7 @@ class ChainEditorPage extends StatelessWidget {
         valueListenable: path,
         child: TextFieldBubble(
           appBarType: appBarType,
-          titleVerse:  'ID',
+          titleVerse: const Verse(text: 'ID', translate: false),
           textController: textController,
         ),
         builder: (_, String _path, Widget textField){
@@ -85,7 +85,7 @@ class ChainEditorPage extends StatelessWidget {
 
                     DreamBox(
                       height: 40,
-                      verse:  'Update',
+                      verse: const Verse(text: 'Update', translate: false),
                       verseScaleFactor: 0.7,
                       verseColor: Colorz.black255,
                       // verseWeight: VerseWeight.thin,
@@ -96,7 +96,7 @@ class ChainEditorPage extends StatelessWidget {
 
                     DreamBox(
                       height: 40,
-                      verse:  'Copy ID',
+                      verse: const Verse(text: 'Copy ID', translate: false),
                       verseScaleFactor: 0.7,
                       verseColor: Colorz.black255,
                       // verseWeight: VerseWeight.thin,
@@ -176,7 +176,7 @@ class ChainEditorPage extends StatelessWidget {
                 ),
 
               SuperVerse(
-                verse:  'All Nodes that include ( $_phid ) in their paths',
+                verse: Verse.plain('All Nodes that include ( $_phid ) in their paths'),
                 size: 1,
                 italic: true,
                 centered: false,

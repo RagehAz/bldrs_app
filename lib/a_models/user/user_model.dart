@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/fire/ops/user_fire_ops.dart';
@@ -546,10 +547,10 @@ class UserModel {
     }
   }
   // --------------------
-  static String translateGender(Gender gender) {
+  static String getGenderPhid(Gender gender) {
     switch (gender) {
-      case Gender.female:   return 'Female';    break;
-      case Gender.male:     return 'Male';      break;
+      case Gender.female:   return 'phid_female';    break;
+      case Gender.male:     return 'phid_male';      break;
       default:              return null;
     }
   }
@@ -571,8 +572,11 @@ class UserModel {
   /// GENERATORS
 
   // --------------------
-  static String generateUserJobLine(UserModel userModel){
-    return userModel == null ? null : '${userModel?.title} @ ${userModel?.company}';
+  static Verse generateUserJobLine(UserModel userModel){
+    return Verse(
+      text: userModel == null ? null : '${userModel?.title} @ ${userModel?.company}',
+      translate: false,
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -1202,7 +1206,7 @@ class UserModel {
     }
   }
   // --------------------
-  static String _userTabPhraseID(UserTab userTab){
+  static String _getUserTabPhid(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return  'phid_profile'       ; break;
       case UserTab.status         : return  'phid_status'        ; break;
@@ -1213,12 +1217,15 @@ class UserModel {
     }
   }
   // --------------------
-  static String translateUserTab({
+  static Verse translateUserTab({
     @required BuildContext context,
     @required UserTab userTab,
   }){
-    final String _tabPhraseID = _userTabPhraseID(userTab);
-    return _tabPhraseID;
+    final String _tabPhraseID = _getUserTabPhid(userTab);
+    return Verse(
+      text: _tabPhraseID,
+      translate: true,
+    );
   }
   // --------------------
   static int getUserTabIndex(UserTab userTab){

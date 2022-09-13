@@ -382,7 +382,7 @@ class ZoneModel {
 
     if (zoneModel?.countryID != null){
 
-      final String _countryName = CountryModel.getTranslatedCountryName(
+      final String _countryName = CountryModel.translateCountryName(
         context: context,
         countryID: zoneModel.countryID,
       );
@@ -421,7 +421,7 @@ class ZoneModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse generateObeliskString({
+  static Verse generateObeliskVerse({
     @required BuildContext context,
     @required ZoneModel zone,
   }){

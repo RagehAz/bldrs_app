@@ -220,10 +220,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       skyType: SkyType.black,
-      pageTitleVerse: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',
+      pageTitleVerse: Verse(
+        text: widget.firstTimer == true ? 'phid_createBzAccount' : 'phid_edit_bz_info',
+        translate: true,
+      ),
       appBarRowWidgets: [
         AppBarButton(
-          verse: 'BOM',
+          verse: Verse.plain('BOM'),
           onTap: (){
 
             Formers.validateForm(_formKey);
@@ -240,8 +243,14 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
         ),
       ],
       confirmButtonModel: ConfirmButtonModel(
-          firstLine: 'phid_confirm',
-          secondLine: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',
+          firstLine: const Verse(
+            text: 'phid_confirm',
+            translate: true,
+          ),
+          secondLine: Verse(
+            text: widget.firstTimer == true ? 'phid_create_new_bz_profile' : 'phid_update_bz_profile',
+            translate: true,
+          ),
           onTap: () => _onConfirmTap(),
       ),
       layoutWidget: Form(
@@ -274,19 +283,22 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           valueListenable: _selectedBzSection,
                           builder: (_, BzSection selectedSection, Widget child){
 
-                            final String _selectedButton = BzModel.translateBzSection(
+                            final String _selectedButton = BzModel.getBzSectionPhid(
                               context: context,
                               bzSection: selectedSection,
                             );
 
-                            final List<String> _allSections = BzModel.translateBzSections(
+                            final List<String> _allSectionsPhids = BzModel.getBzSectionsPhids(
                               context: context,
                               bzSections: BzModel.bzSectionsList,
                             );
 
                             return MultipleChoiceBubble(
-                              title: 'phid_sections',
-                              buttonsVerses: _allSections,
+                              titleVerse: const Verse(
+                                text: 'phid_sections',
+                                translate: true,
+                              ),
+                              buttonsVerses: Verse.createVerses(strings: _allSectionsPhids, translate: true),
                               selectedButtons: <String>[_selectedButton],
                               onButtonTap: (int index) => onSelectBzSection(
                                 context: context,
@@ -297,9 +309,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 inactiveBzForms: _inactiveBzForms,
                                 selectedScopes: _selectedScopes,
                               ),
-                              bulletPoints: const <String>[
-                                'phid_select_only_one_section',
-                                'phid_bz_section_selection_info',
+                              bulletPoints: const <Verse>[
+                                Verse(text: 'phid_select_only_one_section', translate: true,),
+                                Verse(text: 'phid_bz_section_selection_info', translate: true,),
                               ],
                               validator: () => Formers.bzSectionValidator(
                                 selectedSection: selectedSection,
@@ -315,27 +327,30 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           valueListenable: _inactiveBzTypes,
                           builder: (_, List<BzType> inactiveTypes, Widget child){
 
-                            final List<String> _allButtons = BzModel.translateBzTypes(
+                            final List<String> _allButtons = BzModel.getBzTypesPhids(
                               context: context,
                               bzTypes: BzModel.bzTypesList,
                               pluralTranslation: false,
                             );
-                            final List<String> _inactiveButtons = BzModel.translateBzTypes(
+                            final List<String> _inactiveButtons = BzModel.getBzTypesPhids(
                               context: context,
                               bzTypes: inactiveTypes,
                               pluralTranslation: false,
                             );
-                            final List<String> _selectedButtons = BzModel.translateBzTypes(
+                            final List<String> _selectedButtons = BzModel.getBzTypesPhids(
                               context: context,
                               bzTypes: bzModel?.bzTypes,
                               pluralTranslation: false,
                             );
 
                             return MultipleChoiceBubble(
-                              title: 'phid_bz_entity_type',
-                              buttonsVerses: _allButtons,
+                              titleVerse: const Verse(
+                                text: 'phid_bz_entity_type',
+                                translate: true,
+                              ),
+                              buttonsVerses: Verse.createVerses(strings: _allButtons, translate: true),
                               selectedButtons: _selectedButtons,
-                              inactiveButtons: _inactiveButtons,
+                              inactiveButtons: Verse.createVerses(strings: _inactiveButtons, translate: true),
                               onButtonTap: (int index) => onSelectBzType(
                                 context: context,
                                 index: index,
@@ -345,8 +360,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 selectedBzSection: _selectedBzSection,
                                 selectedScopes: _selectedScopes,
                               ),
-                              bulletPoints: const <String>[
-                                'phid_select_bz_type',
+                              bulletPoints: const <Verse>[
+                                Verse(text: 'phid_select_bz_type', translate: true,),
                               ],
                               validator: () => Formers.bzTypeValidator(
                                   selectedTypes: bzModel?.bzTypes,
@@ -378,18 +393,21 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           );
 
                           return MultipleChoiceBubble(
-                            title: 'phid_businessForm',
+                            titleVerse: const Verse(
+                              text: 'phid_businessForm',
+                              translate: true,
+                            ),
                             // description: superPhrase(context, 'phid_businessForm_description'),
-                            buttonsVerses: _buttonsList,
+                            buttonsVerses: Verse.createVerses(strings: _buttonsList, translate: true),
                             selectedButtons: <String>[_selectedButton],
-                            inactiveButtons: _inactiveButtons,
+                            inactiveButtons: Verse.createVerses(strings: _inactiveButtons, translate: true),
                             onButtonTap: (int index) => onSelectBzForm(
                               index: index,
                               tempBz: _tempBz,
                             ),
-                            bulletPoints: const <String>[
-                              'phid_bz_form_pro_description',
-                              'phid_bz_form_company_description',
+                            bulletPoints: const <Verse>[
+                              Verse(text: 'phid_bz_form_pro_description', translate: true,),
+                              Verse(text: 'phid_bz_form_company_description', translate: true,),
                             ],
                             validator: () => Formers.bzFormValidator(
                               bzForm: bzModel?.bzForm,
@@ -406,7 +424,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       AddImagePicBubble(
                         key: const ValueKey<String>('add_logo_bubble'),
                         fileModel: bzModel?.logo,
-                        titleVerse: 'phid_businessLogo',
+                        titleVerse: const Verse(
+                          text: 'phid_businessLogo',
+                          translate: true,
+                        ),
                         redDot: true,
                         bubbleType: BubbleType.bzLogo,
                         onAddPicture: (ImagePickerType imagePickerType) => takeBzLogo(
@@ -429,7 +450,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         appBarType: AppBarType.basic,
                         isFormField: true,
                         key: const ValueKey('bzName'),
-                        titleVerse: _companyNameBubbleTitle,
+                        titleVerse: Verse(
+                          text: _companyNameBubbleTitle,
+                          translate: true,
+                        ),
                         counterIsOn: true,
                         maxLength: 72,
                         maxLines: 2,
@@ -454,7 +478,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           focusNode: _aboutNode,
                           appBarType: AppBarType.basic,
                           key: const ValueKey<String>('bz_about_bubble'),
-                          titleVerse: 'phid_about',
+                          titleVerse: const Verse(
+                            text: 'phid_about',
+                            translate: true,
+                          ),
                           counterIsOn: true,
                           maxLength: 1000,
                           maxLines: 20,
@@ -606,7 +633,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                       translate: true,
                                     )
                                   ],
-                                  translateBullets: true,
                                 ),
 
                                 if (Mapper.checkCanLoopList(_phids))
@@ -649,7 +675,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                       /// --- BZ ZONE
                       ZoneSelectionBubble(
-                        titleVerse: 'phid_hqCity',
+                        titleVerse: const Verse(
+                          text: 'phid_hqCity',
+                          translate: true,
+                        ),
                         currentZone: bzModel?.zone,
                         onZoneChanged: (ZoneModel zone) => onBzZoneChanged(
                           zoneModel: zone,

@@ -82,7 +82,10 @@ class NoteCardButtons extends StatelessWidget {
                 return DreamBox(
                   width: _width,
                   height: 40,
-                  verse: _phid,
+                  verse: Verse(
+                    text: _phid,
+                    translate: true,
+                  ),
                   verseScaleFactor: 0.7,
                   color: Colorz.blue80,
                   splashColor: Colorz.yellow255,
@@ -105,7 +108,7 @@ class NoteCardButtons extends StatelessWidget {
                 builder: (int fuck, Widget child){
 
                   return SuperVerse(
-                    verse:  '${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}',
+                    verse: Verse.plain('${_getResponseString(context, noteModel)}\n${_getResponseTimeString(context, noteModel)}'),
                     maxLines: 3,
                     weight: VerseWeight.black,
                     italic: true,

@@ -1,7 +1,9 @@
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +26,7 @@ class Verse {
     this.casing = Casing.non,
     this.varTag,
     this.pseudo,
+    this.notifier,
   });
   // -----------------------------------------------------------------------------
   final String text;
@@ -31,6 +34,7 @@ class Verse {
   final bool translate;
   final dynamic varTag;
   final String pseudo;
+  final ValueNotifier<String> notifier;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -40,16 +44,18 @@ class Verse {
     String text,
     Casing casing,
     bool translate,
-    dynamic variable,
+    dynamic varTag,
     String pseudo,
+    ValueNotifier<String> notifier,
   }){
 
     return Verse(
       text: text ?? this.text,
       translate: translate ?? this.translate,
       casing: casing ?? this.casing,
-      varTag: variable ?? this.varTag,
+      varTag: varTag ?? this.varTag,
       pseudo: pseudo ?? this.pseudo,
+      notifier: notifier ?? this.notifier,
     );
 
   }
@@ -127,6 +133,97 @@ class Verse {
     }
     return _output;
   }
+  // --------------------
+  static Verse plain(String text){
+    return Verse(
+      text: text,
+      translate: false,
+    );
+  }
+  // --------------------
+  static Verse trans(String phid){
+    return Verse(
+      text: phid,
+      translate: true,
+    );
+  }
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String convertVerseCase({
+    @required String verse,
+    @required Casing verseCasing,
+  }){
+
+    switch (verseCasing){
+      case Casing.non:             return verse;                   break;
+      case Casing.lowerCase:       return verse.toLowerCase();     break;
+      case Casing.upperCase:       return verse.toUpperCase();     break;
+    // case VerseCasing.Proper:          return properVerse(verse);      break;
+    // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
+    // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
+      default: return verse;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String bakeVerseToString({
+    @required BuildContext context,
+    @required Verse verse,
+  }){
+
+    String _output = verse.translate == true ? verse.text.trim() : '.${verse.text}';
+
+    if (verse.translate == true){
+
+      /// ADJUST VALUE
+      if (TextCheck.isEmpty(_output) == false){
+
+        /// IS PHID
+        final bool _isPhid = Phider.checkVerseIsPhid(_output);
+        final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
+        if (_isPhid == true || _isCurrency == true){
+
+          final String _foundXPhrase = xPhrase(context, verse.text);
+
+          /// X PHRASE NOT FOUND
+          if (_foundXPhrase == null){
+            _output = '?$_output';
+          }
+
+          /// X PHRASE FOUND
+          else {
+            _output = '.$_foundXPhrase';
+          }
+
+        }
+
+        /// NOT NOT PHID
+        else {
+
+          /// IS TEMP
+          final bool _isTemp = Phider.checkVerseIsTemp(_output);
+          if (_isTemp == true){
+            _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
+            _output = '##$_output';
+          }
+
+          /// NOT TEMP - NOT PHID
+          else {
+            _output = '>$_output';
+          }
+
+        }
+
+      }
+
+    }
+
+    /// ADJUST CASING
+    return convertVerseCase(verse: _output, verseCasing: verse.casing);
+  }
+
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
@@ -151,7 +248,8 @@ class Verse {
           other.text == text &&
           other.translate == translate &&
           other.casing == casing &&
-          other.varTag == varTag
+          other.varTag == varTag &&
+          other.notifier == notifier
       ){
         _areIdentical = true;
       }
@@ -166,6 +264,7 @@ class Verse {
       text.hashCode^
       casing.hashCode^
       varTag.hashCode^
+      notifier.hashCode^
       translate.hashCode;
 // -----------------------------------------------------------------------------
 }

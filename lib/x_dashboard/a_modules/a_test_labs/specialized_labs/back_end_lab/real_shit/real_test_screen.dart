@@ -56,7 +56,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
           builder: (_, Map<String, dynamic> map){
 
             return AppBarButton(
-              verse:  'STREAM',
+              verse: Verse.plain('STREAM'),
               buttonColor: map == null ? Colorz.white255 : Colorizer.decipherColor(map['color']),
             );
 
@@ -65,7 +65,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// CREATE
         AppBarButton(
-          verse:  'CREATE',
+          verse: Verse.plain('CREATE'),
           onTap: () async {
 
             final Color _color = Colorizer.createRandomColor();
@@ -90,7 +90,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// CREATE NAMED
         AppBarButton(
-          verse:  'CREATE NAMED',
+          verse: Verse.plain('CREATE NAMED'),
           onTap: () async {
 
             final Color _color = Colorizer.createRandomColor();
@@ -113,7 +113,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// READ
         AppBarButton(
-          verse:  'READ',
+          verse: Verse.plain('READ'),
           onTap: () async {
 
             final Map<String, dynamic> _map = await Real.readDoc(
@@ -129,7 +129,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// READ ONCE
         AppBarButton(
-          verse:  'READ ONCE',
+          verse: Verse.plain('READ ONCE'),
           onTap: () async {
 
             final Map<String, dynamic> _map = await Real.readDocOnce(
@@ -145,7 +145,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// UPDATE
         AppBarButton(
-          verse:  'UPDATE',
+          verse: Verse.plain('UPDATE'),
           onTap: () async {
 
             final Color _color = Colorizer.createRandomColor();
@@ -168,7 +168,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// UPDATE FIELD
         AppBarButton(
-          verse:  'UPDATE FIELD',
+          verse: Verse.plain('UPDATE FIELD'),
           onTap: () async {
 
             await Real.updateDocField(
@@ -184,7 +184,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// DELETE FIELD
         AppBarButton(
-          verse:  'DELETE FIELD',
+          verse: Verse.plain('DELETE FIELD'),
           onTap: () async {
 
             await Real.deleteField(
@@ -199,7 +199,7 @@ class _RealTestScreenState extends State<RealTestScreen> {
 
         /// DELETE DOC
         AppBarButton(
-          verse:  'DELETE DOC',
+          verse: Verse.plain('DELETE DOC'),
           onTap: () async {
 
             await Real.deleteDoc(

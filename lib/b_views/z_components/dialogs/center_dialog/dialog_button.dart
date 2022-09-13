@@ -15,7 +15,7 @@ class DialogButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String verse;
+  final Verse verse;
   final Color verseColor;
   final double width;
   final Color color;
@@ -28,7 +28,7 @@ class DialogButton extends StatelessWidget {
       height: height,
       width: width,
       margins: const EdgeInsets.all(Ratioz.appBarPadding),
-      verse: verse.toUpperCase(),
+      verse: verse,
       verseWeight: VerseWeight.black,
       verseItalic: true,
       verseMaxLines: 2,

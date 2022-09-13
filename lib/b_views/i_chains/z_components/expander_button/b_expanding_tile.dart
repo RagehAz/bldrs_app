@@ -39,8 +39,8 @@ class ExpandingTile extends StatefulWidget {
   final double iconSizeFactor;
   final ValueChanged<bool> onTap;
   final bool initiallyExpanded;
-  final String firstHeadline;
-  final String secondHeadline;
+  final Verse firstHeadline;
+  final Verse secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final double corners;

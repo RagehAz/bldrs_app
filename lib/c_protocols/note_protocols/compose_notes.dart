@@ -119,7 +119,7 @@ class ComposeNoteProtocols {
 
     blog('ComposeNoteProtocols.sendAuthorRoleChangeNote : START');
 
-    final String _authorRoleString = AuthorModel.translateRole(
+    final String _authorRoleString = AuthorModel.getAuthorRolePhid(
       context: context,
       role:  author.role,
     );

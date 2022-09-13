@@ -86,7 +86,7 @@ class _TemplateNotesScreenState extends State<TemplateNotesScreen> {
         ),
       ],
       // loading: _loading,
-      pageTitleVerse:  '##News & Notifications',
+      pageTitleVerse: Verse.plain('News & Notifications'),
       skyType: SkyType.black,
       pyramidsAreOn: true,
       layoutWidget: _notes.isEmpty ?

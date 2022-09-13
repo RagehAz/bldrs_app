@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/sembast_api.dart';
@@ -139,8 +140,8 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
     final String _newID = await Dialogs.keyboardDialog(
       context: context,
       keyboardModel: KeyboardModel.standardModel().copyWith(
-        hintVerse:  'Wtf is this',
-        titleVerse:  'Add new ID instead of Old ( ${map['id']} )',
+        hintVerse: Verse.plain('Wtf is this'),
+        titleVerse: Verse.plain('Add new ID instead of Old ( ${map['id']} )'),
       ),
     );
 
@@ -192,13 +193,13 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
       BottomDialog.wideButton(
         context: context,
-        verse:  'Delete',
+        verse:  Verse.plain('Delete'),
         onTap: () => _deleteMap(map),
       ),
 
       BottomDialog.wideButton(
         context: context,
-        verse:  'Update',
+        verse: Verse.plain('Update'),
         onTap: () => _updateMap(map),
       ),
 

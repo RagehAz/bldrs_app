@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 class ListLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ListLayout({
-    this.pageTitle,
+    this.pageTitleVerse,
     this.pyramids,
     this.mapModels,
     this.icons,
@@ -28,7 +28,7 @@ class ListLayout extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String pageTitle;
+  final Verse pageTitleVerse;
   final String pyramids;
   final List<MapModel> mapModels;
   final List<String> icons;
@@ -56,7 +56,7 @@ class ListLayout extends StatelessWidget {
     return MainLayout(
       skyType: sky,
       appBarType: AppBarType.basic,
-      pageTitleVerse: pageTitle,
+      pageTitleVerse: pageTitleVerse,
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       // appBarBackButton: true,

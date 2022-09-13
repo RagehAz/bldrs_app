@@ -74,9 +74,11 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
       TopDialog.showUnawaitedTopDialog(
         context: context,
-        firstLine: 'Select promotion zone man !',
+        firstLine: const Verse(
+          text: 'phid_select_promotion_target_city',
+          translate: true,
+        ),
         color: Colorz.red255,
-        secondLine: 'WTF !',
       );
 
     }
@@ -105,8 +107,16 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Flyer is successfully promoted',
-        secondLine: 'in ${_zone.cityName}, ${_zone.countryName}',
+        firstVerse: const Verse(
+          pseudo: 'Flyer is successfully promoted',
+          text: 'phid_flyer_has_been_promoted',
+          translate: true,
+        ),
+        secondVerse: Verse(
+          text: 'in ${_zone.cityName}, ${_zone.countryName}',
+          translate: true,
+          varTag: [_zone.cityName, _zone.countryName],
+        ),
         color: Colorz.green255,
         textColor: Colorz.white255,
       );
@@ -124,7 +134,10 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 // -----------------------------------------------------------------------------
 
     return MainLayout(
-      pageTitleVerse:  'Flyer promotion',
+      pageTitleVerse: const Verse(
+        text: 'phid_flyer-promotion',
+        translate: true,
+      ),
       appBarType: AppBarType.basic,
       layoutWidget: Column(
         children: <Widget>[
@@ -145,7 +158,18 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
                 final String _cityName = zoneModel?.cityName;
                 final String _countryName = zoneModel?.countryName;
                 final String _flag = zoneModel?.flag;
-                final String _verse = zoneModel == null ? 'Select a City' : 'Promoting Flyer in\n$_cityName, $_countryName';
+
+                final Verse _verse = zoneModel == null ?
+                const Verse(
+                  text: 'phid_select_a_city',
+                  translate: true,
+                )
+                    :
+                Verse(
+                  text: '##Promoting Flyer in\n$_cityName, $_countryName',
+                  translate: true,
+                  varTag: [_cityName, _countryName],
+                );
 
                 return
                   DreamBox(
@@ -171,7 +195,11 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
             alignment: Alignment.bottomRight,
             child: DreamBox(
               height: 50,
-              verse:  'PROMOTE',
+              verse:  const Verse(
+                text: 'phid_promote',
+                translate: true,
+                casing: Casing.upperCase,
+              ),
               verseItalic: true,
               verseWeight: VerseWeight.black,
               verseColor: Colorz.black255,

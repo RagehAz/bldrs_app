@@ -54,7 +54,7 @@ class RenovateZoneProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         // superPhrase(context, _zone.countryID);
-        final String _countryName = CountryModel.getTranslatedCountryName(
+        final String _countryName = CountryModel.translateCountryName(
           context: context,
           countryID: incompleteZoneModel.countryID,
         );

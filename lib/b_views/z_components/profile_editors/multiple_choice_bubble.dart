@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class MultipleChoiceBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MultipleChoiceBubble({
-    @required this.title,
+    @required this.titleVerse,
     @required this.buttonsVerses,
     @required this.onButtonTap,
     @required this.selectedButtons,
@@ -24,7 +24,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Verse title;
+  final Verse titleVerse;
   final List<Verse> bulletPoints;
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
@@ -45,7 +45,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           validator: validator,
         ),
         headerViewModel: BubbleHeaderVM(
-          headlineVerse: title,
+          headlineVerse: titleVerse,
           redDot: isRequired,
           headerWidth: _bubbleWidth - 20,
         ),

@@ -80,7 +80,11 @@ class FlyerSelectionStack extends StatelessWidget {
                             fadeType: FadeType.repeatAndReverse,
                             duration: const Duration(seconds: 2),
                             child: SuperVerse(
-                              verse: '##Waiting\nVerification',
+                              verse: const Verse(
+                                pseudo: '##Waiting\nVerification',
+                                text: 'phid_waiting_verification',
+                                translate: true,
+                              ),
                               weight: VerseWeight.black,
                               italic: true,
                               scaleFactor: flyerBoxWidth * 0.008,

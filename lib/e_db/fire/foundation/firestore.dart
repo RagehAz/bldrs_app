@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -872,10 +873,19 @@ String pathOfSubDoc({
 
     final bool _canContinue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  'DANGER',
-      bodyVerse:  'you will delete all documents in [ $collName ] collection\n Confirm delete ?',
+      titleVerse: const Verse(
+        text: 'DANGER',
+        translate: false,
+      ),
+      bodyVerse: Verse(
+        text: 'you will delete all documents in [ $collName ] collection\n Confirm delete ?',
+        translate: false,
+      ),
       boolDialog: true,
-      confirmButtonVerse:  'YES DELETE ALL',
+      confirmButtonVerse: const Verse(
+        text: 'YES DELETE ALL',
+        translate: false,
+      ),
     );
 
     if (_canContinue == true){
@@ -958,10 +968,16 @@ String pathOfSubDoc({
     if (showAlertDialog == true){
       _canContinue =  await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse:  'DANGER',
-        bodyVerse:  'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
+        titleVerse: const Verse(text: 'DANGER', translate: false),
+        bodyVerse: Verse(
+          text: 'you will delete all documents in [ $collName / $docName / $subCollName ] collection\n Confirm delete ?',
+          translate: false,
+        ),
         boolDialog: true,
-        confirmButtonVerse:  'YES DELETE ALL',
+        confirmButtonVerse: const Verse(
+          text: 'YES DELETE ALL',
+          translate: false,
+        ),
       );
     }
 

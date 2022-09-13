@@ -55,8 +55,7 @@ class LDBViewersScreen extends StatelessWidget {
           final String ldbDoc = LDBDoc.allDocs[index];
 
           return WideButton(
-            translate: false,
-            verse: ldbDoc, // notifications prefs, my user model
+            verse: Verse.plain(ldbDoc), // notifications prefs, my user model
             onTap: () => goToLDBViewer(context, ldbDoc),
             icon: Iconz.info,
           );
@@ -97,7 +96,7 @@ class SmallFuckingButton extends StatelessWidget {
       width: _buttonWidth,
       color: Colorz.black255,
       margins: const EdgeInsets.symmetric(horizontal: 1),
-      verse: verse.toUpperCase(),
+      verse: Verse.plain(verse).copyWith(casing: Casing.upperCase),
       verseScaleFactor: 0.6,
       verseWeight: VerseWeight.black,
       verseMaxLines: 2,

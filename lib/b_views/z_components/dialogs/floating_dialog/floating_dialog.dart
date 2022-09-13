@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class FloatingDialog extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FloatingDialog({
-    @required this.title,
+    @required this.titleVerse,
     @required this.list,
     this.fieldIsRequired = false,
     this.actionBtColor,
@@ -20,7 +20,7 @@ class FloatingDialog extends StatefulWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String title;
+  final Verse titleVerse;
   final List<String> list;
   final bool fieldIsRequired;
   final String actionBtIcon;
@@ -51,11 +51,12 @@ class _FloatingDialogState extends State<FloatingDialog> {
         weight: VerseWeight.thin,
         italic: false,
         // size: 2,
-        shadowIsOn: false);
+        shadowIsOn: false,
+    );
 
     return Bubble(
         headerViewModel: BubbleHeaderVM(
-          headlineVerse: widget.title,
+          headlineVerse: widget.titleVerse,
           redDot: widget.fieldIsRequired,
         ),
         // actionBtIcon: widget.actionBtIcon,

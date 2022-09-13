@@ -164,7 +164,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
-      pageTitleVerse: widget.flyerToEdit == null ? 'phid_createFlyer' : '##Edit Flyer',
+      pageTitleVerse: Verse(
+        text: widget.flyerToEdit == null ? 'phid_createFlyer' : 'phid_edit_flyer',
+        translate: true,
+      ),
       skyType: SkyType.black,
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
@@ -172,7 +175,10 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
       sectionButtonIsOn: false,
       confirmButtonModel: ConfirmButtonModel(
         // isDeactivated: !_canPublish,
-        firstLine: 'phid_publish',
+        firstLine: const Verse(
+          text: 'phid_publish',
+          translate: true,
+        ),
         onTap: () => _onConfirmTap(),
       ),
       appBarRowWidgets: <Widget>[
@@ -180,7 +186,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         const Expander(),
 
         AppBarButton(
-          verse: '##Identical',
+          verse: Verse.plain('Identical'),
           onTap: () async {
 
             FlyerModel.checkFlyersAreIdentical(
@@ -195,7 +201,7 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         ),
 
         AppBarButton(
-          verse: '##draft',
+          verse: Verse.plain('draft'),
           onTap: (){
             // widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
             _draftFlyer.value.blogDraft();

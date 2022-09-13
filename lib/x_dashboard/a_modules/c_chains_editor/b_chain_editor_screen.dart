@@ -86,8 +86,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   Widget build(BuildContext context) {
 
     return MainLayout(
-      pageTitleVerse: 'Chains',
-      translatePageTitle: false,
+      pageTitleVerse: const Verse(text: 'Chains',translate: false),
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       onBack: (){
@@ -105,8 +104,10 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         else {
           Dialogs.goBackDialog(
             context: context,
-            titleVerse: 'Go Back ?',
-            bodyVerse: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
+            bodyVerse: const Verse(
+              text: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
+              translate: false,
+            ),
             goBackOnConfirm: true,
           );
         }
@@ -148,7 +149,10 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                             final bool _result = await Dialogs.bottomBoolDialog(
                                 context: context,
-                                titleVerse: 'Reset Chains ?',
+                                titleVerse: const Verse(
+                                  text: 'Reset Chains ?',
+                                  translate: false,
+                                ),
                             );
 
                             if (_result == true){
@@ -160,8 +164,10 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                       /// BLOG CURRENT CHAIN PATHS
                       AppBarButton(
-                          verse:  'Blog\nPaths',
-                          translate: false,
+                          verse: const Verse(
+                            text: 'Blog\nPaths',
+                            translate: false,
+                          ),
                           buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
                           onTap: () async {
 
@@ -177,8 +183,10 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                       /// BLOG CURRENT CHAIN
                       AppBarButton(
-                        verse:  'Blog\nChains',
-                        translate: false,
+                        verse: const Verse(
+                          text: 'Blog\nChains',
+                          translate: false,
+                        ),
                         buttonColor: _identicalChains == true ? Colorz.white20 : Colorz.bloodTest,
                         onTap: (){
                           Chain.blogChains(tempChains);
@@ -187,8 +195,10 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
                       /// SYNC BUTTON
                       AppBarButton(
-                        verse:  'Sync',
-                        translate: false,
+                        verse: const Verse(
+                          text: 'Sync',
+                          translate: false
+                        ),
                         isDeactivated: _identicalPaths,
                         buttonColor: Colorz.yellow255,
                         verseColor: Colorz.black255,

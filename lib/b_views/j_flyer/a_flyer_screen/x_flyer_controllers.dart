@@ -69,7 +69,7 @@ ZoneModel getZoneModel({
   @required String districtID,
 }){
 
-  final String _countryName = CountryModel.getTranslatedCountryName(
+  final String _countryName = CountryModel.translateCountryName(
     context: context,
     countryID: countryID,
   );

@@ -10,7 +10,7 @@ class UserTileButton extends StatelessWidget {
   const UserTileButton({
     @required this.boxWidth,
     @required this.userModel,
-    this.sideButton,
+    this.sideButtonVerse,
     this.onSideButtonTap,
     this.onUserTap,
     this.bubble = true,
@@ -21,7 +21,7 @@ class UserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final double boxWidth;
-  final String sideButton;
+  final Verse sideButtonVerse;
   final Function onUserTap;
   final Function onSideButtonTap;
   final bool bubble;
@@ -69,7 +69,7 @@ class UserTileButton extends StatelessWidget {
     // --------------------
     final double _userButtonWidth = getUserButtonWidth(
       context: context,
-      inviteButtonIsOn: sideButton?.isNotEmpty == true,
+      inviteButtonIsOn: sideButtonVerse != null,
       boxWidth: boxWidth,
     );
     // --------------------
@@ -84,7 +84,7 @@ class UserTileButton extends StatelessWidget {
             width: _userButtonWidth,
             height: buttonHeight,
             icon: userModel.pic,
-            verse: userModel.name,
+            verse: Verse(text: userModel.name,translate: false),
             verseCentered: false,
             secondLine: UserModel.generateUserJobLine(userModel),
             secondLineScaleFactor: 1.2,
@@ -95,14 +95,14 @@ class UserTileButton extends StatelessWidget {
             onTap: onUserTap,
           ),
 
-          if (sideButton?.isNotEmpty == true)
+          if (sideButtonVerse == null)
             const SizedBox(width: boxPadding,),
 
-          if (sideButton?.isNotEmpty == true)
+          if (sideButtonVerse != null)
             DreamBox(
               width: inviteButtonWidth,
               height: buttonHeight,
-              verse: sideButton,
+              verse: sideButtonVerse,
               verseScaleFactor: 0.7,
               verseMaxLines: 2,
               onTap: onSideButtonTap,
@@ -122,7 +122,7 @@ class FutureUserTileButton extends StatelessWidget {
   const FutureUserTileButton({
     @required this.boxWidth,
     @required this.userID,
-    this.sideButton,
+    this.sideButtonVerse,
     this.onSideButtonTap,
     this.onUserTap,
     this.bubble = true,
@@ -132,7 +132,7 @@ class FutureUserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final String userID;
   final double boxWidth;
-  final String sideButton;
+  final Verse sideButtonVerse;
   final Function onUserTap;
   final Function onSideButtonTap;
   final bool bubble;
@@ -156,7 +156,7 @@ class FutureUserTileButton extends StatelessWidget {
             return UserTileButton(
               boxWidth: boxWidth,
               userModel: _userModel,
-              sideButton: sideButton,
+              sideButtonVerse: sideButtonVerse,
               onSideButtonTap: onSideButtonTap,
               onUserTap: onUserTap,
               bubble: bubble,

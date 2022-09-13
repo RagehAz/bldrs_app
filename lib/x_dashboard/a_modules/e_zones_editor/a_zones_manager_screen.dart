@@ -92,7 +92,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
       pyramidsAreOn: true,
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse:  'Zones Manager',
+      pageTitleVerse: Verse.plain('Zones Manager'),
       skyType: SkyType.black,
       appBarRowWidgets: <Widget>[
 
@@ -109,7 +109,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
             );
 
             return AppBarButton(
-              verse:  'Synced',
+              verse: Verse.plain('Synced'),
               buttonColor: _areIdentical == true ? Colorz.nothing : Colorz.yellow255,
               bubble: !_areIdentical,
               isDeactivated: _areIdentical,
@@ -143,7 +143,7 @@ class _ZonesEditorScreenState extends State<ZonesEditorScreen> {
           if (zone == null){
             return Center(
               child: DreamBox(
-                verse:  'Select Zone',
+                verse: Verse.plain('Select Zone'),
                 height: 100,
                 verseMaxLines: 2,
                 onTap: () => goToCountrySelectionScreen(

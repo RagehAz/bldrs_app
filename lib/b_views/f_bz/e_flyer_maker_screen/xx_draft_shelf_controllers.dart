@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/b_slide_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -264,8 +265,17 @@ Future<void> _addImagesForExistingFlyer({
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Max. Images reached',
-    bodyVerse:  '##Can not add more than $maxLength images in one slide',
+    titleVerse: const Verse(
+      text: 'phid_max_slides_reached',
+      translate: true,
+    ),
+    bodyVerse: Verse(
+      pseudo: '##Can not add more than $maxLength images in one flyer',
+      text: 'phid_max_slides_reached_description',
+      translate: true,
+      varTag: maxLength,
+    ),
+
   );
 }
 // --------------------
@@ -337,7 +347,7 @@ Future<void> onMoreTap({
         /// DELETE
         BottomDialog.wideButton(
           context: context,
-          verse: 'phid_delete',
+          verse: const Verse(text: 'phid_delete', translate: true),
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -351,7 +361,7 @@ Future<void> onMoreTap({
         /// SAVE DRAFT
         BottomDialog.wideButton(
           context: context,
-          verse: '##Save Draft',
+          verse: const Verse(text: 'phid_save_draft', translate: true,),
           verseCentered: true,
           onTap: (){
             Nav.goBack(
@@ -365,7 +375,7 @@ Future<void> onMoreTap({
         /// PUBLISH
         BottomDialog.wideButton(
           context: context,
-          verse: '##Publish',
+          verse: const Verse(text: 'phid_publish', translate: true),
           verseCentered: true,
           onTap: (){
             Nav.goBack(

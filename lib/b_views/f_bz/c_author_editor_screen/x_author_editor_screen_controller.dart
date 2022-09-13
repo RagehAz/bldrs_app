@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/author_protocols/a_author_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/a_note_protocols.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
@@ -83,8 +84,14 @@ Future<void> loadAuthorEditorSession({
 
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: 'phid_load_last_session_data_q',
-      bodyVerse: 'phid_want_to_load_last_session_q',
+      titleVerse: const Verse(
+        text: 'phid_load_last_session_data_q',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_want_to_load_last_session_q',
+        translate: true,
+      ),
       boolDialog: true,
     );
 
@@ -279,18 +286,31 @@ Future<void> onConfirmAuthorUpdates({
 
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  'phid_confirm_edits',
-    bodyVerse:  '##This will only edit your details as author in ${bzModel.name} '
-        'business account, and will not impact your personal profile',
+    titleVerse: const Verse(
+      text: 'phid_confirm_edits',
+      translate: true,
+    ),
+    bodyVerse: Verse(
+      text: '##This will only edit your details as author in ${bzModel.name} '
+          'business account, and will not impact your personal profile',
+      translate: true,
+      varTag: bzModel.name,
+    ),
     boolDialog: true,
-    confirmButtonVerse:  'phid_confirm',
+    confirmButtonVerse: const Verse(
+      text: 'phid_confirm',
+      translate: true,
+    ),
   );
 
   if (_result == true){
 
     unawaited(WaitDialog.showWaitDialog(
       context: context,
-      loadingVerse: '##Uploading new Author details',
+      loadingVerse: const Verse(
+        text: 'phid_updating_author_profile',
+        translate: true,
+      ),
     ));
 
     final AuthorModel _author = AuthorModel.bakeEditorVariablesToUpload(
@@ -330,15 +350,22 @@ Future<void> onChangeAuthorRoleOps({
 
   if (tempRole.value != oldAuthor.role){
 
-    final String _role = AuthorModel.translateRole(
+    final String _role = AuthorModel.getAuthorRolePhid(
       context: context,
       role: tempRole.value,
     );
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse:  '##Change Author Role',
-      bodyVerse:  '##This will set ${oldAuthor.name} as $_role',
+      titleVerse: const Verse(
+        text: 'phid_confirm_author_role',
+        translate: true,
+      ),
+      bodyVerse: Verse(
+        text: '##This will set ${oldAuthor.name} as $_role',
+        translate: true,
+        varTag: [oldAuthor.name, _role]
+      ),
       boolDialog: true,
     );
 
@@ -350,7 +377,10 @@ Future<void> onChangeAuthorRoleOps({
 
       unawaited(WaitDialog.showWaitDialog(
         context: context,
-        loadingVerse: '##Uploading new Author details',
+        loadingVerse: const Verse(
+          text: 'phid_updating_author_profile',
+          translate: true,
+        ),
       ));
 
       final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
@@ -438,8 +468,16 @@ Future<bool> _checkCanChangeRole({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '##Can Not Demote Account creator',
-        bodyVerse: '##the Author Role of ${oldAuthor.name} can not be changed.',
+        titleVerse: const Verse(
+          pseudo: 'Can Not Demote Account creator',
+          text: 'phid_cant_demote_creator',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          text: '##the Author Role of ${oldAuthor.name} can not be changed.',
+          translate: true,
+          varTag: oldAuthor.name,
+        ),
       );
 
     }
@@ -454,7 +492,11 @@ Future<bool> _checkCanChangeRole({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: '##Only one account creator is allowed',
+        titleVerse: const Verse(
+          pseudo: 'Only one account creator is allowed',
+          text: 'phid_only_one_creator_allowed',
+          translate: true,
+        ),
       );
 
     }

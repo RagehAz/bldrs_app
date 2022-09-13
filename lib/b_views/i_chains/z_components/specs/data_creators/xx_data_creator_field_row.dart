@@ -17,7 +17,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     @required this.onKeyboardSubmitted,
     @required this.selectedUnitID,
     @required this.onUnitSelectorButtonTap,
-    @required this.hintText,
+    @required this.hintVerse,
     @required this.appBarType,
     Key key
   }) : super(key: key);
@@ -30,7 +30,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   final ValueChanged<String> onKeyboardSubmitted;
   final ValueNotifier<String> selectedUnitID;
   final Function onUnitSelectorButtonTap;
-  final String hintText;
+  final Verse hintVerse;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------
   @override
@@ -64,12 +64,15 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
           child: SuperTextField(
             appBarType: appBarType,
             globalKey: formKey,
-            titleVerse: '##Number',
+            titleVerse: const Verse(
+              text: '##Number',
+              translate: true,
+            ),
             isFormField: true,
             autofocus: true,
             width: _textFieldWidth,
             textController: textController,
-            hintVerse: hintText,
+            hintVerse: hintVerse,
             centered: true,
             // counterIsOn: false,
             textSize: _textSize,
@@ -98,8 +101,10 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
                 return DreamBox(
                   width: _unitButtonWidth,
                   height: _buttonHeight,
-                  verse: selectedUnitID,
-                  translateVerse: true,
+                  verse: Verse(
+                    text: selectedUnitID,
+                    translate: true,
+                  ),
                   verseScaleFactor: 0.65,
                   verseMaxLines: 2,
                   onTap: onUnitSelectorButtonTap,

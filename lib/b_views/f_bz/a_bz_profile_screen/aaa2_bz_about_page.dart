@@ -61,7 +61,10 @@ class BzAboutPage extends StatelessWidget {
                 varTag: _bzModel.name,
               ),
             ),
-            paragraph: _bzModel.about,
+            paragraph: Verse(
+              text: _bzModel.about,
+              translate: false,
+            ),
           ),
 
         /// BZ CONTACT
@@ -107,7 +110,6 @@ class BzAboutPage extends StatelessWidget {
             verse: Verse(
               text: '##Flyers By ${bzModel.name}',
               translate: false,
-              casing: Casing.non,
               varTag: bzModel.name,
             ),
             centered: false,

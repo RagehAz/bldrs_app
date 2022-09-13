@@ -86,7 +86,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
             const SizedBox()
                 :
             SuperVerse(
-              verse:  '${widget.number}',
+              verse: Verse.plain('${widget.number}'),
               size: 1,
               // color: Colorz.white255,
               labelColor: widget.mutableSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
@@ -186,7 +186,10 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                    verse: widget.mutableSlide.headline,
+                    verse: Verse(
+                      text: widget.mutableSlide.headline,
+                      translate: false,
+                    ),
                   ),
 
               ],

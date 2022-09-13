@@ -101,9 +101,15 @@ class EmailAuthScreenView extends StatelessWidget {
                 fieldIsRequired: true,
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
-                titleVerse: 'phid_emailAddress',
+                titleVerse: const Verse(
+                  text: 'phid_emailAddress',
+                  translate: true,
+                ),
+                hintVerse: const Verse(
+                  text: 'rageh@bldrs.net',
+                  translate: false,
+                ),
                 validator: emailValidator,
-                hintVerse: 'rageh@bldrs.net',
               ),
 
               /// PASSWORD - CONFIRMATION
@@ -148,9 +154,15 @@ class EmailAuthScreenView extends StatelessWidget {
                     width: 150,
                     verseScaleFactor: _verseScaleFactor,
                     verseMaxLines: 2,
-                    verse: _isSigningIn ? 'phid_create' : 'phid_register',
+                    verse: Verse(
+                      text: _isSigningIn ? 'phid_create' : 'phid_register',
+                      translate: true,
+                    ),
+                    secondLine: const Verse(
+                      text: 'phid_new_account',
+                      translate: true,
+                    ),
                     verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
-                    secondLine: 'phid_new_account',
                     secondLineColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
                     color: _isSigningIn ? Colorz.white20 : Colorz.yellow255,
                     margins: EdgeInsets.zero,
@@ -163,7 +175,10 @@ class EmailAuthScreenView extends StatelessWidget {
                     height: _buttonHeight,
                     verseScaleFactor: _verseScaleFactor,
                     color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
-                    verse: 'phid_signIn',
+                    verse: const Verse(
+                      text: 'phid_signIn',
+                      translate: true,
+                    ),
                     verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
                     verseWeight: VerseWeight.black,
                     margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),

@@ -410,7 +410,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
     final double _screenHeight = Scale.superScreenHeight(context);
 
     return MainLayout(
-      pageTitleVerse:  'Flyers Auditor',
+      pageTitleVerse: Verse.plain('Flyers Auditor'),
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       loading: _loading,
@@ -420,7 +420,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
         const Expander(),
 
         AppBarButton(
-          verse:  'load more',
+          verse: Verse.plain('load more'),
           onTap: () => readMoreUnVerifiedFlyers(
             context: context,
             flyers: _flyers,

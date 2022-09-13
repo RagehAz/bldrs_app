@@ -140,7 +140,11 @@ class _BzAuthorsPageState extends State<BzAuthorsPage> {
                     bubble: false,
                     color: Colorz.white10,
                     verseCentered: false,
-                    verse: '##Add Authors to the team',
+                    verse: const Verse(
+                      pseudo: 'Add Authors to the team',
+                      text: 'phid_add_authors_to_the_team',
+                      translate: true,
+                    ),
                     icon: Iconz.plus,
                     iconSizeFactor: 0.5,
                     verseScaleFactor: 1.4,

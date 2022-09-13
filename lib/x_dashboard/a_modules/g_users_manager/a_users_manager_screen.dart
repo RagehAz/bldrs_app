@@ -92,7 +92,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
     return MainLayout(
       key: const ValueKey<String>('UsersManagerScreen'),
       // loading: _loading,
-      pageTitleVerse:  'Users Manager',
+      pageTitleVerse: Verse.plain('Users Manager'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       skyType: SkyType.black,
@@ -106,8 +106,8 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
 
               return DreamBox(
                 height: 40,
-                verse:  'Load More',
-                secondLine: 'showing ${users.length} users',
+                verse: Verse.plain('Load More'),
+                secondLine: Verse.plain('showing ${users.length} users'),
                 verseScaleFactor: 0.7,
                 secondLineScaleFactor: 0.9,
                 margins: const EdgeInsets.symmetric(horizontal: 5),

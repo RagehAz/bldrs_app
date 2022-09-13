@@ -86,7 +86,10 @@ class _PDFScreenState extends State<PDFScreen> {
 
     return MainLayout(
       loading: _loading,
-      pageTitleVerse:  '${widget.pdf.fileName}.pdf',
+      pageTitleVerse: Verse(
+        text: '${widget.pdf.fileName}.pdf',
+        translate: false,
+      ),
       appBarType: AppBarType.basic,
       sectionButtonIsOn: false,
       progressBarModel: _progressBarModel,

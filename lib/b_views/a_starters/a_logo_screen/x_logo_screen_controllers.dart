@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -290,9 +291,21 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##New App update is Available',
-    bodyVerse:  '##You need to update the app to continue',
-    confirmButtonVerse:  '##Update Bldrs.net',
+    titleVerse:  const Verse(
+      pseudo: 'New App update is Available',
+      text: 'phid_new_app_update_available',
+      translate: true
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'You need to update the app to continue',
+      text: 'phid_new_app_update_description',
+      translate: true,
+    ),
+    confirmButtonVerse: const Verse(
+      pseudo: '##Update Bldrs.net',
+      text: 'phid_update_bldrs_net',
+      translate: true,
+    ),
   );
 
   await Launcher.launchContactModel(

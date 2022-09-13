@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/a_bz_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -77,7 +78,11 @@ Future<void> onDeleteBzButtonTap({
     if (showSuccessDialog == true){
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Business Account has been deleted successfully',
+        firstVerse: const Verse(
+          pseudo: 'Business Account has been deleted successfully',
+          text: 'phid_bz_account_deleted_successfully',
+          translate: true,
+        ),
         color: Colorz.green255,
         textColor: Colorz.white255,
       );
@@ -158,9 +163,20 @@ Future<bool> _showConfirmDeleteBzDialog({
   final bool _result = await Dialogs.bzBannerDialog(
     context: context,
     bzModel: bzModel,
-    title: 'Delete ${bzModel.name} Business Account ?',
-    body: 'All Account flyers, records and data will be deleted and can not be retrieved',
-    confirmButtonText: 'Yes, Delete',
+    titleVerse: Verse(
+      text: 'Delete ${bzModel.name} Business Account ?',
+      translate: true,
+      varTag: bzModel.name,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'All Account flyers, records and data will be deleted and can not be retrieved',
+      text: 'phid_bz_deletion_warning',
+      translate: true,
+    ),
+    confirmButtonVerse: const Verse(
+      text: 'phid_yes_delete',
+      translate: true,
+    ),
   );
 
   return _result;
@@ -175,8 +191,16 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 
   await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Can Not Delete This Account',
-    bodyVerse:  '##Only $_creatorAuthorsString can delete this Account',
+    titleVerse: const Verse(
+      pseudo: 'Can Not Delete This Account',
+      text: 'phid_cant_delete_account',
+      translate: true,
+    ),
+    bodyVerse: Verse(
+      text: '##Only $_creatorAuthorsString can delete this Account',
+      translate: true,
+      varTag: _creatorAuthorsString,
+    ),
   );
 
 }
@@ -188,9 +212,21 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
 
   final bool _result = await Dialogs.flyersDialog(
     context: context,
-    title: '${bzModel.flyersIDs.length} flyers will be permanently deleted',
-    body: 'Once flyers are deleted, they can not be retrieved',
-    confirmButtonText: 'Delete All Flyers And Remove ${bzModel.name}',
+    titleVerse: Verse(
+      text: '##${bzModel.flyersIDs.length} flyers will be permanently deleted',
+      translate: true,
+      varTag: bzModel.flyersIDs.length,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'Once flyers are deleted, they can not be retrieved',
+      text: 'phid_flyers_deletion_warning',
+      translate: true,
+    ),
+    confirmButtonVerse: Verse(
+      text: '##Delete All Flyers And Remove ${bzModel.name}',
+      translate: true,
+      varTag: bzModel.name,
+    ),
     flyersIDs: bzModel.flyersIDs,
   );
 

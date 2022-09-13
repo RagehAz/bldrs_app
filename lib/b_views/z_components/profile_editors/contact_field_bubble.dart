@@ -19,7 +19,7 @@ class ContactFieldBubble extends StatefulWidget {
     @required this.appBarType,
     @required this.headerViewModel,
     @required this.globalKey,
-    this.hintText = '...',
+    this.hintVerse,
     // this.textController,
     this.textOnChanged,
     this.isFormField,
@@ -41,7 +41,7 @@ class ContactFieldBubble extends StatefulWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String hintText;
+  final Verse hintVerse;
   // final TextEditingController textController;
   final Function textOnChanged;
   final bool isFormField;
@@ -208,7 +208,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,
-                hintVerse: widget.hintText,
+                hintVerse: widget.hintVerse,
                 textInputType: widget.keyboardTextInputType,
                 onChanged: widget.textOnChanged,
                 onSavedForForm: widget.onSaved,
@@ -226,7 +226,10 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
                 DreamBox(
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
-                  verse:  'phid_paste  ',
+                  verse:  const Verse(
+                    text: 'phid_paste',
+                    translate: true,
+                  ),
                   verseScaleFactor: 0.5,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,

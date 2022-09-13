@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_coll_streamer.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/fire_models/query_models/query_parameters.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
@@ -32,7 +33,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// RECORD CREATION
         SettingsWideButton(
-          verse:  'CREATE RECORD',
+          verse: Verse.plain('CREATE RECORD'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -57,7 +58,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// CREATE NEW FLYER COUNTER
         SettingsWideButton(
-          verse:  'CREATE NEW FLYER COUNTER ( flyerID )',
+          verse: Verse.plain('CREATE NEW FLYER COUNTER ( flyerID )'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -79,7 +80,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// UPDATE EXISTING FLYER COUNTER ( 1656001361010677 )
         SettingsWideButton(
-          verse:  'UPDATE FLYER COUNTER flyerID',
+          verse: Verse.plain('UPDATE FLYER COUNTER flyerID'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -101,7 +102,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// READ FLYER COUNTER
         SettingsWideButton(
-          verse:  'READ FLYER SCOUNTER',
+          verse: Verse.plain('READ FLYER SCOUNTER'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -118,7 +119,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// READ FLYER COUNTER
         SettingsWideButton(
-          verse:  'READ FLYER COUNTER',
+          verse: Verse.plain('READ FLYER COUNTER'),
           icon: Iconz.addFlyer,
           onTap: () async {
 
@@ -137,7 +138,7 @@ class RealHttpTestScreen extends StatelessWidget {
 
         /// https://ee27-102-186-98-33.ngrok.io
         SettingsWideButton(
-          verse:  'TEST',
+          verse: Verse.plain('TEST'),
           icon: Iconz.addFlyer,
           onTap: () async {
 

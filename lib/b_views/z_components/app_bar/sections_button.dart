@@ -32,11 +32,10 @@ class SectionsButton extends StatelessWidget {
     }
 
     else {
-      final String _sectionName = FlyerTyper.getFlyerTypePhid(
-        context: context,
+      final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: currentSection,
       );
-      _title = _sectionName;
+      _title = _flyerTypePhid;
     }
 
     return Verse(
@@ -56,12 +55,11 @@ class SectionsButton extends StatelessWidget {
       _body = currentKeywordID;
     }
     else {
-      final String _sectionName = FlyerTyper.getFlyerTypePhid(
-        context: context,
+      final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: currentSection,
       );
 
-      _body = _sectionName;
+      _body = _flyerTypePhid;
     }
 
     return Verse(

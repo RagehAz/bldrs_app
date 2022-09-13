@@ -98,7 +98,10 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
         NumberDataCreatorFieldRow(
           appBarType: widget.appBarType,
           hasUnit: true,
-          hintText: '##Add price',
+          hintVerse: const Verse(
+            text: 'phid_add_price',
+            translate: true,
+          ),
           validator: () => currencyFieldValidator(
             context: context,
             selectedCurrencyID: _selectedCurrencyID,

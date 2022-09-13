@@ -280,7 +280,10 @@ class TextFieldBubble extends StatelessWidget {
               if (pasteFunction != null)
                 DreamBox(
                   height: 35,
-                  verse: '#paste  ',
+                  verse: const Verse(
+                    text: 'phid_paste',
+                    translate: true,
+                  ),
                   verseScaleFactor: 0.5,
                   verseWeight: VerseWeight.thin,
                   verseItalic: true,

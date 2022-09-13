@@ -110,7 +110,11 @@ class DataStripKey extends StatelessWidget {
       alignment: Aligners.superCenterAlignment(context),
       child: SuperVerse(
         labelColor: Colorz.nothing,
-        verse: dataKey.toUpperCase(),
+        verse: Verse(
+          text: dataKey,
+          translate: false,
+          casing: Casing.upperCase,
+        ),
         size: 1,
         weight: VerseWeight.black,
         color: Colorz.white200,
@@ -180,7 +184,7 @@ class DataStripValue extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: horizontalMargin),
               child: SuperVerse(
-                verse: valueString,
+                verse: Verse.plain(valueString),
                 centered: false,
                 shadow: true,
                 highlight: highlightText,

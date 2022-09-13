@@ -11,21 +11,21 @@ class CenteredListLayout extends StatelessWidget {
     @required this.columnChildren,
     this.skyType = SkyType.non,
     this.pyramidType = PyramidType.crystalYellow,
-    this.title,
+    this.titleVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
   final SkyType skyType;
   final PyramidType pyramidType;
-  final String title;
+  final Verse titleVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return MainLayout(
       sectionButtonIsOn: false,
-      pageTitleVerse: title,
+      pageTitleVerse: titleVerse,
       appBarType: AppBarType.basic,
       pyramidType: pyramidType,
       skyType: skyType,

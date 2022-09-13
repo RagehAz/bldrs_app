@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_bo
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_headline.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_image_part.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/slide_shadow.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -97,7 +98,10 @@ class SingleSlide extends StatelessWidget {
         SlideHeadline(
           key: const ValueKey<String>('SlideHeadline'),
           flyerBoxWidth: flyerBoxWidth,
-          verse: slideModel.headline,
+          verse: Verse(
+            text: slideModel.headline,
+            translate: false,
+          ),
           // verseColor: Colorz.white255,
           tappingVerse: () {
             blog('Flyer Title clicked');

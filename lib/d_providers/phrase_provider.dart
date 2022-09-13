@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -35,7 +36,10 @@ class PhraseProvider extends ChangeNotifier {
     unawaited(
         WaitDialog.showWaitDialog(
           context: context,
-          loadingVerse: 'phid_change_app_lang_description',
+          loadingVerse: const Verse(
+            text: 'phid_change_app_lang_description',
+            translate: true,
+          ),
         )
     );
 

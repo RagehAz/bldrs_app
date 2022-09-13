@@ -35,7 +35,7 @@ class PhidButton extends StatelessWidget {
   final dynamic margins;
   final ValueNotifier<String> searchText;
   final bool inverseAlignment;
-  final String secondLine;
+  final Verse secondLine;
   final Function onDoubleTap;
   /// --------------------------------------------------------------------------
   static double getHeight(){
@@ -98,8 +98,10 @@ class PhidButton extends StatelessWidget {
         height: getHeight(),
         width: width,
         color: color,
-        verse: Phider.removeIndexFromPhid(phid: phid),
-        translateVerse: true,
+        verse: Verse(
+          text: Phider.removeIndexFromPhid(phid: phid),
+          translate: true,
+        ),
         margins: margins,
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
         icon: _getIcon(context),

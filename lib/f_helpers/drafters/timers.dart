@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -1066,9 +1067,20 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse:  '##Device clock is incorrect !',
-        bodyVerse:  '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-        confirmButtonVerse:  '##Try again',
+        titleVerse: const Verse(
+          pseudo: '##Device clock is incorrect !',
+          text: 'phid_device_time_incorrect',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          text: '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+          translate: true,
+          varTag: [_secondLine, _thirdLine]
+        ),
+        confirmButtonVerse: const Verse(
+          text: 'phid_please_try_again',
+          translate: true,
+        ),
         onOk: onRestart,
       );
 

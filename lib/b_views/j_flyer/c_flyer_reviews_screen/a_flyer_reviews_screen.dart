@@ -20,7 +20,10 @@ class FlyerReviewsScreen extends StatelessWidget {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
-      pageTitleVerse: 'phid_flyer_reviews',
+      pageTitleVerse: const Verse(
+        text: 'phid_flyer_reviews',
+        translate: true,
+      ),
       sectionButtonIsOn: false,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,

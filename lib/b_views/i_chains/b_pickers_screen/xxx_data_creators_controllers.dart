@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -406,7 +407,10 @@ Future<void> onUnitSelectorButtonTap({
 
                 return BottomDialog.wideButton(
                   context: context,
-                  verse: _unitName,
+                  verse: Verse(
+                    text: _unitName,
+                    translate: true,
+                  ),
                   icon: phidIcon(context, _unitID),
                   verseCentered: true,
                   onTap: () async {

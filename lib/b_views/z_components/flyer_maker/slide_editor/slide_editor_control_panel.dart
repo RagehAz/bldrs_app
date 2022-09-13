@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_slide_part.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -54,7 +55,10 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconizer.superBackIcon(context),
-            verse: '##Cancel',
+            verse: const Verse(
+              text: 'phid_cancel',
+              translate: true,
+            ),
             onTap: onCancel,
           ),
 
@@ -62,7 +66,10 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.fingerTap,
-            verse: '##Reset',
+            verse: const Verse(
+              text: 'phid_reset',
+              translate: true,
+            ),
             onTap: onReset,
           ),
 
@@ -70,7 +77,10 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.reload,
-            verse: '##Crop',
+            verse: const Verse(
+              text: 'phid_crop',
+              translate: true,
+            ),
             onTap: onCrop,
           ),
 
@@ -78,7 +88,10 @@ class SlideEditorControlPanel extends StatelessWidget {
           SlideEditorButton(
             size: _buttonSize,
             icon: Iconz.check,
-            verse: '##Confirm',
+            verse: const Verse(
+              text: 'phid_confirm',
+              translate: true,
+            ),
             onTap: onConfirm,
           ),
 

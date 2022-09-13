@@ -70,7 +70,7 @@ class LDBViewerScreen extends StatefulWidget {
             DreamBox(
               height: 40,
               width: 40,
-              verse:  '${index + 1}',
+              verse: Verse.plain('${index + 1}'),
               verseScaleFactor: 0.6,
               margins: const EdgeInsets.all(5),
               bubble: false,
@@ -168,9 +168,9 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
   Future<void> _onClearLDB() async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      titleVerse:  'Confirm ?',
+      titleVerse: Verse.plain('Confirm ?'),
       boolDialog: true,
-      bodyVerse:  'you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?',
+      bodyVerse: Verse.plain('you will never see this data here again,, you can search for it elsewhere,, but never here, do you Understand ?'),
       context: context,
     );
 
@@ -182,7 +182,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
     else {
       await TopDialog.showTopDialog(
         context: context,
-        firstLine: 'Ana 2olt keda bardo',
+        firstVerse: Verse.plain('Ana 2olt keda bardo'),
       );
     }
 
@@ -202,7 +202,7 @@ class _LDBViewerScreenState extends State<LDBViewerScreen> {
             DreamBox(
               width: BottomDialog.clearWidth(context),
               height: 40,
-              verse:  'Clear ${widget.ldbDocName} data',
+              verse: Verse.plain('Clear ${widget.ldbDocName} data'),
               verseWeight: VerseWeight.thin,
               verseScaleFactor: 0.7,
               onTap: _onClearLDB,

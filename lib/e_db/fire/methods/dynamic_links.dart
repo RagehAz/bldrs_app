@@ -344,7 +344,6 @@ class DynamicLinks {
       ),
       socialMetaTagParameters: SocialMetaTagParameters(
         title: FlyerTyper.getFlyerTypePhid(
-          context: context,
           flyerType: flyerModel.flyerType,
           pluralTranslation: false,
         ),

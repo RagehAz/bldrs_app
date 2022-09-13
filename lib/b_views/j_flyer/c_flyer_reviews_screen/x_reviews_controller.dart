@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/a_reviews_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
@@ -162,7 +163,10 @@ Future<void> onReviewOptions({
           /// EDIT REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: '##Edit',
+              verse: const Verse(
+                text: 'phid_edit',
+                translate: true,
+              ),
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -184,7 +188,10 @@ Future<void> onReviewOptions({
           /// DELETE REVIEW
           BottomDialog.wideButton(
               context: context,
-              verse: '##Delete',
+              verse: const Verse(
+                text: 'phid_delete',
+                translate: true,
+              ),
               verseCentered: true,
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
@@ -223,9 +230,14 @@ Future<void> _onEditReview({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'phid_edit_your_review',
-      translateTitle: true,
-      hintVerse:  '##What do you think of this flyer ?',
+      titleVerse: const Verse(
+        text: 'phid_edit_your_review',
+        translate: true,
+      ),
+      hintVerse: const Verse(
+        text: 'phid_what_do_you_think_of_this_flyer_?',
+        translate: true,
+      ),
       initialText: reviewModel.text,
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -258,7 +270,10 @@ Future<void> _onEditReview({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Review has been updated',
+      firstVerse: const Verse(
+        text: 'phid_review_has_been_updated',
+        translate: true,
+      ),
     ));
 
   }
@@ -275,8 +290,15 @@ Future<void> _onDeleteReview({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Delete Review ?',
-    bodyVerse:  '##Your review on this flyer will be permanently deleted',
+    titleVerse: const Verse(
+      text: 'phid_delete_review_?',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: '##Your review on this flyer will be permanently deleted',
+      text: 'phid_review_will_be_deleted',
+      translate: true,
+    ),
     boolDialog: true,
   );
 
@@ -295,7 +317,11 @@ Future<void> _onDeleteReview({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Review has been deleted successfully',
+      firstVerse: const Verse(
+        pseudo: 'Review has been deleted successfully',
+        text: 'phid_review_deleted_successfully',
+        translate: true,
+      ),
     ));
 
   }
@@ -318,9 +344,15 @@ Future<void> onBzReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'phid_reply_to_flyer',
-      translateTitle: true,
-      hintVerse:  '##Reply ...',
+      titleVerse: const Verse(
+        text: 'phid_reply_to_flyer',
+        translate: true,
+      ),
+      hintVerse: const Verse(
+        pseudo: 'Reply ...',
+        text: 'phid_reply_dots',
+        translate: true,
+      ),
       initialText: reviewModel.reply,
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -355,7 +387,11 @@ Future<void> onBzReply({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Your reply has been posted',
+      firstVerse: const Verse(
+        pseudo: 'Your reply has been posted',
+        text: 'phid_your_reply_has_been_posted',
+        translate: true,
+      ),
     ));
 
   }
@@ -380,7 +416,7 @@ Future<void> onReplyOptions({
           /// EDIT REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: '##Edit',
+              verse: const Verse(text: 'phid_edit', translate: true),
               verseCentered: true,
               onTap: () async {
 
@@ -401,7 +437,7 @@ Future<void> onReplyOptions({
           /// DELETE REPLY
           BottomDialog.wideButton(
               context: context,
-              verse: '##Delete',
+              verse: const Verse(text: 'phid_delete', translate: true),
               verseCentered: true,
               onTap: () async {
 
@@ -438,9 +474,14 @@ Future<void> _onEditReply({
   final String _shit = await Dialogs.keyboardDialog(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse:  'phid_edit_your_reply',
-      translateTitle: true,
-      hintVerse:  'phid_reply',
+      titleVerse: const Verse(
+        text: 'phid_edit_your_reply',
+        translate: true,
+      ),
+      hintVerse: const Verse(
+        text: 'phid_reply',
+        translate: true,
+      ),
       initialText: reviewModel.reply,
       maxLines: 5,
       textInputAction: TextInputAction.newline,
@@ -474,7 +515,10 @@ Future<void> _onEditReply({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Reply has been updated',
+      firstVerse: const Verse(
+        text: 'phid_reply_has_been_updated',
+        translate: true,
+      ),
     ));
 
   }
@@ -491,8 +535,15 @@ Future<void> _onDeleteReply({
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse:  '##Delete Reply ?',
-    bodyVerse:  '##Your reply on this review will be permanently deleted',
+    titleVerse: const Verse(
+      text: 'phid_delete_reply_?',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'Your reply on this review will be permanently deleted',
+      text: 'phid_delete_reply_description',
+      translate: true,
+    ),
     boolDialog: true,
   );
 
@@ -523,7 +574,11 @@ Future<void> _onDeleteReply({
 
     unawaited(TopDialog.showTopDialog(
       context: context,
-      firstLine: 'Reply has been deleted',
+      firstVerse: const Verse(
+        pseudo: 'Reply has been deleted',
+        text: 'phid_reply_has_been_deleted',
+        translate: true,
+      ),
     ));
 
   }

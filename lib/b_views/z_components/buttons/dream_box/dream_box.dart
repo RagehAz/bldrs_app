@@ -92,7 +92,7 @@ class DreamBox extends StatelessWidget {
   final Alignment childAlignment;
   final double opacity;
   final bool isDeactivated;
-  final String underLine;
+  final Verse underLine;
   final Color splashColor;
   final Color underLineColor;
   final bool underLineShadowIsOn;

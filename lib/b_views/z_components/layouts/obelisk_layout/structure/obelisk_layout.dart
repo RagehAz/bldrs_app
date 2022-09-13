@@ -44,7 +44,11 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   void initState() {
     super.initState();
 
-    _pageTitle = ValueNotifier(widget.navModels[0].title);
+    _pageTitleVerse = Verse(
+      text: widget.navModels[0].titleVerse.text,
+      translate: widget.navModels[0].titleVerse.translate,
+      notifier: ValueNotifier(widget.navModels[0].titleVerse.text),
+    );
 
     _initializeTabs();
 
@@ -55,7 +59,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     _isExpanded.dispose();
     _tabController.dispose();
     _progressBarModel.dispose();
-    _pageTitle.dispose();
+    _pageTitleVerse.notifier.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -99,7 +103,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           progressBarModel: _progressBarModel,
         );
 
-        _pageTitle.value = widget.navModels[_progressBarModel.value.index].title;
+        _pageTitleVerse.notifier.value = widget.navModels[_progressBarModel.value.index].titleVerse.text;
 
 
       });
@@ -119,11 +123,11 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
       // blog('tabController.animation.value : ${tabController.animation.value}');
 
-      final String _newTab = widget.navModels[_indexFromAnimation].title;
-      final String _oldTab = widget.navModels[_progressBarModel.value.index].title;
+      final Verse _newTab = widget.navModels[_indexFromAnimation].titleVerse;
+      final Verse _oldTab = widget.navModels[_progressBarModel.value.index].titleVerse;
 
       /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
-      if (_newTab != _oldTab){
+      if (_newTab.text != _oldTab.text){
 
         // _uiProvider.setCurrentUserTab(_newTab);
         tabController.animateTo(_indexFromAnimation,
@@ -138,11 +142,11 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   Future<void> onRowTap(int index) async {
 
-    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitle.value}');
+    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitleVerse.notifier.value}');
 
-    _pageTitle.value = widget.navModels[index].title;
+    _pageTitleVerse.notifier.value = widget.navModels[index].titleVerse.text;
 
-    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitle.value}');
+    blog('yel3an deen om index : $index : _pageTitle.value : ${_pageTitleVerse.notifier.value}');
 
 
     onHorizontalSlideSwipe(
@@ -171,7 +175,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   }
   // -----------------------------------------------------------------------------
   /// PAGE TITLE
-  ValueNotifier<String> _pageTitle;
+  Verse _pageTitleVerse;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -180,7 +184,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
-      pageTitleVerse: _pageTitle,
+      pageTitleVerse: _pageTitleVerse,
       loading: ValueNotifier(false),
       progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,
