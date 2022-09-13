@@ -53,41 +53,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   Future<void> _fastTest(BuildContext context) async {
 
-    // final BzModel _bzoo = BzzProvider.proGetMyBzz(context: context, listen: false)[0].copyWith();
-    // //
-    // final ValueNotifier<BzModel> _bz = ValueNotifier(_bzoo);
-    // // //
-    // const ZoneModel _newZone = ZoneModel(
-    //   countryID: 'fuck',
-    //   cityID: 'shit',
-    // );
-    // // _newZone.blogZone(methodName: '_newZone');
-    // // //
-    //  final BzModel _newBz = _bzoo.copyWith(
-    //   zone: _newZone,
-    // );
-    // // _newBz.zone.blogZone(methodName: '_newBz');
-    // // //
-    // _bz.value = _newBz;
-    // _bz.value.zone.blogZone(methodName: '_bz.value');
-    ///
-    // final ValueNotifier<String> _thing = ValueNotifier('aho');
-    // blog('thing is : ${_thing.value}');
-    // _thing.value = 'became fuck';
-    // blog('thing is : ${_thing.value}');
-    ///
 
-
-    // if (_bzoo == _newBz){
-    //
-    //   // _newBz.zone.blogZone(methodName: '_newBz');
-    //   // _bzoo.zone.blogZone(methodName: '_bzoo');
-    //
-    //   blog('identical');
-    // }
-    // else {
-    //   blog('not identical');
-    // }
 
   }
 

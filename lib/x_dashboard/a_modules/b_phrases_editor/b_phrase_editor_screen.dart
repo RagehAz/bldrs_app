@@ -13,8 +13,11 @@ import 'package:flutter/material.dart';
 class PhraseEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PhraseEditorScreen({
+    this.createPhid,
     Key key
   }) : super(key: key);
+
+  final Verse createPhid;
   /// --------------------------------------------------------------------------
   @override
   State<PhraseEditorScreen> createState() => _PhraseEditorScreenState();
@@ -30,11 +33,18 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
   final TextEditingController _idController = TextEditingController();
   final TextEditingController _englishController = TextEditingController();
   final TextEditingController _arabicController = TextEditingController();
+  // --------------------
+  final FocusNode _idNode = FocusNode();
+  final FocusNode _enNode = FocusNode();
+  final FocusNode _arNode = FocusNode();
+  // --------------------
   final TextEditingController _searchController = TextEditingController();
   // --------------------
   final PageController _pageController = PageController();
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
+  // --------------------
+  final GlobalKey<FormState> _globalKey = GlobalKey();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -68,7 +78,18 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         _initialMixedPhrases.value = _mixedPhrases;
         _tempMixedPhrases.value = _mixedPhrases;
 
-        // Phrase.blogPhrases(_tempMixedPhrases.value);
+        await prepareFastPhidCreation(
+          context: context,
+          untranslatedVerse: widget.createPhid,
+          allMixedPhrases: _tempMixedPhrases.value,
+          searchController: _searchController,
+          mixedSearchResult: _mixedSearchedPhrases,
+          isSearching: _isSearching,
+          pageController: _pageController,
+          idTextController: _idController,
+          enTextController: _englishController,
+          enNode: _enNode,
+        );
 
         await _triggerLoading(setTo: false);
       });
@@ -87,6 +108,11 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     _idController.dispose();
     _englishController.dispose();
     _arabicController.dispose();
+
+    _idNode.dispose();
+    _enNode.dispose();
+    _arNode.dispose();
+
     _searchController.dispose();
 
     _pageController.dispose();
@@ -204,6 +230,10 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   arController: _arabicController,
                   tempMixedPhrases: _tempMixedPhrases,
                   pageController: _pageController,
+                  arNode: _arNode,
+                  enNode: _enNode,
+                  idNode: _idNode,
+                  globalKey: _globalKey,
                 ),
 
               ],

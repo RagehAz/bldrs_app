@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -23,6 +24,10 @@ class PhraseCreatorPage extends StatelessWidget {
     @required this.tempMixedPhrases,
     @required this.pageController,
     @required this.appBarType,
+    @required this.idNode,
+    @required this.enNode,
+    @required this.arNode,
+    @required this.globalKey,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,6 +37,10 @@ class PhraseCreatorPage extends StatelessWidget {
   final ValueNotifier<List<Phrase>> tempMixedPhrases;
   final PageController pageController;
   final AppBarType appBarType;
+  final FocusNode idNode;
+  final FocusNode enNode;
+  final FocusNode arNode;
+  final GlobalKey<FormState> globalKey;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,11 +55,15 @@ class PhraseCreatorPage extends StatelessWidget {
       height: _screenHeight,
       child: ListView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 10),
+        padding: const EdgeInsets.only(top: Ratioz.appBarBigHeight + 20),
         children: <Widget>[
 
           /// ID
           TextFieldBubble(
+            globalKey: globalKey,
+            isFormField: true,
+            focusNode: idNode,
+
             appBarType: appBarType,
             titleVerse: const Verse(
               text: 'Key',
@@ -66,6 +79,10 @@ class PhraseCreatorPage extends StatelessWidget {
             actionBtFunction: () => TextMod.controllerClear(idController),
             actionBtIcon: Iconz.xLarge,
             // isError: ,
+            keyboardTextInputAction: TextInputAction.next,
+            onSubmitted: (String text){
+              Formers.focusOnNode(enNode);
+            },
             columnChildren: <Widget>[
 
               Row(
@@ -90,8 +107,13 @@ class PhraseCreatorPage extends StatelessWidget {
             ],
           ),
 
+          const SizedBox(width: 10, height: 10,),
+
           /// ENGLISH
           TextFieldBubble(
+            globalKey: globalKey,
+            isFormField: true,
+            focusNode: enNode,
             appBarType: appBarType,
             titleVerse: const Verse(
               text: 'English',
@@ -106,10 +128,19 @@ class PhraseCreatorPage extends StatelessWidget {
             pasteFunction: () => TextMod.controllerPaste(enController),
             actionBtFunction: () => TextMod.controllerClear(enController),
             actionBtIcon: Iconz.xLarge,
+            keyboardTextInputAction: TextInputAction.next,
+            onSubmitted: (String text){
+              Formers.focusOnNode(arNode);
+            },
           ),
+
+          const SizedBox(width: 10, height: 10,),
 
           /// ARABIC
           TextFieldBubble(
+            globalKey: globalKey,
+            isFormField: true,
+            focusNode: arNode,
             appBarType: appBarType,
             titleVerse: const Verse(
               text: 'عربي',
@@ -125,7 +156,10 @@ class PhraseCreatorPage extends StatelessWidget {
             actionBtFunction: () => TextMod.controllerClear(arController),
             actionBtIcon: Iconz.xLarge,
             textDirection: TextDirection.ltr,
+            keyboardTextInputAction: TextInputAction.done,
           ),
+
+          const SizedBox(width: 10, height: 10,),
 
           Align(
             alignment: Aligners.superInverseCenterAlignment(context),
