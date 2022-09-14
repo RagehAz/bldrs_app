@@ -371,7 +371,7 @@ class ContactModel {
 
     switch (contactType){
       case ContactType.phone:      return 'phid_phone'; break;
-      case ContactType.email:      return 'phid_email'; break;
+      case ContactType.email:      return 'phid_emailAddress'; break;
       case ContactType.website:    return 'phid_website'; break;
       case ContactType.facebook:   return 'phid_facebook'; break;
       case ContactType.linkedIn:   return 'phid_linkedIn'; break;

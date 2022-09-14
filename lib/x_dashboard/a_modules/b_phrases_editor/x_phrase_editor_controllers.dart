@@ -1,19 +1,33 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/notes/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/b_phrase_editor_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // ---------------------------------------------------------------------------
 
 /// INITIALIZATION
@@ -43,6 +57,8 @@ Future<void> prepareFastPhidCreation({
       mixedSearchResult: mixedSearchResult,
       searchController: searchController,
       allMixedPhrases: allMixedPhrases,
+      context: context,
+      pageController: pageController,
     );
 
     await Sliders.slideToNext(
@@ -63,10 +79,12 @@ Future<void> prepareFastPhidCreation({
 // --------------------
 ///  TESTED : WORKS PERFECT
 void onPhrasesSearchChanged({
+  @required BuildContext context,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
   @required List<Phrase> allMixedPhrases,
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  @required PageController pageController,
 }){
 
   TextCheck.triggerIsSearchingNotifier(
@@ -77,10 +95,12 @@ void onPhrasesSearchChanged({
   if (isSearching.value == true){
 
     onSearchPhrases(
+      context: context,
       phrasesToSearchIn: allMixedPhrases,
       isSearching: isSearching,
       mixedSearchResult: mixedSearchResult,
       searchController: searchController,
+      pageController: pageController,
     );
 
   }
@@ -89,28 +109,34 @@ void onPhrasesSearchChanged({
 // --------------------
 ///  TESTED : WORKS PERFECT
 void onPhrasesSearchSubmit({
+  @required BuildContext context,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
   @required List<Phrase> allMixedPhrases,
   @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  @required PageController pageController,
 }){
 
   isSearching.value = true;
 
   onSearchPhrases(
+    context: context,
     phrasesToSearchIn: allMixedPhrases,
     isSearching: isSearching,
     mixedSearchResult: mixedSearchResult,
     searchController: searchController,
+    pageController: pageController,
   );
 
 }
 // --------------------
 ///  TESTED : WORKS PERFECT
 List<Phrase> onSearchPhrases({
+  @required BuildContext context,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
   @required List<Phrase> phrasesToSearchIn,
+  @required PageController pageController,
   /// mixes between en & ar values in one list
   ValueNotifier<List<Phrase>> mixedSearchResult,
 }){
@@ -175,6 +201,13 @@ List<Phrase> onSearchPhrases({
     }
   }
 
+  if (pageController.position.pixels >= Scale.superScreenWidth(context) == true){
+    Sliders.slideToBackFrom(
+      pageController: pageController,
+      currentSlide: 1,
+    );
+  }
+
   return _foundPhrases;
 }
 // ---------------------------------------------------------------------------
@@ -237,7 +270,12 @@ Future<void> onConfirmEditPhrase({
   @required TextEditingController enTextController,
   @required TextEditingController arTextController,
   @required TextEditingController idTextController,
+  @required ValueNotifier<List<Phrase>> mixedSearchResult,
+  @required TextEditingController searchController,
+  @required ValueNotifier<bool> isSearching,
 }) async {
+
+  searchController.text = idTextController.text;
 
   bool _canContinue = await Dialogs.confirmProceed(
     context: context,
@@ -272,8 +310,8 @@ Future<void> onConfirmEditPhrase({
     }
 
     /// ADD UPDATED PHRASES
-    _output.insert(0, updatedEnPhrase);
-    _output.insert(0, updatedArPhrase);
+    _output.insert(0, updatedEnPhrase.completeTrigram());
+    _output.insert(0, updatedArPhrase.completeTrigram());
 
     // blog('deletePhidFromPhrases : inserted : id  ${updatedEnPhrase.id} : '
     //     '${updatedEnPhrase.value} : lang : ${updatedEnPhrase.langCode}');
@@ -281,7 +319,7 @@ Future<void> onConfirmEditPhrase({
     //     '${updatedArPhrase.value} : lang : ${updatedArPhrase.langCode}');
 
 
-    tempMixedPhrases.value = Phrase.sortPhrasesByID(phrases: _output);
+    tempMixedPhrases.value = Phrase.sortPhrasesByIDAndLang(phrases: _output);
 
     // blog(
     //     'added : ${updatedEnPhrase.value} : ${updatedArPhrase.value}\n'
@@ -295,6 +333,15 @@ Future<void> onConfirmEditPhrase({
       arTextController: arTextController,
       enTextController: enTextController,
       idTextController: idTextController,
+    );
+
+    onSearchPhrases(
+      context: context,
+      pageController: pageController,
+      isSearching: isSearching,
+      searchController: searchController,
+      phrasesToSearchIn: tempMixedPhrases.value,
+      mixedSearchResult: mixedSearchResult,
     );
 
     await Dialogs.showSuccessDialog(
@@ -571,7 +618,6 @@ Future<void> onSyncPhrases({
 
   }
 
-
 }
 // ---------------------------------------------------------------------------
 
@@ -600,6 +646,63 @@ Future<void> createAPhidFast({
     screen: PhraseEditorScreen(
       createPhid: verse,
     ),
+  );
+
+}
+// --------------------
+Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
+
+  await BottomDialog.showStatefulBottomDialog(
+    context: context,
+    draggable: true,
+    titleVerse: const Verse(text: 'Phids Pending Translation', translate: false),
+    builder: (_, Function setState){
+
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
+
+      return  SizedBox(
+        width: BottomDialog.clearWidth(context),
+        height: BottomDialog.clearHeight(context: context, draggable: true, titleIsOn: true),
+        child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: _phraseProvider.phidsPendingTranslation.length,
+            itemBuilder: (_, index){
+
+              final String _phid = _phraseProvider.phidsPendingTranslation[index];
+
+              return DataStrip(
+                width: BottomDialog.clearWidth(context),
+                dataKey: 'X : $index',
+                dataValue: _phid,
+                onKeyTap: () async {
+
+                  final bool _result = await Dialogs.confirmProceed(
+                    context: context,
+                    titleVerse: const Verse(text: 'phid_delete', translate: true),
+                  );
+
+                  if (_result == true){
+
+                    setState((){
+                      _phraseProvider.removePhidFromPendingTranslation(_phid);
+                    });
+
+                  }
+
+                },
+                onValueTap: () async {
+
+                  unawaited(Keyboard.copyToClipboard(context: context, copy: _phid));
+                  Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
+
+                },
+              );
+
+            }
+        ),
+      );
+
+    }
   );
 
 }
@@ -634,5 +737,78 @@ Future<List<Phrase>> readMainPhrasesFromFire({
     return null;
   }
 
+}
+// ---------------------------------------------------------------------------
+class FastTranslatorButton extends StatelessWidget {
+  /// ---------------------------------------------------------------------------
+  const FastTranslatorButton({
+    @required this.isInTransScreen,
+    Key key
+  }) : super(key: key);
+  /// ---------------------------------------------------------------------------
+  final bool isInTransScreen;
+  /// ---------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: true);
+
+    final List<String> _phidsPendingTranslation = PhraseProvider.proGetPhidsPendingTranslation(
+      context: context,
+      listen: true,
+    );
+
+    if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true && _user?.isAdmin == true){
+
+      return Container(
+        width: Scale.superScreenWidth(context),
+        height: Scale.superScreenHeightWithoutSafeArea(context),
+        alignment: Alignment.bottomRight,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10, bottom: 40),
+          child: NoteRedDotWrapper(
+            childWidth: 40,
+            redDotIsOn: true,
+            count: _phidsPendingTranslation.length,
+            shrinkChild: true,
+            child: DreamBox(
+              height: 40,
+              width: 40,
+              corners: 20,
+              color: isInTransScreen == true ? Colorz.yellow255 : Colorz.green50,
+              icon: Iconz.language,
+              iconSizeFactor: 0.6,
+              onTap: () async {
+
+                if (isInTransScreen == true){
+
+                  await showPhidsPendingTranslationDialog(context);
+
+                }
+
+                else {
+
+                  await createAPhidFast(
+                    context: context,
+                    verse: Verse.plain(_phidsPendingTranslation[0]),
+                  );
+
+                }
+              },
+            ),
+          ),
+        ),
+      );
+
+    }
+
+    else {
+
+      return const SizedBox();
+
+    }
+
+  }
+  /// ---------------------------------------------------------------------------
 }
 // ---------------------------------------------------------------------------

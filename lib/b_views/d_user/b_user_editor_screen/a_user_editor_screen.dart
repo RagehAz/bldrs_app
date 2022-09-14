@@ -189,7 +189,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       sectionButtonIsOn: false,
       historyButtonIsOn: false,
       appBarType: AppBarType.basic,
-      pageTitleVerse: const Verse(text: 'phid_update_profile', translate: true),
+      pageTitleVerse: const Verse(text: 'phid_updateProfile', translate: true),
       loading: _loading,
       appBarRowWidgets: <Widget>[
 
@@ -392,7 +392,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   isFormField: true,
                   headerViewModel: const BubbleHeaderVM(
                     headlineVerse: Verse(
-                      text: 'phid_email',
+                      text: 'phid_emailAddress',
                       translate: true,
                     ),
                     redDot: true,

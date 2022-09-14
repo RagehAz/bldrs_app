@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -13,7 +12,8 @@ class DataStrip extends StatelessWidget {
     @required this.dataKey,
     @required this.dataValue,
     this.color = Colorz.bloodTest,
-    this.onTap,
+    this.onKeyTap,
+    this.onValueTap,
     this.width,
     this.withHeadline = false,
     this.isPercent = false,
@@ -24,7 +24,8 @@ class DataStrip extends StatelessWidget {
   final String dataKey;
   final dynamic dataValue;
   final Color color;
-  final Function onTap;
+  final Function onKeyTap;
+  final Function onValueTap;
   final double width;
   final bool withHeadline;
   final bool isPercent;
@@ -43,18 +44,6 @@ class DataStrip extends StatelessWidget {
       copy: dataValue.toString(),
     );
 
-    TopDialog.showUnawaitedTopDialog(
-      context: context,
-      firstLine: const Verse(
-        text: 'phid_copied_to_clipboard',
-        translate: true,
-      ),
-      secondLine: Verse(
-        text: dataValue.toString(),
-        translate: false,
-      ),
-    );
-
   }
   // -----------------------------------------------------------------------------
   @override
@@ -67,7 +56,8 @@ class DataStrip extends StatelessWidget {
         key: const ValueKey<String>('DataStrip_DataStripWithHeadline'),
         dataKey: dataKey,
         dataValue: dataValue,
-        onTap: onTap,
+        onKeyTap: onKeyTap,
+        onValueTap: onValueTap,
         width: width,
         valueBoxColor: color,
         isPercent: isPercent,
@@ -109,7 +99,7 @@ class DataStrip extends StatelessWidget {
                 bubble: false,
                 color: color,
                 verseWeight: VerseWeight.thin,
-                onTap: onTap ?? () => onStripTap(
+                onTap: onKeyTap ?? () => onStripTap(
                   context: context,
                   dataValue: dataValue,
                 ),
@@ -129,7 +119,7 @@ class DataStrip extends StatelessWidget {
                 color: color,
                 verseWeight: VerseWeight.thin,
                 verseCentered: false,
-                onTap: onTap ?? () => onStripTap(
+                onTap: onValueTap ?? () => onStripTap(
                   context: context,
                   dataValue: dataValue,
                 ),

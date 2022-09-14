@@ -190,6 +190,8 @@ class PhraseProtocols {
         notify: true,
       );
 
+      _phraseProvider.refreshPhidsPendingTranslation();
+
     }
 
   }

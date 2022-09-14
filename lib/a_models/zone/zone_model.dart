@@ -426,7 +426,7 @@ class ZoneModel {
     @required ZoneModel zone,
   }){
 
-    String _line = xPhrase(context, 'phid_select_country');
+    String _line = xPhrase(context, 'phid_select_a_country');
 
     if (zone != null){
 

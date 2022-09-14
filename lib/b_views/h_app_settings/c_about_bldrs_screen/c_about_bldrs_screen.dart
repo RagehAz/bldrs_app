@@ -30,7 +30,7 @@ class AboutBldrsScreen extends StatelessWidget {
       historyButtonIsOn: false,
       sectionButtonIsOn: false,
       pageTitleVerse: const Verse(
-        text: 'phid_about_bldrs_net',
+        text: 'phid_about_bldrsnet',
         translate: true,
       ),
       skyType: SkyType.non,
@@ -52,7 +52,7 @@ class AboutBldrsScreen extends StatelessWidget {
               bubbleColor: Colorz.white20,
               headerViewModel: BubbleHeaderVM(
                 headlineVerse: Verse(
-                  text: 'phid_bldrs_net',
+                  text: 'phid_bldrsFullName',
                   translate: true,
                 ),
               ),
@@ -170,7 +170,7 @@ class AboutBldrsScreen extends StatelessWidget {
             TileBubble(
               bubbleHeaderVM: BubbleHeaderVM(
                 headlineVerse: Verse(
-                  text: 'phid_tradesmen',
+                  text: 'phid_artisans',
                   translate: true,
                 ),
                 leadingIcon: Iconz.bxTradesOn,

@@ -5,15 +5,16 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
@@ -52,6 +53,7 @@ class MainLayout extends StatelessWidget {
     this.onSearchCancelled,
     this.confirmButtonModel,
     this.globalKey,
+    this.isInPhrasesScreen,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -78,6 +80,7 @@ class MainLayout extends StatelessWidget {
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
   final GlobalKey globalKey;
+  final bool isInPhrasesScreen;
   /// --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
@@ -218,6 +221,11 @@ class MainLayout extends StatelessWidget {
                     layoutWidget: layoutWidget,
                   ),
 
+                ),
+
+                /// PLAN : for translation purposes and for dev mode only
+                FastTranslatorButton(
+                    isInTransScreen: isInPhrasesScreen,
                 ),
 
               ],

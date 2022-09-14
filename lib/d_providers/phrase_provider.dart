@@ -228,11 +228,15 @@ class PhraseProvider extends ChangeNotifier {
       notify: false,
     );
 
+    _phraseProvider._phidsPendingTranslation = [];
+    _phraseProvider._usedXPhrases = [];
+
     /// _basicPhrases
     _phraseProvider.setMainPhrases(
         setTo: <Phrase>[],
         notify: notify
     );
+
 
   }
   // -----------------------------------------------------------------------------
@@ -261,11 +265,57 @@ class PhraseProvider extends ChangeNotifier {
   List<String> _phidsPendingTranslation = <String>[];
   List<String> get phidsPendingTranslation => _phidsPendingTranslation;
   // --------------------
+  static List<String> proGetPhidsPendingTranslation({
+    @required BuildContext context,
+    @required bool listen,
+  }){
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
+    return _phraseProvider.phidsPendingTranslation;
+  }
+  // --------------------
   void addToPhidsPendingTranslation(String id){
-    _phidsPendingTranslation = Stringer.addStringToListIfDoesNotContainIt(
-      strings: _phidsPendingTranslation,
-      stringToAdd: id,
+
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      _phidsPendingTranslation = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _phidsPendingTranslation,
+        stringToAdd: id,
+      );
+      notifyListeners();
+
+    });
+
+  }
+  // --------------------
+  void refreshPhidsPendingTranslation(){
+
+    if (Mapper.checkCanLoopList(_phidsPendingTranslation) == true){
+
+      for (final String phid in _phidsPendingTranslation){
+
+        final String _xPhrase = getTranslatedPhraseByID(phid);
+
+        if (_xPhrase != null){
+          _phidsPendingTranslation = Stringer.removeStringsFromStrings(
+              removeFrom: _phidsPendingTranslation,
+              removeThis: [phid],
+          );
+        }
+
+      }
+
+    }
+
+    notifyListeners();
+  }
+  // --------------------
+  void removePhidFromPendingTranslation(String phid){
+
+    _phidsPendingTranslation = Stringer.removeStringsFromStrings(
+        removeFrom: _phidsPendingTranslation,
+        removeThis: [phid],
     );
+    notifyListeners();
   }
   // -----------------------------------------------------------------------------
 }
@@ -278,13 +328,21 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
   final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
   _phraseProvider.addToUsedXPhrases(id);
 
+  /// THE ## VERSES
   if (_stringNeedTranslation(id) == true){
-    _phraseProvider.addToPhidsPendingTranslation(id);
     return null;
   }
 
+  /// THE PHID VERSES
   else {
-    return _phraseProvider.getTranslatedPhraseByID(id);
+
+    final String _translation = _phraseProvider.getTranslatedPhraseByID(id);
+
+    if (_translation == null){
+      _phraseProvider.addToPhidsPendingTranslation(id);
+    }
+
+    return _translation;
   }
 
 }

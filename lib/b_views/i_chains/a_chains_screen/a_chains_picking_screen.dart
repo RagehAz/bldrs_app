@@ -313,7 +313,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                 fadeType: FadeType.repeatAndReverse,
                 child: SuperVerse(
                   verse: Verse(
-                    text: 'phid_loading_please_wait',
+                    text: 'phid_loading',
                     translate: true,
                     pseudo: 'Loading\n Please Wait',
                     casing: Casing.capitalizeFirstChar,
