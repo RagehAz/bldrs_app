@@ -13,6 +13,7 @@
   "bldrsShortName" : "Bldrs",
   "bldrsTagLine" : "Red del constructor.",
   "bldrsDescription" : "Conectar con desarrolladores, fabricantes, proveedores, diseñadores, contratistas y artesanos.",
+  "loading" : "cargando",
   "xxx3" : "-------------------------------------------------- --------------------------------------Tipos principales",
   "accountType" : "Tipo de cuenta",
   "owner" : "Propietario",

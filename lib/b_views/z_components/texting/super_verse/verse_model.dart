@@ -41,6 +41,7 @@ class Verse {
   /// CLONING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   Verse copyWith({
     String text,
     Casing casing,
@@ -65,6 +66,7 @@ class Verse {
   /// x
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkCanSuperTranslate({
     @required BuildContext context,
     @required Verse verse,
@@ -83,6 +85,7 @@ class Verse {
     return _can;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> goToFastTranslator({
     @required BuildContext context,
     @required Verse verse,
@@ -110,6 +113,7 @@ class Verse {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<Verse> createVerses({
     @required List<String> strings,
     @required bool translate,
@@ -136,14 +140,22 @@ class Verse {
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> getTextsFromVerses(List<Verse> verses){
     final List<String> _output = <String>[];
-    for (final Verse verse in verses){
-      _output.add(verse.text);
+
+    if (Mapper.checkCanLoopList(verses) == true){
+
+      for (final Verse verse in verses){
+        _output.add(verse.text);
+      }
+
     }
+
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Verse plain(String text){
     return Verse(
       text: text,
@@ -151,6 +163,7 @@ class Verse {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Verse trans(String phid){
     return Verse(
       text: phid,
