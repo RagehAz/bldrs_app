@@ -7,7 +7,6 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -329,7 +328,7 @@ String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
   _phraseProvider.addToUsedXPhrases(id);
 
   /// THE ## VERSES
-  if (_stringNeedTranslation(id) == true){
+  if (Verse.checkPendingAssigningPhid(id) == true){
     return null;
   }
 
@@ -359,18 +358,4 @@ String phidIcon(BuildContext context, dynamic icon){
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //-------------------------------------
 /// ----------------------------------------------------------------------------------------
-bool _stringNeedTranslation(String string){
-  bool _need = false;
-
-  if (
-  TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: string,
-      numberOfChars: 2
-  ) == '##'
-  ){
-    _need = true;
-  }
-
-  return _need;
-}
 /// ----------------------------------------------------------------------------------------

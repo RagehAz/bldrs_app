@@ -59,7 +59,7 @@ Future<void> onSyncSpecPickers({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onPickerTileTap({
+Future<void> onGoToPickerScreen({
   @required BuildContext context,
   @required PickerModel picker,
   @required ZoneModel flyerZone,
@@ -78,11 +78,41 @@ Future<void> onPickerTileTap({
   );
 
 }
-// --------------------
 // -----------------------------------------------------------------------------
 
 /// MODIFIERS
 
+// --------------------
+/// TESTED : WORKS PERFECT
+void onReorderPickers({
+  @required int oldIndex,
+  @required int newIndex,
+  @required ValueNotifier<List<PickerModel>> tempPickers,
+  @required List<PickerModel> refinedPickers,
+}){
+
+  final List<PickerModel> _pickers = <PickerModel>[...refinedPickers];
+  final PickerModel _picker = _pickers[oldIndex];
+
+  // blog('before remove');
+  // PickerModel.blogIndexes(_pickers);
+  _pickers.removeAt(oldIndex);
+
+  // blog('after remove');
+  // PickerModel.blogIndexes(_pickers);
+  _pickers.insert(newIndex, _picker);
+
+  // blog('after insert');
+  PickerModel.blogIndexes(_pickers);
+
+  final List<PickerModel> _corrected = PickerModel.correctModelsIndexes(_pickers);
+  // blog('after correction');
+  // PickerModel.blogIndexes(_pickers);
+
+  tempPickers.value = _corrected;
+
+
+}
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeGroupIDForAllItsPickers({

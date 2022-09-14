@@ -31,6 +31,7 @@ class Phider {
   static const String phid_kCut = 'phid_k';
   static const String phid_sCut = 'phid_s';
   static const String currencyCut = 'currency';
+  static const String headlineCut = 'headline';
   // -----------------------------------------------------------------------------
 
   /// INDEXING
@@ -522,6 +523,24 @@ class Phider {
     }
 
     return _isCurrency;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkVerseIsHeadline(String text){
+    bool _isHeadline = false;
+
+    if (text != null){
+
+      final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: text,
+        numberOfChars: headlineCut.length,
+      )?.toLowerCase();
+
+
+      _isHeadline = _phid == headlineCut;
+    }
+
+    return _isHeadline;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
