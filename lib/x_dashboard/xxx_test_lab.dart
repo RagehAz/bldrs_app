@@ -23,9 +23,9 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_connected_button.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
-import 'package:bldrs/x_dashboard/xxxxx_specialized_labs.dart';
+import 'package:bldrs/x_dashboard/x_modules/a_test_labs/test_widgets/is_connected_button.dart';
+import 'package:bldrs/x_dashboard/x_modules/a_test_labs/test_widgets/is_signed_in_button.dart';
+import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
