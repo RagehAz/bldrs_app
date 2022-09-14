@@ -185,7 +185,7 @@ Future<void> onVerifyFlyer({
       firstLine: Verse.plain('Done'),
       secondLine: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
       color: Colorz.green255,
-      seconds: 1,
+      milliseconds: 500,
     );
 
   }
