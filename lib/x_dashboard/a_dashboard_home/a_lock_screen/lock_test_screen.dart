@@ -3,27 +3,29 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_wheel.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_wheel.dart';
 import 'package:flutter/material.dart';
 
-class LockTestScreen extends StatefulWidget {
+class LockScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const LockTestScreen({
+  const LockScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<LockTestScreen> createState() => _LockTestScreenState();
+  State<LockScreen> createState() => _LockScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _LockTestScreenState extends State<LockTestScreen> {
+class _LockScreenState extends State<LockScreen> {
   // --------------------
-  static const int _indexA = 3;
-  static const int _indexB = 5;
-  static const int _indexC = 1;
+  int _indexA = 3;
+  int _indexB = 5;
+  int _indexC = 1;
   String _a;
   String _b;
   String _c;
@@ -31,6 +33,12 @@ class _LockTestScreenState extends State<LockTestScreen> {
   @override
   void initState() {
     super.initState();
+
+    final int _iconsLength = LockWheel.standardLockIcons.length;
+    _indexA = Numeric.createRandomIndex(listLength: _iconsLength);
+    _indexB = Numeric.createRandomIndex(listLength: _iconsLength);
+    _indexC = Numeric.createRandomIndex(listLength: _iconsLength);
+
     _a = LockWheel.standardLockIcons[_indexA].key;
     _b = LockWheel.standardLockIcons[_indexB].key;
     _c = LockWheel.standardLockIcons[_indexC].key;
@@ -61,7 +69,10 @@ class _LockTestScreenState extends State<LockTestScreen> {
         firstVerse: Verse.plain('Alf Mabrouk , etfaddal m3ana'),
         color: Colorz.green255,
         textColor: Colorz.white255,
+        milliseconds: 500,
       );
+
+      Nav.goBack(context: context, invoker: 'Open Sesame', passedData: true);
 
     }
 

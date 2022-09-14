@@ -109,9 +109,16 @@ void setNotifier({
     // blog('setNotifier : setting to ${value.toString()}');
     if (value != notifier.value){
 
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        notifier.value = value;
-      });
+      if (notifier != null){
+
+        /// ignore: invalid_use_of_protected_member
+        if (notifier.hasListeners == true){
+          WidgetsBinding.instance.addPostFrameCallback((_){
+            notifier.value = value;
+          });
+        }
+
+      }
 
     }
 

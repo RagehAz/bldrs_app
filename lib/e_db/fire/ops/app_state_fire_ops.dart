@@ -158,7 +158,7 @@ class AppStateFireOps{
   }
   // --------------------
   /// TAMAM : WORKS PERFECTLY
-  static Future<void> updateSpecsPickersVersion(BuildContext context) async {
+  static Future<void> updatePickersVersion(BuildContext context) async {
 
     final AppState _appState = await readGlobalAppState(context);
 
