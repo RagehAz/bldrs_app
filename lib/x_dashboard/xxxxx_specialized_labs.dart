@@ -22,7 +22,7 @@ import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/notific
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/redorder_list_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
-import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/super_lock/lock_test_screen.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/a_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/old_editor/chains_manager_screen.dart';
@@ -147,7 +147,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse:  'Lock Test',
         icon: Iconz.password,
-        screen: LockTestScreen(),
+        screen: LockScreen(),
       ),
 
       /// SEMBAST TESTER

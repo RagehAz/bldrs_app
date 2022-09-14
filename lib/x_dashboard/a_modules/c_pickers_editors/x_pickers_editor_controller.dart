@@ -34,7 +34,7 @@ Future<void> onSyncSpecPickers({
     blog('onSyncSpecPickers');
     // await SpecPickerProtocols.renovatePickers();
 
-    await PickerProtocols.renovateFlyerTypPickers(
+    await PickerProtocols.renovateFlyerTypePickers(
       context: context,
       flyerType: flyerType,
       pickers: tempPickers.value,

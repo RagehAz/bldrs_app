@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
+import 'package:bldrs/e_db/fire/ops/app_state_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/picker_ldb_ops.dart';
 import 'package:bldrs/e_db/real/ops/picker_real_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -86,7 +87,7 @@ class PickerProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovateFlyerTypPickers({
+  static Future<void> renovateFlyerTypePickers({
     @required BuildContext context,
     @required FlyerType flyerType,
     @required List<PickerModel> pickers,
@@ -110,6 +111,9 @@ class PickerProtocols {
           pickers: pickers,
           showWaitDialog: false,
         ),
+
+        AppStateFireOps.updatePickersVersion(context),
+
 
       ]);
 
