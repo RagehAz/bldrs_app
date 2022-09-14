@@ -299,10 +299,10 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Future<void> showStatefulBottomDialog({
     @required BuildContext context,
-    @required double height,
-    @required bool draggable,
-    @required Widget Function(BuildContext, Verse) builder,
-    @required Verse titleVerse
+    @required Widget Function(BuildContext, Function setState) builder,
+    @required Verse titleVerse,
+    bool draggable,
+    double height,
   }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
@@ -327,7 +327,13 @@ class BottomDialog extends StatelessWidget {
               height: _height,
               draggable: draggable,
               titleVerse: titleVerse,
-              child: builder(context, titleVerse),
+              child: StatefulBuilder(
+                builder: (_, Function setState){
+
+                  return builder(context, setState);
+
+                },
+              ),
             ),
           )),
     );

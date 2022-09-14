@@ -1,7 +1,5 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
@@ -12,7 +10,6 @@ import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
 class PhraseCreatorPage extends StatelessWidget {
@@ -21,33 +18,30 @@ class PhraseCreatorPage extends StatelessWidget {
     @required this.idController,
     @required this.enController,
     @required this.arController,
-    @required this.tempMixedPhrases,
-    @required this.pageController,
     @required this.appBarType,
     @required this.idNode,
     @required this.enNode,
     @required this.arNode,
     @required this.globalKey,
+    @required this.onConfirmEdits,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final TextEditingController idController;
   final TextEditingController enController;
   final TextEditingController arController;
-  final ValueNotifier<List<Phrase>> tempMixedPhrases;
-  final PageController pageController;
   final AppBarType appBarType;
   final FocusNode idNode;
   final FocusNode enNode;
   final FocusNode arNode;
   final GlobalKey<FormState> globalKey;
+  final Function onConfirmEdits;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    blog('dd');
     // --------------------
     return SizedBox(
       key: const ValueKey<String>('PhraseCreatorPage'),
@@ -175,24 +169,7 @@ class PhraseCreatorPage extends StatelessWidget {
               verseItalic: true,
               verseColor: Colorz.black255,
               margins: const EdgeInsets.symmetric(horizontal: 10),
-              onTap: () => onConfirmEditPhrase(
-                context: context,
-                pageController: pageController,
-                arTextController: arController,
-                enTextController: enController,
-                idTextController: idController,
-                tempMixedPhrases: tempMixedPhrases,
-                updatedEnPhrase: Phrase(
-                    id: idController.text,
-                    value: enController.text,
-                    langCode: 'en'
-                ),
-                updatedArPhrase: Phrase(
-                    id: idController.text,
-                    value: arController.text,
-                    langCode: 'ar'
-                ),
-              ),
+              onTap: onConfirmEdits,
             ),
           ),
 

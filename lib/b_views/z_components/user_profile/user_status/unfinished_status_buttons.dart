@@ -82,9 +82,8 @@ class StatusButtons extends StatelessWidget {
                 return DreamBox(
                   width: _propertyStatusBtWidth,
                   height: _propertyStatusBtHeight,
-                  verse: x['state'],
-                  verseScaleFactor:
-                      currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
+                  verse: Verse.plain(x['state']),
+                  verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                   verseMaxLines: 4,
                   onTap: () => switchUserStatus(x['userStatus']),
                   color: _color,

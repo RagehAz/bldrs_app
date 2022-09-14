@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -16,7 +17,7 @@ class PhraseEditorScreen extends StatefulWidget {
     this.createPhid,
     Key key
   }) : super(key: key);
-
+  /// --------------------------------------------------------------------------
   final Verse createPhid;
   /// --------------------------------------------------------------------------
   @override
@@ -75,8 +76,9 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       _triggerLoading(setTo: true).then((_) async {
 
         final List<Phrase> _mixedPhrases = await PhraseLDBOps.readMainPhrases();
-        _initialMixedPhrases.value = _mixedPhrases;
-        _tempMixedPhrases.value = _mixedPhrases;
+        final List<Phrase> _sorted = Phrase.sortPhrasesByIDAndLang(phrases: _mixedPhrases);
+        _initialMixedPhrases.value = _sorted;
+        _tempMixedPhrases.value = _sorted;
 
         await prepareFastPhidCreation(
           context: context,
@@ -130,6 +132,9 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
     return MainLayout(
+      isInPhrasesScreen: true,
+      pyramidsAreOn: true,
+      pyramidType: PyramidType.crystalBlue,
       pageTitleVerse: Verse.plain('Phrases Editor'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
@@ -148,16 +153,43 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         allMixedPhrases: _tempMixedPhrases.value,
         mixedSearchResult: _mixedSearchedPhrases,
         searchController: _searchController,
+        pageController: _pageController,
+        context: context,
       ),
       onSearchSubmit: (String text) => onPhrasesSearchSubmit(
         isSearching: _isSearching,
         allMixedPhrases: _tempMixedPhrases.value,
         mixedSearchResult: _mixedSearchedPhrases,
         searchController: _searchController,
+        pageController: _pageController,
+        context: context,
       ),
       appBarRowWidgets: <Widget>[
 
         const Expander(),
+
+        /// DIFFERENCES
+        AppBarButton(
+          verse: Verse.plain('Blog'),
+          onTap: () {
+
+            // final List<String> _temp = Phrase.transformPhrasesToStrings(_tempMixedPhrases.value);
+            // final List<String> _initial = Phrase.transformPhrasesToStrings(_initialMixedPhrases.value);
+            //
+            // Stringer.blogStringsListsDifferences(strings1: _temp, strings2: _initial);
+
+            // Phrase.blogPhrases(_initialMixedPhrases.value);
+
+            Phrase.blogPhrasesListsDifferences(
+              phrases1: _tempMixedPhrases.value,
+              phrases1Name: 'temp',
+              phrases2: _initialMixedPhrases.value,
+              phrases2Name: 'initial',
+              sortBeforeCompare: false,
+            );
+
+          },
+        ),
 
         /// SYNC BUTTON
         ValueListenableBuilder(
@@ -169,8 +201,8 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                 builder: (_, List<Phrase> _temp, Widget child){
 
                   final bool _areIdentical = Phrase.checkPhrasesListsAreIdentical(
-                    phrases1: _initial,
-                    phrases2: _temp,
+                    phrases1: Phrase.sortPhrasesByIDAndLang(phrases: _initial),
+                    phrases2: Phrase.sortPhrasesByIDAndLang(phrases: _temp),
                   );
 
                   return AppBarButton(
@@ -228,12 +260,31 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
                   idController: _idController,
                   enController: _englishController,
                   arController: _arabicController,
-                  tempMixedPhrases: _tempMixedPhrases,
-                  pageController: _pageController,
                   arNode: _arNode,
                   enNode: _enNode,
                   idNode: _idNode,
                   globalKey: _globalKey,
+                  onConfirmEdits: () => onConfirmEditPhrase(
+                    context: context,
+                    mixedSearchResult: _mixedSearchedPhrases,
+                    pageController: _pageController,
+                    arTextController: _arabicController,
+                    enTextController: _englishController,
+                    idTextController: _idController,
+                    tempMixedPhrases: _tempMixedPhrases,
+                    isSearching: _isSearching,
+                    searchController: _searchController,
+                    updatedEnPhrase: Phrase(
+                        id: _idController.text,
+                        value: _englishController.text,
+                        langCode: 'en'
+                    ),
+                    updatedArPhrase: Phrase(
+                        id: _idController.text,
+                        value: _arabicController.text,
+                        langCode: 'ar'
+                    ),
+                  ),
                 ),
 
               ],
