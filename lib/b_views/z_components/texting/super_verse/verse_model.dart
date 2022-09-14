@@ -63,53 +63,34 @@ class Verse {
   }
   // -----------------------------------------------------------------------------
 
-  /// x
+  /// STANDARDS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCanSuperTranslate({
-    @required BuildContext context,
-    @required Verse verse,
-  }){
-
-    bool _can = false;
-
-    if (TextCheck.isEmpty(verse.text) == false && verse.translate == true){
-
-      final String _translation = xPhrase(context, verse.text);
-      if (_translation == null){
-        _can = true;
-      }
-    }
-
-    return _can;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> goToFastTranslator({
-    @required BuildContext context,
-    @required Verse verse,
-  }) async {
-
-    blog('fuck you : $verse');
-
-    if (verse.pseudo != null){
-
-    }
-
-    await createAPhidFast(
-      context: context,
-      verse: verse,
-    );
-
-    await Keyboard.copyToClipboard(context: context, copy: verse.text);
-
-  }
-  // --------------------
   static Verse threeDots(){
     return const Verse(
       text: '...',
       translate: false,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CREATORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse plain(String text){
+    return Verse(
+      text: text,
+      translate: false,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse trans(String phid){
+    return Verse(
+      text: phid,
+      translate: true,
     );
   }
   // --------------------
@@ -139,6 +120,10 @@ class Verse {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// GETTERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getTextsFromVerses(List<Verse> verses){
@@ -154,22 +139,9 @@ class Verse {
 
     return _output;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Verse plain(String text){
-    return Verse(
-      text: text,
-      translate: false,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Verse trans(String phid){
-    return Verse(
-      text: phid,
-      translate: true,
-    );
-  }
+  // -----------------------------------------------------------------------------
+
+  /// CASING
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -189,6 +161,70 @@ class Verse {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// TRANSLATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goToFastTranslator({
+    @required BuildContext context,
+    @required Verse verse,
+  }) async {
+
+    blog('fuck you : $verse');
+
+    if (verse.pseudo != null){
+
+    }
+
+    await createAPhidFast(
+      context: context,
+      verse: verse,
+    );
+
+    await Keyboard.copyToClipboard(context: context, copy: verse.text);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkShouldTranslateButNotFound({
+    @required BuildContext context,
+    @required Verse verse,
+  }){
+
+    bool _shouldButNotFound = false;
+
+    if (TextCheck.isEmpty(verse.text) == false && verse.translate == true){
+
+      final String _translation = xPhrase(context, verse.text);
+      if (_translation == null){
+        _shouldButNotFound = true;
+      }
+    }
+
+    return _shouldButNotFound;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkPendingAssigningPhid(String string){
+    bool _need = false;
+
+    if (
+    TextMod.removeAllCharactersAfterNumberOfCharacters(
+        input: string,
+        numberOfChars: 2
+    ) == '##'
+    ){
+      _need = true;
+    }
+
+    return _need;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BAKING
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bakeVerseToString({
@@ -206,18 +242,19 @@ class Verse {
         /// IS PHID
         final bool _isPhid = Phider.checkVerseIsPhid(_output);
         final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
-        if (_isPhid == true || _isCurrency == true){
+        final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
+        if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
           final String _foundXPhrase = xPhrase(context, verse.text);
 
           /// X PHRASE NOT FOUND
           if (_foundXPhrase == null){
-            _output = '?$_output';
+            _output = 'τ.$_output'; // τ : should be translated : phid assigned : not found in allPhrases
           }
 
           /// X PHRASE FOUND
           else {
-            _output = '.$_foundXPhrase';
+            _output = '.$_foundXPhrase'; // . : perfect and finished
           }
 
         }
@@ -229,12 +266,12 @@ class Verse {
           final bool _isTemp = Phider.checkVerseIsTemp(_output);
           if (_isTemp == true){
             _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
-            _output = '##$_output';
+            _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
           }
 
           /// NOT TEMP - NOT PHID
           else {
-            _output = '>$_output';
+            _output = '?$_output'; // should be translated : phid not assigned : not found in all phrases : something is wrong
           }
 
         }
@@ -246,7 +283,6 @@ class Verse {
     /// ADJUST CASING
     return convertVerseCase(verse: _output, verseCasing: verse?.casing);
   }
-
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

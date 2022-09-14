@@ -476,7 +476,7 @@ class SuperVerse extends StatelessWidget {
       final double _dotSize = verseSizeValue * 0.3;
 
       /// PLAN : SHOULD DELETE OR CREATE A SWITCH FOR THIS AFTER TRANSLATING EVERYTHING
-      final bool _canSuperTranslate = Verse.checkCanSuperTranslate(
+      final bool _shouldTranslateButNotFound = Verse.checkShouldTranslateButNotFound(
         context: context,
         verse: verse,
       );
@@ -487,7 +487,7 @@ class SuperVerse extends StatelessWidget {
         centered: centered,
         leadingDot: leadingDot,
         redDot: redDot,
-        onDoubleTap: _canSuperTranslate == false ? null : () => Verse.goToFastTranslator(
+        onDoubleTap: _shouldTranslateButNotFound == false ? null : () => Verse.goToFastTranslator(
           context: context,
           verse: verse,
         ),
@@ -502,7 +502,7 @@ class SuperVerse extends StatelessWidget {
           _TheVerse(
             verse: verse,
             maxLines: maxLines,
-            color: _canSuperTranslate == true ? Colorz.red255.withGreen(150).withBlue(100) : color,
+            color: _shouldTranslateButNotFound == true ? Colorz.red255.withGreen(150).withBlue(100) : color,
             centered: centered,
             scaleFactor: scaleFactor,
             size: size,
