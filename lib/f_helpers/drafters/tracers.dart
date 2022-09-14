@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
   const bool _traceScreenBuild = true;
   const bool _traceWidgetBuild = true;
@@ -108,7 +108,11 @@ void setNotifier({
   if (mounted == true){
     // blog('setNotifier : setting to ${value.toString()}');
     if (value != notifier.value){
-      notifier.value = value;
+
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        notifier.value = value;
+      });
+
     }
 
   }

@@ -18,6 +18,7 @@ class Words {
   static String bldrsShortName (BuildContext context) => Localizer.translate(context, 'bldrsShortName');
   static String bldrsTagLine (BuildContext context) => Localizer.translate(context, 'bldrsTagLine');
   static String bldrsDescription (BuildContext context) => Localizer.translate(context, 'bldrsDescription');
+  static String loading (BuildContext context) => Localizer.translate(context, 'loading');
 // -----------------------------------------------------------------------------
 }
 
