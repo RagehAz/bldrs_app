@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
 class LogoScreenView extends StatelessWidget {
@@ -43,7 +44,7 @@ class LogoScreenView extends StatelessWidget {
               sizeFactor: 0.8,
             ),
 
-          const SizedBox(
+          SizedBox(
             width: 300,
             height: 100,
             child: WidgetFader(
@@ -53,7 +54,7 @@ class LogoScreenView extends StatelessWidget {
               max: 0.8,
               child: SuperVerse(
                 verse: Verse(
-                  text: 'phid_loading',
+                  text: Words.loading(context),
                   casing: Casing.upperCase,
                   translate: true,
                 ),
