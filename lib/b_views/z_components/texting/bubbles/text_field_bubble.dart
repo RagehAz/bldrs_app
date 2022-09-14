@@ -98,6 +98,8 @@ class TextFieldBubble extends StatelessWidget {
   final AppBarType appBarType;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
+  static const double pasteButtonWidth = 50;
+  // --------------------
   static double _leadingIconSizeFactor(String leadingIcon){
     final double _sizeFactor =
     leadingIcon == Iconz.comWebsite ||
@@ -115,6 +117,7 @@ class TextFieldBubble extends StatelessWidget {
     @required bool showUnObscure,
     @required BuildContext context,
     @required double bubbleWidth,
+    @required bool hasPasteButton,
   }){
 
     final double fieldHeight = SuperTextField.getFieldHeight(
@@ -127,15 +130,16 @@ class TextFieldBubble extends StatelessWidget {
     );
 
 
-    final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
-    final double leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
-    final double obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
-    final double obscureBtSpacing = showUnObscure == false ? 0 : 5;
-    final double bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
-    final double fieldWidth = bubbleClearWidth - leadingIconSize
-        - leadingAndFieldSpacing - obscureBtSize - obscureBtSpacing;
+    final double _leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
+    final double _leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
+    final double _obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
+    final double _obscureBtSpacing = showUnObscure == false ? 0 : 5;
+    final double _pasteButtonWidthAndSpacing = hasPasteButton == true ? pasteButtonWidth + 5 : 0;
+    final double _bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _fieldWidth = _bubbleClearWidth - _leadingIconSize
+        - _leadingAndFieldSpacing - _obscureBtSize - _obscureBtSpacing - _pasteButtonWidthAndSpacing;
 
-    return fieldWidth;
+    return _fieldWidth;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -156,6 +160,7 @@ class TextFieldBubble extends StatelessWidget {
       bubbleWidth: bubbleWidth,
       leadingIcon: leadingIcon,
       showUnObscure: canObscure,
+      hasPasteButton: pasteFunction != null,
     );
     // --------------------
     final double _bubbleWidth = Bubble.bubbleWidth(context, bubbleWidthOverride: bubbleWidth);
@@ -279,7 +284,8 @@ class TextFieldBubble extends StatelessWidget {
               /// TASK : MOVE PASTE BUTTON TO BE INSIDE THE ROW ABOVE JUST LIKE CONTACTS BUBBLE
               if (pasteFunction != null)
                 DreamBox(
-                  height: 35,
+                  height: fieldHeight,
+                  width: pasteButtonWidth,
                   verse: const Verse(
                     text: 'phid_paste',
                     translate: true,

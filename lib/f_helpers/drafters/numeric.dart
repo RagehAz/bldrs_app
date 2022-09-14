@@ -493,6 +493,21 @@ class Numeric {
 
     return _output;
   }
+  // --------------------
+  static double calculateDoublePower({
+    @required double num,
+    @required int power,
+  }) {
+
+    /// NOTE :  num = 10; power = 2; => 10^2 = 100,, cheers
+    double _output = 1;
+
+    for (int i = 0; i < power; i++) {
+      _output *= num;
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// ANGLES
@@ -550,4 +565,21 @@ class Numeric {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// MODULUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double modulus(double num){
+    double _val;
+
+    /// NOTE : GETS THE ABSOLUTE VALUE OF A DOUBLE
+
+    if (num != null){
+      _val = math.sqrt(calculateDoublePower(num: num, power: 2));
+    }
+
+    return _val;
+  }
+// -----------------------------------------------------------------------------
 }
