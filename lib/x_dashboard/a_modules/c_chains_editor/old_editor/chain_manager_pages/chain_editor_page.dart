@@ -120,7 +120,7 @@ class ChainEditorPage extends StatelessWidget {
                   width: _clearWidth,
                   withHeadline: true,
                   color: Colorz.black255,
-                  onTap: () => Keyboard.copyToClipboard(
+                  onValueTap: () => Keyboard.copyToClipboard(
                     context: context,
                     copy: _phraseName,
                   ),
@@ -135,7 +135,7 @@ class ChainEditorPage extends StatelessWidget {
                 withHeadline: true,
                 color: Colorz.black255,
                 highlightText: ValueNotifier<String>(_phid),
-                onTap: () => Keyboard.copyToClipboard(
+                onValueTap: () => Keyboard.copyToClipboard(
                   context: context,
                   copy: _path,
                 ),

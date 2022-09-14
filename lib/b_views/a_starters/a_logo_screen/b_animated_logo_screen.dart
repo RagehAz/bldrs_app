@@ -76,14 +76,14 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
 
     _linesMap = <Map<String, dynamic>>[
-      _beat(start: 1900, duration: 200,   verse: '##Search'),  // 1
-      _beat(start: 2800, duration: 200,   verse: '##Connect'), // 5
-      _beat(start: 2700, duration: 200,   verse: '##Ask'), // 4
-      _beat(start: 2350, duration: 450,   verse: '##Answer'), // 3
-      _beat(start: 2000, duration: 450,   verse: '##Grow'), // 2
+      _beat(start: 1900, duration: 200,   verse: 'phid_search'),  // 1
+      _beat(start: 2800, duration: 200,   verse: 'phid_connect'), // 5
+      _beat(start: 2700, duration: 200,   verse: 'phid_ask'), // 4
+      _beat(start: 2350, duration: 450,   verse: 'phid_answer'), // 3
+      _beat(start: 2000, duration: 450,   verse: 'phid_grow'), // 2
 
-      _beat(start: 4700,  duration: 300,  verse: '##on'), // 6
-      _beat(start: 5550,  duration: 1000, verse: '##Bldrs.net', color: Colorz.yellow255), // 10
+      _beat(start: 4700,  duration: 300,  verse: 'phid_on'), // 6
+      _beat(start: 5550,  duration: 1000, verse: 'phid_bldrsFullName', color: Colorz.yellow255), // 10
       _beat(start: 4800,  duration: 300,  verse: '## - Designers'), // 7
       _beat(start: 5150,  duration: 300,  verse: '## - Contractors'), // 8
       _beat(start: 5450,  duration: 300,  verse: '## - Artisans'), // 9
@@ -333,7 +333,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               padding: EdgeInsets.only(right: _val * 300),
                               child: SuperVerse(
                                 verse: const Verse(
-                                  text: 'phid_the_builders_network',
+                                  text: 'phid_bldrsTagLine',
                                   translate: true,
                                   casing: Casing.upperCase,
                                 ),

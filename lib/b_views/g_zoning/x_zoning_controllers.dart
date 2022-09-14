@@ -25,7 +25,7 @@ Future<void> setCurrentZone({
     unawaited(WaitDialog.showWaitDialog(
       context: context,
       loadingVerse: const Verse(
-        text: 'phid_loading_please_wait',
+        text: 'phid_loading',
         translate: true,
       ),
     ));

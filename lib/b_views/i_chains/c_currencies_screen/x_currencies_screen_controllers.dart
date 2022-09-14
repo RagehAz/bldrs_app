@@ -21,6 +21,7 @@ void onSearchCurrencies({
   @required TextEditingController searchController,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<List<CurrencyModel>> foundCurrencies,
+  @required PageController pageController,
 }){
 
   TextCheck.triggerIsSearchingNotifier(
@@ -35,9 +36,11 @@ void onSearchCurrencies({
     /// SEARCH MAIN PHRASES
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     final List<Phrase> _phrases = onSearchPhrases(
+      context: context,
       searchController: searchController,
       phrasesToSearchIn: _phraseProvider.mainPhrases,
       isSearching: isSearching,
+      pageController: pageController,
     );
 
     Phrase.blogPhrases(_phrases);

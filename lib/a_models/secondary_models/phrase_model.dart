@@ -40,6 +40,28 @@ class Phrase {
       trigram: trigram ?? this.trigram,
     );
   }
+  // --------------------
+
+  Phrase completeTrigram(){
+
+    Phrase _phrase = Phrase(
+      id: id,
+      value: value,
+      langCode: langCode,
+      trigram:
+      trigram,
+    );
+
+    if (Mapper.checkCanLoopList(trigram) == false){
+
+      _phrase = _phrase.copyWith(
+        trigram: Stringer.createTrigram(input: value),
+      );
+
+    }
+
+    return _phrase;
+  }
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -399,8 +421,8 @@ class Phrase {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogPhrase(){
-    blog('PHRASE : langCode : $langCode : id : $id : $value : trigram(${trigram.length})');
+  void blogPhrase({String invoker = ''}){
+    blog('PHRASE $invoker : langCode : $langCode : id : $id : $value : trigram(${trigram?.length})');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -427,12 +449,51 @@ class Phrase {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogPhrasesListsDifferences({
+    @required List<Phrase> phrases1,
+    @required String phrases1Name,
+    @required List<Phrase> phrases2,
+    @required String phrases2Name,
+    bool sortBeforeCompare = true,
+  }){
+
+    if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
+
+      List<Phrase> _phrases1;
+      List<Phrase> _phrases2;
+
+      if (sortBeforeCompare == true){
+
+        _phrases1 = Phrase.sortPhrasesByIDAndLang(phrases: phrases1);
+        _phrases2 = Phrase.sortPhrasesByIDAndLang(phrases: phrases2);
+      }
+      else {
+        _phrases1 = phrases1;
+        _phrases2 = phrases2;
+      }
+
+      final List<String> _list1 = Phrase.transformPhrasesToStrings(_phrases1);
+      final List<String> _list2 = Phrase.transformPhrasesToStrings(_phrases2);
+
+      Stringer.blogStringsListsDifferences(
+        strings1: _list1,
+        list1Name: phrases1Name,
+        strings2: _list2,
+        list2Name: phrases2Name,
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /*
+  /// TASK : DEPRECATED IN FAVOR TO [getLangCodes]
   static List<String> _getLingCodesFromPhrases(List<Phrase> phrases){
 
     final List<String> _langCodes = <String>[];
@@ -447,6 +508,7 @@ class Phrase {
 
     return _langCodes;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getPhrasesIDs(List<Phrase> phrases){
@@ -467,6 +529,26 @@ class Phrase {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getLangCodes(List<Phrase> phrases){
+     List<String> _codes = <String>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase _phrase in phrases){
+
+        _codes = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _codes,
+            stringToAdd: _phrase.langCode,
+        );
+
+      }
+
+    }
+
+    return _codes;
   }
   // -----------------------------------------------------------------------------
 
@@ -896,6 +978,7 @@ class Phrase {
     return _include;
   }
   // --------------------
+  ///
   static bool checkPhrasesIncludeThisValue({
     @required List<Phrase> phrases,
     @required String value,
@@ -928,13 +1011,17 @@ class Phrase {
 
     if (phrase1 != null && phrase2 != null){
 
-      if (phrase1.langCode == phrase2.langCode){
+      if (phrase1.id == phrase2.id){
 
-        if (phrase1.value == phrase2.value){
+        if (phrase1.langCode == phrase2.langCode){
 
-          if (Mapper.checkListsAreIdentical(list1: phrase1.trigram, list2: phrase2.trigram)){
+          if (phrase1.value == phrase2.value){
 
-            _areIdentical = true;
+            if (Mapper.checkListsAreIdentical(list1: phrase1.trigram, list2: phrase2.trigram)){
+
+              _areIdentical = true;
+
+            }
 
           }
 
@@ -966,26 +1053,17 @@ class Phrase {
 
       if (phrases1.length == phrases2.length){
 
-        final List<String> codes = _getLingCodesFromPhrases(phrases1);
+        // final List<String> codes = _getLingCodesFromPhrases(phrases1);
 
         bool _allLangCodesAreIdentical = true;
 
-        for (final String langCode in codes){
+        for (int i = 0; i < phrases1.length; i++){
 
-          final String _value1 = searchFirstPhraseByLang(
-            phrases: phrases1,
-            langCode: langCode,
-          )?.value;
+          final Phrase _phrase1 = phrases1[i];
+          final Phrase _phrase2 = phrases2[i];
 
-          final String _value2 = searchFirstPhraseByLang(
-            phrases: phrases2,
-            langCode: langCode,
-          )?.value;
-
-          if (_value1 == _value2){
-
+          if (Phrase.checkPhrasesAreIdentical(phrase1: _phrase1, phrase2: _phrase2) == true){
             _allLangCodesAreIdentical = true;
-
           }
 
           else {
@@ -1038,6 +1116,34 @@ class Phrase {
     return phrases;
   }
   // --------------------
+  ///
+  static List<Phrase> sortPhrasesByIDAndLang({
+    @required List<Phrase> phrases,
+  }){
+    List<Phrase> _output = <Phrase>[];
+
+    final List<String> _langs = getLangCodes(phrases);
+
+    if (Mapper.checkCanLoopList(_langs) == true){
+
+      /// MAP OF {langCode : <Phrase>[]}
+      for (final String _langCode in _langs){
+
+        final List<Phrase> _langPhrases = searchPhrasesByLang(
+            phrases: phrases,
+            langCode: _langCode,
+        );
+
+        final List<Phrase> _sortedIDs = sortPhrasesByID(phrases: _langPhrases);
+
+        _output = <Phrase>[..._output, ..._sortedIDs];
+      }
+
+    }
+
+    return _output;
+  }
+// -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByID({
     @required List<Phrase> phrases,
@@ -1049,7 +1155,7 @@ class Phrase {
 
     return phrases;
   }
-  // -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
   /// INSERT
 
@@ -1467,10 +1573,8 @@ class Phrase {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'id: $id : langCode : $langCode : value : $value : trigram.length : ${trigram?.length}';
   // --------------------
   @override
   bool operator == (Object other){
@@ -1497,4 +1601,19 @@ class Phrase {
       langCode.hashCode^
       trigram.hashCode;
   // -----------------------------------------------------------------------------
+  static List<String> transformPhrasesToStrings(List<Phrase> phrases){
+    final List<String> _strings = <String>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+        final String _string = phrase.toString();
+        _strings.add(_string);
+      }
+
+    }
+
+    return _strings;
+  }
+
 }
