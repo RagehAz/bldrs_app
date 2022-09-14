@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -49,10 +50,10 @@ class LogoSlogan extends StatelessWidget {
           SizedBox(
             width: _logoWidth,
             child: SuperVerse(
-              verse: const Verse(
-                text: 'phid_bldrs_tagline',
+              verse: Verse(
+                text: Words.bldrsTagLine(context),
                 pseudo: "The Builder's Network\nReal Estate\nConstruction\nSupplies",
-                translate: true,
+                translate: false,
                 casing: Casing.upperCase,
               ),
               size: 3,
@@ -72,10 +73,10 @@ class LogoSlogan extends StatelessWidget {
             width: _logoWidth,
             // height: _logoHeight * 0.7,
             child: SuperVerse(
-              verse: const Verse(
+              verse: Verse(
                 pseudo: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans',
-                translate: true,
-                text: 'phid_bldrsDescription',
+                translate: false,
+                text: Words.bldrsDescription(context),
               ),
               size: 3,
               weight: VerseWeight.thin,

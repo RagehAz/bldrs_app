@@ -351,7 +351,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     isFormField: true,
                     headerViewModel: const BubbleHeaderVM(
                       headlineVerse: Verse(
-                        text: 'phid_email',
+                        text: 'phid_emailAddress',
                         translate: true,
                       ),
                       redDot: true,

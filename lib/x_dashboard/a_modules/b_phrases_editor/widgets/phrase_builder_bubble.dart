@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -43,15 +42,13 @@ class PhrasesBuilderBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    blog('PhrasesBuilderBubble : BUILDING SCREEEEEEEEN');
-    // --------------------
     final bool _canBuildPhrases = Mapper.checkCanLoopList(mixedPhrases) == true;
     final List<Phrase> _enListBeforeSorting = Phrase.searchPhrasesByLang(
       phrases: mixedPhrases,
       langCode: 'en',
     );
     // final List<Phrase> _arList = arPhrases; //Phrase.sortPhrasesByID(phrases: arPhrases);
-    final List<Phrase> _enList = Phrase.sortPhrasesByID(phrases: _enListBeforeSorting);
+    final List<Phrase> _enList = Phrase.sortPhrasesByIDAndLang(phrases: _enListBeforeSorting);
     // --------------------
     return PageBubble(
       screenHeightWithoutSafeArea: screenHeight,

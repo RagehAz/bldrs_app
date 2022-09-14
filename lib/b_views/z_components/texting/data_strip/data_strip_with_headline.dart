@@ -16,7 +16,8 @@ class DataStripWithHeadline extends StatelessWidget {
     this.width,
     this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
-    this.onTap,
+    this.onKeyTap,
+    this.onValueTap,
     this.highlightText,
     Key key,
   }) : super(key: key);
@@ -26,7 +27,8 @@ class DataStripWithHeadline extends StatelessWidget {
   final double width;
   final Color valueBoxColor;
   final bool isPercent;
-  final Function onTap;
+  final Function onKeyTap;
+  final Function onValueTap;
   final ValueNotifier<String> highlightText;
   /// --------------------------------------------------------------------------
   static const double rowHeight = 60;
@@ -55,7 +57,7 @@ class DataStripWithHeadline extends StatelessWidget {
               height: keyRowHeight,
               width: _rowWidth,
               dataKey: dataKey,
-              onTap: onTap ?? () => DataStrip.onStripTap(
+              onTap: onKeyTap ?? () => DataStrip.onStripTap(
                 context: context,
                 dataValue: dataValue,
               ),
@@ -63,7 +65,7 @@ class DataStripWithHeadline extends StatelessWidget {
 
             /// VALUE
             DataStripValue(
-              onTap: onTap ?? () => DataStrip.onStripTap(
+              onTap: onValueTap ?? () => DataStrip.onStripTap(
                 context: context,
                 dataValue: dataValue,
               ),

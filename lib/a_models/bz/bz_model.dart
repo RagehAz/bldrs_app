@@ -1370,7 +1370,7 @@ class BzModel{
         :
     bzSection == BzSection.supplies ? 'phid_supplies'
         :
-    'phid_bldrs_net';
+    'phid_bldrsFullName';
 
     return _translation;
   }

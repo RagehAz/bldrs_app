@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/secondary_models/map_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/centered_list_layout.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -40,7 +41,7 @@ class AppLangsScreen extends StatelessWidget {
           final MapModel _langs = _languageMaps[index];
 
           return SettingsWideButton(
-            verse: _langs.value,
+            verse: Verse.plain(_langs.value),
             onTap: () => _tapLanguage(context, _langs.key),
           );
 
