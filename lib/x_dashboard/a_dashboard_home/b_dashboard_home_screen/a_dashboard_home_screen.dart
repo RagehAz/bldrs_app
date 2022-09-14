@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -10,11 +11,14 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/l_provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/b_phrases_editor/a_phrase_manager_screen.dart';
 import 'package:bldrs/x_dashboard/a_modules/c_chains_editor/a_chains_manager_screen.dart';
@@ -35,10 +39,39 @@ import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/b_widgets/dash_button/dash_button_model.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
-class BldrsDashBoard extends StatelessWidget {
+Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
+
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+  );
+
+  if (_userModel.isAdmin == true){
+
+    final bool _result = await Nav.goToNewScreen(
+      context: context,
+      transitionType: PageTransitionType.fade,
+      screen: const LockScreen(),
+    );
+
+    if (_result == true){
+
+      await Nav.goToNewScreen(
+        context: context,
+        screen: const DashBoardHomeScreen(),
+      );
+
+    }
+
+  }
+
+}
+
+class DashBoardHomeScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BldrsDashBoard({
+  const DashBoardHomeScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------

@@ -110,8 +110,10 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
     // final double _screenWidth = Scale.superScreenWidth(context);
     // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
 
+    final String _flyerTypeString = FlyerTyper.cipherFlyerType(widget.flyerType);
+
     return MainLayout(
-      pageTitleVerse: Verse.plain('${widget.flyerType} Picker Editor'),
+      pageTitleVerse: Verse.plain('$_flyerTypeString Pickers Editor'),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,

@@ -56,12 +56,14 @@ class Nav {
     @required BuildContext context,
     @required Widget screen,
     PageTransitionType transitionType = PageTransitionType.bottomToTop,
+    Widget childCurrent,
   }) async {
 
     final dynamic _result = await Navigator.push(
       context,
       PageTransition<dynamic>(
         type: transitionType,
+        childCurrent: childCurrent,
         child: screen,
         // duration: Ratioz.durationFading200,
         // reverseDuration: Ratioz.durationFading200,
