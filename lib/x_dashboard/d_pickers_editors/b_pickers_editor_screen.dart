@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -107,9 +106,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    // final double _screenWidth = Scale.superScreenWidth(context);
-    // final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-
     final String _flyerTypeString = FlyerTyper.cipherFlyerType(widget.flyerType);
 
     return MainLayout(
@@ -202,32 +198,18 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                 onReorderStart: (int oldIndex){},
                 onReorderEnd: (int newIndex){},
                 onReorder: (oldIndex, newIndex) {
-                  // blog('before index correction : oldIndex : $oldIndex : newIndex : $newIndex');
+
                   int _newIndex = newIndex;
                   if (newIndex > oldIndex) {
                     _newIndex = newIndex - 1;
                   }
-                  // blog('after index correction : oldIndex : $oldIndex : newIndex : $_newIndex');
 
-                  final List<PickerModel> _pickers = <PickerModel>[...refinedPickers];
-                  final PickerModel _picker = _pickers[oldIndex];
-
-                  // blog('before remove');
-                  // PickerModel.blogIndexes(_pickers);
-                  _pickers.removeAt(oldIndex);
-
-                  // blog('after remove');
-                  // PickerModel.blogIndexes(_pickers);
-                  _pickers.insert(_newIndex, _picker);
-
-                  // blog('after insert');
-                  PickerModel.blogIndexes(_pickers);
-
-                  final List<PickerModel> _corrected = PickerModel.correctModelsIndexes(_pickers);
-                  // blog('after correction');
-                  // PickerModel.blogIndexes(_pickers);
-
-                  _tempPickers.value = _corrected;
+                  onReorderPickers(
+                      oldIndex: oldIndex,
+                      newIndex: _newIndex,
+                      tempPickers: _tempPickers,
+                      refinedPickers: refinedPickers
+                  );
 
                 },
 
@@ -237,9 +219,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                   /// ADD BUTTON
                   if (_isAddButton == true){
-
-                    blog('faak');
-
                     return WideButton(
                       key: const ValueKey<String>('add_button'),
                       verse: const Verse(
@@ -266,12 +245,12 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                         child: DreamBox(
                           height: 40,
                           verse: Verse(
-                            text: '$index : ${xPhrase(context, _picker.groupID)}',
-                            translate: false,
+                            text: _picker.groupID,
+                            translate: true,
                             casing: Casing.upperCase,
                           ),
                           secondLine: Verse(
-                            text: _picker.chainID,
+                            text: '$index : ${_picker.chainID}',
                             translate: false,
                           ),
                           margins: 10,

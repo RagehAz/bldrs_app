@@ -489,7 +489,14 @@ class Dialogs {
                   isFormField: _keyboardModel.isFormField,
                   onSubmitted: _onSubmit,
                   // autoValidate: true,
-                  validator: () => _keyboardModel.validator(_text),
+                  validator: (){
+                    if (_keyboardModel.validator != null){
+                      return _keyboardModel?.validator(_text);
+                    }
+                    else {
+                      return null;
+                    }
+                  },
                   textOnChanged: (String text){
 
                     setState((){

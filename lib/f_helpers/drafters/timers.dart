@@ -1049,7 +1049,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     final DateTime _now = DateTime.now();
 
-    final bool _isCorrect = Timers.checkTimesAreIdentical(
+    bool _isCorrect = Timers.checkTimesAreIdentical(
       accuracy: TimeAccuracy.minute,
       time1: _now,
       time2: _dateTime,
@@ -1057,32 +1057,44 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     if (showIncorrectTimeDialog == true && _isCorrect == false){
 
-      final String _dd_month_yyy_actual = Timers.generateString_dd_month_yyyy(context: context, time: _dateTime);
-      final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
-      final String _secondLine = 'Actual clock : $_dd_month_yyy_actual . $_hh_i_mm_ampm_actual';
+      final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _dateTime, to: _now);
+      final double _num = Numeric.modulus(_diff.toDouble());
+      final bool _differenceIsBig = _num > 2;
 
-      final String _dd_month_yyy_device = Timers.generateString_dd_month_yyyy(context: context, time: _now);
-      final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
-      final String _thirdLine ='Your clock : $_dd_month_yyy_device . $_hh_i_mm_ampm_device';
+      if (_differenceIsBig == true){
 
-      await CenterDialog.showCenterDialog(
-        context: context,
-        titleVerse: const Verse(
-          pseudo: '##Device clock is incorrect !',
-          text: 'phid_device_time_incorrect',
-          translate: true,
-        ),
-        bodyVerse: Verse(
-          text: '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-          translate: true,
-          varTag: [_secondLine, _thirdLine]
-        ),
-        confirmButtonVerse: const Verse(
-          text: 'phid_please_try_again',
-          translate: true,
-        ),
-        onOk: onRestart,
-      );
+        final String _dd_month_yyy_actual = Timers.generateString_dd_month_yyyy(context: context, time: _dateTime);
+        final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
+        final String _secondLine = 'Actual clock : $_dd_month_yyy_actual . $_hh_i_mm_ampm_actual';
+
+        final String _dd_month_yyy_device = Timers.generateString_dd_month_yyyy(context: context, time: _now);
+        final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
+        final String _thirdLine ='Your clock : $_dd_month_yyy_device . $_hh_i_mm_ampm_device';
+
+        await CenterDialog.showCenterDialog(
+          context: context,
+          titleVerse: const Verse(
+            pseudo: '##Device clock is incorrect !',
+            text: 'phid_device_time_incorrect',
+            translate: true,
+          ),
+          bodyVerse: Verse(
+              text: '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+              translate: true,
+              varTag: [_secondLine, _thirdLine]
+          ),
+          confirmButtonVerse: const Verse(
+            text: 'phid_please_try_again',
+            translate: true,
+          ),
+          onOk: onRestart,
+        );
+
+      }
+
+      else {
+        _isCorrect = true;
+      }
 
     }
 
