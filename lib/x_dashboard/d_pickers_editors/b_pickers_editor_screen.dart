@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/x_pickers_editor_controller.dart';
@@ -112,10 +113,27 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
-      onBack: () => Dialogs.goBackDialog(
-        context: context,
-        goBackOnConfirm: true,
-      ),
+      onBack: (){
+
+        final bool _areIdentical = PickerModel.checkPickersListsAreIdentical(
+          pickers1: _initialSpecPickers.value,
+          pickers2: _tempPickers.value,
+        );
+
+        if (_areIdentical == true){
+          Nav.goBack(context: context, invoker: 'PickerEditorScreen');
+        }
+
+        else {
+
+          Dialogs.goBackDialog(
+            context: context,
+            goBackOnConfirm: true,
+          );
+
+        }
+
+      },
       // searchController: _searchController,
       // onSearchCancelled: (){
       //   _searchController.text = '';
@@ -240,6 +258,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                     if (_picker.isHeadline == true){
 
                       return PickerHeadlineTile(
+                        key: ValueKey<String>(_picker.chainID),
                         picker: _picker,
                         secondLine: Verse(
                           text: '$index : ${_picker.chainID}',

@@ -19,8 +19,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/notifications/notifications.dart';
 import 'package:bldrs/f_helpers/notifications/local_note.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
-import 'package:bldrs/f_helpers/router/router.dart' as Routerer;
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -221,15 +220,15 @@ class _BldrsAppState extends State<BldrsApp> {
               localeResolutionCallback: Localizer.localeResolutionCallback,
 
               /// ROUTES
-              onGenerateRoute: Routerer.allRoutes,
-              initialRoute: Routez.staticLogoScreen,
+              onGenerateRoute: Routing.allRoutes,
+              initialRoute: Routing.staticLogoScreen,
               routes: <String, Widget Function(BuildContext)>{
 
                 /// STARTERS
-                Routez.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(key: ValueKey<String>('LogoScreen'),),
-                Routez.home: (BuildContext ctx) => const HomeScreen(),
+                Routing.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(key: ValueKey<String>('LogoScreen'),),
+                Routing.home: (BuildContext ctx) => const HomeScreen(),
 
-                Routez.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
+                Routing.flyerScreen: (BuildContext ctx) => const FlyerScreen(),
                 // Routez.Starting: (ctx) => StartingScreen(),
 
 
