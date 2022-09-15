@@ -87,7 +87,7 @@ class CloudFunction {
             await CenterDialog.showCenterDialog(
               context: context,
               titleVerse: const Verse(
-                pseudo: '##You Are not Signed in',
+                pseudo: 'You Are not Signed in',
                 text: 'phid_your_not_signed_in',
                 translate: true,
               ),

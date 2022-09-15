@@ -302,7 +302,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
       translate: true,
     ),
     confirmButtonVerse: const Verse(
-      pseudo: '##Update Bldrs.net',
+      pseudo: 'Update Bldrs.net',
       text: 'phid_update_bldrs_net',
       translate: true,
     ),

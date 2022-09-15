@@ -73,7 +73,7 @@ class ComposeBzProtocols {
           translate: true,
         ),
         bodyVerse: const Verse(
-          pseudo: '##Successfully created your Business Account\n system will reboot now',
+          pseudo: 'Successfully created your Business Account\n system will reboot now',
           text: 'phid_created_bz_successfully',
           translate: true,
         ),

@@ -454,7 +454,7 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
       translate: true,
     ),
     bodyVerse: const Verse(
-      pseudo: '##This will delete all selected business scope keywords',
+      pseudo: 'This will delete all selected business scope keywords',
       translate: true,
       text: 'phid_reset_scope_warning',
     ),
