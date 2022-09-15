@@ -84,7 +84,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
       skyType: SkyType.black,
       sectionButtonIsOn: false,
       pageTitleVerse: const Verse(
-        text: 'phid_add_new_author',
+        text: 'phid_add_author_to_the_team',
         translate: true,
       ),
       searchHintVerse: const Verse(
