@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -55,7 +56,13 @@ class EditingChainsBuilder extends StatelessWidget {
         itemCount: sons.length + 1,
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
-        padding: level == 0 ? Stratosphere.stratosphereSandwich : const EdgeInsets.symmetric(
+        padding: level == 0 ? Stratosphere.getStratosphereSandwich(
+          context: context,
+          appBarType: AppBarType.search,
+          // withHorizon: true,
+        )
+            :
+        const EdgeInsets.symmetric(
           vertical: Ratioz.appBarPadding,
         ),
         onReorder: (oldIndex, newIndex) {

@@ -81,10 +81,9 @@ class PickerScreen extends StatelessWidget {
 
       },
       confirmButtonModel: isMultipleSelectionMode == false ? null : ConfirmButtonModel(
-        firstLine: Verse(
-          text: 'Confirm $_chainID',
+        firstLine: const Verse(
+          text: 'phid_confirm_selections',
           translate: true,
-          variables: _chainID,
         ),
         onTap: () => onGoBackFromPickerScreen(
           context: context,

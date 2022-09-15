@@ -228,16 +228,15 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
             _canContinue = await CenterDialog.showCenterDialog(
               context: context,
               titleVerse: const Verse(
-                text: 'phid_discard_changes',
+                text: 'phid_discard_changes_?',
                 translate: true,
               ),
               bodyVerse: const Verse(
-                pseudo: 'This will ignore All selection changes',
                 text: 'phid_discard_changed_warning',
                 translate: true,
               ),
               confirmButtonVerse: const Verse(
-                text: 'phid_discard',
+                text: 'phid_yes_discard',
                 translate: true,
               ),
               boolDialog: true,
@@ -255,7 +254,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       },
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
         firstLine: Verse(
-          text: '##Confirm ${widget.pageTitleVerse}',
+          text: 'phid_confirm_selections',
           translate: true,
           variables: widget.pageTitleVerse,
         ),
