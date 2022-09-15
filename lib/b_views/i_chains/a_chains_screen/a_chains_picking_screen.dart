@@ -58,7 +58,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
   final ValueNotifier<List<PickerModel>> _refinedSpecsPickers = ValueNotifier([]);
-  final ValueNotifier<List<String>> _groupsIDs = ValueNotifier([]);
   // --------------------
   /// SEARCHING
   // --------------------
@@ -94,7 +93,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   void dispose() {
     /// DATA
     _refinedSpecsPickers.dispose();
-    _groupsIDs.dispose();
     /// SEARCHING
     _searchTextController.dispose();
     _searchText.dispose();
@@ -158,11 +156,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         selectedSpecs: widget.selectedSpecs,
       );
       _refinedSpecsPickers.value = _theRefinedPickers;
-      // ------------------------------
-      final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
-        pickers: _theRefinedPickers,
-      );
-      _groupsIDs.value = _theGroupsIDs;
       // ------------------------------
       _generatePhidsFromAllSpecPickers();
       // ------------------------------
@@ -370,8 +363,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
             /// WHILE BROWSING
             else {
-
-
 
               return ChainsScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
