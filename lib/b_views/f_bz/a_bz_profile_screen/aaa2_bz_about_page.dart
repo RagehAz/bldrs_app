@@ -58,7 +58,7 @@ class BzAboutPage extends StatelessWidget {
               headlineVerse: Verse(
                 text: '##About ${_bzModel.name}',
                 translate: true,
-                varTag: _bzModel.name,
+                variables: _bzModel.name,
               ),
             ),
             paragraph: Verse(
@@ -110,7 +110,7 @@ class BzAboutPage extends StatelessWidget {
             verse: Verse(
               text: '##Flyers By ${bzModel.name}',
               translate: false,
-              varTag: bzModel.name,
+              variables: bzModel.name,
             ),
             centered: false,
             maxLines: 2,

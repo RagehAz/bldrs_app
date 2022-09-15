@@ -218,7 +218,7 @@ class AuthorCard extends StatelessWidget {
                 verse: Verse(
                   text: '##${author.flyersIDs.length} published flyers',
                   translate: true,
-                  varTag: author.flyersIDs.length,
+                  variables: author.flyersIDs.length,
                 ),
                 bubble: false,
                 icon: Iconz.flyer,

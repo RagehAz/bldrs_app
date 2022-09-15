@@ -292,7 +292,7 @@ Future<void> onAddSpecsTap({
         pageTitleVerse: Verse(
           text: '##$_flyerTypeString Specifications',
           translate: true,
-          varTag: _flyerTypeString,
+          variables: _flyerTypeString,
         ),
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,

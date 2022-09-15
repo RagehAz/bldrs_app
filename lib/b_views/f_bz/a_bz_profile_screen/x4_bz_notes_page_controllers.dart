@@ -201,7 +201,7 @@ Future<void> onSendAuthorshipInvitation({
     bodyVerse: Verse(
       text: '##confirm sending invitation to ${selectedUser.name} to become an author of ${bzModel.name} account',
       translate: true,
-      varTag: [selectedUser.name, bzModel.name]
+      variables: [selectedUser.name, bzModel.name]
     ),
     userModel: selectedUser,
   );
@@ -231,7 +231,7 @@ Future<void> onSendAuthorshipInvitation({
           secondVerse: Verse(
             text: '##Account authorship invitation has been sent to ${selectedUser.name} successfully',
             translate: true,
-            varTag: selectedUser.name,
+            variables: selectedUser.name,
           ),
           color: Colorz.green255,
           textColor: Colorz.white255,
@@ -263,7 +263,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
       bodyVerse: Verse(
         text: '##${_receiverModel.name} will be notified with cancelling this invitation',
         translate: true,
-        varTag: _receiverModel.name,
+        variables: _receiverModel.name,
       ),
       boolDialog: true,
       confirmButtonVerse: const Verse(

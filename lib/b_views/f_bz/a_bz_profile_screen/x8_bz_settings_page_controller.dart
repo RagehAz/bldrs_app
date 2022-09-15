@@ -166,7 +166,7 @@ Future<bool> _showConfirmDeleteBzDialog({
     titleVerse: Verse(
       text: 'Delete ${bzModel.name} Business Account ?',
       translate: true,
-      varTag: bzModel.name,
+      variables: bzModel.name,
     ),
     bodyVerse: const Verse(
       pseudo: 'All Account flyers, records and data will be deleted and can not be retrieved',
@@ -199,7 +199,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
     bodyVerse: Verse(
       text: '##Only $_creatorAuthorsString can delete this Account',
       translate: true,
-      varTag: _creatorAuthorsString,
+      variables: _creatorAuthorsString,
     ),
   );
 
@@ -215,7 +215,7 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
     titleVerse: Verse(
       text: '##${bzModel.flyersIDs.length} flyers will be permanently deleted',
       translate: true,
-      varTag: bzModel.flyersIDs.length,
+      variables: bzModel.flyersIDs.length,
     ),
     bodyVerse: const Verse(
       pseudo: 'Once flyers are deleted, they can not be retrieved',
@@ -225,7 +225,7 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
     confirmButtonVerse: Verse(
       text: '##Delete All Flyers And Remove ${bzModel.name}',
       translate: true,
-      varTag: bzModel.name,
+      variables: bzModel.name,
     ),
     flyersIDs: bzModel.flyersIDs,
   );

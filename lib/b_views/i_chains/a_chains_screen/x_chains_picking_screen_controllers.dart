@@ -148,12 +148,12 @@ Future<void> _setActivePhidK({
       titleVerse: Verse(
         text: '##Section "$_flyerTypePhid" is\nTemporarily closed in $_currentCityID',
         translate: true,
-        varTag: [_flyerTypePhid, _currentCityID]
+        variables: [_flyerTypePhid, _currentCityID]
       ),
       bodyVerse: Verse(
         text: '##The Bldrs in $_currentCityID are adding flyers everyday to properly present their markets.\nplease hold for couple of days and come back again.',
         translate: true,
-        varTag: _currentCityID,
+        variables: _currentCityID,
       ),
       height: 400,
       child: Row(

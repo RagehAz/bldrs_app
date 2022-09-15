@@ -38,7 +38,7 @@ class BzSettingsPage extends StatelessWidget {
           verse: Verse(
             text: '##Edit ${_bzModel.name} Business Account',
             translate: true,
-            varTag: _bzModel.name,
+            variables: _bzModel.name,
           ),
           icon: Iconz.gears,
           onTap: () => onEditBzButtonTap(
@@ -55,7 +55,7 @@ class BzSettingsPage extends StatelessWidget {
             verse: Verse(
               text: '##Delete ${_bzModel.name} Business account',
               translate: true,
-              varTag: _bzModel.name,
+              variables: _bzModel.name,
             ),
             color: Colorz.bloodTest,
             icon: Iconz.xSmall,

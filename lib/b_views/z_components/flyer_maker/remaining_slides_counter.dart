@@ -22,7 +22,7 @@ class RemainingSlidesCounter extends StatelessWidget {
       verse: const Verse(
         text: '##$_numberOfSlides slides',
         translate: true,
-        varTag: _numberOfSlides,
+        variables: _numberOfSlides,
       ),
       verseItalic: true,
       verseMaxLines: 2,
