@@ -62,7 +62,7 @@ class BzPowersPage extends StatelessWidget {
         const Bubble(
           headerViewModel: BubbleHeaderVM(
             headlineVerse: Verse(
-              text: 'phid_get_premium_account',
+              text: 'phid_get_pro_account',
               translate: true,
             ),
           ),
@@ -74,7 +74,7 @@ class BzPowersPage extends StatelessWidget {
         const Bubble(
           headerViewModel: BubbleHeaderVM(
             headlineVerse: Verse(
-              text: 'phid_get_super_account',
+              text: 'phid_get_master_account',
               translate: true,
             ),
           ),

@@ -115,7 +115,7 @@ class Bubble extends StatelessWidget {
       child: Container(
         key: key,
         width: _bubbleWidth,
-        margin: _bubbleMargins,
+        margin: _bubbleMargins.copyWith(bottom: Ratioz.appBarMargin),
         // padding: EdgeInsets.all(_pageMargin),
         decoration: BoxDecoration(
           color: bubbleColor,

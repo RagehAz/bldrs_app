@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/phrase_protocols.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -315,6 +316,20 @@ class PhraseProvider extends ChangeNotifier {
         removeThis: [phid],
     );
     notifyListeners();
+  }
+  // --------------------
+  void setPhidsPendingTranslation({
+    @required List<String> setTo,
+    @required bool notify,
+  }){
+
+    blog('setPhidsPendingTranslation : setTO : $setTo');
+
+    _phidsPendingTranslation = setTo;
+    if (notify == true){
+      notifyListeners();
+    }
+
   }
   // -----------------------------------------------------------------------------
 }
