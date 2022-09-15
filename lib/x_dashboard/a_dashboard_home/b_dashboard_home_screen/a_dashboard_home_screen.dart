@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -16,6 +17,7 @@ import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
@@ -58,9 +60,9 @@ Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
 
     if (_result == true){
 
-      await Nav.goToNewScreen(
+      await Nav.pushNamedAndRemoveAllBelow(
         context: context,
-        screen: const DashBoardHomeScreen(),
+        goToRoute: Routing.ragehDashBoard,
       );
 
     }
@@ -268,6 +270,25 @@ class DashBoardHomeScreen extends StatelessWidget {
       sectionButtonIsOn: false,
       pyramidsAreOn: true,
       pyramidType: PyramidType.white,
+      onBack: () async {
+
+        final bool _result = await Dialogs.goBackDialog(
+          context: context,
+          titleVerse: const Verse(text: 'Exit Dashboard ?', translate: false),
+          confirmButtonVerse: const Verse(text: 'Exit', translate: false),
+        );
+
+        if (_result == true){
+
+          await Nav.pushNamedAndRemoveAllBelow(
+            context: context,
+            goToRoute: Routing.staticLogoScreen,
+          );
+
+
+        }
+
+      },
       appBarRowWidgets: <Widget>[
 
         const Expander(),
