@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -113,7 +112,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
           // final String _fileName = pdf?.fileName;
 
           return Bubble(
-            bubbleColor: Colorizer.ValidatorColor(
+            bubbleColor: Formers.validatorBubbleColor(
               validator: () => Formers.pdfValidator(
                 fileModel: pdf,
                 canValidate: widget.canValidate,
@@ -201,7 +200,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 isFormField: true,
                 isFloatingField: true,
                 // autoValidate: true,
-                validator: (){
+                validator: (String text){
 
                   final bool _hasExtension = TextCheck.stringContainsSubString(
                     string: _textController.text,

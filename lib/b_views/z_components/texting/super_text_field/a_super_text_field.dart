@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/c_text_field
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +112,7 @@ class SuperTextField extends StatefulWidget {
   final ValueChanged<String> onSavedForForm;
   final Function onEditingComplete;
   /// should return error string or null if there is no error
-  final String Function() validator;
+  final String Function(String) validator;
 
   final bool isFloatingField;
   final bool canObscure;
@@ -186,10 +185,11 @@ class SuperTextField extends StatefulWidget {
     @required int textSize,
     @required double textSizeFactor,
     @required bool textItalic,
+    Color errorTextColor,
   }){
     return SuperVerse.createStyle(
       context: context,
-      color: Colorz.red255,
+      color: errorTextColor ?? Colorz.red255,
       weight: VerseWeight.thin,
       // italic: true,
       size: textSize,
@@ -239,6 +239,7 @@ class SuperTextField extends StatefulWidget {
     @required double corners,
     @required Color fieldColor,
     @required bool counterIsOn,
+    @required Color errorColor,
   }){
 
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
@@ -269,6 +270,7 @@ class SuperTextField extends StatefulWidget {
         textSize: textSize,
         textItalic: textItalic,
         textSizeFactor: textSizeFactor,
+        errorTextColor: errorColor,
       ),
       errorMaxLines: 3,
       // errorText: 'initial state error text',
@@ -548,17 +550,6 @@ class _SuperTextFieldState extends State<SuperTextField> {
     );
   }
   // --------------------
-  String _validator(String text){
-
-    if (widget.validator == null){
-      return null;
-    }
-    else {
-      return TextMod.removeTextBeforeFirstSpecialCharacter(widget.validator(), '_');
-    }
-
-  }
-  // --------------------
   void _onTap(BuildContext context){
 
     // FocusManager.instance.rootScope.requestFocus();
@@ -695,7 +686,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
                   onSubmitted: widget.onSubmitted,
                   onSavedForForm: widget.onSavedForForm,
                   onEditingComplete: widget.onEditingComplete,
-                  validator: _validator,
+                  validator: widget.validator,
                   readOnly: widget.isFloatingField,
                   // readOnly: widget.isFloatingField,
                 );

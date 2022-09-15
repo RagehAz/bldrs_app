@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ class Colorizer {
   /// CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Color decipherColor(String colorString) {
     Color _color;
 
@@ -53,7 +53,9 @@ class Colorizer {
     return _color;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherColor(Color color) {
+
     final Color _color = color ?? Colorz.nothing;
 
     final int _alpha = _color.alpha;
@@ -61,6 +63,7 @@ class Colorizer {
     final int _g = _color.green;
     final int _b = _color.blue;
 
+    /// PLAN : CREATE FUNCTION THAT VALIDATES THIS REGEX PATTERN ON DECIPHER COLOR METHOD
     final String _string = '$_alpha*$_r*$_g*$_b';
     return _string;
   }
@@ -69,6 +72,7 @@ class Colorizer {
   /// CREATOR
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Color createRandomColor(){
     final int _red = Numeric.createRandomIndex(listLength: 256);
     final int _green = Numeric.createRandomIndex(listLength: 256);
@@ -78,6 +82,7 @@ class Colorizer {
     return _color;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Color createRandomColorFromBldrsPalette() {
     const List<Color> _bldrsColors = Colorz.allColorz;
     final int _randomIndex = Numeric.createRandomIndex(listLength: _bldrsColors.length);
@@ -214,51 +219,4 @@ class Colorizer {
     return ColorFilter.mode(imageSaturationColor, BlendMode.saturation);
   }
   // -----------------------------------------------------------------------------
-  static Color errorize({
-    @required bool errorIsOn,
-    @required Color defaultColor,
-    @required bool canErrorize,
-    Color errorColor = Colorz.errorColor,
-  }){
-    Color _color = defaultColor;
-
-    /// if condition is true => error is on
-    if (errorIsOn == true && canErrorize == true){
-      _color = errorColor;
-    }
-    return _color;
-  }
-  // --------------------
-  static Color ValidatorColor({
-    @required String Function() validator,
-    Color defaultColor = Colorz.white10,
-    bool canErrorize = true,
-  }){
-
-    // blog('ValidatorColor : validator : $validator : ${validator()}');
-
-    bool _errorIsOn = false;
-    Color _errorColor;
-    if (validator != null){
-
-      final String _validationMessage = validator();
-
-      _errorIsOn = _validationMessage != null;
-
-      final String _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(_validationMessage, '_');
-      if (TextCheck.isEmpty(_colorCode) == false){
-        _errorColor = Colorizer.decipherColor(_colorCode);
-      }
-
-    }
-
-    return errorize(
-      errorIsOn: _errorIsOn,
-      defaultColor: defaultColor,
-      errorColor: _errorColor,
-      canErrorize: canErrorize,
-    );
-
-  }
-// -----------------------------------------------------------------------------
 }

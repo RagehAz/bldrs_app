@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -74,7 +74,7 @@ class TextFieldBubble extends StatelessWidget {
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
   final String initialText;
-  final String Function() validator;
+  final String Function(String) validator;
   final List<Verse> bulletPoints;
   final bool fieldIsRequired;
   // final bool loading;
@@ -167,9 +167,14 @@ class TextFieldBubble extends StatelessWidget {
     // --------------------
 
     return Bubble(
-        bubbleColor: Colorizer.ValidatorColor(
-          validator: validator,
+        bubbleColor: Formers.validatorBubbleColor(
+          // canErrorize: true,
           defaultColor: bubbleColor,
+          validator: () => Formers.bakeValidator(
+            validator: validator,
+            text: textController.text,
+            keepEmbeddedBubbleColor: true,
+          ),
         ),
         headerViewModel: BubbleHeaderVM(
           headerWidth: _bubbleWidth - 20,
