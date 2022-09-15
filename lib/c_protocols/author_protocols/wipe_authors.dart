@@ -248,7 +248,7 @@ class WipeAuthorProtocols {
         titleVerse: Verse(
           text: '##${_bzModel.name} is no longer Available',
           translate: true,
-          varTag: _bzModel.name,
+          variables: _bzModel.name,
         ),
         bodyVerse: const Verse(
           pseudo: 'This Business account has been permanently deleted and can no longer be used',

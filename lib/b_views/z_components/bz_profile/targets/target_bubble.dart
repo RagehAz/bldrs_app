@@ -125,7 +125,7 @@ class TargetCard extends StatelessWidget {
                 verse: Verse(
                   text: '##CLAIM ${target.reward.slides} Slides ',
                   translate: true,
-                  varTag: target.reward.slides,
+                  variables: target.reward.slides,
                 ),
                 verseWeight: VerseWeight.black,
                 verseItalic: true,

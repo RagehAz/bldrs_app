@@ -55,7 +55,7 @@ Future<void> onFlyerBzOptionsTap({
       titleVerse: Verse(
         text: '##published $_age',
         translate: true,
-        varTag: _age,
+        variables: _age,
       ),
       builder: (_, PhraseProvider pro){
 

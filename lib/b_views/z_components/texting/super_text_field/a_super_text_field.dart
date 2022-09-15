@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/c_text_field
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -553,7 +554,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
       return null;
     }
     else {
-      return widget.validator();
+      return TextMod.removeTextBeforeFirstSpecialCharacter(widget.validator(), '_');
     }
 
   }

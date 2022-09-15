@@ -25,7 +25,7 @@ class Verse {
     @required this.text,
     @required this.translate,
     this.casing = Casing.non,
-    this.varTag,
+    this.variables,
     this.pseudo,
     this.notifier,
   });
@@ -33,7 +33,7 @@ class Verse {
   final String text;
   final Casing casing;
   final bool translate;
-  final dynamic varTag;
+  final dynamic variables;
   final String pseudo;
   final ValueNotifier<String> notifier;
   // -----------------------------------------------------------------------------
@@ -46,7 +46,7 @@ class Verse {
     String text,
     Casing casing,
     bool translate,
-    dynamic varTag,
+    dynamic variables,
     String pseudo,
     ValueNotifier<String> notifier,
   }){
@@ -55,7 +55,7 @@ class Verse {
       text: text ?? this.text,
       translate: translate ?? this.translate,
       casing: casing ?? this.casing,
-      varTag: varTag ?? this.varTag,
+      variables: variables ?? this.variables,
       pseudo: pseudo ?? this.pseudo,
       notifier: notifier ?? this.notifier,
     );
@@ -307,7 +307,7 @@ class Verse {
           other.text == text &&
           other.translate == translate &&
           other.casing == casing &&
-          other.varTag == varTag &&
+          other.variables == variables &&
           other.notifier == notifier
       ){
         _areIdentical = true;
@@ -322,7 +322,7 @@ class Verse {
   int get hashCode =>
       text.hashCode^
       casing.hashCode^
-      varTag.hashCode^
+      variables.hashCode^
       notifier.hashCode^
       translate.hashCode;
 // -----------------------------------------------------------------------------

@@ -25,7 +25,7 @@ class BzNetworkPage extends StatelessWidget {
           verse: Verse(
             text: '##${_bzModel.name}\nNetwork\nPage',
             translate: true,
-            varTag: _bzModel.name,
+            variables: _bzModel.name,
           ),
           size: 4,
           maxLines: 3,

@@ -255,7 +255,7 @@ Future<void> _acceptAuthorshipInvitation({
       loadingVerse: Verse(
         text: "##Adding you to '${bzModel.name}' business account",
         translate: true,
-        varTag: bzModel.name,
+        variables: bzModel.name,
       ),
     ));
 
@@ -284,7 +284,7 @@ Future<void> _acceptAuthorshipInvitation({
         pseudo: 'You have become an Author in ${bzModel.name}',
         text: 'phid_you_became_author_in_bz',
         translate: true,
-        varTag: bzModel.name,
+        variables: bzModel.name,
       ),
       bodyVerse: const Verse(
         pseudo: 'You can control the business account, publish flyers,'

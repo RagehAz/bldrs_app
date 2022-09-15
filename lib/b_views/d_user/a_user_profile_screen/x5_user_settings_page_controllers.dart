@@ -167,7 +167,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
           ),
           bodyVerse: Verse(
             text: 'You have created ${_myBzzICreated.length} business accounts which will be permanently deleted if you continue.',
-            varTag: _myBzzICreated.length,
+            variables: _myBzzICreated.length,
             translate: true,
           ),
           confirmButtonVerse: const Verse(
@@ -198,7 +198,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
             pseudo: 'You are a member in ${_myBzzIDidNotCreate.length} business accounts which you will delete your membership in each of them if you continue.',
             text: 'phid_delete_bz_membership_description',
             translate: true,
-            varTag: _myBzzIDidNotCreate.length,
+            variables: _myBzzIDidNotCreate.length,
           ),
           confirmButtonVerse: const Verse(
             text: 'phid_continue',

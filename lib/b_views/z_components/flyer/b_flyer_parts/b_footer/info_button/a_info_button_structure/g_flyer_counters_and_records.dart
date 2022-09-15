@@ -47,7 +47,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     headlineVerse: Verse(
                       text: '##$_saves Total flyer saves',
                       translate: true,
-                      varTag: _saves,
+                      variables: _saves,
                     ),
                     icon: Iconz.saveOn,
                     realNodePath: 'saves/${flyerModel.id}/',
@@ -60,7 +60,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     headlineVerse: Verse(
                       text: '##$_shares Total shares',
                       translate: true,
-                      varTag: _shares,
+                      variables: _shares,
                     ),
                     icon: Iconz.share,
                     realNodePath: 'shares/${flyerModel.id}/',
@@ -73,7 +73,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     headlineVerse: Verse(
                       text: '$_views Total views',
                       translate: true,
-                      varTag: _views,
+                      variables: _views,
                     ),
                     icon: Iconz.viewsIcon,
                     realNodePath: 'views/${flyerModel.id}/',

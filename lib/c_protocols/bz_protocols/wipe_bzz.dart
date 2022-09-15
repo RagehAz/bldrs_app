@@ -39,7 +39,7 @@ class WipeBzProtocols {
         loadingVerse: Verse(
           text: '##Deleting ${bzModel.name}',
           translate: true,
-          varTag: bzModel.name,
+          variables: bzModel.name,
         ),
       ));
     }
@@ -110,7 +110,7 @@ class WipeBzProtocols {
         loadingVerse: Verse(
           text: '##Deleting ${bzModel.flyersIDs.length} Flyers',
           translate: true,
-          varTag: bzModel.flyersIDs.length,
+          variables: bzModel.flyersIDs.length,
         ),
       ));
     }

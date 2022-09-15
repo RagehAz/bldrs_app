@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
@@ -40,6 +41,9 @@ class KeyboardScreen extends StatefulWidget {
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
         // confirmButtonIsOn: true,
         onSubmit: (String text){
+
+          blog('goToKeyboardScreen : aho : text : $text');
+
           _output = text;
         },
       ),
@@ -52,6 +56,7 @@ class KeyboardScreen extends StatefulWidget {
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
+  final GlobalKey _globalKey = GlobalKey<FormState>();
   KeyboardModel _keyboardModel;
   final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
   final TextEditingController _controller = TextEditingController();
@@ -119,30 +124,46 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     if (_keyboardModel.validator != null){
 
       if (_keyboardModel.validator(_controller.text) == null){
-        _canSubmit.value = true;
+        setNotifier(
+          notifier: _canSubmit,
+          mounted: mounted,
+          value: true,
+        );
       }
       else {
-        _canSubmit.value = false;
+        setNotifier(
+          notifier: _canSubmit,
+          mounted: mounted,
+          value: false,
+        );
       }
 
+    }
+    else {
+      setNotifier(
+          notifier: _canSubmit,
+          mounted: mounted,
+          value: true,
+      );
     }
 
   }
   // --------------------
   void _onSubmit (String text){
 
-    Keyboard.closeKeyboard(context);
-
-    Nav.goBack(
-      context: context,
-      invoker: 'KeyboardScreen',
-    );
-
     if (_keyboardModel.onSubmitted != null){
       if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
         _keyboardModel.onSubmitted(text);
       }
     }
+
+    Keyboard.closeKeyboard(context);
+
+    Nav.goBack(
+      context: context,
+      invoker: 'KeyboardScreen',
+      passedData: text,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -164,7 +185,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
               /// TEXT FIELD
               TextFieldBubble(
-                globalKey: _keyboardModel.globalKey,
+                globalKey: _globalKey,
                 appBarType: AppBarType.basic,
                 isFloatingField: _keyboardModel.isFloatingField,
                 titleVerse: _keyboardModel.titleVerse,
@@ -178,10 +199,17 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 keyboardTextInputType: _keyboardModel.textInputType,
                 keyboardTextInputAction: _keyboardModel.textInputAction,
                 autoFocus: true,
-                isFormField: _keyboardModel.isFormField,
+                isFormField: true,
                 onSubmitted: widget.onSubmit,
                 // autoValidate: true,
-                validator: () => _keyboardModel.validator(_controller.text),
+                validator: (){
+                  if (_keyboardModel?.validator != null){
+                    return _keyboardModel.validator(_controller.text);
+                  }
+                  else {
+                    return null;
+                  }
+                },
                 textOnChanged: _onTextChanged,
               ),
 
@@ -220,5 +248,5 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

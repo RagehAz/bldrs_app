@@ -175,7 +175,7 @@ class FlyerMakerScreenView extends StatelessWidget {
                                     '${_bzTypeTranslation.toString()} can publish '
                                     '${_flyerTypesTranslation.toString()} flyers.',
                                 translate: true,
-                                varTag: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
+                                variables: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
                               ),
 
                               const Verse(

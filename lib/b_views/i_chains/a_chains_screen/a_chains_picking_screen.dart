@@ -257,7 +257,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         firstLine: Verse(
           text: '##Confirm ${widget.pageTitleVerse}',
           translate: true,
-          varTag: widget.pageTitleVerse,
+          variables: widget.pageTitleVerse,
         ),
         onTap: (){
           Nav.goBack(

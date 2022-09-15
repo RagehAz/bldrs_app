@@ -55,7 +55,7 @@ class SpecsSelectorBubble extends StatelessWidget {
               Verse(
                 text: '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
                 translate: true,
-                varTag: _translatedFlyerType,
+                variables: _translatedFlyerType,
               ),
             ],
           ),

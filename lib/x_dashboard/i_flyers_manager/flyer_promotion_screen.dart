@@ -115,7 +115,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         secondVerse: Verse(
           text: 'in ${_zone.cityName}, ${_zone.countryName}',
           translate: true,
-          varTag: [_zone.cityName, _zone.countryName],
+          variables: [_zone.cityName, _zone.countryName],
         ),
         color: Colorz.green255,
         textColor: Colorz.white255,
@@ -168,7 +168,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
                 Verse(
                   text: '##Promoting Flyer in\n$_cityName, $_countryName',
                   translate: true,
-                  varTag: [_cityName, _countryName],
+                  variables: [_cityName, _countryName],
                 );
 
                 return
