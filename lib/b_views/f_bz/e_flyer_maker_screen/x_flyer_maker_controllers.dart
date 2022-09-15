@@ -498,7 +498,7 @@ Future<bool> _preFlyerUpdateCheck({
           translate: true,
         ),
         bodyVerse: const Verse(
-          pseudo: '##Add at least one image to the flyer',
+          pseudo: 'Add at least one image to the flyer',
           text: 'phid_add_flyer_images_notice',
           translate: true,
         ),

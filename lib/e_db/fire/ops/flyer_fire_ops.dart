@@ -1085,7 +1085,7 @@ class FlyerFireOps {
             BottomDialog.wideButton(
                 context: context,
                 verse: const Verse(
-                  pseudo: '##content violates copyrights',
+                  pseudo: 'content violates copyrights',
                   text: 'phid_flyer_has_copyright_violation',
                   translate: true,
                 ),

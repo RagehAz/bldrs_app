@@ -90,7 +90,7 @@ class RenovateBzProtocols {
             translate: true,
           ),
           secondVerse: const Verse(
-            pseudo: '##Successfully updated your Business Account',
+            pseudo: 'Successfully updated your Business Account',
             text: 'phid_updated_bz_successfully',
             translate: true,
           ),
@@ -202,7 +202,7 @@ class RenovateBzProtocols {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        pseudo: '##Ops !',
+        pseudo: 'Ops !',
         text: 'phid_ops_!',
         translate: true,
       ),

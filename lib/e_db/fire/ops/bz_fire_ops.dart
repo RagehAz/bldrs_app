@@ -609,7 +609,7 @@ class BzFireOps {
             BottomDialog.wideButton(
                 context: context,
                 verse: const Verse(
-                  pseudo: '##This Account published Inappropriate content',
+                  pseudo: 'This Account published Inappropriate content',
                   text: 'phid_account_published_inapp_content',
                   translate: true,
                 ),
@@ -626,7 +626,7 @@ class BzFireOps {
             BottomDialog.wideButton(
                 context: context,
                 verse: const Verse(
-                  pseudo: '##This Account violates copyrights',
+                  pseudo: 'This Account violates copyrights',
                   text: 'phid_account_published_copyright_violation',
                   translate: true,
                 ),

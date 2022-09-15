@@ -295,7 +295,7 @@ Future<void> _onDeleteReview({
       translate: true,
     ),
     bodyVerse: const Verse(
-      pseudo: '##Your review on this flyer will be permanently deleted',
+      pseudo: 'Your review on this flyer will be permanently deleted',
       text: 'phid_review_will_be_deleted',
       translate: true,
     ),
