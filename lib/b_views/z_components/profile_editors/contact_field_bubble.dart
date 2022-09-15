@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:clipboard/clipboard.dart';
@@ -162,7 +162,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
         - _pasteButtonSpacer;
     // --------------------
     return Bubble(
-        bubbleColor: Colorizer.ValidatorColor(
+        bubbleColor: Formers.validatorBubbleColor(
           validator: widget.validator,
         ),
         headerViewModel: widget.headerViewModel,

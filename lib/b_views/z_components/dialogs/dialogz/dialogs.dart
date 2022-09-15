@@ -406,7 +406,7 @@ class Dialogs {
         boxWidth: CenterDialog.clearWidth(context) - 20,
         passwordController: _password,
         showPasswordOnly: true,
-        passwordValidator: () => Formers.passwordValidator(
+        passwordValidator: (String text) => Formers.passwordValidator(
           password: _password.text,
           canValidate: true,
         ),
@@ -489,7 +489,7 @@ class Dialogs {
                   isFormField: _keyboardModel.isFormField,
                   onSubmitted: _onSubmit,
                   // autoValidate: true,
-                  validator: (){
+                  validator: (String text){
                     if (_keyboardModel.validator != null){
                       return _keyboardModel?.validator(_text);
                     }

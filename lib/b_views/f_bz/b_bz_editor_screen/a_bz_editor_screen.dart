@@ -466,7 +466,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           tempBz: _tempBz,
                         ),
                         // autoValidate: true,
-                        validator: () => Formers.companyNameValidator(
+                        validator: (String text) => Formers.companyNameValidator(
                           companyName: bzModel?.name,
                           canValidate: _canValidate,
                         ),
@@ -492,7 +492,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             tempBz: _tempBz,
                           ),
                           // autoValidate: true,
-                          validator: () => Formers.bzAboutValidator(
+                          validator: (String text) => Formers.bzAboutValidator(
                             bzAbout: bzModel?.about,
                             canValidate: _canValidate,
                           ),

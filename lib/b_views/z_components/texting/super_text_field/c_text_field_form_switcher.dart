@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -138,6 +139,14 @@ class TextFormFieldSwitcher extends StatelessWidget {
       shadowIsOn: textShadow,
     );
     // --------------------
+    String _validator(String text, {bool keepColor = false}){
+      return Formers.bakeValidator(
+        validator: validator,
+        text: text,
+        keepEmbeddedBubbleColor: keepColor,
+      );
+    }
+    // --------------------
     final InputDecoration _inputDecoration = SuperTextField.createDecoration(
       context: context,
       textSize: textSize,
@@ -147,6 +156,9 @@ class TextFormFieldSwitcher extends StatelessWidget {
       corners: corners,
       fieldColor: fieldColor,
       counterIsOn: counterIsOn,
+      errorColor: Formers.validatorTextColor(
+        message: _validator(controller.text, keepColor: true),
+      ),
     );
     // --------------------
     final EdgeInsets _scrollPadding = SuperTextField.getFieldScrollPadding(
@@ -220,7 +232,7 @@ class TextFormFieldSwitcher extends StatelessWidget {
         onFieldSubmitted: onSubmitted == null ? null : (String val) => onSubmitted(val),
         onSaved: (String val) => onSavedForForm(val),
         onEditingComplete: onEditingComplete,
-        validator: validator,
+        validator: _validator,
 
         autovalidateMode: autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
 

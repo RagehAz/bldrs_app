@@ -288,7 +288,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     tempUser: _tempUser,
                   ),
                   // autoValidate: true,
-                  validator: () => Formers.personNameValidator(
+                  validator: (String text) => Formers.personNameValidator(
                     name: userModel.name,
                     canValidate: _canValidate,
                   ),
@@ -314,7 +314,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                   ),
                   // autoValidate: true,
-                  validator: () => Formers.jobTitleValidator(
+                  validator: (String text) => Formers.jobTitleValidator(
                     jobTitle: userModel.title,
                     canValidate: _canValidate,
                   ),
@@ -340,7 +340,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     text: text,
                     tempUser: _tempUser,
                   ),
-                  validator: () => Formers.companyNameValidator(
+                  validator: (String text) => Formers.companyNameValidator(
                     companyName: userModel.company,
                     canValidate: _canValidate,
                   ),

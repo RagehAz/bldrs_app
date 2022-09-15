@@ -202,7 +202,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 isFormField: true,
                 onSubmitted: widget.onSubmit,
                 // autoValidate: true,
-                validator: (){
+                validator: (String text){
                   if (_keyboardModel?.validator != null){
                     return _keyboardModel.validator(_controller.text);
                   }

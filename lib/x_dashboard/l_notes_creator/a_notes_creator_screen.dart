@@ -229,7 +229,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   counterIsOn: true,
                   maxLines: 2,
                   maxLength: 30,
-                  validator: (){
+                  validator: (String text){
                     if (_titleController.text.length >= 30){
                       return 'max length exceeded Bitch';
                     }
@@ -257,7 +257,7 @@ class _NotesCreatorScreenState extends State<NotesCreatorScreen> {
                   maxLength: 80,
                   keyboardTextInputType: TextInputType.multiline,
                   keyboardTextInputAction: TextInputAction.newline,
-                  validator: (){
+                  validator: (String text){
                     if (_titleController.text.length >= 80){
                       return 'max length exceeded Bitch';
                     }
