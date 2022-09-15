@@ -128,9 +128,11 @@ class ChainsScreenBrowseView extends StatelessWidget {
                         /// GROUPS BUILDER
                         else {
 
+                          final PickerModel _picker = _refinedPickers[index - 1];
+
                           return PickerSplitter(
-                            picker:  _refinedPickers[index - 1],
-                            onTap: onPickerTap,
+                            picker: _picker,
+                            onTap: () => onPickerTap(_picker),
                             onDeleteSpec: onDeleteSpec,
                             allSelectedSpecs: _allSelectedSpecs,
                           );

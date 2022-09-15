@@ -10,7 +10,7 @@ import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -154,17 +154,17 @@ class Nav {
     if (animatedLogoScreen){
       await pushNamedAndRemoveAllBelow(
         context: context,
-        goToRoute: Routez.animatedLogoScreen,
+        goToRoute: Routing.animatedLogoScreen,
       );
     }
     else {
 
       /// we already remove this layer in
-      // Navigator.popUntil(context, ModalRoute.withName(Routez.logoScreen));
+      // Navigator.popUntil(context, ModalRoute.withName(Routing.logoScreen));
 
       await pushNamedAndRemoveAllBelow(
         context: context,
-        goToRoute: Routez.staticLogoScreen,
+        goToRoute: Routing.staticLogoScreen,
       );
     }
 
@@ -179,8 +179,8 @@ class Nav {
     @required BuildContext context,
     @required String invoker,
   }) {
-    blog('goBackToHomeScreen : popUntil Routez.home : $invoker');
-    Navigator.popUntil(context, ModalRoute.withName(Routez.home));
+    blog('goBackToHomeScreen : popUntil Routing.home : $invoker');
+    Navigator.popUntil(context, ModalRoute.withName(Routing.home));
   }
   // -----------------------------------------------------------------------------
 
@@ -231,7 +231,7 @@ class Nav {
 
     if (_afterHomeRoute != null){
 
-      if (_afterHomeRoute.name == Routez.myBz){
+      if (_afterHomeRoute.name == Routing.myBz){
 
         await Nav.goToMyBzScreen(
           context: context,
@@ -331,7 +331,7 @@ class Nav {
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     _uiProvider.setAfterHomeRoute(
       settings: RouteSettings(
-        name:  Routez.myBz,
+        name:  Routing.myBz,
         arguments: bzID,
       ),
       notify: true,
@@ -389,7 +389,7 @@ class Nav {
 
     /// A - by flyerID
     else if (flyerID != null) {
-      await goToRoute(context, Routez.flyerScreen, arguments: flyerID);
+      await goToRoute(context, Routing.flyerScreen, arguments: flyerID);
     }
 
     // /// A - nothing give

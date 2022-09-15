@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +30,7 @@ class FlyerScreen extends StatelessWidget {
   final String flyerID;
   final bool isSponsored;
   /// --------------------------------------------------------------------------
-  static const String routeName = Routez.flyerScreen;
+  static const String routeName = Routing.flyerScreen;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

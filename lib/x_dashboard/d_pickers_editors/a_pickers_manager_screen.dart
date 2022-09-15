@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/raw_data/raw_pickers.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -102,7 +99,7 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
   @override
   Widget build(BuildContext context) {
 
-    const FlyerType _flyerType = FlyerType.equipment;
+    // const FlyerType _flyerType = FlyerType.equipment;
     final double _screenWidth = Scale.superScreenWidth(context);
 
     return DashBoardLayout(
@@ -186,28 +183,28 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
         /// COMPOSE PICKERS
         WideButton(
           verse: Verse.plain('COMPOSE : first all pickers'),
-          // isActive: true,
+          isActive: false,
           onTap: () async {
 
 
-            PickerModel.blogPickers(RawPickers.getPickersByFlyerType(_flyerType));
-
-            final bool _continue = await Dialogs.confirmProceed(context: context);
-
-            if (_continue == true){
-
-              for (final FlyerType type in FlyerTyper.flyerTypesList){
-
-                await PickerProtocols.composeFlyerTypePickers(
-                  context: context,
-                  pickers: RawPickers.getPickersByFlyerType(type),
-                  flyerType: type,
-                );
-
-              }
-
-
-            }
+            // PickerModel.blogPickers(RawPickers.getPickersByFlyerType(_flyerType));
+            //
+            // final bool _continue = await Dialogs.confirmProceed(context: context);
+            //
+            // if (_continue == true){
+            //
+            //   for (final FlyerType type in FlyerTyper.flyerTypesList){
+            //
+            //     await PickerProtocols.composeFlyerTypePickers(
+            //       context: context,
+            //       pickers: RawPickers.getPickersByFlyerType(type),
+            //       flyerType: type,
+            //     );
+            //
+            //   }
+            //
+            //
+            // }
 
           },
         ),
@@ -308,8 +305,6 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
             // );
             //
             // PickerModel.blogPickers(_updated);
-
-
 
           },
         ),

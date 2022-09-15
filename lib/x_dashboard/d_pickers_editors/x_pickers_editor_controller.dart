@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -222,21 +223,45 @@ Future<void> onPickerChainIDTap({
 
   String _initialText = picker.chainID;
 
-  _initialText = await Dialogs.keyboardDialog(
+  _initialText = await KeyboardScreen.goToKeyboardScreen(
     context: context,
     keyboardModel: KeyboardModel(
-      titleVerse: const Verse(
-        text: 'Edit ChainID',
-        translate: false,
-      ),
-      hintVerse: const Verse(
-        text: 'Edit ChainID',
-        translate: false,
-      ),
-      initialText: _initialText,
-      isFloatingField: false,
+        titleVerse: const Verse(
+          text: 'Edit ChainID',
+          translate: false,
+        ),
+        hintVerse: const Verse(
+          text: 'Edit ChainID',
+          translate: false,
+        ),
+        initialText: _initialText,
+        isFloatingField: false,
+        onSubmitted: (String text){
+          _initialText = text;
+        }
     ),
   );
+
+  // _initialText = await Dialogs.keyboardDialog(
+  //   context: context,
+  //   keyboardModel: KeyboardModel(
+  //     titleVerse: const Verse(
+  //       text: 'Edit ChainID',
+  //       translate: false,
+  //     ),
+  //     hintVerse: const Verse(
+  //       text: 'Edit ChainID',
+  //       translate: false,
+  //     ),
+  //     initialText: _initialText,
+  //     isFloatingField: false,
+  //     onSubmitted: (String text){
+  //       _initialText = text;
+  //     }
+  //   ),
+  // );
+
+  // blog('onPickerChainIDTap : _initialText aho : $_initialText');
 
   if (picker.chainID != _initialText){
 
