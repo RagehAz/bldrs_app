@@ -20,10 +20,10 @@ class PasswordBubbles extends StatelessWidget {
   final double boxWidth;
   final TextEditingController passwordController;
   final bool showPasswordOnly;
-  final String Function() passwordValidator;
+  final String Function(String) passwordValidator;
   final ValueChanged<String> onSubmitted;
   final TextEditingController passwordConfirmationController;
-  final String Function() passwordConfirmationValidator;
+  final String Function(String) passwordConfirmationValidator;
   final bool isTheSuperKeyboardField;
   final AppBarType appBarType;
   /// --------------------------------------------------------------------------

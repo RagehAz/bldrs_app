@@ -25,7 +25,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   final bool hasUnit;
   final GlobalKey<FormState> formKey;
   final TextEditingController textController;
-  final String Function() validator;
+  final String Function(String) validator;
   final ValueChanged<String> onKeyboardChanged;
   final ValueChanged<String> onKeyboardSubmitted;
   final ValueNotifier<String> selectedUnitID;

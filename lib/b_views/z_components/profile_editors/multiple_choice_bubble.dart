@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class MultipleChoiceBubble extends StatelessWidget {
 
     return Bubble(
         width: _bubbleWidth,
-        bubbleColor: Colorizer.ValidatorColor(
+        bubbleColor: Formers.validatorBubbleColor(
           validator: validator,
         ),
         headerViewModel: BubbleHeaderVM(

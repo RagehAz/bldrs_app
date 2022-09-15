@@ -332,7 +332,7 @@ void _initializeNumberUnit({
   selectedUnitID.value = _initialUnit;
 }
 // --------------------
-String numberFieldValidator() {
+String numberFieldValidator(String text) {
 
   /// NEED TO VALIDATE IF FIELD IS REQUIRED
   /// IF ITS INT OR DOUBLE

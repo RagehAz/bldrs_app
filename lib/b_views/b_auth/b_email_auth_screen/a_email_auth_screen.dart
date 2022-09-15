@@ -114,15 +114,15 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         emailController: _emailController,
         passwordController: _passwordController,
         passwordConfirmationController: _passwordConfirmationController,
-        emailValidator: () => Formers.emailValidator(
+        emailValidator: (String text) => Formers.emailValidator(
           email: _emailController.text,
           canValidate: _canValidate,
         ),
-        passwordValidator: () => Formers.passwordValidator(
+        passwordValidator: (String text) => Formers.passwordValidator(
           password: _passwordController.text,
           canValidate: _canValidate,
         ),
-        passwordConfirmationValidator: () => Formers.passwordConfirmationValidation(
+        passwordConfirmationValidator: (String text) => Formers.passwordConfirmationValidation(
           context: context,
           password: _passwordController.text,
           passwordConfirmation: _passwordConfirmationController.text,

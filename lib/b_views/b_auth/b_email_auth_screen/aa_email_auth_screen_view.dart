@@ -33,9 +33,9 @@ class EmailAuthScreenView extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
-  final String Function() emailValidator;
-  final String Function() passwordValidator;
-  final String Function() passwordConfirmationValidator;
+  final String Function(String) emailValidator;
+  final String Function(String) passwordValidator;
+  final String Function(String) passwordConfirmationValidator;
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;

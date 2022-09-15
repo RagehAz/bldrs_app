@@ -448,7 +448,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                               // textSize: _textSize,
                               // textSizeFactor: _sizeFactor,
                               textInputAction: TextInputAction.newline,
-                              validator: (){
+                              validator: (String text){
 
                                 final bool _containsSubString = TextCheck.stringContainsSubString(
                                   string: _textController.text,

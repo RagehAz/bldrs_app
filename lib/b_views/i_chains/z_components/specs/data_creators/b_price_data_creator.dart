@@ -102,7 +102,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             text: 'phid_add_price',
             translate: true,
           ),
-          validator: () => currencyFieldValidator(
+          validator: (String text) => currencyFieldValidator(
             context: context,
             selectedCurrencyID: _selectedCurrencyID,
             textController: _textController,
