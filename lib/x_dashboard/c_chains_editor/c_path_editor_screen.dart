@@ -402,7 +402,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                 isFormField: _keyboardModel.isFormField,
                 onSubmitted: _onSubmit,
                 // autoValidate: true,
-                validator: () => _keyboardModel.validator(_controller.text),
+                validator: (String text) => _keyboardModel.validator(_controller.text),
                 textOnChanged: _onTextChanged,
               ),
 

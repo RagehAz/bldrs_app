@@ -273,7 +273,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       text: text,
                     ),
                     // autoValidate: true,
-                    validator: () => Formers.personNameValidator(
+                    validator: (String text) => Formers.personNameValidator(
                       name: authorModel.name,
                       canValidate: _canValidate
                     ),
@@ -300,7 +300,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     initialText: authorModel.title,
-                    validator: () => Formers.jobTitleValidator(
+                    validator: (String text) => Formers.jobTitleValidator(
                         jobTitle: authorModel.title,
                         canValidate: _canValidate
                     ),

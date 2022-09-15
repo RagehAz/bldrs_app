@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -239,42 +239,24 @@ Future<void> onPickerChainIDTap({
         ),
         initialText: _initialText,
         isFloatingField: false,
-        // onSubmitted: (String text){
-        //   _initialText = text;
-        // },
-      validator: (String text){
+        validator: (String text){
           if (TextCheck.isEmpty(text) == true){
             return 'ChainID can not be Empty';
           }
           else if (text == picker.chainID){
-            final String _errorColor = Colorizer.cipherColor(Colorz.blue20);
-            return '${_errorColor}_No changes happened to ChainID';
+
+            return Formers.colorizeValidatorMessage(
+              message: 'No changes happened to ChainID',
+              color: Colorz.blue20,
+            );
+
           }
           else {
             return null;
           }
-      }
-    ),
+        }
+        ),
   );
-
-  // _initialText = await Dialogs.keyboardDialog(
-  //   context: context,
-  //   keyboardModel: KeyboardModel(
-  //     titleVerse: const Verse(
-  //       text: 'Edit ChainID',
-  //       translate: false,
-  //     ),
-  //     hintVerse: const Verse(
-  //       text: 'Edit ChainID',
-  //       translate: false,
-  //     ),
-  //     initialText: _initialText,
-  //     isFloatingField: false,
-  //     onSubmitted: (String text){
-  //       _initialText = text;
-  //     }
-  //   ),
-  // );
 
   blog('onPickerChainIDTap : _initialText aho : $_initialText');
 

@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +26,7 @@ class SlidesShelfBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      bubbleColor: Colorizer.ValidatorColor(
+      bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.slidesValidator(
           draft: draft.value,

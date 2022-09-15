@@ -7,11 +7,14 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -763,6 +766,113 @@ class Formers {
       _output = Stringer.generateStringFromStrings(
         strings: _missingFields,
       );
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// VALIDATION COLORS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Color validatorBubbleColor({
+    @required String Function() validator,
+    Color defaultColor = Colorz.white10,
+    bool canErrorize = true,
+  }){
+
+    bool _errorIsOn = false;
+    Color _errorColor;
+    if (validator != null){
+      // ------
+      /// MESSAGE
+      final String _validationMessage = validator();
+      // ------
+      /// ERROR IS ON
+      _errorIsOn = _validationMessage != null;
+      // ------
+      /// BUBBLE COLOR OVERRIDE
+      final bool _colorAssigned = TextCheck.stringContainsSubString(string: _validationMessage, subString: 'Δ');
+      if (_colorAssigned == true){
+        final String _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(_validationMessage, 'Δ');
+        _errorColor = Colorizer.decipherColor(_colorCode);
+      }
+      // ------
+    }
+
+    if (_errorIsOn == true && canErrorize == true){
+      return _errorColor ?? Colorz.errorColor;
+    }
+    else {
+      return defaultColor;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Color validatorTextColor({
+    @required String message,
+  }){
+    Color _color;
+
+    // blog('getValidatorTextColor : message : $message');
+
+    if (message != null){
+
+      final bool _colorAssigned = TextCheck.stringContainsSubString(string: message, subString: 'Δ');
+
+      // blog('getValidatorTextColor : _colorAssigned : $_colorAssigned');
+
+      /// SO WHEN ERROR IS ON + BUBBLE HAS COLOR OVERRIDE
+      if (_colorAssigned == true){
+        _color = Colorz.yellow255;
+      }
+
+
+    }
+
+    return _color;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String colorizeValidatorMessage({
+    @required String message,
+    @required Color color,
+  }){
+    final String _errorColor = Colorizer.cipherColor(color);
+    return '$_errorColorΔ$message';
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String bakeValidator({
+    @required String Function(String text) validator,
+    @required String text,
+    bool keepEmbeddedBubbleColor = false,
+  }){
+
+    if (validator == null){
+      return null;
+    }
+    else {
+
+      if (keepEmbeddedBubbleColor == true){
+        return validator(text);
+      }
+      else {
+        return Formers._bakeValidatorMessage(validator(text));
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _bakeValidatorMessage(String message){
+    String _output;
+
+    if (message != null){
+      _output = TextMod.removeTextBeforeFirstSpecialCharacter(message, 'Δ');
     }
 
     return _output;
