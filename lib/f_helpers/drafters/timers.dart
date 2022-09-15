@@ -1080,7 +1080,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
           bodyVerse: Verse(
               text: '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
               translate: true,
-              varTag: [_secondLine, _thirdLine]
+              variables: [_secondLine, _thirdLine]
           ),
           confirmButtonVerse: const Verse(
             text: 'phid_please_try_again',

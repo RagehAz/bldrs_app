@@ -11,7 +11,10 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_screen.dart';
 import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/colorizers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/x_phrase_editor_controllers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -236,9 +239,21 @@ Future<void> onPickerChainIDTap({
         ),
         initialText: _initialText,
         isFloatingField: false,
-        onSubmitted: (String text){
-          _initialText = text;
-        }
+        // onSubmitted: (String text){
+        //   _initialText = text;
+        // },
+      validator: (String text){
+          if (TextCheck.isEmpty(text) == true){
+            return 'ChainID can not be Empty';
+          }
+          else if (text == picker.chainID){
+            final String _errorColor = Colorizer.cipherColor(Colorz.blue20);
+            return '${_errorColor}_No changes happened to ChainID';
+          }
+          else {
+            return null;
+          }
+      }
     ),
   );
 
@@ -261,7 +276,7 @@ Future<void> onPickerChainIDTap({
   //   ),
   // );
 
-  // blog('onPickerChainIDTap : _initialText aho : $_initialText');
+  blog('onPickerChainIDTap : _initialText aho : $_initialText');
 
   if (picker.chainID != _initialText){
 

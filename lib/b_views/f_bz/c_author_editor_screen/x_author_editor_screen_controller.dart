@@ -294,7 +294,7 @@ Future<void> onConfirmAuthorUpdates({
       text: '##This will only edit your details as author in ${bzModel.name} '
           'business account, and will not impact your personal profile',
       translate: true,
-      varTag: bzModel.name,
+      variables: bzModel.name,
     ),
     boolDialog: true,
     confirmButtonVerse: const Verse(
@@ -364,7 +364,7 @@ Future<void> onChangeAuthorRoleOps({
       bodyVerse: Verse(
         text: '##This will set ${oldAuthor.name} as $_role',
         translate: true,
-        varTag: [oldAuthor.name, _role]
+        variables: [oldAuthor.name, _role]
       ),
       boolDialog: true,
     );
@@ -476,7 +476,7 @@ Future<bool> _checkCanChangeRole({
         bodyVerse: Verse(
           text: '##the Author Role of ${oldAuthor.name} can not be changed.',
           translate: true,
-          varTag: oldAuthor.name,
+          variables: oldAuthor.name,
         ),
       );
 

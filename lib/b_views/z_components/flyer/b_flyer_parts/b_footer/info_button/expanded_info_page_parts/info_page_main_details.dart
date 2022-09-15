@@ -49,7 +49,7 @@ class InfoPageMainDetails extends StatelessWidget {
           verse: Verse(
             text: '##Flyer Type : $_flyerTypePhid',
             translate: true,
-            varTag: _flyerTypePhid,
+            variables: _flyerTypePhid,
           ),
           icon: FlyerTyper.flyerTypeIconOff(flyerModel.flyerType),
           iconSizeFactor: 1,
@@ -62,7 +62,7 @@ class InfoPageMainDetails extends StatelessWidget {
           verse: Verse(
             text: '##Published $_timeDifferance',
             translate: true,
-            varTag: _timeDifferance,
+            variables: _timeDifferance,
           ),
           icon: Iconz.calendar,
         ),
@@ -72,7 +72,7 @@ class InfoPageMainDetails extends StatelessWidget {
           verse: Verse(
             text: '##Targeting : ${flyerZone?.cityName} , ${flyerZone?.countryName}',
             translate: true,
-            varTag: [flyerZone?.cityName, flyerZone?.countryName]
+            variables: [flyerZone?.cityName, flyerZone?.countryName]
           ),
           icon: flyerZone?.flag,
           bubbleWidth: pageWidth,

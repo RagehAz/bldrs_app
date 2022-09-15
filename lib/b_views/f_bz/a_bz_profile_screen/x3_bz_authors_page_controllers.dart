@@ -82,7 +82,7 @@ Future<void> onAuthorOptionsTap({
       verse: Verse(
         text: '##Change team role for $_authorName',
         translate: true,
-        varTag: _authorName,
+        variables: _authorName,
       ),
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
@@ -113,7 +113,7 @@ Future<void> onAuthorOptionsTap({
       verse: Verse(
         text: '##Edit $_authorName Author details',
         translate: true,
-        varTag: _authorName,
+        variables: _authorName,
       ),
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
@@ -208,12 +208,12 @@ Future<void> onDeleteAuthorFromBz({
       titleVerse: Verse(
         text: '##Remove ${authorModel.name} ?',
         translate: true,
-        varTag: authorModel.name,
+        variables: authorModel.name,
       ),
       bodyVerse: Verse(
         text: '##${authorModel.name} and all his published flyers will be deleted as well',
         translate: true,
-        varTag: authorModel.name,
+        variables: authorModel.name,
       ),
       boolDialog: true,
     );
@@ -271,7 +271,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
     titleVerse: Verse(
       text: '##You can not remove ${authorModel.name}',
       translate: true,
-      varTag: authorModel.name,
+      variables: authorModel.name,
     ),
     bodyVerse: const Verse(
       text: '##Only Account Admins can remove other team members,\n'
@@ -316,7 +316,7 @@ Future<void> _removeAuthorWhoHasFlyers({
         loadingVerse: Verse(
           text: '##Removing ${authorModel.name}',
           translate: true,
-          varTag: authorModel.name,
+          variables: authorModel.name,
         ),
       ));
     }
@@ -391,14 +391,14 @@ Future<bool> _showDeleteAllAuthorFlyers({
     bodyVerse: Verse(
       text: '##${authorModel.flyersIDs.length} flyers published by ${authorModel.name} will be permanently deleted',
       translate: true,
-      varTag: [authorModel.flyersIDs.length, authorModel.name],
+      variables: [authorModel.flyersIDs.length, authorModel.name],
     ),
     height: 400,
     boolDialog: true,
     confirmButtonVerse: Verse(
       text: '##Delete All Flyers And Remove ${authorModel.name}',
       translate: true,
-      varTag: authorModel.name,
+      variables: authorModel.name,
     ),
     child: Container(
       width: CenterDialog.getWidth(context),
@@ -471,7 +471,7 @@ Future<void> _showAuthorRemovalConfirmationDialog({
     firstVerse: Verse(
       text: '##${deletedAuthor.name} has been removed from the team of ${bzModel.name}',
       translate: true,
-      varTag: [deletedAuthor.name, bzModel.name]
+      variables: [deletedAuthor.name, bzModel.name]
     ),
     color: Colorz.green255,
     textColor: Colorz.white255,
@@ -511,12 +511,12 @@ Future<void> _onShowCanNotEditAuthorDialog({
     titleVerse: Verse(
       text: '##You can not Edit ${authorModel.name}',
       translate: true,
-      varTag: authorModel.name,
+      variables: authorModel.name,
     ),
     bodyVerse: Verse(
       text: '##Only ${authorModel.name} can edit his Author detail',
       translate: true,
-      varTag: authorModel.name,
+      variables: authorModel.name,
     ),
   );
 

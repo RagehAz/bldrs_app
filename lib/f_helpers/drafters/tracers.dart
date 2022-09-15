@@ -113,9 +113,11 @@ void setNotifier({
 
         /// ignore: invalid_use_of_protected_member
         if (notifier.hasListeners == true){
+
           WidgetsBinding.instance.addPostFrameCallback((_){
             notifier.value = value;
           });
+
         }
 
       }

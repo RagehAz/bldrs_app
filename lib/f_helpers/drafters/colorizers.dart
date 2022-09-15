@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -217,12 +218,13 @@ class Colorizer {
     @required bool errorIsOn,
     @required Color defaultColor,
     @required bool canErrorize,
+    Color errorColor = Colorz.errorColor,
   }){
     Color _color = defaultColor;
 
     /// if condition is true => error is on
     if (errorIsOn == true && canErrorize == true){
-      _color = Colorz.errorColor;
+      _color = errorColor;
     }
     return _color;
   }
@@ -236,13 +238,24 @@ class Colorizer {
     // blog('ValidatorColor : validator : $validator : ${validator()}');
 
     bool _errorIsOn = false;
+    Color _errorColor;
     if (validator != null){
-      _errorIsOn = validator() != null;
+
+      final String _validationMessage = validator();
+
+      _errorIsOn = _validationMessage != null;
+
+      final String _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(_validationMessage, '_');
+      if (TextCheck.isEmpty(_colorCode) == false){
+        _errorColor = Colorizer.decipherColor(_colorCode);
+      }
+
     }
 
     return errorize(
       errorIsOn: _errorIsOn,
       defaultColor: defaultColor,
+      errorColor: _errorColor,
       canErrorize: canErrorize,
     );
 

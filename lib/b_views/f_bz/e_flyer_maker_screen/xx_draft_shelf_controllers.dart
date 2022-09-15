@@ -273,7 +273,7 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
       pseudo: 'Can not add more than $maxLength images in one flyer',
       text: 'phid_max_slides_reached_description',
       translate: true,
-      varTag: maxLength,
+      variables: maxLength,
     ),
 
   );
