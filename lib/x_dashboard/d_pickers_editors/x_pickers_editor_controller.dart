@@ -371,9 +371,7 @@ Future<void> onAddNewPickers({
         isHeadline: false,
         // unitChainID: null,
         range: const [],
-        canPickMany: false,
         blockers: const [],
-        isRequired: false,
       );
 
 
