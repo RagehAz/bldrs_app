@@ -69,7 +69,13 @@ class ChainSplitter extends StatelessWidget {
       _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
     }
 
-    return Verse(text: _output, translate: false);
+    if (_output == null){
+      return null;
+    }
+    else {
+      return Verse(text: _output, translate: false);
+    }
+
   }
   // --------------------------------------------------------------------------
   @override

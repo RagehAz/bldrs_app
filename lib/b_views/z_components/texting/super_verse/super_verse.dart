@@ -779,104 +779,114 @@ class _TheVerse extends StatelessWidget {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
-    final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-    // --------------------
-    final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
-    final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-    // --------------------
-    final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
-    // --------------------
-    final TextStyle _style = SuperVerse.createStyle(
-      context: context,
-      color: color,
-      weight: weight,
-      italic: italic,
-      size: size,
-      shadowIsOn: shadow,
-      scaleFactor: scaleFactor,
-      strikeThrough: strikeThrough,
-    );
-    // --------------------
-    final String _verse = Verse.bakeVerseToString(
-      context: context,
-      verse: verse,
-    );
-    // --------------------
-    return Flexible(
-      key: const ValueKey<String>('a_verse'),
-      child: Container(
-        padding: EdgeInsets.only(
-          right: _sidePaddings,
-          left: _sidePaddings,
-        ),
-        margin: EdgeInsets.all(_sidePaddings * 0.25),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-          color: labelColor,
-        ),
-        child:
-        highlight == null ?
-        Text(
-          _verse,
-          softWrap: false,
-          overflow: TextOverflow.ellipsis,
-          maxLines: maxLines,
-          textAlign: _textAlign,
-          textScaleFactor: 1,
-          // textDirection: ,
-          style: SuperVerse.createStyle(
-            context: context,
-            color: color,
-            weight: weight,
-            italic: italic,
-            size: size,
-            shadowIsOn: shadow,
-            shadowColor: shadowColor,
-            scaleFactor: scaleFactor,
-            strikeThrough: strikeThrough,
+
+    /// VERSE IS NULL
+    if (Verse.isEmpty(verse) == true){
+      return const SizedBox();
+    }
+
+    /// VERSE HAS VALUE
+    else {
+      // --------------------
+      final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
+      final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
+      // --------------------
+      final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
+      final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
+      // --------------------
+      final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
+      // --------------------
+      final TextStyle _style = SuperVerse.createStyle(
+        context: context,
+        color: color,
+        weight: weight,
+        italic: italic,
+        size: size,
+        shadowIsOn: shadow,
+        scaleFactor: scaleFactor,
+        strikeThrough: strikeThrough,
+      );
+      // --------------------
+      final String _verse = Verse.bakeVerseToString(
+        context: context,
+        verse: verse,
+      );
+      // --------------------
+      return Flexible(
+        key: const ValueKey<String>('a_verse'),
+        child: Container(
+          padding: EdgeInsets.only(
+            right: _sidePaddings,
+            left: _sidePaddings,
           ),
-        )
-            :
-        ValueListenableBuilder(
-            valueListenable: highlight,
-            builder: (_, dynamic _highlight, Widget child){
+          margin: EdgeInsets.all(_sidePaddings * 0.25),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
+            color: labelColor,
+          ),
+          child:
+          highlight == null ?
+          Text(
+            _verse,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            maxLines: maxLines,
+            textAlign: _textAlign,
+            textScaleFactor: 1,
+            // textDirection: ,
+            style: SuperVerse.createStyle(
+              context: context,
+              color: color,
+              weight: weight,
+              italic: italic,
+              size: size,
+              shadowIsOn: shadow,
+              shadowColor: shadowColor,
+              scaleFactor: scaleFactor,
+              strikeThrough: strikeThrough,
+            ),
+          )
+              :
+          ValueListenableBuilder(
+              valueListenable: highlight,
+              builder: (_, dynamic _highlight, Widget child){
 
-              String _highLightedText ='';
+                String _highLightedText ='';
 
-              if (_highlight is TextEditingValue){
-                final TextEditingValue _t = _highlight;
-                _highLightedText = _t.text;
-              }
-              else if (_highlight is String){
-                _highLightedText = _highlight;
-              }
+                if (_highlight is TextEditingValue){
+                  final TextEditingValue _t = _highlight;
+                  _highLightedText = _t.text;
+                }
+                else if (_highlight is String){
+                  _highLightedText = _highlight;
+                }
 
-              return RichText(
-                maxLines: maxLines,
-                textAlign: _textAlign,
-                overflow: TextOverflow.ellipsis,
-                softWrap: false,
-                // textDirection: ,
-                // textScaleFactor: 1,
-                text: TextSpan(
-                  style: _style,
-                  children: _generateTextSpans(
-                    verse: _verse,
-                    highlighted: _highLightedText,
-                    defaultStyle: _style,
-                    highlightColor: highlightColor,
+                return RichText(
+                  maxLines: maxLines,
+                  textAlign: _textAlign,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  // textDirection: ,
+                  // textScaleFactor: 1,
+                  text: TextSpan(
+                    style: _style,
+                    children: _generateTextSpans(
+                      verse: _verse,
+                      highlighted: _highLightedText,
+                      defaultStyle: _style,
+                      highlightColor: highlightColor,
+                    ),
                   ),
-                ),
-              );
+                );
 
 
-            }
+              }
+          ),
         ),
-      ),
-    );
-    // --------------------
+      );
+      // --------------------
+    }
+
   }
   // -----------------------------------------------------------------------------
 }

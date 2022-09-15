@@ -84,7 +84,6 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         headlineVerse: Verse(
           text: 'phid_add_with_dots',
           translate: true,
-          pseudo: 'Add ...',
         ),
       ),
       width: _bubbleWidth,
