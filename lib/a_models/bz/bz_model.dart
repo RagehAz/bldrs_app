@@ -1838,10 +1838,10 @@ class BzModel{
     @required BzTab bzTab,
   }){
     switch(bzTab){
-      case BzTab.flyers   : return 'phid_flyers '  ; break;
-      case BzTab.about    : return 'phid_info  '  ; break;
+      case BzTab.flyers   : return 'phid_flyers'  ; break;
+      case BzTab.about    : return 'phid_info'  ; break;
       case BzTab.authors  : return 'phid_team'  ; break;
-      case BzTab.notes    : return 'phid_notification'  ; break;
+      case BzTab.notes    : return 'phid_notifications'  ; break;
       case BzTab.targets  : return 'phid_targets'  ; break;
       case BzTab.powers   : return 'phid_powers'  ; break;
       case BzTab.network  : return 'phid_network'  ; break;

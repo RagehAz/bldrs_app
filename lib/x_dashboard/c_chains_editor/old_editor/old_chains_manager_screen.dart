@@ -10,11 +10,9 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/chain_manager_pages/chain_editor_page.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/chain_manager_pages/chains_viewer_page.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/old_chain_methods/chain_fire_ops.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/old_chains_editor_controllers.dart';
 import 'package:flutter/material.dart';
 
@@ -120,7 +118,7 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
 
           return MainLayout(
             key: const ValueKey<String>('ChainsManagerScreen'),
-            pageTitleVerse: Verse.plain('All Keywords'),
+            pageTitleVerse: Verse.plain('CHAINS MANAGER VERSION 2'),
             appBarType: AppBarType.search,
             pyramidsAreOn: true,
             sectionButtonIsOn: false,
@@ -179,42 +177,42 @@ class _OLDChainsManagerScreenState extends State<OLDChainsManagerScreen> {
                         return <Widget>[
 
                           /// BACK UP
-                          BottomDialog.wideButton(
-                            context: context,
-                            verse: Verse.plain('Back up current Chain'),
-                            onTap: () => onBackupAllChains(context),
-                          ),
+                          // BottomDialog.wideButton(
+                          //   context: context,
+                          //   verse: Verse.plain('Back up current Chain'),
+                          //   onTap: () => onBackupAllChains(context),
+                          // ),
 
                           /// DOWNLOAD LAST BACKUP
-                          BottomDialog.wideButton(
-                            context: context,
-                            verse: Verse.plain('Download and set last Backup'),
-                            onTap: () async {
-
-                              final List<Chain> _backups = await ChainFireOpsOLD.readKeywordsAndSpecsBackups(context);
-
-                              Nav.goBack(
-                                context: context,
-                                invoker: 'ChainsManagerScreen.Download',
-                              );
-
-                              _chainsNotifier.value = _backups;
-                            },
-                          ),
+                          // BottomDialog.wideButton(
+                          //   context: context,
+                          //   verse: Verse.plain('Download and set last Backup'),
+                          //   onTap: () async {
+                          //
+                          //     final List<Chain> _backups = await ChainFireOpsOLD.readKeywordsAndSpecsBackups(context);
+                          //
+                          //     Nav.goBack(
+                          //       context: context,
+                          //       invoker: 'ChainsManagerScreen.Download',
+                          //     );
+                          //
+                          //     _chainsNotifier.value = _backups;
+                          //   },
+                          // ),
 
                           /// RELOAD CHAINS
-                          BottomDialog.wideButton(
-                            context: context,
-                            verse: Verse.plain('Reload chains'),
-                            onTap: () async {
-                              final List<Chain> _chains = await ChainFireOpsOLD.reloadKeywordsAndSpecsChains(context);
-                              Nav.goBack(
-                                context: context,
-                                invoker: 'ChainsManagerScreen.Reload',
-                              );
-                              _chainsNotifier.value = _chains;
-                            },
-                          ),
+                          // BottomDialog.wideButton(
+                          //   context: context,
+                          //   verse: Verse.plain('Reload chains'),
+                          //   onTap: () async {
+                          //     final List<Chain> _chains = await ChainFireOpsOLD.reloadKeywordsAndSpecsChains(context);
+                          //     Nav.goBack(
+                          //       context: context,
+                          //       invoker: 'ChainsManagerScreen.Reload',
+                          //     );
+                          //     _chainsNotifier.value = _chains;
+                          //   },
+                          // ),
 
                         ];
 
