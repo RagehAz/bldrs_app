@@ -1,12 +1,11 @@
 import 'dart:async';
-// import 'package:bldrs/c_controllers/a_starters_controllers/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 /// OLD LOGO SCREEN
@@ -72,7 +71,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
         await Nav.pushNamedAndRemoveAllBelow(
           context: context,
-          goToRoute: Routez.home,
+          goToRoute: Routing.home,
         );
 
         await _triggerLoading();

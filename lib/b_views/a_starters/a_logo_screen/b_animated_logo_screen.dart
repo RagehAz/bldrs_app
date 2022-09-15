@@ -13,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/router/route_names.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -117,7 +117,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
           await Nav.pushNamedAndRemoveAllBelow(
             context: context,
-            goToRoute: Routez.home,
+            goToRoute: Routing.home,
           );
 
         });
