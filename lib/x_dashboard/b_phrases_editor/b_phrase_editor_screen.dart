@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/ldb/ops/phrase_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/pages/phrase_creator_page.dart';
 import 'package:bldrs/x_dashboard/b_phrases_editor/pages/phrases_viewer_page.dart';
@@ -144,10 +145,28 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         _isSearching.value = false;
       },
       loading: _loading,
-      onBack: () => Dialogs.goBackDialog(
-        context: context,
-        goBackOnConfirm: true,
-      ),
+      onBack: () async {
+
+        final bool _areIdentical = Phrase.checkPhrasesListsAreIdentical(
+          phrases1: Phrase.sortPhrasesByIDAndLang(phrases: _initialMixedPhrases.value),
+          phrases2: Phrase.sortPhrasesByIDAndLang(phrases: _tempMixedPhrases.value),
+        );
+
+        if (_areIdentical == true){
+          Nav.goBack(
+              context: context,
+              invoker: 'PhraseEditorScreen',
+          );
+        }
+
+        else {
+          await Dialogs.goBackDialog(
+            context: context,
+            goBackOnConfirm: true,
+          );
+        }
+
+      },
       onSearchChanged: (String text) => onPhrasesSearchChanged(
         isSearching: _isSearching,
         allMixedPhrases: _tempMixedPhrases.value,

@@ -82,7 +82,7 @@ class Verse {
   /// TESTED : WORKS PERFECT
   static Verse plain(String text){
     return Verse(
-      text: text,
+      text: text ?? '',
       translate: false,
     );
   }
@@ -233,47 +233,53 @@ class Verse {
     @required Verse verse,
   }){
 
-    String _output = verse?.translate == true ? verse.text.trim() : '.${verse?.text}';
+    String _output;
 
-    if (verse?.translate == true){
+    if (verse != null && TextCheck.isEmpty(verse?.text) == false){
 
-      /// ADJUST VALUE
-      if (TextCheck.isEmpty(_output) == false){
+      _output = verse?.translate == true ? verse.text.trim() : '.${verse?.text}';
 
-        /// IS PHID
-        final bool _isPhid = Phider.checkVerseIsPhid(_output);
-        final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
-        final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
-        if (_isPhid == true || _isCurrency == true || _isHeadline == true){
+      if (verse?.translate == true){
 
-          final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
-          final String _foundXPhrase = xPhrase(context, verse.text, phrasePro: _phraseProvider);
+        /// ADJUST VALUE
+        if (TextCheck.isEmpty(_output) == false){
 
-          /// X PHRASE NOT FOUND
-          if (_foundXPhrase == null){
-            _output = 'τ.$_output'; // τ : should be translated : phid assigned : not found in allPhrases
+          /// IS PHID
+          final bool _isPhid = Phider.checkVerseIsPhid(_output);
+          final bool _isCurrency = Phider.checkVerseIsCurrency(_output);
+          final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
+          if (_isPhid == true || _isCurrency == true || _isHeadline == true){
+
+            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
+            final String _foundXPhrase = xPhrase(context, verse.text, phrasePro: _phraseProvider);
+
+            /// X PHRASE NOT FOUND
+            if (_foundXPhrase == null){
+              _output = 'τ.$_output'; // τ : should be translated : phid assigned : not found in allPhrases
+            }
+
+            /// X PHRASE FOUND
+            else {
+              _output = '.$_foundXPhrase'; // . : perfect and finished
+            }
+
           }
 
-          /// X PHRASE FOUND
+          /// NOT NOT PHID
           else {
-            _output = '.$_foundXPhrase'; // . : perfect and finished
-          }
 
-        }
+            /// IS TEMP
+            final bool _isTemp = Phider.checkVerseIsTemp(_output);
+            if (_isTemp == true){
+              _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
+              _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
+            }
 
-        /// NOT NOT PHID
-        else {
+            /// NOT TEMP - NOT PHID
+            else {
+              _output = '?$_output'; // should be translated : phid not assigned : not found in all phrases : something is wrong
+            }
 
-          /// IS TEMP
-          final bool _isTemp = Phider.checkVerseIsTemp(_output);
-          if (_isTemp == true){
-            _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
-            _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
-          }
-
-          /// NOT TEMP - NOT PHID
-          else {
-            _output = '?$_output'; // should be translated : phid not assigned : not found in all phrases : something is wrong
           }
 
         }
@@ -284,6 +290,23 @@ class Verse {
 
     /// ADJUST CASING
     return convertVerseCase(verse: _output, verseCasing: verse?.casing);
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool isEmpty(Verse verse){
+    bool _isEmpty = true;
+
+    if (verse != null){
+      if (TextCheck.isEmpty(verse.text) == false){
+        _isEmpty = false;
+      }
+    }
+
+    return _isEmpty;
   }
   // -----------------------------------------------------------------------------
 

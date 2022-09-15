@@ -384,7 +384,7 @@ Future<void> onUnitSelectorButtonTap({
 // --------------------
   Keyboard.closeKeyboard(context);
 
-  final bool _arePhids = Phider.checkIsPhids(_unitChain.sons) == true;
+  final bool _arePhids = Phider.checkIsPhids(_unitChain?.sons) == true;
 
   /// SONS ARE PHIDS
   if (_arePhids == true){
@@ -403,12 +403,11 @@ Future<void> onUnitSelectorButtonTap({
                   (index){
 
                 final String _unitID = _units[index];
-                final String _unitName = _unitID;
 
                 return BottomDialog.wideButton(
                   context: context,
                   verse: Verse(
-                    text: _unitName,
+                    text: Phider.removeIndexFromPhid(phid: _unitID),
                     translate: true,
                   ),
                   icon: phidIcon(context, _unitID),
@@ -444,7 +443,7 @@ Future<void> onUnitSelectorButtonTap({
 
   /// OTHERWISE
   else {
-    blog('_onUnitSelectorTap : OTHERWISE : wtf man : ${_unitChain.sons}');
+    blog('_onUnitSelectorTap : OTHERWISE : wtf man : ${_unitChain?.sons}');
   }
 
 }

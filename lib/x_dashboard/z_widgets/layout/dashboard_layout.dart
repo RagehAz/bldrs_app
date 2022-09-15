@@ -51,7 +51,6 @@ class _DashBoardLayoutState extends State<DashBoardLayout> {
   @override
   Widget build(BuildContext context) {
 
-
     return MainLayout(
       pyramidsAreOn: true,
       sectionButtonIsOn: false,

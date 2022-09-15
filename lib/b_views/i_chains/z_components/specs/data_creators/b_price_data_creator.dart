@@ -83,7 +83,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
         headlineVerse: Verse(
           text: 'phid_add_with_dots',
           translate: true,
-          pseudo: 'Add ...',
         ),
       ),
       width: BldrsAppBar.width(context),

@@ -1,8 +1,11 @@
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
+import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +68,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
             appBarType: appBarType,
             globalKey: formKey,
             titleVerse: const Verse(
-              text: '##Number',
+              text: 'phid_number',
               translate: true,
             ),
             isFormField: true,
@@ -98,14 +101,30 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
               valueListenable: selectedUnitID,
               builder: (_, String selectedUnitID, Widget child){
 
+
+                Verse _verse = Verse(
+                  text: Phider.removeIndexFromPhid(phid: selectedUnitID),
+                  translate: true,
+                );
+
+                final bool _isCurrency = Phider.checkVerseIsCurrency(selectedUnitID);
+                if (_isCurrency == true){
+                  final CurrencyModel _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+                      context: context,
+                      currencyID: selectedUnitID,
+                      listen: false,
+                  );
+                  _verse = Verse(
+                    text: _currency.symbol,
+                    translate: false,
+                  );
+                }
+
                 return DreamBox(
                   width: _unitButtonWidth,
                   height: _buttonHeight,
-                  verse: Verse(
-                    text: selectedUnitID,
-                    translate: true,
-                  ),
-                  verseScaleFactor: 0.65,
+                  verse: _verse,
+                  verseScaleFactor: 0.7,
                   verseMaxLines: 2,
                   onTap: onUnitSelectorButtonTap,
                 );
