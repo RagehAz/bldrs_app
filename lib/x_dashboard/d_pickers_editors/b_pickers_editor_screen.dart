@@ -280,7 +280,6 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                   }
 
-
                 }
             );
 

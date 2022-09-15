@@ -90,7 +90,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
                     groupID: 'Main Specifications',
-                    canPickMany: false,
                     isRequired: true,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
@@ -138,7 +137,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_contractType',
                     groupID: 'Pricing',
-                    canPickMany: false,
                     isRequired: true,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
@@ -162,8 +160,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_paymentMethod',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_payment_cash',
@@ -182,8 +178,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_PropertySalePrice',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 8,
                     isHeadline: false,
@@ -193,8 +187,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyRentPrice',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 9,
                     isHeadline: false,
@@ -214,8 +206,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_numberOfInstallments',
                     groupID: 'Installments',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 11,
                     isHeadline: false,
                 ),
@@ -224,8 +214,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_installmentsDuration',
                     groupID: 'Installments',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_installmentsDurationUnit',
                     index: 12,
                     isHeadline: false,
@@ -245,8 +233,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 14,
                     isHeadline: false,
@@ -256,8 +242,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_plotArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -278,7 +262,6 @@ class RawPickers {
                     chainID: 'phid_s_property_spaces', // phid_s_group_space_type has chain but translates (Space type)
                     groupID: 'Spatial Specifications',
                     canPickMany: true,
-                    isRequired: false,
                     index: 17,
                     isHeadline: false,
                 ),
@@ -287,8 +270,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyFloorNumber',
                     groupID: 'Spatial Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 18,
                     isHeadline: false,
                 ),
@@ -297,8 +278,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyDedicatedParkingSpaces',
                     groupID: 'Spatial Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 19,
                     isHeadline: false,
                 ),
@@ -307,8 +286,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyNumberOfBedrooms',
                     groupID: 'Spatial Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 20,
                     isHeadline: false,
                 ),
@@ -317,8 +294,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyNumberOfBathrooms',
                     groupID: 'Spatial Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 21,
                     isHeadline: false,
                 ),
@@ -338,7 +313,6 @@ class RawPickers {
                     chainID: 'phid_s_propertyView',
                     groupID: 'Property Features',
                     canPickMany: true,
-                    isRequired: false,
                     index: 23,
                     isHeadline: false,
                 ),
@@ -348,7 +322,6 @@ class RawPickers {
                     chainID: 'phid_s_sub_ppt_feat_indoor',
                     groupID: 'Property Features',
                     canPickMany: true,
-                    isRequired: false,
                     index: 24,
                     isHeadline: false,
                 ),
@@ -357,8 +330,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_finishing',
                     groupID: 'Property Features',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 25,
                     isHeadline: false,
                 ),
@@ -368,7 +339,6 @@ class RawPickers {
                     chainID: 'phid_s_propertyDecorationStyle',
                     groupID: 'Property Features',
                     canPickMany: true,
-                    isRequired: false,
                     index: 26,
                     isHeadline: false,
                 ),
@@ -387,8 +357,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_compound',
                     groupID: 'Community Features',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 28,
                     isHeadline: false,
                 ),
@@ -398,7 +366,6 @@ class RawPickers {
                     chainID: 'phid_s_sub_ppt_feat_amenities',
                     groupID: 'Community Features',
                     canPickMany: true,
-                    isRequired: false,
                     index: 29,
                     isHeadline: false,
                 ),
@@ -408,7 +375,6 @@ class RawPickers {
                     chainID: 'phid_s_sub_ppt_feat_services',
                     groupID: 'Community Features',
                     canPickMany: true,
-                    isRequired: false,
                     index: 30,
                     isHeadline: false,
                 ),
@@ -427,8 +393,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_buildingNumberOfFloors',
                     groupID: 'Building Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 32,
                     isHeadline: false,
                 ),
@@ -437,8 +401,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_buildingAge',
                     groupID: 'Building Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 33,
                     isHeadline: false,
                 ),
@@ -447,8 +409,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_buildingTotalPropertiesCount',
                     groupID: 'Building Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 34,
                     isHeadline: false,
                 ),
@@ -457,8 +417,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_buildingTotalParkingLotsCount',
                     groupID: 'Building Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 35,
                     isHeadline: false,
                 ),
@@ -518,7 +476,6 @@ class RawPickers {
                     chainID: 'phid_s_style',
                     groupID: 'Design Specifications',
                     canPickMany: true,
-                    isRequired: false,
                     index: 3,
                     isHeadline: false,
                 ),
@@ -537,7 +494,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
                     groupID: 'Property Specifications',
-                    canPickMany: false,
                     isRequired: true,
                     index: 5,
                     isHeadline: false,
@@ -567,8 +523,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_projectCost',
                     groupID: 'Construction Cost',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 8,
                     isHeadline: false,
@@ -588,8 +542,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_constructionDuration',
                     groupID: 'Construction Duration',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_constructionDurationUnit',
                     index: 10,
                     isHeadline: false,
@@ -610,7 +562,6 @@ class RawPickers {
                     chainID: FlyerTyper.tradesChainID,
                     groupID: 'Construction Activities',
                     canPickMany: true,
-                    isRequired: false,
                     index: 12,
                     isHeadline: false,
                 ),
@@ -629,8 +580,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 14,
                     isHeadline: false,
@@ -640,8 +589,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_plotArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -684,8 +631,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
                     groupID: 'Property Specifications',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 2,
                     isHeadline: false,
                 ),
@@ -705,7 +650,6 @@ class RawPickers {
                     chainID: 'phid_s_group_dz_type',
                     groupID: 'Design Specifications',
                     canPickMany: true,
-                    isRequired: false,
                     index: 4,
                     isHeadline: false,
                 ),
@@ -734,8 +678,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_projectCost',
                     groupID: 'Construction Cost',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 7,
                     isHeadline: false,
@@ -755,8 +697,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_constructionDuration',
                     groupID: 'Construction Duration',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_constructionDurationUnit',
                     index: 9,
                     isHeadline: false,
@@ -777,7 +717,6 @@ class RawPickers {
                     chainID: FlyerTyper.tradesChainID,
                     groupID: 'Construction Activities',
                     canPickMany: true,
-                    isRequired: false,
                     index: 11,
                     isHeadline: false,
                 ),
@@ -822,8 +761,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -833,8 +770,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_plotArea',
                     groupID: 'Property Areas',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 16,
                     isHeadline: false,
@@ -894,8 +829,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_price',
                     groupID: 'Cost',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 3,
                     isHeadline: false,
@@ -905,8 +838,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_constructionActivityMeasurementMethod',
                     groupID: 'Cost',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 4,
                     isHeadline: false,
                 ),
@@ -964,8 +895,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_contractType',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_contractType_NewSale',
@@ -988,8 +917,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_paymentMethod',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_payment_cash',
@@ -1008,8 +935,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_salePrice',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 5,
                     isHeadline: false,
@@ -1019,8 +944,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_rentPrice',
                     groupID: 'Pricing',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_currency',
                     index: 6,
                     isHeadline: false,
@@ -1040,8 +963,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_numberOfInstallments',
                     groupID: 'Installments',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 8,
                     isHeadline: false,
                 ),
@@ -1050,8 +971,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_installmentsDuration',
                     groupID: 'Installments',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_installmentsDurationUnit',
                     index: 9,
                     isHeadline: false,
@@ -1072,7 +991,6 @@ class RawPickers {
                     chainID: 'phid_s_color',
                     groupID: 'Design',
                     canPickMany: true,
-                    isRequired: false,
                     index: 11,
                     isHeadline: false,
                 ),
@@ -1091,8 +1009,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_width',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 13,
                     isHeadline: false,
@@ -1102,8 +1018,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_length',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 14,
                     isHeadline: false,
@@ -1113,8 +1027,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_height',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 15,
                     isHeadline: false,
@@ -1124,8 +1036,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_thickness',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 16,
                     isHeadline: false,
@@ -1135,8 +1045,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_diameter',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 17,
                     isHeadline: false,
@@ -1146,8 +1054,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_radius',
                     groupID: 'Dimensions',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 18,
                     isHeadline: false,
@@ -1167,8 +1073,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_footPrint',
                     groupID: 'Size',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_areaMeasureUnit',
                     index: 20,
                     isHeadline: false,
@@ -1178,8 +1082,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_volume',
                     groupID: 'Size',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_volumeMeasurementUnit',
                     index: 21,
                     isHeadline: false,
@@ -1189,8 +1091,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_weight',
                     groupID: 'Size',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_weightMeasurementUnit',
                     index: 22,
                     isHeadline: false,
@@ -1200,8 +1100,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_size',
                     groupID: 'Size',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 23,
                     isHeadline: false,
                 ),
@@ -1220,8 +1118,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_count',
                     groupID: 'Quantity',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 25,
                     isHeadline: false,
                 ),
@@ -1240,8 +1136,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_wattage',
                     groupID: 'Electricity',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 27,
                     isHeadline: false,
                 ),
@@ -1250,8 +1144,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_voltage',
                     groupID: 'Electricity',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 28,
                     isHeadline: false,
                 ),
@@ -1260,8 +1152,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_ampere',
                     groupID: 'Electricity',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 29,
                     isHeadline: false,
                 ),
@@ -1280,8 +1170,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_inStock',
                     groupID: 'Logistics',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 31,
                     isHeadline: false,
                 ),
@@ -1290,8 +1178,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_deliveryAvailable',
                     groupID: 'Logistics',
-                    canPickMany: false,
-                    isRequired: false,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: false,
@@ -1306,8 +1192,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_deliveryMinDuration',
                     groupID: 'Logistics',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_deliveryDurationUnit',
                     index: 33,
                     isHeadline: false,
@@ -1327,8 +1211,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_madeIn',
                     groupID: 'Manufacturer Info',
-                    canPickMany: false,
-                    isRequired: false,
                     index: 35,
                     isHeadline: false,
                 ),
@@ -1347,8 +1229,6 @@ class RawPickers {
                 PickerModel(
                     chainID: 'phid_s_insuranceDuration',
                     groupID: 'Warranty',
-                    canPickMany: false,
-                    isRequired: false,
                     unitChainID: 'phid_s_warrantyDurationUnit',
                     index: 37,
                     isHeadline: false,
