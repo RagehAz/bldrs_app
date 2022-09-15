@@ -81,7 +81,7 @@ class FlyerSelectionStack extends StatelessWidget {
                             duration: const Duration(seconds: 2),
                             child: SuperVerse(
                               verse: const Verse(
-                                pseudo: '##Waiting\nVerification',
+                                pseudo: 'Waiting\nVerification',
                                 text: 'phid_waiting_verification',
                                 translate: true,
                               ),

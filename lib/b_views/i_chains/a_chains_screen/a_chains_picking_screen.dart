@@ -239,7 +239,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                 translate: true,
               ),
               bodyVerse: const Verse(
-                pseudo: '##This will ignore All selection changes',
+                pseudo: 'This will ignore All selection changes',
                 text: 'phid_discard_changed_warning',
                 translate: true,
               ),
