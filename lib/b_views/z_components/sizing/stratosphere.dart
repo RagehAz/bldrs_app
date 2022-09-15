@@ -1,3 +1,5 @@
+import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,23 @@ class Stratosphere extends StatelessWidget {
   static const double bigAppBarStratosphere = Ratioz.appBarBigHeight + _margins;
   static const double smallAppBarStratosphere = Ratioz.appBarSmallHeight + _margins;
   /// --------------------------------------------------------------------------
+  static EdgeInsets getStratosphereSandwich({
+    @required BuildContext context,
+    @required AppBarType appBarType,
+    bool withHorizon = true
+  }){
+
+    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
+    final double _topPadding =  _appBarHeight + (2 * Ratioz.appBarMargin);
+    final double _horizon = withHorizon == true ? Ratioz.horizon : 0;
+
+    return EdgeInsets.only(
+        top: _topPadding,
+        bottom: _horizon,
+    );
+
+  }
+// -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -31,5 +50,5 @@ class Stratosphere extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

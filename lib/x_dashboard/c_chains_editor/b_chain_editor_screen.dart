@@ -30,6 +30,8 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<Chain>> _initialChains = ValueNotifier([]);
   final ValueNotifier<List<Chain>> _tempChains = ValueNotifier([]);
+  // --------------------
+  final TextEditingController _searchController = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -79,7 +81,13 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     _loading.dispose();
     _tempChains.dispose();
     _initialChains.dispose();
+    _searchController.dispose();
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  void _onSearch(String text){
+    blog('text is : $text');
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -88,7 +96,14 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     return MainLayout(
       pageTitleVerse: const Verse(text: 'Chains',translate: false),
       sectionButtonIsOn: false,
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.search,
+      searchController: _searchController,
+      searchHintVerse: const Verse(
+        text: 'Search Chains',
+        translate: false,
+      ),
+      onSearchSubmit: _onSearch,
+      onSearchChanged: _onSearch,
       onBack: (){
 
         final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(

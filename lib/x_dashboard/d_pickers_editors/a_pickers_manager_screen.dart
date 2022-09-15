@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/picker_protocols/picker_protocols.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/d_pickers_editors/b_pickers_editor_screen.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:bldrs/x_dashboard/z_widgets/wide_button.dart';
@@ -104,19 +103,6 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
     return DashBoardLayout(
       // pageTitle: _flyerType?.toString(),
-      appBarWidgets: <Widget>[
-
-        AppBarButton(
-          icon: Iconz.star,
-          verse: Verse.plain('thing'),
-          // buttonColor:
-          // verseColor: Colorz.white255,
-          onTap: (){
-            blog('c');
-          },
-        ),
-
-      ],
       listWidgets: <Widget>[
 
         // ------------------------------------------------------------
