@@ -421,11 +421,11 @@ String getSectionIcon({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getGroupIDByChainKSonID({
+  static String concludeSectionPhidByFlyerTypeChainID({
     @required BuildContext context,
-    @required String chainKSonID,
+    @required String flyerTypeChainID,
   }){
-    switch (chainKSonID) {
+    switch (flyerTypeChainID) {
     /// REAL ESTATE
       case propertyChainID:  return 'phid_realEstate';   break;
     /// CONSTRUCTION

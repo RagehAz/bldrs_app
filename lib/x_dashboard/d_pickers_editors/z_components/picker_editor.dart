@@ -47,24 +47,24 @@ class PickerEditingTile extends StatelessWidget {
           child: Column(
             children: <Widget>[
 
-              /// GROUP ID
-              LineBubble(
-                width: _clearWidth,
-                child: BubbleHeader(
-                  viewModel: BubbleHeaderVM(
-                    headerWidth: _clearWidth,
-                    headlineVerse: Verse(
-                      text: 'GroupID: ${picker.groupID}',
-                      translate: false
-                    ),
-                  ),
-                ),
-                onTap: () => onChangeGroupIDForAllItsPickers(
-                    context: context,
-                    oldGroupID: picker.groupID,
-                    tempPickers: tempPickers
-                ),
-              ),
+              // /// GROUP ID
+              // LineBubble(
+              //   width: _clearWidth,
+              //   child: BubbleHeader(
+              //     viewModel: BubbleHeaderVM(
+              //       headerWidth: _clearWidth,
+              //       headlineVerse: Verse(
+              //         text: 'GroupID: ${picker.groupID}',
+              //         translate: false
+              //       ),
+              //     ),
+              //   ),
+              //   onTap: () => onChangeGroupIDForAllItsPickers(
+              //       context: context,
+              //       oldGroupID: picker.groupID,
+              //       tempPickers: tempPickers
+              //   ),
+              // ),
 
               /// CHAIN ID
               LineBubble(

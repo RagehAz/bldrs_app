@@ -11,19 +11,19 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class SpecPickerTile extends StatelessWidget {
+class PickerTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SpecPickerTile({
+  const PickerTile({
     @required this.onTap,
-    @required this.specPicker,
-    @required this.selectedSpecs,
+    @required this.picker,
+    @required this.pickerSelectedSpecs,
     @required this.onDeleteSpec,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final PickerModel specPicker;
-  final List<SpecModel> selectedSpecs;
+  final PickerModel picker;
+  final List<SpecModel> pickerSelectedSpecs;
   final ValueChanged<List<SpecModel>> onDeleteSpec;
   /// --------------------------------------------------------------------------
   static double height() {
@@ -72,7 +72,7 @@ class SpecPickerTile extends StatelessWidget {
                       color: Colorz.white10,
                       corners: _tileBorders,
                       bubble: false,
-                      icon: phidIcon(context, specPicker.chainID),
+                      icon: phidIcon(context, picker.chainID),
                       iconSizeFactor: 0.6,
                     ),
 
@@ -88,13 +88,13 @@ class SpecPickerTile extends StatelessWidget {
                               width: _specNameBoxWidth,
                               child: SuperVerse(
                                 verse: Verse(
-                                  text: specPicker.chainID,
+                                  text: picker.chainID,
                                   translate: true,
                                 ),
                                 centered: false,
                                 margin: 10,
                                 maxLines: 2,
-                                redDot: specPicker.isRequired,
+                                redDot: picker.isRequired,
                               ),
                             ),
 
@@ -123,7 +123,7 @@ class SpecPickerTile extends StatelessWidget {
               ),
 
               /// SELECTED SPECS ROW
-              if (selectedSpecs.isNotEmpty)
+              if (pickerSelectedSpecs.isNotEmpty)
                 SizedBox(
                   width: _specTileWidth,
                   child: Row(
@@ -138,8 +138,8 @@ class SpecPickerTile extends StatelessWidget {
                       /// SELECTED SPECS BOX
                       SpecsWrapper(
                         boxWidth: _specTileWidth - _specTileHeight,
-                        specs: selectedSpecs,
-                        picker: specPicker,
+                        specs: pickerSelectedSpecs,
+                        picker: picker,
                         onSpecTap: (List<SpecModel> specs) => onDeleteSpec(specs),
                         xIsOn: true,
                       ),
