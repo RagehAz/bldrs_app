@@ -257,7 +257,7 @@ Future<void> onCallTap({
       titleVerse: Verse(
         text: '##${bzModel.name} has no available contact',
         translate: true,
-        varTag: bzModel.name,
+        variables: bzModel.name,
       ),
       bodyVerse: const Verse(
         pseudo: 'A reminder notification for the business will be sent to request updating their phone number',
@@ -280,7 +280,7 @@ Future<void> onCallTap({
         titleVerse: Verse(
           text: '##Contact ${bzModel.name}',
           translate: true,
-          varTag: bzModel.name,
+          variables: bzModel.name,
         ),
         bodyVerse: const Verse(
           pseudo: 'Select an Author to contact',

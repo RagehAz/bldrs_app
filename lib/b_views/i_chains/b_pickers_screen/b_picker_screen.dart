@@ -84,7 +84,7 @@ class PickerScreen extends StatelessWidget {
         firstLine: Verse(
           text: 'Confirm $_chainID',
           translate: true,
-          varTag: _chainID,
+          variables: _chainID,
         ),
         onTap: () => onGoBackFromPickerScreen(
           context: context,

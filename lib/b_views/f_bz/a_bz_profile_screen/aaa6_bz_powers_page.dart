@@ -39,7 +39,7 @@ class BzPowersPage extends StatelessWidget {
               verse: Verse(
                 text: '##${_bzModel.name} has got 500 slides left',
                 translate: true,
-                varTag: [_bzModel.name, 500],
+                variables: [_bzModel.name, 500],
               )
             ),
           ],

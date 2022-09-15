@@ -668,7 +668,7 @@ class Formers {
       bodyVerse: Verse(
         text: '##Required fields :\n$_missingFieldsString',
         translate: true,
-        varTag: _missingFieldsString,
+        variables: _missingFieldsString,
       ),
     );
 

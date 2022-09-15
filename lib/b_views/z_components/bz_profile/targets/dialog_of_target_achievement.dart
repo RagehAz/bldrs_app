@@ -26,7 +26,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
         pseudo: 'You have achieved the ${target.name} target and your account increased\n${target.reward.slides} Slides & ${target.reward.ankh} Ankhs',
         text: 'phid_target_achievement_congrats_description',
         translate: true,
-        varTag: [target.name, target.reward.slides, target.reward.ankh]
+        variables: [target.name, target.reward.slides, target.reward.ankh]
       ),
       confirmButtonVerse: const Verse(
         text: 'phid_claim',

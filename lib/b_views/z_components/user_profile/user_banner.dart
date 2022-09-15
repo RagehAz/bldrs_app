@@ -172,7 +172,7 @@ class UserBanner extends StatelessWidget {
             verse: Verse(
               text: '##Author in ${getBzzString(userModel: userModel)}',
               translate: true,
-              varTag: getBzzString(userModel: userModel),
+              variables: getBzzString(userModel: userModel),
             ),
             weight: VerseWeight.thin,
             italic: true,

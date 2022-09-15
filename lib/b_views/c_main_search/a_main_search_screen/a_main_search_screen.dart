@@ -120,7 +120,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     return Verse(
       text: _hintText,
       translate: true,
-      varTag: [_cityName, _countryName],
+      variables: [_cityName, _countryName],
     );
 
   }
