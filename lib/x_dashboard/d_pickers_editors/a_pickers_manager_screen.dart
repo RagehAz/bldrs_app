@@ -299,15 +299,15 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
             // );
 
             /// GET FROM RAW
-            final List<PickerModel> _pickers = RawPickers.getPickersByFlyerType(FlyerType.project);
-
-            final List<PickerModel> _updated = PickerModel.replaceAGroupID(
-                pickers: _pickers,
-                oldGroupName: 'Design Specificationsss',
-                newGroupName: 'fuckkkyoooo'
-            );
-
-            PickerModel.blogPickers(_updated);
+            // final List<PickerModel> _pickers = RawPickers.getPickersByFlyerType(FlyerType.project);
+            //
+            // final List<PickerModel> _updated = PickerModel.replaceAGroupID(
+            //     pickers: _pickers,
+            //     oldGroupName: 'Design Specificationsss',
+            //     newGroupName: 'fuckkkyoooo'
+            // );
+            //
+            // PickerModel.blogPickers(_updated);
 
 
 

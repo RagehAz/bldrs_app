@@ -54,7 +54,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_type',
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -63,7 +63,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: FlyerTyper.propertyChainID,
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -80,7 +80,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_main_specs',
-                    groupID: 'Main Specifications',
+                    // groupID: 'Main Specifications',
                     index: 2,
                     isHeadline: true,
                 ),
@@ -89,7 +89,7 @@ class RawPickers {
                 /// PROPERTY FORM
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
-                    groupID: 'Main Specifications',
+                    // groupID: 'Main Specifications',
                     isRequired: true,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
@@ -116,7 +116,7 @@ class RawPickers {
                 /// PROPERTY LICENSE
                 PickerModel(
                     chainID: 'phid_s_propertyLicense',
-                    groupID: 'Main Specifications',
+                    // groupID: 'Main Specifications',
                     canPickMany: true,
                     isRequired: true,
                     index: 4,
@@ -127,7 +127,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_pricing',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     index: 5,
                     isHeadline: true,
                 ),
@@ -136,7 +136,7 @@ class RawPickers {
                 /// PROPERTY CONTRACT TYPE
                 PickerModel(
                     chainID: 'phid_s_contractType',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     isRequired: true,
                     blockers: <PickersBlocker>[
                         PickersBlocker(
@@ -159,7 +159,7 @@ class RawPickers {
                 /// PROPERTY PAYMENT METHOD
                 PickerModel(
                     chainID: 'phid_s_paymentMethod',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_payment_cash',
@@ -177,7 +177,7 @@ class RawPickers {
                 /// PROPERTY SALE PRICE
                 PickerModel(
                     chainID: 'phid_s_PropertySalePrice',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     unitChainID: 'phid_s_currency',
                     index: 8,
                     isHeadline: false,
@@ -186,7 +186,7 @@ class RawPickers {
                 /// PROPERTY RENT PRICE
                 PickerModel(
                     chainID: 'phid_s_propertyRentPrice',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     unitChainID: 'phid_s_currency',
                     index: 9,
                     isHeadline: false,
@@ -196,7 +196,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_installments',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     index: 10,
                     isHeadline: true,
                 ),
@@ -205,7 +205,7 @@ class RawPickers {
                 /// PROPERTY NUMBER OF INSTALLMENTS
                 PickerModel(
                     chainID: 'phid_s_numberOfInstallments',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     index: 11,
                     isHeadline: false,
                 ),
@@ -213,7 +213,7 @@ class RawPickers {
                 /// PROPERTY INSTALLMENTS DURATION
                 PickerModel(
                     chainID: 'phid_s_installmentsDuration',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     unitChainID: 'phid_s_installmentsDurationUnit',
                     index: 12,
                     isHeadline: false,
@@ -223,7 +223,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_areas',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     index: 13,
                     isHeadline: true,
                 ),
@@ -232,7 +232,7 @@ class RawPickers {
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 14,
                     isHeadline: false,
@@ -241,7 +241,7 @@ class RawPickers {
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -251,7 +251,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_spatial',
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     index: 16,
                     isHeadline: true,
                 ),
@@ -260,7 +260,7 @@ class RawPickers {
                 /// PROPERTY SPACES
                 PickerModel(
                     chainID: 'phid_s_property_spaces', // phid_s_group_space_type has chain but translates (Space type)
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     canPickMany: true,
                     index: 17,
                     isHeadline: false,
@@ -269,7 +269,7 @@ class RawPickers {
                 /// PROPERTY FLOOR NUMBER
                 PickerModel(
                     chainID: 'phid_s_propertyFloorNumber',
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     index: 18,
                     isHeadline: false,
                 ),
@@ -277,7 +277,7 @@ class RawPickers {
                 /// PROPERTY DEDICATED PARKING LOTS COUNT
                 PickerModel(
                     chainID: 'phid_s_propertyDedicatedParkingSpaces',
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     index: 19,
                     isHeadline: false,
                 ),
@@ -285,7 +285,7 @@ class RawPickers {
                 /// PROPERTY NUMBER OF BEDROOMS
                 PickerModel(
                     chainID: 'phid_s_propertyNumberOfBedrooms',
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     index: 20,
                     isHeadline: false,
                 ),
@@ -293,7 +293,7 @@ class RawPickers {
                 /// PROPERTY NUMBER OF BATHROOMS
                 PickerModel(
                     chainID: 'phid_s_propertyNumberOfBathrooms',
-                    groupID: 'Spatial Specifications',
+                    // groupID: 'Spatial Specifications',
                     index: 21,
                     isHeadline: false,
                 ),
@@ -302,7 +302,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_features',
-                    groupID: 'Property Features',
+                    // groupID: 'Property Features',
                     index: 22,
                     isHeadline: true,
                 ),
@@ -311,7 +311,7 @@ class RawPickers {
                 /// PROPERTY VIEW
                 PickerModel(
                     chainID: 'phid_s_propertyView',
-                    groupID: 'Property Features',
+                    // groupID: 'Property Features',
                     canPickMany: true,
                     index: 23,
                     isHeadline: false,
@@ -320,7 +320,7 @@ class RawPickers {
                 /// PROPERTY INDOOR FEATURES
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_indoor',
-                    groupID: 'Property Features',
+                    // groupID: 'Property Features',
                     canPickMany: true,
                     index: 24,
                     isHeadline: false,
@@ -329,7 +329,7 @@ class RawPickers {
                 /// PROPERTY FINISHING LEVEL
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_finishing',
-                    groupID: 'Property Features',
+                    // groupID: 'Property Features',
                     index: 25,
                     isHeadline: false,
                 ),
@@ -337,7 +337,7 @@ class RawPickers {
                 /// PROPERTY DECORATION STYLE
                 PickerModel(
                     chainID: 'phid_s_propertyDecorationStyle',
-                    groupID: 'Property Features',
+                    // groupID: 'Property Features',
                     canPickMany: true,
                     index: 26,
                     isHeadline: false,
@@ -347,7 +347,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_community',
-                    groupID: 'Community Features',
+                    // groupID: 'Community Features',
                     index: 27,
                     isHeadline: true,
                 ),
@@ -356,7 +356,7 @@ class RawPickers {
                 /// IN  A COMPOUND
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_compound',
-                    groupID: 'Community Features',
+                    // groupID: 'Community Features',
                     index: 28,
                     isHeadline: false,
                 ),
@@ -364,7 +364,7 @@ class RawPickers {
                 /// AMENITIES
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_amenities',
-                    groupID: 'Community Features',
+                    // groupID: 'Community Features',
                     canPickMany: true,
                     index: 29,
                     isHeadline: false,
@@ -373,7 +373,7 @@ class RawPickers {
                 /// COMMUNITY SERVICES
                 PickerModel(
                     chainID: 'phid_s_sub_ppt_feat_services',
-                    groupID: 'Community Features',
+                    // groupID: 'Community Features',
                     canPickMany: true,
                     index: 30,
                     isHeadline: false,
@@ -383,7 +383,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_building',
-                    groupID: 'Building Specifications',
+                    // groupID: 'Building Specifications',
                     index: 31,
                     isHeadline: true,
                 ),
@@ -392,7 +392,7 @@ class RawPickers {
                 /// BUILDING NUMBER OF FLOORS
                 PickerModel(
                     chainID: 'phid_s_buildingNumberOfFloors',
-                    groupID: 'Building Specifications',
+                    // groupID: 'Building Specifications',
                     index: 32,
                     isHeadline: false,
                 ),
@@ -400,7 +400,7 @@ class RawPickers {
                 /// BUILDING AGE IN YEARS
                 PickerModel(
                     chainID: 'phid_s_buildingAge',
-                    groupID: 'Building Specifications',
+                    // groupID: 'Building Specifications',
                     index: 33,
                     isHeadline: false,
                 ),
@@ -408,7 +408,7 @@ class RawPickers {
                 /// BUILDING TOTAL UNITS COUNTS
                 PickerModel(
                     chainID: 'phid_s_buildingTotalPropertiesCount',
-                    groupID: 'Building Specifications',
+                    // groupID: 'Building Specifications',
                     index: 34,
                     isHeadline: false,
                 ),
@@ -416,7 +416,7 @@ class RawPickers {
                 /// BUILDING TOTAL PARKING LOTS COUNTS
                 PickerModel(
                     chainID: 'phid_s_buildingTotalParkingLotsCount',
-                    groupID: 'Building Specifications',
+                    // groupID: 'Building Specifications',
                     index: 35,
                     isHeadline: false,
                 ),
@@ -439,7 +439,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_design_specs',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -448,7 +448,7 @@ class RawPickers {
                 /// DESIGN TYPE
                 PickerModel(
                     chainID: FlyerTyper.designChainID,
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -464,7 +464,7 @@ class RawPickers {
                 /// DESIGN SPACES
                 PickerModel(
                     chainID: 'phid_s_group_space_type',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
                     index: 2,
@@ -474,7 +474,7 @@ class RawPickers {
                 /// DESIGN STYLE
                 PickerModel(
                     chainID: 'phid_s_style',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     canPickMany: true,
                     index: 3,
                     isHeadline: false,
@@ -484,7 +484,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_property_specs',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     index: 4,
                     isHeadline: true,
                 ),
@@ -493,7 +493,7 @@ class RawPickers {
                 /// PROPERTY FORM
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     isRequired: true,
                     index: 5,
                     isHeadline: false,
@@ -502,7 +502,7 @@ class RawPickers {
                 /// PROPERTY LICENSE
                 PickerModel(
                     chainID: 'phid_s_propertyLicense',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     canPickMany: true,
                     isRequired: true,
                     index: 6,
@@ -513,7 +513,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_cost',
-                    groupID: 'Construction Cost',
+                    // groupID: 'Construction Cost',
                     index: 7,
                     isHeadline: true,
                 ),
@@ -522,7 +522,7 @@ class RawPickers {
                 /// PROJECT COST
                 PickerModel(
                     chainID: 'phid_s_projectCost',
-                    groupID: 'Construction Cost',
+                    // groupID: 'Construction Cost',
                     unitChainID: 'phid_s_currency',
                     index: 8,
                     isHeadline: false,
@@ -532,7 +532,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_duration',
-                    groupID: 'Construction Duration',
+                    // groupID: 'Construction Duration',
                     index: 9,
                     isHeadline: true,
                 ),
@@ -541,7 +541,7 @@ class RawPickers {
                 /// Construction DURATION
                 PickerModel(
                     chainID: 'phid_s_constructionDuration',
-                    groupID: 'Construction Duration',
+                    // groupID: 'Construction Duration',
                     unitChainID: 'phid_s_constructionDurationUnit',
                     index: 10,
                     isHeadline: false,
@@ -551,7 +551,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_activities',
-                    groupID: 'Construction Activities',
+                    // groupID: 'Construction Activities',
                     index: 11,
                     isHeadline: true,
                 ),
@@ -560,7 +560,7 @@ class RawPickers {
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
                     chainID: FlyerTyper.tradesChainID,
-                    groupID: 'Construction Activities',
+                    // groupID: 'Construction Activities',
                     canPickMany: true,
                     index: 12,
                     isHeadline: false,
@@ -570,7 +570,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_areas',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     index: 13,
                     isHeadline: true,
                 ),
@@ -579,7 +579,7 @@ class RawPickers {
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 14,
                     isHeadline: false,
@@ -588,7 +588,7 @@ class RawPickers {
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -611,7 +611,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_property_specs',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -620,7 +620,7 @@ class RawPickers {
                 /// PROPERTY LICENSE
                 PickerModel(
                     chainID: 'phid_s_propertyLicense',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     canPickMany: true,
                     isRequired: true,
                     index: 1,
@@ -630,7 +630,7 @@ class RawPickers {
                 /// PROPERTY FORM
                 PickerModel(
                     chainID: 'phid_s_propertyForm',
-                    groupID: 'Property Specifications',
+                    // groupID: 'Property Specifications',
                     index: 2,
                     isHeadline: false,
                 ),
@@ -639,7 +639,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_design_specs',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     index: 3,
                     isHeadline: true,
                 ),
@@ -648,7 +648,7 @@ class RawPickers {
                 /// DESIGN TYPE
                 PickerModel(
                     chainID: 'phid_s_group_dz_type',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     canPickMany: true,
                     index: 4,
                     isHeadline: false,
@@ -657,7 +657,7 @@ class RawPickers {
                 /// DESIGN SPACES
                 PickerModel(
                     chainID: 'phid_s_group_space_type',
-                    groupID: 'Design Specifications',
+                    // groupID: 'Design Specifications',
                     canPickMany: true,
                     isRequired: true,
                     index: 5,
@@ -668,7 +668,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_cost',
-                    groupID: 'Construction Cost',
+                    // groupID: 'Construction Cost',
                     index: 6,
                     isHeadline: true,
                 ),
@@ -677,7 +677,7 @@ class RawPickers {
                 /// PROJECT COST
                 PickerModel(
                     chainID: 'phid_s_projectCost',
-                    groupID: 'Construction Cost',
+                    // groupID: 'Construction Cost',
                     unitChainID: 'phid_s_currency',
                     index: 7,
                     isHeadline: false,
@@ -687,7 +687,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_duration',
-                    groupID: 'Construction Duration',
+                    // groupID: 'Construction Duration',
                     index: 8,
                     isHeadline: true,
                 ),
@@ -696,7 +696,7 @@ class RawPickers {
                 /// Construction DURATION
                 PickerModel(
                     chainID: 'phid_s_constructionDuration',
-                    groupID: 'Construction Duration',
+                    // groupID: 'Construction Duration',
                     unitChainID: 'phid_s_constructionDurationUnit',
                     index: 9,
                     isHeadline: false,
@@ -706,7 +706,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_activities',
-                    groupID: 'Construction Activities',
+                    // groupID: 'Construction Activities',
                     index: 10,
                     isHeadline: true,
                 ),
@@ -715,7 +715,7 @@ class RawPickers {
                 /// CONSTRUCTION ACTIVITIES
                 PickerModel(
                     chainID: FlyerTyper.tradesChainID,
-                    groupID: 'Construction Activities',
+                    // groupID: 'Construction Activities',
                     canPickMany: true,
                     index: 11,
                     isHeadline: false,
@@ -725,7 +725,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_equipment',
-                    groupID: 'Construction Equipment',
+                    // groupID: 'Construction Equipment',
                     index: 12,
                     isHeadline: true,
                 ),
@@ -734,7 +734,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: FlyerTyper.equipmentChainID,
-                    groupID: 'Construction Equipment',
+                    // groupID: 'Construction Equipment',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -751,7 +751,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_areas',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     index: 14,
                     isHeadline: true,
                 ),
@@ -760,7 +760,7 @@ class RawPickers {
                 /// PROPERTY AREA
                 PickerModel(
                     chainID: 'phid_s_propertyArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_propertyAreaUnit',
                     index: 15,
                     isHeadline: false,
@@ -769,7 +769,7 @@ class RawPickers {
                 /// LOT AREA
                 PickerModel(
                     chainID: 'phid_s_plotArea',
-                    groupID: 'Property Areas',
+                    // groupID: 'Property Areas',
                     unitChainID: 'phid_s_lotAreaUnit',
                     index: 16,
                     isHeadline: false,
@@ -793,7 +793,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_trade_type',
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -802,7 +802,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: FlyerTyper.tradesChainID,
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -819,7 +819,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_cost',
-                    groupID: 'Cost',
+                    // groupID: 'Cost',
                     index: 2,
                     isHeadline: true,
                 ),
@@ -828,7 +828,7 @@ class RawPickers {
                 /// CONSTRUCTION ACTIVITY PRICE
                 PickerModel(
                     chainID: 'phid_s_price',
-                    groupID: 'Cost',
+                    // groupID: 'Cost',
                     unitChainID: 'phid_s_currency',
                     index: 3,
                     isHeadline: false,
@@ -837,7 +837,7 @@ class RawPickers {
                 /// CONSTRUCTION ACTIVITY MEASUREMENT METHOD
                 PickerModel(
                     chainID: 'phid_s_constructionActivityMeasurementMethod',
-                    groupID: 'Cost',
+                    // groupID: 'Cost',
                     index: 4,
                     isHeadline: false,
                 ),
@@ -859,7 +859,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_product_type',
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -868,7 +868,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: FlyerTyper.productChainID,
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[
@@ -885,7 +885,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_pricing',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     index: 2,
                     isHeadline: true,
                 ),
@@ -894,7 +894,7 @@ class RawPickers {
                 /// CONTRACT TYPE
                 PickerModel(
                     chainID: 'phid_s_contractType',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_contractType_NewSale',
@@ -916,7 +916,7 @@ class RawPickers {
                 /// PAYMENT METHOD
                 PickerModel(
                     chainID: 'phid_s_paymentMethod',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: 'phid_s_payment_cash',
@@ -934,7 +934,7 @@ class RawPickers {
                 /// SALE PRICE
                 PickerModel(
                     chainID: 'phid_s_salePrice',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     unitChainID: 'phid_s_currency',
                     index: 5,
                     isHeadline: false,
@@ -943,7 +943,7 @@ class RawPickers {
                 /// RENT PRICE
                 PickerModel(
                     chainID: 'phid_s_rentPrice',
-                    groupID: 'Pricing',
+                    // groupID: 'Pricing',
                     unitChainID: 'phid_s_currency',
                     index: 6,
                     isHeadline: false,
@@ -953,7 +953,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_installments',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     index: 7,
                     isHeadline: true,
                 ),
@@ -962,7 +962,7 @@ class RawPickers {
                 /// NUMBER OF INSTALLMENTS
                 PickerModel(
                     chainID: 'phid_s_numberOfInstallments',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     index: 8,
                     isHeadline: false,
                 ),
@@ -970,7 +970,7 @@ class RawPickers {
                 /// INSTALLMENTS DURATION
                 PickerModel(
                     chainID: 'phid_s_installmentsDuration',
-                    groupID: 'Installments',
+                    // groupID: 'Installments',
                     unitChainID: 'phid_s_installmentsDurationUnit',
                     index: 9,
                     isHeadline: false,
@@ -980,7 +980,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_design',
-                    groupID: 'Design',
+                    // groupID: 'Design',
                     index: 10,
                     isHeadline: true,
                 ),
@@ -989,7 +989,7 @@ class RawPickers {
                 /// COLOR
                 PickerModel(
                     chainID: 'phid_s_color',
-                    groupID: 'Design',
+                    // groupID: 'Design',
                     canPickMany: true,
                     index: 11,
                     isHeadline: false,
@@ -999,7 +999,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_dimensions',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     index: 12,
                     isHeadline: true,
                 ),
@@ -1008,7 +1008,7 @@ class RawPickers {
                 /// WIDTH
                 PickerModel(
                     chainID: 'phid_s_width',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 13,
                     isHeadline: false,
@@ -1017,7 +1017,7 @@ class RawPickers {
                 /// LENGTH
                 PickerModel(
                     chainID: 'phid_s_length',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 14,
                     isHeadline: false,
@@ -1026,7 +1026,7 @@ class RawPickers {
                 /// HEIGHT
                 PickerModel(
                     chainID: 'phid_s_height',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 15,
                     isHeadline: false,
@@ -1035,7 +1035,7 @@ class RawPickers {
                 /// THICKNESS
                 PickerModel(
                     chainID: 'phid_s_thickness',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 16,
                     isHeadline: false,
@@ -1044,7 +1044,7 @@ class RawPickers {
                 /// DIAMETER
                 PickerModel(
                     chainID: 'phid_s_diameter',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 17,
                     isHeadline: false,
@@ -1053,7 +1053,7 @@ class RawPickers {
                 /// RADIUS
                 PickerModel(
                     chainID: 'phid_s_radius',
-                    groupID: 'Dimensions',
+                    // groupID: 'Dimensions',
                     unitChainID: 'phid_s_linearMeasureUnit',
                     index: 18,
                     isHeadline: false,
@@ -1063,7 +1063,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_size',
-                    groupID: 'Size',
+                    // groupID: 'Size',
                     index: 19,
                     isHeadline: true,
                 ),
@@ -1072,7 +1072,7 @@ class RawPickers {
                 /// FOOTPRINT
                 PickerModel(
                     chainID: 'phid_s_footPrint',
-                    groupID: 'Size',
+                    // groupID: 'Size',
                     unitChainID: 'phid_s_areaMeasureUnit',
                     index: 20,
                     isHeadline: false,
@@ -1081,7 +1081,7 @@ class RawPickers {
                 /// VOLUME
                 PickerModel(
                     chainID: 'phid_s_volume',
-                    groupID: 'Size',
+                    // groupID: 'Size',
                     unitChainID: 'phid_s_volumeMeasurementUnit',
                     index: 21,
                     isHeadline: false,
@@ -1090,7 +1090,7 @@ class RawPickers {
                 /// WIGHT
                 PickerModel(
                     chainID: 'phid_s_weight',
-                    groupID: 'Size',
+                    // groupID: 'Size',
                     unitChainID: 'phid_s_weightMeasurementUnit',
                     index: 22,
                     isHeadline: false,
@@ -1099,7 +1099,7 @@ class RawPickers {
                 /// SIZE
                 PickerModel(
                     chainID: 'phid_s_size',
-                    groupID: 'Size',
+                    // groupID: 'Size',
                     index: 23,
                     isHeadline: false,
                 ),
@@ -1108,7 +1108,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_quantity',
-                    groupID: 'Quantity',
+                    // groupID: 'Quantity',
                     index: 24,
                     isHeadline: true,
                 ),
@@ -1117,7 +1117,7 @@ class RawPickers {
                 /// QUANTITY
                 PickerModel(
                     chainID: 'phid_s_count',
-                    groupID: 'Quantity',
+                    // groupID: 'Quantity',
                     index: 25,
                     isHeadline: false,
                 ),
@@ -1126,7 +1126,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_electricity',
-                    groupID: 'Electricity',
+                    // groupID: 'Electricity',
                     index: 26,
                     isHeadline: true,
                 ),
@@ -1135,7 +1135,7 @@ class RawPickers {
                 /// WATTAGE
                 PickerModel(
                     chainID: 'phid_s_wattage',
-                    groupID: 'Electricity',
+                    // groupID: 'Electricity',
                     index: 27,
                     isHeadline: false,
                 ),
@@ -1143,7 +1143,7 @@ class RawPickers {
                 /// VOLTAGE
                 PickerModel(
                     chainID: 'phid_s_voltage',
-                    groupID: 'Electricity',
+                    // groupID: 'Electricity',
                     index: 28,
                     isHeadline: false,
                 ),
@@ -1151,7 +1151,7 @@ class RawPickers {
                 /// WATTAGE
                 PickerModel(
                     chainID: 'phid_s_ampere',
-                    groupID: 'Electricity',
+                    // groupID: 'Electricity',
                     index: 29,
                     isHeadline: false,
                 ),
@@ -1160,7 +1160,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_logistics',
-                    groupID: 'Logistics',
+                    // groupID: 'Logistics',
                     index: 30,
                     isHeadline: true,
                 ),
@@ -1169,7 +1169,7 @@ class RawPickers {
                 /// AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_inStock',
-                    groupID: 'Logistics',
+                    // groupID: 'Logistics',
                     index: 31,
                     isHeadline: false,
                 ),
@@ -1177,7 +1177,7 @@ class RawPickers {
                 /// DELIVERY AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_deliveryAvailable',
-                    groupID: 'Logistics',
+                    // groupID: 'Logistics',
                     blockers: <PickersBlocker>[
                         PickersBlocker(
                             value: false,
@@ -1191,7 +1191,7 @@ class RawPickers {
                 /// DELIVERY AVAILABILITY
                 PickerModel(
                     chainID: 'phid_s_deliveryMinDuration',
-                    groupID: 'Logistics',
+                    // groupID: 'Logistics',
                     unitChainID: 'phid_s_deliveryDurationUnit',
                     index: 33,
                     isHeadline: false,
@@ -1201,7 +1201,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_manufacturer',
-                    groupID: 'Manufacturer Info',
+                    // groupID: 'Manufacturer Info',
                     index: 34,
                     isHeadline: true,
                 ),
@@ -1210,7 +1210,7 @@ class RawPickers {
                 /// MADE IN
                 PickerModel(
                     chainID: 'phid_s_madeIn',
-                    groupID: 'Manufacturer Info',
+                    // groupID: 'Manufacturer Info',
                     index: 35,
                     isHeadline: false,
                 ),
@@ -1219,7 +1219,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_warranty',
-                    groupID: 'Warranty',
+                    // groupID: 'Warranty',
                     index: 36,
                     isHeadline: true,
                 ),
@@ -1228,7 +1228,7 @@ class RawPickers {
                 /// WARRANTY DURATION
                 PickerModel(
                     chainID: 'phid_s_insuranceDuration',
-                    groupID: 'Warranty',
+                    // groupID: 'Warranty',
                     unitChainID: 'phid_s_warrantyDurationUnit',
                     index: 37,
                     isHeadline: false,
@@ -1251,7 +1251,7 @@ class RawPickers {
 
                 PickerModel(
                     chainID: 'headline_equipment_type',
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     index: 0,
                     isHeadline: true,
                 ),
@@ -1260,7 +1260,7 @@ class RawPickers {
                 /// TYPE
                 PickerModel(
                     chainID: FlyerTyper.equipmentChainID,
-                    groupID: 'Type',
+                    // groupID: 'Type',
                     canPickMany: true,
                     isRequired: true,
                     blockers: <PickersBlocker>[

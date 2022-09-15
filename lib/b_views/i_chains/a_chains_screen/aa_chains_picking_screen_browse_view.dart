@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
+import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/i_chains/z_components/specs/picker_group/a_pickers_group.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
@@ -107,49 +107,40 @@ class ChainsScreenBrowseView extends StatelessWidget {
           ),
           builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
-            final List<String> _theGroupsIDs = PickerModel.getGroupsIDs(
-              pickers: _refinedPickers,
-            );
+            return ValueListenableBuilder(
+              valueListenable: selectedSpecs,
+              builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
 
-            return ListView.builder(
-                itemCount: _theGroupsIDs.length + 1,
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(
-                  top: Stratosphere.bigAppBarStratosphere,
-                  bottom: Ratioz.horizon,
-                ),
-                itemBuilder: (BuildContext ctx, int index) {
-
-                  /// INSTRUCTIONS
-                  if (index == 0){
-                    return instructions;
-                  }
-
-                  /// GROUPS BUILDER
-                  else {
-
-                    final String _groupID = _theGroupsIDs[index - 1];
-
-                    final List<PickerModel> _pickersOfThisGroup = PickerModel.getPickersByGroupID(
-                      pickers: _refinedPickers,
-                      groupID: _groupID,
-                    );
-
-                    return SpecsPickersGroup(
-                      headlineVerse: Verse(
-                        text: _groupID,
-                        translate: true,
-                        casing: Casing.upperCase,
+                  return ListView.builder(
+                      itemCount: _refinedPickers.length + 1,
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.only(
+                        top: Stratosphere.bigAppBarStratosphere,
+                        bottom: Ratioz.horizon,
                       ),
-                      selectedSpecs: selectedSpecs,
-                      groupPickers: _pickersOfThisGroup,
-                      onPickerTap: onPickerTap,
-                      onDeleteSpec: onDeleteSpec,
-                    );
+                      itemBuilder: (BuildContext ctx, int index) {
 
-                  }
+                        /// INSTRUCTIONS
+                        if (index == 0){
+                          return instructions;
+                        }
 
-                }
+                        /// GROUPS BUILDER
+                        else {
+
+                          return PickerSplitter(
+                            picker:  _refinedPickers[index - 1],
+                            onTap: onPickerTap,
+                            onDeleteSpec: onDeleteSpec,
+                            allSelectedSpecs: _allSelectedSpecs,
+                          );
+
+                        }
+
+                      }
+                  );
+
+                },
             );
 
           }

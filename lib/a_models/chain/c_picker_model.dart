@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +14,6 @@ class PickerModel {
   /// --------------------------------------------------------------------------
   const PickerModel({
     @required this.chainID,
-    @required this.groupID,
     @required this.index,
     @required this.isHeadline,
     this.canPickMany = false,
@@ -26,7 +24,6 @@ class PickerModel {
   });
   /// --------------------------------------------------------------------------
   final String chainID;
-  final String groupID;
 
   /// can pick many allows selecting either only 1 value from the chain or multiple values
   final bool canPickMany;
@@ -62,7 +59,6 @@ class PickerModel {
   }){
     return PickerModel(
       chainID: chainID ?? this.chainID,
-      groupID: groupID ?? this.groupID,
       canPickMany: canPickMany ?? this.canPickMany,
       isRequired: isRequired ?? this.isRequired,
       unitChainID: unitChainID ?? this.unitChainID,
@@ -83,7 +79,6 @@ class PickerModel {
   }){
 
     Map<String, dynamic> _output = {
-      'groupID': groupID,
       'canPickMany': canPickMany,
       'isRequired': isRequired,
       'blockers': PickersBlocker.cipherBlockers(blockers),
@@ -114,7 +109,6 @@ class PickerModel {
     if (map != null){
       _picker = PickerModel(
         chainID: chainID ?? map['chainID'],
-        groupID: map['groupID'],
         canPickMany: map['canPickMany'],
         isRequired: map['isRequired'],
         range: decipherRange(map['range']),
@@ -258,7 +252,6 @@ class PickerModel {
     else if (picker1 != null && picker2 != null){
 
       if (
-      picker1.groupID == picker2.groupID &&
           picker1.chainID == picker2.chainID &&
           picker1.canPickMany == picker2.canPickMany &&
           picker1.isRequired == picker2.isRequired &&
@@ -340,7 +333,6 @@ class PickerModel {
     blog('isHeadline : $isHeadline');
     blog('index : $index');
     blog('chainID : $chainID');
-    blog('groupID : $groupID');
     blog('range : $range');
     blog('canPickMany : $canPickMany');
     blog('isRequired : $isRequired');
@@ -486,64 +478,74 @@ class PickerModel {
 
     return  <PickerModel>[
 
+      /// ---> HEADLINE PROPERTIES
+      PickerModel(
+        index: 0,
+        isHeadline: true,
+        chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
+          context: context,
+          flyerTypeChainID: FlyerTyper.propertyChainID,
+        ),
+      ),
+
       /// PROPERTIES
       PickerModel(
+        index: 1,
         chainID: FlyerTyper.propertyChainID,
-        groupID: FlyerTyper.getGroupIDByChainKSonID(
-          context: context,
-          chainKSonID: FlyerTyper.propertyChainID,
-        ),
         canPickMany: canPickMany,
-        index: 0,
         isHeadline: false,
+      ),
+
+      /// ---> HEADLINE CONSTRUCTION
+      PickerModel(
+        index: 2,
+        isHeadline: true,
+        chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
+          context: context,
+          flyerTypeChainID: FlyerTyper.designChainID,
+        ),
       ),
 
       /// DESIGN
       PickerModel(
+        index: 3,
         chainID: FlyerTyper.designChainID,
-        groupID: FlyerTyper.getGroupIDByChainKSonID(
-          context: context,
-          chainKSonID: FlyerTyper.designChainID,
-        ),
         canPickMany: canPickMany,
-        index: 1,
         isHeadline: false,
       ),
 
       /// TRADES
       PickerModel(
-        chainID: FlyerTyper.tradesChainID,
-        groupID: FlyerTyper.getGroupIDByChainKSonID(
-          context: context,
-          chainKSonID: FlyerTyper.tradesChainID,
-        ),
-        canPickMany: canPickMany,
-        index: 2,
+        index: 4,
         isHeadline: false,
+        chainID: FlyerTyper.tradesChainID,
+        canPickMany: canPickMany,
+      ),
+
+      /// ---> SUPPLIES CONSTRUCTION
+      PickerModel(
+        index: 5,
+        isHeadline: true,
+        chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
+          context: context,
+          flyerTypeChainID: FlyerTyper.productChainID,
+        ),
       ),
 
       /// PRODUCTS
       PickerModel(
-        chainID: FlyerTyper.productChainID,
-        groupID: FlyerTyper.getGroupIDByChainKSonID(
-          context: context,
-          chainKSonID: FlyerTyper.productChainID,
-        ),
-        canPickMany: canPickMany,
-        index: 3,
+        index: 6,
         isHeadline: false,
+        chainID: FlyerTyper.productChainID,
+        canPickMany: canPickMany,
       ),
 
       /// EQUIPMENT
       PickerModel(
-        chainID: FlyerTyper.equipmentChainID,
-        groupID: FlyerTyper.getGroupIDByChainKSonID(
-          context: context,
-          chainKSonID: FlyerTyper.equipmentChainID,
-        ),
-        canPickMany: canPickMany,
-        index: 4,
+        index: 7,
         isHeadline: false,
+        chainID: FlyerTyper.equipmentChainID,
+        canPickMany: canPickMany,
       ),
 
     ];
@@ -585,6 +587,7 @@ class PickerModel {
     return _specPicker;
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
     @required List<PickerModel> pickers,
@@ -602,7 +605,9 @@ class PickerModel {
 
     return _output;
   }
+   */
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static List<String> getGroupsIDs({
     @required List<PickerModel> pickers,
@@ -618,6 +623,7 @@ class PickerModel {
 
     return _groups;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -703,6 +709,7 @@ class PickerModel {
     return _output;
   }
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replaceAGroupID({
     @required List<PickerModel> pickers,
@@ -746,6 +753,7 @@ class PickerModel {
 
     return _output;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// SORTING
@@ -898,7 +906,6 @@ class PickerModel {
   @override
   int get hashCode =>
       chainID.hashCode ^
-      groupID.hashCode ^
       canPickMany.hashCode ^
       isRequired.hashCode ^
       unitChainID.hashCode ^
