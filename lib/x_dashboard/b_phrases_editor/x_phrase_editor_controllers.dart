@@ -650,6 +650,7 @@ Future<void> createAPhidFast({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
 
   await BottomDialog.showStatefulBottomDialog(
@@ -665,38 +666,63 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
         height: BottomDialog.clearHeight(context: context, draggable: true, titleIsOn: true),
         child: ListView.builder(
             physics: const BouncingScrollPhysics(),
-            itemCount: _phraseProvider.phidsPendingTranslation.length,
+            itemCount: _phraseProvider.phidsPendingTranslation.length + 1,
             itemBuilder: (_, index){
 
-              final String _phid = _phraseProvider.phidsPendingTranslation[index];
+              final bool _isLast = index == _phraseProvider.phidsPendingTranslation.length;
 
-              return DataStrip(
-                width: BottomDialog.clearWidth(context),
-                dataKey: 'X : $index',
-                dataValue: _phid,
-                onKeyTap: () async {
+              if (_isLast == false){
 
-                  final bool _result = await Dialogs.confirmProceed(
-                    context: context,
-                    titleVerse: const Verse(text: 'phid_delete', translate: true),
-                  );
+                final String _phid = _phraseProvider.phidsPendingTranslation[index];
 
-                  if (_result == true){
+                return DataStrip(
+                  width: BottomDialog.clearWidth(context),
+                  dataKey: 'X : $index',
+                  dataValue: _phid,
+                  onKeyTap: () async {
 
-                    setState((){
-                      _phraseProvider.removePhidFromPendingTranslation(_phid);
-                    });
+                    final bool _result = await Dialogs.confirmProceed(
+                      context: context,
+                      titleVerse: const Verse(text: 'phid_delete', translate: true),
+                    );
+
+                    if (_result == true){
+
+                      setState((){
+                        _phraseProvider.removePhidFromPendingTranslation(_phid);
+                      });
+
+                    }
+
+                  },
+                  onValueTap: () async {
+
+                    unawaited(Keyboard.copyToClipboard(context: context, copy: _phid));
+                    Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
+
+                  },
+                );
+
+              }
+
+              else {
+
+                return BottomDialog.wideButton(
+                  context: context,
+                  verse: const Verse(text: 'Clear All', translate: false),
+                  onTap: () async {
+
+                    _phraseProvider.setPhidsPendingTranslation(
+                      setTo: const [],
+                      notify: true,
+                    );
+
+                    Nav.goBack(context: context, invoker: 'fuck you bitch');
 
                   }
+                );
 
-                },
-                onValueTap: () async {
-
-                  unawaited(Keyboard.copyToClipboard(context: context, copy: _phid));
-                  Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
-
-                },
-              );
+              }
 
             }
         ),

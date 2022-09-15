@@ -1,12 +1,9 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/old_chain_methods/chain_fire_ops.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -34,20 +31,20 @@ Future<void> onAddMoreSpecsChainsToExistingSpecsChains({
  */
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
-Future<void> onBackupAllChains(BuildContext context) async {
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    boolDialog: true,
-    titleVerse: const Verse(text: 'Back up All Chains ?', translate: false),
-    bodyVerse: const Verse(text: 'Please confirm', translate: false),
-  );
-
-  if (_result == true){
-    await ChainFireOpsOLD.backupChainsOps(context);
-  }
-
-}
+// Future<void> onBackupAllChains(BuildContext context) async {
+//
+//   final bool _result = await CenterDialog.showCenterDialog(
+//     context: context,
+//     boolDialog: true,
+//     titleVerse: const Verse(text: 'Back up All Chains ?', translate: false),
+//     bodyVerse: const Verse(text: 'Please confirm', translate: false),
+//   );
+//
+//   if (_result == true){
+//     await ChainFireOpsOLD.backupChainsOps(context);
+//   }
+//
+// }
 // -----------------------------------------------------------------------------
 Future<void> onUploadChains() async {
 

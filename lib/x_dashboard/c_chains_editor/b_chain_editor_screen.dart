@@ -32,6 +32,9 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   final ValueNotifier<List<Chain>> _tempChains = ValueNotifier([]);
   // --------------------
   final TextEditingController _searchController = TextEditingController();
+  final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
+  final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null);
+
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);

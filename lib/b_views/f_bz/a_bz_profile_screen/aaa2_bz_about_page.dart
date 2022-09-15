@@ -54,11 +54,10 @@ class BzAboutPage extends StatelessWidget {
         /// ABOUT
         if (TextCheck.isEmpty(_bzModel.about) == false)
           ParagraphBubble(
-            headerViewModel: BubbleHeaderVM(
+            headerViewModel: const BubbleHeaderVM(
               headlineVerse: Verse(
-                text: '##About ${_bzModel.name}',
+                text: 'phid_about_us',
                 translate: true,
-                variables: _bzModel.name,
               ),
             ),
             paragraph: Verse(

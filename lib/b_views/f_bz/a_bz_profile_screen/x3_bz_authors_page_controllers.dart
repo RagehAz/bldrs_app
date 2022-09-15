@@ -79,10 +79,9 @@ Future<void> onAuthorOptionsTap({
     /// CHANGE ROLE
     BottomDialog.wideButton(
       context: context,
-      verse: Verse(
-        text: '##Change team role for $_authorName',
+      verse: const Verse(
+        text: 'phid_change_team_role',
         translate: true,
-        variables: _authorName,
       ),
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
@@ -110,10 +109,9 @@ Future<void> onAuthorOptionsTap({
     /// EDIT AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: Verse(
-        text: '##Edit $_authorName Author details',
+      verse: const Verse(
+        text: 'phid_edit_author_details',
         translate: true,
-        variables: _authorName,
       ),
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
@@ -141,8 +139,8 @@ Future<void> onAuthorOptionsTap({
     /// REMOVE AUTHOR
     BottomDialog.wideButton(
       context: context,
-      verse: Verse(
-        text: '##Remove $_authorName from the team',
+      verse: const Verse(
+        text: 'phid_remove_author_from_the_team',
         translate: true,
       ),
       icon: Iconz.xSmall,

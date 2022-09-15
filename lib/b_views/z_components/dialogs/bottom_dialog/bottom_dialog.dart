@@ -297,6 +297,7 @@ class BottomDialog extends StatelessWidget {
     );
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> showStatefulBottomDialog({
     @required BuildContext context,
     @required Widget Function(BuildContext, Function setState) builder,

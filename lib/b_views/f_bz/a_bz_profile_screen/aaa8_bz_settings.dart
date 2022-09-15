@@ -35,10 +35,9 @@ class BzSettingsPage extends StatelessWidget {
         const DotSeparator(color: Colorz.yellow80,),
 
         SettingsWideButton(
-          verse: Verse(
-            text: '##Edit ${_bzModel.name} Business Account',
+          verse: const Verse(
+            text: 'phid_edit_bz_account',
             translate: true,
-            variables: _bzModel.name,
           ),
           icon: Iconz.gears,
           onTap: () => onEditBzButtonTap(
@@ -52,10 +51,9 @@ class BzSettingsPage extends StatelessWidget {
 
         if (_userIsCreator == true)
           SettingsWideButton(
-            verse: Verse(
-              text: '##Delete ${_bzModel.name} Business account',
+            verse: const Verse(
+              text: 'phid_delete_bz_account',
               translate: true,
-              variables: _bzModel.name,
             ),
             color: Colorz.bloodTest,
             icon: Iconz.xSmall,
