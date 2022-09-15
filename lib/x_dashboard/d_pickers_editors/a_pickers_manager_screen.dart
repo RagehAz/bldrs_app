@@ -182,12 +182,11 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
 
         /// COMPOSE PICKERS
         WideButton(
-          verse: Verse.plain('COMPOSE : first all pickers'),
+          verse: Verse.plain('COMPOSE : first all pickers : xx'),
           isActive: false,
           onTap: () async {
 
-
-            // PickerModel.blogPickers(RawPickers.getPickersByFlyerType(_flyerType));
+            //
             //
             // final bool _continue = await Dialogs.confirmProceed(context: context);
             //
@@ -195,9 +194,18 @@ class _SpecPickerManagerState extends State<SpecPickerManager> {
             //
             //   for (final FlyerType type in FlyerTyper.flyerTypesList){
             //
+            //     List<PickerModel> _pickers;
+            //
+            //     if (type == FlyerType.equipment){
+            //       _pickers = RawPickers.equipmentPickers()['pickers'];
+            //     }
+            //     else{
+            //       _pickers = await PickerLDBOps.readPickers(flyerType: type);
+            //     }
+            //
             //     await PickerProtocols.composeFlyerTypePickers(
             //       context: context,
-            //       pickers: RawPickers.getPickersByFlyerType(type),
+            //       pickers: _pickers,
             //       flyerType: type,
             //     );
             //

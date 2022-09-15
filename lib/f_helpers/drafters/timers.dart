@@ -259,9 +259,9 @@ class Timers {
     @required DateTime time,
   }){
     final String _day = '${time.day}';
-    final String _monthString = generateMonthNameByInt(context, time.month);
+    final String _monthPhid = generateMonthNameByInt(context, time.month);
     final String _year = '${time.year}';
-    final String _timeString = 'on $_day $_monthString $_year';
+    final String _timeString = 'on $_day ${xPhrase(context, _monthPhid)} $_year';
 
     return _timeString;
   }

@@ -217,7 +217,7 @@ class PickerEditingTile extends StatelessWidget {
                         width: _clearWidth,
                         child: const SuperVerse(
                           verse:  Verse(
-                            text: 'Values that deactivate specific specPickers',
+                            text: 'Values that deactivate specific pickers',
                             translate: false,
                           ),
                           size: 1,

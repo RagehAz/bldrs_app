@@ -198,7 +198,10 @@ class CenterDialog extends StatelessWidget {
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                       width: _screenWidth,
-                      height: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
+                      // height: ,
+                      constraints: BoxConstraints(
+                        minHeight: _keyboardIsOn == true ? (_screenHeight - _keyboardHeight * 0.5) : _screenHeight,
+                      ),
                       alignment: Alignment.center,
                       color: Colorz.nothing, // to let parent gesture detector detect this container
                       child: GestureDetector(
@@ -208,7 +211,10 @@ class CenterDialog extends StatelessWidget {
                         },
                         child: Container(
                           width: _dialogWidth,
-                          height: _dialogHeight,
+                          // height: _dialogHeight,
+                          constraints: BoxConstraints(
+                            minHeight: _dialogHeight,
+                          ),
                           decoration: BoxDecoration(
                             color: color,
                             boxShadow: Shadower.appBarShadow,
@@ -280,7 +286,6 @@ class CenterDialog extends StatelessWidget {
 
                                   ],
                                 ),
-
 
                               /// BUTTONS
                               if (boolDialog != null)
