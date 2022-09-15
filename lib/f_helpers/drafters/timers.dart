@@ -1074,7 +1074,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
         await CenterDialog.showCenterDialog(
           context: context,
           titleVerse: const Verse(
-            pseudo: '##Device clock is incorrect !',
             text: 'phid_device_time_incorrect',
             translate: true,
           ),

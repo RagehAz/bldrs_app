@@ -282,7 +282,7 @@ Future<void> onCancelSentAuthorshipInvitation ({
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          pseudo: '##Invitation request has been cancelled',
+          pseudo: 'Invitation request has been cancelled',
           text: 'phid_invitation_is_cancelled',
           translate: true,
         ),
