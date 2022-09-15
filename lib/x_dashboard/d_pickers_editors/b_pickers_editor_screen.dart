@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_headline_tile.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -239,36 +238,23 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
 
                     /// GROUP HEADLINE
                     if (_picker.isHeadline == true){
-                      return Align(
-                        key: ValueKey<String>(_picker.chainID),
-                        alignment: Alignment.centerLeft,
-                        child: DreamBox(
-                          height: 40,
-                          verse: Verse(
-                            text: _picker.groupID,
-                            translate: true,
-                            casing: Casing.upperCase,
-                          ),
-                          secondLine: Verse(
-                            text: '$index : ${_picker.chainID}',
-                            translate: false,
-                          ),
-                          margins: 10,
-                          verseScaleFactor: 0.65,
-                          verseItalic: true,
-                          bubble: false,
-                          color: Colorz.yellow125,
-                          verseCentered: false,
-                          onTap: () => onHeadlineTap(
-                            context: context,
-                            tempPickers: _tempPickers,
-                            picker: _picker,
-                          ),
+
+                      return PickerHeadlineTile(
+                        picker: _picker,
+                        secondLine: Verse(
+                          text: '$index : ${_picker.chainID}',
+                          translate: false,
+                        ),
+                        onTap: () => onHeadlineTap(
+                          context: context,
+                          tempPickers: _tempPickers,
+                          picker: _picker,
                         ),
                       );
+
                     }
 
-                    /// PICKER TILE
+                    /// PICKER EDITING TILE
                     else {
                       return PickerEditingTile(
                         key: ValueKey<String>(_picker.chainID),

@@ -115,6 +115,7 @@ void onReorderPickers({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
+/*
 Future<void> onChangeGroupIDForAllItsPickers({
   @required BuildContext context,
   @required String oldGroupID,
@@ -152,8 +153,9 @@ Future<void> onChangeGroupIDForAllItsPickers({
   }
 
 }
+*/
 // --------------------
-///
+/*
 Future<void> onChangeGroupIDForSinglePicker({
   @required BuildContext context,
   @required PickerModel picker,
@@ -209,6 +211,7 @@ Future<void> onChangeGroupIDForSinglePicker({
   }
 
 }
+ */
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPickerChainIDTap({
@@ -367,7 +370,6 @@ Future<void> onAddNewPickers({
       final PickerModel _newPicker = PickerModel(
         chainID: _phid,
         index: tempPickers.value.length,
-        groupID: null,
         isHeadline: false,
         // unitChainID: null,
         range: const [],
@@ -504,23 +506,6 @@ Future<void> onHeadlineTap({
               Dialogs.closDialog(context);
 
               await onPickerChainIDTap(
-                context: context,
-                picker: picker,
-                tempPickers: tempPickers,
-              );
-
-            },
-          ),
-
-          /// CHANGE GROUP ID
-          BottomDialog.wideButton(
-            context: context,
-            verse: const Verse(text: 'change GroupID', translate: false),
-            onTap: () async {
-
-              Dialogs.closDialog(context);
-
-              await onChangeGroupIDForSinglePicker(
                 context: context,
                 picker: picker,
                 tempPickers: tempPickers,
