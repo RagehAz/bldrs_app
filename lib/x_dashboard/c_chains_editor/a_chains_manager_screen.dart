@@ -14,7 +14,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/b_chain_editor_screen.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/old_chains_manager_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/x_chains_manager_controllers.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/z_components/picking_mode_bubble.dart';
 import 'package:bldrs/x_dashboard/x_modules/l_provider_viewer/provider_viewer_screen.dart';
@@ -86,14 +85,6 @@ class _ChainsManagerState extends State<ChainsManager> {
 
     return DashBoardLayout(
       pageTitle: 'Chains Manager',
-      appBarWidgets: [
-
-        AppBarButton(
-          verse: Verse.plain('Manager V2'),
-          onTap: () => Nav.goToNewScreen(context: context, screen: const OLDChainsManagerScreen()),
-        ),
-
-      ],
       listWidgets: <Widget>[
 
         /// GO TO CHAINS EDITOR SCREEN

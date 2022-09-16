@@ -35,7 +35,7 @@ class EditingChainsBuilder extends StatelessWidget {
   final Function(String path, String phid) onPhidTap;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
   final ValueChanged<String> onDoubleTap;

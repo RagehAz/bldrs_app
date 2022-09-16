@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -15,7 +15,6 @@ class ChainTreeStrip extends StatelessWidget {
     @required this.width,
     @required this.level,
     @required this.phid,
-    @required this.phraseValue,
     @required this.onTriggerExpansion,
     @required this.onStripTap,
     @required this.searchValue,
@@ -26,13 +25,12 @@ class ChainTreeStrip extends StatelessWidget {
   final double width;
   final int level;
   final String phid;
-  final String phraseValue;
   final Function onTriggerExpansion;
   final bool expanded;
   final ValueChanged<String> onStripTap;
-  final ValueNotifier<String> searchValue;
+  final ValueNotifier<dynamic> searchValue;
   /// --------------------------------------------------------------------------
-  static const double stripHeight = 40;
+  static const double stripHeight = 50;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,8 +38,8 @@ class ChainTreeStrip extends StatelessWidget {
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     // --------------------
     const Color _stripColor = Colorz.black255;
-    final double _levelPaddingWidth = stripHeight + (stripHeight * 0.6 * (level - 1));
-    final double _stringsWidth = width - _levelPaddingWidth - stripHeight;
+    final double _levelPaddingWidth = stripHeight + (stripHeight * 0.35 * (level - 1));
+    final double _stringsWidth = width - _levelPaddingWidth;
     // --------------------
     return Container(
       key: const ValueKey<String>('chain_tree_strip'),
@@ -93,17 +91,19 @@ class ChainTreeStrip extends StatelessWidget {
                   DreamBox(
                     height: stripHeight,
                     width: stripHeight,
-                    iconSizeFactor: Phrase.isKeywordPhid(phid) ? 1 : 0.7,
+                    corners: stripHeight * 0.2,
+                    color: Colorz.white20,
+                    iconSizeFactor: Phider.checkIsPhid(phid) ? 1 : 0.7,
                     bubble: false,
                     icon: _chainsProvider.getPhidIcon(
                       son: phid,
                       context: context,
-                    ),
+                    ) ?? Iconz.circleDot,
                   ),
 
                   const SizedBox(
-                    width: stripHeight * 0.2,
-                    height: stripHeight,
+                    width: 5,
+                    height: 5,
                   ),
 
                   Column(
@@ -113,8 +113,8 @@ class ChainTreeStrip extends StatelessWidget {
                       /// TRANSLATION
                       SuperVerse(
                         verse: Verse(
-                          text: phraseValue,
-                          translate: false,
+                          text: Phider.removeIndexFromPhid(phid: phid),
+                          translate: true,
                         ),
                         italic: true,
                         centered: false,
@@ -125,10 +125,11 @@ class ChainTreeStrip extends StatelessWidget {
                       /// ID
                       SuperVerse(
                         verse: Verse(
-                          text: '( lvl $level ) : $phid',
+                          text: phid,
                           translate: false,
                         ),
                         size: 1,
+                        scaleFactor: 1.1,
                         centered: false,
                         weight: VerseWeight.thin,
                         highlight: searchValue,
@@ -143,8 +144,7 @@ class ChainTreeStrip extends StatelessWidget {
               ),
             ),
           ),
-
-
+          
         ],
       ),
     );

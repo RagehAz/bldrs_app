@@ -22,6 +22,7 @@ Future<void> onChainsSearchChanged({
   @required ValueNotifier<List<Chain>> foundChains,
   @required ValueNotifier<String> searchText,
   @required List<String> phidsOfAllPickers,
+  @required List<Chain> chains,
 }) async {
 
   // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
@@ -36,6 +37,7 @@ Future<void> onChainsSearchChanged({
       searchText: searchText,
       text: text,
       phidsOfAllPickers: phidsOfAllPickers,
+      chains: chains,
     ),
     onSwitchOff: () => _clearSearchResult(
       foundChains: foundChains,
@@ -52,6 +54,7 @@ Future<void> onChainsSearchSubmitted({
   @required ValueNotifier<List<Chain>> foundChains,
   @required ValueNotifier<String> searchText,
   @required List<String> phidsOfAllPickers,
+  @required List<Chain> chains,
 }) async {
 
   searchText.value = text;
@@ -68,14 +71,29 @@ Future<void> onChainsSearchSubmitted({
     phids: _phids,
   );
 
-  // blog('search result is : -');
-  // blog('phids : $_phids');
-  // Chain.blogChains(_chains);
-  // blog('the end of search --------------------');
+  final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
+    chains: chains,
+    phid: text,
+  );
+
+  final List<Chain> _combinedChains = <Chain>[..._foundPathsChains, ..._chains];
+
+  /// THIS WILL INCLUDE ALL RELATED PATHS : WHICH IS TOO MUCH
+  /*
+  final List<String> _combinedPaths = ChainPathConverter.generateChainsPaths(
+    parentID: '',
+    chains: _combinedChains,
+  );
+  final List<String> _lastNodes = ChainPathConverter.getPathsLastNodes(_combinedPaths);
+  _combinedChains = ChainPathConverter.findPhidsRelatedChains(
+      chains: chains,
+      phids: _lastNodes,
+  );
+  */
 
   await _setFoundResults(
     context: context,
-    foundChainsResult: _chains,
+    foundChainsResult: _combinedChains,
     foundChainsNotifier: foundChains,
   );
 
@@ -97,7 +115,9 @@ Future<List<String>> _searchKeywordsPhrases({
     inputText: text,
   );
 
+  Phrase.blogPhrases(_searched);
   blog('_searchKeywordsPhrases : found ${_searched.length} phrases');
+
 
   if (Mapper.checkCanLoopList(_searched) == true) {
 
@@ -105,10 +125,10 @@ Future<List<String>> _searchKeywordsPhrases({
 
     blog('BEFORE REMOVE THEY WERE : $_phids');
 
-    _phids = Chain.removeAllChainIDsFromKeywordsIDs(
-      phids: _phids,
-      allChains: _chainsProvider.bldrsChains,
-    );
+    // _phids = Chain.removeAllChainIDsFromKeywordsIDs(
+    //   phids: _phids,
+    //   allChains: _chainsProvider.bldrsChains,
+    // );
 
     _phids = _removeCurrenciesFromPhids(
       phids: _phids,

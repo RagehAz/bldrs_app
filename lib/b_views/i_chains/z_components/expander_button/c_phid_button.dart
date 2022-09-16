@@ -33,7 +33,7 @@ class PhidButton extends StatelessWidget {
   final bool isDisabled;
   final bool xIsOn;
   final dynamic margins;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final bool inverseAlignment;
   final Verse secondLine;
   final Function onDoubleTap;
@@ -108,7 +108,7 @@ class PhidButton extends StatelessWidget {
         iconSizeFactor: _getIconScaleFactor(),
         verseScaleFactor: _getVerseScaleFactor(),
         verseCentered: false,
-        verseMaxLines: 2,
+        verseMaxLines: secondLine == null ? 2 : 1,
         bubble: false,
         verseShadow: false,
         verseItalic: true,

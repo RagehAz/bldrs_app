@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
-import 'package:bldrs/d_providers/phrase_provider.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/chain_viewer_structure/chain_tree_strip.dart';
+import 'package:bldrs/x_dashboard/c_chains_editor/z_components/chain_tree_viewer/c_chain_tree_strip.dart';
 import 'package:flutter/material.dart';
 
 class ChainTreeViewer extends StatefulWidget {
@@ -22,7 +21,7 @@ class ChainTreeViewer extends StatefulWidget {
   final Chain chain;
   final int initialLevel;
   final ValueChanged<String> onStripTap;
-  final ValueNotifier<String> searchValue;
+  final ValueNotifier<dynamic> searchValue;
   final bool initiallyExpanded;
   final int index;
   /// --------------------------------------------------------------------------
@@ -33,12 +32,12 @@ class ChainTreeViewer extends StatefulWidget {
 
 class _ChainTreeViewerState extends State<ChainTreeViewer> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _expanded;
+  final ValueNotifier<bool> _expanded = ValueNotifier<bool>(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _expanded = ValueNotifier(widget.initiallyExpanded);
+    _expanded.value = widget.initiallyExpanded;
   }
   // --------------------
   /// TAMAM
@@ -108,7 +107,6 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                         width: widget.width,
                         level: widget.initialLevel + 1,
                         phid: keywordID,
-                        phraseValue: '${index + 1} - ${xPhrase( context, keywordID)}',
                         onTriggerExpansion: (){},
                         onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID/'),
                         searchValue: widget.searchValue,
@@ -124,7 +122,6 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 width: widget.width,
                 level: widget.initialLevel + 1,
                 phid: DataCreation.cipherDataCreator(widget.chain?.sons),
-                phraseValue: widget.chain?.sons?.toString(),
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('${widget.chain.id}/$sonID'),
                 searchValue: widget.searchValue,
@@ -143,7 +140,6 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                 width: widget.width,
                 level: widget.initialLevel,
                 phid: widget.chain?.id,
-                phraseValue: '${widget.index + 1} - ${xPhrase( context, widget.chain?.id)}',
                 expanded: _isExpanded,
                 onTriggerExpansion: _triggerExpansion,
                 onStripTap: (String sonID) => widget.onStripTap('$sonID/'),

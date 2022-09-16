@@ -141,7 +141,7 @@ class Phider {
   }
   // --------------------
   ///
-  static List<String> removeIndexesFromPhids(List<String> phids){
+  static List<String> removePhidsIndexes(List<String> phids){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(phids) == true){
@@ -562,6 +562,38 @@ class Phider {
         text: removeIndexFromPhid(phid: text),
         startsWith: phid_kCut,
       );
+
+      /// SOLUTION 2 : TESTED : WORKS PERFECT
+      // final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      //   input: Phider.removeIndexFromPhid(phid: text),
+      //   numberOfChars: 7, //'ph id _k_'
+      // );
+      // return _phidK == 'phid_k_';
+
+
+    }
+
+    return _isPhidK;
+  }
+  // --------------------
+  ///  NEED TEST
+  static bool checkIsPhidS(String text){
+    bool _isPhidK= false;
+
+    if (text != null){
+
+      _isPhidK = TextCheck.stringStartsExactlyWith(
+        text: removeIndexFromPhid(phid: text),
+        startsWith: phid_sCut,
+      );
+
+      /// SOLUTION 2 : TESTED : WORKS PERFECT
+      // final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      //   input: Phider.removeIndexFromPhid(phid: text),
+      //   numberOfChars: 7, //'phid_s_'
+      // );
+      // return _phids == 'phid_s_';
+
 
     }
 
