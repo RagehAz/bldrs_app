@@ -47,10 +47,13 @@ class ZoneSelectionButton extends StatelessWidget {
           verseScaleFactor: 0.8,
           icon: icon,
           bubble: false,
-          verse: Verse(
-            text: loading == true ? 'phid_loading' : verse?.text ?? '',
+          verse: loading == true ?
+          const Verse(
+            text: 'phid_loading'  ,
             translate: true,
-          ),
+          )
+              :
+          verse,
           verseMaxLines: 2,
           color: Colorz.white10,
           onTap: onTap,

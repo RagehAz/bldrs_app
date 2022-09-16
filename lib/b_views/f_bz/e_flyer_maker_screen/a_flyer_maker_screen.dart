@@ -181,36 +181,35 @@ class _FlyerMakerScreenState extends State<FlyerMakerScreen> with AutomaticKeepA
         ),
         onTap: () => _onConfirmTap(),
       ),
-      appBarRowWidgets: <Widget>[
+      appBarRowWidgets: const <Widget>[
 
-        const Expander(),
+        Expander(),
 
-        AppBarButton(
-          verse: Verse.plain('Identical'),
-          onTap: () async {
-
-            FlyerModel.checkFlyersAreIdentical(
-              flyer1: widget.flyerToEdit,
-              flyer2: await DraftFlyerModel.bakeDraftToUpload(
-                draft: _draftFlyer.value,
-                toLDB: false,
-              ),
-            );
-
-          },
-        ),
-
-        AppBarButton(
-          verse: Verse.plain('draft'),
-          onTap: (){
-            // widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
-            _draftFlyer.value.blogDraft();
-
-            Formers.validateForm(_formKey);
-
-          },
-        ),
-
+        // AppBarButton(
+        //   verse: Verse.plain('Identical'),
+        //   onTap: () async {
+        //
+        //     FlyerModel.checkFlyersAreIdentical(
+        //       flyer1: widget.flyerToEdit,
+        //       flyer2: await DraftFlyerModel.bakeDraftToUpload(
+        //         draft: _draftFlyer.value,
+        //         toLDB: false,
+        //       ),
+        //     );
+        //
+        //   },
+        // ),
+        //
+        // AppBarButton(
+        //   verse: Verse.plain('draft'),
+        //   onTap: (){
+        //     // widget.flyerToEdit?.blogFlyer(methodName: 'widget.flyerToEdit');
+        //     _draftFlyer.value.blogDraft();
+        //
+        //     Formers.validateForm(_formKey);
+        //
+        //   },
+        // ),
 
       ],
       // onBack: () => onCancelFlyerCreation(context),

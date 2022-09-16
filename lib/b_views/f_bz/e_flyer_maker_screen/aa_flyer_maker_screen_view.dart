@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selec
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
@@ -82,6 +84,11 @@ class FlyerMakerScreenView extends StatelessWidget {
                       flyerTypes: _allowableTypes,
                     ),
                     translate: false,
+                  );
+
+                  final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
+                      bz: _bzModel,
+                      authorID: _draft.authorID,
                   );
 
                   return Form(
@@ -259,9 +266,21 @@ class FlyerMakerScreenView extends StatelessWidget {
                               translate: true,
                             ),
                             bulletPoints: const <Verse>[
-                              Verse(text: '##Select The city you would like this flyer to target', translate: true,),
-                              Verse(text: '##each flyer can target only one city', translate: true,),
-                              Verse(text: '##Selecting district increases the probability of this flyer to gain more views in that district', translate: true,),
+                              Verse(
+                                pseudo: 'Select The city you would like this flyer to target',
+                                text: 'phid_select_city_you_want_to_target',
+                                translate: true,
+                              ),
+                              Verse(
+                                pseudo: 'Each flyer can target only one city',
+                                text: 'phid_each_flyer_target_one_city',
+                                translate: true,
+                              ),
+                              Verse(
+                                pseudo: 'Selecting district increases the probability of this flyer to gain more views in that district',
+                                text: 'phid_selecting_district_focuses_search',
+                                translate: true,
+                              ),
                             ],
                             currentZone: _draft.zone,
                             onZoneChanged: (ZoneModel zone) => onZoneChanged(
@@ -282,14 +301,56 @@ class FlyerMakerScreenView extends StatelessWidget {
 
                           /// SHOW FLYER AUTHOR
                           Bubble(
-                            headerViewModel: const BubbleHeaderVM(
-                              headlineVerse: Verse(
+                            headerViewModel: BubbleHeaderVM(
+                              headlineVerse: const Verse(
                                 text: 'phid_show_author_on_flyer',
                                 translate: true,
                               ),
+                              switchValue: _draft.showsAuthor,
+                              hasSwitch: true,
+                              onSwitchTap: (bool value){
+
+                                draft.value = _draft.copyWith(
+                                  showsAuthor: value,
+                                );
+
+                              }
                             ),
                             width: Bubble.bubbleWidth(context),
-                            columnChildren: const <Widget>[],
+                            columnChildren: <Widget>[
+
+                              NewStaticHeader(
+                                flyerBoxWidth: Bubble.clearWidth(context),
+                                bzModel: _bzModel,
+                                authorID: _author.userID,
+                                flyerShowsAuthor: _draft.showsAuthor,
+                              ),
+
+                              // HeaderBox(
+                              //   tinyMode: false,
+                              //   onHeaderTap: (){},
+                              //   headerBorders: FlyerBox.superHeaderCorners(
+                              //     context: context,
+                              //     flyerBoxWidth: Bubble.clearWidth(context),
+                              //     bzPageIsOn: false,
+                              //   ),
+                              //   flyerBoxWidth: Bubble.clearWidth(context),
+                              //   headerColor: Colorz.white20,
+                              //   headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: Bubble.clearWidth(context)),
+                              //   stackChildren: <Widget>[
+                              //
+                              //     HeaderLabels(
+                              //       flyerBoxWidth: Bubble.clearWidth(context),
+                              //       authorID: _author.userID,
+                              //       bzModel: _bzModel,
+                              //       headerIsExpanded: false,
+                              //       flyerShowsAuthor: _draft.showsAuthor,
+                              //     ),
+                              //
+                              //   ],
+                              // ),
+
+                            ],
                           ),
 
                         ],

@@ -89,10 +89,10 @@ Future<void> loadUserEditorLastSession({
         text: 'phid_load_last_session_data_q',
         translate: true,
       ),
-      bodyVerse: const Verse(
-        text: 'phid_want_to_load_last_session_q',
-        translate: true,
-      ),
+      // bodyVerse: const Verse(
+      //   text: 'phid_want_to_load_last_session_q',
+      //   translate: true,
+      // ),
       boolDialog: true,
     );
 
