@@ -1,4 +1,3 @@
-import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
@@ -6,18 +5,15 @@ import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/a_specs_selector_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/pdf_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -84,11 +80,6 @@ class FlyerMakerScreenView extends StatelessWidget {
                       flyerTypes: _allowableTypes,
                     ),
                     translate: false,
-                  );
-
-                  final AuthorModel _author = AuthorModel.getAuthorFromBzByAuthorID(
-                      bz: _bzModel,
-                      authorID: _draft.authorID,
                   );
 
                   return Form(
@@ -245,15 +236,13 @@ class FlyerMakerScreenView extends StatelessWidget {
                             formKey: formKey,
                             existingPDF: _draft.pdf,
                             canValidate: canValidate,
-                            onChangePDF: (FileModel pdf){
-                              blog('onChangePDF : aho with ${pdf.fileName}');
-                              draft.value = draft.value.copyWith(
-                                pdf: pdf,
-                              );
-                            },
-                            onDeletePDF: (){
-                              draft.value = DraftFlyerModel.removePDF(draft.value);
-                            },
+                            onChangePDF: (FileModel pdf) => onChangeFlyerPDF(
+                              draft: draft,
+                              pdf: pdf,
+                            ),
+                            onDeletePDF: () => onRemoveFlyerPDF(
+                              draft: draft
+                            ),
                           ),
 
                           /// SEPARATOR
@@ -300,57 +289,13 @@ class FlyerMakerScreenView extends StatelessWidget {
                           const DotSeparator(),
 
                           /// SHOW FLYER AUTHOR
-                          Bubble(
-                            headerViewModel: BubbleHeaderVM(
-                              headlineVerse: const Verse(
-                                text: 'phid_show_author_on_flyer',
-                                translate: true,
-                              ),
-                              switchValue: _draft.showsAuthor,
-                              hasSwitch: true,
-                              onSwitchTap: (bool value){
-
-                                draft.value = _draft.copyWith(
-                                  showsAuthor: value,
-                                );
-
-                              }
+                          ShowAuthorSwitchBubble(
+                            draft: _draft,
+                            bzModel: _bzModel,
+                            onSwitch: (bool value) => onSwitchFlyerShowsAuthor(
+                              value: value,
+                              draft: draft,
                             ),
-                            width: Bubble.bubbleWidth(context),
-                            columnChildren: <Widget>[
-
-                              NewStaticHeader(
-                                flyerBoxWidth: Bubble.clearWidth(context),
-                                bzModel: _bzModel,
-                                authorID: _author.userID,
-                                flyerShowsAuthor: _draft.showsAuthor,
-                              ),
-
-                              // HeaderBox(
-                              //   tinyMode: false,
-                              //   onHeaderTap: (){},
-                              //   headerBorders: FlyerBox.superHeaderCorners(
-                              //     context: context,
-                              //     flyerBoxWidth: Bubble.clearWidth(context),
-                              //     bzPageIsOn: false,
-                              //   ),
-                              //   flyerBoxWidth: Bubble.clearWidth(context),
-                              //   headerColor: Colorz.white20,
-                              //   headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: Bubble.clearWidth(context)),
-                              //   stackChildren: <Widget>[
-                              //
-                              //     HeaderLabels(
-                              //       flyerBoxWidth: Bubble.clearWidth(context),
-                              //       authorID: _author.userID,
-                              //       bzModel: _bzModel,
-                              //       headerIsExpanded: false,
-                              //       flyerShowsAuthor: _draft.showsAuthor,
-                              //     ),
-                              //
-                              //   ],
-                              // ),
-
-                            ],
                           ),
 
                         ],
