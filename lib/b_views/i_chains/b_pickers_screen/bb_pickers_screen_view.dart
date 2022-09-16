@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instructi
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class PickersScreenView extends StatelessWidget {
@@ -41,14 +40,19 @@ class PickersScreenView extends StatelessWidget {
   final Function onKeyboardSubmitted;
   final AppBarType appBarType;
   // -----------------------------------------------------------------------------
-  double _getListZoneHeight(){
+  double _getListZoneHeight(BuildContext context){
 
     final double _instructionsBoxHeight = showInstructions == true ?
     PickerScreen.instructionBoxHeight
         :
     0;
 
-    final double _listZoneHeight = screenHeight - Ratioz.stratosphere - _instructionsBoxHeight;
+    final double _stratosphere = Stratosphere.getStratosphereValue(
+        context: context,
+        appBarType: appBarType
+    );
+
+    final double _listZoneHeight = screenHeight - _stratosphere - _instructionsBoxHeight;
 
     return _listZoneHeight;
   }
@@ -82,12 +86,12 @@ class PickersScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _listZoneHeight = _getListZoneHeight();
+    final double _listZoneHeight = _getListZoneHeight(context);
     // --------------------
     return Column(
       children: <Widget>[
 
-        const Stratosphere(),
+        Stratosphere(bigAppBar: appBarType == AppBarType.search),
 
         /// INSTRUCTIONS BOX
         if (showInstructions == true)
