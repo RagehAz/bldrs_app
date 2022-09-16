@@ -46,7 +46,7 @@ class CollapsedTile extends StatelessWidget {
   final double iconCorners;
   final bool marginIsOn;
   final double iconSizeFactor;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final Function onLongPress;
   final Function onDoubleTap;
   /// --------------------------------------------------------------------------
@@ -164,6 +164,7 @@ class CollapsedTile extends StatelessWidget {
                             color: Colorz.white125,
                             maxLines: 2,
                             centered: false,
+                            highlight: searchText,
                           ),
 
                       ],

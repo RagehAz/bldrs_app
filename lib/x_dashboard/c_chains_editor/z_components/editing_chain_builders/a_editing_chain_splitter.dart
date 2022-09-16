@@ -42,7 +42,7 @@ class EditingChainSplitter extends StatelessWidget {
   final Function(String path, String phid) onSelectPhid;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
   final ValueChanged<String> onDoubleTap;

@@ -624,6 +624,24 @@ class PickerModel {
     return _groups;
   }
    */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getPickersChainsIDs(List<PickerModel> pickers){
+    List<String> _chainsIDs = <String>[];
+
+    if (Mapper.checkCanLoopList(pickers) == true){
+
+      for (final PickerModel picker in pickers) {
+        _chainsIDs = Stringer.addStringToListIfDoesNotContainIt(
+          strings: _chainsIDs,
+          stringToAdd: picker.chainID,
+        );
+      }
+
+    }
+
+    return _chainsIDs;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

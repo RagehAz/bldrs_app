@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -1083,24 +1084,6 @@ class Phrase {
 
     return _listsAreIdentical;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool isKeywordPhid(String phid){
-    final String _phidK = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: phid,
-      numberOfChars: 7, //'ph id _k_'
-    );
-    return _phidK == 'phid_k_';
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool isSpecPhid(String phid){
-    final String _phids = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: phid,
-      numberOfChars: 7, //'phid_s_'
-    );
-    return _phids == 'phid_s_';
-  }
   // -----------------------------------------------------------------------------
 
   /// SORTING
@@ -1534,7 +1517,7 @@ class Phrase {
 
     for (final Phrase phrase in allPhrases){
 
-      final bool _isKeyword = isKeywordPhid(phrase.id);
+      final bool _isKeyword = Phider.checkIsPhidK(phrase.id);
 
       if (_isKeyword == true){
         _keywordsPhrases.add(phrase);
@@ -1556,7 +1539,7 @@ class Phrase {
 
     for (final Phrase phrase in allPhrases){
 
-      final bool _isSpec = isSpecPhid(phrase.id);
+      final bool _isSpec = Phider.checkIsPhidS(phrase.id);
 
       if (_isSpec == true){
         _specsIDs.add(phrase);

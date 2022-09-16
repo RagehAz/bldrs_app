@@ -401,6 +401,24 @@ class ChainPathConverter {
     }
     return _node;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getPathsLastNodes(List<String> paths){
+    final List<String> _lastNodes = <String>[];
+
+    if (Mapper.checkCanLoopList(paths) == true){
+
+      for (final String path in paths){
+
+        final String _node = getLastPathNode(path);
+        _lastNodes.add(_node);
+
+      }
+
+    }
+
+    return _lastNodes;
+  }
   // -----------------------------------------------------------------------------
 
   /// CREATE PATHS FROM CHAINS

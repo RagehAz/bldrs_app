@@ -29,7 +29,7 @@ class DataStripWithHeadline extends StatelessWidget {
   final bool isPercent;
   final Function onKeyTap;
   final Function onValueTap;
-  final ValueNotifier<String> highlightText;
+  final ValueNotifier<dynamic> highlightText;
   /// --------------------------------------------------------------------------
   static const double rowHeight = 60;
   static const double keyRowHeight = rowHeight * 0.4;
@@ -152,7 +152,7 @@ class DataStripValue extends StatelessWidget {
   final dynamic dataValue;
   final String valueString;
   final double horizontalMargin;
-  final ValueNotifier<String> highlightText;
+  final ValueNotifier<dynamic> highlightText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

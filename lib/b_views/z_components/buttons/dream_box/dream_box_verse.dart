@@ -351,6 +351,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                       shadow: _secondLineShadowIsOn(),
                       centered: _verseIsCentered(),
                       scaleFactor: secondLineScaleFactor,
+                      highlight: highlight,
+                      highlightColor: highlightColor,
                     ),
                   ),
               ],

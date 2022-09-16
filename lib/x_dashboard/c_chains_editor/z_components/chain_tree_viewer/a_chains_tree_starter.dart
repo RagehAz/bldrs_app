@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/chain_viewer_structure/chain_tree_viewer.dart';
+import 'package:bldrs/x_dashboard/c_chains_editor/z_components/chain_tree_viewer/b_chain_tree_viewer.dart';
 import 'package:flutter/material.dart';
 
 class ChainsTreesStarter extends StatelessWidget {
@@ -18,7 +18,7 @@ class ChainsTreesStarter extends StatelessWidget {
   final double width;
   final List<Chain> chains;
   final ValueChanged<String> onStripTap;
-  final ValueNotifier<String> searchValue;
+  final ValueNotifier<dynamic> searchValue;
   final bool initiallyExpanded;
   /// --------------------------------------------------------------------------
   @override

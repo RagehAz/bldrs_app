@@ -81,7 +81,22 @@ class MainLayout extends StatelessWidget {
   final ConfirmButtonModel confirmButtonModel;
   final GlobalKey globalKey;
   final bool isInPhrasesScreen;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static void onCancelSearch({
+    @required BuildContext context,
+    @required TextEditingController controller,
+    @required ValueNotifier<dynamic> foundResultNotifier,
+    @required ValueNotifier<bool> isSearching,
+  }){
+
+    Keyboard.closeKeyboard(context);
+    controller.text = '';
+    foundResultNotifier.value = null;
+    isSearching.value = false;
+
+  }
+  // --------------------------------------------------------------------------
   static const Widget spacer5 = SizedBox(
     width: 5,
     height: 5,
