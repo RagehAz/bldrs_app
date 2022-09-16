@@ -83,25 +83,35 @@ class FooterButton extends StatelessWidget {
     return _color;
   }
   // --------------------
-  static String generateButtonText({
+  static Verse generateButtonVerse({
     @required BuildContext context,
-    @required String verse,
+    @required String phid,
     @required int count,
     @required bool isOn,
   }){
 
-    String _output = verse;
+    Verse _output = Verse(
+      text: phid,
+      translate: true,
+    );
 
     final int _count = count ?? 0;
     if (_count >= 1000){
-      _output = Numeric.formatNumToCounterCaliber(context, _count);
+      _output = Verse(
+        text: Numeric.formatNumToCounterCaliber(context, _count),
+        translate: false,
+      );
     }
 
     if (isOn == true){
-      _output = _output.toUpperCase();
+      _output = Verse(
+        text: phid,
+        translate: true,
+        casing: Casing.upperCase,
+      );
     }
 
-    blog('generateButtonText : $_output : _count : $_count');
+    // blog('generateButtonText : $_output : _count : $_count');
 
     return _output;
   }
@@ -161,14 +171,11 @@ class FooterButton extends StatelessWidget {
             Positioned(
               bottom: flyerBoxWidth * 0.01,
               child: SuperVerse(
-                verse: Verse(
-                  text: generateButtonText(
-                    context: context,
-                    verse: phid,
-                    count: count,
-                    isOn: isOn,
-                  ),
-                  translate: true,
+                verse: generateButtonVerse(
+                  context: context,
+                  phid: phid,
+                  count: count,
+                  isOn: isOn,
                 ),
                 size: 1,
                 scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),

@@ -813,7 +813,7 @@ class _TheVerse extends StatelessWidget {
       );
       // --------------------
       return Flexible(
-        key: ValueKey<String>('a_verse_$_verse'),
+        key: const ValueKey<String>('a_verse'),
         child: Container(
           padding: EdgeInsets.only(
             right: _sidePaddings,
@@ -829,7 +829,7 @@ class _TheVerse extends StatelessWidget {
           Text(
               _verse,
             softWrap: false,
-            overflow: TextOverflow.fade,
+            overflow: TextOverflow.ellipsis,
             maxLines: maxLines,
             textAlign: _textAlign,
             textScaleFactor: 1,

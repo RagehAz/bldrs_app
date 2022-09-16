@@ -72,7 +72,7 @@ class FlyerFooterButtons extends StatelessWidget {
                   count: counter?.shares,
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.share,
-                  phid: 'phid_send',
+                  phid: 'phid_share',
                   isOn: false,
                   canTap: !tinyMode,
                   onTap: () => onShareFlyer(
@@ -90,7 +90,7 @@ class FlyerFooterButtons extends StatelessWidget {
                   count: counter?.reviews,
                   flyerBoxWidth: flyerBoxWidth,
                   icon: Iconz.utPlanning,
-                  phid: '##Review',
+                  phid: 'phid_review',
                   isOn: false,
                   canTap: !tinyMode,
                   onTap: () => onReviewButtonTap(
