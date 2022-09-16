@@ -130,9 +130,21 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
               const BulletPoints(
                 bulletPoints: <Verse>[
-                  Verse(text:'##You can attach a PDF File to this flyer.', translate: true,),
-                  Verse(text:'##Anybody can view and download this PDF file.', translate: true,),
-                  Verse(text:'##PDF file size can only be less than 3 Mb.', translate: true,),
+                  Verse(
+                    pseudo:'You can attach a PDF File to this flyer.',
+                    text: 'phid_you_can_attach_flyer_pdf',
+                    translate: true,
+                  ),
+                  Verse(
+                    pseudo:'Anybody can view and download this PDF file.',
+                    text: 'phid_flyer_pdf_is_public',
+                    translate: true,
+                  ),
+                  Verse(
+                    pseudo:'PDF file size can only be less than 3 Mb.',
+                    text: 'phid_pdf_size_less_than_3',
+                    translate: true,
+                  ),
                 ],
               ),
 

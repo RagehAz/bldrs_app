@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
@@ -30,12 +29,7 @@ class SpecsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final String _translatedFlyerType = FlyerTyper.getFlyerTypePhid(
-      flyerType: draft.flyerType,
-      pluralTranslation: false,
-    );
-    // --------------------
+
     return WidgetFader(
       fadeType: draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.35,
@@ -50,12 +44,12 @@ class SpecsSelectorBubble extends StatelessWidget {
         width: Bubble.bubbleWidth(context),
         columnChildren: <Widget>[
 
-          BulletPoints(
+          const BulletPoints(
             bulletPoints: <Verse>[
               Verse(
-                text: '##Add $_translatedFlyerType specification to describe and allow advanced search criteria',
+                pseudo: 'Add technical specification to describe flyer contents and help the search filters find your flyer',
+                text: 'phid_add_spec_to_help_search_filters',
                 translate: true,
-                variables: _translatedFlyerType,
               ),
             ],
           ),
