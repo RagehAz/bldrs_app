@@ -77,13 +77,13 @@ Future<void> onChainsSearchSubmitted({
   );
 
   final List<Chain> _combinedChains = <Chain>[..._foundPathsChains, ..._chains];
-
-  /// THIS WILL INCLUDE ALL RELATED PATHS : WHICH IS TOO MUCH
-  /*
   final List<String> _combinedPaths = ChainPathConverter.generateChainsPaths(
     parentID: '',
     chains: _combinedChains,
   );
+  /// THIS WILL INCLUDE ALL RELATED PATHS : WHICH IS TOO MUCH
+  /*
+
   final List<String> _lastNodes = ChainPathConverter.getPathsLastNodes(_combinedPaths);
   _combinedChains = ChainPathConverter.findPhidsRelatedChains(
       chains: chains,
@@ -93,7 +93,7 @@ Future<void> onChainsSearchSubmitted({
 
   await _setFoundResults(
     context: context,
-    foundChainsResult: _combinedChains,
+    foundChainsResult: ChainPathConverter.createChainsFromPaths(paths: _combinedPaths),
     foundChainsNotifier: foundChains,
   );
 

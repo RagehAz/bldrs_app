@@ -1,8 +1,9 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
-import 'package:bldrs/a_models/chain/dd_data_creation.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/zone/currency_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -39,6 +40,36 @@ void onGoBackFromPickerScreen({
   }
 
 }
+// --------------------
+Future<void> onGoBackFromChainsPickingScreen({
+  @required BuildContext context,
+  @required bool isMultipleSelectionMode,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required List<SpecModel> widgetSelectedSpecs,
+}) async {
+
+  bool _canContinue = true;
+
+  if (isMultipleSelectionMode == true){
+    final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
+        widgetSelectedSpecs ?? [],
+        selectedSpecs.value
+    ) == false;
+
+    if (_specsChanged == true){
+      _canContinue = await Dialogs.discardChangesGoBackDialog(context);
+    }
+  }
+
+  if (_canContinue == true){
+    Nav.goBack(
+      context: context,
+      invoker: 'SpecPickerScreen.goBack',
+    );
+  }
+
+}
+
 // --------------------
 /*
 Future<void> onSpecPickerTap({

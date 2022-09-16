@@ -44,7 +44,7 @@ class PickerScreen extends StatelessWidget {
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),
-      appBarType: AppBarType.basic,
+      appBarType: AppBarType.search,
       // appBarBackButton: true,
       skyType: SkyType.black,
       sectionButtonIsOn: false,
@@ -93,7 +93,7 @@ class PickerScreen extends StatelessWidget {
         ),
       ),
       layoutWidget: PickersScreenView(
-          appBarType: AppBarType.basic,
+          appBarType: AppBarType.search,
           picker: picker,
           selectedSpecs: selectedSpecs,
           screenHeight: _screenHeight,

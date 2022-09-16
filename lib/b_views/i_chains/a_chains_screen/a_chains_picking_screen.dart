@@ -12,7 +12,6 @@ import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_control
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -205,7 +204,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
   }
   // --------------------
-  List<Chain> _getProChains (BuildContext ctx, ChainsProvider chainsPro){
+  List<Chain> _getBldrsChains (BuildContext ctx, ChainsProvider chainsPro){
     if (widget.onlyUseCityChains == true){
       return chainsPro.cityChains;
     }
@@ -244,44 +243,12 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         ),
       ],
 
-      onBack: () async {
-
-        bool _canContinue = true;
-
-        if (widget.isMultipleSelectionMode == true){
-          final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
-              widget.selectedSpecs ?? [],
-              _selectedSpecs.value
-          ) == false;
-
-          if (_specsChanged == true){
-            _canContinue = await CenterDialog.showCenterDialog(
-              context: context,
-              titleVerse: const Verse(
-                text: 'phid_discard_changes_?',
-                translate: true,
-              ),
-              bodyVerse: const Verse(
-                text: 'phid_discard_changed_warning',
-                translate: true,
-              ),
-              confirmButtonVerse: const Verse(
-                text: 'phid_yes_discard',
-                translate: true,
-              ),
-              boolDialog: true,
-            );
-          }
-        }
-
-        if (_canContinue == true){
-          Nav.goBack(
-            context: context,
-            invoker: 'SpecPickerScreen.goBack',
-          );
-        }
-
-      },
+      onBack: () => onGoBackFromChainsPickingScreen(
+        context: context,
+        isMultipleSelectionMode: widget.isMultipleSelectionMode,
+        selectedSpecs: _selectedSpecs,
+        widgetSelectedSpecs: widget.selectedSpecs,
+      ),
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
         firstLine: Verse(
           text: 'phid_confirm_selections',
@@ -303,7 +270,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
           foundChains: _foundChains,
           searchText: _searchText,
           phidsOfAllPickers: _phidsOfAllPickers,
-          chains: _pickersChains
+          chains: _pickersChains,
       ),
       onSearchSubmit: (String text) => onChainsSearchSubmitted(
           text: text,
@@ -326,7 +293,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         translate: true,
       ),
       layoutWidget: Selector<ChainsProvider, List<Chain>>(
-        selector: _getProChains,
+        selector: _getBldrsChains,
         // child: ,
         // shouldRebuild: ,
         builder: (_, List<Chain> chains, Widget screenView){

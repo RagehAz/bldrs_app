@@ -44,7 +44,7 @@ class PickerTile extends StatelessWidget {
     final double _specNameBoxWidth = _specTileWidth - (2 * _specTileHeight);
     // --------------------
     return GestureDetector(
-      key: const ValueKey<String>('SpecPickerTile'),
+      key: const ValueKey<String>('PickerTile'),
       onTap: onTap,
       child: Center(
         child: Container(
@@ -77,34 +77,18 @@ class PickerTile extends StatelessWidget {
                     ),
 
                     /// - PICKER NAME
-                    Expanded(
-                      child: SizedBox(
-                        height: _specTileHeight,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              width: _specNameBoxWidth,
-                              child: SuperVerse(
-                                verse: Verse(
-                                  text: picker.chainID,
-                                  translate: true,
-                                ),
-                                centered: false,
-                                margin: 10,
-                                maxLines: 2,
-                                redDot: picker.isRequired,
-                              ),
-                            ),
-
-                            // SuperVerse(
-                            //   verse: Name.getNameByCurrentLingoFromNames(context, _chain.names),
-                            //   centered: false,
-                            // ),
-
-                          ],
+                    SizedBox(
+                      width: _specNameBoxWidth,
+                      height: _specTileHeight,
+                      child: SuperVerse(
+                        verse: Verse(
+                          text: picker.chainID,
+                          translate: true,
                         ),
+                        centered: false,
+                        margin: 10,
+                        maxLines: 2,
+                        redDot: picker.isRequired,
                       ),
                     ),
 

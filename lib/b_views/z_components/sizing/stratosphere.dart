@@ -21,15 +21,28 @@ class Stratosphere extends StatelessWidget {
   static const double _margins = Ratioz.appBarMargin * 2;
   static const double bigAppBarStratosphere = Ratioz.appBarBigHeight + _margins;
   static const double smallAppBarStratosphere = Ratioz.appBarSmallHeight + _margins;
-  /// --------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getStratosphereValue({
+    @required BuildContext context,
+    @required AppBarType appBarType,
+  }){
+    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
+    final double _topPadding =  _appBarHeight + (2 * Ratioz.appBarMargin);
+    return _topPadding;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static EdgeInsets getStratosphereSandwich({
     @required BuildContext context,
     @required AppBarType appBarType,
     bool withHorizon = true
   }){
 
-    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
-    final double _topPadding =  _appBarHeight + (2 * Ratioz.appBarMargin);
+    final double _topPadding =  getStratosphereValue(
+      context: context,
+      appBarType: appBarType,
+    );
     final double _horizon = withHorizon == true ? Ratioz.horizon : 0;
 
     return EdgeInsets.only(
@@ -38,7 +51,7 @@ class Stratosphere extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
