@@ -282,6 +282,7 @@ class BottomDialog extends StatelessWidget {
           itemCount: _widgets.length,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
+          // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
           itemBuilder: (_, int index) {
             return Column(
               children: <Widget>[

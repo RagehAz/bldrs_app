@@ -46,7 +46,7 @@ class PickerSplitter extends StatelessWidget {
     /// PICKER TILE
     else {
 
-      final List<SpecModel> _pickerSelectedSpecs = SpecModel.getSpecsRelatedToPicker(
+      final List<SpecModel> _pickerSelectedSpecs = SpecModel.getSpecsBelongingToThisPicker(
         specs: allSelectedSpecs,
         picker: picker,
       );

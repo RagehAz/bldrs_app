@@ -104,6 +104,7 @@ class ListLayout extends StatelessWidget {
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: mapModels.length,
+                      // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                       itemBuilder: (BuildContext context, int index) {
                         return Align(
                           alignment: Aligners.superCenterAlignment(context),

@@ -51,6 +51,7 @@ class CurrencyManagerScreen extends StatelessWidget {
         child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: _currencies.length,
+            // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, index){
 
               final CurrencyModel _currency = _currencies[index];

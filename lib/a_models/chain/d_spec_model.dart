@@ -357,21 +357,33 @@ class SpecModel {
   /// GETTERS
 
   // --------------------
-  static List<SpecModel> getSpecsRelatedToPicker({
+  static List<SpecModel> getSpecsBelongingToThisPicker({
     @required List<SpecModel> specs,
     @required PickerModel picker,
   }){
-    List<SpecModel> _result = <SpecModel>[];
+    final List<SpecModel> _result = <SpecModel>[];
 
     if (Mapper.checkCanLoopList(specs) == true && picker != null) {
-      _result = specs
-          .where(
-            (SpecModel spec) =>
-        spec.pickerChainID == picker.chainID
-            ||
-            spec.pickerChainID == picker.unitChainID,
-      )
-          .toList();
+
+      final List<SpecModel> _belongingSpecs = <SpecModel>[];
+
+      /// GET ALL SPECS BELONGING TO THIS PICKER : EITHER (CHAIN ID) OR (UNIT CHAIN ID)
+      for (final SpecModel spec in specs){
+        final bool _isOfChainID = spec.pickerChainID == picker.chainID;
+        final bool _isOfUnitChainID = spec.pickerChainID == picker.unitChainID;
+        if (_isOfChainID == true || _isOfUnitChainID == true){
+          _belongingSpecs.add(spec);
+        }
+      }
+
+      /// CHECK IF ONLY A UNIT CHAIN ID
+      if (_belongingSpecs.length == 1 && _belongingSpecs[0].pickerChainID == picker.unitChainID){
+        /// will not add it
+      }
+      else {
+        _result.addAll(_belongingSpecs);
+      }
+
     }
 
     return _result;
@@ -545,7 +557,7 @@ class SpecModel {
     @required List<SpecModel> specsToRemove,
   }){
 
-    blog('removeSpecsFromSpecs : removing : ${specsToRemove.length}');
+    // blog('removeSpecsFromSpecs : removing : ${specsToRemove.length}');
 
     List<SpecModel> _output = <SpecModel>[...sourceSpecs];
 
@@ -555,11 +567,11 @@ class SpecModel {
         Mapper.checkCanLoopList(specsToRemove) == true
     ){
 
-      blog('removeSpecsFromSpecs : can remove them');
+      // blog('removeSpecsFromSpecs : can remove them');
 
       for (final SpecModel specToRemove in specsToRemove){
 
-        blog('removeSpecsFromSpecs : removing : ${specToRemove.value} ');
+        // blog('removeSpecsFromSpecs : removing : ${specToRemove.value} ');
 
         _output = removeSpecFromSpecs(
             specs: _output,
@@ -570,8 +582,8 @@ class SpecModel {
 
     }
 
-    blog('and the output had become :-');
-    SpecModel.blogSpecs(_output);
+    // blog('and the output had become :-');
+    // SpecModel.blogSpecs(_output);
 
     return _output;
   }

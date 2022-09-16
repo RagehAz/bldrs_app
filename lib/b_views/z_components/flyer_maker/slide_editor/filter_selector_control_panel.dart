@@ -78,6 +78,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: presetFiltersList.length + 1,
+              // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
               itemBuilder: (_, i){
 
                 final int index = i - 1;

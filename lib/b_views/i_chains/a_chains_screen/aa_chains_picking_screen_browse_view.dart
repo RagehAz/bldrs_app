@@ -93,7 +93,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
+    // PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
 
     /// WHEN PICKERS ARE PROVIDED
     if (Mapper.checkCanLoopList(pickers) == true){
