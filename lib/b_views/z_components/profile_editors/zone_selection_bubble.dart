@@ -249,7 +249,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
               return Bubble(
                   bubbleColor: Formers.validatorBubbleColor(
-                    validator: widget.validator,
+                    message: widget.validator(),
                   ),
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse ?? const Verse(

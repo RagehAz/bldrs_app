@@ -80,7 +80,7 @@ class BzAboutPage extends StatelessWidget {
           Bubble(
             headerViewModel: const BubbleHeaderVM(
               headlineVerse: Verse(
-                text: 'phid_scope_of_services',
+                text: 'phid_scopeOfServices',
                 translate: true,
               ),
             ),

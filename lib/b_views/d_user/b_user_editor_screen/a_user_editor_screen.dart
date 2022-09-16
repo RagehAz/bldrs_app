@@ -376,7 +376,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   canPaste: false,
                   // autoValidate: true,
-                  validator: () => Formers.contactsPhoneValidator(
+                  validator: (String text) => Formers.contactsPhoneValidator(
                     contacts: userModel.contacts,
                     zoneModel: userModel?.zone,
                     canValidate: _canValidate,
@@ -411,7 +411,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   canPaste: false,
                   // autoValidate: true,
-                  validator: () => Formers.contactsEmailValidator(
+                  validator: (String text) => Formers.contactsEmailValidator(
                     contacts: userModel.contacts,
                     canValidate: _canValidate,
                   ),

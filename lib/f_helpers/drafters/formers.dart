@@ -781,17 +781,17 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color validatorBubbleColor({
-    @required String Function() validator,
+    @required String message,
     Color defaultColor = Colorz.white10,
     bool canErrorize = true,
   }){
 
     bool _errorIsOn = false;
     Color _errorColor;
-    if (validator != null){
+    if (message != null){
       // ------
       /// MESSAGE
-      final String _validationMessage = validator();
+      final String _validationMessage = message;
       // ------
       /// ERROR IS ON
       _errorIsOn = _validationMessage != null;

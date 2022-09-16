@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -14,17 +14,19 @@ import 'package:flutter/material.dart';
 class PickerTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerTile({
-    @required this.onTap,
     @required this.picker,
     @required this.pickerSelectedSpecs,
     @required this.onDeleteSpec,
+    @required this.onSpecTap,
+    @required this.onTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Function onTap;
   final PickerModel picker;
   final List<SpecModel> pickerSelectedSpecs;
-  final ValueChanged<List<SpecModel>> onDeleteSpec;
+  final Function onTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
   /// --------------------------------------------------------------------------
   static double height() {
     return 70;
@@ -124,7 +126,8 @@ class PickerTile extends StatelessWidget {
                         boxWidth: _specTileWidth - _specTileHeight,
                         specs: pickerSelectedSpecs,
                         picker: picker,
-                        onSpecTap: (List<SpecModel> specs) => onDeleteSpec(specs),
+                        onSpecTap: onSpecTap,
+                        onDeleteSpec: onDeleteSpec,
                         xIsOn: true,
                       ),
 

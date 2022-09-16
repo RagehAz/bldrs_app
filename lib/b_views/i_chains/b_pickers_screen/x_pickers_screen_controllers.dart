@@ -1,12 +1,6 @@
-import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/chain/dd_data_creation.dart';
-import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +10,7 @@ import 'package:flutter/material.dart';
 /// NAVIGATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 void onGoBackFromPickerScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -41,6 +36,7 @@ void onGoBackFromPickerScreen({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onGoBackFromChainsPickingScreen({
   @required BuildContext context,
   @required bool isMultipleSelectionMode,
@@ -69,153 +65,12 @@ Future<void> onGoBackFromChainsPickingScreen({
   }
 
 }
-
-// --------------------
-/*
-Future<void> onSpecPickerTap({
-  @required BuildContext context,
-  @required SpecPicker specPicker,
-  @required List<SpecPicker> sourceSpecPickers,
-  @required ValueNotifier<List<SpecPicker>> refinedPickers,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) async {
-
-  // blog('_onSpecPickerTap : chainID : ${specPicker?.chainID} : groupID : ${specPicker?.groupID}');
-  // final Chain _specChain = superGetChain(context, specPicker.chainID);
-
-  // if (_specChain.sons.runtimeType != DataCreator) {
-    await _goToSpecPickerScreen(
-      context: context,
-      specPicker: specPicker,
-      sourceSpecPickers: sourceSpecPickers,
-      selectedSpecs: selectedSpecs,
-      refinedPickers: refinedPickers,
-    );
-  // }
-
-  // else {
-  //   blog('this picker as a Data creator');
-  //   specPicker.blogSpecPicker();
-  //   _specChain.blogChain();
-  // }
-
-  // else if (_specChain.sons == DataCreator.price) {
-  //   await _goToSpecPickerScreen(specPicker);
-  // }
-  //
-  // else if (_specChain.sons == DataCreator.currency) {
-  //   await _runCurrencyDialog(specPicker);
-  // }
-  //
-  // else if (_specChain.sons == DataCreator.integerIncrementer) {
-  //   blog('aho');
-  //   await _goToSpecPickerScreen(specPicker);
-  // }
-  //
-  // else if (_specChain.sons == DataCreator.doubleCreator) {
-  //   blog('aho');
-  //   await _goToSpecPickerScreen(specPicker);
-  // }
-
-}
-// --------------------
-Future<void> _goToSpecPickerScreen({
-  @required BuildContext context,
-  @required SpecPicker specPicker,
-  @required List<SpecPicker> sourceSpecPickers,
-  @required ValueNotifier<List<SpecPicker>> refinedPickers,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) async {
-
-  final List<SpecModel> _result = await Nav.goToNewScreen(
-    context: context,
-    screen: SpecPickerScreen(
-      specPicker: specPicker,
-      selectedSpecs: selectedSpecs,
-      showInstructions: true,
-      isMultipleSelectionMode: true,
-      onlyUseCityChains: false,
-    ),
-    transitionType: Nav.superHorizontalTransition(context),
-  );
-
-  SpecModel.blogSpecs(_result);
-
-  updateSpecsPickersAndGroups(
-    context: context,
-    specPicker: specPicker,
-    specPickerResult: _result,
-    refinedPickers: refinedPickers,
-    selectedSpecs: selectedSpecs,
-    sourceSpecPickers: sourceSpecPickers,
-  );
-
-}
- */
-// --------------------
-void updatePickersAndGroups({
-  @required BuildContext context,
-  @required dynamic specPickerResult,
-  @required PickerModel picker,
-  @required List<PickerModel> sourcePickers,
-  @required ValueNotifier<List<PickerModel>> refinedPickers,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) {
-
-  final Chain _specChain = ChainsProvider.proFindChainByID(
-    context: context,
-    chainID: picker.chainID,
-  );
-
-  // -------------------------------------------------------------
-  if (specPickerResult != null && _specChain != null) {
-    // ------------------------------------
-    /// A - SONS ARE FROM DATA CREATOR
-    if (_specChain.sons.runtimeType == DataCreator) {}
-    // ------------------------------------
-    /// B - WHEN FROM LIST OF KWs
-    if (ObjectCheck.objectIsListOfSpecs(specPickerResult)) {
-      // Spec.printSpecs(_allSelectedSpecs);
-
-      selectedSpecs.value = specPickerResult;
-
-      refinedPickers.value = PickerModel.applyBlockersAndSort(
-        sourcePickers: sourcePickers,
-        selectedSpecs: specPickerResult,
-      );
-
-    }
-    // ------------------------------------
-    /// C - WHEN SOMETHING GOES WRONG
-    else {
-      blog('RED ALERT : result : ${specPickerResult.toString()}');
-    }
-    // ------------------------------------
-  }
-  // -------------------------------------------------------------
-}
-// --------------------
-void onRemoveSpecs({
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required List<SpecModel> specs,
-}){
-
-  blog('should remove these specs from the list');
-  SpecModel.blogSpecs(specs);
-
-  final List<SpecModel> _newList = SpecModel.removeSpecsFromSpecs(
-    sourceSpecs: selectedSpecs.value,
-    specsToRemove: specs,
-  );
-
-  selectedSpecs.value = _newList;
-
-}
 // -----------------------------------------------------------------------------
 
-/// PICKER SCREEN
+/// SELECTION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onSelectPhid({
   @required BuildContext context,
   @required String phid,
@@ -225,7 +80,7 @@ Future<void> onSelectPhid({
 }) async {
 
   if (isMultipleSelectionMode == true){
-    await updateSelectedSpecsAtPhidSelection(
+    await _updateSelectedSpecsAtPhidSelection(
       context: context,
       phid: phid,
       picker: picker,
@@ -244,15 +99,13 @@ Future<void> onSelectPhid({
 
 }
 // --------------------
-Future<void> updateSelectedSpecsAtPhidSelection({
+/// TESTED : WORKS PERFECT
+Future<void> _updateSelectedSpecsAtPhidSelection({
   @required BuildContext context,
   @required String phid,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) async {
-
-  blog('received kw id : $phid');
-  picker?.blogPicker();
 
   if (picker != null && picker.chainID != null){
 
@@ -337,8 +190,146 @@ Future<void> updateSelectedSpecsAtPhidSelection({
 
 
 }
+// -----------------------------------------------------------------------------
+
+/// MODIFIERS
+
 // --------------------
-void onCurrencyChanged({
+/// TESTED : WORKS PERFECT
+void onRemoveSpecs({
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+  @required SpecModel valueSpec,
+  @required SpecModel unitSpec,
+  @required List<PickerModel> pickers,
+}){
+
+  blog('should remove these specs from the list');
+
+  List<SpecModel> _newList = SpecModel.removeSpecFromSpecs(
+    specs: selectedSpecs.value,
+    spec: valueSpec,
+  );
+
+  final bool _specsIncludeOtherSpecUsingThisUnit = SpecModel.specsIncludeOtherSpecUsingThisUnit(
+    specs: selectedSpecs.value,
+    pickers: pickers,
+    unitSpec: unitSpec,
+  );
+
+  if (_specsIncludeOtherSpecUsingThisUnit == false){
+
+    _newList = SpecModel.removeSpecFromSpecs(
+      specs: selectedSpecs.value,
+      spec: unitSpec,
+    );
+
+  }
+
+
+  selectedSpecs.value = _newList;
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onAddSpecs({
+  @required List<SpecModel> specs,
+  @required PickerModel picker,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) {
+
+  final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
+    parentSpecs: selectedSpecs.value,
+    inputSpecs: specs,
+    canPickMany: picker.canPickMany,
+  );
+
+  selectedSpecs.value = _updatedList;
+}
+// -----------------------------------------------------------------------------
+/*
+Future<void> onSpecPickerTap({
+  @required BuildContext context,
+  @required SpecPicker specPicker,
+  @required List<SpecPicker> sourceSpecPickers,
+  @required ValueNotifier<List<SpecPicker>> refinedPickers,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) async {
+
+  // blog('_onSpecPickerTap : chainID : ${specPicker?.chainID} : groupID : ${specPicker?.groupID}');
+  // final Chain _specChain = superGetChain(context, specPicker.chainID);
+
+  // if (_specChain.sons.runtimeType != DataCreator) {
+    await _goToSpecPickerScreen(
+      context: context,
+      specPicker: specPicker,
+      sourceSpecPickers: sourceSpecPickers,
+      selectedSpecs: selectedSpecs,
+      refinedPickers: refinedPickers,
+    );
+  // }
+
+  // else {
+  //   blog('this picker as a Data creator');
+  //   specPicker.blogSpecPicker();
+  //   _specChain.blogChain();
+  // }
+
+  // else if (_specChain.sons == DataCreator.price) {
+  //   await _goToSpecPickerScreen(specPicker);
+  // }
+  //
+  // else if (_specChain.sons == DataCreator.currency) {
+  //   await _runCurrencyDialog(specPicker);
+  // }
+  //
+  // else if (_specChain.sons == DataCreator.integerIncrementer) {
+  //   blog('aho');
+  //   await _goToSpecPickerScreen(specPicker);
+  // }
+  //
+  // else if (_specChain.sons == DataCreator.doubleCreator) {
+  //   blog('aho');
+  //   await _goToSpecPickerScreen(specPicker);
+  // }
+
+}
+// --------------------
+Future<void> _goToSpecPickerScreen({
+  @required BuildContext context,
+  @required SpecPicker specPicker,
+  @required List<SpecPicker> sourceSpecPickers,
+  @required ValueNotifier<List<SpecPicker>> refinedPickers,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) async {
+
+  final List<SpecModel> _result = await Nav.goToNewScreen(
+    context: context,
+    screen: SpecPickerScreen(
+      specPicker: specPicker,
+      selectedSpecs: selectedSpecs,
+      showInstructions: true,
+      isMultipleSelectionMode: true,
+      onlyUseCityChains: false,
+    ),
+    transitionType: Nav.superHorizontalTransition(context),
+  );
+
+  SpecModel.blogSpecs(_result);
+
+  updateSpecsPickersAndGroups(
+    context: context,
+    specPicker: specPicker,
+    specPickerResult: _result,
+    refinedPickers: refinedPickers,
+    selectedSpecs: selectedSpecs,
+    sourceSpecPickers: sourceSpecPickers,
+  );
+
+}
+ */
+// --------------------
+/*
+void onCurrencyChangedS({
   @required CurrencyModel currency,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
 }) {
@@ -356,8 +347,10 @@ void onCurrencyChanged({
 
   selectedSpecs.value = _updatedList;
 }
+ */
 // --------------------
-void onPriceChanged({
+/*
+void onPriceChangedS({
   @required String price,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -378,24 +371,10 @@ void onPriceChanged({
 
   selectedSpecs.value = _updatedList;
 }
+ */
 // --------------------
-void onAddSpecs({
-  @required List<SpecModel> specs,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-}) {
-
-
-  final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
-    parentSpecs: selectedSpecs.value,
-    inputSpecs: specs,
-    canPickMany: picker.canPickMany,
-  );
-
-  selectedSpecs.value = _updatedList;
-}
-// --------------------
-void onAddDouble({
+/*
+void onAddDoubleS({
   @required double num,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -415,32 +394,6 @@ void onAddDouble({
 
   selectedSpecs.value = _updatedList;
 }
-// -----------------------------------------------------------------------------
-
-/*
-              List<SpecModel> _createSpecs(){
-                final List<SpecModel> _output = <SpecModel>[];
-
-                /// when there is value
-                if (stringIsNotEmpty(controller.text) == true){
-                  final SpecModel _valueSpec = SpecModel(
-                    pickerChainID: widget.specPicker.chainID,
-                    value: controller.text,
-                  );
-                  _output.add(_valueSpec);
-
-                  /// when there is unit chain
-                  if (widget.specPicker.unitChainID != null){
-                    final SpecModel _unitSpec = SpecModel(
-                      pickerChainID: widget.specPicker.unitChainID,
-                      value: _selectedUnit.value,
-                    );
-                    _output.add(_unitSpec);
-                  }
-
-                }
-
-                return _output;
-              }
 
  */
+// -----------------------------------------------------------------------------
