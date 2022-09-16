@@ -27,7 +27,6 @@ import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/sounds_
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
-import 'package:bldrs/x_dashboard/c_chains_editor/old_editor/old_chains_manager_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -69,13 +68,6 @@ class SpecializedLabs extends StatelessWidget {
         verse:  'images Test Screen',
         icon: Iconz.camera,
         screen: ImagesTestScreen(),
-      ),
-
-      /// CHAINS TEST SCREEN
-      DashButtonModel(
-        verse:  'old Chains Manager',
-        icon: Iconz.keyword,
-        screen: OLDChainsManagerScreen(),
       ),
 
       /// DYNAMIC LINKS TEST

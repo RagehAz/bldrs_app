@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -337,7 +338,9 @@ class PhraseProvider extends ChangeNotifier {
 //-------------------------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //---------------------
-String xPhrase(BuildContext context, String id, {PhraseProvider phrasePro}){
+String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
+
+  final String id = Phider.removeIndexFromPhid(phid: phid);
 
   final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
   _phraseProvider.addToUsedXPhrases(id);

@@ -1042,8 +1042,8 @@ class Chain {
 
     /// REMOVE CHAINS IDS FROM PHIDKS
     final List<String> _cleaned = Stringer.removeStringsFromStrings(
-      removeFrom: phids,
-      removeThis: _chainsIDs,
+      removeFrom: Phider.removePhidsIndexes(phids),
+      removeThis: Phider.removePhidsIndexes(_chainsIDs),
     );
 
     blog('after removing ${_chainsIDs.length} chainsIDs from '
