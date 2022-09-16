@@ -80,8 +80,7 @@ class SlidesShelf extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemExtent: _flyerZoneWidth + Ratioz.appBarPadding * 1.5,
               physics: const BouncingScrollPhysics(),
-              padding:
-              const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+              padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               itemBuilder: (BuildContext ctx, int index) {
                 final dynamic _pic = pics[index];
 

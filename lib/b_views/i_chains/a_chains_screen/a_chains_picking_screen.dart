@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -226,6 +227,9 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarRowWidgets: [
+
+        const Expander(),
+
         AppBarButton(
           verse: Verse.plain('blog'),
           onTap: (){
@@ -241,6 +245,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
           },
         ),
+
       ],
 
       onBack: () => onGoBackFromChainsPickingScreen(

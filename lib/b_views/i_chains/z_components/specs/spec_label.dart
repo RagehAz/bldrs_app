@@ -28,7 +28,8 @@ class SpecLabel extends StatelessWidget {
 
     const EdgeInsets _margins = EdgeInsets.symmetric(vertical: 2.5);
     final double _maxLabelWidth = maxBoxWidth == null ? double.infinity : maxBoxWidth - (_margins.right * 2);
-    final double _verseMaxWidth = maxBoxWidth == null ? double.infinity : _maxLabelWidth - height;
+    final double _iconWidth = xIsOn == true ? height : 0;
+    final double _verseMaxWidth = maxBoxWidth == null ? double.infinity : _maxLabelWidth - _iconWidth;
 
     return GestureDetector(
       onTap: onTap,
@@ -46,6 +47,7 @@ class SpecLabel extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
 
+            if (xIsOn == true)
             DreamBox(
               height: height,
               width: height,
@@ -59,7 +61,11 @@ class SpecLabel extends StatelessWidget {
               constraints: BoxConstraints(
                 maxWidth: _verseMaxWidth,
               ),
-              padding: Scale.superInsets(context: context, enRight: 10),
+              padding: Scale.superInsets(
+                context: context,
+                enRight: 10,
+                enLeft: xIsOn == true ? 0 : 10,
+              ),
               child: SuperVerse(
                 verse: verse,
                 weight: VerseWeight.thin,

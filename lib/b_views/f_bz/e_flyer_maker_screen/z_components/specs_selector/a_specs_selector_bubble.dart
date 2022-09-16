@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
@@ -58,13 +59,17 @@ class SpecsSelectorBubble extends StatelessWidget {
             pageWidth: Bubble.clearWidth(context),
             specs: draft.specs,
             flyerType: draft.flyerType,
+            onSpecTap: (List<SpecModel> specs) => onAddSpecsToDraftTap(
+              context: context,
+              draft: draftNotifier,
+            ),
           ),
 
           DreamBox(
             height: PhidButton.getHeight(),
             // width: Bubble.clearWidth(context),
             verse: Verse(
-              text: Mapper.checkCanLoopList(draft.keywordsIDs) ? 'phid_edit_specs' : 'phid_add_specs',
+              text: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_specs' : 'phid_add_specs',
               translate: true,
             ),
             bubble: false,
@@ -74,7 +79,7 @@ class SpecsSelectorBubble extends StatelessWidget {
             icon: Iconz.plus,
             iconSizeFactor: 0.4,
             iconColor: Colorz.white20,
-            onTap: () => onAddSpecsTap(
+            onTap: () => onAddSpecsToDraftTap(
               context: context,
               draft: draftNotifier,
             ),

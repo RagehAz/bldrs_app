@@ -79,6 +79,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: _numberOfSons,
                   shrinkWrap: true,
+                  // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                   itemBuilder: (_, index){
                     final Chain son = widget.chain.sons[index];
                     return ChainTreeViewer(
@@ -101,6 +102,7 @@ class _ChainTreeViewerState extends State<ChainTreeViewer> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _numberOfSons,
                     shrinkWrap: true,
+                    // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                     itemBuilder: (_, index){
                       final String keywordID = widget.chain.sons[index];
                       return ChainTreeStrip(

@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
 import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -50,7 +52,8 @@ class InfoPageContents extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          InfoPageSeparator( /// ------------------------- SEPARATOR
+          /// SEPARATOR
+          InfoPageSeparator(
             pageWidth: _pageWidth,
           ),
 
@@ -70,7 +73,8 @@ class InfoPageContents extends StatelessWidget {
             flyerZone: flyerZone,
           ),
 
-          InfoPageSeparator( /// ------------------------- SEPARATOR
+          /// SEPARATOR
+          InfoPageSeparator(
             pageWidth: _pageWidth,
           ),
 
@@ -167,6 +171,10 @@ class InfoPageContents extends StatelessWidget {
                           pageWidth: _pageWidth,
                           specs: flyerModel.specs,
                           flyerType: flyerModel.flyerType,
+                          onSpecTap: (List<SpecModel> specs){
+                            blog('Flyer : InfoPageContents : ');
+                            SpecModel.blogSpecs(specs);
+                          },
                         ),
                       /// SPECS LINE
                       if (flyerModel.specs.isNotEmpty == true)

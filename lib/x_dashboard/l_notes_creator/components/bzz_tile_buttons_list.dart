@@ -38,6 +38,7 @@ class BzzTilesButtonsList extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: foundBzz.length,
                     physics: const NeverScrollableScrollPhysics(),
+                    // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                     itemBuilder: (_, index){
 
                       final BzModel _bzModel = foundBzz[index];

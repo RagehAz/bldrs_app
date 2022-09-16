@@ -32,6 +32,7 @@ class PricingScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _macs.length,
             shrinkWrap: true,
+            // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, index) {
               final BigMac _mac = _macs[index];
               final String _iso3 = _mac.countryID;
