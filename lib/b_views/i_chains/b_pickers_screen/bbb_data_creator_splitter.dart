@@ -92,19 +92,6 @@ class DataCreatorSplitter extends StatelessWidget {
     SpecModel.blogSpecs(selectedSpecs);
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     // --------------------
-    // if (_isChains == true){
-    //
-    //   final List<String> _selectedPhids = SpecModel.getSpecsIDs(selectedSpecs);
-    //
-    //   return ChainSplitter(
-    //     chainOrChainsOrSonOrSons: _valueChain.sons,
-    //     initiallyExpanded: false,
-    //     onSelectPhid: (String path, String phid) => onSelectPhid(phid),
-    //     selectedPhids: _selectedPhids,
-    //     // searchText: ,
-    //   );
-    //
-    // }
     /// PHIDS OR CHAINS
     if (_isPhids == true || _isChains == true){
 

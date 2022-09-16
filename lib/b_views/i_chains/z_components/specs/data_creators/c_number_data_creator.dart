@@ -77,7 +77,6 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   Widget build(BuildContext context) {
     // --------------------
     final double _bubbleWidth = BldrsAppBar.width(context);
-
     // --------------------
     return Bubble(
       headerViewModel: const BubbleHeaderVM(
@@ -97,7 +96,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         /// DATA CREATOR ROW
         NumberDataCreatorFieldRow(
           appBarType: widget.appBarType,
-          hasUnit: true,
+          hasUnit: widget.picker.unitChainID != null,
           validator: numberFieldValidator,
           textController: _textController,
           formKey: _formKey,

@@ -48,7 +48,7 @@ class ContactFieldBubble extends StatefulWidget {
   final Function onSaved;
   final TextInputAction keyboardTextInputAction;
   final String initialTextValue;
-  final Function validator;
+  final Function(String) validator;
   final List<Verse> bulletPoints;
   final bool fieldIsRequired;
   final bool loading;
@@ -163,7 +163,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(
-          validator: widget.validator,
+          message: widget.validator(''),
         ),
         headerViewModel: widget.headerViewModel,
       width: _bubbleWidth,

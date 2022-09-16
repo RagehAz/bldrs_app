@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/a_chains_picking_screen.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/b_picker_screen.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/dialog_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -13,6 +13,8 @@ import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -241,7 +243,7 @@ Future<void> onPickerTap({
     /// WHILE SELECTING MULTIPLE PHIDS
     if (isMultipleSelectionMode == true){
 
-      updatePickersAndGroups(
+      _updatePickersAndGroups(
         context: context,
         picker: picker,
         selectedSpecs: selectedSpecs,
@@ -263,5 +265,47 @@ Future<void> onPickerTap({
 
   }
 
+}
+// --------------------
+void _updatePickersAndGroups({
+  @required BuildContext context,
+  @required dynamic specPickerResult,
+  @required PickerModel picker,
+  @required List<PickerModel> sourcePickers,
+  @required ValueNotifier<List<PickerModel>> refinedPickers,
+  @required ValueNotifier<List<SpecModel>> selectedSpecs,
+}) {
+
+  final Chain _specChain = ChainsProvider.proFindChainByID(
+    context: context,
+    chainID: picker.chainID,
+  );
+
+  // -------------------------------------------------------------
+  if (specPickerResult != null && _specChain != null) {
+    // ------------------------------------
+    /// A - SONS ARE FROM DATA CREATOR
+    if (_specChain.sons.runtimeType == DataCreator) {}
+    // ------------------------------------
+    /// B - WHEN FROM LIST OF KWs
+    if (ObjectCheck.objectIsListOfSpecs(specPickerResult)) {
+      // Spec.printSpecs(_allSelectedSpecs);
+
+      selectedSpecs.value = specPickerResult;
+
+      refinedPickers.value = PickerModel.applyBlockersAndSort(
+        sourcePickers: sourcePickers,
+        selectedSpecs: specPickerResult,
+      );
+
+    }
+    // ------------------------------------
+    /// C - WHEN SOMETHING GOES WRONG
+    else {
+      blog('RED ALERT : result : ${specPickerResult.toString()}');
+    }
+    // ------------------------------------
+  }
+  // -------------------------------------------------------------
 }
 // -----------------------------------------------------------------------------

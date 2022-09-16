@@ -170,7 +170,7 @@ class TextFieldBubble extends StatelessWidget {
         bubbleColor: Formers.validatorBubbleColor(
           // canErrorize: true,
           defaultColor: bubbleColor,
-          validator: () => Formers.bakeValidator(
+          message: Formers.bakeValidator(
             validator: validator,
             text: textController?.text,
             keepEmbeddedBubbleColor: true,
