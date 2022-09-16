@@ -37,6 +37,9 @@ class PickerEditingTile extends StatelessWidget {
     final double _bubbleWidth = BldrsAppBar.width(context);
     final double _clearWidth = _bubbleWidth - 20;
 
+    final bool _hasRange = Mapper.checkCanLoopList(picker.range) == true;
+    final bool _hasBlockers = Mapper.checkCanLoopList(picker.blockers) == true;
+
     return Column(
       children: <Widget>[
 
@@ -47,30 +50,15 @@ class PickerEditingTile extends StatelessWidget {
           child: Column(
             children: <Widget>[
 
-              // /// GROUP ID
-              // LineBubble(
-              //   width: _clearWidth,
-              //   child: BubbleHeader(
-              //     viewModel: BubbleHeaderVM(
-              //       headerWidth: _clearWidth,
-              //       headlineVerse: Verse(
-              //         text: 'GroupID: ${picker.groupID}',
-              //         translate: false
-              //       ),
-              //     ),
-              //   ),
-              //   onTap: () => onChangeGroupIDForAllItsPickers(
-              //       context: context,
-              //       oldGroupID: picker.groupID,
-              //       tempPickers: tempPickers
-              //   ),
-              // ),
-
               /// CHAIN ID
               LineBubble(
                 width: _clearWidth,
                 child: BubbleHeader(
                   viewModel: BubbleHeaderVM(
+                    hasMoreButton: true,
+                    onMoreButtonTap: (){
+                      blog('should open chain screen for this ChainID: ${picker.chainID}');
+                    },
                     headerWidth: _clearWidth,
                     headlineVerse: Verse(
                       text: 'ChainID: ${picker.chainID}',
@@ -84,26 +72,6 @@ class PickerEditingTile extends StatelessWidget {
                     tempPickers: tempPickers
                 ),
               ),
-
-              /// UNIT CHAIN ID
-              if (picker?.unitChainID != null)
-                LineBubble(
-                  width: _clearWidth,
-                  child: BubbleHeader(
-                    viewModel: BubbleHeaderVM(
-                      headerWidth: _clearWidth,
-                      headlineVerse: Verse(
-                        text: 'unitChainID: ${picker.unitChainID}',
-                        translate: false,
-                      ),
-                    ),
-                  ),
-                  onTap: () => onPickerUnitChainIDTap(
-                      context: context,
-                      picker: picker,
-                      tempPickers: tempPickers
-                  ),
-                ),
 
               /// IS REQUIRED
               LineBubble(
@@ -149,9 +117,32 @@ class PickerEditingTile extends StatelessWidget {
                 ),
               ),
 
+              /// UNIT CHAIN ID
+              LineBubble(
+                width: _clearWidth,
+                child: BubbleHeader(
+                  viewModel: BubbleHeaderVM(
+                    headlineColor: picker?.unitChainID == null ? Colorz.black200 : Colorz.white255,
+                    headerWidth: _clearWidth,
+                    headlineVerse: Verse(
+                      text: picker?.unitChainID == null ? 'No Unit Chain' : 'unitChainID: ${picker.unitChainID}',
+                      translate: false,
+                    ),
+                    hasMoreButton: true,
+                    onMoreButtonTap: (){
+                      blog('blha blhaaa hoho');
+                    },
+                  ),
+                ),
+                onTap: () => onPickerUnitChainIDTap(
+                    context: context,
+                    picker: picker,
+                    tempPickers: tempPickers
+                ),
+              ),
+
               /// RANGE
-              if (Mapper.checkCanLoopList(picker.range) == true)
-                LineBubble(
+              LineBubble(
                   width: _clearWidth,
                   child: Column(
                     children: <Widget>[
@@ -159,15 +150,22 @@ class PickerEditingTile extends StatelessWidget {
                       /// HEADLINE
                       BubbleHeader(
                         viewModel: BubbleHeaderVM(
-                          headlineVerse: const Verse(
-                            text: 'Visible Range',
+                          headlineColor: _hasRange == false ? Colorz.black200 : Colorz.white255,
+                          hasMoreButton: true,
+                          onMoreButtonTap: (){
+                            blog('bisho bisho biiiisho');
+                          },
+                          headlineVerse: Verse(
+                            text: _hasRange == true ? 'Visible Range' : 'No range defined',
                             translate: false,
                           ),
                           headerWidth: _clearWidth,
+
                         ),
                       ),
 
                       /// RANGE ITEMS
+                      if (_hasRange == true)
                       Wrap(
                         spacing: Ratioz.appBarPadding,
                         children: <Widget>[
@@ -195,8 +193,7 @@ class PickerEditingTile extends StatelessWidget {
                 ),
 
               /// DEACTIVATORS
-              if (Mapper.checkCanLoopList(picker.blockers) == true)
-                LineBubble(
+              LineBubble(
                   width: _clearWidth,
                   child: Column(
                     children: <Widget>[
@@ -204,8 +201,13 @@ class PickerEditingTile extends StatelessWidget {
                       /// HEADLINE
                       BubbleHeader(
                         viewModel: BubbleHeaderVM(
-                          headlineVerse: const Verse(
-                            text: 'Deactivators',
+                          headlineColor: _hasBlockers == false ? Colorz.black200 : Colorz.white255,
+                          hasMoreButton: true,
+                          onMoreButtonTap: (){
+                            blog('bisho bisho biiiishodddddddddddd');
+                          },
+                          headlineVerse: Verse(
+                            text: _hasBlockers == true ? 'Chain Blockers' : 'No Blockers defined',
                             translate: false,
                           ),
                           headerWidth: _clearWidth,
@@ -230,6 +232,7 @@ class PickerEditingTile extends StatelessWidget {
                       ),
 
                       /// DEACTIVATORS
+                      if (_hasBlockers == true)
                       ...List<Widget>.generate(picker.blockers.length,
                               (int index) {
 
