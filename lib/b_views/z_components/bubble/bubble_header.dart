@@ -121,7 +121,7 @@ class BubbleHeader extends StatelessWidget {
     final double _switcherWidth = viewModel.hasSwitch == true ? switcherButtonWidth : 0;
     // --------------------
     /// MORE BUTTON
-    final double _moreButtonWidth = viewModel.hasMoreButton == true ? moreButtonSize : 0;
+    final double _moreButtonWidth = viewModel.hasMoreButton == true ? moreButtonSize + 10 : 0;
     // --------------------
     /// HEADLINE
     final double _headlineWidth = _bubbleWidth - _leadingIconWidth - _switcherWidth - _moreButtonWidth;
@@ -188,6 +188,7 @@ class BubbleHeader extends StatelessWidget {
               icon: Iconz.more,
               iconSizeFactor: 0.6,
               onTap: viewModel.onMoreButtonTap,
+              margins: const EdgeInsets.symmetric(horizontal: 5),
             ),
 
         ],
