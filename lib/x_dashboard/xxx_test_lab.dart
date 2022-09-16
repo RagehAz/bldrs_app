@@ -606,6 +606,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                             itemCount: files.length,
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
+                            // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                             itemBuilder: (_, int index){
 
                               return SuperImage(

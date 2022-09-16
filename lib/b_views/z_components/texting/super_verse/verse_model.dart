@@ -291,6 +291,17 @@ class Verse {
     /// ADJUST CASING
     return convertVerseCase(verse: _output, verseCasing: verse?.casing);
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String transBake(BuildContext context, String phid){
+    return Verse.bakeVerseToString(
+      context: context,
+      verse: Verse(
+        text: phid,
+        translate: true,
+      ),
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKING

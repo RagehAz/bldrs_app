@@ -544,6 +544,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerHeadlineValidator({
+    @required BuildContext context,
     @required String headline,
     @required bool canValidate,
   }){
@@ -555,11 +556,11 @@ class Formers {
       final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
 
       if (_isEmpty == true){
-        _message = "Can not publish a flyer without a title as it's used in the search engine";
+        _message = Verse.transBake(context, 'phid_flyer_should_have_headline');
       }
 
       else if (_isShort == true){
-        _message = 'Flyer title can not be less than 10 characters';
+        _message = Verse.transBake(context, 'phid_flyer_headline_should_be_more_than_10_chars');
       }
 
     }
@@ -569,6 +570,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
+    @required BuildContext context,
     @required DraftFlyerModel draft,
     @required bool canValidate,
   }){
@@ -579,7 +581,7 @@ class Formers {
       final bool _hasSlides = Mapper.checkCanLoopList(draft?.mutableSlides);
 
       if (_hasSlides == false){
-        _message = 'phid_flyer_should_have_atleast_one_slide';
+        _message = Verse.transBake(context, 'phid_flyer_should_have_atleast_one_slide');
       }
 
     }
@@ -589,6 +591,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeValidator({
+    @required BuildContext context,
     @required DraftFlyerModel draft,
     @required bool canValidate,
   }){
@@ -597,7 +600,8 @@ class Formers {
     if (canValidate == true){
 
       if (draft?.flyerType == null){
-        _message = '##Select The flyer type to help people find it';
+        /// '##Select The flyer type to help people find it'
+        _message = Verse.transBake(context, 'phid_select_flyer_type_to_help_classification');
       }
 
     }

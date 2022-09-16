@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -38,19 +39,23 @@ class SpecsWrapper extends StatelessWidget {
       final SpecModel _first = specs[0];
       final SpecModel _second = specs[1];
 
-      if (
-      picker.chainID == _first.pickerChainID
-          &&
-          picker.unitChainID == _second.pickerChainID
-      ){
+      _first.blogSpec();
+      _second.blogSpec();
+      picker.blogPicker();
+
+      final bool _firstSpecIsChainID = picker.chainID == _first.pickerChainID;
+      final bool _secondSpecIsChainID = picker.chainID == _second.pickerChainID;
+
+      final bool _firstChainIsUnitChainID = picker.unitChainID == _first.pickerChainID;
+      final bool _secondSpecIsUnitChainID = picker.unitChainID == _second.pickerChainID;
+
+      /// FIRST IS CHAIN ID + SECOND IS UNIT CHAIN ID
+      if ( _firstSpecIsChainID == true && _secondSpecIsUnitChainID == true){
         _combine = true;
       }
 
-      else if (
-      picker.unitChainID == _first.pickerChainID
-          &&
-          picker.chainID == _second.pickerChainID
-      ){
+      /// FIRST IS UNIT CHAIN ID + SECOND IS CHAIN ID
+      else if (_secondSpecIsChainID == true && _firstChainIsUnitChainID == true){
         _combine = true;
       }
 
@@ -59,6 +64,29 @@ class SpecsWrapper extends StatelessWidget {
     return _combine;
   }
   // -----------------------------------------------------------------------------
+  static Verse _getCombinedSpecsVerse({
+    @required BuildContext context,
+    @required List<SpecModel> specs,
+    @required PickerModel picker,
+  }){
+
+    Verse _verse;
+
+    if (Mapper.checkCanLoopList(specs) == true && specs.length == 2){
+
+      final SpecModel _value = specs.firstWhere((element) => element.pickerChainID == picker.chainID);
+      final SpecModel _unit = specs.firstWhere((element) => element.pickerChainID == picker.unitChainID);
+
+      _verse = Verse(
+        text: '${_value.value} ${xPhrase(context, _unit.value)}',
+        translate: false,
+      );
+
+    }
+
+    return _verse;
+  }
+
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -84,7 +112,7 @@ class SpecsWrapper extends StatelessWidget {
                     maxBoxWidth: boxWidth - (padding * 2),
                     xIsOn: xIsOn,
                     verse: Verse(
-                      text: Phider.removeIndexFromPhid(phid: _spec.value),
+                      text: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
                       translate: true,
                     ),
                     onTap: () => onSpecTap(<SpecModel>[_spec]),
@@ -95,9 +123,10 @@ class SpecsWrapper extends StatelessWidget {
           if (_combineTwoSpecs == true)
             SpecLabel(
               xIsOn: xIsOn,
-              verse: Verse(
-                text: '${specs[0].value} ${xPhrase(context, specs[1].value)}',
-                translate: false,
+              verse: _getCombinedSpecsVerse(
+                context: context,
+                picker: picker,
+                specs: specs,
               ),
               onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
             ),

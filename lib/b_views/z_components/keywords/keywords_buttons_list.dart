@@ -33,6 +33,7 @@ class KeywordsButtonsList extends StatelessWidget {
         itemCount: keywordsIDs.length,
         itemExtent: ExpandingTile.collapsedTileHeight + Ratioz.appBarPadding,
         shrinkWrap: true,
+        // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
         itemBuilder: (BuildContext ctx, int keyIndex) {
 
           final String _keywordID = keywordsIDs[keyIndex];
