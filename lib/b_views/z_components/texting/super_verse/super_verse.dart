@@ -6,7 +6,6 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
-
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
@@ -88,6 +87,7 @@ class SuperVerse extends StatelessWidget {
     return Row(
       mainAxisAlignment: isCentered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
 
         SuperVerse(
@@ -813,7 +813,7 @@ class _TheVerse extends StatelessWidget {
       );
       // --------------------
       return Flexible(
-        key: const ValueKey<String>('a_verse'),
+        key: ValueKey<String>('a_verse_$_verse'),
         child: Container(
           padding: EdgeInsets.only(
             right: _sidePaddings,
@@ -827,9 +827,9 @@ class _TheVerse extends StatelessWidget {
           child:
           highlight == null ?
           Text(
-            _verse,
+              _verse,
             softWrap: false,
-            overflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.fade,
             maxLines: maxLines,
             textAlign: _textAlign,
             textScaleFactor: 1,
