@@ -12,6 +12,7 @@ class SpecLabel extends StatelessWidget {
     @required this.xIsOn,
     @required this.verse,
     @required this.onTap,
+    @required this.onXTap,
     this.maxBoxWidth,
     Key key
   }) : super(key: key);
@@ -19,6 +20,7 @@ class SpecLabel extends StatelessWidget {
   final bool xIsOn;
   final Verse verse;
   final Function onTap;
+  final Function onXTap;
   final double maxBoxWidth;
   /// --------------------------------------------------------------------------
   static const double height = 40;
@@ -31,32 +33,33 @@ class SpecLabel extends StatelessWidget {
     final double _iconWidth = xIsOn == true ? height : 0;
     final double _verseMaxWidth = maxBoxWidth == null ? double.infinity : _maxLabelWidth - _iconWidth;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 40,
-        constraints: BoxConstraints(
-          maxWidth: _maxLabelWidth,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: Borderers.superBorderAll(context, height * 0.3),
-          color: Colorz.black255,
-        ),
-        margin: _margins,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+    return Container(
+      height: 40,
+      constraints: BoxConstraints(
+        maxWidth: _maxLabelWidth,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: Borderers.superBorderAll(context, height * 0.3),
+        color: Colorz.black255,
+      ),
+      margin: _margins,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
 
-            if (xIsOn == true)
-            DreamBox(
-              height: height,
-              width: height,
-              icon: xIsOn ? Iconz.xLarge : null,
-              iconSizeFactor: 0.4,
-              bubble: false,
-            ),
+          if (xIsOn == true)
+          DreamBox(
+            height: height,
+            width: height,
+            icon: xIsOn ? Iconz.xLarge : null,
+            iconSizeFactor: 0.4,
+            bubble: false,
+            onTap: onXTap,
+          ),
 
-            Container(
+          GestureDetector(
+            onTap: onTap,
+            child: Container(
               height: height,
               constraints: BoxConstraints(
                 maxWidth: _verseMaxWidth,
@@ -73,9 +76,9 @@ class SpecLabel extends StatelessWidget {
                 centered: false,
               ),
             ),
+          ),
 
-          ],
-        ),
+        ],
       ),
     );
 

@@ -335,7 +335,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       value: text,
                       tempAuthor: _tempAuthor,
                     ),
-                    validator: () => Formers.contactsPhoneValidator(
+                    validator: (String text) => Formers.contactsPhoneValidator(
                         contacts: authorModel.contacts,
                         zoneModel: widget.bzModel.zone,
                         canValidate: _canValidate
@@ -369,7 +369,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       tempAuthor: _tempAuthor,
                     ),
                     canPaste: false,
-                    validator: () => Formers.contactsEmailValidator(
+                    validator: (String text) => Formers.contactsEmailValidator(
                         contacts: authorModel.contacts,
                         canValidate: _canValidate
                     ),

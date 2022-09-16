@@ -16,13 +16,15 @@ class InfoPageSpecs extends StatelessWidget {
     @required this.specs,
     @required this.flyerType,
     @required this.onSpecTap,
+    @required this.onDeleteSpec,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final List<SpecModel> specs;
   final FlyerType flyerType;
-  final ValueChanged<List<SpecModel>> onSpecTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
   /// --------------------------------------------------------------------------
   List<PickerModel> _getFlyerPickers({
     @required BuildContext context,
@@ -123,6 +125,7 @@ class InfoPageSpecs extends StatelessWidget {
                       specs: _specsOfThisPicker,
                       picker: _picker,
                       onSpecTap: onSpecTap,
+                      onDeleteSpec: onDeleteSpec,
                       xIsOn: false,
                       padding: 5,
                     ),

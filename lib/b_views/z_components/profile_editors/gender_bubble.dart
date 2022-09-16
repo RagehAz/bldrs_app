@@ -44,7 +44,7 @@ class GenderBubble extends StatelessWidget {
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
-        validator: () => Formers.genderValidator(
+        message: Formers.genderValidator(
           userModel: userModel,
           canValidate: canValidate,
         ),

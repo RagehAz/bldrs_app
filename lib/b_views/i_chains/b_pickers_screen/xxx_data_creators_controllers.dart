@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/d_providers/chains_provider.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -25,6 +26,7 @@ import 'package:provider/provider.dart';
 /// CURRENCY DATA CREATOR
 
 // --------------------
+/// TESTED : WORKS PERFECT
 void initializeCurrencyData({
   @required BuildContext context,
   @required ValueNotifier<String> selectedCurrencyID,
@@ -53,6 +55,7 @@ void initializeCurrencyData({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void _initializeInitialCurrency({
   @required BuildContext context,
   @required String initialCurrencyID,
@@ -79,6 +82,7 @@ void _initializeInitialCurrency({
   selectedCurrencyID.value = _initialCurrencyID;
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onCurrencySelectorButtonTap({
   @required BuildContext context,
   @required ZoneModel zone,
@@ -88,7 +92,6 @@ Future<void> onCurrencySelectorButtonTap({
   @required ValueNotifier<dynamic> specValue,
   @required PickerModel picker,
   @required ValueChanged<List<SpecModel>> onExportSpecs,
-
 }) async {
 
   final CurrencyModel _currency = await Nav.goToNewScreen(
@@ -102,7 +105,7 @@ Future<void> onCurrencySelectorButtonTap({
 
     selectedCurrencyID.value = _currency.id;
 
-    validateField(formKey);
+    Formers.validateForm(formKey);
 
     _createSpecsFromLocalDataAndExport(
       textController: textController,
@@ -115,160 +118,6 @@ Future<void> onCurrencySelectorButtonTap({
   }
 
 }
-// --------------------
-String currencyFieldValidator({
-  @required BuildContext context,
-  @required ValueNotifier<String> selectedCurrencyID,
-  @required TextEditingController textController,
-}) {
-  String _output;
-
-  final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
-      context: context,
-      currencyID: selectedCurrencyID.value,
-      listen: false
-  );
-
-  if (selectedCurrency != null){
-
-    final int _maxDigits = selectedCurrency.digits;
-
-    final String _numberString = textController.text;
-    final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
-    final int _numberOfFractions = _fractionsStrings.length;
-    final bool _invalidDigits = _numberOfFractions > _maxDigits;
-
-    // blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
-
-    if (_invalidDigits == true) {
-      final String _error = 'Can not add more than $_maxDigits fractions';
-      // blog(_error);
-      _output = _error;
-    }
-
-    // else {
-    //   blog('tamam');
-    //   return null;
-    // }
-
-  }
-
-  return _output;
-}
-// --------------------
-/// TASK : DELETE ME WHEN EVERYTHING IS GOOD : OLD CURRENCIES DIALOG
-/*
-  static Future<void> showCurrencyDialog({
-    @required BuildContext context,
-    @required ValueChanged<CurrencyModel> onSelectCurrency,
-    // @required
-  }) async {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
-    final CurrencyModel _currentCurrency = _zoneProvider.currentCurrency;
-    final CurrencyModel _usdCurrency =
-    CurrencyModel.getCurrencyFromCurrenciesByCountryID(
-      currencies: _allCurrencies,
-      countryID: 'usa',
-    );
-
-    final double _clearWidth = BottomDialog.clearWidth(context);
-
-    await BottomDialog.showBottomDialog(
-      context: context,
-      draggable: true,
-      child: SizedBox(
-        width: _clearWidth,
-        height: BottomDialog.clearHeight(context: context, draggable: true),
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-
-            CurrencyButton(
-              width: _clearWidth,
-              currency: _currentCurrency,
-              countryID: _currentCurrency.countriesIDs[0],
-              onTap: onSelectCurrency,
-            ),
-
-            CurrencyButton(
-              width: _clearWidth,
-              currency: _usdCurrency,
-              countryID: 'USA',
-              onTap: onSelectCurrency,
-            ),
-
-            const DotSeparator(),
-
-            DreamBox(
-              height: 60,
-              width: _clearWidth,
-              verse: '##More Currencies',
-              verseShadow: false,
-              verseWeight: VerseWeight.thin,
-              verseCentered: false,
-              verseItalic: true,
-              icon: Iconz.dollar,
-              iconSizeFactor: 0.6,
-              color: Colorz.blackSemi255,
-              bubble: false,
-              onTap: () async {
-                await BottomDialog.showBottomDialog(
-                  context: context,
-                  draggable: true,
-                  child: SizedBox(
-                    width: _clearWidth,
-                    height: BottomDialog.clearHeight(
-                        context: context, draggable: true),
-                    child: OldMaxBounceNavigator(
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: _allCurrencies.length,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            final CurrencyModel _currency =
-                                _allCurrencies[index];
-
-                            return CurrencyButton(
-                              width: _clearWidth,
-                              currency: _currency,
-                              countryID: _currency.countriesIDs[0],
-                              onTap: (CurrencyModel currency) {
-
-                                onSelectCurrency(currency);
-
-                                Nav.goBack(
-                                  context: context,
-                                  invoker: 'PriceDataCreator',
-                                );
-
-                              },
-                            );
-                          }
-                          ),
-                    ),
-                  ),
-                );
-              },
-            ),
-
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _onCurrencyTap() async {
-
-    await PriceDataCreator.showCurrencyDialog(
-      context: context,
-      onSelectCurrency: (CurrencyModel currency) => _onSelectCurrency(currency),
-    );
-
-  }
-
- */
 // -----------------------------------------------------------------------------
 
 /// NUMBER DATA CREATOR
@@ -330,40 +179,6 @@ void _initializeNumberUnit({
   }
 
   selectedUnitID.value = _initialUnit;
-}
-// --------------------
-String numberFieldValidator(String text) {
-
-  /// NEED TO VALIDATE IF FIELD IS REQUIRED
-  /// IF ITS INT OR DOUBLE
-
-  // final int _maxDigits = _currency.value.digits;
-  //
-  // final String _numberString = controller.text;
-  // final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
-  // final int _numberOfFractions = _fractionsStrings.length;
-  //
-  // bool _invalidDigits = _numberOfFractions > _maxDigits;
-  //
-  // print('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
-  //
-  // if (_invalidDigits == true){
-  //
-  //   final String _error = 'Can not add more than ${_maxDigits} fractions';
-  //
-  //   print(_error);
-  //
-  //   return _error;
-  //
-  // } else {
-  //
-  //   print('tamam');
-  //
-  //   return null;
-  //
-  // }
-
-  return null;
 }
 // --------------------
 Future<void> onUnitSelectorButtonTap({
@@ -489,7 +304,7 @@ void onKeyboardChanged({
   @required ValueChanged<List<SpecModel>> onExportSpecs,
 }) {
 
-  validateField(formKey);
+  Formers.validateForm(formKey);
 
   _fixValueDataTypeAndSetValue(
     controller: textController,
@@ -612,9 +427,7 @@ dynamic _fixValueDataType({
 
 }
 // --------------------
-void validateField(GlobalKey<FormState> formKey) {
-  formKey.currentState.validate();
-}
+
 // --------------------
 void _createSpecsFromLocalDataAndExport({
   @required TextEditingController textController,
@@ -669,3 +482,81 @@ List<SpecModel> _createSpecsForValueAndUnit({
   return _output;
 }
 // -----------------------------------------------------------------------------
+
+/// VALIDATORS
+
+// --------------------
+String numberFieldValidator(String text) {
+
+  /// NEED TO VALIDATE IF FIELD IS REQUIRED
+  /// IF ITS INT OR DOUBLE
+
+  // final int _maxDigits = _currency.value.digits;
+  //
+  // final String _numberString = controller.text;
+  // final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
+  // final int _numberOfFractions = _fractionsStrings.length;
+  //
+  // bool _invalidDigits = _numberOfFractions > _maxDigits;
+  //
+  // print('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
+  //
+  // if (_invalidDigits == true){
+  //
+  //   final String _error = 'Can not add more than ${_maxDigits} fractions';
+  //
+  //   print(_error);
+  //
+  //   return _error;
+  //
+  // } else {
+  //
+  //   print('tamam');
+  //
+  //   return null;
+  //
+  // }
+
+  return null;
+}
+// --------------------
+String currencyFieldValidator({
+  @required BuildContext context,
+  @required ValueNotifier<String> selectedCurrencyID,
+  @required TextEditingController textController,
+}) {
+  String _output;
+
+  final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
+      context: context,
+      currencyID: selectedCurrencyID.value,
+      listen: false
+  );
+
+  if (selectedCurrency != null){
+
+    final int _maxDigits = selectedCurrency.digits;
+
+    final String _numberString = textController.text;
+    final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
+    final int _numberOfFractions = _fractionsStrings.length;
+    final bool _invalidDigits = _numberOfFractions > _maxDigits;
+
+    // blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
+
+    if (_invalidDigits == true) {
+      final String _error = 'Can not add more than $_maxDigits fractions';
+      // blog(_error);
+      _output = _error;
+    }
+
+    // else {
+    //   blog('tamam');
+    //   return null;
+    // }
+
+  }
+
+  return _output;
+}
+// --------------------

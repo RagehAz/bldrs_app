@@ -28,7 +28,7 @@ class SlidesShelfBubble extends StatelessWidget {
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
-        validator: () => Formers.slidesValidator(
+        message: Formers.slidesValidator(
           context: context,
           draft: draft.value,
           canValidate: canValidate,

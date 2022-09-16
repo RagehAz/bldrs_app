@@ -171,9 +171,15 @@ class InfoPageContents extends StatelessWidget {
                           pageWidth: _pageWidth,
                           specs: flyerModel.specs,
                           flyerType: flyerModel.flyerType,
-                          onSpecTap: (List<SpecModel> specs){
-                            blog('Flyer : InfoPageContents : ');
-                            SpecModel.blogSpecs(specs);
+                          onSpecTap: ({SpecModel value, SpecModel unit}){
+                            blog('Flyer : InfoPageContents : onSpecTap');
+                            value.blogSpec();
+                            unit?.blogSpec();
+                          },
+                          onDeleteSpec: ({SpecModel value, SpecModel unit}){
+                            blog('Flyer : InfoPageContents : onDeleteSpec');
+                            value.blogSpec();
+                            unit?.blogSpec();
                           },
                         ),
                       /// SPECS LINE
