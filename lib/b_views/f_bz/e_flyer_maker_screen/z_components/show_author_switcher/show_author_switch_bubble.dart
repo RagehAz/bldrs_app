@@ -13,12 +13,10 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
     @required this.bzModel,
     Key key
   }) : super(key: key);
-
   /// --------------------------------------------------------------------------
   final DraftFlyerModel draft;
   final ValueChanged<bool> onSwitch;
   final BzModel bzModel;
-
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

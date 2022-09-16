@@ -276,23 +276,17 @@ Future<void> onSelectFlyerType({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onAddSpecsTap({
+Future<void> onAddSpecsToDraftTap({
   @required BuildContext context,
   @required ValueNotifier<DraftFlyerModel> draft,
 }) async {
 
-  final String _flyerTypeString = FlyerTyper.getFlyerTypePhid(
-    flyerType: draft.value.flyerType,
-    pluralTranslation: false,
-  );
-
   final dynamic _result = await Nav.goToNewScreen(
       context: context,
       screen: ChainsPickingScreen(
-        pageTitleVerse: Verse(
-          text: '##$_flyerTypeString Specifications',
+        pageTitleVerse: const Verse(
+          text: 'phid_flyer_specifications',
           translate: true,
-          variables: _flyerTypeString,
         ),
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,

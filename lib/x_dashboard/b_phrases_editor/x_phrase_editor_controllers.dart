@@ -667,6 +667,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
         child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: _phraseProvider.phidsPendingTranslation.length + 1,
+            // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, index){
 
               final bool _isLast = index == _phraseProvider.phidsPendingTranslation.length;

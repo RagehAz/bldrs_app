@@ -96,7 +96,9 @@ class TargetCard extends StatelessWidget {
                 ListView.builder(
                     itemCount: target.instructions.length,
                     physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                     shrinkWrap: true,
+
                     itemBuilder: (_, index) {
                       return SuperVerse(
                         verse: Verse(

@@ -61,6 +61,7 @@ class TargetsBubble extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _allTargets.length,
               shrinkWrap: true,
+              padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
               itemBuilder: (ctx, index) {
                 final TargetModel _target = _allTargets[index];
 
