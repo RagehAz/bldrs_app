@@ -35,7 +35,7 @@ class SlidesShelfBubble extends StatelessWidget {
       ),
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: Verse(
-          text: 'phid_flyer_slides',
+          text: 'phid_flyerSlides',
           translate: true,
         ),
       ),

@@ -25,7 +25,7 @@ class SlideFullScreen extends StatelessWidget {
     // --------------------
     return MainLayout(
       pageTitleVerse: const Verse(
-        text: 'phid_flyer_slides',
+        text: 'phid_flyerSlides',
         translate: true,
       ),
       pyramidsAreOn: true,
