@@ -164,6 +164,29 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<bool> discardChangesGoBackDialog(BuildContext context) async {
+
+    final bool result = await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_discard_changes_?',
+        translate: true,
+      ),
+      bodyVerse: const Verse(
+        text: 'phid_discard_changed_warning',
+        translate: true,
+      ),
+      confirmButtonVerse: const Verse(
+        text: 'phid_yes_discard',
+        translate: true,
+      ),
+      boolDialog: true,
+    );
+
+    return result;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<bool> bottomBoolDialog({
     @required BuildContext context,
     @required Verse titleVerse,
