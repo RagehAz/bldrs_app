@@ -121,7 +121,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
     final String _cityString = _onlyCityChains == true ? 'City Chains' : 'All Chains';
 
-    final String _multipleString = _multipleSelectionMode == true ? 'Multiple Selection' : 'Single selection';
+    final String _multipleString = _multipleSelectionMode == true ? 'Multi-Select' : 'Single-select';
 
     final String _cityName = _onlyCityChains == true ? _zone.cityName : '';
 

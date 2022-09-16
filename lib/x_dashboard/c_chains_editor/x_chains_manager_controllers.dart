@@ -9,15 +9,20 @@ import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/b_chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/c_path_editor_screen.dart';
+import 'package:bldrs/x_dashboard/c_chains_editor/z_components/chain_tree_viewer/b_chain_tree_viewer.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -73,6 +78,36 @@ Future<dynamic> goToChainsPickingScreen({
   }
 
   return _received;
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onChainsEditorScreenGoBack({
+  @required BuildContext context,
+  @required ValueNotifier<List<Chain>> initialChains,
+  @required ValueNotifier<List<Chain>> tempChains,
+}){
+
+  final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(
+    chains1: tempChains.value,
+    chains2: initialChains.value,
+    blogDifferences: false,
+  );
+
+  if (_identicalPaths == true){
+    Nav.goBack(context: context, invoker: 'ChainsEditorScreen');
+  }
+
+  else {
+    Dialogs.goBackDialog(
+      context: context,
+      bodyVerse: const Verse(
+        text: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
+        translate: false,
+      ),
+      goBackOnConfirm: true,
+    );
+  }
+
 }
 // -----------------------------------------------------------------------------
 
@@ -185,59 +220,115 @@ Future<void> onPhidTap({
   @required String path,
   @required String phid,
   @required ValueNotifier<List<Chain>> tempChains,
+  @required TextEditingController textController,
 }) async {
 
   final String _path = ChainPathConverter.fixPathFormatting(path);
 
-  await BottomDialog.showButtonsBottomDialog(
+  final Chain _singlePathChain = ChainPathConverter.createChainFromSinglePath(
+    path: _path,
+  );
+
+  textController.text = phid;
+
+  await BottomDialog.showBottomDialog(
       context: context,
-      numberOfWidgets: 5,
+      height: Scale.superScreenHeight(context) * 0.7,
       draggable: true,
       titleVerse: Verse.plain(phid),
-      buttonHeight: 50,
-      builder: (_, PhraseProvider phrasePro){
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: <Widget>[
 
-        return <Widget>[
+            // /// PATH SPLIT
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 5),
+            //   child: BulletPoints(
+            //     bulletPoints: Verse.createVerses(
+            //       strings: ChainPathConverter.splitPathNodes(_path),
+            //       translate: false,
+            //     ),
+            //     bubbleWidth: BottomDialog.clearWidth(context),
+            //   ),
+            // ),
 
-          /// PATH SPLIT
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: BulletPoints(
-              bulletPoints: Verse.createVerses(
-                strings: ChainPathConverter.splitPathNodes(_path),
-                translate: false,
+            /// TRANSLATION
+            if (_path != null)
+              DataStrip(
+                color: Colorz.white20,
+                dataKey: 'Translation',
+                dataValue: xPhrase(context, phid),
+                width: BottomDialog.clearWidth(context),
+                withHeadline: true,
+                // color: Colorz.black255,
+                onValueTap: () => Keyboard.copyToClipboard(
+                  context: context,
+                  copy: xPhrase(context, phid),
+                ),
               ),
-              bubbleWidth: BottomDialog.clearWidth(context),
-            ),
-          ),
 
-          /// EDIT
-          BottomDialog.wideButton(
-            context: context,
-            verse: const Verse(text: 'Edit', translate: false),
-            onTap: () => onEditPhid(
+            /// PATH TO ROOT
+            if (_path != null)
+              DataStrip(
+                color: Colorz.white20,
+                dataKey: 'Path to root',
+                dataValue: _path,
+                width: BottomDialog.clearWidth(context),
+                withHeadline: true,
+                highlightText: textController,
+                onValueTap: () => Keyboard.copyToClipboard(
+                  context: context,
+                  copy: _path,
+                ),
+              ),
+
+            const SizedBox(width: 10, height: 10,),
+
+            /// EDIT
+            BottomDialog.wideButton(
               context: context,
-              tempChains: tempChains,
-              path: _path,
-              phid: phid,
+              verse: const Verse(text: 'Edit', translate: false),
+              onTap: () => onEditPhid(
+                context: context,
+                tempChains: tempChains,
+                path: _path,
+                phid: phid,
+              ),
             ),
-          ),
 
-          /// DELETE
-          BottomDialog.wideButton(
-            context: context,
-            verse: const Verse(text: 'Delete', translate: false),
-            onTap: () => onDeleteThePhid(
+            const SizedBox(width: 10, height: 10,),
+
+            /// DELETE
+            BottomDialog.wideButton(
               context: context,
-              tempChains: tempChains,
-              path: _path,
-              phid: phid,
+              verse: const Verse(text: 'Delete', translate: false),
+              onTap: () => onDeleteThePhid(
+                context: context,
+                tempChains: tempChains,
+                path: _path,
+                phid: phid,
+              ),
             ),
-          ),
 
-        ];
+            const SizedBox(width: 10, height: 10,),
 
-      }
+            /// CHAIN TREE VIEWER
+            SizedBox(
+              width: BottomDialog.clearWidth(context),
+              child: ChainTreeViewer(
+                width: BottomDialog.clearWidth(context),
+                chain: _singlePathChain,
+                onStripTap: (String path){blog(path);},
+                searchValue: textController,
+                initiallyExpanded: true,
+                index: 0,
+              ),
+            ),
+
+          ],
+        ),
+      ),
   );
 
 }
@@ -487,6 +578,62 @@ void onReorderSon({
       tempChains.value = Phider.sortChainsByIndexes(_chains);
 
     }
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onResetTempChains({
+  @required BuildContext context,
+  @required ValueNotifier<List<Chain>> tempChains,
+  @required ValueNotifier<List<Chain>> initialChains,
+}) async {
+
+  final bool _result = await Dialogs.bottomBoolDialog(
+    context: context,
+    titleVerse: const Verse(
+      text: 'Discard changes & Reset all Chains ?',
+      translate: false,
+    ),
+  );
+
+  if (_result == true){
+    tempChains.value = initialChains.value;
+  }
+
+}
+// -----------------------------------------------------------------------------
+
+/// SEARCHING
+
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<void> onSearchChainsByIDs({
+  @required String text,
+  @required ValueNotifier<String> searchValue,
+  @required ValueNotifier<bool> isSearching,
+  @required List<Chain> tempChains,
+  @required ValueNotifier<List<Chain>> foundChains,
+}) async {
+
+  searchValue.value = text;
+
+  TextCheck.triggerIsSearchingNotifier(
+    text: text,
+    isSearching: isSearching,
+
+  );
+
+  if (isSearching.value == true){
+
+    final List<Chain> _foundPathsChains = ChainPathConverter.findPhidRelatedChains(
+      chains: tempChains,
+      phid: text,
+    );
+
+    /// SET FOUND CHAINS AS SEARCH RESULT
+    foundChains.value = _foundPathsChains;
 
   }
 

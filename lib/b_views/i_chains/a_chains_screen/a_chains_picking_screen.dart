@@ -1,12 +1,14 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_search_view.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_browse_view.dart';
+import 'package:bldrs/b_views/i_chains/a_chains_screen/aa_chains_picking_screen_search_view.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/x_chains_picking_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/a_chains_screen/xx_chains_search_controller.dart';
+import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/artworks/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -14,9 +16,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -55,6 +55,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   /// DATA
   // --------------------
   List<Chain> _bldrsChains;
+  List<Chain> _pickersChains;
   // --------------------
   List<PickerModel> _allSpecPickers = <PickerModel>[];
   final ValueNotifier<List<PickerModel>> _refinedSpecsPickers = ValueNotifier([]);
@@ -160,6 +161,11 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       _generatePhidsFromAllSpecPickers();
       // ------------------------------
       _isInitialized = true;
+      // ------------------------------
+      _pickersChains = Chain.getChainsFromChainsByIDs(
+        allChains: _bldrsChains,
+        phids: PickerModel.getPickersChainsIDs(_allSpecPickers),
+      );
     }
   }
   // --------------------
@@ -183,9 +189,15 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
       if (Mapper.checkCanLoopList(_sons) == true){
 
-        _phidsOfAllPickers = Chain.getOnlyPhidsSonsFromChains(
+        final List<String> _phidsWithIndexes = Chain.getOnlyPhidsSonsFromChains(
             chains: _sons
         );
+        final List<String> _chainsIDs = Chain.getOnlyChainSonsIDs(chain: Chain(
+          id: '',
+          sons: _sons,
+        ));
+
+        _phidsOfAllPickers = Phider.removePhidsIndexes(<String>[..._chainsIDs, ..._phidsWithIndexes]);
 
       }
 
@@ -214,6 +226,24 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       pageTitleVerse: widget.pageTitleVerse,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
+      appBarRowWidgets: [
+        AppBarButton(
+          verse: Verse.plain('blog'),
+          onTap: (){
+
+            // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+            // final List<Phrase> _phrases = _chainsProvider.chainsPhrases;
+            //
+            // Phrase.blogPhrases(_phrases);
+
+            // Stringer.blogStrings(strings: _phidsOfAllPickers);
+
+            Chain.blogChains(_pickersChains);
+
+          },
+        ),
+      ],
+
       onBack: () async {
 
         bool _canContinue = true;
@@ -267,26 +297,29 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         },
       ),
       onSearchChanged: (String text) => onChainsSearchChanged(
-        text: text,
-        isSearching: _isSearching,
-        context: context,
-        foundChains: _foundChains,
-        searchText: _searchText,
-        phidsOfAllPickers: _phidsOfAllPickers,
+          text: text,
+          isSearching: _isSearching,
+          context: context,
+          foundChains: _foundChains,
+          searchText: _searchText,
+          phidsOfAllPickers: _phidsOfAllPickers,
+          chains: _pickersChains
       ),
       onSearchSubmit: (String text) => onChainsSearchSubmitted(
-        text: text,
-        isSearching: _isSearching,
-        foundChains: _foundChains,
-        context: context,
-        searchText: _searchText,
-        phidsOfAllPickers: _phidsOfAllPickers,
+          text: text,
+          isSearching: _isSearching,
+          foundChains: _foundChains,
+          context: context,
+          searchText: _searchText,
+          phidsOfAllPickers: _phidsOfAllPickers,
+          chains: _pickersChains
       ),
-      onSearchCancelled: (){
-        _searchTextController.text = '';
-        Keyboard.closeKeyboard(context);
-        _isSearching.value = false;
-      },
+      onSearchCancelled: () => MainLayout.onCancelSearch(
+          context: context,
+          controller: _searchTextController,
+          foundResultNotifier: _foundChains,
+          isSearching: _isSearching,
+      ),
       searchController: _searchTextController,
       searchHintVerse: const Verse(
         text: 'phid_search_keywords',

@@ -29,7 +29,7 @@ class DataStrip extends StatelessWidget {
   final double width;
   final bool withHeadline;
   final bool isPercent;
-  final ValueNotifier highlightText;
+  final ValueNotifier<dynamic> highlightText;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
   static const double height = 50;

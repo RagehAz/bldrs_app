@@ -288,13 +288,17 @@ class PhraseProtocols {
 
     if (chain != null){
 
-      final List<String> _phids = Chain.getOnlyPhidsSonsFromChain(
+      final List<String> _sonsPhids = Chain.getOnlyPhidsSonsFromChain(
         chain: chain,
       );
 
+      if (chain.id != ''){
+        _sonsPhids.add(chain.id);
+      }
+
       _phrases = await generateMixedLangPhrasesFromPhids(
         context: context,
-        phids: Phider.removeIndexesFromPhids(_phids),
+        phids: Phider.removePhidsIndexes(<String>[..._sonsPhids,]),
       );
 
     }

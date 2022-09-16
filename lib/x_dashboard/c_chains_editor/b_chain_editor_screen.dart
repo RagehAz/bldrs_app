@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/c_chains_editor/x_chains_manager_controllers.dart';
@@ -34,7 +33,6 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(null);
-
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -81,15 +79,26 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
-    _tempChains.dispose();
     _initialChains.dispose();
+    _tempChains.dispose();
+
     _searchController.dispose();
+    _isSearching.dispose();
+    _foundChains.dispose();
+
+    _loading.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
   void _onSearch(String text){
-    blog('text is : $text');
+
+    onSearchChainsByIDs(
+        text: text,
+        searchValue: ValueNotifier<String>(null),
+        isSearching: _isSearching,
+        tempChains: _tempChains.value,
+        foundChains: _foundChains,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -105,32 +114,20 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         text: 'Search Chains',
         translate: false,
       ),
+      loading: _loading,
       onSearchSubmit: _onSearch,
       onSearchChanged: _onSearch,
-      onBack: (){
-
-        final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(
-          chains1: _tempChains.value,
-          chains2: _initialChains.value,
-          blogDifferences: false,
-        );
-
-        if (_identicalPaths == true){
-          Nav.goBack(context: context, invoker: 'ChainsEditorScreen');
-        }
-
-        else {
-          Dialogs.goBackDialog(
-            context: context,
-            bodyVerse: const Verse(
-              text: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
-              translate: false,
-            ),
-            goBackOnConfirm: true,
-          );
-        }
-
-      },
+      onSearchCancelled: () => MainLayout.onCancelSearch(
+        context: context,
+        controller: _searchController,
+        foundResultNotifier: _foundChains,
+        isSearching: _isSearching,
+      ),
+      onBack: () => onChainsEditorScreenGoBack(
+        context: context,
+        tempChains: _tempChains,
+        initialChains: _initialChains,
+      ),
       pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
 
@@ -163,21 +160,11 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                           icon: Iconz.reload,
                           isDeactivated: _identicalPaths,
                           buttonColor: Colorz.bloodTest,
-                          onTap: () async {
-
-                            final bool _result = await Dialogs.bottomBoolDialog(
-                                context: context,
-                                titleVerse: const Verse(
-                                  text: 'Reset Chains ?',
-                                  translate: false,
-                                ),
-                            );
-
-                            if (_result == true){
-                              _tempChains.value = widget.chains;
-                            }
-
-                          }
+                          onTap: () => onResetTempChains(
+                            context: context,
+                            initialChains: _initialChains,
+                            tempChains: _tempChains,
+                          ),
                       ),
 
                       /// BLOG CURRENT CHAIN PATHS
@@ -254,49 +241,112 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
-          valueListenable: _tempChains,
-          builder: (_, List<Chain> tempChains, Widget child){
+          valueListenable: _isSearching,
+          builder: (_, bool isSearching, Widget browsingView){
 
-            return EditingChainSplitter(
-              width: Scale.superScreenWidth(context),
-              initiallyExpanded: false,
-              chainOrChainsOrSonOrSons: tempChains,
-              onSelectPhid: (String path, String phid) => onPhidTap(
-                context: context,
-                path: path,
-                phid: phid,
-                tempChains: _tempChains,
-              ),
-              onAddToPath: (String path) => onAddNewPath(
-                context: context,
-                path: path,
-                tempChains: _tempChains,
-              ),
-              secondLinesType: ChainSecondLinesType.indexAndID,
-              onDoubleTap: (String path) => onPhidTap(
-                context: context,
-                path: path,
-                phid: null,
-                tempChains: _tempChains,
-              ),
-              onReorder: ({
-                int oldIndex,
-                int newIndex,
-                List<dynamic> sons,
-                String previousPath,
-                int level,
-              }) => onReorderSon(
-                sons: sons,
-                oldIndex: oldIndex,
-                tempChains: _tempChains,
-                newIndex: newIndex,
-                previousPath: previousPath,
-                level: level,
-              ),
-            );
+            /// SEARCHING
+            if (isSearching == true){
+              return ValueListenableBuilder(
+                  valueListenable: _foundChains,
+                  builder: (_, List<Chain> foundChains, Widget child,){
+
+                    return EditingChainSplitter(
+                      width: Scale.superScreenWidth(context),
+                      initiallyExpanded: false,
+                      chainOrChainsOrSonOrSons: foundChains,
+                      searchText: _searchController,
+                      onSelectPhid: (String path, String phid) => onPhidTap(
+                        context: context,
+                        path: path,
+                        phid: phid,
+                        tempChains: _tempChains,
+                        textController: _searchController,
+                      ),
+                      onAddToPath: (String path) => onAddNewPath(
+                        context: context,
+                        path: path,
+                        tempChains: _tempChains,
+                      ),
+                      secondLinesType: ChainSecondLinesType.indexAndID,
+                      onDoubleTap: (String path) => onPhidTap(
+                        context: context,
+                        path: path,
+                        phid: null,
+                        tempChains: _tempChains,
+                        textController: _searchController,
+                      ),
+                      onReorder: ({int oldIndex, int newIndex, List<dynamic> sons, String previousPath, int level,
+                      }) async {
+
+                        await TopDialog.showTopDialog(
+                            context: context,
+                            firstVerse: const Verse(
+                              text: "Can't re-order search result",
+                              translate: false,
+                            ),
+                        );
+
+                      },
+                    );
+
+                  },
+              );
+            }
+
+            /// BROWSING
+            else {
+              return browsingView;
+            }
 
           },
+          /// BROWSING VIEW
+          child: ValueListenableBuilder(
+            valueListenable: _tempChains,
+            builder: (_, List<Chain> tempChains, Widget child){
 
+              return EditingChainSplitter(
+                width: Scale.superScreenWidth(context),
+                initiallyExpanded: false,
+                chainOrChainsOrSonOrSons: tempChains,
+                onSelectPhid: (String path, String phid) => onPhidTap(
+                  context: context,
+                  path: path,
+                  phid: phid,
+                  tempChains: _tempChains,
+                  textController: _searchController,
+                ),
+                onAddToPath: (String path) => onAddNewPath(
+                  context: context,
+                  path: path,
+                  tempChains: _tempChains,
+                ),
+                secondLinesType: ChainSecondLinesType.indexAndID,
+                onDoubleTap: (String path) => onPhidTap(
+                  context: context,
+                  path: path,
+                  phid: null,
+                  tempChains: _tempChains,
+                  textController: _searchController,
+                ),
+                onReorder: ({
+                  int oldIndex,
+                  int newIndex,
+                  List<dynamic> sons,
+                  String previousPath,
+                  int level,
+                }) => onReorderSon(
+                  sons: sons,
+                  oldIndex: oldIndex,
+                  tempChains: _tempChains,
+                  newIndex: newIndex,
+                  previousPath: previousPath,
+                  level: level,
+                ),
+              );
+
+            },
+
+          ),
         ),
       ),
     );

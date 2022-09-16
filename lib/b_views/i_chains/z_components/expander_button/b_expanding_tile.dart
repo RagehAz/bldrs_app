@@ -47,7 +47,7 @@ class ExpandingTile extends StatefulWidget {
   final Widget child;
   final bool isDisabled;
   final EdgeInsets margin;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final Function onLongPress;
   final Function onDoubleTap;
   /// --------------------------------------------------------------------------
