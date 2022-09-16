@@ -12,13 +12,15 @@ class PickerSplitter extends StatelessWidget {
     @required this.onTap,
     @required this.allSelectedSpecs,
     @required this.onDeleteSpec,
+    @required this.onSpecTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PickerModel picker;
-  final Function onTap;
   final List<SpecModel> allSelectedSpecs;
-  final ValueChanged<List<SpecModel>> onDeleteSpec;
+  final Function onTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -56,6 +58,7 @@ class PickerSplitter extends StatelessWidget {
         picker: picker,
         pickerSelectedSpecs: _pickerSelectedSpecs,
         onDeleteSpec: onDeleteSpec,
+        onSpecTap: onSpecTap,
       );
 
     }

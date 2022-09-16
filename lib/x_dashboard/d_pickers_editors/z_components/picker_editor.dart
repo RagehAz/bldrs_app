@@ -181,6 +181,9 @@ class PickerEditingTile extends StatelessWidget {
                                   onTap: (){
                                     blog('range item : $item');
                                   },
+                                  onXTap: (){
+                                    blog('should delete walla eh');
+                                  },
                                 );
 
                               }),

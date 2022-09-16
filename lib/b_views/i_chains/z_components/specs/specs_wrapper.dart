@@ -15,19 +15,22 @@ class SpecsWrapper extends StatelessWidget {
     @required this.boxWidth,
     @required this.specs,
     @required this.onSpecTap,
+    @required this.onDeleteSpec,
     @required this.xIsOn,
     @required this.picker,
     this.padding = Ratioz.appBarMargin,
-    Key key
+    Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final List<SpecModel> specs;
-  final ValueChanged<List<SpecModel>> onSpecTap;
   final bool xIsOn;
   final PickerModel picker;
   final dynamic padding;
-  /// --------------------------------------------------------------------------
+  final Function({SpecModel value, SpecModel unit}) onDeleteSpec;
+  final Function({SpecModel value, SpecModel unit}) onSpecTap;
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static bool combineTheTwoSpecs({
     @required List<SpecModel> specs,
     @required PickerModel picker,
@@ -63,7 +66,18 @@ class SpecsWrapper extends StatelessWidget {
 
     return _combine;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SpecModel getValueSpec(PickerModel picker, List<SpecModel> specs){
+    return specs?.firstWhere((element) => element.pickerChainID == picker.chainID, orElse: () => null);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SpecModel getUnitSpec(PickerModel picker, List<SpecModel> specs){
+    return specs?.firstWhere((element) => element.pickerChainID == picker.unitChainID, orElse: () => null);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Verse _getCombinedSpecsVerse({
     @required BuildContext context,
     @required List<SpecModel> specs,
@@ -74,8 +88,8 @@ class SpecsWrapper extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(specs) == true && specs.length == 2){
 
-      final SpecModel _value = specs.firstWhere((element) => element.pickerChainID == picker.chainID);
-      final SpecModel _unit = specs.firstWhere((element) => element.pickerChainID == picker.unitChainID);
+      final SpecModel _value = getValueSpec(picker, specs);
+      final SpecModel _unit = getUnitSpec(picker, specs);
 
       _verse = Verse(
         text: '${_value.value} ${xPhrase(context, _unit.value)}',
@@ -86,7 +100,7 @@ class SpecsWrapper extends StatelessWidget {
 
     return _verse;
   }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -115,7 +129,8 @@ class SpecsWrapper extends StatelessWidget {
                       text: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
                       translate: true,
                     ),
-                    onTap: () => onSpecTap(<SpecModel>[_spec]),
+                    onTap: () => onSpecTap(value: _spec, unit: null),
+                    onXTap: () => onDeleteSpec(value: _spec, unit: null),
                   );
 
                 }),
@@ -128,7 +143,14 @@ class SpecsWrapper extends StatelessWidget {
                 picker: picker,
                 specs: specs,
               ),
-              onTap: () => onSpecTap(<SpecModel>[specs[0], specs[1]]),
+              onTap: () => onSpecTap(
+                  value: getValueSpec(picker, specs),
+                  unit: getUnitSpec(picker, specs)
+              ),
+              onXTap: () => onDeleteSpec(
+                  value: getValueSpec(picker, specs),
+                  unit: getUnitSpec(picker, specs)
+              ),
             ),
 
         ],

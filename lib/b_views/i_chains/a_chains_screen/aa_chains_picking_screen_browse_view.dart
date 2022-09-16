@@ -25,12 +25,14 @@ class ChainsScreenBrowseView extends StatelessWidget {
     @required this.refinedPickers,
     @required this.onlyUseCityChains,
     @required this.flyerTypes,
+    @required this.onSpecTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<PickerModel> pickers;
   final ValueChanged<PickerModel> onPickerTap;
-  final ValueChanged<List<SpecModel>> onDeleteSpec;
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final ValueNotifier<List<PickerModel>> refinedPickers;
   final bool onlyUseCityChains;
@@ -134,6 +136,7 @@ class ChainsScreenBrowseView extends StatelessWidget {
                             picker: _picker,
                             onTap: () => onPickerTap(_picker),
                             onDeleteSpec: onDeleteSpec,
+                            onSpecTap: onSpecTap,
                             allSelectedSpecs: _allSelectedSpecs,
                           );
 

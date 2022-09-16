@@ -42,7 +42,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     return Bubble(
         width: _bubbleWidth,
         bubbleColor: Formers.validatorBubbleColor(
-          validator: validator,
+          message: validator == null ? null : validator(),
         ),
         headerViewModel: BubbleHeaderVM(
           headlineVerse: titleVerse,

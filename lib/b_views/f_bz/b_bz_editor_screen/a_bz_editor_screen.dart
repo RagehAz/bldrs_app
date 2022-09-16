@@ -528,7 +528,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         canPaste: false,
                         // autoValidate: true,
-                        validator: () => Formers.contactsPhoneValidator(
+                        validator: (String text) => Formers.contactsPhoneValidator(
                           contacts: bzModel?.contacts,
                           zoneModel: bzModel?.zone,
                           canValidate: _canValidate,
@@ -563,7 +563,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         canPaste: false,
                         // autoValidate: true,
-                        validator: () => Formers.contactsEmailValidator(
+                        validator: (String text) => Formers.contactsEmailValidator(
                           contacts: bzModel?.contacts,
                           canValidate: _canValidate,
                         ),
@@ -596,7 +596,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                         // canPaste: true,
                         // autoValidate: true,
-                        validator: () => Formers.contactsWebsiteValidator(
+                        validator: (String text) => Formers.contactsWebsiteValidator(
                           contacts: bzModel?.contacts,
                           canValidate: _canValidate,
                         ),
@@ -618,7 +618,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             child: Bubble(
                               headerViewModel: const BubbleHeaderVM(
                                 headlineVerse: Verse(
-                                  text: 'phid_scope_of_services',
+                                  text: 'phid_scopeOfServices',
                                   translate: true,
                                 ),
                               ),
