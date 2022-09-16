@@ -328,6 +328,37 @@ Future<void> onZoneChanged({
   );
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
+void onChangeFlyerPDF({
+  @required FileModel pdf,
+  @required ValueNotifier<DraftFlyerModel> draft,
+}){
+
+  draft.value = draft.value.copyWith(
+    pdf: pdf,
+  );
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onRemoveFlyerPDF({
+  @required ValueNotifier<DraftFlyerModel> draft,
+}){
+  draft.value = DraftFlyerModel.removePDF(draft.value);
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+void onSwitchFlyerShowsAuthor({
+  @required ValueNotifier<DraftFlyerModel> draft,
+  @required bool value,
+}){
+
+  draft.value = draft.value.copyWith(
+    showsAuthor: value,
+  );
+
+}
 // -----------------------------------------------------------------------------
 
 /// PUBLISHING FLYER
