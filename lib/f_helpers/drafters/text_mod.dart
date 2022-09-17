@@ -190,7 +190,7 @@ class TextMod {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String cutFirstCharacterAfterRemovingSpacesFromAString(String string) {
-    final String _stringTrimmed = string.trim();
+    final String _stringTrimmed = string?.trim();
 
     final String _stringWithoutSpaces = removeSpacesFromAString(_stringTrimmed);
 

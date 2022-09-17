@@ -15,7 +15,6 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -427,8 +426,6 @@ dynamic _fixValueDataType({
 
 }
 // --------------------
-
-// --------------------
 void _createSpecsFromLocalDataAndExport({
   @required TextEditingController textController,
   @required ValueNotifier<dynamic> specValue,
@@ -482,83 +479,3 @@ List<SpecModel> _createSpecsForValueAndUnit({
   return _output;
 }
 // -----------------------------------------------------------------------------
-
-/// VALIDATORS
-
-// --------------------
-String numberDataCreatorFieldValidator({
-  @required BuildContext context,
-  @required String text,
-  @required PickerModel picker,
-  @required DataCreator dataCreatorType,
-}) {
-
-  String _message;
-
-  if (picker.isRequired == true){
-
-    if (TextCheck.isEmpty(text) == true){
-      _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
-    }
-
-  }
-
-  final bool _isInt = DataCreation.checkIsIntDataCreator(dataCreatorType);
-  // final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
-
-  /// IF ITS INT OR DOUBLE
-
-  if (_isInt == true){
-
-    /// SHOULD NOT INCLUDE FRACTIONS
-    final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
-    if (_includeDot == true){
-      _message = Verse.transBake(context, 'phid_num_cant_include_fractions');
-    }
-
-  }
-
-
-  return _message;
-}
-// --------------------
-String currencyFieldValidator({
-  @required BuildContext context,
-  @required ValueNotifier<String> selectedCurrencyID,
-  @required TextEditingController textController,
-}) {
-  String _output;
-
-  final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
-      context: context,
-      currencyID: selectedCurrencyID.value,
-      listen: false
-  );
-
-  if (selectedCurrency != null){
-
-    final int _maxDigits = selectedCurrency.digits;
-
-    final String _numberString = textController.text;
-    final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
-    final int _numberOfFractions = _fractionsStrings.length;
-    final bool _invalidDigits = _numberOfFractions > _maxDigits;
-
-    // blog('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
-
-    if (_invalidDigits == true) {
-      final String _error = 'Can not add more than $_maxDigits fractions';
-      // blog(_error);
-      _output = _error;
-    }
-
-    // else {
-    //   blog('tamam');
-    //   return null;
-    // }
-
-  }
-
-  return _output;
-}
-// --------------------

@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class PriceDataCreator extends StatefulWidget {
@@ -74,10 +75,22 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  String _validator(String text){
+    return Formers.currencyFieldValidator(
+      context: context,
+      selectedCurrencyID: _selectedCurrencyID,
+      text: _textController.text,
+      picker: widget.picker,
+    );
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return Bubble(
+      bubbleColor: Formers.validatorBubbleColor(
+        validator: () => _validator(_textController.text),
+      ),
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: Verse(
           text: 'phid_add_with_dots',
@@ -100,11 +113,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             text: 'phid_add_price',
             translate: true,
           ),
-          validator: (String text) => currencyFieldValidator(
-            context: context,
-            selectedCurrencyID: _selectedCurrencyID,
-            textController: _textController,
-          ),
+          validator: (String text) => _validator(_textController.text),
           textController: _textController,
           formKey: _formKey,
           selectedUnitID: _selectedCurrencyID,

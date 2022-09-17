@@ -23,12 +23,12 @@ class EditingChainSplitter extends StatelessWidget {
     @required this.chainOrChainsOrSonOrSons,
     @required this.initiallyExpanded,
     @required this.secondLinesType,
-    @required this.onDoubleTap,
+    @required this.onPhidDoubleTap,
     @required this.onReorder,
     this.previousPath = '',
     this.level = 0,
     this.width,
-    this.onSelectPhid,
+    this.onPhidTap,
     this.selectedPhids,
     this.searchText,
     this.onAddToPath,
@@ -39,13 +39,13 @@ class EditingChainSplitter extends StatelessWidget {
   final int level;
   final String previousPath;
   final double width;
-  final Function(String path, String phid) onSelectPhid;
+  final Function(String path, String phid) onPhidTap;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<dynamic> searchText;
   final Function(String path) onAddToPath;
   final ChainSecondLinesType secondLinesType;
-  final ValueChanged<String> onDoubleTap;
+  final ValueChanged<String> onPhidDoubleTap;
   final Function({int oldIndex, int newIndex, List<dynamic> sons, String previousPath, int level}) onReorder;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -91,8 +91,8 @@ class EditingChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: _color,
-        onDoubleTap: () => onDoubleTap(_cleanedPath),
-        onTap: () => onSelectPhid(_cleanedPath, _phid), // good
+        onDoubleTap: () => onPhidDoubleTap(_cleanedPath),
+        onTap: () => onPhidTap(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
         // margins: ,
@@ -111,13 +111,13 @@ class EditingChainSplitter extends StatelessWidget {
         previousPath: previousPath, // good
         width: _width,
         level: level,
-        onPhidTap: onSelectPhid,
+        onPhidTap: onPhidTap,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
         secondLinesType: secondLinesType,
-        onDoubleTap: onDoubleTap,
+        onDoubleTap: onPhidDoubleTap,
         onReorder: onReorder,
       );
 
@@ -138,8 +138,8 @@ class EditingChainSplitter extends StatelessWidget {
         firstHeadlineVerse: Verse.trans(Phider.removeIndexFromPhid(phid: _chain.id)),
         secondHeadlineVerse: createSecondVerse(secondLinesType, _chain.id),
         initiallyExpanded: initiallyExpanded,
-        onPhidTap: onSelectPhid,
-        onDoubleTap: onDoubleTap,
+        onPhidTap: onPhidTap,
+        onDoubleTap: onPhidDoubleTap,
         level: level,
         selectedPhids: selectedPhids,
         searchText: searchText,
@@ -164,13 +164,13 @@ class EditingChainSplitter extends StatelessWidget {
         previousPath: previousPath, // good
         width: _width,
         level: level,
-        onPhidTap: onSelectPhid,
+        onPhidTap: onPhidTap,
         selectedPhids: selectedPhids,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         onAddToPath: onAddToPath,
         secondLinesType: secondLinesType,
-        onDoubleTap: onDoubleTap,
+        onDoubleTap: onPhidDoubleTap,
         onReorder: onReorder,
       );
 
@@ -190,11 +190,11 @@ class EditingChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: Colorz.green50,
-        onDoubleTap: () => onDoubleTap(_cleanedPath),
+        onDoubleTap: () => onPhidDoubleTap(_cleanedPath),
         // isDisabled: false,
         onTap: (){
 
-          onSelectPhid(_cleanedPath, _phid.toString());
+          onPhidTap(_cleanedPath, _phid.toString());
 
         }, // good
       );

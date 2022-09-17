@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/chain/a_chain.dart';
+import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -89,7 +91,8 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     _loading.dispose();
     super.dispose();
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void _onSearch(String text){
 
     onSearchChainsByIDs(
@@ -101,11 +104,74 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     );
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPhidTap(String path, String phid) async {
+    await onChainsEditorPhidTap(
+      context: context,
+      path: path,
+      phid: phid,
+      tempChains: _tempChains,
+      textController: _searchController,
+    );
+  }
+  // --------------------
+  ///
+  Future<void> _onPhidDoubleTap(String path) async {
+    final String _lastNode = ChainPathConverter.getLastPathNode(path);
+    await Keyboard.copyToClipboard(context: context, copy: _lastNode);
+  }
+  // --------------------
+  ///
+  Future<void> _onAddToPath(String path) async {
+    await onAddNewPath(
+      context: context,
+      path: path,
+      tempChains: _tempChains,
+    );
+  }
+  // --------------------
+  ///
+  Future<void> _onReorder({
+    int oldIndex,
+    int newIndex,
+    List<dynamic> sons,
+    String previousPath,
+    int level,
+  }) async {
+
+    if (_isSearching.value == true){
+
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          text: "Can't re-order search result",
+          translate: false,
+        ),
+      );
+
+    }
+
+    else {
+
+      onReorderSon(
+        sons: sons,
+        oldIndex: oldIndex,
+        tempChains: _tempChains,
+        newIndex: newIndex,
+        previousPath: previousPath,
+        level: level,
+      );
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return MainLayout(
+      key: const ValueKey<String>('ChainsEditorScreen'),
       pageTitleVerse: const Verse(text: 'Chains',translate: false),
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
@@ -237,6 +303,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
       ],
       layoutWidget: Container(
+        key: const ValueKey<String>('ChainsEditorScreenViews'),
         width: Scale.superScreenWidth(context),
         height: Scale.superScreenHeightWithoutSafeArea(context),
         alignment: Alignment.topCenter,
@@ -255,38 +322,11 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                       initiallyExpanded: false,
                       chainOrChainsOrSonOrSons: foundChains,
                       searchText: _searchController,
-                      onSelectPhid: (String path, String phid) => onPhidTap(
-                        context: context,
-                        path: path,
-                        phid: phid,
-                        tempChains: _tempChains,
-                        textController: _searchController,
-                      ),
-                      onAddToPath: (String path) => onAddNewPath(
-                        context: context,
-                        path: path,
-                        tempChains: _tempChains,
-                      ),
+                      onPhidTap: _onPhidTap,
+                      onAddToPath: _onAddToPath,
                       secondLinesType: ChainSecondLinesType.indexAndID,
-                      onDoubleTap: (String path) => onPhidTap(
-                        context: context,
-                        path: path,
-                        phid: null,
-                        tempChains: _tempChains,
-                        textController: _searchController,
-                      ),
-                      onReorder: ({int oldIndex, int newIndex, List<dynamic> sons, String previousPath, int level,
-                      }) async {
-
-                        await TopDialog.showTopDialog(
-                            context: context,
-                            firstVerse: const Verse(
-                              text: "Can't re-order search result",
-                              translate: false,
-                            ),
-                        );
-
-                      },
+                      onPhidDoubleTap: _onPhidDoubleTap,
+                      onReorder: _onReorder,
                     );
 
                   },
@@ -308,40 +348,11 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                 width: Scale.superScreenWidth(context),
                 initiallyExpanded: false,
                 chainOrChainsOrSonOrSons: tempChains,
-                onSelectPhid: (String path, String phid) => onPhidTap(
-                  context: context,
-                  path: path,
-                  phid: phid,
-                  tempChains: _tempChains,
-                  textController: _searchController,
-                ),
-                onAddToPath: (String path) => onAddNewPath(
-                  context: context,
-                  path: path,
-                  tempChains: _tempChains,
-                ),
+                onPhidTap: _onPhidTap,
+                onAddToPath: _onAddToPath,
                 secondLinesType: ChainSecondLinesType.indexAndID,
-                onDoubleTap: (String path) => onPhidTap(
-                  context: context,
-                  path: path,
-                  phid: null,
-                  tempChains: _tempChains,
-                  textController: _searchController,
-                ),
-                onReorder: ({
-                  int oldIndex,
-                  int newIndex,
-                  List<dynamic> sons,
-                  String previousPath,
-                  int level,
-                }) => onReorderSon(
-                  sons: sons,
-                  oldIndex: oldIndex,
-                  tempChains: _tempChains,
-                  newIndex: newIndex,
-                  previousPath: previousPath,
-                  level: level,
-                ),
+                onPhidDoubleTap: _onPhidDoubleTap,
+                onReorder: _onReorder,
               );
 
             },
