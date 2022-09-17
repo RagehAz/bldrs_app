@@ -216,7 +216,6 @@ Future<void> onPickerTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required List<SpecModel> originalSpecs,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
   @required ValueNotifier<List<PickerModel>> refinedSpecsPickers,
@@ -233,7 +232,6 @@ Future<void> onPickerTap({
       onlyUseCityChains: onlyUseCityChains,
       showInstructions: isMultipleSelectionMode,
       isMultipleSelectionMode:  isMultipleSelectionMode,
-      originalSpecs: originalSpecs,
       zone: zone,
     ),
   );

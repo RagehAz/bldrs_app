@@ -487,6 +487,7 @@ List<SpecModel> _createSpecsForValueAndUnit({
 
 // --------------------
 String numberDataCreatorFieldValidator({
+  @required BuildContext context,
   @required String text,
   @required PickerModel picker,
   @required DataCreator dataCreatorType,
@@ -497,13 +498,13 @@ String numberDataCreatorFieldValidator({
   if (picker.isRequired == true){
 
     if (TextCheck.isEmpty(text) == true){
-      _message = 'phid_this_field_can_not_be_empty';
+      _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
     }
 
   }
 
   final bool _isInt = DataCreation.checkIsIntDataCreator(dataCreatorType);
-  final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
+  // final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
 
   /// IF ITS INT OR DOUBLE
 
@@ -512,36 +513,11 @@ String numberDataCreatorFieldValidator({
     /// SHOULD NOT INCLUDE FRACTIONS
     final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
     if (_includeDot == true){
-      _message = 'phid_num_cant_include_fractions';
+      _message = Verse.transBake(context, 'phid_num_cant_include_fractions');
     }
 
   }
 
-  // final int _maxDigits = _currency.value.digits;
-  //
-  // final String _numberString = controller.text;
-  // final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(_numberString, '.');
-  // final int _numberOfFractions = _fractionsStrings.length;
-  //
-  // bool _invalidDigits = _numberOfFractions > _maxDigits;
-  //
-  // print('_numberOfFractions : $_numberOfFractions : _numberString : $_numberString : _fractionsStrings : $_fractionsStrings');
-  //
-  // if (_invalidDigits == true){
-  //
-  //   final String _error = 'Can not add more than ${_maxDigits} fractions';
-  //
-  //   print(_error);
-  //
-  //   return _error;
-  //
-  // } else {
-  //
-  //   print('tamam');
-  //
-  //   return null;
-  //
-  // }
 
   return _message;
 }
