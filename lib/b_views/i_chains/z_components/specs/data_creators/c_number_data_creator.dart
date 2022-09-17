@@ -74,6 +74,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   String _validator(String text){
     return Formers.numberDataCreatorFieldValidator(
       context: context,
@@ -129,7 +130,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
-          onKeyboardChanged: (String text) => onKeyboardChanged(
+          onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
             specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
@@ -138,7 +139,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
-          onKeyboardSubmitted: (String text) => onKeyboardSubmitted(
+          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmitted(
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,

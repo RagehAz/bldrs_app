@@ -42,6 +42,7 @@ class PhidButton extends StatelessWidget {
     return ChainButtonBox.sonHeight();
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   String _getIcon(BuildContext context){
 
     String _icon;
@@ -60,6 +61,7 @@ class PhidButton extends StatelessWidget {
     return _icon;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   double _getVerseScaleFactor(){
     double _scaleFactor;
 
@@ -73,6 +75,7 @@ class PhidButton extends StatelessWidget {
     return _scaleFactor;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   double _getIconScaleFactor(){
     double _scaleFactor;
 
@@ -114,11 +117,8 @@ class PhidButton extends StatelessWidget {
         verseItalic: true,
         onTap: onTap,
         verseHighlight: searchText,
-
         secondLine: secondLine,
         secondVerseMaxLines: 1,
-
-        // verseHighlightColor: Colorz.bloodTest,
       ),
     );
 
