@@ -116,13 +116,13 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onPhidDoubleTap(String path) async {
     final String _lastNode = ChainPathConverter.getLastPathNode(path);
     await Keyboard.copyToClipboard(context: context, copy: _lastNode);
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onAddToPath(String path) async {
     await onAddNewPath(
       context: context,
@@ -131,7 +131,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onReorder({
     int oldIndex,
     int newIndex,

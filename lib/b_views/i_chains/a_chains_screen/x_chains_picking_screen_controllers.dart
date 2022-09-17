@@ -212,7 +212,8 @@ Future<void> _setActivePhidK({
 /// SELECTION
 
 // --------------------
-Future<void> onPickerTap({
+/// TESTED : WORKS PERFECT
+Future<void> onChainPickingPickerTap({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
@@ -265,6 +266,7 @@ Future<void> onPickerTap({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void _updatePickersAndGroups({
   @required BuildContext context,
   @required dynamic specPickerResult,
