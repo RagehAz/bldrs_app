@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_property_search_criteria.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/unfinished_status_buttons.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -12,18 +13,14 @@ class StatusBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StatusBubble({
     @required this.status,
-    @required this.userStatus,
-    @required this.switchUserStatus,
-    @required this.currentUserStatus,
-    this.openEnumLister,
+    @required this.onSelectStatus,
+    @required this.currentStatus,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Map<String, Object>> status;
-  final UserStatus userStatus;
-  final Function switchUserStatus;
-  final UserStatus currentUserStatus;
-  final Function openEnumLister;
+  final Function onSelectStatus;
+  final UserStatus currentStatus;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -57,7 +54,7 @@ class StatusBubble extends StatelessWidget {
           weight: VerseWeight.thin,
           maxLines: 2,
         ),
-
+        /// HEADLINE QUESTION
         const SuperVerse(
           verse: Verse(
             text: '##What are you looking for ?',
@@ -70,6 +67,7 @@ class StatusBubble extends StatelessWidget {
           maxLines: 2,
         ),
 
+        /// SPACER
         const SizedBox(
           height: pageMargin,
         ),
@@ -78,18 +76,16 @@ class StatusBubble extends StatelessWidget {
         StatusButtons(
           status: status,
           stateIndex: 0,
-          switchUserStatus: switchUserStatus,
-          currentUserStatus: currentUserStatus,
+          onSelectStatus: onSelectStatus,
+          currentUserStatus: currentStatus,
         ),
 
         /// IF USER IS SEARCHING FOR PROPERTIES
-        // if (currentUserStatus == UserStatus.searching)
-        //   PropertySearchCriteria(
-        //     openEnumLister: openEnumLister,
-        //   ),
+        if (currentStatus == UserStatus.searching)
+          const PropertySearchCriteria(),
 
         /// IF USER WANT TO SELL OR RENT HIS PROPERTY
-        if (currentUserStatus == UserStatus.selling)
+        if (currentStatus == UserStatus.selling)
           Container(
             width: screenWidth - (abPadding * 4),
             height: 100,
@@ -104,14 +100,14 @@ class StatusBubble extends StatelessWidget {
           ),
 
         /// IF USER IS IN CONSTRUCTION
-        if (currentUserStatus == UserStatus.finishing ||
-            currentUserStatus == UserStatus.planning ||
-            currentUserStatus == UserStatus.building)
+        if (currentStatus == UserStatus.finishing ||
+            currentStatus == UserStatus.planning ||
+            currentStatus == UserStatus.building)
           StatusButtons(
             status: status,
             stateIndex: 1,
-            switchUserStatus: switchUserStatus,
-            currentUserStatus: currentUserStatus,
+            onSelectStatus: onSelectStatus,
+            currentUserStatus: currentStatus,
           ),
 
       ],

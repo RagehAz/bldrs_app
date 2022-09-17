@@ -88,7 +88,7 @@ class CustomerStatus {
         neededBzz: BzModel.decipherBzTypes(map['neededBzz']) ,
         lookingFor: FlyerTyper.decipherFlyersTypes(map['lookingFor']),
         specs: Stringer.getStringsFromDynamics(dynamics: map['specs']),
-        zoneModel: ZoneModel.decipherZoneMap(map['zoneModel']),
+        zoneModel: ZoneModel.decipherZone(map['zoneModel']),
         location: Atlas.decipherGeoPoint(
           point: map['location'],
           fromJSON: false,
