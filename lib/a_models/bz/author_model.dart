@@ -67,7 +67,7 @@ class AuthorModel {
           bzID: bzModel.id,
         ),
       ),
-      contacts: ContactModel.initializeContactsForEditing(
+      contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
         countryID: bzModel.zone.countryID,
       ),
