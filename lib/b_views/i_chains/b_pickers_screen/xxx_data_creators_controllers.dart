@@ -240,7 +240,7 @@ Future<void> onUnitSelectorButtonTap({
                       onExportSpecs: onExportSpecs,
                     );
 
-                    Nav.goBack(
+                    await Nav.goBack(
                       context: context,
                       invoker: 'IntegerAndDoubleDataCreator._onSelectUnit',
                     );
@@ -486,10 +486,36 @@ List<SpecModel> _createSpecsForValueAndUnit({
 /// VALIDATORS
 
 // --------------------
-String numberFieldValidator(String text) {
+String numberDataCreatorFieldValidator({
+  @required String text,
+  @required PickerModel picker,
+  @required DataCreator dataCreatorType,
+}) {
 
-  /// NEED TO VALIDATE IF FIELD IS REQUIRED
+  String _message;
+
+  if (picker.isRequired == true){
+
+    if (TextCheck.isEmpty(text) == true){
+      _message = 'phid_this_field_can_not_be_empty';
+    }
+
+  }
+
+  final bool _isInt = DataCreation.checkIsIntDataCreator(dataCreatorType);
+  final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
+
   /// IF ITS INT OR DOUBLE
+
+  if (_isInt == true){
+
+    /// SHOULD NOT INCLUDE FRACTIONS
+    final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
+    if (_includeDot == true){
+      _message = 'phid_num_cant_include_fractions';
+    }
+
+  }
 
   // final int _maxDigits = _currency.value.digits;
   //
@@ -517,7 +543,7 @@ String numberFieldValidator(String text) {
   //
   // }
 
-  return null;
+  return _message;
 }
 // --------------------
 String currencyFieldValidator({

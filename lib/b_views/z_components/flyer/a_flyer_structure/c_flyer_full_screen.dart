@@ -32,7 +32,7 @@ class FlyerFullScreen extends StatelessWidget {
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'FlyerFullScreen._onDismiss',
     );

@@ -190,9 +190,9 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
   }
   // --------------------
-  void _onBack(){
+  Future<void> _onBack() async {
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SearchBzScreen._onBack',
       passedData: _selectedBzz.value,

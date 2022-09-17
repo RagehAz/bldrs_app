@@ -113,7 +113,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       sectionButtonIsOn: false,
       appBarType: AppBarType.search,
       loading: _loading,
-      onBack: (){
+      onBack: () async {
 
         final bool _areIdentical = PickerModel.checkPickersListsAreIdentical(
           pickers1: _initialSpecPickers.value,
@@ -121,12 +121,12 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
         );
 
         if (_areIdentical == true){
-          Nav.goBack(context: context, invoker: 'PickerEditorScreen');
+          await Nav.goBack(context: context, invoker: 'PickerEditorScreen');
         }
 
         else {
 
-          Dialogs.goBackDialog(
+          await Dialogs.goBackDialog(
             context: context,
             goBackOnConfirm: true,
           );

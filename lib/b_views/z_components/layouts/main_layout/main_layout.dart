@@ -137,11 +137,11 @@ class MainLayout extends StatelessWidget {
     return _backgroundColor;
   }
   // --------------------
-  void _onBack(BuildContext context){
+  Future<void> _onBack(BuildContext context) async {
 
 
     if (onBack != null){
-      onBack();
+      await onBack();
     }
 
     else {
@@ -152,7 +152,7 @@ class MainLayout extends StatelessWidget {
       }
 
       if (canGoBack == true){
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'MainLayout._onBack',
         );
@@ -172,7 +172,7 @@ class MainLayout extends StatelessWidget {
     return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
       onWillPop: () async {
-        _onBack(context);
+        await _onBack(context);
         return false;
       },
       child: GestureDetector(

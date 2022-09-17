@@ -165,8 +165,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
       appBarType: AppBarType.basic,
       // loading: _loading,
       appBarRowWidgets: const <Widget>[],
-      onBack: () {
-        Nav.goBack(
+      onBack: () async {
+        await Nav.goBack(
           context: context,
             invoker: 'GoogleMapScreen.onBack',
             passedData: _geoPoint,
@@ -287,8 +287,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
               verseCentered: false,
               secondLine: Verse.plain('lat ${Numeric.roundFractions(_geoPoint.latitude, 2)}, Lng ${Numeric.roundFractions(_geoPoint.longitude, 2)}'),
               color: Colorz.black230,
-              onTap: () {
-                Nav.goBack(
+              onTap: () async {
+                await Nav.goBack(
                     context: context,
                     invoker: 'GoogleMapScreen.Confirm',
                     passedData: _geoPoint

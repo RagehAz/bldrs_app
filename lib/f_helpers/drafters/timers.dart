@@ -1050,7 +1050,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final DateTime _dateTime = _InternetUTCTimeMap['dateTime'];
     final String _timezone = _InternetUTCTimeMap['timezone'];
 
-    final DateTime _now = createClock(hour: 10, minute: 50);//DateTime.now();
+    final DateTime _now = DateTime.now();
 
     bool _isCorrect = Timers.checkTimesAreIdentical(
       accuracy: TimeAccuracy.minute,
@@ -1076,7 +1076,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
             context: context,
             zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
         );
-        _zoneLine = _zoneLine.text == '...' ? _zoneLine : Verse(
+        _zoneLine = _zoneLine.text != '...' ? _zoneLine : Verse(
           /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
           text: 'in $_timezone',
           translate: false,

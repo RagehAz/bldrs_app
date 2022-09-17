@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
@@ -5,6 +6,8 @@ import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -21,7 +24,6 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/test_widgets/is_connected_button.dart';
@@ -50,21 +52,65 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
   // --------------------
 
-  ///
-
+  /// ======================================================================[ ]
+  // -------------------------------------------------
   Future<void> _fastTest(BuildContext context) async {
 
 
-    /// - >>>
 
-    await Timers.checkDeviceTimeIsCorrect(
-      context: context,
-      showIncorrectTimeDialog: true,
-    );
+
+
+
+
+
+
+
+
+
+
+
+    // unawaited(WaitDialog.showWaitDialog(
+    //   context: context,
+    //   loadingVerse: Verse.plain('fak yo'),
+    //   canManuallyGoBack: true,
+    // ));
+    // await Future.delayed( const Duration(seconds: 3,), () async {
+    //
+    //   await TopDialog.showTopDialog(context: context, firstVerse: Verse.plain('faki foko foo'));
+    //
+    // });
+    // await WaitDialog.closeWaitDialog(context);
+
+
+
+
+
+    /// ---------------- >>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }
-
-  ///
+  // -------------------------------------------------
+  /// ======================================================================[ ]
 
   // -----------------------------------------------------------------------------
   ZoneProvider _zoneProvider;

@@ -57,7 +57,7 @@ class UserProfileScreen extends StatelessWidget {
               newUserModel: _fireUserModel,
             );
 
-            WaitDialog.closeWaitDialog(context);
+            await WaitDialog.closeWaitDialog(context);
 
           },
         ),

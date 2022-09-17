@@ -70,7 +70,7 @@ class WipeUserProtocols {
 
     /// CLOSE WAITING
     if (showWaitDialog == true){
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
     }
 
     blog('WipeUserProtocols.wipeMyUserModel : END');

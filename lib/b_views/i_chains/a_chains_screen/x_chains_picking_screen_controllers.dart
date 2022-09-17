@@ -256,7 +256,7 @@ Future<void> onPickerTap({
 
     /// WHILE SELECTING ONLY ONE PHID
     else {
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: 'onSpecPickerTap',
         passedData: _result,

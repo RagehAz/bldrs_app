@@ -46,12 +46,12 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void navigate() {
+  Future<void> navigate() async {
 
     if (_canNavigate.value == true){
       _numberOfTimesBack++;
       blog('go back : _numberOfTimesBack : $_numberOfTimesBack');
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: 'HorizontalBouncer.navigate',
       );

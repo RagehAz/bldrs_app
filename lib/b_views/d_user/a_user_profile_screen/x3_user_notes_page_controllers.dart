@@ -80,7 +80,7 @@ Future<void> onShowNoteOptions({
                   noteModel: noteModel,
                 );
 
-                Nav.goBack(
+                await Nav.goBack(
                   context: context,
                   invoker: 'onShowNoteOptions',
                 );
@@ -276,7 +276,7 @@ Future<void> _acceptAuthorshipInvitation({
       bzID: noteModel.senderID,
     );
 
-    WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog(context);
 
     await CenterDialog.showCenterDialog(
       context: context,

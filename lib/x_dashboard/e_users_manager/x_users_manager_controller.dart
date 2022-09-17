@@ -183,7 +183,7 @@ Future<void> onDeleteUser({
       if (_credentialsAreGood == true){
 
         /// CLOSE BOTTOM DIALOG
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'onDeleteUser',
         );
@@ -230,7 +230,7 @@ Future<void> onDeleteUser({
           }
 
           /// CLOSE WAITING
-          WaitDialog.closeWaitDialog(context);
+          await WaitDialog.closeWaitDialog(context);
 
           await Sliders.slideToBackFrom(
             pageController: pageController,
@@ -251,7 +251,7 @@ Future<void> onDeleteUser({
           );
 
           /// CLOSE WAITING
-          WaitDialog.closeWaitDialog(context);
+          await WaitDialog.closeWaitDialog(context);
 
         }
 

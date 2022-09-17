@@ -1055,9 +1055,9 @@ class FlyerFireOps {
                   translate: true,
                   pseudo: 'Inappropriate content',
                 ),
-                onTap: (){
+                onTap: () async {
                   _feedback = 'Inappropriate content';
-                  Nav.goBack(
+                  await Nav.goBack(
                       context: context,
                       invoker: 'onReportFlyer.Inappropriate'
                   );
@@ -1072,9 +1072,9 @@ class FlyerFireOps {
                   text: 'phid_flyer_has_irrelevant_content',
                   translate: true,
                 ),
-                onTap: (){
+                onTap: () async {
                   _feedback = 'Flyer content is not relevant to Bldrs.net';
-                  Nav.goBack(
+                  await Nav.goBack(
                       context: context,
                       invoker: 'onReportFlyer.not relevant'
                   );
@@ -1089,9 +1089,9 @@ class FlyerFireOps {
                   text: 'phid_flyer_has_copyright_violation',
                   translate: true,
                 ),
-                onTap: (){
+                onTap: () async {
                   _feedback = 'content violates copyrights';
-                  Nav.goBack(
+                  await Nav.goBack(
                       context: context,
                       invoker: 'onReportFlyer.copyrights'
                   );

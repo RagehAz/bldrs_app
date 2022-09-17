@@ -71,7 +71,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
   // -----------------------------------------------------------------------------
   Future<void> _onDoubleTap() async {
     await _resetZoom();
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: '_onDoubleTap',
     );

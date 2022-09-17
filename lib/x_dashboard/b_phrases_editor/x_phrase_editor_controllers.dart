@@ -231,7 +231,7 @@ Future<void> onTapEditPhrase({
 }) async {
 
   /// CLOSE BOTTOM DIALOG
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onTapEditPhrase',
   );
@@ -514,7 +514,7 @@ Future<void> onDeletePhrase({
   if (_continue == true){
 
     /// CLOSE BOTTOM DIALOG
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onDeletePhrase',
     );
@@ -561,13 +561,13 @@ Future<void> onSelectPhrase({
   if (_continue == true){
 
     /// CLOSE BOTTOM DIALOG
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onDeletePhrase',
     );
 
     /// GO BACK AND PASS PHID
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onDeletePhrase',
       passedData: phid,
@@ -699,7 +699,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                   onValueTap: () async {
 
                     unawaited(Keyboard.copyToClipboard(context: context, copy: _phid));
-                    Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
+                    await Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
 
                   },
                 );
@@ -718,7 +718,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                       notify: true,
                     );
 
-                    Nav.goBack(context: context, invoker: 'fuck you bitch');
+                    await Nav.goBack(context: context, invoker: 'fuck you bitch');
 
                   }
                 );

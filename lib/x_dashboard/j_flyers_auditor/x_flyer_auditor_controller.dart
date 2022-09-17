@@ -149,7 +149,7 @@ Future<void> onVerifyFlyer({
 }) async {
 
   /// CLOSE NAV DIALOG
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onVerifyFlyer',
   );

@@ -39,8 +39,8 @@ class Dialogs {
   /// CLOSE
 
   // --------------------
-  static void closDialog(BuildContext context){
-    Nav.goBack(context: context, invoker: 'closeDialog');
+  static Future<void> closDialog(BuildContext context) async {
+    await Nav.goBack(context: context, invoker: 'closeDialog');
   }
   // -----------------------------------------------------------------------------
 
@@ -153,7 +153,7 @@ class Dialogs {
     );
 
     if (goBackOnConfirm == true && _result == true){
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: 'goBackDialog : $titleVerse',
       );
@@ -225,8 +225,8 @@ class Dialogs {
                 translate: true,
               ),
               verseItalic: true,
-              onTap: (){
-                Nav.goBack(context: context, invoker: 'bottomBoolDialog');
+              onTap: () async {
+                await Nav.goBack(context: context, invoker: 'bottomBoolDialog');
               },
             ),
 
@@ -245,9 +245,9 @@ class Dialogs {
                 translate: true,
               ),
               verseItalic: true,
-              onTap: (){
+              onTap: () async {
                 _result = true;
-                Nav.goBack(context: context, invoker: 'bottomBoolDialog');
+                await Nav.goBack(context: context, invoker: 'bottomBoolDialog');
               },
             ),
 
@@ -450,10 +450,10 @@ class Dialogs {
   }) async {
 
     final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
-    void _onSubmit (String text){
+    Future<void> _onSubmit (String text) async {
 
       Keyboard.closeKeyboard(context);
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: 'keyboardDialog',
       );
@@ -615,11 +615,11 @@ class Dialogs {
                     translate: false,
                   ),
                   icon: Flag.getFlagIcon(_foundCity.countryID),
-                  onTap: () {
+                  onTap: () async {
 
                     _city = _foundCity;
 
-                    Nav.goBack(
+                    await Nav.goBack(
                       context: context,
                       invoker: 'confirmCityDialog : city selected aho $_foundCityName',
                     );

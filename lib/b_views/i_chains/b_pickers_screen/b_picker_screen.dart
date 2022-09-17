@@ -73,7 +73,7 @@ class PickerScreen extends StatelessWidget {
         // }
 
         if (_canContinue == true){
-          Nav.goBack(
+          await Nav.goBack(
             context: context,
             invoker: 'SpecPickerScreen.goBack',
           );

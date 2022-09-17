@@ -87,7 +87,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     /// A - WHEN  SEQUENCE IS SELECTING (COUNTRY) ONLY
     if (widget.selectCountryIDOnly){
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: '_onCountryTap',
         passedData: _zone,
@@ -122,7 +122,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         else {
 
           if (_zoneWithCity == null){
-            Nav.goBack(
+            await Nav.goBack(
               context: context,
               invoker: '_onCountryTap',
               passedData: _zone,
@@ -130,7 +130,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
           }
 
           else {
-            Nav.goBack(
+            await Nav.goBack(
               context: context,
               invoker: '_onCountryTap',
               passedData: _zoneWithCity,
@@ -154,14 +154,14 @@ class _CountriesScreenState extends State<CountriesScreen> {
         );
 
         if (_zoneWithCityAndDistrict == null){
-          Nav.goBack(
+          await Nav.goBack(
             context: context,
             invoker: '_onCountryTap',
             passedData: _zone,
           );
         }
         else {
-          Nav.goBack(
+          await Nav.goBack(
             invoker: '_onCountryTap',
             context: context,
             passedData: _zoneWithCityAndDistrict,
@@ -228,9 +228,9 @@ class _CountriesScreenState extends State<CountriesScreen> {
     return _cleaned;
   }
   // --------------------
-  void _onBack(){
+  Future<void> _onBack() async {
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SelectCountryScreen',
     );

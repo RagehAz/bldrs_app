@@ -11,15 +11,15 @@ import 'package:flutter/material.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void onGoBackFromPickerScreen({
+Future<void> onGoBackFromPickerScreen({
   @required BuildContext context,
   @required ValueNotifier<List<SpecModel>> selectedSpecs,
   @required String passPhidBack,
   @required bool isMultipleSelectionMode,
-}) {
+}) async {
 
   if (isMultipleSelectionMode == true){
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
       passedData: selectedSpecs.value,
@@ -27,7 +27,7 @@ void onGoBackFromPickerScreen({
   }
 
   else {
-    Nav.goBack(
+    await Nav.goBack(
         context: context,
         invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
         passedData: passPhidBack
@@ -58,7 +58,7 @@ Future<void> onGoBackFromChainsPickingScreen({
   }
 
   if (_canContinue == true){
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SpecPickerScreen.goBack',
     );
@@ -89,7 +89,7 @@ Future<void> onSelectPhid({
   }
 
   else {
-    onGoBackFromPickerScreen(
+    await onGoBackFromPickerScreen(
       context: context,
       passPhidBack: phid,
       isMultipleSelectionMode: isMultipleSelectionMode,

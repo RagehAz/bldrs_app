@@ -95,12 +95,12 @@ void onSearchCurrencies({
 /// SELECTION
 
 // --------------------
-void onSelectCurrency({
+Future<void> onSelectCurrency({
   @required BuildContext context,
   @required CurrencyModel currency,
-}){
+}) async {
 
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onSelectCurrency',
     passedData: currency,

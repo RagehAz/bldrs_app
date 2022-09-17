@@ -75,7 +75,7 @@ class BackAndSearchButton extends StatelessWidget {
 
             if (backAndSearchAction == BackAndSearchAction.goBack) {
 
-              Nav.goBack(
+              await Nav.goBack(
                 context: context,
                 invoker: 'BackAndSearchButton',
               );
