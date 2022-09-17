@@ -148,11 +148,11 @@ class BzModel{
           fileName: oldBz?.id
       ),//FileModel(url: _initialBzModel.logo, fileName: _initialBzModel.id, size: null),
 
-      zone: await ZoneModel.initializeZoneForEditing(
+      zone: await ZoneModel.prepareZoneForEditing(
         context: context,
         zoneModel: _initialBzModel.zone,
       ),
-      contacts: ContactModel.initializeContactsForEditing(
+      contacts: ContactModel.prepareContactsForEditing(
         contacts: oldBz?.contacts,
         countryID: oldBz?.zone?.countryID,
       ),
@@ -368,7 +368,7 @@ class BzModel{
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         logo: map['logo'],
         scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
-        zone: ZoneModel.decipherZoneMap(map['zone']),
+        zone: ZoneModel.decipherZone(map['zone']),
         about: map['about'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
         contacts: ContactModel.decipherContacts(map['contacts']),

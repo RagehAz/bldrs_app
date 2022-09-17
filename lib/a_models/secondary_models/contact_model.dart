@@ -176,7 +176,7 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> initializeContactsForEditing({
+  static List<ContactModel> prepareContactsForEditing({
     @required List<ContactModel> contacts,
     @required String countryID,
   }){
