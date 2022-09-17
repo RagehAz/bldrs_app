@@ -4,6 +4,7 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
 
+@immutable
 class SpecModel {
   // -----------------------------------------------------------------------------
 
@@ -628,5 +629,57 @@ class SpecModel {
 
     return _specs;
   }
+  // -----------------------------------------------------------------------------
+/*
+  /// STANDARDS
+
+  // --------------------
+  static int getMaxDigitsOfSelectedUnit({
+    @required String unitID,
+  }){
+
+    int _digits;
+
+    switch (Phider.removeIndexFromPhid(phid: unitID)){
+
+      /// phid_s_linearMeasureUnit
+      case 'phid_s_micron': _digits = 0; break;
+      case 'phid_s_micrometer': _digits = 2; break;
+
+      // default: _digits = null;
+    }
+
+    return _digits;
+  }
+ */
+  // --------------------
+
+    /// OVERRIDES
+
+  // ----------------------------------------
+    /*
+     @override
+     String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+     */
+  // ----------------------------------------
+    @override
+    bool operator == (Object other){
+
+      if (identical(this, other)) {
+        return true;
+      }
+
+      bool _areIdentical = false;
+      if (other is SpecModel){
+        _areIdentical = checkSpecsAreIdentical(this, other,);
+      }
+
+      return _areIdentical;
+    }
+  // ----------------------------------------
+    @override
+    int get hashCode =>
+        pickerChainID.hashCode^
+        value.hashCode;
   // -----------------------------------------------------------------------------
 }
