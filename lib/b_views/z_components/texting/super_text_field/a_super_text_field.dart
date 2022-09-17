@@ -267,9 +267,9 @@ class SuperTextField extends StatefulWidget {
 
       errorStyle: createErrorStyle(
         context: context,
-        textSize: textSize,
+        textSize: 2,
         textItalic: textItalic,
-        textSizeFactor: textSizeFactor,
+        textSizeFactor: 1,
         errorTextColor: errorColor,
       ),
       errorMaxLines: 3,

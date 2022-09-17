@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/bb_pickers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
@@ -10,14 +11,13 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
-class PickerScreen extends StatelessWidget {
+class PickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PickerScreen({
     @required this.picker,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
     @required this.onlyUseCityChains,
-    @required this.originalSpecs,
     @required this.zone,
     this.selectedSpecs,
     Key key,
@@ -28,19 +28,97 @@ class PickerScreen extends StatelessWidget {
   final bool showInstructions;
   final bool isMultipleSelectionMode;
   final bool onlyUseCityChains;
-  final List<SpecModel> originalSpecs;
   final ZoneModel zone;
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 60;
   /// --------------------------------------------------------------------------
   @override
+  State<PickerScreen> createState() => _PickerScreenState();
+  /// --------------------------------------------------------------------------
+}
+
+class _PickerScreenState extends State<PickerScreen> {
+  // -----------------------------------------------------------------------------
+  final ValueNotifier<List<SpecModel>> _tempSpecs = ValueNotifier(<SpecModel>[]);
+  // -----------------------------------------------------------------------------
+  /*
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({bool setTo}) async {
+    if (mounted == true){
+      if (setTo == null){
+        _loading.value = !_loading.value;
+      }
+      else {
+        _loading.value = setTo;
+      }
+      blogLoading(loading: _loading.value, callerName: 'TestingTemplate',);
+    }
+  }
+   */
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    _tempSpecs.value = widget.selectedSpecs.value;
+    super.initState();
+  }
+  // --------------------
+  /*
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading().then((_) async {
+
+        /// FUCK
+
+        await _triggerLoading();
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
+  }
+   */
+  // --------------------
+  /// XXXX
+  @override
+  void dispose() {
+    _tempSpecs.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  Future<void> _onGoBack() async {
+
+    bool _canContinue = true;
+
+    final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
+        widget.selectedSpecs.value,
+        _tempSpecs.value,
+    ) == false;
+
+    if (_specsChanged == true){
+      _canContinue = await Dialogs.discardChangesGoBackDialog(context);
+    }
+
+    if (_canContinue == true){
+      await Nav.goBack(
+        context: context,
+        invoker: 'SpecPickerScreen.goBack',
+      );
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  @override
   Widget build(BuildContext context) {
-
-    picker?.blogPicker(methodName: 'PickerScreen');
-
+    // --------------------
+    widget.picker?.blogPicker(methodName: 'PickerScreen');
     // --------------------
     final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
-    final String _chainID = picker?.chainID;
+    final String _chainID = widget.picker?.chainID;
     // --------------------
     return MainLayout(
       key: const ValueKey<String>('SpecPickerScreen'),
@@ -53,76 +131,49 @@ class PickerScreen extends StatelessWidget {
         translate: true,
       ),
       pyramidsAreOn: true,
-      onBack: () async {
-
-        const bool _canContinue = true;
-
-        // final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
-        //     originalSpecs,
-        //     selectedSpecs.value
-        // ) == false;
-        //
-        // if (_specsChanged == true){
-        //   _canContinue = await CenterDialog.showCenterDialog(
-        //     context: context,
-        //     title: 'Discard Changes',
-        //     body: 'This will ignore All Changes in Selected Specifications',
-        //     confirmButtonText: 'Discard',
-        //     boolDialog: true,
-        //   );
-        // }
-
-        if (_canContinue == true){
-          await Nav.goBack(
-            context: context,
-            invoker: 'SpecPickerScreen.goBack',
-          );
-        }
-
-      },
-      confirmButtonModel: isMultipleSelectionMode == false ? null : ConfirmButtonModel(
+      onBack: _onGoBack,
+      confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
         firstLine: const Verse(
           text: 'phid_confirm_selections',
           translate: true,
         ),
         onTap: () => onGoBackFromPickerScreen(
           context: context,
-          isMultipleSelectionMode: isMultipleSelectionMode,
-          selectedSpecs: selectedSpecs,
-          passPhidBack: null,
+          isMultipleSelectionMode: widget.isMultipleSelectionMode,
+          specsToPassBack: _tempSpecs.value,
+          phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
         ),
       ),
       layoutWidget: PickersScreenView(
           appBarType: AppBarType.search,
-          picker: picker,
-          selectedSpecs: selectedSpecs,
+          picker: widget.picker,
+          selectedSpecs: _tempSpecs,
           screenHeight: _screenHeight,
-          showInstructions: showInstructions,
-          isMultipleSelectionMode: isMultipleSelectionMode,
-          onlyUseCityChains: onlyUseCityChains,
-          zone: zone,
-          onSelectPhid: (String phid) => onSelectPhid(
+          showInstructions: widget.showInstructions,
+          isMultipleSelectionMode: widget.isMultipleSelectionMode,
+          onlyUseCityChains: widget.onlyUseCityChains,
+          zone: widget.zone,
+          onSelectPhid: (String phid) => onSelectPhidInPickerScreen(
             context: context,
             phid: phid,
-            selectedSpecs: selectedSpecs,
-            isMultipleSelectionMode: isMultipleSelectionMode,
-            picker: picker,
+            selectedSpecs: _tempSpecs,
+            isMultipleSelectionMode: widget.isMultipleSelectionMode,
+            picker: widget.picker,
           ),
           onAddSpecs: (List<SpecModel> specs) => onAddSpecs(
             specs: specs,
-            picker: picker,
-            selectedSpecs: selectedSpecs,
+            picker: widget.picker,
+            selectedSpecs: _tempSpecs,
           ),
           onKeyboardSubmitted: () => onGoBackFromPickerScreen(
             context: context,
-            selectedSpecs: selectedSpecs,
-            isMultipleSelectionMode: isMultipleSelectionMode,
-            passPhidBack: null,
+            specsToPassBack: _tempSpecs.value,
+            isMultipleSelectionMode: widget.isMultipleSelectionMode,
+            phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
           )
       ),
 
     );
     // --------------------
   }
-  // -----------------------------------------------------------------------------
 }

@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -77,7 +76,6 @@ Future<void> onGoToPickerScreen({
       showInstructions: false,
       isMultipleSelectionMode: false,
       onlyUseCityChains: false,
-      originalSpecs: const <SpecModel>[],
     ),
   );
 
