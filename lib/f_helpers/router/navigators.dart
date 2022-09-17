@@ -13,6 +13,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -136,7 +137,14 @@ class Nav {
   }) {
     if (context != null){
       blog('Nav.goBack : invoker : $invoker');
-      Navigator.pop(context, passedData);
+
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context, passedData);
+      });
+
+      // Future.delayed(Duration.zero, (){
+      // });
+
     }
   }
   // --------------------

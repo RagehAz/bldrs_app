@@ -1,10 +1,12 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/e_db/rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
@@ -231,7 +233,7 @@ class Timers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateMonthNameByInt(BuildContext context, int month){
+  static String getMonthPhidByInt(BuildContext context, int month){
     switch (month){
       case 1    :    return  'phid_january'   ; break;
       case 2    :    return  'phid_february'  ; break;
@@ -259,7 +261,7 @@ class Timers {
     @required DateTime time,
   }){
     final String _day = '${time.day}';
-    final String _monthPhid = generateMonthNameByInt(context, time.month);
+    final String _monthPhid = getMonthPhidByInt(context, time.month);
     final String _year = '${time.year}';
     final String _timeString = 'on $_day ${xPhrase(context, _monthPhid)} $_year';
 
@@ -267,14 +269,14 @@ class Timers {
   }
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
-  static String generateString_dd_month_yyyy({
+  static String translate_dd_month_yyyy({
     @required BuildContext context,
     @required DateTime time
   }){
     final String _day = '${time.day}';
-    final String _monthString = generateMonthNameByInt(context, time.month);
+    final String _monthPhid = getMonthPhidByInt(context, time.month);
     final String _year = '${time.year}';
-    final String _timeString = '$_day $_monthString $_year';
+    final String _timeString = '$_day ${xPhrase(context, _monthPhid)} $_year';
     return _timeString;
   }
   // --------------------
@@ -312,7 +314,7 @@ class Timers {
       '${xPhrase( context, 'phid_inn')} '
           '${Words.bldrsShortName(context)} '
           '${xPhrase( context, 'phid_since')} : '
-          '${generateMonthNameByInt(context, time.month)} '
+          '${getMonthPhidByInt(context, time.month)} '
           '${time.year}';
     }
 
@@ -337,7 +339,7 @@ class Timers {
           '${xPhrase( context, 'phid_phid_bldrsShortName')} '
           '${xPhrase( context, 'phid_since')} : '
           '${time.day} '
-          '${generateMonthNameByInt(context, time.month)} '
+          '${getMonthPhidByInt(context, time.month)} '
           '${time.year}';
     }
 
@@ -382,7 +384,7 @@ class Timers {
       final String _ampm = DateFormat('a').format(time);
       final String _day = generateDayName(context, time);
       final String _dd = '${time.day}';
-      final String _month = generateMonthNameByInt(context, time.month);
+      final String _month = getMonthPhidByInt(context, time.month);
       final String _yyyy = '${time.year}';
 
       _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
@@ -1043,11 +1045,12 @@ String generateStringsList_index_hh_i_mm_i_ss({
     Function onRestart,
   }) async {
 
-    final DateTime _dateTime = await getInternetUTCTime();
+    final Map<String, dynamic> _InternetUTCTimeMap = await getInternetUTCTime();
 
-    // Timers.blogDateTime(_dateTime);
+    final DateTime _dateTime = _InternetUTCTimeMap['dateTime'];
+    final String _timezone = _InternetUTCTimeMap['timezone'];
 
-    final DateTime _now = DateTime.now();
+    final DateTime _now = createClock(hour: 10, minute: 50);//DateTime.now();
 
     bool _isCorrect = Timers.checkTimesAreIdentical(
       accuracy: TimeAccuracy.minute,
@@ -1063,13 +1066,21 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       if (_differenceIsBig == true){
 
-        final String _dd_month_yyy_actual = Timers.generateString_dd_month_yyyy(context: context, time: _dateTime);
+        final String _dd_month_yyy_actual = Timers.translate_dd_month_yyyy(context: context, time: _dateTime);
         final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
-        final String _secondLine = 'Actual clock : $_dd_month_yyy_actual . $_hh_i_mm_ampm_actual';
 
-        final String _dd_month_yyy_device = Timers.generateString_dd_month_yyyy(context: context, time: _now);
+        final String _dd_month_yyy_device = Timers.translate_dd_month_yyyy(context: context, time: _now);
         final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
-        final String _thirdLine ='Your clock : $_dd_month_yyy_device . $_hh_i_mm_ampm_device';
+
+        Verse _zoneLine = ZoneModel.translateZoneString(
+            context: context,
+            zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+        );
+        _zoneLine = _zoneLine.text == '...' ? _zoneLine : Verse(
+          /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
+          text: 'in $_timezone',
+          translate: false,
+        );
 
         await CenterDialog.showCenterDialog(
           context: context,
@@ -1078,12 +1089,17 @@ String generateStringsList_index_hh_i_mm_i_ss({
             translate: true,
           ),
           bodyVerse: Verse(
-              text: '##Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-              translate: true,
-              variables: [_secondLine, _thirdLine]
+            // pseudo: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+              text: '${xPhrase(context, 'phid_adjust_your_clock')}\n\n'
+                    '${xPhrase(context, 'phid_actual_clock')}\n'
+                    '${_zoneLine.text}\n'
+                    '$_dd_month_yyy_actual . $_hh_i_mm_ampm_actual\n\n'
+                    '${xPhrase(context, 'phid_your_clock')}\n'
+                    '$_dd_month_yyy_device . $_hh_i_mm_ampm_device',
+              translate: false,
           ),
           confirmButtonVerse: const Verse(
-            text: 'phid_please_try_again',
+            text: 'phid_i_will_adjust_clock',
             translate: true,
           ),
           onOk: onRestart,
@@ -1101,16 +1117,12 @@ String generateStringsList_index_hh_i_mm_i_ss({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DateTime> getInternetUTCTime() async {
+  static Future<Map<String, dynamic>> getInternetUTCTime() async {
 
     DateTime _dateTime;
+    String _timezone;
 
     const String url = 'http://worldtimeapi.org/api/ip';
-
-    // final Uri _uri = Uri.parse(url);
-    // final http.Response _response = await http.get(
-    //   _uri,
-    // );
 
     final http.Response _response = await Rest.get(
       rawLink: url,
@@ -1125,8 +1137,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
       final Map<String, dynamic> _map = json.decode(_json);
 
-      // Mapper.blogMap(_map);
-
       final String _utcDateTimeString = _map['utc_datetime'];
 
       final DateTime _utcTime = Timers.decipherTime(
@@ -1138,6 +1148,7 @@ String generateStringsList_index_hh_i_mm_i_ss({
         time: _utcTime,
         offset: _map['utc_offset'],
       );
+      _timezone = _map['timezone'];
 
     }
 
@@ -1145,7 +1156,10 @@ String generateStringsList_index_hh_i_mm_i_ss({
       _dateTime = DateTime.now();
     }
 
-    return _dateTime;
+    return {
+      'dateTime': _dateTime,
+      'timezone': _timezone,
+    };
   }
   // -----------------------------------------------------------------------------
 }
