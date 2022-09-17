@@ -217,7 +217,7 @@ Future<void> _updateChain({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onPhidTap({
+Future<void> onChainsEditorPhidTap({
   @required BuildContext context,
   @required String path,
   @required String phid,

@@ -75,11 +75,12 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   }
   // -----------------------------------------------------------------------------
   String _validator(String text){
-    return numberDataCreatorFieldValidator(
+    return Formers.numberDataCreatorFieldValidator(
       context: context,
       text: text,
       picker: widget.picker,
       dataCreatorType: widget.dataCreatorType,
+      selectedUnitID: _selectedUnitID.value,
     );
   }
   // -----------------------------------------------------------------------------
