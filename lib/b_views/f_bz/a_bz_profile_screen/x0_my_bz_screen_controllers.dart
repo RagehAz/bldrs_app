@@ -160,7 +160,7 @@ Future<void> _myBzResignationProtocol({
     );
 
     /// 11 - GO BACK HOME
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: '_myBzResignationProtocol',
     );
@@ -182,16 +182,16 @@ Future<void> _myBzResignationProtocol({
 /// MY BZ SCREEN CLOSING
 
 // --------------------
-void onCloseMyBzScreen({
+Future<void> onCloseMyBzScreen({
   @required BuildContext context,
-}) {
+}) async {
   blog('onCloseMyBzScreen : CLOSING');
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
   _bzzProvider.clearMyActiveBz(notify: true);
   // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   // _notesProvider.clearPendingSentAuthorshipNotes(notify: true);
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onCloseMyBzScreen',
   );

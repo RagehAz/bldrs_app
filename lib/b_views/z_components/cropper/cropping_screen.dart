@@ -108,7 +108,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
         await _triggerLoading(setTo: false);
 
         /// GO BACK AND PASS THE FILES
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'CroppingScreen',
           passedData: FileModel.createModelsByNewFiles(_files),

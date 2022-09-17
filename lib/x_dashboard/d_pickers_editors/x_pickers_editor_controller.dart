@@ -508,7 +508,7 @@ Future<void> onHeadlineTap({
             verse: const Verse(text: 'Switch to Normal Picker', translate: false),
             onTap: () async {
 
-              Dialogs.closDialog(context);
+              await Dialogs.closDialog(context);
 
               await switchHeadline(
                   context: context,
@@ -525,7 +525,7 @@ Future<void> onHeadlineTap({
             verse: const Verse(text: 'change ChainID', translate: false),
             onTap: () async {
 
-              Dialogs.closDialog(context);
+              await Dialogs.closDialog(context);
 
               await onPickerChainIDTap(
                 context: context,
@@ -542,7 +542,7 @@ Future<void> onHeadlineTap({
             verse: const Verse(text: 'Delete', translate: false),
             onTap: () async {
 
-              Dialogs.closDialog(context);
+              await Dialogs.closDialog(context);
 
               await onDeletePicker(
                 context: context,

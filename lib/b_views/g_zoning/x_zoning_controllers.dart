@@ -47,7 +47,7 @@ Future<void> setCurrentZone({
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
     await _chainsProvider.reInitializeCityChains(context);
 
-    WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog(context);
 
     Nav.goBackToHomeScreen(
         context: context,
@@ -120,7 +120,7 @@ Future<void> controlCountryOnTap({
     );
 
     /// C - TAMAM
-    Nav.goBack(context, passedData: _zone);
+    await Nav.goBack(context, passedData: _zone);
 
     _zoneProvider.clearAllSearchesAndSelections(
       notify: true,

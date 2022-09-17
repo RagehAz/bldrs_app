@@ -168,7 +168,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
           notify: true,
         );
 
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'MainSearchScreen',
         );

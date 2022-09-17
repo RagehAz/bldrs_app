@@ -149,7 +149,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   }
   // --------------------
-  void _onSubmit (String text){
+  Future<void> _onSubmit (String text) async {
 
     if (_keyboardModel.onSubmitted != null){
       if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
@@ -159,7 +159,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
     Keyboard.closeKeyboard(context);
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'KeyboardScreen',
       passedData: text,

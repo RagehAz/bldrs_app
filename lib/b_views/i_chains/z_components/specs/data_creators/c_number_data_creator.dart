@@ -97,7 +97,11 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         NumberDataCreatorFieldRow(
           appBarType: widget.appBarType,
           hasUnit: widget.picker.unitChainID != null,
-          validator: numberFieldValidator,
+          validator: (String text) => numberDataCreatorFieldValidator(
+            text: text,
+            picker: widget.picker,
+            dataCreatorType: widget.dataCreatorType,
+          ),
           textController: _textController,
           formKey: _formKey,
           hintVerse: Verse(

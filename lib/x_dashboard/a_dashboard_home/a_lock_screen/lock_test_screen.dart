@@ -72,7 +72,7 @@ class _LockScreenState extends State<LockScreen> {
         milliseconds: 500,
       );
 
-      Nav.goBack(context: context, invoker: 'Open Sesame', passedData: true);
+      await Nav.goBack(context: context, invoker: 'Open Sesame', passedData: true);
 
     }
 

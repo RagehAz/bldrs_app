@@ -159,7 +159,7 @@ class _SembastReaderTestScreenState extends State<SembastReaderTestScreen> {
 
     await _readAllMaps();
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SembastTestScreen._updateMap',
     );

@@ -109,7 +109,7 @@ Future<void> authByEmailSignIn({
     );
 
     if (mounted == true){
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
     }
 
   }
@@ -160,7 +160,7 @@ Future<void> authByEmailRegister({
         authModel: _authModel
     );
 
-    WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog(context);
 
   }
 

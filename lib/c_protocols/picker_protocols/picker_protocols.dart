@@ -39,7 +39,7 @@ class PickerProtocols {
       pickers: pickers,
     );
 
-    WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog(context);
 
   }
   // -----------------------------------------------------------------------------
@@ -117,7 +117,7 @@ class PickerProtocols {
 
       ]);
 
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
 
     }
 
@@ -153,7 +153,7 @@ class PickerProtocols {
       );
 
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
     }

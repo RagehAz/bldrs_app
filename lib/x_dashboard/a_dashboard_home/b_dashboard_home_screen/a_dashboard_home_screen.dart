@@ -236,7 +236,7 @@ class DashBoardHomeScreen extends StatelessWidget {
           routeToLogoScreen: true
       );
 
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
 
     }
 

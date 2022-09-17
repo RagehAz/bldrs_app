@@ -906,7 +906,7 @@ Future<void> onDeleteNote({
 
   if (_result == true){
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onDeleteNote',
     );
@@ -998,7 +998,7 @@ Future<void> onSelectNoteTemplateTap({
   @required NoteModel noteModel,
 }) async {
 
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onSelectNoteTemplateTap',
     passedData: noteModel,
