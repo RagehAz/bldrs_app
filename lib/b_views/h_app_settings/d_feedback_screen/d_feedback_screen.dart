@@ -108,7 +108,7 @@ class _FeedBackState extends State<FeedBack> {
       );
     }
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'FeedbackScreen',
     );

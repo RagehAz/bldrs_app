@@ -96,7 +96,7 @@ class WipeFlyerProtocols {
       );
 
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
     }
@@ -204,7 +204,7 @@ class WipeFlyerProtocols {
       }
 
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
     }

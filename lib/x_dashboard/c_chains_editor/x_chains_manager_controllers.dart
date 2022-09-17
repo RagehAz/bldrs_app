@@ -83,11 +83,11 @@ Future<dynamic> goToChainsPickingScreen({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-void onChainsEditorScreenGoBack({
+Future<void> onChainsEditorScreenGoBack({
   @required BuildContext context,
   @required ValueNotifier<List<Chain>> initialChains,
   @required ValueNotifier<List<Chain>> tempChains,
-}){
+}) async {
 
   final bool _identicalPaths = Chain.checkChainsListPathsAreIdentical(
     chains1: tempChains.value,
@@ -96,11 +96,11 @@ void onChainsEditorScreenGoBack({
   );
 
   if (_identicalPaths == true){
-    Nav.goBack(context: context, invoker: 'ChainsEditorScreen');
+    await Nav.goBack(context: context, invoker: 'ChainsEditorScreen');
   }
 
   else {
-    Dialogs.goBackDialog(
+    await Dialogs.goBackDialog(
       context: context,
       bodyVerse: const Verse(
         text: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
@@ -392,7 +392,7 @@ Future<void> onDeleteThePhid ({
   @required ValueNotifier<List<Chain>> tempChains,
 }) async {
 
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onDeletePhid delete button',
   );
@@ -444,7 +444,7 @@ Future<void> onEditPhid({
   @required String path,
 }) async {
 
-  Nav.goBack(context: context, invoker: 'onEditPhid');
+  await Nav.goBack(context: context, invoker: 'onEditPhid');
 
   final String _typedPath = await Nav.goToNewScreen(
     context: context,

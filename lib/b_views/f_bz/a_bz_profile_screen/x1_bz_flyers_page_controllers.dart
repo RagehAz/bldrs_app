@@ -103,7 +103,7 @@ Future<void> _onEditFlyerButtonTap({
 }) async {
 
   /// CLOSE BOTTOM DIALOG
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: '_onEditFlyerButtonTap',
   );
@@ -171,7 +171,7 @@ Future<void> _onDeleteFlyerButtonTap({
         oldBzModel: _bzModel
     );
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: '_onDeleteFlyerButtonTap',
     );

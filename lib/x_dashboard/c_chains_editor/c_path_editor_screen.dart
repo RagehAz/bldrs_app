@@ -231,11 +231,11 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _onSubmit (String text){
+  Future<void> _onSubmit (String text) async {
 
     Keyboard.closeKeyboard(context);
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'PathEditorScreen',
       passedData: ChainPathConverter.fixPathFormatting(text),
@@ -286,8 +286,8 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                   height: 40,
                   context: context,
                   verse: Verse.plain(_dataCreatorString),
-                  onTap: (){
-                    Nav.goBack(context: context, invoker: '_onAddDataCreator');
+                  onTap: () async {
+                    await Nav.goBack(context: context, invoker: '_onAddDataCreator');
                     _setController('${_controller.text}$_dataCreatorString');
                   }
                   );

@@ -130,11 +130,11 @@ void onSlideHeadlineChanged({
 /// CONFIRMATION - CANCELLING
 
 // --------------------
-void onCancelSlideEdits({
+Future<void> onCancelSlideEdits({
   @required BuildContext context,
-}){
+}) async {
 
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onCancelSlideEdits',
   );
@@ -154,7 +154,7 @@ Future<void> onConfirmSlideEdits({
     filter: filter.value,
   );
 
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: 'onConfirmSlideEdits',
     passedData: _slide,

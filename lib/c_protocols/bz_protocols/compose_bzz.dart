@@ -63,7 +63,7 @@ class ComposeBzProtocols {
       ]);
 
       /// CLOSE WAIT DIALOG
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
 
       /// SHOW SUCCESS DIALOG
       await CenterDialog.showCenterDialog(
@@ -92,7 +92,7 @@ class ComposeBzProtocols {
     else {
 
       /// CLOSE WAIT DIALOG
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
 
       await _failureDialog(context);
 

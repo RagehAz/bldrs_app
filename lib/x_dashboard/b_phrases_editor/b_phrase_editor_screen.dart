@@ -153,7 +153,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
         );
 
         if (_areIdentical == true){
-          Nav.goBack(
+          await Nav.goBack(
               context: context,
               invoker: 'PhraseEditorScreen',
           );

@@ -82,7 +82,7 @@ class WipeBzProtocols {
 
     /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
     }
 
     /// SEND DELETION NOTES TO AUTHORS
@@ -131,7 +131,7 @@ class WipeBzProtocols {
     );
 
     if (showWaitDialog == true){
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
     }
 
     blog('WipeBzProtocols._deleteAllBzFlyersOps : END');

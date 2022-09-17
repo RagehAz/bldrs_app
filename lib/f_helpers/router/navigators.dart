@@ -13,7 +13,6 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -130,20 +129,23 @@ class Nav {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void goBack({
+  static Future<void> goBack({
     @required BuildContext context,
     @required String invoker,
     dynamic passedData,
-  }) {
+  }) async {
     if (context != null){
       blog('Nav.goBack : invoker : $invoker');
 
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context, passedData);
-      });
-
-      // Future.delayed(Duration.zero, (){
+      // SchedulerBinding.instance.addPostFrameCallback((_) {
+      //   Navigator.pop(context, passedData);
       // });
+
+      await Future.delayed(Duration.zero, (){
+
+        Navigator.pop(context, passedData);
+
+      });
 
     }
   }

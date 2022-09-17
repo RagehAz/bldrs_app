@@ -118,7 +118,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       ),
     );
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SelectDistrictScreen',
       passedData: _zoneWithDistrict,
@@ -156,8 +156,8 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
   }
   // --------------------
-  void _onBack(){
-    Nav.goBack(
+  Future<void> _onBack() async {
+    await Nav.goBack(
       context: context,
       invoker: 'SelectDistrictScreen',
     );

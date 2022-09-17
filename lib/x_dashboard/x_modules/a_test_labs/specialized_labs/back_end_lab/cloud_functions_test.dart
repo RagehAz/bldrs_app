@@ -197,7 +197,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                 blog('response.body : ${_response.body}');
                 blog('response.request.headers : ${_response.request.headers}');
 
-                WaitDialog.closeWaitDialog(context);
+                await WaitDialog.closeWaitDialog(context);
 
               },
             ),

@@ -41,10 +41,10 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void _passSelectedFlyersBack(){
+  Future<void> _passSelectedFlyersBack() async {
 
     /// shall pass selected flyers through flyers provider
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: '_passSelectedFlyersBack',
       passedData: [],

@@ -171,7 +171,7 @@ Future<void> onReviewOptions({
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
 
-                Nav.goBack(
+                await Nav.goBack(
                   context: context,
                   invoker: 'onReviewOptions.Edit',
                 );
@@ -196,7 +196,7 @@ Future<void> onReviewOptions({
               isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
               onTap: () async {
 
-                Nav.goBack(
+                await Nav.goBack(
                   context: context,
                   invoker: 'onReviewOptions.Delete',
                 );
@@ -420,7 +420,7 @@ Future<void> onReplyOptions({
               verseCentered: true,
               onTap: () async {
 
-                Nav.goBack(
+                await Nav.goBack(
                   context: context,
                   invoker: 'onReplyOptions.Edit',
                 );
@@ -441,7 +441,7 @@ Future<void> onReplyOptions({
               verseCentered: true,
               onTap: () async {
 
-                Nav.goBack(
+                await Nav.goBack(
                   context: context,
                   invoker: 'onReplyOptions.Delete',
                 );

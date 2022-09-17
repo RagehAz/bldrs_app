@@ -50,7 +50,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
         reAuthBeforeConfirm: true,
         canGoBack: true,
         onFinish: () async {
-          Nav.goBack(
+          await Nav.goBack(
             context: context,
             invoker: 'onEditProfileTap',
           );
