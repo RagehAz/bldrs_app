@@ -41,7 +41,7 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> initializeZoneForEditing({
+  static Future<ZoneModel> prepareZoneForEditing({
     @required BuildContext context,
     @required ZoneModel zoneModel,
   }) async {
@@ -126,7 +126,7 @@ class ZoneModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel decipherZoneMap(Map<String, dynamic> map) {
+  static ZoneModel decipherZone(Map<String, dynamic> map) {
     final ZoneModel _zone = map == null ? null :
     ZoneModel(
       countryID: map['countryID'],

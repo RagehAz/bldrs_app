@@ -206,7 +206,7 @@ class FlyerModel {
         auditState: decipherAuditState(map['auditState']),
         keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
-        zone: ZoneModel.decipherZoneMap(map['zone']),
+        zone: ZoneModel.decipherZone(map['zone']),
         // -------------------------
         authorID: map['authorID'],
         bzID: map['bzID'],

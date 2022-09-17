@@ -194,12 +194,15 @@ class UserModel {
   }) async {
 
     return oldUser.copyWith(
-        pic: await FileModel.preparePicForEditing(pic: oldUser.pic, fileName: oldUser.id),
-        zone: await ZoneModel.initializeZoneForEditing(
+        pic: await FileModel.preparePicForEditing(
+            pic: oldUser.pic,
+            fileName: oldUser.id,
+        ),
+        zone: await ZoneModel.prepareZoneForEditing(
           context: context,
           zoneModel: oldUser.zone,
         ),
-        contacts: ContactModel.initializeContactsForEditing(
+        contacts: ContactModel.prepareContactsForEditing(
           contacts: oldUser.contacts,
           countryID: oldUser.zone.countryID,
         )
@@ -443,7 +446,7 @@ class UserModel {
         title: map['title'],
         company: map['company'],
         gender: decipherGender(map['gender']),
-        zone: ZoneModel.decipherZoneMap(map['zone']),
+        zone: ZoneModel.decipherZone(map['zone']),
         language: map['language'] ?? 'en',
         location: Atlas.decipherGeoPoint(
             point: map['location'],

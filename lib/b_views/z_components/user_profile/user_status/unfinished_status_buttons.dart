@@ -9,14 +9,14 @@ class StatusButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StatusButtons({
     @required this.status,
-    @required this.switchUserStatus,
+    @required this.onSelectStatus,
     @required this.stateIndex,
     @required this.currentUserStatus,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Map<String, Object>> status;
-  final Function switchUserStatus;
+  final Function onSelectStatus;
   final int stateIndex;
   final UserStatus currentUserStatus;
   /// --------------------------------------------------------------------------
@@ -85,7 +85,7 @@ class StatusButtons extends StatelessWidget {
                   verse: Verse.plain(x['state']),
                   verseScaleFactor: currentUserStatus == x['userStatus'] ? 0.55 : 0.55,
                   verseMaxLines: 4,
-                  onTap: () => switchUserStatus(x['userStatus']),
+                  onTap: () => onSelectStatus(x['userStatus']),
                   color: _color,
                   verseColor: _verseColor,
                   verseWeight: _verseWeight,
