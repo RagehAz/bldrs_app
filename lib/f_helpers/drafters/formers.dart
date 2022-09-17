@@ -1,15 +1,21 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/flyer/mutables/draft_flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
+import 'package:bldrs/a_models/zone/currency_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -820,8 +826,6 @@ class Formers {
   }){
     Color _color;
 
-    // blog('getValidatorTextColor : message : $message');
-
     if (message != null){
 
       final bool _colorAssigned = TextCheck.stringContainsSubString(string: message, subString: 'Δ');
@@ -847,6 +851,180 @@ class Formers {
     final String _errorColor = Colorizer.cipherColor(color);
     return '$_errorColorΔ$message';
   }
+  // -----------------------------------------------------------------------------
+
+  /// NUMBERS VALIDATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String numberDataCreatorFieldValidator({
+    @required BuildContext context,
+    @required String text,
+    @required PickerModel picker,
+    @required DataCreator dataCreatorType,
+    @required String selectedUnitID,
+  }) {
+    String _message;
+
+    /// ONLY NUMBERS VALIDATION
+    if (TextCheck.isEmpty(text) == false){
+      _message = _numbersOnlyValidator(
+        context: context,
+        text: text,
+      );
+    }
+
+    /// IF REQUIRED AND EMPTY
+    if (picker.isRequired == true){
+      if (TextCheck.isEmpty(text) == true){
+        _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
+      }
+    }
+
+    /// IF SHOULD HAVE UNIT BUT NOT YET SELECTED
+    if (picker.unitChainID != null && selectedUnitID == null){
+      _message = Verse.transBake(context, 'phid_should_select_a_measurement_unit');
+    }
+
+    /// INT VALIDATION
+    final bool _isInt = DataCreation.checkIsIntDataCreator(dataCreatorType);
+    if (_isInt == true){
+
+      /// SHOULD NOT INCLUDE FRACTIONS
+      final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
+      if (_includeDot == true){
+        _message = Verse.transBake(context, 'phid_num_cant_include_fractions');
+      }
+
+    }
+
+    /// DOUBLE VALIDATION
+    final bool _isDouble = DataCreation.checkIsDoubleDataCreator(dataCreatorType);
+    if (_isDouble){
+      // nothing in my mind for you at this point
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String currencyFieldValidator({
+    @required BuildContext context,
+    @required ValueNotifier<String> selectedCurrencyID, // IS UNIT SPEC VALUE
+    @required String text, // IS THE VALUE SPEC VALUE
+    @required PickerModel picker,
+  }) {
+    String _message;
+
+    /// ONLY NUMBERS VALIDATION
+    if (TextCheck.isEmpty(text) == false){
+      _message = _numbersOnlyValidator(
+          context: context,
+          text: text,
+      );
+    }
+
+    /// IF REQUIRED AND EMPTY
+    if (picker.isRequired == true){
+      if (TextCheck.isEmpty(text) == true){
+        _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
+      }
+    }
+
+    /// IF CURRENCY NOT YET SELECTED
+    if (selectedCurrencyID == null){
+      _message = Verse.transBake(context, 'phid_should_select_currency');
+    }
+
+    /// IF CURRENCY IS SELECTED
+    else {
+
+      final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
+          context: context,
+          currencyID: selectedCurrencyID.value,
+          listen: false
+      );
+
+      /// IF EXCEEDED CURRENCY DIGITS
+      if (selectedCurrency != null){
+
+        final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
+          numberAsText: text,
+          maxDigits: selectedCurrency.digits,
+        );
+
+        if (_invalidDigits == true) {
+          _message = Formers._maxDigitsExceededValidator(
+            context: context,
+            text: text,
+            maxDigits: selectedCurrency.digits,
+          );
+        }
+
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _maxDigitsExceededValidator({
+    @required BuildContext context,
+    @required int maxDigits,
+    @required String text,
+  }){
+    String _message;
+
+    if (TextCheck.isEmpty(text) == false && maxDigits != null){
+
+      final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
+        numberAsText: text,
+        maxDigits: maxDigits,
+      );
+
+      if (_invalidDigits == true){
+
+        _message =  '${xPhrase(context, 'phid_number_fractions_cant_exceed')}'
+                    ' $maxDigits'
+                    ' ${xPhrase(context, 'phid_fraction_digits')}';
+      }
+
+    }
+
+    return _message;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _numbersOnlyValidator({
+    @required BuildContext context,
+    @required String text,
+  }){
+    String _message;
+
+    if (TextCheck.isEmpty(text) == false){
+
+      /// PARSING VALIDATION
+      final double _double = Numeric.transformStringToDouble(text);
+      final int _int = Numeric.transformStringToInt(text);
+      if (_double == null && _int == null){
+        _message = Verse.transBake(context, 'phid_only_numbers_is_to_be_added');
+      }
+
+      /// EMPTY SPACES CHECK
+      final String _withoutSpaces = TextMod.removeSpacesFromAString(text);
+      if (text != _withoutSpaces){
+        _message = Verse.transBake(context, 'phid_cant_add_empty_spaces');
+      }
+
+    }
+
+    return _message;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BAKING
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bakeValidator({
@@ -881,5 +1059,5 @@ class Formers {
 
     return _output;
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/aa_chain_path_converter.dart';
+import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -51,7 +52,7 @@ class PathEditorScreen extends StatefulWidget {
       /// ALWAYS START WITH PHID
       if (Mapper.checkCanLoopList(_nodes) == true){
         for (int i = 0; i < _nodes.length; i++){
-          final String _node = _nodes[i];
+          final String _node = Phider.removeIndexFromPhid(phid: _nodes[i]);
           if (_pathHasDataCreator(_node) == false){
             final bool _startsWith = TextCheck.stringStartsExactlyWith(
               text: _node,

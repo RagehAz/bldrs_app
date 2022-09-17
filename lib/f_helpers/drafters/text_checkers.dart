@@ -275,21 +275,16 @@ class TextCheck {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool isEmpty(String val) {
+  static bool isEmpty(String string) {
     bool _isEmpty = true;
 
-    final String _string = val?.trim();
+    if (string == null || string == '' || string.isEmpty == true
 
-    if (
-    _string == null
-        ||
-        _string == ''
-        ||
-        _string.isEmpty == true
     // ||
     // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == ''
     // ||
     // TextMod.cutFirstCharacterAfterRemovingSpacesFromAString(_string) == null
+
     ) {
       _isEmpty = true;
     }

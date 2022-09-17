@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -222,7 +223,7 @@ class Numeric {
     // blog('stringToDouble : string : $string');
 
     if (string != null && string != '') {
-      _value = double.parse(string);
+      _value = double.tryParse(string);
     }
 
     return _value;
@@ -465,6 +466,23 @@ class Numeric {
     blog('_numberFractions : $_numberFractions');
     return _numberFractions;
   }
+  // --------------------
+  ///
+  static bool checkNumberAsStringHasInvalidDigits({
+    @required String numberAsText,
+    @required int maxDigits,
+  }){
+    bool _hasInvalidDigits = false;
+
+    if (TextCheck.isEmpty(numberAsText) == false){
+      final String _fractionsStrings = TextMod.removeTextBeforeFirstSpecialCharacter(numberAsText, '.');
+      final int _numberOfFractions = _fractionsStrings.length;
+      _hasInvalidDigits = _numberOfFractions > maxDigits;
+    }
+
+    return _hasInvalidDigits;
+  }
+
   // -----------------------------------------------------------------------------
 
   /// CALCULATORS
