@@ -613,9 +613,9 @@ class BzFireOps {
                   text: 'phid_account_published_inapp_content',
                   translate: true,
                 ),
-                onTap: (){
+                onTap: () async {
                   _feedback = 'This Account published Inappropriate content';
-                  Nav.goBack(
+                  await Nav.goBack(
                     context: context,
                     invoker: 'reportBz.Inappropriate',
                   );
@@ -630,9 +630,9 @@ class BzFireOps {
                   text: 'phid_account_published_copyright_violation',
                   translate: true,
                 ),
-                onTap: (){
+                onTap: () async {
                   _feedback = 'This Account violates copyrights';
-                  Nav.goBack(
+                  await Nav.goBack(
                     context: context,
                     invoker: 'reportBz.copyrights',
                   );

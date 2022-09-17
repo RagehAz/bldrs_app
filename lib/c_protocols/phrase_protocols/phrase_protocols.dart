@@ -164,7 +164,7 @@ class PhraseProtocols {
       ]);
 
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
     }

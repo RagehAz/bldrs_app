@@ -57,7 +57,7 @@ class PhraseProvider extends ChangeNotifier {
       callerName: 'changeAppLang',
     );
 
-    WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog(context);
 
     await Nav.goBackToLogoScreen(
       context: context,

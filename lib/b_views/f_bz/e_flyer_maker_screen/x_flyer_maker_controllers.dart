@@ -197,7 +197,7 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
   );
 
   if (result == true){
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onCancelFlyerCreation',
     );
@@ -410,7 +410,7 @@ Future<void> _onPublishNewFlyerTap({
 
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onPublishNewFlyerTap',
     );
@@ -454,7 +454,7 @@ Future<void> _onPublishFlyerUpdatesTap({
 
     await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'onPublishFlyerUpdatesTap',
     );
@@ -609,7 +609,7 @@ Future<void> _publishFlyerOps({
     bzModel: _bzModel,
   );
 
-  WaitDialog.closeWaitDialog(context);
+  await WaitDialog.closeWaitDialog(context);
 
 }
 // --------------------
@@ -648,7 +648,7 @@ Future<void> _updateFlyerOps({
     resetActiveBz: _bzModel.authors.length == 1,
   );
 
-  WaitDialog.closeWaitDialog(context);
+  await WaitDialog.closeWaitDialog(context);
 
 
 }

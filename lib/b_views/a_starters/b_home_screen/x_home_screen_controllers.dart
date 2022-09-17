@@ -285,7 +285,7 @@ Future<void> _controlMissingFieldsCase({
         validateOnStartup: true,
         // checkLastSession: true,
         onFinish: () async {
-          Nav.goBack(
+          await Nav.goBack(
             context: context,
             invoker: '_controlMissingFieldsCase',
           );

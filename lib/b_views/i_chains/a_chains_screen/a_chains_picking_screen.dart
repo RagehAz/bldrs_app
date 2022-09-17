@@ -260,8 +260,8 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
           translate: true,
           variables: widget.pageTitleVerse,
         ),
-        onTap: (){
-          Nav.goBack(
+        onTap: () async {
+          await Nav.goBack(
             context: context,
             invoker: 'ChainsScreen',
             passedData: _selectedSpecs.value,

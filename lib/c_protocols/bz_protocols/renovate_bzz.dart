@@ -61,7 +61,7 @@ class RenovateBzProtocols {
 
       /// CLOSE WAIT DIALOG
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
       /// ON END NAVIGATION
@@ -107,7 +107,7 @@ class RenovateBzProtocols {
 
       /// CLOSE WAIT DIALOG
       if (showWaitDialog == true){
-        WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog(context);
       }
 
       await _failureDialog(context);

@@ -349,8 +349,8 @@ Future<void> onMoreTap({
           context: context,
           verse: const Verse(text: 'phid_delete', translate: true),
           verseCentered: true,
-          onTap: (){
-            Nav.goBack(
+          onTap: () async {
+            await Nav.goBack(
               context: context,
               invoker: 'onMoreTap.delete',
             );
@@ -363,8 +363,8 @@ Future<void> onMoreTap({
           context: context,
           verse: const Verse(text: 'phid_save_draft', translate: true,),
           verseCentered: true,
-          onTap: (){
-            Nav.goBack(
+          onTap: () async {
+            await Nav.goBack(
               context: context,
               invoker: 'onMoreTap.save',
             );
@@ -377,8 +377,8 @@ Future<void> onMoreTap({
           context: context,
           verse: const Verse(text: 'phid_publish', translate: true),
           verseCentered: true,
-          onTap: (){
-            Nav.goBack(
+          onTap: () async {
+            await Nav.goBack(
               context: context,
               invoker: 'onMoreTap.Publish',
             );

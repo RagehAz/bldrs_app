@@ -147,9 +147,9 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
   }
   // --------------------
-  void _onBack(){
+  Future<void> _onBack() async {
 
-    Nav.goBack(
+    await Nav.goBack(
       context: context,
       invoker: 'SearchUsersScreen.onBack',
       passedData: _selectedUsers.value,

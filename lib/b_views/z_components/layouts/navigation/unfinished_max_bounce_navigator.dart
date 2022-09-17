@@ -35,14 +35,14 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
   // -----------------------------------------------------------------------------
   bool _canNavigate = true;
   // --------------------
-  void navigate() {
+  Future<void> navigate() async {
     setState(() {
       _canNavigate = false;
     });
 
     if (widget.onNavigate == null) {
 
-      Nav.goBack(
+      await Nav.goBack(
         context: context,
         invoker: 'OldMaxBounceNavigator.navigate',
       );
@@ -50,7 +50,7 @@ class _OldMaxBounceNavigatorState extends State<OldMaxBounceNavigator> {
     }
 
     else {
-      widget.onNavigate();
+      await widget.onNavigate();
       // setState(() {
       //   _canNavigate = true;
       // });

@@ -120,7 +120,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 // Chain.blogChains(_bldrsChains);
 
-                WaitDialog.closeWaitDialog(context);
+                await WaitDialog.closeWaitDialog(context);
 
                 if (_bldrsChains == null){
                   blog('Bldrs Chains are null');
@@ -222,7 +222,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 // Chain.blogChains(_bldrsChains);
 
-                WaitDialog.closeWaitDialog(context);
+                await WaitDialog.closeWaitDialog(context);
 
                 if (_bldrsChains == null){
                   blog('No ChainK found');
@@ -252,7 +252,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
                 Chain.blogChains(_bldrsChains);
 
-                WaitDialog.closeWaitDialog(context);
+                await WaitDialog.closeWaitDialog(context);
 
                 if (_bldrsChains == null){
                   blog('No ChainK found');

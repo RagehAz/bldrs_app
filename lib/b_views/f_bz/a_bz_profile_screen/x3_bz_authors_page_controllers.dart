@@ -92,7 +92,7 @@ Future<void> onAuthorOptionsTap({
       onTap: () async {
 
         /// TO CLOSE BOTTOM DIALOG
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'onAuthorOptionsTap.Change team role for',
         );
@@ -122,7 +122,7 @@ Future<void> onAuthorOptionsTap({
       onTap: () async {
 
         /// TO CLOSE BOTTOM DIALOG
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'onAuthorOptionsTap.Edit $_authorName Author details',
         );
@@ -149,15 +149,15 @@ Future<void> onAuthorOptionsTap({
         context: context,
         authorModel: authorModel,
       ),
-      onTap: (){
+      onTap: () async {
 
         /// CLOSE BOTTOM DIALOG
-        Nav.goBack(
+        await Nav.goBack(
           context: context,
           invoker: 'onAuthorOptionsTap.Remove $_authorName from the team',
         );
 
-        onDeleteAuthorFromBz(
+        await onDeleteAuthorFromBz(
           context: context,
           bzModel: bzModel,
           authorModel: authorModel,
@@ -358,7 +358,7 @@ Future<void> _removeAuthorWhoHasFlyers({
     );
 
     if (showWaitDialog == true){
-      WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
     }
 
     /// SHOW CONFIRMATION DIALOG
@@ -532,7 +532,7 @@ Future<void> _onChangeAuthorRole({
 }) async {
 
   /// CLOSE BOTTOM DIALOG
-  Nav.goBack(
+  await Nav.goBack(
     context: context,
     invoker: '_onChangeAuthorRole',
   );

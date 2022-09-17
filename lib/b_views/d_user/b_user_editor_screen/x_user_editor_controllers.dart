@@ -441,7 +441,7 @@ Future<UserModel> _updateUserModel({
   );
 
   loading.value = false;
-  WaitDialog.closeWaitDialog(context);
+  await WaitDialog.closeWaitDialog(context);
 
   await CenterDialog.showCenterDialog(
     context: context,

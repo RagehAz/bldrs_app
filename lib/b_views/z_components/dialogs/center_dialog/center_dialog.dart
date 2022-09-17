@@ -188,8 +188,8 @@ class CenterDialog extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: const NeverScrollableScrollPhysics(),
                   child: GestureDetector(
-                    onTap: (){
-                      Nav.goBack(
+                    onTap: () async {
+                      await Nav.goBack(
                         context: context,
                         invoker: 'CenterDialog tapping outside the dialog',
                       );

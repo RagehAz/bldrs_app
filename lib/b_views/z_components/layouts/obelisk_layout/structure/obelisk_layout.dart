@@ -189,13 +189,13 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,
       appBarRowWidgets: widget.appBarRowWidgets,
-      onBack: (){
+      onBack: () async {
 
         if (_isExpanded.value == false){
           if (widget.onBack != null){
-            widget.onBack();
+            await widget.onBack();
           }
-          Nav.goBack(
+          await Nav.goBack(
             context: context,
             invoker: 'ObeliskLayout.onBack',
           );
