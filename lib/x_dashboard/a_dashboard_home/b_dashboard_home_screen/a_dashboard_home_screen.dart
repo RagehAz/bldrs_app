@@ -50,7 +50,7 @@ Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
       listen: false,
   );
 
-  if (_userModel.isAdmin == true){
+  if (_userModel?.isAdmin == true){
 
     final bool _result = await Nav.goToNewScreen(
       context: context,
