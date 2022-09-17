@@ -9,7 +9,7 @@ enum FlyerType {
   all,
   property,
   design,
-  project,
+  project, /// TASK : SHOULD RENAME IT TO 'construction'
   trade,
   product,
   equipment,

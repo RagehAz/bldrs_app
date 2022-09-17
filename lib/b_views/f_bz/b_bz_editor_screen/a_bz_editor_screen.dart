@@ -299,7 +299,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 translate: true,
                               ),
                               buttonsVerses: Verse.createVerses(strings: _allSectionsPhids, translate: true),
-                              selectedButtons: <String>[_selectedButton],
+                              selectedButtonsPhids: <String>[_selectedButton],
                               onButtonTap: (int index) => onSelectBzSection(
                                 context: context,
                                 index: index,
@@ -349,7 +349,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 translate: true,
                               ),
                               buttonsVerses: Verse.createVerses(strings: _allButtons, translate: true),
-                              selectedButtons: _selectedButtons,
+                              selectedButtonsPhids: _selectedButtons,
                               inactiveButtons: Verse.createVerses(strings: _inactiveButtons, translate: true),
                               onButtonTap: (int index) => onSelectBzType(
                                 context: context,
@@ -399,7 +399,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                             ),
                             // description: superPhrase(context, 'phid_businessForm_description'),
                             buttonsVerses: Verse.createVerses(strings: _buttonsList, translate: true),
-                            selectedButtons: <String>[_selectedButton],
+                            selectedButtonsPhids: <String>[_selectedButton],
                             inactiveButtons: Verse.createVerses(strings: _inactiveButtons, translate: true),
                             onButtonTap: (int index) => onSelectBzForm(
                               index: index,
