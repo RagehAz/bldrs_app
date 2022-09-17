@@ -83,13 +83,13 @@ class _PickerScreenState extends State<PickerScreen> {
   }
    */
   // --------------------
-  /// XXXX
   @override
   void dispose() {
     _tempSpecs.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onGoBack() async {
 
     bool _canContinue = true;
@@ -176,4 +176,5 @@ class _PickerScreenState extends State<PickerScreen> {
     );
     // --------------------
   }
+  // -----------------------------------------------------------------------------
 }

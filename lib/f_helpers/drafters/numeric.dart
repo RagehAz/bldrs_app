@@ -467,7 +467,7 @@ class Numeric {
     return _numberFractions;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkNumberAsStringHasInvalidDigits({
     @required String numberAsText,
     @required int maxDigits,
@@ -482,7 +482,6 @@ class Numeric {
 
     return _hasInvalidDigits;
   }
-
   // -----------------------------------------------------------------------------
 
   /// CALCULATORS
