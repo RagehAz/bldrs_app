@@ -46,7 +46,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<String> _selectedCurrencyID = ValueNotifier(null);
   final ValueNotifier<double> _priceValue = ValueNotifier(null); // specValue
-// -----------------------------------------------------------------------------
   // -----------------------------------------------------------------------------
   @override
   void initState() {
