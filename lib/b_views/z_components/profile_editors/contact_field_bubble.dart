@@ -163,7 +163,7 @@ class _ContactFieldBubbleState extends State<ContactFieldBubble> {
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(
-          message: widget.validator(''),
+          validator: () => widget.validator(_textController.text),
         ),
         headerViewModel: widget.headerViewModel,
       width: _bubbleWidth,

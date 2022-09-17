@@ -92,7 +92,7 @@ class AddImagePicBubble extends StatelessWidget {
     return Bubble(
         width: _screenWidth,
         bubbleColor: Formers.validatorBubbleColor(
-          message: validator == null ? null : validator(),
+          validator: validator == null ? null : () => validator(),
         ),
         headerViewModel: BubbleHeaderVM(
           headerWidth: _bubbleClearWidth,

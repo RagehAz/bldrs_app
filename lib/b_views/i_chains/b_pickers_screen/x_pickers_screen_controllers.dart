@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onGoBackFromPickerScreen({
   @required BuildContext context,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required String passPhidBack,
+  @required List<SpecModel> specsToPassBack,
+  @required String phidToPassBack,
   @required bool isMultipleSelectionMode,
 }) async {
 
@@ -22,15 +22,16 @@ Future<void> onGoBackFromPickerScreen({
     await Nav.goBack(
       context: context,
       invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
-      passedData: selectedSpecs.value,
+      passedData: specsToPassBack,
     );
   }
 
+  /// NOTE : if in single selection mode : phid is passes with [onSelectPhidInPickerScreen] method
   else {
     await Nav.goBack(
         context: context,
         invoker: 'onGoBackFromSpecPickerScreen : isMultipleSelectionMode : $isMultipleSelectionMode',
-        passedData: passPhidBack
+        passedData: phidToPassBack
     );
   }
 
@@ -71,7 +72,7 @@ Future<void> onGoBackFromChainsPickingScreen({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onSelectPhid({
+Future<void> onSelectPhidInPickerScreen({
   @required BuildContext context,
   @required String phid,
   @required bool isMultipleSelectionMode,
@@ -91,9 +92,9 @@ Future<void> onSelectPhid({
   else {
     await onGoBackFromPickerScreen(
       context: context,
-      passPhidBack: phid,
+      phidToPassBack: phid,
       isMultipleSelectionMode: isMultipleSelectionMode,
-      selectedSpecs: selectedSpecs,
+      specsToPassBack: selectedSpecs.value,
     );
   }
 

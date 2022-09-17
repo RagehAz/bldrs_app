@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreator extends StatefulWidget {
@@ -73,12 +74,24 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  String _validator(String text){
+    return numberDataCreatorFieldValidator(
+      context: context,
+      text: text,
+      picker: widget.picker,
+      dataCreatorType: widget.dataCreatorType,
+    );
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _bubbleWidth = BldrsAppBar.width(context);
     // --------------------
     return Bubble(
+      bubbleColor: Formers.validatorBubbleColor(
+        validator: () => _validator(_textController.text),
+      ),
       headerViewModel: const BubbleHeaderVM(
         headlineVerse: Verse(
           text: 'phid_add_with_dots',
@@ -97,11 +110,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         NumberDataCreatorFieldRow(
           appBarType: widget.appBarType,
           hasUnit: widget.picker.unitChainID != null,
-          validator: (String text) => numberDataCreatorFieldValidator(
-            text: text,
-            picker: widget.picker,
-            dataCreatorType: widget.dataCreatorType,
-          ),
+          validator: (String text) => _validator(text),
           textController: _textController,
           formKey: _formKey,
           hintVerse: Verse(
