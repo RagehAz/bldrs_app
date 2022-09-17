@@ -1,6 +1,11 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/user/user_project.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/b_views/z_components/user_profile/user_status/status_bubble.dart';
+import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +23,7 @@ class UserStatusPage extends StatefulWidget {
 class _UserStatusPageState extends State<UserStatusPage> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<UserStatus> _currentUserStatus = ValueNotifier(null);
+  final ValueNotifier<MissionModel> _mission = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
@@ -46,6 +52,10 @@ class _UserStatusPageState extends State<UserStatusPage> {
     );
 
     _currentUserStatus.value = _userModel.status;
+    _mission.value = MissionModel.createInitialMission(
+      context: context,
+      userZone: _userModel.zone,
+    );
 
   }
   // --------------------
@@ -71,6 +81,7 @@ class _UserStatusPageState extends State<UserStatusPage> {
   @override
   void dispose() {
     _currentUserStatus.dispose();
+    _mission.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -119,27 +130,54 @@ class _UserStatusPageState extends State<UserStatusPage> {
     //   listen: true,
     // );
 
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      padding: Stratosphere.stratosphereSandwich,
-      children: <Widget>[
+    return ValueListenableBuilder(
+        valueListenable: _mission,
+        builder: (_, MissionModel mission, Widget child){
 
-        ValueListenableBuilder(
-          valueListenable: _currentUserStatus,
-          builder: (_, UserStatus userStatus, Widget child){
+      return ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: Stratosphere.stratosphereSandwich,
+        children: <Widget>[
 
-            return StatusBubble(
-              status: _status,
-              currentStatus: userStatus,
-              onSelectStatus: (UserStatus type) => _switchUserStatus(type),
-            );
+          ValueListenableBuilder(
+            valueListenable: _currentUserStatus,
+            builder: (_, UserStatus userStatus, Widget child){
+
+              return StatusBubble(
+                status: _status,
+                currentStatus: userStatus,
+                onSelectStatus: (UserStatus type) => _switchUserStatus(type),
+              );
 
             },
-        ),
+          ),
+
+          /// MISSION TYPE SELECTION
+          MultipleChoiceBubble(
+            titleVerse: const Verse(
+              pseudo: 'What are you planning for ?',
+              text: 'phid_what_are_you_looking_for',
+              translate: true,
+            ),
+            onButtonTap: (int index){
+              blog('selected this shit : ${MissionModel.missionsTypes[index]}');
+              _mission.value = _mission.value.copyWith(
+                missionType: MissionModel.missionsTypes[index],
+              );
+            },
+            selectedButtonsPhids: <String>[MissionModel.getMissionTypePhid(mission.missionType)],
+            buttonsVerses: MissionModel.getMissionTypesVerses(
+              context: context,
+              missionsTypes: MissionModel.missionsTypes,
+            ),
+
+          ),
 
 
-      ],
-    );
+        ],
+      );
+
+    });
 
   }
   // -----------------------------------------------------------------------------

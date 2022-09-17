@@ -1,5 +1,10 @@
+import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +43,19 @@ class MissionModel {
 
   // --------------------
   ///
-  static MissionModel createInitialMission(){
-    return null;
+  static MissionModel createInitialMission({
+    @required BuildContext context,
+  @required ZoneModel userZone,
+}){
+    return MissionModel(
+      missionType: null,
+      scope: const [],
+      zone: userZone ?? ZoneProvider.proGetCurrentZone(context: context, listen: false),
+      position: null,
+      description: '',
+      flyerIDs: const [],
+      bzzIDs: const [],
+    );
   }
   // --------------------
   ///
@@ -182,5 +198,108 @@ class MissionModel {
       default:return null;
     }
   }
+  // -----------------------------------------------------------------------------
+
+  /// STANDARDS
+
+  // --------------------
+  static const List<MissionType> missionsTypes = <MissionType>[
+    MissionType.seekProperty,
+    MissionType.planConstruction,
+    MissionType.finishConstruction,
+    MissionType.furnish,
+    MissionType.offerProperty,
+  ];
+  // -----------------------------------------------------------------------------
+
+  /// TRANSLATION
+
+  // --------------------
+
+  static String getMissionTypePhid(MissionType type){
+    switch (type) {
+      case MissionType.seekProperty :       return 'phid_seekProperty'; break;
+      case MissionType.planConstruction :   return 'phid_planConstruction'; break;
+      case MissionType.finishConstruction : return 'phid_finishConstruction'; break;
+      case MissionType.furnish :            return 'phid_furnish'; break;
+      case MissionType.offerProperty :      return 'phid_offerProperty'; break;
+      default:return null;
+    }
+  }
+  // --------------------
+
+  static List<Verse> getMissionTypesVerses({
+    @required List<MissionType> missionsTypes,
+    @required BuildContext context,
+  }){
+    final List<Verse> _output = <Verse>[];
+
+    if (Mapper.checkCanLoopList(missionsTypes) == true){
+
+      for (final MissionType type in missionsTypes){
+
+        final Verse _verse = Verse(
+          text: getMissionTypePhid(type),
+          translate: true,
+        );
+        _output.add(_verse);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CONCLUDERS
+
+  // --------------------
+  ///
+  static List<FlyerType> concludeFlyersTypesByMissionType(MissionType type){
+    switch (type) {
+
+      case MissionType.seekProperty :
+        return <FlyerType>[FlyerType.property]; break;
+
+      case MissionType.planConstruction :
+        return <FlyerType>[FlyerType.design, FlyerType.product]; break;
+
+      case MissionType.finishConstruction :
+        return <FlyerType>[FlyerType.project, FlyerType.product, FlyerType.equipment, FlyerType.trade,]; break;
+
+      case MissionType.furnish :
+        return <FlyerType>[FlyerType.product, FlyerType.trade]; break;
+
+      case MissionType.offerProperty :
+        return <FlyerType>[FlyerType.property];break;
+
+      default:return null;
+    }
+  }
+  // --------------------
+  ///
+  static List<BzType> concludeBzzTypesByMissionType(MissionType type){
+    switch (type) {
+
+      case MissionType.seekProperty :
+        return <BzType>[BzType.developer, BzType.broker]; break;
+
+      case MissionType.planConstruction :
+        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier,]; break;
+
+      case MissionType.finishConstruction :
+        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier, BzType.artisan,]; break;
+
+      case MissionType.furnish :
+        return <BzType>[BzType.supplier, BzType.contractor]; break;
+
+      case MissionType.offerProperty :
+        return <BzType>[BzType.broker];break;
+
+      default:return null;
+    }
+  }
+
 // -----------------------------------------------------------------------------
 }
