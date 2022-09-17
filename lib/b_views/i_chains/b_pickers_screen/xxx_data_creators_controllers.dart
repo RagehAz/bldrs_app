@@ -122,6 +122,7 @@ Future<void> onCurrencySelectorButtonTap({
 /// NUMBER DATA CREATOR
 
 // --------------------
+/// TESTED : WORKS PERFECT
 void initializeNumberData({
   @required BuildContext context,
   @required SpecModel initialValue,
@@ -156,6 +157,7 @@ void initializeNumberData({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void _initializeNumberUnit({
   @required String initialUnit,
   @required Chain unitChain,
@@ -180,6 +182,7 @@ void _initializeNumberUnit({
   selectedUnitID.value = _initialUnit;
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onUnitSelectorButtonTap({
   @required BuildContext context,
   @required PickerModel picker,
@@ -262,6 +265,7 @@ Future<void> onUnitSelectorButtonTap({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void _onSelectUnit({
   @required String unitID,
   @required TextEditingController textController,
@@ -277,7 +281,7 @@ void _onSelectUnit({
 
   selectedUnitID.value = unitID;
 
-  onKeyboardChanged(
+  onDataCreatorKeyboardChanged(
     textController: textController,
     formKey: formKey,
     dataCreatorType: dataCreatorType,
@@ -293,7 +297,8 @@ void _onSelectUnit({
 /// SHARED METHODS
 
 // --------------------
-void onKeyboardChanged({
+/// TESTED : WORKS PERFECT
+void onDataCreatorKeyboardChanged({
   @required GlobalKey<FormState> formKey,
   @required TextEditingController textController,
   @required DataCreator dataCreatorType,
@@ -321,7 +326,8 @@ void onKeyboardChanged({
 
 }
 // --------------------
-Future<void> onKeyboardSubmitted({
+/// TESTED : WORKS PERFECT
+Future<void> onDataCreatorKeyboardSubmitted({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
   @required TextEditingController textController,
@@ -333,7 +339,7 @@ Future<void> onKeyboardSubmitted({
   @required Function onKeyboardSubmitted,
 }) async {
 
-  onKeyboardChanged(
+  onDataCreatorKeyboardChanged(
     formKey: formKey,
     textController: textController,
     dataCreatorType: dataCreatorType,
@@ -351,7 +357,7 @@ Future<void> onKeyboardSubmitted({
       });
 }
 // --------------------
-/// TASK : TEST THIS
+/// TESTED : WORKS PERFECT
 void _fixValueDataTypeAndSetValue({
   @required TextEditingController controller,
   @required DataCreator dataCreatorType,
@@ -384,7 +390,7 @@ void _fixValueDataTypeAndSetValue({
 
 }
 // --------------------
-/// TASK : TEST THIS
+/// TESTED : WORKS PERFECT
 dynamic _fixValueDataType({
   @required dynamic value,
   @required DataCreator dataCreatorType,
@@ -426,6 +432,7 @@ dynamic _fixValueDataType({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 void _createSpecsFromLocalDataAndExport({
   @required TextEditingController textController,
   @required ValueNotifier<dynamic> specValue,
@@ -444,7 +451,7 @@ void _createSpecsFromLocalDataAndExport({
   onExportSpecs(_specs);
 }
 // --------------------
-/// TASK : TEST THIS
+/// TESTED : WORKS PERFECT
 List<SpecModel> _createSpecsForValueAndUnit({
   @required TextEditingController controller,
   @required PickerModel picker,

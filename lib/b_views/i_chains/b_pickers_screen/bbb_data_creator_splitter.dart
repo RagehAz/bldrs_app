@@ -51,12 +51,14 @@ class DataCreatorSplitter extends StatelessWidget {
       // includeChainSInSearch: true,
     );
     // --------------------
+    /*
     final Chain _unitChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker?.unitChainID,
       onlyUseCityChains: onlyUseCityChains,
       // includeChainSInSearch: true,
     );
+     */
     // --------------------
     final DataCreator _dataCreatorType = DataCreation.decipherDataCreator(_valueChain?.sons);
     // --------------------
@@ -74,13 +76,14 @@ class DataCreatorSplitter extends StatelessWidget {
       dataCreator: DataCreator.doubleKeyboard,
     );
     // --------------------
-    blog('DataCreatorSplitter - BUILDING');
-    picker?.blogPicker();
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    _valueChain?.blogChain();
-    blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    _unitChain?.blogChain();
-    blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // blog('DataCreatorSplitter - BUILDING');
+    // picker?.blogPicker();
+    // blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // _valueChain?.blogChain();
+    // blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // _unitChain?.blogChain();
+    // blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     blog('_dataCreatorType : $_dataCreatorType');
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     blog('_isChains : $_isChains');
@@ -88,8 +91,8 @@ class DataCreatorSplitter extends StatelessWidget {
     blog('_hasCurrencyUnit : $_hasCurrencyUnit');
     blog('_isIntegerKeyboard : $_isIntegerKeyboard');
     blog('_isDoubleKeyboard : $_isDoubleKeyboard');
-    blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    SpecModel.blogSpecs(selectedSpecs);
+    // blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    // SpecModel.blogSpecs(selectedSpecs);
     blog('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     // --------------------
     /// PHIDS OR CHAINS
@@ -144,15 +147,14 @@ class DataCreatorSplitter extends StatelessWidget {
     /// INTEGER - DOUBLE
     else if (_isIntegerKeyboard == true || _isDoubleKeyboard == true){
 
-
       /// INITIAL VALUE
       final SpecModel _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
         pickerChainID: picker.chainID,
       );
 
-      blog('aho');
-      _valueSpec?.blogSpec();
+      // blog('aho');
+      // _valueSpec?.blogSpec();
 
       /// INITIAL UNIT
       final SpecModel _unitSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(

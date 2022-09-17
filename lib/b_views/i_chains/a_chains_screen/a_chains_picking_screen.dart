@@ -374,7 +374,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                 pickers: _allPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: widget.flyerTypesChainFilters,
-                onPickerTap: (PickerModel picker) => onPickerTap(
+                onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
                   context: context,
                   zone: widget.zone,
                   selectedSpecs: _selectedSpecs,

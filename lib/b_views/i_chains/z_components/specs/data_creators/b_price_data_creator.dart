@@ -75,6 +75,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   String _validator(String text){
     return Formers.currencyFieldValidator(
       context: context,
@@ -127,7 +128,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             formKey: _formKey,
             selectedCurrencyID: _selectedCurrencyID,
           ),
-          onKeyboardChanged: (String text) => onKeyboardChanged(
+          onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
             specValue: _priceValue,
             dataCreatorType: widget.dataCreatorType,
@@ -136,7 +137,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             picker: widget.picker,
             onExportSpecs: widget.onExportSpecs,
           ),
-          onKeyboardSubmitted: (String text) => onKeyboardSubmitted(
+          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmitted(
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,
