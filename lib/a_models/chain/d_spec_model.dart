@@ -306,7 +306,7 @@ class SpecModel {
             chainIDOrUnitChainID: spec.pickerChainID,
         );
 
-        if (_specPicker.unitChainID == unitSpec.pickerChainID){
+        if (_specPicker?.unitChainID == unitSpec?.pickerChainID){
           _include = true;
           break;
         }

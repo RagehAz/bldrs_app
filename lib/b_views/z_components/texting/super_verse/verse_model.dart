@@ -250,7 +250,7 @@ class Verse {
           final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
-            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
+            final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
             final String _foundXPhrase = xPhrase(context, verse.text, phrasePro: _phraseProvider);
 
             /// X PHRASE NOT FOUND

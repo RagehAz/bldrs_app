@@ -348,7 +348,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                 foundChains: _foundChains,
                 selectedSpecs: _selectedSpecs,
                 searchText: _searchText,
-                onSelectPhid: (String path, String phid) => onSelectPhid(
+                onSelectPhid: (String path, String phid) => onSelectPhidInPickerScreen(
                   context: context,
                   phid: phid,
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
@@ -383,7 +383,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                   allSpecPickers: _allPickers,
                   picker: picker,
                   refinedSpecsPickers: _refinedSpecsPickers,
-                  originalSpecs: widget.selectedSpecs ?? [],
                 ),
                 onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
                   valueSpec: value,

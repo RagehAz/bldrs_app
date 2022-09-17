@@ -113,7 +113,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
           return Bubble(
             bubbleColor: Formers.validatorBubbleColor(
-              message: Formers.pdfValidator(
+              validator: () => Formers.pdfValidator(
                 fileModel: pdf,
                 canValidate: widget.canValidate,
               ),
