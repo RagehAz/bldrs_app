@@ -15,7 +15,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     @required this.titleVerse,
     @required this.buttonsVerses,
     @required this.onButtonTap,
-    @required this.selectedButtons,
+    @required this.selectedButtonsPhids,
     this.bulletPoints,
     this.inactiveButtons,
     this.validator,
@@ -28,7 +28,7 @@ class MultipleChoiceBubble extends StatelessWidget {
   final List<Verse> bulletPoints;
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
-  final List<String> selectedButtons;
+  final List<String> selectedButtonsPhids;
   final List<Verse> inactiveButtons;
   final String Function() validator;
   final bool autoValidate;
@@ -65,7 +65,7 @@ class MultipleChoiceBubble extends StatelessWidget {
                 final Verse _buttonVerse = buttonsVerses[index];
 
                 final bool _isSelected = Stringer.checkStringsContainString(
-                  strings: selectedButtons,
+                  strings: selectedButtonsPhids,
                   string: _buttonVerse.text,
                 );
 
