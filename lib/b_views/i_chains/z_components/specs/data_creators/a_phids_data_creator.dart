@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +15,18 @@ class PhidsDataCreator extends StatelessWidget {
     @required this.specPicker,
     @required this.onlyUseCityChains,
     @required this.selectedSpecs,
-    @required this.onPhidTap,
     @required this.allowableHeight,
+    @required this.searchText,
+    @required this.onPhidTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final PickerModel specPicker;
   final bool onlyUseCityChains;
   final List<SpecModel> selectedSpecs;
-  final ValueChanged<String> onPhidTap;
   final double allowableHeight;
+  final ValueNotifier<dynamic> searchText;
+  final Function(String path, String phid) onPhidTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,12 +41,13 @@ class PhidsDataCreator extends StatelessWidget {
           context: context,
           onlyUseCityChains: onlyUseCityChains,
         )?.sons,
-        onSelectPhid: (String path, String phid) => onPhidTap(phid),
         selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
         initiallyExpanded: false,
-        editMode: false,
         secondLinesType: ChainSecondLinesType.non,
-        onLongPress: null,
+        onPhidTap: onPhidTap,
+        onPhidDoubleTap: (String path, String phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
+        onPhidLongTap:(String path, String phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
+        searchText: searchText,
       ),
     );
     // --------------------

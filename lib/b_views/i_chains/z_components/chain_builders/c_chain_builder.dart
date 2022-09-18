@@ -18,17 +18,22 @@ class ChainBuilder extends StatelessWidget {
     @required this.secondHeadline,
     @required this.initiallyExpanded,
     @required this.selectedPhids,
-    @required this.editMode,
     @required this.secondLinesType,
-    @required this.onLongPress,
+
+    @required this.onPhidTap,
+    @required this.onPhidDoubleTap,
+    @required this.onPhidLongTap,
+
+    @required this.onTileTap,
+    @required this.onTileDoubleTap,
+    @required this.onTileLongTap,
+
+    @required this.searchText,
     this.inverseAlignment = true,
     this.deactivated = false,
     this.initialColor = Colorz.black50,
     this.expansionColor = Colorz.white20,
-    this.onPhidTap,
     this.level = 0,
-    this.searchText,
-    this.onAddToPath,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -42,15 +47,19 @@ class ChainBuilder extends StatelessWidget {
   final Verse secondHeadline;
   final Color initialColor;
   final Color expansionColor;
-  final Function(String path, String phid) onPhidTap;
   final bool initiallyExpanded;
   final int level;
   final List<String> selectedPhids;
   final ValueNotifier<String> searchText;
-  final Function(String path) onAddToPath;
-  final bool editMode;
   final ChainSecondLinesType secondLinesType;
-  final ValueChanged<String> onLongPress;
+
+  final Function(String path, String phid) onPhidTap;
+  final Function(String path, String phid) onPhidDoubleTap;
+  final Function(String path, String phid) onPhidLongTap;
+
+  final Function(String path, String phid) onTileLongTap;
+  final Function(String path, String phid) onTileTap;
+  final Function(String path, String phid) onTileDoubleTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -77,20 +86,21 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onLongPress: () => onLongPress(_cleanedPath),
+        onTileLongTap: () => onTileLongTap(_cleanedPath, chain.id),
+        onTileTap: (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
+        onTileDoubleTap: () => onTileDoubleTap(_cleanedPath, chain.id),
         child: ChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',
           chainOrChainsOrSonOrSons: chain.sons,
           initiallyExpanded: initiallyExpanded,
-          onSelectPhid: (String path, String phid) => onPhidTap(path, phid),
           level: level,
           selectedPhids: selectedPhids,
           searchText: searchText,
-          onAddToPath: onAddToPath,
-          editMode: editMode,
           secondLinesType: secondLinesType,
-          onLongPress: onLongPress,
+          onPhidDoubleTap: onPhidDoubleTap,
+          onPhidLongTap: onPhidLongTap,
+          onPhidTap: onPhidTap,
         ),
       ),
     );
