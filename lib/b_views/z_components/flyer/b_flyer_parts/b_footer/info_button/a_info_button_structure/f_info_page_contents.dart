@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_but
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_main_details.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_paragraph.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/flyer/e_flyer_special_widgets/report_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
@@ -161,16 +161,15 @@ class InfoPageContents extends StatelessWidget {
                         InfoPageHeadline(
                           pageWidth: _pageWidth,
                           headlineVerse: const Verse(
-                            text: 'phid_flyer_specs',
+                            text: 'phid_specs',
                             translate: true,
                           ),
                         ),
                       /// SPECS
                       if (flyerModel.specs.isNotEmpty == true)
-                        InfoPageSpecs(
+                        SpecsBuilder(
                           pageWidth: _pageWidth,
                           specs: flyerModel.specs,
-                          flyerType: flyerModel.flyerType,
                           onSpecTap: ({SpecModel value, SpecModel unit}){
                             blog('Flyer : InfoPageContents : onSpecTap');
                             value.blogSpec();

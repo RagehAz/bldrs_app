@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_specs.dart';
+import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -56,10 +56,9 @@ class SpecsSelectorBubble extends StatelessWidget {
             ],
           ),
 
-          InfoPageSpecs(
+          SpecsBuilder(
             pageWidth: Bubble.clearWidth(context),
             specs: draft.specs,
-            flyerType: draft.flyerType,
             onSpecTap: ({SpecModel value, SpecModel unit}) => onAddSpecsToDraftTap(
               context: context,
               draft: draftNotifier,

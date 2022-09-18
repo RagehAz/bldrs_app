@@ -345,15 +345,17 @@ class PickerModel {
   /// TESTED : WORKS PERFECT
   static void blogPickers(List<PickerModel> pickers, {String methodName = 'PICKER'}) {
 
-    final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
 
-    if (Mapper.checkCanLoopList(pickers)) {
+    if (Mapper.checkCanLoopList(pickers) == true) {
+
+      final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
+
       for (final PickerModel _picker in _pickers) {
-        _picker.blogPicker(methodName: methodName);
+        _picker?.blogPicker(methodName: methodName);
       }
     }
     else {
-      blog('pickers are empty');
+      blog('pickers are empty : $methodName');
     }
   }
   // --------------------
@@ -587,6 +589,27 @@ class PickerModel {
     return _specPicker;
   }
   // --------------------
+  ///
+  static PickerModel getPickerByChainID({
+    @required List<PickerModel> pickers,
+    @required String chainID,
+  }) {
+
+    // blog('getPickerByChainID : pickerChainID : $chainID');
+    // SpecPicker.blogSpecsPickers(specsPickers);
+
+    /// gets the picker where chain ID is the main chain or unit chain ID
+
+    PickerModel _specPicker;
+
+    if (Mapper.checkCanLoopList(pickers) && chainID != null) {
+      _specPicker = pickers.firstWhere(
+              (PickerModel picker) => picker.chainID == chainID, orElse: () => null);
+    }
+
+    return _specPicker;
+  }
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
@@ -788,8 +811,8 @@ class PickerModel {
 
       /// SORT PICKERS BY GROUPS INDEXES
       _pickers.sort((PickerModel a, PickerModel b){
-        final int _indexA = a.index ?? 0;
-        final int _indexB = b.index ?? 0;
+        final int _indexA = a?.index ?? 0;
+        final int _indexB = b?.index ?? 0;
         return _indexA.compareTo(_indexB);
       });
 

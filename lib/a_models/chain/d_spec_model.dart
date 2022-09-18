@@ -326,13 +326,13 @@ class SpecModel {
   /// TESTED : WORKS PERFECT
   static List<SpecModel> dummySpecs() {
     return <SpecModel>[
-      const SpecModel(pickerChainID: 'phid_s_propertyLicense', value: 'phid_k_ppt_lic_residential'),
-      const SpecModel(pickerChainID: 'phid_s_propertyView', value: 'phid_s_view_lake'),
-      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_builtinWardrobe'),
-      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_energyEfficient'),
-      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_elevator'),
-      const SpecModel(pickerChainID: 'phid_s_propertyIndoorFeatures', value: 'phid_s_pFeature_intercom'),
-      const SpecModel(pickerChainID: 'propertyForm', value: 'pf_halfFloor'),
+      const SpecModel(pickerChainID: '0008_phid_k_flyer_type_design', value: '0000_phid_k_designType_landscape'),
+      const SpecModel(pickerChainID: '0008_phid_k_flyer_type_design', value: '0001_phid_k_designType_interior'),
+      const SpecModel(pickerChainID: '0008_phid_k_flyer_type_design', value: '0003_phid_k_designType_urban'),
+      const SpecModel(pickerChainID: '0008_phid_k_flyer_type_design', value: '0005_phid_k_designType_kiosk'),
+      const SpecModel(pickerChainID: '0041_phid_s_contractType', value: '0001_phid_s_contractType_Resale'),
+      const SpecModel(pickerChainID: '0008_phid_k_flyer_type_design', value: '0008_phid_k_designType_facade'),
+      const SpecModel(pickerChainID: '0039_phid_s_propertyLicense', value: '0004_phid_s_ppt_lic_industrial'),
 
     ];
   }

@@ -21,6 +21,7 @@ class ScopeSelectorBubble extends StatelessWidget {
     @required this.selectedSpecs,
     @required this.onAddScope,
     @required this.bulletPoints,
+    this.addButtonVerse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class ScopeSelectorBubble extends StatelessWidget {
   final List<SpecModel> selectedSpecs;
   final Function onAddScope;
   final List<Verse> bulletPoints;
+  final Verse addButtonVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class ScopeSelectorBubble extends StatelessWidget {
           DreamBox(
             height: PhidButton.getHeight(),
             // width: Bubble.clearWidth(context),
-            verse: Verse(
+            verse: addButtonVerse ?? Verse(
               text: Mapper.checkCanLoopList(_phids) ?
               'phid_edit_scope'
                   :

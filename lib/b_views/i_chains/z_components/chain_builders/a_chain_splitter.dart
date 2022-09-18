@@ -104,7 +104,11 @@ class ChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: _color,
-        onDoubleTap: () => onLongPress(_cleanedPath),
+        onDoubleTap: (){
+          if (onLongPress != null){
+            onLongPress(_cleanedPath);
+          }
+        },
         onTap: () => onSelectPhid(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
