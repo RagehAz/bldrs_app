@@ -1,7 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -300,6 +303,28 @@ class MissionModel {
       default:return null;
     }
   }
+  // -----------------------------------------------------------------------------
 
+  /// DUMMY
+
+  // --------------------
+  static MissionModel dummyMission(BuildContext context){
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+
+    return MissionModel(
+      missionType: MissionType.finishConstruction,
+      description: 'This is mission description, and my mission is to reach all countries',
+      zone: ZoneModel.dummyZone(),
+      scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
+      bzzIDs: _userModel.followedBzzIDs,
+      flyerIDs: _userModel.savedFlyersIDs,
+      position: Atlas.dummyLocation(),
+    );
+
+  }
 // -----------------------------------------------------------------------------
 }

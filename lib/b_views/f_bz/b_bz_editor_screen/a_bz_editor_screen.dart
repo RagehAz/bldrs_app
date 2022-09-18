@@ -6,15 +6,10 @@ import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/profile_editors/add_gallery_pic_bubble.dart';
@@ -23,14 +18,10 @@ import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubbl
 import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/imagers.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
 class BzEditorScreen extends StatefulWidget {
@@ -84,7 +75,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
   final ValueNotifier<List<BzForm>> _inactiveBzForms = ValueNotifier<List<BzForm>>(null);
   final ValueNotifier<List<AlertModel>> _missingFields = ValueNotifier(<AlertModel>[]);
   // -----------------------------------------------------------------------------
-  /// --- LOADING
+  /// LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false); /// tamam disposed
   // --------------------
   Future<void> _triggerLoading({bool setTo}) async {
@@ -277,7 +268,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
 
                       const Stratosphere(),
 
-                      /// --- SECTION
+                      /// SECTION
                       ValueListenableBuilder(
                           key: const ValueKey<String>('section_selection_bubble'),
                           valueListenable: _selectedBzSection,
@@ -322,7 +313,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           }
                       ),
 
-                      /// --- BZ TYPE
+                      /// BZ TYPE
                       ValueListenableBuilder(
                           valueListenable: _inactiveBzTypes,
                           builder: (_, List<BzType> inactiveTypes, Widget child){
@@ -372,7 +363,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           }
                       ),
 
-                      /// --- BZ FORM
+                      /// BZ FORM
                       ValueListenableBuilder(
                         valueListenable: _inactiveBzForms,
                         builder: (_, List<BzForm> inactiveBzForms, Widget child){
@@ -418,9 +409,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         },
                       ),
 
+                      /// SEPARATOR
                       const DotSeparator(),
 
-                      /// --- ADD LOGO
+                      /// ADD LOGO
                       AddImagePicBubble(
                         key: const ValueKey<String>('add_logo_bubble'),
                         fileModel: bzModel?.logo,
@@ -443,7 +435,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                       ),
 
-                      /// --- BZ NAME
+                      /// BZ NAME
                       TextFieldBubble(
                         globalKey: _formKey,
                         focusNode: _nameNode,
@@ -472,7 +464,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                       ),
 
-                      /// --- BZ ABOUT
+                      /// BZ ABOUT
                       TextFieldBubble(
                           globalKey: _formKey,
                           focusNode: _aboutNode,
@@ -498,6 +490,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                           ),
                       ),
 
+                      /// SEPARATOR
                       const DotSeparator(),
 
                       /// PHONE
@@ -609,71 +602,40 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         valueListenable: _selectedScopes,
                         builder: (_, List<SpecModel> selectedSpecs, Widget child){
 
-                          final List<String> _phids = SpecModel.getSpecsIDs(selectedSpecs);
-
-                          return WidgetFader(
-                            fadeType: Mapper.checkCanLoopList(bzModel?.bzTypes) == true ? FadeType.stillAtMax : FadeType.stillAtMin,
-                            min: 0.35,
-                            absorbPointer: Mapper.checkCanLoopList(bzModel?.bzTypes) == false,
-                            child: Bubble(
-                              headerViewModel: const BubbleHeaderVM(
-                                headlineVerse: Verse(
-                                  text: 'phid_scopeOfServices',
-                                  translate: true,
-                                ),
-                              ),
-                              width: Bubble.bubbleWidth(context),
-                              columnChildren: <Widget>[
-
-                                const BulletPoints(
-                                  bulletPoints:  <Verse>[
-                                    Verse(
-                                      pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
-                                      text: '##Select at least 1 keyword to help search engines show your content in its dedicated place',
-                                      translate: true,
-                                    )
-                                  ],
-                                ),
-
-                                if (Mapper.checkCanLoopList(_phids))
-                                  PhidsViewer(
-                                    pageWidth: Bubble.clearWidth(context),
-                                    phids: _phids,
-                                  ),
-
-                                DreamBox(
-                                  height: PhidButton.getHeight(),
-                                  // width: Bubble.clearWidth(context),
-                                  verse: Verse(
-                                    text: Mapper.checkCanLoopList(_phids) ?
-                                    'phid_edit_bz_scope'
-                                        :
-                                    'phid_add_bz_scope',
-                                    translate: true,
-                                  ),
-                                  bubble: false,
-                                  color: Colorz.white20,
-                                  verseScaleFactor: 1.5,
-                                  verseWeight: VerseWeight.thin,
-                                  icon: Iconz.plus,
-                                  iconSizeFactor: 0.4,
-                                  iconColor: Colorz.white20,
-                                  onTap: () => onAddScopesTap(
-                                    context: context,
-                                    selectedScopes: _selectedScopes,
-                                    tempBz: _tempBz,
-                                  ),
-                                ),
-
-                              ],
+                          return ScopeSelectorBubble(
+                            headlineVerse: const Verse(
+                              text: 'phid_scopeOfServices',
+                              translate: true,
+                            ),
+                            bzTypes: bzModel?.bzTypes,
+                            selectedSpecs: selectedSpecs,
+                            bulletPoints: const <Verse>[
+                              Verse(
+                                pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
+                                text: '##Select at least 1 keyword to help search engines show your content in its dedicated place',
+                                translate: true,
+                              )
+                            ],
+                            onAddScope: () => onAddScopesTap(
+                              context: context,
+                              selectedSpecs: selectedSpecs,
+                              bzTypes: bzModel.bzTypes,
+                              zone: bzModel.zone,
+                              onlyChainKSelection: true,
+                              onFinish: (List<SpecModel> specs){
+                                if (specs != null){
+                                  _selectedScopes.value = specs;
+                                }
+                              }
                             ),
                           );
+
                         },
                       ),
 
                       const DotSeparator(),
 
-                      /// --- BZ ZONE
+                      /// BZ ZONE
                       ZoneSelectionBubble(
                         titleVerse: const Verse(
                           text: 'phid_hqCity',
@@ -694,10 +656,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                         ),
                       ),
 
-                      /// --- BZ POSITION
+                      /// BZ POSITION
                       //
 
-                      /// --- BZ CONTACTS
+                      /// BZ CONTACTS
                       // ContactsEditorsBubbles(
                       //   globalKey: formKey,
                       //   appBarType: appBarType,
@@ -705,6 +667,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                       //   contactsOwnerType: ContactsOwnerType.bz,
                       // ),
 
+                      /// SEPARATOR
                       const DotSeparator(),
 
                       const Horizon(),
