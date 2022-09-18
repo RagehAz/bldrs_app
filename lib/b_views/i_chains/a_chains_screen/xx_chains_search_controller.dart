@@ -25,7 +25,7 @@ Future<void> onChainsSearchChanged({
   @required List<Chain> chains,
 }) async {
 
-  // blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
+  blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
 
   TextCheck.triggerIsSearchingNotifier(
     text: text,
