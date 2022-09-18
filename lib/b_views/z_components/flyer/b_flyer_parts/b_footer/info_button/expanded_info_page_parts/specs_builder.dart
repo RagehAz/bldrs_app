@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/specs_wrapper.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/chains_provider.dart';
@@ -9,12 +8,11 @@ import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class InfoPageSpecs extends StatelessWidget {
+class SpecsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const InfoPageSpecs({
+  const SpecsBuilder({
     @required this.pageWidth,
     @required this.specs,
-    @required this.flyerType,
     @required this.onSpecTap,
     @required this.onDeleteSpec,
     Key key
@@ -22,77 +20,39 @@ class InfoPageSpecs extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final List<SpecModel> specs;
-  final FlyerType flyerType;
   final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
   final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
   /// --------------------------------------------------------------------------
-  List<PickerModel> _getFlyerPickers({
-    @required BuildContext context,
-    @required List<SpecModel> flyerSpecs,
-    @required FlyerType flyerType,
-  }){
-    final List<PickerModel> _pickers = <PickerModel>[];
-
-    final List<PickerModel> _flyerTypePickers = ChainsProvider.proGetPickersByFlyerType(
-      context: context,
-      flyerType: flyerType,
-      listen: true,
-    );
-
-    if (Mapper.checkCanLoopList(flyerSpecs)){
-
-      for (final SpecModel _spec in flyerSpecs){
-
-        final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
-          pickers: _flyerTypePickers,
-          chainIDOrUnitChainID: _spec.pickerChainID,
-        );
-
-        // blog('picker chain ID is : ${_spec.pickerChainID}');
-        // _picker.blogSpecPicker();
-
-        final bool _alreadyAdded = PickerModel.checkPickersContainPicker(
-          pickers: _pickers,
-          picker: _picker,
-        );
-
-        if (_alreadyAdded == false){
-          _pickers.add(_picker);
-        }
-
-      }
-
-    }
-
-    return _pickers;
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final List<PickerModel> _flyerPickers = _getFlyerPickers(
+    final List<PickerModel> _specsPickers = ChainsProvider.proGetPickersBySpecs(
       context: context,
-      flyerType: flyerType,
-      flyerSpecs: specs,
+      specs: specs,
+      listen: true,
     );
 
-    return SizedBox(
-      key: const ValueKey<String>('InfoPageSpecs'),
-        width: pageWidth,
-        child:
+    if (Mapper.checkCanLoopList(_specsPickers) == true){
 
-        ListView.builder(
-            itemCount: _flyerPickers.length,
+      PickerModel.blogPickers(_specsPickers, methodName: 'fuckii');
+
+      return SizedBox(
+        key: const ValueKey<String>('SpecsBuilder'),
+        width: pageWidth,
+        child: ListView.builder(
+            itemCount: _specsPickers.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, int index){
 
-              final PickerModel _picker = _flyerPickers[index];
+              final PickerModel _picker = _specsPickers[index];
+
+              _picker?.blogPicker(methodName: 'bobo');
 
               final List<SpecModel> _specsOfThisPicker = SpecModel.getSpecsBelongingToThisPicker(
-                  specs: specs,
-                  picker: _picker,
+                specs: specs,
+                picker: _picker,
               );
 
               return Container(
@@ -135,8 +95,12 @@ class InfoPageSpecs extends StatelessWidget {
               );
 
             }
-        )
-    );
+        ),
+      );
+    }
+    else {
+      return const SizedBox();
+    }
 
   }
 // -----------------------------------------------------------------------------

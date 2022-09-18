@@ -503,10 +503,10 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkVerseIsCurrency(String text){
+  static bool checkVerseIsCurrency(dynamic text){
     bool _isCurrency = false;
 
-    if (text != null){
+    if (text != null && text is String){
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
         input: text,

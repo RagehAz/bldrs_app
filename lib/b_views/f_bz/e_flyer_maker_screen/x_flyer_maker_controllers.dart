@@ -285,7 +285,7 @@ Future<void> onAddSpecsToDraftTap({
       context: context,
       screen: ChainsPickingScreen(
         pageTitleVerse: const Verse(
-          text: 'phid_flyer_specifications',
+          text: 'phid_flyer_specs',
           translate: true,
         ),
         selectedSpecs: draft.value.specs,

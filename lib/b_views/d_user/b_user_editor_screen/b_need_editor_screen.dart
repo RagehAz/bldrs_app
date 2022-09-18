@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/user/user_project.dart';
+import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
@@ -17,23 +17,23 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 
-class MissionEditorScreen extends StatefulWidget {
+class NeedEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const MissionEditorScreen({
+  const NeedEditorScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  State<MissionEditorScreen> createState() => _MissionEditorScreenState();
+  State<NeedEditorScreen> createState() => _NeedEditorScreenState();
 /// --------------------------------------------------------------------------
 }
 
-class _MissionEditorScreenState extends State<MissionEditorScreen> {
+class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
   final ValueNotifier<UserStatus> _currentUserStatus = ValueNotifier(null);
-  final ValueNotifier<MissionModel> _mission = ValueNotifier(null);
+  final ValueNotifier<NeedModel> _need = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -60,7 +60,7 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
     );
 
     _currentUserStatus.value = _userModel.status;
-    _mission.value = MissionModel.createInitialMission(
+    _need.value = NeedModel.createInitialNeed(
       context: context,
       userZone: _userModel.zone,
     );
@@ -89,7 +89,7 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
   @override
   void dispose() {
     _currentUserStatus.dispose();
-    _mission.dispose();
+    _need.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -130,7 +130,7 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
     _currentUserStatus.value = type;
   }
   // --------------------
-  Future<void> onConfirmEditingMission() async {
+  Future<void> onConfirmEditingNeed() async {
 
   }
   // -----------------------------------------------------------------------------
@@ -151,27 +151,9 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
       sectionButtonIsOn: false,
       skyType: SkyType.black,
       pageTitleVerse: const Verse(
-        text: 'phid_blding_mission',
+        text: 'phid_edit_needs',
         translate: true,
       ),
-      appBarRowWidgets: [
-        AppBarButton(
-          verse: Verse.plain('BOM'),
-          onTap: (){
-
-            Formers.validateForm(_formKey);
-
-            // _tempBz.value = _tempBz.value.nullifyField(
-            //   zone: true,
-            // );
-
-            // _tempBz.value = _tempBz.value.copyWith(
-            //   bz: [],
-            // );
-
-          },
-        ),
-      ],
       confirmButtonModel: ConfirmButtonModel(
         firstLine: const Verse(
           text: 'phid_confirm',
@@ -181,13 +163,13 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
           text: 'phid_confirm',
           translate: true,
         ),
-        onTap: () => onConfirmEditingMission(),
+        onTap: () => onConfirmEditingNeed(),
       ),
       layoutWidget: Form(
         key: _formKey,
         child: ValueListenableBuilder(
-            valueListenable: _mission,
-            builder: (_, MissionModel mission, Widget child){
+            valueListenable: _need,
+            builder: (_, NeedModel need, Widget child){
 
               return ListView(
                 physics: const BouncingScrollPhysics(),
@@ -205,7 +187,7 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
                     },
                   ),
 
-                  /// MISSION TYPE SELECTION
+                  /// NEED TYPE SELECTION
                   MultipleChoiceBubble(
                     titleVerse: const Verse(
                       pseudo: 'What are you planning for ?',
@@ -213,15 +195,15 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
                       translate: true,
                     ),
                     onButtonTap: (int index){
-                      blog('selected this shit : ${MissionModel.missionsTypes[index]}');
-                      _mission.value = _mission.value.copyWith(
-                        missionType: MissionModel.missionsTypes[index],
+                      blog('selected this shit : ${NeedModel.needsType[index]}');
+                      _need.value = _need.value.copyWith(
+                        needType: NeedModel.needsType[index],
                       );
                     },
-                    selectedButtonsPhids: <String>[MissionModel.getMissionTypePhid(mission.missionType)],
-                    buttonsVerses: MissionModel.getMissionTypesVerses(
+                    selectedButtonsPhids: <String>[NeedModel.getNeedTypePhid(need.needType)],
+                    buttonsVerses: NeedModel.getNeedsTypesVerses(
                       context: context,
-                      missionsTypes: MissionModel.missionsTypes,
+                      needsTypes: NeedModel.needsType,
                     ),
                     wrapButtons: false,
                   ),
@@ -229,33 +211,36 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
                   /// SCOPE SELECTOR
                   ScopeSelectorBubble(
                     headlineVerse: const Verse(
-                      text: 'phid_mission_scope',
+                      text: 'phid_specs',
                       translate: true,
                     ),
-                    bzTypes: MissionModel.concludeBzzTypesByMissionType(mission.missionType),
+                    bzTypes: NeedModel.concludeBzzTypesByNeedType(need.needType),
                     selectedSpecs: SpecModel.generateSpecsByPhids(
                       context: context,
-                      phids: mission.scope,
+                      phids: need.scope,
                     ),
                     bulletPoints: const <Verse>[
                       Verse(
-                        pseudo: 'Select at least 1 keyword to help search engines show your content in its dedicated place',
-                        text: '##Select at least 1 keyword to help search engines show your content in its dedicated place',
+                        text: 'x',
                         translate: true,
                       )
                     ],
+                    addButtonVerse: const Verse(
+                      text: 'phid_add_specs',
+                      translate: true,
+                    ),
                     onAddScope: () => onAddScopesTap(
                         context: context,
                         selectedSpecs: SpecModel.generateSpecsByPhids(
                           context: context,
-                          phids: mission.scope,
+                          phids: need.scope,
                         ),
-                        bzTypes: MissionModel.concludeBzzTypesByMissionType(mission.missionType),
-                        zone: mission.zone,
+                        bzTypes: NeedModel.concludeBzzTypesByNeedType(need.needType),
+                        zone: need.zone,
                         onlyChainKSelection: false,
                         onFinish: (List<SpecModel> specs) async {
                           if (specs != null){
-                            _mission.value = _mission.value.copyWith(
+                            _need.value = _need.value.copyWith(
                               scope: SpecModel.getSpecsIDs(specs),
                             );
                           }
@@ -263,45 +248,46 @@ class _MissionEditorScreenState extends State<MissionEditorScreen> {
                     ),
                   ),
 
-                  /// MISSION ZONE
+                  /// NEED ZONE
                   ZoneSelectionBubble(
                     titleVerse: const Verse(
-                      text: 'phid_mission_zone',
+                      text: 'phid_zone',
                       translate: true,
                     ),
-                    currentZone: mission.zone,
+                    isRequired: false,
+                    currentZone: need.zone,
                     onZoneChanged: (ZoneModel zone){
-                      _mission.value = _mission.value.copyWith(
+                      _need.value = _need.value.copyWith(
                         zone: zone,
                       );
                     },
                     // selectCountryAndCityOnly: true,
                     // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
-                      zoneModel: mission.zone,
+                      zoneModel: need.zone,
                       selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
                       canValidate: true,
                     ),
                   ),
 
-                  /// MISSION DESCRIPTION
+                  /// NEED DESCRIPTION
                   TextFieldBubble(
-                    key: const ValueKey<String>('mission_description_button'),
+                    key: const ValueKey<String>('need_description_button'),
                     globalKey: _formKey,
                     // focusNode: _aboutNode,
                     appBarType: AppBarType.basic,
                     titleVerse: const Verse(
-                      text: 'phid_mission_notes',
+                      text: 'phid_extra_notes',
                       translate: true,
                     ),
                     counterIsOn: true,
                     maxLength: 1000,
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
-                    initialText: mission?.description,
+                    initialText: need?.description,
                     textOnChanged: (String text){
-                      _mission.value = _mission.value.copyWith(
+                      _need.value = _need.value.copyWith(
                         description: text,
                       );
                     },
