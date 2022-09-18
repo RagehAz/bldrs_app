@@ -253,7 +253,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   ),
                   headerViewModel: BubbleHeaderVM(
                     headlineVerse: widget.titleVerse ?? const Verse(
-                      text: 'phid_preferred_location',
+                      text: 'phid_location',
                       translate: true,
                     ),
                     redDot: true,
