@@ -30,6 +30,7 @@ class ZoneSelectionBubble extends StatefulWidget {
     this.autoValidate = true,
     this.selectCountryAndCityOnly = true,
     this.selectCountryIDOnly = false,
+    this.isRequired = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -42,6 +43,7 @@ class ZoneSelectionBubble extends StatefulWidget {
   final bool autoValidate;
   final bool selectCountryAndCityOnly;
   final bool selectCountryIDOnly;
+  final bool isRequired;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -256,7 +258,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                       text: 'phid_location',
                       translate: true,
                     ),
-                    redDot: true,
+                    redDot: widget.isRequired,
                   ),
                   columnChildren: <Widget>[
 

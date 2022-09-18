@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/a_chain.dart';
 import 'package:bldrs/a_models/chain/aaa_phider.dart';
 import 'package:bldrs/a_models/chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/chain/c_picker_model.dart';
+import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/phrase_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/a_chain_protocols.dart';
@@ -521,6 +522,20 @@ class ChainsProvider extends ChangeNotifier {
   Map<String, dynamic> get allPickers => _allPickers;
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<PickerModel> proGetAllPickers({
+    @required BuildContext context,
+    @required bool listen,
+}){
+
+    return proGetPickersByFlyerTypes(
+        context: context,
+        flyerTypes: FlyerTyper.flyerTypesList,
+        listen: listen
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -550,6 +565,54 @@ class ChainsProvider extends ChangeNotifier {
         );
 
         _output.addAll(_pickers);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<PickerModel> proGetPickersBySpecs({
+    @required BuildContext context,
+    @required List<SpecModel> specs,
+    @required bool listen,
+  }){
+    final List<PickerModel> _output = <PickerModel>[];
+
+    if (Mapper.checkCanLoopList(specs)){
+
+      final List<PickerModel> _allPickers = ChainsProvider.proGetAllPickers(
+        context: context,
+        listen: listen,
+      );
+
+      for (final SpecModel _spec in specs){
+
+        final bool _isCurrency = Phider.checkVerseIsCurrency(_spec.value);
+
+        if (_isCurrency == false){
+
+          final PickerModel _picker = PickerModel.getPickerByChainID(
+            pickers: _allPickers,
+            chainID: _spec.pickerChainID,
+          );
+
+          if (_picker != null){
+
+            final bool _alreadyAdded = PickerModel.checkPickersContainPicker(
+              pickers: _output,
+              picker: _picker,
+            );
+
+            if (_alreadyAdded == false){
+              _output.add(_picker);
+            }
+
+          }
+
+        }
 
       }
 

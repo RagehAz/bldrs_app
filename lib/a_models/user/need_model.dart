@@ -12,7 +12,7 @@ import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-enum MissionType {
+enum NeedType {
   seekProperty,
   planConstruction,
   finishConstruction,
@@ -21,10 +21,10 @@ enum MissionType {
 }
 
 @immutable
-class MissionModel {
+class NeedModel {
   /// --------------------------------------------------------------------------
-  const MissionModel({
-    @required this.missionType,
+  const NeedModel({
+    @required this.needType,
     @required this.scope,
     @required this.zone,
     @required this.position,
@@ -33,7 +33,7 @@ class MissionModel {
     @required this.bzzIDs,
   });
   /// --------------------------------------------------------------------------
-  final MissionType missionType;
+  final NeedType needType;
   final List<String> scope;
   final ZoneModel zone;
   final GeoPoint position;
@@ -46,12 +46,12 @@ class MissionModel {
 
   // --------------------
   ///
-  static MissionModel createInitialMission({
+  static NeedModel createInitialNeed({
     @required BuildContext context,
-  @required ZoneModel userZone,
-}){
-    return MissionModel(
-      missionType: null,
+    @required ZoneModel userZone,
+  }){
+    return NeedModel(
+      needType: null,
       scope: const [],
       zone: userZone ?? ZoneProvider.proGetCurrentZone(context: context, listen: false),
       position: null,
@@ -62,28 +62,28 @@ class MissionModel {
   }
   // --------------------
   ///
-  static Future<MissionModel> prepareMissionForEditing({
+  static Future<NeedModel> prepareNeedForEditing({
     @required BuildContext context,
-    @required MissionModel mission,
+    @required NeedModel need,
   }) async {
 
-    return mission.copyWith(
+    return need.copyWith(
       zone: await ZoneModel.prepareZoneForEditing(
           context: context,
-          zoneModel: mission.zone,
+          zoneModel: need.zone,
       ),
     );
 
   }
   // --------------------
   ///
-  static MissionModel bakeEditorVariablesToUpload({
+  static NeedModel bakeEditorVariablesToUpload({
     @required BuildContext context,
-    @required MissionModel oldMission,
-    @required MissionModel tempMission,
+    @required NeedModel oldNeed,
+    @required NeedModel tempNeed,
   }){
 
-    return tempMission;
+    return tempNeed;
 
   }
   // -----------------------------------------------------------------------------
@@ -92,8 +92,8 @@ class MissionModel {
 
   // --------------------
   ///
-  MissionModel copyWith({
-    MissionType missionType,
+  NeedModel copyWith({
+    NeedType needType,
     List<String> scope,
     ZoneModel zone,
     GeoPoint position,
@@ -101,8 +101,8 @@ class MissionModel {
     List<String> flyerIDs,
     List<String> bzzIDs,
   }){
-    return MissionModel(
-      missionType: missionType ?? this.missionType,
+    return NeedModel(
+      needType: needType ?? this.needType,
       scope: scope ?? this.scope,
       zone: zone ?? this.zone,
       position: position ?? this.position,
@@ -113,8 +113,8 @@ class MissionModel {
   }
   // --------------------
   ///
-  MissionModel nullifyField({
-    bool missionType = false,
+  NeedModel nullifyField({
+    bool needType = false,
     bool scope = false,
     bool zone = false,
     bool position = false,
@@ -122,8 +122,8 @@ class MissionModel {
     bool flyerIDs = false,
     bool bzzIDs = false,
   }){
-    return MissionModel(
-      missionType: missionType == true ? null : this.missionType,
+    return NeedModel(
+      needType: needType == true ? null : this.needType,
       scope: scope == true ? null : this.scope,
       zone: zone == true ? null : this.zone,
       position: position == true ? null : this.position,
@@ -142,7 +142,7 @@ class MissionModel {
     @required bool toJSON,
   }){
     return {
-      'missionType': cipherMissionType(missionType),
+      'needType': cipherNeedType(needType),
       'scope': scope,
       'zone': zone?.toMap(),
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
@@ -153,15 +153,15 @@ class MissionModel {
   }
   // --------------------
   ///
-  static MissionModel decipherMission({
+  static NeedModel decipherNeed({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }){
-    MissionModel _mission;
+    NeedModel _need;
 
     if (map != null){
-      _mission = MissionModel(
-        missionType: decipherMissionType(map['missionType']),
+      _need = NeedModel(
+        needType: decipherNeedType(map['needType']),
         scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
         zone: ZoneModel.decipherZone(map['zone']),
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),
@@ -171,33 +171,33 @@ class MissionModel {
       );
     }
 
-    return _mission;
+    return _need;
   }
   // -----------------------------------------------------------------------------
 
-  /// MISSION TYPE CYPHERS
+  /// NEED TYPE CYPHERS
 
   // --------------------
   ///
-  static String cipherMissionType(MissionType type){
+  static String cipherNeedType(NeedType type){
     switch (type) {
-      case MissionType.seekProperty :       return 'seekProperty'; break;
-      case MissionType.planConstruction :   return 'planConstruction'; break;
-      case MissionType.finishConstruction : return 'finishConstruction'; break;
-      case MissionType.furnish :            return 'furnish'; break;
-      case MissionType.offerProperty :      return 'offerProperty'; break;
+      case NeedType.seekProperty :       return 'seekProperty'; break;
+      case NeedType.planConstruction :   return 'planConstruction'; break;
+      case NeedType.finishConstruction : return 'finishConstruction'; break;
+      case NeedType.furnish :            return 'furnish'; break;
+      case NeedType.offerProperty :      return 'offerProperty'; break;
       default:return null;
     }
   }
   // --------------------
   ///
-  static MissionType decipherMissionType(String type){
+  static NeedType decipherNeedType(String type){
     switch (type) {
-      case 'seekProperty' :       return  MissionType.seekProperty; break;
-      case 'planConstruction' :   return  MissionType.planConstruction; break;
-      case 'finishConstruction' : return  MissionType.finishConstruction; break;
-      case 'furnish' :            return  MissionType.furnish; break;
-      case 'offerProperty' :      return  MissionType.offerProperty; break;
+      case 'seekProperty' :       return  NeedType.seekProperty; break;
+      case 'planConstruction' :   return  NeedType.planConstruction; break;
+      case 'finishConstruction' : return  NeedType.finishConstruction; break;
+      case 'furnish' :            return  NeedType.furnish; break;
+      case 'offerProperty' :      return  NeedType.offerProperty; break;
       default:return null;
     }
   }
@@ -206,12 +206,12 @@ class MissionModel {
   /// STANDARDS
 
   // --------------------
-  static const List<MissionType> missionsTypes = <MissionType>[
-    MissionType.seekProperty,
-    MissionType.planConstruction,
-    MissionType.finishConstruction,
-    MissionType.furnish,
-    MissionType.offerProperty,
+  static const List<NeedType> needsType = <NeedType>[
+    NeedType.seekProperty,
+    NeedType.planConstruction,
+    NeedType.finishConstruction,
+    NeedType.furnish,
+    NeedType.offerProperty,
   ];
   // -----------------------------------------------------------------------------
 
@@ -219,30 +219,30 @@ class MissionModel {
 
   // --------------------
 
-  static String getMissionTypePhid(MissionType type){
+  static String getNeedTypePhid(NeedType type){
     switch (type) {
-      case MissionType.seekProperty :       return 'phid_seekProperty'; break;
-      case MissionType.planConstruction :   return 'phid_planConstruction'; break;
-      case MissionType.finishConstruction : return 'phid_finishConstruction'; break;
-      case MissionType.furnish :            return 'phid_furnish'; break;
-      case MissionType.offerProperty :      return 'phid_offerProperty'; break;
+      case NeedType.seekProperty :       return 'phid_seekProperty'; break;
+      case NeedType.planConstruction :   return 'phid_planConstruction'; break;
+      case NeedType.finishConstruction : return 'phid_finishConstruction'; break;
+      case NeedType.furnish :            return 'phid_furnish'; break;
+      case NeedType.offerProperty :      return 'phid_offerProperty'; break;
       default:return null;
     }
   }
   // --------------------
 
-  static List<Verse> getMissionTypesVerses({
-    @required List<MissionType> missionsTypes,
+  static List<Verse> getNeedsTypesVerses({
+    @required List<NeedType> needsTypes,
     @required BuildContext context,
   }){
     final List<Verse> _output = <Verse>[];
 
-    if (Mapper.checkCanLoopList(missionsTypes) == true){
+    if (Mapper.checkCanLoopList(needsTypes) == true){
 
-      for (final MissionType type in missionsTypes){
+      for (final NeedType type in needsTypes){
 
         final Verse _verse = Verse(
-          text: getMissionTypePhid(type),
+          text: getNeedTypePhid(type),
           translate: true,
         );
         _output.add(_verse);
@@ -259,22 +259,22 @@ class MissionModel {
 
   // --------------------
   ///
-  static List<FlyerType> concludeFlyersTypesByMissionType(MissionType type){
+  static List<FlyerType> concludeFlyersTypesByNeedType(NeedType type){
     switch (type) {
 
-      case MissionType.seekProperty :
+      case NeedType.seekProperty :
         return <FlyerType>[FlyerType.property]; break;
 
-      case MissionType.planConstruction :
+      case NeedType.planConstruction :
         return <FlyerType>[FlyerType.design, FlyerType.product]; break;
 
-      case MissionType.finishConstruction :
+      case NeedType.finishConstruction :
         return <FlyerType>[FlyerType.project, FlyerType.product, FlyerType.equipment, FlyerType.trade,]; break;
 
-      case MissionType.furnish :
+      case NeedType.furnish :
         return <FlyerType>[FlyerType.product, FlyerType.trade]; break;
 
-      case MissionType.offerProperty :
+      case NeedType.offerProperty :
         return <FlyerType>[FlyerType.property];break;
 
       default:return null;
@@ -282,22 +282,22 @@ class MissionModel {
   }
   // --------------------
   ///
-  static List<BzType> concludeBzzTypesByMissionType(MissionType type){
+  static List<BzType> concludeBzzTypesByNeedType(NeedType type){
     switch (type) {
 
-      case MissionType.seekProperty :
+      case NeedType.seekProperty :
         return <BzType>[BzType.developer, BzType.broker]; break;
 
-      case MissionType.planConstruction :
+      case NeedType.planConstruction :
         return <BzType>[BzType.designer, BzType.contractor, BzType.supplier,]; break;
 
-      case MissionType.finishConstruction :
+      case NeedType.finishConstruction :
         return <BzType>[BzType.designer, BzType.contractor, BzType.supplier, BzType.artisan,]; break;
 
-      case MissionType.furnish :
+      case NeedType.furnish :
         return <BzType>[BzType.supplier, BzType.contractor]; break;
 
-      case MissionType.offerProperty :
+      case NeedType.offerProperty :
         return <BzType>[BzType.broker];break;
 
       default:return null;
@@ -308,16 +308,16 @@ class MissionModel {
   /// DUMMY
 
   // --------------------
-  static MissionModel dummyMission(BuildContext context){
+  static NeedModel dummyNeed(BuildContext context){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
     );
 
-    return MissionModel(
-      missionType: MissionType.finishConstruction,
-      description: 'This is mission description, and my mission is to reach all countries',
+    return NeedModel(
+      needType: NeedType.finishConstruction,
+      description: 'This is a need description, and my need is to reach all countries',
       zone: ZoneModel.dummyZone(),
       scope: SpecModel.getSpecsIDs(SpecModel.dummySpecs()),
       bzzIDs: _userModel.followedBzzIDs,
