@@ -91,8 +91,8 @@ class EditingChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: _color,
-        onDoubleTap: () => onPhidDoubleTap(_cleanedPath),
-        onTap: () => onPhidTap(_cleanedPath, _phid), // good
+        onPhidDoubleTap: () => onPhidDoubleTap(_cleanedPath),
+        onPhidTap: () => onPhidTap(_cleanedPath, _phid), // good
 
         // inverseAlignment: ,
         // margins: ,
@@ -190,9 +190,9 @@ class EditingChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: Colorz.green50,
-        onDoubleTap: () => onPhidDoubleTap(_cleanedPath),
+        onPhidDoubleTap: () => onPhidDoubleTap(_cleanedPath),
         // isDisabled: false,
-        onTap: (){
+        onPhidTap: (){
 
           onPhidTap(_cleanedPath, _phid.toString());
 

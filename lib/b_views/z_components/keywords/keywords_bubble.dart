@@ -71,7 +71,7 @@ class KeywordsBubble extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
                   child: PhidButton(
                     phid: _phid,
-                    onTap: passKeywordOnTap == true ?
+                    onPhidTap: passKeywordOnTap == true ?
                         () => onKeywordTap(_phid)
                         :
                     null,

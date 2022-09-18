@@ -22,11 +22,12 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.selectedSpecs,
     @required this.onlyUseCityChains,
     @required this.zone,
-    @required this.onSelectPhid,
-    @required this.onAddSpecs,
     @required this.onKeyboardSubmitted,
     @required this.isMultipleSelectionMode,
     @required this.appBarType,
+    @required this.searchText,
+    @required this.onExportSpecs,
+    @required this.onPhidTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -35,11 +36,12 @@ class DataCreatorSplitter extends StatelessWidget {
   final List<SpecModel> selectedSpecs;
   final bool onlyUseCityChains;
   final ZoneModel zone;
-  final ValueChanged<String> onSelectPhid;
-  final ValueChanged<List<SpecModel>> onAddSpecs;
   final Function onKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final AppBarType appBarType;
+  final ValueNotifier<dynamic> searchText;
+  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final Function(String path, String phid) onPhidTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -110,8 +112,9 @@ class DataCreatorSplitter extends StatelessWidget {
         allowableHeight: height,
         specPicker: picker,
         selectedSpecs: _selectedSpecs,
-        onPhidTap: onSelectPhid,
         onlyUseCityChains: onlyUseCityChains,
+        searchText: searchText,
+        onPhidTap: onPhidTap,
       );
 
     }
@@ -137,9 +140,9 @@ class DataCreatorSplitter extends StatelessWidget {
         initialValue: _initialPrice,
         initialCurrencyID: _initialCurrencySpec?.value,
         onKeyboardSubmitted: onKeyboardSubmitted,
-        onExportSpecs: onAddSpecs,
         onlyUseCityChains: onlyUseCityChains,
         appBarType: appBarType,
+        onExportSpecs: onExportSpecs,
       );
 
     }
@@ -153,9 +156,6 @@ class DataCreatorSplitter extends StatelessWidget {
         pickerChainID: picker.chainID,
       );
 
-      // blog('aho');
-      // _valueSpec?.blogSpec();
-
       /// INITIAL UNIT
       final SpecModel _unitSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
@@ -168,17 +168,20 @@ class DataCreatorSplitter extends StatelessWidget {
         initialValue: _valueSpec,
         initialUnit: _unitSpec?.value,
         zone: zone,
-        onExportSpecs: onAddSpecs,
         picker: picker,
         onKeyboardSubmitted: onKeyboardSubmitted,
         onlyUseCityChains: onlyUseCityChains,
+        onExportSpecs: onExportSpecs,
       );
 
     }
     // --------------------
     /// OTHERWISE
     else {
-      return const NoResultFound(color: Colorz.red255);
+      return const NoResultFound(
+        color: Colorz.white50,
+        verse: Verse(text: '....', translate: false),
+      );
     }
     // --------------------
   }

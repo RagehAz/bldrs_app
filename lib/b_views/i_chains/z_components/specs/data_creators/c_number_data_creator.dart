@@ -91,6 +91,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     final double _bubbleWidth = BldrsAppBar.width(context);
     // --------------------
     return Bubble(
+      key:  const ValueKey<String>('NumberDataCreator'),
       bubbleColor: Formers.validatorBubbleColor(
         validator: () => _validator(_textController.text),
       ),

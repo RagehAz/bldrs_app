@@ -12,7 +12,7 @@ class PhidButton extends StatelessWidget {
   const PhidButton({
     @required this.phid,
     this.width,
-    this.onTap,
+    this.onPhidTap,
     this.color = Colorz.white20,
     this.level = 1,
     this.isDisabled = false,
@@ -21,14 +21,14 @@ class PhidButton extends StatelessWidget {
     this.searchText,
     this.inverseAlignment,
     this.secondLine,
-    this.onDoubleTap,
+    this.onPhidDoubleTap,
+    this.onPhidLongTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double width;
   final Color color;
   final String phid; // phrase id
-  final Function onTap;
   final int level;
   final bool isDisabled;
   final bool xIsOn;
@@ -36,7 +36,9 @@ class PhidButton extends StatelessWidget {
   final ValueNotifier<dynamic> searchText;
   final bool inverseAlignment;
   final Verse secondLine;
-  final Function onDoubleTap;
+  final Function onPhidTap;
+  final Function onPhidDoubleTap;
+  final Function onPhidLongTap;
   /// --------------------------------------------------------------------------
   static double getHeight(){
     return ChainButtonBox.sonHeight();
@@ -97,7 +99,6 @@ class PhidButton extends StatelessWidget {
       boxWidth: width,
       inverseAlignment: inverseAlignment,
       child: DreamBox(
-        onDoubleTap: onDoubleTap,
         height: getHeight(),
         width: width,
         color: color,
@@ -115,10 +116,12 @@ class PhidButton extends StatelessWidget {
         bubble: false,
         verseShadow: false,
         verseItalic: true,
-        onTap: onTap,
         verseHighlight: searchText,
         secondLine: secondLine,
         secondVerseMaxLines: 1,
+        onTap: onPhidTap,
+        onDoubleTap: onPhidDoubleTap,
+        onLongTap: onPhidLongTap,
       ),
     );
 

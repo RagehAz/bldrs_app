@@ -89,6 +89,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   Widget build(BuildContext context) {
 
     return Bubble(
+      key: const ValueKey('PriceDataCreator'),
       bubbleColor: Formers.validatorBubbleColor(
         validator: () => _validator(_textController.text),
       ),
