@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.da
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -22,13 +23,14 @@ class ChainsScreenSearchView extends StatelessWidget {
   final double screenHeight;
   final ValueNotifier<List<Chain>> foundChains;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
-  final Function(String path, String phid) onSelectPhid;
   final ValueNotifier<String> searchText;
+  final Function(String path, String phid) onSelectPhid;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
+        key: const ValueKey<String>('ChainsScreenSearchView'),
         valueListenable: foundChains,
         builder: (_, List<Chain> _foundChains, Widget childB){
 
@@ -58,11 +60,11 @@ class ChainsScreenSearchView extends StatelessWidget {
                     width: PageBubble.clearWidth(context) + 20,
                     selectedPhids: SpecModel.getSpecsIDs(_selectedSpecs),
                     initiallyExpanded: true,
-                    onSelectPhid: onSelectPhid,
                     searchText: searchText,
-                    editMode: false,
                     secondLinesType: ChainSecondLinesType.non,
-                    onLongPress: null,
+                    onPhidTap: onSelectPhid,
+                    onPhidDoubleTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidDoubleTap : $path : $phid'),
+                    onPhidLongTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidLongTap : $path : $phid'),
                   );
 
                 },

@@ -19,12 +19,13 @@ class PickersScreenView extends StatelessWidget {
     @required this.screenHeight,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
-    @required this.onSelectPhid,
     @required this.onlyUseCityChains,
     @required this.zone,
-    @required this.onAddSpecs,
     @required this.onKeyboardSubmitted,
     @required this.appBarType,
+    @required this.searchText,
+    @required this.onExportSpecs,
+    @required this.onPhidTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,12 +34,13 @@ class PickersScreenView extends StatelessWidget {
   final double screenHeight;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
-  final ValueChanged<String> onSelectPhid;
   final bool onlyUseCityChains;
   final ZoneModel zone;
-  final ValueChanged<List<SpecModel>> onAddSpecs;
   final Function onKeyboardSubmitted;
   final AppBarType appBarType;
+  final ValueNotifier<dynamic> searchText;
+  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final Function(String path, String phid) onPhidTap;
   // -----------------------------------------------------------------------------
   double _getListZoneHeight(BuildContext context){
 
@@ -89,6 +91,7 @@ class PickersScreenView extends StatelessWidget {
     final double _listZoneHeight = _getListZoneHeight(context);
     // --------------------
     return Column(
+      key: const ValueKey<String>('PickersScreenView'),
       children: <Widget>[
 
         Stratosphere(bigAppBar: appBarType == AppBarType.search),
@@ -109,12 +112,13 @@ class PickersScreenView extends StatelessWidget {
               height: _listZoneHeight,
               picker: picker,
               onlyUseCityChains: onlyUseCityChains,
-              onSelectPhid: onSelectPhid,
               selectedSpecs: specs,
               zone: zone,
-              onAddSpecs: onAddSpecs,
               onKeyboardSubmitted: onKeyboardSubmitted,
               isMultipleSelectionMode: isMultipleSelectionMode,
+              searchText: searchText,
+              onExportSpecs: onExportSpecs,
+              onPhidTap: onPhidTap,
             );
 
           },

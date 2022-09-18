@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class CollapsedTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CollapsedTile({
-    @required this.toggleExpansion,
+    @required this.onTileTap,
     @required this.tileWidth,
     @required this.collapsedHeight,
     @required this.icon,
@@ -26,12 +26,12 @@ class CollapsedTile extends StatelessWidget {
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
     this.searchText,
-    this.onLongPress,
-    this.onDoubleTap,
+    this.onTileLongTap,
+    this.onTileDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final Function toggleExpansion;
+  final Function onTileTap;
   final double tileWidth;
   final double collapsedHeight;
   final String icon;
@@ -47,8 +47,8 @@ class CollapsedTile extends StatelessWidget {
   final bool marginIsOn;
   final double iconSizeFactor;
   final ValueNotifier<dynamic> searchText;
-  final Function onLongPress;
-  final Function onDoubleTap;
+  final Function onTileLongTap;
+  final Function onTileDoubleTap;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
@@ -78,13 +78,13 @@ class CollapsedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _arrowBoxSize = collapsedHeight ?? GroupTile.collapsedGroupHeight;
     final double _titlePadding = icon == null ?
     Ratioz.appBarMargin * 2
         :
     Ratioz.appBarMargin;
 
     return Container(
+      key: const ValueKey<String>('CollapsedTile'),
       // height: collapsedHeight, // this block expansion
       width: tileWidth,
       margin: marginIsOn == true ?
@@ -104,9 +104,10 @@ class CollapsedTile extends StatelessWidget {
 
           /// COLLAPSED ZONE
           GestureDetector(
-            onTap: toggleExpansion,
-            onLongPress: onLongPress,
-            onDoubleTap: onDoubleTap,
+            key: const ValueKey<String>('CollapsedTile_collapsed_zone'),
+            onTap: onTileTap,
+            onLongPress: onTileLongTap,
+            onDoubleTap: onTileDoubleTap,
             child: Container(
               width: tileWidth,
               color: Colorz.nothing,
@@ -187,6 +188,7 @@ class CollapsedTile extends StatelessWidget {
 
           /// EXPANDABLE ZONE
           ClipRRect(
+            key: const ValueKey<String>('CollapsedTile_expandable_zone'),
             child: Align(
               heightFactor: expandableHeightFactorAnimationValue,
               child: child,

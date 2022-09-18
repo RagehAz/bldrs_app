@@ -6,16 +6,19 @@ class NoResultFound extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoResultFound({
     this.color = Colorz.white255,
+    this.verse,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Color color;
+  final Verse verse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return SuperVerse(
-      verse: const Verse(
+      key: const ValueKey<String>('NoResultFound'),
+      verse: verse ?? const Verse(
         text: 'phid_nothing_found',
         translate: true,
         casing: Casing.upperCase,

@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/i_chains/b_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,7 @@ class PickerScreen extends StatefulWidget {
 class _PickerScreenState extends State<PickerScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<List<SpecModel>> _tempSpecs = ValueNotifier(<SpecModel>[]);
+  final TextEditingController _searchController = TextEditingController();
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
@@ -86,6 +88,7 @@ class _PickerScreenState extends State<PickerScreen> {
   @override
   void dispose() {
     _tempSpecs.dispose();
+    _searchController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -121,8 +124,13 @@ class _PickerScreenState extends State<PickerScreen> {
     final String _chainID = widget.picker?.chainID;
     // --------------------
     return MainLayout(
-      key: const ValueKey<String>('SpecPickerScreen'),
+      key: const ValueKey<String>('PickerScreen'),
       appBarType: AppBarType.search,
+      searchController: _searchController,
+      onSearchChanged: (String text){blog('PickerScreen : onSearchChanged : $text');},
+      onSearchSubmit: (String text){blog('PickerScreen : onSearchSubmit : $text');},
+      onSearchCancelled: (String text){blog('PickerScreen : onSearchCancelled : $text');},
+      searchHintVerse: const Verse(text: '##SEARCH PICKERS', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
       sectionButtonIsOn: false,
@@ -153,24 +161,25 @@ class _PickerScreenState extends State<PickerScreen> {
           isMultipleSelectionMode: widget.isMultipleSelectionMode,
           onlyUseCityChains: widget.onlyUseCityChains,
           zone: widget.zone,
-          onSelectPhid: (String phid) => onSelectPhidInPickerScreen(
+          onKeyboardSubmitted: () => onGoBackFromPickerScreen(
+            context: context,
+            specsToPassBack: _tempSpecs.value,
+            isMultipleSelectionMode: widget.isMultipleSelectionMode,
+            phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
+          ),
+          onExportSpecs: (List<SpecModel> specs) => onAddSpecs(
+            specs: specs,
+            picker: widget.picker,
+            selectedSpecs: _tempSpecs,
+          ),
+          onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
             context: context,
             phid: phid,
             selectedSpecs: _tempSpecs,
             isMultipleSelectionMode: widget.isMultipleSelectionMode,
             picker: widget.picker,
           ),
-          onAddSpecs: (List<SpecModel> specs) => onAddSpecs(
-            specs: specs,
-            picker: widget.picker,
-            selectedSpecs: _tempSpecs,
-          ),
-          onKeyboardSubmitted: () => onGoBackFromPickerScreen(
-            context: context,
-            specsToPassBack: _tempSpecs.value,
-            isMultipleSelectionMode: widget.isMultipleSelectionMode,
-            phidToPassBack: null, /// onSelectPhidInPickerScreen() handles this
-          )
+        searchText: _searchController,
       ),
 
     );

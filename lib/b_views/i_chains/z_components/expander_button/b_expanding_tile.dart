@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/bb_collapsed_tile.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -18,7 +19,7 @@ class ExpandingTile extends StatefulWidget {
     this.scrollable = true,
     this.icon,
     this.iconSizeFactor = 1,
-    this.onTap,
+    this.onTileTap,
     this.initiallyExpanded = false,
     this.initialColor = Colorz.white10,
     this.expansionColor,
@@ -26,8 +27,8 @@ class ExpandingTile extends StatefulWidget {
     this.isDisabled = false,
     this.margin,
     this.searchText,
-    this.onLongPress,
-    this.onDoubleTap,
+    this.onTileLongTap,
+    this.onTileDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,7 +38,6 @@ class ExpandingTile extends StatefulWidget {
   final bool scrollable;
   final String icon;
   final double iconSizeFactor;
-  final ValueChanged<bool> onTap;
   final bool initiallyExpanded;
   final Verse firstHeadline;
   final Verse secondHeadline;
@@ -48,8 +48,9 @@ class ExpandingTile extends StatefulWidget {
   final bool isDisabled;
   final EdgeInsets margin;
   final ValueNotifier<dynamic> searchText;
-  final Function onLongPress;
-  final Function onDoubleTap;
+  final ValueChanged<bool> onTileTap;
+  final Function onTileLongTap;
+  final Function onTileDoubleTap;
   /// --------------------------------------------------------------------------
   static const double collapsedTileHeight = 50;
   static const double buttonVerticalPadding = Ratioz.appBarPadding;
@@ -158,14 +159,14 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   // --------------------
   ValueNotifier<bool> _isExpanded;
   // --------------------
-  static const Duration _kExpand = Duration(milliseconds: 200);
+  static const Duration _expansionDuration = Duration(milliseconds: 200);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-      duration: _kExpand,
+      duration: _expansionDuration,
       vsync: this,
     );
 
@@ -190,25 +191,18 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
   }
   // --------------------
-  /// TASK : BUG HERE
   @override
   void dispose() {
-    // blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
     _controller.dispose();
     _easeInAnimation.dispose();
-    // _isExpanded.dispose(); /// TASK : BUG HERE
+
+    blog('ExpandingTile : ${widget.firstHeadline} : DISPOOOOSING');
+    _isExpanded.dispose();
+
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void expand() {
-    _setExpanded(true);
-  }
-  // --------------------
-  void collapse() {
-    _setExpanded(false);
-  }
-  // --------------------
-  void toggle() {
+  void _toggleExpansion() {
 
     /// WHEN CAN EXPAND
     if (widget.isDisabled == false) {
@@ -217,8 +211,8 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
 
     /// WHEN CAN NOT EXPAND IN INACTIVE MODE
     else {
-      if (widget.onTap != null) {
-        widget.onTap(_isExpanded.value);
+      if (widget.onTileTap != null) {
+        widget.onTileTap(_isExpanded.value);
       }
     }
 
@@ -226,30 +220,31 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   // --------------------
   void _setExpanded(bool isExpanded) {
 
-    if (mounted == true){
-      if (_isExpanded.value != isExpanded) {
+    setNotifier(
+      notifier: _isExpanded,
+      mounted: mounted,
+      value: isExpanded,
+      onFinish: (){
 
-        _isExpanded.value = isExpanded;
-
+        /// ANIMATE FORWARD
         if (_isExpanded.value == true) {
           _controller.forward();
         }
-
+        /// ANIMATE BACKWARDS
         else {
-          _controller.reverse().then<void>((dynamic value) {
-            // setState(() {
-            //   // Rebuild without widget.children.
-            // });
-          });
+          _controller.reverse().then<void>((dynamic value) {});
         }
 
+        /// SAVE STATE
         PageStorage.of(context)?.writeState(context, _isExpanded);
 
-        if (widget.onTap != null) {
-          widget.onTap(_isExpanded.value);
+        /// PASS ON TILE TAP
+        if (widget.onTileTap != null) {
+          widget.onTileTap(_isExpanded.value);
         }
-      }
-    }
+
+        },
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -276,20 +271,20 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
     ///------------------------------------------------------------o
     // final double _iconSize = SubGroupTile.calculateTitleIconSize(icon: widget.icon);
     final double _bottomStripHeight =
-    widget.collapsedHeight == null ?
-    ExpandingTile.collapsedGroupHeight * 0.75
+    widget.collapsedHeight == null ? ExpandingTile.collapsedGroupHeight * 0.75
         :
     widget.collapsedHeight * 0.75;
     // --------------------
     return Container(
-      // height: widget.height,
       key: widget.key,
+      // height: widget.height,
       width: widget.width,
       alignment: Alignment.topCenter,
       margin: widget.margin,
       child: AnimatedBuilder(
+        key: const ValueKey<String>('ExpandingTile_AnimatedBuilder'),
         animation: _controller.view,
-        builder: (BuildContext context, Widget child) {
+        builder: (BuildContext context, Widget expansionColumn) {
 
           final Color _headlineColor = _headlineColorTween.evaluate(_easeInAnimation);
           final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
@@ -306,59 +301,68 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
             iconSizeFactor: widget.iconSizeFactor,
             arrowColor: _headlineColor,
             arrowTurns: _arrowTurns,
-            toggleExpansion: toggle,
             expandableHeightFactorAnimationValue: _easeInAnimation.value,
             iconCorners: ExpandingTile.cornersValue,
             searchText: widget.searchText,
-            onLongPress: widget.onLongPress,
-            onDoubleTap: widget.onDoubleTap,
-            child: child,
+            onTileTap: _toggleExpansion,
+            onTileLongTap: widget.onTileLongTap,
+            onTileDoubleTap: widget.onTileDoubleTap,
+            child: expansionColumn,
           );
         },
 
-        /// SUB - GROUPS & KEYWORDS : Expanded tile children
+        /// EXPANSION COLUMN
         child: ValueListenableBuilder(
+          key: const ValueKey<String>('ExpandingTile_expansion_column'),
           valueListenable: _isExpanded,
-          builder: (_, bool isExpanded, Widget child){
+          builder: (_, bool isExpanded, Widget columnAndChildren){
 
-            final bool _closed =
-                isExpanded == false
-                    &&
-                    _controller.isDismissed == true;
+            final bool _closed = isExpanded == false && _controller.isDismissed == true;
 
+            /// NOTHING WHEN COLLAPSED
+            if (_closed == true){
+              return const SizedBox();
+            }
 
-            return _closed == true ?
-            const SizedBox()
-                :
-            Column(
-              children: <Widget>[
+            /// CHILDREN WHEN EXPANDED
+            else {
 
-                SizedBox(
-                  width: widget.width,
-                  child: widget.child,
-                ),
-
-                GestureDetector(
-                  onTap: toggle,
-                  child: Container(
-                    width: widget.width,
-                    height: _bottomStripHeight,
-                    alignment: Alignment.center,
-                    child: DreamBox(
-                      width: _bottomStripHeight,
-                      height: _bottomStripHeight,
-                      icon: Iconz.arrowUp,
-                      iconSizeFactor: _bottomStripHeight * 0.5 / 100,
-                      bubble: false,
-                    ),
-
-                  ),
-                ),
-
-              ],
-            );
+              /// COLUMN AND CHILDREN
+              return columnAndChildren;
+            }
 
           },
+          child: Column(
+            key: const ValueKey<String>('ExpandingTile_columnAndChildren'),
+            children: <Widget>[
+
+              /// EXTERNAL CHILD
+              SizedBox(
+                width: widget.width,
+                child: widget.child,
+              ),
+
+              /// BOTTOM ARROW
+              GestureDetector(
+                key: const ValueKey<String>('ExpandingTile_bottom_arrow'),
+                onTap: _toggleExpansion,
+                child: Container(
+                  width: widget.width,
+                  height: _bottomStripHeight,
+                  alignment: Alignment.center,
+                  child: DreamBox(
+                    width: _bottomStripHeight,
+                    height: _bottomStripHeight,
+                    icon: Iconz.arrowUp,
+                    iconSizeFactor: _bottomStripHeight * 0.5 / 100,
+                    bubble: false,
+                  ),
+
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
