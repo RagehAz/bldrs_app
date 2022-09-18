@@ -411,8 +411,11 @@ void onBzZoneChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onAddScopesTap({
   @required BuildContext context,
-  @required ValueNotifier<BzModel> tempBz,
-  @required ValueNotifier<List<SpecModel>> selectedScopes,
+  @required List<SpecModel> selectedSpecs,
+  @required List<BzType> bzTypes,
+  @required ZoneModel zone,
+  @required ValueChanged<List<SpecModel>> onFinish,
+  @required bool onlyChainKSelection,
 }) async {
 
   Keyboard.closeKeyboard(context);
@@ -421,22 +424,20 @@ Future<void> onAddScopesTap({
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: ChainsPickingScreen(
-      flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: tempBz.value.bzTypes),
+      flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: bzTypes),
       onlyUseCityChains: false,
       isMultipleSelectionMode: true,
       pageTitleVerse: const Verse(
         text: 'phid_select_keywords',
         translate: true,
       ),
-      selectedSpecs: selectedScopes.value,
-      onlyChainKSelection: true,
-      zone: tempBz.value.zone,
+      selectedSpecs: selectedSpecs,
+      onlyChainKSelection: onlyChainKSelection,
+      zone: zone,
     ),
   );
 
-  if (_result != null){
-    selectedScopes.value = _result;
-  }
+  onFinish(_result);
 
 }
 // -----------------------------------------------------------------------------

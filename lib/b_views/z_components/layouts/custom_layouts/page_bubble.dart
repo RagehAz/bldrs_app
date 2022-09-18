@@ -18,6 +18,7 @@ class PageBubble extends StatelessWidget {
     this.bubbleWidth,
     this.corners,
     this.progressBarIsOn = false,
+    this.childrenAlignment = Alignment.topCenter,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -28,6 +29,7 @@ class PageBubble extends StatelessWidget {
   final double bubbleWidth;
   final dynamic corners;
   final bool progressBarIsOn;
+  final Alignment childrenAlignment;
   /// --------------------------------------------------------------------------
   static EdgeInsets topMargin({
     @required BuildContext context,
@@ -129,7 +131,7 @@ class PageBubble extends StatelessWidget {
             color: color,
             borderRadius: _borders,
           ),
-          alignment: Alignment.topCenter,
+          alignment: childrenAlignment,
           child: ClipRRect(
             borderRadius: _borders,
             child: child,
