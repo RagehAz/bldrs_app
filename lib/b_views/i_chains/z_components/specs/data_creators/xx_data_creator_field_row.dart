@@ -57,6 +57,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer;
     // --------------------
     return Row(
+      key: const ValueKey<String>('NumberDataCreatorFieldRow'),
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

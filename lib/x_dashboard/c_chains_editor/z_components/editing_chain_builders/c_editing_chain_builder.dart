@@ -78,7 +78,7 @@ class EditingChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onDoubleTap: () => onDoubleTap(_cleanedPath),
+        onTileDoubleTap: () => onDoubleTap(_cleanedPath),
         child: EditingChainSplitter(
           width: _sonWidth,
           previousPath: '$previousPath/${chain.id}',

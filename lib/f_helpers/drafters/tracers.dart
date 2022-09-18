@@ -103,6 +103,7 @@ void setNotifier({
   @required ValueNotifier<dynamic> notifier,
   @required bool mounted,
   @required dynamic value,
+  Function onFinish,
 }){
 
   if (mounted == true){
@@ -115,7 +116,13 @@ void setNotifier({
         if (notifier.hasListeners == true){
 
           WidgetsBinding.instance.addPostFrameCallback((_){
+
             notifier.value = value;
+
+            if(onFinish != null){
+              onFinish();
+            }
+
           });
 
         }
