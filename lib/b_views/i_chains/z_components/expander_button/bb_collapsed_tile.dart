@@ -84,7 +84,7 @@ class CollapsedTile extends StatelessWidget {
     Ratioz.appBarMargin;
 
     return Container(
-      key: const ValueKey<String>('CollapsedTile'),
+      // key: const ValueKey<String>('CollapsedTile'),
       // height: collapsedHeight, // this block expansion
       width: tileWidth,
       margin: marginIsOn == true ?
