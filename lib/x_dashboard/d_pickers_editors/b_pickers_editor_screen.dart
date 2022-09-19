@@ -75,6 +75,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
         _tempPickers.value = widget.specPickers;
         final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
           sourcePickers: widget.specPickers,
+          sort: true,
           selectedSpecs: const [],
         );
         // blog('_theRefinedPickers  : $_theRefinedPickers');
@@ -199,6 +200,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
             final List<PickerModel> refinedPickers = PickerModel.applyBlockersAndSort(
               sourcePickers: tempPickers,
               selectedSpecs: const [],
+              sort: true,
             );
 
             if (tempPickers == null){

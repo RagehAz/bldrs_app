@@ -19,55 +19,54 @@ class ChainsScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsScreenBrowseView({
     @required this.pickers,
-    @required this.onPickerTap,
-    @required this.onDeleteSpec,
     @required this.selectedSpecs,
     @required this.refinedPickers,
     @required this.onlyUseCityChains,
     @required this.flyerTypes,
     @required this.onSpecTap,
+    @required this.onDeleteSpec,
+    @required this.onPickerTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<PickerModel> pickers;
-  final ValueChanged<PickerModel> onPickerTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final ValueNotifier<List<PickerModel>> refinedPickers;
   final bool onlyUseCityChains;
   final List<FlyerType> flyerTypes;
+  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
+  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final ValueChanged<PickerModel> onPickerTap;
   // --------------------------------------------------------------------------
   /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
   Verse _getInstructions(BuildContext context){
-    // ---------------------
+    // ------
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
       context: context,
       listen: true,
     );
-    // ---------------------
+    // ------
     final List<String> _translations = FlyerTyper.translateFlyerTypes(
       context: context,
       flyerTypes: flyerTypes,
     );
-    // ---------------------
+    // ------
     final String _flyerTypesString = Stringer.generateStringFromStrings(
       strings: _translations,
     );
-    // ---------------------
+    // ------
     final String _flyerTypesStringWithNewLineIfNotNull = _flyerTypesString == null ?
     '' : '\n$_flyerTypesString';
-    // ---------------------
+    // ------
     final String _instructions =
-    onlyUseCityChains == true ?
-    xPhrase( context, '##Showing only keywords used in'
-        '\n${_zone.cityName}, ${_zone.countryName}.'
-        '$_flyerTypesStringWithNewLineIfNotNull')
-        :
-    xPhrase( context, '##Showing All keywords in Bldrs.net'
-        '\n$_flyerTypesString');
-    // ---------------------
-
+        onlyUseCityChains == true ?
+            '${xPhrase(context, 'phid_showing_only_keywords_used_in')}\n'
+            '${_zone.cityName}, ${_zone.countryName}'
+            '$_flyerTypesStringWithNewLineIfNotNull'
+                :
+            '${xPhrase(context, 'phid_showing_all_available_keywords')}\n'
+            '$_flyerTypesString';
+    // ------
     return Verse(
       text: _instructions,
       translate: false,
@@ -101,54 +100,55 @@ class ChainsScreenBrowseView extends StatelessWidget {
     if (Mapper.checkCanLoopList(pickers) == true){
 
       return ValueListenableBuilder(
-          valueListenable: refinedPickers,
-          child: ChainInstructions(
-            instructions: _getInstructions(context),
-            leadingIcon: _getInstructionsIcon(context),
-            iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
-          ),
-          builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
+        valueListenable: refinedPickers,
+        builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
-            return ValueListenableBuilder(
-              valueListenable: selectedSpecs,
-              builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
+          return ValueListenableBuilder(
+            valueListenable: selectedSpecs,
+            builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
 
-                  return ListView.builder(
-                      itemCount: _refinedPickers.length + 1,
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.only(
-                        top: Stratosphere.bigAppBarStratosphere,
-                        bottom: Ratioz.horizon,
-                      ),
-                      itemBuilder: (BuildContext ctx, int index) {
+              return ListView.builder(
+                  itemCount: _refinedPickers.length + 1,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(
+                    top: Stratosphere.bigAppBarStratosphere,
+                    bottom: Ratioz.horizon,
+                  ),
+                  itemBuilder: (BuildContext ctx, int index) {
 
-                        /// INSTRUCTIONS
-                        if (index == 0){
-                          return instructions;
-                        }
+                    /// INSTRUCTIONS
+                    if (index == 0){
+                      return instructions;
+                    }
 
-                        /// GROUPS BUILDER
-                        else {
+                    /// GROUPS BUILDER
+                    else {
 
-                          final PickerModel _picker = _refinedPickers[index - 1];
+                      final PickerModel _picker = _refinedPickers[index - 1];
 
-                          return PickerSplitter(
-                            picker: _picker,
-                            onTap: () => onPickerTap(_picker),
-                            onDeleteSpec: onDeleteSpec,
-                            onSpecTap: onSpecTap,
-                            allSelectedSpecs: _allSelectedSpecs,
-                          );
+                      return PickerSplitter(
+                        picker: _picker,
+                        onTap: () => onPickerTap(_picker),
+                        onDeleteSpec: onDeleteSpec,
+                        onSpecTap: onSpecTap,
+                        allSelectedSpecs: _allSelectedSpecs,
+                      );
 
-                        }
+                    }
 
-                      }
-                  );
+                  }
+              );
 
-                },
-            );
+            },
+          );
 
-          }
+        },
+        child: ChainInstructions(
+          instructions: _getInstructions(context),
+          leadingIcon: _getInstructionsIcon(context),
+          iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
+        ),
+
       );
 
     }
