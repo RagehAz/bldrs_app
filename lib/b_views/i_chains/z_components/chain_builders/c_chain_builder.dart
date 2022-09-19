@@ -50,7 +50,7 @@ class ChainBuilder extends StatelessWidget {
   final bool initiallyExpanded;
   final int level;
   final List<String> selectedPhids;
-  final ValueNotifier<String> searchText;
+  final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
 
   final Function(String path, String phid) onPhidTap;

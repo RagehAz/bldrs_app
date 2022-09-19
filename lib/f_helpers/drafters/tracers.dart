@@ -104,6 +104,7 @@ void setNotifier({
   @required bool mounted,
   @required dynamic value,
   Function onFinish,
+  bool addPostFrameCallBack = true,
 }){
 
   if (mounted == true){
@@ -115,15 +116,22 @@ void setNotifier({
         /// ignore: invalid_use_of_protected_member
         if (notifier.hasListeners == true){
 
-          WidgetsBinding.instance.addPostFrameCallback((_){
+          if (addPostFrameCallBack == true){
+            WidgetsBinding.instance.addPostFrameCallback((_){
+              notifier.value = value;
+              if(onFinish != null){
+                onFinish();
+              }
+            });
+          }
 
+          else {
             notifier.value = value;
-
             if(onFinish != null){
               onFinish();
             }
+          }
 
-          });
 
         }
 
