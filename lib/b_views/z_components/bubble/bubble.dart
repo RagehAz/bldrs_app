@@ -246,7 +246,10 @@ class _BubbleContents extends StatelessWidget {
           //   ),
           // ),
           BubbleHeader(
-            viewModel: headerViewModel,
+            viewModel: headerViewModel.copyWith(
+                headerWidth: headerViewModel?.headerWidth ??
+                    (width == null ? null : width - 20)
+            ),
           ),
 
           ...columnChildren,

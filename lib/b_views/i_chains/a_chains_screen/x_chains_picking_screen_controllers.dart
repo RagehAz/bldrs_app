@@ -296,6 +296,7 @@ void _updatePickersAndGroups({
       refinedPickers.value = PickerModel.applyBlockersAndSort(
         sourcePickers: sourcePickers,
         selectedSpecs: specPickerResult,
+        sort: true,
       );
 
     }

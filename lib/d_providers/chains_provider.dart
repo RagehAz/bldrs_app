@@ -527,9 +527,10 @@ class ChainsProvider extends ChangeNotifier {
     @required bool listen,
 }){
 
-    return proGetPickersByFlyerTypes(
+    return proGetSortedPickersByFlyerTypes(
         context: context,
         flyerTypes: FlyerTyper.flyerTypesList,
+        sort: true,
         listen: listen
     );
 
@@ -547,9 +548,10 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PickerModel> proGetPickersByFlyerTypes({
+  static List<PickerModel> proGetSortedPickersByFlyerTypes({
     @required BuildContext context,
     @required List<FlyerType> flyerTypes,
+    @required bool sort,
     @required bool listen,
   }){
     final List<PickerModel> _output = <PickerModel>[];
@@ -558,11 +560,15 @@ class ChainsProvider extends ChangeNotifier {
 
       for (final FlyerType type in flyerTypes){
 
-        final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+        List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
           context: context,
           flyerType: type,
           listen: listen,
         );
+
+        if (sort == true){
+          _pickers = PickerModel.sortPickersByIndexes(_pickers);
+        }
 
         _output.addAll(_pickers);
 
@@ -570,7 +576,7 @@ class ChainsProvider extends ChangeNotifier {
 
     }
 
-    return _output;
+    return sort == true ? PickerModel.correctModelsIndexes(_output) : _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
