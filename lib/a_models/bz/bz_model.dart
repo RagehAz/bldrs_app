@@ -627,6 +627,7 @@ class BzModel{
   /// BZ TYPE CYPHERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherBzType(BzType x) {
     switch (x) {
       case BzType.developer       :  return 'developer'     ; break;
@@ -640,6 +641,7 @@ class BzModel{
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<String> cipherBzTypes(List<BzType> bzTypes){
     final List<String> _bzTypes = <String>[];
 
@@ -655,6 +657,7 @@ class BzModel{
     return _bzTypes;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static BzType decipherBzType(String x) {
     switch (x) {
       case 'developer'      : return BzType.developer;      break;
@@ -668,6 +671,7 @@ class BzModel{
     }
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzType> decipherBzTypes(List<dynamic> bzTypes){
     final List<BzType> _bzTypes = <BzType>[];
 
@@ -712,6 +716,7 @@ class BzModel{
     return _output;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzTypeIconOff(BzType bzType) {
 
     final String icon = bzType == BzType.developer ? Iconz.bxPropertiesOff
@@ -733,6 +738,7 @@ class BzModel{
     return icon;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzTypeIconOn(BzType bzType) {
 
     final String icon =
@@ -759,6 +765,7 @@ class BzModel{
   /// BZ TYPE CHECKERS
 
   // --------------------
+
   static bool checkBzTypesContainThisType({
     @required BzType bzType,
     @required List<BzType> bzTypes,
@@ -775,6 +782,19 @@ class BzModel{
 
     return _contains;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkBzTypesAreIdentical(List<BzType> types1, List<BzType> types2){
+
+    final List<String> _a = cipherBzTypes(types1);
+    final List<String> _b = cipherBzTypes(types2);
+
+    return Mapper.checkListsAreIdentical(
+        list1: _a,
+        list2: _b
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ TYPE TRANSLATIONS
@@ -782,7 +802,6 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzTypePhid({
-    @required BuildContext context,
     @required BzType bzType,
     bool nounTranslation = true,
     bool pluralTranslation = true,
@@ -846,13 +865,12 @@ class BzModel{
 
       for (final BzType type in bzTypes){
 
-        final String _translation = getBzTypePhid(
-          context: context,
+        final String _bzTypePhid = getBzTypePhid(
           bzType: type,
           pluralTranslation: pluralTranslation,
         );
 
-        _strings.add(_translation);
+        _strings.add(_bzTypePhid);
 
       }
 

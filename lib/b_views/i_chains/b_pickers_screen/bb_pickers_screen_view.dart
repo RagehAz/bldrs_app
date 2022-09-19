@@ -61,7 +61,7 @@ class PickersScreenView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// SINGLE PICKER INSTRUCTIONS
   Verse _getInstructions(BuildContext context){
-    String _instructions;
+    Verse _instructions;
 
     final Chain _chain = ChainsProvider.proFindChainByID(
       context: context,
@@ -71,24 +71,35 @@ class PickersScreenView extends StatelessWidget {
 
     final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(_chain?.sons);
 
+    /// WHEN DATA CREATORS
     if (_sonsAreDataCreator == true) {
-      _instructions = 'Specify this';
+      _instructions = const Verse(
+        text: '##Specify this',
+        translate: true
+      );
     }
 
+    /// WHEN PHIDS
     else {
-      _instructions = picker?.canPickMany == true ?
-      '##You may pick multiple specifications from this list'
-          :
-      '##You can pick only one specification from this list';
+      _instructions = Verse(
+        text: picker?.canPickMany == true ?
+        '##You may pick multiple specifications from this list'
+            :
+        '##You can pick only one specification from this list',
+        translate: true,
+      );
     }
 
-    return Verse(text: _instructions, translate: true);
+    return _instructions;
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _listZoneHeight = _getListZoneHeight(context);
+    // --------------------
+    final Verse _instructions = _getInstructions(context);
+    _instructions.blogVerse(invoker: 'PickersScreenView');
     // --------------------
     return Column(
       key: const ValueKey<String>('PickersScreenView'),
@@ -97,9 +108,9 @@ class PickersScreenView extends StatelessWidget {
         Stratosphere(bigAppBar: appBarType == AppBarType.search),
 
         /// INSTRUCTIONS BOX
-        if (showInstructions == true)
+        if (showInstructions == true && _instructions != null)
           ChainInstructions(
-            instructions: _getInstructions(context),
+            instructions: _instructions,
           ),
 
         /// DATA CREATOR SPLITTER

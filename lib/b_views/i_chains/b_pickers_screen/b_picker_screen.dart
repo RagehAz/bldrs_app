@@ -109,7 +109,7 @@ class _PickerScreenState extends State<PickerScreen> {
     if (_canContinue == true){
       await Nav.goBack(
         context: context,
-        invoker: 'SpecPickerScreen.goBack',
+        invoker: 'PickerScreen.goBack',
       );
     }
 
@@ -130,7 +130,7 @@ class _PickerScreenState extends State<PickerScreen> {
       onSearchChanged: (String text){blog('PickerScreen : onSearchChanged : $text');},
       onSearchSubmit: (String text){blog('PickerScreen : onSearchSubmit : $text');},
       onSearchCancelled: (String text){blog('PickerScreen : onSearchCancelled : $text');},
-      searchHintVerse: const Verse(text: '##SEARCH PICKERS', translate: true),
+      searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
       sectionButtonIsOn: false,

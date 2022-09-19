@@ -21,6 +21,7 @@ class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperVerse({
     @required this.verse,
+    this.width,
     this.size = 2,
     this.color = Colorz.white255,
     this.weight = VerseWeight.bold,
@@ -43,6 +44,7 @@ class SuperVerse extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Verse verse;
+  final double width;
   final int size;
   final Color color;
   final VerseWeight weight;
@@ -482,6 +484,7 @@ class SuperVerse extends StatelessWidget {
       );
 
       return _SuperVerseBox(
+        width: width,
         onTap: onTap,
         margin: margin,
         centered: centered,
@@ -542,6 +545,7 @@ class _SuperVerseBox extends StatelessWidget {
     @required this.redDot,
     @required this.children,
     @required this.onDoubleTap,
+    @required this.width,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -552,6 +556,7 @@ class _SuperVerseBox extends StatelessWidget {
   final bool redDot;
   final List<Widget> children;
   final Function onDoubleTap;
+  final double width;
   /// --------------------------------------------------------------------------
   static MainAxisAlignment _getMainAxisAlignment({
     @required bool centered,
@@ -583,8 +588,9 @@ class _SuperVerseBox extends StatelessWidget {
       key: const ValueKey<String>('SuperVerseBox'),
       onTap: onTap,
       onDoubleTap: onDoubleTap,
-      child: Padding(
-        padding: Scale.superMargins(margins: margin),
+      child: Container(
+        width: width,
+        margin: Scale.superMargins(margins: margin),
         child: Row(
           mainAxisAlignment: _getMainAxisAlignment(
             centered: centered,

@@ -125,14 +125,19 @@ class Scale {
   static double getUniformRowItemWidth({
     @required BuildContext context,
     @required int numberOfItems,
-    double boxWidth,
+    @required double boxWidth,
+    double spacing = Ratioz.appBarMargin,
   }) {
 
     /// this concludes item width after dividing screen width over number of items
     /// while considering 10 pixels spacing between them
 
-    final double _screenWidth = boxWidth ?? superScreenWidth(context);
-    final double _width = (_screenWidth - (Ratioz.appBarMargin * (numberOfItems + 1))) / numberOfItems;
+    double _width = 0;
+
+    if (numberOfItems != null && boxWidth != null){
+      _width = (boxWidth - (spacing * (numberOfItems + 1))) / numberOfItems;
+    }
+
     return _width;
   }
   // -----------------------------------------------------------------------------

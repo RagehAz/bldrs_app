@@ -57,8 +57,8 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   List<Chain> _bldrsChains;
   List<Chain> _pickersChains;
   // --------------------
-  List<PickerModel> _allPickers = <PickerModel>[];
-  final ValueNotifier<List<PickerModel>> _refinedSpecsPickers = ValueNotifier([]);
+  List<PickerModel> _allSortedPickers = <PickerModel>[];
+  final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier([]);
   // --------------------
   /// SEARCHING
   // --------------------
@@ -93,7 +93,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   @override
   void dispose() {
     /// DATA
-    _refinedSpecsPickers.dispose();
+    _refinedPickers.dispose();
     /// SEARCHING
     _searchTextController.dispose();
     _searchText.dispose();
@@ -112,10 +112,10 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
-        _allPickers = PickerModel.createPickersFromAllChainKs(
+        _allSortedPickers = PickerModel.createHomeWallPickers(
           context: context,
+          canPickMany: true,
           onlyUseTheseFlyerTypes: widget.flyerTypesChainFilters,
-          canPickManyOfAPicker: true,
         );
       }
 
@@ -125,24 +125,26 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
         if (Mapper.checkCanLoopList(widget.flyerTypesChainFilters) == false){
 
-          _allPickers = PickerModel.createHomeWallPickers(
+          _allSortedPickers = PickerModel.createHomeWallPickers(
             context: context,
             canPickMany: false,
+            onlyUseTheseFlyerTypes: FlyerTyper.flyerTypesList,
           );
         }
 
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if (widget.flyerTypesChainFilters.length == 1){
-          _allPickers = ChainsProvider.proGetPickersByFlyerType(
+          _allSortedPickers = ChainsProvider.proGetPickersByFlyerType(
             context: context,
             flyerType: widget.flyerTypesChainFilters[0],
             listen: false,
           );
         }
         else {
-          _allPickers = ChainsProvider.proGetPickersByFlyerTypes(
+          _allSortedPickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
             context: context,
             flyerTypes: widget.flyerTypesChainFilters,
+            sort: true,
             listen: false,
           );
         }
@@ -152,11 +154,12 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       // ------------------------------
       _selectedSpecs.value = widget.selectedSpecs ?? [];
       // ------------------------------
-      final List<PickerModel> _theRefinedPickers = PickerModel.applyBlockersAndSort(
-        sourcePickers: _allPickers,
+      final List<PickerModel> _theRefinedSortedPickers = PickerModel.applyBlockersAndSort(
+        sourcePickers: _allSortedPickers,
         selectedSpecs: widget.selectedSpecs,
+        sort: false,
       );
-      _refinedSpecsPickers.value = _theRefinedPickers;
+      _refinedPickers.value = _theRefinedSortedPickers;
       // ------------------------------
       _generatePhidsFromAllSpecPickers();
       // ------------------------------
@@ -164,7 +167,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       // ------------------------------
       _pickersChains = Chain.getChainsFromChainsByIDs(
         allChains: _bldrsChains,
-        phids: PickerModel.getPickersChainsIDs(_allPickers),
+        phids: PickerModel.getPickersChainsIDs(_allSortedPickers),
       );
     }
   }
@@ -172,11 +175,11 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
   List<String> _phidsOfAllPickers = <String>[];
   void _generatePhidsFromAllSpecPickers(){
 
-    if (Mapper.checkCanLoopList(_allPickers) == true){
+    if (Mapper.checkCanLoopList(_allSortedPickers) == true){
 
       final List<Chain> _sons = <Chain>[];
 
-      for (final PickerModel _picker in _allPickers){
+      for (final PickerModel _picker in _allSortedPickers){
         final Chain _chain = ChainsProvider.proFindChainByID(
           context: context,
           chainID: _picker.chainID,
@@ -333,6 +336,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
         },
 
+        /// SCREEN VIEW
         child: ValueListenableBuilder<bool>(
           key: const ValueKey<String>('ChainsScreen_view'),
           valueListenable: _isSearching,
@@ -354,7 +358,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
                   selectedSpecs: _selectedSpecs,
                   picker: PickerModel.getPickerByChainIDOrUnitChainID(
-                    pickers: _allPickers,
+                    pickers: _allSortedPickers,
                     chainIDOrUnitChainID: PickerModel.getPickerChainIDOfPhid(
                       context: context,
                       phid: phid,
@@ -370,8 +374,8 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
               return ChainsScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
-                refinedPickers: _refinedSpecsPickers,
-                pickers: _allPickers,
+                refinedPickers: _refinedPickers,
+                pickers: _allSortedPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: widget.flyerTypesChainFilters,
                 onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
@@ -380,14 +384,14 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                   selectedSpecs: _selectedSpecs,
                   isMultipleSelectionMode: widget.isMultipleSelectionMode,
                   onlyUseCityChains: widget.onlyUseCityChains,
-                  allSpecPickers: _allPickers,
+                  allSpecPickers: _allSortedPickers,
                   picker: picker,
-                  refinedSpecsPickers: _refinedSpecsPickers,
+                  refinedSpecsPickers: _refinedPickers,
                 ),
                 onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
                   valueSpec: value,
                   unitSpec: unit,
-                  pickers: _allPickers,
+                  pickers: _allSortedPickers,
                   selectedSpecs: _selectedSpecs,
                 ),
                 onSpecTap: ({SpecModel value, SpecModel unit}){

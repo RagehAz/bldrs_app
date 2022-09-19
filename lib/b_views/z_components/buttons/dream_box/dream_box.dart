@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_gradient.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_highlight.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_tap_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_underline.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/the_box_of_dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -43,10 +42,7 @@ class DreamBox extends StatelessWidget {
     this.childAlignment = Alignment.center,
     this.opacity = 1,
     this.isDeactivated = false,
-    this.underLine,
     this.splashColor = Colorz.white80,
-    this.underLineColor = Colorz.white255,
-    this.underLineShadowIsOn = true,
     this.onTapDown,
     this.onTapUp,
     this.onTapCancel,
@@ -92,10 +88,7 @@ class DreamBox extends StatelessWidget {
   final Alignment childAlignment;
   final double opacity;
   final bool isDeactivated;
-  final Verse underLine;
   final Color splashColor;
-  final Color underLineColor;
-  final bool underLineShadowIsOn;
   final Function onTapDown;
   final Function onTapUp;
   final Function onTapCancel;
@@ -310,7 +303,6 @@ class DreamBox extends StatelessWidget {
           textDirection: _textDirection,
           icon: icon,
           loading: loading,
-          underLine: underLine,
           height: height,
           width: width,
           iconCorners: _iconCorners,
@@ -361,20 +353,6 @@ class DreamBox extends StatelessWidget {
             width: width,
             height: height,
             corners: _cornersAsBorderRadius,
-          ),
-
-        /// --- UNDERLINE
-        if (underLine != null)
-          DreamBoxUnderLine(
-            key: const ValueKey<String>('DreamBoxUnderLine'),
-            width: width,
-            height: height,
-            underLine: underLine,
-            icon: icon,
-            scaleFactor: verseScaleFactor * 0.45,
-            underLineShadowIsOn: underLineShadowIsOn,
-            underLineColor: underLineColor,
-            verseSize: _verseSize,
           ),
 
         /// --- RIPPLE & TAP LAYER

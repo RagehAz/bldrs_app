@@ -281,6 +281,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       text: 'phid_extra_notes',
                       translate: true,
                     ),
+                    hintVerse: const Verse(
+                      text: 'phid_tell_businesses_what_you_looking_for',
+                      translate: true,
+                    ),
                     counterIsOn: true,
                     maxLength: 1000,
                     maxLines: 20,

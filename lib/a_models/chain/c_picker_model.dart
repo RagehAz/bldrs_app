@@ -431,16 +431,18 @@ class PickerModel {
   }
    */
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
     @required BuildContext context,
     @required bool canPickManyOfAPicker,
-    List<FlyerType> onlyUseTheseFlyerTypes,
+    @required List<FlyerType> onlyUseTheseFlyerTypes,
   }) {
 
     final List<PickerModel> allChainKPickers = createHomeWallPickers(
       context: context,
       canPickMany: canPickManyOfAPicker,
+      onlyUseTheseFlyerTypes: onlyUseTheseFlyerTypes,
     );
 
     final List<PickerModel> _pickers = <PickerModel>[];
@@ -471,17 +473,24 @@ class PickerModel {
 
     return _pickers;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createHomeWallPickers({
     @required BuildContext context,
     @required bool canPickMany,
+    @required List<FlyerType> onlyUseTheseFlyerTypes,
   }){
+
+    bool _canShow(FlyerType type){
+      return onlyUseTheseFlyerTypes.contains(type);
+    }
 
     return  <PickerModel>[
 
-      /// ---> HEADLINE PROPERTIES
-      PickerModel(
+      /// ---> HEADLINE : PROPERTIES
+      if (_canShow(FlyerType.property))
+        PickerModel(
         index: 0,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
@@ -491,6 +500,7 @@ class PickerModel {
       ),
 
       /// PROPERTIES
+      if (_canShow(FlyerType.property))
       PickerModel(
         index: 1,
         chainID: FlyerTyper.propertyChainID,
@@ -498,8 +508,9 @@ class PickerModel {
         isHeadline: false,
       ),
 
-      /// ---> HEADLINE CONSTRUCTION
-      PickerModel(
+      /// ---> HEADLINE : CONSTRUCTION
+      if (_canShow(FlyerType.design) || _canShow(FlyerType.trade))
+        PickerModel(
         index: 2,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
@@ -509,23 +520,37 @@ class PickerModel {
       ),
 
       /// DESIGN
-      PickerModel(
+      if (_canShow(FlyerType.design))
+        PickerModel(
         index: 3,
         chainID: FlyerTyper.designChainID,
         canPickMany: canPickMany,
         isHeadline: false,
       ),
 
+      /// CONSTRUCTION
+      /*
+      if (_canShow(FlyerType.project))
+        PickerModel(
+          index: 3,
+          chainID: FlyerTyper.designChainID,
+          canPickMany: canPickMany,
+          isHeadline: false,
+        ),
+       */
+
       /// TRADES
-      PickerModel(
+      if (_canShow(FlyerType.trade))
+        PickerModel(
         index: 4,
         isHeadline: false,
         chainID: FlyerTyper.tradesChainID,
         canPickMany: canPickMany,
       ),
 
-      /// ---> SUPPLIES CONSTRUCTION
-      PickerModel(
+      /// ---> HEADLINE : SUPPLIES CONSTRUCTION
+      if (_canShow(FlyerType.product) || _canShow(FlyerType.equipment))
+        PickerModel(
         index: 5,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
@@ -535,7 +560,8 @@ class PickerModel {
       ),
 
       /// PRODUCTS
-      PickerModel(
+      if (_canShow(FlyerType.product))
+        PickerModel(
         index: 6,
         isHeadline: false,
         chainID: FlyerTyper.productChainID,
@@ -543,7 +569,8 @@ class PickerModel {
       ),
 
       /// EQUIPMENT
-      PickerModel(
+      if (_canShow(FlyerType.equipment))
+        PickerModel(
         index: 7,
         isHeadline: false,
         chainID: FlyerTyper.equipmentChainID,
@@ -674,6 +701,7 @@ class PickerModel {
   static List<PickerModel> applyBlockersAndSort({
     @required List<PickerModel> sourcePickers,
     @required List<SpecModel> selectedSpecs,
+    @required bool sort,
   }) {
     final List<PickerModel> _pickers = <PickerModel>[];
 
@@ -711,7 +739,7 @@ class PickerModel {
       }
     }
 
-    return sortPickersByIndexes(_pickers);
+    return sort == true ? sortPickersByIndexes(_pickers) : _pickers;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
