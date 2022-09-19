@@ -14,7 +14,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
     @required this.textDirection,
     @required this.icon,
     @required this.loading,
-    @required this.underLine,
     @required this.height,
     @required this.width,
     @required this.iconCorners,
@@ -48,7 +47,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
   final TextDirection textDirection;
   final dynamic icon;
   final bool loading;
-  final Verse underLine;
   final double width;
   final double height;
   final BorderRadius iconCorners;
@@ -220,11 +218,11 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
       textDirection: _textDirection,
       children: <Widget>[
 
-        /// --- ICON & UNDERLINE BOX footprint
+        /// --- ICON BOX footprint
         if (icon != null || loading == true)
           Container(
-            width: underLine == null ? height : width,
-            height: underLine == null ? height : height,
+            width: height,
+            height: height,
             alignment: Alignment.topCenter,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,8 +230,8 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
 
                 /// ICON
                 Container(
-                  width: underLine == null ? height : width,
-                  height: underLine == null ? height : width,
+                  width: height,
+                  height: height,
                   decoration: BoxDecoration(
                     borderRadius: iconCorners,
                     // color: Colorz.BloodTest
@@ -282,12 +280,6 @@ class DreamBoxIconVerseSecondLine extends StatelessWidget {
                   ),
                 ),
 
-                // /// --- THE UnderLine foortrint
-                // if (underLine != null)
-                // Container(
-                //   width: width,
-                //   height: _underlineHeight,
-                // ),
               ],
             ),
           ),
