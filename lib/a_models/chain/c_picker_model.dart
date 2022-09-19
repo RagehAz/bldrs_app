@@ -839,8 +839,8 @@ class PickerModel {
 
       /// SORT PICKERS BY GROUPS INDEXES
       _pickers.sort((PickerModel a, PickerModel b){
-        final int _indexA = a?.index ?? 0;
-        final int _indexB = b?.index ?? 0;
+        final int _indexA = a.index ?? 0;
+        final int _indexB = b.index ?? 0;
         return _indexA.compareTo(_indexB);
       });
 

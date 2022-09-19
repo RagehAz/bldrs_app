@@ -158,7 +158,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       final List<PickerModel> _theRefinedSortedPickers = PickerModel.applyBlockersAndSort(
         sourcePickers: _allSortedPickers,
         selectedSpecs: widget.selectedSpecs,
-        sort: false,
+        sort: true,
       );
       _refinedPickers.value = _theRefinedSortedPickers;
       // ------------------------------
@@ -245,7 +245,9 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
 
             // Stringer.blogStrings(strings: _phidsOfAllPickers);
 
-            Chain.blogChains(_pickersChains);
+            // Chain.blogChains(_pickersChains);
+
+            PickerModel.blogPickers(_refinedPickers.value);
 
           },
         ),
@@ -376,7 +378,6 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
               return ChainsScreenBrowseView(
                 onlyUseCityChains: widget.onlyUseCityChains,
                 refinedPickers: _refinedPickers,
-                pickers: _allSortedPickers,
                 selectedSpecs: _selectedSpecs,
                 flyerTypes: [widget.flyerTypeFilter],
                 onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
