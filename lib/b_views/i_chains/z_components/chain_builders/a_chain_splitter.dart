@@ -121,7 +121,7 @@ class ChainSplitter extends StatelessWidget {
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
         secondLinesType: secondLinesType,
-        onPhidTap: onPhidDoubleTap,
+        onPhidTap: onPhidTap,
         onPhidDoubleTap: onPhidDoubleTap,
         onPhidLongTap: onPhidLongTap,
       );

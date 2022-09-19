@@ -204,6 +204,7 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
   // -----------------------------------------------------------------------------
   void _toggleExpansion() {
 
+
     /// WHEN CAN EXPAND
     if (widget.isDisabled == false) {
       _setExpanded(!_isExpanded.value);
@@ -224,15 +225,16 @@ class ExpandingTileState extends State<ExpandingTile> with SingleTickerProviderS
       notifier: _isExpanded,
       mounted: mounted,
       value: isExpanded,
-      onFinish: (){
+      addPostFrameCallBack: false,
+      onFinish: () async {
 
         /// ANIMATE FORWARD
-        if (_isExpanded.value == true) {
-          _controller.forward();
+        if (isExpanded == true) {
+          await _controller.forward();
         }
         /// ANIMATE BACKWARDS
         else {
-          _controller.reverse().then<void>((dynamic value) {});
+          await _controller.reverse().then<void>((dynamic value) {});
         }
 
         /// SAVE STATE

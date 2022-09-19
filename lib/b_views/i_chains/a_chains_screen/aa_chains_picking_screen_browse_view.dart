@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
@@ -18,7 +17,6 @@ import 'package:flutter/material.dart';
 class ChainsScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsScreenBrowseView({
-    @required this.pickers,
     @required this.selectedSpecs,
     @required this.refinedPickers,
     @required this.onlyUseCityChains,
@@ -29,7 +27,6 @@ class ChainsScreenBrowseView extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<PickerModel> pickers;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final ValueNotifier<List<PickerModel>> refinedPickers;
   final bool onlyUseCityChains;
@@ -96,13 +93,12 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
     // PickerModel.blogPickers(pickers, methodName: 'ChainsScreenBrowseView');
 
-    /// WHEN PICKERS ARE PROVIDED
-    if (Mapper.checkCanLoopList(pickers) == true){
+    return ValueListenableBuilder(
+      valueListenable: refinedPickers,
+      builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
 
-      return ValueListenableBuilder(
-        valueListenable: refinedPickers,
-        builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
-
+        /// WHEN PICKERS ARE PROVIDED
+        if (refinedPickers != null){
           return ValueListenableBuilder(
             valueListenable: selectedSpecs,
             builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
@@ -141,42 +137,39 @@ class ChainsScreenBrowseView extends StatelessWidget {
 
             },
           );
+        }
 
-        },
-        child: ChainInstructions(
-          instructions: _getInstructions(context),
-          leadingIcon: _getInstructionsIcon(context),
-          iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
-        ),
-
-      );
-
-    }
-
-    /// WHEN NO PICKERS THERE
-    else {
-
-      return Center(
-        child: Container(
-          width: Scale.superScreenWidth(context),
-          height: Scale.superScreenHeight(context),
-          padding: Scale.superMargins(margins: 20),
-          child: const SuperVerse(
-            verse: Verse(
-              text: 'phid_no_flyer_in_this_city',
-              pseudo: 'No Available Flyers in This City yet',
-              translate: true,
+        /// WHEN NO PICKERS THERE
+        else {
+          return Center(
+            child: Container(
+              width: Scale.superScreenWidth(context),
+              height: Scale.superScreenHeight(context),
+              padding: Scale.superMargins(margins: 20),
+              child: const SuperVerse(
+                verse: Verse(
+                  text: 'phid_no_flyer_in_this_city',
+                  pseudo: 'No Available Flyers in This City yet',
+                  translate: true,
+                ),
+                weight: VerseWeight.black,
+                italic: true,
+                size: 3,
+                maxLines: 3,
+                margin: Ratioz.appBarMargin,
+              ),
             ),
-            weight: VerseWeight.black,
-            italic: true,
-            size: 3,
-            maxLines: 3,
-            margin: Ratioz.appBarMargin,
-          ),
-        ),
-      );
+          );
+        }
 
-    }
+      },
+      child: ChainInstructions(
+        instructions: _getInstructions(context),
+        leadingIcon: _getInstructionsIcon(context),
+        iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
+      ),
+
+    );
 
   }
   // --------------------------------------------------------------------------
