@@ -412,7 +412,7 @@ void onBzZoneChanged({
 Future<void> onAddScopesTap({
   @required BuildContext context,
   @required List<SpecModel> selectedSpecs,
-  @required List<BzType> bzTypes,
+  @required FlyerType flyerType,
   @required ZoneModel zone,
   @required ValueChanged<List<SpecModel>> onFinish,
   @required bool onlyChainKSelection,
@@ -424,7 +424,7 @@ Future<void> onAddScopesTap({
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: ChainsPickingScreen(
-      flyerTypesChainFilters: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: bzTypes),
+      flyerTypeFilter: flyerType,
       onlyUseCityChains: false,
       isMultipleSelectionMode: true,
       pageTitleVerse: const Verse(

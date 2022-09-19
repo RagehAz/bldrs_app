@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/secondary_models/alert_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -607,7 +608,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                               text: 'phid_scopeOfServices',
                               translate: true,
                             ),
-                            bzTypes: bzModel?.bzTypes,
+                            flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: bzModel?.bzTypes),
                             selectedSpecs: selectedSpecs,
                             bulletPoints: const <Verse>[
                               Verse(
@@ -616,10 +617,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> with TickerProviderStat
                                 translate: true,
                               )
                             ],
-                            onAddScope: () => onAddScopesTap(
+                            onAddScope: (FlyerType flyerType) => onAddScopesTap(
                               context: context,
                               selectedSpecs: selectedSpecs,
-                              bzTypes: bzModel.bzTypes,
+                              flyerType: flyerType,
                               zone: bzModel.zone,
                               onlyChainKSelection: true,
                               onFinish: (List<SpecModel> specs){

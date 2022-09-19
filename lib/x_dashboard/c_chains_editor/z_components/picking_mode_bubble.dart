@@ -41,25 +41,12 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
     ...FlyerTyper.flyerTypesList,
   ];
   // -----------------------------------------------------------------------------
-  final List<FlyerType> _selectedTypes = <FlyerType>[];
+  FlyerType _selectedType;
   void _onSelectFlyerType(FlyerType flyerType){
 
-    final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
-      flyerType: flyerType,
-      flyerTypes: _selectedTypes,
-    );
-
-    if (_isSelected == true){
       setState(() {
-        _selectedTypes.remove(flyerType);
+        _selectedType = flyerType;
       });
-    }
-
-    else {
-      setState(() {
-        _selectedTypes.insert(0, flyerType);
-      });
-    }
 
   }
   // --------------------
@@ -115,7 +102,11 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
   // --------------------
   Verse _getGoButtonDescription(){
 
-    List<String> _typesStrings = FlyerTyper.translateFlyerTypes(context: context, flyerTypes: _selectedTypes);
+    List<String> _typesStrings = FlyerTyper.translateFlyerTypes(
+        context: context,
+        flyerTypes: [_selectedType],
+    );
+
     _typesStrings = Stringer.sortAlphabetically2(_typesStrings);
     final String _typesString = Stringer.generateStringFromStrings(strings: _typesStrings) ?? 'All Flyer Types';
 
@@ -136,7 +127,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
 
     final dynamic _received = await goToChainsPickingScreen(
       context: context,
-      flyerTypes: _selectedTypes,
+      flyerType: _selectedType,
       onlyUseCityChains: _onlyCityChains,
       isMultipleSelectionMode: _multipleSelectionMode,
       pageTitleVerse: _getGoButtonDescription(),
@@ -196,7 +187,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                     final FlyerType _type = _allTypes[index];
                     final bool _isSelected = FlyerTyper.checkFlyerTypesIncludeThisType(
                       flyerType: _type,
-                      flyerTypes: _selectedTypes,
+                      flyerTypes: [_selectedType],
                     );
                     return DreamBox(
                       height: 35,

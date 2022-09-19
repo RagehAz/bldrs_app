@@ -274,6 +274,14 @@ String getSectionIcon({
 
     return _includes;
   }
+  // --------------------
+  static bool checkFlyerTypesAreIdentical(List<FlyerType> types1, List<FlyerType> types2){
+
+    final List<String> _a = cipherFlyersTypes(types1);
+    final List<String> _b = cipherFlyersTypes(types2);
+
+    return Mapper.checkListsAreIdentical(list1: _a, list2: _b);
+  }
   // -----------------------------------------------------------------------------
 
   /// TRANSLATION

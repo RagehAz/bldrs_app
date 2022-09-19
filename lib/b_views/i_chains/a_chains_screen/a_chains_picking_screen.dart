@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 class ChainsPickingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ChainsPickingScreen({
-    @required this.flyerTypesChainFilters,
+    @required this.flyerTypeFilter,
     @required this.onlyUseCityChains,
     @required this.isMultipleSelectionMode,
     @required this.pageTitleVerse,
@@ -38,7 +38,7 @@ class ChainsPickingScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final List<SpecModel> selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
-  final List<FlyerType> flyerTypesChainFilters;
+  final FlyerType flyerTypeFilter;
   final bool onlyUseCityChains;
   final bool isMultipleSelectionMode;
   final Verse pageTitleVerse;
@@ -115,7 +115,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         _allSortedPickers = PickerModel.createHomeWallPickers(
           context: context,
           canPickMany: true,
-          onlyUseTheseFlyerTypes: widget.flyerTypesChainFilters,
+          onlyUseTheseFlyerTypes: [widget.flyerTypeFilter],
         );
       }
 
@@ -123,7 +123,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
       else {
 
         /// ( IN WALL PHID SELECTION ) WHEN NO FLYER TYPES GIVE
-        if (Mapper.checkCanLoopList(widget.flyerTypesChainFilters) == false){
+        if (Mapper.checkCanLoopList([widget.flyerTypeFilter]) == false){
 
           _allSortedPickers = PickerModel.createHomeWallPickers(
             context: context,
@@ -133,17 +133,18 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
         }
 
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
-        else if (widget.flyerTypesChainFilters.length == 1){
+        else if ([widget.flyerTypeFilter].length == 1){
           _allSortedPickers = ChainsProvider.proGetPickersByFlyerType(
             context: context,
-            flyerType: widget.flyerTypesChainFilters[0],
+            flyerType: [widget.flyerTypeFilter][0],
             listen: false,
+            sort: true,
           );
         }
         else {
           _allSortedPickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
             context: context,
-            flyerTypes: widget.flyerTypesChainFilters,
+            flyerTypes: [widget.flyerTypeFilter],
             sort: true,
             listen: false,
           );
@@ -377,7 +378,7 @@ class _ChainsPickingScreenState extends State<ChainsPickingScreen> {
                 refinedPickers: _refinedPickers,
                 pickers: _allSortedPickers,
                 selectedSpecs: _selectedSpecs,
-                flyerTypes: widget.flyerTypesChainFilters,
+                flyerTypes: [widget.flyerTypeFilter],
                 onPickerTap: (PickerModel picker) => onChainPickingPickerTap(
                   context: context,
                   zone: widget.zone,

@@ -1,5 +1,5 @@
-import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 class ScopeSelectorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ScopeSelectorBubble({
-    @required this.bzTypes,
+    @required this.flyerTypes,
     @required this.headlineVerse,
     @required this.selectedSpecs,
     @required this.onAddScope,
@@ -26,14 +26,14 @@ class ScopeSelectorBubble extends StatefulWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final List<BzType> bzTypes;
+  final List<FlyerType> flyerTypes;
   final Verse headlineVerse;
   final List<SpecModel> selectedSpecs;
-  final Function onAddScope;
+  final ValueChanged<FlyerType> onAddScope;
   final List<Verse> bulletPoints;
   final Verse addButtonVerse;
   /// --------------------------------------------------------------------------
-  static const double typeButtonSize = 50;
+  static const double typeButtonSize = 40;
   /// --------------------------------------------------------------------------
   @override
   State<ScopeSelectorBubble> createState() => _ScopeSelectorBubbleState();
@@ -43,9 +43,7 @@ class ScopeSelectorBubble extends StatefulWidget {
 class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   // -----------------------------------------------------------------------------
   List<String> _phids = <String>[];
-  bool _bzTypesExist = false;
-  // --------------------
-  final ValueNotifier<BzType> _selectedBzType = ValueNotifier(null);
+  bool _flyerTypesExist = false;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -72,8 +70,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   }
   // --------------------
   void _initializeLocalVariables(){
-    _bzTypesExist = Mapper.checkCanLoopList(widget.bzTypes) == true;
-    _selectedBzType.value = _bzTypesExist == true ? widget.bzTypes[0] : null;
+    _flyerTypesExist = Mapper.checkCanLoopList(widget.flyerTypes) == true;
   }
   // --------------------
   bool _isInit = true;
@@ -95,7 +92,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   // --------------------
   @override
   void didUpdateWidget(covariant ScopeSelectorBubble oldWidget) {
-    if (BzModel.checkBzTypesAreIdentical(widget.bzTypes, oldWidget.bzTypes) == false) {
+    if (FlyerTyper.checkFlyerTypesAreIdentical(widget.flyerTypes, oldWidget.flyerTypes) == false) {
       setState(() {
         _initializeLocalVariables();
       });
@@ -106,7 +103,6 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   @override
   void dispose() {
     _loading.dispose();
-    _selectedBzType.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -116,9 +112,9 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
     final double _phidsZoneWidth = Bubble.clearWidth(context) - ScopeSelectorBubble.typeButtonSize - 10;
 
     return WidgetFader(
-      fadeType: _bzTypesExist == true ? FadeType.stillAtMax : FadeType.stillAtMin,
+      fadeType: _flyerTypesExist == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.35,
-      absorbPointer: !_bzTypesExist,
+      absorbPointer: !_flyerTypesExist,
       child: Bubble(
         headerViewModel: BubbleHeaderVM(
           headlineVerse: widget.headlineVerse,
@@ -135,108 +131,122 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
           SizedBox(
             width: Bubble.clearWidth(context),
             // color: Colorz.bloodTest,
-            child: ValueListenableBuilder(
-              valueListenable: _selectedBzType,
-              builder: (_, BzType selectedBzType, Widget child){
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+                /// BZ TYPES BUTTONS BUILDER
+                if (_flyerTypesExist == true)
+                  ...List.generate(widget.flyerTypes.length, (index){
 
-                    /// TYPE BUTTONS
-                    SizedBox(
-                      width: ScopeSelectorBubble.typeButtonSize,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
+                    final FlyerType _flyerType = widget.flyerTypes[index];
 
-                          /// FAKE EMPTY BOX IN CASE OF NULL AVAILABLE TYPES
-                          if (_bzTypesExist == false)
-                            const DreamBox(
-                              width: ScopeSelectorBubble.typeButtonSize,
-                              height: ScopeSelectorBubble.typeButtonSize,
-                              color: Colorz.white20,
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        /// BZ TYPE BUTTON
+                        DreamBox(
+                          width: ScopeSelectorBubble.typeButtonSize,
+                          height: ScopeSelectorBubble.typeButtonSize,
+                          icon: FlyerTyper.flyerTypeIconOff(_flyerType),
+                        ),
+
+                        /// SPACER
+                        const SizedBox(
+                          width: 10,
+                          height: 10,
+                        ),
+
+                        /// PHIDS
+                        Bubble(
+                          width: _phidsZoneWidth,
+                          headerViewModel: BubbleHeaderVM(
+                            headlineVerse: Verse(
+                              text: FlyerTyper.getFlyerTypePhid(flyerType: _flyerType),
+                              translate: true,
+                            ),
+                            headlineColor: Colorz.yellow200,
+                          ),
+                          columnChildren: <Widget>[
+
+                            /// SELECTED PHIDS
+                            if (Mapper.checkCanLoopList(_phids) == true)
+                              PhidsViewer(
+                                pageWidth: _phidsZoneWidth,
+                                phids: _phids,
+                              ),
+
+                            /// ADD SPECS BUTTON
+                            DreamBox(
+                              height: PhidButton.getHeight(),
+                              // width: Bubble.clearWidth(context),
+                              verse: widget.addButtonVerse ?? Verse(
+                                text: Mapper.checkCanLoopList(_phids) ?
+                                'phid_edit_scope'
+                                    :
+                                'phid_add_scope',
+                                translate: true,
+                              ),
                               bubble: false,
+                              color: Colorz.white20,
+                              verseScaleFactor: 1.5,
+                              verseWeight: VerseWeight.thin,
+                              icon: Iconz.plus,
+                              iconSizeFactor: 0.4,
+                              iconColor: Colorz.white20,
+                              onTap: () => widget.onAddScope(_flyerType),
                             ),
 
-                          /// BZ TYPES BUTTONS BUILDER
-                          if (_bzTypesExist == true)
-                            ...List.generate(widget.bzTypes.length, (index){
-
-                              final BzType _bzType = widget.bzTypes[index];
-                              final bool _isSelected = selectedBzType == _bzType;
-
-                              return DreamBox(
-                                width: ScopeSelectorBubble.typeButtonSize,
-                                height: ScopeSelectorBubble.typeButtonSize,
-                                icon: _isSelected == true ?  BzModel.getBzTypeIconOn(_bzType)
-                                    :
-                                BzModel.getBzTypeIconOff(_bzType),
-                                iconSizeFactor: 0.9,
-                                onTap: (){
-                                  _selectedBzType.value = _bzType;
-                                },
-                              );
-
-                            }),
-
-                        ],
-                      ),
-                    ),
-
-                    /// SPACER
-                    const SizedBox(
-                      width: 10,
-                      height: 10,
-                    ),
-
-                    /// PHIDS
-                    Bubble(
-                      width: _phidsZoneWidth,
-                      headerViewModel: BubbleHeaderVM(
-                        headlineVerse: Verse(
-                          text: BzModel.getBzTypePhid(bzType: selectedBzType),
-                          translate: true,
-                        ),
-                        headlineColor: Colorz.yellow200,
-                      ),
-                      columnChildren: <Widget>[
-
-                        /// SELECTED PHIDS
-                        if (Mapper.checkCanLoopList(_phids) == true)
-                          PhidsViewer(
-                            pageWidth: _phidsZoneWidth,
-                            phids: _phids,
-                          ),
-
-                        /// ADD SPECS BUTTON
-                        DreamBox(
-                          height: PhidButton.getHeight(),
-                          // width: Bubble.clearWidth(context),
-                          verse: widget.addButtonVerse ?? Verse(
-                            text: Mapper.checkCanLoopList(_phids) ?
-                            'phid_edit_scope'
-                                :
-                            'phid_add_scope',
-                            translate: true,
-                          ),
-                          bubble: false,
-                          color: Colorz.white20,
-                          verseScaleFactor: 1.5,
-                          verseWeight: VerseWeight.thin,
-                          icon: Iconz.plus,
-                          iconSizeFactor: 0.4,
-                          iconColor: Colorz.white20,
-                          onTap: widget.onAddScope,
+                          ],
                         ),
 
                       ],
-                    ),
+                    );
 
-                  ],
-                );
+                  }),
 
-              },
+                // /// TYPE BUTTONS
+                // SizedBox(
+                //   width: ScopeSelectorBubble.typeButtonSize,
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: <Widget>[
+                //
+                //       /// FAKE EMPTY BOX IN CASE OF NULL AVAILABLE TYPES
+                //       if (_bzTypesExist == false)
+                //         const DreamBox(
+                //           width: ScopeSelectorBubble.typeButtonSize,
+                //           height: ScopeSelectorBubble.typeButtonSize,
+                //           color: Colorz.white20,
+                //           bubble: false,
+                //         ),
+                //
+                //       /// BZ TYPES BUTTONS BUILDER
+                //       if (_bzTypesExist == true)
+                //         ...List.generate(widget.bzTypes.length, (index){
+                //
+                //           final BzType _bzType = widget.bzTypes[index];
+                //           final bool _isSelected = selectedBzType == _bzType;
+                //
+                //           return DreamBox(
+                //             width: ScopeSelectorBubble.typeButtonSize,
+                //             height: ScopeSelectorBubble.typeButtonSize,
+                //             icon: _isSelected == true ?  BzModel.getBzTypeIconOn(_bzType)
+                //                 :
+                //             BzModel.getBzTypeIconOff(_bzType),
+                //             onTap: (){
+                //               _selectedBzType.value = _bzType;
+                //             },
+                //           );
+                //
+                //         }),
+                //
+                //     ],
+                //   ),
+                // ),
+
+              ],
             ),
           ),
 

@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/chain/d_spec_model.dart';
+import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
@@ -214,7 +215,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       text: 'phid_specs',
                       translate: true,
                     ),
-                    bzTypes: NeedModel.concludeBzzTypesByNeedType(need.needType),
+                    flyerTypes: NeedModel.concludeFlyersTypesByNeedType(need.needType),
                     selectedSpecs: SpecModel.generateSpecsByPhids(
                       context: context,
                       phids: need.scope,
@@ -229,13 +230,13 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       text: 'phid_add_specs',
                       translate: true,
                     ),
-                    onAddScope: () => onAddScopesTap(
+                    onAddScope: (FlyerType flyerType) => onAddScopesTap(
                         context: context,
                         selectedSpecs: SpecModel.generateSpecsByPhids(
                           context: context,
                           phids: need.scope,
                         ),
-                        bzTypes: NeedModel.concludeBzzTypesByNeedType(need.needType),
+                        flyerType: flyerType,
                         zone: need.zone,
                         onlyChainKSelection: false,
                         onFinish: (List<SpecModel> specs) async {
