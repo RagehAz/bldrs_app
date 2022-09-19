@@ -47,7 +47,7 @@ Future<void> goToChainsEditorScreen({
 /// TESTED : WORKS PERFECT
 Future<dynamic> goToChainsPickingScreen({
   @required BuildContext context,
-  @required List<FlyerType> flyerTypes,
+  @required FlyerType flyerType,
   @required bool onlyUseCityChains,
   @required bool isMultipleSelectionMode,
   @required Verse pageTitleVerse,
@@ -57,7 +57,7 @@ Future<dynamic> goToChainsPickingScreen({
   final dynamic _received =  await Nav.goToNewScreen(
       context: context,
       screen: ChainsPickingScreen(
-        flyerTypesChainFilters: flyerTypes,
+        flyerTypeFilter: flyerType,
         onlyUseCityChains: onlyUseCityChains,
         isMultipleSelectionMode: isMultipleSelectionMode,
         pageTitleVerse: pageTitleVerse,
