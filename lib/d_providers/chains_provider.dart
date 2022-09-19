@@ -540,11 +540,16 @@ class ChainsProvider extends ChangeNotifier {
   static List<PickerModel> proGetPickersByFlyerType({
     @required BuildContext context,
     @required FlyerType flyerType,
+    @required bool sort,
     @required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
-    return  _chainsProvider.allPickers[_pickersKey];
+    List<PickerModel> _pickers = _chainsProvider.allPickers[_pickersKey];
+    if (sort == true){
+      _pickers = PickerModel.sortPickersByIndexes(_pickers);
+    }
+    return  _pickers;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -560,15 +565,12 @@ class ChainsProvider extends ChangeNotifier {
 
       for (final FlyerType type in flyerTypes){
 
-        List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+        final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
           context: context,
           flyerType: type,
           listen: listen,
+          sort: sort,
         );
-
-        if (sort == true){
-          _pickers = PickerModel.sortPickersByIndexes(_pickers);
-        }
 
         _output.addAll(_pickers);
 

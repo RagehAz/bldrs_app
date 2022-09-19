@@ -87,7 +87,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
     context: context,
     transitionType: Nav.superHorizontalTransition(context),
     screen: ChainsPickingScreen(
-      flyerTypesChainFilters: null,
+      flyerTypeFilter: null,
       onlyUseCityChains: true,
       isMultipleSelectionMode: false,
       pageTitleVerse: const Verse(

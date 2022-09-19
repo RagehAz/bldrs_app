@@ -291,7 +291,7 @@ Future<void> onAddSpecsToDraftTap({
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
         onlyUseCityChains: false,
-        flyerTypesChainFilters: [draft.value.flyerType],
+        flyerTypeFilter: draft.value.flyerType,
         zone: draft.value.zone,
       )
   );
