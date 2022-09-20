@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/ui/keyboard_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/flag_model.dart';
+import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/z_components/auth/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
@@ -18,7 +19,6 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/d_user/z_components/user_banner.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';

@@ -28,7 +28,6 @@ enum Gender {
 
 enum UserTab {
   profile,
-  status,
   notifications,
   following,
   settings,
@@ -216,40 +215,6 @@ class UserModel {
       ),
     );
 
-    // return UserModel(
-    //   // -------------------------
-    //   id: oldUser.id,
-    //   createdAt: oldUser.createdAt,
-    //   status: oldUser.status,
-    //   // -------------------------
-    //   name: tempUser.name,
-    //   trigram: Stringer.createTrigram(input: tempUser.name),
-    //   pic: FileModel.bakeFileForUpload(
-    //     newFile: tempUser.pic,
-    //     existingPic: oldUser.pic,
-    //   ),
-    //   title: tempUser.title,
-    //   company: tempUser.company,
-    //   gender: tempUser.gender,
-    //   zone: tempUser.zone,
-    //   language: Words.languageCode(context),
-    //   location: tempUser.location,
-    //   contacts: ContactModel.bakeContactsAfterEditing(
-    //     contacts: tempUser.contacts,
-    //     countryID: tempUser.zone.countryID,
-    //   ),
-    //   // -------------------------
-    //   myBzzIDs: oldUser.myBzzIDs,
-    //   // -------------------------
-    //   isAdmin: oldUser.isAdmin,
-    //   emailIsVerified: oldUser.emailIsVerified,
-    //   authBy: oldUser.authBy,
-    //   fcmToken: oldUser.fcmToken,
-    //   followedBzzIDs: oldUser.followedBzzIDs,
-    //   savedFlyersIDs: oldUser.savedFlyersIDs,
-    //   appState: oldUser.appState,
-    // );
-
   }
   // -----------------------------------------------------------------------------
 
@@ -366,7 +331,7 @@ class UserModel {
       'id': id,
       'authBy': AuthModel.cipherAuthBy(authBy),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
-      'need': need.toMap(toJSON: toJSON),
+      'need': need?.toMap(toJSON: toJSON),
 // -------------------------
       'name': name,
       'trigram': trigram,
@@ -937,7 +902,7 @@ class UserModel {
       }
 
       if (NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == false){
-        blog('blogUserDifferences : [status] are not identical');
+        blog('blogUserDifferences : [needs] are not identical');
       }
 
       if (user1.name != user2.name){
@@ -1116,7 +1081,6 @@ class UserModel {
   // --------------------
   static const List<UserTab> userProfileTabsList = <UserTab>[
     UserTab.profile,
-    UserTab.status,
     UserTab.notifications,
     UserTab.following,
     UserTab.settings,
@@ -1125,7 +1089,6 @@ class UserModel {
   static String getUserTabIcon(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return Iconz.normalUser   ; break;
-      case UserTab.status         : return Iconz.terms        ; break;
       case UserTab.notifications  : return Iconz.news         ; break;
       case UserTab.following      : return Iconz.follow       ; break;
       case UserTab.settings       : return Iconz.gears        ; break;
@@ -1138,7 +1101,6 @@ class UserModel {
     /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
     switch(userTab){
       case UserTab.profile        : return  'Profile'       ; break;
-      case UserTab.status         : return  'Status'        ; break;
       case UserTab.notifications  : return  'Notifications' ; break;
       case UserTab.following      : return  'Following'     ; break;
       case UserTab.settings       : return  'Settings'      ; break;
@@ -1149,7 +1111,6 @@ class UserModel {
   static String _getUserTabPhid(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return  'phid_profile'       ; break;
-      case UserTab.status         : return  'phid_status'        ; break;
       case UserTab.notifications  : return  'phid_notifications' ; break;
       case UserTab.following      : return  'phid_followed_bz'   ; break;
       case UserTab.settings       : return  'phid_settings'      ; break;
