@@ -13,7 +13,6 @@ import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_status/status_bubble.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  final ValueNotifier<UserStatus> _currentUserStatus = ValueNotifier(null);
   final ValueNotifier<NeedModel> _need = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -60,7 +58,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       listen: false,
     );
 
-    _currentUserStatus.value = _userModel.status;
     _need.value = NeedModel.createInitialNeed(
       context: context,
       userZone: _userModel.zone,
@@ -89,48 +86,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // --------------------
   @override
   void dispose() {
-    _currentUserStatus.dispose();
     _need.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  static const List<Map<String, dynamic>> _status = <Map<String, dynamic>>[
-    <String, dynamic>{
-      'title': 'Property Status',
-      'buttons': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'state': 'Looking for a new property',
-          'userStatus': UserStatus.searching
-        },
-        <String, dynamic>{
-          'state': 'Constructing an existing property',
-          'userStatus': UserStatus.finishing
-        },
-        <String, dynamic>{
-          'state': 'Want to Sell / Rent my property',
-          'userStatus': UserStatus.selling
-        }
-      ],
-    },
-    <String, dynamic>{
-      'title': 'Construction Status',
-      'buttons': <Map<String, dynamic>>[
-        <String, dynamic>{
-          'state': 'Planning Construction',
-          'userStatus': UserStatus.planning
-        },
-        <String, dynamic>{
-          'state': 'Under Construction',
-          'userStatus': UserStatus.building
-        }
-      ],
-    },
-  ];
-  // --------------------
-  void _switchUserStatus(UserStatus type) {
-    _currentUserStatus.value = type;
-  }
-  // --------------------
   Future<void> onConfirmEditingNeed() async {
 
   }
@@ -176,17 +135,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                 physics: const BouncingScrollPhysics(),
                 padding: Stratosphere.stratosphereSandwich,
                 children: <Widget>[
-
-                  ValueListenableBuilder(
-                    valueListenable: _currentUserStatus,
-                    builder: (_, UserStatus userStatus, Widget child){
-                      return StatusBubble(
-                        status: _status,
-                        currentStatus: userStatus,
-                        onSelectStatus: (UserStatus type) => _switchUserStatus(type),
-                      );
-                    },
-                  ),
 
                   /// NEED TYPE SELECTION
                   MultipleChoiceBubble(
