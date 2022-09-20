@@ -4,7 +4,9 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/e_footer
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 
@@ -46,25 +48,22 @@ class FlyerFooterButtons extends StatelessWidget {
 
     final bool _canShow = _canShowElement();
 
+    blog('a88a');
+
     return Positioned(
       right: Aligners.rightPositionInRightAlignmentEn(context, 0),
       left: Aligners.leftPositionInRightAlignmentEn(context, 0),
       bottom: 0,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
-        child: FooterButtonSpacer(
-            flyerBoxWidth: flyerBoxWidth,
-            tinyMode: tinyMode
-        ),
-        builder: (_, FlyerCounterModel counter, Widget spacer){
-
-          counter?.blogCounter();
+        builder: (_, FlyerCounterModel counter, Widget footerButtonSpacer){
 
           return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
 
               if (_canShow == true)
-                spacer,
+                footerButtonSpacer,
 
               /// SHARE
               if (_canShow == true)
@@ -82,7 +81,7 @@ class FlyerFooterButtons extends StatelessWidget {
                 ),
 
               if (_canShow == true)
-                spacer,
+                footerButtonSpacer,
 
               /// REVIEWS
               if (_canShow == true)
@@ -100,7 +99,7 @@ class FlyerFooterButtons extends StatelessWidget {
                 ),
 
               if (_canShow == true)
-                spacer,
+                footerButtonSpacer,
 
               /// SAVE BUTTON
               ValueListenableBuilder(
@@ -120,12 +119,16 @@ class FlyerFooterButtons extends StatelessWidget {
                 },
               ),
 
-              spacer,
+              footerButtonSpacer,
 
             ],
           );
 
         },
+        child: FooterButtonSpacer(
+            flyerBoxWidth: flyerBoxWidth,
+            tinyMode: tinyMode
+        ),
       ),
     );
 

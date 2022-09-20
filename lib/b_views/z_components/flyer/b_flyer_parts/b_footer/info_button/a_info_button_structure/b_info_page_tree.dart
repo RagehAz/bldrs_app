@@ -57,7 +57,7 @@ class InfoPageTree extends StatelessWidget {
       scrollerIsOn: false,
       child: ValueListenableBuilder(
         valueListenable: buttonIsExpanded,
-        builder: (_, bool _buttonIsExpanded, Widget child){
+        builder: (_, bool _buttonIsExpanded, Widget expandedInfoPageTree){
 
           return ListView(
             controller: infoPageVerticalController,
@@ -118,13 +118,7 @@ class InfoPageTree extends StatelessWidget {
 
               /// EXPANDED INFO PAGE TREE
               if (tinyMode == false && inFlight == false)
-                ExpandedInfoPageTree(
-                  buttonIsExpanded: buttonIsExpanded,
-                  flyerBoxWidth: flyerBoxWidth,
-                  flyerModel: flyerModel,
-                  flyerZone: flyerZone,
-                  flyerCounter: flyerCounter,
-                ),
+                expandedInfoPageTree,
 
 
             ],
@@ -133,7 +127,14 @@ class InfoPageTree extends StatelessWidget {
 
         },
 
-        child: Container(),
+        child: ExpandedInfoPageTree(
+          buttonIsExpanded: buttonIsExpanded,
+          flyerBoxWidth: flyerBoxWidth,
+          flyerModel: flyerModel,
+          flyerZone: flyerZone,
+          flyerCounter: flyerCounter,
+        ),
+
       ),
     );
 
