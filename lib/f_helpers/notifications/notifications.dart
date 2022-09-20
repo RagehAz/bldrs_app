@@ -310,6 +310,7 @@ class Notifications {
         // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
         // UNREGISTERED (HTTP 404)
         // INVALID_ARGUMENT (HTTP 400)
+        // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
 
         /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
 
