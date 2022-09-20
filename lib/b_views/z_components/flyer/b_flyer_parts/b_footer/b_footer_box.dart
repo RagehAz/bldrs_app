@@ -91,16 +91,22 @@ class FooterBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Align(
+      key: const ValueKey<String>('FooterBox'),
       alignment: Alignment.bottomCenter,
 
       /// --- FLYER FOOTER BOX
       child: ValueListenableBuilder(
         valueListenable: reviewButtonIsExpanded,
-        builder: (_, bool reviewButtonIsExpanded, Widget childA){
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: footerPageController,
+          children: footerPageViewChildren,
+        ),
+        builder: (_, bool reviewButtonIsExpanded, Widget footerChildrenWidget){
 
           return ValueListenableBuilder<bool>(
             valueListenable: infoButtonExpanded,
-            builder: (_,bool infoButtonExpanded, Widget childB){
+            builder: (_,bool infoButtonExpanded, Widget x){
               // -------------------------------------------------------
               final double _footerHeight =
               infoButtonExpanded == true ?
@@ -125,15 +131,10 @@ class FooterBox extends StatelessWidget {
                 height: _footerHeight,
                 duration: const Duration(milliseconds: 150),
                 // color: Colorz.bloodTest,
-                child: childB,
+                child: footerChildrenWidget,
               );
 
             },
-            child: PageView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: footerPageController,
-              children: footerPageViewChildren,
-            ),
           );
 
         },
@@ -142,5 +143,5 @@ class FooterBox extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

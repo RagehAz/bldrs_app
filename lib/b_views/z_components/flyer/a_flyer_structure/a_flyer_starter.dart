@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
@@ -10,7 +9,6 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -24,7 +22,7 @@ class FlyerStarter extends StatefulWidget {
   const FlyerStarter({
     @required this.flyerModel,
     @required this.minWidthFactor,
-    this.heroTag,
+    @required this.heroTag,
     this.isFullScreen = false,
     this.startFromIndex = 0,
     Key key
@@ -67,7 +65,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
   FlyerModel _flyerModel;
   // --------------------
   /// CURRENT SLIDE INDEX
-  ValueNotifier<ProgressBarModel> _progressBarModel;
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -75,12 +73,10 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
     _flyerModel = widget.flyerModel;
 
-    final bool _isSaved = UserModel.checkFlyerIsSaved(
+    _flyerIsSaved.value = UserModel.checkFlyerIsSaved(
       userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
       flyerID: _flyerModel.id,
     );
-
-    _flyerIsSaved = ValueNotifier(_isSaved);
 
   }
   // --------------------
@@ -93,7 +89,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
       _triggerLoading(setTo: true).then((_) async {
         BzModel _bzModel;
-// -----------------------------------------------------------------
+        // ----------
         /// BZ MODEL
         if (mounted == true){
           _bzModel = await getFlyerBzModel(
@@ -101,7 +97,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
             flyerModel: _flyerModel,
           );
         }
-// ------------------------------------------
+        // ----------
         /// BZ ZONE FIX
         if (mounted == true){
           _bzModel = await BzProtocols.completeBzZoneModel(
@@ -109,7 +105,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
             bzModel: _bzModel,
           );
         }
-// -----------------------------------------------------------------
+        // ----------
         CountryModel _flyerCountry;
         /// FLYER ZONE
         if (mounted == true){
@@ -118,7 +114,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
             countryID: widget.flyerModel.zone.countryID,
           );
         }
-
+        // ----------
         CityModel _flyerCity;
         if (mounted == true){
           _flyerCity = await getFlyerBzCity(
@@ -126,7 +122,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
             cityID: widget.flyerModel.zone.cityID,
           );
         }
-// -----------------------------------------------------------------
+        // ----------
         /// STARTING INDEX
         final int _startingIndex = getPossibleStartingIndex(
           flyerModel: widget.flyerModel,
@@ -134,14 +130,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
           heroTag: widget.heroTag,
           startFromIndex: widget.startFromIndex,
         );
-
-        // blog('POSSIBLE STARTING INDEX IS for ${widget.flyerModel.id}: $_startingIndex');
-
-// -----------------------------------------------------------------
-
+        // ----------
         /// SETTERS
-
+        // ----------
         if (mounted == true){
+
           _bzModelNotifier.value = _bzModel;
 
           _flyerZoneNotifier.value = getZoneModel(
@@ -157,18 +150,16 @@ class _FlyerStarterState extends State<FlyerStarter> {
             heroTag: widget.heroTag,
           );
 
-          final ProgressBarModel _initialProgModel = ProgressBarModel(
+          _progressBarModel.value = ProgressBarModel(
             swipeDirection: SwipeDirection.next,
             index: _startingIndex,
             numberOfStrips: _numberOfSlides,
           );
-          _progressBarModel = ValueNotifier(_initialProgModel);
 
         }
-
-// -----------------------------------------------------------------
+        // ----------
         await _triggerLoading(setTo: false);
-
+        // ----------
       }
       );
       _isInit = false;
@@ -213,7 +204,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
   }
   // --------------------
-  ValueNotifier<bool> _flyerIsSaved;
+  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   Future<void> onTriggerSave() async {
 
     if (mounted == true){
@@ -230,18 +221,14 @@ class _FlyerStarterState extends State<FlyerStarter> {
   @override
   Widget build(BuildContext context) {
 
-    // blog('flyer ID is ${widget.flyerModel.id} : parentID is ${widget.heroTag?? 'non'}');
-
-    final double _flyerBoxWidth = FlyerBox.width(context, widget.minWidthFactor);
-
     return ValueListenableBuilder(
-        key: ValueKey<String>('FlyerStarter_${widget.flyerModel?.id}'),
+        key: const ValueKey<String>('FlyerStarter'),
         valueListenable: _loading,
         child: FlyerLoading(flyerBoxWidth: widget.minWidthFactor,),
-        builder: (_, bool isLoading, Widget child){
+        builder: (_, bool isLoading, Widget flyerLoading){
 
           if (isLoading == true){
-            return child;
+            return flyerLoading;
           }
 
           else {
@@ -255,7 +242,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
                       builder: (_, ZoneModel flyerZone, Widget child){
 
                         if (bzModel == null || widget.flyerModel == null){
-                          return FlyerLoading(flyerBoxWidth: _flyerBoxWidth,);
+                          return flyerLoading;
                         }
 
                         else {

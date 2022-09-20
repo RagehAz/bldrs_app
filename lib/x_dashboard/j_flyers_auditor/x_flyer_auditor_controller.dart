@@ -178,9 +178,9 @@ Future<void> onVerifyFlyer({
       flyerID: flyerModel.id,
     );
 
-    CenterDialog.closeCenterDialog(context);
+    // await CenterDialog.closeCenterDialog(context);
 
-    TopDialog.showUnawaitedTopDialog(
+    await TopDialog.showTopDialog(
       context: context,
       firstVerse: Verse.plain('Done'),
       secondVerse: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
