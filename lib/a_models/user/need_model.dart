@@ -9,6 +9,7 @@ import 'package:bldrs/d_providers/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/atlas.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/stringers.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class NeedModel {
     @required this.bzzIDs,
     @required this.scope,
     @required this.location,
+    @required this.since,
   });
   /// --------------------------------------------------------------------------
   final NeedType needType;
@@ -41,6 +43,7 @@ class NeedModel {
   final String notes;
   final List<String> flyerIDs;
   final List<String> bzzIDs;
+  final DateTime since;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -59,6 +62,7 @@ class NeedModel {
       notes: '',
       flyerIDs: const [],
       bzzIDs: const [],
+      since: DateTime.now(),
     );
   }
   // --------------------
@@ -101,6 +105,7 @@ class NeedModel {
     String notes,
     List<String> flyerIDs,
     List<String> bzzIDs,
+    DateTime since,
   }){
     return NeedModel(
       needType: needType ?? this.needType,
@@ -110,6 +115,7 @@ class NeedModel {
       notes: notes ?? this.notes,
       flyerIDs: flyerIDs ?? this.flyerIDs,
       bzzIDs: bzzIDs ?? this.bzzIDs,
+      since: since ?? this.since,
     );
   }
   // --------------------
@@ -122,6 +128,7 @@ class NeedModel {
     bool notes = false,
     bool flyerIDs = false,
     bool bzzIDs = false,
+    bool since = false,
   }){
     return NeedModel(
       needType: needType == true ? null : this.needType,
@@ -131,6 +138,7 @@ class NeedModel {
       notes: notes == true ? null : this.notes,
       flyerIDs: flyerIDs == true ? null : this.flyerIDs,
       bzzIDs: bzzIDs == true ? null : this.bzzIDs,
+      since: since == true ? null : this.since,
     );
   }
   // -----------------------------------------------------------------------------
@@ -150,6 +158,7 @@ class NeedModel {
       'notes': notes,
       'flyerIDs': flyerIDs,
       'bzzIDs': bzzIDs,
+      'since': Timers.cipherTime(time: since, toJSON: toJSON),
     };
   }
   // --------------------
@@ -169,6 +178,7 @@ class NeedModel {
         notes: map['notes'],
         flyerIDs: Stringer.getStringsFromDynamics(dynamics: map['flyerIDs']),
         bzzIDs: Stringer.getStringsFromDynamics(dynamics: map['bzzIDs']),
+        since: Timers.decipherTime(time: map['since'], fromJSON: fromJSON),
       );
     }
 
@@ -357,6 +367,7 @@ class NeedModel {
       bzzIDs: _userModel.followedBzzIDs,
       flyerIDs: _userModel.savedFlyersIDs,
       location: Atlas.dummyLocation(),
+      since: Timers.createDate(year: 1987, month: 06, day: 10),
     );
 
   }
@@ -368,12 +379,12 @@ class NeedModel {
   /// TESTED : WORKS PERFECT
   void blogNeed(){
     blog('needType : $needType');
-    blog('zone : $zone');
     blog('description : $notes');
     blog('flyerIDs : $flyerIDs');
     blog('bzzIDs : $bzzIDs');
     blog('scope : $scope');
     blog('position : $location');
+    zone.blogZoneIDs();
   }
   // -----------------------------------------------------------------------------
 

@@ -52,7 +52,7 @@ class ZoneLine extends StatelessWidget {
             italic: true,
             color: Colorz.grey255,
             margin: 5,
-            maxLines: 2,
+            maxLines: 3,
           ),
 
         ],

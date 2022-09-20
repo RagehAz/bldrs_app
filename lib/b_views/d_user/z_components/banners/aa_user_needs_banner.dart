@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -68,6 +69,13 @@ class UserNeedsBanner extends StatelessWidget {
           size: 4,
           color: Colorz.yellow255,
           italic: true,
+        ),
+
+        /// NEED LOCALE
+        ZoneLine(
+          zoneModel: _userModel?.need?.zone,
+          // showCity: true,
+          // showDistrict: true,
         ),
 
         /// NOTES
