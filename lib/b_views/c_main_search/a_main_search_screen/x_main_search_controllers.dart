@@ -342,11 +342,11 @@ Future<void> _handleSearchResult({
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: const Verse(
+      firstVerse: const Verse(
         text: 'phid_no_result_found',
         translate: true,
       ),
-      secondLine: const Verse(
+      secondVerse: const Verse(
         pseudo: 'Try again with different words',
         text: 'phid_try_again_with_different_words',
         translate: true,

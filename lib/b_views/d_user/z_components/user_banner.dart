@@ -117,7 +117,6 @@ class UserBanner extends StatelessWidget {
         Center(
           child: UserBalloon(
             size: 80,
-            userStatus: userModel?.status,
             userModel: userModel,
             loading: false,
             showEditButton: _thereAreMissingFields && _itIsMe,

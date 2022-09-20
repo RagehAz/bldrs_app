@@ -13,17 +13,16 @@ class UserBalloon extends StatelessWidget {
     @required this.userModel,
     @required this.size,
     @required this.loading,
-    this.userStatus,
     this.blackAndWhite = false,
     this.onTap,
     this.balloonColor,
     this.child,
     this.shadowIsOn = true,
     this.showEditButton = false,
+    this.balloonTypeOverride,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final UserStatus userStatus;
   final UserModel userModel;
   final double size;
   final bool blackAndWhite;
@@ -33,6 +32,7 @@ class UserBalloon extends StatelessWidget {
   final Widget child;
   final bool shadowIsOn;
   final bool showEditButton;
+  final BalloonType balloonTypeOverride;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class UserBalloon extends StatelessWidget {
           Balloona(
               balloonWidth: size,
               onTap: onTap,
-              balloonType: concludeBalloonByUserStatus(userStatus ?? UserStatus.normal),
+              balloonType: balloonTypeOverride ?? Balloon.concludeBalloonByNeedType(userModel?.need?.needType),
               pic: userModel?.pic,
               shadowIsOn: shadowIsOn,
               loading: loading,

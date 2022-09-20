@@ -59,6 +59,8 @@ class BubbleHeaderVM {
     ValueChanged<bool> onSwitchTap,
     Function onMoreButtonTap,
     bool redDot,
+    Function onLeadingIconTap,
+    bool centered,
   }){
     return BubbleHeaderVM(
       headerWidth: headerWidth ?? this.headerWidth,
@@ -74,6 +76,8 @@ class BubbleHeaderVM {
       onSwitchTap: onSwitchTap ?? this.onSwitchTap,
       onMoreButtonTap: onMoreButtonTap ?? this.onMoreButtonTap,
       redDot: redDot ?? this.redDot,
+      onLeadingIconTap: onLeadingIconTap ?? this.onLeadingIconTap,
+      centered: centered ?? this.centered,
     );
   }
   /// --------------------------------------------------------------------------

@@ -541,7 +541,7 @@ Future<bool> _preFlyerUpdateCheck({
         if (draft.value.headline.length < 10){
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: const Verse(
+            firstVerse: const Verse(
               pseudo: 'Flyer headline can not be less than 10 characters long',
               text: 'phid_flyer_headline_length_notice',
               translate: true,

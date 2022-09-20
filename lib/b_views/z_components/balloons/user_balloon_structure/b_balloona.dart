@@ -33,7 +33,7 @@ class Balloona extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper _clipper = getBalloonClipPath(balloonType) ;
+    final CustomClipper _clipper = Balloon.getBalloonClipPath(balloonType) ;
 
     return SizedBox(
       width: balloonWidth,

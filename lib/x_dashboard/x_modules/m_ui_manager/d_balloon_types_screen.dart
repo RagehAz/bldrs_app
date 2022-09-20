@@ -1,4 +1,6 @@
+import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -17,7 +19,7 @@ class BalloonTypesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    const List<UserStatus> _balloonTypes = UserModel.userStatuses;
+    const List<NeedType> _needTypes = NeedModel.needsTypes;
 
     return MainLayout(
       sectionButtonIsOn: false,
@@ -28,9 +30,9 @@ class BalloonTypesScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
 
-          ...List.generate(_balloonTypes.length, (index){
+          ...List.generate(_needTypes.length, (index){
 
-            final UserStatus _balloonType = _balloonTypes[index];
+            final NeedType _needType = _needTypes[index];
 
             return Container(
               padding: Scale.superMargins(margins: 10),
@@ -43,7 +45,7 @@ class BalloonTypesScreen extends StatelessWidget {
                 children: <Widget>[
 
                   UserBalloon(
-                    userStatus: _balloonType,
+                    balloonTypeOverride: Balloon.concludeBalloonByNeedType(_needType),
                     userModel: UserModel.dummyUserModel(context),
                     size: 50,
                     loading: false,
@@ -51,7 +53,7 @@ class BalloonTypesScreen extends StatelessWidget {
 
                   SuperVerse(
                     verse: Verse(
-                      text: _balloonType.toString(),
+                      text: _needType.toString(),
                       translate: false,
                     ),
                     margin: 10,

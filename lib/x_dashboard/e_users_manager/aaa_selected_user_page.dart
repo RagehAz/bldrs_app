@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_profile_banners.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
@@ -92,11 +93,18 @@ class SelectedUserPage extends StatelessWidget {
         ),
       ),
 
-      /// STATUS
+      /// NEED TYPE
       DataStrip(
         color: Colorz.black255,
-        dataKey: 'Status',
-        dataValue: UserModel.cipherUserStatus(userModel.status),
+        dataKey: 'Need type',
+        dataValue: NeedModel.cipherNeedType(userModel.need?.needType),
+      ),
+
+      /// NEED NOTES
+      DataStrip(
+        color: Colorz.black255,
+        dataKey: 'need notes',
+        dataValue: userModel.need?.notes,
       ),
 
       /// GENDER
