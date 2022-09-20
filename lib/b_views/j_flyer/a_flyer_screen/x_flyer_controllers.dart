@@ -280,11 +280,13 @@ FlightDirection getFlightDirection(String direction){
 /// GALLERY
 
 // --------------------
+/// TESTED : WORKS PERFECT
 bool canShowGalleryPage({
   @required BzModel bzModel,
   @required String heroTag,
 }){
   bool _canShowGallery = false;
+  assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
 
   if (bzModel != null){
 
@@ -295,10 +297,10 @@ bool canShowGalleryPage({
 
       /// & only CAN SHOW : WHEN HERO TAG CONTAINS MORE THAN 1 FLYER ID
       final List<String> _heroFlyersIDs = splitHeroTagIntoFlyersIDs(heroTag: heroTag);
-      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.length > 1;
+      final bool _heroTagHasMoreThanOneFlyerID = _heroFlyersIDs.isNotEmpty;
 
       /// & only CAN SHOW : WHEN HERO TAG HAS LESS THAN 3 FLYERS IDS
-      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 3;
+      final bool _heroTagHasLessThanThreeFlyersIDs = _heroFlyersIDs.length < 2;
 
       /// so :-
       if (_bzHasMoreThanOneFlyer == true){

@@ -129,29 +129,34 @@ class Colorizer {
   static Future<Color> getAverageColor(dynamic pic) async {
 
     final File _imageFile = await Filers.getFileFromDynamics(pic);
+    Color _color;
 
-    final Image.Image bitmap = Image.decodeImage(_imageFile.readAsBytesSync());
+    if (_imageFile != null){
 
-    int redBucket = 0;
-    int greenBucket = 0;
-    int blueBucket = 0;
-    int pixelCount = 0;
+      final Image.Image bitmap = Image.decodeImage(_imageFile?.readAsBytesSync());
 
-    for (int y = 0; y < bitmap.height; y++) {
-      for (int x = 0; x < bitmap.width; x++) {
-        final int c = bitmap.getPixel(x, y);
+      int redBucket = 0;
+      int greenBucket = 0;
+      int blueBucket = 0;
+      int pixelCount = 0;
 
-        pixelCount++;
-        redBucket += Image.getRed(c);
-        greenBucket += Image.getGreen(c);
-        blueBucket += Image.getBlue(c);
+      for (int y = 0; y < bitmap.height; y++) {
+        for (int x = 0; x < bitmap.width; x++) {
+          final int c = bitmap.getPixel(x, y);
+
+          pixelCount++;
+          redBucket += Image.getRed(c);
+          greenBucket += Image.getGreen(c);
+          blueBucket += Image.getBlue(c);
+        }
       }
+
+      _color = Color.fromRGBO(redBucket ~/ pixelCount,
+          greenBucket ~/ pixelCount, blueBucket ~/ pixelCount, 1);
+
     }
 
-    final Color _averageColor = Color.fromRGBO(redBucket ~/ pixelCount,
-        greenBucket ~/ pixelCount, blueBucket ~/ pixelCount, 1);
-
-    return _averageColor;
+    return _color;
   }
   // -----------------------------------------------------------------------------
 

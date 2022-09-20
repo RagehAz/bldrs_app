@@ -147,6 +147,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
           FlyerStarter(
             minWidthFactor: FlyerBox.sizeFactorByWidth(context, _screenWidth * 0.7),
             flyerModel: widget.flyer,
+            heroTag: 'flyerPromotionScreen',
           ),
 
           const Expander(),

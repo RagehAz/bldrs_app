@@ -44,50 +44,14 @@ class FlyerScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colorz.skyDarkBlue,
-        body: Center(
-          child:
-
-          // ChangeNotifierProvider.value(
-          //   value: _flyer,
-          //   child: ChangeNotifierProvider.value(
-          //     value: _bz,
-          //     child: Flyer(
-          //       flyerSizeFactor: 1,// golden factor 0.97,
-          //       initialSlide: 0,
-          //       slidingIsOn: true,
-          //       tappingFlyerZone: (){},
-          //
-          //     ),
-          //   ),
-          // ),
-
-          ///
-
-          // flyerModelBuilder(
-          //   context: context,
-          //   tinyFlyer : _tinyFlyer,
-          //   flyerSizeFactor: 1,
-          //   builder: (ctx, flyerModel){
-          //     return
-          //         NormalFlyerWidget(
-          //             flyer: flyerModel,
-          //             flyerSizeFactor: 1,
-          //         );
-          //   }
-          //
-          // ),
-
-          ///
-
-          FlyerStarter(
-            key: PageStorageKey<String>(_flyerID),
-            minWidthFactor: 1,
-            isFullScreen: true,
-            flyerModel: flyerModel,
-            startFromIndex: initialSlideIndex ?? 0,
-            // isSponsored: isSponsored,
-          ),
-
+        body: FlyerStarter(
+          key: PageStorageKey<String>(_flyerID),
+          minWidthFactor: 1,
+          isFullScreen: true,
+          flyerModel: flyerModel,
+          startFromIndex: initialSlideIndex ?? 0,
+          heroTag: 'FlyerScreen',
+          // isSponsored: isSponsored,
         ),
       ),
     );
