@@ -377,36 +377,43 @@ class ZoneModel {
     bool showDistrict = true,
   }){
 
-    String _verse = '...';
+    zoneModel.blogZone(methodName: 'translateZoneString');
+
+    String _text = '...';
     final String _inn = xPhrase(context, 'phid_inn');
 
-    if (zoneModel?.countryID != null){
+    if (zoneModel != null){
 
-      final String _countryName = CountryModel.translateCountryName(
-        context: context,
-        countryID: zoneModel.countryID,
-      );
+      if (zoneModel.countryID != null){
 
-      _verse = '$_inn $_countryName';
-
-      if (showCity == true && zoneModel?.cityModel != null){
-
-        final String _cityName = CityModel.getTranslatedCityNameFromCity(
+        final String _countryName = CountryModel.translateCountryName(
           context: context,
-          city: zoneModel.cityModel,
+          countryID: zoneModel.countryID,
         );
 
-        _verse = '$_inn $_cityName, $_countryName';
+        _text = '$_inn $_countryName';
 
-        if (showDistrict == true && zoneModel.districtID != null){
 
-          final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+        if (showCity == true && zoneModel.cityModel != null){
+
+          final String _cityName = CityModel.getTranslatedCityNameFromCity(
             context: context,
             city: zoneModel.cityModel,
-            districtID: zoneModel.districtID,
           );
 
-          _verse = '$_inn $_districtName, $_cityName, $_countryName';
+          _text = '$_inn $_cityName, $_countryName';
+
+          if (showDistrict == true && zoneModel.districtID != null){
+
+            final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
+              context: context,
+              city: zoneModel.cityModel,
+              districtID: zoneModel.districtID,
+            );
+
+            _text = '$_inn $_districtName, $_cityName, $_countryName';
+
+          }
 
         }
 
@@ -415,7 +422,7 @@ class ZoneModel {
     }
 
     return Verse(
-      text: _verse,
+      text: _text,
       translate: false,
     );
   }
