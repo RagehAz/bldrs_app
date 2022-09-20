@@ -18,7 +18,7 @@ import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/user_profile/user_banner.dart';
+import 'package:bldrs/b_views/d_user/z_components/user_banner.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
