@@ -90,7 +90,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: () {
+              onHeaderLeadinIconTap: () {
                 blog('value is : ${_minController.text}');
 
                 final int _value = Numeric.transformStringToInt(_minController.text);
@@ -107,7 +107,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: () {
+              onHeaderLeadinIconTap: () {
                 blog('value is : ${_maxController.text}');
 
                 final int _value = Numeric.transformStringToInt(_maxController.text);
@@ -124,7 +124,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
               actionBtIcon: Iconz.plus,
-              actionBtFunction: () {
+              onHeaderLeadinIconTap: () {
                 blog('value is : ${_divisionsController.text}');
 
                 final int _value =

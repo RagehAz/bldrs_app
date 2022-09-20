@@ -74,7 +74,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
       TopDialog.showUnawaitedTopDialog(
         context: context,
-        firstLine: const Verse(
+        firstVerse: const Verse(
           text: 'phid_select_promotion_target_city',
           translate: true,
         ),

@@ -102,7 +102,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         if (isConnected == true){
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: const Verse(
+            firstVerse: const Verse(
               text: 'phid_connected',
               translate: true,
             ),
@@ -114,11 +114,11 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
         else {
           TopDialog.showUnawaitedTopDialog(
             context: context,
-            firstLine: const Verse(
+            firstVerse: const Verse(
               text: 'phid_disconnected',
               translate: true,
             ),
-            secondLine: const Verse(
+            secondVerse: const Verse(
               text: 'phid_check_your_internet_connection',
               translate: true,
             ),

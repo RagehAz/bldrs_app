@@ -1,20 +1,19 @@
-import 'package:bldrs/a_models/chain/d_spec_model.dart';
-import 'package:bldrs/a_models/flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/user/need_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/x_bz_editor_screen_controllers.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
+import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/multiple_choice_bubble.dart';
-import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
 class NeedEditorScreen extends StatefulWidget {
@@ -92,6 +91,20 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   Future<void> onConfirmEditingNeed() async {
 
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final UserModel _updatedUser = _userModel.copyWith(
+      need: _need.value,
+    );
+
+    await UserProtocols.renovateMyUserModel(
+        context: context,
+        newUserModel: _updatedUser,
+    );
+
   }
   // -----------------------------------------------------------------------------
   @override
@@ -137,67 +150,81 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                 children: <Widget>[
 
                   /// NEED TYPE SELECTION
-                  MultipleChoiceBubble(
-                    titleVerse: const Verse(
-                      pseudo: 'What are you planning for ?',
-                      text: 'phid_what_are_you_looking_for',
-                      translate: true,
-                    ),
-                    onButtonTap: (int index){
-                      blog('selected this shit : ${NeedModel.needsType[index]}');
-                      _need.value = _need.value.copyWith(
-                        needType: NeedModel.needsType[index],
-                      );
-                    },
-                    selectedButtonsPhids: <String>[NeedModel.getNeedTypePhid(need.needType)],
-                    buttonsVerses: NeedModel.getNeedsTypesVerses(
-                      context: context,
-                      needsTypes: NeedModel.needsType,
-                    ),
-                    wrapButtons: false,
-                  ),
+                  Bubble(
+                      headerViewModel: const BubbleHeaderVM(),
+                      childrenCentered: true,
+                      columnChildren: <Widget>[
 
-                  /// SCOPE SELECTOR
-                  ScopeSelectorBubble(
-                    headlineVerse: const Verse(
-                      text: 'phid_specs',
-                      translate: true,
-                    ),
-                    flyerTypes: NeedModel.concludeFlyersTypesByNeedType(need.needType),
-                    selectedSpecs: SpecModel.generateSpecsByPhids(
-                      context: context,
-                      phids: need.scope,
-                    ),
-                    bulletPoints: const <Verse>[
-                      Verse(
-                        text: 'x',
-                        translate: true,
-                      )
-                    ],
-                    addButtonVerse: const Verse(
-                      text: 'phid_add_specs',
-                      translate: true,
-                    ),
-                    onAddScope: (FlyerType flyerType) => onAddScopesTap(
-                        context: context,
-                        selectedSpecs: SpecModel.generateSpecsByPhids(
-                          context: context,
-                          phids: need.scope,
+                        /// WHAT ARE YOU LOOKING FOR
+                        const SuperVerse(
+                          verse: Verse(
+                            text: 'phid_what_are_you_looking_for',
+                            translate: true,
+                            casing: Casing.upperCase,
+                          ),
+                          margin: 20,
+                          maxLines: 3,
+                          size: 3,
+                          weight: VerseWeight.black,
+                          color: Colorz.yellow255,
+                          shadow: true,
                         ),
-                        flyerType: flyerType,
-                        zone: need.zone,
-                        onlyChainKSelection: false,
-                        onFinish: (List<SpecModel> specs) async {
-                          if (specs != null){
-                            _need.value = _need.value.copyWith(
-                              scope: SpecModel.getSpecsIDs(specs),
-                            );
-                          }
-                        },
-                    ),
+
+                        /// BULLET POINTS
+                        BulletPoints(
+                          bubbleWidth: Bubble.clearWidth(context) - 50,
+                          centered: true,
+                          bulletPoints: const <Verse>[
+                            Verse(
+                              text: 'phid_all_businesses_can_see_this',
+                              translate: true,
+                            ),
+                            Verse(
+                              text: 'phid_businesses_can_respond_and_ask_for_more_info',
+                              translate: true,
+                            ),
+
+                          ],
+                        ),
+
+                        /// BUTTONS
+                        ...List.generate(NeedModel.needsTypes.length, (index){
+
+                          final NeedType _type = NeedModel.needsTypes[index];
+                          final bool _isSelected = need.needType == _type;
+
+                          return Bubble(
+                            width: Bubble.clearWidth(context),
+                            bubbleColor: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
+                            headerViewModel: const BubbleHeaderVM(),
+                            onBubbleTap: (){
+                              _need.value = _need.value.copyWith(needType: _type,);
+                            },
+                            childrenCentered: true,
+                            columnChildren: <Widget>[
+
+                              SizedBox(
+                                width: Bubble.clearWidth(context),
+                                child: SuperVerse(
+                                  verse: Verse(
+                                    text: NeedModel.getNeedTypePhid(_type),
+                                    translate: true,
+                                  ),
+                                  color: _isSelected == true ? Colorz.black255 : Colorz.white255,
+                                  italic: true,
+                                ),
+                              ),
+
+                            ],
+                          );
+
+                        }),
+
+                      ]
                   ),
 
-                  /// NEED ZONE
+                  /// PLAN : NEED ZONE : not necessary now,, will use user zone as default in initial testing phases
+                  /*
                   ZoneSelectionBubble(
                     titleVerse: const Verse(
                       text: 'phid_zone',
@@ -219,6 +246,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       canValidate: true,
                     ),
                   ),
+                  */
 
                   /// NEED DESCRIPTION
                   TextFieldBubble(
@@ -238,10 +266,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     maxLength: 1000,
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
-                    initialText: need?.description,
+                    initialText: need?.notes,
                     textOnChanged: (String text){
                       _need.value = _need.value.copyWith(
-                        description: text,
+                        notes: text,
                       );
                     },
                     // autoValidate: true,
@@ -250,7 +278,52 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     },
                   ),
 
-                  /// SELECT FLYERS BUBBLE
+                  /// PLAN : SCOPE SELECTOR : put it later after we test : it might be ..
+                  /// PLAN : overwhelming and complex for users now to handle
+                  /*
+                  ScopeSelectorBubble(
+                    headlineVerse: const Verse(
+                      text: 'phid_specs',
+                      translate: true,
+                    ),
+                    flyerTypes: NeedModel.concludeFlyersTypesByNeedType(need.needType),
+                    selectedSpecs: SpecModel.generateSpecsByPhids(
+                      context: context,
+                      phids: need.scope,
+                    ),
+                    bulletPoints: const <Verse>[
+                      Verse(
+                        text: 'x',
+                        translate: true,
+                      )
+                    ],
+                    addButtonVerse: const Verse(
+                      text: 'phid_add_specs',
+                      translate: true,
+                    ),
+                    onAddScope: (FlyerType flyerType) => onAddScopesTap(
+                      context: context,
+                      selectedSpecs: SpecModel.generateSpecsByPhids(
+                        context: context,
+                        phids: need.scope,
+                      ),
+                      flyerType: flyerType,
+                      zone: need.zone,
+                      onlyChainKSelection: false,
+                      onFinish: (List<SpecModel> specs) async {
+                        if (specs != null){
+                          _need.value = _need.value.copyWith(
+                            scope: SpecModel.getSpecsIDs(specs),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                   */
+
+                  /// PLAN : SELECT FLYERS BUBBLE
+
+                  const Horizon(),
 
                 ],
               );

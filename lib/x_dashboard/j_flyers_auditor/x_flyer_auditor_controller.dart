@@ -182,8 +182,8 @@ Future<void> onVerifyFlyer({
 
     TopDialog.showUnawaitedTopDialog(
       context: context,
-      firstLine: Verse.plain('Done'),
-      secondLine: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
+      firstVerse: Verse.plain('Done'),
+      secondVerse: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
       color: Colorz.green255,
       milliseconds: 500,
     );

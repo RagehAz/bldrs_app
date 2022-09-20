@@ -203,6 +203,8 @@ class Keyboard {
   static Future<void> copyToClipboard({
     @required BuildContext context,
     @required String copy,
+    bool awaitTheDialog = false,
+    int milliseconds,
   }) async {
 
     await Clipboard.setData(
@@ -211,14 +213,30 @@ class Keyboard {
         )
     );
 
-    TopDialog.showUnawaitedTopDialog(
-      context: context,
-      firstLine: const Verse(
-        text: 'phid_copied_to_clipboard',
-        translate: true,
-      ),
-      secondLine: Verse.plain(copy),
-    );
+    if (awaitTheDialog == false){
+      TopDialog.showUnawaitedTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          text: 'phid_copied_to_clipboard',
+          translate: true,
+        ),
+        secondVerse: Verse.plain(copy),
+        milliseconds: milliseconds,
+      );
+    }
+    else {
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          text: 'phid_copied_to_clipboard',
+          translate: true,
+        ),
+        secondVerse: Verse.plain(copy),
+        milliseconds: milliseconds,
+      );
+    }
+
+
 
     blog('copied to clipboard : $copy');
   }

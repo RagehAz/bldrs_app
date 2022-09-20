@@ -39,7 +39,7 @@ class TextFieldBubble extends StatelessWidget {
     this.fieldIsRequired = false,
     // this.loading = false,
     this.actionBtIcon,
-    this.actionBtFunction,
+    this.onHeaderLeadinIconTap,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -79,7 +79,7 @@ class TextFieldBubble extends StatelessWidget {
   final bool fieldIsRequired;
   // final bool loading;
   final String actionBtIcon;
-  final Function actionBtFunction;
+  final Function onHeaderLeadinIconTap;
   final String leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
@@ -181,7 +181,7 @@ class TextFieldBubble extends StatelessWidget {
           headlineVerse: titleVerse,
           redDot: fieldIsRequired,
           leadingIcon: actionBtIcon,
-          onLeadingIconTap: actionBtFunction,
+          onLeadingIconTap: onHeaderLeadinIconTap,
         ),
         width: _bubbleWidth,
         onBubbleTap: onBubbleTap,

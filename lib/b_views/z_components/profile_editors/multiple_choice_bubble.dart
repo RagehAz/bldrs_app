@@ -137,7 +137,7 @@ class _ButtonsBuilder extends StatelessWidget {
 
               return _TheButton(
                 icon: null,
-                verse: buttonsVerses[index],
+                verse: _buttonVerse,
                 isDeactivated: _isDeactivated,
                 isSelected: _isSelected,
                 onTap: () => onButtonTap(index),

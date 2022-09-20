@@ -24,7 +24,7 @@ Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
 
   TopDialog.showUnawaitedTopDialog(
     context: context,
-    firstLine: Verse.plain('showOnlyVerifiedFlyersInHomeWall updated to : $value'),
+    firstVerse: Verse.plain('showOnlyVerifiedFlyersInHomeWall updated to : $value'),
     color: Colorz.green255,
   );
 
