@@ -17,7 +17,6 @@ class FooterShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    // final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
     final double _footerHeight = FooterBox.collapsedHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,

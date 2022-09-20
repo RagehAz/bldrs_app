@@ -44,10 +44,10 @@ class FlyerFooter extends StatefulWidget {
 
 class _FlyerFooterState extends State<FlyerFooter> {
   // -----------------------------------------------------------------------------
-  ScrollController _infoPageVerticalController;
-  ScrollController _reviewPageVerticalController;
-  TextEditingController _reviewTextController;
-  ValueNotifier<FlyerCounterModel> _flyerCounter;
+  final ScrollController _infoPageVerticalController = ScrollController();
+  final ScrollController _reviewPageVerticalController = ScrollController();
+  final TextEditingController _reviewTextController = TextEditingController();
+  final ValueNotifier<FlyerCounterModel> _flyerCounter = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -67,33 +67,31 @@ class _FlyerFooterState extends State<FlyerFooter> {
   @override
   void initState() {
     super.initState();
-    _flyerCounter = ValueNotifier(null);
-    _infoPageVerticalController = ScrollController(); /// tamam
-    _reviewPageVerticalController = ScrollController(); /// tamam
-    _reviewTextController = TextEditingController(); /// tamam
   }
   // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
     if (_isInit) {
-
+      // ----------
       _triggerLoading(setTo: true).then((_) async {
-// -----------------------------------------------------------------
+        // ----------
         final FlyerCounterModel _counter = await FlyerRecordRealOps.readFlyerCounters(
           context: context,
           flyerID: widget.flyerModel.id,
         );
-
+        // ----------
         setNotifier(
           notifier: _flyerCounter,
           mounted: mounted,
           value: _counter,
+          addPostFrameCallBack: false,
         );
-// -----------------------------------------------------------------
+        // ----------
         await _triggerLoading(setTo: false);
+        // ----------
       });
-
+      // ----------
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -177,17 +175,16 @@ class _FlyerFooterState extends State<FlyerFooter> {
     // --------------------
     return ValueListenableBuilder(
       valueListenable: widget.headerIsExpanded,
-      builder: (_, bool _headerIsExpanded, Widget child){
+      builder: (_, bool _headerIsExpanded, Widget footerWidgets){
 
         return AnimatedOpacity(
           opacity: _headerIsExpanded ? 0 : 1,
           duration: Ratioz.duration150ms,
-          child: child,
+          child: footerWidgets,
         );
 
       },
       child: FooterBox(
-        key: const ValueKey<String>('Flyer_footer_box'),
         flyerBoxWidth: widget.flyerBoxWidth,
         footerPageController: widget.footerPageController,
         infoButtonExpanded: _infoButtonExpanded,

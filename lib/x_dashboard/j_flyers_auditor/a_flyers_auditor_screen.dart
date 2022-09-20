@@ -449,7 +449,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
                       flyerModel: flyer,
                       flyers: _flyers,
                     ),
-
+                    heroTag: 'flyerAuditorScreenGrid',
                   );
                 }
 

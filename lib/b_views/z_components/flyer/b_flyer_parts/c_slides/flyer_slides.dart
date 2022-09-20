@@ -81,7 +81,7 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
 
       return ValueListenableBuilder(
           valueListenable: widget.progressBarModel,
-          builder: (_, ProgressBarModel progModel, Widget child){
+          builder: (_, ProgressBarModel progModel, Widget gallerySlide){
 
             return HorizontalBouncer(
               numberOfSlides: progModel.numberOfStrips,
@@ -122,13 +122,7 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
                   /// WHEN AT GALLERY SLIDE IF EXISTED
                   else {
 
-                    return GallerySlide(
-                      flyerBoxWidth: widget.flyerBoxWidth,
-                      flyerBoxHeight: widget.flyerBoxHeight,
-                      flyerModel: widget.flyerModel,
-                      bzModel: widget.bzModel,
-                      heroTag: widget.heroTag,
-                    );
+                    return gallerySlide;
 
                   }
 
@@ -136,7 +130,14 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
               ),
             );
 
-          }
+          },
+        child: GallerySlide(
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerBoxHeight: widget.flyerBoxHeight,
+          flyerModel: widget.flyerModel,
+          bzModel: widget.bzModel,
+          heroTag: widget.heroTag,
+        ),
       );
 
     }

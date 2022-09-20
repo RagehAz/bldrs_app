@@ -420,7 +420,7 @@ class Dialogs {
       height: Scale.superScreenHeight(context) * 0.6,
       onOk: () async {
 
-        CenterDialog.closeCenterDialog(context);
+        await CenterDialog.closeCenterDialog(context);
         Keyboard.closeKeyboard(context);
 
       },
@@ -833,6 +833,7 @@ class Dialogs {
           gridHeight: _gridHeight,
           topPadding: 0,
           numberOfColumnsOrRows: 1,
+          heroTag: 'flyersDialogGrid',
         ),
       ),
 
@@ -870,6 +871,7 @@ class Dialogs {
           child: FlyerStarter(
             flyerModel: flyer,
             minWidthFactor: FlyerBox.sizeFactorByHeight(context, _flyerBoxHeight),
+            heroTag: 'flyerDialogGrid',
           ),
         ),
       ),
