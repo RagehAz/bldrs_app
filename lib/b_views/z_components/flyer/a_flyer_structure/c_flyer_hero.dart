@@ -38,6 +38,30 @@ class FlyerHero extends StatelessWidget {
   final ValueNotifier<bool> flyerIsSaved; /// p
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
+  Widget buildFlight(
+      BuildContext flightContext,
+      Animation<double> animation,
+      HeroFlightDirection flightDirection,
+      BuildContext fromHeroContext,
+      BuildContext toHeroContext,
+      ){
+
+    return flyerFlightShuttle(
+      flyerModel: flyerModel,
+      bzModel: bzModel,
+      minWidthFactor: minWidthFactor,
+      animation: animation,
+      flightContext: flightContext,
+      flightDirection: flightDirection,
+      fromHeroContext: fromHeroContext,
+      toHeroContext: toHeroContext,
+      progressBarModel: progressBarModel,
+      flyerIsSaved: flyerIsSaved,
+      onSaveFlyer: onSaveFlyer,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -48,34 +72,10 @@ class FlyerHero extends StatelessWidget {
     final double _factor = isFullScreen ?  1 : minWidthFactor;
     final double _flyerBoxWidth = FlyerBox.width(context, _factor);
 
-    // blog('THE FUCKING BITCH ASS FLYER : ${flyerModel.id} SHOULD START AT : ${currentSlideIndex.value}');
-
     return Hero(
-      key: ValueKey<String>(_heroTag),
+      key: const ValueKey<String>('FlyerHero'),
       tag: _heroTag,
-      flightShuttleBuilder: (
-          BuildContext flightContext,
-          Animation<double> animation,
-          HeroFlightDirection flightDirection,
-          BuildContext fromHeroContext,
-          BuildContext toHeroContext,
-          ){
-
-        return flyerFlightShuttle(
-          flyerModel: flyerModel,
-          bzModel: bzModel,
-          minWidthFactor: minWidthFactor,
-          animation: animation,
-          flightContext: flightContext,
-          flightDirection: flightDirection,
-          fromHeroContext: fromHeroContext,
-          toHeroContext: toHeroContext,
-          progressBarModel: progressBarModel,
-          flyerIsSaved: flyerIsSaved,
-          onSaveFlyer: onSaveFlyer,
-        );
-      },
-
+      flightShuttleBuilder: buildFlight,
       child: FlyerTree(
         flyerBoxWidth: _flyerBoxWidth,
         flyerModel: flyerModel,

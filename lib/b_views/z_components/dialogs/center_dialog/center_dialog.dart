@@ -100,8 +100,8 @@ class CenterDialog extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void closeCenterDialog(BuildContext context){
-    Nav.goBack(
+  static Future<void> closeCenterDialog(BuildContext context) async {
+    await Nav.goBack(
       context: context,
       invoker: 'closeCenterDialog',
     );

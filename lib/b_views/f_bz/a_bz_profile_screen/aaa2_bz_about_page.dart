@@ -124,6 +124,7 @@ class BzAboutPage extends StatelessWidget {
             scrollController: ScrollController(),
             paginationFlyersIDs: _bzModel.flyersIDs,
             topPadding: 0,
+            heroTag: 'BzAboutPageFlyersGrid',
           ),
 
         const Horizon(),

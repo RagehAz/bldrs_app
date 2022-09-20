@@ -291,7 +291,7 @@ class Nav {
 
     if (_result == true){
 
-      CenterDialog.closeCenterDialog(context);
+      await CenterDialog.closeCenterDialog(context);
 
       await Future.delayed(const Duration(milliseconds: 500), () async {
         await Nav.closeApp(context);

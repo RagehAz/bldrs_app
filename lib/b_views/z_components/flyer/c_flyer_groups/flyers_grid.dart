@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
+    @required this.heroTag,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -20,7 +21,6 @@ class FlyersGrid extends StatelessWidget {
     this.paginationFlyersIDs,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumnsOrRows = 2,
-    this.heroTag,
     this.authorMode = false,
     this.onFlyerOptionsTap,
     this.selectedFlyers,
