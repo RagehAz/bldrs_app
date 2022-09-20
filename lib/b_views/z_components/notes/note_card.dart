@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/notes/note_card_buttons.dart';
 import 'package:bldrs/b_views/z_components/notes/note_red_dot.dart';
 import 'package:bldrs/b_views/z_components/notes/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/x3_user_notes_page_controllers.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
