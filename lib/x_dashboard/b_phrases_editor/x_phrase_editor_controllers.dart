@@ -698,8 +698,18 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                   },
                   onValueTap: () async {
 
-                    unawaited(Keyboard.copyToClipboard(context: context, copy: _phid));
-                    await Nav.goBack(context: context, invoker: 'showPhidsPendingTranslationDialog');
+                    await Keyboard.copyToClipboard(
+                      context: context,
+                      copy: _phid,
+                      milliseconds: 100,
+                      awaitTheDialog: true,
+                    );
+
+                    await Nav.goBack(
+                      context: context,
+                      invoker: 'showPhidsPendingTranslationDialog',
+                      // addPostFrameCallback: false,
+                    );
 
                   },
                 );
@@ -718,7 +728,10 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
                       notify: true,
                     );
 
-                    await Nav.goBack(context: context, invoker: 'fuck you bitch');
+                    await Nav.goBack(
+                        context: context,
+                        invoker: 'fuck you bitch'
+                    );
 
                   }
                 );

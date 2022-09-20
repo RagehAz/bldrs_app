@@ -70,8 +70,8 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: idController,
             onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
             pasteFunction: () => TextMod.controllerPaste(idController),
-            actionBtFunction: () => TextMod.controllerClear(idController),
-            actionBtIcon: Iconz.xLarge,
+            onHeaderLeadinIconTap: () => TextMod.controllerClear(idController),
+            actionBtIcon: Iconz.xSmall,
             // isError: ,
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
@@ -120,8 +120,8 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: enController,
             onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
             pasteFunction: () => TextMod.controllerPaste(enController),
-            actionBtFunction: () => TextMod.controllerClear(enController),
-            actionBtIcon: Iconz.xLarge,
+            onHeaderLeadinIconTap: () => TextMod.controllerClear(enController),
+            actionBtIcon: Iconz.xSmall,
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
               Formers.focusOnNode(arNode);
@@ -147,8 +147,8 @@ class PhraseCreatorPage extends StatelessWidget {
             textController: arController,
             onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
             pasteFunction: () => TextMod.controllerPaste(arController),
-            actionBtFunction: () => TextMod.controllerClear(arController),
-            actionBtIcon: Iconz.xLarge,
+            onHeaderLeadinIconTap: () => TextMod.controllerClear(arController),
+            actionBtIcon: Iconz.xSmall,
             textDirection: TextDirection.ltr,
             keyboardTextInputAction: TextInputAction.done,
           ),

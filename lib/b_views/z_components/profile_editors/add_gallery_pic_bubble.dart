@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
-import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -250,7 +249,7 @@ class _FilePicSplitter extends StatelessWidget {
         balloonWidth: picWidth,
         loading: false,
         pic: pic,
-        balloonType: concludeBalloonByUserStatus(UserStatus.searching),
+        balloonType: BalloonType.thinking,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
     }
