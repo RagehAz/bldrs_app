@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/secondary_models/app_state.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
+import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/d_providers/general_provider.dart';
@@ -19,20 +20,6 @@ import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-enum UserStatus {
-  normal,
-  searching,
-  finishing,
-  planning,
-  building,
-  selling,
-  bzAuthor,
-  deactivated,
-  /*
-  Recon
-   */
-}
 
 enum Gender {
   male,
@@ -54,7 +41,7 @@ class UserModel {
     @required this.id,
     @required this.authBy,
     @required this.createdAt,
-    @required this.status,
+    @required this.need,
     @required this.name,
     @required this.trigram,
     @required this.pic,
@@ -78,7 +65,7 @@ class UserModel {
   final String id;
   final AuthType authBy;
   final DateTime createdAt;
-  final UserStatus status;
+  final NeedModel need;
   final String name;
   final List<String> trigram;
   final dynamic pic;
@@ -115,7 +102,7 @@ class UserModel {
       id: _user.uid,
       authBy: null,
       createdAt: DateTime.now(),
-      status: UserStatus.normal,
+      need: null,
       // -------------------------
       name: _user.displayName,
       trigram: Stringer.createTrigram(input: _user.displayName),
@@ -157,7 +144,7 @@ class UserModel {
       id: user.uid,
       authBy: authBy,
       createdAt: DateTime.now(),
-      status: UserStatus.normal,
+      need: NeedModel.createInitialNeed(context: context, userZone: zone),
       // -------------------------
       name: user.displayName,
       trigram: Stringer.createTrigram(input: user.displayName),
@@ -274,7 +261,7 @@ class UserModel {
     String id,
     AuthType authBy,
     DateTime createdAt,
-    UserStatus status,
+    NeedModel need,
     String name,
     List<String> trigram,
     dynamic pic,
@@ -297,7 +284,7 @@ class UserModel {
       id: id ?? this.id,
       authBy: authBy ?? this.authBy,
       createdAt: createdAt ?? this.createdAt,
-      status: status ?? this.status,
+      need: need ?? this.need,
       name: name ?? this.name,
       trigram: trigram ?? this.trigram,
       pic: pic ?? this.pic,
@@ -323,7 +310,7 @@ class UserModel {
     bool id = false,
     bool authBy = false,
     bool createdAt = false,
-    bool status = false,
+    bool need = false,
     bool name = false,
     bool trigram = false,
     bool pic = false,
@@ -346,7 +333,7 @@ class UserModel {
       id : id == true ? null : this.id,
       authBy : authBy == true ? null : this.authBy,
       createdAt : createdAt == true ? null : this.createdAt,
-      status : status == true ? null : this.status,
+      need : need == true ? null : this.need,
       name : name == true ? null : this.name,
       trigram : trigram == true ? const [] : this.trigram,
       pic : pic == true ? null : this.pic,
@@ -379,7 +366,7 @@ class UserModel {
       'id': id,
       'authBy': AuthModel.cipherAuthBy(authBy),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
-      'status': cipherUserStatus(status),
+      'need': need.toMap(toJSON: toJSON),
 // -------------------------
       'name': name,
       'trigram': trigram,
@@ -438,7 +425,7 @@ class UserModel {
             time: map['createdAt'],
             fromJSON: fromJSON
         ),
-        status: decipherUserStatus(map['status']),
+        need: NeedModel.decipherNeed(map: map['need'], fromJSON: fromJSON),
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram'],),
@@ -493,41 +480,6 @@ class UserModel {
     }
 
     return _users;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// USER STATUS CYPHERS
-
-  // --------------------
-  /// TAMAM : WORKS PERFECT
-  static UserStatus decipherUserStatus(String status) {
-    switch (status) {
-      case 'normal':      return UserStatus.normal;       break;
-      case 'searching':   return UserStatus.searching;    break;
-      case 'finishing':   return UserStatus.finishing;    break;
-      case 'planning':    return UserStatus.planning;     break;
-      case 'building':    return UserStatus.building;     break;
-      case 'selling':     return UserStatus.selling;      break;
-      case 'bzAuthor':    return UserStatus.bzAuthor;     break;
-      case 'deactivated': return UserStatus.deactivated;  break;
-      default :           return null;
-    }
-  }
-  // --------------------
-  /// TAMAM : WORKS PERFECT
-  static String cipherUserStatus(UserStatus status) {
-    switch (status) {
-      case UserStatus.normal:       return 'normal';      break;
-      case UserStatus.searching:    return 'searching';   break;
-      case UserStatus.finishing:    return 'finishing';   break;
-      case UserStatus.planning:     return 'planning';    break;
-      case UserStatus.building:     return 'building';    break;
-      case UserStatus.selling:      return 'selling';     break;
-      case UserStatus.bzAuthor:     return 'bzAuthor';    break;
-      case UserStatus.deactivated:  return 'deactivated'; break;
-      default:
-        return null;
-    }
   }
   // -----------------------------------------------------------------------------
 
@@ -636,7 +588,7 @@ class UserModel {
       user1.id == user2.id &&
           user1.authBy == user2.authBy &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) &&
-          user1.status == user2.status &&
+          NeedModel.checkNeedsAreIdentical(user1.need, user2.need) &&
           user1.name == user2.name &&
           Mapper.checkListsAreIdentical(list1: user1.trigram, list2: user2.trigram) &&
           Imagers.checkPicsAreIdentical(pic1: user1.pic, pic2: user2.pic) &&
@@ -913,7 +865,6 @@ class UserModel {
     blog('id : $id');
     blog('authBy : $authBy');
     blog('createdAt : $createdAt');
-    blog('userStatus : $status');
     blog('name : $name');
     blog('trigram : $trigram');
     blog('pic : $pic');
@@ -928,7 +879,8 @@ class UserModel {
     blog('isAdmin : $isAdmin');
     blog('emailIsVerified : $emailIsVerified');
     blog('docSnapshot : $docSnapshot');
-    zone.blogZone();
+    zone?.blogZone();
+    need?.blogNeed();
     ContactModel.blogContacts(
       contacts: contacts,
       methodName: 'blogUserModel',
@@ -984,7 +936,7 @@ class UserModel {
         blog('blogUserDifferences : [createdAt] are not identical');
       }
 
-      if (user1.status != user2.status){
+      if (NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == false){
         blog('blogUserDifferences : [status] are not identical');
       }
 
@@ -1066,7 +1018,7 @@ class UserModel {
       id: 'dummy_user_model',
       authBy: AuthType.emailSignIn,
       createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
-      status: UserStatus.normal,
+      need: NeedModel.dummyNeed(context),
       name: 'Donald duck',
       trigram: const <String>[],
       pic: Iconz.dvRageh,
@@ -1157,21 +1109,6 @@ class UserModel {
 
     return _user;
   }
-  // -----------------------------------------------------------------------------
-
-  /// USER STATUSES
-
-  // --------------------
-  static const List<UserStatus> userStatuses = <UserStatus>[
-    UserStatus.normal,
-    UserStatus.searching,
-    UserStatus.finishing,
-    UserStatus.planning,
-    UserStatus.building,
-    UserStatus.selling,
-    UserStatus.bzAuthor,
-    UserStatus.deactivated,
-  ];
   // -----------------------------------------------------------------------------
 
   /// USER TABS
@@ -1268,7 +1205,7 @@ class UserModel {
       id.hashCode^
       authBy.hashCode^
       createdAt.hashCode^
-      status.hashCode^
+      need.hashCode^
       name.hashCode^
       trigram.hashCode^
       pic.hashCode^

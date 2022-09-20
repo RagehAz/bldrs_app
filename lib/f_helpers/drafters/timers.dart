@@ -1060,11 +1060,15 @@ String generateStringsList_index_hh_i_mm_i_ss({
 
     if (showIncorrectTimeDialog == true && _isCorrect == false){
 
-      final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _dateTime, to: _now);
+      final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _now, to: _dateTime);
       final double _num = Numeric.modulus(_diff.toDouble());
       final bool _differenceIsBig = _num > 2;
 
       if (_differenceIsBig == true){
+        blogDateTime(_now);
+        blogDateTime(_dateTime);
+        blog('calculateTimeDifferenceInMinutes : ${_now.minute - _dateTime.minute}');
+        blog('checkDeviceTimeIsCorrect : _diff : ( $_diff ) : modulus : $_num : _differenceIsBig : $_differenceIsBig');
 
         final String _dd_month_yyy_actual = Timers.translate_dd_month_yyyy(context: context, time: _dateTime);
         final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);

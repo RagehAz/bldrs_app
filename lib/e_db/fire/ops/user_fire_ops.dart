@@ -85,30 +85,10 @@ class UserFireOps {
     }
 
     /// create final UserModel
-    final UserModel _finalUserModel = UserModel(
-      id: userModel.id,
-      authBy: userModel.authBy,
-      createdAt: DateTime.now(),
-      status: userModel.status,
-      // -------------------------
-      name: userModel.name,
-      trigram: userModel.trigram,
-      pic: _userPicURL ?? userModel.pic,
-      title: userModel.title,
-      company: userModel.company,
-      gender: userModel.gender,
-      zone: userModel.zone,
-      language: userModel.language,
-      location: userModel.location,
-      contacts: userModel.contacts,
-      // -------------------------
-      myBzzIDs: userModel.myBzzIDs,
-      isAdmin: userModel.isAdmin,
-      emailIsVerified: userModel.emailIsVerified,
-      fcmToken: userModel.fcmToken,
-      followedBzzIDs: const <String>[],
-      savedFlyersIDs: const <String>[],
-      appState: userModel.appState,
+    final UserModel _finalUserModel = userModel.copyWith(
+        createdAt: DateTime.now(),
+        pic: _userPicURL ?? userModel.pic,
+
     );
 
     /// create user doc in fireStore
