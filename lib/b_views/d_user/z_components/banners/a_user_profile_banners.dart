@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
+import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_needs_banner.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_bubble.dart';
-import 'package:bldrs/b_views/d_user/z_components/user_banner.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,9 @@ class UserProfileBanners extends StatelessWidget {
           userModel: _userModel,
         ),
 
+        /// USER NEEDS BANNER
+        const UserNeedsBanner(),
+
         /// CONTACTS
         if (showContacts == true)
           ContactsBubble(
@@ -68,6 +72,7 @@ class UserProfileBanners extends StatelessWidget {
             location: _userModel?.location,
             canLaunchOnTap: true,
           ),
+
 
       ],
     );

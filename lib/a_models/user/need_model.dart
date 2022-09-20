@@ -224,9 +224,9 @@ class NeedModel {
     switch (type) {
       case NeedType.seekProperty :       return 'phid_seekProperty'; break;
       case NeedType.planConstruction :   return 'phid_planConstruction'; break;
-      case NeedType.finishConstruction : return 'phid_finishConstruction'; break;
-      case NeedType.furnish :            return 'phid_furnish'; break;
-      case NeedType.offerProperty :      return 'phid_offerProperty'; break;
+      case NeedType.finishConstruction : return 'phid_finishingConstruction'; break;
+      case NeedType.furnish :            return 'phid_furnishing_property'; break;
+      case NeedType.offerProperty :      return 'phid_offeringProperty'; break;
       default:return null;
     }
   }

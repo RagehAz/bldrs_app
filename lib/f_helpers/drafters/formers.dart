@@ -709,7 +709,7 @@ class Formers {
     final List<String> _missingFields = <String>[];
 
     /*
-    -> NOT required : status,
+    -> NOT required : needs,
     -> NOT required : location,
     -> NOT required : contacts,
     -> NOT required : myBzzIDs,

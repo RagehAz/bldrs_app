@@ -19,6 +19,7 @@ class Bubble extends StatelessWidget {
     this.onBubbleTap,
     this.margins,
     this.corners,
+    this.areTopCentered = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class Bubble extends StatelessWidget {
   final Function onBubbleTap;
   final dynamic margins;
   final dynamic corners;
+  final bool areTopCentered;
   // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
     final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: bubbleWidthOverride);
@@ -100,9 +102,9 @@ class Bubble extends StatelessWidget {
     Borderers.superBorder(context: context, corners: corners);
     // --------------------
     final Alignment _alignment = childrenCentered == true ?
-    Alignment.center
+    (areTopCentered == true ? Alignment.topCenter : Alignment.center)
         :
-    Aligners.superCenterAlignment(context);
+    (areTopCentered == true ? Aligners.superTopAlignment(context) : Aligners.superCenterAlignment(context));
     // --------------------
     final Widget _bubbleContents = _BubbleContents(
       width: width,
