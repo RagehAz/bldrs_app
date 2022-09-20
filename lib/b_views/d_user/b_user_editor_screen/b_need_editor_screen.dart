@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -13,6 +16,7 @@ import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -57,14 +61,13 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       listen: false,
     );
 
-    _need.value = NeedModel.createInitialNeed(
+    _need.value = _userModel.need ?? NeedModel.createInitialNeed(
       context: context,
       userZone: _userModel.zone,
     );
 
   }
   // --------------------
-
   bool _isInit = true;
   @override
   void didChangeDependencies() {
@@ -81,7 +84,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     }
     super.didChangeDependencies();
   }
-
   // --------------------
   @override
   void dispose() {
@@ -90,6 +92,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   }
   // -----------------------------------------------------------------------------
   Future<void> onConfirmEditingNeed() async {
+
+    unawaited(WaitDialog.showWaitDialog(
+      context: context,
+    ));
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -104,6 +110,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         context: context,
         newUserModel: _updatedUser,
     );
+
+    await WaitDialog.closeWaitDialog(context);
+
+    await Nav.goBack(context: context, invoker: 'onConfirmEditingNeed');
 
   }
   // -----------------------------------------------------------------------------

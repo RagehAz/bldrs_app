@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/d_user/z_components/user_profile_banners.dart';
+import 'package:bldrs/b_views/d_user/z_components/banners/a_user_profile_banners.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
 

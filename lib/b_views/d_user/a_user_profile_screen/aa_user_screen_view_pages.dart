@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa1_user_profile_page.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa2_user_needs_page.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa3_user_notes_page.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa4_user_following_page.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa5_user_settings_page.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa2_user_notes_page.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa3_user_following_page.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/aaa4_user_settings_page.dart';
 import 'package:flutter/material.dart';
 
 class UserScreenViewPages extends StatelessWidget {
@@ -20,8 +19,6 @@ class UserScreenViewPages extends StatelessWidget {
   static const List<Widget> pages = <Widget>[
 
     UserProfilePage(),
-
-    UserNeedsPage(),
 
     UserNotesPage(),
 
