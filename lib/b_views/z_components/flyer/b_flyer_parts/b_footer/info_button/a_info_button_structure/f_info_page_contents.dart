@@ -80,145 +80,146 @@ class InfoPageContents extends StatelessWidget {
 
           ValueListenableBuilder(
               valueListenable: buttonExpanded,
-              builder: (_, bool expanded, Widget child){
+              builder: (_, bool expanded, Widget column){
 
                 if (expanded == false){
                   return const SizedBox();
                 }
                 else {
-                  return Column(
-                    children: <Widget>[
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// INFO HEADLINE
-                      if (flyerModel.description.isNotEmpty == true)
-                        InfoPageHeadline(
-                          pageWidth: _pageWidth,
-                          headlineVerse: const Verse(
-                            text: 'phid_more_about_this_flyer',
-                            translate: true,
-                          ),
-                        ),
-                      /// INFO
-                      if (flyerModel.description.isNotEmpty == true)
-                        InfoPageParagraph(
-                          pageWidth: _pageWidth,
-                          flyerInfo: flyerModel.description,
-                        ),
-                      /// INFO LINE
-                      if (flyerModel.description.isNotEmpty == true)
-                        InfoPageSeparator( /// ------------------------- SEPARATOR
-                          pageWidth: _pageWidth,
-                        ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// PDF BUTTON
-                      if (flyerModel.pdf != null)
-                      DreamBox(
-                        height: 30,
-                        width: _pageWidth - 20,
-                        color: Colorz.blue80,
-                        verse: Verse.plain('${flyerModel.pdf.fileName}.pdf'),
-                        verseScaleFactor: 0.6,
-                        onTap: () async {
-
-                          await Nav.goToNewScreen(
-                              context: context,
-                              screen: PDFScreen(
-                                  pdf: flyerModel.pdf,
-                              ),
-                          );
-
-                        },
-                      ),
-                      /// PDF LINE
-                      if (flyerModel.pdf != null)
-                        InfoPageSeparator( /// ------------------------- SEPARATOR
-                          pageWidth: _pageWidth,
-                        ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// KEYWORDS HEADLINE
-                      if (flyerModel.keywordsIDs.isNotEmpty == true)
-                        InfoPageHeadline(
-                          pageWidth: _pageWidth,
-                          headlineVerse: const Verse(
-                            text: 'phid_flyer_keywords',
-                            translate: true,
-                          ),
-                        ),
-                      /// KEYWORDS
-                      if (flyerModel.keywordsIDs.isNotEmpty == true)
-                        PhidsViewer(
-                          pageWidth: _pageWidth,
-                          phids: flyerModel.keywordsIDs,
-                        ),
-                      /// KEYWORDS LINE
-                      if (flyerModel.keywordsIDs.isNotEmpty == true)
-                        InfoPageSeparator( /// ------------------------- SEPARATOR
-                          pageWidth: _pageWidth,
-                        ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// SPECS HEADLINE
-                      if (flyerModel.specs.isNotEmpty == true)
-                        InfoPageHeadline(
-                          pageWidth: _pageWidth,
-                          headlineVerse: const Verse(
-                            text: 'phid_specs',
-                            translate: true,
-                          ),
-                        ),
-                      /// SPECS
-                      if (flyerModel.specs.isNotEmpty == true)
-                        SpecsBuilder(
-                          pageWidth: _pageWidth,
-                          specs: flyerModel.specs,
-                          onSpecTap: ({SpecModel value, SpecModel unit}){
-                            blog('Flyer : InfoPageContents : onSpecTap');
-                            value.blogSpec();
-                            unit?.blogSpec();
-                          },
-                          onDeleteSpec: ({SpecModel value, SpecModel unit}){
-                            blog('Flyer : InfoPageContents : onDeleteSpec');
-                            value.blogSpec();
-                            unit?.blogSpec();
-                          },
-                        ),
-                      /// SPECS LINE
-                      if (flyerModel.specs.isNotEmpty == true)
-                        InfoPageSeparator( /// ------------------------- SEPARATOR
-                          pageWidth: _pageWidth,
-                        ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// COUNTERS
-                      FlyerCountersAndRecords(
-                        pageWidth: _pageWidth,
-                        flyerModel: flyerModel,
-                        flyerCounter: flyerCounter,
-                      ),
-                      /// COUNTERS LINE
-                        InfoPageSeparator( /// ------------------------- SEPARATOR
-                          pageWidth: _pageWidth,
-                        ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                      /// REPORT BUTTON
-                      Align(
-                        // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
-                        child: ReportButton(
-                          modelType: ModelType.flyer,
-                          onTap: () => FlyerFireOps.onReportFlyer(
-                            context: context,
-                            flyer: flyerModel,
-                          ),
-                        ),
-                      ),
-                      /// REPORT LINE
-                      InfoPageSeparator(
-                        pageWidth: _pageWidth,
-                      ),
-                      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
-                    ],
-                  );
+                  return column;
                 }
 
               },
+            child: Column(
+              children: <Widget>[
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// INFO HEADLINE
+                if (flyerModel.description.isNotEmpty == true)
+                  InfoPageHeadline(
+                    pageWidth: _pageWidth,
+                    headlineVerse: const Verse(
+                      text: 'phid_more_about_this_flyer',
+                      translate: true,
+                    ),
+                  ),
+                /// INFO
+                if (flyerModel.description.isNotEmpty == true)
+                  InfoPageParagraph(
+                    pageWidth: _pageWidth,
+                    flyerInfo: flyerModel.description,
+                  ),
+                /// INFO LINE
+                if (flyerModel.description.isNotEmpty == true)
+                  InfoPageSeparator( /// ------------------------- SEPARATOR
+                    pageWidth: _pageWidth,
+                  ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// PDF BUTTON
+                if (flyerModel.pdf != null)
+                  DreamBox(
+                    height: 30,
+                    width: _pageWidth - 20,
+                    color: Colorz.blue80,
+                    verse: Verse.plain('${flyerModel.pdf.fileName}.pdf'),
+                    verseScaleFactor: 0.6,
+                    onTap: () async {
+
+                      await Nav.goToNewScreen(
+                        context: context,
+                        screen: PDFScreen(
+                          pdf: flyerModel.pdf,
+                        ),
+                      );
+
+                    },
+                  ),
+                /// PDF LINE
+                if (flyerModel.pdf != null)
+                  InfoPageSeparator( /// ------------------------- SEPARATOR
+                    pageWidth: _pageWidth,
+                  ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// KEYWORDS HEADLINE
+                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                  InfoPageHeadline(
+                    pageWidth: _pageWidth,
+                    headlineVerse: const Verse(
+                      text: 'phid_flyer_keywords',
+                      translate: true,
+                    ),
+                  ),
+                /// KEYWORDS
+                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                  PhidsViewer(
+                    pageWidth: _pageWidth,
+                    phids: flyerModel.keywordsIDs,
+                  ),
+                /// KEYWORDS LINE
+                if (flyerModel.keywordsIDs.isNotEmpty == true)
+                  InfoPageSeparator( /// ------------------------- SEPARATOR
+                    pageWidth: _pageWidth,
+                  ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// SPECS HEADLINE
+                if (flyerModel.specs.isNotEmpty == true)
+                  InfoPageHeadline(
+                    pageWidth: _pageWidth,
+                    headlineVerse: const Verse(
+                      text: 'phid_specs',
+                      translate: true,
+                    ),
+                  ),
+                /// SPECS
+                if (flyerModel.specs.isNotEmpty == true)
+                  SpecsBuilder(
+                    pageWidth: _pageWidth,
+                    specs: flyerModel.specs,
+                    onSpecTap: ({SpecModel value, SpecModel unit}){
+                      blog('Flyer : InfoPageContents : onSpecTap');
+                      value.blogSpec();
+                      unit?.blogSpec();
+                    },
+                    onDeleteSpec: ({SpecModel value, SpecModel unit}){
+                      blog('Flyer : InfoPageContents : onDeleteSpec');
+                      value.blogSpec();
+                      unit?.blogSpec();
+                    },
+                  ),
+                /// SPECS LINE
+                if (flyerModel.specs.isNotEmpty == true)
+                  InfoPageSeparator( /// ------------------------- SEPARATOR
+                    pageWidth: _pageWidth,
+                  ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// COUNTERS
+                FlyerCountersAndRecords(
+                  pageWidth: _pageWidth,
+                  flyerModel: flyerModel,
+                  flyerCounter: flyerCounter,
+                ),
+                /// COUNTERS LINE
+                InfoPageSeparator( /// ------------------------- SEPARATOR
+                  pageWidth: _pageWidth,
+                ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+                /// REPORT BUTTON
+                Align(
+                  // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
+                  child: ReportButton(
+                    modelType: ModelType.flyer,
+                    onTap: () => FlyerFireOps.onReportFlyer(
+                      context: context,
+                      flyer: flyerModel,
+                    ),
+                  ),
+                ),
+                /// REPORT LINE
+                InfoPageSeparator(
+                  pageWidth: _pageWidth,
+                ),
+                // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
+              ],
+            ),
           ),
 
         ],
