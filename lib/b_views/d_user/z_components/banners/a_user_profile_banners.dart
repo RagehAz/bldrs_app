@@ -73,7 +73,6 @@ class UserProfileBanners extends StatelessWidget {
             canLaunchOnTap: true,
           ),
 
-
       ],
     );
   }

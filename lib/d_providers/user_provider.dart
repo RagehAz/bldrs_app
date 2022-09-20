@@ -1,10 +1,5 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
-import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/mappers.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +25,7 @@ class UsersProvider extends ChangeNotifier {
     return _usersProvider.myAuthModel;
   }
   // --------------------
+  /*
   Future<void> fetchSetMyUserModelAndFixZone(BuildContext context) async {
     UserModel _userModel;
 
@@ -47,8 +43,16 @@ class UsersProvider extends ChangeNotifier {
         incompleteZoneModel: _userModel.zone,
       );
 
+      final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: _userModel.need.zone,
+      );
+
       _userModel = _userModel.copyWith(
         zone: _completeZoneModel,
+        need: _userModel.need.copyWith(
+          zone: _completeNeedZoneModel,
+        ),
       );
 
       setMyUserModelAndAuthModel(
@@ -59,6 +63,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
   void setMyUserModelAndAuthModel({
     @required UserModel userModel,
@@ -131,6 +136,7 @@ class UsersProvider extends ChangeNotifier {
 
    */
   // --------------------
+  /*
   void removeBzIDFromMyBzzIDs({
     @required String bzIDToRemove,
     @required bool notify,
@@ -156,6 +162,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proUpdateUserAndAuthModels({

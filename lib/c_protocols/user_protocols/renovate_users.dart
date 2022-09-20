@@ -81,15 +81,20 @@ class RenovateUserProtocols {
 
     if (_modelsAreIdentical == false){
 
+      final UserModel _fixedModel = await UserProtocols.completeUserZoneModels(
+          userModel: newUserModel,
+          context: context
+      );
+
       /// UPDATE USER AND AUTH IN PRO
       UsersProvider.proUpdateUserAndAuthModels(
         context: context,
-        userModel: newUserModel,
+        userModel: _fixedModel,
         notify: true,
       );
 
       /// UPDATE USER MODEL IN LDB
-      await UserLDBOps.updateUserModel(newUserModel);
+      await UserLDBOps.updateUserModel(_fixedModel);
 
       /// UPDATE AUTH MODEL IN LDB
       final AuthModel _authModel = UsersProvider.proGetAuthModel(

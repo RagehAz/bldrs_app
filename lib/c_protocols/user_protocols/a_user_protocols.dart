@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/compose_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/fetch_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/renovate_users.dart';
 import 'package:bldrs/c_protocols/user_protocols/wipe_users.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +77,37 @@ class UserProtocols {
       context: context
   );
   // --------------------
+
+  static Future<UserModel> completeUserZoneModels({
+    @required UserModel userModel,
+    @required BuildContext context,
+  }) async {
+    UserModel _output;
+
+    if (userModel != null){
+
+      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: userModel.zone,
+      );
+
+      final ZoneModel _completeNeedZoneModel = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: userModel.need.zone,
+      );
+
+      _output = userModel.copyWith(
+        zone: _completeZoneModel,
+        need: userModel.need.copyWith(
+          zone: _completeNeedZoneModel,
+        ),
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
     @required BuildContext context,
@@ -114,4 +147,5 @@ class UserProtocols {
     showWaitDialog: showWaitDialog,
   );
   // -----------------------------------------------------------------------------
+
 }

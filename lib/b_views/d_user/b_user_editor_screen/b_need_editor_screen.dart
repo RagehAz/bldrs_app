@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/user/need_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
+import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:bldrs/b_views/z_components/profile_editors/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -16,6 +18,7 @@ import 'package:bldrs/b_views/z_components/texting/bubbles/text_field_bubble.dar
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -93,27 +96,35 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   Future<void> onConfirmEditingNeed() async {
 
-    unawaited(WaitDialog.showWaitDialog(
-      context: context,
-    ));
-
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    final UserModel _updatedUser = _userModel.copyWith(
-      need: _need.value,
-    );
+    final bool _needsChanged = NeedModel.checkNeedsAreIdentical(_userModel.need , _need.value) == false;
 
-    await UserProtocols.renovateMyUserModel(
+    if (_needsChanged == true){
+
+      unawaited(WaitDialog.showWaitDialog(
+        context: context,
+      ));
+
+      final UserModel _updatedUser = _userModel.copyWith(
+        need: _need.value.copyWith(
+          since: DateTime.now(),
+        ),
+      );
+
+      await UserProtocols.renovateMyUserModel(
         context: context,
         newUserModel: _updatedUser,
-    );
+      );
 
-    await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(context);
 
-    await Nav.goBack(context: context, invoker: 'onConfirmEditingNeed');
+      await Nav.goBack(context: context, invoker: 'onConfirmEditingNeed');
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -233,31 +244,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       ]
                   ),
 
-                  /// PLAN : NEED ZONE : not necessary now,, will use user zone as default in initial testing phases
-                  /*
-                  ZoneSelectionBubble(
-                    titleVerse: const Verse(
-                      text: 'phid_zone',
-                      translate: true,
-                    ),
-                    isRequired: false,
-                    currentZone: need.zone,
-                    onZoneChanged: (ZoneModel zone){
-                      _need.value = _need.value.copyWith(
-                        zone: zone,
-                      );
-                    },
-                    // selectCountryAndCityOnly: true,
-                    // selectCountryIDOnly: false,
-                    validator: () => Formers.zoneValidator(
-                      zoneModel: need.zone,
-                      selectCountryAndCityOnly: true,
-                      selectCountryIDOnly: false,
-                      canValidate: true,
-                    ),
-                  ),
-                  */
-
                   /// NEED DESCRIPTION
                   TextFieldBubble(
                     key: const ValueKey<String>('need_description_button'),
@@ -286,6 +272,29 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     validator: (String text){
                       return null;
                     },
+                  ),
+
+                  /// SPECIFIC ZONE
+                  ZoneSelectionBubble(
+                    titleVerse: const Verse(
+                      text: 'phid_zone',
+                      translate: true,
+                    ),
+                    isRequired: false,
+                    currentZone: need.zone,
+                    onZoneChanged: (ZoneModel zone){
+                      _need.value = _need.value.copyWith(
+                        zone: zone,
+                      );
+                    },
+                    selectCountryAndCityOnly: false,
+                    // selectCountryIDOnly: false,
+                    validator: () => Formers.zoneValidator(
+                      zoneModel: need.zone,
+                      selectCountryAndCityOnly: false,
+                      selectCountryIDOnly: false,
+                      canValidate: true,
+                    ),
                   ),
 
                   /// PLAN : SCOPE SELECTOR : put it later after we test : it might be ..
