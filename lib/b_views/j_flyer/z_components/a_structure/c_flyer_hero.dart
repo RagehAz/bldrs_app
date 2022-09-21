@@ -34,8 +34,8 @@ class FlyerHero extends StatelessWidget {
   final bool isFullScreen;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
-  final ValueNotifier<bool> flyerIsSaved; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ValueNotifier<bool> flyerIsSaved;
   final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Widget buildFlight(
