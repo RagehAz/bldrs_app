@@ -9,9 +9,9 @@ import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-class FollowBT extends StatelessWidget {
+class FollowButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FollowBT({
+  const FollowButton({
     @required this.flyerBoxWidth,
     @required this.onFollowTap,
     @required this.tappingUnfollow,

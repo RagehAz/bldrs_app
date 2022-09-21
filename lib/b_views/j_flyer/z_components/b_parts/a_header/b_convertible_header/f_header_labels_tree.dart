@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_labels.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ff_header_labels.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +32,23 @@ class HeaderLabelsTree extends StatelessWidget {
 
     return ValueListenableBuilder<bool>(
       valueListenable: headerIsExpanded,
+      builder: (_, bool headerIsExpanded, Widget headerLabels){
+
+        final double _opacity =
+        headerIsExpanded == true ? 0
+            :
+        tinyMode == true ? 0
+            :
+        1;
+
+        return AnimatedOpacity(
+          key: const ValueKey<String>('Header_labels_Animated_opacity'),
+          opacity: _opacity,
+          duration: Ratioz.durationFading200,
+          child: headerLabels,
+        );
+
+      },
       child: Center(
         child: SizedBox(
           width: headerLabelsWidthTween.value,
@@ -55,23 +72,6 @@ class HeaderLabelsTree extends StatelessWidget {
           ),
         ),
       ),
-      builder: (_, bool headerIsExpanded, Widget child){
-
-        final double _opacity =
-        headerIsExpanded == true ? 0
-            :
-        tinyMode == true ? 0
-            :
-        1;
-
-        return AnimatedOpacity(
-          key: const ValueKey<String>('Header_labels_Animated_opacity'),
-          opacity: _opacity,
-          duration: Ratioz.durationFading200,
-          child: child,
-        );
-
-      },
     );
 
   }
