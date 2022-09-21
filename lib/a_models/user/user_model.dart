@@ -738,11 +738,11 @@ class UserModel {
   }){
 
     final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: userModel.savedFlyersIDs,
+      strings: userModel?.savedFlyersIDs,
       stringToAdd: flyerIDToAdd,
     );
 
-    final UserModel _updatedUserModel = userModel.copyWith(
+    final UserModel _updatedUserModel = userModel?.copyWith(
       savedFlyersIDs: _newBzzIDs,
     );
 

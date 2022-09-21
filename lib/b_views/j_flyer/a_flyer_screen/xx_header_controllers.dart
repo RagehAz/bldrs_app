@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/contact_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -229,13 +230,23 @@ Future<void> onFollowTap({
   @required ValueNotifier<bool> followIsOn,
 }) async {
 
-  followIsOn.value = !followIsOn.value;
+  if (AuthModel.userIsSignedIn() == true){
 
-  await UserProtocols.followingProtocol(
-    context: context,
-    bzID: bzModel.id,
-    followIsOn: followIsOn.value,
-  );
+    followIsOn.value = !followIsOn.value;
+
+    await UserProtocols.followingProtocol(
+      context: context,
+      bzID: bzModel.id,
+      followIsOn: followIsOn.value,
+    );
+
+  }
+
+  else {
+
+    await Dialogs.youNeedToBeSignedInDialog(context);
+
+  }
 
 }
 // --------------------

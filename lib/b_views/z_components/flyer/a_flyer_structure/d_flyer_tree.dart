@@ -3,8 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/a_flyer_header.dart';
@@ -13,9 +18,6 @@ import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/c_slides/flyer_sl
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/d_progress_bar/progress_bar.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -326,18 +328,20 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (widget.flyerIsSaved.value == true){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onSaveFlyer',
-      );
-    }
+    if (AuthModel.userIsSignedIn() == true){
 
-    if (mounted == true){
-      await widget.onSaveFlyer();
-    }
+      if (widget.flyerIsSaved.value == true){
+        await Nav.goBack(
+          context: context,
+          invoker: '_onSaveFlyer',
+        );
+      }
 
-    // await Future.delayed(Ratioz.durationFading200, () async {
+      if (mounted == true){
+        await widget.onSaveFlyer();
+      }
+
+      // await Future.delayed(Ratioz.durationFading200, () async {
 
       // await _flyersProvider.saveOrUnSaveFlyer(
       //   context: context,
@@ -347,7 +351,15 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       // _flyerIsSaved.value = !_flyerIsSaved.value;
       await _triggerAnimation(widget.flyerIsSaved.value);
 
-    // });
+      // });
+
+    }
+
+    else {
+
+      await Dialogs.youNeedToBeSignedInDialog(context);
+
+    }
 
   }
   // --------------------
@@ -423,7 +435,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       stackWidgets: <Widget>[
 
         /// SLIDES
-          FlyerSlides(
+        FlyerSlides(
             key: const ValueKey<String>('FlyerTree_FlyerSlides'),
             flyerModel: widget.flyerModel,
             bzModel: widget.bzModel,
