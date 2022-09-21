@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/follow_and_call_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_labels_tree.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_left_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_middle_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_right_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/mini_header_strip_box_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/f_header_labels_tree.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/c_header_left_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/e_header_middle_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/g_follow_and_call_buttons.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/h_header_right_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/b_mini_header_strip_box_part.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleHeaderStripPart extends StatelessWidget {
@@ -113,7 +113,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         ),
 
         /// FOLLOW AND CALL
-        FollowAndCallPart(
+        FollowAndCallButtons(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
           tinyMode: tinyMode,
           logoSizeRatioTween: logoSizeRatioTween,
@@ -123,6 +123,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           onCallTap: onCallTap,
           onFollowTap: onFollowTap,
           logoMinWidth: logoMinWidth,
+
         ),
 
         /// HEADER RIGHT SPACER

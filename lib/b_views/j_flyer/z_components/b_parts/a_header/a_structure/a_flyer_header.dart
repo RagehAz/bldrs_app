@@ -3,13 +3,12 @@ import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_info_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_name_below_logo_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/convertible_header_strip_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/mini_follow_and_call_bts.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/x_button_part.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/a_convertible_header_strip_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/g_follow_and_call_buttons.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_tree.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/c_bz_slide_headline/a_bz_slide_headline.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_x_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -180,7 +179,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// SIDE SPACERS
 
     //--------------------------------o
-    final double _followCallPaddingEnd = OldFollowAndCallBTs.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallPaddingEnd = FollowAndCallButtons.getPaddings(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     final double _maxLeftSpacer = (widget.flyerBoxWidth * 0.2) - _followCallPaddingEnd;
     //--------------------------------o
@@ -189,7 +188,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: _maxLeftSpacer,
     ).animate(widget.headerAnimationController);
     //--------------------------------o
-    final double _followCallBoxWidthEnd = OldFollowAndCallBTs.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallBoxWidthEnd = FollowAndCallButtons.getBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     _headerRightSpacerTween = Animators.animateDouble(
       begin: 0,
@@ -229,13 +228,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     return AnimatedBuilder(
       key: const ValueKey<String>('FlyerHeader_AnimationBuilder'),
       animation: widget.headerAnimationController.view,
-      child: XButtonPart(
-        key: const ValueKey<String>('FlyerHeader_XButtonPart'),
-        headerBorders: _headerMinCorners,
-        onHeaderTap: widget.onHeaderTap,
-        headerIsExpanded: widget.headerIsExpanded,
-      ),
-      builder: (_, Widget xButton) {
+      builder: (_, Widget bzSlideTree) {
 
         final Color _headerColor = _backgroundColorTween.evaluate(_animation);
         final BorderRadius _headerBorders = _headerCornerTween.evaluate(_animation);
@@ -285,7 +278,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 ),
 
                 /// BZ NAME BELOW LOGO
-                LinesBelowLogoPart(
+                BzSlideHeadline(
                   key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                   flyerBoxWidth: widget.flyerBoxWidth,
                   firstLine: Verse(
@@ -299,44 +292,36 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                   headerIsExpanded: widget.headerIsExpanded,
                 ),
 
-                /// - BZ INFO PART
-                ValueListenableBuilder(
-                    valueListenable: widget.headerIsExpanded,
-                    builder: (_, bool isExpanded, Widget child){
-
-                      if (isExpanded == true && widget.tinyMode == false){
-                        blog('BzInfoPart SHOULD BUILD NOWWW XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-                        return child;
-                      }
-
-                      else {
-                        return const SizedBox();
-                      }
-
-                    },
-                  child: BzInfoPart(
-                    key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
-                    flyerBoxWidth: widget.flyerBoxWidth,
-                    bzModel: widget.bzModel,
-                    flyerModel: widget.flyerModel,
-                    headerPageOpacity: widget.headerPageOpacity,
-                    bzCounters: widget.bzCounters,
-                  ),
-                ),
-
+                /// - BZ SLIDE
+                bzSlideTree,
 
               ],
             ),
 
             /// --- CORNER X BUTTON
             if (widget.tinyMode == false)
-            xButton,
-
+              XButtonPart(
+                key: const ValueKey<String>('FlyerHeader_XButtonPart'),
+                headerBorders: _headerMinCorners,
+                onHeaderTap: widget.onHeaderTap,
+                headerIsExpanded: widget.headerIsExpanded,
+              ),
 
           ],
         );
 
       },
+
+      child: BzSlideTree(
+        key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
+        flyerBoxWidth: widget.flyerBoxWidth,
+        bzModel: widget.bzModel,
+        flyerModel: widget.flyerModel,
+        headerPageOpacity: widget.headerPageOpacity,
+        bzCounters: widget.bzCounters,
+        headerIsExpanded: widget.headerIsExpanded,
+        tinyMode: widget.tinyMode,
+      ),
 
     );
 
