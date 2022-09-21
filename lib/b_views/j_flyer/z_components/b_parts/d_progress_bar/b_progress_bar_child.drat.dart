@@ -1,6 +1,6 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/strips.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/c_strips.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/loading_progress_bar.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/z_loading_progress_bar.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBarChild extends StatelessWidget {
