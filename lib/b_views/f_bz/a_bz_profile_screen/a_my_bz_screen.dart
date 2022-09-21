@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/appbar/bz_credits_counter.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_logo.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/streamers/fire/fire_doc_streamer.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';

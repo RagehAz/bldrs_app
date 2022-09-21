@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';

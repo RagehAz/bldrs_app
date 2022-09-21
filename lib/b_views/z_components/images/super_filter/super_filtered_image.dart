@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/b_flyer_loading.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
