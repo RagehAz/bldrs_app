@@ -4,14 +4,14 @@ import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/gallery_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/gallery_slide/gallery_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerSlides extends StatefulWidget {
+class SlidesBuilder extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FlyerSlides({
+  const SlidesBuilder({
     @required this.flyerBoxWidth,
     @required this.flyerBoxHeight,
     @required this.tinyMode,
@@ -43,11 +43,11 @@ class FlyerSlides extends StatefulWidget {
   final FlightDirection flightDirection;
   /// --------------------------------------------------------------------------
   @override
-  State<FlyerSlides> createState() => _FlyerSlidesState();
+  State<SlidesBuilder> createState() => _SlidesBuilderState();
 /// --------------------------------------------------------------------------
 }
 
-class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClientMixin<FlyerSlides>{
+class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveClientMixin<SlidesBuilder>{
   // -----------------------------------------------------------------------------
   @override
   bool get wantKeepAlive => true;
@@ -80,7 +80,8 @@ class _FlyerSlidesState extends State<FlyerSlides> with AutomaticKeepAliveClient
     else {
 
       return ValueListenableBuilder(
-          valueListenable: widget.progressBarModel,
+        key: const ValueKey<String>('SlidesBuilder'),
+        valueListenable: widget.progressBarModel,
           builder: (_, ProgressBarModel progModel, Widget gallerySlide){
 
             return HorizontalBouncer(

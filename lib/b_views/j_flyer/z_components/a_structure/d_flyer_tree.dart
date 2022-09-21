@@ -14,8 +14,8 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/flyer_slides.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/progress_bar.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -435,8 +435,7 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
       stackWidgets: <Widget>[
 
         /// SLIDES
-        FlyerSlides(
-            key: const ValueKey<String>('FlyerTree_FlyerSlides'),
+        SlidesBuilder(
             flyerModel: widget.flyerModel,
             bzModel: widget.bzModel,
             flyerBoxWidth: widget.flyerBoxWidth,
