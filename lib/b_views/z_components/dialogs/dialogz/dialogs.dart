@@ -104,6 +104,18 @@ class Dialogs {
       ),
     );
   }
+  // --------------------
+  static Future<void> youNeedToBeSignedInDialog(BuildContext context) async {
+
+    await CenterDialog.showCenterDialog(
+      context: context,
+      titleVerse: const Verse(
+        text: 'phid_you_need_to_sign_in',
+        translate: true,
+      ),
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// CONFIRMATION DIALOGS

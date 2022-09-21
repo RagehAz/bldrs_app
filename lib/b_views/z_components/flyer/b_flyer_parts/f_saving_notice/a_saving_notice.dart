@@ -71,77 +71,7 @@ class _SavingNoticeState extends State<SavingNotice> {
           /// SHOWING GRAPHIC
           if (canShowGraphic == true){
 
-            return ValueListenableBuilder<double>(
-                valueListenable: widget.graphicOpacity,
-                builder: (_, double graphicOpacity, Widget fadeOutChild){
-
-                  return AnimatedOpacity(
-                    opacity: graphicOpacity,
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeOut,
-                    child: fadeOutChild,
-                  );
-
-                },
-
-                /// FADE OUT CHILD
-              child: ValueListenableBuilder(
-                valueListenable: widget.flyerIsSaved,
-                child: SuperImage(
-                  width: widget.flyerBoxWidth,
-                  height: widget.flyerBoxHeight,
-                  pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
-                  scale: widget.isStarGraphic ? 0.7 : 0.8,
-                ),
-                builder: (_, bool isSaved, Widget ankhChild){
-
-                    return AnimatedOpacity(
-                      opacity: isSaved ? 1 : 0,
-                      curve: Curves.easeOut,
-                      duration: const Duration(milliseconds: 200),
-                      child: ScaleTransition(
-                        scale: _curvedAnimation,
-                        child: SavedGraphic(
-                          flyerBoxWidth: widget.flyerBoxWidth,
-                          flyerBoxHeight: widget.flyerBoxHeight,
-                          isSaved: isSaved,
-                          isStarGraphic: widget.isStarGraphic,
-                          ankh: ankhChild,
-                        ),
-                      ),
-                    );
-
-                    // return AnimatedOpacity(
-                    //   opacity: canShowGraphic ? 1 : 0,
-                    //   duration: Ratioz.duration750ms,
-                    //   curve: Curves.easeOut,
-                    //   child: AnimatedOpacity(
-                    //     opacity: isSaved ? 1 : 0,
-                    //     duration: Ratioz.durationFading200,
-                    //     curve: Curves.fastOutSlowIn,
-                    //     child: AnimatedScale(
-                    //       scale: isSaved ? 1 : 0,
-                    //       duration: Ratioz.durationFading200,
-                    //       curve: Curves.bounceInOut,
-                    //       child: child,
-                    //     ),
-                    //   ),
-                    // );
-
-                    // return ScaleTransition(
-                    //   scale: _scaleController,
-                    //   child: child,
-                    // );
-                    // }
-
-                    // else {
-                    //   return const SizedBox();
-                    // }
-
-                  },
-                ),
-
-            );
+            return canShowGraphicChild;
 
           }
 
@@ -152,7 +82,51 @@ class _SavingNoticeState extends State<SavingNotice> {
 
           }
 
-        }
+        },
+      child: ValueListenableBuilder<double>(
+        valueListenable: widget.graphicOpacity,
+        builder: (_, double graphicOpacity, Widget fadeOutChild){
+
+          return AnimatedOpacity(
+            opacity: graphicOpacity,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            child: fadeOutChild,
+          );
+
+        },
+
+        /// FADE OUT CHILD
+        child: ValueListenableBuilder(
+          valueListenable: widget.flyerIsSaved,
+          builder: (_, bool isSaved, Widget ankh){
+
+            return AnimatedOpacity(
+              opacity: isSaved ? 1 : 0,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 200),
+              child: ScaleTransition(
+                scale: _curvedAnimation,
+                child: SavedGraphic(
+                  flyerBoxWidth: widget.flyerBoxWidth,
+                  flyerBoxHeight: widget.flyerBoxHeight,
+                  isSaved: isSaved,
+                  isStarGraphic: widget.isStarGraphic,
+                  ankh: ankh,
+                ),
+              ),
+            );
+
+          },
+          child: SuperImage(
+            width: widget.flyerBoxWidth,
+            height: widget.flyerBoxHeight,
+            pic: widget.isStarGraphic ? Iconz.sexyStar : Iconz.saveOn,
+            scale: widget.isStarGraphic ? 0.7 : 0.8,
+          ),
+        ),
+
+      ),
     );
 
   }

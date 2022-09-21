@@ -887,7 +887,7 @@ class AuthorModel {
     );
 
     return Stringer.checkStringsContainString(
-      strings: _myUserModel.myBzzIDs,
+      strings: _myUserModel?.myBzzIDs,
       string: flyerModel.bzID,
     );
   }
