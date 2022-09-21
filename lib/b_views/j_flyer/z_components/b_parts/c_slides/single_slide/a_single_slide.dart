@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_image_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/c_slide_image_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/b_slide_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 class SingleSlide extends StatelessWidget {
@@ -50,23 +49,6 @@ class SingleSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    /*
-//     final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-//     blog('${slideModel.slideIndex} : single slide title is : ${slideModel?.headline} and tinyMode is : $_tinyMode');
-   */
-    // --------------------
-    /*
-//     double _blurImageScale = 1.5;
-    // -----------------------------o
-    // bool _blurLayerIsActive = true;
-    // Imagers().slideBlurIsOn(
-    //   pic: picture,
-    //   boxFit: boxFit,
-    //   flyerBoxWidth: flyerBoxWidth,
-    //   imageSize: imageSize,
-    // );
-   */
-    // --------------------
     return SlideBox(
       key: const ValueKey<String>('SingleSlideBox'),
       flyerBoxWidth: flyerBoxWidth,
@@ -102,10 +84,6 @@ class SingleSlide extends StatelessWidget {
             text: slideModel.headline,
             translate: false,
           ),
-          // verseColor: Colorz.white255,
-          tappingVerse: () {
-            blog('Flyer Title clicked');
-            },
         ),
 
       ],
