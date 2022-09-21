@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/progress_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -188,6 +188,32 @@ class Strips extends StatelessWidget {
     return _numberOfStrips;
   }
   // -----------------------------------------------------------------------------
+  Tween<double> _tween(ProgressBarModel _progModel) {
+    Tween<double> _tween;
+
+    final double _aStripLength = oneStripLength(
+      flyerBoxWidth: flyerBoxWidth,
+      numberOfStrips: _progModel.numberOfStrips,
+    );
+
+    /// NO TWEEN
+    if (_progModel.swipeDirection == SwipeDirection.freeze) {
+      _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
+    }
+
+    /// GOING NEXT
+    else if (_progModel.swipeDirection  == SwipeDirection.next) {
+      _tween = Tween<double>(begin: 0, end: _aStripLength);
+    }
+
+    /// GOING PREVIOUS
+    else {
+      _tween = Tween<double>(begin: _aStripLength, end: 0);
+    }
+
+    return _tween;
+  }
+
   @override
   Widget build(BuildContext context) {
     // -----------------------------------------------------------------------------
@@ -218,18 +244,6 @@ class Strips extends StatelessWidget {
 
       return ValueListenableBuilder(
           valueListenable: progressBarModel,
-          child: ProgressBox(
-              flyerBoxWidth: flyerBoxWidth,
-              margins: margins,
-              stripsStack: <Widget>[
-                StaticStrip(
-                  flyerBoxWidth: flyerBoxWidth,
-                  stripWidth: _stripsTotalLength,
-                  numberOfSlides: 1,
-                  isWhite: true,
-                ),
-              ]
-          ),
           builder: (_, ProgressBarModel _progModel, Widget singleSlideProgBar){
 
             final double _aStripLength = oneStripLength(
@@ -237,26 +251,6 @@ class Strips extends StatelessWidget {
               numberOfStrips: _progModel.numberOfStrips,
             );
 
-            Tween<double> _tween() {
-              Tween<double> _tween;
-
-              /// NO TWEEN
-              if (_progModel.swipeDirection == SwipeDirection.freeze) {
-                _tween = Tween<double>(begin: _aStripLength, end: _aStripLength);
-              }
-
-              /// GOING NEXT
-              else if (_progModel.swipeDirection  == SwipeDirection.next) {
-                _tween = Tween<double>(begin: 0, end: _aStripLength);
-              }
-
-              /// GOING PREVIOUS
-              else {
-                _tween = Tween<double>(begin: _aStripLength, end: 0);
-              }
-
-              return _tween;
-            }
 
             final int _numberOfStrips = _getNumberOfWhiteStrips(
               currentSlideIndex: _progModel.index,
@@ -300,7 +294,7 @@ class Strips extends StatelessWidget {
                     TweenAnimationBuilder<double>(
                       key: ValueKey<String>('top_strip_${_progModel.index}'),
                       duration: Ratioz.duration150ms,
-                      tween: _tween(),
+                      tween: _tween(_progModel),
                       curve: Curves.easeOut,
                       child: StaticStrip(
                         flyerBoxWidth: flyerBoxWidth,
@@ -348,6 +342,18 @@ class Strips extends StatelessWidget {
             }
 
           },
+        child: ProgressBox(
+            flyerBoxWidth: flyerBoxWidth,
+            margins: margins,
+            stripsStack: <Widget>[
+              StaticStrip(
+                flyerBoxWidth: flyerBoxWidth,
+                stripWidth: _stripsTotalLength,
+                numberOfSlides: 1,
+                isWhite: true,
+              ),
+            ]
+        ),
       );
 
     }

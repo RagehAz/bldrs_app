@@ -3,8 +3,8 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xxx_slide_editor_control
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slide_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/e_slide_headline.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/d_slide_shadow.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/image_filter_animated_name.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_back_cover_image.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transformer.dart';
