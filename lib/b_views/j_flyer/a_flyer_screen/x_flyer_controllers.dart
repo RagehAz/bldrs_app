@@ -1,13 +1,14 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/d_flyer_tree.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/d_flyer_tree.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -439,11 +440,14 @@ Future<void> recordFlyerView({
   @required int index,
 }) async {
 
-  await FlyerRecordRealOps.viewFlyer(
-    context: context,
-    flyerModel: flyerModel,
-    index: index,
-  );
+  if (AuthModel.userIsSignedIn() == true){
+    await FlyerRecordRealOps.viewFlyer(
+      context: context,
+      flyerModel: flyerModel,
+      index: index,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------

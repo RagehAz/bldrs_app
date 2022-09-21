@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x1_bz_flyers_page_controllers.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/a_flyer_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
