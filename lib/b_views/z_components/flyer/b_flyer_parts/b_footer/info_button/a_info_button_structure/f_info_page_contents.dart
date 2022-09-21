@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/chain/d_spec_model.dart';
 import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -203,6 +204,7 @@ class InfoPageContents extends StatelessWidget {
                 ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// REPORT BUTTON
+                if (AuthModel.userIsSignedIn() == true)
                 Align(
                   // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
                   child: ReportButton(
@@ -214,7 +216,8 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 ),
                 /// REPORT LINE
-                InfoPageSeparator(
+                if (AuthModel.userIsSignedIn() == true)
+                  InfoPageSeparator(
                   pageWidth: _pageWidth,
                 ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0

@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/black_box.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_counter.dart';
 import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/a_header/max_header/bz_pg_fields.dart';
@@ -183,6 +184,7 @@ class MaxHeader extends StatelessWidget {
               ),
 
               /// REPORT
+              if (AuthModel.userIsSignedIn() == true)
               BlackBox(
                 width: flyerBoxWidth,
                 child: ReportButton(

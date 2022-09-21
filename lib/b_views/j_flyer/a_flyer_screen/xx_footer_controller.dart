@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/link_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
 import 'package:bldrs/e_db/real/ops/flyer_record_real_ops.dart';
@@ -71,6 +72,7 @@ Future<void> onShareFlyer({
       ),
     ),
 
+    if (AuthModel.userIsSignedIn() == true)
     FlyerRecordRealOps.shareFlyer(
       context: context,
       flyerID: flyerModel.id,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/ui/keyboard_model.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -89,24 +90,35 @@ Future<void> onSubmitReview({
   @required ValueNotifier<Map<String, dynamic>> addMap,
 }) async {
 
-  final ReviewModel _uploadedReview = await ReviewProtocols.composeReview(
-    context: context,
-    text: textController.text,
-    flyerID: flyerModel.id,
-    bzID: flyerModel.bzID,
-  );
+  if (AuthModel.userIsSignedIn() == true){
 
-  await FlyerLDBOps.deleteReviewSession(
-    reviewID: ReviewModel.createTempReviewID(
-      flyerID: _uploadedReview.flyerID,
-      userID: _uploadedReview.userID,
-    ),
-  );
+    final ReviewModel _uploadedReview = await ReviewProtocols.composeReview(
+      context: context,
+      text: textController.text,
+      flyerID: flyerModel.id,
+      bzID: flyerModel.bzID,
+    );
 
-  textController.text = '';
-  Keyboard.closeKeyboard(context);
+    await FlyerLDBOps.deleteReviewSession(
+      reviewID: ReviewModel.createTempReviewID(
+        flyerID: _uploadedReview.flyerID,
+        userID: _uploadedReview.userID,
+      ),
+    );
 
-  addMap.value = _uploadedReview.toMap(includeID: true, includeDocSnapshot: true);
+    textController.text = '';
+    Keyboard.closeKeyboard(context);
+
+    addMap.value = _uploadedReview.toMap(includeID: true, includeDocSnapshot: true);
+
+  }
+
+  else {
+
+    await Dialogs.youNeedToBeSignedInDialog(context);
+
+  }
+
 
 }
 // -----------------------------------------------------------------------------
