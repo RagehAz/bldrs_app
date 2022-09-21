@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     return Container(
       width: flyerBoxWidth,
       height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
-      alignment: Alignment.center,
+      alignment: Aligners.superCenterAlignment(context),
       padding: EdgeInsets.only(top: headerLeftSpacerTween.value),
       decoration: BoxDecoration(
         color: tinyMode == true ? Colorz.white50 : Colorz.black80,

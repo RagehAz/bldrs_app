@@ -67,7 +67,7 @@ class TopDialog extends StatelessWidget {
 
       /// ANIMATION ----------------------------------------------
       forwardAnimationCurve: Curves.easeInOut,
-      duration: Duration(milliseconds: milliseconds),
+      duration: Duration(milliseconds: milliseconds ?? 1000),
       animationDuration: const Duration(milliseconds: 400),
       reverseAnimationCurve: Curves.easeInOut,
 
