@@ -15,6 +15,7 @@ class HeaderRightSpacerPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     return Center(
       child: SizedBox(
         width: headerRightSpacerTween.value,
@@ -22,6 +23,7 @@ class HeaderRightSpacerPart extends StatelessWidget {
         // color: Colorz.BloodTest,
       ),
     );
+
   }
 /// --------------------------------------------------------------------------
 }

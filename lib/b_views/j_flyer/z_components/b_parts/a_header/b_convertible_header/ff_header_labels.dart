@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/author_label.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_bz_label.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
