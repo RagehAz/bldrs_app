@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/ui_provider.dart';
@@ -141,11 +140,9 @@ class IconsGridBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    blog('fuck');
-
     const double _gridSpacing = Ratioz.appBarMargin;
 
-    const int _numberOfIconsInARow = 3;
+    const int _numberOfIconsInARow = 5;
 
     final double _iconBoxSize = Scale.getUniformRowItemWidth(
       context: context,

@@ -25,6 +25,7 @@ import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/redorde
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/slider_test.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/sounds_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
+import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/tiny_flyer_test_screen.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/video_player.dart';
 import 'package:bldrs/x_dashboard/x_modules/a_test_labs/specialized_labs/zoning_workspace.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,13 @@ class SpecializedLabs extends StatelessWidget {
   List<DashButtonModel> _generateButtonsModels(BuildContext context){
 
     const List<DashButtonModel> _buttons = <DashButtonModel>[
+
+      /// RE-ORDER LIST
+      DashButtonModel(
+        verse:  'TinyFlyer test',
+        icon: Iconz.flyerScale,
+        screen: TinyFlyerTest(),
+      ),
 
       /// RE-ORDER LIST
       DashButtonModel(

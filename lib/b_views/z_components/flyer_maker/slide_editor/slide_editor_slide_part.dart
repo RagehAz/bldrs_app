@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xxx_slide_editor_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_flyer_header_template.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
@@ -8,8 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/image_filter_animated_name.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_back_cover_image.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_transformer.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_footer.dart';
-import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/static_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/static_footer.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -206,7 +206,7 @@ class SlideEditorSlidePart extends StatelessWidget {
 
                 /// STATIC HEADER
                 IgnorePointer(
-                  child: StaticHeader(
+                  child: FlyerHeaderTemplate(
                     flyerBoxWidth: _flyerBoxWidth,
                     opacity: 0.5,
                   ),

@@ -2,6 +2,7 @@ import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
+/// VARS OPTIMIZED
 class Scale {
   // -----------------------------------------------------------------------------
 
@@ -14,26 +15,17 @@ class Scale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenWidth(BuildContext context) {
-    final double _screenWidth = MediaQuery.of(context).size.width;
-    return _screenWidth;
+    return MediaQuery.of(context).size.width;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenHeight(BuildContext context) {
-    final double _screenHeight = MediaQuery.of(context).size.height;
-    return _screenHeight;
+    return MediaQuery.of(context).size.height;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superScreenHeightWithoutSafeArea(BuildContext context) {
-
-    final double _screenWithoutSafeAreaHeight =
-        superScreenHeight(context)
-            -
-            superSafeAreaTopPadding(context);
-
-
-    return _screenWithoutSafeAreaHeight;
+    return superScreenHeight(context) - superSafeAreaTopPadding(context);
   }
   // -----------------------------------------------------------------------------
 
@@ -42,8 +34,7 @@ class Scale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superSafeAreaTopPadding(BuildContext context) {
-    final double _safeAreaHeight = MediaQuery.of(context).padding.top;
-    return _safeAreaHeight;
+    return MediaQuery.of(context).padding.top;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -55,20 +46,24 @@ class Scale {
     double top = 0,
   }) {
 
-    return TextDir.appIsLeftToRight(context) ?
-    EdgeInsets.only(
-        bottom: bottom,
-        left: enLeft,
-        right: enRight,
-        top: top
-    )
-        :
-    EdgeInsets.only(
-        bottom: bottom,
-        left: enRight,
-        right: enLeft,
-        top: top
-    );
+    if (TextDir.appIsLeftToRight(context) == true){
+      return EdgeInsets.only(
+          bottom: bottom,
+          left: enLeft,
+          right: enRight,
+          top: top
+      );
+    }
+
+    else {
+      return EdgeInsets.only(
+          bottom: bottom,
+          left: enRight,
+          right: enLeft,
+          top: top
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -79,42 +74,55 @@ class Scale {
     double top = 0,
     double bottom = 0,
   }) {
-    return TextDir.appIsLeftToRight(context) ?
-    EdgeInsets.only(
-        left: enLeft,
-        right: enRight,
-        top: top,
-        bottom: bottom
-    )
-        :
-    EdgeInsets.only(
-      left: enRight,
-      right: enLeft,
-      top: top,
-      bottom: bottom,
-    );
+
+    if (TextDir.appIsLeftToRight(context) == true){
+      return EdgeInsets.only(
+          left: enLeft,
+          right: enRight,
+          top: top,
+          bottom: bottom
+      );
+    }
+
+    else {
+      return EdgeInsets.only(
+          left: enRight,
+          right: enLeft,
+          top: top,
+          bottom: bottom,
+      );
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets superMargins({dynamic margins}) {
-    final EdgeInsets _boxMargins = margins == null || margins == 0 ? EdgeInsets.zero
-        :
-    margins.runtimeType == double ? EdgeInsets.all(margins)
-        :
-    margins.runtimeType == int ? EdgeInsets.all(margins.toDouble())
-        :
-    margins.runtimeType == EdgeInsets ? margins
-        :
-    margins;
 
-    return _boxMargins;
+    if (margins == null || margins == 0){
+      return EdgeInsets.zero;
+    }
+
+    else if (margins.runtimeType == double){
+      return EdgeInsets.all(margins);
+    }
+
+    else if (margins.runtimeType == int){
+      return EdgeInsets.all(margins.toDouble());
+    }
+
+    else if (margins.runtimeType == EdgeInsets){
+      return margins;
+    }
+
+    else {
+      return margins;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double superDeviceRatio(BuildContext context) {
-    final Size _size = MediaQuery.of(context).size;
-    final double _deviceRatio = _size.aspectRatio;
-    return _deviceRatio;
+    return MediaQuery.of(context).size.aspectRatio;
   }
   // -----------------------------------------------------------------------------
 

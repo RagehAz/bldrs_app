@@ -31,12 +31,12 @@ class HeaderBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (headerHeightTween is Animation<double>){
-      final Animation<double> _headerHeightTween = headerHeightTween;
+
       return GestureDetector(
         onTap: tinyMode == true ? null : onHeaderTap,
         child: Container(
           width: flyerBoxWidth,
-          height: _headerHeightTween.value,
+          height: headerHeightTween.value,
           decoration: BoxDecoration(
             color: headerColor,
             borderRadius: headerBorders,
