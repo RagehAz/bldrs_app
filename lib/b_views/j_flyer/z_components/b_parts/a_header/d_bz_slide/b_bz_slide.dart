@@ -3,24 +3,24 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/max_header/black_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/max_header/bz_pg_counter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/max_header/bz_pg_fields.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/max_header/bz_pg_verse.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/bb_bz_slide_fields.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/c_bz_slide_bottom_padding.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_black_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_about_verse.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_pg_counter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_slide_verse.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/e_specials/report_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class MaxHeader extends StatelessWidget {
+class BzSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const MaxHeader({
+  const BzSlide({
     @required this.flyerBoxWidth,
     @required this.bzModel,
     @required this.bzCounters,
@@ -77,7 +77,7 @@ class MaxHeader extends StatelessWidget {
               ),
 
               /// BUSINESS BIRTH YEAR
-              BzPgVerse(
+              BzSlideVerse(
                 key: const ValueKey<String>('max_header_BzPgVerse'),
                 flyerBoxWidth: flyerBoxWidth,
                 verse: Verse.plain(Timers.generateString_in_bldrs_since_month_yyyy(context, bzModel.createdAt)),
@@ -212,35 +212,4 @@ class MaxHeader extends StatelessWidget {
     // --------------------
   }
   // -----------------------------------------------------------------------------
-}
-
-class MaxHeaderBottomPadding extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const MaxHeaderBottomPadding({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final double flyerBoxWidth;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const ValueKey<String>('max_header_bottom_padding'),
-      width: flyerBoxWidth,
-      height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
-      margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
-      decoration: BoxDecoration(
-        color: Colorz.black80,
-        borderRadius: Borderers.superBorderOnly(
-          context: context,
-          enTopLeft: 0,
-          enTopRight: 0,
-          enBottomLeft: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
-          enBottomRight: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
-        ),
-      ),
-    );
-  }
-  /// --------------------------------------------------------------------------
 }

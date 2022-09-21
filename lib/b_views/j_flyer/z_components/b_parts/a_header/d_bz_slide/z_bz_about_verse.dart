@@ -1,44 +1,8 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/max_header/black_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_black_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
-
-class BzPgVerse extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const BzPgVerse({
-    @required this.flyerBoxWidth,
-    @required this.verse,
-    @required this.size,
-    this.maxLines = 1,
-    Key key,
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final double flyerBoxWidth;
-  final Verse verse;
-  final int size;
-  final int maxLines;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    final double _margins = maxLines > 1 ? flyerBoxWidth * 0.05 : flyerBoxWidth * 0.02;
-
-    return BlackBox(
-      width: flyerBoxWidth,
-      child: SuperVerse(
-        verse: verse,
-        weight: VerseWeight.thin,
-        italic: true,
-        size: size,
-        color: Colorz.white200,
-        margin: _margins,
-        maxLines: maxLines,
-      ),
-    );
-  }
-/// --------------------------------------------------------------------------
-}
 
 class BzAboutVerse extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -55,7 +19,7 @@ class BzAboutVerse extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _BzAboutVerseState createState() => _BzAboutVerseState();
-  /// --------------------------------------------------------------------------
+/// --------------------------------------------------------------------------
 }
 
 class _BzAboutVerseState extends State<BzAboutVerse> {

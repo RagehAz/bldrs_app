@@ -1,9 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/author_label.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/header_labels.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ff_header_labels.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -214,6 +215,7 @@ class StaticHeader extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+
                             ],
                           ),
                         ),

@@ -16,13 +16,23 @@ class XButtonPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final BorderRadius headerBorders;
   final Function onHeaderTap;
-  final ValueNotifier<bool> headerIsExpanded; /// p
+  final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
       valueListenable: headerIsExpanded,
+      builder: (_, bool _headerIsExpanded, Widget child){
+
+        return AnimatedOpacity(
+          opacity: _headerIsExpanded == true ? 1 : 0,
+          duration: Ratioz.duration150ms,
+          child: child,
+        );
+
+
+      },
       child: Align(
         alignment: Aligners.superTopAlignment(context),
         child: DreamBox(
@@ -36,16 +46,6 @@ class XButtonPart extends StatelessWidget {
           onTap: onHeaderTap,
         ),
       ),
-      builder: (_, bool _headerIsExpanded, Widget child){
-
-        return AnimatedOpacity(
-          opacity: _headerIsExpanded == true ? 1 : 0,
-          duration: Ratioz.duration150ms,
-          child: child,
-        );
-
-
-      },
     );
 
   }
