@@ -48,9 +48,9 @@ class FlyerTree extends StatefulWidget {
   final bool loading;
   final String heroTag;
   final FlightDirection flightDirection;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final Function onSaveFlyer;
-  final ValueNotifier<bool> flyerIsSaved; /// p
+  final ValueNotifier<bool> flyerIsSaved;
   /// --------------------------------------------------------------------------
   // static const double flyerSmallWidth = 200;
   /// --------------------------------------------------------------------------

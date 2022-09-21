@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_full_scre
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
@@ -41,31 +42,29 @@ class FlyerStarter extends StatefulWidget {
 
 class _FlyerStarterState extends State<FlyerStarter> {
   // -----------------------------------------------------------------------------
+  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
+  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  // --------------------
+  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
+  // --------------------
+  FlyerModel _flyerModel;
+  // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({
     @required setTo,
   }) async {
-    if (mounted == true){
-      _loading.value = setTo;
-    }
-    // blogLoading(
-    //   loading: _loading.value,
-    //   callerName: 'FlyerStarter',
-    // );
+
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+      // addPostFrameCallBack:
+    );
+
   }
-  // -----------------------------------------------------------------------------
-  /// --- FLYER BZ MODEL
-  final ValueNotifier<BzModel> _bzModelNotifier = ValueNotifier(null);
-  // --------------------
-  /// FLYER ZONE
-  final ValueNotifier<ZoneModel> _flyerZoneNotifier = ValueNotifier(null);
-  // --------------------
-  FlyerModel _flyerModel;
-  // --------------------
-  /// CURRENT SLIDE INDEX
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -83,11 +82,16 @@ class _FlyerStarterState extends State<FlyerStarter> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit && mounted && _flyerModel != null && _flyerModel?.id != null) {
 
-      // _flyerModel.blogFlyer(methodName: 'Flyer Starter : didChangeDependencies');
+    if (
+        _isInit == true &&
+        mounted == true &&
+        _flyerModel != null &&
+        _flyerModel?.id != null
+    ) {
 
       _triggerLoading(setTo: true).then((_) async {
+        // ----------
         BzModel _bzModel;
         // ----------
         /// BZ MODEL
@@ -111,7 +115,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
         if (mounted == true){
           _flyerCountry = await getFlyerBzCountry(
             context: context,
-            countryID: widget.flyerModel.zone.countryID,
+            countryID: _flyerModel.zone.countryID,
           );
         }
         // ----------
@@ -119,13 +123,13 @@ class _FlyerStarterState extends State<FlyerStarter> {
         if (mounted == true){
           _flyerCity = await getFlyerBzCity(
             context: context,
-            cityID: widget.flyerModel.zone.cityID,
+            cityID: _flyerModel.zone.cityID,
           );
         }
         // ----------
         /// STARTING INDEX
         final int _startingIndex = getPossibleStartingIndex(
-          flyerModel: widget.flyerModel,
+          flyerModel: _flyerModel,
           bzModel: _bzModel,
           heroTag: widget.heroTag,
           startFromIndex: widget.startFromIndex,
@@ -141,11 +145,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
             context: context,
             countryID: _flyerCountry.id,
             cityModel: _flyerCity,
-            districtID: widget.flyerModel.zone.districtID,
+            districtID: _flyerModel.zone.districtID,
           );
 
           final int _numberOfSlides = getNumberOfSlides(
-            flyerModel: widget.flyerModel,
+            flyerModel: _flyerModel,
             bzModel: _bzModel,
             heroTag: widget.heroTag,
           );
@@ -160,10 +164,11 @@ class _FlyerStarterState extends State<FlyerStarter> {
         // ----------
         await _triggerLoading(setTo: false);
         // ----------
-      }
-      );
+      });
+
       _isInit = false;
     }
+
     super.didChangeDependencies();
   }
   // --------------------
@@ -185,7 +190,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
     unawaited(recordFlyerView(
       context: context,
       index: 0,
-      flyerModel: widget.flyerModel,
+      flyerModel: _flyerModel,
     ));
 
     await context.pushTransparentRoute(
@@ -204,7 +209,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
 
   }
   // --------------------
-  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   Future<void> onTriggerSave() async {
 
     if (mounted == true){
@@ -224,56 +228,59 @@ class _FlyerStarterState extends State<FlyerStarter> {
     return ValueListenableBuilder(
         key: const ValueKey<String>('FlyerStarter'),
         valueListenable: _loading,
-        child: FlyerLoading(flyerBoxWidth: widget.minWidthFactor,),
-        builder: (_, bool isLoading, Widget flyerLoading){
+        builder: (_, bool isLoading, Widget flyerHeroTree){
 
-          if (isLoading == true){
-            return flyerLoading;
+          if (isLoading == true || _flyerModel == null){
+            return FlyerLoading(
+              flyerBoxWidth: widget.minWidthFactor,
+            );
           }
 
           else {
 
-            return ValueListenableBuilder<BzModel>(
-                valueListenable: _bzModelNotifier,
-                builder: (_, BzModel bzModel, Widget child){
+            return flyerHeroTree;
 
-                  return ValueListenableBuilder<ZoneModel>(
-                      valueListenable: _flyerZoneNotifier,
-                      builder: (_, ZoneModel flyerZone, Widget child){
+          }
 
-                        if (bzModel == null || widget.flyerModel == null){
-                          return flyerLoading;
-                        }
+        },
+      child: ValueListenableBuilder<BzModel>(
+          valueListenable: _bzModelNotifier,
+          builder: (_, BzModel bzModel, Widget flyerLoading){
 
-                        else {
+            return ValueListenableBuilder<ZoneModel>(
+                valueListenable: _flyerZoneNotifier,
+                builder: (_, ZoneModel flyerZone, Widget child){
 
-                          return GestureDetector(
-                            onTap: _openFullScreenFlyer,
-                            child: FlyerHero(
-                              key: const ValueKey<String>('Flyer_hero'),
-                              flyerModel: _flyerModel,
-                              bzModel: bzModel,
-                              flyerZone: flyerZone,
-                              minWidthFactor: widget.minWidthFactor,
-                              isFullScreen: widget.isFullScreen,
-                              heroTag: widget.heroTag,
-                              progressBarModel: _progressBarModel,
-                              onSaveFlyer: onTriggerSave,
-                              flyerIsSaved: _flyerIsSaved,
-                            ),
-                          );
+                  if (bzModel == null || _flyerModel == null){
+                    return flyerLoading;
+                  }
 
-                        }
+                  else {
 
-                      }
-                  );
+                    return GestureDetector(
+                      onTap: _openFullScreenFlyer,
+                      child: FlyerHero(
+                        key: const ValueKey<String>('Flyer_hero'),
+                        flyerModel: _flyerModel,
+                        bzModel: bzModel,
+                        flyerZone: flyerZone,
+                        minWidthFactor: widget.minWidthFactor,
+                        isFullScreen: widget.isFullScreen,
+                        heroTag: widget.heroTag,
+                        progressBarModel: _progressBarModel,
+                        onSaveFlyer: onTriggerSave,
+                        flyerIsSaved: _flyerIsSaved,
+                      ),
+                    );
+
+                  }
 
                 }
             );
 
-          }
-
-        }
+          },
+        child: FlyerLoading(flyerBoxWidth: widget.minWidthFactor,),
+      ),
     );
 
   }

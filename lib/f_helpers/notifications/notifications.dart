@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/secondary_models/error_helpers.dart';
+import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/a_models/user/fcm_token.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/a_user_protocols.dart';
@@ -264,8 +265,10 @@ class Notifications {
     @required BuildContext context,
   }) async {
 
-    /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
-    /*
+    if (AuthModel.userIsSignedIn() == true){
+
+      /// UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
+      /*
          - Unsubscribe stale tokens from topics
          Managing topics subscriptions to remove stale registration
          tokens is another consideration. It involves two steps:
@@ -285,58 +288,60 @@ class Notifications {
 
      */
 
-    String _fcmToken;
+      String _fcmToken;
 
-    /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+      /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
 
-    final bool _continue = await tryCatchAndReturnBool(
-      context: context,
-      methodName: 'updateMyUserFCMToken',
-      functions: () async {
+      final bool _continue = await tryCatchAndReturnBool(
+        context: context,
+        methodName: 'updateMyUserFCMToken',
+        functions: () async {
 
-        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+          final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
-        if (Platform.isIOS) {
-          _fcmToken = await _fcm.getToken();
+          if (Platform.isIOS) {
+            _fcmToken = await _fcm.getToken();
+          }
+          else {
+            _fcmToken = await _fcm.getToken();
+          }
+
+        },
+        onError: (String error){
+
+          /// error codes reference
+          // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
+          // UNREGISTERED (HTTP 404)
+          // INVALID_ARGUMENT (HTTP 400)
+          // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+
+          /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
+
+        },
+      );
+
+      final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+
+      if (_continue == true && _fcmToken != null && _myUserModel != null){
+
+        if (_myUserModel?.fcmToken?.token != _fcmToken){
+
+          final FCMToken _token = FCMToken(
+            token: _fcmToken,
+            createdAt: DateTime.now(),
+            platform: Platform.operatingSystem,
+          );
+
+          final UserModel _updated = _myUserModel.copyWith(
+            fcmToken: _token,
+          );
+
+          await UserProtocols.renovateMyUserModel(
+            context: context,
+            newUserModel: _updated,
+          );
+
         }
-        else {
-          _fcmToken = await _fcm.getToken();
-        }
-
-      },
-      onError: (String error){
-
-        /// error codes reference
-        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
-        // UNREGISTERED (HTTP 404)
-        // INVALID_ARGUMENT (HTTP 400)
-        // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-        /// TASK : SHOULD DELETE THE FCM TOKEN FROM USER DOC AND GENERATE NEW TOKEN !
-
-      },
-    );
-
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
-
-    if (_continue == true && _fcmToken != null && _myUserModel != null){
-
-      if (_myUserModel?.fcmToken?.token != _fcmToken){
-
-        final FCMToken _token = FCMToken(
-          token: _fcmToken,
-          createdAt: DateTime.now(),
-          platform: Platform.operatingSystem,
-        );
-
-        final UserModel _updated = _myUserModel.copyWith(
-          fcmToken: _token,
-        );
-
-        await UserProtocols.renovateMyUserModel(
-          context: context,
-          newUserModel: _updated,
-        );
 
       }
 
@@ -348,16 +353,22 @@ class Notifications {
   static Future<void> subscribeToTopic({
     String topicName
   }) async {
-    final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
-    await _fireMessaging.subscribeToTopic(topicName);
+
+    if (AuthModel.userIsSignedIn() == true){
+      final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
+      await _fireMessaging.subscribeToTopic(topicName);
+    }
+
   }
   // --------------------
   /// TESTED : ...
   static Future<void> unsubscribeFromTopic({
     @required String topicName,
   }) async {
-    final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
-    await _fireMessaging.unsubscribeFromTopic(topicName);
+    if (AuthModel.userIsSignedIn() == true){
+      final FirebaseMessaging _fireMessaging = FirebaseMessaging.instance;
+      await _fireMessaging.unsubscribeFromTopic(topicName);
+    }
   }
   // -----------------------------------------------------------------------------
 

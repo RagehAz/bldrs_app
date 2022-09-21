@@ -34,11 +34,11 @@ class FooterButton extends StatelessWidget {
     @required bool tinyMode,
   }) {
 
-    final double _footerBTMargins = (tinyMode == true) ? flyerBoxWidth * 0.01
-        :
-    flyerBoxWidth * 0.025;
+    // final double _footerBTMargins = (tinyMode == true) ? flyerBoxWidth * 0.01
+    //     :
+    // flyerBoxWidth * 0.025;
 
-    return _footerBTMargins;
+    return flyerBoxWidth * 0.01;
   }
   // --------------------
   static double buttonRadius({
