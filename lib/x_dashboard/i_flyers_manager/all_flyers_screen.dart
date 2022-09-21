@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/e_db/fire/foundation/firestore.dart';
 import 'package:bldrs/e_db/fire/foundation/paths.dart';

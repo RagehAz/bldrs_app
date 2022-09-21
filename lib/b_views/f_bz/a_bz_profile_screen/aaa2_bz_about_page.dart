@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -6,8 +7,7 @@ import 'package:bldrs/b_views/z_components/bubble/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
 import 'package:bldrs/b_views/z_components/editors/contacts_bubble.dart';
-import 'package:bldrs/b_views/z_components/flyer/b_flyer_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
-import 'package:bldrs/b_views/z_components/flyer/c_flyer_groups/flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/bubbles/paragraph_bubble.dart';
