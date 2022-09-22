@@ -33,20 +33,20 @@ class FlyerSelectionStack extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
-    final BorderRadius _corners = FlyerBox.corners(context, flyerBoxWidth);
-    final double _checkIconSize = FlyerBox.bottomCornerValue(flyerBoxWidth) * 2;
-    final bool _isSelectionMode = onSelectFlyer != null;
-    // --------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
-    // --------------------
 
     if (flyerModel == null){
       return const SizedBox();
     }
 
     else {
+      // --------------------
+      final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
+      final BorderRadius _corners = FlyerBox.corners(context, flyerBoxWidth);
+      final double _checkIconSize = FlyerBox.bottomCornerValue(flyerBoxWidth) * 2;
+      final bool _isSelectionMode = onSelectFlyer != null;
+      // --------------------
+      final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+      // --------------------
       return Stack(
         // alignment: Alignment.center,
         children: <Widget>[
@@ -165,21 +165,18 @@ class FlyerSelectionStack extends StatelessWidget {
           if (onFlyerOptionsTap != null)
             SuperPositioned(
               enAlignment: Alignment.bottomRight,
-              verticalOffset: FooterButton.buttonMargin(context: context, flyerBoxWidth: flyerBoxWidth, tinyMode: false),
-              horizontalOffset: FooterButton.buttonMargin(
-                  context: context,
-                  flyerBoxWidth: flyerBoxWidth,
-                  tinyMode: _tinyMode
-              ),
+              verticalOffset: FooterButton.buttonMargin(flyerBoxWidth: flyerBoxWidth,),
+              horizontalOffset: FooterButton.buttonMargin(flyerBoxWidth: flyerBoxWidth,),
               child: FooterButton(
                 icon: Iconz.more,
-                phid: '##More',
+                phid: 'phid_more',
                 flyerBoxWidth: flyerBoxWidth,
                 onTap: onFlyerOptionsTap,
                 isOn: false,
                 canTap: true,
                 count: null,
               ),
+
               // child: DreamBox(
               //   width: FooterButton.,
               //   height: _footerHeight,
@@ -193,6 +190,7 @@ class FlyerSelectionStack extends StatelessWidget {
               //   bubble: false,
               //   onTap: () => onFlyerOptionsTap(_flyer),
               // ),
+
             ),
 
         ],
