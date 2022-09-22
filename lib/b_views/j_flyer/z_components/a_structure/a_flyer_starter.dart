@@ -1,18 +1,18 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/user_model.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_full_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -99,14 +99,6 @@ class _FlyerStarterState extends State<FlyerStarter> {
           _bzModel = await getFlyerBzModel(
             context: context,
             flyerModel: _flyerModel,
-          );
-        }
-        // ----------
-        /// BZ ZONE FIX
-        if (mounted == true){
-          _bzModel = await BzProtocols.completeBzZoneModel(
-            context: context,
-            bzModel: _bzModel,
           );
         }
         // ----------

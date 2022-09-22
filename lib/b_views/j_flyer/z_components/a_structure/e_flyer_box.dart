@@ -28,6 +28,11 @@ class FlyerBox extends StatelessWidget {
 
   // --------------------
   /// TAMAM : WORKS PERFECT
+  static bool isFullScreen(BuildContext context, double flyerBoxWidth){
+    return flyerBoxWidth == Scale.superScreenWidth(context);
+  }
+  // --------------------
+  /// TAMAM : WORKS PERFECT
   static double width(BuildContext context, double flyerSizeFactor) {
     return Scale.superScreenWidth(context) * flyerSizeFactor;
   }

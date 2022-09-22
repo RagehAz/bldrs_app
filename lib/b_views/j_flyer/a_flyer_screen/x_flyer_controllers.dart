@@ -254,8 +254,9 @@ Widget flyerFlightShuttle({
             flyerModel: flyerModel,
             bzModel: bzModel,
             flyerBoxWidth: _flyerBoxWidth,
-            tweenValue: value,
+            flightTweenValue: value,
             flightDirection: _flightDirection,
+            heroTag: 'heroTagInFlight',
           ),
           // body: FlyerTree(
           //   flyerBoxWidth: _flyerBoxWidth,
