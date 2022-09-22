@@ -7,18 +7,18 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
-class TinyFlyerTest extends StatefulWidget {
+class StaticFlyerTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const TinyFlyerTest({
+  const StaticFlyerTest({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _TinyFlyerTestState createState() => _TinyFlyerTestState();
+  _StaticFlyerTestState createState() => _StaticFlyerTestState();
   /// --------------------------------------------------------------------------
 }
 
-class _TinyFlyerTestState extends State<TinyFlyerTest> {
+class _StaticFlyerTestState extends State<StaticFlyerTest> {
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);

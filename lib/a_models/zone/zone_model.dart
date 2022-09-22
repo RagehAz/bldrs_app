@@ -377,7 +377,7 @@ class ZoneModel {
     bool showDistrict = true,
   }){
 
-    zoneModel?.blogZone(methodName: 'translateZoneString');
+    // zoneModel?.blogZone(methodName: 'translateZoneString');
 
     String _text = '...';
     final String _inn = xPhrase(context, 'phid_inn');

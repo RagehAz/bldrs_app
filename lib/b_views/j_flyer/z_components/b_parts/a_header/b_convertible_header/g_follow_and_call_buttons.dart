@@ -53,25 +53,10 @@ class FollowAndCallButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _paddings = getPaddings(
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    // --------------------
-    /// --- FOLLOWERS & GALLERY
-    final double followGalleryHeight = getBoxHeight(
-      flyerBoxWidth: flyerBoxWidth,
-      headerIsExpanded: false,
-    );
-    // --------------------
-    final double followGalleryWidth = getBoxWidth(
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    // --------------------
-
     if (tinyMode == true || showButtons == false){
       return const SizedBox();
     }
-
+    // --------------------
     else {
       return Container(
         width: getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
@@ -79,8 +64,13 @@ class FollowAndCallButtons extends StatelessWidget {
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,
         child: SizedBox(
-          height: followGalleryHeight,
-          width: followGalleryWidth,
+          height: getBoxHeight(
+            flyerBoxWidth: flyerBoxWidth,
+            headerIsExpanded: false,
+          ),
+          width: getBoxWidth(
+            flyerBoxWidth: flyerBoxWidth,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -95,7 +85,9 @@ class FollowAndCallButtons extends StatelessWidget {
 
               /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
               SizedBox(
-                height: _paddings,
+                height: getPaddings(
+                  flyerBoxWidth: flyerBoxWidth,
+                ),
               ),
 
               /// Call BUTTON
