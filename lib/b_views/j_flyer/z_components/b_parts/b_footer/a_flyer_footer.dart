@@ -188,7 +188,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
         footerPageController: widget.footerPageController,
         infoButtonExpanded: _infoButtonExpanded,
         reviewButtonIsExpanded: _reviewButtonExpanded,
-        tinyMode: widget.tinyMode,
         footerPageViewChildren: <Widget>[
 
           /// FOOTER
@@ -200,7 +199,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
               FooterShadow(
                 key: const ValueKey<String>('FooterShadow'),
                 flyerBoxWidth: widget.flyerBoxWidth,
-                tinyMode: widget.tinyMode,
               ),
 
               /// FOOTER BUTTONS

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_flyer_header_template.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
@@ -166,7 +166,6 @@ class _ShelfSlideState extends State<ShelfSlide> {
                 if (widget.mutableSlide != null)
                   const FooterShadow(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
-                    tinyMode: false,
                   ),
 
                 // /// STATIC FOOTER
@@ -177,7 +176,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
 
                 /// STATIC HEADER
                 if (widget.mutableSlide != null)
-                  const FlyerHeaderTemplate(
+                  const HeaderTemplate(
                     flyerBoxWidth: ShelfSlide.flyerBoxWidth,
                     opacity: 0.5,
                   ),

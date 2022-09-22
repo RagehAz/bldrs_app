@@ -7,9 +7,9 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
-class StaticFooter extends StatelessWidget {
+class FooterTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const StaticFooter({
+  const FooterTemplate({
     @required this.flyerBoxWidth,
     Key key
   }) : super(key: key);
@@ -21,7 +21,6 @@ class StaticFooter extends StatelessWidget {
 
     final Widget _spacer = FooterButtonSpacer(
         flyerBoxWidth: flyerBoxWidth,
-        tinyMode: true
     );
 
     return Opacity(
@@ -34,7 +33,6 @@ class StaticFooter extends StatelessWidget {
           height: FooterBox.collapsedHeight(
             context: context,
             flyerBoxWidth: flyerBoxWidth,
-            tinyMode: false,
           ),
           child: Container(
             color: Colorz.white20,
@@ -73,7 +71,6 @@ class StaticFooter extends StatelessWidget {
                     isExpanded: false,
                   ),
                   alignment: Alignment.center,
-                  child: const SizedBox(),
                 ),
 
                 const Expander(),
@@ -109,11 +106,11 @@ class StaticFooter extends StatelessWidget {
                 /// SAVE BUTTON
                 FooterButton(
                   flyerBoxWidth: flyerBoxWidth,
-                  icon: null, // Iconz.save,
+                  icon: null,
                   phid:  '', // superPhrase(context, 'phid_save'),
                   isOn: false,
                   canTap: false,
-                  onTap: (){},
+                  onTap: null,
                   count: null,
                 ),
 
