@@ -15,6 +15,7 @@ class StaticHeader extends StatelessWidget {
     @required this.flyerShowsAuthor,
     this.opacity = 1,
     this.onTap,
+    this.showHeaderLabels = false,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +25,7 @@ class StaticHeader extends StatelessWidget {
   final String authorID;
   final Function onTap;
   final bool flyerShowsAuthor;
+  final bool showHeaderLabels;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class StaticHeader extends StatelessWidget {
           bzPageIsOn: false,
         ),
         flyerBoxWidth: flyerBoxWidth,
-        headerColor: Colorz.black255,
+        headerColor:  Colorz.white50,
         headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: flyerBoxWidth),
         stackChildren: <Widget>[
 
@@ -49,12 +51,13 @@ class StaticHeader extends StatelessWidget {
 
               BzLogo(
                 width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
-                image: bzModel.logo,
+                image: bzModel?.logo,
                 tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
                 corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
                 zeroCornerIsOn: flyerShowsAuthor,
               ),
 
+              if (showHeaderLabels == true)
               HeaderLabels(
                 flyerBoxWidth: flyerBoxWidth,
                 authorID: authorID,
