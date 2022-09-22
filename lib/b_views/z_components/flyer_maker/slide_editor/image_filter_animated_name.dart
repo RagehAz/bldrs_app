@@ -33,7 +33,6 @@ class ImageFilterAnimatedName extends StatelessWidget {
                     bottom: FooterBox.collapsedHeight(
                       context: context,
                       flyerBoxWidth: flyerBoxWidth,
-                      tinyMode: false,
                     )
                 ),
                 child: SuperVerse(

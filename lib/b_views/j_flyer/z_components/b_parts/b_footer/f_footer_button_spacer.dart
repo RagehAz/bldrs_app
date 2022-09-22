@@ -6,12 +6,10 @@ class FooterButtonSpacer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterButtonSpacer({
     @required this.flyerBoxWidth,
-    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -19,15 +17,12 @@ class FooterButtonSpacer extends StatelessWidget {
     return SizedBox(
 
       width: FooterButton.buttonMargin(
-          context: context,
           flyerBoxWidth: flyerBoxWidth,
-          tinyMode: tinyMode
       ),
 
       height: FooterBox.collapsedHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
-        tinyMode: tinyMode,
       ),
 
     );

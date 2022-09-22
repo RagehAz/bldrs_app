@@ -1,9 +1,10 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/static_footer.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:flutter/material.dart';
 
 class StaticFlyer extends StatelessWidget {
@@ -23,10 +24,20 @@ class StaticFlyer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return FlyerBox(
-      // key: const ValueKey<String>('StaticTinyFlyer'),
+      key: const ValueKey<String>('StaticFlyer'),
       flyerBoxWidth: flyerBoxWidth,
       // boxColor: Colorz.bloodTest,
       stackWidgets: <Widget>[
+
+        SingleSlide(
+            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
+            slideModel: flyerModel.slides[0],
+            tinyMode: false,
+            onSlideNextTap: (){},
+            onSlideBackTap: (){},
+            onDoubleTap: (){},
+        ),
 
         StaticHeader(
           flyerBoxWidth: flyerBoxWidth,
@@ -37,11 +48,12 @@ class StaticFlyer extends StatelessWidget {
           // onTap: ,
         ),
 
-        Container(
-          color: Colorz.bloodTest,
-          child: StaticFooter(
-            flyerBoxWidth: flyerBoxWidth,
-          ),
+        StaticFooter(
+          flyerBoxWidth: flyerBoxWidth,
+          isSaved: true,
+          onMoreTap: (){
+            blog('fukk');
+          },
         ),
 
       ],

@@ -10,9 +10,9 @@ import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FlyerHeaderTemplate extends StatelessWidget {
+class HeaderTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerHeaderTemplate({
+  const HeaderTemplate({
     @required this.flyerBoxWidth,
     this.opacity = 1,
     // @required this.bzModel,
