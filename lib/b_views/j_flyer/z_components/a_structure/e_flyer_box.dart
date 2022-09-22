@@ -11,6 +11,7 @@ class FlyerBox extends StatelessWidget {
     @required this.flyerBoxWidth,
     this.stackWidgets,
     this.boxColor = Colorz.white20,
+    this.onTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -20,6 +21,7 @@ class FlyerBox extends StatelessWidget {
   /// internal parts of the flyer
   final List<Widget> stackWidgets;
   final Color boxColor;
+  final Function onTap;
   // -----------------------------------------------------------------------------
 
   /// FLYER SIZES
@@ -261,24 +263,27 @@ class FlyerBox extends StatelessWidget {
     final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
     // --------------------
     return Center(
-      child: Container(
-        key: const ValueKey<String>('flyer_box'),
-        width: flyerBoxWidth,
-        height: _flyerBoxHeight,
-        alignment: Alignment.topCenter,
-        decoration: BoxDecoration(
-          color: boxColor,
-          borderRadius: _flyerBorders,
-          // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
-        ),
-        child: SizedBox( /// prevents flyer children from shrinking
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          key: const ValueKey<String>('flyer_box'),
           width: flyerBoxWidth,
           height: _flyerBoxHeight,
-          child: ClipRRect( /// because I will not pass borders to all children
+          alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            color: boxColor,
             borderRadius: _flyerBorders,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: stackWidgets ?? <Widget>[],
+            // boxShadow: Shadowz.flyerZoneShadow(_flyerBoxWidth),
+          ),
+          child: SizedBox(
+            width: flyerBoxWidth,
+            height: _flyerBoxHeight,
+            child: ClipRRect( /// because I will not pass borders to all children
+              borderRadius: _flyerBorders,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: stackWidgets ?? <Widget>[],
+              ),
             ),
           ),
         ),
