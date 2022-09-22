@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/d_flyer_tree.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
@@ -72,21 +73,28 @@ class FlyerHero extends StatelessWidget {
     final double _factor = isFullScreen ?  1 : minWidthFactor;
     final double _flyerBoxWidth = FlyerBox.width(context, _factor);
 
+    final bool youseemtoknowwherethisisgoingnaaaw = true;
+
     return Hero(
       key: const ValueKey<String>('FlyerHero'),
       tag: _heroTag,
       flightShuttleBuilder: buildFlight,
-      child: FlyerTree(
+      child: StaticFlyer(
         flyerBoxWidth: _flyerBoxWidth,
-        flyerModel: flyerModel,
         bzModel: bzModel,
-        flyerZone: flyerZone,
-        heroTag: _heroTag,
-        flightDirection: FlightDirection.non,
-        progressBarModel: progressBarModel,
-        onSaveFlyer: onSaveFlyer,
-        flyerIsSaved: flyerIsSaved,
+        flyerModel: flyerModel,
       ),
+      // child: FlyerTree(
+      //   flyerBoxWidth: _flyerBoxWidth,
+      //   flyerModel: flyerModel,
+      //   bzModel: bzModel,
+      //   flyerZone: flyerZone,
+      //   heroTag: _heroTag,
+      //   flightDirection: FlightDirection.non,
+      //   progressBarModel: progressBarModel,
+      //   onSaveFlyer: onSaveFlyer,
+      //   flyerIsSaved: flyerIsSaved,
+      // ),
 
     );
   }
