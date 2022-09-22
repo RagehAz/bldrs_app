@@ -92,6 +92,12 @@ class _TinyFlyerTestState extends State<TinyFlyerTest> {
           flyerBoxWidth: 200,
           flyerModel: _flyerModel,
           bzModel: _bzModel,
+          onFlyerTap: (){
+            blog('kokoko');
+          },
+          // onMoreTap: (){
+          //   blog('kddddddokoko');
+          // },
         ),
 
       ],

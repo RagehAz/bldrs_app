@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -249,10 +250,10 @@ Widget flyerFlightShuttle({
 
         return Scaffold(
           backgroundColor: Colorz.nothing,
-          body: FlyerBox(
+          body: StaticFlyer(
+            flyerModel: flyerModel,
+            bzModel: bzModel,
             flyerBoxWidth: _flyerBoxWidth,
-            boxColor: Colorz.bloodTest,
-            stackWidgets: const [],
           ),
           // body: FlyerTree(
           //   flyerBoxWidth: _flyerBoxWidth,
