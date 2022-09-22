@@ -222,11 +222,11 @@ Widget flyerFlightShuttle({
    */
 
   /// 'push' if expanding --- 'pop' if contracting
-  final String _curveName = flightDirection.name;
+  final String _flightDirectionName = flightDirection.name;
 
-  final Curve _curve = _curveName == 'push' ? Curves.fastOutSlowIn : Curves.fastOutSlowIn.flipped;
+  final Curve _curve = _flightDirectionName == 'push' ? Curves.fastOutSlowIn : Curves.fastOutSlowIn.flipped;
 
-  final Tween<double> _tween = _curveName == 'push' ?
+  final Tween<double> _tween = _flightDirectionName == 'push' ?
   Tween<double>(begin: 0, end: 1)
       :
   Tween<double>(begin: 1, end: 0);
@@ -254,6 +254,8 @@ Widget flyerFlightShuttle({
             flyerModel: flyerModel,
             bzModel: bzModel,
             flyerBoxWidth: _flyerBoxWidth,
+            tweenValue: value,
+            flightDirection: _flightDirection,
           ),
           // body: FlyerTree(
           //   flyerBoxWidth: _flyerBoxWidth,
@@ -281,6 +283,8 @@ FlightDirection getFlightDirection(String direction){
   }
 
 }
+
+
 // -----------------------------------------------------------------------------
 
 /// GALLERY

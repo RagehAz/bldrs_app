@@ -32,14 +32,9 @@ class HeaderLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double labelsWidth = getHeaderLabelWidth(flyerBoxWidth);
-    final double labelsHeight = getHeaderLabelHeight(flyerBoxWidth);
-    // --------------------
     return SizedBox(
-        width: labelsWidth,
-        height: labelsHeight,
-        // color: Colorz.Bl,
-
+        width: getHeaderLabelWidth(flyerBoxWidth),
+        height: getHeaderLabelHeight(flyerBoxWidth),
         child: Column(
           mainAxisAlignment: flyerShowsAuthor == true ?
           MainAxisAlignment.spaceBetween
