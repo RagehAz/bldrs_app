@@ -24,6 +24,7 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return SizedBox(
+      key: const ValueKey<String>('ProgressBar'),
       width: flyerBoxWidth,
       child: ValueListenableBuilder<double>(
         valueListenable: progressBarOpacity,

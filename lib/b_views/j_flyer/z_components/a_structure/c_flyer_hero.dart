@@ -37,7 +37,8 @@ class FlyerHero extends StatelessWidget {
   final ValueNotifier<ProgressBarModel> progressBarModel;
   final ValueNotifier<bool> flyerIsSaved;
   final Function onSaveFlyer;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   Widget buildFlight(
       BuildContext flightContext,
       Animation<double> animation,
@@ -82,6 +83,7 @@ class FlyerHero extends StatelessWidget {
         flyerBoxWidth: _flyerBoxWidth,
         bzModel: bzModel,
         flyerModel: flyerModel,
+        heroTag: _heroTag,
       ),
       // child: FlyerTree(
       //   flyerBoxWidth: _flyerBoxWidth,

@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_footer_buttons.dart';
@@ -18,7 +18,6 @@ class FlyerFooter extends StatefulWidget {
   const FlyerFooter({
     @required this.flyerBoxWidth,
     @required this.flyerModel,
-    @required this.flyerZone,
     @required this.tinyMode,
     @required this.onSaveFlyer,
     @required this.footerPageController,
@@ -30,7 +29,6 @@ class FlyerFooter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
-  final ZoneModel flyerZone;
   final bool tinyMode;
   final Function onSaveFlyer;
   final PageController footerPageController;
@@ -173,6 +171,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     const InfoButtonType _infoButtonType = InfoButtonType.info;
     // --------------------
     return ValueListenableBuilder(
+      key: const ValueKey<String>('FlyerFooter'),
       valueListenable: widget.headerIsExpanded,
       builder: (_, bool _headerIsExpanded, Widget footerWidgets){
 
@@ -220,7 +219,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 InfoButtonStarter(
                   flyerBoxWidth: widget.flyerBoxWidth,
                   flyerModel: widget.flyerModel,
-                  flyerZone: widget.flyerZone,
                   tinyMode: widget.tinyMode,
                   infoButtonExpanded: _infoButtonExpanded,
                   onInfoButtonTap: onInfoButtonTap,

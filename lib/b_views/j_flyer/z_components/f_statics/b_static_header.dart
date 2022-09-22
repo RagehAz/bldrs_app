@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertibl
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/g_follow_and_call_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_call_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_follow_button.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -34,28 +33,8 @@ class StaticHeader extends StatelessWidget {
   final bool showHeaderLabels;
   final FlightDirection flightDirection;
   /// --------------------------------------------------------------------------
-  double _bakeOpacity({
-    @required BuildContext context,
-  }){
-    double _opacity = 1;
-
-    if (flightDirection == FlightDirection.non){
-      final bool _isFullScreen = flyerBoxWidth == Scale.superScreenWidth(context);
-      _opacity = _isFullScreen == true ? 1 : 0;
-    }
-    else {
-      _opacity = flightTweenValue;
-    }
-
-    return _opacity;
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    final double _opacity = _bakeOpacity(
-      context: context,
-    );
 
     // --------------------
     final double _paddings = FollowAndCallButtons.getPaddings(
@@ -97,7 +76,7 @@ class StaticHeader extends StatelessWidget {
 
           /// HEADER LABELS
           Opacity(
-            opacity: _opacity,
+            opacity: flightTweenValue,
             child: HeaderLabels(
               flyerBoxWidth: flyerBoxWidth,
               authorID: authorID,
@@ -109,7 +88,7 @@ class StaticHeader extends StatelessWidget {
 
           /// FOLLOW AND CALL BUTTONS
           Opacity(
-            opacity: _opacity,
+            opacity: flightTweenValue,
             child: Container(
               width: FollowAndCallButtons.getBoxWidth(flyerBoxWidth: flyerBoxWidth),
               height: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
