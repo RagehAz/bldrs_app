@@ -47,7 +47,7 @@ class SpecializedLabs extends StatelessWidget {
       DashButtonModel(
         verse:  'TinyFlyer test',
         icon: Iconz.flyerScale,
-        screen: TinyFlyerTest(),
+        screen: StaticFlyerTest(),
       ),
 
       /// RE-ORDER LIST
