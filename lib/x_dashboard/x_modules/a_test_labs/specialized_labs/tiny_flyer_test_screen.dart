@@ -89,7 +89,7 @@ class _TinyFlyerTestState extends State<TinyFlyerTest> {
 
         if (_flyerModel != null)
         StaticFlyer(
-          flyerBoxWidth: 400,
+          flyerBoxWidth: 200,
           flyerModel: _flyerModel,
           bzModel: _bzModel,
         ),

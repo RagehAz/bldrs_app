@@ -29,57 +29,36 @@ class FooterButton extends StatelessWidget {
   final int count;
   // --------------------
   static double buttonMargin({
-    @required BuildContext context,
     @required double flyerBoxWidth,
-    @required bool tinyMode,
   }) {
-
-    // final double _footerBTMargins = (tinyMode == true) ? flyerBoxWidth * 0.01
-    //     :
-    // flyerBoxWidth * 0.025;
-
     return flyerBoxWidth * 0.01;
   }
   // --------------------
   static double buttonRadius({
     @required BuildContext context,
     @required double flyerBoxWidth,
-    @required bool tinyMode,
   }) {
     final double _flyerBottomCorners = FooterBox.boxCornersValue(flyerBoxWidth);
     final double _footerBTMargins = buttonMargin(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
     );
-
-    final double _footerBTRadius = _flyerBottomCorners - _footerBTMargins;
-    return _footerBTRadius;
+    return _flyerBottomCorners - _footerBTMargins;
   }
   // --------------------
   static double buttonSize({
     @required BuildContext context,
     @required double flyerBoxWidth,
-    @required bool tinyMode,
   }) {
-    final double _footerBTRadius = buttonRadius(
+    return 2 * buttonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
     );
-
-    return _footerBTRadius * 2;
   }
   // --------------------
   static Color buttonColor({
     @required bool buttonIsOn,
   }) {
-    const Color _onColor = Colorz.yellow255;
-    const Color _offColor = Colorz.black255;
-
-    final Color _color = buttonIsOn ? _onColor : _offColor;
-
-    return _color;
+    return buttonIsOn ? Colorz.yellow255 : Colorz.black255;
   }
   // --------------------
   static Verse generateButtonVerse({
@@ -118,75 +97,84 @@ class FooterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _saveBTRadius = buttonRadius(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-      tinyMode: !canTap,
-    );
-    // --------------------
     final double _buttonSize = buttonSize(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: !canTap,
     );
     // --------------------
-    final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
-    final Color _splashColor = isOn ? Colorz.black255 : Colorz.yellow255;
+    if (icon == null){
+      return SizedBox(
+        width: _buttonSize,
+        height: _buttonSize,
+      );
+    }
     // --------------------
-    return SizedBox(
-      key: const ValueKey<String>('Footer_button'),
-      width: _buttonSize,
-      height: _buttonSize,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
+    else {
+      // --------------------
+      final double _saveBTRadius = buttonRadius(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+      );
+      // --------------------
+      final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
+      final Color _splashColor = isOn ? Colorz.black255 : Colorz.yellow255;
+      // --------------------
+      return SizedBox(
+        key: const ValueKey<String>('Footer_button'),
+        width: _buttonSize,
+        height: _buttonSize,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
 
-          DreamBox(
-            iconSizeFactor: 0.4,
-            width: _buttonSize,
-            height: _buttonSize,
-            corners: _saveBTRadius,
-            color: FooterButton.buttonColor(buttonIsOn: isOn),
-            onTap: canTap == true ? onTap : null,
-            childAlignment: Alignment.topCenter,
-            splashColor: _splashColor,
-            bubble: false,
-            subChild: SizedBox(
-              width: _buttonSize * 0.8,
-              height: _buttonSize * 0.9,
-              // color: Colorz.BloodTest,
-              child: SuperImage(
+            DreamBox(
+              iconSizeFactor: 0.4,
+              width: _buttonSize,
+              height: _buttonSize,
+              corners: _saveBTRadius,
+              color: FooterButton.buttonColor(buttonIsOn: isOn),
+              onTap: canTap == true ? onTap : null,
+              childAlignment: Alignment.topCenter,
+              splashColor: _splashColor,
+              bubble: false,
+              subChild: SizedBox(
                 width: _buttonSize * 0.8,
                 height: _buttonSize * 0.9,
-                pic: icon,
-                iconColor: _iconAndVerseColor,
-                scale: 0.5,
-              ),
-            ),
-          ),
-
-          /// verse
-          if (FlyerBox.isTinyMode(context, flyerBoxWidth) == false)
-            Positioned(
-              bottom: flyerBoxWidth * 0.01,
-              child: SuperVerse(
-                verse: generateButtonVerse(
-                  context: context,
-                  phid: phid,
-                  count: count,
-                  isOn: isOn,
+                // color: Colorz.BloodTest,
+                child: SuperImage(
+                  width: _buttonSize * 0.8,
+                  height: _buttonSize * 0.9,
+                  pic: icon,
+                  iconColor: _iconAndVerseColor,
+                  scale: 0.5,
                 ),
-                size: 1,
-                scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
-                color: _iconAndVerseColor,
-                weight: isOn == true ? VerseWeight.black : VerseWeight.bold,
-                italic: isOn,
               ),
             ),
 
-        ],
-      ),
-    );
+            /// verse
+            if (FlyerBox.isTinyMode(context, flyerBoxWidth) == false)
+              Positioned(
+                bottom: flyerBoxWidth * 0.01,
+                child: SuperVerse(
+                  verse: generateButtonVerse(
+                    context: context,
+                    phid: phid,
+                    count: count,
+                    isOn: isOn,
+                  ),
+                  size: 1,
+                  scaleFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
+                  color: _iconAndVerseColor,
+                  weight: isOn == true ? VerseWeight.black : VerseWeight.bold,
+                  italic: isOn,
+                ),
+              ),
+
+          ],
+        ),
+      );
+      // --------------------
+    }
     // --------------------
   }
 /// --------------------------------------------------------------------------

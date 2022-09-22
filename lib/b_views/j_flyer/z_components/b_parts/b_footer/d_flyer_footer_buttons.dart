@@ -53,7 +53,6 @@ class FlyerFooterButtons extends StatelessWidget {
 
     final bool _canShow = _canShowElement();
 
-
     return Positioned(
       right: Aligners.rightPositionInRightAlignmentEn(context, 0),
       left: Aligners.leftPositionInRightAlignmentEn(context, 0),
@@ -131,7 +130,6 @@ class FlyerFooterButtons extends StatelessWidget {
         },
         child: FooterButtonSpacer(
             flyerBoxWidth: flyerBoxWidth,
-            tinyMode: tinyMode
         ),
       ),
     );

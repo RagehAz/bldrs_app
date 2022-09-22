@@ -12,7 +12,6 @@ class FooterBox extends StatelessWidget {
     @required this.footerPageViewChildren,
     @required this.infoButtonExpanded,
     @required this.reviewButtonIsExpanded,
-    @required this.tinyMode,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -21,7 +20,6 @@ class FooterBox extends StatelessWidget {
   final List<Widget> footerPageViewChildren;
   final ValueNotifier<bool> infoButtonExpanded;
   final ValueNotifier<bool> reviewButtonIsExpanded;
-  final bool tinyMode;
   /// --------------------------------------------------------------------------
   static double boxCornersValue(double flyerBoxWidth) {
     return flyerBoxWidth * Ratioz.xxflyerBottomCorners;
@@ -47,19 +45,15 @@ class FooterBox extends StatelessWidget {
   static double collapsedHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
-    @required bool tinyMode,
   }) {
 
     final double _footerBTMargins = FooterButton.buttonMargin(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
     );
 
     final double _footerBTRadius = FooterButton.buttonRadius(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-      tinyMode: tinyMode,
     );
 
     final double _flyerFooterHeight =
@@ -123,7 +117,6 @@ class FooterBox extends StatelessWidget {
               collapsedHeight(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,
-                tinyMode: tinyMode,
               );
               // -------------------------------------------------------
               return AnimatedContainer(
