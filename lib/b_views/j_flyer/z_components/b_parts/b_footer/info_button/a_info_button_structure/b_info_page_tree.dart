@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/footer_page_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/c_collapsed_info_button_tree.dart';
@@ -18,7 +17,6 @@ class InfoPageTree extends StatelessWidget {
     @required this.infoButtonType,
     @required this.buttonIsExpanded,
     @required this.flyerModel,
-    @required this.flyerZone,
     @required this.tinyMode,
     @required this.inFlight,
     @required this.infoPageVerticalController,
@@ -28,9 +26,8 @@ class InfoPageTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
-  final ValueNotifier<bool> buttonIsExpanded; /// p
+  final ValueNotifier<bool> buttonIsExpanded;
   final FlyerModel flyerModel;
-  final ZoneModel flyerZone;
   final bool tinyMode;
   final bool inFlight;
   final ScrollController infoPageVerticalController;
@@ -131,7 +128,6 @@ class InfoPageTree extends StatelessWidget {
           buttonIsExpanded: buttonIsExpanded,
           flyerBoxWidth: flyerBoxWidth,
           flyerModel: flyerModel,
-          flyerZone: flyerZone,
           flyerCounter: flyerCounter,
         ),
 

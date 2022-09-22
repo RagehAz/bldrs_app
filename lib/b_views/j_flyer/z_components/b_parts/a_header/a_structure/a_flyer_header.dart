@@ -21,7 +21,6 @@ class FlyerHeader extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.bzModel,
-    @required this.flyerZone,
     @required this.onHeaderTap,
     @required this.onFollowTap,
     @required this.onCallTap,
@@ -38,7 +37,6 @@ class FlyerHeader extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final ZoneModel flyerZone;
   final Function onHeaderTap;
   final Function onFollowTap;
   final Function onCallTap;
@@ -226,7 +224,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     // -----------------------------------------------------------------------
 
     return AnimatedBuilder(
-      key: const ValueKey<String>('FlyerHeader_AnimationBuilder'),
+      key: const ValueKey<String>('FlyerHeader'),
       animation: widget.headerAnimationController.view,
       builder: (_, Widget bzSlideTree) {
 

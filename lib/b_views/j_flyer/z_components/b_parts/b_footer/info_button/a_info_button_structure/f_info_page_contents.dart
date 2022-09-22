@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
-import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
@@ -12,9 +12,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_paragraph.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_separator.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/e_specials/report_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -27,7 +26,6 @@ class InfoPageContents extends StatelessWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.flyerCounter,
-    @required this.flyerZone,
     @required this.buttonExpanded,
     Key key
   }) : super(key: key);
@@ -35,7 +33,6 @@ class InfoPageContents extends StatelessWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final ValueNotifier<FlyerCounterModel> flyerCounter;
-  final ZoneModel flyerZone;
   final ValueNotifier<bool> buttonExpanded;
   /// --------------------------------------------------------------------------
   @override
@@ -71,7 +68,6 @@ class InfoPageContents extends StatelessWidget {
           InfoPageMainDetails(
             pageWidth: _pageWidth,
             flyerModel: flyerModel,
-            flyerZone: flyerZone,
           ),
 
           /// SEPARATOR

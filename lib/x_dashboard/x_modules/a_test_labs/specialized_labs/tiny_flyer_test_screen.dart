@@ -92,6 +92,7 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
           flyerBoxWidth: 200,
           flyerModel: _flyerModel,
           bzModel: _bzModel,
+          heroTag: 'TestNewFlyer',
           onFlyerTap: (){
             blog('kokoko');
           },
