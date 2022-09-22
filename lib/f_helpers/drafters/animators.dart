@@ -79,4 +79,33 @@ class Animators {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// TWEEN MODS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double limitTweenImpact({
+    @required double maxDouble,
+    @required double minDouble,
+    @required double tweenValue, // 0 -> 1
+  }){
+
+    assert(minDouble <= maxDouble, 'limitTweenImpact : minDouble can not be bigger than maxDouble');
+
+    /// NOTE : THIS LIMITS THE IMPACT OF TWEEN VALUE TO AFFECT ONLY PART OF THE GIVEN SIZE (MAX DOUBLE)
+    /// AS IT FIXES THE MINIMUM
+
+    return minDouble + ((maxDouble - minDouble) * tweenValue);
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double getInverseTweenValue({
+    @required double tweenValue,
+  }){
+
+    return 1 - tweenValue;
+
+  }
+  // -----------------------------------------------------------------------------
 }

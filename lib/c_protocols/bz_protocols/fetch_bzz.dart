@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_db/fire/ops/bz_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/ops/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
@@ -42,6 +43,15 @@ class FetchBzProtocols {
     //   blog('FetchBzProtocol.fetchBz : ($bzID) BzModel NOT FOUND');
     // }
 
+    if (_bz != null){
+      _bz = _bz.copyWith(
+        zone: await ZoneProtocols.completeZoneModel(
+          context: context,
+          incompleteZoneModel: _bz.zone,
+        ),
+      );
+    }
+
     return _bz;
   }
   // --------------------
@@ -59,7 +69,10 @@ class FetchBzProtocols {
       );
 
       if (_flyerModel != null){
-        _bzModel = await fetchBz(context: context, bzID: _flyerModel.bzID);
+        _bzModel = await fetchBz(
+            context: context,
+            bzID: _flyerModel.bzID,
+        );
       }
 
     }

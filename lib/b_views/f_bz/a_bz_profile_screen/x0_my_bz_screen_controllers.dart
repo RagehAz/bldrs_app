@@ -23,14 +23,9 @@ Future<void> initializeMyBzScreen({
   @required BzModel bzModel,
 }) async {
 
-  final BzModel _completedZoneBzModel = await BzProtocols.completeBzZoneModel(
-    context: context,
-    bzModel: bzModel,
-  );
-
   await _setBzModel(
     context: context,
-    completedZoneBzModel: _completedZoneBzModel,
+    completedZoneBzModel: bzModel,
   );
 
 }

@@ -65,7 +65,8 @@ class _SavingNoticeState extends State<SavingNotice> {
     // );
 
     return ValueListenableBuilder(
-        valueListenable: widget.graphicIsOn,
+      key: const ValueKey<String>('SavingNotice'),
+      valueListenable: widget.graphicIsOn,
         builder: (_, bool canShowGraphic, Widget canShowGraphicChild){
 
           /// SHOWING GRAPHIC

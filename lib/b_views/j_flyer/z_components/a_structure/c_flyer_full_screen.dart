@@ -50,7 +50,6 @@ class FlyerFullScreen extends StatelessWidget {
       maxTransformValue: 4,
       // direction: DismissDirection.horizontal,
       reverseDuration: Ratioz.duration150ms,
-
       child: Material(
         color: Colors.transparent,
         type: MaterialType.transparency,
