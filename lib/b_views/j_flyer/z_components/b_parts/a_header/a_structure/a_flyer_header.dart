@@ -236,78 +236,80 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
         return HeaderBox(
           key: const ValueKey<String>('FlyerHeader_HeaderBox'),
-          tinyMode: widget.tinyMode,
           onHeaderTap: widget.onHeaderTap,
           headerBorders: _headerBorders,
           flyerBoxWidth: widget.flyerBoxWidth,
           headerColor: _headerColor,
           headerHeightTween: _headerHeightTween,
-          stackChildren: <Widget>[
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
 
-            ListView(
-              key: const PageStorageKey<String>('FlyerHeader_ListView'),
-              physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
-              const NeverScrollableScrollPhysics()
-                  :
-              const BouncingScrollPhysics(),
-              padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
-              controller: widget.headerScrollController,
-              children: <Widget>[
+              ListView(
+                key: const PageStorageKey<String>('FlyerHeader_ListView'),
+                physics: widget.tinyMode == true || widget.headerIsExpanded.value == false ?
+                const NeverScrollableScrollPhysics()
+                    :
+                const BouncingScrollPhysics(),
+                padding: EdgeInsets.zero, /// NEVER EVER DELETE THIS BITCH TOOK ME 2 DAYS
+                controller: widget.headerScrollController,
+                children: <Widget>[
 
-                /// MINI HEADER STRIP
-                ConvertibleHeaderStripPart(
-                  key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  minHeaderHeight: _minHeaderHeight,
-                  logoSizeRatioTween: _logoSizeRatioTween,
-                  headerLeftSpacerTween: _headerLeftSpacerTween,
-                  tinyMode: widget.tinyMode,
-                  headerBorders: _headerBorders,
-                  logoMinWidth: _logoMinWidth,
-                  logoBorders: _logoBorders,
-                  headerIsExpanded: widget.headerIsExpanded,
-                  headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
-                  headerLabelsWidthTween: _headerLabelsWidthTween,
-                  followCallButtonsScaleTween: _followCallButtonsScaleTween,
-                  followIsOn: widget.followIsOn,
-                  onFollowTap: widget.onFollowTap,
-                  onCallTap: widget.onCallTap,
-                  headerRightSpacerTween: _headerRightSpacerTween,
-                  flyerModel: widget.flyerModel,
-                  bzModel: widget.bzModel,
-                ),
-
-                /// BZ NAME BELOW LOGO
-                BzSlideHeadline(
-                  key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
-                  flyerBoxWidth: widget.flyerBoxWidth,
-                  firstLine: Verse(
-                    text: widget.bzModel.name,
-                    translate: false,
+                  /// MINI HEADER STRIP
+                  ConvertibleHeaderStripPart(
+                    key: const ValueKey<String>('FlyerHeader_ConvertibleHeaderStripPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    minHeaderHeight: _minHeaderHeight,
+                    logoSizeRatioTween: _logoSizeRatioTween,
+                    headerLeftSpacerTween: _headerLeftSpacerTween,
+                    tinyMode: widget.tinyMode,
+                    headerBorders: _headerBorders,
+                    logoMinWidth: _logoMinWidth,
+                    logoBorders: _logoBorders,
+                    headerIsExpanded: widget.headerIsExpanded,
+                    headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
+                    headerLabelsWidthTween: _headerLabelsWidthTween,
+                    followCallButtonsScaleTween: _followCallButtonsScaleTween,
+                    followIsOn: widget.followIsOn,
+                    onFollowTap: widget.onFollowTap,
+                    onCallTap: widget.onCallTap,
+                    headerRightSpacerTween: _headerRightSpacerTween,
+                    flyerModel: widget.flyerModel,
+                    bzModel: widget.bzModel,
                   ),
-                  secondLine: ZoneModel.translateZoneString(
-                    context: context,
-                    zoneModel: widget.bzModel.zone,
+
+                  /// BZ NAME BELOW LOGO
+                  BzSlideHeadline(
+                    key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
+                    flyerBoxWidth: widget.flyerBoxWidth,
+                    firstLine: Verse(
+                      text: widget.bzModel.name,
+                      translate: false,
+                    ),
+                    secondLine: ZoneModel.translateZoneString(
+                      context: context,
+                      zoneModel: widget.bzModel.zone,
+                    ),
+                    headerIsExpanded: widget.headerIsExpanded,
                   ),
-                  headerIsExpanded: widget.headerIsExpanded,
-                ),
 
-                /// - BZ SLIDE
-                bzSlideTree,
+                  /// - BZ SLIDE
+                  bzSlideTree,
 
-              ],
-            ),
-
-            /// --- CORNER X BUTTON
-            if (widget.tinyMode == false)
-              XButtonPart(
-                key: const ValueKey<String>('FlyerHeader_XButtonPart'),
-                headerBorders: _headerMinCorners,
-                onHeaderTap: widget.onHeaderTap,
-                headerIsExpanded: widget.headerIsExpanded,
+                ],
               ),
 
-          ],
+              /// --- CORNER X BUTTON
+              if (widget.tinyMode == false)
+                XButtonPart(
+                  key: const ValueKey<String>('FlyerHeader_XButtonPart'),
+                  headerBorders: _headerMinCorners,
+                  onHeaderTap: widget.onHeaderTap,
+                  headerIsExpanded: widget.headerIsExpanded,
+                ),
+
+            ],
+          ),
         );
 
       },

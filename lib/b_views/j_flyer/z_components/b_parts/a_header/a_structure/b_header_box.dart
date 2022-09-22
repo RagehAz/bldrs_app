@@ -4,24 +4,22 @@ import 'package:flutter/material.dart';
 class HeaderBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeaderBox({
-    @required this.tinyMode,
-    @required this.onHeaderTap,
     @required this.flyerBoxWidth,
     @required this.headerHeightTween,
     @required this.headerColor,
     @required this.headerBorders,
-    @required this.stackChildren,
+    @required this.child,
+    this.onHeaderTap,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final bool tinyMode;
   final Function onHeaderTap;
   final double flyerBoxWidth;
   /// either double of Animation<double>
   final dynamic headerHeightTween;
   final Color headerColor;
   final BorderRadius headerBorders;
-  final List<Widget> stackChildren;
+  final Widget child;
   /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
     return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
@@ -30,58 +28,29 @@ class HeaderBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (headerHeightTween is Animation<double>){
-
-      return GestureDetector(
-        onTap: tinyMode == true ? null : onHeaderTap,
-        child: Container(
-          width: flyerBoxWidth,
-          height: headerHeightTween.value,
-          decoration: BoxDecoration(
-            color: headerColor,
-            borderRadius: headerBorders,
-          ),
+    return GestureDetector(
+      onTap: onHeaderTap,
+      child: Container(
+        width: flyerBoxWidth,
+        height: headerHeightTween is Animation<double> ? headerHeightTween.value : headerHeightTween,
+        decoration: BoxDecoration(
+          color: headerColor,
+          borderRadius: headerBorders,
+        ),
+        alignment: Alignment.topCenter,
+        child: Align(
           alignment: Alignment.topCenter,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: ClipRRect(
-              borderRadius: headerBorders,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: stackChildren,
-              ),
+          child: ClipRRect(
+            borderRadius: headerBorders,
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: child,
             ),
           ),
         ),
-      );
-    }
-
-    else {
-
-      return GestureDetector(
-        onTap: tinyMode == true ? null : onHeaderTap,
-        child: Container(
-          width: flyerBoxWidth,
-          height: headerHeightTween,
-          decoration: BoxDecoration(
-            color: headerColor,
-            borderRadius: headerBorders,
-          ),
-          alignment: Alignment.topCenter,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: ClipRRect(
-              borderRadius: headerBorders,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: stackChildren,
-              ),
-            ),
-          ),
-        ),
-      );
-
-    }
+      ),
+    );
 
   }
   // -----------------------------------------------------------------------------

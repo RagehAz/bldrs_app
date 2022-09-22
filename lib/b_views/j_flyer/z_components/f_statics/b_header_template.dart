@@ -68,7 +68,6 @@ class HeaderTemplate extends StatelessWidget {
       key: const ValueKey<String>('StaticHeader'),
       opacity: opacity,
       child: HeaderBox(
-        tinyMode: false,
         onHeaderTap: onTap,
         headerBorders: FlyerBox.superHeaderCorners(
           context: context,
@@ -78,155 +77,150 @@ class HeaderTemplate extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         headerColor: Colorz.black255,
         headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: flyerBoxWidth),
-        stackChildren: <Widget>[
+        child: Row(
+          children: <Widget>[
 
-          Row(
-            children: <Widget>[
+            BzLogo(
+              width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
+              image: logo,
+              tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
+              corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
+              zeroCornerIsOn: flyerShowsAuthor,
+            ),
 
-              BzLogo(
-                width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
-                image: logo,
-                tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
-                corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
-                zeroCornerIsOn: flyerShowsAuthor,
-              ),
+            SizedBox(
+                width: HeaderLabels.getHeaderLabelWidth(flyerBoxWidth),
+                height: HeaderLabels.getHeaderLabelHeight(flyerBoxWidth),
+                // color: Colorz.Bl,
 
-              SizedBox(
-                  width: HeaderLabels.getHeaderLabelWidth(flyerBoxWidth),
-                  height: HeaderLabels.getHeaderLabelHeight(flyerBoxWidth),
-                  // color: Colorz.Bl,
+                child: Column(
+                  mainAxisAlignment: flyerShowsAuthor == true ?
+                  MainAxisAlignment.spaceBetween
+                      :
+                  MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                  child: Column(
-                    mainAxisAlignment: flyerShowsAuthor == true ?
-                    MainAxisAlignment.spaceBetween
-                        :
-                    MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
+                    SizedBox(
+                      height: _businessDataHeight,
+                      width: _businessDataWidth,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
 
-                      /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
-                      SizedBox(
-                        height: _businessDataHeight,
-                        width: _businessDataWidth,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          /// B.NAME
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
+                              child: SuperVerse(
+                                verse: firstLine,
+                                centered: false,
+                                size: _bzNameSize,
+                                scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
+                                maxLines: _maxLines,
+                              ),
+                            ),
+                          ),
+
+                          /// B.LOCALE
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
+                              child: SuperVerse(
+                                verse: secondLine,
+                                size: _bLocaleSize,
+                                weight: VerseWeight.regular,
+                                centered: false,
+                                italic: true,
+                                scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+                    /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
+                    if (flyerShowsAuthor == true)
+                      Container(
+                        height: AuthorLabel.getAuthorLabelBoxHeight(
+                          flyerBoxWidth: flyerBoxWidth,
+                        ),
+                        width: AuthorLabel.getAuthorLabelBoxWidth(
+                          flyerBoxWidth: flyerBoxWidth,
+                          labelIsOn: flyerShowsAuthor,
+                        ),
+                        // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                          // color: flyerShowsAuthor == false ? Colorz.nothing : Colorz.white20,
+                          borderRadius: AuthorLabel.getAuthorImageBorders(
+                            context: context,
+                            flyerBoxWidth: flyerBoxWidth,
+                          ),
+                        ),
+
+                        child: Row(
                           children: <Widget>[
 
-                            /// B.NAME
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                                child: SuperVerse(
-                                  verse: firstLine,
-                                  centered: false,
-                                  size: _bzNameSize,
-                                  scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
-                                  maxLines: _maxLines,
-                                ),
-                              ),
+                            /// AUTHOR IMAGE
+                            AuthorPic(
+                              width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
+                              authorPic: authorImage,
+                              // tinyBz:
                             ),
 
-                            /// B.LOCALE
-                            Expanded(
-                              child: Padding(
+                            /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
+                            if (flyerShowsAuthor == true)
+                              Container(
+                                width: flyerBoxWidth * Ratioz.xxflyerAuthorNameWidth,
                                 padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                                child: SuperVerse(
-                                  verse: secondLine,
-                                  size: _bLocaleSize,
-                                  weight: VerseWeight.regular,
-                                  centered: false,
-                                  italic: true,
-                                  scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+
+                                    /// AUTHOR NAME
+                                    SuperVerse(
+                                      verse: thirdLine,
+                                      centered: false,
+                                      scaleFactor: flyerBoxWidth / _screenWidth,
+                                    ),
+
+                                    /// AUTHOR TITLE
+                                    SuperVerse(
+                                      verse: fourthLine,
+                                      size: 1,
+                                      weight: VerseWeight.regular,
+                                      centered: false,
+                                      italic: true,
+                                      scaleFactor: flyerBoxWidth / _screenWidth,
+                                    ),
+
+                                    /// FOLLOWERS COUNTER
+                                    SuperVerse(
+                                      verse: fifthLine,
+                                      italic: true,
+                                      centered: false,
+                                      weight: VerseWeight.regular,
+                                      size: 0,
+                                      scaleFactor: flyerBoxWidth / _screenWidth,
+                                    ),
+
+                                  ],
                                 ),
                               ),
-                            ),
 
                           ],
                         ),
                       ),
 
-                      /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
-                      if (flyerShowsAuthor == true)
-                        Container(
-                          height: AuthorLabel.getAuthorLabelBoxHeight(
-                            flyerBoxWidth: flyerBoxWidth,
-                          ),
-                          width: AuthorLabel.getAuthorLabelBoxWidth(
-                            flyerBoxWidth: flyerBoxWidth,
-                            labelIsOn: flyerShowsAuthor,
-                          ),
-                          // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
-                          decoration: BoxDecoration(
-                            // color: flyerShowsAuthor == false ? Colorz.nothing : Colorz.white20,
-                            borderRadius: AuthorLabel.getAuthorImageBorders(
-                              context: context,
-                              flyerBoxWidth: flyerBoxWidth,
-                            ),
-                          ),
+                  ],
+                )),
 
-                          child: Row(
-                            children: <Widget>[
-
-                              /// AUTHOR IMAGE
-                              AuthorPic(
-                                width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
-                                authorPic: authorImage,
-                                // tinyBz:
-                              ),
-
-                              /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
-                              if (flyerShowsAuthor == true)
-                                Container(
-                                  width: flyerBoxWidth * Ratioz.xxflyerAuthorNameWidth,
-                                  padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-
-                                      /// AUTHOR NAME
-                                      SuperVerse(
-                                        verse: thirdLine,
-                                        centered: false,
-                                        scaleFactor: flyerBoxWidth / _screenWidth,
-                                      ),
-
-                                      /// AUTHOR TITLE
-                                      SuperVerse(
-                                        verse: fourthLine,
-                                        size: 1,
-                                        weight: VerseWeight.regular,
-                                        centered: false,
-                                        italic: true,
-                                        scaleFactor: flyerBoxWidth / _screenWidth,
-                                      ),
-
-                                      /// FOLLOWERS COUNTER
-                                      SuperVerse(
-                                        verse: fifthLine,
-                                        italic: true,
-                                        centered: false,
-                                        weight: VerseWeight.regular,
-                                        size: 0,
-                                        scaleFactor: flyerBoxWidth / _screenWidth,
-                                      ),
-
-                                    ],
-                                  ),
-                                ),
-
-                            ],
-                          ),
-                        ),
-
-                    ],
-                  )),
-
-            ],
-          ),
-
-
-        ],
+          ],
+        ),
       ),
     );
     // --------------------

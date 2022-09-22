@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
@@ -14,6 +15,8 @@ class StaticFlyer extends StatelessWidget {
     @required this.flyerBoxWidth,
     this.onFlyerTap,
     this.onMoreTap,
+    this.tweenValue = 0,
+    this.flightDirection = FlightDirection.non,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -22,6 +25,8 @@ class StaticFlyer extends StatelessWidget {
   final BzModel bzModel;
   final Function onFlyerTap;
   final Function onMoreTap;
+  final double tweenValue;
+  final FlightDirection flightDirection;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,8 @@ class StaticFlyer extends StatelessWidget {
           bzModel: bzModel,
           authorID: flyerModel?.authorID,
           flyerShowsAuthor: flyerModel?.showsAuthor,
-          // opacity: 1,
+          flightTweenValue: tweenValue,
+          flightDirection: flightDirection,
           // onTap: ,
         ),
 
@@ -56,6 +62,7 @@ class StaticFlyer extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           isSaved: true,
           onMoreTap: onMoreTap,
+          opacity: tweenValue,
         ),
 
       ],
