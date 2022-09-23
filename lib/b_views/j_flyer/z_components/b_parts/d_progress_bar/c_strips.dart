@@ -19,7 +19,7 @@ class Strips extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final bool barIsOn;
   final EdgeInsets margins;
   final bool tinyMode;

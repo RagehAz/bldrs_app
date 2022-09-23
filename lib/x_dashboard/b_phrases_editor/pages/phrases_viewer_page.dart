@@ -27,8 +27,8 @@ class PhrasesViewerPage extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double screenHeight;
-  final ValueNotifier<bool> isSearching; /// p
-  final ValueNotifier<List<Phrase>> mixedSearchedPhrases; /// p
+  final ValueNotifier<bool> isSearching;
+  final ValueNotifier<List<Phrase>> mixedSearchedPhrases;
   final ScrollController scrollController;
   // final List<Phrase> enPhrases;
   // final List<Phrase> arPhrases;

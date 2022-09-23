@@ -11,8 +11,11 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart'
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/a_flyer_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
-import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/f_saving_notice/a_saving_notice.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -20,7 +23,6 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -95,6 +97,50 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       flyerID: widget.flyerModel.id,
     );
 
+    setNotifier(
+      notifier: _progressBarModel,
+      mounted: mounted,
+      value: ProgressBarModel(
+        swipeDirection: SwipeDirection.next,
+        index: getPossibleStartingIndex(
+          flyerModel: widget.flyerModel,
+          bzModel: widget.bzModel,
+          heroTag: widget.heroTag,
+          startFromIndex: 0,
+        ),
+        numberOfStrips: getNumberOfSlides(
+          flyerModel: widget.flyerModel,
+          bzModel: widget.bzModel,
+          heroTag: widget.heroTag,
+        ),
+      ),
+      addPostFrameCallBack: false,
+    );
+
+    blog('progModel : '
+        'index ${_progressBarModel.value?.index} : '
+        'strips ${_progressBarModel.value?.numberOfStrips} : '
+        'swipe ${_progressBarModel.value?.swipeDirection}');
+    // ----------
+    /// FOR HEADER
+    _headerAnimationController = initializeHeaderAnimationController(
+      context: context,
+      vsync: this,
+    );
+    // ----------
+    /// FOR SLIDES
+    _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
+    // ----------
+    /// FOR FOOTER & PRICE TAG
+    _horizontalSlidesController.addListener(_listenToHorizontalController);
+    // ----------
+    /// FOR SAVING GRAPHIC
+    _savingAnimationController = AnimationController(
+      vsync: this,
+      duration: Ratioz.durationFading200,
+      reverseDuration: Ratioz.durationFading200,
+    );
+    // ----------
   }
   // --------------------
   bool _isInit = true;
@@ -105,25 +151,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        setNotifier(
-          notifier: _progressBarModel,
-          mounted: mounted,
-          value: ProgressBarModel(
-            swipeDirection: SwipeDirection.next,
-            index: getPossibleStartingIndex(
-              flyerModel: widget.flyerModel,
-              bzModel: widget.bzModel,
-              heroTag: widget.heroTag,
-              startFromIndex: 0,
-            ),
-            numberOfStrips: getNumberOfSlides(
-              flyerModel: widget.flyerModel,
-              bzModel: widget.bzModel,
-              heroTag: widget.heroTag,
-            ),
-          ),
-          addPostFrameCallBack: false,
-        );
 
         setNotifier(
           notifier: _bzCounters,
@@ -134,14 +161,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
         if (mounted == true){
           // ----------
-          /// FOR HEADER
-          _headerAnimationController = initializeHeaderAnimationController(
-            context: context,
-            vsync: this,
-          );
-          // ----------
-          /// FOR SLIDES
-          _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
           // ----------
           /// FOLLOW IS ON
           final _followIsOn = checkFollowIsOn(
@@ -150,15 +169,6 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           );
           _setFollowIsOn(_followIsOn);
           // ----------
-          /// FOR FOOTER & PRICE TAG
-          _horizontalSlidesController.addListener(_listenToHorizontalController);
-          // ----------
-          /// FOR SAVING GRAPHIC
-          _savingAnimationController = AnimationController(
-            vsync: this,
-            duration: Ratioz.durationFading200,
-            reverseDuration: Ratioz.durationFading200,
-          );
           // ----------
           WidgetsBinding.instance.addPostFrameCallback((_) async {
 
@@ -366,33 +376,19 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
 
     if (AuthModel.userIsSignedIn() == true){
 
-      if (_flyerIsSaved.value == true){
-        await Nav.goBack(
-          context: context,
-          invoker: '_onSaveFlyer',
-        );
-      }
-
       if (mounted == true){
-          await onSaveFlyer(
+
+
+        await Future.wait(<Future>[
+          _triggerAnimation(!_flyerIsSaved.value),
+          onSaveFlyer(
               context: context,
               flyerModel: widget.flyerModel,
               slideIndex: _progressBarModel.value.index,
               flyerIsSaved: _flyerIsSaved
-          );
+          ),
+        ]);
       }
-
-      // await Future.delayed(Ratioz.durationFading200, () async {
-
-      // await _flyersProvider.saveOrUnSaveFlyer(
-      //   context: context,
-      //   inputFlyer: widget.flyerModel,
-      // );
-      //
-      // _flyerIsSaved.value = !_flyerIsSaved.value;
-      await _triggerAnimation(_flyerIsSaved.value);
-
-      // });
 
     }
 
@@ -468,90 +464,88 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
           }
 
           else {
+
+            blog('BUILDING FLYER');
+
             return child;
           }
 
         },
-      child: WidgetFader(
-        fadeType: FadeType.fadeIn,
-        duration: const Duration(milliseconds: 150),
-        child: FlyerBox(
-          key: const ValueKey<String>('FullScreenFlyer'),
-          flyerBoxWidth: widget.flyerBoxWidth,
-          boxColor: Colorz.bloodTest,
-          stackWidgets: <Widget>[
 
-            /// SLIDES
-            SlidesBuilder(
-              flyerModel: widget.flyerModel,
-              bzModel: widget.bzModel,
-              flyerBoxWidth: widget.flyerBoxWidth,
-              flyerBoxHeight: _flyerBoxHeight,
-              tinyMode: _tinyMode,
-              horizontalController: _horizontalSlidesController,
-              onSwipeSlide: _onSwipeSlide,
-              onSlideBackTap: _onSlideBackTap,
-              onSlideNextTap: _onSlideNextTap,
-              onDoubleTap: _onSaveFlyer,
-              heroTag: widget.heroTag,
-              progressBarModel: _progressBarModel,
-              flightDirection: FlightDirection.non,
+      child: FlyerBox(
+        key: const ValueKey<String>('FullScreenFlyer'),
+        flyerBoxWidth: widget.flyerBoxWidth,
+        // boxColor: Colorz.bloodTest,
+        stackWidgets: <Widget>[
 
-            ),
+          /// SLIDES
+          SlidesBuilder(
+            flyerModel: widget.flyerModel,
+            bzModel: widget.bzModel,
+            flyerBoxWidth: widget.flyerBoxWidth,
+            flyerBoxHeight: _flyerBoxHeight,
+            tinyMode: false,
+            horizontalController: _horizontalSlidesController,
+            onSwipeSlide: _onSwipeSlide,
+            onSlideBackTap: _onSlideBackTap,
+            onSlideNextTap: _onSlideNextTap,
+            onDoubleTap: _onSaveFlyer,
+            heroTag: widget.heroTag,
+            progressBarModel: _progressBarModel,
+            flightDirection: FlightDirection.non,
+          ),
 
-            //
-            // /// HEADER
-            // FlyerHeader(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            //   flyerModel: widget.flyerModel,
-            //   bzModel: widget.bzModel,
-            //   onHeaderTap: _onHeaderTap,
-            //   onFollowTap: _onFollowTap,
-            //   onCallTap: _onCallTap,
-            //   headerAnimationController: _headerAnimationController,
-            //   headerScrollController: _headerScrollController,
-            //   tinyMode: _tinyMode,
-            //   headerIsExpanded: _headerIsExpanded,
-            //   followIsOn: _followIsOn,
-            //   headerPageOpacity: _headerPageOpacity,
-            //   bzCounters: _bzCounters,
-            // ),
-            //
-            // /// FOOTER
-            // // if (_tinyMode == false)
-            // FlyerFooter(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            //   flyerModel: widget.flyerModel,
-            //   tinyMode: _tinyMode,
-            //   onSaveFlyer: _onSaveFlyer,
-            //   footerPageController: _footerPageController,
-            //   headerIsExpanded: _headerIsExpanded,
-            //   inFlight: false,
-            //   flyerIsSaved: _flyerIsSaved,
-            // ),
-            //
-            // /// PROGRESS BAR
-            // ProgressBar(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            //   progressBarOpacity: _progressBarOpacity,
-            //   progressBarModel: _progressBarModel,
-            //   tinyMode: _tinyMode,
-            //   loading: false,
-            // ),
-            //
-            // /// SAVING NOTICE
-            // SavingNotice(
-            //   flyerBoxWidth: widget.flyerBoxWidth,
-            //   flyerBoxHeight: _flyerBoxHeight,
-            //   flyerIsSaved: _flyerIsSaved,
-            //   animationController: _animationController,
-            //   graphicIsOn: _graphicIsOn,
-            //   graphicOpacity: _graphicOpacity,
-            // ),
+          /// HEADER
+          FlyerHeader(
+            flyerBoxWidth: widget.flyerBoxWidth,
+            flyerModel: widget.flyerModel,
+            bzModel: widget.bzModel,
+            onHeaderTap: _onHeaderTap,
+            onFollowTap: _onFollowTap,
+            onCallTap: _onCallTap,
+            headerAnimationController: _headerAnimationController,
+            headerScrollController: _headerScrollController,
+            tinyMode: _tinyMode,
+            headerIsExpanded: _headerIsExpanded,
+            followIsOn: _followIsOn,
+            headerPageOpacity: _headerPageOpacity,
+            bzCounters: _bzCounters,
+          ),
 
-          ],
-        ),
+          /// FOOTER
+          FlyerFooter(
+            flyerBoxWidth: widget.flyerBoxWidth,
+            flyerModel: widget.flyerModel,
+            tinyMode: _tinyMode,
+            onSaveFlyer: _onSaveFlyer,
+            footerPageController: _footerPageController,
+            headerIsExpanded: _headerIsExpanded,
+            inFlight: false,
+            flyerIsSaved: _flyerIsSaved,
+          ),
+
+          /// PROGRESS BAR
+          ProgressBar(
+            flyerBoxWidth: widget.flyerBoxWidth,
+            progressBarOpacity: _progressBarOpacity,
+            progressBarModel: _progressBarModel,
+            tinyMode: _tinyMode,
+            loading: false,
+          ),
+
+          /// SAVING NOTICE
+          SavingNotice(
+            flyerBoxWidth: widget.flyerBoxWidth,
+            flyerBoxHeight: _flyerBoxHeight,
+            flyerIsSaved: _flyerIsSaved,
+            animationController: _savingAnimationController,
+            graphicIsOn: _graphicIsOn,
+            graphicOpacity: _graphicOpacity,
+          ),
+
+        ],
       ),
+
     );
 
   }

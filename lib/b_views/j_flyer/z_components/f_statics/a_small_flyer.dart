@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_structure/f_big_flyer.dart'
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,6 @@ class SmallFlyer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tweenValue = _bakeTweenValue(context:  context);
-
     if (flyerModel == null){
 
       return FlyerLoading(
@@ -95,21 +94,30 @@ class SmallFlyer extends StatelessWidget {
 
     else {
 
+      final double _tweenValue = _bakeTweenValue(context:  context);
+
+      final bool _flyerIsBigNow = FlyerBox.isFullScreen(context, flyerBoxWidth) == true
+          && flightDirection == FlightDirection.non
+          && _tweenValue == 1;
+
       return FlyerBox(
         key: const ValueKey<String>('StaticFlyer'),
         flyerBoxWidth: flyerBoxWidth,
         onTap: () => _openFullScreenFlyer(context),
         stackWidgets: <Widget>[
 
-          if (flyerModel != null)
-            SingleSlide(
-              flyerBoxWidth: flyerBoxWidth,
-              flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
-              slideModel: flyerModel.slides[0],
-              tinyMode: false,
-              onSlideNextTap: null,
-              onSlideBackTap: null,
-              onDoubleTap: null,
+          WidgetFader(
+            fadeType: _flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax,
+            duration: const Duration(milliseconds: 200),
+              child: SingleSlide(
+                flyerBoxWidth: flyerBoxWidth,
+                flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
+                slideModel: flyerModel.slides[0],
+                tinyMode: false,
+                onSlideNextTap: null,
+                onSlideBackTap: null,
+                onDoubleTap: null,
+              ),
             ),
 
           StaticHeader(
@@ -129,19 +137,22 @@ class SmallFlyer extends StatelessWidget {
             flightTweenValue: _tweenValue,
           ),
 
-          if (FlyerBox.isFullScreen(context, flyerBoxWidth) == true)
-            BigFlyer(
-              heroTag: heroTag,
-              flyerBoxWidth: flyerBoxWidth,
-              flyerModel: flyerModel,
-              bzModel: bzModel,
+          if (_flyerIsBigNow == true)
+            WidgetFader(
+              fadeType: FadeType.fadeIn,
+              duration: const Duration(milliseconds: 100),
+              child: BigFlyer(
+                heroTag: heroTag,
+                flyerBoxWidth: flyerBoxWidth,
+                flyerModel: flyerModel,
+                bzModel: bzModel,
+              ),
             ),
 
         ],
       );
 
     }
-
 
   }
   /// --------------------------------------------------------------------------

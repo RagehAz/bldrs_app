@@ -1,13 +1,13 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/f_header_labels_tree.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/b_mini_header_strip_box_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/c_header_left_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/e_header_middle_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/f_header_labels_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/g_follow_and_call_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/h_header_right_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/b_mini_header_strip_box_part.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleHeaderStripPart extends StatelessWidget {
@@ -42,11 +42,11 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   final BorderRadius headerBorders;
   final double logoMinWidth;
   final BorderRadius logoBorders;
-  final ValueNotifier<bool> headerIsExpanded; /// p
+  final ValueNotifier<bool> headerIsExpanded;
   final Animation<double> headerMiddleSpacerWidthTween;
   final Animation<double> headerLabelsWidthTween;
   final Animation<double> followCallButtonsScaleTween;
-  final ValueNotifier<bool> followIsOn; /// p
+  final ValueNotifier<bool> followIsOn;
   final Function onFollowTap;
   final Function onCallTap;
   final Animation<double> headerRightSpacerTween;
@@ -118,7 +118,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
           tinyMode: tinyMode,
           logoSizeRatioTween: logoSizeRatioTween,
-          flyerBoxWidth: flyerBoxWidth,
+          flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
           followCallButtonsScaleTween: followCallButtonsScaleTween,
           followIsOn: followIsOn,
           onCallTap: onCallTap,

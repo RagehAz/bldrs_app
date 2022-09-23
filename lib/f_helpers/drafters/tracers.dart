@@ -105,6 +105,7 @@ void setNotifier({
   @required dynamic value,
   @required bool addPostFrameCallBack,
   Function onFinish,
+  bool shouldHaveListeners = false,
 }){
 
   if (mounted == true){
@@ -114,7 +115,7 @@ void setNotifier({
       if (notifier != null){
 
         /// ignore: invalid_use_of_protected_member
-        if (notifier.hasListeners == true){
+        if (shouldHaveListeners == false || notifier.hasListeners == true){
 
           if (addPostFrameCallBack == true){
             WidgetsBinding.instance.addPostFrameCallback((_){
@@ -131,7 +132,6 @@ void setNotifier({
               onFinish();
             }
           }
-
 
         }
 
