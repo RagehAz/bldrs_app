@@ -89,7 +89,7 @@ class FlyersGrid extends StatelessWidget {
     final double _flyerBoxWidth =
         gridZoneHeight
             /
-            ( (numberOfRows * FlyerDim.xFlyerZoneHeight) + (numberOfRows * _spacingRatio) + _spacingRatio );
+            ( (numberOfRows * FlyerDim.xFlyerBoxHeight) + (numberOfRows * _spacingRatio) + _spacingRatio );
 
     /// REVERSE MATH TEST
     // final double _flyerBoxHeight = _flyerBoxWidth * Ratioz.xxflyerZoneHeight;
@@ -271,9 +271,9 @@ class FlyersGrid extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
             mainAxisSpacing: _gridSpacingValue,
-            childAspectRatio: 1 / FlyerDim.xFlyerZoneHeight,
+            childAspectRatio: 1 / FlyerDim.xFlyerBoxHeight,
             crossAxisCount: numberOfColumnsOrRows,
-            mainAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth * FlyerDim.xFlyerZoneHeight : _flyerBoxWidth,
+            mainAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth * FlyerDim.xFlyerBoxHeight : _flyerBoxWidth,
             // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
           ),
           itemCount: _numberOfItems,

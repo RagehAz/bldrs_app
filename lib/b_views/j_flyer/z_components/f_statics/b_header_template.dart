@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ff_header_labels.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -14,7 +13,6 @@ class HeaderTemplate extends StatelessWidget {
   const HeaderTemplate({
     @required this.flyerBoxWidth,
     this.opacity = 1,
-    // @required this.bzModel,
     this.onTap,
     this.logo,
     this.authorImage,
@@ -28,7 +26,6 @@ class HeaderTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double opacity;
-  // final BzModel bzModel;
   final Function onTap;
   final String logo;
   final String authorImage;
@@ -84,8 +81,8 @@ class HeaderTemplate extends StatelessWidget {
             ),
 
             SizedBox(
-                width: HeaderLabels.getHeaderLabelWidth(flyerBoxWidth),
-                height: HeaderLabels.getHeaderLabelHeight(flyerBoxWidth),
+                width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
+                height: FlyerDim.headerLabelsHeight(flyerBoxWidth),
                 // color: Colorz.Bl,
 
                 child: Column(
