@@ -1,4 +1,3 @@
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     return Container(
       width: flyerBoxWidth,
       height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: Alignment.center,
       padding: EdgeInsets.only(top: headerLeftSpacerTween.value),
       decoration: BoxDecoration(
         color: tinyMode == true ? Colorz.white50 : Colorz.black80,
@@ -43,12 +42,16 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
         ),
       ),
 
-      child: ListView(
-        shrinkWrap: true,
+      child: SingleChildScrollView(
+        key: const PageStorageKey<String>('miniHeaderStrip'),
+        // shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
-        key: const PageStorageKey<String>('miniHeaderStrip'),
-        children: children,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: children,
+        ),
       ),
     );
 

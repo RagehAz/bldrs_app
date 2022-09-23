@@ -32,7 +32,7 @@ class FlyerFooter extends StatefulWidget {
   final bool tinyMode;
   final Function onSaveFlyer;
   final PageController footerPageController;
-  final ValueNotifier<bool> headerIsExpanded; /// p
+  final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
   final ValueNotifier<bool> flyerIsSaved;
   /// --------------------------------------------------------------------------

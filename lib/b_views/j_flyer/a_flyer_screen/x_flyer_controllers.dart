@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_small_flyer.dart';
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -120,6 +121,7 @@ int getNumberOfSlides({
     _numberOfSlides = flyerModel.slides.length;
   }
 
+  blog('getNumberOfSlides : $_numberOfSlides');
   return _numberOfSlides;
 }
 // --------------------
@@ -150,6 +152,7 @@ int getPossibleStartingIndex({
   }
 
 
+  blog('getPossibleStartingIndex : $_output');
   return _output;
 }
 // -----------------------------------------------------------------------------

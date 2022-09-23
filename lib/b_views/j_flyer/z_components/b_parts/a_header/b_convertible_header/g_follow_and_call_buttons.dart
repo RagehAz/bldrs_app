@@ -58,8 +58,9 @@ class FollowAndCallButtons extends StatelessWidget {
     }
     // --------------------
     else {
+
       return Container(
-        width: getBoxWidth(flyerBoxWidth: flyerBoxWidth) * followCallButtonsScaleTween.value,
+        width: getBoxWidth(flyerBoxWidth: flyerBoxWidth),
         height: logoMinWidth * logoSizeRatioTween.value,
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,

@@ -141,6 +141,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       }
 
     }
+
     else {
       setNotifier(
         notifier: _canSubmit,
