@@ -11,11 +11,8 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart'
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/a_flyer_header.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/f_saving_notice/a_saving_notice.dart';
+import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -23,12 +20,13 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
-class FullScreenFlyer extends StatefulWidget {
+class BigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FullScreenFlyer({
+  const BigFlyer({
     @required this.flyerModel, // will never be null at this point
     @required this.bzModel,
     @required this.heroTag,
@@ -42,16 +40,17 @@ class FullScreenFlyer extends StatefulWidget {
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
   @override
-  _FullScreenFlyerState createState() => _FullScreenFlyerState();
+  _BigFlyerState createState() => _BigFlyerState();
   /// --------------------------------------------------------------------------
 }
 
-class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderStateMixin {
+class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
+  // --------------------
+  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _followIsOn = ValueNotifier<bool>(false);
   // --------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   // --------------------
-  final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
-  // -----------------------------------------------------------------------------
   /// FOR HEADER
   AnimationController _headerAnimationController;
   final ScrollController _headerScrollController = ScrollController();
@@ -60,10 +59,19 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
   /// FOR FOOTER
   final PageController _footerPageController = PageController();
   /// FOR SAVING GRAPHIC
-  AnimationController _animationController;
+  AnimationController _savingAnimationController;
+  // --------------------
+  /// PROGRESS BAR OPACITY
+  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
+  /// HEADER IS EXPANDED
+  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false);
+  /// HEADER PAGE OPACITY
+  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
+  // --------------------
+  final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING BLOCK
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
   Future<void> _triggerLoading({
     @required setTo,
@@ -73,7 +81,7 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      // addPostFrameCallBack:
+      addPostFrameCallBack: false,
     );
 
   }
@@ -87,100 +95,92 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
       flyerID: widget.flyerModel.id,
     );
 
-    // ------------------------------------------
-    _bzCounters.value = BzCounterModel.createInitialModel(widget.bzModel.id);
-    // ------------------------------------------
-    /// FOR HEADER
-    _headerAnimationController = initializeHeaderAnimationController(
-      context: context,
-      vsync: this,
-    );
-    // ------------------------------------------
-    /// FOR SLIDES
-    _horizontalSlidesController = PageController(initialPage: _progressBarModel.value.index);
-    // ------------------------------------------
-    /// FOLLOW IS ON
-    final _followIsOn = checkFollowIsOn(
-      context: context,
-      bzModel: widget.bzModel,
-    );
-    _setFollowIsOn(_followIsOn);
-    // ------------------------------------------
-    /// FOR FOOTER & PRICE TAG
-    _horizontalSlidesController.addListener(_listenToHorizontalController);
-    // ------------------------------------------
-    /// FOR SAVING GRAPHIC
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Ratioz.durationFading200,
-      reverseDuration: Ratioz.durationFading200,
-    );
-    // ------------------------------------------
-
-    // blog('FLYER IN FLIGHT [ ${widget.flyerModel.id} ] : ${widget.flightDirection} : width : ${widget.flyerBoxWidth}');
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-
-      // if (
-      // widget.flightDirection == FlightDirection.pop
-      //     &&
-      //     _horizontalSlidesController.hasClients
-      // ){
-      //
-      //   unawaited(_horizontalSlidesController
-      //       .animateToPage(0,
-      //       duration: const Duration(milliseconds: 200),
-      //       curve: Curves.easeOut
-      //   ));
-      //
-      //   widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
-      //     index: 0,
-      //   );
-      //
-      // }
-
-    });
-
   }
   // --------------------
   bool _isInit = true;
   @override
   void didChangeDependencies() {
 
-    if (
-        _isInit == true &&
-        mounted == true &&
-        widget.flyerModel != null &&
-        widget.flyerModel.id != null
-    ) {
+    if (_isInit == true && widget.flyerModel != null) {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        // ----------
-        /// STARTING INDEX
-        final int _startingIndex = getPossibleStartingIndex(
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
-          heroTag: widget.heroTag,
-          startFromIndex: 0,
-        );
-        // ----------
-        /// SETTERS
-        // ----------
-        if (mounted == true){
-
-          final int _numberOfSlides = getNumberOfSlides(
-            flyerModel: widget.flyerModel,
-            bzModel: widget.bzModel,
-            heroTag: widget.heroTag,
-          );
-
-          _progressBarModel.value = ProgressBarModel(
+        setNotifier(
+          notifier: _progressBarModel,
+          mounted: mounted,
+          value: ProgressBarModel(
             swipeDirection: SwipeDirection.next,
-            index: _startingIndex,
-            numberOfStrips: _numberOfSlides,
-          );
+            index: getPossibleStartingIndex(
+              flyerModel: widget.flyerModel,
+              bzModel: widget.bzModel,
+              heroTag: widget.heroTag,
+              startFromIndex: 0,
+            ),
+            numberOfStrips: getNumberOfSlides(
+              flyerModel: widget.flyerModel,
+              bzModel: widget.bzModel,
+              heroTag: widget.heroTag,
+            ),
+          ),
+          addPostFrameCallBack: false,
+        );
 
+        setNotifier(
+          notifier: _bzCounters,
+          mounted: mounted,
+          value: BzCounterModel.createInitialModel(widget.bzModel.id),
+          addPostFrameCallBack: false,
+        );
+
+        if (mounted == true){
+          // ----------
+          /// FOR HEADER
+          _headerAnimationController = initializeHeaderAnimationController(
+            context: context,
+            vsync: this,
+          );
+          // ----------
+          /// FOR SLIDES
+          _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
+          // ----------
+          /// FOLLOW IS ON
+          final _followIsOn = checkFollowIsOn(
+            context: context,
+            bzModel: widget.bzModel,
+          );
+          _setFollowIsOn(_followIsOn);
+          // ----------
+          /// FOR FOOTER & PRICE TAG
+          _horizontalSlidesController.addListener(_listenToHorizontalController);
+          // ----------
+          /// FOR SAVING GRAPHIC
+          _savingAnimationController = AnimationController(
+            vsync: this,
+            duration: Ratioz.durationFading200,
+            reverseDuration: Ratioz.durationFading200,
+          );
+          // ----------
+          WidgetsBinding.instance.addPostFrameCallback((_) async {
+
+            // if (
+            // widget.flightDirection == FlightDirection.pop
+            //     &&
+            //     _horizontalSlidesController.hasClients
+            // ){
+            //
+            //   unawaited(_horizontalSlidesController
+            //       .animateToPage(0,
+            //       duration: const Duration(milliseconds: 200),
+            //       curve: Curves.easeOut
+            //   ));
+            //
+            //   widget.progressBarModel.value = widget.progressBarModel.value.copyWith(
+            //     index: 0,
+            //   );
+            //
+            // }
+
+          });
         }
         // ----------
         await _triggerLoading(setTo: false);
@@ -199,18 +199,18 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
     _loading?.dispose();
     _progressBarModel?.dispose();
     _flyerIsSaved?.dispose();
-    _headerAnimationController.dispose();
-    _headerScrollController.dispose();
-    _animationController.dispose();
-    _horizontalSlidesController.dispose();
-    _footerPageController.dispose();
-    _followIsOn.dispose();
-    _progressBarOpacity.dispose();
-    _headerIsExpanded.dispose();
-    _headerPageOpacity.dispose();
-    _graphicIsOn.dispose();
-    _graphicOpacity.dispose();
-    _bzCounters.dispose();
+    _headerAnimationController?.dispose();
+    _headerScrollController?.dispose();
+    _savingAnimationController?.dispose();
+    _horizontalSlidesController?.dispose();
+    _footerPageController?.dispose();
+    _followIsOn?.dispose();
+    _progressBarOpacity?.dispose();
+    _headerIsExpanded?.dispose();
+    _headerPageOpacity?.dispose();
+    _graphicIsOn?.dispose();
+    _graphicOpacity?.dispose();
+    _bzCounters?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -225,39 +225,33 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
     /// WHEN AT INITIAL SLIDE
     if (_atBackBounce == true){
       final double _correctedPixels = _horizontalSlidesController.position.pixels;
-      _footerPageController.position.correctPixels(_correctedPixels);
-      _footerPageController.position.notifyListeners();
+      if (mounted == true){
+        _footerPageController.position.correctPixels(_correctedPixels);
+        _footerPageController.position.notifyListeners();
+      }
 
     }
 
     /// WHEN AT LAST REAL SLIDE
     if (_reachedGallerySlide == true){
       final double _correctedPixels = _horizontalSlidesController.position.pixels - _totalRealSlidesWidth;
-      _footerPageController.position.correctPixels(_correctedPixels);
-      _footerPageController.position.notifyListeners();
-
+      if (mounted == true){
+        _footerPageController.position.correctPixels(_correctedPixels);
+        _footerPageController.position.notifyListeners();
+      }
     }
 
   }
   // --------------------
   /// FOLLOW IS ON
-  final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo){
     setNotifier(
       notifier: _followIsOn,
       mounted: mounted,
       value: setTo,
+      addPostFrameCallBack: false,
     );
   }
-  // --------------------
-  /// PROGRESS BAR OPACITY
-  final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
-  /// HEADER IS EXPANDED
-  final ValueNotifier<bool> _headerIsExpanded = ValueNotifier(false);
-  /// HEADER PAGE OPACITY
-  final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
-  // --------------------
-  final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
   // --------------------
   Future<void> _onHeaderTap() async {
 
@@ -424,7 +418,7 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
       // blog('-1 - _graphicIsOn => ${_graphicIsOn.value}');
 
       /// 2 - ANIMATE CONTROLLER
-      await _animationController.forward(from: 0);
+      await _savingAnimationController.forward(from: 0);
       // blog('-2 - _animatedController => $isSaved');
 
       /// 3 - START FADE OUT AND WAIT FOR IT
@@ -458,7 +452,6 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
 //     await Sliders.slideToBackFrom(_horizontalSlidesController, widget.currentSlideIndex.value);
 //   }
    */
-
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -466,79 +459,99 @@ class _FullScreenFlyerState extends State<FullScreenFlyer> with TickerProviderSt
     final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
     final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
 
-    return FlyerBox(
-      key: const ValueKey<String>('FullScreenFlyer'),
-      flyerBoxWidth: widget.flyerBoxWidth,
-      stackWidgets: <Widget>[
+    return ValueListenableBuilder(
+        valueListenable: _loading,
+        builder: (_, bool loading, Widget child){
 
-        /// SLIDES
-        SlidesBuilder(
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
+          if (loading == true){
+            return const SizedBox();
+          }
+
+          else {
+            return child;
+          }
+
+        },
+      child: WidgetFader(
+        fadeType: FadeType.fadeIn,
+        duration: const Duration(milliseconds: 150),
+        child: FlyerBox(
+          key: const ValueKey<String>('FullScreenFlyer'),
           flyerBoxWidth: widget.flyerBoxWidth,
-          flyerBoxHeight: _flyerBoxHeight,
-          tinyMode: _tinyMode,
-          horizontalController: _horizontalSlidesController,
-          onSwipeSlide: _onSwipeSlide,
-          onSlideBackTap: _onSlideBackTap,
-          onSlideNextTap: _onSlideNextTap,
-          onDoubleTap: _onSaveFlyer,
-          heroTag: widget.heroTag,
-          progressBarModel: _progressBarModel,
-          flightDirection: FlightDirection.non,
+          boxColor: Colorz.bloodTest,
+          stackWidgets: <Widget>[
 
+            /// SLIDES
+            SlidesBuilder(
+              flyerModel: widget.flyerModel,
+              bzModel: widget.bzModel,
+              flyerBoxWidth: widget.flyerBoxWidth,
+              flyerBoxHeight: _flyerBoxHeight,
+              tinyMode: _tinyMode,
+              horizontalController: _horizontalSlidesController,
+              onSwipeSlide: _onSwipeSlide,
+              onSlideBackTap: _onSlideBackTap,
+              onSlideNextTap: _onSlideNextTap,
+              onDoubleTap: _onSaveFlyer,
+              heroTag: widget.heroTag,
+              progressBarModel: _progressBarModel,
+              flightDirection: FlightDirection.non,
+
+            ),
+
+            //
+            // /// HEADER
+            // FlyerHeader(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   flyerModel: widget.flyerModel,
+            //   bzModel: widget.bzModel,
+            //   onHeaderTap: _onHeaderTap,
+            //   onFollowTap: _onFollowTap,
+            //   onCallTap: _onCallTap,
+            //   headerAnimationController: _headerAnimationController,
+            //   headerScrollController: _headerScrollController,
+            //   tinyMode: _tinyMode,
+            //   headerIsExpanded: _headerIsExpanded,
+            //   followIsOn: _followIsOn,
+            //   headerPageOpacity: _headerPageOpacity,
+            //   bzCounters: _bzCounters,
+            // ),
+            //
+            // /// FOOTER
+            // // if (_tinyMode == false)
+            // FlyerFooter(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   flyerModel: widget.flyerModel,
+            //   tinyMode: _tinyMode,
+            //   onSaveFlyer: _onSaveFlyer,
+            //   footerPageController: _footerPageController,
+            //   headerIsExpanded: _headerIsExpanded,
+            //   inFlight: false,
+            //   flyerIsSaved: _flyerIsSaved,
+            // ),
+            //
+            // /// PROGRESS BAR
+            // ProgressBar(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   progressBarOpacity: _progressBarOpacity,
+            //   progressBarModel: _progressBarModel,
+            //   tinyMode: _tinyMode,
+            //   loading: false,
+            // ),
+            //
+            // /// SAVING NOTICE
+            // SavingNotice(
+            //   flyerBoxWidth: widget.flyerBoxWidth,
+            //   flyerBoxHeight: _flyerBoxHeight,
+            //   flyerIsSaved: _flyerIsSaved,
+            //   animationController: _animationController,
+            //   graphicIsOn: _graphicIsOn,
+            //   graphicOpacity: _graphicOpacity,
+            // ),
+
+          ],
         ),
-
-        /// HEADER
-        FlyerHeader(
-          flyerBoxWidth: widget.flyerBoxWidth,
-          flyerModel: widget.flyerModel,
-          bzModel: widget.bzModel,
-          onHeaderTap: _onHeaderTap,
-          onFollowTap: _onFollowTap,
-          onCallTap: _onCallTap,
-          headerAnimationController: _headerAnimationController,
-          headerScrollController: _headerScrollController,
-          tinyMode: _tinyMode,
-          headerIsExpanded: _headerIsExpanded,
-          followIsOn: _followIsOn,
-          headerPageOpacity: _headerPageOpacity,
-          bzCounters: _bzCounters,
-        ),
-
-        /// FOOTER
-        // if (_tinyMode == false)
-        FlyerFooter(
-          flyerBoxWidth: widget.flyerBoxWidth,
-          flyerModel: widget.flyerModel,
-          tinyMode: _tinyMode,
-          onSaveFlyer: _onSaveFlyer,
-          footerPageController: _footerPageController,
-          headerIsExpanded: _headerIsExpanded,
-          inFlight: false,
-          flyerIsSaved: _flyerIsSaved,
-        ),
-
-        /// PROGRESS BAR
-          ProgressBar(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            progressBarOpacity: _progressBarOpacity,
-            progressBarModel: _progressBarModel,
-            tinyMode: _tinyMode,
-            loading: false,
-          ),
-
-        /// SAVING NOTICE
-          SavingNotice(
-            flyerBoxWidth: widget.flyerBoxWidth,
-            flyerBoxHeight: _flyerBoxHeight,
-            flyerIsSaved: _flyerIsSaved,
-            animationController: _animationController,
-            graphicIsOn: _graphicIsOn,
-            graphicOpacity: _graphicOpacity,
-          ),
-
-      ],
+      ),
     );
 
   }

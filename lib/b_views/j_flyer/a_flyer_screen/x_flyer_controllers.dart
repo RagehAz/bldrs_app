@@ -5,10 +5,9 @@ import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_small_flyer.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
@@ -198,9 +197,9 @@ Widget flyerFlightShuttle({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
   @required double minWidthFactor,
-  @required ValueNotifier<ProgressBarModel> progressBarModel,
-  @required Function onSaveFlyer,
-  @required ValueNotifier<bool> flyerIsSaved,
+  // @required ValueNotifier<ProgressBarModel> progressBarModel,
+  // @required Function onSaveFlyer,
+  // @required ValueNotifier<bool> flyerIsSaved,
 }) {
 
   /*
@@ -250,25 +249,14 @@ Widget flyerFlightShuttle({
 
         return Scaffold(
           backgroundColor: Colorz.nothing,
-          body: StaticFlyer(
+          body: SmallFlyer(
             flyerModel: flyerModel,
             bzModel: bzModel,
             flyerBoxWidth: _flyerBoxWidth,
             flightTweenValue: value,
             flightDirection: _flightDirection,
-            heroTag: 'heroTagInFlight',
+            // heroTag: 'heroTagInFlight',
           ),
-          // body: FlyerTree(
-          //   flyerBoxWidth: _flyerBoxWidth,
-          //   flyerModel: flyerModel,
-          //   bzModel: bzModel,
-          //   flyerZone: null,
-          //   loading: true,
-          //   flightDirection: _flightDirection,
-          //   progressBarModel: progressBarModel,
-          //   onSaveFlyer: onSaveFlyer,
-          //   flyerIsSaved: flyerIsSaved,
-          // ),
         );
 
       }

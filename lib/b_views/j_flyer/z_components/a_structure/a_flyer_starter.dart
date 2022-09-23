@@ -61,7 +61,7 @@ class _FlyerStarterState extends State<FlyerStarter> {
       notifier: _loading,
       mounted: mounted,
       value: setTo,
-      // addPostFrameCallBack:
+      addPostFrameCallBack: false,
     );
 
   }
@@ -186,16 +186,16 @@ class _FlyerStarterState extends State<FlyerStarter> {
     ));
 
     await context.pushTransparentRoute(
-        FlyerFullScreen(
+        FlyerScreen(
           key: const ValueKey<String>('Flyer_Full_Screen'),
           flyerModel: _flyerModel,
           bzModel: _bzModelNotifier.value,
           minWidthFactor: widget.minWidthFactor,
           flyerZone: _flyerZoneNotifier.value,
           heroTag: widget.heroTag,
-          progressBarModel: _progressBarModel,
-          flyerIsSaved: _flyerIsSaved,
-          onSaveFlyer: onTriggerSave,
+          // progressBarModel: _progressBarModel,
+          // flyerIsSaved: _flyerIsSaved,
+          // onSaveFlyer: onTriggerSave,
         )
     );
 
@@ -259,9 +259,9 @@ class _FlyerStarterState extends State<FlyerStarter> {
                         minWidthFactor: widget.minWidthFactor,
                         isFullScreen: widget.isFullScreen,
                         heroTag: widget.heroTag,
-                        progressBarModel: _progressBarModel,
-                        onSaveFlyer: onTriggerSave,
-                        flyerIsSaved: _flyerIsSaved,
+                        // progressBarModel: _progressBarModel,
+                        // onSaveFlyer: onTriggerSave,
+                        // flyerIsSaved: _flyerIsSaved,
                       ),
                     );
 

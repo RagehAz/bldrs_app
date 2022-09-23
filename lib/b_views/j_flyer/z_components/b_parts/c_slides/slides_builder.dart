@@ -85,7 +85,7 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
           builder: (_, ProgressBarModel progModel, Widget gallerySlide){
 
             return HorizontalBouncer(
-              numberOfSlides: progModel.numberOfStrips,
+              numberOfSlides: progModel?.numberOfStrips,
               controller: widget.horizontalController,
               canNavigate: _canNavigateOnBounce(),
               child: PageView.builder(
@@ -95,7 +95,7 @@ class _SlidesBuilderState extends State<SlidesBuilder> with AutomaticKeepAliveCl
                 // clipBehavior: Clip.antiAlias,
                 // restorationId: 'FlyerSlides_PageView_${widget.heroTag}',
                 onPageChanged: (int i) => widget.onSwipeSlide(i),
-                itemCount: progModel.numberOfStrips + 1,
+                itemCount: progModel?.numberOfStrips ?? 0 + 1,
                 itemBuilder: (_, int index){
 
                   /// WHEN AT FLYER REAL SLIDES
