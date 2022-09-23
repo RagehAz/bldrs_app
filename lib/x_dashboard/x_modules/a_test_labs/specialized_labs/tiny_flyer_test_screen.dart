@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
@@ -121,6 +122,7 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
           width: 20,
         ),
 
+        if (_flyerModel != null)
         Container(
           color: Colorz.bloodTest,
           child: StaticHeader(
@@ -130,7 +132,10 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
               flyerShowsAuthor: true
           ),
         ),
-        
+
+        HeaderTemplate(
+          flyerBoxWidth: Scale.superScreenWidth(context),
+        ),
       ],
     );
     // --------------------

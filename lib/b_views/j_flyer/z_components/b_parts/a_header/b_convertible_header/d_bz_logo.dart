@@ -1,9 +1,9 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class BzLogo extends StatelessWidget {
@@ -31,14 +31,10 @@ class BzLogo extends StatelessWidget {
   final bool blackAndWhite;
   final bool shadowIsOn;
   /// --------------------------------------------------------------------------
-  static double cornersValue(double logoWidth) {
-    return logoWidth * Ratioz.bzLogoCorner;
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double logoRoundCorners = cornersValue(width);
+    final double logoRoundCorners = FlyerDim.logoCornerValue(width);
     // --------------------
     final double logoZeroCorner =
     tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;

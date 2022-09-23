@@ -21,20 +21,14 @@ class HeaderLabels extends StatelessWidget {
   final bool headerIsExpanded;
   final String authorID;
   // -----------------------------------------------------------------------------
-  static double getHeaderLabelWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
-  }
   // --------------------
-  static double getHeaderLabelHeight(double flyerBoxWidth){
-    return flyerBoxWidth * (FlyerDim.xFlyerHeaderMiniHeight - (2 * FlyerDim.xFlyerHeaderMainPadding));
-  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return SizedBox(
-        width: getHeaderLabelWidth(flyerBoxWidth),
-        height: getHeaderLabelHeight(flyerBoxWidth),
+        width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
+        height: FlyerDim.headerLabelsHeight(flyerBoxWidth),
         child: Column(
           mainAxisAlignment: flyerShowsAuthor == true ?
           MainAxisAlignment.spaceBetween

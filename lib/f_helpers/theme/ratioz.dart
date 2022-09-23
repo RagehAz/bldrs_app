@@ -60,8 +60,6 @@ abstract class Ratioz {
 
 
 
-  /// Business logo corners Ratio in respect to Container Width or Height
-  static const double bzLogoCorner = 0.17152;
 
   // -----------------------------------------------------------------------------
   /// paddings
