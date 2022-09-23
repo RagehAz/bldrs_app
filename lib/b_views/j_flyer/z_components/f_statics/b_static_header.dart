@@ -63,65 +63,76 @@ class StaticHeader extends StatelessWidget {
       headerColor:  Colorz.blackSemi125,
       headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: flyerBoxWidth),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
           /// BZ LOGO
-          BzLogo(
-            width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
-            image: bzModel?.logo,
-            tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
-            corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
-            zeroCornerIsOn: flyerShowsAuthor,
+          Container(
+            color: Colorz.bloodTest,
+            child: BzLogo(
+              width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
+              image: bzModel?.logo,
+              tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
+              corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
+              zeroCornerIsOn: flyerShowsAuthor,
+              margins: EdgeInsets.zero,
+            ),
           ),
 
           /// HEADER LABELS
-          Opacity(
-            opacity: flightTweenValue,
-            child: HeaderLabels(
-              flyerBoxWidth: flyerBoxWidth,
-              authorID: authorID,
-              bzModel: bzModel,
-              headerIsExpanded: false,
-              flyerShowsAuthor: flyerShowsAuthor,
+          Container(
+            color: Colorz.yellow20,
+            child: Opacity(
+              opacity: flightTweenValue,
+              child: HeaderLabels(
+                flyerBoxWidth: flyerBoxWidth,
+                authorID: authorID,
+                bzModel: bzModel,
+                headerIsExpanded: false,
+                flyerShowsAuthor: flyerShowsAuthor,
+              ),
             ),
           ),
 
           /// FOLLOW AND CALL BUTTONS
-          Opacity(
-            opacity: flightTweenValue,
-            child: Container(
-              width: FollowAndCallButtons.getBoxWidth(flyerBoxWidth: flyerBoxWidth),
-              height: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
-              alignment: Alignment.topCenter,
-              margin: EdgeInsets.symmetric(horizontal: _paddings),
-              // color: Colorz.BloodTest,
-              child: SizedBox(
-                height: followGalleryHeight,
-                width: followGalleryWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
+          Container(
+            color: Colorz.bloodTest,
+            child: Opacity(
+              opacity: flightTweenValue,
+              child: Container(
+                width: FollowAndCallButtons.getBoxWidth(flyerBoxWidth: flyerBoxWidth),
+                height: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
+                alignment: Alignment.topCenter,
+                margin: EdgeInsets.symmetric(horizontal: _paddings),
+                // color: Colorz.BloodTest,
+                child: SizedBox(
+                  height: followGalleryHeight,
+                  width: followGalleryWidth,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
 
-                    /// FOLLOW BUTTON
-                    FollowButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onFollowTap: null,
-                      tappingUnfollow: null,
-                      followIsOn: ValueNotifier(false),
-                    ),
+                      /// FOLLOW BUTTON
+                      FollowButton(
+                        flyerBoxWidth: flyerBoxWidth,
+                        onFollowTap: null,
+                        tappingUnfollow: null,
+                        followIsOn: ValueNotifier(false),
+                      ),
 
-                    /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-                    SizedBox(
-                      height: _paddings,
-                    ),
+                      /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+                      SizedBox(
+                        height: _paddings,
+                      ),
 
-                    /// Call BUTTON
-                    CallButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onCallTap: null,
-                    ),
+                      /// Call BUTTON
+                      CallButton(
+                        flyerBoxWidth: flyerBoxWidth,
+                        onCallTap: null,
+                      ),
 
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

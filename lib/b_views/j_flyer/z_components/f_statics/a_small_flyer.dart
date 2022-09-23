@@ -106,19 +106,29 @@ class SmallFlyer extends StatelessWidget {
         onTap: () => _openFullScreenFlyer(context),
         stackWidgets: <Widget>[
 
-          WidgetFader(
-            fadeType: _flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax,
-            duration: const Duration(milliseconds: 200),
-              child: SingleSlide(
-                flyerBoxWidth: flyerBoxWidth,
-                flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
-                slideModel: flyerModel.slides[0],
-                tinyMode: false,
-                onSlideNextTap: null,
-                onSlideBackTap: null,
-                onDoubleTap: null,
-              ),
-            ),
+          SingleSlide(
+            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
+            slideModel: flyerModel.slides[0],
+            tinyMode: false,
+            onSlideNextTap: null,
+            onSlideBackTap: null,
+            onDoubleTap: null,
+          ),
+
+          // WidgetFader(
+          //   fadeType: _flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax,
+          //   duration: const Duration(milliseconds: 200),
+          //     child: SingleSlide(
+          //       flyerBoxWidth: flyerBoxWidth,
+          //       flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
+          //       slideModel: flyerModel.slides[0],
+          //       tinyMode: false,
+          //       onSlideNextTap: null,
+          //       onSlideBackTap: null,
+          //       onDoubleTap: null,
+          //     ),
+          //   ),
 
           StaticHeader(
             flyerBoxWidth: flyerBoxWidth,
