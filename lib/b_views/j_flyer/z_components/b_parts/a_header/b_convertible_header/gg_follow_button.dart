@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -34,6 +35,7 @@ class FollowButton extends StatelessWidget {
     final double followIconHeight = followBTHeight * 0.5;
     final double followIconWidth = followIconHeight;
     // --------------------
+    blog('followBTWidth : $followBTWidth');
     return GestureDetector(
       onTap: onFollowTap,
       child: ValueListenableBuilder(

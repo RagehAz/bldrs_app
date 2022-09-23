@@ -16,6 +16,7 @@ import 'package:bldrs/d_providers/user_provider.dart';
 import 'package:bldrs/e_db/fire/ops/auth_fire_ops.dart';
 import 'package:bldrs/e_db/ldb/foundation/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -264,6 +265,11 @@ class DashBoardHomeScreen extends StatelessWidget {
     // --------------------
     final List<DashButtonModel> _buttons = _getButtons();
     // --------------------
+    final int _youHaveBeenHereFor = Timers.calculateTimeDifferenceInDays(
+            from: Timers.createDate(year: 2020, month: 06, day: 1),
+            to: DateTime.now(),
+        );
+    // --------------------
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.basic,
@@ -325,7 +331,32 @@ class DashBoardHomeScreen extends StatelessWidget {
             ),
           ),
 
-          const SeparatorLine(width: 200),
+          const SeparatorLine(
+            width: 200,
+            thickness: 0.5,
+          ),
+
+          /// YOU HAVE BEEN HERE FOR
+          SizedBox(
+            height: 50,
+            child: SuperVerse(
+              verse: Verse(
+                text: "You've been here for ( $_youHaveBeenHereFor ) days",
+                translate: false,
+              ),
+              size: 1,
+              italic: true,
+              weight: VerseWeight.thin,
+              color: Colorz.white80,
+              maxLines: 5,
+              margin: 10,
+            ),
+          ),
+
+          const SeparatorLine(
+            width: 200,
+            thickness: 0.5,
+          ),
 
           /// BUTTONS
           GridView.builder(

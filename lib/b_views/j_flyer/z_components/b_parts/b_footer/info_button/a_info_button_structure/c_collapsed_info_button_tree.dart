@@ -12,7 +12,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> buttonIsExpanded; /// p
+  final ValueNotifier<bool> buttonIsExpanded;
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
   final bool tinyMode;
