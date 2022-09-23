@@ -38,7 +38,7 @@ class FollowAndCallButtons extends StatelessWidget {
     else {
 
       return Container(
-        width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth: flyerBoxWidth),
+        width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
         height: logoMinWidth * logoSizeRatioTween.value,
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,
@@ -47,9 +47,7 @@ class FollowAndCallButtons extends StatelessWidget {
             flyerBoxWidth: flyerBoxWidth,
             headerIsExpanded: false,
           ),
-          width: FlyerDim.followAndCallBoxWidth(
-            flyerBoxWidth: flyerBoxWidth,
-          ),
+          width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -64,9 +62,7 @@ class FollowAndCallButtons extends StatelessWidget {
 
               /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
               SizedBox(
-                height: FlyerDim.followAndCallPaddingValue(
-                  flyerBoxWidth: flyerBoxWidth,
-                ),
+                height: FlyerDim.followAndCallPaddingValue(flyerBoxWidth),
               ),
 
               /// Call BUTTON

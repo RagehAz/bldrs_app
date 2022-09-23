@@ -204,7 +204,7 @@ class FlyerDim {
   /// --- FOLLOW AND CALL SIZES
 
   // --------------------
-  static double followAndCallBoxWidth({double flyerBoxWidth}) {
+  static double followAndCallBoxWidth(double flyerBoxWidth) {
     return (flyerBoxWidth * FlyerDim.xFlyerFollowBtWidth) - 1;
   }
   // ---------
@@ -217,7 +217,7 @@ class FlyerDim {
     return _headerMainHeight - (2 * _headerMainPadding);
   }
   // ---------
-  static double followAndCallPaddingValue({double flyerBoxWidth}) {
+  static double followAndCallPaddingValue(double flyerBoxWidth) {
     return flyerBoxWidth * FlyerDim.xFlyerHeaderMainPadding;
   }
   // -----------------------------------------------------------------------------
@@ -232,9 +232,7 @@ class FlyerDim {
   }){
 
     if (infoButtonExpanded == true){
-      return FlyerDim._footerBoxExpandedHeight(
-        flyerBoxWidth: flyerBoxWidth,
-      );
+      return FlyerDim._footerBoxExpandedHeight(flyerBoxWidth);
     }
 
     else {
@@ -251,9 +249,7 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }) {
 
-    final double _footerBTMargins = footerButtonMarginValue(
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    final double _footerBTMargins = footerButtonMarginValue(flyerBoxWidth,);
 
     final double _footerBTRadius = footerButtonRadius(
       context: context,
@@ -263,9 +259,7 @@ class FlyerDim {
     return (2 * _footerBTMargins) + (2 * _footerBTRadius);
   }
   // ---------
-  static double _footerBoxExpandedHeight({
-    @required double flyerBoxWidth,
-  }){
+  static double _footerBoxExpandedHeight(double flyerBoxWidth){
     return flyerBoxWidth;
   }
   // ---------
@@ -338,7 +332,7 @@ class FlyerDim {
         flyerBoxWidth: flyerBoxWidth
     );
 
-    final double _spacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,);
+    final double _spacing = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
 
     final double _rightEnMarginValue =  ((_buttonSize + _spacing) * (buttonNumber - 1)) + _spacing;
 
@@ -356,9 +350,7 @@ class FlyerDim {
 
   }
   // ---------
-  static double footerButtonMarginValue({
-    @required double flyerBoxWidth,
-  }) {
+  static double footerButtonMarginValue(double flyerBoxWidth) {
     return flyerBoxWidth * 0.01;
   }
   // ---------
@@ -371,9 +363,7 @@ class FlyerDim {
     @required double flyerBoxWidth,
   }) {
     final double _flyerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
-    final double _footerBTMargins = footerButtonMarginValue(
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    final double _footerBTMargins = footerButtonMarginValue(flyerBoxWidth);
     return _flyerBottomCorners - _footerBTMargins;
   }
   // -----------------------------------------------------------------------------
@@ -461,6 +451,7 @@ class FlyerDim {
           flyerBoxWidth: flyerBoxWidth,
         );
       }
+
     }
 
   }
@@ -474,12 +465,11 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final _footerSpacerWidth = FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,);
+    final _footerSpacerWidth = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
 
     return flyerBoxWidth
         - (3 * _footerSpacerWidth)
         - _footerButtonWidth;
-
   }
   // ---------
   static double _infoButtonCollapsedWidth({
@@ -492,7 +482,7 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final double _footerButtonMargin = FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,);
+    final double _footerButtonMargin = FlyerDim.footerButtonMarginValue(flyerBoxWidth);
 
     final double _infoButtonCollapsedMargin = infoButtonCollapsedMarginValue(
       context: context,
@@ -513,7 +503,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return flyerBoxWidth - (2 * FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,));
+    return flyerBoxWidth - (2 * FlyerDim.footerButtonMarginValue(flyerBoxWidth));
   }
   // ---------
   static double _infoButtonTinyHeight({
@@ -650,12 +640,14 @@ class FlyerDim {
           flyerBoxWidth: flyerBoxWidth,
         );
       }
+
       else {
         _marginValue = infoButtonCollapsedMarginValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         );
       }
+
     }
 
     return EdgeInsets.all(_marginValue);
@@ -665,7 +657,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,);
+    return FlyerDim.footerButtonMarginValue(flyerBoxWidth);
   }
   // ---------
   static double infoButtonCollapsedMarginValue({
@@ -692,9 +684,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-    return FlyerDim.footerButtonMarginValue(
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    return FlyerDim.footerButtonMarginValue(flyerBoxWidth);
   }
   // -----------------------------------------------------------------------------
 
