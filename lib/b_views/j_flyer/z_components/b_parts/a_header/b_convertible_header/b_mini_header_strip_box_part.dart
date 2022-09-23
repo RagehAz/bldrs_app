@@ -41,7 +41,6 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
           enBottomLeft: 0,
         ),
       ),
-
       child: SingleChildScrollView(
         key: const PageStorageKey<String>('miniHeaderStrip'),
         // shrinkWrap: true,
@@ -56,5 +55,5 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
