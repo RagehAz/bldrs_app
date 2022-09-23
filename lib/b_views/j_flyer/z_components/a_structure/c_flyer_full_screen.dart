@@ -1,24 +1,23 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
-class FlyerFullScreen extends StatelessWidget {
+class FlyerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const FlyerFullScreen({
+  const FlyerScreen({
     @required this.minWidthFactor,
     @required this.flyerModel,
     @required this.bzModel,
     @required this.flyerZone,
     @required this.heroTag,
-    @required this.progressBarModel,
-    @required this.onSaveFlyer,
-    @required this.flyerIsSaved,
+    // @required this.progressBarModel,
+    // @required this.onSaveFlyer,
+    // @required this.flyerIsSaved,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,9 +26,9 @@ class FlyerFullScreen extends StatelessWidget {
   final ZoneModel flyerZone;
   final double minWidthFactor;
   final String heroTag;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
-  final ValueNotifier<bool> flyerIsSaved; /// p
-  final Function onSaveFlyer;
+  // final ValueNotifier<ProgressBarModel> progressBarModel;
+  // final ValueNotifier<bool> flyerIsSaved;
+  // final Function onSaveFlyer;
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
     await Nav.goBack(
@@ -61,9 +60,9 @@ class FlyerFullScreen extends StatelessWidget {
           isFullScreen: true,
           minWidthFactor: minWidthFactor,
           heroTag: heroTag,
-          progressBarModel: progressBarModel,
-          flyerIsSaved: flyerIsSaved,
-          onSaveFlyer: onSaveFlyer,
+          // progressBarModel: progressBarModel,
+          // flyerIsSaved: flyerIsSaved,
+          // onSaveFlyer: onSaveFlyer,
         ),
 
       ),

@@ -202,9 +202,10 @@ class _FlyerTreeState extends State<FlyerTree> with TickerProviderStateMixin {
   final ValueNotifier<bool> _followIsOn = ValueNotifier(false);
   void _setFollowIsOn(bool setTo){
     setNotifier(
-        notifier: _followIsOn,
-        mounted: mounted,
-        value: setTo,
+      notifier: _followIsOn,
+      mounted: mounted,
+      value: setTo,
+      addPostFrameCallBack: false,
     );
   }
   // --------------------

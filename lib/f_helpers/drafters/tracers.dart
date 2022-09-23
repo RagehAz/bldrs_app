@@ -103,8 +103,8 @@ void setNotifier({
   @required ValueNotifier<dynamic> notifier,
   @required bool mounted,
   @required dynamic value,
+  @required bool addPostFrameCallBack,
   Function onFinish,
-  bool addPostFrameCallBack = true,
 }){
 
   if (mounted == true){
