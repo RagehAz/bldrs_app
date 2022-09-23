@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
@@ -55,7 +56,7 @@ class AddImagePicBubble extends StatelessWidget {
     @required double picWidth,
   }){
 
-    final double corner = BzLogo.cornersValue(picWidth);
+    final double corner = FlyerDim.logoCornerValue(picWidth);
 
     return
       bubbleType == BubbleType.bzLogo ?
@@ -199,7 +200,7 @@ class _FilePicSplitter extends StatelessWidget {
     @required double picWidth,
   }){
 
-    final double corner = BzLogo.cornersValue(picWidth);
+    final double corner = FlyerDim.logoCornerValue(picWidth);
 
     return
       bubbleType == BubbleType.bzLogo ?
