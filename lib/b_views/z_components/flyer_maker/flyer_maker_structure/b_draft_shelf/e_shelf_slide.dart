@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
 import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
@@ -32,7 +33,7 @@ class ShelfSlide extends StatefulWidget {
   static const double slideNumberBoxHeight = 20;
   // -----------------------------------------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
-    final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
   // -----------------------------------------------------------------------------
@@ -62,7 +63,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxHeight = FlyerBox.height(context, ShelfSlide.flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, ShelfSlide.flyerBoxWidth);
     blog('ShelfSlide : BUILDING : file : ${widget.mutableSlide?.picFileModel?.file?.path}');
 
     return Container(
@@ -123,7 +124,7 @@ class _ShelfSlideState extends State<ShelfSlide> {
                     height: _flyerBoxHeight,
                     blurIsOn: true,
                     blur: 20,
-                    borders: FlyerBox.corners(context, ShelfSlide.flyerBoxWidth),
+                    borders: FlyerDim.flyerCorners(context, ShelfSlide.flyerBoxWidth),
                   ),
 
                 /// IMAGE

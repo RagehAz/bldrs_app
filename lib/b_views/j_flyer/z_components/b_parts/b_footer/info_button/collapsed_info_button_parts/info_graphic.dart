@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
@@ -22,9 +22,11 @@ class InfoGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _size = InfoButtonStarter.collapsedHeight(
+    final double _size = FlyerDim.infoButtonHeight(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
+      isExpanded: false,
+      tinyMode: tinyMode,
     );
     // --------------------
     /*

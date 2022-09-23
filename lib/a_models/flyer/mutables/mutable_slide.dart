@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
 import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/secondary_models/image_size.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -242,8 +242,8 @@ class MutableSlide {
       final BoxFit _fit = ImageSize.concludeBoxFit(
         picWidth: _imageSize.width,
         picHeight: _imageSize.width,
-        viewWidth: FlyerBox.width(context, 1),
-        viewHeight: FlyerBox.heightBySizeFactor(context: context, flyerSizeFactor: 1),
+        viewWidth: FlyerDim.flyerWidthByFactor(context, 1),
+        viewHeight: FlyerDim.heightBySizeFactor(context: context, flyerSizeFactor: 1),
       );
       final Color _midColor = await Colorizer.getAverageColor(file);
 

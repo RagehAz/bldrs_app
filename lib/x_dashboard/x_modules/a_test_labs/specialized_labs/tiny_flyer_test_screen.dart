@@ -2,9 +2,12 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/x_dashboard/z_widgets/layout/dashboard_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -113,6 +116,21 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
 
         ),
 
+        const SizedBox(
+          height: 20,
+          width: 20,
+        ),
+
+        Container(
+          color: Colorz.bloodTest,
+          child: StaticHeader(
+              flyerBoxWidth: Scale.superScreenWidth(context),
+              bzModel: _bzModel,
+              authorID: _flyerModel.id,
+              flyerShowsAuthor: true
+          ),
+        ),
+        
       ],
     );
     // --------------------

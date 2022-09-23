@@ -1,10 +1,9 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class AbstractMiniHeader extends StatelessWidget {
@@ -21,26 +20,19 @@ class AbstractMiniHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _stripHeight = FlyerBox.headerStripHeight(
-      headerIsExpanded: false,
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    final double _stripHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
     // --------------------
-    final BorderRadius _stripBorders = FlyerBox.superHeaderStripCorners(
+    final BorderRadius _stripBorders = FlyerDim.headerBoxCorners(
       context: context,
-      bzPageIsOn: false,
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
-    final double _logoSize = FlyerBox.logoWidth(
-      bzPageIsOn: false,
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    final double _logoSize = FlyerDim.logoWidth(flyerBoxWidth);
     // --------------------
     return Container(
       height: _stripHeight,
       width: flyerBoxWidth,
-      padding: EdgeInsets.all(flyerBoxWidth * Ratioz.xxflyerHeaderMainPadding),
+      padding: EdgeInsets.all(flyerBoxWidth * FlyerDim.xFlyerHeaderMainPadding),
       decoration: BoxDecoration(
         borderRadius: _stripBorders,
         gradient: Colorizer.superHeaderStripGradient(Colorz.white50),
@@ -53,8 +45,8 @@ class AbstractMiniHeader extends StatelessWidget {
         child: BzLogo(
           width: _logoSize,
           image: bzModel.logo,
-          tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
-          corners: FlyerBox.superLogoCorner(
+          tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
+          corners: FlyerDim.logoCorners(
             context: context,
             flyerBoxWidth: flyerBoxWidth,
           ),

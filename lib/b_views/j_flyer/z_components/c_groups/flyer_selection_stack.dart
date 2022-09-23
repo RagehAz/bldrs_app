@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/animators/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
@@ -40,12 +41,12 @@ class FlyerSelectionStack extends StatelessWidget {
 
     else {
       // --------------------
-      final double _flyerBoxHeight = FlyerBox.height(context, flyerBoxWidth);
-      final BorderRadius _corners = FlyerBox.corners(context, flyerBoxWidth);
-      final double _checkIconSize = FlyerBox.bottomCornerValue(flyerBoxWidth) * 2;
+      final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth);
+      final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
+      final double _checkIconSize = FlyerDim.flyerBottomCornerValue(flyerBoxWidth) * 2;
       final bool _isSelectionMode = onSelectFlyer != null;
       // --------------------
-      final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+      final bool _tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
       // --------------------
       return Stack(
         // alignment: Alignment.center,
@@ -56,7 +57,7 @@ class FlyerSelectionStack extends StatelessWidget {
             child: FlyerStarter(
               key: ValueKey<String>('FlyerSelectionStack${flyerModel.id}'),
               flyerModel: flyerModel,
-              minWidthFactor: FlyerBox.sizeFactorByWidth(context, flyerBoxWidth),
+              minWidthFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
               heroTag: heroTag,
             ),
           ),
@@ -165,8 +166,8 @@ class FlyerSelectionStack extends StatelessWidget {
           if (onFlyerOptionsTap != null)
             SuperPositioned(
               enAlignment: Alignment.bottomRight,
-              verticalOffset: FooterButton.buttonMargin(flyerBoxWidth: flyerBoxWidth,),
-              horizontalOffset: FooterButton.buttonMargin(flyerBoxWidth: flyerBoxWidth,),
+              verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,),
+              horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,),
               child: FooterButton(
                 icon: Iconz.more,
                 phid: 'phid_more',

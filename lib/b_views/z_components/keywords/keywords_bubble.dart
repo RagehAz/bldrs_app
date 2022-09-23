@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_phid_button.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
@@ -42,7 +43,7 @@ class KeywordsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     /// the keyword bottom bubble corner when set in flyer info page
-    final double _bottomPadding = (bubbleWidth * Ratioz.xxflyerBottomCorners) -
+    final double _bottomPadding = (bubbleWidth * FlyerDim.xFlyerBottomCorners) -
         Ratioz.appBarPadding -
         Ratioz.appBarMargin;
     // --------------------

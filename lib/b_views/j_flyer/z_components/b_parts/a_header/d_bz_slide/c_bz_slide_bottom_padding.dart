@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
@@ -17,7 +18,7 @@ class MaxHeaderBottomPadding extends StatelessWidget {
     return Container(
       key: const ValueKey<String>('max_header_bottom_padding'),
       width: flyerBoxWidth,
-      height: flyerBoxWidth * Ratioz.xxflyerBottomCorners + Ratioz.appBarMargin,
+      height: flyerBoxWidth * FlyerDim.xFlyerBottomCorners + Ratioz.appBarMargin,
       margin: EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing),
       decoration: BoxDecoration(
         color: Colorz.black80,
@@ -25,8 +26,8 @@ class MaxHeaderBottomPadding extends StatelessWidget {
           context: context,
           enTopLeft: 0,
           enTopRight: 0,
-          enBottomLeft: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
-          enBottomRight: flyerBoxWidth * Ratioz.xxflyerBottomCorners,
+          enBottomLeft: flyerBoxWidth * FlyerDim.xFlyerBottomCorners,
+          enBottomRight: flyerBoxWidth * FlyerDim.xFlyerBottomCorners,
         ),
       ),
     );

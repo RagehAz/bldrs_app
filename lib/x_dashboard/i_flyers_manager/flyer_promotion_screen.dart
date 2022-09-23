@@ -3,15 +3,15 @@ import 'package:bldrs/a_models/flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/zone/city_model.dart';
 import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
+import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/g_zoning/x_zoning_controllers.dart';
 import 'package:bldrs/c_protocols/zone_protocols/a_zone_protocols.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
 import 'package:bldrs/e_db/fire/ops/flyer_fire_ops.dart';
@@ -145,7 +145,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
           const Stratosphere(),
 
           FlyerStarter(
-            minWidthFactor: FlyerBox.sizeFactorByWidth(context, _screenWidth * 0.7),
+            minWidthFactor: FlyerDim.flyerFactorByFlyerWidth(context, _screenWidth * 0.7),
             flyerModel: widget.flyer,
             heroTag: 'flyerPromotionScreen',
           ),

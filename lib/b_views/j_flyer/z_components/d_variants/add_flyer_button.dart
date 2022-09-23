@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/a_flyer_maker_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/abstract_header.dart';
@@ -51,7 +52,7 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _bzModel = _bzzProvider.myActiveBz;
     // --------------------
@@ -76,10 +77,7 @@ class AddFlyerButton extends StatelessWidget {
 
               /// --- FAKE HEADER FOOTPRINT
               SizedBox(
-                height: FlyerBox.headerBoxHeight(
-                  // bzPageIsOn: false,
-                    flyerBoxWidth: flyerBoxWidth
-                ),
+                height: FlyerDim.headerBoxHeight(flyerBoxWidth),
               ),
 
               DreamBox(

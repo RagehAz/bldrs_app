@@ -1,9 +1,8 @@
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
+import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
@@ -24,79 +23,6 @@ class Strips extends StatelessWidget {
   final EdgeInsets margins;
   final bool tinyMode;
   // -----------------------------------------------------------------------------
-  static double boxWidth(double flyerBoxWidth) {
-    return flyerBoxWidth;
-  }
-  // --------------------
-  static double boxHeight(double flyerBoxWidth) {
-    final double _boxHeight = flyerBoxWidth * Ratioz.xxProgressBarHeightRatio;
-    return _boxHeight;
-  }
-  // --------------------
-  static EdgeInsets boxMargins({EdgeInsets margins, double flyerBoxWidth}) {
-    final EdgeInsets _boxMargins = margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
-    return _boxMargins;
-  }
-  // --------------------
-  static double stripsTotalLength(double flyerBoxWidth) {
-    final double _stripsTotalLength = flyerBoxWidth * 0.895;
-    return _stripsTotalLength;
-  }
-  // --------------------
-  static double stripThickness(double flyerBoxWidth) {
-    final double _thickness = flyerBoxWidth * 0.007;
-    return _thickness;
-  }
-  // --------------------
-  static double stripCornerValue(double flyerBoxWidth) {
-    final double _thickness = stripThickness(flyerBoxWidth);
-    final double _stripCorner = _thickness * 0.5;
-    return _stripCorner;
-  }
-  // --------------------
-  static BorderRadius stripBorders({BuildContext context, double flyerBoxWidth}) {
-    final double _stripCorner = stripCornerValue(flyerBoxWidth);
-    final BorderRadius _borders = Borderers.superBorderAll(context, _stripCorner);
-    return _borders;
-  }
-  // --------------------
-  static double stripsOneSideMargin(double flyerBoxWidth) {
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final double _allStripsOneSideMargin = (flyerBoxWidth - _stripsTotalLength) / 2;
-    return _allStripsOneSideMargin;
-  }
-  // --------------------
-  static double oneStripLength({
-    @required double flyerBoxWidth,
-    @required int numberOfStrips,
-  }) {
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
-    final int _numberOfStrips = numberOfStrips ?? 1;
-    final double _oneStripLength = _stripsTotalLength / _numberOfStrips;
-    return _oneStripLength;
-  }
-  // --------------------
-  static const Color stripOffColor = Colorz.white10;
-  static const Color stripFadedColor = Colorz.white80;
-  static const Color stripOnColor = Colorz.white200;
-  static const Color stripLoadingColor = Colorz.yellow200;
-  // --------------------
-  static Color stripColor({
-    bool isWhite,
-    int numberOfSlides,
-  }) {
-    final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
-
-    final Color _stripColor = !isWhite ?
-    stripFadedColor
-        :
-    _numberOfSlides == 0 ? stripOffColor
-        :
-    stripOnColor;
-
-    return _stripColor;
-  }
-  // --------------------
   static bool canBuildStrips(int numberOfStrips) {
     bool _canBuild = false;
 
@@ -187,11 +113,11 @@ class Strips extends StatelessWidget {
 
     return _numberOfStrips;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   Tween<double> _tween(ProgressBarModel _progModel) {
     Tween<double> _tween;
 
-    final double _aStripLength = oneStripLength(
+    final double _aStripLength = FlyerDim.progressStripLength(
       flyerBoxWidth: flyerBoxWidth,
       numberOfStrips: _progModel.numberOfStrips,
     );
@@ -213,7 +139,7 @@ class Strips extends StatelessWidget {
 
     return _tween;
   }
-
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // -----------------------------------------------------------------------------
@@ -233,7 +159,7 @@ class Strips extends StatelessWidget {
     // blog('_aStripLength : $_aStripLength');
    */
     // -----------------------------------------------------------------------------
-    final double _stripsTotalLength = stripsTotalLength(flyerBoxWidth);
+    final double _stripsTotalLength = FlyerDim.progressStripsTotalLength(flyerBoxWidth);
     // -----------------------------------------------------------------------------
 
     if (tinyMode == true || barIsOn == false){
@@ -246,7 +172,7 @@ class Strips extends StatelessWidget {
           valueListenable: progressBarModel,
           builder: (_, ProgressBarModel _progModel, Widget singleSlideProgBar){
 
-            final double _aStripLength = oneStripLength(
+            final double _aStripLength = FlyerDim.progressStripLength(
               flyerBoxWidth: flyerBoxWidth,
               numberOfStrips: _progModel.numberOfStrips,
             );

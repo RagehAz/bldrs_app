@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ff_header_labels.dart';
@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertibl
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderTemplate extends StatelessWidget {
@@ -46,10 +45,7 @@ class HeaderTemplate extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
-    final double _headerMainHeight = FlyerBox.headerStripHeight(
-        headerIsExpanded: false,
-        flyerBoxWidth: flyerBoxWidth
-    );
+    final double _headerMainHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
     // --------------------
     /// B.DATA
     final double _businessDataHeight = flyerShowsAuthor == true ?
@@ -57,7 +53,7 @@ class HeaderTemplate extends StatelessWidget {
         :
     _headerMainHeight * 0.7; /// 0.0475;
     // --------------------
-    final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _businessDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
     final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
@@ -69,22 +65,21 @@ class HeaderTemplate extends StatelessWidget {
       opacity: opacity,
       child: HeaderBox(
         onHeaderTap: onTap,
-        headerBorders: FlyerBox.superHeaderCorners(
+        headerBorders: FlyerDim.headerBoxCorners(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
-          bzPageIsOn: false,
         ),
         flyerBoxWidth: flyerBoxWidth,
         headerColor: Colorz.black255,
-        headerHeightTween: FlyerBox.headerBoxHeight(flyerBoxWidth: flyerBoxWidth),
+        headerHeightTween: FlyerDim.headerBoxHeight(flyerBoxWidth),
         child: Row(
           children: <Widget>[
 
             BzLogo(
-              width: FlyerBox.logoWidth(bzPageIsOn: false, flyerBoxWidth: flyerBoxWidth),
+              width: FlyerDim.logoWidth(flyerBoxWidth),
               image: logo,
-              tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
-              corners: FlyerBox.superLogoCorner(context: context, flyerBoxWidth: flyerBoxWidth),
+              tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
+              corners: FlyerDim.logoCorners(context: context, flyerBoxWidth: flyerBoxWidth),
               zeroCornerIsOn: flyerShowsAuthor,
             ),
 
@@ -166,7 +161,7 @@ class HeaderTemplate extends StatelessWidget {
 
                             /// AUTHOR IMAGE
                             AuthorPic(
-                              width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
+                              width: flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth,
                               authorPic: authorImage,
                               // tinyBz:
                             ),
@@ -174,7 +169,7 @@ class HeaderTemplate extends StatelessWidget {
                             /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
                             if (flyerShowsAuthor == true)
                               Container(
-                                width: flyerBoxWidth * Ratioz.xxflyerAuthorNameWidth,
+                                width: flyerBoxWidth * FlyerDim.xFlyerAuthorNameWidth,
                                 padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,

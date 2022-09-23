@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/g_flyer_counters_and_records.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
@@ -38,9 +38,12 @@ class InfoPageContents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _pageWidth = InfoButtonStarter.expandedWidth(
+    final double _pageWidth = FlyerDim.infoButtonWidth(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
+      tinyMode: false,
+      isExpanded: true,
+      infoButtonType: null,
     );
 
     return Container(
