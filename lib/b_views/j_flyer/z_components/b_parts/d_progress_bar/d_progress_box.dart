@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/c_strips.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:flutter/material.dart';
 
@@ -21,10 +21,10 @@ class ProgressBox extends StatelessWidget {
     return Align(
       alignment: Aligners.superTopAlignment(context),
       child: Container(
-        width: Strips.boxWidth(flyerBoxWidth),
-        height: Strips.boxHeight(flyerBoxWidth),
-        margin: Strips.boxMargins(flyerBoxWidth: flyerBoxWidth, margins: margins),
-        padding: EdgeInsets.symmetric(horizontal: Strips.stripsOneSideMargin(flyerBoxWidth)),
+        width: FlyerDim.progressBarBoxWidth(flyerBoxWidth),
+        height: FlyerDim.progressBarBoxHeight(flyerBoxWidth),
+        margin: FlyerDim.progressBarBoxMargins(flyerBoxWidth: flyerBoxWidth, margins: margins),
+        padding: EdgeInsets.symmetric(horizontal: FlyerDim.progressBarPaddingValue(flyerBoxWidth)),
         alignment: Alignment.center,
         // color: Colorz.bloodTest,
         child: ListView(

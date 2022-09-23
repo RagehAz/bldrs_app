@@ -1,11 +1,11 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
@@ -141,14 +141,12 @@ class _GallerySlideState extends State<GallerySlide> {
   @override
   Widget build(BuildContext context) {
 
-    final double _headerAndProgressHeights = FlyerBox.headerAndProgressHeights(
-      context: context,
-      flyerBoxWidth: widget.flyerBoxWidth,
-    );
+    final double _headerAndProgressHeights =
+    FlyerDim.headerAndProgressHeights(context, widget.flyerBoxWidth);
 
     return ClipRRect(
       key: const ValueKey<String>('Gallery_slide_of_Flyer'),
-      borderRadius: FooterBox.corners(context: context, flyerBoxWidth: widget.flyerBoxWidth),
+      borderRadius: FlyerDim.footerBoxCorners(context: context, flyerBoxWidth: widget.flyerBoxWidth),
       child: Container(
         width: widget.flyerBoxWidth,
         height: widget.flyerBoxHeight,

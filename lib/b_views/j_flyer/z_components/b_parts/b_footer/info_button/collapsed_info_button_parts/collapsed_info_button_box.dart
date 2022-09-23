@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:flutter/material.dart';
 
@@ -20,38 +20,21 @@ class CollapsedInfoButtonBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = tinyMode ?
-    InfoButtonStarter.tinyWidth(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    )
-        :
-    InfoButtonStarter.collapsedWidth(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    );
-    // --------------------
-    final double _height = tinyMode ?
-    InfoButtonStarter.tinyHeight(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    )
-        :
-    InfoButtonStarter.collapsedHeight(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    // --------------------
-    /*
-    // final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
-    // final double _paddingsValue = _height * 0.25;
-    // final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: _paddingsValue);
-     */
-    // --------------------
     return Container(
       key: const ValueKey<String>('normal_price_tag'),
-      width: _width,
-      height: _height,
+      width: FlyerDim.infoButtonWidth(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        tinyMode: tinyMode,
+        isExpanded: false,
+        infoButtonType: infoButtonType,
+      ),
+      height: FlyerDim.infoButtonHeight(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        isExpanded: false,
+        tinyMode: tinyMode,
+      ),
       // alignment: infoButtonType == InfoButtonType.info ? Alignment.center : Aligners.superCenterAlignment(context),
       alignment: Alignment.center,
       child: ListView(

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +28,8 @@ class NotificationFlyers extends StatelessWidget {
       height: 20 + 200.0,
       decoration: BoxDecoration(
         color: Colorz.white10,
-        borderRadius: FlyerBox.corners(
-          context,
-          FlyerBox.width(context, FlyerBox.sizeFactorByHeight(context, 220)),
+        borderRadius: FlyerDim.flyerCorners(
+          context, FlyerDim.flyerWidthByFactor(context, FlyerDim.flyerFactorByFlyerHeight(context, 220)),
         ),
       ),
       child:
@@ -108,7 +107,7 @@ class FlyerInNoteCard extends StatelessWidget {
           absorbing: _absorbFlyerTap(),
           child: FlyerStarter(
             heroTag: noteID,
-            minWidthFactor: FlyerBox.sizeFactorByHeight(context, 200),
+            minWidthFactor: FlyerDim.flyerFactorByFlyerHeight(context, 200),
             flyerModel: flyerModel,
           ),
         ),

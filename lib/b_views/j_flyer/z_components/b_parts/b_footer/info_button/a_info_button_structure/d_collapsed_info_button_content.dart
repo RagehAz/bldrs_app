@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/discount_price_tag.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/info_graphic.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/installment_price_tag.dart';
@@ -24,27 +24,21 @@ class CollapsedInfoButtonContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = tinyMode ?
-    InfoButtonStarter.tinyWidth(
+    final double _width = FlyerDim.infoButtonWidth(
       context: context,
       flyerBoxWidth: flyerBoxWidth,
-    )
-        :
-    InfoButtonStarter.collapsedWidth(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
+      tinyMode: tinyMode,
+      infoButtonType: infoButtonType,
+      isExpanded: false,
     );
     // --------------------
-    final double _height = tinyMode ?
-    InfoButtonStarter.tinyHeight(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    )
-        :
-    InfoButtonStarter.collapsedHeight(
+    final double _height = FlyerDim.infoButtonHeight(
       context: context,
+      tinyMode: tinyMode,
       flyerBoxWidth: flyerBoxWidth,
+      isExpanded: false,
     );
+
     // --------------------
     final double _paddingValue = _height * 0.1;
     // --------------------

@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_full_scre
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/f_big_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/single_slide/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/d_static_footer.dart';
@@ -96,7 +97,7 @@ class SmallFlyer extends StatelessWidget {
 
       final double _tweenValue = _bakeTweenValue(context:  context);
 
-      final bool _flyerIsBigNow = FlyerBox.isFullScreen(context, flyerBoxWidth) == true
+      final bool _flyerIsBigNow = FlyerDim.checkFlyerIsFullScreen(context, flyerBoxWidth) == true
           && flightDirection == FlightDirection.non
           && _tweenValue == 1;
 
@@ -108,7 +109,7 @@ class SmallFlyer extends StatelessWidget {
 
           SingleSlide(
             flyerBoxWidth: flyerBoxWidth,
-            flyerBoxHeight: FlyerBox.height(context, flyerBoxWidth),
+            flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(context, flyerBoxWidth),
             slideModel: flyerModel.slides[0],
             tinyMode: false,
             onSlideNextTap: null,

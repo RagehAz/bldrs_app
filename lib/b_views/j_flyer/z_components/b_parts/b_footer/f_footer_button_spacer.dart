@@ -1,5 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class FooterButtonSpacer extends StatelessWidget {
@@ -16,13 +15,14 @@ class FooterButtonSpacer extends StatelessWidget {
 
     return SizedBox(
 
-      width: FooterButton.buttonMargin(
+      width: FlyerDim.footerButtonMarginValue(
           flyerBoxWidth: flyerBoxWidth,
       ),
 
-      height: FooterBox.collapsedHeight(
+      height: FlyerDim.footerBoxHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
+        infoButtonExpanded: false,
       ),
 
     );

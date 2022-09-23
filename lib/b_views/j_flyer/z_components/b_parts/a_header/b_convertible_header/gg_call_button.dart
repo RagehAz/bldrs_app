@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/colorizers.dart';
@@ -5,7 +6,6 @@ import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -30,8 +30,8 @@ class CallButton extends StatelessWidget {
     // --------------------
     /// call BUTTON
     const Color _callBTColor = Colorz.white10;
-    final double _callBTHeight = flyerBoxWidth * Ratioz.xxCallBTHeight;
-    final double _callBTWidth = flyerBoxWidth * Ratioz.xxfollowCallWidth;
+    final double _callBTHeight = flyerBoxWidth * FlyerDim.xCallBTHeight;
+    final double _callBTWidth = flyerBoxWidth * FlyerDim.xFollowCallWidth;
     // --------------------
     /// call ICON
     const String _callIcon = Iconz.comPhone;

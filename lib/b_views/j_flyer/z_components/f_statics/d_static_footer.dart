@@ -1,11 +1,8 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/c_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/animators.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
@@ -25,33 +22,6 @@ class StaticFooter extends StatelessWidget {
   final double flightTweenValue;
   final Function onMoreTap;
   /// --------------------------------------------------------------------------
-  EdgeInsets getButtonEnMargins({
-    @required BuildContext context,
-    @required int buttonNumber,
-  }){
-    final double _buttonSize = FooterButton.buttonSize(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth
-    );
-
-    final double _spacing = FooterButton.buttonMargin(flyerBoxWidth: flyerBoxWidth,);
-
-    final double _rightEnMarginValue =  ((_buttonSize + _spacing) * (buttonNumber - 1)) + _spacing;
-
-    return Scale.superInsets(
-      context: context,
-      top: _spacing,
-      bottom: _spacing,
-      enLeft: _spacing,
-      enRight: Animators.limitTweenImpact(
-        minDouble: _spacing,
-        maxDouble: _rightEnMarginValue,
-        tweenValue: flightTweenValue,
-      ),
-    );
-
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -60,9 +30,10 @@ class StaticFooter extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: SizedBox(
         width: flyerBoxWidth,
-        height: FooterBox.collapsedHeight(
+        height: FlyerDim.footerBoxHeight(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
+          infoButtonExpanded: false,
         ),
         child: Stack(
           alignment: Aligners.superInverseBottomAlignment(context),
@@ -81,14 +52,14 @@ class StaticFooter extends StatelessWidget {
                 alignment: Aligners.superBottomAlignment(context),
                 child: Container(
                   // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
-                  width: InfoButtonStarter.getWidth(
+                  width: FlyerDim.infoButtonWidth(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
                     isExpanded: false,
                     infoButtonType: InfoButtonType.info,
                   ),
-                  height: InfoButtonStarter.getHeight(
+                  height: FlyerDim.infoButtonHeight(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
@@ -96,14 +67,14 @@ class StaticFooter extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: Colorz.black255,
-                    borderRadius: InfoButtonStarter.getBorders(
+                    borderRadius: FlyerDim.infoButtonCorners(
                         context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         tinyMode: false,
                         isExpanded: false
                     ),
                   ),
-                  margin: InfoButtonStarter.getMargin(
+                  margin: FlyerDim.infoButtonMargins(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
@@ -118,9 +89,11 @@ class StaticFooter extends StatelessWidget {
             Opacity(
               opacity: flightTweenValue,
               child: Padding(
-                padding: getButtonEnMargins(
+                padding: FlyerDim.footerButtonEnRightMargin(
                   buttonNumber: 3,
                   context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flightTweenValue: flightTweenValue,
                 ),
                 child: FooterButton(
                   flyerBoxWidth: flyerBoxWidth,
@@ -138,9 +111,11 @@ class StaticFooter extends StatelessWidget {
             Opacity(
               opacity: flightTweenValue,
               child: Padding(
-                padding: getButtonEnMargins(
+                padding: FlyerDim.footerButtonEnRightMargin(
                   buttonNumber: 2,
                   context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  flightTweenValue: flightTweenValue,
                 ),
                 child: FooterButton(
                   count: null,
@@ -156,9 +131,11 @@ class StaticFooter extends StatelessWidget {
 
             /// SAVE BUTTON
             Padding(
-              padding: getButtonEnMargins(
+              padding: FlyerDim.footerButtonEnRightMargin(
                 buttonNumber: 1,
                 context: context,
+                flightTweenValue: flightTweenValue,
+                flyerBoxWidth: flyerBoxWidth,
               ),
               child: FooterButton(
                 flyerBoxWidth: flyerBoxWidth,

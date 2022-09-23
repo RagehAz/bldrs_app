@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -15,11 +15,6 @@ class FooterShadow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _footerHeight = FooterBox.collapsedHeight(
-      context: context,
-      flyerBoxWidth: flyerBoxWidth,
-    );
-    // --------------------
     return Align(
       key: const ValueKey<String>('FooterShadow'),
       alignment: Alignment.bottomCenter,
@@ -27,7 +22,11 @@ class FooterShadow extends StatelessWidget {
         Iconz.footerShadow,
         fit: BoxFit.fitWidth,
         width: flyerBoxWidth,
-        height: _footerHeight,
+        height: FlyerDim.footerBoxHeight(
+          context: context,
+          flyerBoxWidth: flyerBoxWidth,
+          infoButtonExpanded: false,
+        ),
         alignment: Alignment.bottomCenter,
       ),
     );

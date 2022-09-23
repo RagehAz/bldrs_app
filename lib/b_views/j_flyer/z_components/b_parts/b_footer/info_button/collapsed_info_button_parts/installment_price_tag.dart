@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/zone/country_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -36,7 +36,7 @@ class InstallmentsPriceTag extends StatelessWidget {
     const double _currentPrice = 100000000;
     final String _currency = _currentCountry?.currency;
     // --------------------
-    final double _flyerSizeFactor = FlyerBox.sizeFactorByWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
     // --------------------
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,

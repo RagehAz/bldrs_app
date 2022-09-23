@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/flyer_maker/slide_editor/slide_editor_button.dart';
@@ -43,7 +44,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
     // --------------------
     final double _buttonSize = SlideEditorControlPanel.getButtonSize(context, _buttonsZoneHeight);
     final double _boxHeight = SlideEditorButton.getBoxHeight(buttonSize: _buttonSize);
-    final double _boxWidth = FlyerBox.widthByHeight(context, _boxHeight);
+    final double _boxWidth = FlyerDim.flyerWidthByFlyerHeight(context, _boxHeight);
     // --------------------
     return SizedBox(
       width: _screenWidth,

@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:bldrs/a_models/flyer/sub/file_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
@@ -420,7 +420,7 @@ class Imagers {
         context: context,
         screen: CroppingScreen(
           fileModels: pickedFileModels,
-          aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+          aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerZoneHeight : 1,
         ),
       );
 
@@ -446,7 +446,7 @@ class Imagers {
 
       final List<File> _files = await Filers.resizeImages(
         files: FileModel.getFilesFromModels(inputFileModels),
-        aspectRatio: isFlyerRatio == true ? 1 / Ratioz.xxflyerZoneHeight : 1,
+        aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerZoneHeight : 1,
         finalWidth: resizeToWidth,
       );
 

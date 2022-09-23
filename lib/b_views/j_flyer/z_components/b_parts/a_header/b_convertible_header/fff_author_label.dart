@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/phrase_provider.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class AuthorLabel extends StatelessWidget {
@@ -35,7 +35,7 @@ class AuthorLabel extends StatelessWidget {
     @required double flyerBoxWidth
   }){
     // flyerShowsAuthor == true ?
-    return flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth;
+    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth;
     //     :
     // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
   }
@@ -48,8 +48,7 @@ class AuthorLabel extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final double _authorDataWidth = flyerBoxWidth *
-        (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _authorDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
 
     return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
 
@@ -58,7 +57,7 @@ class AuthorLabel extends StatelessWidget {
   static double getAuthorImageCorners({
     @required double flyerBoxWidth,
   }){
-    return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicCorner;
   }
   // --------------------
   static BorderRadius getAuthorImageBorders({
@@ -86,7 +85,7 @@ class AuthorLabel extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool _versesShadow = false;
 // -----------------------------------------------------------------------------
-    final double _headerTextSidePadding = flyerBoxWidth * Ratioz.xxflyersGridSpacing;
+    final double _headerTextSidePadding = flyerBoxWidth * FlyerDim.xFlyersGridSpacing;
     // --------------------
     final double _authorLabelBoxHeight = getAuthorLabelBoxHeight(
       flyerBoxWidth: flyerBoxWidth,
@@ -148,7 +147,7 @@ class AuthorLabel extends StatelessWidget {
 
             /// AUTHOR IMAGE
             AuthorPic(
-              width: flyerBoxWidth * Ratioz.xxflyerAuthorPicWidth,
+              width: flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth,
               authorPic: _author?.pic,
               // tinyBz:
             ),
@@ -156,7 +155,7 @@ class AuthorLabel extends StatelessWidget {
             /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
             if (labelIsOn == true)
               Container(
-                width: flyerBoxWidth * Ratioz.xxflyerAuthorNameWidth,
+                width: flyerBoxWidth * FlyerDim.xFlyerAuthorNameWidth,
                 padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
