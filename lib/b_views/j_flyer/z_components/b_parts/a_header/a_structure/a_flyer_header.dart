@@ -173,7 +173,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// SIDE SPACERS
 
     //--------------------------------o
-    final double _followCallPaddingEnd = FlyerDim.followAndCallPaddingValue(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallPaddingEnd = FlyerDim.followAndCallPaddingValue(widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     final double _maxLeftSpacer = (widget.flyerBoxWidth * 0.2) - _followCallPaddingEnd;
     //--------------------------------o
@@ -182,7 +182,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       end: _maxLeftSpacer,
     ).animate(widget.headerAnimationController);
     //--------------------------------o
-    final double _followCallBoxWidthEnd = FlyerDim.followAndCallBoxWidth(flyerBoxWidth: widget.flyerBoxWidth) * 1.5;
+    final double _followCallBoxWidthEnd = FlyerDim.followAndCallBoxWidth(widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     _headerRightSpacerTween = Animators.animateDouble(
       begin: 0,
