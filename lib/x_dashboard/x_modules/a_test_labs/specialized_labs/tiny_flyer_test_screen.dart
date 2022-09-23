@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_static_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -71,7 +72,6 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// XXXX
   @override
   void dispose() {
     _loading.dispose();
@@ -80,6 +80,7 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
   // -----------------------------------------------------------------------------
   FlyerModel _flyerModel;
   BzModel _bzModel;
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -88,22 +89,33 @@ class _StaticFlyerTestState extends State<StaticFlyerTest> {
       listWidgets: <Widget>[
 
         if (_flyerModel != null)
-        StaticFlyer(
-          flyerBoxWidth: 200,
-          flyerModel: _flyerModel,
-          bzModel: _bzModel,
-          heroTag: 'TestNewFlyer',
-          onFlyerTap: (){
-            blog('kokoko');
-          },
-          // onMoreTap: (){
-          //   blog('kddddddokoko');
-          // },
+          FlyerHero(
+            key: const ValueKey<String>('FlyerHero'),
+            heroTag: createHeroTag(
+              heroTag: 'test',
+              flyerID: _flyerModel.id,
+            ),
+            flyerZone: _flyerModel.zone,
+            // flyerIsSaved: ValueNotifier(false),
+            isFullScreen: false,
+            minWidthFactor: 0.4,
+            // onSaveFlyer: null,
+            // progressBarModel: null,
+            flyerModel: _flyerModel,
+            bzModel: _bzModel,
+            // heroTag: 'TestNewFlyer${_flyerModel.id}',
+            // onFlyerTap: (){
+            //   blog('kokoko');
+            // },
+            // onMoreTap: (){
+            //   blog('kddddddokoko');
+            // },
+
         ),
 
       ],
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }

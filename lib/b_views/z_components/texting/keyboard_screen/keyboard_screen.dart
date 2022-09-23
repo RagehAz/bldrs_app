@@ -128,6 +128,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           notifier: _canSubmit,
           mounted: mounted,
           value: true,
+          addPostFrameCallBack: false,
         );
       }
       else {
@@ -135,15 +136,17 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           notifier: _canSubmit,
           mounted: mounted,
           value: false,
+          addPostFrameCallBack: false,
         );
       }
 
     }
     else {
       setNotifier(
-          notifier: _canSubmit,
-          mounted: mounted,
-          value: true,
+        notifier: _canSubmit,
+        mounted: mounted,
+        value: true,
+        addPostFrameCallBack: false,
       );
     }
 

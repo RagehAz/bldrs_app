@@ -146,9 +146,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   Future<void> _readMore() async {
 
     setNotifier(
-        notifier: _loading,
-        mounted: mounted,
-        value: true
+      notifier: _loading,
+      mounted: mounted,
+      value: true,
+      addPostFrameCallBack: false,
     );
 
     /// CAN KEEP READING
@@ -187,9 +188,10 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     }
 
     setNotifier(
-        notifier: _loading,
-        mounted: mounted,
-        value: false
+      notifier: _loading,
+      mounted: mounted,
+      value: false,
+      addPostFrameCallBack: false,
     );
 
   }

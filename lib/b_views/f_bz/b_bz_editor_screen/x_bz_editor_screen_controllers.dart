@@ -85,10 +85,12 @@ Future<void> prepareBzForEditing({
   );
 
   setNotifier(
-      notifier: tempBz,
-      mounted: mounted,
-      value: _bzModel,
+    notifier: tempBz,
+    mounted: mounted,
+    value: _bzModel,
+    addPostFrameCallBack: false,
   );
+
 }
 // -----------------------------------------------------------------------------
 
