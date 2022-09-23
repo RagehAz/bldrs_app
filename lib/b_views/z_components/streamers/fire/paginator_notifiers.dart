@@ -127,9 +127,10 @@ class PaginatorNotifiers {
       }
 
       setNotifier(
-          notifier: paginatorMaps,
-          mounted: mounted,
-          value: _combinedMaps
+        notifier: paginatorMaps,
+        mounted: mounted,
+        value: _combinedMaps,
+        addPostFrameCallBack: false,
       );
 
       startAfter.value = _combinedMaps.last['docSnapshot'];
@@ -174,6 +175,7 @@ class PaginatorNotifiers {
         notifier: paginatorMaps,
         mounted: mounted,
         value: _updatedMaps,
+        addPostFrameCallBack: false,
       );
 
       startAfter.value = paginatorMaps.value.last['docSnapshot'];
@@ -217,6 +219,7 @@ class PaginatorNotifiers {
         notifier: paginatorMaps,
         mounted: mounted,
         value: _updatedMaps,
+        addPostFrameCallBack: false,
       );
 
       startAfter.value = paginatorMaps.value.last['docSnapshot'];
@@ -246,10 +249,12 @@ class PaginatorNotifiers {
       }
 
       setNotifier(
-          notifier: paginatorMaps,
-          mounted: mounted,
-          value: _combinedMaps
+        notifier: paginatorMaps,
+        mounted: mounted,
+        value: _combinedMaps,
+        addPostFrameCallBack: false,
       );
+
       startAfter.value = _combinedMaps.last['docSnapshot'];
 
     }
