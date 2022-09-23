@@ -38,17 +38,22 @@ class StaticHeader extends StatelessWidget {
     final double _paddings = FlyerDim.followAndCallPaddingValue(flyerBoxWidth);
     // --------------------
     return HeaderBox(
-      onHeaderTap: onTap,
+      flyerBoxWidth: flyerBoxWidth,
+      headerHeightTween: FlyerDim.headerBoxHeight(flyerBoxWidth),
       headerBorders: FlyerDim.headerBoxCorners(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       ),
-      flyerBoxWidth: flyerBoxWidth,
       headerColor:  Colorz.blackSemi125,
-      headerHeightTween: FlyerDim.headerBoxHeight(flyerBoxWidth),
+      onHeaderTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+
+          SizedBox(
+            width: FlyerDim.flyerPaddingValue(flyerBoxWidth),
+            height: FlyerDim.headerBoxHeight(flyerBoxWidth),
+          ),
 
           /// BZ LOGO
           Container(

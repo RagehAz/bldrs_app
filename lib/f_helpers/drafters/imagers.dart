@@ -420,7 +420,7 @@ class Imagers {
         context: context,
         screen: CroppingScreen(
           fileModels: pickedFileModels,
-          aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerZoneHeight : 1,
+          aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerBoxHeight : 1,
         ),
       );
 
@@ -446,7 +446,7 @@ class Imagers {
 
       final List<File> _files = await Filers.resizeImages(
         files: FileModel.getFilesFromModels(inputFileModels),
-        aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerZoneHeight : 1,
+        aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerBoxHeight : 1,
         finalWidth: resizeToWidth,
       );
 

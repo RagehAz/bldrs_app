@@ -206,7 +206,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     //--------------------------------o
     _headerLabelsWidthTween = Tween<double>(
-      begin: HeaderBox.getHeaderLabelWidth(widget.flyerBoxWidth),
+      begin: FlyerDim.headerLabelsWidth(widget.flyerBoxWidth),
       end: 0,
     ).animate(widget.headerAnimationController);
     //--------------------------------o

@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class HeaderBox extends StatelessWidget {
@@ -21,10 +20,6 @@ class HeaderBox extends StatelessWidget {
   final BorderRadius headerBorders;
   final Widget child;
   /// --------------------------------------------------------------------------
-  static double getHeaderLabelWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
-  }
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
