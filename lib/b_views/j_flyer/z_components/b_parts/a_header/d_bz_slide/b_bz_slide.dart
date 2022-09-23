@@ -96,7 +96,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_follows'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.follows,
+                count: _counter?.follows,
                 verse: const Verse(
                   text: 'phid_followers',
                   translate: true,
@@ -109,7 +109,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_calls'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.calls,
+                count: _counter?.calls,
                 verse: const Verse(
                   text: 'phid_callsReceived',
                   translate: true,
@@ -135,7 +135,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_slides'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.allSlides,
+                count: _counter?.allSlides,
                 verse: const Verse(
                   text: 'phid_slidesPublished',
                   translate: true,
@@ -148,7 +148,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_views'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.allViews,
+                count: _counter?.allViews,
                 verse: const Verse(
                   text: 'phid_totalViews',
                   translate: true,
@@ -161,7 +161,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_shares'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.allShares,
+                count: _counter?.allShares,
                 verse: const Verse(
                   text: 'phid_totalShares',
                   translate: true,
@@ -174,7 +174,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_saves'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: _counter.allSaves,
+                count: _counter?.allSaves,
                 verse: const Verse(
                   text: 'phid_totalSaves',
                   translate: true,

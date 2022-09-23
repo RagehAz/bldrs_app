@@ -27,7 +27,7 @@ class DiscountPriceTag extends StatelessWidget {
   final double width;
   final double height;
   final double paddingValue;
-  final ValueNotifier<bool> buttonIsExpanded; /// p
+  final ValueNotifier<bool> buttonIsExpanded;
   /// --------------------------------------------------------------------------
   /// --------------------------------------------------------------------------
   @override

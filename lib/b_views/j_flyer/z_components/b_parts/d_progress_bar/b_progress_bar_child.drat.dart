@@ -14,7 +14,7 @@ class ProgressBarChild extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<ProgressBarModel> progressBarModel; /// p
+  final ValueNotifier<ProgressBarModel> progressBarModel;
   final bool tinyMode;
   final bool loading;
   /// --------------------------------------------------------------------------
@@ -42,13 +42,13 @@ class ProgressBarChild extends StatelessWidget {
         ),
         builder: (_, ProgressBarModel progModel, Widget child){
 
-          if (_progressBarIsLoading(numberOfSlides: progModel.numberOfStrips) == true){
+          if (_progressBarIsLoading(numberOfSlides: progModel?.numberOfStrips) == true){
             return LoadingProgressBar(
               flyerBoxWidth: flyerBoxWidth,
             );
           }
 
-          else if (Strips.canBuildStrips(progModel.numberOfStrips) == true){
+          else if (Strips.canBuildStrips(progModel?.numberOfStrips) == true){
             return child;
           }
 
