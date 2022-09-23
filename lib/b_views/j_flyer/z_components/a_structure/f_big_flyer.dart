@@ -11,6 +11,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart'
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_slides_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/a_flyer_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
@@ -274,7 +275,7 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
       headerPageOpacity: _headerPageOpacity,
     );
 
-    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
     if (_headerIsExpanded.value == true && _tinyMode == false){
       await readBzCounters(
@@ -452,8 +453,8 @@ class _BigFlyerState extends State<BigFlyer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    final double _flyerBoxHeight = FlyerBox.height(context, widget.flyerBoxWidth);
-    final bool _tinyMode = FlyerBox.isTinyMode(context, widget.flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
 
     return ValueListenableBuilder(
         valueListenable: _loading,

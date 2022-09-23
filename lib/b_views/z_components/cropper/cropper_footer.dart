@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:flutter/material.dart';
 
 class CropperFooter extends StatelessWidget {
@@ -86,7 +86,7 @@ class CropperFooter extends StatelessWidget {
                           margin: Scale.superInsets(context: context, enRight: 5),
                           decoration: BoxDecoration(
                             color: _isSelected == true ? Colorz.white125 : Colorz.white50,
-                            borderRadius: FlyerBox.corners(context, _miniImageWidth),
+                            borderRadius: FlyerDim.flyerCorners(context, _miniImageWidth),
                             border: _isSelected == true ? Border.all(color: Colorz.white200) : null,
                           ),
                           child: SuperImage(

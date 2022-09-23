@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class BzLabel extends StatelessWidget {
@@ -11,14 +10,12 @@ class BzLabel extends StatelessWidget {
   const BzLabel({
     @required this.flyerBoxWidth,
     @required this.bzModel,
-    @required this.headerIsExpanded,
     @required this.flyerShowsAuthor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double flyerBoxWidth;
-  final bool headerIsExpanded;
   final bool flyerShowsAuthor;
   /// --------------------------------------------------------------------------
   @override
@@ -27,10 +24,7 @@ class BzLabel extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // const bool versesShadow = false;
     // --------------------
-    final double _headerMainHeight = FlyerBox.headerStripHeight(
-        headerIsExpanded: headerIsExpanded,
-        flyerBoxWidth: flyerBoxWidth
-    );
+    final double _headerMainHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
     // --------------------
     /// B.DATA
     final double _businessDataHeight = flyerShowsAuthor == true ?
@@ -38,7 +32,7 @@ class BzLabel extends StatelessWidget {
         :
     _headerMainHeight * 0.7; //0.0475;
     // --------------------
-    final double _businessDataWidth = flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    final double _businessDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
     /// B.LOCALE

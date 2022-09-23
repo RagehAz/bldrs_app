@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/flyer/mutables/mutable_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/xxx_slide_editor_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_header_template.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
@@ -50,7 +51,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   // --------------------
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
-    final double _flyerBoxWidth = FlyerBox.widthByHeight(context, _flyerBoxHeight);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(context, _flyerBoxHeight);
     return _flyerBoxWidth;
   }
   // -----------------------------------------------------------------------------
@@ -60,7 +61,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
-    final double _flyerBoxHeight = FlyerBox.height(context, _flyerBoxWidth);
+    final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(context, _flyerBoxWidth);
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('SlideEditorSlidePart'),
@@ -96,7 +97,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                   height: _flyerBoxHeight,
                   blurIsOn: true,
                   blur: 20,
-                  borders: FlyerBox.corners(context, _flyerBoxWidth),
+                  borders: FlyerDim.flyerCorners(context, _flyerBoxWidth),
                 ),
 
                 /// SLIDE

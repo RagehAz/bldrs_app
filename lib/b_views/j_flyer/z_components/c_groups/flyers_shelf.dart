@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf_list_builder.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -31,9 +31,9 @@ class FlyersShelf extends StatelessWidget {
   static const double titleIconWidth = Ratioz.appBarButtonSize;
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
   // -----------------------------------------------------------------------------
-  static double shelfHeight({BuildContext context, double flyerSizeFactor}) {
+  static double shelfHeight({@required BuildContext context, @required double flyerSizeFactor}) {
 
-    final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
+    final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
         context: context,
         flyerSizeFactor: flyerSizeFactor
     );
@@ -48,7 +48,7 @@ class FlyersShelf extends StatelessWidget {
     final double _screenWidth = Scale.superScreenWidth(context);
     // double _screenHeight = Scale.superScreenHeight(context);
     // bool _slidingIsOn = false;
-    final double _flyerZoneHeight = FlyerBox.heightBySizeFactor(
+    final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
       context: context,
       flyerSizeFactor: flyerSizeFactor,
     );

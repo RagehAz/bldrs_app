@@ -1,7 +1,6 @@
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -30,9 +29,10 @@ class FooterTemplate extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: SizedBox(
           width: flyerBoxWidth,
-          height: FooterBox.collapsedHeight(
+          height: FlyerDim.footerBoxHeight(
             context: context,
             flyerBoxWidth: flyerBoxWidth,
+            infoButtonExpanded: false,
           ),
           child: Container(
             color: Colorz.white20,
@@ -42,14 +42,14 @@ class FooterTemplate extends StatelessWidget {
                 /// INFO BUTTON
                 Container(
                   // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
-                  width: InfoButtonStarter.getWidth(
+                  width: FlyerDim.infoButtonWidth(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
                     isExpanded: false,
                     infoButtonType: InfoButtonType.info,
                   ),
-                  height: InfoButtonStarter.getHeight(
+                  height: FlyerDim.infoButtonHeight(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,
@@ -57,14 +57,14 @@ class FooterTemplate extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     color: Colorz.black255,
-                    borderRadius: InfoButtonStarter.getBorders(
+                    borderRadius: FlyerDim.infoButtonCorners(
                         context: context,
                         flyerBoxWidth: flyerBoxWidth,
                         tinyMode: false,
                         isExpanded: false
                     ),
                   ),
-                  margin: InfoButtonStarter.getMargin(
+                  margin: FlyerDim.infoButtonMargins(
                     context: context,
                     flyerBoxWidth: flyerBoxWidth,
                     tinyMode: false,

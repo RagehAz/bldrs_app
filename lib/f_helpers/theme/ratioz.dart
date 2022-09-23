@@ -1,4 +1,6 @@
 
+
+
 abstract class Ratioz {
   // -----------------------------------------------------------------------------
   /// FONT SIZES
@@ -43,42 +45,20 @@ abstract class Ratioz {
   static const double pyramidsWidth = 273 * 0.7;
 
   /// FLYER
-  static const double rrFlyerHeight = 1;
-  static const double rrFlyerMainMargin = 0.01;
-  static const double rrFlyerTopCorners = 0.028;
-  static const double rrFlyerBottomCorners = 0.0566;
-
-  static const double rrFlyerHeaderHeight = 0.142;
-  static const double rrFlyerProgressBarHeight = 0.0075;
-  static const double rrFlyerTitleTopMargin = rrFlyerHeaderHeight + rrFlyerProgressBarHeight;
+  // static const double rrFlyerHeight = 1;
+  // static const double rrFlyerMainMargin = 0.01;
+  // static const double rrFlyerTopCorners = 0.028;
+  // static const double rrFlyerBottomCorners = 0.0566;
+  //
+  // static const double rrFlyerHeaderHeight = 0.142;
+  // static const double rrFlyerProgressBarHeight = 0.0075;
+  // static const double rrFlyerTitleTopMargin = rrFlyerHeaderHeight + rrFlyerProgressBarHeight;
 
   // -----------------------------------------------------------------------------
   /// flyer ratios multiplied by flyerBoxWidth
   static const double xxbzPageSpacing = 0.005;
 
-  static const double xxflyerZoneHeight = 1.74;
-  static const double xxflyerTopCorners = 0.05;
-  static const double xxflyerBottomCorners = 0.11;
-  static const double xxflyerMainMargins = 0.019;
-  static const double xxflyerHeaderMiniHeight = 0.27;
-  static const double xxflyerHeaderMaxHeight = 1.3;
-  static const double xxauthorImageCorners = 0.029;
-  static const double xxfollowCallWidth = 0.113;
-  static const double xxfollowCallSpacing = 0.005;
-  static const double xxfollowBTHeight = 0.1;
-  static const double xxCallBTHeight = 0.15;
 
-  static const double xxfooterBTMargins = 0.026;
-
-  /// HEADER WIDTH OF EACH COMPONENT IN RESPECT TO flyerBoxWidth
-  static const double xxflyerHeaderMainPadding = 0.006;
-  static const double xxflyerLogoWidth = 0.26;
-  static const double xxflyerAuthorPicWidth = 0.15;
-  static const double xxflyerAuthorPicCorner = Ratioz.xxflyerHeaderMiniHeight * 0.1083;
-  static const double xxflyerAuthorNameWidth = 0.47;
-  static const double xxflyerFollowBtWidth = 0.11;
-  static const double xxProgressBarHeightRatio = 0.0125;
-  static const double xxflyersGridSpacing = 0.02;
 
   /// Business logo corners Ratio in respect to Container Width or Height
   static const double bzLogoCorner = 0.17152;

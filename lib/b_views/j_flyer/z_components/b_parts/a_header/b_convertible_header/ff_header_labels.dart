@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_bz_label.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
@@ -22,11 +22,11 @@ class HeaderLabels extends StatelessWidget {
   final String authorID;
   // -----------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    return flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
   }
   // --------------------
   static double getHeaderLabelHeight(double flyerBoxWidth){
-    return flyerBoxWidth * (Ratioz.xxflyerHeaderMiniHeight - (2 * Ratioz.xxflyerHeaderMainPadding));
+    return flyerBoxWidth * (FlyerDim.xFlyerHeaderMiniHeight - (2 * FlyerDim.xFlyerHeaderMainPadding));
   }
   // -----------------------------------------------------------------------------
   @override
@@ -47,7 +47,6 @@ class HeaderLabels extends StatelessWidget {
             BzLabel(
               flyerBoxWidth: flyerBoxWidth,
               bzModel: bzModel,
-              headerIsExpanded: headerIsExpanded,
               flyerShowsAuthor: flyerShowsAuthor,
             ),
 

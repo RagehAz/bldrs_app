@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/b_flyer_loading.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/add_flyer_button.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_controllers.dart';
@@ -88,7 +89,7 @@ class FlyersGrid extends StatelessWidget {
     final double _flyerBoxWidth =
         gridZoneHeight
             /
-            ( (numberOfRows * Ratioz.xxflyerZoneHeight) + (numberOfRows * _spacingRatio) + _spacingRatio );
+            ( (numberOfRows * FlyerDim.xFlyerZoneHeight) + (numberOfRows * _spacingRatio) + _spacingRatio );
 
     /// REVERSE MATH TEST
     // final double _flyerBoxHeight = _flyerBoxWidth * Ratioz.xxflyerZoneHeight;
@@ -270,9 +271,9 @@ class FlyersGrid extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
             mainAxisSpacing: _gridSpacingValue,
-            childAspectRatio: 1 / Ratioz.xxflyerZoneHeight,
+            childAspectRatio: 1 / FlyerDim.xFlyerZoneHeight,
             crossAxisCount: numberOfColumnsOrRows,
-            mainAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth * Ratioz.xxflyerZoneHeight : _flyerBoxWidth,
+            mainAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth * FlyerDim.xFlyerZoneHeight : _flyerBoxWidth,
             // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
           ),
           itemCount: _numberOfItems,

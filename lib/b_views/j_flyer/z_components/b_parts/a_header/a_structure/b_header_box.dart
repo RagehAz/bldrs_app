@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class HeaderBox extends StatelessWidget {
@@ -22,7 +22,7 @@ class HeaderBox extends StatelessWidget {
   final Widget child;
   /// --------------------------------------------------------------------------
   static double getHeaderLabelWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * (Ratioz.xxflyerAuthorPicWidth + Ratioz.xxflyerAuthorNameWidth);
+    return flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
   }
   // -----------------------------------------------------------------------------
   @override
