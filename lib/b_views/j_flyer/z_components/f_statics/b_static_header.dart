@@ -35,9 +35,7 @@ class StaticHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _paddings = FlyerDim.followAndCallPaddingValue(
-      flyerBoxWidth: flyerBoxWidth,
-    );
+    final double _paddings = FlyerDim.followAndCallPaddingValue(flyerBoxWidth);
     // --------------------
     return HeaderBox(
       onHeaderTap: onTap,
@@ -86,7 +84,7 @@ class StaticHeader extends StatelessWidget {
             child: Opacity(
               opacity: flightTweenValue,
               child: Container(
-                width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth: flyerBoxWidth),
+                width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
                 height: FlyerDim.logoWidth(flyerBoxWidth),
                 alignment: Alignment.topCenter,
                 margin: EdgeInsets.symmetric(horizontal: _paddings),
@@ -96,9 +94,7 @@ class StaticHeader extends StatelessWidget {
                     flyerBoxWidth: flyerBoxWidth,
                     headerIsExpanded: false,
                   ),
-                  width: FlyerDim.followAndCallBoxWidth(
-                    flyerBoxWidth: flyerBoxWidth,
-                  ),
+                  width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

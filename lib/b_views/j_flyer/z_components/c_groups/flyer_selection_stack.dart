@@ -166,8 +166,8 @@ class FlyerSelectionStack extends StatelessWidget {
           if (onFlyerOptionsTap != null)
             SuperPositioned(
               enAlignment: Alignment.bottomRight,
-              verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,),
-              horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth: flyerBoxWidth,),
+              verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+              horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
               child: FooterButton(
                 icon: Iconz.more,
                 phid: 'phid_more',
