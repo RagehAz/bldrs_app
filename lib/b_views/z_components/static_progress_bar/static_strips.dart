@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
@@ -31,7 +31,7 @@ class StaticStrips extends StatelessWidget {
   }
   // --------------------
   static double boxHeight(double flyerBoxWidth) {
-    final double _boxHeight = flyerBoxWidth * Ratioz.xxProgressBarHeightRatio;
+    final double _boxHeight = flyerBoxWidth * FlyerDim.xProgressBarHeightRatio;
     return _boxHeight;
   }
   // --------------------
@@ -212,7 +212,7 @@ class StaticStrips extends StatelessWidget {
       numberOfStrips: numberOfStrips,
     );
     // --------------------
-    final bool _tinyMode = FlyerBox.isTinyMode(context, flyerBoxWidth);
+    final bool _tinyMode = FlyerDim.isTinyMode(context, flyerBoxWidth);
     // --------------------
     Tween<double> _tween() {
       Tween<double> _tween;

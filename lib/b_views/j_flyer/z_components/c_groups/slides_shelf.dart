@@ -1,5 +1,5 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
@@ -38,9 +38,9 @@ class SlidesShelf extends StatelessWidget {
         _flyerNumberTagZoneHeight -
         (Ratioz.appBarPadding * 5);
     // --------------------
-    final double _flyerSizeFactor = FlyerBox.sizeFactorByHeight(context, _flyerZoneHeight);
-    final double _flyerZoneWidth = FlyerBox.width(context, _flyerSizeFactor);
-    final BorderRadius _flyerBorderRadius = FlyerBox.corners(context, _flyerZoneWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerHeight(context, _flyerZoneHeight);
+    final double _flyerZoneWidth = FlyerDim.flyerWidthByFactor(context, _flyerSizeFactor);
+    final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(context, _flyerZoneWidth);
     final BoxDecoration _flyerDecoration = BoxDecoration(
       borderRadius: _flyerBorderRadius,
       color: Colorz.white10,

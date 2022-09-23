@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/zone/country_model.dart';
 import 'package:bldrs/a_models/zone/district_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_small_flyer.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/bz_protocols/a_bz_protocols.dart';
@@ -246,7 +246,7 @@ Widget flyerFlightShuttle({
           // maxWidthFactor: 1, REDUNDANT
         );
 
-        final double _flyerBoxWidth = FlyerBox.width(flightContext, _flyerWidthFactor);
+        final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(flightContext, _flyerWidthFactor);
 
         final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
 

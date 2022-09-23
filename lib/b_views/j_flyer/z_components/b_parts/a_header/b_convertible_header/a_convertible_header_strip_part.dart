@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/b_mini_header_strip_box_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/c_header_left_spacer_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
@@ -83,7 +83,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
             key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
             width: logoMinWidth * logoSizeRatioTween.value,
             image: bzModel?.logo,
-            tinyMode: FlyerBox.isTinyMode(context, flyerBoxWidth),
+            tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
             corners: logoBorders,
             zeroCornerIsOn: flyerModel.showsAuthor,
             // onTap:

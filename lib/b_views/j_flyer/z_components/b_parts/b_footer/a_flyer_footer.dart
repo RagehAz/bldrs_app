@@ -108,7 +108,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _reviewPageVerticalController.dispose();
     _reviewTextController.dispose();
     _infoButtonExpanded.dispose();
-    _reviewButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
     _loading.dispose();
     super.dispose();
@@ -133,7 +132,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     }
 
     if (_infoButtonExpanded.value == true){
-      _reviewButtonExpanded.value = false;
       _canShowConvertibleReviewButton.value = false;
     }
 
@@ -150,7 +148,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
   }
   // --------------------
-  final ValueNotifier<bool> _reviewButtonExpanded = ValueNotifier(false);
   final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
   // --------------------
   bool _canShowInfoButtonChecker(InfoButtonType infoButtonType){
@@ -186,7 +183,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
         flyerBoxWidth: widget.flyerBoxWidth,
         footerPageController: widget.footerPageController,
         infoButtonExpanded: _infoButtonExpanded,
-        reviewButtonIsExpanded: _reviewButtonExpanded,
         footerPageViewChildren: <Widget>[
 
           /// FOOTER

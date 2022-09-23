@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/f_statics/a_small_flyer.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +70,7 @@ class FlyerHero extends StatelessWidget {
       flyerID: flyerModel.id,
     );
     final double _factor = isFullScreen ?  1 : minWidthFactor;
-    final double _flyerBoxWidth = FlyerBox.width(context, _factor);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, _factor);
 
     return Hero(
       key: const ValueKey<String>('FlyerHero'),

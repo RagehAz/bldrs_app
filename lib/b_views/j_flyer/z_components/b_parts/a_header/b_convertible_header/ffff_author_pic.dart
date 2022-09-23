@@ -1,8 +1,8 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class AuthorPic extends StatelessWidget {
@@ -17,15 +17,14 @@ class AuthorPic extends StatelessWidget {
   final dynamic authorPic;
   /// --------------------------------------------------------------------------
   static double getCornerValue(double flyerBoxWidth) {
-    return flyerBoxWidth * Ratioz.xxflyerAuthorPicCorner;
+    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicCorner;
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
     final double _authorImageHeight = width;
-    final double _authorImageCorners =
-    getCornerValue(width / Ratioz.xxflyerAuthorPicWidth);
+    final double _authorImageCorners = getCornerValue(width / FlyerDim.xFlyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
     final BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,

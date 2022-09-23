@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/a_flyer_starter.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -79,7 +79,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
   Widget build(BuildContext context) {
 
     final List<FlyerModel> _flyers = widget.flyers;
-    final double _flyerBoxWidth = FlyerBox.width(context, widget.flyerSizeFactor);
+    final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, widget.flyerSizeFactor);
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),

@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/theme/ratioz.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class Borderers {
   }
   // -----------------------------------------------------------------------------
   static BorderRadius superHeaderShadowCorners(BuildContext context, double flyerBoxWidth) {
-    final double upperFlyerCorner = flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    final double upperFlyerCorner = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
     final BorderRadius flyerCorners = superBorderOnly(
         context: context,
         enTopLeft: upperFlyerCorner,
@@ -44,7 +44,7 @@ class Borderers {
   }
   // -----------------------------------------------------------------------------
   static BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth) {
-    final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
+    final double headerMainCorners = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
     return superBorderOnly(
       context: context,
       enTopLeft: 0,
@@ -59,13 +59,13 @@ class Borderers {
     @required double flyerBoxWidth,
     @required bool gettingFollowCorner,
   }) {
-    final double headerMainCorners = flyerBoxWidth * Ratioz.xxflyerTopCorners;
-    final double headerOffsetCorner =
-        headerMainCorners - flyerBoxWidth * Ratioz.xxfollowCallSpacing;
-    final double followBTCornerTL = flyerBoxWidth * Ratioz.xxauthorImageCorners;
+    final double headerMainCorners = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
+    final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * FlyerDim.xFollowCallSpacing;
+    final double followBTCornerTL = flyerBoxWidth * FlyerDim.xAuthorImageCorners;
     final double followBTCornerTR = headerOffsetCorner;
-    final double followBTCornerBL = flyerBoxWidth * Ratioz.xxauthorImageCorners;
+    final double followBTCornerBL = flyerBoxWidth * FlyerDim.xAuthorImageCorners;
     final double followBTCornerBR = flyerBoxWidth * 0.021;
+
     final BorderRadius followCorners = superBorderOnly(
       context: context,
       enTopLeft: followBTCornerTL,
@@ -78,7 +78,9 @@ class Borderers {
         enTopLeft: followBTCornerBL,
         enBottomLeft: followBTCornerTL,
         enBottomRight: followBTCornerTR,
-        enTopRight: followBTCornerBR);
+        enTopRight: followBTCornerBR,
+    );
+
     return gettingFollowCorner == true ? followCorners : callCorners;
   }
   // -----------------------------------------------------------------------------

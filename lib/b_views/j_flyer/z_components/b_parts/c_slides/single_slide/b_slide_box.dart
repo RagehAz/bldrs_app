@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
 class SlideBox extends StatelessWidget {
@@ -46,12 +46,12 @@ class SlideBox extends StatelessWidget {
               height: flyerBoxHeight,
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
-                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                borderRadius: FlyerDim.flyerCorners(context, flyerBoxWidth),
                 color: slideMidColor,
                 // image: slideModel.pic,
               ),
               child: ClipRRect(
-                borderRadius: FlyerBox.corners(context, flyerBoxWidth),
+                borderRadius: FlyerDim.flyerCorners(context, flyerBoxWidth),
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: stackChildren,
