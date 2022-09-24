@@ -58,7 +58,7 @@ class InviteBusinessesScreenView extends StatelessWidget {
 
     // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: true);
 
-    return Container();
+    return const SizedBox();
 
     // final List<Contact> _allContacts = _usersProvider.myDeviceContacts;
 

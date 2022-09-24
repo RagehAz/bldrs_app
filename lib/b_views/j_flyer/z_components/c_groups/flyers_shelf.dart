@@ -31,45 +31,30 @@ class FlyersShelf extends StatelessWidget {
   static const double titleIconWidth = Ratioz.appBarButtonSize;
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
   // -----------------------------------------------------------------------------
-  static double shelfHeight({@required BuildContext context, @required double flyerSizeFactor}) {
+  static double shelfHeight({
+    @required BuildContext context,
+    @required double flyerSizeFactor,
+  }) {
 
     final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
         context: context,
         flyerSizeFactor: flyerSizeFactor
     );
 
-    final double _height = spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
-    return _height;
+    return spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
   }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    // double _screenHeight = Scale.superScreenHeight(context);
-    // bool _slidingIsOn = false;
-    final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
-      context: context,
-      flyerSizeFactor: flyerSizeFactor,
-    );
-    // --------------------
-    const double _titleIconMargin = 0;
-    const double _titleIconWidthWithMargin = titleIconWidth + _titleIconMargin;
     // --------------------
     return Container(
       width: _screenWidth,
-      // height: _collectionHeight + 2*_titleSpacing + (_screenHeight * Ratioz.fontSize3) + 12,
       margin: const EdgeInsets.only(bottom: 5),
       color: Colorz.white10,
-      // decoration: BoxDecoration(
-      //   // color: Colorz.BlackLingerie,
-      //   //   border: Border.symmetric(
-      //   //       vertical: BorderSide(width: 0.5, color: Colorz.BabyBlueAir, ),
-      //   //   )
-      // ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisSize: MainAxisSize.min,
         children: <Widget>[
 
           /// ---  ABOVE TITLE SPACING
@@ -104,7 +89,7 @@ class FlyersShelf extends StatelessWidget {
                       ),
 
                     SizedBox(
-                      width: _screenWidth - (Ratioz.appBarMargin * 5) - _titleIconWidthWithMargin,
+                      width: _screenWidth - (Ratioz.appBarMargin * 5) - titleIconWidth,
                       child: SuperVerse(
                         verse: titleVerse,
                         centered: false,
@@ -129,8 +114,10 @@ class FlyersShelf extends StatelessWidget {
           /// --- COLLECTION FLYER'S ZONE
           SizedBox(
             width: _screenWidth,
-            height: _flyerZoneHeight,
-            // color: Colorz.WhiteAir,
+            height: FlyerDim.heightBySizeFactor(
+              context: context,
+              flyerSizeFactor: flyerSizeFactor,
+            ),
             child: FlyersShelfListBuilder(
               shelfTitleVerse: titleVerse,
               flyers: flyers,

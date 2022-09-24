@@ -107,5 +107,19 @@ class Animators {
     return 1 - tweenValue;
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static BorderRadiusTween tweenCorners({
+    @required BorderRadius begin,
+    @required BorderRadius end,
+    BorderRadiusTween cornerTween,
+  }){
+
+    return BorderRadiusTween(
+      begin: begin,
+      end: end,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 }

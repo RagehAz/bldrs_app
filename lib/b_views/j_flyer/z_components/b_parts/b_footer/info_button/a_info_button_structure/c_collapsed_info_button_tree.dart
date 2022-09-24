@@ -25,8 +25,6 @@ class CollapsedInfoButtonTree extends StatelessWidget {
       valueListenable: buttonIsExpanded,
       builder: (_, bool _buttonIsExpanded, Widget collapsedInfoButtonContent){
 
-        final double _paddingValue = _buttonIsExpanded ? 10 : 0;
-
         return AnimatedAlign(
             alignment: Alignment.center,
             duration: const Duration(milliseconds: 100),
@@ -35,7 +33,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
               scale: _buttonIsExpanded ? 1.4 : 1,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 100),
-                padding: EdgeInsets.only(top: _paddingValue),
+                padding: EdgeInsets.only(top: _buttonIsExpanded ? 10 : 0),
                 child: collapsedInfoButtonContent,
               ),
             )

@@ -45,13 +45,7 @@ class FooterButton extends StatelessWidget {
     // --------------------
     else {
       // --------------------
-      final double _saveBTRadius = FlyerDim.footerButtonRadius(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
-      );
-      // --------------------
       final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
-      final Color _splashColor = isOn ? Colorz.black255 : Colorz.yellow255;
       // --------------------
       return SizedBox(
         key: const ValueKey<String>('Footer_button'),
@@ -65,11 +59,14 @@ class FooterButton extends StatelessWidget {
               iconSizeFactor: 0.4,
               width: _buttonSize,
               height: _buttonSize,
-              corners: _saveBTRadius,
+              corners: FlyerDim.footerButtonRadius(
+                context: context,
+                flyerBoxWidth: flyerBoxWidth,
+              ),
               color: FlyerColors.footerButtonColor(buttonIsOn: isOn),
               onTap: canTap == true ? onTap : null,
               childAlignment: Alignment.topCenter,
-              splashColor: _splashColor,
+              splashColor: isOn ? Colorz.black255 : Colorz.yellow255,
               bubble: false,
               subChild: SizedBox(
                 width: _buttonSize * 0.8,

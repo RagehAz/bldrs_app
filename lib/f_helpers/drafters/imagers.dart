@@ -168,7 +168,7 @@ class Imagers {
         //   return wtf;
         // },
         // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
-        //   return Container();
+        //   return const SizedBox();;
         // },
         // specialPickerType: SpecialPickerType.wechatMoment,
         //
@@ -420,7 +420,7 @@ class Imagers {
         context: context,
         screen: CroppingScreen(
           fileModels: pickedFileModels,
-          aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerBoxHeight : 1,
+          aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
         ),
       );
 
@@ -446,7 +446,7 @@ class Imagers {
 
       final List<File> _files = await Filers.resizeImages(
         files: FileModel.getFilesFromModels(inputFileModels),
-        aspectRatio: isFlyerRatio == true ? 1 / FlyerDim.xFlyerBoxHeight : 1,
+        aspectRatio: isFlyerRatio == true ? FlyerDim.flyerAspectRatio : 1,
         finalWidth: resizeToWidth,
       );
 
