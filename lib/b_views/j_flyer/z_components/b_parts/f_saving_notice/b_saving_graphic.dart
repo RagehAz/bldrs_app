@@ -22,8 +22,6 @@ class SavedGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _verse = isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved';
-
     return Container(
       width: flyerBoxWidth,
       height: flyerBoxHeight,
@@ -38,7 +36,7 @@ class SavedGraphic extends StatelessWidget {
             bottom: flyerBoxWidth * 0.58,
             child: SuperVerse(
               verse: Verse(
-                text: _verse,
+                text: isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved',
                 translate: true,
                 casing: Casing.upperCase,
               ),

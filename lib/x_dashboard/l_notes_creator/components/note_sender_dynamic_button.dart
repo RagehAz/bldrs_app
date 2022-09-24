@@ -75,7 +75,7 @@ class NoteSenderDynamicButton extends StatelessWidget {
 
     /// NOTHINGNESS
     else {
-      return Container();
+      return const SizedBox();
     }
 
   }

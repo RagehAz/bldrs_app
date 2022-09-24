@@ -136,8 +136,6 @@ class SuperImage extends StatelessWidget {
     /// IMAGE
     else {
 
-      final Color _imageSaturationColor = greyscale == true ? Colorz.grey255 : Colorz.nothing;
-
       return ClipRRect(
         key: const ValueKey<String>('SuperImage'),
         borderRadius: Borderers.superBorder(
@@ -145,7 +143,7 @@ class SuperImage extends StatelessWidget {
           corners: corners,
         ),
         child: ColorFiltered(
-          colorFilter: ColorFilter.mode(_imageSaturationColor, BlendMode.saturation),
+          colorFilter: ColorFilter.mode(greyscale == true ? Colorz.grey255 : Colorz.nothing, BlendMode.saturation),
           child: Container(
             width: width,
             height: height,
@@ -368,8 +366,6 @@ class InfiniteLoadingBox extends StatelessWidget {
       duration: const Duration(milliseconds: 1000),
       builder: (double value, Widget child){
 
-        final double _percentage = value / 1;
-
         return Container(
           width: width,
           height: height,
@@ -377,7 +373,7 @@ class InfiniteLoadingBox extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: Container(
             width: width,
-            height: height * _percentage,
+            height: height * value / 1, // the ( value / 1 ) part is the percentage
             color: color ?? Colorz.white20,
           ),
         );

@@ -1,3 +1,5 @@
+import 'package:bldrs/a_models/flyer/sub/slide_model.dart';
+import 'package:bldrs/f_helpers/drafters/mappers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +20,30 @@ class FlyerColors {
   static const  Color bzSlideTileColor = Colorz.black80;
   // --------------------------------------------------------------------------
   ///
-  // --------------------
-  static const Color progressStripOffColor = Colorz.white10;
-  static const Color progressStripFadedColor = Colorz.white80;
-  static const Color progressStripOnColor = Colorz.white200;
-  static const Color progressStripLoadingColor = Colorz.yellow200;
   // --------------------------------------------------------------------------
 
   /// HEADER COLORS
 
+  // --------------------
+  static Color headerColorBeginColor({
+    @required bool tinyMode,
+  }){
+    return tinyMode == true ? Colorz.nothing : Colorz.blackSemi230;
+  }
+  // --------------------
+  static Color headerEndColor({
+    @required List<SlideModel> slides,
+  }){
+
+    if (Mapper.checkCanLoopList(slides) == true){
+      return slides[0].midColor;
+    }
+
+    else {
+      return Colorz.blackSemi230;
+    }
+
+  }
   // --------------------
   static const Color headerColor = Colorz.blackSemi125;
   // --------------------
@@ -141,6 +158,11 @@ class FlyerColors {
 
   /// PROGRESS BAR COLORS
 
+  // --------------------
+  static const Color progressStripOffColor = Colorz.white10;
+  static const Color progressStripFadedColor = Colorz.white80;
+  static const Color progressStripOnColor = Colorz.white200;
+  static const Color progressStripLoadingColor = Colorz.yellow200;
   // --------------------
   static Color progressStripColor({
     bool isWhite,

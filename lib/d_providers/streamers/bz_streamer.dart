@@ -17,6 +17,7 @@ Widget bzModelStreamBuilder({
   BuildContext context,
   BzModelWidgetBuilder builder,
 }) {
+
   return StreamBuilder<BzModel>(
     stream: getBzStream(bzID),
     builder: (BuildContext context, AsyncSnapshot<BzModel> snapshot) {
@@ -35,6 +36,7 @@ Widget bzModelStreamBuilder({
       }
     },
   );
+
 }
 // -----------------------------------------------------------------------------
 Widget bzModelBuilder({
@@ -49,12 +51,18 @@ Widget bzModelBuilder({
         docName: bzID,
       ),
       builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot) {
+
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container();
-        } else {
+          return const SizedBox();
+        }
+
+        else {
+
           if (snapshot.error != null) {
-            return Container(); // superDialog(context, snapshot.error, 'error');
-          } else {
+            return const SizedBox(); // superDialog(context, snapshot.error, 'error');
+          }
+
+          else {
             final Map<String, dynamic> _map = snapshot.data;
             final BzModel bzModel = BzModel.decipherBz(
               map: _map,
@@ -63,20 +71,20 @@ Widget bzModelBuilder({
 
             return builder(context, bzModel);
           }
+
         }
+
       });
 }
 // -----------------------------------------------------------------------------
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
-  final Stream<DocumentSnapshot<Object>> _bzSnapshot =
-  Fire.streamDoc(
+
+  final Stream<DocumentSnapshot<Object>> _bzSnapshot = Fire.streamDoc(
       collName: FireColl.bzz,
       docName: bzID
   );
 
-  final Stream<BzModel> _bzStream = _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);
-
-  return _bzStream;
+  return _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);
 }
 // -----------------------------------------------------------------------------

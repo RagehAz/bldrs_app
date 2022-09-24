@@ -23,19 +23,22 @@ class SavedFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Mapper.checkCanLoopList(flyersIDs) == false ?
-    const SizedBox()
-        :
-    FlyersGrid(
-      heroTag: 'SavedFlyersGrid',
-      scrollController: scrollController,
-      onSelectFlyer: onSelectFlyer,
-      selectedFlyers: selectedFlyers,
-      paginationFlyersIDs: flyersIDs,
-      removeFlyerIDFromMySavedFlyersIDIfNoFound: true,
-      numberOfColumnsOrRows: 3,
-    );
+    if (Mapper.checkCanLoopList(flyersIDs) == true){
+      return FlyersGrid(
+        heroTag: 'SavedFlyersGrid',
+        scrollController: scrollController,
+        onSelectFlyer: onSelectFlyer,
+        selectedFlyers: selectedFlyers,
+        paginationFlyersIDs: flyersIDs,
+        removeFlyerIDFromMySavedFlyersIDIfNoFound: true,
+        numberOfColumnsOrRows: 3,
+      );
+    }
+
+    else {
+      return const SizedBox();
+    }
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
