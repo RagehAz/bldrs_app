@@ -1,7 +1,7 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_strips.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -39,7 +39,7 @@ class PageBubble extends StatelessWidget {
     EdgeInsets margins;
 
     final double _progressBarHeight = withProgressBar == true ?
-    StaticStrips.boxHeight(Scale.superScreenWidth(context))
+    FlyerDim.progressBarBoxHeight(Scale.superScreenWidth(context))
         :
     0;
 

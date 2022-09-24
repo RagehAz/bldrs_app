@@ -190,11 +190,10 @@ class _CroppingScreenState extends State<CroppingScreen> {
         builder: (_, List<Uint8List> imagesData, Widget child){
 
           if (imagesData == null){
-            return Container();
+            return const SizedBox();
           }
 
           else {
-
             return Column(
               children: <Widget>[
 
@@ -238,7 +237,6 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
               ],
             );
-
           }
 
         },

@@ -55,13 +55,18 @@ Widget userModelBuilder({
         docName: userID,
       ),
       builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot) {
+
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loading(
             loading: true,
           );
-        } else if (snapshot.error != null) {
-          return Container(); // superDialog(context, snapshot.error, 'error');
-        } else {
+        }
+
+        else if (snapshot.error != null) {
+          return const SizedBox(); // superDialog(context, snapshot.error, 'error');
+        }
+
+        else {
           final Map<String, dynamic> _map = snapshot.data;
           final UserModel userModel = UserModel.decipherUser(
             map: _map,
@@ -70,6 +75,7 @@ Widget userModelBuilder({
 
           return builder(context, userModel);
         }
+
       });
 }
 // -----------------------------------------------------------------------------

@@ -12,7 +12,7 @@ class FlyerDim {
 
   /// --------------------------------------------------------------------------
   // flyer ratios multiplied by flyerBoxWidth
-  static const double xFlyerBoxHeight = 1.74;
+  static const double _xFlyerBoxHeight = 1.74;
 
   static const double _xFlyerTopCorners = 0.05;
   static const double _xFlyerBottomCorners = 0.11;
@@ -20,10 +20,10 @@ class FlyerDim {
   static const double _xAuthorImageCorners = 0.029;
   static const double _xFollowCallSpacing = 0.005;
   /// HEADER WIDTH OF EACH COMPONENT IN RESPECT TO flyerBoxWidth
-  static const double xFlyerAuthorPicWidth = 0.15;
-  static const double xFlyerAuthorPicCorner = _xFlyerHeaderMiniHeight * 0.1083;
-  static const double xFlyerAuthorNameWidth = 0.47;
-  static const double xProgressBarHeightRatio = 0.0125;
+  static const double _xFlyerAuthorPicWidth = 0.15;
+  static const double _xFlyerAuthorPicCorner = _xFlyerHeaderMiniHeight * 0.1083;
+  static const double _xFlyerAuthorNameWidth = 0.47;
+  static const double _xProgressBarHeightRatio = 0.0125;
   static const double _xFlyersGridSpacing = 0.02;
 
   static const double _xFlyerLogoWidth = 0.26;
@@ -63,7 +63,7 @@ class FlyerDim {
     }
 
     else {
-      return flyerBoxWidth * xFlyerBoxHeight;
+      return flyerBoxWidth * _xFlyerBoxHeight;
     }
 
   }
@@ -85,6 +85,8 @@ class FlyerDim {
   }) {
     return flyerHeightByFlyerWidth(context, flyerWidthByFactor(context, flyerSizeFactor));
   }
+  // ---------
+  static const double flyerAspectRatio = 1 / _xFlyerBoxHeight;
   // ---------
 
   /// FLYER CORNERS
@@ -145,7 +147,7 @@ class FlyerDim {
             (
                 flyerHeightByFlyerWidth(context, flyerBoxWidth)
                 *
-                xProgressBarHeightRatio
+                _xProgressBarHeightRatio
             );
   }
   // ---------
@@ -254,7 +256,7 @@ class FlyerDim {
   }
   // ---------
 
-  /// BZ LABEL
+  /// BZ LABEL SIZES
 
   // ---------
   static double bzLabelHeight({
@@ -281,14 +283,14 @@ class FlyerDim {
   }
   // ---------
 
-  /// AUTHOR LABEL
+  /// AUTHOR LABEL SIZES
 
   // ---------
   static double authorLabelBoxHeight({
     @required double flyerBoxWidth
   }){
     // flyerShowsAuthor == true ?
-    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth;
+    return flyerBoxWidth * _xFlyerAuthorPicWidth;
     //     :
     // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
   }
@@ -301,24 +303,36 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    final double _authorDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
+    final double _authorDataWidth = flyerBoxWidth * (_xFlyerAuthorPicWidth + _xFlyerAuthorNameWidth);
 
     return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
 
   }
   // ---------
-  static double authorLabelImageCornerValue({
-    @required double flyerBoxWidth,
-  }){
-    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicCorner;
+
+  /// AUTHOR PIC SIZES
+
+  // ---------
+  static double authorPicSizeBFlyerBoxWidth(double flyerBoxWidth){
+    return flyerBoxWidth * _xFlyerAuthorPicWidth;
   }
   // ---------
-  static BorderRadius authorImageCorners({
+
+  /// AUTHOR PIC CORNERS
+
+  // ---------
+  static double authorPicCornerValue({
+    @required double flyerBoxWidth,
+  }){
+    return flyerBoxWidth * _xFlyerAuthorPicCorner;
+  }
+  // ---------
+  static BorderRadius authorPicCornersByFlyerBoxWidth({
     @required BuildContext context,
     @required double flyerBoxWidth,
   }){
 
-    final double _authorImageCorners = authorLabelImageCornerValue(
+    final double _authorImageCorners = authorPicCornerValue(
       flyerBoxWidth: flyerBoxWidth,
     );
 
@@ -332,12 +346,24 @@ class FlyerDim {
 
   }
   // ---------
-  static double authorPicSize(double flyerBoxWidth){
-    return flyerBoxWidth * xFlyerAuthorPicWidth;
+  static BorderRadius authorPicCornersByPicSize({
+    @required BuildContext context,
+    @required double picSize,
+  }){
+
+    return FlyerDim.authorPicCornersByFlyerBoxWidth(
+        context: context,
+        flyerBoxWidth: picSize / _xFlyerAuthorPicWidth,
+    );
+
   }
   // ---------
+
+  /// AUTHOR LABEL VERSES
+
+  // ---------
   static double authorLabelVersesWidth(double flyerBoxWidth){
-    return flyerBoxWidth * xFlyerAuthorNameWidth;
+    return flyerBoxWidth * _xFlyerAuthorNameWidth;
   }
   // ---------
   static EdgeInsets authorLabelVersesPadding(double flyerBoxWidth){
@@ -889,11 +915,11 @@ class FlyerDim {
   }
   // ---------
   static double progressBarBoxHeight(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xProgressBarHeightRatio;
+    return flyerBoxWidth * _xProgressBarHeightRatio;
   }
   // ---------
 
-  /// PROGRESS BAR MARGINS
+  /// BOX MARGINS
 
   // ---------
   static EdgeInsets progressBarBoxMargins({
@@ -909,12 +935,16 @@ class FlyerDim {
   }
   // ---------
 
-  /// PROGRESS BAR STRIPS SIZES
+  ///  STRIPS SIZES
 
   // ---------
   static double progressStripsTotalLength(double flyerBoxWidth) {
     return flyerBoxWidth * 0.895;
   }
+  // ---------
+
+  ///  ONE STRIP SIZES
+
   // ---------
   static double progressStripLength({
     @required double flyerBoxWidth,
@@ -934,7 +964,7 @@ class FlyerDim {
   static double progressStripCornerValue(double flyerBoxWidth) {
     return progressStripThickness(flyerBoxWidth) * 0.5;
   }
-  // --------------------
+  // ---------
   static BorderRadius progressStripCorners({
     @required BuildContext context,
     @required double flyerBoxWidth
@@ -960,6 +990,200 @@ class FlyerDim {
     }
 
     return _tinyMode;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// --- FLYER GRID SIZES
+
+  // --------------------
+  static double flyerGridWidth({
+    @required BuildContext context,
+    @required double givenGridWidth,
+  }){
+    return givenGridWidth ?? Scale.superScreenWidth(context);
+  }
+  // --------------------
+  static double flyerGridHeight({
+    @required BuildContext context,
+    @required double givenGridHeight,
+  }){
+    return givenGridHeight ?? Scale.superScreenHeight(context);
+  }
+  // --------------------
+  static const double _spacingRatio = 0.03;
+  // --------------------
+  static double flyerGridVerticalScrollFlyerBoxWidth({
+    @required double gridZoneWidth,
+    @required int numberOfColumns,
+  }){
+    final double _flyerBoxWidth =
+        gridZoneWidth /
+            (
+                numberOfColumns
+                    + (numberOfColumns * _spacingRatio)
+                    + _spacingRatio
+            );
+    return _flyerBoxWidth;
+  }
+  // --------------------
+  static double flyerGridHorizontalScrollFlyerBoxWidth({
+    @required BuildContext context,
+    @required double gridZoneHeight,
+    @required int numberOfRows,
+  }){
+
+    final double _flyerBoxWidth =
+        gridZoneHeight
+        /
+        (
+            (numberOfRows * _xFlyerBoxHeight)
+            +
+            (numberOfRows * _spacingRatio) + _spacingRatio
+        );
+
+    /// REVERSE MATH TEST
+    // final double _flyerBoxHeight = _flyerBoxWidth * Ratioz.xxflyerZoneHeight;
+    // final double spacing = getGridSpacingValue(flyerBoxWidth: _flyerBoxWidth);
+    // final double _result = (_flyerBoxHeight * numberOfRows) + (spacing * (numberOfRows + 1));
+    // blog('result : $_result = ($_flyerBoxHeight * $numberOfRows) + ($spacing * ($numberOfRows + 1))');
+
+    return _flyerBoxWidth;
+  }
+  // --------------------
+  static double flyerGridGridSpacingValue(double flyerBoxWidth){
+    return flyerBoxWidth * _spacingRatio;
+  }
+  // --------------------
+  static EdgeInsets flyerGridPadding({
+    @required BuildContext context,
+    @required double gridSpacingValue,
+    @required double topPaddingValue,
+    @required bool isVertical,
+  }){
+
+    return Scale.superInsets(
+      context: context,
+      enLeft: gridSpacingValue,
+      top: isVertical == true ? topPaddingValue : gridSpacingValue,
+      enRight: isVertical == true ? gridSpacingValue : Ratioz.horizon,
+      bottom: isVertical == true ? Ratioz.horizon : 0,
+    );
+
+  }
+  // --------------------
+
+  /// --- FLYER GRID SLOT SIZES
+
+  // --------------------
+  static double flyerGridSlotMinWidthFactor({
+    @required double gridFlyerWidth,
+    @required double gridZoneWidth,
+  }){
+    return gridFlyerWidth / gridZoneWidth;
+  }
+  // --------------------
+  static double flyerGridSlotWidth({
+    BuildContext context,
+    int flyersLength
+  }) {
+    final double _screenWidth = Scale.superScreenWidth(context);
+    final double _gridWidth = _screenWidth - (2 * Ratioz.appBarMargin);
+    final int _numberOfColumns = flyerGridColumnCount(flyersLength);
+    return (_gridWidth - ((_numberOfColumns - 1) * Ratioz.appBarMargin)) / _numberOfColumns;
+  }
+  // --------------------
+  static double flyerGridFlyerBoxWidth({
+    @required BuildContext context,
+    @required Axis scrollDirection,
+    @required int numberOfColumnsOrRows,
+    @required double gridWidth,
+    @required double gridHeight,
+  }){
+
+    if (scrollDirection == Axis.vertical){
+
+      final double _gridZoneWidth = FlyerDim.flyerGridWidth(
+        context: context,
+        givenGridWidth: gridWidth,
+      );
+
+      return FlyerDim.flyerGridVerticalScrollFlyerBoxWidth(
+        numberOfColumns: numberOfColumnsOrRows,
+        gridZoneWidth: _gridZoneWidth,
+      );
+
+    }
+
+    else {
+
+      final double _gridZoneHeight = FlyerDim.flyerGridHeight(
+        context: context,
+        givenGridHeight: gridHeight,
+      );
+
+      return FlyerDim.flyerGridHorizontalScrollFlyerBoxWidth(
+        context: context,
+        numberOfRows: numberOfColumnsOrRows,
+        gridZoneHeight: _gridZoneHeight,
+      );
+
+    }
+
+  }
+  // --------------------
+  static int flyerGridNumberOfSlots({
+    @required int flyersCount,
+    @required bool addFlyerButtonIsOn,
+    @required bool isLoadingGrid,
+    @required int numberOfColumnsOrRows,
+  }){
+    int _slotsCount = flyersCount;
+
+    if (isLoadingGrid == true){
+      _slotsCount = numberOfColumnsOrRows * numberOfColumnsOrRows;
+      if (_slotsCount == 1){
+        _slotsCount = 5;
+      }
+    }
+
+    else if (addFlyerButtonIsOn == true){
+      _slotsCount = _slotsCount + 1;
+    }
+
+    return _slotsCount;
+  }
+  // --------------------
+  static int flyerGridColumnCount(int flyersLength) {
+
+    if (flyersLength > 12){
+      return 3;
+    }
+    else if (flyersLength > 6){
+      return 2;
+    }
+    else {
+      return 2;
+    }
+
+  }
+  // --------------------
+  static SliverGridDelegate flyerGridDelegate({
+    @required Axis scrollDirection,
+    @required double flyerBoxWidth,
+    @required int numberOfColumnsOrRows,
+  }){
+
+    final double _gridSpacingValue = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
+
+    return SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
+      mainAxisSpacing: _gridSpacingValue,
+      childAspectRatio: FlyerDim.flyerAspectRatio,
+      crossAxisCount: numberOfColumnsOrRows,
+      mainAxisExtent: scrollDirection == Axis.vertical ? flyerBoxWidth * _xFlyerBoxHeight : flyerBoxWidth,
+      // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
+    );
+
   }
   // -----------------------------------------------------------------------------
 }

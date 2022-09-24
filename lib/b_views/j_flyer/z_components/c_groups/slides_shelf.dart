@@ -27,13 +27,16 @@ class SlidesShelf extends StatelessWidget {
   final Function onAddButtonOnTap;
   final double shelfHeight;
   /// --------------------------------------------------------------------------
+  static const double _stackTitleHeight = 85;
+  static const double _flyerNumberTagZoneHeight = 15;
+  // --------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const double _stackTitleHeight = 85;
-    const double _flyerNumberTagZoneHeight = 15;
+    final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
     final double _stackZoneHeight = shelfHeight - _stackTitleHeight;
+    // --------------------
     final double _flyerZoneHeight = _stackZoneHeight -
         _flyerNumberTagZoneHeight -
         (Ratioz.appBarPadding * 5);
@@ -41,20 +44,16 @@ class SlidesShelf extends StatelessWidget {
     final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerHeight(context, _flyerZoneHeight);
     final double _flyerZoneWidth = FlyerDim.flyerWidthByFactor(context, _flyerSizeFactor);
     final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(context, _flyerZoneWidth);
-    final BoxDecoration _flyerDecoration = BoxDecoration(
-      borderRadius: _flyerBorderRadius,
-      color: Colorz.white10,
-    );
     final double _titleZoneHeight = _flyerZoneWidth * 0.5;
-    final double _screenWidth = Scale.superScreenWidth(context);
     // --------------------
     return SizedBox(
       width: _screenWidth,
       height: _stackZoneHeight + _titleZoneHeight,
-      // color: Colorz.BloodTest,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+
+          /// SHELF TITLE
           Container(
               width: _screenWidth,
               height: _titleZoneHeight,
@@ -72,6 +71,8 @@ class SlidesShelf extends StatelessWidget {
                 italic: true,
                 shadow: true,
               )),
+
+          /// SHELF SLIDES
           Container(
             height: _stackZoneHeight,
             alignment: Aligners.superCenterAlignment(context),
@@ -82,16 +83,19 @@ class SlidesShelf extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               itemBuilder: (BuildContext ctx, int index) {
+
                 final dynamic _pic = pics[index];
 
                 return Container(
                   margin: const EdgeInsets.only(
                       left: Ratioz.appBarPadding,
                       right: Ratioz.appBarPadding,
-                      bottom: Ratioz.appBarPadding),
+                      bottom: Ratioz.appBarPadding,
+                  ),
                   alignment: Alignment.center,
                   child: Column(
                     children: <Widget>[
+
                       /// PIC NUMBER
                       Container(
                         width: _flyerZoneWidth,
@@ -125,9 +129,7 @@ class SlidesShelf extends StatelessWidget {
                       SizedBox(
                           width: _flyerZoneWidth,
                           height: _flyerZoneHeight,
-                          // decoration: _flyerDecoration,
-                          child: index < pics.length
-                              ?
+                          child: index < pics.length ?
 
                           /// IMAGE
                           GestureDetector(
@@ -144,6 +146,7 @@ class SlidesShelf extends StatelessWidget {
                               ),
                             ),
                           )
+
                               :
 
                           /// ADD IMAGE BUTTON
@@ -152,7 +155,10 @@ class SlidesShelf extends StatelessWidget {
                             child: Container(
                               width: _flyerZoneWidth,
                               height: _flyerZoneHeight,
-                              decoration: _flyerDecoration,
+                              decoration: BoxDecoration(
+                                borderRadius: _flyerBorderRadius,
+                                color: Colorz.white10,
+                              ),
                               child: Column(
                                 mainAxisAlignment:
                                 MainAxisAlignment.center,
@@ -187,13 +193,18 @@ class SlidesShelf extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          )),
+                          )
+
+                      ),
+
                     ],
                   ),
                 );
+
               },
             ),
           ),
+
         ],
       ),
     );

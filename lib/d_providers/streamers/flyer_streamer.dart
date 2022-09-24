@@ -83,7 +83,7 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 //
 //         } else {
 //           if (snapshot.error != null){
-//             return Container(); // superDialog(context, snapshot.error, 'error');
+//             return const SizedBox();; // superDialog(context, snapshot.error, 'error');
 //           } else {
 //
 //             Map<String, dynamic> _map = snapshot.data;

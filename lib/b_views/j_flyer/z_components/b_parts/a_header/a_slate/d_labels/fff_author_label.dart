@@ -58,7 +58,7 @@ class AuthorLabel extends StatelessWidget {
           color: FlyerColors.authorLabelColor(
               showLabel: showLabel,
           ),
-          borderRadius: FlyerDim.authorImageCorners(
+          borderRadius: FlyerDim.authorPicCornersByFlyerBoxWidth(
             context: context,
             flyerBoxWidth: flyerBoxWidth,
           ),
@@ -69,7 +69,7 @@ class AuthorLabel extends StatelessWidget {
 
             /// AUTHOR IMAGE
             AuthorPic(
-              size: FlyerDim.authorPicSize(flyerBoxWidth),
+              size: FlyerDim.authorPicSizeBFlyerBoxWidth(flyerBoxWidth),
               authorPic: _author?.pic,
               // tinyBz:
             ),

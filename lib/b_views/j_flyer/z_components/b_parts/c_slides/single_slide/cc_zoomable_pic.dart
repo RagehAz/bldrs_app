@@ -92,11 +92,8 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
         }
 
       },
-      onDoubleTap: widget.isFullScreen ?
-          () async {
-              await _onDoubleTap();
-            }
-          : null,
+      onDoubleTap: widget.isFullScreen == false ? null : () => _onDoubleTap(),
+
       child: RotatedBox(
         quarterTurns: 0,
         child: InteractiveViewer(
@@ -108,14 +105,19 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
           maxScale: 10,
           minScale: 0.5,
           onInteractionEnd: (ScaleEndDetails scaleEndDetails) async {
+
             if (widget.autoShrink == true) {
               await _resetZoom();
-            } else {
+            }
+
+            else {
               // await Future.delayed(Duration(seconds: 5), () async {
               //   await resetZoom();
               // });
             }
+
           },
+
           // onInteractionStart: (ScaleStartDetails scaleStartDetails){
           //   blog('scaleStartDetails : $scaleStartDetails');
           //   },
@@ -123,7 +125,7 @@ class _ZoomablePictureState extends State<ZoomablePicture> with TickerProviderSt
           //   blog('scaleUpdateDetails : $scaleUpdateDetails');
           //   },
 
-          child: widget.child ?? Container(),
+          child: widget.child ?? const SizedBox(),
         ),
       ),
 
