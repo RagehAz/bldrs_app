@@ -1,12 +1,13 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/c_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ff_header_labels.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_call_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_follow_button.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ff_header_labels.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
 import 'package:flutter/material.dart';
 
 class StaticHeader extends StatelessWidget {
@@ -35,99 +36,93 @@ class StaticHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _paddings = FlyerDim.followAndCallPaddingValue(flyerBoxWidth);
-    // --------------------
     return HeaderBox(
       flyerBoxWidth: flyerBoxWidth,
-      headerHeightTween: FlyerDim.headerBoxHeight(flyerBoxWidth),
-      headerBorders: FlyerDim.headerBoxCorners(
+      headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
+      headerBorders: FlyerDim.headerSlateCorners(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       ),
-      headerColor:  Colorz.blackSemi125,
+      headerColor: FlyerColors.headerColor,
       onHeaderTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-          SizedBox(
-            width: FlyerDim.flyerPaddingValue(flyerBoxWidth),
-            height: FlyerDim.headerBoxHeight(flyerBoxWidth),
+          /// LEFT SPACER
+          StaticHeaderSlateSpacer(
+            flyerBoxWidth: flyerBoxWidth,
           ),
 
           /// BZ LOGO
-          Container(
-            color: Colorz.bloodTest,
-            child: BzLogo(
-              width: FlyerDim.logoWidth(flyerBoxWidth),
-              image: bzModel?.logo,
-              tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
-              corners: FlyerDim.logoCorners(context: context, flyerBoxWidth: flyerBoxWidth),
-              zeroCornerIsOn: flyerShowsAuthor,
-              margins: EdgeInsets.zero,
+          BzLogo(
+            width: FlyerDim.logoWidth(flyerBoxWidth),
+            image: bzModel?.logo,
+            corners: FlyerDim.logoCornersByFlyerBoxWidth(
+              context: context,
+              flyerBoxWidth: flyerBoxWidth,
+              zeroCornerIsOn: flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
             ),
+            zeroCornerIsOn: flyerShowsAuthor,
+            margins: EdgeInsets.zero,
           ),
 
           /// HEADER LABELS
-          Container(
-            color: Colorz.yellow20,
-            child: Opacity(
-              opacity: flightTweenValue,
-              child: HeaderLabels(
-                flyerBoxWidth: flyerBoxWidth,
-                authorID: authorID,
-                bzModel: bzModel,
-                headerIsExpanded: false,
-                flyerShowsAuthor: flyerShowsAuthor,
-              ),
+          Opacity(
+            opacity: flightTweenValue,
+            child: HeaderLabels(
+              flyerBoxWidth: flyerBoxWidth,
+              authorID: authorID,
+              bzModel: bzModel,
+              headerIsExpanded: false,
+              flyerShowsAuthor: flyerShowsAuthor,
             ),
           ),
 
           /// FOLLOW AND CALL BUTTONS
-          Container(
-            color: Colorz.bloodTest,
-            child: Opacity(
-              opacity: flightTweenValue,
-              child: Container(
+          Opacity(
+            opacity: flightTweenValue,
+            child: Container(
+              width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+              height: FlyerDim.logoWidth(flyerBoxWidth),
+              alignment: Alignment.topCenter,
+              // margin: EdgeInsets.symmetric(horizontal: _paddings),
+              // color: Colorz.BloodTest,
+              child: SizedBox(
+                height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
                 width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-                height: FlyerDim.logoWidth(flyerBoxWidth),
-                alignment: Alignment.topCenter,
-                margin: EdgeInsets.symmetric(horizontal: _paddings),
-                // color: Colorz.BloodTest,
-                child: SizedBox(
-                  height: FlyerDim.followAndCallBoxHeight(
-                    flyerBoxWidth: flyerBoxWidth,
-                    headerIsExpanded: false,
-                  ),
-                  width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
 
-                      /// FOLLOW BUTTON
-                      FollowButton(
+                    /// FOLLOW BUTTON
+                    FollowButton(
+                      flyerBoxWidth: flyerBoxWidth,
+                      onFollowTap: null,
+                      tappingUnfollow: null,
+                      followIsOn: ValueNotifier(false),
+                    ),
+
+                    /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+                    StaticHeaderSlateSpacer(
                         flyerBoxWidth: flyerBoxWidth,
-                        onFollowTap: null,
-                        tappingUnfollow: null,
-                        followIsOn: ValueNotifier(false),
-                      ),
+                    ),
 
-                      /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
-                      SizedBox(
-                        height: _paddings,
-                      ),
+                    /// Call BUTTON
+                    CallButton(
+                      flyerBoxWidth: flyerBoxWidth,
+                      onCallTap: null,
+                    ),
 
-                      /// Call BUTTON
-                      CallButton(
-                        flyerBoxWidth: flyerBoxWidth,
-                        onCallTap: null,
-                      ),
-
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ),
+          ),
+
+          /// RIGHT SPACER
+          StaticHeaderSlateSpacer(
+            flyerBoxWidth: flyerBoxWidth,
           ),
 
         ],

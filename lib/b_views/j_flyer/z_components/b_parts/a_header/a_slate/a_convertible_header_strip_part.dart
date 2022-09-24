@@ -1,14 +1,12 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/b_mini_header_strip_box_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/c_header_left_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/e_header_middle_spacer_part.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/f_header_labels_tree.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/g_follow_and_call_buttons.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/h_header_right_spacer_part.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_mini_header_strip_box_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/animated_header_left_spacer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/c_middle_spacer/e_header_middle_spacer_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/f_header_labels_tree.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/g_follow_and_call_buttons.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header//a_slate/f_right_spacer/h_header_right_spacer_part.dart';
 import 'package:flutter/material.dart';
 
 class ConvertibleHeaderStripPart extends StatelessWidget {
@@ -21,7 +19,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
     @required this.tinyMode,
     @required this.headerBorders,
     @required this.logoMinWidth,
-    @required this.logoBorders,
+    @required this.logoCorners,
     @required this.headerIsExpanded,
     @required this.headerMiddleSpacerWidthTween,
     @required this.headerLabelsWidthTween,
@@ -42,7 +40,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   final bool tinyMode;
   final BorderRadius headerBorders;
   final double logoMinWidth;
-  final BorderRadius logoBorders;
+  final BorderRadius logoCorners;
   final ValueNotifier<bool> headerIsExpanded;
   final Animation<double> headerMiddleSpacerWidthTween;
   final Animation<double> headerLabelsWidthTween;
@@ -69,7 +67,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
       children: <Widget>[
 
         /// HEADER LEFT SPACER
-        HeaderLeftSpacerPart(
+        AnimatedHeaderLeftSpacer(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLeftSpacerPart'),
           headerLeftSpacerTween: headerLeftSpacerTween,
           logoMinWidth: logoMinWidth,
@@ -77,23 +75,19 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         ),
 
         /// LOGO
-        Container(
-          color: Colorz.white125,
-          child: BzLogo(
-            key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
-            width: logoMinWidth * logoSizeRatioTween.value,
-            image: bzModel?.logo,
-            tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
-            corners: logoBorders,
-            zeroCornerIsOn: flyerModel.showsAuthor,
-            // onTap:
-            //superFlyer.onHeaderTap,
-            // (){
-            //   setState(() {
-            //     _statelessFadeMaxHeader();
-            //   });
-            // }
-          ),
+        BzLogo(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
+          width: logoMinWidth * logoSizeRatioTween.value,
+          image: bzModel?.logo,
+          corners: logoCorners,
+          zeroCornerIsOn: flyerModel.showsAuthor,
+          // onTap:
+          //superFlyer.onHeaderTap,
+          // (){
+          //   setState(() {
+          //     _statelessFadeMaxHeader();
+          //   });
+          // }
         ),
 
         /// MIDDLE SPACER
@@ -105,36 +99,29 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         ),
 
         /// HEADER LABELS
-        Container(
-          color: Colorz.bloodTest,
-          child: HeaderLabelsTree(
-            key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLabelsPart'),
-            headerLabelsWidthTween: headerLabelsWidthTween,
-            logoMinWidth: logoMinWidth,
-            logoSizeRatioTween: logoSizeRatioTween,
-            flyerBoxWidth: flyerBoxWidth,
-            flyerModel: flyerModel,
-            bzModel: bzModel,
-            tinyMode: tinyMode,
-            headerIsExpanded: headerIsExpanded,
-          ),
+        HeaderLabelsTree(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_HeaderLabelsPart'),
+          headerLabelsWidthTween: headerLabelsWidthTween,
+          logoMinWidth: logoMinWidth,
+          logoSizeRatioTween: logoSizeRatioTween,
+          flyerBoxWidth: flyerBoxWidth,
+          flyerModel: flyerModel,
+          bzModel: bzModel,
+          tinyMode: tinyMode,
+          headerIsExpanded: headerIsExpanded,
         ),
 
         /// FOLLOW AND CALL
-        Container(
-          color: Colorz.blue80,
-          child: FollowAndCallButtons(
-            key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
-            tinyMode: tinyMode,
-            logoSizeRatioTween: logoSizeRatioTween,
-            flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
-            followCallButtonsScaleTween: followCallButtonsScaleTween,
-            followIsOn: followIsOn,
-            onCallTap: onCallTap,
-            onFollowTap: onFollowTap,
-            logoMinWidth: logoMinWidth,
-
-          ),
+        FollowAndCallButtons(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
+          tinyMode: tinyMode,
+          logoSizeRatioTween: logoSizeRatioTween,
+          flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
+          followCallButtonsScaleTween: followCallButtonsScaleTween,
+          followIsOn: followIsOn,
+          onCallTap: onCallTap,
+          onFollowTap: onFollowTap,
+          logoMinWidth: logoMinWidth,
         ),
 
         /// HEADER RIGHT SPACER

@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 
@@ -17,71 +16,20 @@ class Borderers {
     double enBottomRight,
     double enTopRight
   }) {
-    return Words.textDirection(context) == 'rtl'
-        ? BorderRadius.only(
+    return Words.textDirection(context) == 'rtl' ?
+    BorderRadius.only(
       topLeft: Radius.circular(enTopRight),
       topRight: Radius.circular(enTopLeft),
       bottomLeft: Radius.circular(enBottomRight),
       bottomRight: Radius.circular(enBottomLeft),
     )
-        : BorderRadius.only(
+        :
+    BorderRadius.only(
       topLeft: Radius.circular(enTopLeft),
       topRight: Radius.circular(enTopRight),
       bottomLeft: Radius.circular(enBottomLeft),
       bottomRight: Radius.circular(enBottomRight),
     );
-  }
-  // -----------------------------------------------------------------------------
-  static BorderRadius superHeaderShadowCorners(BuildContext context, double flyerBoxWidth) {
-    final double upperFlyerCorner = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
-    final BorderRadius flyerCorners = superBorderOnly(
-        context: context,
-        enTopLeft: upperFlyerCorner,
-        enBottomLeft: 0,
-        enBottomRight: 0,
-        enTopRight: upperFlyerCorner);
-    return flyerCorners;
-  }
-  // -----------------------------------------------------------------------------
-  static BorderRadius superPriceTagCorners(BuildContext context, double flyerBoxWidth) {
-    final double headerMainCorners = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
-    return superBorderOnly(
-      context: context,
-      enTopLeft: 0,
-      enBottomLeft: 0,
-      enBottomRight: headerMainCorners,
-      enTopRight: headerMainCorners,
-    );
-  }
-  // -----------------------------------------------------------------------------
-  static BorderRadius superFollowOrCallCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool gettingFollowCorner,
-  }) {
-    final double headerMainCorners = flyerBoxWidth * FlyerDim.xFlyerTopCorners;
-    final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * FlyerDim.xFollowCallSpacing;
-    final double followBTCornerTL = flyerBoxWidth * FlyerDim.xAuthorImageCorners;
-    final double followBTCornerTR = headerOffsetCorner;
-    final double followBTCornerBL = flyerBoxWidth * FlyerDim.xAuthorImageCorners;
-    final double followBTCornerBR = flyerBoxWidth * 0.021;
-
-    final BorderRadius followCorners = superBorderOnly(
-      context: context,
-      enTopLeft: followBTCornerTL,
-      enBottomLeft: followBTCornerBL,
-      enBottomRight: followBTCornerBR,
-      enTopRight: followBTCornerTR,
-    );
-    final BorderRadius callCorners = superBorderOnly(
-        context: context,
-        enTopLeft: followBTCornerBL,
-        enBottomLeft: followBTCornerTL,
-        enBottomRight: followBTCornerTR,
-        enTopRight: followBTCornerBR,
-    );
-
-    return gettingFollowCorner == true ? followCorners : callCorners;
   }
   // -----------------------------------------------------------------------------
   static OutlineInputBorder superOutlineInputBorder(Color borderColor, double corner) {
@@ -133,11 +81,17 @@ class Borderers {
 
     if (corners == null || corners == 0) {
       _corner = BorderRadius.zero;
-    } else if (corners is num) {
+    }
+
+    else if (corners is num) {
       _corner = superBorderAll(context, corners.toDouble());
-    } else if (corners is BorderRadius) {
+    }
+
+    else if (corners is BorderRadius) {
       _corner = corners;
-    } else {
+    }
+
+    else {
       final Error _error = ArgumentError('superBorder corners is invalid', 'superBorder');
 
       throw _error;
@@ -147,14 +101,18 @@ class Borderers {
   }
   // -----------------------------------------------------------------------------
   static double getCornersAsDouble(dynamic corners) {
+
     BorderRadius _cornerBorders;
     double _topLeftCorner;
+
     if (corners.runtimeType == BorderRadius) {
       _cornerBorders = corners;
       final Radius _topLeftCornerRadius = _cornerBorders?.topLeft;
       _topLeftCorner = _topLeftCornerRadius?.x;
       // print('_topLeftCorner : $_topLeftCorner');
-    } else {
+    }
+
+    else {
       _topLeftCorner = corners.toDouble();
     }
 
@@ -162,13 +120,18 @@ class Borderers {
   }
   // -----------------------------------------------------------------------------
   static BorderRadius getCornersAsBorderRadius(BuildContext context, dynamic corners) {
+
     BorderRadius _cornerBorders;
-    // double _topLeftCorner;
+
     if (corners == 0) {
       _cornerBorders = BorderRadius.zero;
-    } else if (corners.runtimeType == BorderRadius) {
+    }
+
+    else if (corners.runtimeType == BorderRadius) {
       _cornerBorders = corners;
-    } else {
+    }
+
+    else {
       _cornerBorders = superBorderAll(context, corners.toDouble());
     }
 

@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/a_flyer_maker_screen.dar
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/e_flyer_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/abstract_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/f_statics/b_abstract_header.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/d_providers/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -65,7 +65,7 @@ class AddFlyerButton extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         stackWidgets: <Widget>[
 
-          AbstractMiniHeader(
+          AbstractHeader(
             flyerBoxWidth: flyerBoxWidth,
             bzModel: _bzModel,
           ),
@@ -77,7 +77,7 @@ class AddFlyerButton extends StatelessWidget {
 
               /// --- FAKE HEADER FOOTPRINT
               SizedBox(
-                height: FlyerDim.headerBoxHeight(flyerBoxWidth),
+                height: FlyerDim.headerSlateHeight(flyerBoxWidth),
               ),
 
               DreamBox(

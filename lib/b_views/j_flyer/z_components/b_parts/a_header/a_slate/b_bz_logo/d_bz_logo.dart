@@ -1,8 +1,7 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_image.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ class BzLogo extends StatelessWidget {
   const BzLogo({
     @required this.width,
     this.image,
-    this.tinyMode = true,
     this.corners,
     this.zeroCornerIsOn,
     this.margins,
@@ -23,7 +21,6 @@ class BzLogo extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final dynamic image;
-  final bool tinyMode;
   final BorderRadius corners;
   final bool zeroCornerIsOn;
   final EdgeInsets margins;
@@ -34,19 +31,12 @@ class BzLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double logoRoundCorners = FlyerDim.logoCornerValue(width);
-    // --------------------
-    final double logoZeroCorner =
-    tinyMode == true || zeroCornerIsOn == false ? logoRoundCorners : 0;
-    // --------------------
-    final BorderRadius bzLogoCorners = corners ??
-        Borderers.superBorderOnly(
-            context: context,
-            enTopLeft: logoRoundCorners,
-            enBottomLeft: logoRoundCorners,
-            enBottomRight: logoZeroCorner,
-            enTopRight: logoRoundCorners
-        );
+    final BorderRadius bzLogoCorners = FlyerDim.logoCornersByLogoWidth(
+      context: context,
+      cornersOverride: corners,
+      logoWidth: width,
+      zeroCornerIsOn: zeroCornerIsOn,
+    );
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('bz_logo'),
@@ -58,23 +48,14 @@ class BzLogo extends StatelessWidget {
           margin: margins,
           decoration: BoxDecoration(
               color: image is Color ? image : Colorz.white10,
-              image: ObjectCheck.objectIsJPGorPNG(image) ?
+              image: ObjectCheck.objectIsJPGorPNG(image) == false ? null :
               DecorationImage(
                   image: AssetImage(image),
                   fit: BoxFit.cover
-              )
-                  :
-              null,
+              ),
               borderRadius: bzLogoCorners,
-              boxShadow: shadowIsOn == false ? null
-                  :
-              <BoxShadow>[
-                CustomBoxShadow(
-                    color: Colorz.black200,
-                    blurRadius: width * 0.15,
-                    style: BlurStyle.outer
-                ),
-              ]
+              boxShadow: shadowIsOn == false ? null : FlyerColors.logoShadows(width),
+
           ),
 
           child: ClipRRect(
