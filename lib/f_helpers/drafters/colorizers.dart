@@ -177,37 +177,6 @@ class Colorizer {
   }
   // -----------------------------------------------------------------------------
 
-  /// GRADIENTS
-
-  // --------------------
-  static Gradient superSlideGradient() {
-    const Gradient slideGradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.black200, Colorz.black0],
-        stops: <double>[0, 0.90]);
-    return slideGradient;
-  }
-  // --------------------
-  static Gradient superHeaderStripGradient(Color color) {
-    final Gradient headerStripGradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.nothing, color],
-        stops: const <double>[0.3, 1]);
-    return headerStripGradient;
-  }
-  // --------------------
-  static Gradient superFollowBTGradient() {
-    const Gradient followBTGradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[Colorz.white50, Colorz.nothing],
-        stops: <double>[0, 0.5]);
-    return followBTGradient;
-  }
-  // -----------------------------------------------------------------------------
-
   /// DESATURATION
 
   // --------------------

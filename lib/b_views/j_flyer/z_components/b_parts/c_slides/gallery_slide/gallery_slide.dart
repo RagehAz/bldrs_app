@@ -142,7 +142,7 @@ class _GallerySlideState extends State<GallerySlide> {
   Widget build(BuildContext context) {
 
     final double _headerAndProgressHeights =
-    FlyerDim.headerAndProgressHeights(context, widget.flyerBoxWidth);
+    FlyerDim.headerSlateAndProgressHeights(context, widget.flyerBoxWidth);
 
     return ClipRRect(
       key: const ValueKey<String>('Gallery_slide_of_Flyer'),

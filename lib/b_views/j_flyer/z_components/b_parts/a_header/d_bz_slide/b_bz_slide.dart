@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/secondary_models/record_model.dart';
 import 'package:bldrs/a_models/user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/bb_bz_slide_fields.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/c_bz_slide_bottom_padding.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/c_bz_slide_horizon.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_black_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_about_verse.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z_bz_pg_counter.dart';
@@ -198,7 +198,7 @@ class BzSlide extends StatelessWidget {
               ),
 
               /// BOTTOM PADDING
-              MaxHeaderBottomPadding(
+              BzSlideHorizon(
                 key: const ValueKey<String>('max_header_bottom_padding'),
                 flyerBoxWidth: flyerBoxWidth,
               ),

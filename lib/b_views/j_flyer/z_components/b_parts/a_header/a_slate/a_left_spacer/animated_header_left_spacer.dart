@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class HeaderLeftSpacerPart extends StatelessWidget {
+class AnimatedHeaderLeftSpacer extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const HeaderLeftSpacerPart({
+  const AnimatedHeaderLeftSpacer({
     @required this.headerLeftSpacerTween,
     @required this.logoMinWidth,
     @required this.logoSizeRationTween,

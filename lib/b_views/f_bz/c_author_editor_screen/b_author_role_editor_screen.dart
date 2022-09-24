@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/bz/author_model.dart';
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/z_components/author_role_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ffff_author_pic.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubble/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
@@ -121,7 +121,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             /// USER PIC
             Center(
               child: AuthorPic(
-                width: 100,
+                size: 100,
                 authorPic: widget.authorModel.pic,
               ),
             ),

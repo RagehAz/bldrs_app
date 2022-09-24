@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_call_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/gg_follow_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
 import 'package:flutter/material.dart';
 
 class FollowAndCallButtons extends StatelessWidget {
@@ -43,10 +43,7 @@ class FollowAndCallButtons extends StatelessWidget {
         alignment: Alignment.topCenter,
         // color: Colorz.BloodTest,
         child: SizedBox(
-          height: FlyerDim.followAndCallBoxHeight(
-            flyerBoxWidth: flyerBoxWidth,
-            headerIsExpanded: false,
-          ),
+          height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
           width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,10 +59,10 @@ class FollowAndCallButtons extends StatelessWidget {
 
               /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
               SizedBox(
-                height: FlyerDim.followAndCallPaddingValue(flyerBoxWidth),
+                height: FlyerDim.headerSlatePaddingValue(flyerBoxWidth),
               ),
 
-              /// Call BUTTON
+              /// CALL BUTTON
               CallButton(
                 flyerBoxWidth: flyerBoxWidth,
                 onCallTap: onCallTap,

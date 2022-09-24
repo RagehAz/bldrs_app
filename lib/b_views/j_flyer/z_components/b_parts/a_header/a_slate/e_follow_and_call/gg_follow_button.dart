@@ -1,11 +1,7 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -28,30 +24,27 @@ class FollowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double screenWidth = Scale.superScreenWidth(context);
-    final double followBTHeight = flyerBoxWidth * FlyerDim.xFollowBTHeight;
-    final double followBTWidth = flyerBoxWidth * FlyerDim.xFollowCallWidth;
-    const String followIcon = Iconz.follow;
-    final double followIconHeight = followBTHeight * 0.5;
-    final double followIconWidth = followIconHeight;
+    final double _followBTHeight = FlyerDim.followButtonHeight(flyerBoxWidth);
+    final double _width = FlyerDim.followAndCallBoxWidth(flyerBoxWidth);
+    final double _followIconSize = _followBTHeight * 0.5;
     // --------------------
-    blog('followBTWidth : $followBTWidth');
     return GestureDetector(
       onTap: onFollowTap,
       child: ValueListenableBuilder(
         valueListenable: followIsOn,
         builder: (_, bool _followIsOn, Widget child){
 
-          final Color followTextColor = _followIsOn == true ? Colorz.black230 : Colorz.white255;
-          final Color followBTColor = _followIsOn == true ? Colorz.yellow255 : Colorz.white20;
+          final Color _followIconColor = FlyerColors.followIconColor(
+            followIsOn: _followIsOn,
+          );
 
           return Container(
-            height: followBTHeight,
-            width: followBTWidth,
+            height: _followBTHeight,
+            width: _width,
             decoration: BoxDecoration(
-              color: followBTColor,
-              boxShadow: Shadower.superFollowBtShadow(followBTHeight),
-              borderRadius: Borderers.superFollowOrCallCorners(
+              color: FlyerColors.followButtonColor(followIsOn: _followIsOn),
+              boxShadow: Shadower.superFollowBtShadow(_followBTHeight),
+              borderRadius: FlyerDim.superFollowOrCallCorners(
                   context: context,
                   flyerBoxWidth: flyerBoxWidth,
                   gettingFollowCorner: true,
@@ -72,13 +65,10 @@ class FollowButton extends StatelessWidget {
 
                     /// FOLLOW ICON
                     SizedBox(
-                      height: followIconHeight,
-                      width: followIconWidth,
-                      child: WebsafeSvg.asset(followIcon,
-                          color: _followIsOn == true ?
-                          Colorz.black230
-                              :
-                          Colorz.white255
+                      height: _followIconSize,
+                      width: _followIconSize,
+                      child: WebsafeSvg.asset(Iconz.follow,
+                          color: _followIconColor,
                       ),
                     ),
 
@@ -89,9 +79,9 @@ class FollowButton extends StatelessWidget {
                           text: 'phid_follow',
                           translate: true,
                         ),
-                        color: followTextColor,
+                        color: _followIconColor,
                         size: 0,
-                        scaleFactor: flyerBoxWidth / screenWidth,
+                        scaleFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
                       )
 
                   ],
@@ -105,14 +95,15 @@ class FollowButton extends StatelessWidget {
 
         /// BUTTON GRADIENT
         child: Container(
-          height: followBTHeight,
-          width: followBTWidth,
+          height: _followBTHeight,
+          width: _width,
           decoration: BoxDecoration(
-            borderRadius: Borderers.superFollowOrCallCorners(
+            borderRadius: FlyerDim.superFollowOrCallCorners(
                 context: context,
                 flyerBoxWidth: flyerBoxWidth,
-                gettingFollowCorner: true),
-            gradient: Colorizer.superFollowBTGradient(),
+                gettingFollowCorner: true,
+            ),
+            gradient: FlyerColors.followButtonGradient,
           ),
         ),
 

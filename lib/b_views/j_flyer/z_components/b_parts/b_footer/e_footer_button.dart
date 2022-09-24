@@ -66,7 +66,7 @@ class FooterButton extends StatelessWidget {
               width: _buttonSize,
               height: _buttonSize,
               corners: _saveBTRadius,
-              color: FlyerColor.footerButtonColor(buttonIsOn: isOn),
+              color: FlyerColors.footerButtonColor(buttonIsOn: isOn),
               onTap: canTap == true ? onTap : null,
               childAlignment: Alignment.topCenter,
               splashColor: _splashColor,
