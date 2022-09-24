@@ -1,8 +1,9 @@
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/d_bz_logo.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/ffff_author_pic.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_verse.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/theme/colorz.dart';
@@ -38,53 +39,52 @@ class HeaderTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final bool flyerShowsAuthor = authorImage != null;
+    final bool flyerShowsAuthor = authorImage == null;
     // --------------------
     final double _screenWidth = Scale.superScreenWidth(context);
-    // --------------------
-    final double _headerMainHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
-    // --------------------
-    /// B.DATA
-    final double _businessDataHeight = flyerShowsAuthor == true ?
-    _headerMainHeight * 0.4
-        :
-    _headerMainHeight * 0.7; /// 0.0475;
-    // --------------------
-    final double _businessDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
     final double _headerTextSidePadding = flyerBoxWidth * 0.02;
     // --------------------
-    final int _bzNameSize = flyerShowsAuthor == true ? 3 : 5;
-    final int _bLocaleSize = flyerShowsAuthor == true ? 1 : 1;
-    final int _maxLines = flyerShowsAuthor == true ? 1 : 2;
+    final double _versesScaleFactor = FlyerVerses.bzLabelVersesScaleFactor(
+      context: context,
+      flyerBoxWidth: flyerBoxWidth,
+    );
     // --------------------
     return Opacity(
       key: const ValueKey<String>('StaticHeader'),
       opacity: opacity,
       child: HeaderBox(
         onHeaderTap: onTap,
-        headerBorders: FlyerDim.headerBoxCorners(
+        headerBorders: FlyerDim.headerSlateCorners(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         ),
         flyerBoxWidth: flyerBoxWidth,
         headerColor: Colorz.black255,
-        headerHeightTween: FlyerDim.headerBoxHeight(flyerBoxWidth),
+        headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
         child: Row(
           children: <Widget>[
 
+            /// LEFT SPACER
+            StaticHeaderSlateSpacer(
+              flyerBoxWidth: flyerBoxWidth,
+            ),
+
+            /// BZ LOGO
             BzLogo(
               width: FlyerDim.logoWidth(flyerBoxWidth),
               image: logo,
-              tinyMode: FlyerDim.isTinyMode(context, flyerBoxWidth),
-              corners: FlyerDim.logoCorners(context: context, flyerBoxWidth: flyerBoxWidth),
-              zeroCornerIsOn: flyerShowsAuthor,
+              corners: FlyerDim.logoCornersByFlyerBoxWidth(
+                context: context,
+                flyerBoxWidth: flyerBoxWidth,
+                zeroCornerIsOn: flyerShowsAuthor,
+              ),
+              zeroCornerIsOn: flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
             ),
 
+            /// HEADER LABELS
             SizedBox(
                 width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
                 height: FlyerDim.headerLabelsHeight(flyerBoxWidth),
-                // color: Colorz.Bl,
-
                 child: Column(
                   mainAxisAlignment: flyerShowsAuthor == true ?
                   MainAxisAlignment.spaceBetween
@@ -95,8 +95,11 @@ class HeaderTemplate extends StatelessWidget {
 
                     /// BUSINESS LABEL : BZ.NAME & BZ.LOCALE
                     SizedBox(
-                      height: _businessDataHeight,
-                      width: _businessDataWidth,
+                      height: FlyerDim.bzLabelHeight(
+                          flyerBoxWidth: flyerBoxWidth,
+                          flyerShowsAuthor: flyerShowsAuthor,
+                      ),
+                      width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -108,9 +111,13 @@ class HeaderTemplate extends StatelessWidget {
                               child: SuperVerse(
                                 verse: firstLine,
                                 centered: false,
-                                size: _bzNameSize,
-                                scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
-                                maxLines: _maxLines,
+                                size: FlyerVerses.bzLabelNameSize(
+                                    flyerShowsAuthor: flyerShowsAuthor
+                                ),
+                                scaleFactor: _versesScaleFactor,
+                                maxLines: FlyerVerses.bzLabelNameMaxLines(
+                                  flyerShowsAuthor: flyerShowsAuthor,
+                                ),
                               ),
                             ),
                           ),
@@ -121,11 +128,13 @@ class HeaderTemplate extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                               child: SuperVerse(
                                 verse: secondLine,
-                                size: _bLocaleSize,
+                                size: FlyerVerses.bzLabelLocaleSize(
+                                    flyerShowsAuthor: flyerShowsAuthor,
+                                ),
                                 weight: VerseWeight.regular,
                                 centered: false,
                                 italic: true,
-                                scaleFactor: (flyerBoxWidth / _screenWidth) * 0.9,
+                                scaleFactor: _versesScaleFactor,
                               ),
                             ),
                           ),
@@ -137,17 +146,17 @@ class HeaderTemplate extends StatelessWidget {
                     /// AUTHOR LABEL : AUTHOR.IMAGE, AUTHOR.NAME, AUTHOR.TITLE, BZ.FOLLOWERS
                     if (flyerShowsAuthor == true)
                       Container(
-                        height: AuthorLabel.getAuthorLabelBoxHeight(
+                        height: FlyerDim.authorLabelBoxHeight(
                           flyerBoxWidth: flyerBoxWidth,
                         ),
-                        width: AuthorLabel.getAuthorLabelBoxWidth(
+                        width: FlyerDim.authorLabelBoxWidth(
                           flyerBoxWidth: flyerBoxWidth,
                           labelIsOn: flyerShowsAuthor,
                         ),
                         // margin: showLabel == true ? EdgeInsets.symmetric(horizontal : flyerBoxWidth * 0.01) : const EdgeInsets.all(0),
                         decoration: BoxDecoration(
                           // color: flyerShowsAuthor == false ? Colorz.nothing : Colorz.white20,
-                          borderRadius: AuthorLabel.getAuthorImageBorders(
+                          borderRadius: FlyerDim.authorImageCorners(
                             context: context,
                             flyerBoxWidth: flyerBoxWidth,
                           ),
@@ -158,7 +167,7 @@ class HeaderTemplate extends StatelessWidget {
 
                             /// AUTHOR IMAGE
                             AuthorPic(
-                              width: flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth,
+                              size: FlyerDim.authorPicSize(flyerBoxWidth),
                               authorPic: authorImage,
                               // tinyBz:
                             ),
@@ -166,7 +175,7 @@ class HeaderTemplate extends StatelessWidget {
                             /// AUTHOR LABEL : NAME, TITLE, FOLLOWERS COUNTER
                             if (flyerShowsAuthor == true)
                               Container(
-                                width: flyerBoxWidth * FlyerDim.xFlyerAuthorNameWidth,
+                                width: FlyerDim.authorLabelVersesWidth(flyerBoxWidth),
                                 padding: EdgeInsets.symmetric(horizontal: _headerTextSidePadding),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -210,6 +219,64 @@ class HeaderTemplate extends StatelessWidget {
 
                   ],
                 )),
+
+            /// FOLLOW AND CALL BUTTONS
+            Container(
+              width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+              height: FlyerDim.logoWidth(flyerBoxWidth),
+              alignment: Alignment.topCenter,
+              // margin: EdgeInsets.symmetric(horizontal: _paddings),
+              // color: Colorz.BloodTest,
+              child: SizedBox(
+                height: FlyerDim.followAndCallBoxHeight(flyerBoxWidth),
+                width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+
+                    /// FOLLOW BUTTON
+                  Container(
+                  height: FlyerDim.followButtonHeight(flyerBoxWidth),
+                  width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+                  decoration: BoxDecoration(
+                    color: Colorz.white10,
+                    borderRadius: FlyerDim.superFollowOrCallCorners(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth,
+                      gettingFollowCorner: true,
+                    ),
+                  ),
+
+                ),
+
+                    /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
+                    SizedBox(
+                      height: FlyerDim.headerSlatePaddingValue(flyerBoxWidth),
+                    ),
+
+                    /// CALL BUTTON
+                    Container(
+                      height: FlyerDim.callButtonHeight(flyerBoxWidth),
+                      width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
+                      decoration: BoxDecoration(
+                        color: Colorz.white10,
+                        borderRadius: FlyerDim.superFollowOrCallCorners(
+                            context: context,
+                            flyerBoxWidth: flyerBoxWidth,
+                            gettingFollowCorner: false
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+
+            /// LEFT SPACER
+            StaticHeaderSlateSpacer(
+              flyerBoxWidth: flyerBoxWidth,
+            ),
 
           ],
         ),

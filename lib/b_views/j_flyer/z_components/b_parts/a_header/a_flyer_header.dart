@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/flyer/flyer_model.dart';
 import 'package:bldrs/a_models/zone/zone_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_structure/b_header_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/a_convertible_header_strip_part.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_convertible_header_strip_part.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/c_bz_slide_headline/a_bz_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_tree.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/a_bz_slide_x_button.dart';
@@ -130,7 +130,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER CORNERS
 
     //--------------------------------o
-    final BorderRadius _headerMinCorners = FlyerDim.headerBoxCorners(
+    final BorderRadius _headerMinCorners = FlyerDim.headerSlateCorners(
       context: context,
       flyerBoxWidth: widget.flyerBoxWidth,
     );
@@ -150,12 +150,12 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     final double _logoScaleRatio = _logoMaxWidth / _logoMinWidth;
     //--------------------------------o
     _logoCornersTween
-      ..begin = FlyerDim.logoCorners(
+      ..begin = FlyerDim.logoCornersByFlyerBoxWidth(
         context: context,
         flyerBoxWidth: widget.flyerBoxWidth,
         zeroCornerIsOn: true,
       )
-      ..end = FlyerDim.logoCorners(
+      ..end = FlyerDim.logoCornersByFlyerBoxWidth(
           context: context,
           flyerBoxWidth: widget.flyerBoxWidth * _logoScaleRatio
       );
@@ -173,7 +173,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// SIDE SPACERS
 
     //--------------------------------o
-    final double _followCallPaddingEnd = FlyerDim.followAndCallPaddingValue(widget.flyerBoxWidth) * 1.5;
+    final double _followCallPaddingEnd = FlyerDim.headerSlatePaddingValue(widget.flyerBoxWidth) * 1.5;
     //--------------------------------o
     final double _maxLeftSpacer = (widget.flyerBoxWidth * 0.2) - _followCallPaddingEnd;
     //--------------------------------o
@@ -194,7 +194,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     /// HEADER HEIGHT
 
     //--------------------------------o
-    final double _minHeaderHeight = FlyerDim.headerBoxHeight(widget.flyerBoxWidth);
+    final double _minHeaderHeight = FlyerDim.headerSlateHeight(widget.flyerBoxWidth);
     //--------------------------------o
     _headerHeightTween = Tween<double>(
       begin: _minHeaderHeight,
@@ -265,7 +265,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                       tinyMode: widget.tinyMode,
                       headerBorders: _headerBorders,
                       logoMinWidth: _logoMinWidth,
-                      logoBorders: _logoBorders,
+                      logoCorners: _logoBorders,
                       headerIsExpanded: widget.headerIsExpanded,
                       headerMiddleSpacerWidthTween: _headerMiddleSpacerWidthTween,
                       headerLabelsWidthTween: _headerLabelsWidthTween,

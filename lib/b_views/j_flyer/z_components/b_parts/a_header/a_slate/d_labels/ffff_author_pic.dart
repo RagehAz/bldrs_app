@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 class AuthorPic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorPic({
-    this.width,
+    this.size,
     this.authorPic,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double width;
+  final double size;
   final dynamic authorPic;
   /// --------------------------------------------------------------------------
   static double getCornerValue(double flyerBoxWidth) {
@@ -23,8 +23,8 @@ class AuthorPic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 // -----------------------------------------------------------------------------
-    final double _authorImageHeight = width;
-    final double _authorImageCorners = getCornerValue(width / FlyerDim.xFlyerAuthorPicWidth);
+    final double _authorImageHeight = size;
+    final double _authorImageCorners = getCornerValue(size / FlyerDim.xFlyerAuthorPicWidth);
 // -----------------------------------------------------------------------------
     final BorderRadius _authorPicBorders = Borderers.superBorderOnly(
         context: context,
@@ -36,7 +36,7 @@ class AuthorPic extends StatelessWidget {
     return Center(
       child: Container(
         height: _authorImageHeight,
-        width: width,
+        width: size,
         decoration: BoxDecoration(
             color: Colorz.white10,
             borderRadius: _authorPicBorders,
@@ -51,8 +51,8 @@ class AuthorPic extends StatelessWidget {
         child: ClipRRect(
           borderRadius: _authorPicBorders,
           child: SuperImage(
-              width: width,
-              height: width,
+              width: size,
+              height: size,
               pic: authorPic
           ),
 

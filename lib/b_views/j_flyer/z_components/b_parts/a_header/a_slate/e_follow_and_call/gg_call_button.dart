@@ -1,10 +1,7 @@
+import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/colorizers.dart';
-import 'package:bldrs/f_helpers/drafters/scalers.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-import 'package:bldrs/f_helpers/theme/colorz.dart';
 import 'package:bldrs/f_helpers/theme/iconz.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -23,21 +20,12 @@ class CallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    /*
-       //     const bool _versesShadow = false;
-       //     final bool _isTinyMode = OldFlyerBox.isTinyMode(context, flyerBoxWidth);
-          */
+    final double _callBTHeight = FlyerDim.callButtonHeight(flyerBoxWidth);
+    final double _callBTWidth = FlyerDim.followAndCallBoxWidth(flyerBoxWidth);
     // --------------------
-    /// call BUTTON
-    const Color _callBTColor = Colorz.white10;
-    final double _callBTHeight = flyerBoxWidth * FlyerDim.xCallBTHeight;
-    final double _callBTWidth = flyerBoxWidth * FlyerDim.xFollowCallWidth;
-    // --------------------
-    /// call ICON
-    const String _callIcon = Iconz.comPhone;
     final double _callIconWidth = flyerBoxWidth * 0.05;
     // --------------------
-    final BorderRadius _corners = Borderers.superFollowOrCallCorners(
+    final BorderRadius _corners = FlyerDim.superFollowOrCallCorners(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         gettingFollowCorner: false
@@ -49,7 +37,7 @@ class CallButton extends StatelessWidget {
         height: _callBTHeight,
         width: _callBTWidth,
         decoration: BoxDecoration(
-          color: _callBTColor,
+          color: FlyerColors.callButtonColor,
           boxShadow: Shadower.superFollowBtShadow(_callBTHeight),
           borderRadius: _corners,
         ),
@@ -63,7 +51,7 @@ class CallButton extends StatelessWidget {
               width: _callBTWidth,
               decoration: BoxDecoration(
                 borderRadius: _corners,
-                gradient: Colorizer.superFollowBTGradient(),
+                gradient: FlyerColors.followButtonGradient,
               ),
             ),
 
@@ -77,7 +65,7 @@ class CallButton extends StatelessWidget {
                   height: _callIconWidth,
                   width: _callIconWidth,
                   margin: EdgeInsets.all(flyerBoxWidth * 0.01),
-                  child: WebsafeSvg.asset(_callIcon),
+                  child: WebsafeSvg.asset(Iconz.comPhone),
                 ),
 
                 SizedBox(
@@ -92,7 +80,7 @@ class CallButton extends StatelessWidget {
                     translate: true,
                   ),
                   size: 1,
-                  scaleFactor: flyerBoxWidth / Scale.superScreenWidth(context),
+                  scaleFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
                 )
 
               ],

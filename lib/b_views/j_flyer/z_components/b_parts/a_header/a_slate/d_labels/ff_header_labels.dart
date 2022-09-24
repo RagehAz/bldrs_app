@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_structure/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_author_label.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_convertible_header/fff_bz_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_bz_label.dart';
 import 'package:flutter/material.dart';
 
 class HeaderLabels extends StatelessWidget {
@@ -21,8 +21,6 @@ class HeaderLabels extends StatelessWidget {
   final bool headerIsExpanded;
   final String authorID;
   // -----------------------------------------------------------------------------
-  // --------------------
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -30,10 +28,7 @@ class HeaderLabels extends StatelessWidget {
         width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
         height: FlyerDim.headerLabelsHeight(flyerBoxWidth),
         child: Column(
-          mainAxisAlignment: flyerShowsAuthor == true ?
-          MainAxisAlignment.spaceBetween
-              :
-          MainAxisAlignment.center,
+          mainAxisAlignment: flyerShowsAuthor == true ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 

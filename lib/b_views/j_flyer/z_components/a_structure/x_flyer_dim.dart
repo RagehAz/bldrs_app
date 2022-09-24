@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/scalers.dart';
+import 'package:bldrs/f_helpers/theme/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class FlyerDim {
@@ -13,31 +14,32 @@ class FlyerDim {
   // flyer ratios multiplied by flyerBoxWidth
   static const double xFlyerBoxHeight = 1.74;
 
-  static const double xFlyerTopCorners = 0.05;
-  static const double xFlyerBottomCorners = 0.11;
-
-  static const double xFlyerHeaderMiniHeight = 0.27;
-  static const double xFlyerHeaderMaxHeight = 1.3;
-
-  static const double xAuthorImageCorners = 0.029;
-  static const double xFollowCallWidth = 0.113;
-  static const double xFollowCallSpacing = 0.005;
-  static const double xFollowBTHeight = 0.1;
-  static const double xCallBTHeight = 0.15;
-  static const double xFooterBTMargins = 0.026;
-
+  static const double _xFlyerTopCorners = 0.05;
+  static const double _xFlyerBottomCorners = 0.11;
+  static const double _xFlyerHeaderMiniHeight = 0.27;
+  static const double _xAuthorImageCorners = 0.029;
+  static const double _xFollowCallSpacing = 0.005;
   /// HEADER WIDTH OF EACH COMPONENT IN RESPECT TO flyerBoxWidth
-  static const double xFlyerHeaderMainPadding = 0.006;
-  static const double xFlyerLogoWidth = 0.26;
   static const double xFlyerAuthorPicWidth = 0.15;
-  static const double xFlyerAuthorPicCorner = FlyerDim.xFlyerHeaderMiniHeight * 0.1083;
+  static const double xFlyerAuthorPicCorner = _xFlyerHeaderMiniHeight * 0.1083;
   static const double xFlyerAuthorNameWidth = 0.47;
-  static const double xFlyerFollowBtWidth = 0.11;
   static const double xProgressBarHeightRatio = 0.0125;
-  static const double xFlyersGridSpacing = 0.02;
+  static const double _xFlyersGridSpacing = 0.02;
+
+  static const double _xFlyerLogoWidth = 0.26;
+  static const double _xFlyerFollowBtWidth = 0.11;
 
   /// Business logo corners Ratio in respect to Container Width or Height
   static const double rBzLogoCorner = 0.17152;
+
+  /*
+  static const double _xFlyerHeaderMainPadding = 0.006;
+  static const double _xFlyerHeaderMaxHeight = 1.3;
+  static const double _xFollowCallWidth = 0.113;
+  static const double _xFollowBTHeight = 0.1;
+  static const double _xCallBTHeight = 0.15;
+  static const double _xFooterBTMargins = 0.026;
+   */
   // -----------------------------------------------------------------------------
 
   /// --- FLYER BOX SIZES
@@ -85,11 +87,6 @@ class FlyerDim {
   }
   // ---------
 
-  static double flyerPaddingValue(double flyerBoxWidth){
-    return (flyerBoxWidth * (xFlyerHeaderMiniHeight - xFlyerLogoWidth)) / 2;
-  }
-  // ---------
-
   /// FLYER CORNERS
 
   // ---------
@@ -111,12 +108,12 @@ class FlyerDim {
   // ---------
   /// TAMAM : WORKS PERFECT
   static double flyerTopCornerValue(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerTopCorners;
+    return flyerBoxWidth * _xFlyerTopCorners;
   }
   // ---------
   /// TAMAM : WORKS PERFECT
   static double flyerBottomCornerValue(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerBottomCorners;
+    return flyerBoxWidth * _xFlyerBottomCorners;
   }
   // -----------------------------------------------------------------------------
 
@@ -124,8 +121,8 @@ class FlyerDim {
 
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static double headerBoxHeight(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerHeaderMiniHeight;
+  static double headerSlateHeight(double flyerBoxWidth) {
+    return flyerBoxWidth * FlyerDim._xFlyerHeaderMiniHeight;
   }
   // ---------
   /*
@@ -136,14 +133,14 @@ class FlyerDim {
   // ---------
   /// TAMAM : WORKS PERFECT
   static double headerOffsetHeight(double flyerBoxWidth) {
-    return (flyerBoxWidth * FlyerDim.xFlyerHeaderMiniHeight)
+    return  headerSlateHeight(flyerBoxWidth)
             -
-            (2 * flyerBoxWidth * FlyerDim.xFollowCallSpacing);
+            headerSlatePaddingValue(flyerBoxWidth);
   }
   // ---------
   /// TAMAM : WORKS PERFECT
-  static double headerAndProgressHeights(BuildContext context, double flyerBoxWidth) {
-    return headerBoxHeight(flyerBoxWidth)
+  static double headerSlateAndProgressHeights(BuildContext context, double flyerBoxWidth) {
+    return headerSlateHeight(flyerBoxWidth)
             +
             (
                 flyerHeightByFlyerWidth(context, flyerBoxWidth)
@@ -152,17 +149,25 @@ class FlyerDim {
             );
   }
   // ---------
+  static double headerSlatePaddingValue(double flyerBoxWidth){
+    return (flyerBoxWidth * (_xFlyerHeaderMiniHeight - _xFlyerLogoWidth)) / 2;
+  }
+  // ---------
+  static EdgeInsets headerSlatePaddings(double flyerBoxWidth){
+    return EdgeInsets.all(FlyerDim.headerSlatePaddingValue(flyerBoxWidth));
+  }
+  // ---------
 
   /// HEADER CORNERS
 
   // ---------
   /// TAMAM : WORKS PERFECT
-  static BorderRadius headerBoxCorners({
+  static BorderRadius headerSlateCorners({
     @required BuildContext context,
     @required double flyerBoxWidth
   }) {
 
-    return Borderers.superBorderAll(context, flyerBoxWidth * FlyerDim.xFlyerTopCorners);
+    return Borderers.superBorderAll(context, flyerBoxWidth * _xFlyerTopCorners);
 
   }
   // -----------------------------------------------------------------------------
@@ -172,7 +177,7 @@ class FlyerDim {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static double logoWidth(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerLogoWidth;
+    return flyerBoxWidth * FlyerDim._xFlyerLogoWidth;
   }
   // ---------
 
@@ -180,18 +185,15 @@ class FlyerDim {
 
   // ---------
   /// TAMAM : WORKS PERFECT
-  static BorderRadius logoCorners({
+  static BorderRadius logoCornersByFlyerBoxWidth({
     @required BuildContext context,
     @required double flyerBoxWidth,
     bool zeroCornerIsOn = false
   }) {
 
-    final double _logoRoundCorners =
-            /// HEADER MAIN CORNERS
-            (flyerBoxWidth * FlyerDim.xFlyerTopCorners)
-            -
-            /// HEADER MAIN PADDING
-            (flyerBoxWidth * FlyerDim.xFlyerHeaderMainPadding);
+    final double _logoRoundCorners =  flyerTopCornerValue(flyerBoxWidth)
+                                      -
+                                      headerSlatePaddingValue(flyerBoxWidth);
 
     if (zeroCornerIsOn == true){
       return Borderers.superBorderOnly(
@@ -209,8 +211,29 @@ class FlyerDim {
 
   }
   // ---------
-  static double logoCornerValue(double logoWidth) {
+  static double logoCornerValueByLogoWidth(double logoWidth) {
     return logoWidth * rBzLogoCorner;
+  }
+  // ---------
+  static BorderRadius logoCornersByLogoWidth({
+    @required BorderRadius cornersOverride,
+    @required BuildContext context,
+    @required double logoWidth,
+    bool zeroCornerIsOn = false
+}){
+
+    final double _roundCornerValue = FlyerDim.logoCornerValueByLogoWidth(logoWidth);
+    final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
+
+    return cornersOverride ??
+        Borderers.superBorderOnly(
+            context: context,
+            enTopLeft: _roundCornerValue,
+            enBottomLeft: _roundCornerValue,
+            enBottomRight: _zeroCornerValue,
+            enTopRight: _roundCornerValue
+        );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -221,15 +244,105 @@ class FlyerDim {
 
     final double _logoSize = logoWidth(flyerBoxWidth);
     final double _followAndCallWidth = followAndCallBoxWidth(flyerBoxWidth);
-    final double _padding = flyerPaddingValue(flyerBoxWidth);
+    final double _padding = headerSlatePaddingValue(flyerBoxWidth);
 
     return flyerBoxWidth - _logoSize - _followAndCallWidth - (_padding * 2);
-
-    // return flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
   }
   // --------------------
   static double headerLabelsHeight(double flyerBoxWidth){
-    return flyerBoxWidth * (FlyerDim.xFlyerHeaderMiniHeight - (2 * FlyerDim.xFlyerHeaderMainPadding));
+    return headerSlateHeight(flyerBoxWidth) - (2 * headerSlatePaddingValue(flyerBoxWidth));
+  }
+  // ---------
+
+  /// BZ LABEL
+
+  // ---------
+  static double bzLabelHeight({
+    @required double flyerBoxWidth,
+    @required bool flyerShowsAuthor,
+  }){
+
+    if (flyerShowsAuthor == true){
+      return FlyerDim.headerSlateHeight(flyerBoxWidth) * 0.4;
+    }
+
+    else {
+      return FlyerDim.headerSlateHeight(flyerBoxWidth) * 0.7; //0.0475;
+    }
+
+  }
+  // ---------
+  static double bzLabelPaddingValue(double flyerBoxWidth){
+    return flyerBoxWidth * 0.02;
+  }
+  // ---------
+  static EdgeInsets bzLabelPaddings(double flyerBoxWidth){
+    return EdgeInsets.symmetric(horizontal: bzLabelPaddingValue(flyerBoxWidth));
+  }
+  // ---------
+
+  /// AUTHOR LABEL
+
+  // ---------
+  static double authorLabelBoxHeight({
+    @required double flyerBoxWidth
+  }){
+    // flyerShowsAuthor == true ?
+    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicWidth;
+    //     :
+    // (flyerBoxWidth * ((Ratioz.xxflyerHeaderHeight* 0.3)-(2*Ratioz.xxflyerHeaderMainPadding)) )
+  }
+  // ---------
+  static double authorLabelBoxWidth({
+    @required double flyerBoxWidth,
+    @required bool labelIsOn,
+  }){
+    final double _authorLabelBoxHeight = authorLabelBoxHeight(
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    final double _authorDataWidth = flyerBoxWidth * (FlyerDim.xFlyerAuthorPicWidth + FlyerDim.xFlyerAuthorNameWidth);
+
+    return labelIsOn == true ? _authorDataWidth : _authorLabelBoxHeight;
+
+  }
+  // ---------
+  static double authorLabelImageCornerValue({
+    @required double flyerBoxWidth,
+  }){
+    return flyerBoxWidth * FlyerDim.xFlyerAuthorPicCorner;
+  }
+  // ---------
+  static BorderRadius authorImageCorners({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+  }){
+
+    final double _authorImageCorners = authorLabelImageCornerValue(
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    return Borderers.superBorderOnly(
+        context: context,
+        enTopLeft: _authorImageCorners,
+        enBottomLeft: 0,
+        enBottomRight: _authorImageCorners,
+        enTopRight: _authorImageCorners
+    );
+
+  }
+  // ---------
+  static double authorPicSize(double flyerBoxWidth){
+    return flyerBoxWidth * xFlyerAuthorPicWidth;
+  }
+  // ---------
+  static double authorLabelVersesWidth(double flyerBoxWidth){
+    return flyerBoxWidth * xFlyerAuthorNameWidth;
+  }
+  // ---------
+  static EdgeInsets authorLabelVersesPadding(double flyerBoxWidth){
+    final double _authorLabelVersesPaddingValue = flyerBoxWidth * FlyerDim._xFlyersGridSpacing;
+    return EdgeInsets.symmetric(horizontal: _authorLabelVersesPaddingValue);
   }
   // -----------------------------------------------------------------------------
 
@@ -237,20 +350,67 @@ class FlyerDim {
 
   // --------------------
   static double followAndCallBoxWidth(double flyerBoxWidth) {
-    return (flyerBoxWidth * FlyerDim.xFlyerFollowBtWidth) - 1;
+    return flyerBoxWidth * _xFlyerFollowBtWidth;
   }
   // ---------
-  static double followAndCallBoxHeight({
+  static double followAndCallBoxHeight(double flyerBoxWidth) {
+    return logoWidth(flyerBoxWidth);
+  }
+  // ---------
+  static double followButtonHeight(double flyerBoxWidth){
+    return bzLabelHeight(
+        flyerBoxWidth: flyerBoxWidth,
+        flyerShowsAuthor: true,
+    );
+  }
+  // ---------
+  static double callButtonHeight(double flyerBoxWidth){
+    final double _boxHeight = followAndCallBoxHeight(flyerBoxWidth);
+    final double _followButtonHeight = followButtonHeight(flyerBoxWidth);
+    final double _spacer = headerSlatePaddingValue(flyerBoxWidth);
+    return _boxHeight - (_followButtonHeight + _spacer);
+  }
+  // ---------
+  static BorderRadius superFollowOrCallCorners({
+    @required BuildContext context,
     @required double flyerBoxWidth,
-    @required bool headerIsExpanded,
+    @required bool gettingFollowCorner,
   }) {
-    final double _headerMainHeight = FlyerDim.headerBoxHeight(flyerBoxWidth);
-    final double _headerMainPadding = flyerBoxWidth * FlyerDim.xFlyerHeaderMainPadding;
-    return _headerMainHeight - (2 * _headerMainPadding);
+    final double headerMainCorners = flyerBoxWidth * _xFlyerTopCorners;
+    final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * _xFollowCallSpacing;
+    final double followBTCornerTL = flyerBoxWidth * _xAuthorImageCorners;
+    final double followBTCornerTR = headerOffsetCorner;
+    final double followBTCornerBL = flyerBoxWidth * _xAuthorImageCorners;
+    final double followBTCornerBR = flyerBoxWidth * 0.021;
+
+    final BorderRadius followCorners = Borderers.superBorderOnly(
+      context: context,
+      enTopLeft: followBTCornerTL,
+      enBottomLeft: followBTCornerBL,
+      enBottomRight: followBTCornerBR,
+      enTopRight: followBTCornerTR,
+    );
+    final BorderRadius callCorners = Borderers.superBorderOnly(
+      context: context,
+      enTopLeft: followBTCornerBL,
+      enBottomLeft: followBTCornerTL,
+      enBottomRight: followBTCornerTR,
+      enTopRight: followBTCornerBR,
+    );
+
+    return gettingFollowCorner == true ? followCorners : callCorners;
   }
-  // ---------
-  static double followAndCallPaddingValue(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerHeaderMainPadding;
+  // -----------------------------------------------------------------------------
+
+  /// --- BZ SLIDE
+
+  // --------------------
+  static double bzSlideHorizon(double flyerBoxWidth){
+    return flyerBottomCornerValue(flyerBoxWidth) + Ratioz.appBarMargin;
+  }
+
+  static EdgeInsets bzSlideTileMargins(double flyerBoxWidth){
+    return EdgeInsets.only(top: flyerBoxWidth * Ratioz.xxbzPageSpacing);
   }
   // -----------------------------------------------------------------------------
 
@@ -332,7 +492,7 @@ class FlyerDim {
   }
   // ---------
   static double footerBoxBottomCornerValue(double flyerBoxWidth) {
-    return flyerBoxWidth * FlyerDim.xFlyerBottomCorners;
+    return flyerBottomCornerValue(flyerBoxWidth);
   }
   // -----------------------------------------------------------------------------
 
@@ -644,6 +804,7 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
   }
+
   // ---------
 
   /// INFO BUTTON MARGIN
